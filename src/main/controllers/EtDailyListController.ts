@@ -6,6 +6,7 @@ import { ListParseHelperService } from '../service/listParseHelperService';
 import { LocationService } from '../service/locationService';
 import { EtListsService } from '../service/listManipulation/EtListsService';
 import { HttpStatusCode } from 'axios';
+import {isValidList} from "../helpers/listHelper";
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -17,7 +18,7 @@ export default class EtDailyListController {
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (fileData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
+        if (isValidList(fileData, metaData)) {
             const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData), req.lng);
 
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);

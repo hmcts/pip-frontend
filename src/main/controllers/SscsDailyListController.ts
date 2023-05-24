@@ -6,6 +6,7 @@ import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { SscsDailyListService } from '../service/listManipulation/SscsDailyListService';
 import { HttpStatusCode } from 'axios';
+import {isValidList} from "../helpers/listHelper";
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
@@ -21,7 +22,7 @@ export default class SscsDailyListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (searchResults !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
+        if (isValidList(searchResults, metaData)) {
             const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);

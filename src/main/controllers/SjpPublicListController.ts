@@ -7,6 +7,7 @@ import { SjpPublicListService } from '../service/listManipulation/SjpPublicListS
 import { SjpFilterService } from '../service/sjpFilterService';
 import { FilterService } from '../service/filterService';
 import { HttpStatusCode } from 'axios';
+import {isValidList} from "../helpers/listHelper";
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -20,7 +21,7 @@ export default class SjpPublicListController {
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (fileData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
+        if (isValidList(fileData, metaData)) {
             const allCases = sjpPublicListService.formatSjpPublicList(JSON.stringify(fileData));
             const filter = sjpFilterService.generateFilters(
                 allCases,

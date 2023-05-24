@@ -6,6 +6,7 @@ import { ListParseHelperService } from '../service/listParseHelperService';
 import { TribunalNationalListsService } from '../service/listManipulation/TribunalNationalListsService';
 import { LocationService } from '../service/locationService';
 import { HttpStatusCode } from 'axios';
+import {isValidList} from "../helpers/listHelper";
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -19,7 +20,7 @@ export default class TribunalNationalListsController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (searchResults !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
+        if (isValidList(searchResults, metaData)) {
             const manipulatedData = tribunalNationalListsService.manipulateData(
                 JSON.stringify(searchResults),
                 req.lng,

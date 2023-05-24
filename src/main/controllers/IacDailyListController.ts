@@ -5,6 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { IacDailyListService } from '../service/listManipulation/IacDailyListService';
 import { HttpStatusCode } from 'axios';
+import {isValidList} from "../helpers/listHelper";
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -16,7 +17,7 @@ export default class IacDailyListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (searchResults !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
+        if (isValidList(searchResults, metaData)) {
             const listData = iacService.manipulateIacDailyListData(JSON.stringify(searchResults), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(

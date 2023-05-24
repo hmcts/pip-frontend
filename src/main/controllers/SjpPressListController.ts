@@ -8,6 +8,7 @@ import { SjpPressListService } from '../service/listManipulation/SjpPressListSer
 import { FilterService } from '../service/filterService';
 import { SjpFilterService } from '../service/sjpFilterService';
 import { HttpStatusCode } from 'axios';
+import {isValidList} from "../helpers/listHelper";
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -21,7 +22,7 @@ export default class SjpPressListController {
         const sjpData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (sjpData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
+        if (isValidList(sjpData, metaData)) {
             const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
             const filter = sjpFilterService.generateFilters(
                 allCases,
