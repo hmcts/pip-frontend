@@ -15,8 +15,12 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/${artefactId}`, header);
             return response.data;
         } catch (error) {
-            if (error.response.status === 404) {
-                return HttpStatusCode.NotFound;
+            if(error.response) {
+                if (error.response.status === 404) {
+                    return HttpStatusCode.NotFound;
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }
@@ -70,8 +74,12 @@ export class PublicationRequests {
             const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', header);
             return response.data;
         } catch (error) {
-            if (error.response.status === 404) {
-                return HttpStatusCode.NotFound;
+            if(error.response) {
+                if (error.response.status === 404) {
+                    return HttpStatusCode.NotFound;
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }
@@ -92,8 +100,12 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/${artefactId}/file`, header);
             return response.data;
         } catch (error) {
-            if (error.response.status === 404) {
-                return HttpStatusCode.NotFound;
+            if(error.response) {
+                if (error.response.status === 404) {
+                    return HttpStatusCode.NotFound;
+                } else {
+                    return null;
+                }
             } else {
                 return null;
             }

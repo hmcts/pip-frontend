@@ -23,7 +23,7 @@ export default class DailyCauseListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (isValidList(searchResults, metaData)) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData) {
             const url = publicationService.getListTypes().get(metaData.listType).url;
             let manipulatedData;
             if (url === familyDailyListUrl || url === mixedDailyListUrl) {

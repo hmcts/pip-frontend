@@ -12,7 +12,7 @@ export default class FlatFileController {
         const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const fileData = await publicationService.getIndividualPublicationFile(artefactId, req.user?.['userId']);
 
-        if (isValidList(fileData, metadata) && metadata.sourceArtefactId && metadata.isFlatFile) {
+        if (isValidList(fileData, metadata) && metadata && metadata.sourceArtefactId && metadata.isFlatFile) {
             res.set('Content-Disposition', 'inline;filename=' + metadata.sourceArtefactId);
             if (metadata.sourceArtefactId.endsWith('.pdf')) {
                 res.set('Content-Type', 'application/pdf');
