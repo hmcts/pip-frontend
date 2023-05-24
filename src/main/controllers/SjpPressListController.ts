@@ -7,7 +7,7 @@ import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService } from '../service/listManipulation/SjpPressListService';
 import { FilterService } from '../service/filterService';
 import { SjpFilterService } from '../service/sjpFilterService';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();

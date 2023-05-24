@@ -7,7 +7,7 @@ import { LocationService } from '../service/locationService';
 import { CrownFirmListService } from '../service/listManipulation/crownFirmListService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

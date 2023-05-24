@@ -5,7 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { LocationService } from '../service/locationService';
 import { EtListsService } from '../service/listManipulation/EtListsService';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
