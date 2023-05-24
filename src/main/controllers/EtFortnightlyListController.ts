@@ -6,7 +6,7 @@ import { ListParseHelperService } from '../service/listParseHelperService';
 import { EtListsService } from '../service/listManipulation/EtListsService';
 import { LocationService } from '../service/locationService';
 import { HttpStatusCode } from 'axios';
-import {isValidList} from "../helpers/listHelper";
+import { isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

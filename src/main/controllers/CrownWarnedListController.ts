@@ -5,7 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrownWarnedListService } from '../service/listManipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
-import {isValidList} from "../helpers/listHelper";
+import { isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();

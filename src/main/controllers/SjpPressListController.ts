@@ -8,7 +8,7 @@ import { SjpPressListService } from '../service/listManipulation/SjpPressListSer
 import { FilterService } from '../service/filterService';
 import { SjpFilterService } from '../service/sjpFilterService';
 import { HttpStatusCode } from 'axios';
-import {isValidList} from "../helpers/listHelper";
+import { isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();

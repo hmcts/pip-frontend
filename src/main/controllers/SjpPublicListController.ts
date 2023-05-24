@@ -7,7 +7,7 @@ import { SjpPublicListService } from '../service/listManipulation/SjpPublicListS
 import { SjpFilterService } from '../service/sjpFilterService';
 import { FilterService } from '../service/filterService';
 import { HttpStatusCode } from 'axios';
-import {isValidList} from "../helpers/listHelper";
+import { isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
