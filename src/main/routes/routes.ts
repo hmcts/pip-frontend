@@ -17,6 +17,7 @@ import {
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/sessionManagementService';
 import { urlPath } from '../helpers/envUrls';
+import {getInfo} from "../helpers/infoProvider";
 
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
@@ -582,7 +583,7 @@ export default function (app: Application): void {
         app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
     }
 
-    app.get('/info', app.locals.container.cradle.infoController.get);
+    app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {
         res.type('text/plain');
         res.send('User-agent: *\nDisallow: /');
