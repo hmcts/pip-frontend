@@ -2,6 +2,7 @@ import { PublicationRequests } from '../resources/requests/publicationRequests';
 import { Artefact } from '../models/Artefact';
 import { SearchObject } from '../models/searchObject';
 import { ListType } from '../models/listType';
+import {HttpStatusCode} from 'axios';
 
 const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
@@ -20,11 +21,11 @@ export class PublicationService {
         return map;
     }
 
-    public async getIndividualPublicationFile(artefactId, userId: string): Promise<Blob> {
+    public async getIndividualPublicationFile(artefactId, userId: string): Promise<Blob | HttpStatusCode> {
         return publicationRequests.getIndividualPublicationFile(artefactId, userId);
     }
 
-    public async getIndividualPublicationJson(artefactId, userId: string): Promise<JSON> {
+    public async getIndividualPublicationJson(artefactId, userId: string): Promise<JSON | HttpStatusCode> {
         return publicationRequests.getIndividualPublicationJson(artefactId, userId);
     }
 

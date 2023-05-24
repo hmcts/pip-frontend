@@ -1,8 +1,9 @@
 import { dataManagementApi } from './utils/axiosConfig';
 import { Artefact } from '../../models/Artefact';
+import {HttpStatusCode} from 'axios';
 
 export class PublicationRequests {
-    public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<string> {
+    public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<any> {
         try {
             let header;
             if (userId) {
@@ -14,13 +15,12 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/${artefactId}`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
+            if (error.response.status === 404) {
+                return HttpStatusCode.NotFound;
             } else {
-                console.log(`ERROR: ${error.message}`);
+                return null;
             }
         }
-        return null;
     }
 
     public async getPubsPerLocation(): Promise<any> {
@@ -60,7 +60,7 @@ export class PublicationRequests {
         return [];
     }
 
-    public async getIndividualPublicationJson(artefactId, userId): Promise<JSON> {
+    public async getIndividualPublicationJson(artefactId, userId): Promise<HttpStatusCode> {
         try {
             let header;
             if (userId) {
@@ -70,16 +70,15 @@ export class PublicationRequests {
             const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
+            if (error.response.status === 404) {
+                return HttpStatusCode.NotFound;
             } else {
-                console.log(`ERROR: ${error.message}`);
+                return null;
             }
         }
-        return null;
     }
 
-    public async getIndividualPublicationFile(artefactId, userId): Promise<Blob> {
+    public async getIndividualPublicationFile(artefactId, userId): Promise<Blob | HttpStatusCode> {
         try {
             let header;
             if (userId) {
@@ -93,13 +92,12 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/${artefactId}/file`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
+            if (error.response.status === 404) {
+                return HttpStatusCode.NotFound;
             } else {
-                console.log(`ERROR: ${error.message}`);
+                return null;
             }
         }
-        return null;
     }
 
     public async getPublicationsByCourt(locationId: string, userId: string, admin: boolean): Promise<Artefact[]> {

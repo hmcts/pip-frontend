@@ -1,0 +1,20 @@
+{% from "macros/common-components.njk" import goBack %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% extends "template.njk" %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+{% block pageTitle %}
+  {{ header }}
+{% endblock %}
+{% block content %}
+  <h1 class="govuk-heading-xl">{{ header }}</h1>
+  <p class="govuk-body">{{ paragraph }}</p>
+  {{ govukButton({
+    text: buttonText,
+    href: "alphabetical-search",
+    isStartButton: true
+  }) }}
+{% endblock %}
