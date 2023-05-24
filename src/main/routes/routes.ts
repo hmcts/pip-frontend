@@ -17,7 +17,7 @@ import {
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/sessionManagementService';
 import { urlPath } from '../helpers/envUrls';
-import {getInfo} from "../helpers/infoProvider";
+import { getInfo } from '../helpers/infoProvider';
 
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
