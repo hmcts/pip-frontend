@@ -150,7 +150,7 @@ function createFilters(env) {
     });
 
     env.addFilter('maskLegacyDataSource', function (provenance) {
-        return provenance == 'SNL' ? 'LIST_ASSIST' : provenance;
+        return provenance == 'SNL' ? 'ListAssist' : provenance;
     });
 }
 
