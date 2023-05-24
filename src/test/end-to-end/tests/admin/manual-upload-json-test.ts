@@ -51,7 +51,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
     I.see('Civil and Family Daily Cause List');
-
+    I.logout();
     I.deletePublicationForCourt(locationId);
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
@@ -192,7 +192,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.click('Confirm');
     I.waitForText('There is a problem');
     I.see('Unable to upload publication, please verify that provided fields are correct');
-
+    I.logout();
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
 });
@@ -271,7 +271,7 @@ Scenario('I as a admin user should be able to change the data before confirming 
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.click('Continue');
     I.waitForText('Check upload details');
-
+    I.logout();
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
 });

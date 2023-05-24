@@ -60,4 +60,5 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.see(
         'Please ensure you have checked the sensitivity of the list you are about to publish, the data contained within it and the consequences if this is published incorrectly.'
     );
+    I.logout();
 }).tag('@CrossBrowser');
