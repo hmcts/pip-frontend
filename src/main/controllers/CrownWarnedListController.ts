@@ -49,7 +49,7 @@ export default class CrownWarnedListController {
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 version: searchResults['document']['version'],
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 bill: pageLanguage === 'bill',
             });
         } else {

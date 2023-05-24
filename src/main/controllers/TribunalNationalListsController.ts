@@ -45,7 +45,7 @@ export default class TribunalNationalListsController {
                 listData: manipulatedData,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 courtName: courtName,
                 venueEmail: searchResults['venue']['venueContact']['venueEmail'],
                 venueTelephone: searchResults['venue']['venueContact']['venueTelephone'],

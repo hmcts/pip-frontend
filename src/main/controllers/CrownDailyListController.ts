@@ -44,7 +44,7 @@ export default class CrownDailyListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
