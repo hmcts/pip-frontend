@@ -55,7 +55,7 @@ Data(flatFileName)
         I.click('Continue');
         I.waitForText('What do you want to view from ' + locationName);
         I.see('Civil and Family Daily Cause List');
-
+        I.logout();
         I.deletePublicationForCourt(locationId);
         I.deleteLocation(locationId);
         removeTestLocationFile(locationFileName);

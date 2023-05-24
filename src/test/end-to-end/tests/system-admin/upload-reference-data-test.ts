@@ -34,6 +34,7 @@ Scenario('I as a system admin should be able to upload reference data manually',
     I.amInPath('../../../functional-output/functional/reports');
     I.seeFile('downloadedReferenceData.csv');
     I.seeInThisFile(LOCATION_ID);
+    I.logout();
 });
 
 Scenario(
@@ -49,5 +50,6 @@ Scenario(
         I.click('Confirm');
         I.waitForText('There is a problem');
         I.waitForText('Unable to upload reference data file, please verify that provided fields are correct');
+        I.logout();
     }
 );
