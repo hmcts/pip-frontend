@@ -5,6 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { LocationService } from '../service/locationService';
 import { EtListsService } from '../service/listManipulation/EtListsService';
+import {HttpStatusCode} from "axios";
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -16,7 +17,7 @@ export default class EtDailyListController {
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (fileData && metaData) {
+        if (fileData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
             const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData), req.lng);
 
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
@@ -39,6 +40,8 @@ export default class EtDailyListController {
                 provenance: metaData['provenance'],
                 bill: pageLanguage === 'bill',
             });
+        } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+            res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }

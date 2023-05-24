@@ -5,6 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { TribunalNationalListsService } from '../service/listManipulation/TribunalNationalListsService';
 import { LocationService } from '../service/locationService';
+import {HttpStatusCode} from 'axios';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -18,7 +19,7 @@ export default class TribunalNationalListsController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (searchResults && metaData) {
+        if (searchResults !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
             const manipulatedData = tribunalNationalListsService.manipulateData(
                 JSON.stringify(searchResults),
                 req.lng,
@@ -52,6 +53,8 @@ export default class TribunalNationalListsController {
                 venueTelephone: searchResults['venue']['venueContact']['venueTelephone'],
                 bill: pageLanguage === 'bill',
             });
+        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+            res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }

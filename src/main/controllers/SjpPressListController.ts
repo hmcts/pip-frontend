@@ -7,6 +7,7 @@ import { ListParseHelperService } from '../service/listParseHelperService';
 import { SjpPressListService } from '../service/listManipulation/SjpPressListService';
 import { FilterService } from '../service/filterService';
 import { SjpFilterService } from '../service/sjpFilterService';
+import {HttpStatusCode} from "axios";
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -20,7 +21,7 @@ export default class SjpPressListController {
         const sjpData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (sjpData && metaData) {
+        if (sjpData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound) {
             const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
             const filter = sjpFilterService.generateFilters(
                 allCases,
@@ -54,6 +55,8 @@ export default class SjpPressListController {
                 filterOptions: filter.filterOptions,
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
             });
+        } else if (sjpData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+            res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
