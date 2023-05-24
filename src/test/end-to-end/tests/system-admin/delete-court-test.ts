@@ -72,6 +72,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Success');
         I.see('Court has been deleted');
+        I.logout();
 
         removeTestLocationFile(locationFileName);
     }
@@ -99,5 +100,6 @@ Scenario(
         I.click('Continue');
         I.see('Find the court to remove');
         I.see('Search by court or tribunal name');
+        I.logout();
     }
 );

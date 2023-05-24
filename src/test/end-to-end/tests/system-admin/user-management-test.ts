@@ -51,6 +51,7 @@ Scenario('I as a system admin should be able to update a users role and delete a
     I.fillField('#email', testEmailAddress);
     I.click('Apply filters');
     I.waitForText('There is a problem');
+    I.logout();
 });
 
 Scenario('I as a system admin should be able to filter users correctly on the User Management page', async ({ I }) => {
@@ -100,6 +101,7 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
     I.fillField('#userId', userId);
     I.click('Apply filters');
     I.waitForText(systemAdminUsername);
+    I.logout();
 });
 
 Scenario('I as a system admin should be able to use the pagination on the user management page', async ({ I }) => {
@@ -118,6 +120,7 @@ Scenario('I as a system admin should be able to use the pagination on the user m
 
     I.click('.govuk-pagination__link');
     I.waitForText('2 of');
+    I.logout();
 });
 
 Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
@@ -134,4 +137,5 @@ Scenario('I as a system admin should not be able to change my own role', async (
     I.click('Continue');
     I.waitForText('There is a problem');
     I.see('You are unable to update the role for the same user you are logged in as');
+    I.logout();
 });

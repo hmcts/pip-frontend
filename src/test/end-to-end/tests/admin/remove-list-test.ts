@@ -36,7 +36,7 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('Showing 0 result(s)');
-
+    I.logout();
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
 });
@@ -68,7 +68,7 @@ Scenario('I as an admin user should be able to see proper error messages related
     I.click('#remove-choice-2');
     I.click('Continue');
     I.waitForText('Select content to remove');
-
+    I.logout();
     I.deletePublicationForCourt(locationId);
     I.deleteLocation(locationId);
     removeTestLocationFile(locationFileName);
