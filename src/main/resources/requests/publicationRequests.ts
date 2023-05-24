@@ -1,6 +1,6 @@
 import { dataManagementApi } from './utils/axiosConfig';
 import { Artefact } from '../../models/Artefact';
-import {HttpStatusCode} from 'axios';
+import { HttpStatusCode } from 'axios';
 
 export class PublicationRequests {
     public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<any> {
