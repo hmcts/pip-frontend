@@ -8,6 +8,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import {HttpStatusCode} from "axios";
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -38,6 +39,7 @@ const artefactIdCivil = 'def';
 dailyCauseListJsonStub.withArgs(artefactIdFamily).resolves(listData);
 dailyCauseListJsonStub.withArgs(artefactIdCivil).resolves(listData);
 dailyCauseListJsonStub.withArgs('').resolves([]);
+dailyCauseListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
 
 dailyCauseListMetaDataStub.withArgs(artefactIdFamily).resolves(metaDataFamily);
 dailyCauseListMetaDataStub.withArgs(artefactIdCivil).resolves(metaDataCivil);
@@ -121,6 +123,18 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await dailyCauseListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if response is 404', async () => {
+        request.path = '/family-daily-cause-list';
+        request.query = { artefactId: '1234' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
 
         await dailyCauseListController.get(request, response);
         return responseMock.verify();

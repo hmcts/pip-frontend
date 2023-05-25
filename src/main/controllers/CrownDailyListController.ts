@@ -21,7 +21,7 @@ export default class CrownDailyListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (isValidList(searchResults, metaData)) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData) {
             // initial cleaning of data using mixed list service
             let outputData = civFamMixedService.sculptedCivilListData(JSON.stringify(searchResults));
             outputData = crimeListsService.manipulateCrimeListData(

@@ -21,7 +21,7 @@ export default class CrownWarnedListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (isValidList(searchResults, metaData)) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData) {
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],

@@ -17,7 +17,7 @@ export default class IacDailyListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (isValidList(searchResults, metaData)) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData) {
             const listData = iacService.manipulateIacDailyListData(JSON.stringify(searchResults), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(

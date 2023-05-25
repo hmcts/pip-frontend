@@ -9,6 +9,7 @@ import { LocationService } from '../../../main/service/locationService';
 import CrownDailyListController from '../../../main/controllers/CrownDailyListController';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import {HttpStatusCode} from "axios";
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -32,6 +33,8 @@ const artefactId = 'abc';
 
 crownDailyListJsonStub.withArgs(artefactId).resolves(listData);
 crownDailyListJsonStub.withArgs('').resolves([]);
+crownDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
+
 
 crownDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownDailyListMetaDataStub.withArgs('').resolves([]);
@@ -87,6 +90,17 @@ describe('Crown Daily List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await crownDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if response is 404', async () => {
+        request.query = { artefactId: '1234' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
 
         await crownDailyListController.get(request, response);
         return responseMock.verify();

@@ -9,6 +9,7 @@ import { CrimeListsService } from '../../../main/service/listManipulation/CrimeL
 import CrownFirmListController from '../../../main/controllers/CrownFirmListController';
 import { CrownFirmListService } from '../../../main/service/listManipulation/crownFirmListService';
 import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import {HttpStatusCode} from "axios";
 
 const fullyProcessedData = fs.readFileSync(path.resolve(__dirname, '../mocks/firmlistfullyprocessed.json'), 'utf-8');
 const listData = JSON.parse(fullyProcessedData);
@@ -36,6 +37,8 @@ const artefactId = 'abc';
 
 crownFirmListJsonStub.withArgs(artefactId).resolves(unprocessedData);
 crownFirmListJsonStub.withArgs('').resolves([]);
+crownFirmListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
+
 
 crownFirmListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownFirmListMetaDataStub.withArgs('').resolves([]);
@@ -92,6 +95,17 @@ describe('Crown Firm List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await crownFirmListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if response is 404', async () => {
+        request.query = { artefactId: '1234' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
 
         await crownFirmListController.get(request, response);
         return responseMock.verify();

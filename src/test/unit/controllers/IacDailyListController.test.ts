@@ -7,6 +7,7 @@ import { IacDailyListService } from '../../../main/service/listManipulation/IacD
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
+import {HttpStatusCode} from "axios";
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/iacDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -24,6 +25,7 @@ const artefactId = 'abc';
 
 iacDailyListJsonStub.withArgs(artefactId).resolves(listData);
 iacDailyListJsonStub.withArgs('').resolves([]);
+iacDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
 
 iacDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 iacDailyListMetaDataStub.withArgs('').resolves([]);
@@ -78,6 +80,19 @@ describe('IAC Daily List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await iacDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if response is 404', async () => {
+        const request = mockRequest(i18n);
+        request.query = { artefactId: '1234' };
+        request.user = { userId: '123' };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
 
         await iacDailyListController.get(request, response);
         return responseMock.verify();

@@ -22,7 +22,7 @@ export default class CrownFirmListController {
         const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (isValidList(jsonData, metaData)) {
+        if (isValidList(jsonData, metaData) && metaData && jsonData) {
             const outputData = civilService.sculptedCivilListData(JSON.stringify(jsonData));
             const outputArray = firmListService.splitOutFirmListData(
                 JSON.stringify(outputData),
