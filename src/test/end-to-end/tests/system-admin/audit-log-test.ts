@@ -17,11 +17,12 @@ Scenario(
         I.see('System Admin Dashboard');
         I.click('#card-manage-third-party-users');
         I.click('Back');
-        I.see('System Admin Dashboard');
+        I.waitForText('System Admin Dashboard');
 
         I.click('#card-user-management');
+        I.waitForText('User Management');
         I.click('Back');
-        I.see('System Admin Dashboard');
+        I.waitForText('System Admin Dashboard');
 
         I.click('#card-audit-log-viewer');
         I.waitForText('System admin audit log');
@@ -38,7 +39,7 @@ Scenario(
         I.see('User requested to view all third party users');
 
         I.click('Home');
-        I.see('System Admin Dashboard');
+        I.waitForText('System Admin Dashboard');
         I.click('#card-audit-log-viewer');
         I.waitForText('System admin audit log');
 
