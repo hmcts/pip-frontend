@@ -34,7 +34,6 @@ export default class MagistratesPublicListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
             res.render('magistrates-public-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-public-list']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
