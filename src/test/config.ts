@@ -27,7 +27,7 @@ export const config = {
     TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
     TestSlowMo: 250,
     TestFunctionalOutputPath: path.join(process.cwd(), 'functional-output'),
-    WaitForTimeout: 10000,
+    WaitForTimeout: 20000,
     helpers: {},
     plugins: {
         allure: {

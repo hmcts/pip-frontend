@@ -5,7 +5,6 @@ import { SessionLoggedOutPage } from './SessionLoggedOut.page';
 const helpers = require('../Helpers/Selectors');
 
 export class AdminDashboardPage extends CommonPage {
-
     async clickManageMedia(): Promise<MediaAccountRequestsPage> {
         await $(helpers.ManageMediaAccounts).catch(() => {
             console.log(`${helpers.ManageMediaAccounts} not found`);
