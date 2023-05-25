@@ -20,12 +20,14 @@ Scenario(
         function tryToDeleteCourt() {
             I.fillField('#search-input', locationName);
             I.click('Continue');
+            I.waitForText('Are you sure you want to delete this court?');
             I.click('#delete-choice');
             I.click('Continue');
             I.waitForText('There is a problem');
         }
 
         I.loginAsSystemAdmin();
+        I.waitForText('System Admin Dashboard');
         I.click('Delete Court');
 
         await tryToDeleteCourt();
