@@ -4,8 +4,6 @@ import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
 import { SystemAdminDashboardPage } from '../PageObjects/SystemAdminDashboard.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
 import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
-import { CreateAdminAccountPage } from '../PageObjects/CreateAdminAccount.page';
-import { CreateAdminAccountSummaryPage } from '../PageObjects/CreateAdminAccountSummary.page';
 import { CourtListPage } from '../PageObjects/CourtList.page';
 import { HomePage } from '../PageObjects/Home.page';
 import { LiveCaseCourtSearchControllerPage } from '../PageObjects/LiveCaseCourtSearchController.page';
@@ -53,8 +51,6 @@ let sjpPressListPage: SjpPressListPage;
 let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
 let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
-let createAdminAccountPage: CreateAdminAccountPage;
-let createAdminAccountSummaryPage: CreateAdminAccountSummaryPage;
 let mediaAccountRequestsPage: MediaAccountRequestsPage;
 let mediaAccountReviewPage: MediaAccountReviewPage;
 let mediaAccountApprovalPage: MediaAccountApprovalPage;
@@ -560,24 +556,6 @@ describe('Admin level journeys', () => {
     it('should open admin dashboard page', async () => {
         await adminDashboard.open('/admin-dashboard');
         expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
-    });
-
-    describe('Create new account', () => {
-        it('should click on the create new account card', async () => {
-            createAdminAccountPage = await adminDashboard.clickCreateNewAccountCard();
-            expect(await createAdminAccountPage.getPageTitle()).toEqual('Create admin account');
-        });
-
-        it('should complete form and open summary page', async () => {
-            await createAdminAccountPage.completeForm();
-            createAdminAccountSummaryPage = await createAdminAccountPage.clickContinue();
-            expect(await createAdminAccountSummaryPage.getPageTitle()).toEqual('Check account details');
-        });
-
-        it('should click confirm and create user account', async () => {
-            createAdminAccountSummaryPage = await createAdminAccountSummaryPage.clickConfirm();
-            expect(await createAdminAccountSummaryPage.getPanelTitle()).toEqual('Account has been created');
-        });
     });
 
     describe('Manage media account requests journey', () => {
