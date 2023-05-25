@@ -8,7 +8,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { SscsDailyListService } from '../../../main/service/listManipulation/SscsDailyListService';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -43,8 +43,7 @@ sinon.stub(SscsDailyListService.prototype, 'manipulateSscsDailyListData').return
 sscsDailyListJsonStub.withArgs(artefactIdMap.get(sscDailyListUrl), userId).resolves(listData);
 sscsDailyListJsonStub.withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId).resolves(listData);
 sscsDailyListJsonStub.withArgs('', userId).resolves([]);
-sscsDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
-
+sscsDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 sscsDailyListMetaDataStub.withArgs(artefactIdMap.get(sscDailyListUrl), userId).resolves(metaDataSscs);
 sscsDailyListMetaDataStub
@@ -108,12 +107,15 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
 
         it('should render list not found page if response is 404', async () => {
             request.path = url;
-            request.query = {artefactId: '1234'};
+            request.query = { artefactId: '1234' };
             request.user = { userId: userId };
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
             await sscsDailyListController.get(request, response);
             return responseMock.verify();

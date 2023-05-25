@@ -9,7 +9,7 @@ import { LocationService } from '../../../main/service/locationService';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../main/controllers/MagistratesPublicListController';
 import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -32,8 +32,7 @@ const artefactId = 'abc';
 
 magistratesPublicListJsonStub.withArgs(artefactId).resolves(listData);
 magistratesPublicListJsonStub.withArgs('').resolves([]);
-magistratesPublicListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
-
+magistratesPublicListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 magistratesPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magistratesPublicListMetaDataStub.withArgs('').resolves([]);
@@ -109,7 +108,10 @@ describe('Magistrates Public List Controller', () => {
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await magistratesPublicListController.get(request, response);
         return responseMock.verify();

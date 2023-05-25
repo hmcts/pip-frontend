@@ -8,7 +8,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { TribunalNationalListsService } from '../../../main/service/listManipulation/TribunalNationalListsService';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -30,7 +30,7 @@ const artefactId = 'abc';
 
 tribunalNationalListJsonStub.withArgs(artefactId).resolves(listData);
 tribunalNationalListJsonStub.withArgs('').resolves([]);
-tribunalNationalListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
+tribunalNationalListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 tribunalNationalListMetaDataStub.withArgs(artefactId).resolves(metaData);
 tribunalNationalListMetaDataStub.withArgs('').resolves([]);
@@ -124,7 +124,10 @@ describe('Tribunal National List Controller', () => {
 
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await tribunalNationalListsController.get(request, response);
         return responseMock.verify();

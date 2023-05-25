@@ -7,7 +7,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import EtFortnightlyListController from '../../../main/controllers/EtFortnightlyListController';
 import { EtListsService } from '../../../main/service/listManipulation/EtListsService';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
 const rawTableData = fs.readFileSync(path.resolve(__dirname, '../mocks/etFortnightlyList.json'), 'utf-8');
@@ -32,8 +32,7 @@ const artefactId = 'abc';
 
 etDailyListJsonStub.withArgs(artefactId).resolves(listData);
 etDailyListJsonStub.withArgs('').resolves([]);
-etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
-
+etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
@@ -101,7 +100,10 @@ describe('Et Fortnightly List Controller', () => {
 
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await etDailyListController.get(request, response);
         return responseMock.verify();

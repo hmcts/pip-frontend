@@ -7,7 +7,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { CrownWarnedListService } from '../../../main/service/listManipulation/CrownWarnedListService';
 import CrownWarnedListController from '../../../main/controllers/CrownWarnedListController';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownWarnedList.json'), 'utf-8');
 const rawDataObj = JSON.parse(rawData);
@@ -51,7 +51,7 @@ listDataWithAllocatedData.set('Hearing type', [allocatedData]);
 
 crownWarnedListJsonStub.withArgs(artefactId).resolves(rawDataObj);
 crownWarnedListJsonStub.withArgs('').resolves([]);
-crownWarnedListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
+crownWarnedListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 crownWarnedListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownWarnedListMetaDataStub.withArgs('').resolves([]);
@@ -117,7 +117,10 @@ describe('Crown Warned List Controller', () => {
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await crownWarnedListController.get(request, response);
         return responseMock.verify();
