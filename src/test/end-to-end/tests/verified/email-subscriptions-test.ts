@@ -154,7 +154,7 @@ Scenario(
         I.deleteLocation(locationId);
         await removeTestLocationFile(locationFileName);
     }
-).tag('@CrossBrowser');
+);
 
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
