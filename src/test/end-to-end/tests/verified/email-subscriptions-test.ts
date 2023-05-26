@@ -3,17 +3,17 @@ import { createLocation, uploadPublication } from '../../shared/testingSupportAp
 import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
 
 Feature('Verified user email subscriptions');
-const caseId = '12341234';
-const caseName = 'Test Case Name';
-const caseURN = 'Case URN';
-
-const caseNameNumber = '12341232';
-const caseNameUrn = '18472381412';
 
 Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
         'should be able to remove subscription and bulk unsubscribe',
     async ({ I }) => {
+        const caseId = '12341234';
+        const caseName = 'Test Case Name';
+        const caseURN = 'Case URN';
+        const caseNameNumber = '12341232';
+        const caseNameUrn = '18472381412';
+
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
         const [locationId, locationName, locationFileName] = generateTestLocation();
@@ -32,7 +32,6 @@ Scenario(
         I.loginAsMediaUser();
         I.waitForText('Your account');
         I.click('#card-subscription-management');
-        ``;
         I.waitForText('Your email subscriptions');
         I.click('Add email subscription');
         I.waitForText('How do you want to add an email subscription?');
@@ -160,6 +159,7 @@ Scenario(
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
     async ({ I }) => {
+        const caseId = '12341235';
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
         const [locationId, locationName, locationFileName] = generateTestLocation();
