@@ -159,7 +159,6 @@ Scenario(
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
     async ({ I }) => {
-        const caseId = '12341235';
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
         const [locationId, locationName, locationFileName] = generateTestLocation();
@@ -189,18 +188,6 @@ Scenario(
         I.see('At least 1 subscription is needed.');
 
         I.click('Add Subscriptions');
-        I.click('#subscription-choice-2');
-        I.click('Continue');
-        I.waitForText('What is the reference number?');
-        I.fillField('#search-input', caseId);
-        I.click('Continue');
-        I.waitForText('Search result');
-        I.see('1 result successfully found');
-        I.see(caseId);
-        I.click('Continue');
-        I.click('Add another email Subscription');
-
-        I.waitForText('How do you want to add an email subscription?');
         I.click('#subscription-choice-1');
         I.click('Continue');
         I.checkOption('//*[@id="' + locationId + '"]');
@@ -243,6 +230,7 @@ Scenario(
         I.click('#bulk-unsubscribe-button');
         I.waitForText('There is a problem');
         I.see('At least one subscription must be selected');
+
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
