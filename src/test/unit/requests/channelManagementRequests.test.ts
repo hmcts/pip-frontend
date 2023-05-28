@@ -2,12 +2,10 @@ import { channelManagementApi } from '../../../main/resources/requests/utils/axi
 import { ChannelManagementRequests } from '../../../main/resources/requests/channelManagementRequests';
 import sinon from 'sinon';
 
-const getStoredFilesEndpoint = '/publication/abc';
+const getStoredFileEndpoint = '/publication/abc';
 
-const dummyData = {
-    pdf: '123',
-    excel: '456',
-};
+const dummyData = '123';
+const userId = 'abc';
 
 const errorResponse = {
     response: {
@@ -23,24 +21,30 @@ const channelManagementRequests = new ChannelManagementRequests();
 const getStub = sinon.stub(channelManagementApi, 'get');
 
 describe('Channel Management requests', () => {
-    describe('Get stored files', () => {
+    describe('Get stored file', () => {
         afterEach(() => {
             sinon.restore();
         });
 
-        it('should return media applications', async () => {
-            getStub.withArgs(getStoredFilesEndpoint).resolves({ data: dummyData });
-            expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(dummyData);
+        it('should return publication', async () => {
+            getStub.withArgs(getStoredFileEndpoint).resolves({ data: dummyData });
+            expect(
+                await channelManagementRequests.getStoredFile('abc', { 'x-user-id': userId, 'x-file-type': 'PDF' })
+            ).toEqual(dummyData);
         });
 
         it('should return null and an error response if get fails', async () => {
-            getStub.withArgs(getStoredFilesEndpoint).rejects(errorResponse);
-            expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
+            getStub.withArgs(getStoredFileEndpoint).rejects(errorResponse);
+            expect(
+                await channelManagementRequests.getStoredFile('abc', { 'x-user-id': userId, 'x-file-type': 'PDF' })
+            ).toEqual(null);
         });
 
         it('should return empty array and an error response if request fails', async () => {
-            getStub.withArgs(getStoredFilesEndpoint).rejects(errorMessage);
-            expect(await channelManagementRequests.getStoredFiles('abc', { 'x-user-id': '1234' })).toEqual(null);
+            getStub.withArgs(getStoredFileEndpoint).rejects(errorMessage);
+            expect(
+                await channelManagementRequests.getStoredFile('abc', { 'x-user-id': userId, 'x-file-type': 'EXCEL' })
+            ).toEqual(null);
         });
     });
 });
