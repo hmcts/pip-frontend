@@ -27,6 +27,11 @@ export enum uploadType {
     CSV,
 }
 
+export enum FileType {
+    PDF = 'pdf',
+    EXCEL = 'xlsx',
+}
+
 export const formattedRoles = {
     VERIFIED: 'Verified',
     INTERNAL_ADMIN_CTSC: 'CTSC Admin',
