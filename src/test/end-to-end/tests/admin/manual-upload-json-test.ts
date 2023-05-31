@@ -176,14 +176,21 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.click('Continue');
     I.waitForText('Please enter a valid date');
 
-    I.fillField('#display-date-to-year', dayAfter.getFullYear());
     I.fillField('#display-date-from-day', padFormatted(dayAfter.getDate()));
+    I.fillField('#display-date-from-month', padFormatted(dayAfter.getMonth() + 1));
+    I.fillField('#display-date-from-year', dayAfter.getFullYear());
     I.fillField('#display-date-to-day', padFormatted(date.getDate()));
+    I.fillField('#display-date-to-month', padFormatted(date.getMonth() + 1));
+    I.fillField('#display-date-to-year', date.getFullYear());
     I.click('Continue');
     I.waitForText("Please make sure 'to' date is after 'from' date");
 
     I.fillField('#display-date-from-day', padFormatted(date.getDate()));
+    I.fillField('#display-date-from-month', padFormatted(date.getMonth() + 1));
+    I.fillField('#display-date-from-year', date.getFullYear());
     I.fillField('#display-date-to-day', padFormatted(dayAfter.getDate()));
+    I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth() + 1));
+    I.fillField('#display-date-to-year', dayAfter.getFullYear());
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.selectOption('#listType', 'ET Daily List');
     I.selectOption('#classification', 'Public');
