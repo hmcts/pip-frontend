@@ -103,7 +103,7 @@ describe('Crown Firm List Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await crownFirmListController.get(request, response);
         return responseMock.verify();
