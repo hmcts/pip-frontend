@@ -41,9 +41,10 @@ const caseSubscriptionSorter = (a, b) => {
         result = a.caseName > b.caseName ? 1 : -1;
     }
 
-    const caseRefA = a.caseNumber ? a.caseNumber : a.urn;
-    const caseRefB = b.caseNumber ? b.caseNumber : b.urn;
     if (result === 0) {
+        const caseRefA = a.searchType == 'CASE_ID' ? a.caseNumber : a.urn;
+        const caseRefB = b.searchType == 'CASE_ID' ? b.caseNumber : b.urn;
+
         if (caseRefA === caseRefB) {
             return 0;
         } else if (caseRefA === null) {
@@ -156,7 +157,7 @@ export class SubscriptionService {
     }
 
     private generateCaseTableRow(subscription, fileJson): any {
-        const caseRef = subscription.caseNumber ? subscription.caseNumber : subscription.urn;
+        const caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
         return [
             {
                 text: subscription.caseName,
@@ -182,7 +183,7 @@ export class SubscriptionService {
 
     private generateCaseTableRowForBulkDelete(subscription): any {
         const caseName = subscription.caseName === null ? '' : subscription.caseName;
-        let caseRef = subscription.caseNumber ? subscription.caseNumber : subscription.urn;
+        let caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
         caseRef = caseRef === null ? '' : caseRef;
         return [
             {
@@ -266,45 +267,54 @@ export class SubscriptionService {
             let locationIdsList = [];
             let caseDetailsList: object[];
             let courtDetailsList: object[];
-            let urnHearing;
             switch (selectionName) {
                 case 'case-number':
-                case 'hearing-selections[]':
-                    // pendingSubscription.selectionName gives undefined
+                case 'case-number[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
                         ? (hearingIdsList = pendingSubscription[`${selectionName}`])
                         : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
-                    caseDetailsList = await this.getCaseDetails(hearingIdsList, user);
-                    // set results into cache
+
+                    caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
-                case 'urn':
-                    urnHearing = await publicationService.getCaseByCaseUrn(
-                        pendingSubscription[`${selectionName}`],
-                        user.userId
-                    );
-                    if (urnHearing) {
-                        urnHearing.urnSearch = true;
-                        await this.setPendingSubscriptions([urnHearing], 'cases', user.userId);
-                    }
+                case 'case-urn':
+                case 'case-urn[]':
+                    Array.isArray(pendingSubscription[`${selectionName}`])
+                        ? (hearingIdsList = pendingSubscription[`${selectionName}`])
+                        : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
+
+                    caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user);
+                    await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'court-selections[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
                         ? (locationIdsList = pendingSubscription[`${selectionName}`])
                         : locationIdsList.push(pendingSubscription[`${selectionName}`]);
+
                     courtDetailsList = await this.getCourtDetails(locationIdsList);
-                    // set results into cache
                     await this.setPendingSubscriptions(courtDetailsList, 'courts', user.userId);
                     break;
             }
         }
     }
 
-    public async getCaseDetails(cases, user): Promise<object[]> {
+    public async getCaseDetailsByNumber(cases, user): Promise<object[]> {
         const casesList = [];
         for (const caseNumber of cases) {
             const caseDetails = await publicationService.getCaseByCaseNumber(caseNumber, user.userId);
             if (caseDetails) {
+                casesList.push(caseDetails);
+            }
+        }
+        return casesList;
+    }
+
+    public async getCaseDetailsByUrn(cases, user): Promise<object[]> {
+        const casesList = [];
+        for (const caseUrn of cases) {
+            const caseDetails = await publicationService.getCaseByCaseUrn(caseUrn, user.userId);
+            if (caseDetails) {
+                caseDetails['urnSearch'] = true;
                 casesList.push(caseDetails);
             }
         }

@@ -9,8 +9,8 @@ import sinon from 'sinon';
 import { LocationService } from '../../../main/service/locationService';
 
 const PAGE_URL = '/subscription-management';
-const expectedAllSubsTitle = 'All subscriptions (8)';
-const expectedCaseSubsTitle = 'Subscriptions by case (5)';
+const expectedAllSubsTitle = 'All subscriptions (9)';
+const expectedCaseSubsTitle = 'Subscriptions by case (6)';
 const expectedCourtSubsTitle = 'Subscriptions by court or tribunal (3)';
 const expectedAllSubsTitleWithSingleSubs = 'All subscriptions (1)';
 const expectedCaseSubsTitleWithNoLocationSubs = 'Subscriptions by case (1)';
@@ -29,7 +29,7 @@ const expectedRowCaseReference = 'C123123';
 const expectedRowCaseUrn = 'K123123';
 const expectedRowDateAdded = DateTime.fromISO('2022-08-01T01:10:10.111111').toFormat('dd MMMM yyyy');
 const expectedRowCourtName = 'Aberdeen Tribunal Hearing Centre';
-const expectedCaseRowsCount = 5;
+const expectedCaseRowsCount = 6;
 const expectedCaseRowsCountWithoutLocation = 1;
 const expectedCourtRowsCount = 3;
 const expectedCourtRowsCountWithoutCaseSubs = 1;
@@ -52,6 +52,7 @@ userSubscriptionsStub.withArgs('3').returns({
             caseNumber: 'C123123',
             urn: 'K123123',
             dateAdded: '2022-08-01T01:10:10.111111',
+            searchType: 'CASE_ID',
         },
     ],
     locationSubscriptions: [],
@@ -77,6 +78,7 @@ userSubscriptionsStub.withArgs('5').returns({
             caseNumber: '',
             urn: 'K123123',
             dateAdded: '2022-08-01T01:10:10.111111',
+            searchType: 'CASE_URN',
         },
     ],
     locationSubscriptions: [],
@@ -280,11 +282,13 @@ describe('Subscriptions Management Page', () => {
         expect(subscriptionCaseRowCells[4].innerHTML).equal('Test Name 2');
         expect(subscriptionCaseRowCells[5].innerHTML).equal('I123123');
         expect(subscriptionCaseRowCells[8].innerHTML).equal('Test Name 3');
-        expect(subscriptionCaseRowCells[9].innerHTML).equal('B123123');
-        expect(subscriptionCaseRowCells[12].innerHTML).equal('');
-        expect(subscriptionCaseRowCells[13].innerHTML).equal('A123123');
+        expect(subscriptionCaseRowCells[9].innerHTML).equal('1212121212');
+        expect(subscriptionCaseRowCells[12].innerHTML).equal('Test Name 3');
+        expect(subscriptionCaseRowCells[13].innerHTML).equal('B123123');
         expect(subscriptionCaseRowCells[16].innerHTML).equal('');
-        expect(subscriptionCaseRowCells[17].innerHTML).equal('D123123');
+        expect(subscriptionCaseRowCells[17].innerHTML).equal('A123123');
+        expect(subscriptionCaseRowCells[20].innerHTML).equal('');
+        expect(subscriptionCaseRowCells[21].innerHTML).equal('D123123');
     });
 
     it('court table should have correct number of rows', () => {
