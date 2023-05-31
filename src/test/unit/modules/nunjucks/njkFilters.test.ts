@@ -163,4 +163,15 @@ describe('Nunjucks Custom Filter Tests', function () {
             expect(result).to.be.empty;
         });
     });
+
+    describe('mask legacy data source name', function () {
+        it('should return updated data source name', function () {
+            const result = env.renderString('{{ "SNL"| maskLegacyDataSource }}', {});
+            expect(result).to.equal('ListAssist');
+        });
+        it('should return existing data source name', function () {
+            const result = env.renderString('{{ "MANUAL_UPLOAD"| maskLegacyDataSource }}', {});
+            expect(result).to.equal('MANUAL_UPLOAD');
+        });
+    });
 });

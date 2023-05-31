@@ -32,7 +32,6 @@ export default class TribunalNationalListsController {
             );
 
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
 
@@ -46,7 +45,7 @@ export default class TribunalNationalListsController {
                 listData: manipulatedData,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 courtName: courtName,
                 venueEmail: searchResults['venue']['venueContact']['venueEmail'],
                 venueTelephone: searchResults['venue']['venueContact']['venueTelephone'],

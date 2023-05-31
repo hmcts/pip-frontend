@@ -104,7 +104,7 @@
         </div>
       {% endfor %}
     {% endfor %}
-    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance }}</p>
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | maskLegacyDataSource }}</p>
     {{ super() }}
     </div>
   </div>

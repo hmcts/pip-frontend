@@ -31,7 +31,7 @@ export default class IacDailyListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 bill: pageLanguage === 'bill',
             });
         } else {
