@@ -26,7 +26,6 @@ export default class CrownWarnedListController {
                 req.lng
             );
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
             const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
 
             // Sort unallocated list entry to the end of the map so it appears last on the template

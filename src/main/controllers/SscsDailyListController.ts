@@ -54,7 +54,7 @@ export default class SscsDailyListController {
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 courtName: courtName,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 bill: pageLanguage === 'bill',
             });
         } else {
