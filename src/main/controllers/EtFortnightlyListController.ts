@@ -40,7 +40,7 @@ export default class EtFortnightlyListController {
                 region: returnedCourt.region,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 bill: pageLanguage === 'bill',
             });
         } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {

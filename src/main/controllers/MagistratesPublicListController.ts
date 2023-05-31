@@ -36,7 +36,6 @@ export default class MagistratesPublicListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
             res.render('magistrates-public-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-public-list']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
@@ -44,7 +43,7 @@ export default class MagistratesPublicListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',

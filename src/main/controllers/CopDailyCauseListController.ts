@@ -43,7 +43,7 @@ export default class CopDailyCauseListController {
                 publishedTime: publishedTime,
                 courtName: courtName,
                 regionalJoh: regionalJoh,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
