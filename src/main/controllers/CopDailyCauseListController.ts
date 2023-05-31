@@ -18,7 +18,7 @@ export default class CopDailyCauseListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (isValidList(searchResults, metaData)) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData) {
             const manipulatedData = copDailyListService.manipulateCopDailyCauseList(JSON.stringify(searchResults));
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
