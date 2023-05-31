@@ -51,10 +51,6 @@ describe('Magistrates Public List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/magistrates-public-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should render the magistrates public list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
@@ -93,16 +89,6 @@ describe('Magistrates Public List Controller', () => {
         return responseMock.verify();
     });
 
-    it('should render error page if list is not allowed to view by the user', async () => {
-        request.query = { artefactId: artefactId };
-        const responseMock = sinon.mock(response);
-
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-
-        await magistratesPublicListController.get(request, response);
-        return responseMock.verify();
-    });
-
     it('should render list not found page if response is 404', async () => {
         request.query = { artefactId: '1234' };
         request.user = { userId: '1' };
@@ -112,6 +98,17 @@ describe('Magistrates Public List Controller', () => {
             .expects('render')
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await magistratesPublicListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render error page if list is not allowed to view by the user', async () => {
+        sinon.restore();
+        request.query = { artefactId: artefactId };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
         await magistratesPublicListController.get(request, response);
         return responseMock.verify();

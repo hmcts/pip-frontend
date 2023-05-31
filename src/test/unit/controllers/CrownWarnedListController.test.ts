@@ -70,10 +70,6 @@ describe('Crown Warned List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/crown-warned-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should render the crown warned list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };

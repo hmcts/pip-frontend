@@ -52,10 +52,6 @@ describe('Crown Daily List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/crown-daily-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should render the crown daily list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
@@ -83,17 +79,6 @@ describe('Crown Daily List Controller', () => {
         return responseMock.verify();
     });
 
-    it('should render error page is query param is empty', async () => {
-        request.query = {};
-        request.user = { userId: '1' };
-        const responseMock = sinon.mock(response);
-
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-
-        await crownDailyListController.get(request, response);
-        return responseMock.verify();
-    });
-
     it('should render list not found page if response is 404', async () => {
         request.query = { artefactId: '1234' };
         request.user = { userId: '1' };
@@ -108,7 +93,19 @@ describe('Crown Daily List Controller', () => {
         return responseMock.verify();
     });
 
+    it('should render error page is query param is empty', async () => {
+        request.query = {};
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await crownDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
     it('should render error page if list is not allowed to view by the user', async () => {
+        sinon.restore();
         request.query = { artefactId: artefactId };
         const responseMock = sinon.mock(response);
 

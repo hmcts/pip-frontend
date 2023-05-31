@@ -51,10 +51,6 @@ describe('Et Fortnightly List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/et-fortnightly-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should render the et fortnightly cause list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };

@@ -48,10 +48,6 @@ describe('Et Daily List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/et-daily-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should render the et daily cause list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };

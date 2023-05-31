@@ -44,10 +44,6 @@ describe('IAC Daily List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/iac-daily-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should render the IAC daily list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
@@ -72,19 +68,6 @@ describe('IAC Daily List Controller', () => {
         return responseMock.verify();
     });
 
-    it('should render error page if query param is empty', async () => {
-        const request = mockRequest(i18n);
-        request.query = {};
-        request.user = { userId: '123' };
-
-        const responseMock = sinon.mock(response);
-
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-
-        await iacDailyListController.get(request, response);
-        return responseMock.verify();
-    });
-
     it('should render list not found page if response is 404', async () => {
         const request = mockRequest(i18n);
         request.query = { artefactId: '1234' };
@@ -96,6 +79,20 @@ describe('IAC Daily List Controller', () => {
             .expects('render')
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await iacDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render error page if query param is empty', async () => {
+        sinon.restore();
+        const request = mockRequest(i18n);
+        request.query = {};
+        request.user = { userId: '123' };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
         await iacDailyListController.get(request, response);
         return responseMock.verify();

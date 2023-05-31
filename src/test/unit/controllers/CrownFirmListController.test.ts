@@ -56,10 +56,6 @@ describe('Crown Firm List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/crown-firm-list';
 
-    afterEach(() => {
-        sinon.restore();
-    });
-
     it('should render the crown firm list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
@@ -107,13 +103,14 @@ describe('Crown Firm List Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)["list-not-found"]);
 
         await crownFirmListController.get(request, response);
         return responseMock.verify();
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
+        sinon.restore();
         request.query = { artefactId: artefactId };
         const responseMock = sinon.mock(response);
 
