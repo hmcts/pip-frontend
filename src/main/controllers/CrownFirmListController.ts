@@ -52,7 +52,7 @@ export default class CrownFirmListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate,
                 publishedTime,
-                provenance: metaData['provenance'],
+                provenance: metaData.provenance,
                 version: jsonData['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
