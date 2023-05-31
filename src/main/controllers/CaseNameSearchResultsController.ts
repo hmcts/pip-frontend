@@ -13,6 +13,7 @@ export default class CaseNameSearchResultsController {
                 searchQuery.toString(),
                 req.user?.['userId']
             );
+
             res.render('case-name-search-results', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search-results']),
                 searchResults,

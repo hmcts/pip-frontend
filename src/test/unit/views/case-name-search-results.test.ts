@@ -13,7 +13,7 @@ const data = [
         search: {
             cases: [
                 { caseName: "Meedoo's hearings", caseNumber: '123' },
-                { caseName: "Meedoo's hearings", caseNumber: '321' },
+                { caseName: "Meedoo's hearings", caseNumber: '321', caseUrn: 'caseUrn1234' },
                 { caseName: "Meedoo's hearings", caseNumber: '234' },
                 { caseName: "Meedoo's hearings", caseNumber: '534' },
                 { caseName: "Meedoo's hearings", caseNumber: '674' },
@@ -48,7 +48,7 @@ describe('Case name search results page', () => {
 
     it('should display results count message', () => {
         const resultsMessage = htmlRes.getElementsByClassName('govuk-body');
-        expect(resultsMessage[0].innerHTML).contains('5  result(s) successfully found', 'Results message not found');
+        expect(resultsMessage[0].innerHTML).contains('6  result(s) successfully found', 'Results message not found');
     });
 
     it('should contain expected column headings', () => {
@@ -58,13 +58,25 @@ describe('Case name search results page', () => {
         expect(tableHeaders[2].innerHTML).contains('Reference Number', 'Could not find case reference number header');
     });
 
-    it('should contain 6 rows, including the header', () => {
+    it('should contain 7 rows, including the header', () => {
         const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
-        expect(tableRows.length).equal(6, 'Number of rows is not equal to expected amount');
+        expect(tableRows.length).equal(7, 'Number of rows is not equal to expected amount');
+    });
+
+    it('should display correct data for case number row', () => {
+        const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
+        expect(tableRows[1].innerHTML).contains("Meedoo's hearings", 'Case name incorrect on table row');
+        expect(tableRows[1].innerHTML).contains('123', 'Case number incorrect on table row');
+    });
+
+    it('should display correct data for case urn row', () => {
+        const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
+        expect(tableRows[3].innerHTML).contains("Meedoo's hearings", 'Case name incorrect on table row');
+        expect(tableRows[3].innerHTML).contains('caseUrn1234', 'Case urn incorrect on table row');
     });
 
     it('should display checkboxes', () => {
         const checkBoxes = htmlRes.querySelectorAll('.govuk-table__body .govuk-checkboxes__input');
-        expect(checkBoxes.length).equal(5, 'Could not find table checkboxes');
+        expect(checkBoxes.length).equal(6, 'Could not find table checkboxes');
     });
 });

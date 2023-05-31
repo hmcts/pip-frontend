@@ -35,24 +35,12 @@ const mockCourt3 = {
     listType: ['SJP_PUBLIC_LIST'],
 };
 const mockCase = {
-    hearingId: 5,
-    locationId: 50,
-    courtNumber: 1,
-    date: '15/11/2021 10:00:00',
-    judge: 'JUDGE1234',
-    platform: 'In person',
     caseNumber: 'CASENUM1234',
     caseName: 'CASENAME1234',
     caseUrn: 'CASEURN1234',
     urnSearch: false,
 };
 const mockCaseWithUrnOnly = {
-    hearingId: 5,
-    locationId: 50,
-    courtNumber: 1,
-    date: '15/11/2021 10:00:00',
-    judge: 'JUDGE1234',
-    platform: 'In person',
     caseNumber: null,
     caseName: null,
     caseUrn: 'CASEURN1234',
@@ -100,8 +88,8 @@ const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPendingSubscriptions');
 const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
-const publicationStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
-sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(mockCaseWithUrnOnly);
+const getByCaseNumberStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
+const getCaseByUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const updateListTypeSubscriptionStub = sinon.stub(
@@ -120,9 +108,12 @@ locationStub.withArgs(2).resolves(mockCourt2);
 locationStub.withArgs(3).resolves(mockCourt3);
 locationStub.withArgs('111').resolves(mockCourt);
 locationStub.withArgs('').resolves(null);
-publicationStub.withArgs('T485914').resolves(mockCase);
-publicationStub.withArgs('T485912').resolves(mockCase);
-publicationStub.withArgs('').resolves(null);
+getByCaseNumberStub.withArgs('T485914').resolves(mockCase);
+getByCaseNumberStub.withArgs('T485912').resolves(mockCase);
+getByCaseNumberStub.withArgs('').resolves(null);
+getCaseByUrnStub.withArgs('URNCASE1234').resolves(mockCaseWithUrnOnly);
+getCaseByUrnStub.withArgs('').resolves(null);
+
 cacheSetStub.withArgs([], 'cases', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([], 'courts', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([mockCourt], 'courts', userIdWithSubscriptions).resolves();
@@ -153,7 +144,7 @@ describe('getSubscriptionDataForView function', () => {
             const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'all');
             const subscriptionData = JSON.parse(JSON.stringify(result));
 
-            expect(subscriptionData.caseTableData).toHaveLength(5);
+            expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow).toHaveLength(4);
             expect(caseDataRow[3].html).toContain('Unsubscribe');
@@ -172,7 +163,7 @@ describe('getSubscriptionDataForView function', () => {
             const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
             const subscriptionData = JSON.parse(JSON.stringify(result));
 
-            expect(subscriptionData.caseTableData).toHaveLength(5);
+            expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow).toHaveLength(4);
             expect(caseDataRow[3].html).toContain('Unsubscribe');
@@ -195,7 +186,7 @@ describe('getSubscriptionDataForView function', () => {
             );
             const subscriptionData = JSON.parse(JSON.stringify(result));
 
-            expect(subscriptionData.caseTableData).toHaveLength(5);
+            expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow).toHaveLength(4);
             expect(caseDataRow[3].html).toContain('Unsubscribe');
@@ -210,7 +201,7 @@ describe('getSubscriptionDataForView function', () => {
             expect(subscriptionData.activeLocationTab).toBeTruthy();
         });
 
-        it('should sort case subscription data by case name and case number', async () => {
+        it('should sort case subscription data by case name and case reference', async () => {
             const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
             const subscriptionData = JSON.parse(JSON.stringify(result));
             const firstRow = subscriptionData.caseTableData[0];
@@ -223,15 +214,19 @@ describe('getSubscriptionDataForView function', () => {
 
             const thirdRow = subscriptionData.caseTableData[2];
             expect(thirdRow[0].text).toEqual('Test Name 3');
-            expect(thirdRow[1].text).toEqual('B123123');
+            expect(thirdRow[1].text).toEqual('1212121212');
 
             const fourthRow = subscriptionData.caseTableData[3];
-            expect(fourthRow[0].text).toBeNull();
-            expect(fourthRow[1].text).toEqual('A123123');
+            expect(fourthRow[0].text).toEqual('Test Name 3');
+            expect(fourthRow[1].text).toEqual('B123123');
 
             const fifthRow = subscriptionData.caseTableData[4];
             expect(fifthRow[0].text).toBeNull();
-            expect(fifthRow[1].text).toEqual('D123123');
+            expect(fifthRow[1].text).toEqual('A123123');
+
+            const sixthRow = subscriptionData.caseTableData[5];
+            expect(sixthRow[0].text).toBeNull();
+            expect(sixthRow[1].text).toEqual('D123123');
         });
 
         it('should sort location subscription data by court name', async () => {
@@ -292,7 +287,7 @@ describe('getSubscriptionDataForView function', () => {
             );
             const subscriptionData = JSON.parse(JSON.stringify(result));
 
-            expect(subscriptionData.caseTableData).toHaveLength(5);
+            expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow).toHaveLength(4);
             expect(caseDataRow[3].html).toContain('type="checkbox"');
@@ -316,7 +311,7 @@ describe('getSubscriptionDataForView function', () => {
             );
             const subscriptionData = JSON.parse(JSON.stringify(result));
 
-            expect(subscriptionData.caseTableData).toHaveLength(5);
+            expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow).toHaveLength(4);
             expect(caseDataRow[3].html).toContain('type="checkbox"');
@@ -340,7 +335,7 @@ describe('getSubscriptionDataForView function', () => {
             );
             const subscriptionData = JSON.parse(JSON.stringify(result));
 
-            expect(subscriptionData.caseTableData).toHaveLength(5);
+            expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow).toHaveLength(4);
             expect(caseDataRow[3].html).toContain('type="checkbox"');
@@ -368,15 +363,19 @@ describe('getSubscriptionDataForView function', () => {
 
             const thirdRow = subscriptionData.caseTableData[2];
             expect(thirdRow[0].text).toEqual('Test Name 3');
-            expect(thirdRow[1].text).toEqual('B123123');
+            expect(thirdRow[1].text).toEqual('1212121212');
 
             const fourthRow = subscriptionData.caseTableData[3];
-            expect(fourthRow[0].text).toBeNull();
-            expect(fourthRow[1].text).toEqual('A123123');
+            expect(fourthRow[0].text).toEqual('Test Name 3');
+            expect(fourthRow[1].text).toEqual('B123123');
 
             const fifthRow = subscriptionData.caseTableData[4];
             expect(fifthRow[0].text).toBeNull();
-            expect(fifthRow[1].text).toEqual('D123123');
+            expect(fifthRow[1].text).toEqual('A123123');
+
+            const sixthRow = subscriptionData.caseTableData[5];
+            expect(sixthRow[0].text).toBeNull();
+            expect(sixthRow[1].text).toEqual('D123123');
         });
 
         it('should sort location subscription data by court name', async () => {
@@ -395,51 +394,94 @@ describe('getSubscriptionDataForView function', () => {
 });
 
 describe('handleNewSubscription function', () => {
-    it('should add new case subscription', async () => {
-        const pendingSubscription = { 'hearing-selections[]': 'T485914' };
-        await subscriptionService.handleNewSubscription(pendingSubscription, '1');
+    it('should add new case number subscription', async () => {
+        const pendingSubscription = { 'case-number': 'T485914' };
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+
+        sinon.assert.calledWith(cacheSetStub, [mockCase], 'cases', user['userId']);
     });
 
-    it('should add new case subscriptions', async () => {
+    it('should add new case number subscriptions', async () => {
         const pendingSubscription = {
-            'hearing-selections[]': ['T485914', 'T485912'],
+            'case-number[]': ['T485914', 'T485912'],
         };
-        await subscriptionService.handleNewSubscription(pendingSubscription, '1');
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+        sinon.assert.calledWith(cacheSetStub, [mockCase, mockCase], 'cases', user['userId']);
     });
 
-    it('should add new case subscription for urn search', async () => {
-        const pendingSubscription = { urn: 'ValidURN' };
-        await subscriptionService.handleNewSubscription(pendingSubscription, '99');
+    it('should add new case urn subscription', async () => {
+        const pendingSubscription = { 'case-urn': 'URNCASE1234' };
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+
+        sinon.assert.calledWith(cacheSetStub, [mockCaseWithUrnOnly], 'cases', user['userId']);
+    });
+
+    it('should add new case urn subscriptions', async () => {
+        const pendingSubscription = {
+            'case-urn[]': ['URNCASE1234', 'URNCASE1234'],
+        };
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+
+        sinon.assert.calledWith(cacheSetStub, [mockCaseWithUrnOnly, mockCaseWithUrnOnly], 'cases', user['userId']);
     });
 
     it('should add new court subscription', async () => {
         const pendingSubscription = { 'court-selections[]': '643' };
-        await subscriptionService.handleNewSubscription(pendingSubscription, '1');
+
+        locationStub.withArgs('643').resolves(mockCourt);
+
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+
+        sinon.assert.calledWith(cacheSetStub, [mockCourt], 'courts', user['userId']);
     });
 
     it('should add new court subscriptions', async () => {
+        locationStub.withArgs('643').resolves(mockCourt);
+        locationStub.withArgs('111').resolves(mockCourt);
+
         const pendingSubscription = { 'court-selections[]': ['643', '111'] };
-        await subscriptionService.handleNewSubscription(pendingSubscription, '1');
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+
+        sinon.assert.calledWith(cacheSetStub, [mockCourt, mockCourt], 'courts', user['userId']);
     });
 
     it('should not do anything for blank data provided', async () => {
-        await subscriptionService.handleNewSubscription({}, '3');
+        await subscriptionService.handleNewSubscription({}, { userID: 12345 });
+
+        sinon.assert.neverCalledWith(cacheSetStub, sinon.match.any, sinon.match.any, '12345');
     });
 });
 
-describe('getCaseDetails function', () => {
+describe('getCaseDetailsByNumber function', () => {
     it('should return case details list', async () => {
-        const caseDetailsList = await subscriptionService.getCaseDetails(['T485914'], user);
+        const caseDetailsList = await subscriptionService.getCaseDetailsByNumber(['T485914'], user);
         expect(caseDetailsList).toStrictEqual([mockCase]);
     });
 
     it('should return empty case list if invalid case number is provided', async () => {
-        const caseList = await subscriptionService.getCaseDetails([''], user);
+        const caseList = await subscriptionService.getCaseDetailsByNumber([''], user);
         expect(caseList).toEqual([]);
     });
 
     it('should return empty case list if no cases are provided', async () => {
-        const caseList = await subscriptionService.getCaseDetails([], user);
+        const caseList = await subscriptionService.getCaseDetailsByNumber([], user);
+        expect(caseList).toEqual([]);
+    });
+});
+
+describe('getCaseDetailsByUrn function', () => {
+    it('should return case details list', async () => {
+        const caseDetailsList = await subscriptionService.getCaseDetailsByUrn(['URNCASE1234'], user);
+        expect(caseDetailsList).toStrictEqual([mockCaseWithUrnOnly]);
+    });
+
+    it('should return empty case list if invalid case number is provided', async () => {
+        const caseList = await subscriptionService.getCaseDetailsByUrn([''], user);
+        expect(caseList).toEqual([]);
+    });
+
+    it('should return empty case list if no cases are provided', async () => {
+        const caseList = await subscriptionService.getCaseDetailsByUrn([], user);
         expect(caseList).toEqual([]);
     });
 });
