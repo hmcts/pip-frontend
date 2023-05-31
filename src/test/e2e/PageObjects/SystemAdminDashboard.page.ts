@@ -1,11 +1,10 @@
-import {CommonPage} from './Common.page';
-import {SessionLoggedOutPage} from './SessionLoggedOut.page';
-import {ManageThirdPartyUsersPage} from './ManageThirdPartyUsers.page';
+import { CommonPage } from './Common.page';
+import { SessionLoggedOutPage } from './SessionLoggedOut.page';
+import { ManageThirdPartyUsersPage } from './ManageThirdPartyUsers.page';
 
 const helpers = require('../Helpers/Selectors');
 
 export class SystemAdminDashboardPage extends CommonPage {
-
     async clickManageThirdPartyUsersCard(): Promise<ManageThirdPartyUsersPage> {
         await $(helpers.ManageThirdPartyUsers).catch(() => {
             console.log(`${helpers.ManageThirdPartyUsers} not found`);

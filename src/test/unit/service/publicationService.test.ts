@@ -29,6 +29,13 @@ const returnedArtefact = [
     },
 ];
 
+const returnedCasesWithUrnFlag = [
+    { caseNumber: '123', caseName: 'test name 1', caseUrn: '321', displayUrn: true },
+    { caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456', displayUrn: true },
+    { caseNumber: '432', caseName: 'not in', caseUrn: '867', displayUrn: true },
+    { caseNumber: '998', caseUrn: '888', displayUrn: true },
+];
+
 const countPerLocation = [
     {
         locationId: '1',
@@ -75,16 +82,20 @@ stubPublicationDeletion.withArgs(2, requester).returns(null);
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
         const results = await publicationService.getCasesByCaseName(partialCaseNameValue, userId);
-        expect(results.length).to.equal(4);
+        expect(results.length).to.equal(6);
         expect(results)
             .not.contain(returnedArtefact[0].search.cases[2])
-            .not.contain(returnedArtefact[0].search.cases[3]);
+            .not.contain(returnedArtefact[0].search.cases[3])
+            .not.contain(returnedArtefact[0].search.cases[5])
+            .not.contain(returnedCasesWithUrnFlag[2])
+            .not.contain(returnedCasesWithUrnFlag[3]);
     });
 
     it('should return one case if it exists in multiple artefacts', async () => {
         const results = await publicationService.getCasesByCaseName(fullCaseNameValue, userId);
-        expect(results.length).to.equal(1);
+        expect(results.length).to.equal(2);
         expect(results[0]).to.equal(returnedArtefact[0].search.cases[0]);
+        expect(JSON.stringify(results[1])).to.eq(JSON.stringify(returnedCasesWithUrnFlag[0]));
     });
 
     it('should return search case for case name with mismatched casing', async () => {

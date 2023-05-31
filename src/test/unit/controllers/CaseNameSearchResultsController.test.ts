@@ -7,7 +7,13 @@ import { PublicationService } from '../../../main/service/publicationService';
 const caseNameSearchResultsController = new CaseNameSearchResultsController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 publicationServiceStub.withArgs('').returns([]);
-publicationServiceStub.withArgs('Meedoo').returns([{ caseName: 'Meedoo', caseNumber: '321321' }]);
+
+const foundResults = [
+    { caseName: 'numberResult', caseNumber: '321322' },
+    { caseName: 'urnResult', caseNumber: '321322', displayUrn: true },
+];
+
+publicationServiceStub.withArgs('urnAndNumberResults').returns(foundResults);
 
 describe('Case name search results controller', () => {
     const i18n = {
@@ -22,10 +28,10 @@ describe('Case name search results controller', () => {
     it('should render case name search results page if query param is valid', async () => {
         const request = mockRequest(i18n);
         request.user = { userId: '1' };
-        request.query = { search: 'Meedoo' };
+        request.query = { search: 'urnAndNumberResults' };
         const expectedData = {
             ...i18n['case-name-search'],
-            searchResults: [{ caseName: 'Meedoo', caseNumber: '321321' }],
+            searchResults: foundResults,
         };
 
         const responseMock = sinon.mock(response);

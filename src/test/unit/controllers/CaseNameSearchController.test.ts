@@ -7,7 +7,7 @@ import { PublicationService } from '../../../main/service/publicationService';
 const caseNameSearchController = new CaseNameSearchController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 publicationServiceStub.withArgs('').returns([]);
-publicationServiceStub.withArgs('meedoo').returns([{}]);
+publicationServiceStub.withArgs('one-result').returns([{}]);
 publicationServiceStub.withArgs('bob').returns([]);
 
 describe('Case name search controller', () => {
@@ -64,11 +64,11 @@ describe('Case name search controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.user = { userId: '1' };
-        request.body = { 'case-name': 'meedoo' };
+        request.body = { 'case-name': 'one-result' };
 
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('redirect').once().withArgs('case-name-search-results?search=meedoo');
+        responseMock.expects('redirect').once().withArgs('case-name-search-results?search=one-result');
         return caseNameSearchController.post(request, response).then(() => {
             responseMock.verify();
         });

@@ -27,7 +27,7 @@ export default class CaseNameSearchController {
                 searchInput.toLowerCase(),
                 req.user['userId']
             );
-            if (searchResults.length) {
+            if (searchResults.length > 0) {
                 res.redirect('case-name-search-results?search=' + searchInput);
             } else {
                 res.render('case-name-search', {
