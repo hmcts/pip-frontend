@@ -13033,6 +13033,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^8.4.24":
+  version: 8.4.24
+  resolution: "postcss@npm:8.4.24"
+  dependencies:
+    nanoid: ^3.3.6
+    picocolors: ^1.0.0
+    source-map-js: ^1.0.2
+  checksum: 814e2126dacfea313588eda09cc99a9b4c26ec55c059188aa7a916d20d26d483483106dc5ff9e560731b59f45c5bb91b945dfadc670aed875cc90ddbbf4e787d
+  languageName: node
+  linkType: hard
+
 "preact@npm:^8.3.1":
   version: 8.5.3
   resolution: "preact@npm:8.5.3"
@@ -13317,7 +13328,7 @@ __metadata:
     passport-azure-ad: 4.3.3
     passport-custom: ^1.1.1
     playwright: ^1.33.0
-    postcss: ^8.4.23
+    postcss: ^8.4.24
     prettier: ^2.8.8
     pretty-print-json: ^2.0.1
     require-directory: ^2.1.1
