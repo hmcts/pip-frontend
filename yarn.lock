@@ -4633,12 +4633,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"allure-commandline@npm:^2.22.0":
-  version: 2.22.0
-  resolution: "allure-commandline@npm:2.22.0"
+"allure-commandline@npm:^2.22.1":
+  version: 2.22.1
+  resolution: "allure-commandline@npm:2.22.1"
   bin:
     allure: bin/allure
-  checksum: 32a10d89f883e65a4fd89614bff5c2d002470fac21e7d6d13cf80274beb70e44a6abe1b601701f4f1289f413d0229333dcb0241f79e6b551b480a8f7bee28dfd
+  checksum: 358f1537fcd4d4d103bf7de076a0798607fe44ffd6c0c68808f7b4d25bd5b4d022be2d1133747dd42b98f0e86b8610887d62d0acb18a551d0186663767e8e642
   languageName: node
   linkType: hard
 
@@ -13267,7 +13267,7 @@ __metadata:
     "@wdio/selenium-standalone-service": ^8.8.8
     "@wdio/spec-reporter": ^8.8.8
     accessible-autocomplete: ^2.0.4
-    allure-commandline: ^2.22.0
+    allure-commandline: ^2.22.1
     applicationinsights: ^2.6.0
     awilix: ^8.0.1
     axios: ^1.4.0
