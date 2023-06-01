@@ -109,7 +109,7 @@
         "validator": "^13.9.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.21.8",
+        "@babel/core": "^7.22.1",
         "@babel/eslint-parser": "7.21.8",
         "@babel/preset-env": "^7.21.5",
         "@codeceptjs/allure-legacy": "^1.0.2",
