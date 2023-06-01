@@ -8,6 +8,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { TribunalNationalListsService } from '../../../main/service/listManipulation/TribunalNationalListsService';
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -29,6 +30,7 @@ const artefactId = 'abc';
 
 tribunalNationalListJsonStub.withArgs(artefactId).resolves(listData);
 tribunalNationalListJsonStub.withArgs('').resolves([]);
+tribunalNationalListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 tribunalNationalListMetaDataStub.withArgs(artefactId).resolves(metaData);
 tribunalNationalListMetaDataStub.withArgs('').resolves([]);
@@ -109,6 +111,23 @@ describe('Tribunal National List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await tribunalNationalListsController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if response is 404', async () => {
+        const request = mockRequest(i18n);
+        request.query = { artefactId: '1234' };
+        request.user = { userId: '123' };
+        request.path = '/primary-health-list';
+
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await tribunalNationalListsController.get(request, response);
         return responseMock.verify();
