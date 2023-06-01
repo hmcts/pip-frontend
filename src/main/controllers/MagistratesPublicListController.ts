@@ -6,6 +6,8 @@ import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
+import { HttpStatusCode } from 'axios';
+import { isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -19,7 +21,7 @@ export default class MagistratesPublicListController {
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
-        if (searchResults && metaData) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData) {
             // initial cleaning of data using mixed list service
             let manipulatedData = civListsService.sculptedCivilListData(JSON.stringify(searchResults));
             manipulatedData = crimeListsService.manipulateCrimeListData(
@@ -46,6 +48,8 @@ export default class MagistratesPublicListController {
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
             });
+        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+            res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }

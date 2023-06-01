@@ -7,6 +7,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import SjpPublicListController from '../../../main/controllers/SjpPublicListController';
 import { FilterService } from '../../../main/service/filterService';
 import { SjpFilterService } from '../../../main/service/sjpFilterService';
+import { HttpStatusCode } from 'axios';
 
 const sjpPublicListController = new SjpPublicListController();
 
@@ -21,6 +22,7 @@ const metaData = JSON.parse(rawMetaData)[0];
 const i18n = { 'single-justice-procedure': {}, 'list-template': {} };
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 jsonStub.withArgs(artefactId, '123').resolves(data);
+jsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 const sjpPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sjpPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
@@ -110,6 +112,20 @@ describe('SJP Public List Type Controller', () => {
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+            await sjpPublicListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render list not found page if response is 404', async () => {
+            request.query = { artefactId: '1234' };
+            request.user = { userId: '123' };
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
             await sjpPublicListController.get(request, response);
             return responseMock.verify();
