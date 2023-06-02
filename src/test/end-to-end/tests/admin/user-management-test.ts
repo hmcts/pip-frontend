@@ -69,6 +69,7 @@ Scenario('I as an admin user should be able to see all errors related to modify 
     I.fillField('#search-input', '');
     I.click('Continue');
     I.waitForText('There is a problem');
+    I.see('There is no user matching that email address.')
 
     I.click('Home');
     I.see('Update and delete users.');
@@ -77,4 +78,5 @@ Scenario('I as an admin user should be able to see all errors related to modify 
     I.fillField('#search-input', TEST_INVALID_EMAIL);
     I.click('Continue');
     I.waitForText('There is a problem');
+    I.see('There is no user matching that email address.')
 });
