@@ -16,7 +16,7 @@ Scenario(
         const caseNamePartySurname = 'Test Surname';
         const caseNamePartyOrganisationName = 'Test Organisation Name';
         const caseNamePartyRepSurname = 'Test Rep Surname';
-        const casePartySurname = 'Another Test Surname'
+        const casePartySurname = 'Another Test Surname';
         const casePartyRepSurname = 'Another Test Rep Surname';
         const casePartyNumber = '12341235';
         const casePartyURN = '99999999';
