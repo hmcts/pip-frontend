@@ -47,6 +47,7 @@ export interface PipRequest extends Request {
             'unsubscribe-confirmation': {};
             'view-option': {};
             'warned-list': {};
+            'list-not-found': {};
         };
     };
     lng?: string;
