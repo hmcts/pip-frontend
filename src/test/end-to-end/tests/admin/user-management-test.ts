@@ -8,7 +8,7 @@ const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
 const TEST_EMAIL = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
 const TEST_ROLE = 'Internal - Administrator - Local';
-const TEST_INVALID_EMAIL = 'invalid_email@test.com';
+const TEST_INVALID_EMAIL = 'invalid_email@justice.gov.uk';
 
 Scenario('I as an admin user should be able to modify a user account', async ({ I }) => {
     I.loginAsAdmin();
@@ -69,7 +69,7 @@ Scenario('I as an admin user should be able to see all errors related to modify 
     I.fillField('#search-input', '');
     I.click('Continue');
     I.waitForText('There is a problem');
-    I.see('There is no user matching that email address.')
+    I.see('There is no user matching that email address.');
 
     I.click('Home');
     I.see('Update and delete users.');
@@ -78,5 +78,5 @@ Scenario('I as an admin user should be able to see all errors related to modify 
     I.fillField('#search-input', TEST_INVALID_EMAIL);
     I.click('Continue');
     I.waitForText('There is a problem');
-    I.see('There is no user matching that email address.')
+    I.see('There is no user matching that email address.');
 });
