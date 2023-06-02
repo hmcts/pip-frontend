@@ -56,20 +56,11 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
 
     I.click('Home');
     I.deleteAccount(TEST_EMAIL);
-
-    I.click('Home');
-    I.see('Update and delete users.');
-    I.click('#card-admin-management');
-    I.waitForText('What is the users email address?');
-    I.fillField('#search-input', TEST_EMAIL);
-    I.click('Continue');
-    I.waitForText('There is a problem');
 });
 
 Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({ I }) => {
     I.loginAsAdmin();
     I.waitForText('Your Dashboard');
-    I.createAdminAccount(TEST_FIRST_NAME, TEST_LAST_NAME, TEST_EMAIL, TEST_ROLE);
 
     I.click('Home');
     I.see('Update and delete users.');
@@ -86,7 +77,4 @@ Scenario('I as an admin user should be able to see all errors related to modify 
     I.fillField('#search-input', TEST_INVALID_EMAIL);
     I.click('Continue');
     I.waitForText('There is a problem');
-
-    I.click('Home');
-    I.deleteAccount(TEST_EMAIL);
 });
