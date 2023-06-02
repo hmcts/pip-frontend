@@ -3,8 +3,9 @@
     "removeText": "Remove",
     "table": {
         "header1": "Case name",
-        "header2": "Reference number",
-        "header3": "Actions"
+        "header2": "Party name(s)",
+        "header3": "Reference number",
+        "header4": "Actions"
     },
     "buttonText": "Confirm Subscriptions",
     "addOther_link": "/subscription-add",

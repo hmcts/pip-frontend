@@ -13,6 +13,18 @@
                     "caseName": "case name 1",
                     "caseUrn": "38543"
                 }
+            ],
+            "parties": [
+                {
+                    "cases": [
+                        {
+                            "caseNumber": "635356",
+                            "caseName": "case name 1",
+                            "caseUrn": "38543"
+                        }
+                    ],
+                    "parties": ["party name"]
+                }
             ]
         },
         "displayFrom": "2022-02-14T14:14:59.73967",

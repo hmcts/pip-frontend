@@ -10,7 +10,9 @@ const caseNumberValue = '123';
 const caseUrnValue = '456';
 const fullCaseNameValue = 'test name 1';
 const partialCaseNameValue = 'test';
-const UppercaseCaseNameValue = 'TEST NAME 2';
+const uppercaseCaseNameValue = 'TEST NAME 2';
+const partialPartyNameValue = 'PARTYNAME';
+const mixedCasePartyNameValue = 'ParTYNamE3';
 const userId = '123';
 
 const returnedArtefact = [
@@ -25,13 +27,44 @@ const returnedArtefact = [
                 { caseNumber: '999', caseName: 'test name 2' },
                 { caseName: 'test name 3', caseUrn: '889' },
             ],
+            parties: [
+                {
+                    cases: [{ caseNumber: '123', caseName: 'test name 1', caseUrn: '321' }],
+                    parties: ['PARTYNAME1', 'PARTYNAME2'],
+                },
+                {
+                    cases: [{ caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456' }],
+                    parties: ['PARTYNAME3'],
+                },
+                {
+                    cases: [{ caseNumber: '432', caseName: 'not in', caseUrn: '867' }],
+                    parties: [],
+                },
+                {
+                    cases: [
+                        { caseNumber: '998', caseUrn: '888' },
+                        { caseNumber: '999', caseName: 'test name 2' },
+                    ],
+                    parties: ['PARTYNAME4'],
+                },
+                {
+                    cases: [{ caseName: 'test name 3', caseUrn: '889' }],
+                    parties: [],
+                },
+            ],
         },
     },
 ];
 
 const returnedCasesWithUrnFlag = [
-    { caseNumber: '123', caseName: 'test name 1', caseUrn: '321', displayUrn: true },
-    { caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456', displayUrn: true },
+    {
+        caseNumber: '123',
+        caseName: 'test name 1',
+        caseUrn: '321',
+        partyNames: 'PARTYNAME1,\nPARTYNAME2',
+        displayUrn: true,
+    },
+    { caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456', partyNames: 'PARTYNAME3', displayUrn: true },
     { caseNumber: '432', caseName: 'not in', caseUrn: '867', displayUrn: true },
     { caseNumber: '998', caseUrn: '888', displayUrn: true },
 ];
@@ -93,27 +126,100 @@ describe('Publication service', () => {
 
     it('should return one case if it exists in multiple artefacts', async () => {
         const results = await publicationService.getCasesByCaseName(fullCaseNameValue, userId);
+
         expect(results.length).to.equal(2);
-        expect(results[0]).to.equal(returnedArtefact[0].search.cases[0]);
-        expect(JSON.stringify(results[1])).to.eq(JSON.stringify(returnedCasesWithUrnFlag[0]));
+        expect(results[0]).to.eql({
+            ...returnedArtefact[0].search.cases[0],
+            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+        });
+        expect(JSON.stringify(results[1])).to.eql(JSON.stringify(returnedCasesWithUrnFlag[0]));
     });
 
     it('should return search case for case name with mismatched casing', async () => {
-        const results = await publicationService.getCasesByCaseName(UppercaseCaseNameValue, userId);
+        const results = await publicationService.getCasesByCaseName(uppercaseCaseNameValue, userId);
+
         expect(results.length).to.equal(1);
-        expect(results[0]).to.equal(returnedArtefact[0].search.cases[4]);
+        expect(results[0]).to.eql({
+            ...returnedArtefact[0].search.cases[4],
+            partyNames: 'PARTYNAME4',
+        });
     });
 
     it('should return Search Object matching case number', async () => {
-        expect(await publicationService.getCaseByCaseNumber(caseNumberValue, userId)).to.equal(
-            returnedArtefact[0].search.cases[0]
-        );
+        const result = await publicationService.getCaseByCaseNumber(caseNumberValue, userId);
+
+        expect(result).to.eql({
+            ...returnedArtefact[0].search.cases[0],
+            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+        });
+    });
+
+    it('should return array of Search Objects based on partial party name', async () => {
+        const results = await publicationService.getCasesByPartyName(partialPartyNameValue, userId);
+        expect(results).to.have.length(7);
+
+        expect(results[0]).to.eql({
+            ...returnedArtefact[0].search.cases[0],
+            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+        });
+
+        expect(results[1]).to.eql({
+            ...returnedArtefact[0].search.cases[0],
+            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+            displayUrn: true,
+        });
+
+        expect(results[2]).to.eql({
+            ...returnedArtefact[0].search.cases[1],
+            partyNames: 'PARTYNAME3',
+        });
+
+        expect(results[3]).to.eql({
+            ...returnedArtefact[0].search.cases[1],
+            partyNames: 'PARTYNAME3',
+            displayUrn: true,
+        });
+
+        expect(results[4]).to.eql({
+            ...returnedArtefact[0].search.cases[3],
+            partyNames: 'PARTYNAME4',
+        });
+
+        expect(results[5]).to.eql({
+            ...returnedArtefact[0].search.cases[3],
+            partyNames: 'PARTYNAME4',
+            displayUrn: true,
+        });
+
+        expect(results[6]).to.eql({
+            ...returnedArtefact[0].search.cases[4],
+            partyNames: 'PARTYNAME4',
+        });
+    });
+
+    it('should return search case for party name with mismatched casing', async () => {
+        const results = await publicationService.getCasesByPartyName(mixedCasePartyNameValue, userId);
+        expect(results).to.have.length(2);
+
+        expect(results[0]).to.eql({
+            ...returnedArtefact[0].search.cases[1],
+            partyNames: 'PARTYNAME3',
+        });
+
+        expect(results[1]).to.eql({
+            ...returnedArtefact[0].search.cases[1],
+            partyNames: 'PARTYNAME3',
+            displayUrn: true,
+        });
     });
 
     it('should return Search Object matching case urn', async () => {
-        expect(await publicationService.getCaseByCaseUrn(caseUrnValue, userId)).to.equal(
-            returnedArtefact[0].search.cases[1]
-        );
+        const result = await publicationService.getCaseByCaseUrn(caseUrnValue, userId);
+
+        expect(result).to.eql({
+            ...returnedArtefact[0].search.cases[1],
+            partyNames: 'PARTYNAME3',
+        });
     });
 
     it('should return null processing failed request', async () => {

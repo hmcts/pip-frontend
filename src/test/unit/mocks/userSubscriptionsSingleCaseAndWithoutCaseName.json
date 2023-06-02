@@ -6,6 +6,7 @@
                 "caseName": null,
                 "caseNumber": "1234512346",
                 "urn": "URN12345",
+                "partyNames": "PARTYNAME1,PARTYNAME2",
                 "searchType": "CASE_ID",
                 "dateAdded": "2022-01-14T11:30:12.357299"
             },
@@ -14,6 +15,7 @@
                 "caseName": "Case Name",
                 "caseNumber": "1234512345",
                 "urn": "URN12345",
+                "partyNames": "PARTYNAME3",
                 "searchType": "CASE_ID",
                 "dateAdded": "2022-01-14T11:30:12.357299"
             },
@@ -22,6 +24,7 @@
                 "caseName": "Case Name",
                 "caseNumber": "1234512345",
                 "urn": "URN12345",
+                "partyNames": null,
                 "searchType": "CASE_ID",
                 "dateAdded": "2022-01-14T11:30:12.357299"
             },
@@ -30,6 +33,7 @@
                 "caseName": "Case Name",
                 "caseNumber": null,
                 "urn": null,
+                "partyNames": null,
                 "searchType": "CASE_ID",
                 "dateAdded": "2022-01-14T11:30:12.357299"
             },
@@ -38,6 +42,7 @@
                 "caseName": "Case Name",
                 "caseNumber": null,
                 "urn": "1234",
+                "partyNames": null,
                 "searchType": "CASE_URN",
                 "dateAdded": "2022-01-14T11:30:12.357299"
             }

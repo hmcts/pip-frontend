@@ -4,19 +4,25 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 
-const PAGE_URL = '/case-name-search-results?search=Meedo';
-const pageTitleValue = 'Search result';
+const PAGE_URL = '/party-name-search-results?search=party';
 let htmlRes: Document;
 
 const data = [
     {
         search: {
             cases: [
-                { caseName: "Meedoo's hearings", caseNumber: '123' },
-                { caseName: "Meedoo's hearings", caseNumber: '321', caseUrn: 'caseUrn1234' },
-                { caseName: "Meedoo's hearings", caseNumber: '234' },
-                { caseName: "Meedoo's hearings", caseNumber: '534' },
-                { caseName: "Meedoo's hearings", caseNumber: '674' },
+                { caseName: 'case name 1', caseNumber: '123', caseUrn: '456' },
+                { caseName: 'case name 2', caseNumber: '789', caseUrn: null },
+            ],
+            parties: [
+                {
+                    cases: [{ caseName: 'case name 1', caseNumber: '123', caseUrn: '456' }],
+                    parties: ['party name 1'],
+                },
+                {
+                    cases: [{ caseName: 'case name 2', caseNumber: '789', caseUrn: null }],
+                    parties: ['party name 2'],
+                },
             ],
         },
     },
@@ -26,7 +32,7 @@ sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns(d
 
 app.request['user'] = { roles: 'VERIFIED' };
 
-describe('Case name search results page', () => {
+describe('Party name search results page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -38,17 +44,17 @@ describe('Case name search results page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
+        expect(pageTitle).contains('Search result', 'Page title does not match');
     });
 
     it('should display header', () => {
         const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(pageHeading[0].innerHTML).contains('Search result', 'Page heading does not exist');
+        expect(pageHeading[0].innerHTML).contains('Search result', 'Page heading does not match');
     });
 
     it('should display results count message', () => {
         const resultsMessage = htmlRes.getElementsByClassName('govuk-body');
-        expect(resultsMessage[0].innerHTML).contains('6  result(s) successfully found', 'Results message not found');
+        expect(resultsMessage[0].innerHTML).contains('3  result(s) successfully found', 'Results message not found');
     });
 
     it('should contain expected column headings', () => {
@@ -59,25 +65,28 @@ describe('Case name search results page', () => {
         expect(tableHeaders[3].innerHTML).contains('Reference number', 'Could not find case reference number header');
     });
 
-    it('should contain 7 rows, including the header', () => {
+    it('should contain 4 rows, including the header', () => {
         const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
-        expect(tableRows.length).equal(7, 'Number of rows is not equal to expected amount');
+        expect(tableRows.length).equal(4, 'Number of rows is not equal to expected amount');
     });
 
-    it('should display correct data for case number row', () => {
+    it('should display correct data for able rows', () => {
         const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
-        expect(tableRows[1].innerHTML).contains("Meedoo's hearings", 'Case name incorrect on table row');
+        expect(tableRows[1].innerHTML).contains('case name 1', 'Case name incorrect on table row');
+        expect(tableRows[1].innerHTML).contains('party name 1', 'Party name incorrect on table row');
         expect(tableRows[1].innerHTML).contains('123', 'Case number incorrect on table row');
-    });
 
-    it('should display correct data for case urn row', () => {
-        const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
-        expect(tableRows[3].innerHTML).contains("Meedoo's hearings", 'Case name incorrect on table row');
-        expect(tableRows[3].innerHTML).contains('caseUrn1234', 'Case urn incorrect on table row');
+        expect(tableRows[2].innerHTML).contains('case name 1', 'Case name incorrect on table row');
+        expect(tableRows[2].innerHTML).contains('party name 1', 'Party name incorrect on table row');
+        expect(tableRows[2].innerHTML).contains('456', 'Case urn incorrect on table row');
+
+        expect(tableRows[3].innerHTML).contains('case name 2', 'Case name incorrect on table row');
+        expect(tableRows[3].innerHTML).contains('party name 2', 'Party name incorrect on table row');
+        expect(tableRows[3].innerHTML).contains('789', 'Case number incorrect on table row');
     });
 
     it('should display checkboxes', () => {
         const checkBoxes = htmlRes.querySelectorAll('.govuk-table__body .govuk-checkboxes__input');
-        expect(checkBoxes.length).equal(6, 'Could not find table checkboxes');
+        expect(checkBoxes.length).equal(3, 'Could not find table checkboxes');
     });
 });

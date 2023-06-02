@@ -17,7 +17,7 @@ const rowClass = 'govuk-table__row';
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
+const subscriptionsData = { ...JSON.parse(rawData)[0].search.cases[0], partyNames: 'party name' };
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscriptionsData);
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
 
@@ -71,7 +71,8 @@ describe('Case Reference Search Results Page - Number', () => {
         const items = rows.item(1).children;
 
         expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
-        expect(items[1].innerHTML).contains('635356', 'Case reference no does not exist');
+        expect(items[1].innerHTML).contains('party name', 'Party name does not exist');
+        expect(items[2].innerHTML).contains('635356', 'Case reference no does not exist');
     });
 });
 
@@ -95,6 +96,7 @@ describe('Case Reference Search Results Page - URN', () => {
         const items = rows.item(1).children;
 
         expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
-        expect(items[1].innerHTML).contains('38543', 'Case urn does not exist');
+        expect(items[1].innerHTML).contains('party name', 'Party name does not exist');
+        expect(items[2].innerHTML).contains('38543', 'Case urn does not exist');
     });
 });

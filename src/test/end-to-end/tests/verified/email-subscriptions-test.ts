@@ -13,6 +13,13 @@ Scenario(
         const caseURN = 'Case URN';
         const caseNameNumber = '12341232';
         const caseNameUrn = '18472381412';
+        const caseNamePartySurname = 'Test Surname';
+        const caseNamePartyOrganisationName = 'Test Organisation Name';
+        const caseNamePartyRepSurname = 'Test Rep Surname';
+        const casePartySurname = 'Another Test Surname'
+        const casePartyRepSurname = 'Another Test Rep Surname';
+        const casePartyNumber = '12341235';
+        const casePartyURN = '99999999';
 
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
@@ -46,7 +53,7 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-2');
+        I.click('#subscription-choice-3');
         I.click('Continue');
         I.waitForText('What is the reference number?');
         I.see(
@@ -65,7 +72,7 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-2');
+        I.click('#subscription-choice-3');
         I.click('Continue');
         I.waitForText('What is the reference number?');
         I.see(
@@ -84,7 +91,7 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-3');
+        I.click('#subscription-choice-4');
         I.click('Continue');
         I.waitForText('What is the name of the case?');
         I.see('For example, Smith');
@@ -92,10 +99,34 @@ Scenario(
         I.click('Continue');
         I.waitForText('Search result');
         I.see(caseName);
+        I.see(caseNamePartySurname);
+        I.see(caseNamePartyOrganisationName);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
+        I.dontSee(caseNamePartyRepSurname);
         I.checkOption('//*[@id="12341232"]');
         I.checkOption('//*[@id="18472381412"]');
+        I.click('Continue');
+        I.waitForText('Confirm your email subscriptions');
+        I.click('Confirm Subscriptions');
+        I.waitForText('Subscription(s) confirmed');
+        I.see('Your subscription(s) has been added successfully');
+
+        I.click('Email subscriptions');
+        I.click('Add email subscription');
+        I.click('#subscription-choice-2');
+        I.click('Continue');
+        I.waitForText('What is the surname or organisation name of the party involved in the case?');
+        I.see('For example, Smith');
+        I.fillField('#party-name', casePartySurname);
+        I.click('Continue');
+        I.waitForText('Search result');
+        I.see(casePartySurname);
+        I.see(casePartyNumber);
+        I.see(casePartyURN);
+        I.dontSee(casePartyRepSurname);
+        I.checkOption('//*[@id="12341235"]');
+        I.checkOption('//*[@id="99999999"]');
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
@@ -110,6 +141,11 @@ Scenario(
         I.see(caseURN);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
+        I.see(caseNamePartySurname);
+        I.see(caseNamePartyOrganisationName);
+        I.see(casePartySurname);
+        I.see(casePartyNumber);
+        I.see(casePartyURN);
 
         I.click('Subscriptions by case');
         I.dontSee(locationName);
@@ -118,12 +154,18 @@ Scenario(
         I.see(caseURN);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
+        I.see(caseNamePartySurname);
+        I.see(caseNamePartyOrganisationName);
+        I.see(casePartySurname);
+        I.see(casePartyNumber);
+        I.see(casePartyURN);
 
         I.click('Subscriptions by court or tribunal');
         I.see(locationName);
         I.dontSee(caseId);
         I.dontSee(caseName);
         I.dontSee(caseURN);
+        I.dontSee(casePartySurname);
 
         I.click('All subscriptions');
         I.see(caseURN);
@@ -141,6 +183,8 @@ Scenario(
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click(locate('//tr').withText(caseId).find('input').withAttr({ id: 'caseSubscription' }));
         I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ id: 'caseSubscription' }));
+        I.click(locate('//tr').withText(casePartyNumber).find('input').withAttr({ id: 'caseSubscription' }));
+        I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ id: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
@@ -200,10 +244,21 @@ Scenario(
         I.click('Continue');
         I.click('Continue');
         I.waitForText('There is a problem');
+        I.see('Please enter a minimum of 3 characters');
+        I.fillField('#party-name', 'InvalidPartyName');
+        I.click('Continue');
+        I.waitForText('There is a problem');
         I.see('There is nothing matching your criteria');
         I.click('Add subscription by an alternative type');
 
         I.click('#subscription-choice-3');
+        I.click('Continue');
+        I.click('Continue');
+        I.waitForText('There is a problem');
+        I.see('There is nothing matching your criteria');
+        I.click('Add subscription by an alternative type');
+
+        I.click('#subscription-choice-4');
         I.click('Continue');
         I.click('Continue');
         I.waitForText('There is a problem');

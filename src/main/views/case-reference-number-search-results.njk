@@ -17,16 +17,18 @@
   <h1 class="govuk-heading-l">{{ title }}</h1>
   <h3 class="govuk-heading-m">{{ subheader }}</h3>
 
-  <table class="govuk-table govuk-!-width-two-thirds">
+  <table class="govuk-table govuk-!-width-three-quarters">
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
-      <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header2 }}</th>
+      <th scope="col" class="govuk-table__header">{{ table.header2 }}</th>
+      <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header3 }}</th>
     </tr>
     </thead>
     <tbody class="govuk-table__body">
       <tr class="govuk-table__row">
         <td class="govuk-table__cell">{{ searchResults.caseName }}</td>
+        <td class="govuk-table__cell">{{ searchResults.partyNames | striptags(true) | escape | nl2br }}</td>
         <td class="govuk-table__cell govuk-!-text-align-right">{{ searchResults.caseUrn if urnSearch else searchResults.caseNumber }}</td>
       </tr>
     </tbody>
