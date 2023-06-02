@@ -1,5 +1,5 @@
 import { config as testConfig } from '../../../config';
-import {randomData} from "../../shared/random-data";
+import { randomData } from '../../shared/random-data';
 
 Feature('Manage admin user accounts');
 
@@ -56,6 +56,14 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
 
     I.click('Home');
     I.deleteAccount(TEST_EMAIL);
+
+    I.click('Home');
+    I.see('Update and delete users.');
+    I.click('#card-admin-management');
+    I.waitForText('What is the users email address?');
+    I.fillField('#search-input', TEST_EMAIL);
+    I.click('Continue');
+    I.waitForText('There is a problem');
 });
 
 Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({ I }) => {
