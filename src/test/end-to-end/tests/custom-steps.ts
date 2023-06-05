@@ -66,5 +66,20 @@ export = function () {
             this.fillField('#emailAddress', email);
             this.click('Continue');
         },
+
+        deleteAccount: function (email) {
+            this.amOnPage('/admin-dashboard');
+            this.waitForText('Your Dashboard');
+            this.click('#card-admin-management');
+            this.waitForText('What is the users email address?');
+            this.fillField('#search-input', email);
+            this.click('Continue');
+            this.waitForText('Manage ' + email);
+            this.click('Delete user');
+            this.waitForText('Are you sure you want to delete ' + email);
+            this.click('#delete-user-confirm');
+            this.click('Continue');
+            this.waitForText('User Deleted');
+        },
     });
 };
