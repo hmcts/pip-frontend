@@ -106,7 +106,7 @@
 												"partyRole": "CLAIMANT_PETITIONER",
 												"individualDetails": {
 													"title": "Ms",
-													"individualForenames": "Test forename",
+													"individualForenames": "Test Forename",
 													"individualMiddleName": "B",
 													"individualSurname": "Test Surname"
 												}
@@ -269,18 +269,16 @@
 												"partyRole": "CLAIMANT_PETITIONER",
 												"individualDetails": {
 													"title": "Ms",
-													"individualForenames": "Test forename",
-													"individualMiddleName": "5",
-													"individualSurname": "Another Test Surname"
+													"individualForenames": "Party Forename",
+													"individualSurname": "Party Surname"
 												}
 											},
                                             {
                                                 "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
                                                 "individualDetails": {
                                                     "title": "Sir",
-                                                    "individualForenames": "Test forename",
-                                                    "individualMiddleName": "2",
-                                                    "individualSurname": "Another Test Rep Surname"
+                                                    "individualForenames": "Party Rep forename",
+                                                    "individualSurname": "Party Rep Surname"
                                                 },
                                                 "friendlyRoleName": "This is a role name"
                                             }

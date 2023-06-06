@@ -13,11 +13,12 @@ Scenario(
         const caseURN = 'Case URN';
         const caseNameNumber = '12341232';
         const caseNameUrn = '18472381412';
-        const caseNamePartySurname = 'Test Surname';
+        const caseNamePartyFullName = 'Test Forename B Test Surname';
         const caseNamePartyOrganisationName = 'Test Organisation Name';
         const caseNamePartyRepSurname = 'Test Rep Surname';
-        const casePartySurname = 'Another Test Surname';
-        const casePartyRepSurname = 'Another Test Rep Surname';
+        const casePartySurname = 'Party Surname';
+        const casePartyFullName = 'Party Forename Party Surname';
+        const casePartyRepSurname = 'Party Rep Surname';
         const casePartyNumber = '12341235';
         const casePartyURN = '99999999';
 
@@ -99,7 +100,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Search result');
         I.see(caseName);
-        I.see(caseNamePartySurname);
+        I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
@@ -121,7 +122,7 @@ Scenario(
         I.fillField('#party-name', casePartySurname);
         I.click('Continue');
         I.waitForText('Search result');
-        I.see(casePartySurname);
+        I.see(casePartyFullName);
         I.see(casePartyNumber);
         I.see(casePartyURN);
         I.dontSee(casePartyRepSurname);
@@ -141,9 +142,9 @@ Scenario(
         I.see(caseURN);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
-        I.see(caseNamePartySurname);
+        I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
-        I.see(casePartySurname);
+        I.see(casePartyFullName);
         I.see(casePartyNumber);
         I.see(casePartyURN);
 
@@ -154,9 +155,9 @@ Scenario(
         I.see(caseURN);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
-        I.see(caseNamePartySurname);
+        I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
-        I.see(casePartySurname);
+        I.see(casePartyFullName);
         I.see(casePartyNumber);
         I.see(casePartyURN);
 
@@ -165,7 +166,7 @@ Scenario(
         I.dontSee(caseId);
         I.dontSee(caseName);
         I.dontSee(caseURN);
-        I.dontSee(casePartySurname);
+        I.dontSee(casePartyFullName);
 
         I.click('All subscriptions');
         I.see(caseURN);
