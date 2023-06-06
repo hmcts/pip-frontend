@@ -85,7 +85,7 @@ export = function () {
             this.waitForText('Details submitted');
         },
 
-        deleteAccount: function (email) {
+        deleteAdminAccount: function (email) {
             this.amOnPage('/admin-dashboard');
             this.waitForText('Your Dashboard');
             this.click('#card-admin-management');
