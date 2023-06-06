@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 
-const PAGE_URL = '/party-name-search-results?search=party';
+const PAGE_URL = '/party-name-search-results?search=name';
 let htmlRes: Document;
 
 const data = [
@@ -17,11 +17,21 @@ const data = [
             parties: [
                 {
                     cases: [{ caseName: 'case name 1', caseNumber: '123', caseUrn: '456' }],
-                    parties: ['party name 1'],
+                    organisations: [],
+                    individuals: [
+                        {
+                            forename: "forename",
+                            middleName: "middleName",
+                            surname: "surname",
+                        }
+                    ],
                 },
                 {
                     cases: [{ caseName: 'case name 2', caseNumber: '789', caseUrn: null }],
-                    parties: ['party name 2'],
+                    organisations: [
+                        "org name"
+                    ],
+                    individuals: [],
                 },
             ],
         },
@@ -73,15 +83,15 @@ describe('Party name search results page', () => {
     it('should display correct data for able rows', () => {
         const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
         expect(tableRows[1].innerHTML).contains('case name 1', 'Case name incorrect on table row');
-        expect(tableRows[1].innerHTML).contains('party name 1', 'Party name incorrect on table row');
+        expect(tableRows[1].innerHTML).contains('forename middleName surname', 'Party name incorrect on table row');
         expect(tableRows[1].innerHTML).contains('123', 'Case number incorrect on table row');
 
         expect(tableRows[2].innerHTML).contains('case name 1', 'Case name incorrect on table row');
-        expect(tableRows[2].innerHTML).contains('party name 1', 'Party name incorrect on table row');
+        expect(tableRows[2].innerHTML).contains('forename middleName surname', 'Party name incorrect on table row');
         expect(tableRows[2].innerHTML).contains('456', 'Case urn incorrect on table row');
 
         expect(tableRows[3].innerHTML).contains('case name 2', 'Case name incorrect on table row');
-        expect(tableRows[3].innerHTML).contains('party name 2', 'Party name incorrect on table row');
+        expect(tableRows[3].innerHTML).contains('org name', 'Party name incorrect on table row');
         expect(tableRows[3].innerHTML).contains('789', 'Case number incorrect on table row');
     });
 
