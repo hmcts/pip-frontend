@@ -1,4 +1,4 @@
-import {config as testConfig} from '../../config';
+import { config as testConfig } from '../../config';
 
 export = function () {
     return actor({
