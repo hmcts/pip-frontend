@@ -1,14 +1,19 @@
 # exclude all by default
-
 *
 
 # exceptions from `exclude all` rule
 
 !package.json
 !yarn.lock
-
+!node_modules
 !tsconfig.json
 !webpack/**
 !src/main/**
 !config/**
 !webpack.config.js
+!.yarnrc.yml
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

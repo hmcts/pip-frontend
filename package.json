@@ -158,5 +158,5 @@
         "webpack-dev-middleware": "^6.1.1",
         "webpack-node-externals": "^3.0.0"
     },
-    "packageManager": "yarn@3.4.1"
+    "packageManager": "yarn@3.5.1"
 }
