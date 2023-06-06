@@ -3,8 +3,8 @@ import { Artefact } from '../models/Artefact';
 import { ListType } from '../models/listType';
 import { SearchObject } from '../models/searchObject';
 import { HttpStatusCode } from 'axios';
-import {SearchParty} from "../models/searchParty";
-import {SearchCase} from "../models/searchCase";
+import { SearchParty } from '../models/searchParty';
+import { SearchCase } from '../models/searchCase';
 
 const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
@@ -171,7 +171,7 @@ export class PublicationService {
             if (i.surname) {
                 nameItems.push(i.surname);
             }
-            parties.push(nameItems.join(" "));
+            parties.push(nameItems.join(' '));
         });
 
         party.organisations?.forEach(o => parties.push(o));

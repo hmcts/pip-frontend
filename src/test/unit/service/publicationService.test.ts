@@ -33,9 +33,9 @@ const returnedArtefact = [
                     organisations: ['PARTYNAME1'],
                     individuals: [
                         {
-                            forename: "FORENAME",
-                            surname: "PARTYNAME2",
-                        }
+                            forename: 'FORENAME',
+                            surname: 'PARTYNAME2',
+                        },
                     ],
                 },
                 {
@@ -54,7 +54,7 @@ const returnedArtefact = [
                         { caseNumber: '999', caseName: 'test name 2' },
                     ],
                     organisations: [],
-                    individuals: [{surname: "PARTYNAME4"}],
+                    individuals: [{ surname: 'PARTYNAME4' }],
                 },
                 {
                     cases: [{ caseName: 'test name 3', caseUrn: '889' }],
