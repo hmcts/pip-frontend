@@ -1,5 +1,4 @@
-import {config as testConfig} from '../../config';
-
+import { config as testConfig } from '../../config';
 export = function () {
     return actor({
         loginAsSystemAdmin: function (
@@ -83,6 +82,21 @@ export = function () {
             this.click('#tcbox');
             this.click('Continue');
             this.waitForText('Details submitted');
+        },
+
+        deleteAccount: function (email) {
+            this.amOnPage('/admin-dashboard');
+            this.waitForText('Your Dashboard');
+            this.click('#card-admin-management');
+            this.waitForText('What is the users email address?');
+            this.fillField('#search-input', email);
+            this.click('Continue');
+            this.waitForText('Manage ' + email);
+            this.click('Delete user');
+            this.waitForText('Are you sure you want to delete ' + email);
+            this.click('#delete-user-confirm');
+            this.click('Continue');
+            this.waitForText('User Deleted');
         }
     });
 };
