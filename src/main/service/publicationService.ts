@@ -3,6 +3,8 @@ import { Artefact } from '../models/Artefact';
 import { ListType } from '../models/listType';
 import { SearchObject } from '../models/searchObject';
 import { HttpStatusCode } from 'axios';
+import {SearchParty} from "../models/searchParty";
+import {SearchCase} from "../models/searchCase";
 
 const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
@@ -88,7 +90,7 @@ export class PublicationService {
 
         if (artefact?.search.parties) {
             artefact?.search.parties.forEach(party => {
-                const partyNames = party.parties.join(',\n');
+                const partyNames = this.constructPartyNames(party);
                 party.cases.forEach(singleCase => {
                     if (singleCase[term] == value) {
                         foundObject = { ...singleCase, partyNames };
@@ -110,20 +112,10 @@ export class PublicationService {
         artefacts.forEach(artefact => {
             if (artefact?.search.parties) {
                 artefact.search.parties.forEach(party => {
-                    const partyNames = party.parties.join(',\n');
+                    const partyNames = this.constructPartyNames(party);
                     party.cases.forEach(singleCase => {
-                        if (singleCase.caseName && singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
-                            const alreadyExists = matches.find(
-                                m =>
-                                    m.caseName === singleCase.caseName &&
-                                    m.caseUrn === singleCase.caseUrn &&
-                                    m.caseNumber === singleCase.caseNumber &&
-                                    m.partyNames === partyNames
-                            );
-
-                            if (!alreadyExists) {
-                                matches.push({ ...singleCase, partyNames });
-                            }
+                        if (singleCase.caseName?.toLowerCase().includes(value.toLowerCase())) {
+                            this.storeUniquePartyCases(matches, singleCase, partyNames);
                         }
                     });
                 });
@@ -152,26 +144,65 @@ export class PublicationService {
         artefacts.forEach(artefact => {
             if (artefact?.search.parties) {
                 artefact.search.parties.forEach(party => {
-                    const partyNames = party.parties.join(',\n');
+                    const partyNames = this.constructPartyNames(party);
+                    const searchPartyNames = this.constructSearchPartyNames(party);
                     party.cases.forEach(singleCase => {
-                        if (partyNames && partyNames.toLowerCase().includes(value.toLowerCase())) {
-                            const alreadyExists = matches.find(
-                                m =>
-                                    m.caseName === singleCase.caseName &&
-                                    m.caseUrn === singleCase.caseUrn &&
-                                    m.caseNumber === singleCase.caseNumber &&
-                                    m.partyNames === partyNames
-                            );
-
-                            if (!alreadyExists) {
-                                matches.push({ ...singleCase, partyNames });
-                            }
+                        if (searchPartyNames?.find(name => name.toLowerCase().includes(value.toLowerCase()))) {
+                            this.storeUniquePartyCases(matches, singleCase, partyNames);
                         }
                     });
                 });
             }
         });
         return matches;
+    }
+
+    private constructPartyNames(party: SearchParty): string {
+        const parties = [];
+
+        party.individuals?.forEach(i => {
+            const nameItems = [];
+            if (i.forename) {
+                nameItems.push(i.forename);
+            }
+            if (i.middleName) {
+                nameItems.push(i.middleName);
+            }
+            if (i.surname) {
+                nameItems.push(i.surname);
+            }
+            parties.push(nameItems.join(" "));
+        });
+
+        party.organisations?.forEach(o => parties.push(o));
+        return parties.join(',\n');
+    }
+
+    private constructSearchPartyNames(party: SearchParty): string[] {
+        const parties = [];
+
+        party.individuals?.forEach(i => {
+            if (i.surname) {
+                parties.push(i.surname);
+            }
+        });
+
+        party.organisations?.forEach(o => parties.push(o));
+        return parties;
+    }
+
+    private storeUniquePartyCases(matches: SearchObject[], singleCase: SearchCase, partyNames: string) {
+        const alreadyExists = matches.find(
+            m =>
+                m.caseName === singleCase.caseName &&
+                m.caseUrn === singleCase.caseUrn &&
+                m.caseNumber === singleCase.caseNumber &&
+                m.partyNames === partyNames
+        );
+
+        if (!alreadyExists) {
+            matches.push({ ...singleCase, partyNames });
+        }
     }
 
     /**

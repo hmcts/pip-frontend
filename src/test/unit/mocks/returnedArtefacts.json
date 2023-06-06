@@ -23,7 +23,16 @@
                             "caseUrn": "38543"
                         }
                     ],
-                    "parties": ["party name"]
+                    "organisations": [
+                        "org name"
+                    ],
+                    "individuals": [
+                        {
+                            "forename": "forename",
+                            "middleName": "middleName",
+                            "surname": "surname"
+                        }
+                    ]
                 }
             ]
         },

@@ -30,26 +30,36 @@ const returnedArtefact = [
             parties: [
                 {
                     cases: [{ caseNumber: '123', caseName: 'test name 1', caseUrn: '321' }],
-                    parties: ['PARTYNAME1', 'PARTYNAME2'],
+                    organisations: ['PARTYNAME1'],
+                    individuals: [
+                        {
+                            forename: "FORENAME",
+                            surname: "PARTYNAME2",
+                        }
+                    ],
                 },
                 {
                     cases: [{ caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456' }],
-                    parties: ['PARTYNAME3'],
+                    organisations: ['PARTYNAME3'],
+                    individuals: [],
                 },
                 {
                     cases: [{ caseNumber: '432', caseName: 'not in', caseUrn: '867' }],
-                    parties: [],
+                    organisations: [],
+                    individuals: [],
                 },
                 {
                     cases: [
                         { caseNumber: '998', caseUrn: '888' },
                         { caseNumber: '999', caseName: 'test name 2' },
                     ],
-                    parties: ['PARTYNAME4'],
+                    organisations: [],
+                    individuals: [{surname: "PARTYNAME4"}],
                 },
                 {
                     cases: [{ caseName: 'test name 3', caseUrn: '889' }],
-                    parties: [],
+                    organisations: [],
+                    individuals: [],
                 },
             ],
         },
@@ -61,7 +71,7 @@ const returnedCasesWithUrnFlag = [
         caseNumber: '123',
         caseName: 'test name 1',
         caseUrn: '321',
-        partyNames: 'PARTYNAME1,\nPARTYNAME2',
+        partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
         displayUrn: true,
     },
     { caseNumber: '321', caseName: 'NaMe TesT', caseUrn: '456', partyNames: 'PARTYNAME3', displayUrn: true },
@@ -130,7 +140,7 @@ describe('Publication service', () => {
         expect(results.length).to.equal(2);
         expect(results[0]).to.eql({
             ...returnedArtefact[0].search.cases[0],
-            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+            partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
         });
         expect(JSON.stringify(results[1])).to.eql(JSON.stringify(returnedCasesWithUrnFlag[0]));
     });
@@ -150,7 +160,7 @@ describe('Publication service', () => {
 
         expect(result).to.eql({
             ...returnedArtefact[0].search.cases[0],
-            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+            partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
         });
     });
 
@@ -160,12 +170,12 @@ describe('Publication service', () => {
 
         expect(results[0]).to.eql({
             ...returnedArtefact[0].search.cases[0],
-            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+            partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
         });
 
         expect(results[1]).to.eql({
             ...returnedArtefact[0].search.cases[0],
-            partyNames: 'PARTYNAME1,\nPARTYNAME2',
+            partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
             displayUrn: true,
         });
 

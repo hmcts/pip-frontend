@@ -20,17 +20,15 @@ const data = [
                     organisations: [],
                     individuals: [
                         {
-                            forename: "forename",
-                            middleName: "middleName",
-                            surname: "surname",
-                        }
+                            forename: 'forename',
+                            middleName: 'middleName',
+                            surname: 'surname',
+                        },
                     ],
                 },
                 {
                     cases: [{ caseName: 'case name 2', caseNumber: '789', caseUrn: null }],
-                    organisations: [
-                        "org name"
-                    ],
+                    organisations: ['org name'],
                     individuals: [],
                 },
             ],
