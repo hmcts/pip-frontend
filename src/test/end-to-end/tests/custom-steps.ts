@@ -1,4 +1,5 @@
-import { config as testConfig } from '../../config';
+import {config as testConfig} from '../../config';
+
 export = function () {
     return actor({
         loginAsSystemAdmin: function (
@@ -72,7 +73,7 @@ export = function () {
             this.waitForText('Court and tribunal hearings');
             this.click('Continue');
             this.click('Sign in');
-            this.waitForText('Don\'t have an account?');
+            this.waitForText("Don't have an account?");
             this.click('Create a Court and tribunal hearings account');
             this.waitForText('Create a Court and tribunal hearings account');
             this.fillField('#fullName', fullName);
@@ -97,6 +98,6 @@ export = function () {
             this.click('#delete-user-confirm');
             this.click('Continue');
             this.waitForText('User Deleted');
-        }
+        },
     });
 };
