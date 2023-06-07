@@ -62,7 +62,7 @@ export function checkAuthenticatedAny(req: any, res, next): boolean {
     if (req.user && req.user['roles']) {
         return next();
     } else {
-        res.redirect('/sign-in')
+        res.redirect('/sign-in');
     }
 }
 
