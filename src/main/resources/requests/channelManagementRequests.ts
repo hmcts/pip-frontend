@@ -10,7 +10,7 @@ export class ChannelManagementRequests {
      */
     public async getStoredFile(artefactId, headers: object): Promise<string | null> {
         try {
-            const response = await channelManagementApi.get(`/publication/${artefactId}`, { headers });
+            const response = await channelManagementApi.get(`/publication/v2/${artefactId}`, { headers });
             return response.data;
         } catch (error) {
             if (error.response) {
