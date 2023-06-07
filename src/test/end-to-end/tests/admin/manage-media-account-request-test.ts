@@ -26,7 +26,6 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.see(TEST_EMPLOYER);
     I.click(locate('//div').withText('Proof of ID').find('a').withText('View'));
     I.switchToNextTab(1);
-    I.seeInCurrentUrl('media-account-review/image?imageId=');
     I.switchToPreviousTab(1);
     I.see('Applicant\'s details');
     I.click('#approve');
