@@ -24,6 +24,10 @@ export function isPermittedSystemAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, systemAdminRoles);
 }
 
+export function isPermittedAny(req: any, res, next) {
+    return checkAuthenticatedAny(req, res, next);
+}
+
 export function isPermittedAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, allAdminRoles);
 }
@@ -51,6 +55,14 @@ export function checkAuthenticatedAdmin(req: any, res, next, roles: string[]): b
         res.redirect('/account-home');
     } else {
         res.redirect('/admin-login?p=' + authenticationConfig.ADMIN_POLICY);
+    }
+}
+
+export function checkAuthenticatedAny(req: any, res, next): boolean {
+    if (req.user && req.user['roles']) {
+        return next();
+    } else {
+        res.redirect('/sign-in')
     }
 }
 
