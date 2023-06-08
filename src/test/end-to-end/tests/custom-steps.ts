@@ -1,4 +1,5 @@
-import { config as testConfig } from '../../config';
+import {config as testConfig} from '../../config';
+
 export = function () {
     return actor({
         loginAsSystemAdmin: function (
@@ -29,6 +30,19 @@ export = function () {
             this.click('Continue');
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
+            this.fillField('#password', secret(password));
+            this.click('Sign in');
+        },
+
+        loginAsCftUser: function (
+            username = testConfig.CFT_USERNAME,
+            password = testConfig.CFT_PASSWORD
+        ) {
+            this.amOnPage('/sign-in');
+            this.click('With a MyHMCTS account');
+            this.click('Continue');
+            this.see('Sign in');
+            this.fillField('#username', secret(username));
             this.fillField('#password', secret(password));
             this.click('Sign in');
         },
