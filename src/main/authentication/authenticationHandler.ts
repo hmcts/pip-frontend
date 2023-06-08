@@ -25,7 +25,11 @@ export function isPermittedSystemAdmin(req: any, res, next) {
 }
 
 export function isPermittedAny(req: any, res, next) {
-    return checkAuthenticatedAny(req, res, next);
+    if (req.user && req.user['roles']) {
+        return next();
+    } else {
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
 }
 
 export function isPermittedAdmin(req: any, res, next) {
@@ -55,14 +59,6 @@ export function checkAuthenticatedAdmin(req: any, res, next, roles: string[]): b
         res.redirect('/account-home');
     } else {
         res.redirect('/admin-login?p=' + authenticationConfig.ADMIN_POLICY);
-    }
-}
-
-export function checkAuthenticatedAny(req: any, res, next): boolean {
-    if (req.user && req.user['roles']) {
-        return next();
-    } else {
-        res.redirect('/sign-in');
     }
 }
 
