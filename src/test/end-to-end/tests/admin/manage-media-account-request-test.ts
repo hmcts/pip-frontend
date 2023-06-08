@@ -1,12 +1,12 @@
-import {randomData} from '../../shared/random-data';
-import {config as testConfig} from '../../../config';
+import { randomData } from '../../shared/random-data';
+import { config as testConfig } from '../../../config';
 
 Feature('Admin manage media account request');
 
 const TEST_WORKER_NUMBER = randomData.getRandomNumber(10000000, 99999999);
 const TEST_EMPLOYER = 'HMCTS';
 
-Scenario('I as an admin user should be able to accept valid media account request', async ({I}) => {
+Scenario('I as an admin user should be able to accept valid media account request', async ({ I }) => {
     const testFullName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString() + ' Surname';
     const emailTestMediaAccount = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
 
@@ -19,17 +19,17 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.waitForText('Select application to assess');
     I.see(testFullName);
     I.click(locate('//tr').withText(testFullName).find('a').withText('View'));
-    I.waitForText('Applicant\'s details');
+    I.waitForText("Applicant's details");
     I.see(testFullName);
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
     I.click(locate('//div').withText('Proof of ID').find('a').withText('View'));
     I.switchToNextTab(1);
     I.switchToPreviousTab(1);
-    I.see('Applicant\'s details');
+    I.see("Applicant's details");
     I.click('#approve');
     I.waitForText('Are you sure you want to approve this application?');
-    I.see('Applicant\'s Details');
+    I.see("Applicant's Details");
     I.see(testFullName);
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
@@ -42,7 +42,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.see('What happens next');
     I.see(
         'This account will be created and the applicant will be notified to set up their account. If an account' +
-        ' already exists the applicant will be asked to sign in, or choose forgot password.'
+            ' already exists the applicant will be asked to sign in, or choose forgot password.'
     );
     I.logout();
 
@@ -66,8 +66,8 @@ Scenario('I as an admin user should be able to accept valid media account reques
 
 Scenario(
     'I as an admin user should be able to reject applications and see proper error ' +
-    'messages related to media account request',
-    async ({I}) => {
+        'messages related to media account request',
+    async ({ I }) => {
         const testFullName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString() + ' Surname';
         const emailTestMediaAccount = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
 
@@ -80,7 +80,7 @@ Scenario(
         I.waitForText('Select application to assess');
         I.see(testFullName);
         I.click(locate('//tr').withText(testFullName).find('a').withText('View'));
-        I.waitForText('Applicant\'s details');
+        I.waitForText("Applicant's details");
         I.see(testFullName);
         I.see(emailTestMediaAccount);
         I.see(TEST_EMPLOYER);
@@ -89,7 +89,7 @@ Scenario(
         I.click('#no');
         I.click('Continue');
 
-        I.waitForText('Applicant\'s details');
+        I.waitForText("Applicant's details");
         I.click('#reject');
         I.waitForText('Why are you rejecting this application?');
         I.see('Select all that apply.');
@@ -102,7 +102,7 @@ Scenario(
         I.click('#no');
         I.click('Continue');
 
-        I.waitForText('Applicant\'s details');
+        I.waitForText("Applicant's details");
         I.click('#reject');
         I.waitForText('Why are you rejecting this application?');
         I.click('#rejection-reasons');
@@ -111,7 +111,7 @@ Scenario(
         I.click('Continue');
 
         I.waitForText('Are you sure you want to reject this application?');
-        I.see('Applicant\'s Details');
+        I.see("Applicant's Details");
         I.see(testFullName);
         I.see(emailTestMediaAccount);
         I.see(TEST_EMPLOYER);
@@ -119,7 +119,7 @@ Scenario(
         I.switchToNextTab(1);
         I.switchToPreviousTab(1);
         I.click('.govuk-details__summary-text');
-        I.waitForText('After you\'ve completed this form, the applicant will be emailed the following:');
+        I.waitForText("After you've completed this form, the applicant will be emailed the following:");
         I.see('The applicant is not an accredited member of the media.');
         I.seeElement(locate('//a').withText('Court and tribunal hearings service'));
         I.see('ID provided has expired or is not a Press ID.');
@@ -145,9 +145,9 @@ Scenario(
         I.see('What happens next');
         I.see(
             'The applicant [ ' +
-            emailTestMediaAccount +
-            ' ] will now be emailed to notify them why their application ' +
-            'cannot be progressed and invited to reapply once the issue(s) are rectified.'
+                emailTestMediaAccount +
+                ' ] will now be emailed to notify them why their application ' +
+                'cannot be progressed and invited to reapply once the issue(s) are rectified.'
         );
 
         I.logout();
