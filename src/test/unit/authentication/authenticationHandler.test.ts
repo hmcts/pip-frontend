@@ -13,7 +13,8 @@ import {
     processAdminAccountSignIn,
     processCftIdamSignIn,
     isPermittedSystemAdmin,
-    checkPasswordReset, isPermittedAny,
+    checkPasswordReset,
+    isPermittedAny,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -135,12 +136,20 @@ describe('Test Is Permitted Any Role', () => {
     });
 
     it('check next is called if no role exists', () => {
-        const mockRenderFunction = jest.fn((argument, argument2) => 4 + 2);
+        const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
 
-        const req = { user: {}, lng: 'en', i18n: { getDataByLanguage: (lng) => {return {error: lng}}}};
+        const req = {
+            user: {},
+            lng: 'en',
+            i18n: {
+                getDataByLanguage: lng => {
+                    return { error: lng };
+                },
+            },
+        };
         const res = { render: mockRenderFunction };
 
-        isPermittedAny(req, res, () => {});
+        isPermittedAny(req, res, () => 4);
 
         expect(mockRenderFunction.mock.calls.length).to.equal(1);
         expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
@@ -148,11 +157,18 @@ describe('Test Is Permitted Any Role', () => {
     });
 
     it('check next is called if no user exists', () => {
-        const mockRenderFunction = jest.fn((argument, argument2) => 4 + 2);
-        const req = { lng: 'en', i18n: { getDataByLanguage: (lng) => {return {error: lng}}}};
+        const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
+        const req = {
+            lng: 'en',
+            i18n: {
+                getDataByLanguage: lng => {
+                    return { error: lng };
+                },
+            },
+        };
         const res = { render: mockRenderFunction };
 
-        isPermittedAny(req, res, () => {});
+        isPermittedAny(req, res, () => 4);
 
         expect(mockRenderFunction.mock.calls.length).to.equal(1);
         expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
