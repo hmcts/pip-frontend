@@ -41,3 +41,9 @@ export const formattedProvenances = {
     CFT_IDAM: 'CFT IdAM',
     CRIME_IDAM: 'Crime IdAM',
 };
+
+export const reSignInUrls = {
+    CFT: '/cft-idam',
+    AAD: '/subscription-management',
+    ADMIN: '/admin-management'
+}

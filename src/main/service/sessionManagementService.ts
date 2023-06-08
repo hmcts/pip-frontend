@@ -65,7 +65,7 @@ export class SessionManagementService {
 
     private cftLogOutUrl(isSessionExpired: boolean, language: string): string {
         if (isSessionExpired) {
-            return '/session-expired?lng=' + language + '&reSignInUrl=' + '/cft-login';
+            return '/session-expired?lng=' + language + '&reSignInUrl=CFT';
         } else {
             return '/session-logged-out?lng=' + language;
         }
@@ -81,7 +81,7 @@ export class SessionManagementService {
         url.searchParams.append('lng', language);
 
         if (isSessionExpired) {
-            url.searchParams.append('reSignInUrl', isAdmin ? 'admin-dashboard' : 'subscription-management');
+            url.searchParams.append('reSignInUrl', isAdmin ? 'ADMIN' : 'AAD');
         }
         return url.toString();
     }
