@@ -17,6 +17,5 @@ describe('Session expired', () => {
                 .expect(res => expect(res.status).to.equal(200))
                 .expect(res => expect(res.text).to.contains('Sorry, there is a problem with the service'));
         });
-
     });
 });

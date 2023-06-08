@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SessionExpiredController from '../../../main/controllers/SessionExpiredController';
 import { SessionManagementService } from '../../../main/service/sessionManagementService';
-import {reSignInUrls} from "../../../main/models/consts";
+import { reSignInUrls } from '../../../main/models/consts';
 
 const sessionExpiredController = new SessionExpiredController();
 const i18n = {
@@ -96,7 +96,7 @@ describe('Session Expired Controller', () => {
         } as unknown as Response;
         const responseMock = sinon.mock(response);
         const request = mockRequest(i18n);
-        request.query = {reSignInUrl: {}};
+        request.query = { reSignInUrl: {} };
 
         responseMock.expects('render').once().withArgs('error');
         sessionExpiredController.get(request, response);
@@ -111,11 +111,10 @@ describe('Session Expired Controller', () => {
         } as unknown as Response;
         const responseMock = sinon.mock(response);
         const request = mockRequest(i18n);
-        request.query = {reSignInUrl: 'NOT-VALID'};
+        request.query = { reSignInUrl: 'NOT-VALID' };
 
         responseMock.expects('render').once().withArgs('error');
         sessionExpiredController.get(request, response);
         responseMock.verify();
     });
-
 });

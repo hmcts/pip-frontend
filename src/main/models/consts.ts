@@ -45,5 +45,5 @@ export const formattedProvenances = {
 export const reSignInUrls = {
     CFT: '/cft-idam',
     AAD: '/subscription-management',
-    ADMIN: '/admin-management'
-}
+    ADMIN: '/admin-management',
+};

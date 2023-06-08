@@ -41,6 +41,9 @@ describe('Session Expired Page', () => {
     it('should display sign in button', () => {
         const buttons = htmlRes.getElementsByClassName('govuk-button');
         expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
-        expect(buttons[0].attributes.getNamedItem('href').value).contains('/subscription-management', 'Could not find button href');
+        expect(buttons[0].attributes.getNamedItem('href').value).contains(
+            '/subscription-management',
+            'Could not find button href'
+        );
     });
 });
