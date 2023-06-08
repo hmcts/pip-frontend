@@ -43,7 +43,7 @@ export const formattedProvenances = {
 };
 
 export const reSignInUrls = {
-    CFT: '/cft-idam',
+    CFT: '/cft-login',
     AAD: '/subscription-management',
     ADMIN: '/admin-management',
 };
