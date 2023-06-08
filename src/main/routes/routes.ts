@@ -2,7 +2,7 @@ import { Application } from 'express';
 import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
-    isPermittedAny,
+    isPermittedAnyRole,
     isPermittedAdmin,
     isPermittedMedia,
     isPermittedMediaAccount,
@@ -107,9 +107,9 @@ export default function (app: Application): void {
         }),
         mediaVerificationHandling
     );
-    app.get('/session-expiring', isPermittedAny, app.locals.container.cradle.sessionExpiringController.get);
+    app.get('/session-expiring', isPermittedAnyRole, app.locals.container.cradle.sessionExpiringController.get);
     app.get('/session-expired', app.locals.container.cradle.sessionExpiredController.get);
-    app.get('/session-expired-logout', isPermittedAny, (_req, res) => sessionManagement.logOut(_req, res, false, true));
+    app.get('/session-expired-logout', isPermittedAnyRole, (_req, res) => sessionManagement.logOut(_req, res, false, true));
     app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get);
     // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
     // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);

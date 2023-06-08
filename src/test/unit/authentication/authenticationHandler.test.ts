@@ -14,7 +14,7 @@ import {
     processCftIdamSignIn,
     isPermittedSystemAdmin,
     checkPasswordReset,
-    isPermittedAny,
+    isPermittedAnyRole,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -132,7 +132,7 @@ describe('Test Is Permitted Any Role', () => {
     it('check next is called if user has a role', () => {
         const mockNextFunction = jest.fn(() => 4);
         const req = { user: { roles: 'VERIFIED' } };
-        expect(isPermittedAny(req, {}, mockNextFunction)).to.equal(4);
+        expect(isPermittedAnyRole(req, {}, mockNextFunction)).to.equal(4);
     });
 
     it('check next is called if no role exists', () => {
@@ -149,7 +149,7 @@ describe('Test Is Permitted Any Role', () => {
         };
         const res = { render: mockRenderFunction };
 
-        isPermittedAny(req, res, () => 4);
+        isPermittedAnyRole(req, res, () => 4);
 
         expect(mockRenderFunction.mock.calls.length).to.equal(1);
         expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
@@ -168,7 +168,7 @@ describe('Test Is Permitted Any Role', () => {
         };
         const res = { render: mockRenderFunction };
 
-        isPermittedAny(req, res, () => 4);
+        isPermittedAnyRole(req, res, () => 4);
 
         expect(mockRenderFunction.mock.calls.length).to.equal(1);
         expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');

@@ -24,7 +24,7 @@ export function isPermittedSystemAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, systemAdminRoles);
 }
 
-export function isPermittedAny(req: any, res, next) {
+export function isPermittedAnyRole(req: any, res, next) {
     if (req.user && req.user['roles']) {
         return next();
     } else {
