@@ -124,10 +124,11 @@ Scenario('I as a CFT user should be able to sign-in with the valid credentials',
 }).tag('@CrossBrowser');
 
 Scenario('I as a CFT user should be able to see proper error message when email is invalid', async ({ I }) => {
-    I.loginAsCftUser(testConfig.CFT_INVALID_USERNAME,testConfig.CFT_INVALID_PASSWORD);
-    I.waitForText('You have successfully signed into your MyHMCTS account. Unfortunately, ' +
-        'your account role does not allow you to access the verified user part of the Court and tribunal hearings service');
-    I.logout();
+    I.loginAsCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
+    I.waitForText(
+        'You have successfully signed into your MyHMCTS account. Unfortunately, ' +
+            'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+    );
 }).tag('@CrossBrowser');
 
 Scenario(
