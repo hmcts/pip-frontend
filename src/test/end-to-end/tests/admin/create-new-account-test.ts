@@ -32,17 +32,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.waitForText('Account has been created');
     I.see('What happens next');
     I.see('This account will be created and the applicant will be notified to set up their account.');
-    I.click('Home');
-    I.click('#card-admin-management');
-    I.waitForText('What is the users email address?');
-    I.fillField('#search-input', emailInternalSuperAdminCTSC);
-    I.click('Continue');
-    I.waitForText('Manage ' + emailInternalSuperAdminCTSC);
-    I.click('Delete user');
-    I.waitForText('Are you sure you want to delete ' + emailInternalSuperAdminCTSC);
-    I.click('#delete-user-confirm');
-    I.click('Continue');
-    I.waitForText('User Deleted');
+    I.deleteAdminAccount(emailInternalSuperAdminCTSC);
 
     I.click('Home');
     I.click('#card-create-admin-account');
@@ -61,17 +51,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.waitForText('Account has been created');
     I.see('What happens next');
     I.see('This account will be created and the applicant will be notified to set up their account.');
-    I.click('Home');
-    I.click('#card-admin-management');
-    I.waitForText('What is the users email address?');
-    I.fillField('#search-input', emailInternalSuperAdminLocal);
-    I.click('Continue');
-    I.waitForText('Manage ' + emailInternalSuperAdminLocal);
-    I.click('Delete user');
-    I.waitForText('Are you sure you want to delete ' + emailInternalSuperAdminLocal);
-    I.click('#delete-user-confirm');
-    I.click('Continue');
-    I.waitForText('User Deleted');
+    I.deleteAdminAccount(emailInternalSuperAdminLocal);
 
     I.click('Home');
     I.click('#card-create-admin-account');
@@ -90,17 +70,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.waitForText('Account has been created');
     I.see('What happens next');
     I.see('This account will be created and the applicant will be notified to set up their account.');
-    I.click('Home');
-    I.click('#card-admin-management');
-    I.waitForText('What is the users email address?');
-    I.fillField('#search-input', emailInternalAdminCTSC);
-    I.click('Continue');
-    I.waitForText('Manage ' + emailInternalAdminCTSC);
-    I.click('Delete user');
-    I.waitForText('Are you sure you want to delete ' + emailInternalAdminCTSC);
-    I.click('#delete-user-confirm');
-    I.click('Continue');
-    I.waitForText('User Deleted');
+    I.deleteAdminAccount(emailInternalAdminCTSC);
 
     I.click('Home');
     I.click('#card-create-admin-account');
@@ -119,17 +89,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.waitForText('Account has been created');
     I.see('What happens next');
     I.see('This account will be created and the applicant will be notified to set up their account.');
-    I.click('Home');
-    I.click('#card-admin-management');
-    I.waitForText('What is the users email address?');
-    I.fillField('#search-input', emailInternalAdminLocal);
-    I.click('Continue');
-    I.waitForText('Manage ' + emailInternalAdminLocal);
-    I.click('Delete user');
-    I.waitForText('Are you sure you want to delete ' + emailInternalAdminLocal);
-    I.click('#delete-user-confirm');
-    I.click('Continue');
-    I.waitForText('User Deleted');
+    I.deleteAdminAccount(emailInternalAdminLocal);
 
     I.logout();
 });
@@ -180,17 +140,7 @@ Scenario('I as an admin user should be able to see all error messages related to
     I.waitForText('There is a problem');
     I.see('This email already exists. The user should try signing in using this email or reset their password.');
 
-    I.click('Home');
-    I.click('#card-admin-management');
-    I.waitForText('What is the users email address?');
-    I.fillField('#search-input', testEmail);
-    I.click('Continue');
-    I.waitForText('Manage ' + testEmail);
-    I.click('Delete user');
-    I.waitForText('Are you sure you want to delete ' + testEmail);
-    I.click('#delete-user-confirm');
-    I.click('Continue');
-    I.waitForText('User Deleted');
+    I.deleteAdminAccount(testEmail);
 
     I.logout();
 });
