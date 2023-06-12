@@ -1,6 +1,4 @@
 import { AccountHomePage } from '../PageObjects/AccountHome.page';
-import { AccountHomePage } from '../PageObjects/AccountHome.page';
-import { AdminDashboardPage } from '../PageObjects/AdminDashboard.page';
 import { SystemAdminDashboardPage } from '../PageObjects/SystemAdminDashboard.page';
 import { AlphabeticalSearchPage } from '../PageObjects/AlphabeticalSearch.page';
 import { CaseEventGlossaryPage } from '../PageObjects/CaseEventGlossary.page';
@@ -16,18 +14,10 @@ import { SjpPressListPage } from '../PageObjects/SjpPressList.page';
 import { SubscriptionManagementPage } from '../PageObjects/SubscriptionManagement.page';
 import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.page';
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
-import { MediaAccountRequestsPage } from '../PageObjects/MediaAccountRequests.page';
-import { MediaAccountReviewPage } from '../PageObjects/MediaAccountReview.page';
-import { MediaAccountApprovalPage } from '../PageObjects/MediaAccountApproval.page';
-import { MediaAccountRejectionPage } from '../PageObjects/MediaAccountRejection.page';
-import { MediaAccountRejectionConfirmationPage } from '../PageObjects/MediaAccountRejectionConfirmation.page';
-import { CreateMediaAccountPage } from '../PageObjects/CreateMediaAccount.page';
-import { MediaAccountRequestSubmittedPage } from '../PageObjects/MediaAccountRequestSubmitted.page';
 import { SessionLoggedOutPage } from '../PageObjects/SessionLoggedOut.page';
 import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
 import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
 import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
-import { MediaAccountRejectionReasonsPage } from '../pageobjects/MediaAccountRejectionReasons.page';
 
 const homePage = new HomePage();
 let subscriptionManagementPage: SubscriptionManagementPage;
@@ -39,10 +29,7 @@ let searchPage: SearchPage;
 let liveCaseStatusPage: LiveCaseStatusPage;
 let singleJusticeProcedurePage: SingleJusticeProcedurePage;
 let caseEventGlossaryPage: CaseEventGlossaryPage;
-let adminDashboard = new AdminDashboardPage();
 let systemAdminDashboard = new SystemAdminDashboardPage();
-let createMediaAccountPage: CreateMediaAccountPage;
-let mediaAccountRequestSubmittedPage: MediaAccountRequestSubmittedPage;
 let accountHomePage: AccountHomePage;
 let courtListPage: CourtListPage;
 let sjpPublicListPage: SjpPublicListPage;
@@ -50,12 +37,6 @@ let sjpPressListPage: SjpPressListPage;
 let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
 let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
-let mediaAccountRequestsPage: MediaAccountRequestsPage;
-let mediaAccountReviewPage: MediaAccountReviewPage;
-let mediaAccountApprovalPage: MediaAccountApprovalPage;
-let mediaAccountRejectionPage: MediaAccountRejectionPage;
-let mediaAccountRejectionReasonsPage: MediaAccountRejectionReasonsPage;
-let mediaAccountRejectionConfirmationPage: MediaAccountRejectionConfirmationPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
 
@@ -352,23 +333,6 @@ describe('Unverified user', () => {
             expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
         });
     });
-
-    describe('request an account', () => {
-        it("should open sign-in page with 'How do you want to sign in' title", async () => {
-            expect(await signInPage.getPageTitle()).toEqual('How do you want to sign in?');
-        });
-
-        it('should click on the create account link', async () => {
-            createMediaAccountPage = await signInPage.clickCreateAccount();
-            expect(await createMediaAccountPage.getPageTitle()).toEqual('Create a Court and tribunal hearings account');
-        });
-
-        it('should complete form and continue to confirmation page', async () => {
-            await createMediaAccountPage.completeForm();
-            mediaAccountRequestSubmittedPage = await createMediaAccountPage.clickContinue();
-            expect(await mediaAccountRequestSubmittedPage.getPanelTitle()).toEqual('Details submitted');
-        });
-    });
 });
 
 describe('Verified user', () => {
@@ -477,82 +441,6 @@ describe('Verified user', () => {
 
         it('should sign out and open session-logged-out page', async () => {
             sessionLoggedOutPage = await accountHomePage.clickSignOut();
-            expect(await sessionLoggedOutPage.getPanelTitle()).toEqual('You have been signed out');
-        });
-    });
-});
-
-describe('Admin level journeys', () => {
-    it('should open Admin Login page', async () => {
-        await signInPage.open('/admin-login?p=B2C_1_SignInAdminUserFlow');
-        console.log('B2C_ADMIN_USERNAME', process.env.B2C_ADMIN_USERNAME);
-        await signInPage.enterText(process.env.B2C_ADMIN_USERNAME, 'EmailField');
-        await signInPage.enterText(process.env.B2C_ADMIN_PASSWORD, 'PasswordField');
-        adminDashboard = await signInPage.clickAdminSignIn();
-    });
-    it('should open admin dashboard page on successful sign in', async () => {
-        expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
-    });
-    it('should open admin dashboard page', async () => {
-        await adminDashboard.open('/admin-dashboard');
-        expect(await adminDashboard.getPageTitle()).toEqual('Your Dashboard');
-    });
-
-    describe('Manage media account requests journey', () => {
-        before(async () => {
-            await adminDashboard.open('/admin-dashboard');
-        });
-        it('should start the manage media account request journey', async () => {
-            mediaAccountRequestsPage = await adminDashboard.clickManageMedia();
-            expect(await mediaAccountRequestsPage.getPageTitle()).toEqual('Select application to assess');
-        });
-
-        it('should select view application', async () => {
-            mediaAccountReviewPage = await mediaAccountRequestsPage.clickViewApplication();
-            expect(await mediaAccountReviewPage.getPageTitle()).toEqual("Applicant's details");
-        });
-
-        it('should click approve application', async () => {
-            mediaAccountApprovalPage = await mediaAccountReviewPage.clickApproveApplication();
-            expect(await mediaAccountApprovalPage.getPageTitle()).toEqual(
-                'Are you sure you want to approve this application?'
-            );
-        });
-
-        it('should select no to approve application', async () => {
-            await mediaAccountApprovalPage.selectNo();
-            mediaAccountReviewPage = await mediaAccountApprovalPage.clickContinue();
-            expect(await mediaAccountReviewPage.getPageTitle()).toEqual("Applicant's details");
-        });
-
-        it('should select reject application', async () => {
-            mediaAccountRejectionReasonsPage = await mediaAccountReviewPage.clickRejectApplication();
-            expect(await mediaAccountRejectionReasonsPage.getFieldSetTitle()).toEqual(
-                'Why are you rejecting this application?'
-            );
-        });
-
-        it('should select reasons to reject application', async () => {
-            await mediaAccountRejectionReasonsPage.selectReason();
-            mediaAccountRejectionPage = await mediaAccountRejectionReasonsPage.clickContinue();
-            expect(await mediaAccountRejectionPage.getPageTitle()).toEqual(
-                'Are you sure you want to reject this application?'
-            );
-        });
-
-        it('should select yes to reject application', async () => {
-            await mediaAccountRejectionPage.selectYes();
-            mediaAccountRejectionConfirmationPage = await mediaAccountRejectionPage.clickContinue();
-            expect(await mediaAccountRejectionConfirmationPage.getPanelTitle()).toEqual('Account has been rejected');
-        });
-    });
-
-    describe('sign out admin dashboard', () => {
-        before(async () => {
-            await adminDashboard.open('admin-dashboard');
-        });
-        it('should sign out and open session-logged-out page', async () => {
-            sessionLoggedOutPage = await adminDashboard.clickSignOut();
             expect(await sessionLoggedOutPage.getPanelTitle()).toEqual('You have been signed out');
         });
     });

@@ -78,7 +78,24 @@ export = function () {
             this.click('Continue');
         },
 
-        deleteAccount: function (email) {
+        requestMediaAccount: function (fullName, email, emplyerName) {
+            this.amOnPage('/');
+            this.waitForText('Court and tribunal hearings');
+            this.click('Continue');
+            this.click('Sign in');
+            this.waitForText("Don't have an account?");
+            this.click('Create a Court and tribunal hearings account');
+            this.waitForText('Create a Court and tribunal hearings account');
+            this.fillField('#fullName', fullName);
+            this.fillField('#emailAddress', email);
+            this.fillField('#employer', emplyerName);
+            this.attachFile('file-upload', './shared/mocks/testFile.pdf');
+            this.click('#tcbox');
+            this.click('Continue');
+            this.waitForText('Details submitted');
+        },
+
+        deleteAdminAccount: function (email) {
             this.amOnPage('/admin-dashboard');
             this.waitForText('Your Dashboard');
             this.click('#card-admin-management');

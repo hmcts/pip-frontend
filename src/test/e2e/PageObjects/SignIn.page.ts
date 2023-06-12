@@ -1,7 +1,5 @@
 import { CommonPage } from './Common.page';
 import { AccountHomePage } from './AccountHome.page';
-import { CreateMediaAccountPage } from './CreateMediaAccount.page';
-import { AdminDashboardPage } from './AdminDashboard.page';
 import { SystemAdminDashboardPage } from './SystemAdminDashboard.page';
 
 const helpers = require('../Helpers/Selectors');
@@ -51,15 +49,6 @@ export class SignInPage extends CommonPage {
         await browser.keys('Escape');
     }
 
-    async clickCreateAccount(): Promise<CreateMediaAccountPage> {
-        $(helpers.SearchAToZLink).catch(() => {
-            console.log(`${helpers.SearchAToZLink} not found`);
-        });
-
-        await $(helpers.SearchAToZLink).click();
-        return new CreateMediaAccountPage();
-    }
-
     async clickSignInAad(): Promise<AccountHomePage> {
         $(helpers.UserLoginContinue).catch(() => {
             console.log(`${helpers.UserLoginContinue} not found`);
@@ -80,17 +69,6 @@ export class SignInPage extends CommonPage {
         continueButton.click();
 
         return new AccountHomePage();
-    }
-
-    async clickAdminSignIn(): Promise<AdminDashboardPage> {
-        $(helpers.UserLoginContinue).catch(() => {
-            console.log(`${helpers.UserLoginContinue} not found`);
-        });
-
-        const continueButton = await $(helpers.UserLoginContinue);
-        continueButton.click();
-
-        return new AdminDashboardPage();
     }
 
     async clickSystemAdminSignIn(): Promise<SystemAdminDashboardPage> {
