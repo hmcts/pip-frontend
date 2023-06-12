@@ -54,8 +54,7 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
     I.click('Continue');
     I.waitForText('User Updated');
 
-    I.click('Home');
-    I.deleteAccount(TEST_EMAIL);
+    I.deleteAdminAccount(TEST_EMAIL);
 });
 
 Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({ I }) => {
