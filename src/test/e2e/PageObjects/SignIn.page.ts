@@ -1,6 +1,5 @@
 import { CommonPage } from './Common.page';
 import { AccountHomePage } from './AccountHome.page';
-import { CftAuthenticationFailedPage } from './CftAuthenticationFailed.page';
 import { SystemAdminDashboardPage } from './SystemAdminDashboard.page';
 
 const helpers = require('../Helpers/Selectors');
@@ -70,17 +69,6 @@ export class SignInPage extends CommonPage {
         continueButton.click();
 
         return new AccountHomePage();
-    }
-
-    async clickSignInCftUnsuccessful(): Promise<CftAuthenticationFailedPage> {
-        $(helpers.CftSignInButton).catch(() => {
-            console.log(`${helpers.CftSignInButton} not found`);
-        });
-
-        const continueButton = await $(helpers.CftSignInButton);
-        continueButton.click();
-
-        return new CftAuthenticationFailedPage();
     }
 
     async clickSystemAdminSignIn(): Promise<SystemAdminDashboardPage> {
