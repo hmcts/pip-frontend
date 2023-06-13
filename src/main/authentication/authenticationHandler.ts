@@ -6,7 +6,7 @@ import {
     B2C_ADMIN_URL,
     AUTH_RETURN_URL,
     ADMIN_AUTH_RETURN_URL,
-    MEDIA_VERIFICATION_RETURN_URL
+    MEDIA_VERIFICATION_RETURN_URL,
 } from '../helpers/envUrls';
 import { SessionManagementService } from '../service/sessionManagementService';
 import {
@@ -105,7 +105,8 @@ export function redirectToVerifiedLogin(req, res) {
     const POLICY_URL =
         `${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.POLICY}` +
         `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${AUTH_RETURN_URL}` +
-        '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' + mapAzureLanguage(req.lng);
+        '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' +
+        mapAzureLanguage(req.lng);
 
     res.redirect(POLICY_URL);
 }
@@ -114,7 +115,8 @@ export function redirectToAdminLogin(req, res) {
     const POLICY_URL =
         `${B2C_ADMIN_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.ADMIN_POLICY}` +
         `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${ADMIN_AUTH_RETURN_URL}` +
-        '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' + mapAzureLanguage(req.lng);
+        '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' +
+        mapAzureLanguage(req.lng);
 
     res.redirect(POLICY_URL);
 }
@@ -123,7 +125,8 @@ export function redirectToMediaVerification(req, res) {
     const POLICY_URL =
         `${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.MEDIA_VERIFICATION_POLICY}` +
         `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${MEDIA_VERIFICATION_RETURN_URL}` +
-        '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' + mapAzureLanguage(req.lng);
+        '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' +
+        mapAzureLanguage(req.lng);
 
     res.redirect(POLICY_URL);
 }

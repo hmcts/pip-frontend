@@ -13,7 +13,10 @@ import {
     processAdminAccountSignIn,
     processMediaAccountSignIn,
     processCftIdamSignIn,
-    checkPasswordReset, redirectToVerifiedLogin, redirectToAdminLogin, redirectToMediaVerification,
+    checkPasswordReset,
+    redirectToVerifiedLogin,
+    redirectToAdminLogin,
+    redirectToMediaVerification,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/sessionManagementService';
 import { urlPath } from '../helpers/envUrls';
