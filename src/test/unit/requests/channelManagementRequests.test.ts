@@ -2,7 +2,7 @@ import { channelManagementApi } from '../../../main/resources/requests/utils/axi
 import { ChannelManagementRequests } from '../../../main/resources/requests/channelManagementRequests';
 import sinon from 'sinon';
 
-const getStoredFileEndpoint = '/publication/abc';
+const getStoredFileEndpoint = '/publication/v2/abc';
 
 const dummyData = '123';
 const userId = 'abc';
