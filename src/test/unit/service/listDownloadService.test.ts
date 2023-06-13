@@ -8,8 +8,9 @@ import os from 'os';
 
 const listDownloadService = new ListDownloadService();
 const artefactId = '123';
+const userId = '1234';
 
-const downloadFilesStub = sinon.stub(ChannelManagementRequests.prototype, 'getStoredFiles');
+const downloadFilesStub = sinon.stub(ChannelManagementRequests.prototype, 'getStoredFile');
 const statstub = sinon.stub(fs, 'statSync').returns({ size: 1000 });
 const existsSyncStub = sinon.stub(fs, 'existsSync');
 
@@ -25,14 +26,14 @@ describe('List Download Service', () => {
 
         it('should return expected excel file', async () => {
             existsSyncStub.returns(true);
-            const response = await listDownloadService.getFile(artefactId, 'excel');
+            const response = await listDownloadService.getFile(artefactId, 'xlsx');
             expect(response)
                 .to.be.a('string')
                 .and.satisfy(msg => msg.endsWith(artefactId + '.xlsx'));
         });
 
         it('should not return file if no artefact ID provided', async () => {
-            const response = await listDownloadService.getFile(null, 'excel');
+            const response = await listDownloadService.getFile(null, 'xlsx');
             expect(response).to.be.null;
         });
 
@@ -75,29 +76,47 @@ describe('List Download Service', () => {
     });
 
     describe('Generate files', () => {
+        const expectedPdfData = 'abc';
+        const expectedExcelData = 'def';
+
+        const pdfHeader = {
+            'x-user-id': userId,
+            'x-file-type': 'PDF',
+        };
+
+        const excelHeader = {
+            'x-user-id': userId,
+            'x-file-type': 'EXCEL',
+        };
+
         afterEach(() => {
             sinon.restore();
         });
 
         it('should return expected data', async () => {
-            const expectedData = {
-                pdf: '123',
-                excel: '456',
-            };
-            downloadFilesStub.withArgs(artefactId).resolves(expectedData);
-            const response = await listDownloadService.generateFiles(artefactId, '1234');
-            expect(response).to.equal(expectedData);
+            downloadFilesStub.withArgs(artefactId, pdfHeader).resolves(expectedPdfData);
+            downloadFilesStub.withArgs(artefactId, excelHeader).resolves(expectedExcelData);
+            const response = await listDownloadService.generateFiles(artefactId, userId);
+            expect(response).to.be.true;
         });
 
-        it('should not generate files if channel management endpoint returns null', async () => {
-            downloadFilesStub.withArgs(artefactId).resolves(null);
+        it('should not generate files if channel management get PDF file returns null', async () => {
+            downloadFilesStub.withArgs(artefactId, pdfHeader).resolves(null);
+            downloadFilesStub.withArgs(artefactId, excelHeader).resolves(expectedExcelData);
             const response = await listDownloadService.generateFiles(artefactId, '1234');
-            expect(response).to.be.null;
+            expect(response).to.be.false;
+        });
+
+        it('should not generate files if channel management get Excel file returns null', async () => {
+            downloadFilesStub.withArgs(artefactId, pdfHeader).resolves(expectedPdfData);
+            downloadFilesStub.withArgs(artefactId, excelHeader).resolves(null);
+            const response = await listDownloadService.generateFiles(artefactId, '1234');
+            expect(response).to.be.false;
         });
 
         it('should not generate files if no artefact ID provided', async () => {
             const response = await listDownloadService.generateFiles(null, '1234');
-            expect(response).to.be.null;
+            expect(response).to.be.false;
         });
     });
 });
