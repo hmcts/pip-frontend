@@ -13,7 +13,7 @@ import {
     processAdminAccountSignIn,
     processMediaAccountSignIn,
     processCftIdamSignIn,
-    checkPasswordReset,
+    checkPasswordReset, redirectToVerifiedLogin, redirectToAdminLogin, redirectToMediaVerification,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/sessionManagementService';
 import { urlPath } from '../helpers/envUrls';
@@ -81,9 +81,9 @@ export default function (app: Application): void {
     app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
     app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
     app.get('/media-rejected-login', app.locals.container.cradle.mediaRejectedLoginController.get);
-    app.get('/media-verification', passport.authenticate('media-verification', { failureRedirect: '/' }));
-    app.get('/login', passport.authenticate('login', { failureRedirect: '/' }));
-    app.get('/admin-login', passport.authenticate('admin-login', { failureRedirect: '/' }));
+    app.get('/media-verification', redirectToMediaVerification);
+    app.get('/login', redirectToVerifiedLogin);
+    app.get('/admin-login', redirectToAdminLogin);
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.post(

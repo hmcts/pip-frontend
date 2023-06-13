@@ -116,6 +116,7 @@ function oidcSetup(): void {
                 responseMode: authenticationConfig.RESPONSE_MODE,
                 redirectUrl: AUTH_RETURN_URL,
                 allowHttpForRedirectUrl: true,
+                passReqToCallback: true,
                 clientSecret: clientSecret,
                 isB2C: true,
             },

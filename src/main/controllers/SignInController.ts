@@ -3,8 +3,6 @@ import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 
 const { Logger } = require('@hmcts/nodejs-logging');
-const authenticationConfig = require('../authentication/authentication-config.json');
-const logger = Logger.getLogger('sign-in-page');
 
 export default class SignInController {
     public get(req: PipRequest, res: Response): void {
@@ -32,8 +30,7 @@ export default class SignInController {
                 break;
             }
             case 'pi': {
-                logger.info('redirect policy', authenticationConfig.POLICY);
-                res.redirect(`/login?p=${authenticationConfig.POLICY}`);
+                res.redirect(`/login`);
                 break;
             }
             default: {
