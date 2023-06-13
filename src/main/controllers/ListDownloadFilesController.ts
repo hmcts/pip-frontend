@@ -5,20 +5,21 @@ import fs from 'fs';
 import path from 'path';
 import mime from 'mime-types';
 import { cloneDeep } from 'lodash';
+import { FileType } from '../models/consts';
 
 const url = 'list-download-files';
 const listDownloadService = new ListDownloadService();
 
 export default class ListDownloadFilesController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const type = req.query.type;
+        const type = req.query.type as string;
         const artefactId = req.query.artefactId;
 
         if (type === undefined) {
             const response = await listDownloadService.generateFiles(artefactId, req.user['userId']);
             if (response) {
-                const pdfFileSize = listDownloadService.getFileSize(artefactId, 'pdf');
-                const excelFileSize = listDownloadService.getFileSize(artefactId, 'excel');
+                const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
+                const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
 
                 res.render(url, {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
@@ -30,7 +31,7 @@ export default class ListDownloadFilesController {
                 res.render('error', req.i18n.getDataByLanguage(req.lng).error);
             }
         } else {
-            const file = listDownloadService.getFile(artefactId, type);
+            const file = listDownloadService.getFile(artefactId, FileType[type.toUpperCase()]);
             if (file) {
                 const filename = path.basename(file);
                 const mimetype = mime.lookup(file);

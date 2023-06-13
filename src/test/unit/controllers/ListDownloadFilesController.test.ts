@@ -39,7 +39,7 @@ describe('List Download Disclaimer Controller', () => {
     it('should render the list download files page', () => {
         generateFilesStub.resolves({});
         getFileSizeStub.withArgs('123', 'pdf').returns('650.0KB');
-        getFileSizeStub.withArgs('123', 'excel').returns('200.0KB');
+        getFileSizeStub.withArgs('123', 'xlsx').returns('200.0KB');
 
         request.query = { artefactId: '123' };
         const responseMock = sinon.mock(response);

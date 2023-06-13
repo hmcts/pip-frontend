@@ -11,7 +11,7 @@ let htmlRes: Document;
 sinon.stub(ListDownloadService.prototype, 'generateFiles').resolves({});
 const getFileSizeStub = sinon.stub(ListDownloadService.prototype, 'getFileSize');
 getFileSizeStub.withArgs('abc', 'pdf').returns('1.1MB');
-getFileSizeStub.withArgs('abc', 'excel').returns('25.2KB');
+getFileSizeStub.withArgs('abc', 'xlsx').returns('25.2KB');
 
 expressRequest['user'] = { roles: 'VERIFIED' };
 
