@@ -3,12 +3,15 @@ import { expect } from 'chai';
 const PAGE_URL = '/session-expiring';
 import request from 'supertest';
 import { app } from '../../../main/app';
+import { request as expressRequest } from 'express';
 
 const expectedHeader = 'You will soon be signed out, due to inactivity';
 const expectedBody = 'To remain signed in, please click below';
 const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
+
+expressRequest['user'] = { roles: 'VERIFIED' };
 
 describe('Session Expiring Page', () => {
     beforeAll(async () => {
