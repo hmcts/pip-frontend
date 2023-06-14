@@ -89,7 +89,8 @@ export function forgotPasswordRedirect(req, res, next): void {
         const POLICY_URL =
             `${b2cUrl}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
             `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${redirectUrl}` +
-            '&scope=openid&response_type=code&prompt=login&response_mode=form_post';
+            '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' +
+            mapAzureLanguage(req.lng);
 
         res.redirect(POLICY_URL);
         return;

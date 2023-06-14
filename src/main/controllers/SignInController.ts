@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 
-const { Logger } = require('@hmcts/nodejs-logging');
-
 export default class SignInController {
     public get(req: PipRequest, res: Response): void {
         req.query?.error === 'true'

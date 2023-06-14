@@ -1,9 +1,8 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../main/app';
-import { getFlowName } from '../../main/authentication/authRedirect';
 
-const pAndIRedirectUrl = '/login?p=' + getFlowName(null);
+const pAndIRedirectUrl = '/login';
 const CftAccountUrl = '/cft-login';
 const CrimeAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
 const urlOptions = [
