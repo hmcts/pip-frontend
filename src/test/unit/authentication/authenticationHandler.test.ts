@@ -454,7 +454,9 @@ describe('test forgotten password redirect', () => {
     it('test redirect is called with login return', () => {
         const mockRedirectFunction = jest.fn(argument => argument);
         const res = { redirect: mockRedirectFunction };
-        const next = () => {return 0};
+        const next = () => {
+            return 0;
+        };
         const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login' };
 
         forgotPasswordRedirect(req, res, next());
@@ -466,7 +468,9 @@ describe('test forgotten password redirect', () => {
     it('test redirect is called with admin return', () => {
         const mockRedirectFunction = jest.fn(argument => argument);
         const res = { redirect: mockRedirectFunction };
-        const next = () => {return 0};
+        const next = () => {
+            return 0;
+        };
         const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login/admin/return' };
 
         forgotPasswordRedirect(req, res, next());
@@ -478,7 +482,9 @@ describe('test forgotten password redirect', () => {
     it('test redirect is called with english language', () => {
         const mockRedirectFunction = jest.fn(argument => argument);
         const res = { redirect: mockRedirectFunction };
-        const next = () => {return 0};
+        const next = () => {
+            return 0;
+        };
         const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'en' };
 
         forgotPasswordRedirect(req, res, next());
@@ -489,7 +495,9 @@ describe('test forgotten password redirect', () => {
     it('test redirect is called with welsh language', () => {
         const mockRedirectFunction = jest.fn(argument => argument);
         const res = { redirect: mockRedirectFunction };
-        const next = () => {return 0};
+        const next = () => {
+            return 0;
+        };
         const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'cy' };
 
         forgotPasswordRedirect(req, res, next());
