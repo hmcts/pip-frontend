@@ -15,9 +15,7 @@ import {
     processMediaAccountSignIn,
     processCftIdamSignIn,
     checkPasswordReset,
-    redirectToVerifiedLogin,
-    redirectToAdminLogin,
-    redirectToMediaVerification,
+    mapAzureLanguage,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/sessionManagementService';
 import { urlPath } from '../helpers/envUrls';
@@ -43,6 +41,10 @@ export default function (app: Application): void {
     const fileSizeLimitErrorHandler = (err, req, res, next): any => {
         fileErrorHandlerMiddleware(err, req, res, next);
     };
+
+    function extraLanguageArg(req): object {
+        return {ui_locales: mapAzureLanguage(req['lng'])}
+    }
 
     function globalAuthGiver(req, res, next): void {
         if (sessionManagement.handleSessionExpiry(req, res)) {
@@ -85,29 +87,27 @@ export default function (app: Application): void {
     app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
     app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
     app.get('/media-rejected-login', app.locals.container.cradle.mediaRejectedLoginController.get);
-    app.get('/media-verification', redirectToMediaVerification);
-    app.get('/login', redirectToVerifiedLogin);
-    app.get('/admin-login', redirectToAdminLogin);
+    app.get('/media-verification', (req, res, next) => passport.authenticate('media-verification', { failureRedirect: '/', extraAuthReqQueryParams: extraLanguageArg(req) })(req, res, next));
+    app.get('/login', (req, res, next) => passport.authenticate('login', { failureRedirect: '/', extraAuthReqQueryParams: extraLanguageArg(req) })(req, res, next))
+    app.get('/admin-login', (req, res, next) => passport.authenticate('admin-login', { failureRedirect: '/', extraAuthReqQueryParams: extraLanguageArg(req) })(req, res, next));
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.post(
         '/login/return',
         forgotPasswordRedirect,
-        passport.authenticate('login', { failureRedirect: '/view-option' }),
+        (req, res, next) => passport.authenticate('login', { failureRedirect: '/view-option', extraAuthReqQueryParams: extraLanguageArg(req) })(req, res, next),
         processMediaAccountSignIn
     );
     app.post(
         '/login/admin/return',
         forgotPasswordRedirect,
-        passport.authenticate('admin-login', { failureRedirect: '/view-option' }),
+        (req, res, next) => passport.authenticate('admin-login', { failureRedirect: '/view-option', extraAuthReqQueryParams: extraLanguageArg(req) })(req, res, next),
         processAdminAccountSignIn
     );
     app.post(
         '/media-verification/return',
         forgotPasswordRedirect,
-        passport.authenticate('media-verification', {
-            failureRedirect: '/view-option',
-        }),
+        (req, res, next) => passport.authenticate('media-verification', { failureRedirect: '/view-option', extraAuthReqQueryParams: extraLanguageArg(req) })(req, res, next),
         mediaVerificationHandling
     );
     app.get('/session-expiring', isPermittedAnyRole, app.locals.container.cradle.sessionExpiringController.get);

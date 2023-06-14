@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
+const authenticationConfig = require('../authentication/authentication-config.json');
 import { cloneDeep } from 'lodash';
 
 export default class SignInController {
@@ -28,7 +29,7 @@ export default class SignInController {
                 break;
             }
             case 'pi': {
-                res.redirect(`/login`);
+                res.redirect(`/login?p=${authenticationConfig.POLICY}`);
                 break;
             }
             default: {

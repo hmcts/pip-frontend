@@ -15,9 +15,6 @@ import {
     isPermittedSystemAdmin,
     checkPasswordReset,
     mapAzureLanguage,
-    redirectToVerifiedLogin,
-    redirectToAdminLogin,
-    redirectToMediaVerification,
     isPermittedAnyRole,
 } from '../../../main/authentication/authenticationHandler';
 
@@ -31,14 +28,6 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { SessionManagementService } from '../../../main/service/sessionManagementService';
-import {
-    ADMIN_AUTH_RETURN_URL,
-    AUTH_RETURN_URL,
-    B2C_ADMIN_URL,
-    B2C_URL,
-    MEDIA_VERIFICATION_RETURN_URL,
-} from '../../../main/helpers/envUrls';
-import config from 'config';
 
 const updateMediaAccountVerification = sinon.stub(
     AccountManagementRequests.prototype,
@@ -448,62 +437,5 @@ describe('test map azure language', () => {
     it('should map azure language to welsh', () => {
         const returnedLanguage = mapAzureLanguage('cy');
         expect(returnedLanguage).to.equal('cy-GB');
-    });
-});
-
-describe('test redirect to verified login', () => {
-    it('test that correct login is returned', async () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { lng: 'en' };
-        const res = { redirect: mockRedirectFunction };
-
-        const expectedUrl =
-            `${B2C_URL}/oauth2/v2.0/authorize?p=B2C_1_SignInUserFlow` +
-            `&client_id=${config.get(
-                'secrets.pip-ss-kv.CLIENT_ID'
-            )}&nonce=defaultNonce&redirect_uri=${AUTH_RETURN_URL}` +
-            '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=en';
-
-        redirectToVerifiedLogin(req, res);
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal(expectedUrl);
-    });
-});
-
-describe('test redirect to admin login', () => {
-    it('test that correct login is returned', async () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { lng: 'cy' };
-        const res = { redirect: mockRedirectFunction };
-
-        const expectedUrl =
-            `${B2C_ADMIN_URL}/oauth2/v2.0/authorize?p=B2C_1_SignInAdminUserFlow` +
-            `&client_id=${config.get(
-                'secrets.pip-ss-kv.CLIENT_ID'
-            )}&nonce=defaultNonce&redirect_uri=${ADMIN_AUTH_RETURN_URL}` +
-            '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=cy-GB';
-
-        redirectToAdminLogin(req, res);
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal(expectedUrl);
-    });
-});
-
-describe('test redirect to media verification', () => {
-    it('test that correct login is returned', async () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { lng: 'cy' };
-        const res = { redirect: mockRedirectFunction };
-
-        const expectedUrl =
-            `${B2C_URL}/oauth2/v2.0/authorize?p=B2C_1_SignInMediaVerification` +
-            `&client_id=${config.get(
-                'secrets.pip-ss-kv.CLIENT_ID'
-            )}&nonce=defaultNonce&redirect_uri=${MEDIA_VERIFICATION_RETURN_URL}` +
-            '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=cy-GB';
-
-        redirectToMediaVerification(req, res);
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal(expectedUrl);
     });
 });

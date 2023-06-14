@@ -66,6 +66,7 @@ app.use((req, res, next) => {
     res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
     next();
 });
+
 new I18next().enableFor(app);
 
 //main routes
