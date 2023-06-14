@@ -18,6 +18,7 @@ import {
     redirectToVerifiedLogin,
     redirectToAdminLogin,
     redirectToMediaVerification,
+    isPermittedAnyRole,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -136,6 +137,54 @@ describe('Test IsPermittedMedia', () => {
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
         expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
+    });
+});
+
+describe('Test Is Permitted Any Role', () => {
+    it('check next is called if user has a role', () => {
+        const mockNextFunction = jest.fn(() => 4);
+        const req = { user: { roles: 'VERIFIED' } };
+        expect(isPermittedAnyRole(req, {}, mockNextFunction)).to.equal(4);
+    });
+
+    it('check next is called if no role exists', () => {
+        const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
+
+        const req = {
+            user: {},
+            lng: 'en',
+            i18n: {
+                getDataByLanguage: lng => {
+                    return { error: lng };
+                },
+            },
+        };
+        const res = { render: mockRenderFunction };
+
+        isPermittedAnyRole(req, res, () => 4);
+
+        expect(mockRenderFunction.mock.calls.length).to.equal(1);
+        expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
+        expect(mockRenderFunction.mock.calls[0][1]).to.equal('en');
+    });
+
+    it('check next is called if no user exists', () => {
+        const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
+        const req = {
+            lng: 'en',
+            i18n: {
+                getDataByLanguage: lng => {
+                    return { error: lng };
+                },
+            },
+        };
+        const res = { render: mockRenderFunction };
+
+        isPermittedAnyRole(req, res, () => 4);
+
+        expect(mockRenderFunction.mock.calls.length).to.equal(1);
+        expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
+        expect(mockRenderFunction.mock.calls[0][1]).to.equal('en');
     });
 });
 

@@ -33,6 +33,14 @@ export function isPermittedSystemAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, systemAdminRoles);
 }
 
+export function isPermittedAnyRole(req: any, res, next) {
+    if (req.user && req.user['roles']) {
+        return next();
+    } else {
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+}
+
 export function isPermittedAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, allAdminRoles);
 }
