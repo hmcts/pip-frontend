@@ -1,10 +1,6 @@
 import config from 'config';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import {
-    B2C_URL,
-    FRONTEND_URL,
-    B2C_ADMIN_URL,
-} from '../helpers/envUrls';
+import { B2C_URL, FRONTEND_URL, B2C_ADMIN_URL } from '../helpers/envUrls';
 import { SessionManagementService } from '../service/sessionManagementService';
 import {
     verifiedRoles,

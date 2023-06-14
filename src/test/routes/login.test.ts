@@ -1,12 +1,12 @@
 import request from 'supertest';
 import { app } from '../../main/app';
 
-const mockRequestBody = {test: 'AADB2C90118'};
+const mockRequestBody = { test: 'AADB2C90118' };
 
 describe('Login', () => {
     beforeEach(() => {
         app.request['body'] = {};
-    })
+    });
 
     test('should redirect to the B2C login in English', async () => {
         app.request['lng'] = 'en';
@@ -117,7 +117,7 @@ describe('Login', () => {
             .post('/login/admin/return?p=B2C_1_SignInAdminUserFlow')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinadminuserflow'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));;
+            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
     });
 
     test('should redirect to the admin login page in welsh on return', async () => {
@@ -138,7 +138,7 @@ describe('Login', () => {
             .post('/login/admin/return?p=B2C_1_SignInAdminUserFlow')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));;
+            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
     });
 
     test('should redirect to the password reset page in welsh on return', async () => {
@@ -159,7 +159,7 @@ describe('Login', () => {
             .post('/media-verification/return?p=B2C_1_SignInMediaVerification')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinmediaverification'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));;
+            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
     });
 
     test('should redirect to the media verification page in welsh on return', async () => {
@@ -180,7 +180,7 @@ describe('Login', () => {
             .post('/media-verification/return?p=B2C_1_SignInMediaVerification')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));;
+            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
     });
 
     test('should redirect to the password reset page in welsh on return', async () => {
@@ -193,5 +193,4 @@ describe('Login', () => {
             .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
     });
-
 });

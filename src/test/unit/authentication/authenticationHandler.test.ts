@@ -16,6 +16,7 @@ import {
     checkPasswordReset,
     mapAzureLanguage,
     isPermittedAnyRole,
+    forgotPasswordRedirect,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -437,5 +438,62 @@ describe('test map azure language', () => {
     it('should map azure language to welsh', () => {
         const returnedLanguage = mapAzureLanguage('cy');
         expect(returnedLanguage).to.equal('cy-GB');
+    });
+});
+
+describe('test forgotten password redirect', () => {
+    it('test next is called if not a forgotten password reset', () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        const res = {};
+        const req = { body: {} };
+
+        forgotPasswordRedirect(req, res, mockRedirectFunction);
+        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+    });
+
+    it('test redirect is called with login return', () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        const res = { redirect: mockRedirectFunction };
+        const next = () => {return 0};
+        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login' };
+
+        forgotPasswordRedirect(req, res, next());
+
+        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+        expect(mockRedirectFunction.mock.calls[0][0]).to.contain('/password-change-confirmation/false');
+    });
+
+    it('test redirect is called with admin return', () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        const res = { redirect: mockRedirectFunction };
+        const next = () => {return 0};
+        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login/admin/return' };
+
+        forgotPasswordRedirect(req, res, next());
+
+        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+        expect(mockRedirectFunction.mock.calls[0][0]).to.contain('/password-change-confirmation/true');
+    });
+
+    it('test redirect is called with english language', () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        const res = { redirect: mockRedirectFunction };
+        const next = () => {return 0};
+        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'en' };
+
+        forgotPasswordRedirect(req, res, next());
+
+        expect(mockRedirectFunction.mock.calls[0][0]).to.contain('ui_locales=en');
+    });
+
+    it('test redirect is called with welsh language', () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        const res = { redirect: mockRedirectFunction };
+        const next = () => {return 0};
+        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'cy' };
+
+        forgotPasswordRedirect(req, res, next());
+
+        expect(mockRedirectFunction.mock.calls[0][0]).to.contain('ui_locales=cy-GB');
     });
 });
