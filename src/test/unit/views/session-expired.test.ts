@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-const PAGE_URL = '/session-expired';
+const PAGE_URL = '/session-expired?reSignInUrl=AAD';
 import request from 'supertest';
 import { app } from '../../../main/app';
 
@@ -41,5 +41,9 @@ describe('Session Expired Page', () => {
     it('should display sign in button', () => {
         const buttons = htmlRes.getElementsByClassName('govuk-button');
         expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
+        expect(buttons[0].attributes.getNamedItem('href').value).contains(
+            '/subscription-management',
+            'Could not find button href'
+        );
     });
 });
