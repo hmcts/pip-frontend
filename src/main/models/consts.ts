@@ -27,6 +27,11 @@ export enum uploadType {
     CSV,
 }
 
+export enum FileType {
+    PDF = 'pdf',
+    EXCEL = 'xlsx',
+}
+
 export const formattedRoles = {
     VERIFIED: 'Verified',
     INTERNAL_ADMIN_CTSC: 'CTSC Admin',
@@ -40,4 +45,10 @@ export const formattedProvenances = {
     PI_AAD: 'B2C',
     CFT_IDAM: 'CFT IdAM',
     CRIME_IDAM: 'Crime IdAM',
+};
+
+export const reSignInUrls = {
+    CFT: '/cft-login',
+    AAD: '/subscription-management',
+    ADMIN: '/admin-management',
 };

@@ -17,6 +17,7 @@ export class AuditLogService {
         ];
     }
 
+
     public async getFormattedAuditData(pageNumber: number, adminUserId: string) {
         const rawData = await accountManagementRequests.getAllAuditLogs(
             { params: { pageNumber: pageNumber - 1, pageSize: 10 } },
