@@ -10,12 +10,11 @@ export class SessionManagementService {
         // For cookie-session, the request session needs to be destroyed by setting to null upon logout
         req.session = null;
 
+        res.clearCookie('session');
         if (req.user['userProvenance'] == 'PI_AAD') {
-            res.clearCookie('session');
-            res.redirect(this.logOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng));
+            res.redirect(this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng));
         } else {
-            res.clearCookie('session');
-            res.redirect('/session-logged-out?lng=' + req.lng);
+            res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
         }
     }
 
@@ -46,7 +45,7 @@ export class SessionManagementService {
         return false;
     }
 
-    private logOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
+    private aadLogOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
         let b2cUrl;
         let b2cPolicy;
 
@@ -64,6 +63,14 @@ export class SessionManagementService {
         return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
     }
 
+    private cftLogOutUrl(isSessionExpired: boolean, language: string): string {
+        if (isSessionExpired) {
+            return '/session-expired?lng=' + language + '&reSignInUrl=CFT';
+        } else {
+            return '/session-logged-out?lng=' + language;
+        }
+    }
+
     private logOutRedirectUrl(
         isAdmin: boolean,
         isWrongFlow: boolean,
@@ -74,7 +81,7 @@ export class SessionManagementService {
         url.searchParams.append('lng', language);
 
         if (isSessionExpired) {
-            url.searchParams.append('reSignInUrl', isAdmin ? 'admin-dashboard' : 'sign-in');
+            url.searchParams.append('reSignInUrl', isAdmin ? 'ADMIN' : 'AAD');
         }
         return url.toString();
     }
