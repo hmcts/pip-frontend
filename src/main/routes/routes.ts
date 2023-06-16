@@ -196,6 +196,13 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.bulkUnsubscribeConfirmedController.get
     );
+    app.get('/party-name-search', isPermittedMedia, app.locals.container.cradle.partyNameSearchController.get);
+    app.post('/party-name-search', isPermittedMedia, app.locals.container.cradle.partyNameSearchController.post);
+    app.get(
+        '/party-name-search-results',
+        isPermittedMedia,
+        app.locals.container.cradle.partyNameSearchResultsController.get
+    );
     app.get('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.get);
     app.post('/case-name-search', isPermittedMedia, app.locals.container.cradle.caseNameSearchController.post);
     app.get(

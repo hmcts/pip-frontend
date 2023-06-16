@@ -38,12 +38,14 @@ const mockCase = {
     caseNumber: 'CASENUM1234',
     caseName: 'CASENAME1234',
     caseUrn: 'CASEURN1234',
+    partyNames: 'PARTYNAME1,\nPARTYNAME2',
     urnSearch: false,
 };
 const mockCaseWithUrnOnly = {
     caseNumber: null,
     caseName: null,
     caseUrn: 'CASEURN1234',
+    partyNames: 'PARTYNAME1,\nPARTYNAME2',
     urnSearch: true,
 };
 const courtSubscriptionPayload = {
@@ -65,6 +67,7 @@ const caseSubscriptionPayload = {
     searchType: 'CASE_ID',
     searchValue: 'CASENUM1234',
     urn: 'CASEURN1234',
+    partyNames: 'PARTYNAME1,PARTYNAME2',
     userId: userIdWithSubscriptions,
 };
 
@@ -146,13 +149,15 @@ describe('getSubscriptionDataForView function', () => {
 
             expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
-            expect(caseDataRow).toHaveLength(4);
-            expect(caseDataRow[3].html).toContain('Unsubscribe');
+            expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
+            expect(caseDataRow.caseName).toEqual('Test Name');
+            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
+            expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
             const locationDataRow = subscriptionData.locationTableData[0];
-            expect(locationDataRow).toHaveLength(3);
-            expect(locationDataRow[2].html).toContain('Unsubscribe');
+            expect(locationDataRow.subscriptionId).toEqual('d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6');
+            expect(locationDataRow.locationName).toEqual('Aberdeen Tribunal Hearing Centre');
 
             expect(subscriptionData.activeAllTab).toBeTruthy();
             expect(subscriptionData.activeCaseTab).toBeFalsy();
@@ -165,13 +170,15 @@ describe('getSubscriptionDataForView function', () => {
 
             expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
-            expect(caseDataRow).toHaveLength(4);
-            expect(caseDataRow[3].html).toContain('Unsubscribe');
+            expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
+            expect(caseDataRow.caseName).toEqual('Test Name');
+            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
+            expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
             const locationDataRow = subscriptionData.locationTableData[0];
-            expect(locationDataRow).toHaveLength(3);
-            expect(locationDataRow[2].html).toContain('Unsubscribe');
+            expect(locationDataRow.subscriptionId).toEqual('d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6');
+            expect(locationDataRow.locationName).toEqual('Aberdeen Tribunal Hearing Centre');
 
             expect(subscriptionData.activeAllTab).toBeFalsy();
             expect(subscriptionData.activeCaseTab).toBeTruthy();
@@ -188,13 +195,15 @@ describe('getSubscriptionDataForView function', () => {
 
             expect(subscriptionData.caseTableData).toHaveLength(6);
             const caseDataRow = subscriptionData.caseTableData[0];
-            expect(caseDataRow).toHaveLength(4);
-            expect(caseDataRow[3].html).toContain('Unsubscribe');
+            expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
+            expect(caseDataRow.caseName).toEqual('Test Name');
+            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
+            expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
             const locationDataRow = subscriptionData.locationTableData[0];
-            expect(locationDataRow).toHaveLength(3);
-            expect(locationDataRow[2].html).toContain('Unsubscribe');
+            expect(locationDataRow.subscriptionId).toEqual('d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6');
+            expect(locationDataRow.locationName).toEqual('Aberdeen Tribunal Hearing Centre');
 
             expect(subscriptionData.activeAllTab).toBeFalsy();
             expect(subscriptionData.activeCaseTab).toBeFalsy();
@@ -205,28 +214,34 @@ describe('getSubscriptionDataForView function', () => {
             const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
             const subscriptionData = JSON.parse(JSON.stringify(result));
             const firstRow = subscriptionData.caseTableData[0];
-            expect(firstRow[0].text).toEqual('Test Name');
-            expect(firstRow[1].text).toEqual('C123123');
+            expect(firstRow.caseName).toEqual('Test Name');
+            expect(firstRow.partyNames).toEqual('PARTYNAME3');
+            expect(firstRow.caseRef).toEqual('C123123');
 
             const secondRow = subscriptionData.caseTableData[1];
-            expect(secondRow[0].text).toEqual('Test Name 2');
-            expect(secondRow[1].text).toEqual('I123123');
+            expect(secondRow.caseName).toEqual('Test Name 2');
+            expect(secondRow.partyNames).toEqual('');
+            expect(secondRow.caseRef).toEqual('I123123');
 
             const thirdRow = subscriptionData.caseTableData[2];
-            expect(thirdRow[0].text).toEqual('Test Name 3');
-            expect(thirdRow[1].text).toEqual('1212121212');
+            expect(thirdRow.caseName).toEqual('Test Name 3');
+            expect(thirdRow.partyNames).toEqual('');
+            expect(thirdRow.caseRef).toEqual('1212121212');
 
             const fourthRow = subscriptionData.caseTableData[3];
-            expect(fourthRow[0].text).toEqual('Test Name 3');
-            expect(fourthRow[1].text).toEqual('B123123');
+            expect(fourthRow.caseName).toEqual('Test Name 3');
+            expect(fourthRow.partyNames).toEqual('');
+            expect(fourthRow.caseRef).toEqual('B123123');
 
             const fifthRow = subscriptionData.caseTableData[4];
-            expect(fifthRow[0].text).toBeNull();
-            expect(fifthRow[1].text).toEqual('A123123');
+            expect(fifthRow.caseName).toEqual('');
+            expect(fifthRow.partyNames).toEqual('');
+            expect(fifthRow.caseRef).toEqual('A123123');
 
             const sixthRow = subscriptionData.caseTableData[5];
-            expect(sixthRow[0].text).toBeNull();
-            expect(sixthRow[1].text).toEqual('D123123');
+            expect(sixthRow.caseName).toEqual('');
+            expect(sixthRow.partyNames).toEqual('PARTYNAME1,\nPARTYNAME2');
+            expect(sixthRow.caseRef).toEqual('D123123');
         });
 
         it('should sort location subscription data by court name', async () => {
@@ -237,9 +252,9 @@ describe('getSubscriptionDataForView function', () => {
             );
             const subscriptionData = JSON.parse(JSON.stringify(result));
 
-            expect(subscriptionData.locationTableData[0][0].text).toEqual('Aberdeen Tribunal Hearing Centre');
-            expect(subscriptionData.locationTableData[1][0].text).toEqual("Barkingside Magistrates' Court");
-            expect(subscriptionData.locationTableData[2][0].text).toEqual('Manchester Crown Court');
+            expect(subscriptionData.locationTableData[0].locationName).toEqual('Aberdeen Tribunal Hearing Centre');
+            expect(subscriptionData.locationTableData[1].locationName).toEqual("Barkingside Magistrates' Court");
+            expect(subscriptionData.locationTableData[2].locationName).toEqual('Manchester Crown Court');
         });
 
         it('should sort location when duplicate location subscription is set', async () => {
@@ -251,8 +266,8 @@ describe('getSubscriptionDataForView function', () => {
 
             const result = await subscriptionService.getSubscriptionDataForView('12341234', 'en', 'location');
             const subscriptionData = JSON.parse(JSON.stringify(result));
-            expect(subscriptionData.locationTableData[0][0].text).toEqual('Manchester Crown Court');
-            expect(subscriptionData.locationTableData[1][0].text).toEqual('Manchester Crown Court');
+            expect(subscriptionData.locationTableData[0].locationName).toEqual('Manchester Crown Court');
+            expect(subscriptionData.locationTableData[1].locationName).toEqual('Manchester Crown Court');
         });
 
         it('should sort case name when there are null in names and numbers/urns', async () => {
@@ -264,131 +279,25 @@ describe('getSubscriptionDataForView function', () => {
 
             const result = await subscriptionService.getSubscriptionDataForView('1948291848', 'en', 'case');
             const subscriptionData = JSON.parse(JSON.stringify(result));
-            expect(subscriptionData.caseTableData[0][0].text).toBe('Case Name');
-            expect(subscriptionData.caseTableData[0][1].text).toEqual('1234');
-            expect(subscriptionData.caseTableData[1][0].text).toBe('Case Name');
-            expect(subscriptionData.caseTableData[1][1].text).toEqual('1234512345');
-            expect(subscriptionData.caseTableData[2][0].text).toBe('Case Name');
-            expect(subscriptionData.caseTableData[2][1].text).toEqual('1234512345');
-            expect(subscriptionData.caseTableData[3][0].text).toBe('Case Name');
-            expect(subscriptionData.caseTableData[3][1].text).toBeNull();
-            expect(subscriptionData.caseTableData[4][0].text).toBeNull();
-            expect(subscriptionData.caseTableData[4][1].text).toBe('1234512346');
-        });
-    });
+            expect(subscriptionData.caseTableData[0].caseName).toBe('Case Name');
+            expect(subscriptionData.caseTableData[0].caseRef).toEqual('1234');
+            expect(subscriptionData.caseTableData[0].partyNames).toEqual('');
 
-    describe('for Bulk Unsubscribe page', () => {
-        it("should return subscription data for 'all' tab", async () => {
-            const result = await subscriptionService.getSubscriptionDataForView(
-                userIdWithSubscriptions,
-                'en',
-                'all',
-                true
-            );
-            const subscriptionData = JSON.parse(JSON.stringify(result));
+            expect(subscriptionData.caseTableData[1].caseName).toBe('Case Name');
+            expect(subscriptionData.caseTableData[1].caseRef).toEqual('1234512345');
+            expect(subscriptionData.caseTableData[1].partyNames).toEqual('PARTYNAME3');
 
-            expect(subscriptionData.caseTableData).toHaveLength(6);
-            const caseDataRow = subscriptionData.caseTableData[0];
-            expect(caseDataRow).toHaveLength(4);
-            expect(caseDataRow[3].html).toContain('type="checkbox"');
+            expect(subscriptionData.caseTableData[2].caseName).toBe('Case Name');
+            expect(subscriptionData.caseTableData[2].caseRef).toEqual('1234512345');
+            expect(subscriptionData.caseTableData[2].partyNames).toEqual('');
 
-            expect(subscriptionData.locationTableData).toHaveLength(3);
-            const locationDataRow = subscriptionData.locationTableData[0];
-            expect(locationDataRow).toHaveLength(3);
-            expect(locationDataRow[2].html).toContain('type="checkbox"');
+            expect(subscriptionData.caseTableData[3].caseName).toBe('Case Name');
+            expect(subscriptionData.caseTableData[3].caseRef).toEqual('');
+            expect(subscriptionData.caseTableData[3].partyNames).toEqual('');
 
-            expect(subscriptionData.activeAllTab).toBeTruthy();
-            expect(subscriptionData.activeCaseTab).toBeFalsy();
-            expect(subscriptionData.activeLocationTab).toBeFalsy();
-        });
-
-        it("should return subscription data for 'case' tab", async () => {
-            const result = await subscriptionService.getSubscriptionDataForView(
-                userIdWithSubscriptions,
-                'en',
-                'case',
-                true
-            );
-            const subscriptionData = JSON.parse(JSON.stringify(result));
-
-            expect(subscriptionData.caseTableData).toHaveLength(6);
-            const caseDataRow = subscriptionData.caseTableData[0];
-            expect(caseDataRow).toHaveLength(4);
-            expect(caseDataRow[3].html).toContain('type="checkbox"');
-
-            expect(subscriptionData.locationTableData).toHaveLength(3);
-            const locationDataRow = subscriptionData.locationTableData[0];
-            expect(locationDataRow).toHaveLength(3);
-            expect(locationDataRow[2].html).toContain('type="checkbox"');
-
-            expect(subscriptionData.activeAllTab).toBeFalsy();
-            expect(subscriptionData.activeCaseTab).toBeTruthy();
-            expect(subscriptionData.activeLocationTab).toBeFalsy();
-        });
-
-        it("should return subscription data for 'location' tab", async () => {
-            const result = await subscriptionService.getSubscriptionDataForView(
-                userIdWithSubscriptions,
-                'en',
-                'location',
-                true
-            );
-            const subscriptionData = JSON.parse(JSON.stringify(result));
-
-            expect(subscriptionData.caseTableData).toHaveLength(6);
-            const caseDataRow = subscriptionData.caseTableData[0];
-            expect(caseDataRow).toHaveLength(4);
-            expect(caseDataRow[3].html).toContain('type="checkbox"');
-
-            expect(subscriptionData.locationTableData).toHaveLength(3);
-            const locationDataRow = subscriptionData.locationTableData[0];
-            expect(locationDataRow).toHaveLength(3);
-            expect(locationDataRow[2].html).toContain('type="checkbox"');
-
-            expect(subscriptionData.activeAllTab).toBeFalsy();
-            expect(subscriptionData.activeCaseTab).toBeFalsy();
-            expect(subscriptionData.activeLocationTab).toBeTruthy();
-        });
-
-        it('should sort case subscription data by case name and case number', async () => {
-            const result = await subscriptionService.getSubscriptionDataForView(userIdWithSubscriptions, 'en', 'case');
-            const subscriptionData = JSON.parse(JSON.stringify(result));
-            const firstRow = subscriptionData.caseTableData[0];
-            expect(firstRow[0].text).toEqual('Test Name');
-            expect(firstRow[1].text).toEqual('C123123');
-
-            const secondRow = subscriptionData.caseTableData[1];
-            expect(secondRow[0].text).toEqual('Test Name 2');
-            expect(secondRow[1].text).toEqual('I123123');
-
-            const thirdRow = subscriptionData.caseTableData[2];
-            expect(thirdRow[0].text).toEqual('Test Name 3');
-            expect(thirdRow[1].text).toEqual('1212121212');
-
-            const fourthRow = subscriptionData.caseTableData[3];
-            expect(fourthRow[0].text).toEqual('Test Name 3');
-            expect(fourthRow[1].text).toEqual('B123123');
-
-            const fifthRow = subscriptionData.caseTableData[4];
-            expect(fifthRow[0].text).toBeNull();
-            expect(fifthRow[1].text).toEqual('A123123');
-
-            const sixthRow = subscriptionData.caseTableData[5];
-            expect(sixthRow[0].text).toBeNull();
-            expect(sixthRow[1].text).toEqual('D123123');
-        });
-
-        it('should sort location subscription data by court name', async () => {
-            const result = await subscriptionService.getSubscriptionDataForView(
-                userIdWithSubscriptions,
-                'en',
-                'location'
-            );
-            const subscriptionData = JSON.parse(JSON.stringify(result));
-
-            expect(subscriptionData.locationTableData[0][0].text).toEqual('Aberdeen Tribunal Hearing Centre');
-            expect(subscriptionData.locationTableData[1][0].text).toEqual("Barkingside Magistrates' Court");
-            expect(subscriptionData.locationTableData[2][0].text).toEqual('Manchester Crown Court');
+            expect(subscriptionData.caseTableData[4].caseName).toEqual('');
+            expect(subscriptionData.caseTableData[4].caseRef).toEqual('1234512346');
+            expect(subscriptionData.caseTableData[4].partyNames).toEqual('PARTYNAME1,\nPARTYNAME2');
         });
     });
 });
@@ -637,6 +546,7 @@ describe('subscribe function', () => {
             caseNumber: mockCase.caseNumber,
             caseName: mockCase.caseName,
             urn: mockCase.caseUrn,
+            partyNames: mockCase.partyNames.split(',\n').join(','),
             userId: userIdWithCaseSubscription,
         };
 
@@ -657,6 +567,7 @@ describe('subscribe function', () => {
             caseNumber: mockCaseWithUrnOnly.caseNumber,
             caseName: mockCaseWithUrnOnly.caseName,
             urn: mockCaseWithUrnOnly.caseUrn,
+            partyNames: mockCaseWithUrnOnly.partyNames.split(',\n').join(','),
             userId: userIdWithUrnSubscription,
         };
 
@@ -991,28 +902,24 @@ describe('generateListTypesForCourts', () => {
 
     it('should generate location table rows when language is English', async () => {
         locationStub.withArgs(1).resolves(mockCourt);
-        const mockSubscriptionData = [{ locationId: 1 }];
-        const result = await subscriptionService.generateLocationTableRows(
-            mockSubscriptionData,
-            'en',
-            'subscription-management'
-        );
+        const mockSubscriptionData = [{ locationId: 1, subscriptionId: 99, dateAdded: '2023-05-31T16:49:26.607904' }];
+        const results = await subscriptionService.generateLocationTableRows(mockSubscriptionData, 'en');
 
-        expect(result[0][0].text).toEqual('Aberdeen Tribunal Hearing Centre');
-        expect(result[0][2].html).toContain('Unsubscribe');
+        expect(results.length).toEqual(1);
+        expect(results[0].subscriptionId).toEqual(99);
+        expect(results[0].locationName).toEqual('Aberdeen Tribunal Hearing Centre');
+        expect(results[0].date).toEqual('31 May 2023');
     });
 
     it('should generate location table rows when language is Welsh', async () => {
         locationStub.withArgs(1).resolves(mockCourt);
-        const mockSubscriptionData = [{ locationId: 1 }];
-        const result = await subscriptionService.generateLocationTableRows(
-            mockSubscriptionData,
-            'cy',
-            'subscription-management'
-        );
+        const mockSubscriptionData = [{ locationId: 1, subscriptionId: 99, dateAdded: '2023-05-31T16:49:26.607904' }];
+        const results = await subscriptionService.generateLocationTableRows(mockSubscriptionData, 'cy');
 
-        expect(result[0][0].text).toEqual('Welsh court name test');
-        expect(result[0][2].html).toContain('dad-danysgrifio');
+        expect(results.length).toEqual(1);
+        expect(results[0].subscriptionId).toEqual(99);
+        expect(results[0].locationName).toEqual('Welsh court name test');
+        expect(results[0].date).toEqual('31 May 2023');
     });
 
     it('retrieve subscription channels', async () => {
