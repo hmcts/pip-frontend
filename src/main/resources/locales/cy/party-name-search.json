@@ -1,13 +1,13 @@
 {
-    "title": "Tanysgrifio yn ôl enw’r achos",
-    "heading": "Beth yw enw’r achos?",
+    "title": "Tanysgrifio yn ôl enw'r parti",
+    "heading": "Beth yw cyfenw neu enw sefydliadol y parti sy'n rhan o'r achos?",
     "backButton": "Yn ôl",
     "inputLabel": "Er enghraifft, Smith.",
     "error": {
         "notFound": "Does yna ddim yn cyfateb i'r meini prawf",
         "minimumCharacterError": "Nodwch o leiaf 3 nod",
         "title": "Mae yna broblem",
-        "input": "Darparwch enw cywir ar gyfer yr achos",
+        "input": "Rhowch enw parti cywir",
         "line1": "Nid oes unrhyw ganlyniadau sy’n cyd-fynd â’r gofynion chwilio.",
         "line2": "Gallwch:",
         "liText1": "Gwiriwch eich sillafu",
