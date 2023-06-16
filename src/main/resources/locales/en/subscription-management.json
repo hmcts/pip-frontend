@@ -12,7 +12,8 @@
     "noSubsCourt": "You currently have no subscriptions by court or tribunal",
     "table": {
         "header1": "Case name",
-        "header2": "Reference number",
+        "header2": "Party name(s)",
+        "header3": "Reference number",
         "date": "Date added",
         "actions": "Actions"
     },

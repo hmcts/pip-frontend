@@ -13,8 +13,9 @@ const radioClass = 'govuk-radios__item';
 const expectedHeader = 'How do you want to add an email subscription?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'By court or tribunal name';
-const expectedRadioLabel2 = 'By case reference number, case ID or unique reference number (URN)';
-const expectedRadioLabel3 = 'By case name';
+const expectedRadioLabel2 = 'By party name';
+const expectedRadioLabel3 = 'By case reference number, case ID or unique reference number (URN)';
+const expectedRadioLabel4 = 'By case name';
 
 app.request['user'] = { roles: 'VERIFIED' };
 
@@ -67,7 +68,7 @@ describe('Subscriptions add Page initial load', () => {
 
     it('should display 4 radio buttons', () => {
         const radioButtons = htmlRes.getElementsByClassName(radioClass);
-        expect(radioButtons.length).equal(3, '4 radio buttons not found');
+        expect(radioButtons.length).equal(4, '4 radio buttons not found');
     });
 
     it('should display first radio button content', () => {
@@ -90,6 +91,14 @@ describe('Subscriptions add Page initial load', () => {
         const radioButtons = htmlRes.getElementsByClassName(radioClass);
         expect(radioButtons[2].innerHTML).contains(
             expectedRadioLabel3,
+            'Could not find the radio button with label ' + expectedRadioLabel3
+        );
+    });
+
+    it('should display fourth radio button content', () => {
+        const radioButtons = htmlRes.getElementsByClassName(radioClass);
+        expect(radioButtons[3].innerHTML).contains(
+            expectedRadioLabel4,
             'Could not find the radio button with label ' + expectedRadioLabel3
         );
     });
