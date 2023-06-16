@@ -87,6 +87,24 @@ describe('Subscriptions Add Controller', () => {
         responseMock.verify();
     });
 
+    it("should render party name search page if choice is 'party-name'", () => {
+        const response = {
+            redirect: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = { 'subscription-choice': 'party-name' };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('redirect').once().withArgs('/party-name-search');
+
+        subscriptionAddController.post(request, response);
+
+        responseMock.verify();
+    });
+
     it("should render home page if choice is 'court-or-tribunal'", () => {
         const response = {
             redirect: function () {

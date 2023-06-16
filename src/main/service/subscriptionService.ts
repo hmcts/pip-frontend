@@ -7,14 +7,12 @@ import { LocationService } from './locationService';
 import { FilterService } from './filterService';
 import { Location } from '../models/location';
 import { ListType } from '../models/listType';
-import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
 const filterService = new FilterService();
-const languageFileParser = new LanguageFileParser();
 const locationService = new LocationService();
 
 const timeZone = 'Europe/London';
@@ -58,24 +56,12 @@ const caseSubscriptionSorter = (a, b) => {
 };
 
 export class SubscriptionService {
-    public async getSubscriptionDataForView(
-        userId: string,
-        language: string,
-        tab: string,
-        bulkDelete = false
-    ): Promise<object> {
+    public async getSubscriptionDataForView(userId: string, language: string, tab: string): Promise<object> {
         const subscriptionData = await this.getSubscriptionsByUser(userId);
-        const caseTableData = await this.generateCaseTableRows(
-            subscriptionData.caseSubscriptions,
-            language,
-            'subscription-management',
-            bulkDelete
-        );
+        const caseTableData = await this.generateCaseTableRows(subscriptionData.caseSubscriptions);
         const locationTableData = await this.generateLocationTableRows(
             subscriptionData.locationSubscriptions,
-            language,
-            'subscription-management',
-            bulkDelete
+            language
         );
         let activeAllTab = false,
             activeCaseTab = false,
@@ -115,141 +101,53 @@ export class SubscriptionService {
               };
     }
 
-    async generateCaseTableRows(subscriptionDataCases, language, languageFile, bulkDelete = false): Promise<any[]> {
+    async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
         const caseRows = [];
-        const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
         if (subscriptionDataCases.length) {
             subscriptionDataCases.sort(caseSubscriptionSorter);
             subscriptionDataCases.forEach(subscription => {
-                caseRows.push(
-                    bulkDelete
-                        ? this.generateCaseTableRowForBulkDelete(subscription)
-                        : this.generateCaseTableRow(subscription, fileJson)
-                );
+                caseRows.push(this.generateCaseTableRow(subscription));
             });
         }
 
         return caseRows;
     }
 
-    async generateLocationTableRows(
-        subscriptionDataCourts,
-        language,
-        languageFile,
-        bulkDelete = false
-    ): Promise<any[]> {
+    async generateLocationTableRows(subscriptionDataCourts, language): Promise<any[]> {
         const courtRows = [];
-        const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
         if (subscriptionDataCourts.length) {
             subscriptionDataCourts.sort(locationSubscriptionSorter);
             for (const subscription of subscriptionDataCourts) {
                 const location = await locationService.getLocationById(subscription.locationId);
                 const locationName = language === 'cy' ? location.welshName : location.name;
 
-                courtRows.push(
-                    bulkDelete
-                        ? this.generateLocationTableRowForBulkDelete(locationName, subscription)
-                        : this.generateLocationTableRow(locationName, subscription, fileJson)
-                );
+                courtRows.push(this.generateLocationTableRow(locationName, subscription));
             }
         }
         return courtRows;
     }
 
-    private generateCaseTableRow(subscription, fileJson): any {
-        const caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
-        return [
-            {
-                text: subscription.caseName,
-            },
-            {
-                text: caseRef,
-            },
-            {
-                text: DateTime.fromISO(subscription.dateAdded, {
-                    zone: timeZone,
-                }).toFormat('dd MMMM yyyy'),
-                classes: 'no-wrap',
-            },
-            {
-                html:
-                    `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-                    languageFileParser.getText(fileJson, null, 'unsubscribe') +
-                    '</a>',
-                format: 'numeric',
-            },
-        ];
-    }
-
-    private generateCaseTableRowForBulkDelete(subscription): any {
+    private generateCaseTableRow(subscription): any {
         const caseName = subscription.caseName === null ? '' : subscription.caseName;
+        const partyNames = subscription.partyNames === null ? '' : subscription.partyNames.split(',').join(',\n');
         let caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
         caseRef = caseRef === null ? '' : caseRef;
-        return [
-            {
-                html: `<p class="govuk-body bulk-delete-row">${caseName}</p>`,
-            },
-            {
-                html: `<p class="govuk-body bulk-delete-row">${caseRef}</p>`,
-            },
-            {
-                html:
-                    '<p class="govuk-body bulk-delete-row no-wrap">' +
-                    DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy') +
-                    '</p>',
-            },
-            {
-                html:
-                    '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">' +
-                    '<input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription" ' +
-                    `value=${subscription.subscriptionId}>` +
-                    '<label class="govuk-label govuk-checkboxes__label" for="caseSubscription"> </label></div>',
-                format: 'numeric',
-            },
-        ];
+
+        return {
+            subscriptionId: subscription.subscriptionId,
+            caseName: caseName,
+            partyNames: partyNames,
+            caseRef: caseRef,
+            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy'),
+        };
     }
 
-    private generateLocationTableRow(locationName, subscription, fileJson): any {
-        return [
-            {
-                text: locationName,
-            },
-            {
-                text: DateTime.fromISO(subscription.dateAdded, {
-                    zone: timeZone,
-                }).toFormat('dd MMMM yyyy'),
-                classes: 'no-wrap',
-            },
-            {
-                html:
-                    `<a class='unsubscribe-action' href='delete-subscription?subscription=${subscription.subscriptionId}'>` +
-                    languageFileParser.getText(fileJson, null, 'unsubscribe') +
-                    '</a>',
-                format: 'numeric',
-            },
-        ];
-    }
-
-    private generateLocationTableRowForBulkDelete(locationName, subscription): any {
-        return [
-            {
-                html: `<p class="govuk-body bulk-delete-row">${locationName}</p>`,
-            },
-            {
-                html:
-                    '<p class="govuk-body bulk-delete-row no-wrap">' +
-                    DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy') +
-                    '</p>',
-            },
-            {
-                html:
-                    '<div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">' +
-                    '<input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription" ' +
-                    `value=${subscription.subscriptionId}>` +
-                    '<label class="govuk-label govuk-checkboxes__label" for="courtSubscription"> </label></div>',
-                format: 'numeric',
-            },
-        ];
+    private generateLocationTableRow(locationName, subscription): any {
+        return {
+            subscriptionId: subscription.subscriptionId,
+            locationName: locationName,
+            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy'),
+        };
     }
 
     public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
@@ -411,6 +309,7 @@ export class SubscriptionService {
                     caseNumber: pendingSubscription.caseNumber,
                     caseName: pendingSubscription.caseName,
                     urn: pendingSubscription.caseUrn,
+                    partyNames: pendingSubscription.partyNames.split(',\n').join(','),
                     userId,
                 };
                 break;

@@ -10,6 +10,7 @@
     "noSubsCourt": "Nid oes gennych unrhyw danysgrifiadau yn ôl llys neu dribiwnlys",
     "caseTable": {
         "caseName": "Enw'r achos",
+        "partyNames": "Enw’r parti (partïon)",
         "caseRef": "Cyfeirnod",
         "date": "Dyddiad wedi’i ychwanegu",
         "deletion": "Dewis"
