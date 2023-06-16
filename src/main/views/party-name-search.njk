@@ -1,0 +1,106 @@
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton) }}
+{% endblock %}
+{% block content %}
+    <div class="parent-box">
+        {% if noResultsError %}
+            <div class="govuk-grid-row">
+                <div class="no_padding govuk-grid-column-full">
+                    {{ govukErrorSummary({
+                        titleText: error.title,
+                        errorList: [
+                            {
+                                text: error.notFound,
+                                href: "#party-name"
+                            }
+                        ]
+                    }) }}
+                </div>
+            </div>
+        {% endif %}
+        {% if minimumCharacterError %}
+            <div class="govuk-grid-row">
+                <div class="no_padding govuk-grid-column-full">
+                    {{ govukErrorSummary({
+                        titleText: error.title,
+                        errorList: [
+                            {
+                                text: error.minimumCharacterError,
+                                href: "#party-name"
+                            }
+                        ]
+                    }) }}
+                </div>
+            </div>
+        {% endif %}
+        {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
+            if noResultsError else 'govuk-!-width-two-thirds' %}
+        {% set formGroupError = 'govuk-form-group--error'
+            if noResultsError else 'govuk-form-group' %}
+        {% set inputProperties = {
+            id: "party-name",
+            name: "party-name",
+            errorMessage: {
+                text: error.input
+            },
+            classes: 'govuk-!-width-one-half',
+            label: {
+                text: inputLabel
+            }
+        } if noResultsError else ({
+            id: "party-name",
+            name: "party-name",
+            errorMessage: {
+                text: error.minimumCharacterError
+            },
+            classes: 'govuk-!-width-one-half',
+            label: {
+                text: inputLabel
+            }
+        } if minimumCharacterError else {
+            id: "party-name",
+            name: "party-name",
+            classes: 'govuk-!-width-one-half',
+            label: {
+                text: inputLabel
+            }
+        }) %}
+        <form action="party-name-search" method="post">
+            <div class="govuk-form-group">
+                <h1 class="govuk-heading-l">{{ heading }}</h1>
+                {{ govukInput(inputProperties) }}
+            </div>
+            {{ submitButton(continueButton) }}
+            {% if noResultsError %}
+                <div class="govuk-grid-row">
+                    <div class="no_padding govuk-grid-column-full">
+                        <h2 class="govuk-heading-s">{{ error.line1 }}</h2>
+                        <p class="govuk-body">{{ error.line2 }}</p>
+                        <ul>
+                            <li class="govuk-body">{{ error.liText1 }}</li>
+                            <li class="govuk-body"><a href="/subscription-add">{{ error.liText2 }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+        </form>
+        {{ super() }}
+    </div>
+{% endblock %}
+{% block bodyEnd %}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+    {{ super() }}
+{% endblock %}

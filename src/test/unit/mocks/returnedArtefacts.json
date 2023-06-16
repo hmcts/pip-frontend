@@ -13,6 +13,27 @@
                     "caseName": "case name 1",
                     "caseUrn": "38543"
                 }
+            ],
+            "parties": [
+                {
+                    "cases": [
+                        {
+                            "caseNumber": "635356",
+                            "caseName": "case name 1",
+                            "caseUrn": "38543"
+                        }
+                    ],
+                    "organisations": [
+                        "org name"
+                    ],
+                    "individuals": [
+                        {
+                            "forename": "forename",
+                            "middleName": "middleName",
+                            "surname": "surname"
+                        }
+                    ]
+                }
             ]
         },
         "displayFrom": "2022-02-14T14:14:59.73967",

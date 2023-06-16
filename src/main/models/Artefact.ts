@@ -1,4 +1,4 @@
-import { Cases } from './cases';
+import { Search } from './search';
 
 export interface Artefact {
     artefactId: string;
@@ -7,7 +7,7 @@ export interface Artefact {
     artefactType: string;
     sensitivity: string;
     language: string;
-    search: Cases;
+    search: Search;
     displayFrom: string;
     displayTo: string;
     listType: string;
