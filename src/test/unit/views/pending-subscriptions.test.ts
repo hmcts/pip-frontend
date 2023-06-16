@@ -14,6 +14,7 @@ const mockCase = {
     caseNumber: 'CASENUM1234',
     caseName: 'Case Name 1234',
     caseUrn: 'CASEURN1234',
+    partyNames: 'PARTYNAME1,\nPARTYNAME2',
 };
 
 const mockUrnCase = {
@@ -26,6 +27,7 @@ const mockUrnCase = {
     caseNumber: '11111111',
     caseName: 'CASENAME1234',
     caseUrn: 'A11112222',
+    partyNames: 'PARTYNAME3',
     urnSearch: true,
 };
 
@@ -85,8 +87,9 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains('Case name', 'Could not find text in first header');
-            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in second header');
-            expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in fourth header');
+            expect(tableHeaders[1].innerHTML).contains('Party name(s)', 'Could not find text in second header');
+            expect(tableHeaders[2].innerHTML).contains('Reference number', 'Could not find text in third header');
+            expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
         });
 
         it('should display correct court table headers', () => {
@@ -112,9 +115,11 @@ describe('Pending Subscriptions Page', () => {
 
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(cells[0].innerHTML).contains(mockCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-            expect(cells[2].querySelector('a').getAttribute('href')).equal(
+            expect(cells[1].innerHTML).contains('PARTYNAME1', 'Second cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('PARTYNAME2', 'Second cell does not contain correct value');
+            expect(cells[2].innerHTML).contains(mockCase.caseNumber, 'Third cell does not contain correct value');
+            expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[3].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-number=${mockCase.caseNumber}`
             );
         });
@@ -126,9 +131,10 @@ describe('Pending Subscriptions Page', () => {
 
             const cells = rows[1].getElementsByClassName('govuk-table__cell');
             expect(cells[0].innerHTML).contains(mockUrnCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockUrnCase.caseUrn, 'Second cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-            expect(cells[2].querySelector('a').getAttribute('href')).equal(
+            expect(cells[1].innerHTML).contains(mockUrnCase.partyNames, 'Second cell does not contain correct value');
+            expect(cells[2].innerHTML).contains(mockUrnCase.caseUrn, 'Third cell does not contain correct value');
+            expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[3].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-urn=${mockUrnCase.caseUrn}`
             );
         });
@@ -260,8 +266,9 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains('Case name', 'Could not find text in first header');
-            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in second header');
-            expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in fourth header');
+            expect(tableHeaders[1].innerHTML).contains('Party name(s)', 'Could not find text in second header');
+            expect(tableHeaders[2].innerHTML).contains('Reference number', 'Could not find text in Third header');
+            expect(tableHeaders[3].innerHTML).contains('Actions', 'Could not find text in fourth header');
         });
 
         it('should not display court table headers', () => {
@@ -283,9 +290,11 @@ describe('Pending Subscriptions Page', () => {
 
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(cells[0].innerHTML).contains(mockCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-            expect(cells[2].querySelector('a').getAttribute('href')).equal(
+            expect(cells[1].innerHTML).contains('PARTYNAME1', 'Second cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('PARTYNAME2', 'Second cell does not contain correct value');
+            expect(cells[2].innerHTML).contains(mockCase.caseNumber, 'Third cell does not contain correct value');
+            expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[3].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-number=${mockCase.caseNumber}`
             );
         });
@@ -297,9 +306,10 @@ describe('Pending Subscriptions Page', () => {
 
             const cells = rows[1].getElementsByClassName('govuk-table__cell');
             expect(cells[0].innerHTML).contains(mockUrnCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockUrnCase.caseUrn, 'Second cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-            expect(cells[2].querySelector('a').getAttribute('href')).equal(
+            expect(cells[1].innerHTML).contains(mockUrnCase.partyNames, 'Second cell does not contain correct value');
+            expect(cells[2].innerHTML).contains(mockUrnCase.caseUrn, 'Third cell does not contain correct value');
+            expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[3].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-urn=${mockUrnCase.caseUrn}`
             );
         });

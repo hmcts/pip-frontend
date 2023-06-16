@@ -10,6 +10,7 @@
     "noSubsCourt": "You currently have no subscriptions by court or tribunal",
     "caseTable": {
         "caseName": "Case name",
+        "partyNames": "Party name(s)",
         "caseRef": "Reference number",
         "date": "Date added",
         "deletion": "Select"
