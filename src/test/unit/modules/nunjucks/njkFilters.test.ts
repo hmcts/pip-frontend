@@ -169,9 +169,42 @@ describe('Nunjucks Custom Filter Tests', function () {
             const result = env.renderString('{{ "SNL"| maskLegacyDataSource }}', {});
             expect(result).to.equal('ListAssist');
         });
+
         it('should return existing data source name', function () {
             const result = env.renderString('{{ "MANUAL_UPLOAD"| maskLegacyDataSource }}', {});
             expect(result).to.equal('MANUAL_UPLOAD');
+        });
+    });
+
+    describe('append case sequence indicator', function () {
+        it('should return data with case sequence indicator', function () {
+            const result = env.renderString('{{ "1234"| appendCaseSequenceIndicator("1 of 2") }}', {});
+            expect(result).to.equal('1234 [1 of 2]');
+        });
+
+        it('should return data only if case sequence indicator is null', function () {
+            const result = env.renderString('{{ "1234"| appendCaseSequenceIndicator(null) }}', {});
+            expect(result).to.equal('1234');
+        });
+
+        it('should return data only if case sequence indicator is empty', function () {
+            const result = env.renderString('{{ "1234"| appendCaseSequenceIndicator("") }}', {});
+            expect(result).to.equal('1234');
+        });
+
+        it('should return data only if case sequence indicator is undefined', function () {
+            const result = env.renderString('{{ "1234"| appendCaseSequenceIndicator(undefined) }}', {});
+            expect(result).to.equal('1234');
+        });
+
+        it('should return case sequence indicator only if data is null', function () {
+            const result = env.renderString('{{ null | appendCaseSequenceIndicator("1 of 2") }}', {});
+            expect(result).to.equal('[1 of 2]');
+        });
+
+        it('should return case sequence indicator only if data is empty', function () {
+            const result = env.renderString('{{ ""| appendCaseSequenceIndicator("1 of 2") }}', {});
+            expect(result).to.equal('[1 of 2]');
         });
     });
 });
