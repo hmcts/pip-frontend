@@ -16,20 +16,15 @@ export default class ListDownloadFilesController {
         const artefactId = req.query.artefactId;
 
         if (type === undefined) {
-            const response = await listDownloadService.generateFiles(artefactId, req.user['userId']);
-            if (response) {
-                const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
-                const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
+            const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
+            const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
 
-                res.render(url, {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
-                    artefactId: artefactId,
-                    pdfFileSize: pdfFileSize,
-                    excelFileSize: excelFileSize,
-                });
-            } else {
-                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-            }
+            res.render(url, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
+                artefactId: artefactId,
+                pdfFileSize: pdfFileSize,
+                excelFileSize: excelFileSize,
+            });
         } else {
             const file = listDownloadService.getFile(artefactId, FileType[type.toUpperCase()]);
             if (file) {

@@ -5,8 +5,10 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import { PublicationService } from '../../../main/service/publicationService';
+import {ListDownloadService} from "../../../main/service/listDownloadService";
 
 const PAGE_URL = '/sjp-public-list?artefactId=abc';
+const PAGE_URL_WITH_DOWNLOAD_BUTTON = '/sjp-public-list?artefactId=def';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-body';
 const tableHeadings = 'govuk-table__header';
@@ -34,8 +36,12 @@ const metaData = JSON.parse(rawMetaData)[0];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sjpList);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 
+const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
+generatesFilesStub.withArgs('abc').resolves(false);
+
 describe('Single Justice Procedure List page', () => {
     describe('user not signed in', () => {
+        generatesFilesStub.withArgs('def').resolves(false);
         beforeAll(async () => {
             await request(app)
                 .get(PAGE_URL)
@@ -96,20 +102,42 @@ describe('Single Justice Procedure List page', () => {
     });
 
     describe('signed in as media user', () => {
-        beforeAll(async () => {
-            app.request['user'] = { roles: 'VERIFIED' };
+        describe('with publication files', () => {
+            generatesFilesStub.withArgs('def', {roles: 'VERIFIED'}).resolves(true);
 
-            await request(app)
-                .get(PAGE_URL)
-                .then(res => {
-                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    htmlRes.getElementsByTagName('div')[0].remove();
-                });
+            beforeAll(async () => {
+                app.request['user'] = { roles: 'VERIFIED' };
+
+                await request(app)
+                    .get(PAGE_URL_WITH_DOWNLOAD_BUTTON)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                        htmlRes.getElementsByTagName('div')[0].remove();
+                    });
+            });
+
+            it('should display the download button', () => {
+                const buttons = htmlRes.getElementsByClassName(buttonClass);
+                expect(buttons[0].innerHTML).contains('Download a copy', 'Could not find the download button');
+            });
         });
 
-        it('should display the download button', () => {
-            const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0].innerHTML).contains('Download a copy', 'Could not find the download button');
+        describe('without publication files', () => {
+            beforeAll(async () => {
+                app.request['user'] = { roles: 'VERIFIED' };
+
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                        htmlRes.getElementsByTagName('div')[0].remove();
+                    });
+            });
+
+            it('should display the download button', () => {
+                const buttons = htmlRes.getElementsByClassName(buttonClass);
+                expect(buttons[0].innerHTML).not.contains('Download a copy', 'Could find the download button');
+            });
         });
     });
 
