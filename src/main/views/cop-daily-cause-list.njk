@@ -85,11 +85,7 @@
                           <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
                           <td class="govuk-table__cell">{{ case['caseSuppressionName'] }}</td>
                           <td class="govuk-table__cell">{{ hearing['hearingType'] }}</td>
-                          {% if case['caseSequenceIndicator'] | length %}
-                            <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
-                          {% else %}
-                            <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
-                          {% endif %}
+                          <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                           <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
                       {% endfor %}
