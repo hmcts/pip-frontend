@@ -53,7 +53,7 @@
           <tr class="govuk-table__row">
             <td class="govuk-table__cell" data-sort-value="{{ courtCase['hearingDate'] | dayMonthNameToSortValue }}">{{ courtCase['hearingDate'] }}</td>
             <td class="govuk-table__cell">{{ courtCase['caseName'] }}</td>
-            <td class="govuk-table__cell" data-sort-value="{{ courtCase.durationSortValue }}">{{ courtCase['formattedDuration'] }} {{ courtCase['caseSequenceIndicator'] }}</td>
+            <td class="govuk-table__cell" data-sort-value="{{ courtCase.durationSortValue }}">{{ courtCase['formattedDuration'] | appendCaseSequenceIndicator(courtCase['caseSequenceIndicator']) }}</td>
             <td class="govuk-table__cell">{{ courtCase['hearingType'] }}</td>
             <td class="govuk-table__cell">{{ courtCase['venue'] | striptags(true) | escape | nl2br }} </td>
           </tr>

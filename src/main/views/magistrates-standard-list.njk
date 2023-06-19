@@ -114,7 +114,7 @@
                       <div class="govuk-grid-column-two-thirds no_padding">
                         {% if defendant['formattedDuration'] | length %}
                           <p class="govuk-body"><span class="linked-cases-heading">{{ defendantCount }}. {{ sittingAt }} {{ defendant['time'] }}
-                              {{ sittingFor }} {{ defendant['formattedDuration'] }} {{ defendant['caseSequenceIndicator'] }}</span></p> <br />
+                              {{ sittingFor }} {{ defendant['formattedDuration'] | appendCaseSequenceIndicator(defendant['caseSequenceIndicator']) }}</span></p> <br />
                         {% endif %}
                         {% if defendant['defendantDateOfBirth'] | length %}
                         <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ defendant['defendantDateOfBirth'] }}
