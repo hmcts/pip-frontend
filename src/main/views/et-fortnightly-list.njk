@@ -92,7 +92,7 @@
                 </thead>
                 <tbody class="govuk-table__body">
                 {% for record in day %}
-                  {% set duration = [record.durationAsHours | getDuration(record.durationAsMinutes, lng), record.caseSeparator] | join(" ") | trim %}
+                  {% set duration = record.durationAsHours | getDuration(record.durationAsMinutes, lng) | appendCaseSequenceIndicator(record.caseSeparator) | trim %}
                   {% set durationSortValue = record.durationAsHours | durationToSortValue(record.durationAsMinutes) %}
                   <tr class="govuk-table__row">
                     <td class="govuk-table__cell">{{ record.courtRoom }}</td>

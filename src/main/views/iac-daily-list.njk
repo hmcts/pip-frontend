@@ -92,11 +92,7 @@
                             {% endif %}
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
-                              {% if case['caseSequenceIndicator'] | length %}
-                                <td class="govuk-table__cell">{{ case['caseNumber'] }} {{ case['caseSequenceIndicator'] }}</td>
-                              {% else %}
-                                <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
-                              {% endif %}
+                              <td class="govuk-table__cell">{{ case['caseNumber'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                               {% if hearing['appellantRepresentative'] | length %}
                                 <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
                               {% else %}

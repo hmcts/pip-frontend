@@ -115,11 +115,7 @@
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell no-wrap" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
                               <td class="govuk-table__cell no-wrap">{{ case['caseNumber'] }}</td>
-                              {% if case['caseSequenceIndicator'] | length %}
-                                <td class="govuk-table__cell no-wrap">{{ case['caseName'] }} {{ case['caseSequenceIndicator'] }}</td>
-                              {% else %}
-                                <td class="govuk-table__cell no-wrap">{{ case['caseName'] }}</td>
-                              {% endif %}
+                              <td class="govuk-table__cell no-wrap">{{ case['caseName']  | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                               <td class="govuk-table__cell no-wrap">{{ case['caseType'] }}</td>
                               <td class="govuk-table__cell no-wrap">{{ hearing['hearingType'] }}</td>
                               <td class="govuk-table__cell no-wrap">{{ sitting['caseHearingChannel'] }}</td>
