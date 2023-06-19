@@ -11,20 +11,20 @@
     {{ goBack(text = backButton) }}
 {% endblock %}
 {% block content %}
-  <div class="parent-box alphabetical-box">
-    <h1 class="govuk-heading-l">{{ title }}</h1>
-    <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
-    <form action="pending-subscriptions" method="post" autocomplete="off">
-        <table class="govuk-table govuk-!-width-three-quarters" data-module="moj-multi-select">
-            <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column0Header }}</th>
-                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column1Header }}</th>
-                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column2Header }}</th>
-                <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column3Header }}</th>
-            </tr>
-            </thead>
-            <tbody class="govuk-table__body">
+    <div class="parent-box alphabetical-box">
+        <h1 class="govuk-heading-l">{{ title }}</h1>
+        <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
+        <form action="pending-subscriptions" method="post" autocomplete="off">
+            <table class="govuk-table" data-module="moj-multi-select">
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column0Header }}</th>
+                    <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column1Header }}</th>
+                    <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column2Header }}</th>
+                    <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column3Header }}</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
                 {% for result in searchResults %}
                     {% if result.displayUrn %}
                         {% set referenceNumber = result.caseUrn %}
@@ -49,19 +49,19 @@
                         <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-padding-top-3">{{ referenceNumber }}</td>
                     </tr>
                 {% endfor %}
-            </tbody>
-        </table>
-        {{ submitButton(continueButton) }}
-    </form>
-    {{ super() }}
-  </div>
+                </tbody>
+            </table>
+            {{ submitButton(continueButton) }}
+        </form>
+        {{ super() }}
+    </div>
 {% endblock %}
 {% block bodyEnd %}
-  {{ super() }}
-  {{ mojAll() }}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+    {{ super() }}
+    {{ mojAll() }}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
 {% endblock %}

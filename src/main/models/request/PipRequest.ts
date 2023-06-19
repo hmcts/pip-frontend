@@ -29,6 +29,8 @@ export interface PipRequest extends Request {
             'manual-upload-summary': {};
             'media-applications': {};
             'not-found': {};
+            'party-name-search': {};
+            'party-name-search-results': {};
             'remove-list-confirmation': {};
             'remove-list-search': {};
             'remove-list-search-results': {};

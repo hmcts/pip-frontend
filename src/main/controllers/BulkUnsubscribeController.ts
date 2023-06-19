@@ -13,8 +13,7 @@ export default class BulkUnsubscribeController {
             const subscriptionData = await subscriptionService.getSubscriptionDataForView(
                 req.user['userId'],
                 req.lng as string,
-                Object.keys(req.query)[0],
-                true
+                Object.keys(req.query)[0]
             );
             res.render(bulkUnsubscribeUrl, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkUnsubscribeUrl]),
@@ -32,8 +31,7 @@ export default class BulkUnsubscribeController {
                 const subscriptionData = await subscriptionService.getSubscriptionDataForView(
                     req.user['userId'],
                     req.lng as string,
-                    Object.keys(req.query)[0],
-                    true
+                    Object.keys(req.query)[0]
                 );
 
                 res.render(bulkUnsubscribeUrl, {

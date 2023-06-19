@@ -53,9 +53,10 @@ describe('Case name search results page', () => {
 
     it('should contain expected column headings', () => {
         const tableHeaders = htmlRes.getElementsByClassName('govuk-table__header');
-        expect(tableHeaders[0].innerHTML).contains('Select a Result', 'Could not find select a result header');
-        expect(tableHeaders[1].innerHTML).contains('Case Name', 'Could not find case name header');
-        expect(tableHeaders[2].innerHTML).contains('Reference Number', 'Could not find case reference number header');
+        expect(tableHeaders[0].innerHTML).contains('Select a result', 'Could not find select a result header');
+        expect(tableHeaders[1].innerHTML).contains('Case name', 'Could not find case name header');
+        expect(tableHeaders[2].innerHTML).contains('Party name(s)', 'Could not find party names header');
+        expect(tableHeaders[3].innerHTML).contains('Reference number', 'Could not find case reference number header');
     });
 
     it('should contain 7 rows, including the header', () => {

@@ -42,7 +42,6 @@ module.exports = {
     LinkResult: 'tbody > tr.govuk-table__row > th > a',
 
     //Alphabetical Search selectors
-    AlphabeticalHeading: '#page-heading',
     BackToTopButton: '#back-to-top-button',
     SingleJusticeProcedureLink: '#sjp-link',
 
@@ -68,20 +67,6 @@ module.exports = {
     CourtOrTribunalRadioButton: '#view-choice',
     SingleJusticeProcedureRadioButton: '#view-choice-2',
 
-    // SubscriptionAdd selectors
-    SubscriptionAddTitle: 'h1.govuk-fieldset__heading',
-    SubscriptionAddByCaseRefNumber: '#subscription-choice-2',
-    SubscriptionAddByUniqueRefNumber: '#subscription-choice-2',
-    SubscriptionAddByCaseName: '#subscription-choice-3',
-    SubscriptionAddByCourtOrTribunal: '#subscription-choice-1',
-
-    // Pending subscription selectors
-    SubscriptionTableHeading: '.govuk-table__head',
-    SubscriptionTableHeader: '.govuk-table__header',
-
-    // LiveCaseAlphabetSearch selectors
-    LiveHearingsTableFirstResult: 'tbody > tr.govuk-table__row > td > a',
-
     // LiveCaseResults selectors
     GlossaryTerm: 'tbody > tr.govuk-table__row > td.govuk-table__cell:nth-child(4) > a.govuk-link',
 
@@ -89,17 +74,7 @@ module.exports = {
     AppealInterpreterSworn: '#selector-2',
 
     // AddSubscription selector
-    UrnSearchRadioButton: '#subscription-choice-2',
     LiveHearingsTableFirstValidResult: 'tbody > tr.govuk-table__row > td > a',
-
-    // CaseNameSearch selectors
-    CaseNameInput: '#case-name',
-    CaseNameSearchErrorSummaryTitle: '.govuk-error-summary__title',
-
-    // CaseNameSearchResults selectors
-    CaseNameSearchResultsCheckbox:
-        'tbody > tr.govuk-table__row > td > .govuk-checkboxes__item > .govuk-checkboxes__input',
-    CaseNameSearchResultsHeaderCheckbox: 'thead > tr.govuk-table__row > th > .govuk-checkboxes__input',
 
     // CourtNameSearch selectors
     ApplyFiltersButton: '.moj-filter__options > .govuk-button',
@@ -121,22 +96,12 @@ module.exports = {
     PanelTitle: 'h1.govuk-panel__title',
     PanelBody: '.govuk-panel__body',
 
-    // SubscriptionManagement selectors
-    SubscriptionManagementTableFirstResultUrl: '>>>.unsubscribe-action',
-    SubscriptionManagementBulkUnsubscribeButton: '#bulk-unsubscribe-button',
-
-    // DeleteSubscription selectors
-    yesRadioButton: '#unsubscribe-confirm',
-    noRadioButton: '#unsubscribe-confirm-2',
-
     // UnsubscribeConfirmation selectors
     panelTitle: '.govuk-panel__title',
     panelHome: '.govuk-link=Home',
 
     // BulkUnsubscribe selectors
-    CourtSubscriptionCheckbox1: '#courtSubscription',
     BulkUnsubscribeButton: '#bulk-unsubscribe-button',
-    BulkUnsubscribeRadioYes: '#bulk-unsubscribe-choice',
 
     // Admin selectors
     fileUpload: '#manual-file-upload',
@@ -156,8 +121,6 @@ module.exports = {
     listTypeInput: '#listType',
 
     // Admin dashboard selectors
-    UploadFile: '#card-manual-upload',
-    RemoveContent: '#card-remove-list-search',
     ManageMediaAccounts: '#card-media-applications',
     CreateAdminAccount: '#card-create-admin-account',
     BlobExplorerLocations: '#card-blob-view-locations',
