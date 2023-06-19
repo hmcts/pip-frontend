@@ -152,6 +152,15 @@ function createFilters(env) {
     env.addFilter('maskLegacyDataSource', function (provenance) {
         return provenance == 'SNL' ? 'ListAssist' : provenance;
     });
+
+    env.addFilter('appendCaseSequenceIndicator', function (data, caseSequenceIndicator) {
+        if (caseSequenceIndicator) {
+            const caseSequenceWithBrackets = '[' + caseSequenceIndicator + ']';
+            return data ? data + ' ' + caseSequenceWithBrackets : caseSequenceWithBrackets;
+        } else {
+            return data;
+        }
+    });
 }
 
 module.exports = createFilters;

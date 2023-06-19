@@ -97,7 +97,7 @@
                         {% for case in hearing['case'] %}
                           <tr class="govuk-table__row">
                             <td class="govuk-table__cell" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
-                            <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }} {{ case['caseSequenceIndicator'] }}</td>
+                            <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                             <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
                             {% if hearing['appellantRepresentative'] | length %}
                               <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
