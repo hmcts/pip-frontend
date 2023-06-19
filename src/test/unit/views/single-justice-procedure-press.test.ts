@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import { PublicationService } from '../../../main/service/publicationService';
-import {ListDownloadService} from "../../../main/service/listDownloadService";
+import { ListDownloadService } from '../../../main/service/listDownloadService';
 
 const PAGE_URL = '/sjp-press-list?artefactId=abc';
 const PAGE_URL_WITH_DOWNLOAD_BUTTON = '/sjp-press-list?artefactId=def';
@@ -30,7 +30,6 @@ const prosecutor = 'Organisation Name';
 const reportingRestriction = 'Reporting Restriction - True';
 
 let htmlRes: Document;
-
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const sjpList = JSON.parse(rawData);
@@ -121,7 +120,7 @@ describe('Single Justice Procedure List page', () => {
 
     describe('signed in as media user', () => {
         describe('with publication files', () => {
-            generatesFilesStub.withArgs('def', {roles: 'VERIFIED'}).resolves(true);
+            generatesFilesStub.withArgs('def', { roles: 'VERIFIED' }).resolves(true);
 
             beforeAll(async () => {
                 app.request['user'] = { roles: 'VERIFIED' };

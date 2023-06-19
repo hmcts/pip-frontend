@@ -8,7 +8,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { FilterService } from '../../../main/service/filterService';
 import { SjpFilterService } from '../../../main/service/sjpFilterService';
-import {ListDownloadService} from "../../../main/service/listDownloadService";
+import { ListDownloadService } from '../../../main/service/listDownloadService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -81,8 +81,8 @@ describe('SJP Press List Controller', () => {
             request.query = { artefactId: artefactId, filterValues: '123' };
 
             const localExpectedData = {
-                ...expectedData, user:
-                request.user,
+                ...expectedData,
+                user: request.user,
                 artefactId: artefactId,
                 showFilters: true,
                 showDownloadButton: true,

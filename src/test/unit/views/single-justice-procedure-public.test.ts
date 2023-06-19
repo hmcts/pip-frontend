@@ -5,7 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import { PublicationService } from '../../../main/service/publicationService';
-import {ListDownloadService} from "../../../main/service/listDownloadService";
+import { ListDownloadService } from '../../../main/service/listDownloadService';
 
 const PAGE_URL = '/sjp-public-list?artefactId=abc';
 const PAGE_URL_WITH_DOWNLOAD_BUTTON = '/sjp-public-list?artefactId=def';
@@ -103,7 +103,7 @@ describe('Single Justice Procedure List page', () => {
 
     describe('signed in as media user', () => {
         describe('with publication files', () => {
-            generatesFilesStub.withArgs('def', {roles: 'VERIFIED'}).resolves(true);
+            generatesFilesStub.withArgs('def', { roles: 'VERIFIED' }).resolves(true);
 
             beforeAll(async () => {
                 app.request['user'] = { roles: 'VERIFIED' };

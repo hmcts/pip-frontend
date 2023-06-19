@@ -9,7 +9,7 @@ import { FilterService } from '../service/filterService';
 import { SjpFilterService } from '../service/sjpFilterService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../helpers/listHelper';
-import {ListDownloadService} from "../service/listDownloadService";
+import { ListDownloadService } from '../service/listDownloadService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();

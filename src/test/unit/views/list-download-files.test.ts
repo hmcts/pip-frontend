@@ -57,7 +57,11 @@ describe('List Download Files Page', () => {
         it('should display the link', () => {
             const bodyText = htmlRes.getElementsByClassName('govuk-body');
             expect(bodyText[1].innerHTML).contains('govuk-link', 'Could not find link');
-            expect(bodyText[1].innerHTML).contains('Download this PDF (1.1MB) to your device', 'Body text does not match');
+
+            expect(bodyText[1].innerHTML).contains(
+                'Download this PDF (1.1MB) to your device',
+                'Body text does not match'
+            );
             expect(bodyText[2].innerHTML).contains('govuk-link', 'Could not find link');
             expect(bodyText[2].innerHTML).contains(
                 'Download this Microsoft Excel spreadsheet (25.2KB) to your device',
@@ -79,7 +83,10 @@ describe('List Download Files Page', () => {
         it('should display the link', () => {
             const bodyText = htmlRes.getElementsByClassName('govuk-body');
             expect(bodyText[1].innerHTML).contains('govuk-link', 'Could not find link');
-            expect(bodyText[1].innerHTML).contains('Download this PDF (1.1MB) to your device', 'Body text does not match');
+            expect(bodyText[1].innerHTML).contains(
+                'Download this PDF (1.1MB) to your device',
+                'Body text does not match'
+            );
             expect(bodyText[2].innerHTML).not.contains('govuk-link', 'Could find link');
         });
     });

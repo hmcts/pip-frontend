@@ -8,7 +8,7 @@ import SjpPublicListController from '../../../main/controllers/SjpPublicListCont
 import { FilterService } from '../../../main/service/filterService';
 import { SjpFilterService } from '../../../main/service/sjpFilterService';
 import { HttpStatusCode } from 'axios';
-import {ListDownloadService} from "../../../main/service/listDownloadService";
+import { ListDownloadService } from '../../../main/service/listDownloadService';
 
 const sjpPublicListController = new SjpPublicListController();
 
