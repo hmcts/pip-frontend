@@ -58,7 +58,6 @@
         "@types/require-directory": "^2.1.2",
         "@types/serve-favicon": "^2.5.4",
         "@wdio/cli": "8.10.7",
-        "accessible-autocomplete": "^2.0.4",
         "applicationinsights": "^2.7.0",
         "awilix": "^8.0.1",
         "axios": "^1.4.0",
