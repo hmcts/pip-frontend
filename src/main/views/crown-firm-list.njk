@@ -111,7 +111,7 @@
               {% set noBorder = ' no-border-bottom' %}
             {% endif %}
             {% set timeSortValue = row.sittingTime | timeToSortValue %}
-            {% set duration = row.formattedDuration + ' ' + row.caseSeparator %}
+            {% set duration = row.formattedDuration | appendCaseSequenceIndicator(row.caseSeparator) %}
             {% set thisRow =
               '<tr class="govuk-table__row">
                               <td class="govuk-table__cell no-wrap' + noBorder + '" data-sort-value="' + timeSortValue + '">' + row.sittingTime + '</td>

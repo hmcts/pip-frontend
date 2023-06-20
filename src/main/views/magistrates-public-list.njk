@@ -140,7 +140,7 @@
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['defendant'] }}</td>
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ sitting['durationSortValue'] }}">{{ sitting['formattedDuration'] }} {{ case['caseSequenceIndicator'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ sitting['durationSortValue'] }}">{{ sitting['formattedDuration'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                             </tr>
                             {% if hearing['listingNotes'] | length %}
                               <tr class="govuk-table__row">

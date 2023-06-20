@@ -5,7 +5,7 @@ import { CrownFirmListService } from '../../../../main/service/listManipulation/
 
 const crownFirmListService = new CrownFirmListService();
 const rawCrownFirmData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownFirmSemiDigested.json'), 'utf-8');
-const row = JSON.parse(`{"caseNumber": "I4Y416QE", "caseSeparator": "[7 of 9]",
+const row = JSON.parse(`{"caseNumber": "I4Y416QE", "caseSeparator": "7 of 9",
 "courtName": "Glasgow Social Security and Child Support",
 "courtRoom": "to be allocated [Glasgow Social Security and Child Support]",
 "defendant": "Sausage, Nigel", "defendantRepresentative": "Daniel Forrester", "durationAsHours": 2,

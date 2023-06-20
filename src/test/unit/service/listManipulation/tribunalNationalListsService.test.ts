@@ -38,7 +38,7 @@ describe('Tribunal National Lists Service', () => {
 
     it('Should have added case sequence Indicator to the formatted response', () => {
         const data = tribunalNationalListsService.manipulateData(testData, lng, languageFile);
-        expect(data[0].caseSequenceIndicator).to.equal('[2 of 3]');
+        expect(data[0].caseSequenceIndicator).to.equal('2 of 3');
     });
 
     it('Should have added haring type to the formatted response', () => {
