@@ -1,6 +1,6 @@
 Feature('Banner navigation and links');
 
-Scenario('Unverified user - all banner navigation links should take user to the correct pages', async ({I}) => {
+Scenario('Unverified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.amOnPage('/view-option');
     I.waitForText('Court and tribunal hearings');
     I.click(locate('//li').withText('Home'));
@@ -16,7 +16,7 @@ Scenario('Unverified user - all banner navigation links should take user to the 
     I.click(locate('//a').withText('Court and tribunal hearings'));
 });
 
-Scenario('Verified user - all banner navigation links should take user to the correct pages', async ({I}) => {
+Scenario('Verified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsMediaUser();
     I.waitForText('Your account');
     I.click(locate('//li').withText('Find a court or tribunal'));
@@ -30,7 +30,7 @@ Scenario('Verified user - all banner navigation links should take user to the co
     I.logout();
 });
 
-Scenario('Cft user - all banner navigation links should take user to the correct pages', async ({I}) => {
+Scenario('Cft user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsCftUser();
     I.waitForText('Your account');
     I.click(locate('//li').withText('Find a court or tribunal'));
@@ -44,7 +44,7 @@ Scenario('Cft user - all banner navigation links should take user to the correct
     I.logout();
 });
 
-Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({I}) => {
+Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsAdmin();
     I.waitForText('Your Dashboard');
     I.click(locate('//li').withText('Upload'));
@@ -58,7 +58,7 @@ Scenario('Admin user - all banner navigation links should take user to the corre
     I.logout();
 });
 
-Scenario('System admin user - all banner navigation links should take user to the correct pages', async ({I}) => {
+Scenario('System admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsSystemAdmin();
     I.waitForText('System Admin Dashboard');
     I.click(locate('//li').withText('Admin Dashboard'));
