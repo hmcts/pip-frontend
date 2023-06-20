@@ -17,5 +17,6 @@
             "link": "subscription-management"
         }
     ],
-    "backButton": "Yn ôl"
+    "backButton": "Yn ôl",
+    "bannerText": "Your account has been verified."
 }
