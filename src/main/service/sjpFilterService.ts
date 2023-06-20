@@ -96,10 +96,11 @@ export class SjpFilterService {
     /**
      * This method filters the cases for the SJP list based on the user selected options
      * @param allCases The cases to filter.
+     * @param londonPostalAreaCodes The list of postal code prefixes for London.
      * @param filterOptions The options that have been selected
      * @private
      */
-    private filterCases(allCases, filterOptions) {
+    private filterCases(allCases, londonPostalAreaCodes, filterOptions) {
         return this.doFiltering(
             allCases,
             londonPostalAreaCodes,
@@ -153,6 +154,12 @@ export class SjpFilterService {
         return filteredCases;
     }
 
+    /**
+     * This method checks whether any of the cases have a postal code prefix that belongs to London.
+     * @param londonPostalAreaCodes The list of postal code prefixes for London.
+     * @param postalAreaCodes The list of postal code prefixes from the cases.
+     * @private
+     */
     private checkForLondonPostalAreaCodes(londonPostalAreaCodes, postalAreaCodes) {
         const postalAreaInLondon = new Set([...londonPostalAreaCodes].filter(element => postalAreaCodes.has(element)));
         return postalAreaInLondon.size > 0;
