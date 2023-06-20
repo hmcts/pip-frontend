@@ -21,7 +21,7 @@ export class SjpFilterService {
 
         const filterOptions = this.buildFilterOptions(allCases, filterValues);
 
-        const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
+        const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, londonPostalAreaCodes, filterOptions);
 
         return {
             sjpCases: caseList,
