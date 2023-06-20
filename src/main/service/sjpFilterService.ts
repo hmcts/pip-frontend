@@ -4,7 +4,7 @@ const filterService = new FilterService();
 
 const replaceRegex = /[\s,]/g;
 
-const londonPostalAreaCodes =[ 'N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
+const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
     /**
@@ -77,7 +77,7 @@ export class SjpFilterService {
                 value: 'The City of London',
                 text: 'The City of London',
                 checked: filterValues.includes('The City of London'),
-            })
+            });
         }
 
         sortedProsecutors.forEach(prosecutor => {
@@ -127,12 +127,23 @@ export class SjpFilterService {
             const formattedProsecutor = item.organisationName.replace(replaceRegex, '');
 
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
-                if (postcodeFilters.includes('The City of London') && londonPostalAreaCodes.includes(postalAreaCode) && prosecutorFilters.includes(formattedProsecutor)) {
+                if (
+                    postcodeFilters.includes('The City of London') &&
+                    londonPostalAreaCodes.includes(postalAreaCode) &&
+                    prosecutorFilters.includes(formattedProsecutor)
+                ) {
                     filteredCases.push(item);
-                } else if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
+                } else if (
+                    postcodeFilters.includes(formattedPostcode) &&
+                    prosecutorFilters.includes(formattedProsecutor)
+                ) {
                     filteredCases.push(item);
                 }
-            } else if (postcodeFilters.length > 0 && postcodeFilters.includes('The City of London') && londonPostalAreaCodes.includes(postalAreaCode)) {
+            } else if (
+                postcodeFilters.length > 0 &&
+                postcodeFilters.includes('The City of London') &&
+                londonPostalAreaCodes.includes(postalAreaCode)
+            ) {
                 filteredCases.push(item);
             } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
                 filteredCases.push(item);
@@ -142,7 +153,7 @@ export class SjpFilterService {
         return filteredCases;
     }
 
-    private checkForLondonPostalAreaCodes(londonPostalAreaCodes, postalAreaCodes){
+    private checkForLondonPostalAreaCodes(londonPostalAreaCodes, postalAreaCodes) {
         const postalAreaInLondon = new Set([...londonPostalAreaCodes].filter(element => postalAreaCodes.has(element)));
         return postalAreaInLondon.size > 0;
     }
