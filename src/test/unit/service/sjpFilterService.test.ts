@@ -221,7 +221,11 @@ describe('SJP filter service', () => {
     });
 
     it('should return all SJP cases when applying all postcode filters', async () => {
-        const result = filterService.generateFilters(allCases, 'SW1,SW1H,SW11,NW99,EC99,NP99,WA78,The City of London', undefined);
+        const result = filterService.generateFilters(
+            allCases,
+            'SW1,SW1H,SW11,NW99,EC99,NP99,WA78,The City of London',
+            undefined
+        );
         expect(result.sjpCases).to.have.length(9);
 
         const postcodes = result.filterOptions.postcodes;
@@ -338,7 +342,6 @@ describe('SJP filter service', () => {
         expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
         expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
         expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
-
     });
 
     it('should return filtered SJP cases when applying multiple prosecutor filter', async () => {
@@ -366,7 +369,11 @@ describe('SJP filter service', () => {
     });
 
     it('should return all SJP cases when applying all prosecutor filters', async () => {
-        const result = filterService.generateFilters(allCases, 'Orgname1,Orgname2,Orgname3,Orgname4,Orgname5', undefined);
+        const result = filterService.generateFilters(
+            allCases,
+            'Orgname1,Orgname2,Orgname3,Orgname4,Orgname5',
+            undefined
+        );
         expect(result.sjpCases).to.have.length(9);
 
         const postcodes = result.filterOptions.postcodes;
@@ -508,5 +515,4 @@ describe('SJP filter service', () => {
         expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: true });
         expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
     });
-
 });
