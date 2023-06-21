@@ -1,4 +1,6 @@
 nodejs:
+    devmemoryRequests: 256Mi
+    devcpuRequests: 200m
     # Don't modify below here
     image: ${IMAGE_NAME}
     ingressHost: ${SERVICE_FQDN}
