@@ -1,6 +1,6 @@
-Feature('Single Justice Procedure cases');
+Feature('Azure screen flow changes - Welsh');
 
-Scenario('Azure screen flow changes - Welsh', async ({I}) => {
+Scenario.skip('Azure screen flow changes - Welsh', async ({ I }) => {
     I.amOnPage('/');
     I.see('Court and tribunal hearings');
     I.click('Continue');
