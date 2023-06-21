@@ -129,24 +129,18 @@ export class SjpFilterService {
             const formattedProsecutor = item.organisationName.replace(replaceRegex, '');
 
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
-                if (
-                    postcodeFilters.includes('The City of London') &&
-                    londonPostalAreaCodes.includes(postalAreaCode) &&
-                    prosecutorFilters.includes(formattedProsecutor)
-                ) {
+                if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
                     filteredCases.push(item);
-                } else if (
-                    postcodeFilters.includes(formattedPostcode) &&
-                    prosecutorFilters.includes(formattedProsecutor)
-                ) {
+                } else if ( postcodeFilters.includes('The City of London') &&
+                    londonPostalAreaCodes.includes(postalAreaCode) && prosecutorFilters.includes(formattedProsecutor)) {
+                        filteredCases.push(item);
+                }
+            } else if (postcodeFilters.length > 0) {
+                if (postcodeFilters.includes(formattedPostcode)) {
+                        filteredCases.push(item);
+                } else if (postcodeFilters.includes('The City of London') && londonPostalAreaCodes.includes(postalAreaCode)) {
                     filteredCases.push(item);
                 }
-            } else if (
-                postcodeFilters.length > 0 &&
-                postcodeFilters.includes('The City of London') &&
-                londonPostalAreaCodes.includes(postalAreaCode)
-            ) {
-                filteredCases.push(item);
             } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
                 filteredCases.push(item);
             }
