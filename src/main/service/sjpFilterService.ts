@@ -42,7 +42,15 @@ export class SjpFilterService {
             prosecutors.add(item.organisationName);
         });
 
-        const sortedPostcodes = Array.from(postcodes).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
+        const formattedPostcodes = new Set<string>();
+
+        postcodes.forEach(postcode => {
+            formattedPostcodes.add(postcode.split(' ', 2)[0]);
+        });
+
+        const sortedPostcodes = Array.from(formattedPostcodes).sort((a, b) =>
+            a.localeCompare(b, 'en', { numeric: true })
+        );
         const sortedProsecutors = Array.from(prosecutors).sort();
 
         const filterStructure = {
@@ -50,12 +58,10 @@ export class SjpFilterService {
             prosecutors: [],
         };
 
-        sortedPostcodes.forEach(postcode => {
-            const formattedPostcode = postcode.replace(replaceRegex, '');
-
+        sortedPostcodes.forEach(formattedPostcode => {
             filterStructure.postcodes.push({
                 value: formattedPostcode,
-                text: postcode,
+                text: formattedPostcode,
                 checked: filterValues.includes(formattedPostcode),
             });
         });
@@ -101,7 +107,7 @@ export class SjpFilterService {
     private doFiltering(allCases, postcodeFilters, prosecutorFilters) {
         const filteredCases = [];
         allCases.forEach(item => {
-            const formattedPostcode = item.postcode.replace(replaceRegex, '');
+            const formattedPostcode = item.postcode.split(' ', 2)[0];
             const formattedProsecutor = item.organisationName.replace(replaceRegex, '');
 
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
