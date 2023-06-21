@@ -1,6 +1,6 @@
 Feature('Azure screen flow changes - Welsh');
 
-Scenario.skip('Azure screen flow changes - Welsh', async ({ I }) => {
+Scenario('Azure screen flow changes - Welsh', async ({ I }) => {
     I.amOnPage('/');
     I.see('Court and tribunal hearings');
     I.click('Continue');
