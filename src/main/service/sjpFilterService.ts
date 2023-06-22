@@ -3,7 +3,7 @@ import { FilterService } from './filterService';
 const filterService = new FilterService();
 
 const replaceRegex = /[\s,]/g;
-
+const londonArea = 'The City of London';
 const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
@@ -22,7 +22,7 @@ export class SjpFilterService {
         const filterOptions = this.buildFilterOptions(allCases, filterValues);
 
         const caseList =
-            filterValues.length == 0 ? allCases : this.filterCases(allCases, londonPostalAreaCodes, filterOptions);
+            filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
 
         return {
             sjpCases: caseList,
@@ -71,13 +71,13 @@ export class SjpFilterService {
             });
         });
 
-        const hasLondonPostalAreaCode = this.checkForLondonPostalAreaCodes(londonPostalAreaCodes, postalAreaCodes);
+        const hasLondonPostalAreaCode = this.checkForLondonPostalAreaCodes(postalAreaCodes);
 
         if (hasLondonPostalAreaCode) {
             filterStructure.postcodes.push({
-                value: 'The City of London',
-                text: 'The City of London',
-                checked: filterValues.includes('The City of London'),
+                value: londonArea,
+                text: londonArea,
+                checked: filterValues.includes(londonArea),
             });
         }
 
@@ -97,14 +97,12 @@ export class SjpFilterService {
     /**
      * This method filters the cases for the SJP list based on the user selected options
      * @param allCases The cases to filter.
-     * @param londonPostalAreaCodes The list of postal code prefixes for London.
      * @param filterOptions The options that have been selected
      * @private
      */
-    private filterCases(allCases, londonPostalAreaCodes, filterOptions) {
+    private filterCases(allCases, filterOptions) {
         return this.doFiltering(
             allCases,
-            londonPostalAreaCodes,
             this.getActiveFilters(filterOptions.postcodes),
             this.getActiveFilters(filterOptions.prosecutors)
         );
@@ -121,7 +119,7 @@ export class SjpFilterService {
         return activeFilters;
     }
 
-    private doFiltering(allCases, londonPostalAreaCodes, postcodeFilters, prosecutorFilters) {
+    private doFiltering(allCases, postcodeFilters, prosecutorFilters) {
         const filteredCases = [];
         allCases.forEach(item => {
             const formattedPostcode = item.postcode.split(' ', 2)[0];
@@ -132,7 +130,7 @@ export class SjpFilterService {
                 if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
                     filteredCases.push(item);
                 } else if (
-                    postcodeFilters.includes('The City of London') &&
+                    postcodeFilters.includes(londonArea) &&
                     londonPostalAreaCodes.includes(postalAreaCode) &&
                     prosecutorFilters.includes(formattedProsecutor)
                 ) {
@@ -142,7 +140,7 @@ export class SjpFilterService {
                 if (postcodeFilters.includes(formattedPostcode)) {
                     filteredCases.push(item);
                 } else if (
-                    postcodeFilters.includes('The City of London') &&
+                    postcodeFilters.includes(londonArea) &&
                     londonPostalAreaCodes.includes(postalAreaCode)
                 ) {
                     filteredCases.push(item);
@@ -157,11 +155,10 @@ export class SjpFilterService {
 
     /**
      * This method checks whether any of the cases have a postal code prefix that belongs to London.
-     * @param londonPostalAreaCodes The list of postal code prefixes for London.
      * @param postalAreaCodes The list of postal code prefixes from the cases.
      * @private
      */
-    private checkForLondonPostalAreaCodes(londonPostalAreaCodes, postalAreaCodes) {
+    private checkForLondonPostalAreaCodes(postalAreaCodes) {
         const postalAreaInLondon = new Set([...londonPostalAreaCodes].filter(element => postalAreaCodes.has(element)));
         return postalAreaInLondon.size > 0;
     }
