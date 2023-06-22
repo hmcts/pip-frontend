@@ -21,8 +21,7 @@ export class SjpFilterService {
 
         const filterOptions = this.buildFilterOptions(allCases, filterValues);
 
-        const caseList =
-            filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
+        const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
 
         return {
             sjpCases: caseList,
@@ -139,10 +138,7 @@ export class SjpFilterService {
             } else if (postcodeFilters.length > 0) {
                 if (postcodeFilters.includes(formattedPostcode)) {
                     filteredCases.push(item);
-                } else if (
-                    postcodeFilters.includes(londonArea) &&
-                    londonPostalAreaCodes.includes(postalAreaCode)
-                ) {
+                } else if (postcodeFilters.includes(londonArea) && londonPostalAreaCodes.includes(postalAreaCode)) {
                     filteredCases.push(item);
                 }
             } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
