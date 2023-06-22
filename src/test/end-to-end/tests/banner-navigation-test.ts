@@ -71,3 +71,15 @@ Scenario('System admin user - all banner navigation links should take user to th
     I.waitForText('System Admin Dashboard');
     I.logout();
 });
+
+Scenario('Home page links should take user to the correct pages', async ({ I }) => {
+    I.amOnPage('/');
+    I.waitForText('Court and tribunal hearings');
+    I.click(locate('//a').withText('sign in'));
+    I.waitForText('How do you want to sign in?');
+    I.click(locate('//a').withText('Court and tribunal hearings'));
+    I.click(locate('//a').withText('Welsh (Cymraeg)'));
+    I.waitForText('Gwrandawiadau llys a thribiwnlys');
+    I.click(locate('//a').withText('Saesneg (English)'));
+    I.waitForText('Court and tribunal hearings');
+});
