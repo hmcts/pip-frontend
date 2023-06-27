@@ -17,5 +17,6 @@
             "link": "subscription-management"
         }
     ],
-    "backButton": "Yn ôl"
+    "backButton": "Yn ôl",
+    "bannerText": "Mae eich cyfrif wedi cael ei ddilysu."
 }
