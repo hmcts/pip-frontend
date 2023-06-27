@@ -25,28 +25,45 @@ export class SscsDailyListService {
                         delete session['sessionChannel'];
                         sitting['hearing'].forEach(hearing => {
                             helperService.findAndManipulatePartyInformation(hearing);
-
-                            if (hearing?.informant) {
-                                hearing['informant'].forEach(informant => {
-                                    let prosecutionAuthorityRefFormatted = '';
-                                    informant['prosecutionAuthorityRef'].forEach(proscAuthRef => {
-                                        if (prosecutionAuthorityRefFormatted.length > 0) {
-                                            prosecutionAuthorityRefFormatted += ', ' + proscAuthRef;
-                                        } else {
-                                            prosecutionAuthorityRefFormatted += proscAuthRef;
-                                        }
-                                    });
-                                    hearing['prosecutionAuthorityRefFormatted'] = prosecutionAuthorityRefFormatted;
-                                });
-
-                                delete hearing['informant'];
-                            }
-                            delete hearing['party'];
+                            hearing['formattedRespondent'] = this.formatRespondent(hearing);
                         });
                     });
                 });
             });
         });
         return sscsDailyListData;
+    }
+
+    private formatRespondent(hearing): string {
+        const informant = this.getInformant(hearing);
+        if (informant.length === 0) {
+            return this.getPartyProsecutor(hearing);
+        }
+        return informant;
+    }
+
+    private getInformant(hearing): string {
+        const informants = [];
+        hearing.informant?.forEach(informant => {
+            informant.prosecutionAuthorityRef?.forEach(proscAuthRef => {
+                if (proscAuthRef.length > 0) {
+                    informants.push(proscAuthRef);
+                }
+            });
+        });
+        return informants.join(', ');
+    }
+
+    private getPartyProsecutor(hearing): string {
+        const prosecutors = [];
+        hearing.party?.forEach(party => {
+            if (party.partyRole === 'PROSECUTOR') {
+                const prosecutor = party.organisationDetails?.organisationName;
+                if (prosecutor && prosecutor.length > 0) {
+                    prosecutors.push(prosecutor);
+                }
+            }
+        });
+        return prosecutors.join(', ');
     }
 }

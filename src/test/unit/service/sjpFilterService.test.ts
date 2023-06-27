@@ -229,7 +229,6 @@ describe('SJP filter service', () => {
         expect(postcodes[1]).to.contain({ value: 'SW1H', text: 'SW1H', checked: true });
         expect(postcodes[2]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
 
-
         const prosecutors = result.filterOptions.prosecutors;
         expect(prosecutors).to.have.length(3);
         expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
