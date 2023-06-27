@@ -28,11 +28,11 @@ nodejs:
                   alias: TENANT_GUID
                 - name: shared-storageaccount-connection-string
                   alias: CONNECTION_STRING
-                - name: REDIS-HOST
+                - name: REDIS-V6-HOST
                   alias: REDIS_HOST
-                - name: REDIS-PASSWORD
+                - name: REDIS-V6-PASSWORD
                   alias: REDIS_PASSWORD
-                - name: REDIS-PORT
+                - name: REDIS-V6-PORT
                   alias: REDIS_PORT
                 - name: b2c-auth-endpoint
                   alias: B2C_AUTH_ENDPOINT
