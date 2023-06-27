@@ -1,0 +1,6 @@
+{
+    "header": "Sign in failed",
+    "bodyText1": "You have attempted to sign in as a member of the media.",
+    "bodyText2": "Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user",
+    "link": "/admin-dashboard"
+}
