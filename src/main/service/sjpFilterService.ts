@@ -3,7 +3,7 @@ import { FilterService } from './filterService';
 const filterService = new FilterService();
 
 const replaceRegex = /[\s,]/g;
-const londonArea = 'The City of London';
+const londonArea = 'London Postcodes';
 const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
