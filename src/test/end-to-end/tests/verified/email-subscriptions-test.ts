@@ -299,7 +299,7 @@ Scenario(
         I.deleteLocation(locationId);
         await removeTestLocationFile(locationFileName);
     }
-);
+).tag('@Nightly');
 
 Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
     const [locationId, locationName, locationFileName] = generateTestLocation();
@@ -343,4 +343,4 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.logout();
     I.deleteLocation(locationId);
     await removeTestLocationFile(locationFileName);
-});
+}).tag('@Nightly');
