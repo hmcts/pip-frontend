@@ -18,12 +18,16 @@
   <div class="parent-box">
     <h2 class="govuk-heading-l">{{ title }}</h2>
     <p class="govuk-body">{{ heading }}</p>
-    <p class="govuk-body download-link">
-      <a class='govuk-link' href="list-download-files?type=pdf&artefactId={{ artefactId }}">{{ pdfDownloadText | replace("SIZE", pdfFileSize) }}</a>
-    </p>
-    <p class="govuk-body downlink-link">
-      <a class='govuk-link' href="list-download-files?type=excel&artefactId={{ artefactId }}">{{ excelDownloadText | replace("SIZE", excelFileSize) }}</a>
-    </p>
+    {% if pdfFileSize %}
+      <p class="govuk-body download-link">
+        <a class='govuk-link' href="list-download-files?type=pdf&artefactId={{ artefactId }}">{{ pdfDownloadText | replace("SIZE", pdfFileSize) }}</a>
+      </p>
+    {% endif %}
+    {% if excelFileSize %}
+      <p class="govuk-body downlink-link">
+        <a class='govuk-link' href="list-download-files?type=excel&artefactId={{ artefactId }}">{{ excelDownloadText | replace("SIZE", excelFileSize) }}</a>
+      </p>
+    {% endif %}
     <p class="govuk-body">{{ contactText }}</p>
   </div>
 {% endblock %}
