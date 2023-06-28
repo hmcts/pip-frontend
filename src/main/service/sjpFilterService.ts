@@ -3,6 +3,8 @@ import { FilterService } from './filterService';
 const filterService = new FilterService();
 
 const replaceRegex = /[\s,]/g;
+const londonArea = 'London Postcodes';
+const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
     /**
@@ -43,9 +45,11 @@ export class SjpFilterService {
         });
 
         const formattedPostcodes = new Set<string>();
+        const postalAreaCodes = new Set<string>();
 
         postcodes.forEach(postcode => {
             formattedPostcodes.add(postcode.split(' ', 2)[0]);
+            postalAreaCodes.add(postcode.split(/\d/)[0]);
         });
 
         const sortedPostcodes = Array.from(formattedPostcodes).sort((a, b) =>
@@ -65,6 +69,16 @@ export class SjpFilterService {
                 checked: filterValues.includes(formattedPostcode),
             });
         });
+
+        const hasLondonPostalAreaCode = this.checkForLondonPostalAreaCodes(postalAreaCodes);
+
+        if (hasLondonPostalAreaCode) {
+            filterStructure.postcodes.push({
+                value: londonArea,
+                text: londonArea,
+                checked: filterValues.includes(londonArea),
+            });
+        }
 
         sortedProsecutors.forEach(prosecutor => {
             const formattedProsecutor = prosecutor.replace(replaceRegex, '');
@@ -108,19 +122,40 @@ export class SjpFilterService {
         const filteredCases = [];
         allCases.forEach(item => {
             const formattedPostcode = item.postcode.split(' ', 2)[0];
+            const postalAreaCode = item.postcode.split(/\d/)[0];
             const formattedProsecutor = item.organisationName.replace(replaceRegex, '');
 
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
                 if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
                     filteredCases.push(item);
+                } else if (
+                    postcodeFilters.includes(londonArea) &&
+                    londonPostalAreaCodes.includes(postalAreaCode) &&
+                    prosecutorFilters.includes(formattedProsecutor)
+                ) {
+                    filteredCases.push(item);
                 }
-            } else if (postcodeFilters.length > 0 && postcodeFilters.includes(formattedPostcode)) {
-                filteredCases.push(item);
+            } else if (postcodeFilters.length > 0) {
+                if (postcodeFilters.includes(formattedPostcode)) {
+                    filteredCases.push(item);
+                } else if (postcodeFilters.includes(londonArea) && londonPostalAreaCodes.includes(postalAreaCode)) {
+                    filteredCases.push(item);
+                }
             } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
                 filteredCases.push(item);
             }
         });
 
         return filteredCases;
+    }
+
+    /**
+     * This method checks whether any of the cases have a postal code prefix that belongs to London.
+     * @param postalAreaCodes The list of postal code prefixes from the cases.
+     * @private
+     */
+    private checkForLondonPostalAreaCodes(postalAreaCodes) {
+        const postalAreaInLondon = new Set([...londonPostalAreaCodes].filter(element => postalAreaCodes.has(element)));
+        return postalAreaInLondon.size > 0;
     }
 }
