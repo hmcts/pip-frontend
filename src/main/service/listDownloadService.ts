@@ -9,12 +9,13 @@ const channelManagementRequests = new ChannelManagementRequests();
 const logger = Logger.getLogger('list-download');
 
 export class ListDownloadService {
-    public async generateFiles(artefactId, userId): Promise<boolean> {
-        const pdfResponse = await this.generateFile(artefactId, userId, FileType.PDF);
-        const excelResponse = await this.generateFile(artefactId, userId, FileType.EXCEL);
-
-        if (pdfResponse && excelResponse) {
-            return true;
+    public async generateFiles(artefactId, user): Promise<boolean> {
+        if (user && user['roles'] === 'VERIFIED') {
+            const pdfResponse = await this.generateFile(artefactId, user['userId'], FileType.PDF);
+            const excelResponse = await this.generateFile(artefactId, user['userId'], FileType.EXCEL);
+            if (pdfResponse || excelResponse) {
+                return true;
+            }
         }
         return false;
     }

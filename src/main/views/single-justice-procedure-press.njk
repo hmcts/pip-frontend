@@ -27,11 +27,10 @@
     </div>
   </details>
 
-
   <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
   <p class="govuk-body">{{ published }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
-  {% if user.roles and user.roles in ['VERIFIED'] %}
+  {% if showDownloadButton %}
     {{ downloadButton(label = downloadButtonLabel, artefactId = artefactId) }}
   {% endif %}
 

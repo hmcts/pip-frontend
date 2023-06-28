@@ -9,12 +9,14 @@ import { FilterService } from '../service/filterService';
 import { SjpFilterService } from '../service/sjpFilterService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../helpers/listHelper';
+import { ListDownloadService } from '../service/listDownloadService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const sjpPressListService = new SjpPressListService();
 const sjpFilterService = new SjpFilterService();
 const filterService = new FilterService();
+const listDownloadService = new ListDownloadService();
 
 export default class SjpPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -37,6 +39,7 @@ export default class SjpPressListController {
             );
 
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+            const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
 
             res.render('single-justice-procedure-press', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press']),
@@ -55,6 +58,7 @@ export default class SjpPressListController {
                 user: req.user,
                 filterOptions: filter.filterOptions,
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
+                showDownloadButton,
             });
         } else if (sjpData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
