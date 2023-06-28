@@ -8,6 +8,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { FilterService } from '../../../main/service/filterService';
 import { SjpFilterService } from '../../../main/service/sjpFilterService';
+import { ListDownloadService } from '../../../main/service/listDownloadService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -19,17 +20,24 @@ const sjpPressListController = new SjpPressListController();
 
 const sjpPressListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const sjpPressListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
 
 const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
 
 const artefactId = 'abc';
+const artefactIdWithNoFiles = 'def';
 
 sjpPressListJsonStub.withArgs(artefactId).resolves(sjpData);
+sjpPressListJsonStub.withArgs(artefactIdWithNoFiles).resolves(sjpData);
 sjpPressListJsonStub.withArgs('').resolves([]);
 
 sjpPressListMetaDataStub.withArgs(artefactId).resolves(metaData);
+sjpPressListMetaDataStub.withArgs(artefactIdWithNoFiles).resolves(metaData);
 sjpPressListMetaDataStub.withArgs('').resolves([]);
+
+generatesFilesStub.withArgs(artefactId).resolves(true);
+generatesFilesStub.withArgs(artefactIdWithNoFiles).resolves(false);
 
 const i18n = {
     'single-justice-procedure-press': {},
@@ -63,8 +71,8 @@ describe('SJP Press List Controller', () => {
         contactDate: DateTime.fromISO(metaData['contentDate'], {
             zone: 'utc',
         }).toFormat('d MMMM yyyy'),
-        artefactId: 'abc',
         filterOptions: filter.filterOptions,
+        showDownloadButton: false,
     };
 
     describe('get', () => {
@@ -72,7 +80,13 @@ describe('SJP Press List Controller', () => {
             request.user = { userId: '1' };
             request.query = { artefactId: artefactId, filterValues: '123' };
 
-            const localExpectedData = { ...expectedData, user: request.user, showFilters: true };
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactId,
+                showFilters: true,
+                showDownloadButton: true,
+            };
 
             const responseMock = sinon.mock(response);
 
@@ -86,7 +100,13 @@ describe('SJP Press List Controller', () => {
             request.user = { userId: '1' };
             request.query = { artefactId: artefactId };
 
-            const localExpectedData = { ...expectedData, user: request.user, showFilters: false };
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactId,
+                showFilters: false,
+                showDownloadButton: true,
+            };
 
             const responseMock = sinon.mock(response);
 
@@ -100,7 +120,33 @@ describe('SJP Press List Controller', () => {
             request.user = { userId: '1' };
             request.query = { artefactId: artefactId, clear: 'all' };
 
-            const localExpectedData = { ...expectedData, user: request.user, showFilters: true };
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactId,
+                showFilters: true,
+                showDownloadButton: true,
+            };
+
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
+
+            await sjpPressListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render the SJP press list page when no publication files exist', async () => {
+            request.user = { userId: '1' };
+            request.query = { artefactId: artefactIdWithNoFiles };
+
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactIdWithNoFiles,
+                showFilters: false,
+                showDownloadButton: false,
+            };
 
             const responseMock = sinon.mock(response);
 
