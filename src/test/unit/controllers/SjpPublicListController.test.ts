@@ -8,10 +8,12 @@ import SjpPublicListController from '../../../main/controllers/SjpPublicListCont
 import { FilterService } from '../../../main/service/filterService';
 import { SjpFilterService } from '../../../main/service/sjpFilterService';
 import { HttpStatusCode } from 'axios';
+import { ListDownloadService } from '../../../main/service/listDownloadService';
 
 const sjpPublicListController = new SjpPublicListController();
 
 const artefactId = '1';
+const artefactIdWithNoFiles = '2';
 
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
 const data = JSON.parse(mockSJPPublic);
@@ -22,11 +24,17 @@ const metaData = JSON.parse(rawMetaData)[0];
 const i18n = { 'single-justice-procedure': {}, 'list-template': {} };
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 jsonStub.withArgs(artefactId, '123').resolves(data);
+jsonStub.withArgs(artefactIdWithNoFiles, '123').resolves(data);
 jsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 const sjpPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sjpPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
+sjpPublicListMetaDataStub.withArgs(artefactIdWithNoFiles).resolves(metaData);
 sjpPublicListMetaDataStub.withArgs('').resolves([]);
+
+const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
+generatesFilesStub.withArgs(artefactId).resolves(true);
+generatesFilesStub.withArgs(artefactIdWithNoFiles).resolves(false);
 
 const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
@@ -56,14 +64,19 @@ describe('SJP Public List Type Controller', () => {
             length: 2,
             publishedDateTime: '14 September 2016',
             publishedTime: '12:30am',
-            artefactId: '1',
             filterOptions: filter.filterOptions,
         };
 
         it('should render the SJP public list page when filter string is provided', async () => {
             request.user = { userId: '123' };
             request.query = { artefactId: artefactId, filterValues: '123' };
-            const localExpectedData = { ...expectedData, user: request.user, showFilters: true };
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactId,
+                showFilters: true,
+                showDownloadButton: true,
+            };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
@@ -75,7 +88,13 @@ describe('SJP Public List Type Controller', () => {
         it('should render the SJP public list page when no filter string provided', async () => {
             request.user = { userId: '123' };
             request.query = { artefactId: artefactId };
-            const localExpectedData = { ...expectedData, user: request.user, showFilters: false };
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactId,
+                showFilters: false,
+                showDownloadButton: true,
+            };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
@@ -87,7 +106,31 @@ describe('SJP Public List Type Controller', () => {
         it('should render the SJP public list page when clear string is provided', async () => {
             request.user = { userId: '123' };
             request.query = { artefactId: artefactId, clear: 'all' };
-            const localExpectedData = { ...expectedData, user: request.user, showFilters: true };
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactId,
+                showFilters: true,
+                showDownloadButton: true,
+            };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
+
+            await sjpPublicListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render the SJP public list page when no publication files exist', async () => {
+            request.user = { userId: '123' };
+            request.query = { artefactId: artefactIdWithNoFiles };
+            const localExpectedData = {
+                ...expectedData,
+                user: request.user,
+                artefactId: artefactIdWithNoFiles,
+                showFilters: false,
+                showDownloadButton: false,
+            };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
