@@ -116,13 +116,46 @@
         // This function is used to dynamically show/hide individual filter checkbox items based on the search box value
         function searchFilterItems() {
             const filters = document.getElementsByClassName('govuk-checkboxes__item');
+            const postcodeAreaFilters = [];
+
+            for (var i = 0; i < filters.length; i++) {
+                if (filters[i].innerHTML.includes('postcodes')) {
+                    postcodeAreaFilters.push(filters[i].innerText.split(/\d/)[0].trim());
+                }
+            }
 
             for (var i = 0; i < filters.length; i++) {
                 localStorage.setItem('searchFiltersValue', searchFilters.value)
-                if (filters[i].innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
-                    filters[i].style.removeProperty('display');
+                var checkboxId = "postcodes-"+(i+1);
+                if (searchFilters.value.length > 0) {
+                    if (i < postcodeAreaFilters.length) {
+                        postalArea = postcodeAreaFilters[i].toLowerCase();
+                        if (searchFilters.value.length > postalArea.length) {
+                            if (filters[i].innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
+                                filters[i].style.removeProperty('display');
+                                document.getElementById(checkboxId).checked = true;
+                            } else {
+                                filters[i].style.display = 'none';
+                                document.getElementById(checkboxId).checked = false;
+                            }
+                        } else if (postalArea === searchFilters.value.toLowerCase()) {
+                            filters[i].style.removeProperty('display');
+                            document.getElementById(checkboxId).checked = true;
+                        } else if (postalArea === 'the city of london' && postalArea.includes(searchFilters.value.toLowerCase())) {
+                            filters[i].style.removeProperty('display');
+                            document.getElementById(checkboxId).checked = true;
+                        } else {
+                            filters[i].style.display = 'none';
+                            document.getElementById(checkboxId).checked = false;
+                        }
+                    } else if (filters[i].innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
+                        filters[i].style.removeProperty('display');
+                    } else {
+                        filters[i].style.display = 'none';
+                    }
                 } else {
-                    filters[i].style.display = 'none';
+                    filters[i].style.removeProperty('display');
+                    document.getElementById(checkboxId).checked = false;
                 }
             }
         }
