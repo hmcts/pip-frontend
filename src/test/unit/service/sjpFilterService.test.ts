@@ -222,7 +222,10 @@ describe('SJP filter service', () => {
 
     it('should return all SJP cases when applying all postcode filters', async () => {
         const result = filterService.generateFilters(
-            allCases, 'SW1,SW1H,SW11,NW99,EC99,NP99,WA78,London Postcodes', undefined);
+            allCases,
+            'SW1,SW1H,SW11,NW99,EC99,NP99,WA78,London Postcodes',
+            undefined
+        );
         expect(result.sjpCases).to.have.length(9);
 
         const postcodes = result.filterOptions.postcodes;
