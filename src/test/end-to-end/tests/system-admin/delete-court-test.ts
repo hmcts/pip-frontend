@@ -1,15 +1,15 @@
-import {DateTime} from 'luxon';
-import {createLocation, createSubscription, uploadPublication} from '../../shared/testingSupportApi';
-import {randomData} from "../../shared/random-data";
-import {config} from "../../../config";
+import { DateTime } from 'luxon';
+import { createLocation, createSubscription, uploadPublication } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('System admin delete location');
 
 Scenario(
     'I as a system admin should be able to delete court only when there are no active subscriptions or artefacts',
-    async ({I}) => {
-        const displayFrom = DateTime.now().toISO({includeOffset: false});
-        const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+    async ({ I }) => {
+        const displayFrom = DateTime.now().toISO({ includeOffset: false });
+        const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
         const USER_ID = '0e68f98c-29c5-4eff-aa26-0a872ee8bf86';
         const locationId = randomData.getRandomLocationId();
@@ -82,7 +82,7 @@ Scenario(
 
 Scenario(
     'I as a system admin should be able to see proper information texts and error messages related to delete court',
-    async ({I}) => {
+    async ({ I }) => {
         I.loginAsSystemAdmin();
         I.see('Delete Court');
         I.click('Delete Court');

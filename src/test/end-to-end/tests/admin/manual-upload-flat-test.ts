@@ -1,10 +1,7 @@
-import {
-    getDateNowAndFuture,
-    padFormatted,
-} from '../../shared/shared-functions';
-import {createLocation} from "../../shared/testingSupportApi";
-import {randomData} from "../../shared/random-data";
-import {config} from "../../../config";
+import { getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
+import { createLocation } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('Admin manual upload flat file');
 
@@ -13,7 +10,7 @@ flatFileName.add(['testFlatFile.pdf']);
 flatFileName.add(['testFlatFile.docx']);
 
 Data(flatFileName)
-    .Scenario('I as a admin user should be able to upload flat file successfully', async ({I, current}) => {
+    .Scenario('I as a admin user should be able to upload flat file successfully', async ({ I, current }) => {
         const listType = 'Civil And Family Daily Cause List';
         const [date, dayAfter] = getDateNowAndFuture();
         const locationId = randomData.getRandomLocationId();

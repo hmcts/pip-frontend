@@ -1,5 +1,5 @@
 import superagent from 'superagent';
-import {config as testConfig} from '../../config';
+import { config as testConfig } from '../../config';
 import fs from 'fs';
 import {
     getDataManagementCredentials,
@@ -24,7 +24,7 @@ export const createLocation = async (locationId: string, locationName: string) =
             .post(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/location/${locationId}`)
             .send(locationName)
             .set('Content-Type', 'application/json')
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to create location , http-status: ${e.response?.status}`);
     }
@@ -42,21 +42,19 @@ export const clearAllPublicationsByTestPrefix = async (locationNamePrefix: strin
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/publication/${locationNamePrefix}`)
             .set('Content-Type', 'application/json')
-            .set({Authorization: 'Bearer ' + tokenDataManagement.access_token});
+            .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
         throw new Error(`Failed to delete publications test data , http-status: ${e.response?.status}`);
     }
 };
 
 export const clearAllSubscriptionsByTestPrefix = async (locationNamePrefix: string) => {
-
     const tokenSubscriptionManagement = await getSubscriptionManagementCredentials();
     try {
         await superagent
             .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/testing-support/subscription/${locationNamePrefix}`)
             .set('Content-Type', 'application/json')
-            .set({Authorization: 'Bearer ' + tokenSubscriptionManagement.access_token});
-
+            .set({ Authorization: 'Bearer ' + tokenSubscriptionManagement.access_token });
     } catch (e) {
         throw new Error(`Failed to delete subscriptions test data , http-status: ${e.response?.status}`);
     }
@@ -68,7 +66,7 @@ export const clearAllLocationsByTestPrefix = async (locationNamePrefix: string) 
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/location/${locationNamePrefix}`)
             .set('Content-Type', 'application/json')
-            .set({Authorization: 'Bearer ' + tokenDataManagement.access_token});
+            .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
         throw new Error(`Failed to delete locations test data , http-status: ${e.response?.status}`);
     }
@@ -80,7 +78,7 @@ export const deleteLocation = async (locationId: string) => {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/locations/${locationId}`)
             .set('x-provenance-user-id', `${testConfig.SYSTEM_ADMIN_PROVENANCE_ID}`)
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete location with locationId: ${locationId}, http-status: ${e.response?.status}`);
     }
@@ -100,7 +98,7 @@ export const createSubscription = async (locationId: string, locationName: strin
         await superagent
             .post(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription`)
             .send(payload)
-            .set({Authorization: 'Bearer ' + token.access_token})
+            .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
@@ -112,7 +110,7 @@ export const deleteSubscription = async (userId: string) => {
     try {
         await superagent
             .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription/user/${userId}`)
-            .set({Authorization: 'Bearer ' + token.access_token})
+            .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Delete subscription failed for: ${userId}, http-status: ${e.response?.status}`);
@@ -146,7 +144,7 @@ export const uploadPublication = async (
             .set('x-court-id', locationId)
             .set('x-content-date', displayFrom)
             .set('Content-Type', 'application/json')
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.artefactId;
     } catch (e) {
         throw new Error(`Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}`);
@@ -159,7 +157,7 @@ export const deletePublicationForCourt = async (locationId: string) => {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${locationId}/deleteArtefacts`)
             .set('x-provenance-user-id', `${testConfig.SYSTEM_ADMIN_PROVENANCE_ID}`)
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete artefact for: ${locationId}, http-status: ${e.response?.status}`);
     }
@@ -171,7 +169,7 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${artefactId}`)
             .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete artefact for: ${artefactId}, http-status: ${e.response?.status}`);
     }
@@ -189,7 +187,7 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
         await superagent
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/system-admin`)
             .send(systemAdminAccount)
-            .set({Authorization: 'Bearer ' + token.access_token})
+            .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
     } catch (e) {
         if (e.response?.badRequest) {
@@ -213,8 +211,8 @@ const getAllAccountsByEmailAndRoles = async (email: string, roles: string) => {
     try {
         const response = await superagent
             .get(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/all`)
-            .query({pageNumber: 0, pageSize: 25, email: email, roles: roles})
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .query({ pageNumber: 0, pageSize: 25, email: email, roles: roles })
+            .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.content;
     } catch (e) {
         throw new Error(
@@ -228,7 +226,7 @@ const deleteAccountByUserId = async (userId: string) => {
     try {
         await superagent
             .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
-            .set({Authorization: 'Bearer ' + token.access_token});
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Delete account failed for: ${userId}, http-status: ${e.response?.status}`);
     }

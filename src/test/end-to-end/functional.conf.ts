@@ -1,8 +1,8 @@
 import path from 'path';
-import {config as testConfig} from '../config';
-import {clearTestData} from "./shared/testingSupportApi";
+import { config as testConfig } from '../config';
+import { clearTestData } from './shared/testingSupportApi';
 
-const {setHeadlessWhen} = require('@codeceptjs/configure');
+const { setHeadlessWhen } = require('@codeceptjs/configure');
 
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 

@@ -1,13 +1,13 @@
-import {DateTime} from 'luxon';
-import {createLocation, uploadPublication} from '../../shared/testingSupportApi';
-import {randomData} from "../../shared/random-data";
-import {config} from "../../../config";
+import { DateTime } from 'luxon';
+import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('System admin blob explorer');
 
-Scenario('I as a system admin should be able to discover content uploaded to all locations.', async ({I}) => {
-    const displayFrom = DateTime.now().toISO({includeOffset: false});
-    const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+Scenario('I as a system admin should be able to discover content uploaded to all locations.', async ({ I }) => {
+    const displayFrom = DateTime.now().toISO({ includeOffset: false });
+    const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();

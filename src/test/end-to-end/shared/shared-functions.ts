@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 
 export function padFormatted(value) {
     return value.toString().padStart(2, '0');

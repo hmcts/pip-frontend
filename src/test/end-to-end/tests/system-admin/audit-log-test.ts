@@ -1,17 +1,13 @@
-import {
-    getCurrentDateWthFormat,
-    getDateNowAndFuture,
-    padFormatted,
-} from '../../shared/shared-functions';
-import {config, config as testConfig} from '../../../config';
-import {createLocation} from '../../shared/testingSupportApi';
-import {randomData} from "../../shared/random-data";
+import { getCurrentDateWthFormat, getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
+import { config, config as testConfig } from '../../../config';
+import { createLocation } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
 
 Feature('System admin audit log');
 
 Scenario(
     'I as a system admin should be able to view audit log for system admin view third-party users action',
-    async ({I}) => {
+    async ({ I }) => {
         I.loginAsSystemAdmin();
         I.see('System Admin Dashboard');
         I.click('#card-manage-third-party-users');
@@ -54,7 +50,7 @@ Scenario(
     }
 );
 
-Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({I}) => {
+Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [date, dayAfter] = getDateNowAndFuture();

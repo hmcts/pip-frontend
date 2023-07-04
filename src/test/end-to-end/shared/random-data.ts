@@ -1,4 +1,4 @@
-import {config as testConfig} from '../../config';
+import { config as testConfig } from '../../config';
 
 const randomNumber = (min = 1, max = 100) => {
     return Math.floor(Math.random() * (max - min)) + min;

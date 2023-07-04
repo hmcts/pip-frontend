@@ -1,14 +1,11 @@
-import {
-    getDateNowAndFuture,
-    padFormatted,
-} from '../../shared/shared-functions';
-import {createLocation} from '../../shared/testingSupportApi';
-import {randomData} from "../../shared/random-data";
-import {config} from "../../../config";
+import { getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
+import { createLocation } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('Admin manual upload JSON');
 
-Scenario('I as a admin user should be able to upload json file successfully', async ({I}) => {
+Scenario('I as a admin user should be able to upload json file successfully', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [date, dayAfter] = getDateNowAndFuture();
@@ -55,7 +52,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.logout();
 }).tag('@CrossBrowser');
 
-Scenario('I as a admin user should see proper error messages related to manual upload', async ({I}) => {
+Scenario('I as a admin user should see proper error messages related to manual upload', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [date, dayAfter] = getDateNowAndFuture();
@@ -201,7 +198,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.logout();
 });
 
-Scenario('I as a admin user should be able to change the data before confirming upload', async ({I}) => {
+Scenario('I as a admin user should be able to change the data before confirming upload', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [date, dayAfter] = getDateNowAndFuture();
