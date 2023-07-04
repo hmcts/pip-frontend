@@ -1,18 +1,17 @@
 import {
-    generateTestLocation,
     getCurrentDateWthFormat,
     getDateNowAndFuture,
     padFormatted,
-    removeTestLocationFile,
 } from '../../shared/shared-functions';
-import { config as testConfig } from '../../../config';
-import { createLocation } from '../../shared/testingSupportApi';
+import {config, config as testConfig} from '../../../config';
+import {createLocation} from '../../shared/testingSupportApi';
+import {randomData} from "../../shared/random-data";
 
 Feature('System admin audit log');
 
 Scenario(
     'I as a system admin should be able to view audit log for system admin view third-party users action',
-    async ({ I }) => {
+    async ({I}) => {
         I.loginAsSystemAdmin();
         I.see('System Admin Dashboard');
         I.click('#card-manage-third-party-users');
@@ -55,12 +54,14 @@ Scenario(
     }
 );
 
-Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({ I }) => {
+Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({I}) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [date, dayAfter] = getDateNowAndFuture();
-    const [locationId, locationName, locationFileName] = generateTestLocation();
-    await createLocation(locationFileName);
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+
+    await createLocation(locationId, locationName);
 
     I.loginAsSystemAdmin();
     I.see('System Admin Dashboard');
@@ -140,7 +141,4 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     I.waitForText('View audit log for ');
     I.logout();
-
-    I.deleteLocation(locationId);
-    removeTestLocationFile(locationFileName);
 });

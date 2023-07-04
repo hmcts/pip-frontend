@@ -1,20 +1,21 @@
 import {
-    generateTestLocation,
     getDateNowAndFuture,
     padFormatted,
-    removeTestLocationFile,
 } from '../../shared/shared-functions';
-import { createLocation } from '../../shared/testingSupportApi';
+import {createLocation} from '../../shared/testingSupportApi';
+import {randomData} from "../../shared/random-data";
+import {config} from "../../../config";
 
 Feature('Admin manual upload JSON');
 
-Scenario('I as a admin user should be able to upload json file successfully', async ({ I }) => {
+Scenario('I as a admin user should be able to upload json file successfully', async ({I}) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
-    const [locationId, locationName, locationFileName] = generateTestLocation();
     const [date, dayAfter] = getDateNowAndFuture();
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    await createLocation(locationFileName);
+    await createLocation(locationId, locationName);
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
@@ -52,18 +53,16 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.waitForText('What do you want to view from ' + locationName);
     I.see('Civil and Family Daily Cause List');
     I.logout();
-    I.deletePublicationForCourt(locationId);
-    I.deleteLocation(locationId);
-    removeTestLocationFile(locationFileName);
 }).tag('@CrossBrowser');
 
-Scenario('I as a admin user should see proper error messages related to manual upload', async ({ I }) => {
+Scenario('I as a admin user should see proper error messages related to manual upload', async ({I}) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
-    const [locationId, locationName, locationFileName] = generateTestLocation();
     const [date, dayAfter] = getDateNowAndFuture();
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    await createLocation(locationFileName);
+    await createLocation(locationId, locationName);
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
@@ -200,17 +199,15 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.waitForText('There is a problem');
     I.see('Unable to upload publication, please verify that provided fields are correct');
     I.logout();
-    I.deleteLocation(locationId);
-    removeTestLocationFile(locationFileName);
 });
 
-Scenario('I as a admin user should be able to change the data before confirming upload', async ({ I }) => {
+Scenario('I as a admin user should be able to change the data before confirming upload', async ({I}) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
-    const [locationId, locationName, locationFileName] = generateTestLocation();
-
-    await createLocation(locationFileName);
     const [date, dayAfter] = getDateNowAndFuture();
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    await createLocation(locationId, locationName);
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
@@ -279,6 +276,4 @@ Scenario('I as a admin user should be able to change the data before confirming 
     I.click('Continue');
     I.waitForText('Check upload details');
     I.logout();
-    I.deleteLocation(locationId);
-    removeTestLocationFile(locationFileName);
 });

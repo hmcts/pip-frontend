@@ -1,13 +1,14 @@
-import { DateTime } from 'luxon';
-import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
-import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
+import {DateTime} from 'luxon';
+import {createLocation, uploadPublication} from '../../shared/testingSupportApi';
+import {randomData} from "../../shared/random-data";
+import {config} from "../../../config";
 
 Feature('Verified user email subscriptions');
 
 Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
-        'should be able to remove subscription and bulk unsubscribe',
-    async ({ I }) => {
+    'should be able to remove subscription and bulk unsubscribe',
+    async ({I}) => {
         const caseId = '12341234';
         const caseName = 'Test Case Name';
         const caseURN = 'Case URN';
@@ -22,11 +23,12 @@ Scenario(
         const casePartyNumber = '12341235';
         const casePartyURN = '99999999';
 
-        const displayFrom = DateTime.now().toISO({ includeOffset: false });
-        const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-        const [locationId, locationName, locationFileName] = generateTestLocation();
+        const displayFrom = DateTime.now().toISO({includeOffset: false});
+        const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+        const locationId = randomData.getRandomLocationId();
+        const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-        await createLocation(locationFileName);
+        await createLocation(locationId, locationName);
         await uploadPublication(
             'PUBLIC',
             locationId,
@@ -180,12 +182,12 @@ Scenario(
         I.click('Email subscriptions');
         I.click('#bulk-unsubscribe-button');
 
-        I.click(locate('//tr').withText(caseName).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
-        I.click(locate('//tr').withText(caseId).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(casePartyNumber).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ id: 'caseSubscription' }));
+        I.click(locate('//tr').withText(caseName).find('input').withAttr({id: 'caseSubscription'}));
+        I.click(locate('//tr').withText(locationName).find('input').withAttr({id: 'courtSubscription'}));
+        I.click(locate('//tr').withText(caseId).find('input').withAttr({id: 'caseSubscription'}));
+        I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({id: 'caseSubscription'}));
+        I.click(locate('//tr').withText(casePartyNumber).find('input').withAttr({id: 'caseSubscription'}));
+        I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({id: 'caseSubscription'}));
 
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
@@ -194,20 +196,18 @@ Scenario(
         I.waitForText('Subscription(s) removed');
         I.see('Your subscription(s) has been removed.');
         I.logout();
-
-        I.deletePublicationForCourt(locationId);
-        I.deleteLocation(locationId);
-        await removeTestLocationFile(locationFileName);
     }
 );
 
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
-    async ({ I }) => {
-        const displayFrom = DateTime.now().toISO({ includeOffset: false });
-        const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-        const [locationId, locationName, locationFileName] = generateTestLocation();
-        await createLocation(locationFileName);
+    async ({I}) => {
+        const displayFrom = DateTime.now().toISO({includeOffset: false});
+        const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+        const locationId = randomData.getRandomLocationId();
+        const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+        await createLocation(locationId, locationName);
+
         await uploadPublication(
             'PUBLIC',
             locationId,
@@ -272,8 +272,8 @@ Scenario(
 
         I.click('#subscription-choice-1');
         I.click('Continue');
-        I.click(locate('//input').withAttr({ value: 'Civil' }));
-        I.click(locate('//input').withAttr({ value: 'South East' }));
+        I.click(locate('//input').withAttr({value: 'Civil'}));
+        I.click(locate('//input').withAttr({value: 'South East'}));
         I.click('Apply filters');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
@@ -287,23 +287,21 @@ Scenario(
         I.waitForText('There is a problem');
         I.see('At least one subscription must be selected');
 
-        I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
+        I.click(locate('//tr').withText(locationName).find('input').withAttr({id: 'courtSubscription'}));
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
         I.logout();
-
-        I.deletePublicationForCourt(locationId);
-        I.deleteLocation(locationId);
-        await removeTestLocationFile(locationFileName);
     }
 ).tag('@Nightly');
 
-Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
-    const [locationId, locationName, locationFileName] = generateTestLocation();
-    await createLocation(locationFileName);
+Scenario('I as a verified user should be able to filter and select which list type to receive', async ({I}) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+
+    await createLocation(locationId, locationName);
 
     I.loginAsMediaUser();
     I.waitForText('Your account');
@@ -322,7 +320,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Email subscriptions');
     I.click('Select which list types to receive');
     I.waitForText('Select List Types');
-    I.click(locate('//input').withAttr({ value: 'Civil' }));
+    I.click(locate('//input').withAttr({value: 'Civil'}));
     I.click('Apply filters');
     I.uncheckOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
@@ -341,6 +339,4 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Email subscriptions');
     I.dontSee(locationName);
     I.logout();
-    I.deleteLocation(locationId);
-    await removeTestLocationFile(locationFileName);
 }).tag('@Nightly');
