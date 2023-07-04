@@ -28,8 +28,7 @@ const redisClient = createClient({
     url: connectionString,
     socket: {
         connectTimeout: 10000,
-    }
-
+    },
 });
 
 /* istanbul ignore next */
