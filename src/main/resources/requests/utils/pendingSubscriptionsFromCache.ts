@@ -2,7 +2,7 @@ const { redisClient } = require('../../../cacheManager');
 
 export class PendingSubscriptionsFromCache {
     public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {
-        if (redisClient.status === 'ready') {
+        if (redisClient.isReady) {
             let subscriptionsSet = [];
             const rawData = await redisClient.get(`pending-${subscriptionType}-subscriptions-${userId}`);
             const cachedResults = JSON.parse(rawData);
@@ -29,7 +29,7 @@ export class PendingSubscriptionsFromCache {
 
     public async getPendingSubscriptions(userId, type): Promise<any[]> {
         let cacheResult = [];
-        if (redisClient.status === 'ready' && userId) {
+        if (redisClient.isReady && userId) {
             cacheResult = JSON.parse(await redisClient.get(`pending-${type}-subscriptions-${userId}`));
         }
         return cacheResult;
@@ -37,7 +37,7 @@ export class PendingSubscriptionsFromCache {
 
     // @param removeObject - post data object {case-number: 'id'} || {case-urn: 'id'} || {court: 'id'}
     public async removeFromCache(removeObject, userId): Promise<void> {
-        if (redisClient.status === 'ready' && userId) {
+        if (redisClient.isReady && userId) {
             if (removeObject['case-number'] || removeObject['case-urn']) {
                 const cachedCases = await this.getPendingSubscriptions(userId, 'cases');
                 cachedCases.forEach((item, index) => {
@@ -52,14 +52,14 @@ export class PendingSubscriptionsFromCache {
                         this.removeFromSubscriptionSet(item.caseUrn, removeObject['case-urn'], index, cachedCases);
                     }
                 });
-                redisClient.set(`pending-cases-subscriptions-${userId}`, JSON.stringify(cachedCases));
+                await redisClient.set(`pending-cases-subscriptions-${userId}`, JSON.stringify(cachedCases));
             }
 
             // as SJP locationId = 0 removeObject.court = 0 is evaluated as false, hence or (||) check
             if (removeObject.court || removeObject.court === 0) {
                 const cachedCourts = await this.getPendingSubscriptions(userId, 'courts');
                 const filteredCourts = cachedCourts.filter(court => court.locationId !== parseInt(removeObject.court));
-                redisClient.set(`pending-courts-subscriptions-${userId}`, JSON.stringify(filteredCourts));
+                await redisClient.set(`pending-courts-subscriptions-${userId}`, JSON.stringify(filteredCourts));
             }
         }
     }
