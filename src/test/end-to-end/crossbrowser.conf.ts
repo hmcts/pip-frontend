@@ -1,7 +1,7 @@
 import * as path from 'path';
 import { config as testConfig } from '../config';
 import { container, event } from 'codeceptjs';
-import {clearTestData} from "./shared/testingSupportApi";
+import { clearTestData } from './shared/testingSupportApi';
 
 export const config: CodeceptJS.MainConfig = {
     name: 'cross-browser',
