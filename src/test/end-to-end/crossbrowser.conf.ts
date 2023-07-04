@@ -1,6 +1,7 @@
 import * as path from 'path';
 import { config as testConfig } from '../config';
 import { container, event } from 'codeceptjs';
+import {clearTestData} from "./shared/testingSupportApi";
 
 export const config: CodeceptJS.MainConfig = {
     name: 'cross-browser',
@@ -8,6 +9,9 @@ export const config: CodeceptJS.MainConfig = {
     output: path.join(testConfig.TestFunctionalOutputPath, 'cross-browser/reports'),
     include: {
         I: './tests/custom-steps.ts',
+    },
+    async teardownAll() {
+        await clearTestData(testConfig.TEST_SUITE_PREFIX);
     },
     helpers: testConfig.helpers,
     plugins: testConfig.plugins,
