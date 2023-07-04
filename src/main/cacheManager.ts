@@ -13,8 +13,6 @@ export function setRedisCredentials(): any {
 
 const redisCredentials = setRedisCredentials();
 
-
-
 const logger = Logger.getLogger('app');
 const ioRedis = require('ioredis');
 
