@@ -28,5 +28,5 @@ export const randomData = {
     getRandomString: randomString,
     getRandomAlphabeticString: randomAlphabeticString,
     getRandomEmailAddress: testWorkerNumber =>
-        testConfig.TEST_SUITE_PREFIX + testWorkerNumber + randomString() + '@justice.gov.uk',
+        testConfig.TEST_SUITE_PREFIX + testWorkerNumber + randomString(5) + '@justice.gov.uk',
 };
