@@ -31,11 +31,11 @@ export const createLocation = async (locationId: string, locationName: string) =
 };
 
 export const clearTestData = async () => {
-    await clearAllMediaApplicationssByTestPrefix(testConfig.TEST_SUITE_PREFIX);
-    await clearAllAccountsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllPublicationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllSubscriptionsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllLocationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearAllMediaApplicationssByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearAllAccountsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
 };
 
 export const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
