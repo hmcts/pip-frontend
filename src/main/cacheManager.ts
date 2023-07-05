@@ -23,8 +23,8 @@ if (process.env.REDIS_LOCAL) {
         url: `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`,
         socket: {
             connectTimeout: 10000,
-            tls: false
-        }
+            tls: false,
+        },
     });
 } else {
     // double s is required when using TLS connection (i.e. 'start' profile)
@@ -32,7 +32,7 @@ if (process.env.REDIS_LOCAL) {
         url: `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`,
         socket: {
             connectTimeout: 10000,
-            tls: true
+            tls: true,
         },
     });
 }
