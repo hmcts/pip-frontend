@@ -30,7 +30,7 @@ const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 //does not work with Azure. ioredis does not include an in build ping process, therefore need to implement our own.
 setInterval(() => {
     redisClient.ping();
-}, 300000)
+}, 300000);
 
 /* istanbul ignore next */
 if (!process.env.REDIS_SUPPRESS) {
