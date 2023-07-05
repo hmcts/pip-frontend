@@ -16,20 +16,26 @@ const redisCredentials = setRedisCredentials();
 
 const logger = Logger.getLogger('app');
 
-let connectionString = '';
+let redisClient;
 if (process.env.REDIS_LOCAL) {
     // for running local dev environment (i.e. 'start:dev' profile)
-    connectionString = `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+    redisClient = createClient({
+        url: `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`,
+        socket: {
+            connectTimeout: 10000,
+            tls: false
+        }
+    });
 } else {
     // double s is required when using TLS connection (i.e. 'start' profile)
-    connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
+    redisClient = createClient({
+        url: `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`,
+        socket: {
+            connectTimeout: 10000,
+            tls: true
+        },
+    });
 }
-const redisClient = createClient({
-    url: connectionString,
-    socket: {
-        connectTimeout: 20000,
-    },
-});
 
 /* istanbul ignore next */
 if (!process.env.REDIS_SUPPRESS) {
