@@ -47,5 +47,4 @@ describe('Test interval', () => {
         await require('../../../main/cacheManager');
         expect(setInterval).toHaveBeenCalledWith(expect.any(Function), 300000);
     });
-
 });
