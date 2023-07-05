@@ -34,3 +34,18 @@ describe('cache manager', () => {
         expect(envCredentials.password).toEqual(expectedEnvValues.password);
     });
 });
+
+describe('Test interval', () => {
+    let setInterval;
+    beforeEach(() => {
+        jest.resetModules();
+        jest.useFakeTimers();
+        setInterval = jest.spyOn(global, 'setInterval');
+    });
+
+    it('should call setInterval', async () => {
+        await require('../../../main/cacheManager');
+        expect(setInterval).toHaveBeenCalledWith(expect.any(Function), 300000);
+    });
+
+});
