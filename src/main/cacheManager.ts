@@ -69,4 +69,5 @@ redisClient.connect();
 
 module.exports = {
     redisClient,
+    setRedisCredentials,
 };
