@@ -11,12 +11,13 @@ class TestingSupportApi extends Helper implements TestingSupportAPI {
     uploadPublication = TestingSupportAPI.uploadPublication;
     deletePublicationForCourt = TestingSupportAPI.deletePublicationForCourt;
     createSystemAdminAccount = TestingSupportAPI.createSystemAdminAccount;
-    deleteAllAccountsByEmailAndRoles = TestingSupportAPI.deleteAllAccountsByEmailAndRoles;
+    clearAllAccountsByTestPrefix = TestingSupportAPI.clearAllAccountsByTestPrefix;
     deletePublicationByArtefactId = TestingSupportAPI.deletePublicationByArtefactId;
     clearTestData = TestingSupportAPI.clearTestData;
     clearAllPublicationsByTestPrefix = TestingSupportAPI.clearAllPublicationsByTestPrefix;
     clearAllSubscriptionsByTestPrefix = TestingSupportAPI.clearAllSubscriptionsByTestPrefix;
     clearAllLocationsByTestPrefix = TestingSupportAPI.clearAllLocationsByTestPrefix;
+    clearAllMediaApplicationssByTestPrefix = TestingSupportAPI.clearAllMediaApplicationssByTestPrefix;
 }
 
 export = TestingSupportApi;

@@ -3,12 +3,11 @@ import { config as testConfig } from '../../../config';
 
 Feature('Admin manage media account request');
 
-const TEST_WORKER_NUMBER = randomData.getRandomNumber(10000000, 99999999);
 const TEST_EMPLOYER = 'HMCTS';
 
 Scenario('I as an admin user should be able to accept valid media account request', async ({ I }) => {
     const testFullName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString() + ' Surname';
-    const emailTestMediaAccount = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
+    const emailTestMediaAccount = randomData.getRandomEmailAddress;
 
     I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 
@@ -69,7 +68,7 @@ Scenario(
         'messages related to media account request',
     async ({ I }) => {
         const testFullName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString() + ' Surname';
-        const emailTestMediaAccount = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
+        const emailTestMediaAccount = randomData.getRandomEmailAddress;
 
         I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 

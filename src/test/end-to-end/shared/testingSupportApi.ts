@@ -30,17 +30,20 @@ export const createLocation = async (locationId: string, locationName: string) =
     }
 };
 
-export const clearTestData = async (locationNamePrefix: string) => {
-    await clearAllPublicationsByTestPrefix(locationNamePrefix);
-    await clearAllSubscriptionsByTestPrefix(locationNamePrefix);
-    await clearAllLocationsByTestPrefix(locationNamePrefix);
+export const clearTestData = async () => {
+
+    await clearAllMediaApplicationssByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearAllAccountsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearAllPublicationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearAllSubscriptionsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearAllLocationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
 };
 
-export const clearAllPublicationsByTestPrefix = async (locationNamePrefix: string) => {
+export const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getDataManagementCredentials();
     try {
         await superagent
-            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/publication/${locationNamePrefix}`)
+            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/publication/${testSuitePrefix}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
@@ -48,11 +51,11 @@ export const clearAllPublicationsByTestPrefix = async (locationNamePrefix: strin
     }
 };
 
-export const clearAllSubscriptionsByTestPrefix = async (locationNamePrefix: string) => {
+export const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenSubscriptionManagement = await getSubscriptionManagementCredentials();
     try {
         await superagent
-            .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/testing-support/subscription/${locationNamePrefix}`)
+            .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/testing-support/subscription/${testSuitePrefix}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenSubscriptionManagement.access_token });
     } catch (e) {
@@ -60,15 +63,39 @@ export const clearAllSubscriptionsByTestPrefix = async (locationNamePrefix: stri
     }
 };
 
-export const clearAllLocationsByTestPrefix = async (locationNamePrefix: string) => {
+export const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getDataManagementCredentials();
     try {
         await superagent
-            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/location/${locationNamePrefix}`)
+            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/location/${testSuitePrefix}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
         throw new Error(`Failed to delete locations test data , http-status: ${e.response?.status}`);
+    }
+};
+
+export const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
+    const tokenDataManagement = await getAccountManagementCredentials();
+    try {
+        await superagent
+            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/account/${testSuitePrefix}`)
+            .set('Content-Type', 'application/json')
+            .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
+    } catch (e) {
+        throw new Error(`Failed to delete accounts test data , http-status: ${e.response?.status}`);
+    }
+};
+
+export const clearAllMediaApplicationssByTestPrefix = async (testSuitePrefix: string) => {
+    const tokenDataManagement = await getAccountManagementCredentials();
+    try {
+        await superagent
+            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/application/${testSuitePrefix}`)
+            .set('Content-Type', 'application/json')
+            .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
+    } catch (e) {
+        throw new Error(`Failed to delete applications test data , http-status: ${e.response?.status}`);
     }
 };
 
@@ -199,35 +226,4 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
     }
 };
 
-export const deleteAllAccountsByEmailAndRoles = async (email: string, roles: string) => {
-    const accounts = await getAllAccountsByEmailAndRoles(email, roles);
-    for (const account of accounts) {
-        await deleteAccountByUserId(account.userId);
-    }
-};
 
-const getAllAccountsByEmailAndRoles = async (email: string, roles: string) => {
-    const token = await getAccountManagementCredentials();
-    try {
-        const response = await superagent
-            .get(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/all`)
-            .query({ pageNumber: 0, pageSize: 25, email: email, roles: roles })
-            .set({ Authorization: 'Bearer ' + token.access_token });
-        return response.body?.content;
-    } catch (e) {
-        throw new Error(
-            `Get accounts by email and roles failed for: email: ${email}, roles: ${roles}, http-status: ${e.response?.status}`
-        );
-    }
-};
-
-const deleteAccountByUserId = async (userId: string) => {
-    const token = await getAccountManagementCredentials();
-    try {
-        await superagent
-            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
-            .set({ Authorization: 'Bearer ' + token.access_token });
-    } catch (e) {
-        throw new Error(`Delete account failed for: ${userId}, http-status: ${e.response?.status}`);
-    }
-};
