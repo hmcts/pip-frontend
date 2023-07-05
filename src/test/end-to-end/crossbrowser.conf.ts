@@ -11,7 +11,7 @@ export const config: CodeceptJS.MainConfig = {
         I: './tests/custom-steps.ts',
     },
     async teardownAll() {
-        await clearTestData(testConfig.TEST_SUITE_PREFIX);
+        await clearTestData();
     },
     helpers: testConfig.helpers,
     plugins: testConfig.plugins,
