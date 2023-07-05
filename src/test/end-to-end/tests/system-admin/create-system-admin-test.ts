@@ -51,26 +51,14 @@ Scenario(
     'I as a system admin should not be able to create a new system admin if the maximum number of accounts has been reached',
     async ({ I }) => {
         // Continue creating new system admins until we see the 'above max system admin' error
-        let response = await createSystemAdminAccount(
-            TEST_FIRST_NAME,
-            TEST_SURNAME,
-            randomData.getRandomEmailAddress
-        );
+        let response = await createSystemAdminAccount(TEST_FIRST_NAME, TEST_SURNAME, randomData.getRandomEmailAddress);
         while (!response?.error && !response?.aboveMaxSystemAdmin) {
-            response = await createSystemAdminAccount(
-                TEST_FIRST_NAME,
-                TEST_SURNAME,
-                randomData.getRandomEmailAddress
-            );
+            response = await createSystemAdminAccount(TEST_FIRST_NAME, TEST_SURNAME, randomData.getRandomEmailAddress);
         }
 
         I.loginAsSystemAdmin();
         I.see('System Admin Dashboard');
-        I.createNewSystemAdminAndContinue(
-            TEST_FIRST_NAME,
-            TEST_SURNAME,
-            randomData.getRandomEmailAddress
-        );
+        I.createNewSystemAdminAndContinue(TEST_FIRST_NAME, TEST_SURNAME, randomData.getRandomEmailAddress);
         I.waitForText('Check account details');
         I.click('Confirm');
         I.waitForText('Account has been rejected');
