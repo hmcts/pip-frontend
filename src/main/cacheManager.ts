@@ -27,7 +27,7 @@ if (process.env.REDIS_LOCAL) {
 const redisClient = createClient({
     url: connectionString,
     socket: {
-        connectTimeout: 10000,
+        connectTimeout: 20000,
     },
 });
 
