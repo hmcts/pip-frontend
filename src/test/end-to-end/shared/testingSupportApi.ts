@@ -34,8 +34,8 @@ export const clearTestData = async () => {
     await clearAllPublicationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllSubscriptionsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllLocationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
-    await clearAllMediaApplicationssByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllAccountsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearAllMediaApplicationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
 };
 
 export const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
@@ -78,7 +78,7 @@ export const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getAccountManagementCredentials();
     try {
         await superagent
-            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/account/${testSuitePrefix}`)
+            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/account/${testSuitePrefix}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
@@ -86,11 +86,11 @@ export const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
     }
 };
 
-export const clearAllMediaApplicationssByTestPrefix = async (testSuitePrefix: string) => {
+export const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getAccountManagementCredentials();
     try {
         await superagent
-            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/application/${testSuitePrefix}`)
+            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/application/${testSuitePrefix}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
