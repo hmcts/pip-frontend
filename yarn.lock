@@ -1788,6 +1788,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.22.5":
+  version: 7.22.6
+  resolution: "@babel/runtime@npm:7.22.6"
+  dependencies:
+    regenerator-runtime: ^0.13.11
+  checksum: e585338287c4514a713babf4fdb8fc2a67adcebab3e7723a739fc62c79cfda875b314c90fd25f827afb150d781af97bc16c85bfdbfa2889f06053879a1ddb597
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.18.10, @babel/template@npm:^7.20.7, @babel/template@npm:^7.3.3":
   version: 7.20.7
   resolution: "@babel/template@npm:7.20.7"
@@ -9034,12 +9043,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:^22.5.0":
-  version: 22.5.0
-  resolution: "i18next@npm:22.5.0"
+"i18next@npm:^23.2.7":
+  version: 23.2.7
+  resolution: "i18next@npm:23.2.7"
   dependencies:
-    "@babel/runtime": ^7.20.6
-  checksum: 291c0e02fda20bd1827b6529dad74c01867892c7ac000befe0f69e10ad97ab074a2ae5b4ce1e0638c28ae1a6f59d1ed8503ea05bd1c324d731a44dd94c43a49a
+    "@babel/runtime": ^7.22.5
+  checksum: b5fdf0d7a8bda38fde39b5968fe637ccc22e7d2157f729008b4d34fb8474df93d82bcbdfabe51bf1286176669409aad3fe68b0934cadeb9f9b95f45ddf74fc79
   languageName: node
   linkType: hard
 
@@ -13148,7 +13157,7 @@ __metadata:
     helmet: ^4.6.0
     html-webpack-plugin: ^5.5.1
     http-status-codes: ^2.2.0
-    i18next: ^22.5.0
+    i18next: ^23.2.7
     i18next-http-middleware: ^3.3.1
     ioredis: ^5.3.2
     jest: ^29.5.0
