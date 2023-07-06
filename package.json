@@ -126,7 +126,7 @@
         "@wdio/mocha-framework": "^8.11.0",
         "@wdio/selenium-standalone-service": "^8.11.0",
         "@wdio/spec-reporter": "^8.11.2",
-        "allure-commandline": "^2.22.1",
+        "allure-commandline": "^2.23.0",
         "babel-loader": "^9.1.2",
         "chai": "^4.3.7",
         "chai-as-promised": "^7.1.1",
