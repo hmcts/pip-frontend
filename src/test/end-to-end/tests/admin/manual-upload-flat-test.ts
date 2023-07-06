@@ -1,10 +1,7 @@
-import {
-    generateTestLocation,
-    getDateNowAndFuture,
-    padFormatted,
-    removeTestLocationFile,
-} from '../../shared/shared-functions';
+import { getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
 import { createLocation } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('Admin manual upload flat file');
 
@@ -15,10 +12,10 @@ flatFileName.add(['testFlatFile.docx']);
 Data(flatFileName)
     .Scenario('I as a admin user should be able to upload flat file successfully', async ({ I, current }) => {
         const listType = 'Civil And Family Daily Cause List';
-        const [locationId, locationName, locationFileName] = generateTestLocation();
         const [date, dayAfter] = getDateNowAndFuture();
-
-        await createLocation(locationFileName);
+        const locationId = randomData.getRandomLocationId();
+        const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+        await createLocation(locationId, locationName);
 
         I.loginAsAdmin();
         I.click('#card-manual-upload');
@@ -56,8 +53,5 @@ Data(flatFileName)
         I.waitForText('What do you want to view from ' + locationName);
         I.see('Civil and Family Daily Cause List');
         I.logout();
-        I.deletePublicationForCourt(locationId);
-        I.deleteLocation(locationId);
-        removeTestLocationFile(locationFileName);
     })
     .tag('@CrossBrowser');
