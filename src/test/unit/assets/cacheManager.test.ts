@@ -1,4 +1,7 @@
 import * as redisConfig from '../../../main/cacheManager';
+import sinon from 'sinon';
+import ioredis from 'ioredis';
+import {intervalFunction} from "../../../main/cacheManager";
 
 const expectedValues = {
     host: '127.0.0.1',
@@ -36,15 +39,33 @@ describe('cache manager', () => {
 });
 
 describe('Test interval', () => {
-    let setInterval;
+    let pingStub = sinon.stub(ioredis.prototype, 'ping');
+
     beforeEach(() => {
-        jest.resetModules();
         jest.useFakeTimers();
-        setInterval = jest.spyOn(global, 'setInterval');
+    });
+
+    afterEach(() => {
+       pingStub.reset();
     });
 
     it('should call setInterval', async () => {
+        let setInterval = jest.spyOn(global, 'setInterval');
         await require('../../../main/cacheManager');
-        expect(setInterval).toHaveBeenCalledWith(expect.any(Function), 300000);
+        expect(setInterval).toHaveBeenCalledWith(expect.anything(), 300000);
+    });
+
+    it('should call ping when ready', async () => {
+        sinon.stub(ioredis.prototype, 'setStatus').returns('ready');
+
+        await require('../../../main/cacheManager');
+        intervalFunction();
+        sinon.assert.notCalled(pingStub);
+    });
+
+    it('should not call ping when not ready', async () => {
+        await require('../../../main/cacheManager');
+        intervalFunction();
+        sinon.assert.notCalled(pingStub);
     });
 });
