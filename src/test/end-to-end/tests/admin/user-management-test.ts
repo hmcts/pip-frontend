@@ -3,10 +3,9 @@ import { randomData } from '../../shared/random-data';
 
 Feature('Manage admin user accounts');
 
-const TEST_WORKER_NUMBER = randomData.getRandomNumber(10000000, 99999999);
 const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
-const TEST_EMAIL = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
+const TEST_EMAIL = randomData.getRandomEmailAddress;
 const TEST_ROLE = 'Internal - Administrator - Local';
 const TEST_INVALID_EMAIL = 'invalid_email@justice.gov.uk';
 

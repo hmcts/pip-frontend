@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
-import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('System admin blob explorer');
 
@@ -8,9 +9,10 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
-    const [locationId, locationName, locationFileName] = generateTestLocation();
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    await createLocation(locationFileName);
+    await createLocation(locationId, locationName);
     const artefactId = await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
 
     I.loginAsSystemAdmin();
@@ -40,7 +42,4 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     I.click('Link to rendered template');
     I.waitForText('Civil and Family Daily Cause List for ' + locationName);
     I.logout();
-    I.deletePublicationForCourt(locationId);
-    I.deleteLocation(locationId);
-    removeTestLocationFile(locationFileName);
 });
