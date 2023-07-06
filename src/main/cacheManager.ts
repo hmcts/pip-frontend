@@ -26,7 +26,7 @@ if (process.env.REDIS_LOCAL) {
 }
 const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 
-export function intervalFunction () {
+export function intervalFunction() {
     if (redisClient.status === 'ready') {
         redisClient.ping();
     }
@@ -73,5 +73,5 @@ redisClient.on('close', () => {
 module.exports = {
     redisClient,
     setRedisCredentials,
-    intervalFunction
+    intervalFunction,
 };
