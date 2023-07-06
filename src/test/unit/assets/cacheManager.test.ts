@@ -1,6 +1,4 @@
 import * as redisConfig from '../../../main/cacheManager';
-import sinon from 'sinon';
-import ioredis from 'ioredis';
 import { intervalFunction } from '../../../main/cacheManager';
 
 const expectedValues = {
@@ -39,15 +37,20 @@ describe('cache manager', () => {
 });
 
 describe('Test interval', () => {
-    const pingStub = sinon.stub(ioredis.prototype, 'ping');
+    var pingFunction = jest.fn();
+
+    const mockRedis = {
+        'status': 'ready',
+        ping: pingFunction,
+    }
 
     beforeEach(() => {
         jest.useFakeTimers();
     });
 
     afterEach(() => {
-        pingStub.reset();
-    });
+        pingFunction.mockReset();
+    })
 
     it('should call setInterval', async () => {
         const setInterval = jest.spyOn(global, 'setInterval');
@@ -56,16 +59,16 @@ describe('Test interval', () => {
     });
 
     it('should call ping when ready', async () => {
-        sinon.stub(ioredis.prototype, 'setStatus').returns('ready');
-
         await require('../../../main/cacheManager');
-        intervalFunction();
-        sinon.assert.notCalled(pingStub);
+        mockRedis.status = 'ready';
+        intervalFunction(mockRedis);
+        expect(pingFunction).toHaveBeenCalledTimes(1);
     });
 
     it('should not call ping when not ready', async () => {
         await require('../../../main/cacheManager');
-        intervalFunction();
-        sinon.assert.notCalled(pingStub);
+        mockRedis.status = 'connecting'
+        intervalFunction(mockRedis);
+        expect(pingFunction).toHaveBeenCalledTimes(0);
     });
 });
