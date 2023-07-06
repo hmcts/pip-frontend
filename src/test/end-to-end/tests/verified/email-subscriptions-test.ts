@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
-import { generateTestLocation, removeTestLocationFile } from '../../shared/shared-functions';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('Verified user email subscriptions');
 
@@ -24,9 +25,10 @@ Scenario(
 
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-        const [locationId, locationName, locationFileName] = generateTestLocation();
+        const locationId = randomData.getRandomLocationId();
+        const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-        await createLocation(locationFileName);
+        await createLocation(locationId, locationName);
         await uploadPublication(
             'PUBLIC',
             locationId,
@@ -194,10 +196,6 @@ Scenario(
         I.waitForText('Subscription(s) removed');
         I.see('Your subscription(s) has been removed.');
         I.logout();
-
-        I.deletePublicationForCourt(locationId);
-        I.deleteLocation(locationId);
-        await removeTestLocationFile(locationFileName);
     }
 );
 
@@ -206,8 +204,10 @@ Scenario(
     async ({ I }) => {
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-        const [locationId, locationName, locationFileName] = generateTestLocation();
-        await createLocation(locationFileName);
+        const locationId = randomData.getRandomLocationId();
+        const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+        await createLocation(locationId, locationName);
+
         await uploadPublication(
             'PUBLIC',
             locationId,
@@ -294,16 +294,14 @@ Scenario(
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
         I.logout();
-
-        I.deletePublicationForCourt(locationId);
-        I.deleteLocation(locationId);
-        await removeTestLocationFile(locationFileName);
     }
 ).tag('@Nightly');
 
 Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
-    const [locationId, locationName, locationFileName] = generateTestLocation();
-    await createLocation(locationFileName);
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+
+    await createLocation(locationId, locationName);
 
     I.loginAsMediaUser();
     I.waitForText('Your account');
@@ -341,6 +339,4 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Email subscriptions');
     I.dontSee(locationName);
     I.logout();
-    I.deleteLocation(locationId);
-    await removeTestLocationFile(locationFileName);
 }).tag('@Nightly');

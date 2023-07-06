@@ -3,15 +3,14 @@ import { config as testConfig } from '../../../config';
 
 Feature('Admin create new account');
 
-const TEST_WORKER_NUMBER = randomData.getRandomNumber(10000000, 99999999);
 const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
 
 Scenario('I as an admin user should be able to create new account', async ({ I }) => {
-    const emailInternalSuperAdminCTSC = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
-    const emailInternalSuperAdminLocal = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
-    const emailInternalAdminCTSC = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
-    const emailInternalAdminLocal = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
+    const emailInternalSuperAdminCTSC = randomData.getRandomEmailAddress;
+    const emailInternalSuperAdminLocal = randomData.getRandomEmailAddress;
+    const emailInternalAdminCTSC = randomData.getRandomEmailAddress;
+    const emailInternalAdminLocal = randomData.getRandomEmailAddress;
 
     I.loginAsAdmin();
     I.waitForText('Your Dashboard');
@@ -95,7 +94,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
 });
 
 Scenario('I as an admin user should be able to see all error messages related to create new account', async ({ I }) => {
-    const testEmail = randomData.getRandomEmailAddress(TEST_WORKER_NUMBER);
+    const testEmail = randomData.getRandomEmailAddress;
 
     I.loginAsAdmin();
     I.waitForText('Your Dashboard');
