@@ -54,7 +54,7 @@
         "@types/i18next": "^13.0.0",
         "@types/lodash": "^4.14.195",
         "@types/node": "^18.16.16",
-        "@types/nunjucks": "^3.2.2",
+        "@types/nunjucks": "^3.2.3",
         "@types/require-directory": "^2.1.2",
         "@types/serve-favicon": "^2.5.4",
         "@wdio/cli": "8.11.2",
