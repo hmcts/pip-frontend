@@ -37,12 +37,12 @@ describe('cache manager', () => {
 });
 
 describe('Test interval', () => {
-    var pingFunction = jest.fn();
+    const pingFunction = jest.fn();
 
     const mockRedis = {
-        'status': 'ready',
+        status: 'ready',
         ping: pingFunction,
-    }
+    };
 
     beforeEach(() => {
         jest.useFakeTimers();
@@ -50,7 +50,7 @@ describe('Test interval', () => {
 
     afterEach(() => {
         pingFunction.mockReset();
-    })
+    });
 
     it('should call setInterval', async () => {
         const setInterval = jest.spyOn(global, 'setInterval');
@@ -67,7 +67,7 @@ describe('Test interval', () => {
 
     it('should not call ping when not ready', async () => {
         await require('../../../main/cacheManager');
-        mockRedis.status = 'connecting'
+        mockRedis.status = 'connecting';
         intervalFunction(mockRedis);
         expect(pingFunction).toHaveBeenCalledTimes(0);
     });
