@@ -38,7 +38,7 @@ export const clearTestData = async () => {
     await clearAllMediaApplicationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
 };
 
-export const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
+const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getDataManagementCredentials();
     try {
         await superagent
@@ -50,7 +50,7 @@ export const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) 
     }
 };
 
-export const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string) => {
+const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenSubscriptionManagement = await getSubscriptionManagementCredentials();
     try {
         await superagent
@@ -62,7 +62,7 @@ export const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string)
     }
 };
 
-export const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
+const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getDataManagementCredentials();
     try {
         await superagent
@@ -74,7 +74,7 @@ export const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => 
     }
 };
 
-export const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
+const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getAccountManagementCredentials();
     try {
         await superagent
@@ -86,7 +86,7 @@ export const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
     }
 };
 
-export const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: string) => {
+const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getAccountManagementCredentials();
     try {
         await superagent
@@ -95,18 +95,6 @@ export const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: str
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
         throw new Error(`Failed to delete applications test data , http-status: ${e.response?.status}`);
-    }
-};
-
-export const deleteLocation = async (locationId: string) => {
-    const token = await getDataManagementCredentials();
-    try {
-        await superagent
-            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/locations/${locationId}`)
-            .set('x-provenance-user-id', `${testConfig.SYSTEM_ADMIN_PROVENANCE_ID}`)
-            .set({ Authorization: 'Bearer ' + token.access_token });
-    } catch (e) {
-        throw new Error(`Failed to delete location with locationId: ${locationId}, http-status: ${e.response?.status}`);
     }
 };
 
@@ -128,18 +116,6 @@ export const createSubscription = async (locationId: string, locationName: strin
             .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
-    }
-};
-
-export const deleteSubscription = async (userId: string) => {
-    const token = await getSubscriptionManagementCredentials();
-    try {
-        await superagent
-            .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription/user/${userId}`)
-            .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
-    } catch (e) {
-        throw new Error(`Delete subscription failed for: ${userId}, http-status: ${e.response?.status}`);
     }
 };
 
@@ -174,18 +150,6 @@ export const uploadPublication = async (
         return response.body?.artefactId;
     } catch (e) {
         throw new Error(`Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}`);
-    }
-};
-
-export const deletePublicationForCourt = async (locationId: string) => {
-    const token = await getDataManagementCredentials();
-    try {
-        await superagent
-            .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${locationId}/deleteArtefacts`)
-            .set('x-provenance-user-id', `${testConfig.SYSTEM_ADMIN_PROVENANCE_ID}`)
-            .set({ Authorization: 'Bearer ' + token.access_token });
-    } catch (e) {
-        throw new Error(`Failed to delete artefact for: ${locationId}, http-status: ${e.response?.status}`);
     }
 };
 
