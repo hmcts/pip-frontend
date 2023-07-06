@@ -27,7 +27,10 @@ export const config = {
         process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net',
     ACCOUNT_MANAGEMENT_BASE_URL:
         process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net',
-    TEST_SUITE_PREFIX: 'TEST_PIP_',
+
+    TEST_SUITE_PREFIX:
+        'TEST_PIP' +
+        (process.env.TEST_URL ? process.env.TEST_URL.split('.')[0].replace('https://pip-frontend', '') : 'localhost'),
     TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
     TestSlowMo: 250,
     TestFunctionalOutputPath: path.join(process.cwd(), 'functional-output'),
