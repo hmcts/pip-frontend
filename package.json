@@ -67,7 +67,7 @@
         "config": "^3.3.9",
         "cookie-parser": "^1.4.6",
         "cookie-session": "^1.4.0",
-        "core-js": "3.31.0",
+        "core-js": "3.31.1",
         "cors": "^2.8.5",
         "depcheck": "^1.4.3",
         "eslint-config-prettier": "8.8.0",
