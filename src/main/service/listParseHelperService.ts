@@ -143,9 +143,8 @@ export class ListParseHelperService {
     public static writeStringIfValid(stringToCheck): string {
         if (stringToCheck) {
             return stringToCheck;
-        } else {
-            return '';
         }
+        return '';
     }
 
     /**
