@@ -26,6 +26,8 @@ const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const warningClass = 'govuk-warning-text__text';
+const tableHeader = 'govuk-table__header';
+const tableCell = 'govuk-table__cell';
 
 const courtName = "Abergavenny Magistrates' Court";
 const expectedHeader = courtName + ' hearings for';
@@ -107,5 +109,53 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
     it('should display court contact number summary paragraph', () => {
         const summary = htmlRes.getElementsByClassName(summaryText);
         expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
+    });
+
+    it('should display correct table headers', () => {
+        const headers = htmlRes.getElementsByClassName(tableHeader);
+        expect(headers[0].innerHTML).contains('Hearing Time');
+        expect(headers[1].innerHTML).contains('Appeal reference number');
+        expect(headers[2].innerHTML).contains('Tribunal type');
+        expect(headers[3].innerHTML).contains('Appellant');
+        expect(headers[4].innerHTML).contains('FTA/Respondent');
+        expect(headers[5].innerHTML).contains('Panel');
+    });
+
+    it('should display hearing time', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[0].innerHTML).contains('10:40am', 'Hearing time does not match');
+    });
+
+    it('should display case number', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[1].innerHTML).contains('12341234', 'Case number does not match');
+    });
+
+    it('should display tribunal type', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[2].innerHTML).contains('Teams, Attended', 'Tribunal type does not match');
+    });
+
+    it('should display appellant', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[3].innerHTML).contains(
+            'Surname, Legal Advisor: Mr Individual Forenames Individual Middlenam',
+            'Appellant does not match'
+        );
+    });
+
+    it('should display respondent using informant', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[4].innerHTML).contains('test, test2', 'Respondent (informant) does not match');
+    });
+
+    it('should display respondent using party prosecutor', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[10].innerHTML).contains('Prosecutor1, Prosecutor2', 'Respondent (party prosecutor) does not match');
+    });
+
+    it('should display panel', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[5].innerHTML).contains('Judge Test Name, Magistrate Test Name', 'Panel does not match');
     });
 });
