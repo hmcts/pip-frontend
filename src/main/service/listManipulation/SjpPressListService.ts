@@ -70,8 +70,7 @@ export class SjpPressListService {
     }
 
     private formatDateOfBirth(individualDetails): string {
-        return DateTime.fromISO(individualDetails.dateOfBirth.split('/').reverse().join('-'))
-            .toFormat('d MMMM yyyy');
+        return DateTime.fromISO(individualDetails.dateOfBirth.split('/').reverse().join('-')).toFormat('d MMMM yyyy');
     }
 
     private buildAddress(address): string {
