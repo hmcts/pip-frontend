@@ -115,16 +115,76 @@
 
         // This function is used to dynamically show/hide individual filter checkbox items based on the search box value
         function searchFilterItems() {
-            const filters = document.getElementsByClassName('govuk-checkboxes__item');
+            const filters = Array.from(document.getElementsByClassName('govuk-checkboxes__item'));
+            localStorage.setItem('searchFiltersValue', searchFilters.value);
+            var postcodeMatches = 0;
 
-            for (var i = 0; i < filters.length; i++) {
-                localStorage.setItem('searchFiltersValue', searchFilters.value)
-                if (filters[i].innerText.toLowerCase().includes(searchFilters.value.toLowerCase())) {
-                    filters[i].style.removeProperty('display');
+            filters.forEach(function(filter, index) {
+                let checkboxId = filter.firstElementChild.id;
+                if (isPostcodeFilter(filter)) {
+                    if (searchFilters.value.length > 0) {
+                        postalArea = extractPostalArea(filter);
+                        if ((districtMatch(postalArea, searchFilters, filter)) || (areaMatch(postalArea, searchFilters))) {
+                            showFilterOption(filter);
+                            selectCheckbox(checkboxId);
+                            postcodeMatches = postcodeMatches+1;
+                        } else if (postcodeMatches === 0 && londonAreaMatch(postalArea, searchFilters)) {
+                            showFilterOption(filter);
+                            selectCheckbox(checkboxId);
+                        } else {
+                            hideFilterOption(filter);
+                            deselectCheckbox(checkboxId);
+                        }
+                   } else {
+                        showFilterOption(filter);
+                        deselectCheckbox(checkboxId);
+                   }
+                } else if (filterIncludesSearchTerm(filter, searchFilters)) {
+                    showFilterOption(filter);
                 } else {
-                    filters[i].style.display = 'none';
+                    hideFilterOption(filter);
                 }
-            }
+            })
+        }
+
+        function extractPostalArea(filter) {
+            return filter.innerText.split(/\d/)[0].trim().toLowerCase();
+        }
+
+        function isPostcodeFilter(filter) {
+            return filter.innerHTML.includes('postcodes')
+        }
+
+        function areaMatch(postalArea, searchFilters) {
+            return (postalArea === searchFilters.value.toLowerCase());
+        }
+
+        function districtMatch(postalArea, searchFilters, filter) {
+            return searchFilters.value.length > postalArea.length && filterIncludesSearchTerm(filter, searchFilters);
+        }
+
+        function londonAreaMatch(postalArea, searchFilters) {
+            return (postalArea === 'london postcodes' && postalArea.includes(searchFilters.value.toLowerCase()));
+        }
+
+        function filterIncludesSearchTerm(filter, searchFilter) {
+            return filter.innerText.toLowerCase().includes(searchFilters.value.toLowerCase());
+        }
+
+        function showFilterOption(filter) {
+            filter.style.removeProperty('display');
+        }
+
+        function hideFilterOption(filter) {
+            filter.style.display = 'none';
+        }
+
+        function selectCheckbox(checkboxId) {
+            document.getElementById(checkboxId).checked = true;
+        }
+
+        function deselectCheckbox(checkboxId) {
+            document.getElementById(checkboxId).checked = false;
         }
 
         function hideFilterSection(key) {
