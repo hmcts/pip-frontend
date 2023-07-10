@@ -1,4 +1,5 @@
 import * as redisConfig from '../../../main/cacheManager';
+import { intervalFunction } from '../../../main/cacheManager';
 
 const expectedValues = {
     host: '127.0.0.1',
@@ -32,5 +33,42 @@ describe('cache manager', () => {
         expect(envCredentials.host).toEqual(expectedEnvValues.host);
         expect(envCredentials.port).toEqual(expectedEnvValues.port);
         expect(envCredentials.password).toEqual(expectedEnvValues.password);
+    });
+});
+
+describe('Test interval', () => {
+    const pingFunction = jest.fn();
+
+    const mockRedis = {
+        status: 'ready',
+        ping: pingFunction,
+    };
+
+    beforeEach(() => {
+        jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+        pingFunction.mockReset();
+    });
+
+    it('should call setInterval', async () => {
+        const setInterval = jest.spyOn(global, 'setInterval');
+        await require('../../../main/cacheManager');
+        expect(setInterval).toHaveBeenCalledWith(expect.anything(), 300000);
+    });
+
+    it('should call ping when ready', async () => {
+        await require('../../../main/cacheManager');
+        mockRedis.status = 'ready';
+        intervalFunction(mockRedis);
+        expect(pingFunction).toHaveBeenCalledTimes(1);
+    });
+
+    it('should not call ping when not ready', async () => {
+        await require('../../../main/cacheManager');
+        mockRedis.status = 'connecting';
+        intervalFunction(mockRedis);
+        expect(pingFunction).toHaveBeenCalledTimes(0);
     });
 });

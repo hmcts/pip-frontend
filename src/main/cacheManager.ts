@@ -26,6 +26,16 @@ if (process.env.REDIS_LOCAL) {
 }
 const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 
+export function intervalFunction(redisClient) {
+    if (redisClient.status === 'ready') {
+        redisClient.ping();
+    }
+}
+
+//This is required due to azure removing idle connections after 10 minutes. Unfortunately the KEEPALIVE option
+//does not work with Azure. ioredis does not include an in build ping process, therefore need to implement our own.
+setInterval(() => intervalFunction(redisClient), 300000);
+
 /* istanbul ignore next */
 if (!process.env.REDIS_SUPPRESS) {
     logger.info('redis env var', redisCredentials.host);
@@ -63,4 +73,5 @@ redisClient.on('close', () => {
 module.exports = {
     redisClient,
     setRedisCredentials,
+    intervalFunction,
 };
