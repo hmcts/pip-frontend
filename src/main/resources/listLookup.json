@@ -12,7 +12,17 @@
     "SJP_PRESS_LIST": {
         "friendlyName": "Single Justice Procedure Press List",
         "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad",
-        "shortenedFriendlyName": "SJP Press List",
+        "shortenedFriendlyName": "SJP Press List (Full list)",
+        "url": "sjp-press-list",
+        "jurisdictions": ["Single Justice Procedure"],
+        "welshJurisdictions": ["Gweithdrefn Un Ynad"],
+        "restrictedProvenances": ["PI_AAD"],
+        "defaultSensitivity": "CLASSIFIED"
+    },
+    "SJP_DELTA_PRESS_LIST": {
+        "friendlyName": "Single Justice Procedure Delta Press List",
+        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad",
+        "shortenedFriendlyName": "SJP Press List (New cases)",
         "url": "sjp-press-list",
         "jurisdictions": ["Single Justice Procedure"],
         "welshJurisdictions": ["Gweithdrefn Un Ynad"],
