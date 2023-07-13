@@ -1,5 +1,4 @@
 import { randomData } from '../../shared/random-data';
-import { createSystemAdminAccount } from '../../shared/testingSupportApi';
 import { config as testConfig } from '../../../config';
 
 Feature('Create system admin');
