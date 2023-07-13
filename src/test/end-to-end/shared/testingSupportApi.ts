@@ -7,6 +7,7 @@ import {
     getAccountManagementCredentials,
 } from '../../../main/resources/requests/utils/axiosConfig';
 import path from 'path/posix';
+import { randomData } from "./random-data";
 
 const createFile = (filePath, fileName) => {
     return {
@@ -74,7 +75,7 @@ const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
     }
 };
 
-const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
+export const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getAccountManagementCredentials();
     try {
         await superagent
@@ -186,5 +187,13 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
         } else {
             throw new Error(`Create system admin account failed for: ${email}, http-status: ${e.response?.status}`);
         }
+    }
+};
+
+// Continue creating new system admins until we see the 'above max system admin' error
+export const createMaxSystemAdminAccounts = async (firstName: string, surname: string) => {
+    let response = await createSystemAdminAccount(firstName, surname, randomData.getRandomEmailAddress());
+    while (!response?.error && !response?.aboveMaxSystemAdmin) {
+        response = await createSystemAdminAccount(firstName, surname, randomData.getRandomEmailAddress());
     }
 };
