@@ -9,7 +9,9 @@ const randomLocationId = (min = 10000, max = 99999) => {
 };
 
 const randomString = (length = 10) => {
-    return Math.random().toString(36).substring(2, length + 2);
+    return Math.random()
+        .toString(36)
+        .substring(2, length + 2);
 };
 
 const randomAlphabeticString = (length = 10) => {
@@ -24,7 +26,7 @@ const randomAlphabeticString = (length = 10) => {
 
 const randomEmailAddress = () => {
     return testConfig.TEST_SUITE_PREFIX + randomString(5) + '@justice.gov.uk';
-}
+};
 
 export const randomData = {
     getRandomLocationId: randomLocationId,
