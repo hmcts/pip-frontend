@@ -50,7 +50,6 @@ Scenario(
         I.waitForText('Account has been rejected');
         I.see('The maximum number of System Admin accounts has been reached.');
 
-        I.clearAllAccountsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
         I.logout();
     }
 );

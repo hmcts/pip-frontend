@@ -75,7 +75,7 @@ const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
     }
 };
 
-export const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
+const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
     const tokenDataManagement = await getAccountManagementCredentials();
     try {
         await superagent
