@@ -7,7 +7,7 @@ const TEST_EMPLOYER = 'HMCTS';
 
 Scenario('I as an admin user should be able to accept valid media account request', async ({ I }) => {
     const testFullName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString() + ' Surname';
-    const emailTestMediaAccount = randomData.getRandomEmailAddress;
+    const emailTestMediaAccount = randomData.getRandomEmailAddress();
 
     I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 
@@ -68,7 +68,7 @@ Scenario(
         'messages related to media account request',
     async ({ I }) => {
         const testFullName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString() + ' Surname';
-        const emailTestMediaAccount = randomData.getRandomEmailAddress;
+        const emailTestMediaAccount = randomData.getRandomEmailAddress();
 
         I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 
