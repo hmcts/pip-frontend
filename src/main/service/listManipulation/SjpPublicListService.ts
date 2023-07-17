@@ -23,7 +23,7 @@ export class SjpPublicListService {
         const partyDetails = this.buildPartyDetails(hearing.party);
         const offence = this.buildOffence(hearing.offence);
 
-        if (partyDetails.name && partyDetails.postcode && partyDetails.organisationName && offence) {
+        if (partyDetails.name && partyDetails.postcode && partyDetails.prosecutorName && offence) {
             rows.push({
                 ...partyDetails,
                 offence: offence,
@@ -49,7 +49,7 @@ export class SjpPublicListService {
         return {
             name: name,
             postcode: postcode,
-            organisationName: organisationName,
+            prosecutorName: organisationName,
         };
     }
 
