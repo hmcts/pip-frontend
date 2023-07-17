@@ -26,7 +26,7 @@ const offenderIndividualName = 'Test Name';
 const offenderOrganisationName = `Accused's org name`;
 const offenderDateOfBirth = '1 January 1801';
 const offenderCaseNumber = 'Case URN';
-const offenderIndividualAddress = 'Line 1 Line 2, Test Town, Test County, TEST POSTCODE'
+const offenderIndividualAddress = 'Line 1 Line 2, Test Town, Test County, TEST POSTCODE';
 const offenderOrganisationAddress = 'London, London, TEST POSTCODE';
 const prosecutor = 'Organisation Name';
 const reportingRestriction = 'Reporting Restriction - True';
@@ -98,7 +98,10 @@ describe('Single Justice Procedure List page', () => {
 
         it('should have offender individual address', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
-            expect(offenderData[3].innerHTML).contains(offenderIndividualAddress, 'Could not find the offender individual address');
+            expect(offenderData[3].innerHTML).contains(
+                offenderIndividualAddress,
+                'Could not find the offender individual address'
+            );
         });
 
         it('should have prosecutor', () => {
@@ -113,7 +116,10 @@ describe('Single Justice Procedure List page', () => {
 
         it('should have offender organisation address', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
-            expect(offenderData[8].innerHTML).contains(offenderOrganisationAddress, 'Could not find the offender organisation address');
+            expect(offenderData[8].innerHTML).contains(
+                offenderOrganisationAddress,
+                'Could not find the offender organisation address'
+            );
         });
 
         it('should have reporting restriction section', () => {

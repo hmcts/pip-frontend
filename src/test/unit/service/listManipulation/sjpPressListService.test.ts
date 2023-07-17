@@ -24,7 +24,7 @@ describe('formatSJPPressList', () => {
 
     it('should return accused name using organisation details', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[1].name).to.equal('Accused\'s org name');
+        expect(data[1].name).to.equal("Accused's org name");
     });
 
     it('should return formatted date of birth', async () => {
