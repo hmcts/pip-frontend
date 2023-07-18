@@ -14,7 +14,7 @@ Scenario('Unverified user - all banner navigation links should take user to the 
     I.click(locate('//li').withText('Single Justice Procedure cases'));
     I.waitForText('What do you want to view from Single Justice Procedure?');
     I.click(locate('//a').withText('Court and tribunal hearings'));
-});
+}).tag('@CrossBrowser');
 
 Scenario('Verified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsMediaUser();
@@ -28,7 +28,7 @@ Scenario('Verified user - all banner navigation links should take user to the co
     I.click(locate('//li').withText('Home'));
     I.waitForText('Your account');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario('Cft user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsCftUser();
@@ -42,7 +42,7 @@ Scenario('Cft user - all banner navigation links should take user to the correct
     I.click(locate('//li').withText('Home'));
     I.waitForText('Your account');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsAdmin();
@@ -56,7 +56,7 @@ Scenario('Admin user - all banner navigation links should take user to the corre
     I.click(locate('//li').withText('Home'));
     I.waitForText('Your Dashboard');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario('System admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsSystemAdmin();
@@ -70,7 +70,7 @@ Scenario('System admin user - all banner navigation links should take user to th
     I.click(locate('//li').withText('Home'));
     I.waitForText('System Admin Dashboard');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario('Home page links should take user to the correct pages', async ({ I }) => {
     I.amOnPage('/');
@@ -82,4 +82,4 @@ Scenario('Home page links should take user to the correct pages', async ({ I }) 
     I.waitForText('Gwrandawiadau llys a thribiwnlys');
     I.click(locate('//a').withText('Saesneg (English)'));
     I.waitForText('Court and tribunal hearings');
-});
+}).tag('@CrossBrowser');
