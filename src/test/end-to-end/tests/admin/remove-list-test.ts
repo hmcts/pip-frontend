@@ -39,7 +39,7 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
     I.click('Continue');
     I.waitForText('Showing 0 result(s)');
     I.logout();
-});
+}).tag('@CrossBrowser');
 
 Scenario('I as an admin user should be able to see proper error messages related to remove list', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
