@@ -54,7 +54,7 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
     I.waitForText('User Updated');
 
     I.deleteAdminAccount(TEST_EMAIL);
-});
+}).tag('@CrossBrowser');
 
 Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({ I }) => {
     I.loginAsAdmin();
