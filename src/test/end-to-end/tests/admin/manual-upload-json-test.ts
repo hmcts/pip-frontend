@@ -50,7 +50,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.waitForText('What do you want to view from ' + locationName);
     I.see('Civil and Family Daily Cause List');
     I.logout();
-}).tag('@CrossBrowser');
+});
 
 Scenario('I as a admin user should see proper error messages related to manual upload', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
