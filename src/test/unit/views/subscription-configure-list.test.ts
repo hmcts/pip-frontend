@@ -25,9 +25,14 @@ describe('Subscription Configure List', () => {
 
     const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
     locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crime'] });
+    locationStub.withArgs(9).resolves({ jurisdiction: ['Magistrates'] });
 
     beforeAll(async () => {
-        app.request['user'] = { userId: '1', roles: 'VERIFIED' };
+        app.request['user'] = {
+            userId: '1',
+            roles: 'VERIFIED',
+            userProvenance: 'PI_AAD',
+        };
 
         await request(app)
             .get(PAGE_URL)
@@ -93,19 +98,12 @@ describe('Subscription Configure List', () => {
         );
     });
 
-    it('should contain 2 jurisdiction checkboxes', () => {
+    it('should contain expected jurisdiction checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-        expect(checkboxes.length).equal(2, 'Could not find jurisdiction checkboxes');
-    });
-
-    it('should have the first jurisdiction checkbox as Civil', () => {
-        const checkboxes = htmlRes.getElementsByName('Jurisdiction');
+        expect(checkboxes.length).equal(3, 'Could not find jurisdiction checkboxes');
         expect(checkboxes[0]['value']).contains('Civil', 'Could not find civil checkbox');
-    });
-
-    it('should have the second jurisdiction checkbox as Family', () => {
-        const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-        expect(checkboxes[1]['value']).contains('Family', 'Could not find civil checkbox');
+        expect(checkboxes[1]['value']).contains('Family', 'Could not find Family checkbox');
+        expect(checkboxes[2]['value']).contains('Magistrates', 'Could not find Magistrates checkbox');
     });
 
     it('should contain a back to top link, that links back up to the top', () => {
@@ -139,15 +137,22 @@ describe('Subscription Configure List', () => {
     });
 
     it('should contain list type rows', () => {
-        const elementsCount = 3;
+        const elementsCount = 6;
         const tableRows = htmlRes
             .getElementsByClassName('govuk-table__body')[0]
             .getElementsByClassName('govuk-table__row');
         expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
     });
 
-    it('should display 3 subscription checkboxes', () => {
+    it('should display expected subscription list type checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('list-selections[]');
-        expect(checkboxes.length).equal(3, 'Could not find all row checkboxes');
+        expect(checkboxes.length).equal(6, 'Could not find all row checkboxes');
+        expect(checkboxes[0]['value']).contains('CIVIL_AND_FAMILY_DAILY_CAUSE_LIST', 'Could not find mixed list checkbox');
+        expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
+        expect(checkboxes[2]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
+        expect(checkboxes[3]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
+        expect(checkboxes[4]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
+        expect(checkboxes[5]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
+
     });
 });

@@ -4,8 +4,8 @@
         "welshFriendlyName": "Rhestr Gyhoeddus Y Weithdrefn Un Ynad",
         "shortenedFriendlyName": "SJP Public List",
         "url": "sjp-public-list",
-        "jurisdictions": ["Single Justice Procedure"],
-        "welshJurisdictions": ["Gweithdrefn Un Ynad"],
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
@@ -14,8 +14,8 @@
         "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad",
         "shortenedFriendlyName": "SJP Press List",
         "url": "sjp-press-list",
-        "jurisdictions": ["Single Justice Procedure"],
-        "welshJurisdictions": ["Gweithdrefn Un Ynad"],
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": ["PI_AAD"],
         "defaultSensitivity": "CLASSIFIED"
     },
@@ -24,8 +24,8 @@
         "welshFriendlyName": "Cofrestr y Wasg Y Weithdrefn Un Ynad",
         "shortenedFriendlyName": "SJP Press Register",
         "url": "",
-        "jurisdictions": ["Single Justice Procedure"],
-        "welshJurisdictions": ["Gweithdrefn Un Ynad"],
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": ["PI_AAD"],
         "defaultSensitivity": "CLASSIFIED"
     },
