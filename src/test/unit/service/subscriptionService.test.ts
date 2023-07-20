@@ -747,19 +747,19 @@ describe('generateListTypesForCourts', () => {
         const listOptions = result['listOptions'];
         const listKeysC = Object.keys(listOptions['C']);
         expect(listKeysC).toEqual([
-            "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
-            "CIVIL_DAILY_CAUSE_LIST",
-            "COP_DAILY_CAUSE_LIST",
-            "CROWN_DAILY_LIST",
-            "CROWN_FIRM_LIST",
-            "CROWN_WARNED_LIST"
+            'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            'CIVIL_DAILY_CAUSE_LIST',
+            'COP_DAILY_CAUSE_LIST',
+            'CROWN_DAILY_LIST',
+            'CROWN_FIRM_LIST',
+            'CROWN_WARNED_LIST',
         ]);
 
         const listKeysM = Object.keys(listOptions['M']);
-        expect(listKeysM).toEqual(["MAGISTRATES_PUBLIC_LIST", "MAGISTRATES_STANDARD_LIST"]);
+        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
 
         const listKeysS = Object.keys(listOptions['S']);
-        expect(listKeysS).toEqual(["SJP_PRESS_LIST", "SJP_PRESS_REGISTER", "SJP_PUBLIC_LIST"]);
+        expect(listKeysS).toEqual(['SJP_PRESS_LIST', 'SJP_PRESS_REGISTER', 'SJP_PUBLIC_LIST']);
     });
 
     it('Test sorting of lists in welsh', async () => {
@@ -770,16 +770,16 @@ describe('generateListTypesForCourts', () => {
         const listOptions = result['listOptions'];
         const keys = Object.keys(listOptions['R']);
         expect(keys).toEqual([
-            "COP_DAILY_CAUSE_LIST",
-            "CIVIL_DAILY_CAUSE_LIST",
-            "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
-            "CROWN_FIRM_LIST",
-            "CROWN_DAILY_LIST",
-            "MAGISTRATES_PUBLIC_LIST",
-            "SJP_PUBLIC_LIST",
-            "CROWN_WARNED_LIST",
-            "MAGISTRATES_STANDARD_LIST",
-            "SJP_PRESS_LIST"
+            'COP_DAILY_CAUSE_LIST',
+            'CIVIL_DAILY_CAUSE_LIST',
+            'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            'CROWN_FIRM_LIST',
+            'CROWN_DAILY_LIST',
+            'MAGISTRATES_PUBLIC_LIST',
+            'SJP_PUBLIC_LIST',
+            'CROWN_WARNED_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'SJP_PRESS_LIST',
         ]);
     });
 
@@ -950,7 +950,13 @@ describe('generateListTypesForCourts', () => {
     it('generate list types with multiple filters selected', async () => {
         locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
 
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family,Magistrates', '', 'en');
+        const result = await subscriptionService.generateListTypesForCourts(
+            userId,
+            'PI_AAD',
+            'Family,Magistrates',
+            '',
+            'en'
+        );
 
         expect(result['listOptions']).toBeDefined();
         expect(result['filterOptions']).toBeDefined();
