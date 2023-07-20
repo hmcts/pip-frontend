@@ -36,11 +36,6 @@ export function intervalFunction(redisClient) {
 //does not work with Azure. ioredis does not include an in build ping process, therefore need to implement our own.
 setInterval(() => intervalFunction(redisClient), 300000);
 
-/* istanbul ignore next */
-if (!process.env.REDIS_SUPPRESS) {
-    logger.info('redis env var', redisCredentials.host);
-    logger.info('redis env port', redisCredentials.port);
-}
 redisClient.on('connect', () => {
     /* istanbul ignore next */
     if (!process.env.REDIS_SUPPRESS) {
