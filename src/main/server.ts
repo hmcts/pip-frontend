@@ -2,6 +2,9 @@
 import * as fs from 'fs';
 import * as https from 'https';
 import * as path from 'path';
+
+//It's important ./app is imported at the top of the file, before logging. App imports application insights.
+//If application insights is imported after logging, then no logs will be sent to application insights.
 import { app } from './app';
 
 const { Logger } = require('@hmcts/nodejs-logging');
