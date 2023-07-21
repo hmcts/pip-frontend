@@ -1,6 +1,6 @@
 import * as process from 'process';
 import { I18next } from './modules/i18next';
-import RedisStore from "connect-redis";
+import RedisStore from 'connect-redis';
 import cookieParser from 'cookie-parser';
 
 import * as propertiesVolume from '@hmcts/properties-volume';
@@ -52,18 +52,20 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-let redisStore = new RedisStore({
+const redisStore = new RedisStore({
     client: redisClient,
-    prefix: "pip-frontend-session:",
-})
+    prefix: 'pip-frontend-session:',
+});
 
-app.use(session({
-    store: redisStore,
-    secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}));
+app.use(
+    session({
+        store: redisStore,
+        secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: true },
+    })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -99,4 +101,3 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
 
 import authentication from './authentication/authentication';
 authentication();
-

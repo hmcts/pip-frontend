@@ -7,12 +7,14 @@ const defaultSessionExpiry = 60 * 60 * 1000;
 
 export class SessionManagementService {
     public logOut(req, res, isWrongFlow, isSessionExpired = false): void {
-        req.session.user = null
+        req.session.user = null;
 
         req.session.save(() => {
             req.session.regenerate(() => {
                 if (req.user['userProvenance'] == 'PI_AAD') {
-                    res.redirect(this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng));
+                    res.redirect(
+                        this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng)
+                    );
                 } else {
                     res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
                 }
