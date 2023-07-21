@@ -61,7 +61,7 @@ app.use(
     session({
         store: redisStore,
         secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
-        resave: true,
+        resave: false,
         saveUninitialized: true,
         cookie: { secure: false },
     })
