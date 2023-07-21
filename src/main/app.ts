@@ -60,6 +60,7 @@ const redisStore = new RedisStore({
 app.use(
     session({
         store: redisStore,
+        name: 'session',
         secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
         resave: false,
         saveUninitialized: true,
