@@ -75,7 +75,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cookieParser());
+app.use(cookieParser(config.get('secrets.pip-ss-kv.SESSION_SECRET')));
 new I18next().enableFor(app);
 
 //main routes
