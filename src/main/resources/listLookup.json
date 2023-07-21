@@ -11,7 +11,7 @@
     },
     "SJP_PRESS_LIST": {
         "friendlyName": "Single Justice Procedure Press List (Full List)",
-        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (***Full List***)",
+        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (Rhestr lawn)",
         "shortenedFriendlyName": "SJP Press List (Full list)",
         "url": "sjp-press-list",
         "jurisdictions": ["Single Justice Procedure"],
@@ -21,7 +21,7 @@
     },
     "SJP_DELTA_PRESS_LIST": {
         "friendlyName": "Single Justice Procedure Press List (New Cases)",
-        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (***New Cases***)",
+        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)",
         "shortenedFriendlyName": "SJP Press List (New cases)",
         "url": "sjp-press-list-new-cases",
         "jurisdictions": ["Single Justice Procedure"],
