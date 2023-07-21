@@ -238,7 +238,7 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(19);
+        expect(listTypes.size).to.equal(20);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List');
@@ -246,6 +246,13 @@ describe('Publication service', () => {
         expect(sjpResult['url']).to.equal('sjp-public-list');
         expect(sjpResult['jurisdictions']).to.deep.equal(['Single Justice Procedure']);
         expect(sjpResult['restrictedProvenances']).to.deep.equal([]);
+
+        const sjpDeltaResult = listTypes.get('SJP_DELTA_PRESS_LIST');
+        expect(sjpDeltaResult['friendlyName']).to.equal('Single Justice Procedure Press List (New Cases)');
+        expect(sjpDeltaResult['shortenedFriendlyName']).to.equal('SJP Press List (New cases)');
+        expect(sjpDeltaResult['url']).to.equal('sjp-press-list-new-cases');
+        expect(sjpDeltaResult['jurisdictions']).to.deep.equal(['Single Justice Procedure']);
+        expect(sjpDeltaResult['restrictedProvenances']).to.deep.equal(['PI_AAD']);
     });
 
     describe('getIndividualPublicationJson Service', () => {
