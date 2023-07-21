@@ -7,15 +7,17 @@ const defaultSessionExpiry = 60 * 60 * 1000;
 
 export class SessionManagementService {
     public logOut(req, res, isWrongFlow, isSessionExpired = false): void {
-        // For cookie-session, the request session needs to be destroyed by setting to null upon logout
-        req.session = null;
+        req.session.user = null
 
-        res.clearCookie('session');
-        if (req.user['userProvenance'] == 'PI_AAD') {
-            res.redirect(this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng));
-        } else {
-            res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
-        }
+        req.session.save(() => {
+            req.session.regenerate(() => {
+                if (req.user['userProvenance'] == 'PI_AAD') {
+                    res.redirect(this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng));
+                } else {
+                    res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
+                }
+            });
+        });
     }
 
     public handleSessionExpiry(req, res): boolean {

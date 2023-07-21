@@ -1,5 +1,7 @@
 import * as process from 'process';
 import { I18next } from './modules/i18next';
+import RedisStore from "connect-redis";
+import cookieParser from 'cookie-parser';
 
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config = require('config');
@@ -7,8 +9,7 @@ propertiesVolume.addTo(config);
 
 const { Logger } = require('@hmcts/nodejs-logging');
 import * as bodyParser from 'body-parser';
-
-import cookieParser from 'cookie-parser';
+import session from 'express-session';
 import express from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
@@ -19,10 +20,10 @@ import { Nunjucks } from './modules/nunjucks';
 import { AppInsights } from './modules/appinsights';
 
 const passport = require('passport');
-const cookieSession = require('cookie-session');
 const { setupDev } = require('./development');
 import { Container } from './modules/awilix';
 import { PipRequest } from './models/request/PipRequest';
+const { redisClient } = require('./cacheManager');
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -49,23 +50,30 @@ logger.info('policy', process.env.POLICY);
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(
-    cookieSession({
-        name: 'session',
-        keys: [config.get('secrets.pip-ss-kv.SESSION_SECRET')],
-        secure: true,
-    })
-);
-logger.info('SESSION Secret', config.get('secrets.pip-ss-kv.SESSION_SECRET'));
+
+let redisStore = new RedisStore({
+    client: redisClient,
+    prefix: "pip-frontend-session:",
+})
+
+app.use(session({
+    store: redisStore,
+    secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use((req, res, next) => {
-    req['sessionCookies'].secure = true;
     res.setHeader('Cache-Control', 'no-cache, max-age=0, must-revalidate, no-store');
     next();
 });
+
+app.use(cookieParser());
 new I18next().enableFor(app);
 
 //main routes
@@ -91,3 +99,4 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
 
 import authentication from './authentication/authentication';
 authentication();
+

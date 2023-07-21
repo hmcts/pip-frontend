@@ -13,6 +13,11 @@ const res = {
     },
 } as unknown as Response;
 
+const mockSession = {
+    save: (callback) => callback(),
+    regenerate: (callback) => callback(),
+}
+
 describe('Test logout', () => {
     const mediaLogOutPath =
         'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout';
@@ -35,15 +40,14 @@ describe('Test logout', () => {
     it('should redirect for media user', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(mediaLogOutUrl);
-        responseMock.expects('clearCookie').once().withArgs('session');
 
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -54,25 +58,24 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
             lng: 'cy',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
     it('should redirect for CFT IDAM User', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
-        responseMock.expects('clearCookie').once().withArgs('session');
 
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -83,10 +86,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
             lng: 'cy',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -97,10 +100,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'SYSTEM_ADMIN', userProvenance: 'PI_AAD' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -111,10 +114,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'SYSTEM_ADMIN', userProvenance: 'PI_AAD' },
             lng: 'cy',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -125,10 +128,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, true);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -139,10 +142,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'INTERNAL_SUPER_ADMIN_LOCAL', userProvenance: 'PI_AAD' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, true);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -153,10 +156,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, false, true);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -167,10 +170,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'INTERNAL_SUPER_ADMIN_CTSC', userProvenance: 'PI_AAD' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, true, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -181,10 +184,10 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
             lng: 'en',
-            session: {},
+            session: mockSession
         };
         sessionManagementService.logOut(req, res, true, false);
-        expect(req.session).to.be.null;
+        expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
 
@@ -197,11 +200,11 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'SYSTEM_ADMIN', userProvenance: 'PI_AAD' },
-                session: { sessionExpires: new Date(now - 10000) },
+                session: {...{ sessionExpires: new Date(now - 10000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
-            expect(req.session).to.be.null;
+            expect(req.session['user']).to.be.null;
             responseMock.verify();
         });
 
@@ -211,7 +214,7 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'SYSTEM_ADMIN', userProvenance: 'PI_AAD' },
-                session: { sessionExpires: new Date(now + 100000) },
+                session: {...{ sessionExpires: new Date(now + 100000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
@@ -224,7 +227,7 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'SYSTEM_ADMIN', userProvenance: 'PI_AAD' },
-                session: {},
+                session: mockSession,
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
@@ -241,11 +244,11 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
-                session: { sessionExpires: new Date(now - 10000) },
+                session: {...{ sessionExpires: new Date(now - 10000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
-            expect(req.session).to.be.null;
+            expect(req.session['user']).to.be.null;
             responseMock.verify();
         });
 
@@ -255,7 +258,7 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
-                session: { sessionExpires: new Date(now + 100000) },
+                session: {...{ sessionExpires: new Date(now + 100000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
@@ -268,7 +271,7 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'PI_AAD' },
-                session: {},
+                session: mockSession,
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
@@ -280,7 +283,7 @@ describe('Test logout', () => {
             responseMock.expects('redirect').never();
 
             const req = {
-                session: { sessionExpires: new Date(now - 10000) },
+                session: {...{ sessionExpires: new Date(now - 10000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
@@ -297,11 +300,11 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
-                session: { sessionExpires: new Date(now - 10000) },
+                session: {...{ sessionExpires: new Date(now - 10000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
-            expect(req.session).to.be.null;
+            expect(req.session['user']).to.be.null;
             responseMock.verify();
         });
 
@@ -311,11 +314,11 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
-                session: { sessionExpires: new Date(now - 10000) },
+                session: {...{ sessionExpires: new Date(now - 10000) }, ...mockSession},
                 lng: 'cy',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
-            expect(req.session).to.be.null;
+            expect(req.session['user']).to.be.null;
             responseMock.verify();
         });
 
@@ -325,7 +328,7 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
-                session: { sessionExpires: new Date(now + 100000) },
+                session: {...{ sessionExpires: new Date(now - 100000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
@@ -338,7 +341,7 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
-                session: {},
+                session: mockSession,
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
@@ -349,7 +352,7 @@ describe('Test logout', () => {
             const responseMock = sinon.mock(res);
             responseMock.expects('redirect').never();
             const req = {
-                session: { sessionExpires: new Date(now - 10000) },
+                session: {...{ sessionExpires: new Date(now - 10000) }, ...mockSession},
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
