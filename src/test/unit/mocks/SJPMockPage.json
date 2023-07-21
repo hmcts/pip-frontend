@@ -71,6 +71,7 @@
                                                             "age": 200,
                                                             "formattedDateOfBirth": "01 January 1801",
                                                             "address": {
+                                                                "line": ["Line 1", "Line 2"],
                                                                 "county": "London",
                                                                 "postCode": "TEST POSTCODE",
                                                                 "town": "London"
@@ -88,6 +89,7 @@
                                                             "age": 200,
                                                             "formattedDateOfBirth": "01 January 1801",
                                                             "address": {
+                                                                "line": ["Line 1", "Line 2"],
                                                                 "county": "Test County",
                                                                 "town": "Town",
                                                                 "postCode": "TEST POSTCODE"
@@ -120,6 +122,24 @@
                                             {
                                                 "party": [
                                                     {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Test",
+                                                            "individualSurname": "Name",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "age": 200,
+                                                            "formattedDateOfBirth": "01 January 1801",
+                                                            "address": {
+                                                                "line": ["Line 1", "Line 2"],
+                                                                "county": "London",
+                                                                "postCode": "TEST POSTCODE",
+                                                                "town": "London"
+                                                            },
+                                                            "title": "Mr",
+                                                            "individualMiddleName": "Middle Name"
+                                                        }
+                                                    },
+                                                    {
                                                         "partyRole": "PROSECUTOR",
                                                         "individualDetails": {
                                                             "individualForenames": "Test",
@@ -128,6 +148,7 @@
                                                             "dateOfBirth": "01/01/1801",
                                                             "formattedDateOfBirth": "01 January 1801",
                                                             "address": {
+                                                                "line": ["Line 1", "Line 2"],
                                                                 "county": "Test County",
                                                                 "town": "Town",
                                                                 "postCode": "TEST POSTCODE"
