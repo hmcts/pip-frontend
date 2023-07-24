@@ -24,7 +24,7 @@ describe('formatSjpPublicList', () => {
 
     it('should return prosecutor', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data[0].organisationName).to.equal('Organisation Name');
+        expect(data[0].prosecutorName).to.equal('Organisation Name');
     });
 
     it('should return single offence', async () => {
