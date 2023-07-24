@@ -64,7 +64,7 @@ app.use(
         secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
         resave: false,
         saveUninitialized: false,
-        cookie: { secure: true, httpOnly: false, sameSite: 'none' },
+        cookie: { secure: true },
     })
 );
 
