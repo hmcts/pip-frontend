@@ -70,7 +70,7 @@ export function checkAuthenticatedMedia(req: any, res, next, roles: string[]): b
     } else if (checkRoles(req, allAdminRoles)) {
         res.redirect('/admin-dashboard');
     } else {
-        res.redirect('/login?p=' + authenticationConfig.POLICY);
+        res.redirect('/sign-in');
     }
 }
 
