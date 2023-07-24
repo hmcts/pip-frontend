@@ -1,5 +1,5 @@
 nodejs:
-    devmemoryRequests: 374Mi
+    devmemoryRequests: 512Mi
     devcpuRequests: 300m
     # Don't modify below here
     image: ${IMAGE_NAME}
