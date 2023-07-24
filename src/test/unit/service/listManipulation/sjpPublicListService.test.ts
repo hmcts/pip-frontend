@@ -9,7 +9,7 @@ const sjpPublicListService = new SjpPublicListService();
 describe('formatSjpPublicList', () => {
     it('should return SJP Public List cases', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data.length).to.equal(2);
+        expect(data.length).to.equal(3);
     });
 
     it('should return accused name', async () => {
