@@ -53,7 +53,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 const redisStore = new RedisStore({
-    client: redisClient
+    client: redisClient,
 });
 
 app.set('trust proxy', 1);
