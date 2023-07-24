@@ -2,7 +2,7 @@
 
 properties([
 // H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
-pipelineTriggers([cron('H 07 * * 1-5')])
+pipelineTriggers([cron('H 08 * * 1-5')])
 ])
 
 @Library("Infrastructure")
@@ -73,6 +73,8 @@ static Map<String, Object> secret(String secretName, String envVariable) {
 withNightlyPipeline(type, product, component) {
     setupTestSecrets()
     enableFullFunctionalTest()
+    enableCrossBrowserTest()
+
     afterAlways('fullFunctionalTest') {
         publishHTML target: [
             allowMissing         : true,
@@ -82,6 +84,8 @@ withNightlyPipeline(type, product, component) {
             reportFiles          : "index.html",
             reportName           : "Functional Test Report"
         ]
+
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
     }
 
     afterAlways('crossBrowserTest') {
@@ -93,6 +97,8 @@ withNightlyPipeline(type, product, component) {
             reportFiles          : "index.html",
             reportName           : "Cross Browser Test Report"
         ]
+
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/cross-browser/reports/**/*'
     }
 }
 
