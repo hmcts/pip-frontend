@@ -57,14 +57,15 @@ const redisStore = new RedisStore({
     prefix: 'pip-frontend-session:',
 });
 
+app.set('trust proxy', 1);
 app.use(
     session({
         store: redisStore,
         name: 'session',
         secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
         resave: false,
-        saveUninitialized: true,
-        cookie: { secure: false },
+        saveUninitialized: false,
+        cookie: { secure: true, httpOnly: false, sameSite: 'none' },
     })
 );
 
