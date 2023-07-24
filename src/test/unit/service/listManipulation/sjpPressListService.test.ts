@@ -12,9 +12,14 @@ describe('formatSJPPressList', () => {
         expect(data.length).to.equal(3);
     });
 
-    it('should return accused name', async () => {
+    it('should return accused name if accused role is first party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
         expect(data[0].name).to.equal('Test Name');
+    });
+
+    it('should return accused name if accused role is second party', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[2].name).to.equal('Mr Test M Name');
     });
 
     it('should return formatted date of birth', async () => {
@@ -38,14 +43,14 @@ describe('formatSJPPressList', () => {
         expect(data[0].postcode).to.equal('TEST POSTCODE');
     });
 
-    it('should return prosecutor', async () => {
+    it('should return prosecutor if prosecutor role is first party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
         expect(data[0].organisationName).to.equal('Organisation Name');
     });
 
-    it('should return prosecutor as blank when not set', async () => {
+    it('should return prosecutor if prosecutor role is second party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[2].organisationName).to.equal('');
+        expect(data[2].organisationName).to.equal('Organisation Name');
     });
 
     it('should return offences', async () => {

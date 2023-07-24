@@ -81,18 +81,6 @@
                                                     },
                                                     {
                                                         "partyRole": "PROSECUTOR",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Test",
-                                                            "individualSurname": "Name",
-                                                            "dateOfBirth": "01/01/1801",
-                                                            "age": 200,
-                                                            "formattedDateOfBirth": "01 January 1801",
-                                                            "address": {
-                                                                "county": "Test County",
-                                                                "town": "Town",
-                                                                "postCode": "TEST POSTCODE"
-                                                            }
-                                                        },
                                                         "organisationDetails": {
                                                             "organisationName": "Organisation Name"
                                                         }
@@ -121,20 +109,25 @@
                                                 "party": [
                                                     {
                                                         "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Organisation Name"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
                                                         "individualDetails": {
                                                             "individualForenames": "Test",
                                                             "individualSurname": "Name",
-                                                            "age": 200,
                                                             "dateOfBirth": "01/01/1801",
+                                                            "age": 200,
                                                             "formattedDateOfBirth": "01 January 1801",
                                                             "address": {
-                                                                "county": "Test County",
-                                                                "town": "Town",
-                                                                "postCode": "TEST POSTCODE"
-                                                            }
-                                                        },
-                                                        "organisationDetails": {
-                                                            "organisationName": "Organisation Name"
+                                                                "county": "London",
+                                                                "postCode": "TEST POSTCODE",
+                                                                "town": "London"
+                                                            },
+                                                            "title": "Mr",
+                                                            "individualMiddleName": "M"
                                                         }
                                                     }
                                                 ],
