@@ -40,8 +40,12 @@ export class SjpFilterService {
         const prosecutors = new Set<string>();
 
         data.forEach(item => {
-            postcodes.add(item.postcode);
-            prosecutors.add(item.organisationName);
+            if (item.postcode) {
+                postcodes.add(item.postcode);
+            }
+            if (item.prosecutorName) {
+                prosecutors.add(item.prosecutorName);
+            }
         });
 
         const formattedPostcodes = new Set<string>();
@@ -123,7 +127,7 @@ export class SjpFilterService {
         allCases.forEach(item => {
             const formattedPostcode = item.postcode.split(' ', 2)[0];
             const postalAreaCode = item.postcode.split(/\d/)[0];
-            const formattedProsecutor = item.organisationName.replace(replaceRegex, '');
+            const formattedProsecutor = item.prosecutorName.replace(replaceRegex, '');
 
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
                 if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
