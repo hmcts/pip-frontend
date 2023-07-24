@@ -53,5 +53,4 @@ Data(flatFileName)
         I.waitForText('What do you want to view from ' + locationName);
         I.see('Civil and Family Daily Cause List');
         I.logout();
-    })
-    .tag('@CrossBrowser');
+    });
