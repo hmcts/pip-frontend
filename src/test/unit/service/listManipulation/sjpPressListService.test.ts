@@ -3,7 +3,7 @@ import { SjpPressListService } from '../../../../main/service/listManipulation/S
 import fs from 'fs';
 import path from 'path';
 
-const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../../mocks/SJPMockPage.json'), 'utf-8');
+const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-press-list.json'), 'utf-8');
 const sjpPressListService = new SjpPressListService();
 
 describe('formatSJPPressList', () => {
@@ -12,14 +12,19 @@ describe('formatSJPPressList', () => {
         expect(data.length).to.equal(3);
     });
 
-    it('should return accused name if accused role is first party', async () => {
+    it('should return accused name (individual details) if accused role is first party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
         expect(data[0].name).to.equal('Test Name');
     });
 
-    it('should return accused name if accused role is second party', async () => {
+    it('should return accused name (individual details) if accused role is second party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
         expect(data[2].name).to.equal('Mr Test M Name');
+    });
+
+    it('should return accused name using organisation details', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[1].name).to.equal("Accused's org name");
     });
 
     it('should return formatted date of birth', async () => {
@@ -37,20 +42,26 @@ describe('formatSJPPressList', () => {
         expect(data[0].caseUrn).to.equal('Case URN');
     });
 
-    it('should return formatted address and postcode', async () => {
+    it('should return formatted address and postcode (with individual details)', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
         expect(data[0].address).to.equal('Line 1 Line 2, Test Town, Test County, TEST POSTCODE');
         expect(data[0].postcode).to.equal('TEST POSTCODE');
     });
 
+    it('should return formatted address and postcode (with organisation details)', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[1].address).to.equal('London, London, TEST POSTCODE');
+        expect(data[1].postcode).to.equal('TEST POSTCODE');
+    });
+
     it('should return prosecutor if prosecutor role is first party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[0].organisationName).to.equal('Organisation Name');
+        expect(data[0].prosecutorName).to.equal('Organisation Name');
     });
 
     it('should return prosecutor if prosecutor role is second party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[2].organisationName).to.equal('Organisation Name');
+        expect(data[2].prosecutorName).to.equal('Organisation Name');
     });
 
     it('should return offences', async () => {
