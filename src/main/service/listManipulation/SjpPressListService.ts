@@ -27,19 +27,46 @@ export class SjpPressListService {
 
     private buildCases(hearing, rows): any {
         if (hearing.party) {
-            const party = hearing.party[0];
             const row = {
-                name: listParseHelperService.createIndividualDetails(party.individualDetails),
-                dob: this.formatDateOfBirth(party.individualDetails),
-                age: party.individualDetails.age,
+                ...this.processPartyRoles(hearing),
                 caseUrn: hearing.case[0].caseUrn,
-                address: this.buildAddress(party.individualDetails.address),
-                postcode: party.individualDetails.address.postCode,
-                organisationName: this.getOrganisationName(hearing),
                 offences: this.buildOffences(hearing.offence),
             };
             rows.push(row);
         }
+    }
+
+    private processPartyRoles(hearing): any {
+        let organisationName = '';
+        let individualInfo = this.initialiseIndividualInformation();
+
+        hearing.party?.forEach(party => {
+            if (party.partyRole === 'ACCUSED') {
+                if (party.individualDetails) {
+                    individualInfo = this.formatIndividualInformation(party.individualDetails);
+                }
+            } else if (party.partyRole === 'PROSECUTOR') {
+                if (party.organisationDetails) {
+                    organisationName = party.organisationDetails.organisationName;
+                }
+            }
+        });
+
+        return { ...individualInfo, organisationName };
+    }
+
+    private initialiseIndividualInformation() {
+        return { name: '', dob: '', age: '', address: '', postcode: '' };
+    }
+
+    private formatIndividualInformation(individualDetails) {
+        return {
+            name: listParseHelperService.createIndividualDetails(individualDetails),
+            dob: this.formatDateOfBirth(individualDetails),
+            age: individualDetails.age,
+            address: this.buildAddress(individualDetails.address),
+            postcode: individualDetails.address.postCode,
+        };
     }
 
     private formatDateOfBirth(individualDetails): string {
@@ -72,13 +99,6 @@ export class SjpPressListService {
 
         formattedAddress += address.postCode;
         return formattedAddress;
-    }
-
-    private getOrganisationName(hearing): string {
-        if (hearing.party.length > 1) {
-            return hearing.party[1].organisationDetails.organisationName;
-        }
-        return '';
     }
 
     private buildOffences(offences): any {
