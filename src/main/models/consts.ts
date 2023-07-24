@@ -1,3 +1,5 @@
+const authenticationConfig = require('../authentication/authentication-config.json');
+
 export const allowedFileTypes = ['pdf', 'json', 'csv', 'doc', 'docx', 'htm', 'html', 'xlsx'];
 
 export const allowedImageTypes = ['jpg', 'jpeg', 'png', 'pdf'];
@@ -49,6 +51,6 @@ export const formattedProvenances = {
 
 export const reSignInUrls = {
     CFT: '/cft-login',
-    AAD: '/subscription-management',
-    ADMIN: '/admin-management',
+    AAD: `/login?p=${authenticationConfig.POLICY}`,
+    ADMIN: `/admin-login?p=${authenticationConfig.ADMIN_POLICY}`,
 };
