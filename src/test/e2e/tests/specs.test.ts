@@ -187,9 +187,9 @@ describe('Unverified user', () => {
 
             it('should select SJP press list publication with text', async () => {
                 sjpPressListPage = await summaryOfPublicationsPage.clickSelectedSjpPressListItem(
-                    'Single Justice Procedure Press List 01 February 2023'
+                    'Single Justice Procedure Press List (Full List) 01 February 2023'
                 );
-                expect(await sjpPressListPage.getPageTitle()).toContain('Single Justice Procedure cases - Press view');
+                expect(await sjpPressListPage.getPageTitle()).toContain('Single Justice Procedure cases - Press view (Full list)');
                 expect(await sjpPressListPage.summaryListItems).toBe(95);
             });
 

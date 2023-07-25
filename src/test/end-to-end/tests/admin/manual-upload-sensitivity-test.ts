@@ -12,7 +12,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
 
     I.loginAsAdmin();
     I.click('#card-manual-upload');
-    I.selectOption(listTypeId, 'SJP Press List');
+    I.selectOption(listTypeId, 'SJP Press List (Full list)');
 
     let classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityClassified);
