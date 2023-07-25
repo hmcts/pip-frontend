@@ -104,6 +104,7 @@ describe('SJP Press List Controller', () => {
             contactDate: DateTime.fromISO(contentDate, { zone: 'utc' }).toFormat('d MMMM yyyy'),
             filterOptions: filter.filterOptions,
             showDownloadButton: false,
+            url: url.substring(1),
         };
 
         it('should render the SJP press list page when filter string is provided', async () => {
