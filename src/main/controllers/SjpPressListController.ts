@@ -18,9 +18,6 @@ const sjpFilterService = new SjpFilterService();
 const filterService = new FilterService();
 const listDownloadService = new ListDownloadService();
 
-const sjpPressFullListUrl = 'single-justice-procedure-press';
-const sjpPressNewCasesUrl = 'sjp-press-list-new-cases';
-
 export default class SjpPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -46,15 +43,15 @@ export default class SjpPressListController {
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
-                ...req.i18n.getDataByLanguage(pageLanguage)[sjpPressFullListUrl],
+                ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press'],
                 ...req.i18n.getDataByLanguage(pageLanguage)['sjp-common'],
                 ...req.i18n.getDataByLanguage(pageLanguage)['list-template']
             };
 
-            if (url === sjpPressNewCasesUrl) {
+            if (url === 'sjp-press-list-new-cases') {
                 languageResource = {
                     ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(pageLanguage)[sjpPressNewCasesUrl],
+                    ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press-new-cases'],
                 };
             }
 

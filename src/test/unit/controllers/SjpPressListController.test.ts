@@ -14,9 +14,12 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.js
 const sjpData = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData)[0];
 
-const sjpPressListController = new SjpPressListController();
+const metaDataSjpPressFullList = JSON.parse(rawMetaData)[0];
+metaDataSjpPressFullList.listType = 'SJP_PRESS_LIST';
+
+const metaDataSjpPressNewCases = JSON.parse(rawMetaData)[0];
+metaDataSjpPressNewCases.listType = 'SJP_DELTA_PRESS_LIST';
 
 const sjpPressListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const sjpPressListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
@@ -25,24 +28,52 @@ const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFi
 const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
 
-const artefactId = 'abc';
-const artefactIdWithNoFiles = 'def';
+const sjpPressFullListUrl = '/sjp-press-list';
+const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
-sjpPressListJsonStub.withArgs(artefactId).resolves(sjpData);
-sjpPressListJsonStub.withArgs(artefactIdWithNoFiles).resolves(sjpData);
+const sjpResourceMap = new Map<string, object>([
+    [
+        sjpPressFullListUrl,
+        {artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: 'single-justice-procedure-press'},
+    ],
+    [
+        sjpPressNewCasesUrl,
+        {artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: 'single-justice-procedure-press-new-cases'},
+    ],
+]);
+const contentDate = metaDataSjpPressFullList['contentDate'];
+
+const sjpPressFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
+const sjpPressNewCasesResource = sjpResourceMap.get(sjpPressNewCasesUrl);
+
+sjpPressListJsonStub.withArgs(sjpPressFullListResource['artefactId']).resolves(sjpData);
+sjpPressListJsonStub.withArgs(sjpPressNewCasesResource['artefactId']).resolves(sjpData);
+sjpPressListJsonStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(sjpData);
+sjpPressListJsonStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(sjpData);
 sjpPressListJsonStub.withArgs('').resolves([]);
 
-sjpPressListMetaDataStub.withArgs(artefactId).resolves(metaData);
-sjpPressListMetaDataStub.withArgs(artefactIdWithNoFiles).resolves(metaData);
+sjpPressListMetaDataStub.withArgs(sjpPressFullListResource['artefactId']).resolves(metaDataSjpPressFullList);
+sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactId']).resolves(metaDataSjpPressNewCases);
+sjpPressListMetaDataStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressFullList);
+sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressNewCases);
 sjpPressListMetaDataStub.withArgs('').resolves([]);
 
-generatesFilesStub.withArgs(artefactId).resolves(true);
-generatesFilesStub.withArgs(artefactIdWithNoFiles).resolves(false);
+generatesFilesStub.withArgs(sjpPressFullListResource['artefactId']).resolves(true);
+generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactId']).resolves(true);
+generatesFilesStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(false);
+generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(false);
 
 const i18n = {
-    'single-justice-procedure-press': {},
+    'single-justice-procedure-press': {
+        'header': 'Single Justice Procedure cases - Press view (Full list)'
+    },
+    'single-justice-procedure-press-new-cases': {
+        'header': 'Single Justice Procedure cases - Press view (New cases)'
+    },
     'list-template': {},
 };
+
+const sjpPressListController = new SjpPressListController();
 
 describe('SJP Press List Controller', () => {
     const response = {
@@ -60,30 +91,29 @@ describe('SJP Press List Controller', () => {
         request = mockRequest(i18n);
     });
 
-    const expectedData = {
-        ...i18n['single-justice-procedure-press'],
-        ...i18n['sjp-common'],
-        ...i18n['list-template'],
-        sjpData: filter.sjpCases,
-        totalHearings: 2,
-        publishedDateTime: '14 September 2016',
-        publishedTime: '12:30am',
-        contactDate: DateTime.fromISO(metaData['contentDate'], {
-            zone: 'utc',
-        }).toFormat('d MMMM yyyy'),
-        filterOptions: filter.filterOptions,
-        showDownloadButton: false,
-    };
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('get with path \'%s\'', url => {
+        const sjpPressResource = sjpResourceMap.get(url);
+        const expectedData = {
+            ...i18n[sjpPressResource['resourceName']],
+            ...i18n['sjp-common'],
+            ...i18n['list-template'],
+            sjpData: filter.sjpCases,
+            totalHearings: 2,
+            publishedDateTime: '14 September 2016',
+            publishedTime: '12:30am',
+            contactDate: DateTime.fromISO(contentDate, {zone: 'utc'}).toFormat('d MMMM yyyy'),
+            filterOptions: filter.filterOptions,
+            showDownloadButton: false,
+        };
 
-    describe('get', () => {
         it('should render the SJP press list page when filter string is provided', async () => {
             request.user = { userId: '1' };
-            request.query = { artefactId: artefactId, filterValues: '123' };
+            request.query = { artefactId: sjpPressResource['artefactId'], filterValues: '123' };
 
             const localExpectedData = {
                 ...expectedData,
                 user: request.user,
-                artefactId: artefactId,
+                artefactId: sjpPressResource['artefactId'],
                 showFilters: true,
                 showDownloadButton: true,
             };
@@ -98,12 +128,12 @@ describe('SJP Press List Controller', () => {
 
         it('should render the SJP press list page when no filter string provided', async () => {
             request.user = { userId: '1' };
-            request.query = { artefactId: artefactId };
+            request.query = { artefactId: sjpPressResource['artefactId'] };
 
             const localExpectedData = {
                 ...expectedData,
                 user: request.user,
-                artefactId: artefactId,
+                artefactId: sjpPressResource['artefactId'],
                 showFilters: false,
                 showDownloadButton: true,
             };
@@ -118,12 +148,12 @@ describe('SJP Press List Controller', () => {
 
         it('should render the SJP press list page when only clear string provided', async () => {
             request.user = { userId: '1' };
-            request.query = { artefactId: artefactId, clear: 'all' };
+            request.query = { artefactId: sjpPressResource['artefactId'], clear: 'all' };
 
             const localExpectedData = {
                 ...expectedData,
                 user: request.user,
-                artefactId: artefactId,
+                artefactId: sjpPressResource['artefactId'],
                 showFilters: true,
                 showDownloadButton: true,
             };
@@ -138,12 +168,12 @@ describe('SJP Press List Controller', () => {
 
         it('should render the SJP press list page when no publication files exist', async () => {
             request.user = { userId: '1' };
-            request.query = { artefactId: artefactIdWithNoFiles };
+            request.query = { artefactId: sjpPressResource['artefactIdWithNoFiles'] };
 
             const localExpectedData = {
                 ...expectedData,
                 user: request.user,
-                artefactId: artefactIdWithNoFiles,
+                artefactId: sjpPressResource['artefactIdWithNoFiles'],
                 showFilters: false,
                 showDownloadButton: false,
             };
@@ -180,14 +210,21 @@ describe('SJP Press List Controller', () => {
         });
     });
 
-    describe('post', () => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('post with path \'%s\'', url => {
+        const sjpPressResource = sjpResourceMap.get(url);
+
+        afterEach(() => {
+            sinon.restore();
+        });
+
         it('should redirect to configure list page with correct filters', () => {
+            const artefactId = sjpPressResource['artefactId'];
             request.query = { artefactId: artefactId };
 
             sinon.stub(FilterService.prototype, 'generateFilterKeyValues').withArgs(request.body).returns('TestValue');
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once().withArgs('sjp-press-list?artefactId=abc&filterValues=TestValue');
+            responseMock.expects('redirect').once().withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();
