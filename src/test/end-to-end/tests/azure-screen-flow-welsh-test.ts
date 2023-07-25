@@ -14,4 +14,4 @@ Scenario('Azure screen flow changes - Welsh', async ({ I }) => {
     I.waitForText('Mewngofnodi gyda’ch cyfeiriad e-bost');
     I.see('Cyfeiriad e-bost');
     I.see('Cyfrinair');
-});
+}).tag('@CrossBrowser');
