@@ -45,7 +45,7 @@ export default class SjpPressListController {
             let languageResource = {
                 ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press'],
                 ...req.i18n.getDataByLanguage(pageLanguage)['sjp-common'],
-                ...req.i18n.getDataByLanguage(pageLanguage)['list-template']
+                ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
             };
 
             if (url === 'sjp-press-list-new-cases') {

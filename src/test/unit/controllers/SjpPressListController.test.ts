@@ -34,11 +34,11 @@ const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 const sjpResourceMap = new Map<string, object>([
     [
         sjpPressFullListUrl,
-        {artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: 'single-justice-procedure-press'},
+        { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: 'single-justice-procedure-press' },
     ],
     [
         sjpPressNewCasesUrl,
-        {artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: 'single-justice-procedure-press-new-cases'},
+        { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: 'single-justice-procedure-press-new-cases' },
     ],
 ]);
 const contentDate = metaDataSjpPressFullList['contentDate'];
@@ -65,10 +65,10 @@ generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).r
 
 const i18n = {
     'single-justice-procedure-press': {
-        'header': 'Single Justice Procedure cases - Press view (Full list)'
+        header: 'Single Justice Procedure cases - Press view (Full list)',
     },
     'single-justice-procedure-press-new-cases': {
-        'header': 'Single Justice Procedure cases - Press view (New cases)'
+        header: 'Single Justice Procedure cases - Press view (New cases)',
     },
     'list-template': {},
 };
@@ -91,7 +91,7 @@ describe('SJP Press List Controller', () => {
         request = mockRequest(i18n);
     });
 
-    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('get with path \'%s\'', url => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("get with path '%s'", url => {
         const sjpPressResource = sjpResourceMap.get(url);
         const expectedData = {
             ...i18n[sjpPressResource['resourceName']],
@@ -101,7 +101,7 @@ describe('SJP Press List Controller', () => {
             totalHearings: 2,
             publishedDateTime: '14 September 2016',
             publishedTime: '12:30am',
-            contactDate: DateTime.fromISO(contentDate, {zone: 'utc'}).toFormat('d MMMM yyyy'),
+            contactDate: DateTime.fromISO(contentDate, { zone: 'utc' }).toFormat('d MMMM yyyy'),
             filterOptions: filter.filterOptions,
             showDownloadButton: false,
         };
@@ -210,7 +210,7 @@ describe('SJP Press List Controller', () => {
         });
     });
 
-    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('post with path \'%s\'', url => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("post with path '%s'", url => {
         const sjpPressResource = sjpResourceMap.get(url);
 
         afterEach(() => {
@@ -224,7 +224,10 @@ describe('SJP Press List Controller', () => {
             sinon.stub(FilterService.prototype, 'generateFilterKeyValues').withArgs(request.body).returns('TestValue');
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once().withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=TestValue`);
+            responseMock
+                .expects('redirect')
+                .once()
+                .withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();

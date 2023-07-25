@@ -75,7 +75,7 @@ generatesFilesStub.withArgs(sjpFullListResource['artefactId']).resolves(false);
 generatesFilesStub.withArgs(sjpNewCasesResource['artefactId']).resolves(false);
 
 describe('Single Justice Procedure List page', () => {
-    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('user not signed in with path \'%s\'', url => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("user not signed in with path '%s'", url => {
         const sjpResource = sjpResourceMap.get(url);
         const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
 
@@ -153,13 +153,14 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
-    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('signed in as media user with path \'%s\'', url => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("signed in as media user with path '%s'", url => {
         const sjpResource = sjpResourceMap.get(url);
         const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
         const pageUrlWithDownloadButton = url + '?artefactId=' + sjpResource['artefactIdWithDownloadButton'];
 
         describe('with publication files', () => {
-            generatesFilesStub.withArgs(sjpResource['artefactIdWithDownloadButton'], { roles: 'VERIFIED' })
+            generatesFilesStub
+                .withArgs(sjpResource['artefactIdWithDownloadButton'], { roles: 'VERIFIED' })
                 .resolves(true);
 
             beforeAll(async () => {
@@ -198,7 +199,7 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
-    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('signed in as admin user with path \'%s\'', url => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("signed in as admin user with path '%s'", url => {
         const sjpResource = sjpResourceMap.get(url);
         const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
 
@@ -219,7 +220,7 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
-    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('Request with filter values with path \'%s\'', url => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("Request with filter values with path '%s'", url => {
         const sjpResource = sjpResourceMap.get(url);
         const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
 

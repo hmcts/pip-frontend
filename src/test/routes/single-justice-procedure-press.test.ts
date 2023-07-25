@@ -32,7 +32,7 @@ metadataStub.withArgs(sjpPressNewCasesUrl).returns(metaDataSjpPressNewCases);
 const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
 
-describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('Single Justice Procedure Press page with path \'%s\'', url => {
+describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("Single Justice Procedure Press page with path '%s'", url => {
     describe('on GET', () => {
         test('should return Single Justice Procedure Press page', async () => {
             app.request['user'] = { userId: '2' };
