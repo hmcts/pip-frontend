@@ -60,7 +60,11 @@
                 {{ dateOfBirth }}
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ sjpCase.dob }} ({{ sjpCase.age }})
+                {% if sjpCase.age > 0 %}
+                  {{ sjpCase.dob }} ({{ sjpCase.age }})
+                {% else %}
+                  {{ sjpCase.dob }}
+                {% endif %}
               </dd>
             </div>
             <div class="govuk-summary-list__row">
@@ -84,7 +88,7 @@
                 {{ prosecutor }}
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ sjpCase.organisationName }}
+                {{ sjpCase.prosecutorName }}
               </dd>
             </div>
 

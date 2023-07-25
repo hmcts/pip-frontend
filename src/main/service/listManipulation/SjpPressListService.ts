@@ -27,19 +27,59 @@ export class SjpPressListService {
 
     private buildCases(hearing, rows): any {
         if (hearing.party) {
-            const party = hearing.party[0];
             const row = {
-                name: listParseHelperService.createIndividualDetails(party.individualDetails),
-                dob: this.formatDateOfBirth(party.individualDetails),
-                age: party.individualDetails.age,
+                ...this.processPartyRoles(hearing),
                 caseUrn: hearing.case[0].caseUrn,
-                address: this.buildAddress(party.individualDetails.address),
-                postcode: party.individualDetails.address.postCode,
-                organisationName: this.getOrganisationName(hearing),
                 offences: this.buildOffences(hearing.offence),
             };
             rows.push(row);
         }
+    }
+
+    private processPartyRoles(hearing): any {
+        let prosecutorName = '';
+        let accusedInfo = this.initialiseAccusedParty();
+
+        hearing.party?.forEach(party => {
+            if (party.partyRole === 'ACCUSED') {
+                accusedInfo = this.processAccusedParty(party);
+            } else if (party.partyRole === 'PROSECUTOR') {
+                if (party.organisationDetails) {
+                    prosecutorName = party.organisationDetails.organisationName;
+                }
+            }
+        });
+
+        return { ...accusedInfo, prosecutorName };
+    }
+
+    private processAccusedParty(party) {
+        if (party.individualDetails) {
+            return this.formatIndividualInformation(party.individualDetails);
+        } else if (party.organisationDetails) {
+            const organisation = party.organisationDetails;
+            return {
+                name: organisation.organisationName,
+                dob: '',
+                age: 0,
+                address: organisation.organisationAddress ? this.buildAddress(organisation.organisationAddress) : '',
+                postcode: organisation.organisationAddress ? organisation.organisationAddress.postCode : '',
+            };
+        }
+    }
+
+    private initialiseAccusedParty() {
+        return { name: '', dob: '', age: 0, address: '', postcode: '' };
+    }
+
+    private formatIndividualInformation(individualDetails) {
+        return {
+            name: listParseHelperService.createIndividualDetails(individualDetails),
+            dob: this.formatDateOfBirth(individualDetails),
+            age: individualDetails.age,
+            address: this.buildAddress(individualDetails.address),
+            postcode: individualDetails.address.postCode,
+        };
     }
 
     private formatDateOfBirth(individualDetails): string {
@@ -72,13 +112,6 @@ export class SjpPressListService {
 
         formattedAddress += address.postCode;
         return formattedAddress;
-    }
-
-    private getOrganisationName(hearing): string {
-        if (hearing.party.length > 1) {
-            return hearing.party[1].organisationDetails.organisationName;
-        }
-        return '';
     }
 
     private buildOffences(offences): any {

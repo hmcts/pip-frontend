@@ -12,7 +12,7 @@ import { SjpFilterService } from '../../main/service/sjpFilterService';
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/SJPMockPage.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/sjp-press-list.json'), 'utf-8');
 const sjpPressData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/returnedArtefacts.json'), 'utf-8');
 
