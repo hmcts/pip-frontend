@@ -1,5 +1,4 @@
 import process from 'process';
-import { Logger } from '@hmcts/nodejs-logging';
 import config = require('config');
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import passportCustom from 'passport-custom';
@@ -9,7 +8,6 @@ import { cftIdamAuthentication } from './cftIdamAuthentication';
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
 const authenticationConfig = require('./authentication-config.json');
-const logger = Logger.getLogger('authentication');
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
 
@@ -99,8 +97,6 @@ function oidcSetup(): void {
     } else {
         mediaVerificationIdentityMetadata = config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT');
     }
-
-    logger.info('secret', clientSecret ? clientSecret.substring(0, 5) : 'client secret not set!');
 
     passport.serializeUser(serializeUser);
 
