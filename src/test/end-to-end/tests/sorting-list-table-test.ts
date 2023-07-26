@@ -31,37 +31,72 @@ Scenario('I should be able to view and sort the list table', async ({ I }) => {
     I.click(locate('//a').withText('Primary Health Tribunal Hearing List'));
     I.waitForText('Primary Health\n' + 'Tribunal Hearing List');
     I.click('Hearing Date');
-    const sortedFirstDate = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(1)');
-    Assert.equal(sortedFirstDate, '03 September');
+    const sortedFirstDateAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(1)');
+    Assert.equal(sortedFirstDateAsc, '03 September');
 
-    const sortedLastDate = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(1)');
-    Assert.equal(sortedLastDate, '05 December');
+    const sortedLastDatAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(1)');
+    Assert.equal(sortedLastDatAsc, '05 December');
+
+    I.click('Hearing Date');
+    const sortedFirstDateDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(1)');
+    Assert.equal(sortedFirstDateDesc, '05 December');
+
+    const sortedLastDateDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(1)');
+    Assert.equal(sortedLastDateDesc, '03 September');
 
     I.click('Case Name');
-    const sortedFirstCaseName = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(2)');
-    Assert.equal(sortedFirstCaseName, 'A Vs B');
+    const sortedFirstCaseNameAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(2)');
+    Assert.equal(sortedFirstCaseNameAsc, 'A Vs B');
 
-    const sortedLastCaseName = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(2)');
-    Assert.equal(sortedLastCaseName, 'E Vs F');
+    const sortedLastCaseNameAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(2)');
+    Assert.equal(sortedLastCaseNameAsc, 'E Vs F');
+
+    I.click('Case Name');
+    const sortedFirstCaseNameDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(2)');
+    Assert.equal(sortedFirstCaseNameDesc, 'E Vs F');
+
+    const sortedLastCaseNameDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(2)');
+    Assert.equal(sortedLastCaseNameDesc, 'A Vs B');
 
     I.click('Duration');
-    const sortedFirstDuration = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(3)');
-    Assert.equal(sortedFirstDuration, '30 mins [2 of 3]');
+    const sortedFirstDurationAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(3)');
+    Assert.equal(sortedFirstDurationAsc, '30 mins [2 of 3]');
 
-    const sortedLastDuration = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(3)');
-    Assert.equal(sortedLastDuration, '4 days [2 of 3]');
+    const sortedLastDurationAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(3)');
+    Assert.equal(sortedLastDurationAsc, '4 days [2 of 3]');
+
+    I.click('Duration');
+    const sortedFirstDurationDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(3)');
+    Assert.equal(sortedFirstDurationDesc, '4 days [2 of 3]');
+
+    const sortedLastDurationDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(3)');
+    Assert.equal(sortedLastDurationDesc, '30 mins [2 of 3]');
 
     I.click('Hearing Type');
-    const sortedFirstHearingType = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(4)');
-    Assert.equal(sortedFirstHearingType, 'MDA');
+    const sortedFirstHearingTypeAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(4)');
+    Assert.equal(sortedFirstHearingTypeAsc, 'MDA');
 
-    const sortedLastHearingType = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(4)');
-    Assert.equal(sortedLastHearingType, 'Remote - Teams');
+    const sortedLastHearingTypeAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(4)');
+    Assert.equal(sortedLastHearingTypeAsc, 'Remote - Teams');
+
+    I.click('Hearing Type');
+    const sortedFirstHearingTypeDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(4)');
+    Assert.equal(sortedFirstHearingTypeDesc, 'Remote - Teams');
+
+    const sortedLastHearingTypeDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(4)');
+    Assert.equal(sortedLastHearingTypeDesc, 'MDA');
 
     I.click('Venue');
-    const sortedFirstVenue = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(5)');
-    Assert.ok(sortedFirstVenue.toString().includes('BOLTON'));
+    const sortedFirstVenueAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(5)');
+    Assert.ok(sortedFirstVenueAsc.toString().includes('BOLTON'));
 
-    const sortedLastVenue = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(5)');
-    Assert.ok(sortedLastVenue.toString().includes('PRESTON'));
+    const sortedLastVenueAsc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(5)');
+    Assert.ok(sortedLastVenueAsc.toString().includes('PRESTON'));
+
+    I.click('Venue');
+    const sortedFirstVenueDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(5)');
+    Assert.ok(sortedFirstVenueDesc.toString().includes('PRESTON'));
+
+    const sortedLastVenueDesc = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(5)');
+    Assert.ok(sortedLastVenueDesc.toString().includes('BOLTON'));
 });
