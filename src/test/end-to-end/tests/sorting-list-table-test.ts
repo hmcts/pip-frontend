@@ -1,14 +1,14 @@
-import {DateTime} from 'luxon';
-import {createLocation, uploadPublication} from '../shared/testingSupportApi';
-import {randomData} from "../shared/random-data";
-import {config} from "../../config";
-import * as Assert from "assert";
+import { DateTime } from 'luxon';
+import { createLocation, uploadPublication } from '../shared/testingSupportApi';
+import { randomData } from '../shared/random-data';
+import { config } from '../../config';
+import * as Assert from 'assert';
 
 Feature('Sort List Table');
 
-Scenario('I should be able to view and sort the list table', async ({I}) => {
-    const displayFrom = DateTime.now().toISO({includeOffset: false});
-    const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+Scenario('I should be able to view and sort the list table', async ({ I }) => {
+    const displayFrom = DateTime.now().toISO({ includeOffset: false });
+    const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
@@ -29,8 +29,7 @@ Scenario('I should be able to view and sort the list table', async ({I}) => {
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
     I.click(locate('//a').withText('Primary Health Tribunal Hearing List'));
-    I.waitForText('Primary Health\n' +
-        'Tribunal Hearing List');
+    I.waitForText('Primary Health\n' + 'Tribunal Hearing List');
     I.click('Hearing Date');
     const sortedFirstDate = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(1)');
     Assert.equal(sortedFirstDate, '03 September');
@@ -59,7 +58,7 @@ Scenario('I should be able to view and sort the list table', async ({I}) => {
     const sortedLastHearingType = await I.grabTextFrom('tbody > tr.govuk-table__row:last-child > td:nth-child(4)');
     Assert.equal(sortedLastHearingType, 'Remote - Teams');
 
-    I.click('Venue')
+    I.click('Venue');
     const sortedFirstVenue = await I.grabTextFrom('tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(5)');
     Assert.ok(sortedFirstVenue.toString().includes('BOLTON'));
 
