@@ -37,26 +37,39 @@ export class SjpPressListService {
     }
 
     private processPartyRoles(hearing): any {
-        let organisationName = '';
-        let individualInfo = this.initialiseIndividualInformation();
+        let prosecutorName = '';
+        let accusedInfo = this.initialiseAccusedParty();
 
         hearing.party?.forEach(party => {
             if (party.partyRole === 'ACCUSED') {
-                if (party.individualDetails) {
-                    individualInfo = this.formatIndividualInformation(party.individualDetails);
-                }
+                accusedInfo = this.processAccusedParty(party);
             } else if (party.partyRole === 'PROSECUTOR') {
                 if (party.organisationDetails) {
-                    organisationName = party.organisationDetails.organisationName;
+                    prosecutorName = party.organisationDetails.organisationName;
                 }
             }
         });
 
-        return { ...individualInfo, organisationName };
+        return { ...accusedInfo, prosecutorName };
     }
 
-    private initialiseIndividualInformation() {
-        return { name: '', dob: '', age: '', address: '', postcode: '' };
+    private processAccusedParty(party) {
+        if (party.individualDetails) {
+            return this.formatIndividualInformation(party.individualDetails);
+        } else if (party.organisationDetails) {
+            const organisation = party.organisationDetails;
+            return {
+                name: organisation.organisationName,
+                dob: '',
+                age: 0,
+                address: organisation.organisationAddress ? this.buildAddress(organisation.organisationAddress) : '',
+                postcode: organisation.organisationAddress ? organisation.organisationAddress.postCode : '',
+            };
+        }
+    }
+
+    private initialiseAccusedParty() {
+        return { name: '', dob: '', age: 0, address: '', postcode: '' };
     }
 
     private formatIndividualInformation(individualDetails) {

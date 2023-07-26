@@ -3,6 +3,8 @@ import { I18next } from './modules/i18next';
 import RedisStore from 'connect-redis';
 import cookieParser from 'cookie-parser';
 
+import { AppInsights } from './modules/appinsights';
+
 import * as propertiesVolume from '@hmcts/properties-volume';
 import config = require('config');
 propertiesVolume.addTo(config);
@@ -16,8 +18,6 @@ import * as path from 'path';
 import favicon from 'serve-favicon';
 import { HTTPError } from 'HttpError';
 import { Nunjucks } from './modules/nunjucks';
-
-import { AppInsights } from './modules/appinsights';
 
 const passport = require('passport');
 const { setupDev } = require('./development');
@@ -35,8 +35,6 @@ app.locals.POLICY = process.env.POLICY;
 
 const logger = Logger.getLogger('app');
 
-logger.info('NODE_ENV', env);
-
 import routes from './routes/routes';
 
 new AppInsights().enable();
@@ -45,7 +43,6 @@ new Helmet(config.get('security')).enableFor(app);
 new Container().enableFor(app);
 
 logger.info('environment', env);
-logger.info('policy', process.env.POLICY);
 
 app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
 app.use(bodyParser.json());

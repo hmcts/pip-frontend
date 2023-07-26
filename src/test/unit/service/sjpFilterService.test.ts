@@ -7,54 +7,59 @@ const allCases = [
     {
         name: 'Test name 1',
         postcode: 'SW1 1AA',
-        organisationName: 'Org name 1',
+        prosecutorName: 'Org name 1',
     },
     {
         name: 'Test name 2',
         postcode: 'SW1H 9AJ',
-        organisationName: 'Org name,3',
+        prosecutorName: 'Org name,3',
     },
     {
         name: 'Test name 3',
         postcode: 'SW1H 9AA',
-        organisationName: 'Org name,3',
+        prosecutorName: 'Org name,3',
     },
     {
         name: 'Test name 4',
         postcode: 'SW1H 9AJ',
-        organisationName: 'Org name 2',
+        prosecutorName: 'Org name 2',
     },
     {
         name: 'Test name 5',
         postcode: 'SW11 2AA',
-        organisationName: 'Org name 2',
+        prosecutorName: 'Org name 2',
     },
     {
         name: 'Test name 6',
         postcode: 'NW99 8LO',
-        organisationName: 'Org name 4',
+        prosecutorName: 'Org name 4',
     },
     {
         name: 'Test name 7',
         postcode: 'EC99 7LO',
-        organisationName: 'Org name 4',
+        prosecutorName: 'Org name 4',
     },
     {
         name: 'Test name 8',
         postcode: 'NP99 9NL',
-        organisationName: 'Org name 4',
+        prosecutorName: 'Org name 4',
     },
     {
         name: 'Test name 9',
         postcode: 'WA78 0NL',
-        organisationName: 'Org name 5',
+        prosecutorName: 'Org name 5',
+    },
+    {
+        name: 'Test name 10',
+        postcode: '',
+        prosecutorName: 'Org name 5',
     },
 ];
 
 describe('SJP filter service', () => {
     it('should return all SJP cases when no filtering', async () => {
         const result = filterService.generateFilters(allCases, null, null);
-        expect(result.sjpCases).to.have.length(9);
+        expect(result.sjpCases).to.have.length(10);
 
         const postcodes = result.filterOptions.postcodes;
         expect(postcodes).to.have.length(8);
@@ -78,7 +83,7 @@ describe('SJP filter service', () => {
 
     it('should return all SJP cases when clearing all filters', async () => {
         const result = filterService.generateFilters(allCases, undefined, 'all');
-        expect(result.sjpCases).to.have.length(9);
+        expect(result.sjpCases).to.have.length(10);
 
         const postcodes = result.filterOptions.postcodes;
         expect(postcodes).to.have.length(8);
@@ -374,7 +379,7 @@ describe('SJP filter service', () => {
             'Orgname1,Orgname2,Orgname3,Orgname4,Orgname5',
             undefined
         );
-        expect(result.sjpCases).to.have.length(9);
+        expect(result.sjpCases).to.have.length(10);
 
         const postcodes = result.filterOptions.postcodes;
         expect(postcodes).to.have.length(8);
