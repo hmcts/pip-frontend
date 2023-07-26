@@ -42,7 +42,7 @@ export default class SjpPublicListController {
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
 
-            logger.info('*****Store ODF and Excel on temp dir');
+            logger.info('*****Store SJP public PDF and Excel on temp dir');
 
             res.render('single-justice-procedure', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure']),
