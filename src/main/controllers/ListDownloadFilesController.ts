@@ -6,9 +6,12 @@ import path from 'path';
 import mime from 'mime-types';
 import { cloneDeep } from 'lodash';
 import { FileType } from '../models/consts';
+import { Logger } from '@hmcts/nodejs-logging';
 
 const url = 'list-download-files';
 const listDownloadService = new ListDownloadService();
+
+const logger = Logger.getLogger('list-download');
 
 export default class ListDownloadFilesController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -16,6 +19,7 @@ export default class ListDownloadFilesController {
         const artefactId = req.query.artefactId;
 
         if (type === undefined) {
+            logger.info('*****Display PDF and Excel link')
             const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
             const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
 
@@ -26,6 +30,8 @@ export default class ListDownloadFilesController {
                 excelFileSize: excelFileSize,
             });
         } else {
+            logger.info('*****Download file with type' + type);
+
             const file = listDownloadService.getFile(artefactId, FileType[type.toUpperCase()]);
             if (file) {
                 const filename = path.basename(file);

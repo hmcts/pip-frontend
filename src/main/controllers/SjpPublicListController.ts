@@ -9,6 +9,7 @@ import { FilterService } from '../service/filterService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../helpers/listHelper';
 import { ListDownloadService } from '../service/listDownloadService';
+import { Logger } from '@hmcts/nodejs-logging';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -16,6 +17,8 @@ const sjpPublicListService = new SjpPublicListService();
 const sjpFilterService = new SjpFilterService();
 const filterService = new FilterService();
 const listDownloadService = new ListDownloadService();
+
+const logger = Logger.getLogger('list-download');
 
 export default class SjpPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -38,6 +41,8 @@ export default class SjpPublicListController {
             );
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
+
+            logger.info('*****Store ODF and Excel on temp dir')
 
             res.render('single-justice-procedure', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure']),
