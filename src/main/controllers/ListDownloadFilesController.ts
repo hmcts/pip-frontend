@@ -19,7 +19,7 @@ export default class ListDownloadFilesController {
         const artefactId = req.query.artefactId;
 
         if (type === undefined) {
-            logger.info('*****Display PDF and Excel link')
+            logger.info('*****Display PDF and Excel link');
             const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
             const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
 
