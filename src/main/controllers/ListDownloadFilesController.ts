@@ -19,7 +19,7 @@ export default class ListDownloadFilesController {
         const artefactId = req.query.artefactId;
 
         if (type === undefined) {
-            logger.info('*****Display PDF and Excel link');
+            logger.info('*****(4)Display PDF and Excel link');
             const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
             const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
 
@@ -30,7 +30,7 @@ export default class ListDownloadFilesController {
                 excelFileSize: excelFileSize,
             });
         } else {
-            logger.info('*****Download file with type' + type);
+            logger.info('*****(5)Download file with type' + type);
 
             const file = listDownloadService.getFile(artefactId, FileType[type.toUpperCase()]);
             if (file) {
