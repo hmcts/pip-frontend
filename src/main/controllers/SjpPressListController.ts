@@ -48,7 +48,7 @@ export default class SjpPressListController {
                 ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
             };
 
-            if (url === 'sjp-press-list-new-cases') {
+            if (metaData.listType === 'SJP_DELTA_PRESS_LIST') {
                 languageResource = {
                     ...cloneDeep(languageResource),
                     ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press-new-cases'],
