@@ -122,7 +122,7 @@ Scenario(
         I.waitForText('What is the surname or organisation name of the party involved in the case?');
         I.see('For example, Smith');
         I.fillField('#party-name', casePartySurname);
-        I.click('Continue');
+        I.click('Continue', null, { noWaitAfter: true });
         I.waitForText('Search result');
         I.see(casePartyFullName);
         I.see(casePartyNumber);
