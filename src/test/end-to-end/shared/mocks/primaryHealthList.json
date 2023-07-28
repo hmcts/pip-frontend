@@ -1,0 +1,196 @@
+{
+    "document": {
+        "publicationDate": "2022-10-04T09:00:52.123Z"
+    },
+    "venue": {
+        "venueContact": {
+            "venueTelephone": "01772 844700",
+            "venueEmail": "court1@moj.gov.uk"
+        }
+    },
+    "locationDetails": {
+        "jurisdiction": "Tribunal"
+    },
+    "courtLists": [
+        {
+            "courtHouse": {
+                "courtHouseName": "PRESTON",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1"],
+                    "postCode": "AA1 AA1"
+                },
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sessionStartTime": "2022-09-03T09:00:52.123Z",
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-09-05T11:00:52.123Z",
+                                        "sittingEnd": "2022-09-09T11:30:52.123Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "Remote - Teams",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A Vs B",
+                                                        "caseNumber": "45684548",
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "courtHouse": {
+                "courtHouseName": "MANCHESTER",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1"],
+                    "postCode": "AA1 AA1"
+                },
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sessionStartTime": "2022-11-04T09:00:52.123Z",
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-11-05T11:00:52.123Z",
+                                        "sittingEnd": "2022-11-06T11:30:52.123Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "MDA",
+                                                "case": [
+                                                    {
+                                                        "caseName": "C Vs D",
+                                                        "caseNumber": "45684544",
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "courtHouse": {
+                "courtHouseName": "BOLTON",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1"],
+                    "postCode": "ZZ1 ZZ1"
+                },
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sessionStartTime": "2022-12-05T05:00:52.123Z",
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-12-06T11:00:52.123Z",
+                                        "sittingEnd": "2022-12-07T11:30:52.123Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "Remote - Teams",
+                                                "case": [
+                                                    {
+                                                        "caseName": "E Vs F",
+                                                        "caseNumber": "45684543",
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "courtHouse": {
+                "courtHouseName": "PRESTON",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1"],
+                    "postCode": "AA1 AA1"
+                },
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sessionStartTime": "2022-10-06T09:00:52.123Z",
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-10-07T11:00:52.123Z",
+                                        "sittingEnd": "2022-10-07T11:30:52.123Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "Remote - Teams",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A Vs B",
+                                                        "caseNumber": "45684545",
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "courtHouse": {
+                "courtHouseName": "PRESTON",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1"],
+                    "postCode": "AA1 AA1"
+                },
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sessionStartTime": "2022-10-02T09:00:52.123Z",
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-10-03T11:00:52.123Z",
+                                        "sittingEnd": "2022-10-03T11:30:52.123Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "Remote - Teams",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A Vs B",
+                                                        "caseNumber": "45684546",
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
