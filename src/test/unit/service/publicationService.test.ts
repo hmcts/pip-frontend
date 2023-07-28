@@ -244,7 +244,7 @@ describe('Publication service', () => {
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List');
         expect(sjpResult['shortenedFriendlyName']).to.equal('SJP Public List');
         expect(sjpResult['url']).to.equal('sjp-public-list');
-        expect(sjpResult['jurisdictions']).to.deep.equal(['Single Justice Procedure']);
+        expect(sjpResult['jurisdictions']).to.deep.equal(['Magistrates']);
         expect(sjpResult['restrictedProvenances']).to.deep.equal([]);
 
         const sjpDeltaResult = listTypes.get('SJP_DELTA_PRESS_LIST');
