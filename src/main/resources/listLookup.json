@@ -24,8 +24,8 @@
         "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)",
         "shortenedFriendlyName": "SJP Press List (New cases)",
         "url": "sjp-press-list-new-cases",
-        "jurisdictions": ["Single Justice Procedure"],
-        "welshJurisdictions": ["Gweithdrefn Un Ynad"],
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": ["PI_AAD"],
         "defaultSensitivity": "CLASSIFIED"
     },
