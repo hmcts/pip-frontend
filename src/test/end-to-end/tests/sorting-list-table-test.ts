@@ -23,12 +23,12 @@ Scenario('I should be able to view and sort the list table', async ({ I }) => {
         'PRIMARY_HEALTH_LIST'
     );
 
-    const firstRow = (columnNumber: number)=> {
-        return 'tbody > tr.govuk-table__row:nth-child(1) > td:nth-child('+columnNumber+')';
-    }
-    const lastRow = (columnNumber: number)=> {
-        return 'tbody > tr.govuk-table__row:last-child > td:nth-child('+columnNumber+')';
-    }
+    const firstRow = (columnNumber: number) => {
+        return 'tbody > tr.govuk-table__row:nth-child(1) > td:nth-child(' + columnNumber + ')';
+    };
+    const lastRow = (columnNumber: number) => {
+        return 'tbody > tr.govuk-table__row:last-child > td:nth-child(' + columnNumber + ')';
+    };
 
     I.amOnPage('/search');
     I.see('What court or tribunal are you interested in?');
