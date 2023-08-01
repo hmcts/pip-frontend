@@ -251,7 +251,7 @@ describe('Publication service', () => {
         expect(sjpDeltaResult['friendlyName']).to.equal('Single Justice Procedure Press List (New Cases)');
         expect(sjpDeltaResult['shortenedFriendlyName']).to.equal('SJP Press List (New cases)');
         expect(sjpDeltaResult['url']).to.equal('sjp-press-list-new-cases');
-        expect(sjpDeltaResult['jurisdictions']).to.deep.equal(['Single Justice Procedure']);
+        expect(sjpDeltaResult['jurisdictions']).to.deep.equal(['Magistrates']);
         expect(sjpDeltaResult['restrictedProvenances']).to.deep.equal(['PI_AAD']);
     });
 
