@@ -110,7 +110,7 @@
     "devDependencies": {
         "@babel/core": "^7.22.1",
         "@babel/eslint-parser": "7.22.5",
-        "@babel/preset-env": "^7.22.4",
+        "@babel/preset-env": "^7.22.9",
         "@codeceptjs/allure-legacy": "^1.0.2",
         "@evilmartians/lefthook": "^1.4.1",
         "@types/chai-as-promised": "^7.1.5",
