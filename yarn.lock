@@ -2246,12 +2246,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evilmartians/lefthook@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "@evilmartians/lefthook@npm:1.4.1"
+"@evilmartians/lefthook@npm:^1.4.8":
+  version: 1.4.8
+  resolution: "@evilmartians/lefthook@npm:1.4.8"
   bin:
     lefthook: bin/index.js
-  checksum: 603423145623f5526572b4f414489f11ed65dc806c57c3d5c2a7de5435ba4dd7849daffc0e5843ace270e49188a0ff34aa00c4439ee8c2a7a3252906289a543f
+  checksum: a55a73941b9ed6eb37490d4df8ef94a1e711e2bdb1a5c56d14801615b776ad3ff0114da3a5d36ee049ead0f6529554130804e923de39b0bee68472a1da237531
   conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=ia32)
   languageName: node
   linkType: hard
@@ -13337,7 +13337,7 @@ __metadata:
     "@babel/eslint-parser": 7.22.5
     "@babel/preset-env": ^7.22.4
     "@codeceptjs/allure-legacy": ^1.0.2
-    "@evilmartians/lefthook": ^1.4.1
+    "@evilmartians/lefthook": ^1.4.8
     "@hmcts/cookie-manager": ^1.0.0
     "@hmcts/info-provider": ^1.1.0
     "@hmcts/nodejs-healthcheck": ^1.8.0
