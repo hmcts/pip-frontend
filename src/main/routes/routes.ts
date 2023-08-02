@@ -162,6 +162,8 @@ export default function (app: Application): void {
     app.post('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.filterValues);
     app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
     app.post('/sjp-press-list', app.locals.container.cradle.sjpPressListController.filterValues);
+    app.get('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.get);
+    app.post('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.filterValues);
     app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
     app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
     app.get('/crown-firm-list', app.locals.container.cradle.crownFirmListController.get);
