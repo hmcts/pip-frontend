@@ -40,11 +40,23 @@ export default class SjpPressListController {
 
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
+            const url = publicationService.getListTypes().get(metaData.listType).url;
+
+            let languageResource = {
+                ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press'],
+                ...req.i18n.getDataByLanguage(pageLanguage)['sjp-common'],
+                ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
+            };
+
+            if (metaData.listType === 'SJP_DELTA_PRESS_LIST') {
+                languageResource = {
+                    ...cloneDeep(languageResource),
+                    ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press-new-cases'],
+                };
+            }
 
             res.render('single-justice-procedure-press', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sjp-common']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(languageResource),
                 sjpData: filter.sjpCases,
                 totalHearings: filter.sjpCases.length,
                 publishedDateTime: publishedDate,
@@ -59,6 +71,7 @@ export default class SjpPressListController {
                 filterOptions: filter.filterOptions,
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
+                url,
             });
         } else if (sjpData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
