@@ -9,7 +9,7 @@ const sjpPressListService = new SjpPressListService();
 describe('formatSJPPressList', () => {
     it('should return SJP Press List cases', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data.length).to.equal(3);
+        expect(data.length).to.equal(4);
     });
 
     it('should return accused name (individual details) if accused role is first party', async () => {
@@ -19,7 +19,12 @@ describe('formatSJPPressList', () => {
 
     it('should return accused name (individual details) if accused role is second party', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        expect(data[2].name).to.equal('Mr Test M Name');
+        expect(data[2].name).to.equal('Mr M Name');
+    });
+
+    it('should return accused name (individual details) if surname field missing', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[3].name).to.equal('Test');
     });
 
     it('should return accused name using organisation details', async () => {
@@ -52,6 +57,18 @@ describe('formatSJPPressList', () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
         expect(data[1].address).to.equal('London, London, TEST POSTCODE');
         expect(data[1].postcode).to.equal('TEST POSTCODE');
+    });
+
+    it('should return nothing for formatted address and postcode if address field is missing', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[2].address).to.equal('');
+        expect(data[2].postcode).to.equal('');
+    });
+
+    it('should return nothing for formatted address and postcode if address field is empty', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[2].address).to.equal('');
+        expect(data[2].postcode).to.equal('');
     });
 
     it('should return prosecutor if prosecutor role is first party', async () => {
