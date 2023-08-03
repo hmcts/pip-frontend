@@ -90,14 +90,13 @@ export class SjpPressListService {
         const addressLines = [];
         if (address.line?.length > 0) {
             let formattedLines = '';
-            for (let i = 0; i <  address.line.length; i++) {
+            for (let i = 0; i < address.line.length; i++) {
                 if (address.line[i].length > 0) {
                     formattedLines += address.line[i];
                 }
                 if (i < address.line.length - 1) {
                     formattedLines += ' ';
                 }
-
             }
             addressLines.push(formattedLines);
         }

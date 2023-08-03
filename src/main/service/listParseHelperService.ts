@@ -124,9 +124,7 @@ export class ListParseHelperService {
                 surname
             );
         } else {
-            return [title, forenames, middleName, surname]
-                .filter(n => n.length > 0)
-                .join(' ');
+            return [title, forenames, middleName, surname].filter(n => n.length > 0).join(' ');
         }
     }
 
