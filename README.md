@@ -239,7 +239,7 @@ It is also possible to run specific types of unit tests using the following comm
 
 ##### Re-running failed tests
 
-You can rerun only the tests that failed in the previous test run using `yarn test:failures`.
+You can rerun only the tests that failed in the previous test run using `yarn test:failures`
 This kind of workflow allows you to run the minimum number of unit tests after implementing new functionality (assuming you're not using TDD), repeating until they're all fixed.
 
 ### Route Tests
