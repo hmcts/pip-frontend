@@ -10,6 +10,8 @@ nodejs:
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return
         ENABLE_CFT: false
+    memoryLimits: 1024Mi
+    cpuRequests: 300m
     keyVaults:
         pip-ss-kv:
             resourceGroup: pip-ss-{{ .Values.global.environment }}-rg
