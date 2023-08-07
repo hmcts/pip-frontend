@@ -77,8 +77,8 @@ export class SjpPressListService {
             name: listParseHelperService.createIndividualDetails(individualDetails),
             dob: this.formatDateOfBirth(individualDetails),
             age: individualDetails.age,
-            address: this.buildAddress(individualDetails.address),
-            postcode: individualDetails.address.postCode,
+            address: individualDetails.address ? this.buildAddress(individualDetails.address) : '',
+            postcode: individualDetails.address?.postCode ? individualDetails.address?.postCode : '',
         };
     }
 
@@ -87,31 +87,32 @@ export class SjpPressListService {
     }
 
     private buildAddress(address): string {
-        let formattedAddress = '';
-        const lineCount = address.line ? address.line.length : 0;
-
-        for (let i = 0; i < lineCount; i++) {
-            if (address.line[i].length > 0) {
-                formattedAddress += address.line[i];
+        const addressLines = [];
+        if (address.line?.length > 0) {
+            let formattedLines = '';
+            for (let i = 0; i < address.line.length; i++) {
+                if (address.line[i].length > 0) {
+                    formattedLines += address.line[i];
+                }
+                if (i < address.line.length - 1) {
+                    formattedLines += ' ';
+                }
             }
-
-            if (i == lineCount - 1) {
-                formattedAddress += ', ';
-            } else {
-                formattedAddress += ' ';
-            }
+            addressLines.push(formattedLines);
         }
 
         if (address.town?.length > 0) {
-            formattedAddress += address.town + ', ';
+            addressLines.push(address.town);
         }
 
         if (address.county?.length > 0) {
-            formattedAddress += address.county + ', ';
+            addressLines.push(address.county);
         }
 
-        formattedAddress += address.postCode;
-        return formattedAddress;
+        if (address.postCode?.length > 0) {
+            addressLines.push(address.postCode);
+        }
+        return addressLines.join(', ');
     }
 
     private buildOffences(offences): any {
