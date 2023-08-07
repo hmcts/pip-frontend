@@ -140,6 +140,16 @@ describe('Single Justice Procedure List page', () => {
             );
         });
 
+        it('should have empty offender individual address if address field is missing', () => {
+            const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+            expect(offenderData[13].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
+        });
+
+        it('should have empty offender individual address if address field is empty', () => {
+            const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+            expect(offenderData[18].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
+        });
+
         it('should have prosecutor', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
             expect(offenderData[4].innerHTML).contains(prosecutor, 'Could not find the Prosecutor');
