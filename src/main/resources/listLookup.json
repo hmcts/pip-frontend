@@ -10,10 +10,20 @@
         "defaultSensitivity": ""
     },
     "SJP_PRESS_LIST": {
-        "friendlyName": "Single Justice Procedure Press List",
-        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad",
-        "shortenedFriendlyName": "SJP Press List",
+        "friendlyName": "Single Justice Procedure Press List (Full List)",
+        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)",
+        "shortenedFriendlyName": "SJP Press List (Full list)",
         "url": "sjp-press-list",
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
+        "restrictedProvenances": ["PI_AAD"],
+        "defaultSensitivity": "CLASSIFIED"
+    },
+    "SJP_DELTA_PRESS_LIST": {
+        "friendlyName": "Single Justice Procedure Press List (New Cases)",
+        "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)",
+        "shortenedFriendlyName": "SJP Press List (New cases)",
+        "url": "sjp-press-list-new-cases",
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": ["PI_AAD"],

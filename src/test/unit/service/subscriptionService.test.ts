@@ -759,7 +759,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
 
         const listKeysS = Object.keys(listOptions['S']);
-        expect(listKeysS).toEqual(['SJP_PRESS_LIST', 'SJP_PRESS_REGISTER', 'SJP_PUBLIC_LIST']);
+        expect(listKeysS).toEqual(['SJP_PRESS_LIST', 'SJP_DELTA_PRESS_LIST', 'SJP_PRESS_REGISTER', 'SJP_PUBLIC_LIST']);
     });
 
     it('Test sorting of lists in welsh', async () => {
@@ -779,6 +779,7 @@ describe('generateListTypesForCourts', () => {
             'SJP_PUBLIC_LIST',
             'CROWN_WARNED_LIST',
             'MAGISTRATES_STANDARD_LIST',
+            'SJP_DELTA_PRESS_LIST',
             'SJP_PRESS_LIST',
         ]);
     });
