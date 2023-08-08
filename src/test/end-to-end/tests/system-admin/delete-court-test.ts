@@ -21,10 +21,10 @@ Scenario(
 
         function tryToDeleteCourt() {
             I.fillField('#search-input', locationName);
-            I.click('Continue');
+            I.click('Continue', null, { noWaitAfter: true });
             I.waitForText('Are you sure you want to delete this court?');
             I.click('#delete-choice');
-            I.click('Continue');
+            I.click('Continue', null, { noWaitAfter: true });
             I.waitForText('There is a problem');
         }
 
@@ -70,10 +70,10 @@ Scenario(
         I.waitForText('Success');
         I.see('Court subscription(s) has been deleted');
 
-        I.click('Continue deletion of ' + locationName);
+        I.click('Continue deletion of ' + locationName, null, { noWaitAfter: true });
         I.waitForText('Are you sure you want to delete this court?');
         I.click('#delete-choice');
-        I.click('Continue');
+        I.click('Continue', null, { noWaitAfter: true });
         I.waitForText('Success');
         I.see('Court has been deleted');
         I.logout();
