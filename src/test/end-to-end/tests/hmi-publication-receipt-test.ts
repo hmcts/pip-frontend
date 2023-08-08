@@ -1,10 +1,9 @@
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 
 Feature('HMI publication receipt');
 
-Scenario('I should be able to confirm HMI publication is received successfully for the current date', async ({I}) => {
-
-    const dateYesterday = DateTime.now().minus({days: 1}).toFormat('dd MMMM yyyy');
+Scenario('I should be able to confirm HMI publication is received successfully for the current date', async ({ I }) => {
+    const dateYesterday = DateTime.now().minus({ days: 1 }).toFormat('dd MMMM yyyy');
     const locationName = 'HMI AUTOMATED TEST COURT';
 
     I.amOnPage('/search');
@@ -12,5 +11,5 @@ Scenario('I should be able to confirm HMI publication is received successfully f
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
-    I.see('Care Standards Tribunal Hearing List '+ dateYesterday);
-});
+    I.see('Care Standards Tribunal Hearing List ' + dateYesterday);
+}).tag('@Nightly');
