@@ -15,7 +15,7 @@ const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
 const summaryHeadingText = 'Important information';
-const expectedHeader = 'Care Standards Tribunal Hearing List';
+const expectedHeader = 'Tribunal Hearing List for Care Standards';
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/careStandardsList.json'), 'utf-8');
