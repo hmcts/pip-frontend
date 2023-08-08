@@ -13,9 +13,9 @@
 {% block content %}
   <div class="parent-box">
     <h2 id='page-heading' class="govuk-heading-l">
-      {{ courtName }}: {{ headerPart1 }}
+      {{ title }} for {{ courtName }}
       {% if bill %}
-        <br />/{{ courtName }}: {{ headerPart2 }}
+        <br />/{{ title }} for {{ courtName }}
       {% endif %}
     </h2>
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
