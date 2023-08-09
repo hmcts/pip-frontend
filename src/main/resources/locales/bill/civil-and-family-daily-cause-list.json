@@ -12,7 +12,7 @@
     "hearingDurationMinutes": "mins/munud",
     "time": "Time/Amser",
     "CaseRef": "Case ref/Cyfeirnod yr Achos",
-    "caseName": "Name of party or parties involved/Enw'r parti neu bartïon dan sylw",
+    "caseName": "Case name/Enw'r achos",
     "caseType": "Case type/Math o achos",
     "hearingType": "Hearing type/Math o wrandawiad",
     "location": "Location/Lleoliad",
