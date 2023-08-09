@@ -10,7 +10,7 @@
     "hearingDurationMinutes": "munud",
     "time": "Amser",
     "caseId": "Rhif adnabod yr achos",
-    "nameOfParty": "Enw'r parti neu'r partïon sy'n rhan o'r achos",
+    "caseName": "Enw'r achos",
     "hearingType": "Math o wrandawiad",
     "hearingPlatform": "Lleoliad",
     "duration": "Hyd",
