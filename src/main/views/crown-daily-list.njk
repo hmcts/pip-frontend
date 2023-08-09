@@ -23,12 +23,14 @@
     <p class="govuk-body">{{ draft }} {{ versionText }} {{ version }}</p><br/>
     <p class="govuk-body">
       {% for line in listData['venue']['venueAddress']['line'] %}
-        {{ line }}<br />
+        {% if line | trim | length %}
+            {{ line }}<br />
+        {% endif %}
       {% endfor %}
-      {% if listData['venue']['venueAddress']['town'] | length %}
+      {% if listData['venue']['venueAddress']['town'] | trim | length %}
         {{ listData['venue']['venueAddress']['town'] }}<br />
       {% endif %}
-      {% if listData['venue']['venueAddress']['county'] | length %}
+      {%- if listData['venue']['venueAddress']['county'] | trim | length %}
         {{ listData['venue']['venueAddress']['county'] }}<br />
       {% endif %}
       {{ listData['venue']['venueAddress']['postCode'] }}
