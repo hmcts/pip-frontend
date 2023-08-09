@@ -71,6 +71,7 @@ static Map<String, Object> secret(String secretName, String envVariable) {
 }
 
 withNightlyPipeline(type, product, component) {
+    env.BUILD_AGENT_TYPE = "arm"
     setupTestSecrets()
     enableFullFunctionalTest()
     enableCrossBrowserTest()
