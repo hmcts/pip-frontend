@@ -125,6 +125,16 @@ describe('Daily Cause List page', () => {
         expect(searchInput[0].innerHTML).contains('Search Cases');
     });
 
+    it('should display table headers', () => {
+        const header = htmlRes.getElementsByClassName('govuk-table__header');
+        expect(header[0].innerHTML).equals('Time');
+        expect(header[1].innerHTML).equals('Case ID');
+        expect(header[2].innerHTML).equals('Case name');
+        expect(header[3].innerHTML).equals('Hearing type');
+        expect(header[4].innerHTML).equals('Location');
+        expect(header[5].innerHTML).equals('Duration');
+    });
+
     it('should display Hearing time', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[0].innerHTML).contains('10:40');
@@ -135,17 +145,7 @@ describe('Daily Cause List page', () => {
         expect(cell[1].innerHTML).contains('12345678');
     });
 
-    it('should display Case Name', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('A1 Vs B1');
-    });
-
-    it('should display Case Sequence Indicator if it is there', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('[2 of 3]');
-    });
-
-    it('should display Case name with Case Sequence Indicator if it is there', () => {
+    it('should display Case name with Case Sequence Indicator', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[2].innerHTML).equal('A1 Vs B1 [2 of 3]');
     });

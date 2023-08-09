@@ -11,7 +11,7 @@
     "hearingDurationMinutes": "mins/munud",
     "time": "Time/Amser",
     "caseId": "Case ID/Rhif adnabod yr achos",
-    "nameOfParty": "Name of party or parties involved/Enw'r parti neu'r partïon sy'n rhan o'r achos",
+    "caseName": "Case name/Enw'r achos",
     "hearingType": "Hearing type/Math o wrandawiad",
     "hearingPlatform": "Location/Lleoliad",
     "duration": "Duration/Hyd",
