@@ -58,7 +58,7 @@ describe('IAC daily cause list page', () => {
 
     it('should display last updated text', () => {
         const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
-        expect(listUpdatedText.innerHTML).contains('Last Updated 31 August 2022 at 11am');
+        expect(listUpdatedText.innerHTML).contains('Last updated 31 August 2022 at 11am');
     });
 
     it('should display the search input box', () => {
