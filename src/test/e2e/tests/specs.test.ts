@@ -272,8 +272,6 @@ describe('Unverified user', () => {
                 expect(await sjpPressListPage.displayedFilters()).toBe(1);
             });
         });
-
-
     });
 
     describe('banner navigation', () => {
