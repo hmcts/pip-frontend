@@ -12,6 +12,7 @@ const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const paragraphClass = 'govuk-body';
+const accordionHeading = 'govuk-accordion__section-heading'
 const courtNameClass = 'site-address';
 
 const expectedHeader = 'In the Court of Protection';
@@ -77,6 +78,24 @@ describe('Cop daily cause list page', () => {
     it('should display the court name on the page', () => {
         const courtNameText = htmlRes.getElementsByClassName(courtNameClass)[0];
         expect(courtNameText.innerHTML).contains('Regional Venue North');
+    });
+
+    it('should display court room name and presiding judge only ', () => {
+        const courtRoomNameHeading = htmlRes.getElementsByClassName(accordionHeading)[0];
+        expect(courtRoomNameHeading.innerHTML).contains('Room 1, Before Crown Judge');
+        expect(courtRoomNameHeading.innerHTML).not.contains('Judge 1');
+        expect(courtRoomNameHeading.innerHTML).not.contains('Judge 2');
+    });
+
+    it('should display court room name and all judges if no presiding judge', () => {
+        const courtRoomNameHeading = htmlRes.getElementsByClassName(accordionHeading)[1];
+        expect(courtRoomNameHeading.innerHTML).contains('Room 2, Before Judge 1, Judge 2, Judge 3');
+    });
+
+    it('should display court room name only if no judiciary ', () => {
+        const courtRoomNameHeading = htmlRes.getElementsByClassName(accordionHeading)[2];
+        expect(courtRoomNameHeading.innerHTML).contains('Room 3');
+        expect(courtRoomNameHeading.innerHTML).not.contains('Before');
     });
 
     it('should display data source text', () => {
