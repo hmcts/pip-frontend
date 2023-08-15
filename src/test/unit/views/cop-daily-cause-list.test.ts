@@ -12,7 +12,7 @@ const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const paragraphClass = 'govuk-body';
-const accordionHeading = 'govuk-accordion__section-heading'
+const accordionHeading = 'govuk-accordion__section-heading';
 const courtNameClass = 'site-address';
 
 const expectedHeader = 'In the Court of Protection';
