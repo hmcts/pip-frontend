@@ -11,7 +11,7 @@
     "hearingDurationMinutes": "mins",
     "time": "Time",
     "CaseRef": "Case ref",
-    "caseName": "Name of party or parties involved",
+    "caseName": "Case name",
     "caseType": "Case type",
     "hearingType": "Hearing type",
     "location": "Location",
