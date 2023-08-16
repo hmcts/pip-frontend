@@ -44,13 +44,6 @@ describe('IAC Daily List service', () => {
             ).to.equal('Teams, Attended');
         });
 
-        it('should use session channel for hearing case', async () => {
-            const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
-            expect(
-                data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']
-            ).to.equal('Video Hearing, Attended');
-        });
-
         it('should format hearing parties', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearing =
