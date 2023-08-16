@@ -9,9 +9,6 @@
             "venueEmail": "a@b.com"
         }
     },
-    "locationDetails": {
-        "jurisdiction": "Tribunal"
-    },
     "courtLists": [
         {
             "courtListName": "Bail list",
@@ -91,7 +88,6 @@
                                                     },
                                                     {
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
                                                             "individualMiddleName": "Individual Middlename",
@@ -219,7 +215,6 @@
                                                     },
                                                     {
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
                                                             "individualMiddleName": "Individual Middlename",
@@ -346,7 +341,6 @@
                                                     },
                                                     {
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
                                                             "individualMiddleName": "Individual Middlename",
@@ -461,7 +455,6 @@
                                                     },
                                                     {
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
                                                             "individualMiddleName": "Individual Middlename",
@@ -531,7 +524,6 @@
                         "courtRoomName": "Room 3",
                         "session": [
                             {
-                                "sessionChannel": ["Video Hearing", "Attended"],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -626,7 +618,6 @@
                                 ]
                             },
                             {
-                                "sessionChannel": ["Video Hearing", "Attended"],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
