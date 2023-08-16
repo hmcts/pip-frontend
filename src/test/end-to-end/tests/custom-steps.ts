@@ -31,7 +31,7 @@ export = function () {
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in');
+            this.click('Sign in', null, { noWaitAfter: true });
         },
 
         loginAsCftUser: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {

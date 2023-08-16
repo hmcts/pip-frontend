@@ -124,16 +124,17 @@ export class TribunalNationalListsService {
      * Format and concatenate the venue name and address only if the venue name is not empty or null.
      */
     private formatVenueAddress(courtHouseName: string, courtHouseAddress: object): string {
-        let formattedVenueAddress = '';
-        if (/\S/.test(courtHouseName) && courtHouseName !== null) {
-            formattedVenueAddress = courtHouseName;
-            courtHouseAddress['line'].forEach(line => {
-                formattedVenueAddress += '\n' + line;
-            });
-            formattedVenueAddress += courtHouseAddress['town'] ? '\n' + courtHouseAddress['town'] : '';
-            formattedVenueAddress += courtHouseAddress['county'] ? '\n' + courtHouseAddress['county'] : '';
-            formattedVenueAddress += courtHouseAddress['postCode'] ? '\n' + courtHouseAddress['postCode'] : '';
+        const address = [];
+        address.push(courtHouseName);
+
+        if (courtHouseAddress) {
+            if (courtHouseAddress['line']) {
+                courtHouseAddress['line'].forEach(line => address.push(line));
+            }
+            address.push(courtHouseAddress['town'] ? courtHouseAddress['town'] : '');
+            address.push(courtHouseAddress['county'] ? courtHouseAddress['county'] : '');
+            address.push(courtHouseAddress['postCode'] ? courtHouseAddress['postCode'] : '');
         }
-        return formattedVenueAddress;
+        return address.filter(line => line.trim().length > 0).join('\n');
     }
 }
