@@ -9,6 +9,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { SscsDailyListService } from '../../../main/service/listManipulation/SscsDailyListService';
 import { HttpStatusCode } from 'axios';
+import { describe } from '@jest/globals';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
