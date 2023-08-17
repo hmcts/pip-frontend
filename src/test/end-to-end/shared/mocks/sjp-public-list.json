@@ -1,0 +1,315 @@
+{
+    "document": {
+        "publicationDate": "2022-03-25T23:30:52.123Z",
+        "version": "<O8|jZo>",
+        "documentName": "Uh"
+    },
+    "courtLists": [
+        {
+            "courtHouse": {
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sittings": [
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "TV Licensing",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "CDFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Use / install a television set without a licence"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Driver and Vehicle Licensing Agency",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "CFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Keep a vehicle without a valid vehicle licence"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Hampshire Police",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "ECFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Participate in gathering of two or more people in other outdoor place in Tier 4 area"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Hampshire Police",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "HFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Participate in gathering of more than two people in public outdoor place in Tier 4 area"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "TV Licensing",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "KFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Use / install a television set without a licence"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Driver and Vehicle Licensing Agency",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "PFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Keep a vehicle without a valid vehicle licence"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Transport for London",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "ZFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Enter a compulsory ticket area on the Transport for London regional railway network without a valid ticket"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "sittings": [
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "TV Licensing",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "CDFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Use / install a television set without a licence"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Driver and Vehicle Licensing Agency",
+                                                            "individualSurname": "test"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Z",
+                                                            "individualSurname": "CFake",
+                                                            "address": {
+                                                                "town": "Bradford",
+                                                                "county": "Yorkshire",
+                                                                "postCode": "BD17"
+                                                            }
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "Keep a vehicle without a valid vehicle licence"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
