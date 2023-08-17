@@ -26,7 +26,8 @@ describe('Cft Login Controller', () => {
             .once()
             .withArgs(
                 'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
-                    redirectUri + "&ui_locales=en"
+                    redirectUri +
+                    '&ui_locales=en'
             );
 
         await cftLoginController.get(request, response);
@@ -42,11 +43,11 @@ describe('Cft Login Controller', () => {
             .once()
             .withArgs(
                 'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
-                redirectUri + "&ui_locales=cy"
+                    redirectUri +
+                    '&ui_locales=cy'
             );
 
         await cftLoginController.get(request, response);
         return responseMock.verify();
     });
-
 });
