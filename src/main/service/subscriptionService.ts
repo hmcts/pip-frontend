@@ -408,9 +408,7 @@ export class SubscriptionService {
     }
 
     private getListLocalisedName(listType, language): string {
-        return language === 'en'
-            ? listType.friendlyName
-            : `${listType.friendlyName}\n${listType.welshFriendlyName}`
+        return language === 'en' ? listType.friendlyName : `${listType.friendlyName}\n${listType.welshFriendlyName}`;
     }
 
     private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {

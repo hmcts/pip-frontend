@@ -162,7 +162,10 @@ describe('Subscription Configure List', () => {
             expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
             expect(checkboxes[2]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
             expect(checkboxes[3]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[4]['value']).contains('SJP_DELTA_PRESS_LIST', 'Could not find SJP delta press list checkbox');
+            expect(checkboxes[4]['value']).contains(
+                'SJP_DELTA_PRESS_LIST',
+                'Could not find SJP delta press list checkbox'
+            );
             expect(checkboxes[5]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
             expect(checkboxes[6]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
         });
@@ -198,20 +201,25 @@ describe('Subscription Configure List', () => {
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
             expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
-            expect(tableRows[0].innerHTML)
-                .contains('Select Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu');
-            expect(tableRows[1].innerHTML)
-                .contains('Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil');
-            expect(tableRows[2].innerHTML)
-                .contains('Court of Protection Daily Cause List\nRhestr Achosion Dyddiol y Llys Gwarchod');
-            expect(tableRows[3].innerHTML)
-                .contains('Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)');
-            expect(tableRows[4].innerHTML)
-                .contains('Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)');
-            expect(tableRows[5].innerHTML)
-                .contains('Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad');
-            expect(tableRows[6].innerHTML)
-                .contains('Single Justice Procedure Public List\nRhestr Gyhoeddus Y Weithdrefn Un Ynad');
+            expect(tableRows[0].innerHTML).contains(
+                'Select Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu'
+            );
+            expect(tableRows[1].innerHTML).contains('Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil');
+            expect(tableRows[2].innerHTML).contains(
+                'Court of Protection Daily Cause List\nRhestr Achosion Dyddiol y Llys Gwarchod'
+            );
+            expect(tableRows[3].innerHTML).contains(
+                'Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)'
+            );
+            expect(tableRows[4].innerHTML).contains(
+                'Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)'
+            );
+            expect(tableRows[5].innerHTML).contains(
+                'Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad'
+            );
+            expect(tableRows[6].innerHTML).contains(
+                'Single Justice Procedure Public List\nRhestr Gyhoeddus Y Weithdrefn Un Ynad'
+            );
         });
 
         it('should display expected subscription list type checkboxes', () => {
@@ -224,7 +232,10 @@ describe('Subscription Configure List', () => {
             expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
             expect(checkboxes[2]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
             expect(checkboxes[3]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[4]['value']).contains('SJP_DELTA_PRESS_LIST', 'Could not find SJP delta press list checkbox');
+            expect(checkboxes[4]['value']).contains(
+                'SJP_DELTA_PRESS_LIST',
+                'Could not find SJP delta press list checkbox'
+            );
             expect(checkboxes[5]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
             expect(checkboxes[6]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
         });
