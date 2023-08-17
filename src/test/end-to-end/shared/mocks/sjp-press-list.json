@@ -1,0 +1,186 @@
+{
+    "document": {
+        "publicationDate": "2016-09-13T23:30:52.123Z",
+        "version": "v1",
+        "documentName": "Document Name"
+    },
+    "courtLists": [
+        {
+            "courtHouse": {
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sittings": [
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Test",
+                                                            "individualSurname": "Name",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "age": 200,
+                                                            "address": {
+                                                                "line": ["Line 1", "Line 2"],
+                                                                "town": "Test Town",
+                                                                "county": "Test County",
+                                                                "postCode": "TEST POSTCODE"
+                                                            }
+                                                        },
+                                                        "organisationDetails": {
+                                                            "organisationName": "Organisation Name"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Organisation Name"
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "This is an offence title",
+                                                        "offenceWording": "This is offence wording",
+                                                        "reportingRestriction": true,
+                                                        "formattedReportingRestriction": "True"
+                                                    }
+                                                ],
+                                                "case": [
+                                                    {
+                                                        "caseUrn": "Case URN"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "hearing": [
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Accused's org name",
+                                                            "organisationAddress": {
+                                                                "county": "London",
+                                                                "postCode": "TEST POSTCODE",
+                                                                "town": "London"
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Organisation Name"
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "This is an offence title",
+                                                        "offenceWording": "This is offence wording",
+                                                        "reportingRestriction": true,
+                                                        "formattedReportingRestriction": "True"
+                                                    },
+                                                    {
+                                                        "offenceTitle": "Another offence title",
+                                                        "offenceWording": "Another offence wording",
+                                                        "reportingRestriction": true
+                                                    }
+                                                ],
+                                                "case": [
+                                                    {
+                                                        "caseUrn": "ABC12345"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Organisation Name"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Name",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "age": 200,
+                                                            "title": "Mr",
+                                                            "individualMiddleName": "M"
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "This is an offence title",
+                                                        "offenceWording": "This is offence wording",
+                                                        "reportingRestriction": true,
+                                                        "formattedReportingRestriction": "True"
+                                                    },
+                                                    {
+                                                        "offenceTitle": "Another offence title",
+                                                        "offenceWording": "Another offence wording",
+                                                        "reportingRestriction": true
+                                                    }
+                                                ],
+                                                "case": [
+                                                    {
+                                                        "caseUrn": "ABC12346"
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Organisation Name"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "ACCUSED",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Test",
+                                                            "dateOfBirth": "01/01/1801",
+                                                            "age": 200,
+                                                            "address": {}
+                                                        }
+                                                    }
+                                                ],
+                                                "offence": [
+                                                    {
+                                                        "offenceTitle": "This is an offence title",
+                                                        "offenceWording": "This is offence wording",
+                                                        "reportingRestriction": true,
+                                                        "formattedReportingRestriction": "True"
+                                                    },
+                                                    {
+                                                        "offenceTitle": "Another offence title",
+                                                        "offenceWording": "Another offence wording",
+                                                        "reportingRestriction": true
+                                                    }
+                                                ],
+                                                "case": [
+                                                    {
+                                                        "caseUrn": "ABC12347"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}
