@@ -52,11 +52,13 @@
           <div class="govuk-accordion__section govuk-accordion__section--expanded">
             <div class="govuk-accordion__section-header">
               <h2 class="govuk-accordion__section-heading">
-            <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
-              {% if session['formattedJudiciary'] | length %}
-                {{ beforeHon }} {{ session['formattedJudiciary'] }}
-              {% endif %}
-            </span>
+                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sessionCount }}">
+                {% if session['formattedJudiciary'] | length %}
+                  {{ courtRoom['courtRoomName'] }}, {{ beforeHon }} {{ session['formattedJudiciary'] }}
+                {% else %}
+                  {{ courtRoom['courtRoomName'] }}
+                {% endif %}
+                </span>
               </h2>
             </div>
 
