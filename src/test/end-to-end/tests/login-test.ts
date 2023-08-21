@@ -117,17 +117,35 @@ Scenario('I as a media user should be able to see the beta tag and feedback link
     I.seeBetaFeedbackOnPage('b2c/reset-pw');
 });
 
-Scenario('I as a CFT user should be able to sign-in with the valid credentials', async ({ I }) => {
+Scenario('I as a CFT user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCftUser();
     I.waitForText('Your account');
     I.logout();
 }).tag('@CrossBrowser');
 
-Scenario('I as a CFT user should be able to see proper error message when email is invalid', async ({ I }) => {
-    I.loginAsCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
+Scenario('I as a CFT user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
+    I.loginAsCftUserInWelsh();
+    I.waitForText('eich cyfrif');
+    I.logoutWelsh();
+}).tag('@CrossBrowser');
+
+Scenario(
+    'I as a CFT user should be able to see proper error message when email is invalid in English',
+    async ({ I }) => {
+        I.loginAsCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
+        I.waitForText(
+            'You have successfully signed into your MyHMCTS account. Unfortunately, ' +
+                'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+        );
+    }
+).tag('@CrossBrowser');
+
+Scenario('I as a CFT user should be able to see proper error message when email is invalid in Welsh', async ({ I }) => {
+    I.loginAsCftUserInWelsh(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
     I.waitForText(
-        'You have successfully signed into your MyHMCTS account. Unfortunately, ' +
-            'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+        'Rydych wedi mewngofnodi’n llwyddiannus i’ch cyfrif MyHMCTS. Yn anffodus, nid yw rôl eich cyfrif yn ' +
+            'galluogi ichi gael mynediad at y rhan o wasanaeth gwrandawiadau’r llysoedd a’r tribiwnlysoedd ar ' +
+            'gyfer defnyddwyr sydd wedi eu dilysu.'
     );
 }).tag('@CrossBrowser');
 
