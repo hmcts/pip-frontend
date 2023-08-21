@@ -1076,6 +1076,61 @@ describe('generateListTypesForCourts', () => {
         expect(magistratesFilter['checked']).toBeFalsy();
     });
 
+    it('retrieve subscription channels', async () => {
+        const subscriptionChannelStub = sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels');
+        subscriptionChannelStub.resolves(['CHANNEL_A', 'CHANNEL_B']);
+
+        const retrievedChannels = await subscriptionService.retrieveChannels();
+
+        expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+    });
+});
+
+describe('generate case table rows', () => {
+    it('should generate case table rows when language is English', async () => {
+        const mockSubscriptionData = [
+            {
+                subscriptionId: 99,
+                caseName: 'myCaseName',
+                partyNames: null,
+                caseNumber: '1234',
+                searchType: 'CASE_ID',
+                dateAdded: '2023-04-01T16:49:26.607904'
+            }
+        ];
+        const results = await subscriptionService.generateCaseTableRows(mockSubscriptionData, 'en');
+
+        expect(results.length).toEqual(1);
+        expect(results[0].subscriptionId).toEqual(99);
+        expect(results[0].caseName).toEqual('myCaseName');
+        expect(results[0].partyNames).toEqual('');
+        expect(results[0].caseRef).toEqual('1234');
+        expect(results[0].date).toEqual('01 April 2023');
+    });
+
+    it('should generate case table rows when language is Welsh', async () => {
+        const mockSubscriptionData = [
+            {
+                subscriptionId: 99,
+                caseName: 'myCaseName',
+                partyNames: null,
+                caseNumber: '1234',
+                searchType: 'CASE_ID',
+                dateAdded: '2023-04-01T16:49:26.607904'
+            }
+        ];
+        const results = await subscriptionService.generateCaseTableRows(mockSubscriptionData, 'cy');
+
+        expect(results.length).toEqual(1);
+        expect(results[0].subscriptionId).toEqual(99);
+        expect(results[0].caseName).toEqual('myCaseName');
+        expect(results[0].partyNames).toEqual('');
+        expect(results[0].caseRef).toEqual('1234');
+        expect(results[0].date).toEqual('01 Ebrill 2023');
+    });
+});
+
+describe('generate location table rows', () => {
     it('should generate location table rows when language is English', async () => {
         locationStub.withArgs(1).resolves(mockCourt);
         const mockSubscriptionData = [{ locationId: 1, subscriptionId: 99, dateAdded: '2023-05-31T16:49:26.607904' }];
@@ -1095,16 +1150,7 @@ describe('generateListTypesForCourts', () => {
         expect(results.length).toEqual(1);
         expect(results[0].subscriptionId).toEqual(99);
         expect(results[0].locationName).toEqual('Welsh court name test');
-        expect(results[0].date).toEqual('31 May 2023');
-    });
-
-    it('retrieve subscription channels', async () => {
-        const subscriptionChannelStub = sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels');
-        subscriptionChannelStub.resolves(['CHANNEL_A', 'CHANNEL_B']);
-
-        const retrievedChannels = await subscriptionService.retrieveChannels();
-
-        expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+        expect(results[0].date).toEqual('31 Mai 2023');
     });
 });
 

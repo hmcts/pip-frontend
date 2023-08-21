@@ -16,6 +16,7 @@ const filterService = new FilterService();
 const locationService = new LocationService();
 
 const timeZone = 'Europe/London';
+const dateFormat = 'dd MMMM yyyy';
 
 const locationSubscriptionSorter = (a, b) => {
     if (a.locationName > b.locationName) {
@@ -58,7 +59,7 @@ const caseSubscriptionSorter = (a, b) => {
 export class SubscriptionService {
     public async getSubscriptionDataForView(userId: string, language: string, tab: string): Promise<object> {
         const subscriptionData = await this.getSubscriptionsByUser(userId);
-        const caseTableData = await this.generateCaseTableRows(subscriptionData.caseSubscriptions);
+        const caseTableData = await this.generateCaseTableRows(subscriptionData.caseSubscriptions, language);
         const locationTableData = await this.generateLocationTableRows(
             subscriptionData.locationSubscriptions,
             language
@@ -101,12 +102,12 @@ export class SubscriptionService {
               };
     }
 
-    async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
+    async generateCaseTableRows(subscriptionDataCases, language): Promise<any[]> {
         const caseRows = [];
         if (subscriptionDataCases.length) {
             subscriptionDataCases.sort(caseSubscriptionSorter);
             subscriptionDataCases.forEach(subscription => {
-                caseRows.push(this.generateCaseTableRow(subscription));
+                caseRows.push(this.generateCaseTableRow(subscription, language));
             });
         }
 
@@ -119,15 +120,13 @@ export class SubscriptionService {
             subscriptionDataCourts.sort(locationSubscriptionSorter);
             for (const subscription of subscriptionDataCourts) {
                 const location = await locationService.getLocationById(subscription.locationId);
-                const locationName = language === 'cy' ? location.welshName : location.name;
-
-                courtRows.push(this.generateLocationTableRow(locationName, subscription));
+                courtRows.push(this.generateLocationTableRow(location, subscription, language));
             }
         }
         return courtRows;
     }
 
-    private generateCaseTableRow(subscription): any {
+    private generateCaseTableRow(subscription, language): any {
         const caseName = subscription.caseName === null ? '' : subscription.caseName;
         const partyNames = subscription.partyNames === null ? '' : subscription.partyNames.split(',').join(',\n');
         let caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
@@ -138,15 +137,19 @@ export class SubscriptionService {
             caseName: caseName,
             partyNames: partyNames,
             caseRef: caseRef,
-            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy'),
+            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone })
+                .setLocale(language)
+                .toFormat(dateFormat),
         };
     }
 
-    private generateLocationTableRow(locationName, subscription): any {
+    private generateLocationTableRow(location, subscription, language): any {
         return {
             subscriptionId: subscription.subscriptionId,
-            locationName: locationName,
-            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy'),
+            locationName: language === 'cy' ? location.welshName : location.name,
+            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone })
+                .setLocale(language)
+                .toFormat('dd MMMM yyyy'),
         };
     }
 
