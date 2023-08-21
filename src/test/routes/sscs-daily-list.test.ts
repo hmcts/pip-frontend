@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
+import { describe } from '@jest/globals';
 
 import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';

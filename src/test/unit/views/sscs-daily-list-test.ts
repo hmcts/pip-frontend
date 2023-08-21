@@ -7,6 +7,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { describe } from '@jest/globals';
 
 const userId = '1234';
 const sscDailyListUrl = '/sscs-daily-list';
