@@ -16,6 +16,7 @@ const filterService = new FilterService();
 const locationService = new LocationService();
 
 const timeZone = 'Europe/London';
+const dateFormat = 'dd MMMM yyyy';
 
 const locationSubscriptionSorter = (a, b) => {
     if (a.locationName > b.locationName) {
@@ -58,7 +59,7 @@ const caseSubscriptionSorter = (a, b) => {
 export class SubscriptionService {
     public async getSubscriptionDataForView(userId: string, language: string, tab: string): Promise<object> {
         const subscriptionData = await this.getSubscriptionsByUser(userId);
-        const caseTableData = await this.generateCaseTableRows(subscriptionData.caseSubscriptions);
+        const caseTableData = await this.generateCaseTableRows(subscriptionData.caseSubscriptions, language);
         const locationTableData = await this.generateLocationTableRows(
             subscriptionData.locationSubscriptions,
             language
@@ -101,12 +102,12 @@ export class SubscriptionService {
               };
     }
 
-    async generateCaseTableRows(subscriptionDataCases): Promise<any[]> {
+    async generateCaseTableRows(subscriptionDataCases, language): Promise<any[]> {
         const caseRows = [];
         if (subscriptionDataCases.length) {
             subscriptionDataCases.sort(caseSubscriptionSorter);
             subscriptionDataCases.forEach(subscription => {
-                caseRows.push(this.generateCaseTableRow(subscription));
+                caseRows.push(this.generateCaseTableRow(subscription, language));
             });
         }
 
@@ -119,15 +120,13 @@ export class SubscriptionService {
             subscriptionDataCourts.sort(locationSubscriptionSorter);
             for (const subscription of subscriptionDataCourts) {
                 const location = await locationService.getLocationById(subscription.locationId);
-                const locationName = language === 'cy' ? location.welshName : location.name;
-
-                courtRows.push(this.generateLocationTableRow(locationName, subscription));
+                courtRows.push(this.generateLocationTableRow(location, subscription, language));
             }
         }
         return courtRows;
     }
 
-    private generateCaseTableRow(subscription): any {
+    private generateCaseTableRow(subscription, language): any {
         const caseName = subscription.caseName === null ? '' : subscription.caseName;
         const partyNames = subscription.partyNames === null ? '' : subscription.partyNames.split(',').join(',\n');
         let caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
@@ -138,15 +137,19 @@ export class SubscriptionService {
             caseName: caseName,
             partyNames: partyNames,
             caseRef: caseRef,
-            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy'),
+            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone })
+                .setLocale(language)
+                .toFormat(dateFormat),
         };
     }
 
-    private generateLocationTableRow(locationName, subscription): any {
+    private generateLocationTableRow(location, subscription, language): any {
         return {
             subscriptionId: subscription.subscriptionId,
-            locationName: locationName,
-            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).toFormat('dd MMMM yyyy'),
+            locationName: language === 'cy' ? location.welshName : location.name,
+            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone })
+                .setLocale(language)
+                .toFormat('dd MMMM yyyy'),
         };
     }
 
@@ -369,7 +372,7 @@ export class SubscriptionService {
             filterValues = filterService.handleFilterClear(filterValues, clearQuery);
         }
 
-        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole, language);
+        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
 
         return {
             listOptions: this.generateAlphabetisedListTypes(filterValues, applicableListTypes, language),
@@ -380,11 +383,9 @@ export class SubscriptionService {
     private generateAlphabetisedListTypes(filterValues, applicableListTypes, language) {
         const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
 
-        const languageProperty = language === 'en' ? 'friendlyName' : 'welshFriendlyName';
-
         if (filterValues.length == 0) {
             for (const [listName, listType] of applicableListTypes) {
-                const listLocalisedName = listType[languageProperty];
+                const listLocalisedName = this.getListLocalisedName(listType, language);
                 alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
                     listFriendlyName: listLocalisedName,
                     checked: listType.checked,
@@ -392,12 +393,12 @@ export class SubscriptionService {
             }
         } else {
             for (const [listName, listType] of applicableListTypes) {
+                const listLocalisedName = this.getListLocalisedName(listType, language);
                 const hidden =
                     language === 'en'
                         ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
                         : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
 
-                const listLocalisedName = listType[languageProperty];
                 alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
                     listFriendlyName: listLocalisedName,
                     checked: listType.checked,
@@ -409,7 +410,11 @@ export class SubscriptionService {
         return alphabetisedListTypes;
     }
 
-    private async generateAppropriateListTypes(userId, userRole, language): Promise<Map<string, ListType>> {
+    private getListLocalisedName(listType, language): string {
+        return language === 'en' ? listType.friendlyName : `${listType.friendlyName}\n${listType.welshFriendlyName}`;
+    }
+
+    private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
         const listTypes = publicationService.getListTypes();
 
@@ -426,10 +431,8 @@ export class SubscriptionService {
             }
         }
 
-        const comparatorValue = language === 'en' ? 'friendlyName' : 'welshFriendlyName';
-
         const sortedListTypes = new Map(
-            [...listTypes].sort((a, b) => a[1][comparatorValue].localeCompare(b[1][comparatorValue]))
+            [...listTypes].sort((a, b) => a[1]['friendlyName'].localeCompare(b[1]['friendlyName']))
         );
 
         const applicableListTypes = new Map();

@@ -44,6 +44,17 @@ export = function () {
             this.click('Sign in');
         },
 
+        loginAsCftUserInWelsh: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
+            this.amOnPage('/sign-in');
+            this.click('Cymraeg');
+            this.click('Gyda chyfrif MyHMCTS');
+            this.click('Parhau');
+            this.see('Mewngofnodi');
+            this.fillField('#username', secret(username));
+            this.fillField('#password', secret(password));
+            this.click('Mewngofnodi');
+        },
+
         seeBetaFeedbackOnPage: function (page) {
             this.see('BETA');
             this.click('feedback');
@@ -53,6 +64,11 @@ export = function () {
         logout: function () {
             this.click('Sign out');
             this.see('You have been signed out');
+        },
+
+        logoutWelsh: function () {
+            this.click('Allgofnodi');
+            this.see('Rydych wedi cael eich allgofnodi');
         },
 
         createAdminAccount: function (firstName, lastName, email, role) {

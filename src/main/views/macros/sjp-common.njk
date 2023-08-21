@@ -86,6 +86,9 @@
         <form method="post" action="{{ url }}?artefactId={{ artefactId }}" class="moj-filter-layout__filter layout-width-four-fifths"
               autocomplete="off">
             {{ mojFilter({
+                submit: {
+                    text: filter.applyFilters
+                },
                 heading: {
                     text: filter.heading
                 },
@@ -241,8 +244,5 @@
         }
 
         document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
-
-        // Replace apply filters button with localisation text as currently unconfigurable
-        document.getElementsByClassName("moj-filter-layout__filter")[0].getElementsByTagName("button")[0].innerHTML = '{{ filter.applyFilters }}';
     </script>
 {% endmacro %}
