@@ -372,7 +372,7 @@ export class SubscriptionService {
             filterValues = filterService.handleFilterClear(filterValues, clearQuery);
         }
 
-        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole, language);
+        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
 
         return {
             listOptions: this.generateAlphabetisedListTypes(filterValues, applicableListTypes, language),
@@ -383,11 +383,9 @@ export class SubscriptionService {
     private generateAlphabetisedListTypes(filterValues, applicableListTypes, language) {
         const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
 
-        const languageProperty = language === 'en' ? 'friendlyName' : 'welshFriendlyName';
-
         if (filterValues.length == 0) {
             for (const [listName, listType] of applicableListTypes) {
-                const listLocalisedName = listType[languageProperty];
+                const listLocalisedName = this.getListLocalisedName(listType, language);
                 alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
                     listFriendlyName: listLocalisedName,
                     checked: listType.checked,
@@ -395,12 +393,12 @@ export class SubscriptionService {
             }
         } else {
             for (const [listName, listType] of applicableListTypes) {
+                const listLocalisedName = this.getListLocalisedName(listType, language);
                 const hidden =
                     language === 'en'
                         ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
                         : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
 
-                const listLocalisedName = listType[languageProperty];
                 alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
                     listFriendlyName: listLocalisedName,
                     checked: listType.checked,
@@ -412,7 +410,11 @@ export class SubscriptionService {
         return alphabetisedListTypes;
     }
 
-    private async generateAppropriateListTypes(userId, userRole, language): Promise<Map<string, ListType>> {
+    private getListLocalisedName(listType, language): string {
+        return language === 'en' ? listType.friendlyName : `${listType.friendlyName}\n${listType.welshFriendlyName}`;
+    }
+
+    private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
         const listTypes = publicationService.getListTypes();
 
@@ -429,10 +431,8 @@ export class SubscriptionService {
             }
         }
 
-        const comparatorValue = language === 'en' ? 'friendlyName' : 'welshFriendlyName';
-
         const sortedListTypes = new Map(
-            [...listTypes].sort((a, b) => a[1][comparatorValue].localeCompare(b[1][comparatorValue]))
+            [...listTypes].sort((a, b) => a[1]['friendlyName'].localeCompare(b[1]['friendlyName']))
         );
 
         const applicableListTypes = new Map();
