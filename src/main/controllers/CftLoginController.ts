@@ -8,6 +8,7 @@ export default class CftLoginController {
             client_id: 'app-pip-frontend',
             response_type: 'code',
             redirect_uri: FRONTEND_URL + '/cft-login/return',
+            ui_locales: req.lng,
         });
 
         res.redirect(CFT_IDAM_URL + '?' + params.toString());
