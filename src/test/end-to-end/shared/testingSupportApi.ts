@@ -227,7 +227,7 @@ export const createTestUserAccount = async (
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(`Create verified user account failed for: ${email}, http-status: ${e.response?.status}`);
+            throw new Error(`Create test user account failed for: ${email}, http-status: ${e.response?.status}`);
         }
     }
 };
