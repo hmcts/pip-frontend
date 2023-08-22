@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
-import {createLocation, createTestUserAccount, uploadPublication} from '../../shared/testingSupportApi';
+import { createLocation, createTestUserAccount, uploadPublication } from '../../shared/testingSupportApi';
 import { randomData } from '../../shared/random-data';
-import {config as testConfig, config} from '../../../config';
+import { config as testConfig, config } from '../../../config';
 
 Feature('Verified user email subscriptions');
 
@@ -32,7 +32,7 @@ Scenario(
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         const testUserEmail = randomData.getRandomEmailAddress();
 
-        const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME,testUserEmail);
+        const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
         await createLocation(locationId, locationName);
         await uploadPublication(
             'PUBLIC',
@@ -44,7 +44,7 @@ Scenario(
             'ET_DAILY_LIST'
         );
 
-        I.loginAsMediaUser(testUser['email'],testConfig.TEST_USER_PASSWORD);
+        I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
         I.waitForText('Your account');
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
@@ -213,7 +213,7 @@ Scenario(
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         const testUserEmail = randomData.getRandomEmailAddress();
 
-        const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME,testUserEmail);
+        const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
         await createLocation(locationId, locationName);
 
         await uploadPublication(
@@ -226,7 +226,7 @@ Scenario(
             'ET_DAILY_LIST'
         );
 
-        I.loginAsMediaUser(testUser['email'],testConfig.TEST_USER_PASSWORD);
+        I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
         I.waitForText('Your account');
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
@@ -312,9 +312,9 @@ Scenario('I as a verified user should be able to filter and select which list ty
     const testUserEmail = randomData.getRandomEmailAddress();
 
     await createLocation(locationId, locationName);
-    const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME,testUserEmail);
+    const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
 
-    I.loginAsMediaUser(testUser['email'],testConfig.TEST_USER_PASSWORD);
+    I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
     I.waitForText('Your account');
     I.click('#card-subscription-management');
     I.waitForText('Your email subscriptions');

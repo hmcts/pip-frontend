@@ -1,6 +1,6 @@
-import {config as testConfig} from '../../../config';
-import {randomData} from '../../shared/random-data';
-import {createTestUserAccount} from "../../shared/testingSupportApi";
+import { config as testConfig } from '../../../config';
+import { randomData } from '../../shared/random-data';
+import { createTestUserAccount } from '../../shared/testingSupportApi';
 
 Feature('Manage admin user accounts');
 
@@ -9,8 +9,7 @@ const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
 const TEST_ROLE = 'INTERNAL_ADMIN_LOCAL';
 const TEST_INVALID_EMAIL = 'invalid_email@justice.gov.uk';
 
-Scenario('I as an admin user should be able to modify a user account', async ({I}) => {
-
+Scenario('I as an admin user should be able to modify a user account', async ({ I }) => {
     const testEmail = randomData.getRandomEmailAddress();
     await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
 
@@ -54,10 +53,9 @@ Scenario('I as an admin user should be able to modify a user account', async ({I
     I.selectOption('updatedRole', 'CTSC Admin');
     I.click('Continue');
     I.waitForText('User Updated');
-
 }).tag('@CrossBrowser');
 
-Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({I}) => {
+Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({ I }) => {
     I.loginAsAdmin();
     I.waitForText('Your Dashboard');
 
