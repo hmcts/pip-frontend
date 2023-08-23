@@ -33,7 +33,8 @@ def setupTestSecrets() {
             secret('test-system-admin-id', 'SYSTEM_ADMIN_USER_ID'),
             secret('app-tenant', 'TENANT_ID'),
             secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
-            secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL')
+            secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL'),
+            secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD')
         ]) {
         env.B2C_USERNAME = "${B2C_USERNAME}"
         env.B2C_PASSWORD = "${B2C_PASSWORD}"
@@ -54,6 +55,7 @@ def setupTestSecrets() {
         env.TENANT_ID = "${TENANT_ID}"
         env.CLIENT_ID_INTERNAL = "${CLIENT_ID_INTERNAL}"
         env.CLIENT_SECRET_INTERNAL = "${CLIENT_SECRET_INTERNAL}"
+        env.TEST_USER_PASSWORD = "${TEST_USER_PASSWORD}"
     }
 }
 
