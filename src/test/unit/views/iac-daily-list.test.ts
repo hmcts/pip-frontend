@@ -74,9 +74,9 @@ describe('IAC daily cause list page', () => {
 
     it('should display the court room name on the page', () => {
         const courtRoomText = htmlRes.getElementsByClassName(courtRoomClass);
-        expect(courtRoomText[0].innerHTML).contains('Room 1, Before Judge Jacobs');
-        expect(courtRoomText[1].innerHTML).contains('Room 1, Before Magistrate Patel');
-        expect(courtRoomText[2].innerHTML).contains('Room 2, Before Judge Mummy');
+        expect(courtRoomText[0].innerHTML).contains('Room 1, Before Judge Test Name');
+        expect(courtRoomText[1].innerHTML).contains('Room 1, Before Magistrate Test Name');
+        expect(courtRoomText[2].innerHTML).contains('Room 2, Before Judge Test Name');
         expect(courtRoomText[3].innerHTML).contains('Room 2');
         expect(courtRoomText[4].innerHTML).contains('Hearing Room: Room 3');
     });
