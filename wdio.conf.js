@@ -1,9 +1,3 @@
-const drivers = {
-    chromiumedge: { version: 'latest' },
-    chrome: { version: '116.0.5845.110' },
-    firefox: { version: 'latest' },
-};
-
 const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
 
 exports.config = {
@@ -137,13 +131,6 @@ exports.config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: [
-        [
-            'selenium-standalone',
-            {
-                installArgs: { drivers },
-                args: { drivers },
-            },
-        ],
         [TimelineService],
     ],
 
