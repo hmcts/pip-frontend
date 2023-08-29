@@ -2,7 +2,7 @@ const drivers = {
     chromiumedge: { version: 'latest' },
     chrome: {
         fullUrl:
-            'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.102/linux64/chrome-linux64.zip',
+            'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/linux64/chrome-linux64.zip',
     },
     firefox: { version: 'latest' },
 };
