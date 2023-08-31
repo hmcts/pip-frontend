@@ -26,14 +26,14 @@ describe('IAC Daily List service', () => {
         it('should format single judiciary', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciary']).to.equal(
-                'Judge Jacobs'
+                'Judge Test Name'
             );
         });
 
         it('should format multiple judiciaries', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             expect(data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciary']).to.equal(
-                'Judge Jacobs, Magistrate Jones, Magistrate Patel'
+                'Judge Test Name, Magistrate Test Name, Magistrate Another Test Name'
             );
         });
 
@@ -44,38 +44,33 @@ describe('IAC Daily List service', () => {
             ).to.equal('Teams, Attended');
         });
 
-        it('should use session channel for hearing case', async () => {
-            const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
-            expect(
-                data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['caseHearingChannel']
-            ).to.equal('Video Hearing, Attended');
-        });
-
         it('should format hearing parties', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearing =
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
-            expect(hearing['appellant']).to.equal('Mr Steve M Taylor');
-            expect(hearing['appellantRepresentative']).to.equal('JCT Law Centre');
-            expect(hearing['prosecutingAuthority']).to.equal('Entry Clearance Officer');
+            expect(hearing['appellant']).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
+            expect(hearing['appellantRepresentative']).to.equal('Test Name');
+            expect(hearing['prosecutingAuthority']).to.equal('Test Name');
         });
 
         it('should format hearing parties with no appellant representative', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearing =
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1];
-            expect(hearing['appellant']).to.equal('Mr Steve M Taylor');
+            expect(hearing['appellant']).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
             expect(hearing['appellantRepresentative']).to.equal('');
-            expect(hearing['prosecutingAuthority']).to.equal('Entry Clearance Officer');
+            expect(hearing['prosecutingAuthority']).to.equal('Test Name');
         });
 
         it('should format hearing parties with multiple appellants and respondents', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearing =
                 data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
-            expect(hearing['appellant']).to.equal('Mr Steve M Taylor, Mrs Rose Taylor');
-            expect(hearing['appellantRepresentative']).to.equal('JCT Law Centre');
-            expect(hearing['prosecutingAuthority']).to.equal('Entry Clearance Officer, Secretary of State');
+            expect(hearing['appellant']).to.equal(
+                'Mr Individual Forenames Individual Middlename Individual Surname, Mrs Individual Forenames Individual Surname'
+            );
+            expect(hearing['appellantRepresentative']).to.equal('Test Name');
+            expect(hearing['prosecutingAuthority']).to.equal('Test Name, Test Name');
         });
 
         it('should format single linked case', async () => {
