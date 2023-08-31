@@ -111,54 +111,49 @@ describe('ET Fortnightly List page', () => {
         expect(accordion[0].innerHTML).to.contains('13 February 2022', 'Could not find the accordion heading');
     });
 
-    it('should display courtroom name', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[0].innerHTML).contains('Court 1');
-    });
 
     it('should display Hearing time', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[1].innerHTML).contains('9:30am');
+        expect(cell[0].innerHTML).contains('9:30am');
     });
 
     it('should display Case ID', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[3].innerHTML).contains('12341234');
+        expect(cell[2].innerHTML).contains('12341234');
     });
 
     it('should display Claimant Name', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[4].innerHTML).contains('Rep');
+        expect(cell[3].innerHTML).contains('Rep');
     });
 
     it('should display Case Sequence Indicator if it is there', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('[2 of 3]');
+        expect(cell[1].innerHTML).contains('[2 of 3]');
     });
 
     it('should display Duration with Case Sequence Indicator if it is there', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).equal('2 hours [2 of 3]');
+        expect(cell[1].innerHTML).equal('2 hours [2 of 3]');
     });
 
     it('should display Case Name without Case Sequence Indicator', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        const x = 11;
-        expect(cell[x].innerHTML).equals('3 mins');
+        expect(cell[9].innerHTML).equals('3 mins');
     });
 
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[15].innerHTML).contains('Hearing Type 1');
+        expect(cell[13].innerHTML).contains('Hearing Type 1');
     });
 
     it('should display Hearing platform (Location)', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[8].innerHTML).contains('This is a sitting channel');
+        expect(cell[7].innerHTML).contains('This is a sitting channel');
     });
 
     it('should display Respondent', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[5].innerHTML).contains('Rep: Dr T. Test Surname 2');
+        expect(cell[4].innerHTML).contains('Rep: Dr T. Test Surname 2');
     });
 });
