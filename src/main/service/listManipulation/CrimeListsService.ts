@@ -146,4 +146,16 @@ export class CrimeListsService {
         courtListForUnallocatedCases['courtHouse']['courtRoom'] = unallocatedCase;
         unallocatedCasesCrownListData['courtLists'].push(courtListForUnallocatedCases);
     }
+
+    public formatVenueAddress(venueAddress: object) {
+        const address = [];
+        if (venueAddress['line']) {
+            venueAddress['line'].forEach(line => address.push(line));
+        }
+        address.push(venueAddress['town'] ? venueAddress['town'] : '');
+        address.push(venueAddress['county'] ? venueAddress['county'] : '');
+        address.push(venueAddress['postCode'] ? venueAddress['postCode'] : '');
+
+        return address.filter(line => line.trim().length > 0).join('\n');
+    }
 }
