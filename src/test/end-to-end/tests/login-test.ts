@@ -125,7 +125,7 @@ Scenario('I as a CFT user should be able to sign-in with the valid credentials i
 
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
     I.loginAsCftUserInWelsh();
-    I.waitForText('eich cyfrif');
+    I.waitForText('Eich cyfrif');
     I.logoutWelsh();
 }).tag('@CrossBrowser');
 
