@@ -48,7 +48,10 @@ describe('Magistrates public List page', () => {
 
     it('should display last updated date and time', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[5].innerHTML).equals('Last updated 14 September 2020 at 12:30am', 'Last updated date and time does not match');
+        expect(body[5].innerHTML).equals(
+            'Last updated 14 September 2020 at 12:30am',
+            'Last updated date and time does not match'
+        );
     });
 
     it('should display venue address', () => {

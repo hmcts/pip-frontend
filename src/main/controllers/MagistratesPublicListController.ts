@@ -44,8 +44,8 @@ export default class MagistratesPublicListController {
                 provenance: metaData.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
+                venueAddress: venueAddress,
                 bill: pageLanguage === 'bill',
-                venueAddress: venueAddress
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
