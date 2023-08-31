@@ -1,8 +1,8 @@
 {
     "title": "Crown Daily List",
-    "headerPart1": "Daily List",
+    "heading": "Crown Daily List for ",
     "listDate": "List for",
-    "listUpdated": "Last Updated DATE at ",
+    "listUpdated": "Last updated DATE at ",
     "draft": "Draft:",
     "versionText": "Version",
     "restrictionInformationHeading": "Restrictions on publishing or writing about these cases",

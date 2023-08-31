@@ -1,9 +1,8 @@
 {
-    "title": "Crown Daily List/Crown Rhestr Ddyddiol",
-    "headerPart1": "Daily List",
-    "headerPart2": "Rhestr Ddyddiol",
+    "title": "Crown Daily List/Rhestr Ddyddiol Llys y Goron",
+    "heading": "Crown Daily List for/Rhestr Ddyddiol Llys y Goron ar gyfer",
     "listDate": "List for/Rhestr ar gyfer",
-    "listUpdated": "Last Updated/Diweddarwyd diwethaf DATE at/am ",
+    "listUpdated": "Last updated/Diweddarwyd diwethaf DATE at/am ",
     "draft": "Draft:/Drafft",
     "versionText": "Version/Fersiwn",
     "restrictionInformationHeading": "Restrictions on publishing or writing about these cases",
