@@ -9,12 +9,13 @@ import { LocationService } from '../../../main/service/locationService';
 
 const PAGE_URL = '/magistrates-public-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
+const bodyClass = 'govuk-body';
 const restrictionHeading = 'govuk-grid restriction-list-section';
 const accordionClass = 'govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
 
-const courtName = " Abergavenny Magistrates' Court";
-const expectedHeader = 'Public Court list for ' + courtName;
+const courtName = "Abergavenny Magistrates' Court";
+const expectedHeader = `Magistrates Public List for ${courtName}`;
 const restrictionHeadingText = 'Restrictions on publishing or writing about these cases';
 
 let htmlRes: Document;
@@ -42,7 +43,17 @@ describe('Magistrates public List page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+        expect(header[0].innerHTML).equals(expectedHeader, 'Could not find the header');
+    });
+
+    it('should display last updated date and time', () => {
+        const body = htmlRes.getElementsByClassName(bodyClass);
+        expect(body[5].innerHTML).equals('Last updated 14 September 2020 at 12:30am', 'Last updated date and time does not match');
+    });
+
+    it('should display venue address', () => {
+        const body = htmlRes.getElementsByClassName(bodyClass);
+        expect(body[7].innerHTML).equals('THE LAW COURTS<br>\nMain Road<br>\nPR1 2LL', 'Venue address does not match');
     });
 
     it('should display restriction heading', () => {
@@ -84,6 +95,11 @@ describe('Magistrates public List page', () => {
     it('should display Sitting at time', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[0].innerHTML).contains('10:40am');
+    });
+
+    it('should display Sitting at time with zero minute', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[30].innerHTML).contains('8am');
     });
 
     it('should display Case Reference', () => {
