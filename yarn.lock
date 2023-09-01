@@ -4851,12 +4851,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"allure-commandline@npm:^2.23.1":
-  version: 2.23.1
-  resolution: "allure-commandline@npm:2.23.1"
+"allure-commandline@npm:^2.24.0":
+  version: 2.24.0
+  resolution: "allure-commandline@npm:2.24.0"
   bin:
     allure: bin/allure
-  checksum: 84088a4d26e57cec2580d5470e88c4973959d0258ead1d6cf5632703bcede9f68b179f2df493140908103508ba5c19054e38ff959ace0cdcb0ad15f1d80090c4
+  checksum: cd84fadceaed8e94ecee765654ab2d3cc4e80774004ebf731d17c0d64bdb7f86458175e7ed2066bc35e8546f9967346b5c11dcb213f4ed5037944c390e72c4d0
   languageName: node
   linkType: hard
 
@@ -13909,7 +13909,7 @@ __metadata:
     "@wdio/local-runner": ^8.14.3
     "@wdio/mocha-framework": ^8.14.0
     "@wdio/spec-reporter": ^8.14.0
-    allure-commandline: ^2.23.1
+    allure-commandline: ^2.24.0
     applicationinsights: ^2.7.0
     awilix: ^8.0.1
     axios: ^1.4.0
