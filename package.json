@@ -63,7 +63,7 @@
         "axios": "^1.4.0",
         "axios-oauth-client": "^1.5.0",
         "axios-token-interceptor": "^0.2.0",
-        "codeceptjs": "^3.5.3",
+        "codeceptjs": "^3.5.4",
         "config": "^3.3.9",
         "cookie-parser": "^1.4.6",
         "cookie-session": "^1.4.0",
