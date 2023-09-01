@@ -4360,17 +4360,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/reporter@npm:8.14.0":
-  version: 8.14.0
-  resolution: "@wdio/reporter@npm:8.14.0"
+"@wdio/reporter@npm:8.15.10":
+  version: 8.15.10
+  resolution: "@wdio/reporter@npm:8.15.10"
   dependencies:
     "@types/node": ^20.1.0
     "@wdio/logger": 8.11.0
-    "@wdio/types": 8.14.0
+    "@wdio/types": 8.15.10
     diff: ^5.0.0
     object-inspect: ^1.12.0
-    supports-color: 9.4.0
-  checksum: 99cebd11ea152803f2075691839cee563d26688960cecdd5f1f000d88b5de41519f3c2de7a0bf604da898c7f7a0b597add2c2d38d6fb9ef8dc4b482157888aeb
+  checksum: f43a9f6d6c519590e187ff90f4e5d701a281ac60c04508a54d109f9ab02a8c1c62cf44689dff8b714e2a29f5fc18ab573f3abff458264455c9b7363b93d894d5
   languageName: node
   linkType: hard
 
@@ -4402,16 +4401,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wdio/spec-reporter@npm:^8.14.0":
-  version: 8.14.0
-  resolution: "@wdio/spec-reporter@npm:8.14.0"
+"@wdio/spec-reporter@npm:^8.15.10":
+  version: 8.15.10
+  resolution: "@wdio/spec-reporter@npm:8.15.10"
   dependencies:
-    "@wdio/reporter": 8.14.0
-    "@wdio/types": 8.14.0
+    "@wdio/reporter": 8.15.10
+    "@wdio/types": 8.15.10
     chalk: ^5.1.2
     easy-table: ^1.2.0
     pretty-ms: ^7.0.0
-  checksum: 7c28bf10a625e171b33aca9f7c7c9e81d970682b02f1eb6a75e13a37026bbf0b4f21a166f7991de406eb87df5c30a2ac5563cf6cc47983a31fc7af9a22571b06
+  checksum: f03ee34232ccfef94448a3945263cc8ee700f6be306bc845386e575e8690f1d7dd645efb2a4536ac844706ff8edb963e4c5604e06b782ab465bc51ff6ae5e365
   languageName: node
   linkType: hard
 
@@ -4430,6 +4429,15 @@ __metadata:
   dependencies:
     "@types/node": ^20.1.0
   checksum: 229eba13b47383e805668bcf4a5cb0e0165fc2b6704297911cbfc1df49d86c6f80ab75afb42456a6e9975dab27e66579d0360f503fcbfc24dc843e6f5310a3fe
+  languageName: node
+  linkType: hard
+
+"@wdio/types@npm:8.15.10":
+  version: 8.15.10
+  resolution: "@wdio/types@npm:8.15.10"
+  dependencies:
+    "@types/node": ^20.1.0
+  checksum: 1052fc52a5f5524b2264042727e37283716076010cb6a0edfde736588e51ff21435c87013f6af5cd69eb5548523447ca6521d540b79b498e15523c9fa5084d87
   languageName: node
   linkType: hard
 
@@ -13908,7 +13916,7 @@ __metadata:
     "@wdio/cli": 8.14.4
     "@wdio/local-runner": ^8.14.3
     "@wdio/mocha-framework": ^8.14.0
-    "@wdio/spec-reporter": ^8.14.0
+    "@wdio/spec-reporter": ^8.15.10
     allure-commandline: ^2.23.1
     applicationinsights: ^2.7.0
     awilix: ^8.0.1
@@ -15907,13 +15915,6 @@ __metadata:
   dependencies:
     has-flag: ^4.0.0
   checksum: c052193a7e43c6cdc741eb7f378df605636e01ad434badf7324f17fb60c69a880d8d8fcdcb562cf94c2350e57b937d7425ab5b8326c67c2adc48f7c87c1db406
-  languageName: node
-  linkType: hard
-
-"supports-color@npm:9.4.0":
-  version: 9.4.0
-  resolution: "supports-color@npm:9.4.0"
-  checksum: cb8ff8daeaf1db642156f69a9aa545b6c01dd9c4def4f90a49f46cbf24be0c245d392fcf37acd119cd1819b99dad2cc9b7e3260813f64bcfd7f5b18b5a1eefb8
   languageName: node
   linkType: hard
 
