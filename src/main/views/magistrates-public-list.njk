@@ -17,6 +17,8 @@
     <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
     <p class="govuk-body">{{ draft }} {{ versionText }} {{ version }}</p><br/>
     <p class="govuk-body">{{ venueAddress | striptags(true) | escape | nl2br }}</p>
+    <p class="govuk-body govuk-!-margin-bottom-1">{{ email }} {{ listData['venue']["venueContact"]["venueEmail"] }}</p>
+    <p class="govuk-body">{{ telephone }} {{ listData['venue']["venueContact"]["venueTelephone"] }}</p>
     <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
       <div class="govuk-body">
         <h3>{{ restrictionInformationHeading }}</h3>
