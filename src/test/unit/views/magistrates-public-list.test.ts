@@ -59,10 +59,10 @@ describe('Magistrates public List page', () => {
         expect(body[7].innerHTML).equals('THE LAW COURTS<br>\nMain Road<br>\nPR1 2LL', 'Venue address does not match');
     });
 
-    it('should display venue email and telephone', () => {
+    it('should display venue telephone and email', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[8].innerHTML).equals('Email: court1@moj.gov.uk', 'Venue email does not match');
-        expect(body[9].innerHTML).equals('Telephone: 01772 844700', 'Venue telephone does not match');
+        expect(body[8].innerHTML).equals('Telephone: 01772 844700', 'Venue telephone does not match');
+        expect(body[9].innerHTML).equals('Email: court1@moj.gov.uk', 'Venue email does not match');
     });
 
     it('should display restriction heading', () => {
