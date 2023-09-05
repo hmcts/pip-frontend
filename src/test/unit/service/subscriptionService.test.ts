@@ -1096,8 +1096,8 @@ describe('generate case table rows', () => {
                 partyNames: null,
                 caseNumber: '1234',
                 searchType: 'CASE_ID',
-                dateAdded: '2023-04-01T16:49:26.607904'
-            }
+                dateAdded: '2023-04-01T16:49:26.607904',
+            },
         ];
         const results = await subscriptionService.generateCaseTableRows(mockSubscriptionData, 'en');
 
@@ -1117,8 +1117,8 @@ describe('generate case table rows', () => {
                 partyNames: null,
                 caseNumber: '1234',
                 searchType: 'CASE_ID',
-                dateAdded: '2023-04-01T16:49:26.607904'
-            }
+                dateAdded: '2023-04-01T16:49:26.607904',
+            },
         ];
         const results = await subscriptionService.generateCaseTableRows(mockSubscriptionData, 'cy');
 

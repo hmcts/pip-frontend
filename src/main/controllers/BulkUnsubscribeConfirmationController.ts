@@ -15,7 +15,10 @@ export default class BulkUnsubscribeConfirmationController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         if (req.body['bulk-unsubscribe-choice'] === 'yes') {
             const subscriptionsToDelete = req.body.subscriptions.split(',');
-            const unsubscribeResponse = await subscriptionService.bulkDeleteSubscriptions(subscriptionsToDelete,  req.user['userId']);
+            const unsubscribeResponse = await subscriptionService.bulkDeleteSubscriptions(
+                subscriptionsToDelete,
+                req.user['userId']
+            );
             unsubscribeResponse
                 ? res.redirect(unsubscribeConfirmedUrl)
                 : res.render('error', req.i18n.getDataByLanguage(req.lng).error);

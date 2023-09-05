@@ -137,9 +137,7 @@ export class SubscriptionService {
             caseName: caseName,
             partyNames: partyNames,
             caseRef: caseRef,
-            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone })
-                .setLocale(language)
-                .toFormat(dateFormat),
+            date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).setLocale(language).toFormat(dateFormat),
         };
     }
 
