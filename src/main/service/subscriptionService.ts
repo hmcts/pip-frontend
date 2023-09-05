@@ -157,8 +157,8 @@ export class SubscriptionService {
         return subscriptionRequests.unsubscribe(subscriptionId, userId);
     }
 
-    public async bulkDeleteSubscriptions(subscriptionIds: string[]): Promise<object> {
-        return subscriptionRequests.bulkDeleteSubscriptions(subscriptionIds);
+    public async bulkDeleteSubscriptions(subscriptionIds: string[], userId: string): Promise<object> {
+        return subscriptionRequests.bulkDeleteSubscriptions(subscriptionIds, userId);
     }
 
     public async handleNewSubscription(pendingSubscription, user): Promise<void> {
