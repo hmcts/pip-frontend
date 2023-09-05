@@ -147,19 +147,19 @@ describe('bulkDeleteSubscriptions', () => {
     const userId = '456';
 
     it('should return success message if call is successful', async () => {
-        deleteStub.withArgs('/subscription/bulk').resolves({ data: 'unsubscribed successfully' });
+        deleteStub.withArgs('/subscription/v2/bulk').resolves({ data: 'unsubscribed successfully' });
         const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
         expect(response).toBe('unsubscribed successfully');
     });
 
     it('should return nothing for error response', async () => {
-        deleteStub.withArgs('/subscription/bulk').rejects(errorResponse);
+        deleteStub.withArgs('/subscription/v2/bulk').rejects(errorResponse);
         const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
         expect(response).toBe(null);
     });
 
     it('should return nothing for other error', async () => {
-        deleteStub.withArgs('/subscription/bulk').rejects(errorMessage);
+        deleteStub.withArgs('/subscription/v2/bulk').rejects(errorMessage);
         const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
         expect(response).toBe(null);
     });
