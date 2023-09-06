@@ -106,7 +106,6 @@ describe('Magistrates Public List Controller', () => {
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-
         request.query = { artefactId: artefactId };
         request.user = {};
         const responseMock = sinon.mock(response);
