@@ -94,7 +94,10 @@ describe('Single Justice Procedure List page', () => {
 
         it('should have offender postcode (using organisation details)', () => {
             const tableData = htmlRes.getElementsByClassName(sjpTableData);
-            expect(tableData[5].innerHTML).contains(offenderOrganisationPostcode, 'Could not find the offender postcode');
+            expect(tableData[5].innerHTML).contains(
+                offenderOrganisationPostcode,
+                'Could not find the offender postcode'
+            );
         });
 
         it('should have the offence reason', () => {

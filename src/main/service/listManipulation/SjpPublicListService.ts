@@ -1,4 +1,4 @@
-import {ListParseHelperService} from "../listParseHelperService";
+import { ListParseHelperService } from '../listParseHelperService';
 
 export class SjpPublicListService {
     /**
@@ -34,7 +34,7 @@ export class SjpPublicListService {
     }
 
     private buildPartyDetails(parties) {
-        let accusedInfo = { name: '', postcode: ''};
+        let accusedInfo = { name: '', postcode: '' };
         let organisationName = '';
         parties.forEach(party => {
             if (party.partyRole === 'ACCUSED') {
@@ -69,9 +69,7 @@ export class SjpPublicListService {
     private buildIndividualName(individual) {
         const forenames = ListParseHelperService.writeStringIfValid(individual?.individualForenames);
         const surname = ListParseHelperService.writeStringIfValid(individual?.individualSurname);
-        return [forenames, surname]
-            .filter(n => n.length > 0)
-            .join(' ');
+        return [forenames, surname].filter(n => n.length > 0).join(' ');
     }
 
     private buildOffence(offences): any {
