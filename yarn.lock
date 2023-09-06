@@ -14215,7 +14215,7 @@ __metadata:
     sass: ^1.66.1
     sass-loader: ^13.3.2
     serve-favicon: ^2.5.0
-    sinon: ^15.2.0
+    sinon: ^15.1.0
     sinon-chai: ^3.7.0
     sinon-express-mock: ^2.2.1
     sonar-scanner: ^3.1.0
@@ -15515,7 +15515,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sinon@npm:^15.2.0":
+"sinon@npm:^15.1.0":
   version: 15.2.0
   resolution: "sinon@npm:15.2.0"
   dependencies:

@@ -36,6 +36,7 @@ sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListData').returns(listD
 const artefactId = 'abc';
 
 crownFirmListJsonStub.withArgs(artefactId).resolves(unprocessedData);
+crownFirmListJsonStub.withArgs(artefactId, undefined).resolves(undefined);
 crownFirmListJsonStub.withArgs('').resolves([]);
 crownFirmListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
@@ -110,8 +111,8 @@ describe('Crown Firm List Controller', () => {
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        sinon.restore();
         request.query = { artefactId: artefactId };
+        request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
