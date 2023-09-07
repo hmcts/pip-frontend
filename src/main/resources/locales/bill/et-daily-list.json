@@ -23,8 +23,6 @@
     "hearingDurationMinute": "min / munud",
     "hearingDurationHours": "hours / awr",
     "hearingDurationMinutes": "mins / munud",
-    "rep": "Representative / Cynrychiolydd",
-    "noRep": "No Representative / Dim Cynrychiolydd",
     "tableHeaders": [
         "Start Time / Amser Cychwyn",
         "Duration / Hyd",
