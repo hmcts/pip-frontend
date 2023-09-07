@@ -15,20 +15,9 @@ export class CrimeListsService {
         crownDailyListData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
+                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
                     session['sittings'].forEach(sitting => {
-                        helperService.formatCaseTime(sitting, 'h:mma');
-                        sitting['formattedDuration'] = formatDuration(
-                            sitting['durationAsDays'] as number,
-                            sitting['durationAsHours'] as number,
-                            sitting['durationAsMinutes'] as number,
-                            language,
-                            languageFile
-                        );
-                        sitting['durationSortValue'] = calculateDurationSortValue(
-                            sitting['durationAsDays'] as number,
-                            sitting['durationAsHours'] as number,
-                            sitting['durationAsMinutes'] as number
-                        );
+                        this.calculateDuration(sitting, language, languageFile);
                         sitting['hearing'].forEach(hearing => {
                             this.manipulateParty(hearing);
                             this.findLinkedCasesInformation(hearing);
@@ -38,6 +27,22 @@ export class CrimeListsService {
             });
         });
         return crownDailyListData;
+    }
+
+    private calculateDuration(sitting, language, languageFile) {
+        helperService.calculateDuration(sitting);
+        sitting['formattedDuration'] = formatDuration(
+            sitting['durationAsDays'] as number,
+            sitting['durationAsHours'] as number,
+            sitting['durationAsMinutes'] as number,
+            language,
+            languageFile
+        );
+        sitting['durationSortValue'] = calculateDurationSortValue(
+            sitting['durationAsDays'] as number,
+            sitting['durationAsHours'] as number,
+            sitting['durationAsMinutes'] as number
+        );
     }
 
     private pushIfExists(array, item) {
