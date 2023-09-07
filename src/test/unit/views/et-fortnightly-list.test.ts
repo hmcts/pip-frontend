@@ -19,7 +19,7 @@ const summaryHeadingText = 'Important information';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etFortnightlyList.json'), 'utf-8');
 // Reusing daily cause mock because it works the same.
 const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
