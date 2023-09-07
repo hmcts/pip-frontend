@@ -19,12 +19,12 @@ const filterTitleClass = 'moj-filter__header-title';
 const selectedFiltersHeadingClass = 'govuk-heading-m';
 
 const expectedHeader = 'Single Justice Procedure cases that are ready for hearing';
-const summaryHeadingText = 'List containing 9 case(s)';
-const listDate = '25 March 2022';
-const offenderName = 'CFake';
-const offenderPostcode = 'BD17';
-const offenderProsecutor = 'Driver and Vehicle Licensing Agency';
-const offenderReason = 'Keep a vehicle without a valid vehicle licence';
+const summaryHeadingText = 'List containing 1 case(s)';
+const listDate = '01 September 2023';
+const offenderName = 'This is a forename This is a surname';
+const offenderPostcode = 'This is a postcode';
+const offenderProsecutor = 'This is an organisation';
+const offenderReason = 'This is an offence title';
 
 let htmlRes: Document;
 
