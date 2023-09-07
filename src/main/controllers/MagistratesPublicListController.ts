@@ -5,7 +5,6 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
-import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../helpers/listHelper';
 
@@ -13,7 +12,6 @@ const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
-const civListsService = new CivilFamilyAndMixedListService();
 
 export default class MagistratesPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -22,10 +20,8 @@ export default class MagistratesPublicListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (isValidList(searchResults, metaData) && searchResults && metaData) {
-            // initial cleaning of data using mixed list service
-            let manipulatedData = civListsService.sculptedCivilListData(JSON.stringify(searchResults));
-            manipulatedData = crimeListsService.manipulateCrimeListData(
-                JSON.stringify(manipulatedData),
+            const manipulatedData = crimeListsService.manipulateCrimeListData(
+                JSON.stringify(searchResults),
                 req.lng,
                 'magistrates-public-list'
             );
@@ -36,6 +32,8 @@ export default class MagistratesPublicListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
+            const venueAddress = crimeListsService.formatVenueAddress(searchResults['venue']['venueAddress']);
+
             res.render('magistrates-public-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-public-list']),
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
@@ -46,6 +44,7 @@ export default class MagistratesPublicListController {
                 provenance: metaData.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
+                venueAddress: venueAddress,
                 bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
