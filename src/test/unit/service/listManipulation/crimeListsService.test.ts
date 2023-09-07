@@ -27,7 +27,7 @@ describe('Crime Data manipulation service', () => {
                 '10:40am'
             );
             expect(data['courtLists'][2]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal(
-                '1:00pm'
+                '1pm'
             );
         });
 
