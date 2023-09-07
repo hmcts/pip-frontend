@@ -190,11 +190,11 @@ describe('Blob Explorer Page', () => {
         const individualJsonLines = jsonLines.getElementsByTagName(listTag);
 
         expect(individualJsonLines[0].innerHTML).contains('{', 'Could not find correct json output on the line');
-        expect(individualJsonLines[2].innerHTML).contains(
+        expect(individualJsonLines[4].innerHTML).contains(
             'publicationDate',
             'Could not find correct json output on the line'
         );
-        expect(individualJsonLines[4].innerHTML).contains(
+        expect(individualJsonLines[3].innerHTML).contains(
             'documentName',
             'Could not find correct json output on the line'
         );
