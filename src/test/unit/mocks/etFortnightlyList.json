@@ -15,7 +15,6 @@
                 "courtHouseName": "Leicester Crown Court",
                 "courtRoom": [
                     {
-                        "courtRoomName": "Court 1",
                         "session": [
                             {
                                 "sittings": [
@@ -97,7 +96,6 @@
                 },
                 "courtRoom": [
                     {
-                        "courtRoomName": "Suite 2",
                         "session": [
                             {
                                 "sittings": [
@@ -222,7 +220,6 @@
                         ]
                     },
                     {
-                        "courtRoomName": "Room 3",
                         "session": [
                             {
                                 "sittings": [
