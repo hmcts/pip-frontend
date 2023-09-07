@@ -22,9 +22,11 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.fillField('#search-input', locationName);
     I.selectOption('#listType', listType);
 
-    I.fillField('#content-date-from-day', padFormatted(date.getDate()));
-    I.fillField('#content-date-from-month', padFormatted(date.getMonth() + 1));
-    I.fillField('#content-date-from-year', date.getFullYear());
+    // Set a specific content date of 12/31/2020 so the request to Courtel can be identified.
+    const contentDate = new Date(2020, 11, 31);
+    I.fillField('#content-date-from-day', padFormatted(contentDate.getDate()));
+    I.fillField('#content-date-from-month', padFormatted(contentDate.getMonth() + 1));
+    I.fillField('#content-date-from-year', contentDate.getFullYear());
     I.selectOption('#classification', 'Public');
     I.fillField('#display-date-from-day', padFormatted(date.getDate()));
     I.fillField('#display-date-from-month', padFormatted(date.getMonth() + 1));
