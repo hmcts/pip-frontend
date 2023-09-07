@@ -3,10 +3,16 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { LocationService } from '../../../main/service/locationService';
+import {SummaryOfPublicationsService} from "../../../main/service/summaryOfPublicationsService";
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub.withArgs(8).resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
 courtStub.withArgs(10).resolves(JSON.parse('{"name":"New Court"}'));
+
+const getPublicationsStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
+getPublicationsStub.withArgs(8).resolves([]);
+getPublicationsStub.withArgs(9).resolves([]);
+getPublicationsStub.withArgs(10).resolves([]);
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
