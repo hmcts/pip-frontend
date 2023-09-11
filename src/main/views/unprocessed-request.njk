@@ -1,0 +1,19 @@
+{% extends "template.njk" %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <p class="govuk-body">{{ fileFormatMessage }}</p>
+    <p class="govuk-body">{{ contactMessage }}</p>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ super() }}
+{% endblock %}
