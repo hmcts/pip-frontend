@@ -654,18 +654,19 @@ describe('unsubscribing', () => {
 });
 
 describe('bulkDeleteSubscriptions', () => {
+    const userId = '123';
     const bulkDeleteStub = sinon.stub(SubscriptionRequests.prototype, 'bulkDeleteSubscriptions');
 
     bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
     bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(null);
 
     it('should return a message if subscription is deleted', async () => {
-        const payload = await subscriptionService.bulkDeleteSubscriptions(['ValidSubscriptionId']);
+        const payload = await subscriptionService.bulkDeleteSubscriptions(['ValidSubscriptionId'], userId);
         expect(payload).toEqual('Subscription was deleted');
     });
 
     it('should return null if subscription delete failed', async () => {
-        const payload = await subscriptionService.bulkDeleteSubscriptions(['InValidSubscriptionId']);
+        const payload = await subscriptionService.bulkDeleteSubscriptions(['InValidSubscriptionId'], userId);
         expect(payload).toEqual(null);
     });
 });
@@ -1095,8 +1096,8 @@ describe('generate case table rows', () => {
                 partyNames: null,
                 caseNumber: '1234',
                 searchType: 'CASE_ID',
-                dateAdded: '2023-04-01T16:49:26.607904'
-            }
+                dateAdded: '2023-04-01T16:49:26.607904',
+            },
         ];
         const results = await subscriptionService.generateCaseTableRows(mockSubscriptionData, 'en');
 
@@ -1116,8 +1117,8 @@ describe('generate case table rows', () => {
                 partyNames: null,
                 caseNumber: '1234',
                 searchType: 'CASE_ID',
-                dateAdded: '2023-04-01T16:49:26.607904'
-            }
+                dateAdded: '2023-04-01T16:49:26.607904',
+            },
         ];
         const results = await subscriptionService.generateCaseTableRows(mockSubscriptionData, 'cy');
 
