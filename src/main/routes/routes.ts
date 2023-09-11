@@ -148,7 +148,7 @@ export default function (app: Application): void {
     // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
     // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
     app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
-    app.get('/unprocessed-request', app.locals.container.cradle.unprocessedRequestController.get)
+    app.get('/unprocessed-request', app.locals.container.cradle.unprocessedRequestController.get);
 
     app.get('/search', app.locals.container.cradle.searchController.get);
     app.post('/search', app.locals.container.cradle.searchController.post);

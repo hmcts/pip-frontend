@@ -1,7 +1,7 @@
 import sinon from 'sinon';
-import {Response} from "express";
-import {mockRequest} from "../mocks/mockRequest";
-import UnprocessedRequestController from "../../../main/controllers/UnprocessedRequestController";
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
+import UnprocessedRequestController from '../../../main/controllers/UnprocessedRequestController';
 
 const unprocessedRequestController = new UnprocessedRequestController();
 const i18n = {
