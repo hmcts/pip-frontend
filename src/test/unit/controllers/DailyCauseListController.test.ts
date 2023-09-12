@@ -39,6 +39,7 @@ const artefactIdCivil = 'def';
 dailyCauseListJsonStub.withArgs(artefactIdFamily).resolves(listData);
 dailyCauseListJsonStub.withArgs(artefactIdCivil).resolves(listData);
 dailyCauseListJsonStub.withArgs('').resolves([]);
+dailyCauseListJsonStub.withArgs(artefactIdFamily, undefined).resolves(undefined);
 dailyCauseListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 dailyCauseListMetaDataStub.withArgs(artefactIdFamily).resolves(metaDataFamily);
@@ -144,9 +145,9 @@ describe('Daily Cause List Controller', () => {
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        sinon.restore();
         request.path = '/family-daily-cause-list';
         request.query = { artefactId: artefactIdFamily };
+        request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
