@@ -1,5 +1,5 @@
 module.exports = {
-    transformIgnorePatterns: ['/node_modules/(?!(axios)/)'],
+    transformIgnorePatterns: ['/node_modules/(?!(sinon)|!(axios)/)'],
     roots: ['<rootDir>/src/test/a11y'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
     testEnvironment: 'node',
@@ -8,6 +8,7 @@ module.exports = {
     },
     moduleNameMapper: {
         '^axios$': require.resolve('axios'),
+        '^sinon$': require.resolve('sinon'),
     },
     moduleFileExtensions: ['ts', 'js'],
     setupFiles: ['<rootDir>/jestEnvVars.js'],

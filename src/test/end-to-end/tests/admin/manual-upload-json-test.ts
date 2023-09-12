@@ -257,7 +257,7 @@ Scenario('I as a admin user should be able to change the data before confirming 
 
     I.click(locate('//dl/div').withText('Sensitivity').find('a').withText('Change'));
     I.waitForText('Manual upload');
-    I.selectOption('#classification', 'Private');
+    I.selectOption('#classification', 'Private - All verified users');
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.click('Continue');
     I.waitForText('Check upload details');
