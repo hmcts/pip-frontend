@@ -248,7 +248,7 @@ We test all routes contained within the service's [routes file](./src/main/route
 
 Route testing config can be found within the [jest.routes.config.js](./jest.routes.config.js).
 
-Route tests are run using `yarn test:routes`
+Route tests are run using `yarn test:routes`.
 
 ### Accessibility (a11y) Tests
 

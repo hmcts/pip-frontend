@@ -31,6 +31,7 @@ sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardLis
 const artefactId = 'abc';
 
 magsStandardListJsonStub.withArgs(artefactId).resolves(listData);
+magsStandardListJsonStub.withArgs(artefactId, undefined).resolves(undefined);
 magsStandardListJsonStub.withArgs('').resolves([]);
 magsStandardListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
@@ -105,8 +106,8 @@ describe('Magistrate Standard List Controller', () => {
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        sinon.restore();
         request.query = { artefactId: artefactId };
+        request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

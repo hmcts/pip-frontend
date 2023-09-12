@@ -24,11 +24,11 @@ sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').returns(
 const artefactId = 'abc';
 
 iacDailyListJsonStub.withArgs(artefactId).resolves(listData);
-iacDailyListJsonStub.withArgs('').resolves([]);
+iacDailyListJsonStub.withArgs(undefined).resolves(null);
 iacDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 iacDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
-iacDailyListMetaDataStub.withArgs('').resolves([]);
+iacDailyListMetaDataStub.withArgs(undefined).resolves(null);
 
 const i18n = {
     'iac-daily-list': {},
@@ -85,7 +85,6 @@ describe('IAC Daily List Controller', () => {
     });
 
     it('should render error page if query param is empty', async () => {
-        sinon.restore();
         const request = mockRequest(i18n);
         request.query = {};
         request.user = { userId: '123' };
