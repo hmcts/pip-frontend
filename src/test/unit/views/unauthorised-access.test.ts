@@ -2,9 +2,9 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {PublicationService} from "../../../main/service/publicationService";
-import {AccountManagementRequests} from "../../../main/resources/requests/accountManagementRequests";
-import {request as expressRequest} from "express";
+import { PublicationService } from '../../../main/service/publicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/list-download-files?artefactId=abc';
 
@@ -32,18 +32,12 @@ describe('Unauthorised Access Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains(
-            'Page not found',
-            'Page title does not match header'
-        );
+        expect(pageTitle).contains('Page not found', 'Page title does not match header');
     });
 
     it('should display page header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains(
-            'Page not found',
-            'Page header does not match'
-        );
+        expect(header[0].innerHTML).contains('Page not found', 'Page header does not match');
     });
 
     it('should display message', () => {

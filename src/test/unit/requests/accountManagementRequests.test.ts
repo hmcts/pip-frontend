@@ -946,7 +946,6 @@ describe('Account Management Requests', () => {
         });
     });
 
-
     describe('Check user is authorised', () => {
         beforeEach(() => {
             sinon.restore();

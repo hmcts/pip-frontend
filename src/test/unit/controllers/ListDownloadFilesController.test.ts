@@ -4,8 +4,8 @@ import fs from 'fs';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
-import {PublicationService} from "../../../main/service/publicationService";
-import {AccountManagementRequests} from "../../../main/resources/requests/accountManagementRequests";
+import { PublicationService } from '../../../main/service/publicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 
 const listDownloadFilesController = new ListDownloadFilesController();
 
@@ -17,7 +17,7 @@ const mockArtefact = {
 describe('List Download Files Controller', () => {
     const i18n = {
         'list-download-files': {},
-        error: { title : 'error' },
+        error: { title: 'error' },
         'unauthorised-access': { title: 'unauthorised' },
     };
     const url = 'list-download-files';

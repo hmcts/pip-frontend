@@ -415,7 +415,9 @@ export class AccountManagementRequests {
 
     public async isAuthorised(userId: string, listType: string, sensitivity: string): Promise<boolean> {
         try {
-            const response = await accountManagementApi.get(`/account/isAuthorised/${userId}/${listType}/${sensitivity}`);
+            const response = await accountManagementApi.get(
+                `/account/isAuthorised/${userId}/${listType}/${sensitivity}`
+            );
             return response.data;
         } catch (error) {
             if (error.response) {

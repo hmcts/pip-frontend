@@ -4,8 +4,8 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import { FileType } from '../models/consts';
-import {AccountManagementRequests} from "../resources/requests/accountManagementRequests";
-import {PublicationService} from "./publicationService";
+import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { PublicationService } from './publicationService';
 
 const channelManagementRequests = new ChannelManagementRequests();
 const accountManagementRequests = new AccountManagementRequests();
@@ -78,7 +78,11 @@ export class ListDownloadService {
 
     public async checkUserIsAuthorised(artefactId, userId): Promise<boolean> {
         const publicationMetadata = await publicationService.getIndividualPublicationMetadata(artefactId, userId, true);
-        return await accountManagementRequests.isAuthorised(userId, publicationMetadata.listType, publicationMetadata.sensitivity);
+        return await accountManagementRequests.isAuthorised(
+            userId,
+            publicationMetadata.listType,
+            publicationMetadata.sensitivity
+        );
     }
 
     private async downloadFileFromBlobStorage(artefactId, userId, fileExtension): Promise<string | null> {
