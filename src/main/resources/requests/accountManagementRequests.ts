@@ -412,4 +412,18 @@ export class AccountManagementRequests {
             return null;
         }
     }
+
+    public async isAuthorised(userId: string, listType: string, sensitivity: string): Promise<boolean> {
+        try {
+            const response = await accountManagementApi.get(`/account/isAuthorised/${userId}/${listType}/${sensitivity}`);
+            return response.data;
+        } catch (error) {
+            if (error.response) {
+                logger.error(`Failed to check user ${userId} is authorised`, error.response.data);
+            } else {
+                logger.error(`Something went wrong trying to check user ${userId} is authorised`, error.message);
+            }
+            return false;
+        }
+    }
 }

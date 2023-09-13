@@ -15,30 +15,39 @@ export default class ListDownloadFilesController {
         const type = req.query.type as string;
         const artefactId = req.query.artefactId;
 
-        if (type === undefined) {
-            const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
-            const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
+        if (artefactId) {
+            const isAuthorised = await listDownloadService.checkUserIsAuthorised(artefactId, req.user['userId']);
+            if (isAuthorised) {
+                if (type === undefined) {
+                    const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
+                    const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
 
-            res.render(url, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
-                artefactId: artefactId,
-                pdfFileSize: pdfFileSize,
-                excelFileSize: excelFileSize,
-            });
-        } else {
-            const file = listDownloadService.getFile(artefactId, FileType[type.toUpperCase()]);
-            if (file) {
-                const filename = path.basename(file);
-                const mimetype = mime.lookup(file);
+                    res.render(url, {
+                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
+                        artefactId: artefactId,
+                        pdfFileSize: pdfFileSize,
+                        excelFileSize: excelFileSize,
+                    });
+                } else {
+                    const file = listDownloadService.getFile(artefactId, FileType[type.toUpperCase()]);
+                    if (file) {
+                        const filename = path.basename(file);
+                        const mimetype = mime.lookup(file);
 
-                res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-                res.setHeader('Content-type', mimetype);
+                        res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+                        res.setHeader('Content-type', mimetype);
 
-                const filestream = fs.createReadStream(file);
-                filestream.pipe(res);
+                        const filestream = fs.createReadStream(file);
+                        filestream.pipe(res);
+                    } else {
+                        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+                    }
+                }
             } else {
-                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+                res.render('unauthorised-access', req.i18n.getDataByLanguage(req.lng)['unauthorised-access']);
             }
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
 }

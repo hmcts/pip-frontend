@@ -2,6 +2,8 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { ChannelManagementRequests } from '../../../main/resources/requests/channelManagementRequests';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
+import {PublicationService} from "../../../main/service/publicationService";
+import {AccountManagementRequests} from "../../../main/resources/requests/accountManagementRequests";
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
@@ -12,6 +14,16 @@ const userId = '1234';
 
 const expectedPdfData = 'abc';
 const expectedExcelData = 'def';
+
+const mockArtefact = {
+    listType: 'SJP_PRESS_LIST',
+    sensitivity: 'CLASSIFIED',
+};
+
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
+const isAuthorisedStub = sinon.stub(AccountManagementRequests.prototype, 'isAuthorised');
+isAuthorisedStub.withArgs('1').resolves(true);
+isAuthorisedStub.withArgs('2').resolves(false);
 
 const downloadFilesStub = sinon.stub(ChannelManagementRequests.prototype, 'getStoredFile');
 downloadFilesStub.withArgs('123', { 'x-user-id': '1234', 'x-file-type': 'PDF' }).resolves(expectedPdfData);
@@ -27,6 +39,18 @@ const statstub = sinon.stub(fs, 'statSync').returns({ size: 1000 });
 const existsSyncStub = sinon.stub(fs, 'existsSync');
 
 describe('List Download Service', () => {
+    describe('Check user is authorised', () => {
+        it('should return true if user is authorised', async () => {
+            const response = await listDownloadService.checkUserIsAuthorised(artefactId, '1');
+            expect(response).to.be.true;
+        });
+
+        it('should return false if unauthorised', async () => {
+            const response = await listDownloadService.checkUserIsAuthorised(artefactId, '2');
+            expect(response).to.be.false;
+        });
+    });
+
     describe('Get file', () => {
         it('should return expected PDF file', async () => {
             existsSyncStub.returns(true);
