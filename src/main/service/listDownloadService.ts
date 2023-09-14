@@ -5,11 +5,9 @@ import fs from 'fs';
 import path from 'path';
 import { FileType } from '../models/consts';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import { PublicationService } from './publicationService';
 
 const channelManagementRequests = new ChannelManagementRequests();
 const accountManagementRequests = new AccountManagementRequests();
-const publicationService = new PublicationService();
 const logger = Logger.getLogger('list-download');
 
 export class ListDownloadService {
@@ -76,13 +74,8 @@ export class ListDownloadService {
         return null;
     }
 
-    public async checkUserIsAuthorised(artefactId, userId): Promise<boolean> {
-        const publicationMetadata = await publicationService.getIndividualPublicationMetadata(artefactId, userId, true);
-        return await accountManagementRequests.isAuthorised(
-            userId,
-            publicationMetadata.listType,
-            publicationMetadata.sensitivity
-        );
+    public async checkUserIsAuthorised(userId, listType, sensitivity): Promise<boolean | null> {
+        return await accountManagementRequests.isAuthorised(userId, listType, sensitivity);
     }
 
     private async downloadFileFromBlobStorage(artefactId, userId, fileExtension): Promise<string | null> {

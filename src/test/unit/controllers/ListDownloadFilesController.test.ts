@@ -6,6 +6,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
 import { PublicationService } from '../../../main/service/publicationService';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import {HttpStatusCode} from "axios";
 
 const listDownloadFilesController = new ListDownloadFilesController();
 
@@ -35,7 +36,12 @@ describe('List Download Files Controller', () => {
         },
     } as unknown as Response;
 
-    sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
+    const publicationMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+    publicationMetaDataStub.withArgs('123').resolves(mockArtefact);
+    publicationMetaDataStub.withArgs('124').resolves(mockArtefact);
+    publicationMetaDataStub.withArgs('125').resolves(mockArtefact);
+    publicationMetaDataStub.withArgs('999').resolves(HttpStatusCode.NotFound);
+
     const isAuthorisedStub = sinon.stub(AccountManagementRequests.prototype, 'isAuthorised');
     isAuthorisedStub.withArgs('1').resolves(true);
     isAuthorisedStub.withArgs('2').resolves(false);
@@ -174,9 +180,22 @@ describe('List Download Files Controller', () => {
         });
     });
 
+    describe('artefact does not exist', () => {
+        it('should render the error page', () => {
+            request.query = { artefactId: '999' };
+            request.user = { userId: '1' };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', i18n.error);
+
+            listDownloadFilesController.get(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+    });
+
     describe('without the permission to view the page', () => {
         it('should render the unauthorised access page', () => {
-            request.query = { artefactId: '999' };
+            request.query = { artefactId: '123' };
             request.user = { userId: '2' };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('unauthorised-access', i18n['unauthorised-access']);
