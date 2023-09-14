@@ -6,7 +6,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
 import { PublicationService } from '../../../main/service/publicationService';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const listDownloadFilesController = new ListDownloadFilesController();
 

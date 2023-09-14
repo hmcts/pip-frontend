@@ -6,7 +6,7 @@ import path from 'path';
 import mime from 'mime-types';
 import { cloneDeep } from 'lodash';
 import { FileType } from '../models/consts';
-import {PublicationService} from "../service/publicationService";
+import { PublicationService } from '../service/publicationService';
 import { HttpStatusCode } from 'axios';
 
 const url = 'list-download-files';
@@ -20,7 +20,11 @@ export default class ListDownloadFilesController {
         let publicationMetadata;
 
         if (artefactId) {
-            publicationMetadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId'], true);
+            publicationMetadata = await publicationService.getIndividualPublicationMetadata(
+                artefactId,
+                req.user['userId'],
+                true
+            );
             if (publicationMetadata && publicationMetadata !== HttpStatusCode.NotFound) {
                 const isAuthorised = await listDownloadService.checkUserIsAuthorised(
                     req.user['userId'],
