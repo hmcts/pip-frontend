@@ -10,7 +10,7 @@ Scenario('I should be able to view error summary if no results', async ({ I }) =
 
     I.click('Continue');
     I.waitForText('No results found');
-    I.see('There is nothing matching your criteria')
+    I.see('There is nothing matching your criteria');
 });
 
 Scenario('I should be able to view error summary in Welsh if no results', async ({ I }) => {
@@ -25,5 +25,5 @@ Scenario('I should be able to view error summary in Welsh if no results', async 
     I.clearField('#search-input');
     I.click('Parhau');
     I.waitForText('Ni ddaethpwyd o hyd i unrhyw ganlyniad');
-    I.see('Nid oes dim sy\'n cyfateb i\'ch meini prawf')
+    I.see("Nid oes dim sy'n cyfateb i'ch meini prawf");
 });
