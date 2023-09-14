@@ -12,18 +12,20 @@ const PAGE_URL_WITH_DOWNLOAD_BUTTON = '/sjp-public-list?artefactId=def';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-body';
 const tableHeadings = 'govuk-table__header';
-const sjpTableData = 'govuk-table__body';
+const sjpTableData = 'govuk-table__cell';
 const buttonClass = 'govuk-button';
 const linkClass = 'govuk-link';
 const filterTitleClass = 'moj-filter__header-title';
 const selectedFiltersHeadingClass = 'govuk-heading-m';
 
 const expectedHeader = 'Single Justice Procedure cases that are ready for hearing';
-const summaryHeadingText = 'List containing 1 case(s)';
+const summaryHeadingText = 'List containing 2 case(s)';
 const listDate = '01 September 2023';
-const offenderName = 'This is a forename This is a surname';
-const offenderPostcode = 'This is a postcode';
-const offenderProsecutor = 'This is an organisation';
+const offenderIndividualName = 'This is a forename This is a surname';
+const offenderOrganisationName = 'This is an accused organisation name';
+const offenderIndividualPostcode = 'This is an individual postcode';
+const offenderOrganisationPostcode = 'This is an organisation postcode';
+const offenderProsecutor = 'This is a prosecutor organisation';
 const offenderReason = 'This is an offence title';
 
 let htmlRes: Document;
@@ -75,24 +77,37 @@ describe('Single Justice Procedure List page', () => {
             expect(tableHeaders[3].innerHTML).contains('Prosecutor');
         });
 
-        it('should display table data correctly', () => {
+        it('should have offender name (using individual details)', () => {
             const tableData = htmlRes.getElementsByClassName(sjpTableData);
-            expect(tableData[0].innerHTML).contains(offenderName, 'Could not find the offender name');
+            expect(tableData[0].innerHTML).contains(offenderIndividualName, 'Could not find the offender name');
         });
 
-        it('should have offender postcode', () => {
+        it('should have offender name (using organisation details)', () => {
             const tableData = htmlRes.getElementsByClassName(sjpTableData);
-            expect(tableData[0].innerHTML).contains(offenderPostcode, 'Could not find the offender postcode');
+            expect(tableData[4].innerHTML).contains(offenderOrganisationName, 'Could not find the offender name');
         });
 
-        it('should have the correct prosecutor', () => {
+        it('should have offender postcode (using individual details)', () => {
             const tableData = htmlRes.getElementsByClassName(sjpTableData);
-            expect(tableData[0].innerHTML).contains(offenderProsecutor, "Could not find the offender's prosecutor");
+            expect(tableData[1].innerHTML).contains(offenderIndividualPostcode, 'Could not find the offender postcode');
+        });
+
+        it('should have offender postcode (using organisation details)', () => {
+            const tableData = htmlRes.getElementsByClassName(sjpTableData);
+            expect(tableData[5].innerHTML).contains(
+                offenderOrganisationPostcode,
+                'Could not find the offender postcode'
+            );
         });
 
         it('should have the offence reason', () => {
             const tableData = htmlRes.getElementsByClassName(sjpTableData);
-            expect(tableData[0].innerHTML).contains(offenderReason, 'Could not find the offence reason');
+            expect(tableData[2].innerHTML).contains(offenderReason, 'Could not find the offence reason');
+        });
+
+        it('should have the correct prosecutor', () => {
+            const tableData = htmlRes.getElementsByClassName(sjpTableData);
+            expect(tableData[3].innerHTML).contains(offenderProsecutor, "Could not find the offender's prosecutor");
         });
 
         it('should display the show filters button', () => {
