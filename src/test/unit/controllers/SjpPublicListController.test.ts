@@ -15,7 +15,7 @@ const sjpPublicListController = new SjpPublicListController();
 const artefactId = '1';
 const artefactIdWithNoFiles = '2';
 
-const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../mocks/SJPMockPage.json'), 'utf-8');
+const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../mocks/sjp-public-list.json'), 'utf-8');
 const data = JSON.parse(mockSJPPublic);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
@@ -62,8 +62,8 @@ describe('SJP Public List Type Controller', () => {
             ...i18n['list-template'],
             sjpData: filter.sjpCases,
             length: 2,
-            publishedDateTime: '14 September 2016',
-            publishedTime: '12:30am',
+            publishedDateTime: '01 September 2023',
+            publishedTime: '11am',
             filterOptions: filter.filterOptions,
         };
 
