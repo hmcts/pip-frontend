@@ -51,7 +51,7 @@ export default class CrownDailyListController {
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
-                venueAddress: venueAddress
+                venueAddress: venueAddress,
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
