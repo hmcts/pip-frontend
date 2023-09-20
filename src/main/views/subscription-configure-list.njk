@@ -66,6 +66,9 @@
         <form method="post" action="subscription-configure-list" class="moj-filter-layout__filter layout-width-four-fifths"
               autocomplete="off">
           {{ mojFilter({
+            submit: {
+              text: applyFiltersButton
+            },
             heading: {
               text: filter
             },
@@ -161,7 +164,7 @@
                           </label>
                         </div>
                       </td>
-                      <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listConfig.listFriendlyName }}</td>
+                      <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listConfig.listFriendlyName | striptags(true) | escape | nl2br }}</td>
                     </tr>
                   {% endif %}
                 {% endfor %}
@@ -235,9 +238,6 @@
       let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
       return href.replace(',,', ',');
     }
-
-    // Replace apply filters button with localisation text as currently unconfigurable
-    document.getElementsByClassName("moj-filter-layout__filter")[0].getElementsByTagName("button")[0].innerHTML = '{{ applyFiltersButton }}';
 
     //Add aria label to filter heading
     document.getElementsByClassName("moj-filter__header-title")[0]

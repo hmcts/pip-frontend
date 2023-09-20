@@ -1,9 +1,12 @@
 import { DateTime } from 'luxon';
-import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
+import { createLocation, createTestUserAccount, uploadPublication } from '../../shared/testingSupportApi';
 import { randomData } from '../../shared/random-data';
-import { config } from '../../../config';
+import { config as testConfig, config } from '../../../config';
 
 Feature('Verified user email subscriptions');
+
+const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
+const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
 
 Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
@@ -27,7 +30,9 @@ Scenario(
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
         const locationId = randomData.getRandomLocationId();
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+        const testUserEmail = randomData.getRandomEmailAddress();
 
+        const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
         await createLocation(locationId, locationName);
         await uploadPublication(
             'PUBLIC',
@@ -39,7 +44,7 @@ Scenario(
             'ET_DAILY_LIST'
         );
 
-        I.loginAsMediaUser();
+        I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
         I.waitForText('Your account');
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
@@ -122,7 +127,7 @@ Scenario(
         I.waitForText('What is the surname or organisation name of the party involved in the case?');
         I.see('For example, Smith');
         I.fillField('#party-name', casePartySurname);
-        I.click('Continue');
+        I.click('Continue', null, { noWaitAfter: true });
         I.waitForText('Search result');
         I.see(casePartyFullName);
         I.see(casePartyNumber);
@@ -197,7 +202,7 @@ Scenario(
         I.see('Your subscription(s) has been removed.');
         I.logout();
     }
-);
+).tag('@CrossBrowser');
 
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
@@ -206,6 +211,9 @@ Scenario(
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
         const locationId = randomData.getRandomLocationId();
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+        const testUserEmail = randomData.getRandomEmailAddress();
+
+        const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
         await createLocation(locationId, locationName);
 
         await uploadPublication(
@@ -218,7 +226,7 @@ Scenario(
             'ET_DAILY_LIST'
         );
 
-        I.loginAsMediaUser();
+        I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
         I.waitForText('Your account');
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
@@ -301,9 +309,12 @@ Scenario('I as a verified user should be able to filter and select which list ty
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    await createLocation(locationId, locationName);
+    const testUserEmail = randomData.getRandomEmailAddress();
 
-    I.loginAsMediaUser();
+    await createLocation(locationId, locationName);
+    const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
+
+    I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
     I.waitForText('Your account');
     I.click('#card-subscription-management');
     I.waitForText('Your email subscriptions');
@@ -339,4 +350,4 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Email subscriptions');
     I.dontSee(locationName);
     I.logout();
-}).tag('@Nightly');
+});

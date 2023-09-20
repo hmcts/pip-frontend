@@ -1,6 +1,6 @@
 {
     "title": "COP Daily Cause List",
-    "listUpdated": "Last updated/Diweddarwyd ddiwethaf DATE at/yn ",
+    "listUpdated": "Last updated/Diweddarwyd ddiwethaf DATE at/am ",
     "importantInformationHeading": "Important information/Gwybodaeth bwysig",
     "dataSource": "Data Source/Ffynhonnell y Data",
     "backButton": "Back/Yn ôl",
@@ -11,7 +11,7 @@
     "regionalLeadJudge": "Regional Lead Judge/Barnwr Arweiniol Rhanbarthol",
     "sittingAt": "Sitting at/Yn eistedd yn",
     "listFor": "List for/Rhestr ar gyfer",
-    "beforeHon": "Before",
+    "beforeHon": "Before/Gerbron",
     "startTime": "Start Time/Amser dechrau",
     "caseRef": "Case Ref/Cyfeirnod achos",
     "caseDetails": "Case Details/Manylion yr achos",

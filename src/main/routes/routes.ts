@@ -148,6 +148,8 @@ export default function (app: Application): void {
     // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
     // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
     app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
+    app.get('/unprocessed-request', app.locals.container.cradle.unprocessedRequestController.get);
+
     app.get('/search', app.locals.container.cradle.searchController.get);
     app.post('/search', app.locals.container.cradle.searchController.post);
     app.get('/sign-in', app.locals.container.cradle.signInController.get);
@@ -162,6 +164,8 @@ export default function (app: Application): void {
     app.post('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.filterValues);
     app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
     app.post('/sjp-press-list', app.locals.container.cradle.sjpPressListController.filterValues);
+    app.get('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.get);
+    app.post('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.filterValues);
     app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
     app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
     app.get('/crown-firm-list', app.locals.container.cradle.crownFirmListController.get);

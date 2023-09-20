@@ -6,9 +6,8 @@ import path from 'path';
 import sinon from 'sinon';
 import { PublicationService } from '../../../main/service/publicationService';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
+import { describe } from '@jest/globals';
 
-const PAGE_URL = '/sjp-press-list?artefactId=abc';
-const PAGE_URL_WITH_DOWNLOAD_BUTTON = '/sjp-press-list?artefactId=def';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const listSummary = 'govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1';
@@ -19,7 +18,6 @@ const linkClass = 'govuk-link';
 const filterTitleClass = 'moj-filter__header-title';
 const selectedFiltersHeadingClass = 'govuk-heading-m';
 
-const expectedHeader = 'Single Justice Procedure cases - Press view';
 const summaryHeadingText = 'What are Single Justice Procedure cases?';
 const listText = 'List for 14 February 2022';
 const offenderIndividualName = 'Test Name';
@@ -36,19 +34,57 @@ let htmlRes: Document;
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sjp-press-list.json'), 'utf-8');
 const sjpList = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData)[0];
+
+const metaDataSjpPressFullList = JSON.parse(rawMetaData)[0];
+metaDataSjpPressFullList.listType = 'SJP_PRESS_LIST';
+
+const metaDataSjpPressNewCases = JSON.parse(rawMetaData)[0];
+metaDataSjpPressNewCases.listType = 'SJP_DELTA_PRESS_LIST';
+
+const sjpPressFullListUrl = '/sjp-press-list';
+const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
+
+const sjpResourceMap = new Map<string, object>([
+    [
+        sjpPressFullListUrl,
+        {
+            artefactId: 'abc',
+            artefactIdWithDownloadButton: 'def',
+            title: 'Single Justice Procedure cases - Press view (Full list)',
+        },
+    ],
+    [
+        sjpPressNewCasesUrl,
+        {
+            artefactId: 'ghi',
+            artefactIdWithDownloadButton: 'jkl',
+            title: 'Single Justice Procedure cases - Press view (New cases)',
+        },
+    ],
+]);
+
+const sjpFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
+const sjpNewCasesResource = sjpResourceMap.get(sjpPressNewCasesUrl);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sjpList);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+metadataStub.withArgs(sjpFullListResource['artefactId']).returns(metaDataSjpPressFullList);
+metadataStub.withArgs(sjpNewCasesResource['artefactId']).returns(metaDataSjpPressNewCases);
+metadataStub.withArgs(sjpFullListResource['artefactIdWithDownloadButton']).returns(metaDataSjpPressFullList);
+metadataStub.withArgs(sjpNewCasesResource['artefactIdWithDownloadButton']).returns(metaDataSjpPressNewCases);
 
 const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
-generatesFilesStub.withArgs('abc').resolves(false);
+generatesFilesStub.withArgs(sjpFullListResource['artefactId']).resolves(false);
+generatesFilesStub.withArgs(sjpNewCasesResource['artefactId']).resolves(false);
 
 describe('Single Justice Procedure List page', () => {
-    describe('user not signed in', () => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("user not signed in with path '%s'", url => {
+        const sjpResource = sjpResourceMap.get(url);
+        const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
+
         beforeAll(async () => {
             await request(app)
-                .get(PAGE_URL)
+                .get(pageUrl)
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
@@ -57,7 +93,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
-            expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+            expect(header[0].innerHTML).equals(sjpResource['title'], 'Could not find the header');
         });
 
         it('should display summary', () => {
@@ -104,6 +140,16 @@ describe('Single Justice Procedure List page', () => {
             );
         });
 
+        it('should have empty offender individual address if address field is missing', () => {
+            const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+            expect(offenderData[13].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
+        });
+
+        it('should have empty offender individual address if address field is empty', () => {
+            const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+            expect(offenderData[18].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
+        });
+
         it('should have prosecutor', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
             expect(offenderData[4].innerHTML).contains(prosecutor, 'Could not find the Prosecutor');
@@ -136,15 +182,21 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
-    describe('signed in as media user', () => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("signed in as media user with path '%s'", url => {
+        const sjpResource = sjpResourceMap.get(url);
+        const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
+        const pageUrlWithDownloadButton = url + '?artefactId=' + sjpResource['artefactIdWithDownloadButton'];
+
         describe('with publication files', () => {
-            generatesFilesStub.withArgs('def', { roles: 'VERIFIED' }).resolves(true);
+            generatesFilesStub
+                .withArgs(sjpResource['artefactIdWithDownloadButton'], { roles: 'VERIFIED' })
+                .resolves(true);
 
             beforeAll(async () => {
                 app.request['user'] = { roles: 'VERIFIED' };
 
                 await request(app)
-                    .get(PAGE_URL_WITH_DOWNLOAD_BUTTON)
+                    .get(pageUrlWithDownloadButton)
                     .then(res => {
                         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                         htmlRes.getElementsByTagName('div')[0].remove();
@@ -162,7 +214,7 @@ describe('Single Justice Procedure List page', () => {
                 app.request['user'] = { roles: 'VERIFIED' };
 
                 await request(app)
-                    .get(PAGE_URL)
+                    .get(pageUrl)
                     .then(res => {
                         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                         htmlRes.getElementsByTagName('div')[0].remove();
@@ -176,12 +228,15 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
-    describe('signed in as admin user', () => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("signed in as admin user with path '%s'", url => {
+        const sjpResource = sjpResourceMap.get(url);
+        const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
+
         beforeAll(async () => {
             app.request['user'] = { roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
 
             await request(app)
-                .get(PAGE_URL)
+                .get(pageUrl)
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
@@ -194,12 +249,15 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
-    describe('Request with filter values', () => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("Request with filter values with path '%s'", url => {
+        const sjpResource = sjpResourceMap.get(url);
+        const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
+
         beforeAll(async () => {
             app.request['user'] = {};
 
             await request(app)
-                .get(PAGE_URL + '&filterValues=AA1')
+                .get(pageUrl + '&filterValues=AA1')
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();

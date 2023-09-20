@@ -31,10 +31,12 @@ sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listD
 const artefactId = 'abc';
 
 magistratesPublicListJsonStub.withArgs(artefactId).resolves(listData);
+magistratesPublicListJsonStub.withArgs(artefactId, undefined).resolves(null);
 magistratesPublicListJsonStub.withArgs('').resolves([]);
 magistratesPublicListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 magistratesPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
+magistratesPublicListMetaDataStub.withArgs(artefactId, undefined).resolves(null);
 magistratesPublicListMetaDataStub.withArgs('').resolves([]);
 
 const i18n = {
@@ -69,6 +71,7 @@ describe('Magistrates Public List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             version: '',
+            venueAddress: 'THE LAW COURTS\nMain Road\nPR1 2LL',
             bill: false,
         };
 
@@ -104,8 +107,8 @@ describe('Magistrates Public List Controller', () => {
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        sinon.restore();
         request.query = { artefactId: artefactId };
+        request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

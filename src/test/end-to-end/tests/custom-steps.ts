@@ -10,7 +10,7 @@ export = function () {
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in');
+            this.click('Sign in', null, { noWaitAfter: true });
         },
 
         loginAsAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
@@ -18,7 +18,7 @@ export = function () {
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in');
+            this.click('Sign in', null, { noWaitAfter: true });
         },
 
         loginAsMediaUser: function (
@@ -31,7 +31,7 @@ export = function () {
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in');
+            this.click('Sign in', null, { noWaitAfter: true });
         },
 
         loginAsCftUser: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
@@ -41,7 +41,18 @@ export = function () {
             this.see('Sign in');
             this.fillField('#username', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in');
+            this.click('Sign in', null, { noWaitAfter: true });
+        },
+
+        loginAsCftUserInWelsh: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
+            this.amOnPage('/sign-in');
+            this.click('Cymraeg');
+            this.click('Gyda chyfrif MyHMCTS');
+            this.click('Parhau');
+            this.see('Mewngofnodi');
+            this.fillField('#username', secret(username));
+            this.fillField('#password', secret(password));
+            this.click('Mewngofnodi');
         },
 
         seeBetaFeedbackOnPage: function (page) {
@@ -53,6 +64,11 @@ export = function () {
         logout: function () {
             this.click('Sign out');
             this.see('You have been signed out');
+        },
+
+        logoutWelsh: function () {
+            this.click('Allgofnodi');
+            this.see('Rydych wedi cael eich allgofnodi');
         },
 
         createAdminAccount: function (firstName, lastName, email, role) {

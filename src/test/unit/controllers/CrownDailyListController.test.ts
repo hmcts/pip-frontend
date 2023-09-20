@@ -32,6 +32,7 @@ sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListDat
 const artefactId = 'abc';
 
 crownDailyListJsonStub.withArgs(artefactId).resolves(listData);
+crownDailyListJsonStub.withArgs(artefactId, undefined).resolves(undefined);
 crownDailyListJsonStub.withArgs('').resolves([]);
 crownDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
@@ -71,6 +72,7 @@ describe('Crown Daily List Controller', () => {
             provenance: 'prov1',
             version: '',
             bill: false,
+            venueAddress: 'THE LAW COURTS\nPR1 2LL',
         };
 
         responseMock.expects('render').once().withArgs('crown-daily-list', expectedData);
@@ -105,8 +107,8 @@ describe('Crown Daily List Controller', () => {
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        sinon.restore();
         request.query = { artefactId: artefactId };
+        request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
