@@ -6,10 +6,12 @@ import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrownWarnedListService } from '../service/listManipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../helpers/listHelper';
+import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const crownWarnedListService = new CrownWarnedListService();
+const crimeListsService = new CrimeListsService();
 
 const listUrl = 'crown-warned-list';
 const toBeAllocated = 'To be allocated';
@@ -29,6 +31,7 @@ export default class CrownWarnedListController {
             );
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
+            const venueAddress = crimeListsService.formatVenueAddress(searchResults['venue']['venueAddress']);
 
             // Sort unallocated list entry to the end of the map so it appears last on the template
             const sortedListData = new Map(
@@ -52,6 +55,7 @@ export default class CrownWarnedListController {
                 publishedTime: publishedTime,
                 version: searchResults['document']['version'],
                 provenance: metaData.provenance,
+                venueAddress: venueAddress,
                 bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
