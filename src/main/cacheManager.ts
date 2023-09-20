@@ -30,7 +30,6 @@ if (process.env.REDIS_MOCK) {
     const redis = require('redis-mock');
     redisClient = redis.createClient();
 } else {
-    console.log('Creating redis client');
     redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
 }
 
