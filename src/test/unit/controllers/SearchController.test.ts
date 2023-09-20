@@ -14,17 +14,41 @@ const stubCourt = sinon.stub(LocationService.prototype, 'getLocationByName');
 
 describe('Search Controller', () => {
     const i18n = { search: {} };
+    const response = {
+        render: function () {
+            return '';
+        },
+        redirect: function () {
+            return '';
+        },
+    } as unknown as Response;
+
     it('should render the search page', () => {
-        const response = {
-            render: function () {
-                return '';
-            },
-        } as unknown as Response;
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['search'],
             autocompleteList: courtList,
+            welsh: false,
+            noResultsError: false,
+        };
+
+        responseMock.expects('render').once().withArgs('search', expectedData);
+
+        return searchController.get(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+    it('should render the search page in Welsh', () => {
+        const request = mockRequest(i18n);
+        request.lng = 'cy';
+
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['search'],
+            autocompleteList: courtList,
+            welsh: true,
             noResultsError: false,
         };
 
@@ -36,11 +60,6 @@ describe('Search Controller', () => {
     });
 
     it('should render search page if no input is provided', () => {
-        const response = {
-            render: function () {
-                return '';
-            },
-        } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { 'input-autocomplete': '' };
 
@@ -48,6 +67,7 @@ describe('Search Controller', () => {
         const expectedData = {
             ...i18n['search'],
             autocompleteList: courtList,
+            welsh: false,
             noResultsError: true,
         };
 
@@ -59,17 +79,13 @@ describe('Search Controller', () => {
 
     it('should render search page if there are no matching results', () => {
         stubCourt.returns(null);
-        const response = {
-            render: function () {
-                return '';
-            },
-        } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { 'input-autocomplete': 'test' };
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['search'],
             autocompleteList: courtList,
+            welsh: false,
             noResultsError: true,
         };
 
@@ -81,17 +97,13 @@ describe('Search Controller', () => {
 
     it('should render search page if input is three characters long and partially correct as noResultsError', () => {
         stubCourt.returns(null);
-        const response = {
-            render: function () {
-                return '';
-            },
-        } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { 'input-autocomplete': 'Mut' };
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['search'],
             autocompleteList: courtList,
+            welsh: false,
             noResultsError: true,
         };
 
@@ -106,11 +118,6 @@ describe('Search Controller', () => {
             locationId: 1,
         };
         stubCourt.returns(court);
-        const response = {
-            redirect: function () {
-                return '';
-            },
-        } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { 'input-autocomplete': 'Valid Court' };
         const responseMock = sinon.mock(response);
