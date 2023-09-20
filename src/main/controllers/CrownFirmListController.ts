@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { CrownFirmListService } from '../service/listManipulation/crownFirmListService';
+import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
@@ -15,6 +16,7 @@ const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const firmListService = new CrownFirmListService();
 const civilService = new CivilFamilyAndMixedListService();
+const crimeListsService = new CrimeListsService();
 
 export default class CrownFirmListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -43,6 +45,7 @@ export default class CrownFirmListController {
             const endDate = DateTime.fromISO(dates[dates.length - 1], {
                 zone: 'Europe/London',
             }).toFormat('dd MMMM yyyy');
+            const venueAddress = crimeListsService.formatVenueAddress(jsonData['venue']['venueAddress']);
 
             res.render('crown-firm-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
@@ -58,6 +61,7 @@ export default class CrownFirmListController {
                 version: jsonData['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
+                venueAddress: venueAddress
             });
         } else if (jsonData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
