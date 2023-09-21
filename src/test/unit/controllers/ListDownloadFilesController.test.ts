@@ -20,7 +20,7 @@ describe('List Download Files Controller', () => {
         'list-download-files': {},
         error: { title: 'error' },
         'unauthorised-access': { title: 'unauthorised' },
-        'list-not-found': { title: 'not found'},
+        'list-not-found': { title: 'not found' },
     };
     const url = 'list-download-files';
 
