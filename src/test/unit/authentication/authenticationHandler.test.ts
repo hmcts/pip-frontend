@@ -508,20 +508,17 @@ describe('test forgotten password redirect', () => {
 });
 
 describe('test keep session language', () => {
-
     it('test language is passed through to next middleware', () => {
-
         const req = {
             lng: 'cy',
-            session: {}
+            session: {},
         };
 
         const nextFunction = jest.fn();
 
-        keepSessionLanguage(req,() => {}, nextFunction);
+        keepSessionLanguage(req, () => {}, nextFunction);
 
         expect(req.session['lng']).to.equal('cy');
         expect(nextFunction.mock.calls.length).to.equal(1);
     });
-
 });
