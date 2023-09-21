@@ -82,10 +82,10 @@ describe('Test interval', () => {
 
 describe('Cache Manager creation', () => {
     beforeEach(() => {
-       jest.resetModules();
+        jest.resetModules();
     });
 
-    it ('should create a redis client without mock in non local', async () => {
+    it('should create a redis client without mock in non local', async () => {
         process.env.REDIS_LOCAL = '';
         process.env.REDIS_MOCK = '';
 
@@ -97,7 +97,7 @@ describe('Cache Manager creation', () => {
         expect(ioRedis).toHaveBeenCalledWith('rediss://:@127.0.0.1:6379', { connectTimeout: 10000 });
     });
 
-    it ('should create a redis client without mock in local', async () => {
+    it('should create a redis client without mock in local', async () => {
         process.env.REDIS_LOCAL = 'true';
         process.env.REDIS_MOCK = '';
 
@@ -109,7 +109,7 @@ describe('Cache Manager creation', () => {
         expect(ioRedis).toHaveBeenCalledWith('redis://:@127.0.0.1:6379', { connectTimeout: 10000 });
     });
 
-    it ('should create a redis client with mock', async () => {
+    it('should create a redis client with mock', async () => {
         process.env.REDIS_LOCAL = '';
         process.env.REDIS_MOCK = 'true';
 
@@ -117,6 +117,4 @@ describe('Cache Manager creation', () => {
 
         expect(cacheManager.redisClient).toHaveProperty('_redisMock');
     });
-
 });
-
