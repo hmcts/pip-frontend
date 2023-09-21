@@ -118,7 +118,7 @@ export default function (app: Application): void {
                 failureRedirect: '/view-option',
                 extraAuthReqQueryParams: extraLanguageArg(req),
             })(req, res, next),
-
+        keepSessionLanguage,
         processMediaAccountSignIn
     );
     app.post(
