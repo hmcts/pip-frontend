@@ -116,6 +116,7 @@ export default function (app: Application): void {
             passport.authenticate('login', {
                 failureRedirect: '/view-option',
                 extraAuthReqQueryParams: extraLanguageArg(req),
+                keepSessionInfo: true,
             })(req, res, next),
         processMediaAccountSignIn
     );
@@ -126,6 +127,7 @@ export default function (app: Application): void {
             passport.authenticate('admin-login', {
                 failureRedirect: '/view-option',
                 extraAuthReqQueryParams: extraLanguageArg(req),
+                keepSessionInfo: true,
             })(req, res, next),
         processAdminAccountSignIn
     );
@@ -136,6 +138,7 @@ export default function (app: Application): void {
             passport.authenticate('media-verification', {
                 failureRedirect: '/view-option',
                 extraAuthReqQueryParams: extraLanguageArg(req),
+                keepSessionInfo: true,
             })(req, res, next),
         mediaVerificationHandling
     );
@@ -623,6 +626,7 @@ export default function (app: Application): void {
             '/cft-login/return',
             passport.authenticate('cft-idam', {
                 failureRedirect: '/cft-rejected-login',
+                keepSessionInfo: true
             }),
             processCftIdamSignIn
         );
