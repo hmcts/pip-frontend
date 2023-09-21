@@ -22,8 +22,9 @@ export default class MagistratesStandardListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (isValidList(searchResults, metaData) && searchResults && metaData) {
+            const publicationJsonString = JSON.stringify(searchResults);
             const manipulatedData = magsStandardListService.manipulatedMagsStandardListData(
-                JSON.stringify(searchResults),
+                publicationJsonString,
                 req.lng,
                 'magistrates-standard-list'
             );
