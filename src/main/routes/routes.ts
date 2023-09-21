@@ -626,7 +626,7 @@ export default function (app: Application): void {
             '/cft-login/return',
             passport.authenticate('cft-idam', {
                 failureRedirect: '/cft-rejected-login',
-                keepSessionInfo: true
+                keepSessionInfo: true,
             }),
             processCftIdamSignIn
         );
