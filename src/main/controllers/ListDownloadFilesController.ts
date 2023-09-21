@@ -61,7 +61,7 @@ export default class ListDownloadFilesController {
                     res.render('unauthorised-access', req.i18n.getDataByLanguage(req.lng)['unauthorised-access']);
                 }
             } else {
-                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+                res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
             }
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

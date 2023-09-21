@@ -20,6 +20,7 @@ describe('List Download Files Controller', () => {
         'list-download-files': {},
         error: { title: 'error' },
         'unauthorised-access': { title: 'unauthorised' },
+        'list-not-found': { title: 'not found'},
     };
     const url = 'list-download-files';
 
@@ -181,11 +182,11 @@ describe('List Download Files Controller', () => {
     });
 
     describe('artefact does not exist', () => {
-        it('should render the error page', () => {
+        it('should render the list not found page', () => {
             request.query = { artefactId: '999' };
             request.user = { userId: '1' };
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('error', i18n.error);
+            responseMock.expects('render').once().withArgs('list-not-found', i18n['list-not-found']);
 
             listDownloadFilesController.get(request, response).then(() => {
                 responseMock.verify();
