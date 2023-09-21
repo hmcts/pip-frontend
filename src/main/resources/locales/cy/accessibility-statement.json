@@ -4,9 +4,9 @@
     "section1": {
         "text1": "Mae'r datganiad hygyrchedd hwn yn berthnasol i gynnwys a gyhoeddir ar ",
         "text2": "Mae'r gwasanaeth gwrandawiadau lysoedd a Thribiwnlysoedd yn darparu llwyfan cyhoeddi i alluogi i wybodaeth, megis rhestrau gwrandawiadau, a ddarperir gan GLlTEM gael ei rhannu, ei harddangos a'i diweddaru fel y bo'n briodol. Bydd yn galluogi arddangos gwybodaeth i ddefnyddwyr y llysoedd, yn gyson â gweithdrefnau awdurdodaethau a rheolau busnes. Mae'r gwasanaeth yn cefnogi ymrwymiad GLlTEM i gyfiawnder agored a darparu gwybodaeth dryloyw a chyson am lysoedd a thribiwnlysoedd ar draws awdurdodaethau.",
-        "text4": "Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
-        "text5": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
-        "text6": "(mae'n agor mewn ffenestr newydd) gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.",
+        "text3": "Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
+        "text4": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
+        "text5": "(mae'n agor mewn ffenestr newydd) gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.",
         "links": [
             {
                 "link": "https://www.court-tribunal-hearings.service.gov.uk",
@@ -29,9 +29,7 @@
         "heading": "Pa mor hygyrch yw'r wefan hon",
         "upperText": "Rydym yn gwybod nad yw rhai rhannau o’r wefan hon yn gwbl hygyrch, er enghraifft:",
         "text": [
-            "Nid yw llawer o ddogfennau PDF a gyhoeddir yn y gwasanaeth hwn yn gwbl hygyrch i feddalwedd darllen sgrin gan fod y cynnwys heb ei dagio, heb ei deitlo ac nad yw'r tablau wedi'u marcio, mewn ffordd resymegol i alluogi defnyddwyr darllenwyr sgrin i fynd drwy’r ddogfen a nodi'r wybodaeth yn gywir. ",
-            "Nid yw'r tudalennau mewngofnodi ac ailosod cyfrinair ar gyfer rhywun sydd â chyfrif gwrandawiadau llys a thribiwnlys yn gwbl hygyrch i feddalwedd darllen sgrin gan nad yw penawdau ar y tudalennau hyn yn cael eu darllen allan.  Mae hyn yn golygu y gall defnyddwyr darllenwyr sgrin ei chael hi'n anodd adnabod pwrpas a strwythur rhesymegol y dudalen.",
-            "Mae'r cyferbyniad lliw yn ei gwneud hi'n anodd darllen testun mewn rhai rhannau o'r wefan.  "
+            "Nid yw llawer o ddogfennau PDF a gyhoeddir yn y gwasanaeth hwn yn gwbl hygyrch i feddalwedd darllen sgrin gan fod y cynnwys heb ei dagio, heb ei deitlo ac nad yw'r tablau wedi'u marcio, mewn ffordd resymegol i alluogi defnyddwyr darllenwyr sgrin i fynd drwy’r ddogfen a nodi'r wybodaeth yn gywir."
         ]
     },
     "section3": {
@@ -88,17 +86,13 @@
         "text": [
             "Mae rhai rhestrau gwrandawiadau a gyflwynir o fewn y gwasanaeth wedi eu cyflwyno ac i’w gweld fel dogfen PDF neu Word (ffeiliau fflat). Gall y rhain fod yn anodd i ddefnyddwyr darllenwyr sgrin fynd drwyddynt gan fod y cynnwys heb ei dagio, heb ei deitlo ac nid yw’r tablau wedi’u marcio i alluogi defnyddwyr darllenwyr sgrin i fynd drwy’r ddogfen a nodi'r wybodaeth yn gywir.",
             "Mae hyn yn methu gyda golwg ar WCAG 2.1 Maen prawf 2.4.2 (teitl y dudalen) ac 1.3.1 (gwybodaeth a pherthynas).",
-            "Bydd cynnydd yn cael ei adolygu'n barhaus, a bwriedir cynnal adolygiad llawn ym mis Rhagfyr 2022.",
-            "Nid yw sgriniau mewngofnodi ac anghofio cyfrinair ar gyfer aelod o'r cyfryngau (gyda chyfrif gwrandawiadau llys a thribiwnlys) yn gwbl hygyrch, gan nad yw penawdau'n cael eu darllen allan ac nid oes gan rai delweddau destun amgen.  ",
-            "Mae hyn yn methu gyda golwg ar WCAG 2.1 Maen prawf 1.3.1 (gwybodaeth a pherthynas).  Mae'r rhyngwyneb yn seiliedig ar drydydd parti allan o batrwm dylunio'r blwch. ",
-            "Byddwn yn ceisio datrys y mater hwn erbyn mis Rhagfyr 2022."
+            "Bydd cynnydd yn cael ei adolygu'n barhaus, a bwriedir cynnal adolygiad llawn ym mis Medi 2024."
         ]
     },
     "section10": {
         "heading": "Beth rydym yn ei wneud i wella hygyrchedd",
         "text": [
-            "Rydym yn bwriadu gwella hygyrchedd drwy ymgysylltu’n rhagweithiol â Rhaglen Ddiwygio GLlTEM  i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch i'w cyhoeddi. Rydym wedi gofyn i wasanaethau ychwanegu gwaith at welliannau yn y dyfodol i ddiweddaru'r ffordd y maent yn cynhyrchu dogfennau i'w gwneud yn gwbl hygyrch.  ",
-            "Mae'r tîm gwasanaeth wedi derbyn fersiwn newydd o'r tudalennau mewngofnodi i ddatrys y mater o gydymffurfio â hygyrchedd.  Dylid rhoi hyn ar waith erbyn mis Rhagfyr 2022.",
+            "Rydym wedi cysylltu â thrafod yn rheolaidd gyda Rhaglen Ddiwygio GLlTEF i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch ar gyfer eu cyhoeddi. Rydym wedi gofyn i wasanaethau wneud gwaith pellach wrth symud ymlaen i ddiweddaru’r ffordd y maent yn cynhyrchu dogfennau i’w gwneud yn gwbl hygyrch.",
             "Byddwn yn cynnal profion hygyrchedd awtomataidd yn barhaus fel rhan o'n gweithgarwch datblygu."
         ]
     },
@@ -107,7 +101,7 @@
         "smallHeading1": "Gweithdrefn brofi:",
         "smallHeading2": "Profi gyda defnyddwyr:",
         "smallHeading3": "Archwilio technegol:",
-        "text1": "Paratowyd y datganiad hwn ar 28 Ebrill 2022.   Fe'i hadolygwyd ddiwethaf ar 3 Mai 2022.",
+        "text1": "Paratowyd y datganiad hwn ar 8 Medi 2023. Fe'i hadolygwyd ddiwethaf ar 8 Medi 2023.",
         "text2": "Profwyd y wefan hon yn fewnol ar bob cam o’i hadeiladu a bu’n destun profion ",
         "text3": " drwy gydol mis Ebrill 2021 i fis Mawrth 2022.",
         "text4": "Mae hwn yn dyfyniad o adroddiad y Cydgysylltydd sy'n esbonio eu methodoleg.",
