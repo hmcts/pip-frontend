@@ -39,13 +39,13 @@ describe('Crown Warned List page', () => {
 
     it('should display header with venue name and list type', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).equal('Manchester Court: Warned List', 'Could not find the header');
+        expect(header[0].innerHTML).equal('Crown Warned List for Manchester Court', 'Could not find the header');
     });
 
     it('should display publication date', () => {
         const date = htmlRes.getElementsByClassName(publicationDateClass);
         expect(date[0].innerHTML).contains(
-            'Last Updated 13 September 2022 at 12:30pm',
+            'Last updated 13 September 2022 at 12:30pm',
             'Could not find the publication date'
         );
     });

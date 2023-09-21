@@ -11,6 +11,7 @@ export default class SearchController {
         res.render('search', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
             autocompleteList: autocompleteList,
+            welsh: req.lng === 'cy',
             noResultsError: false,
         });
     }
@@ -24,6 +25,7 @@ export default class SearchController {
             : res.render('search', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
                   autocompleteList: autocompleteList,
+                  welsh: req.lng === 'cy',
                   noResultsError: true,
               });
     }

@@ -16,7 +16,7 @@
         <div class="govuk-grid-row">
             <div class="no_padding govuk-grid-column-three-quarters">
                 {{ govukErrorSummary({
-                    titleText: error.summaryTitleText,
+                    titleText: error.noResultsSummaryText,
                     errorList: [
                         {
                             text: error.noResults,
@@ -86,13 +86,23 @@
       };
 
       const element = document.querySelector('#search-input-container');
-      const source = {{ optionList | dump |safe }}
-        accessibleAutocomplete({
-          element: element,
-          id: 'search-input',
-          source: source,
-          displayMenu: 'overlay'
-        });
+      const source = {{ optionList | dump | safe }}
+      if ({{ welsh }}) {
+          accessibleAutocomplete({
+              element: element,
+              id: 'search-input',
+              source: source,
+              displayMenu: 'overlay',
+              tNoResults: () => '{{ error.noResultsSummaryText }}'
+          });
+      } else {
+          accessibleAutocomplete({
+              element: element,
+              id: 'search-input',
+              source: source,
+              displayMenu: 'overlay'
+          });
+      }
       if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
       }
