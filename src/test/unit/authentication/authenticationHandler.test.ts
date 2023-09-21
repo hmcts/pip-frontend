@@ -17,6 +17,7 @@ import {
     mapAzureLanguage,
     isPermittedAnyRole,
     forgotPasswordRedirect,
+    keepSessionLanguage,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -504,4 +505,23 @@ describe('test forgotten password redirect', () => {
 
         expect(mockRedirectFunction.mock.calls[0][0]).to.contain('ui_locales=cy-GB');
     });
+});
+
+describe('test keep session language', () => {
+
+    it('test language is passed through to next middleware', () => {
+
+        const req = {
+            lng: 'cy',
+            session: {}
+        };
+
+        const nextFunction = jest.fn();
+
+        keepSessionLanguage(req,() => {}, nextFunction);
+
+        expect(req.session['lng']).to.equal('cy');
+        expect(nextFunction.mock.calls.length).to.equal(1);
+    });
+
 });

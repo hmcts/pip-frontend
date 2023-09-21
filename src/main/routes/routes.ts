@@ -16,6 +16,7 @@ import {
     processCftIdamSignIn,
     checkPasswordReset,
     mapAzureLanguage,
+    keepSessionLanguage,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/sessionManagementService';
 import { urlPath } from '../helpers/envUrls';
@@ -116,8 +117,8 @@ export default function (app: Application): void {
             passport.authenticate('login', {
                 failureRedirect: '/view-option',
                 extraAuthReqQueryParams: extraLanguageArg(req),
-                keepSessionInfo: true,
             })(req, res, next),
+
         processMediaAccountSignIn
     );
     app.post(
@@ -127,8 +128,8 @@ export default function (app: Application): void {
             passport.authenticate('admin-login', {
                 failureRedirect: '/view-option',
                 extraAuthReqQueryParams: extraLanguageArg(req),
-                keepSessionInfo: true,
             })(req, res, next),
+        keepSessionLanguage,
         processAdminAccountSignIn
     );
     app.post(
@@ -138,8 +139,8 @@ export default function (app: Application): void {
             passport.authenticate('media-verification', {
                 failureRedirect: '/view-option',
                 extraAuthReqQueryParams: extraLanguageArg(req),
-                keepSessionInfo: true,
             })(req, res, next),
+        keepSessionLanguage,
         mediaVerificationHandling
     );
     app.get('/session-expiring', isPermittedAnyRole, app.locals.container.cradle.sessionExpiringController.get);
@@ -626,8 +627,8 @@ export default function (app: Application): void {
             '/cft-login/return',
             passport.authenticate('cft-idam', {
                 failureRedirect: '/cft-rejected-login',
-                keepSessionInfo: true,
             }),
+            keepSessionLanguage,
             processCftIdamSignIn
         );
         app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);

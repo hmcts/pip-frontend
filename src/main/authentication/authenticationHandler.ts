@@ -137,6 +137,14 @@ export async function processCftIdamSignIn(req, res): Promise<any> {
     res.redirect('/account-home');
 }
 
+//This is now needed due to passport by default removing session data on successful login. Alternatively
+//keepSessionData could have been used, however this is the more secure approach as it is explicit in what we
+//want to keep in the session.
+export function keepSessionLanguage(req, res, next): void {
+    req.session.lng = req['lng'];
+    next();
+}
+
 /**
  * This function checks the state of a password reset. If the error indicates a cancelled action, the user is re-directed
  * to the appropriate page.
