@@ -3,8 +3,8 @@
     "backButton": "Yn ôl",
     "section1": {
         "text1": "Mae'r datganiad hygyrchedd hwn yn berthnasol i gynnwys a gyhoeddir ar ",
-        "text2": "Mae'r gwasanaeth gwrandawiadau lysoedd a Thribiwnlysoedd yn darparu llwyfan cyhoeddi i alluogi i wybodaeth, megis rhestrau gwrandawiadau, a ddarperir gan GLlTEM gael ei rhannu, ei harddangos a'i diweddaru fel y bo'n briodol. Bydd yn galluogi arddangos gwybodaeth i ddefnyddwyr y llysoedd, yn gyson â gweithdrefnau awdurdodaethau a rheolau busnes. Mae'r gwasanaeth yn cefnogi ymrwymiad GLlTEM i gyfiawnder agored a darparu gwybodaeth dryloyw a chyson am lysoedd a thribiwnlysoedd ar draws awdurdodaethau.",
-        "text3": "Gwasanaeth Llysoedd a Thribiwnlysoedd EM sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
+        "text2": "Mae'r gwasanaeth gwrandawiadau lysoedd a Thribiwnlysoedd yn darparu llwyfan cyhoeddi i alluogi i wybodaeth, megis rhestrau gwrandawiadau, a ddarperir gan Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) gael ei rhannu, ei harddangos a'i diweddaru fel y bo'n briodol. Bydd yn galluogi arddangos gwybodaeth i ddefnyddwyr y llysoedd, yn gyson â gweithdrefnau awdurdodaethau a rheolau busnes. Mae'r gwasanaeth yn cefnogi ymrwymiad GLlTEM i gyfiawnder agored a darparu gwybodaeth dryloyw a chyson am lysoedd a thribiwnlysoedd ar draws awdurdodaethau.",
+        "text3": "GLlTEM sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
         "text4": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
         "text5": "(mae'n agor mewn ffenestr newydd) gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.",
         "links": [
@@ -48,11 +48,12 @@
     },
     "section5": {
         "heading": "Y Weithdrefn Orfodi",
-        "text1": "Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, ",
+        "text1": "Y Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) sy’n gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych chi’n fodlon gyda’r ffordd rydym yn ymateb i’ch cwyn, cysylltwch â’r",
+        "text2": "(mae,'n agor mewn ffenestr newydd).",
         "links": [
             {
                 "link": "https://www.equalityadvisoryservice.com/",
-                "text": "cysylltwch â’r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)."
+                "text": "Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS)"
             }
         ]
     },
@@ -71,12 +72,12 @@
     "section8": {
         "heading": "Statws cydymffurfiaeth",
         "heading2": "Cynnwys anhygyrch",
-        "text1": "Mae’r wefan hon yn cydymffurfio’n rhannol â ",
+        "text1": "Mae’r wefan hon yn cydymffurfio’n rhannol â safon AA",
         "text2": "a hynny oherwydd yr enghreifftiau o beidio â chydymffurfio a restrir isod.",
         "links": [
             {
                 "link": "https://www.w3.org/TR/WCAG21/",
-                "text": "  safon AA Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 "
+                "text": " Canllawiau Hygyrchedd Cynnwys Gwe fersiwn 2.1 "
             }
         ]
     },
@@ -92,7 +93,7 @@
     "section10": {
         "heading": "Beth rydym yn ei wneud i wella hygyrchedd",
         "text": [
-            "Rydym wedi cysylltu â thrafod yn rheolaidd gyda Rhaglen Ddiwygio GLlTEF i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch ar gyfer eu cyhoeddi. Rydym wedi gofyn i wasanaethau wneud gwaith pellach wrth symud ymlaen i ddiweddaru’r ffordd y maent yn cynhyrchu dogfennau i’w gwneud yn gwbl hygyrch.",
+            "Rydym wedi cysylltu â thrafod yn rheolaidd gyda Rhaglen Ddiwygio GLlTEM i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch ar gyfer eu cyhoeddi. Rydym wedi gofyn i wasanaethau wneud gwaith pellach wrth symud ymlaen i ddiweddaru’r ffordd y maent yn cynhyrchu dogfennau i’w gwneud yn gwbl hygyrch.",
             "Byddwn yn cynnal profion hygyrchedd awtomataidd yn barhaus fel rhan o'n gweithgarwch datblygu."
         ]
     },

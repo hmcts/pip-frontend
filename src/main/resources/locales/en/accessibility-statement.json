@@ -3,8 +3,8 @@
     "backButton": "Back",
     "section1": {
         "text1": "This accessibility statement applies to content published on ",
-        "text2": "The court and tribunal hearings service provides a publishing platform to enable information, such as hearing lists, provided by HMCTS to be shared, displayed and updated as appropriate. It will enable information to be displayed to court users, consistent with jurisdictional procedures and business rules. The service supports HMCTS’ commitment to open justice and the provision of transparent and consistent court and tribunal information across jurisdictions.",
-        "text3": "This website is run by HM Courts and Tribunals. We want as many people as possible to be able to use this website, so we have designed it to be accessible. For example, that means you should be able to:",
+        "text2": "The court and tribunal hearings service provides a publishing platform to enable information, such as hearing lists, provided by HM Courts and Tribunals Service (HMCTS) to be shared, displayed and updated as appropriate. It will enable information to be displayed to court users, consistent with jurisdictional procedures and business rules. The service supports HMCTS’ commitment to open justice and the provision of transparent and consistent court and tribunal information across jurisdictions.",
+        "text3": "This website is run by HMCTS. We want as many people as possible to be able to use this website, so we have designed it to be accessible. For example, that means you should be able to:",
         "text4": "We’ve also made the website text as simple as possible to understand.",
         "text5": "(opens in a new window) has advice on making your device easier to use if you have a disability.",
         "links": [
@@ -45,11 +45,12 @@
     },
     "section5": {
         "heading": "Enforcement procedure",
-        "text1": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, ",
+        "text1": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, contact the",
+        "text2": "(opens in a new window).",
         "links": [
             {
                 "link": "https://www.equalityadvisoryservice.com/",
-                "text": "contact the Equality Advisory and Support Service (EASS) (opens in a new window)."
+                "text": "Equality Advisory and Support Service (EASS)"
             }
         ]
     },
@@ -63,7 +64,7 @@
     },
     "section7": {
         "heading": "Technical information about this website’s accessibility",
-        "text1": "HM Courts and Tribunal Service is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
+        "text1": "HMCTS is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
     },
     "section8": {
         "heading": "Compliance status",
