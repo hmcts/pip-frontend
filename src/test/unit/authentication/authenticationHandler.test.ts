@@ -18,6 +18,7 @@ import {
     isPermittedAnyRole,
     forgotPasswordRedirect,
     keepSessionLanguage,
+    regenerateSession
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -521,4 +522,58 @@ describe('test keep session language', () => {
         expect(req.session['lng']).to.equal('cy');
         expect(nextFunction.mock.calls.length).to.equal(1);
     });
+});
+
+describe('test regenerate session function', () => {
+    it('test where a user is not already logged in, session regenerate is called', () => {
+        const nextFunction = jest.fn();
+        const regenerateFunction = () => nextFunction();
+
+        const req = {
+            session: {regenerate: regenerateFunction}
+        };
+
+        regenerateSession(req, () => {}, nextFunction);
+
+        expect(nextFunction.mock.calls.length).to.equal(1);
+    });
+
+    it('test where a user is already logged in, and their provenance is not PI_AAD next is called', () => {
+        const nextFunction = jest.fn();
+        const regenerateFunction = (callback) => callback();
+        const saveFunction = (callback) => callback();
+
+        const req = {
+            user: {userProvenance: 'CFT_IDAM'},
+            session: {regenerate: regenerateFunction, save: saveFunction}
+        };
+
+        regenerateSession(req, () => {}, nextFunction);
+
+        expect(nextFunction.mock.calls.length).to.equal(1);
+    });
+
+    it('test where a user is already logged in, and their provenance is PI_AAD redirect is called', () => {
+        const redirectFunction = jest.fn();
+        const regenerateFunction = (callback) => callback();
+        const saveFunction = (callback) => callback();
+
+        const req = {
+            lng: 'en',
+            url: '/login',
+            user: {userProvenance: 'PI_AAD'},
+            session: {regenerate: regenerateFunction, save: saveFunction}
+        };
+
+        const res = {
+            redirect: redirectFunction,
+        }
+
+        regenerateSession(req, res, () => {});
+
+        expect(redirectFunction.mock.calls.length).to.equal(1);
+        const url = redirectFunction.mock.calls[0][0] as string;
+        expect(url.toString().includes("post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Flogin%26lng%3Den")).to.be.true;
+    });
+
 });
