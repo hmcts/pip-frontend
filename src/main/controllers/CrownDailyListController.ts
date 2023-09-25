@@ -31,7 +31,7 @@ export default class CrownDailyListController {
             );
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
-            const venueAddress = crimeListsService.formatVenueAddress(searchResults['venue']['venueAddress']);
+            const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
@@ -51,7 +51,7 @@ export default class CrownDailyListController {
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 bill: pageLanguage === 'bill',
-                venueAddress: venueAddress
+                venueAddress: venueAddress,
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

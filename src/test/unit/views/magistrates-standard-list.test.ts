@@ -9,12 +9,13 @@ import { LocationService } from '../../../main/service/locationService';
 
 const PAGE_URL = '/magistrates-standard-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
+const bodyClass = 'govuk-body';
 const restrictionHeading = 'govuk-grid restriction-list-section';
 const accordionClass = 'govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
 
 const courtName = "Abergavenny Magistrates' Court";
-const expectedHeader = 'Standard Court list for ' + courtName;
+const expectedHeader = 'Magistrates Standard List for ' + courtName;
 const restrictionHeadingText = 'Restrictions on publishing or writing about these cases';
 
 let htmlRes: Document;
@@ -37,12 +38,21 @@ describe('Magistrate Standard List page', () => {
             .get(PAGE_URL)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                htmlRes.getElementsByTagName('div')[0].remove();
             });
     });
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    });
+
+    it('should display publication date', () => {
+        const body = htmlRes.getElementsByClassName(bodyClass);
+        expect(body[1].innerHTML).contains(
+            'Last updated: 14 September 2016 at 12:30am',
+            'Could not find the publication date'
+        );
     });
 
     it('should display restriction heading', () => {

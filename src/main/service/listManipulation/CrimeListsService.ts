@@ -29,7 +29,7 @@ export class CrimeListsService {
         return crownDailyListData;
     }
 
-    private calculateDuration(sitting, language, languageFile) {
+    public calculateDuration(sitting, language, languageFile) {
         helperService.calculateDuration(sitting);
         sitting['formattedDuration'] = formatDuration(
             sitting['durationAsDays'] as number,
@@ -152,15 +152,15 @@ export class CrimeListsService {
         unallocatedCasesCrownListData['courtLists'].push(courtListForUnallocatedCases);
     }
 
-    public formatVenueAddress(venueAddress: object) {
-        const address = [];
-        if (venueAddress['line']) {
-            venueAddress['line'].forEach(line => address.push(line));
+    public formatAddress(address: object, delimiter = '\n') {
+        const formattedAddress = [];
+        if (address['line']) {
+            address['line'].forEach(line => formattedAddress.push(line));
         }
-        address.push(venueAddress['town'] ? venueAddress['town'] : '');
-        address.push(venueAddress['county'] ? venueAddress['county'] : '');
-        address.push(venueAddress['postCode'] ? venueAddress['postCode'] : '');
+        formattedAddress.push(address['town'] ? address['town'] : '');
+        formattedAddress.push(address['county'] ? address['county'] : '');
+        formattedAddress.push(address['postCode'] ? address['postCode'] : '');
 
-        return address.filter(line => line.trim().length > 0).join('\n');
+        return formattedAddress.filter(line => line.trim().length > 0).join(delimiter);
     }
 }

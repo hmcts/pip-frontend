@@ -31,7 +31,7 @@ export default class CrownWarnedListController {
             );
             const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
-            const venueAddress = crimeListsService.formatVenueAddress(searchResults['venue']['venueAddress']);
+            const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             // Sort unallocated list entry to the end of the map so it appears last on the template
             const sortedListData = new Map(
