@@ -45,7 +45,7 @@ export default class CrownFirmListController {
             const endDate = DateTime.fromISO(dates[dates.length - 1], {
                 zone: 'Europe/London',
             }).toFormat('dd MMMM yyyy');
-            const venueAddress = crimeListsService.formatVenueAddress(jsonData['venue']['venueAddress']);
+            const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
 
             res.render('crown-firm-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
