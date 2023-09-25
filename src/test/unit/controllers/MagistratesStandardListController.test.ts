@@ -71,6 +71,7 @@ describe('Magistrate Standard List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             version: '1.0',
+            venueAddress: 'Address Line 1\nAddress Line 2\nTown\nLancashire\nAA1 AA1',
             bill: false,
         };
 

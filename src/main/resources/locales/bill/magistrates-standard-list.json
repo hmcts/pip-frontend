@@ -1,8 +1,8 @@
 {
-    "title": "Magistrates Standard List/Magistrates Rhestr Ddyddiol",
-    "headerPart1": "Standard Court list for/Rhestr Safonol y Llys ar gyfer",
+    "title": "Magistrates Standard List/Rhestr Safonol y Llys Ynadon",
+    "heading": "Magistrates Standard List for/Rhestr Safonol y Llys Ynadon ar gyfer",
     "listDate": "List for/Rhestr ar gyfer",
-    "listUpdated": "Last Updated: DATE at /Diweddarwyd diwethaf: DATE am ",
+    "listUpdated": "Last updated/Diweddarwyd diwethaf: DATE at/am",
     "draft": "Draft/Drafft:",
     "versionText": "Version/Fersiwn",
     "restrictionInformationHeading": "Restrictions on publishing or writing about these cases",
