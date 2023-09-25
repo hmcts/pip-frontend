@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import {allAdminRoles, checkRoles} from "../authentication/authenticationHelper";
+import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
 
 export default class SessionExpiringController {
     public get(req: PipRequest, res: Response): void {

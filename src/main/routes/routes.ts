@@ -89,29 +89,20 @@ export default function (app: Application): void {
     app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
     app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
     app.get('/media-rejected-login', app.locals.container.cradle.mediaRejectedLoginController.get);
-    app.get('/media-verification',
-        regenerateSession,
-        keepSessionLanguage,
-        (req, res, next) =>
+    app.get('/media-verification', regenerateSession, keepSessionLanguage, (req, res, next) =>
         passport.authenticate('media-verification', {
             failureRedirect: '/',
             extraAuthReqQueryParams: extraLanguageArg(req),
         })(req, res, next)
     );
-    app.get('/login',
-        regenerateSession,
-        keepSessionLanguage,
-        (req, res, next) =>
+    app.get('/login', regenerateSession, keepSessionLanguage, (req, res, next) =>
         passport.authenticate('login', { failureRedirect: '/', extraAuthReqQueryParams: extraLanguageArg(req) })(
             req,
             res,
             next
         )
     );
-    app.get('/admin-login',
-        regenerateSession,
-        keepSessionLanguage,
-        (req, res, next) =>
+    app.get('/admin-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
         passport.authenticate('admin-login', { failureRedirect: '/', extraAuthReqQueryParams: extraLanguageArg(req) })(
             req,
             res,
@@ -155,9 +146,7 @@ export default function (app: Application): void {
     );
     app.get('/session-expiring', isPermittedAnyRole, app.locals.container.cradle.sessionExpiringController.get);
     app.get('/session-expired', app.locals.container.cradle.sessionExpiredController.get);
-    app.get('/session-expired-logout', (_req, res) =>
-        sessionManagement.logOut(_req, res, false, true)
-    );
+    app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true));
     app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get);
     // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
     // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
@@ -632,7 +621,12 @@ export default function (app: Application): void {
 
     //CFT Routes
     if (process.env.ENABLE_CFT === 'true') {
-        app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);
+        app.get(
+            '/cft-login',
+            regenerateSession,
+            keepSessionLanguage,
+            app.locals.container.cradle.cftLoginController.get
+        );
         app.get(
             '/cft-login/return',
             passport.authenticate('cft-idam', {

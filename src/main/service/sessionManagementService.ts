@@ -13,7 +13,7 @@ export class SessionManagementService {
         //redirect the user to the most appropriate page
         if (!req.user) {
             if (isSessionExpired && req.query && req.query.redirectType) {
-                res.redirect('/session-expired?lng=' + req.lng +'&reSignInUrl=' + req.query.redirectType);
+                res.redirect('/session-expired?lng=' + req.lng + '&reSignInUrl=' + req.query.redirectType);
             } else {
                 res.redirect('/session-logged-out?lng=' + req.lng);
             }
