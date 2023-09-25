@@ -9,17 +9,27 @@ export class SessionManagementService {
     public logOut(req, res, isWrongFlow, isSessionExpired = false): void {
         req.session.user = null;
 
-        req.session.save(() => {
-            req.session.regenerate(() => {
-                if (req.user['userProvenance'] == 'PI_AAD') {
-                    res.redirect(
-                        this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng)
-                    );
-                } else {
-                    res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
-                }
+        //If the request doesn't have a user, it must have already been logged out on another tab. Therefore
+        //redirect the user to the most appropriate page
+        if (!req.user) {
+            if (isSessionExpired && req.query && req.query.redirectType) {
+                res.redirect('/session-expired?lng=' + req.lng +'&reSignInUrl=' + req.query.redirectType);
+            } else {
+                res.redirect('/session-logged-out?lng=' + req.lng);
+            }
+        } else {
+            req.session.save(() => {
+                req.session.regenerate(() => {
+                    if (req.user['userProvenance'] == 'PI_AAD') {
+                        res.redirect(
+                            this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng)
+                        );
+                    } else {
+                        res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
+                    }
+                });
             });
-        });
+        }
     }
 
     public handleSessionExpiry(req, res): boolean {
@@ -49,7 +59,7 @@ export class SessionManagementService {
         return false;
     }
 
-    private aadLogOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
+    public aadLogOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
         let b2cUrl;
         let b2cPolicy;
 

@@ -145,6 +145,29 @@ export function keepSessionLanguage(req, res, next): void {
     next();
 }
 
+//Regenerates the session on re-logging in. If a user is trying to re-login and they already have a session, it will
+//First log them out before going through the sign in process again
+export function regenerateSession(req, res, next): void {
+    if (req.user) {
+        req.session.user = null;
+
+        req.session.save(() => {
+            req.session.regenerate(() => {
+                if (req.user['userProvenance'] == 'PI_AAD') {
+                    const logoutUrl = sessionManagement.aadLogOutUrl(checkRoles(req, allAdminRoles), false, false, req.lng);
+                    const logoutUrlFormatted = new URL(logoutUrl);
+                    logoutUrlFormatted.searchParams.set('post_logout_redirect_uri', FRONTEND_URL + req.url + '&lng=' + req.lng);
+                    res.redirect(logoutUrlFormatted);
+                } else {
+                    next();
+                }
+            })
+        })
+    } else {
+        req.session.regenerate(next);
+    }
+}
+
 /**
  * This function checks the state of a password reset. If the error indicates a cancelled action, the user is re-directed
  * to the appropriate page.
