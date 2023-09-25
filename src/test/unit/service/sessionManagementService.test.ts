@@ -41,7 +41,8 @@ describe('Test logout', () => {
         const mockFunction = jest.fn();
 
         const req = {
-            session: { save: () => mockFunction() },
+            session: { save: () => mockFunction()},
+            user: {"userProvenance": 'PI_AAD'}
         };
         sessionManagementService.logOut(req, res, false, false);
 
@@ -56,10 +57,51 @@ describe('Test logout', () => {
                 save: callback => callback(),
                 regenerate: () => mockFunction(),
             },
+            user: {"userProvenance": 'PI_AAD'}
         };
         sessionManagementService.logOut(req, res, false, false);
 
         expect(mockFunction.mock.calls).to.have.length(1);
+    });
+
+    it('should redirect to session expired if session is expired and no user set', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs('/session-expired?lng=en&reSignInUrl=AAD');
+
+        const req = {session: {}, lng: 'en', query: {redirectType: 'AAD'}};
+        sessionManagementService.logOut(req, res, false, true);
+
+        responseMock.verify();
+    });
+
+    it('should redirect to session logged out if session is expired, no user set, and no query', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
+
+        const req = {session: {}, lng: 'en'};
+        sessionManagementService.logOut(req, res, false, true);
+
+        responseMock.verify();
+    });
+
+    it('should redirect to session logged out if session is expired, no user set, and no query redirect type', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
+
+        const req = {session: {}, lng: 'en', query: {}};
+        sessionManagementService.logOut(req, res, false, true);
+
+        responseMock.verify();
+    });
+
+    it('should redirect to session logged out if not session expired', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
+
+        const req = {session: {}, lng: 'en', query: {redirectType: 'AAD'}};
+        sessionManagementService.logOut(req, res, false, false);
+
+        responseMock.verify();
     });
 
     it('should redirect for media user', () => {
