@@ -267,9 +267,9 @@
 {% block bodyEnd %}
   {% if user.roles %}
     {% if user.roles and 'ADMIN' in user.roles %}
-      {% set idleDurationInSeconds = 3 * 3600 + (40 * 60) %}
+      {% set idleDurationInSeconds = 30 %}
     {% else %}
-      {% set idleDurationInSeconds = 40 * 60 %}
+      {% set idleDurationInSeconds = 30 %}
     {% endif %}
     <script>
       (function() {
