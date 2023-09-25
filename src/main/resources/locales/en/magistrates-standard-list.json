@@ -1,8 +1,8 @@
 {
     "title": "Magistrates Standard List",
-    "headerPart1": "Standard Court list for",
+    "heading": "Magistrates Standard List for",
     "listDate": "List for",
-    "listUpdated": "Last Updated: DATE at ",
+    "listUpdated": "Last updated: DATE at",
     "draft": "Draft:",
     "versionText": "Version",
     "restrictionInformationHeading": "Restrictions on publishing or writing about these cases",

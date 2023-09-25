@@ -31,7 +31,7 @@ export default class CrownDailyListController {
             );
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
-            const venueAddress = crimeListsService.formatVenueAddress(searchResults['venue']['venueAddress']);
+            const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
