@@ -6,6 +6,7 @@ import { CrimeListsService } from '../../../../main/service/listManipulation/Cri
 const crimeListsService = new CrimeListsService();
 const rawCrownDailyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownDailyList.json'), 'utf-8');
 const rawCrimePartyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crimeListParty.json'), 'utf-8');
+const rawAddressData = fs.readFileSync(path.resolve(__dirname, '../../mocks/address.json'), 'utf-8');
 
 const lng = 'en';
 const languageFile = 'crown-daily-list';
@@ -115,6 +116,25 @@ describe('Crime Data manipulation service', () => {
             expect(hearing.defendant).to.equal('SurnameA, ForenamesA, SurnameB, ForenamesB');
             expect(hearing.defendantRepresentative).to.equal('Defendant rep nameA, Defendant rep nameB');
             expect(hearing.prosecutingAuthority).to.equal('Prosecuting authority nameA, Prosecuting authority nameB');
+        });
+    });
+
+    describe('formatAddress', () => {
+        const addressData = JSON.parse(rawAddressData);
+
+        it('should remove empty address lines in formatted address', async () => {
+            const formattedAddress = crimeListsService.formatAddress(addressData.address[0]);
+            expect(formattedAddress).to.equal('Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA');
+        });
+
+        it('should format address with missing address elements', async () => {
+            const formattedAddress = crimeListsService.formatAddress(addressData.address[1]);
+            expect(formattedAddress).to.equal('Town\nAA1 1AA');
+        });
+
+        it('should format address with custom delimiter', async () => {
+            const formattedAddress = crimeListsService.formatAddress(addressData.address[0], ', ');
+            expect(formattedAddress).to.equal('Address Line 1, Address Line 2, Town, County, AA1 1AA');
         });
     });
 });
