@@ -18,7 +18,7 @@ import {
     isPermittedAnyRole,
     forgotPasswordRedirect,
     keepSessionLanguage,
-    regenerateSession
+    regenerateSession,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -530,7 +530,7 @@ describe('test regenerate session function', () => {
         const regenerateFunction = () => nextFunction();
 
         const req = {
-            session: {regenerate: regenerateFunction}
+            session: { regenerate: regenerateFunction },
         };
 
         regenerateSession(req, () => {}, nextFunction);
@@ -540,12 +540,12 @@ describe('test regenerate session function', () => {
 
     it('test where a user is already logged in, and their provenance is not PI_AAD next is called', () => {
         const nextFunction = jest.fn();
-        const regenerateFunction = (callback) => callback();
-        const saveFunction = (callback) => callback();
+        const regenerateFunction = callback => callback();
+        const saveFunction = callback => callback();
 
         const req = {
-            user: {userProvenance: 'CFT_IDAM'},
-            session: {regenerate: regenerateFunction, save: saveFunction}
+            user: { userProvenance: 'CFT_IDAM' },
+            session: { regenerate: regenerateFunction, save: saveFunction },
         };
 
         regenerateSession(req, () => {}, nextFunction);
@@ -555,25 +555,25 @@ describe('test regenerate session function', () => {
 
     it('test where a user is already logged in, and their provenance is PI_AAD redirect is called', () => {
         const redirectFunction = jest.fn();
-        const regenerateFunction = (callback) => callback();
-        const saveFunction = (callback) => callback();
+        const regenerateFunction = callback => callback();
+        const saveFunction = callback => callback();
 
         const req = {
             lng: 'en',
             url: '/login',
-            user: {userProvenance: 'PI_AAD'},
-            session: {regenerate: regenerateFunction, save: saveFunction}
+            user: { userProvenance: 'PI_AAD' },
+            session: { regenerate: regenerateFunction, save: saveFunction },
         };
 
         const res = {
             redirect: redirectFunction,
-        }
+        };
 
         regenerateSession(req, res, () => {});
 
         expect(redirectFunction.mock.calls.length).to.equal(1);
         const url = redirectFunction.mock.calls[0][0] as string;
-        expect(url.toString().includes("post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Flogin%26lng%3Den")).to.be.true;
+        expect(url.toString().includes('post_logout_redirect_uri=https%3A%2F%2Flocalhost%3A8080%2Flogin%26lng%3Den')).to
+            .be.true;
     });
-
 });
