@@ -18,7 +18,7 @@ describe('Session Expiring Controller', () => {
         } as unknown as Response;
         const responseMock = sinon.mock(response);
         const request = mockRequest(i18n);
-        request['user'] = { userProvenance: 'PI_AAD', roles: 'INTERNAL_SUPER_ADMIN_CTSC'}
+        request['user'] = { userProvenance: 'PI_AAD', roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
         request.query = { currentPath: expectedPath };
 
         const expectedOptions = {
@@ -40,7 +40,7 @@ describe('Session Expiring Controller', () => {
         } as unknown as Response;
         const responseMock = sinon.mock(response);
         const request = mockRequest(i18n);
-        request['user'] = { userProvenance: 'PI_AAD', roles: 'VERIFIED'}
+        request['user'] = { userProvenance: 'PI_AAD', roles: 'VERIFIED' };
         request.query = { currentPath: expectedPath };
 
         const expectedOptions = {
@@ -62,7 +62,7 @@ describe('Session Expiring Controller', () => {
         } as unknown as Response;
         const responseMock = sinon.mock(response);
         const request = mockRequest(i18n);
-        request['user'] = { userProvenance: 'CFT', roles: 'VERIFIED'}
+        request['user'] = { userProvenance: 'CFT', roles: 'VERIFIED' };
         request.query = { currentPath: expectedPath };
 
         const expectedOptions = {

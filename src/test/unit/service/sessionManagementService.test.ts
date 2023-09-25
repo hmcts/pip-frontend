@@ -41,8 +41,8 @@ describe('Test logout', () => {
         const mockFunction = jest.fn();
 
         const req = {
-            session: { save: () => mockFunction()},
-            user: {"userProvenance": 'PI_AAD'}
+            session: { save: () => mockFunction() },
+            user: { userProvenance: 'PI_AAD' },
         };
         sessionManagementService.logOut(req, res, false, false);
 
@@ -57,7 +57,7 @@ describe('Test logout', () => {
                 save: callback => callback(),
                 regenerate: () => mockFunction(),
             },
-            user: {"userProvenance": 'PI_AAD'}
+            user: { userProvenance: 'PI_AAD' },
         };
         sessionManagementService.logOut(req, res, false, false);
 
@@ -68,7 +68,7 @@ describe('Test logout', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs('/session-expired?lng=en&reSignInUrl=AAD');
 
-        const req = {session: {}, lng: 'en', query: {redirectType: 'AAD'}};
+        const req = { session: {}, lng: 'en', query: { redirectType: 'AAD' } };
         sessionManagementService.logOut(req, res, false, true);
 
         responseMock.verify();
@@ -78,7 +78,7 @@ describe('Test logout', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
 
-        const req = {session: {}, lng: 'en'};
+        const req = { session: {}, lng: 'en' };
         sessionManagementService.logOut(req, res, false, true);
 
         responseMock.verify();
@@ -88,7 +88,7 @@ describe('Test logout', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
 
-        const req = {session: {}, lng: 'en', query: {}};
+        const req = { session: {}, lng: 'en', query: {} };
         sessionManagementService.logOut(req, res, false, true);
 
         responseMock.verify();
@@ -98,7 +98,7 @@ describe('Test logout', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
 
-        const req = {session: {}, lng: 'en', query: {redirectType: 'AAD'}};
+        const req = { session: {}, lng: 'en', query: { redirectType: 'AAD' } };
         sessionManagementService.logOut(req, res, false, false);
 
         responseMock.verify();
