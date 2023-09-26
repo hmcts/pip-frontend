@@ -7,6 +7,7 @@ export interface HelmetConfig {
 
 const self = "'self'";
 const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
+const dynatraceDomain = 'https://*.dynatrace.com';
 const jsdelivrDomain = '*.jsdelivr.net';
 
 /**
@@ -27,12 +28,12 @@ export class Helmet {
         app.use(
             helmet.contentSecurityPolicy({
                 directives: {
-                    connectSrc: [self, ...googleAnalyticsDomains],
+                    connectSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     defaultSrc: ["'none'"],
                     fontSrc: [self, 'data:'],
-                    imgSrc: [self, ...googleAnalyticsDomains],
+                    imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
-                    scriptSrc: [self, ...googleAnalyticsDomains, jsdelivrDomain, "'unsafe-eval'", "'unsafe-inline'"],
+                    scriptSrc: [self, ...googleAnalyticsDomains, dynatraceDomain, jsdelivrDomain, "'unsafe-eval'", "'unsafe-inline'"],
                     styleSrc: [self, process.env.FRONTEND_URL],
                 },
             })
