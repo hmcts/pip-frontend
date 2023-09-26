@@ -33,7 +33,14 @@ export class Helmet {
                     fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
-                    scriptSrc: [self, ...googleAnalyticsDomains, dynatraceDomain, jsdelivrDomain, "'unsafe-eval'", "'unsafe-inline'"],
+                    scriptSrc: [
+                        self,
+                        ...googleAnalyticsDomains,
+                        dynatraceDomain,
+                        jsdelivrDomain,
+                        "'unsafe-eval'",
+                        "'unsafe-inline'",
+                    ],
                     styleSrc: [self, process.env.FRONTEND_URL],
                 },
             })
