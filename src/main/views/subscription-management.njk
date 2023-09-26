@@ -25,17 +25,13 @@
   {% set allSubscriptions = caseTableData | length +  locationTableData | length %}
   {% if allSubscriptions > 0 %}
     {{ govukButton({
-      attributes: {
-        id: 'bulk-unsubscribe-button'
-      },
+      id: 'bulk-unsubscribe-button',
       text: bulkDeleteButton,
       href: 'bulk-unsubscribe'
     }) }}
   {% else %}
     {{ govukButton({
-      attributes: {
-        id: 'bulk-unsubscribe-button'
-      },
+      id: 'bulk-unsubscribe-button',
       text: bulkDeleteButton,
       disabled: true
     }) }}
