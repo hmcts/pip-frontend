@@ -21,7 +21,7 @@ describe('accessibility-statement', () => {
         const header = htmlRes.getElementsByClassName(largeHeadingClass);
 
         expect(header[0].innerHTML).contains(
-            'Accessibility statement for the court and tribunal ' + 'hearings service',
+            'Accessibility statement for the court and tribunal hearings service',
             'Could not find the header'
         );
     });
@@ -78,9 +78,12 @@ describe('accessibility-statement', () => {
         expect(div.textContent).contains('Non-accessible content', 'Could not find section 8 small heading');
     });
 
-    it('should display the subHeading in section 8', () => {
+    it('should display the subHeading in section 9', () => {
         const div = htmlRes.getElementById('section9');
-        expect(div.textContent).contains('Non-compliance with the accessibility regulations');
+        expect(div.textContent).contains(
+            'Non-compliance with the accessibility regulations',
+            'Could not find section 9 sub-heading'
+        );
     });
 
     it('should display the heading in section 10', () => {
@@ -88,7 +91,7 @@ describe('accessibility-statement', () => {
 
         expect(div.textContent).contains(
             'What we’re doing to improve accessibility',
-            'Could not find section 9 heading'
+            'Could not find section 10 heading'
         );
     });
 
