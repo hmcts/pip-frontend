@@ -16,15 +16,15 @@
 
   <div id="section1">
     <p class="govuk-body">{{ section1.text1 }} <a href="{{ section1.links[0].link }}">{{ section1.links[0].text }}</a></p>
-    <p class="govuk-body">{{ section1.text2 }}  {{ section1.text3 }}</p>
-    <p class="govuk-body">{{ section1.text4 }}</p>
+    <p class="govuk-body">{{ section1.text2 }}</p>
+    <p class="govuk-body">{{ section1.text3 }}</p>
     <ul class="govuk-list govuk-list--bullet">
       {% for item in section1.list %}
       <li>{{ item }}</li>
       {% endfor %}
     </ul>
-    <p class="govuk-body">{{ section1.text5 }}</p>
-    <p class="govuk-body"><a href="{{section1.links[1].link}}" target="_blank">{{section1.links[1].text}}</a> {{section1.text6}}</p>
+    <p class="govuk-body">{{ section1.text4 }}</p>
+    <p class="govuk-body"><a href="{{section1.links[1].link}}" target="_blank">{{section1.links[1].text}}</a> {{section1.text5}}</p>
   </div>
 
   <div id="section2">
@@ -56,7 +56,7 @@
 
   <div id="section5">
     <h2 class="govuk-heading-m">{{ section5.heading }}</h2>
-    <p class="govuk-body">{{ section5.text1 }} <a href="{{ section5.links[0].link }}" target="_blank">{{ section5.links[0].text }}</a> </p>
+    <p class="govuk-body">{{ section5.text1 }} <a href="{{ section5.links[0].link }}" target="_blank">{{ section5.links[0].text }}</a> {{ section5.text2 }}</p>
   </div>
 
   <div id="section6">
