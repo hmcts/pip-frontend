@@ -1,10 +1,9 @@
 {
-    "title": "",
-    "headerPart1": "",
-    "headerPart2": "Rhestr Ddyddiol",
+    "title": "Crown Firm List/Rhestr Cwmni Llys y Goron",
+    "heading": "Crown Firm List for/Rhestr Cwmni Llys y Goron ar gyfer ",
     "listDate": "List for/Rhestr ar gyfer",
     "to": " to/i ",
-    "listUpdated": "Last Updated/Diweddarwyd diwethaf: DATE at/am ",
+    "listUpdated": "Last updated/Diweddarwyd diwethaf: DATE at/am ",
     "draft": "Draft:/Drafft",
     "versionText": "Version/Fersiwn",
     "restrictionInformationHeading": "Restrictions on publishing or writing about these cases",
