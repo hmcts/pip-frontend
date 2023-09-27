@@ -67,16 +67,17 @@ describe('Crown Firm List Controller', () => {
             ...i18n['crown-firm-list'],
             ...i18n['list-template'],
             listData,
+            startDate: '12 April 2023',
+            endDate: '15 April 2023',
             allocated: JSON.parse(fullyProcessedData),
             contentDate: '14 February 2022',
             publishedDate: '03 March 2023',
-            startDate: '12 April 2023',
-            endDate: '15 April 2023',
             publishedTime: '2:07pm',
             provenance: 'prov1',
             version: '3.4',
             courtName: 'Altrincham County Court and Family Court',
             bill: false,
+            venueAddress: '26 Diego Gardens\nAddress Line 2\nTown\nLancashire\nAA1 AA1'
         };
 
         responseMock.expects('render').once().withArgs('crown-firm-list', expectedData);

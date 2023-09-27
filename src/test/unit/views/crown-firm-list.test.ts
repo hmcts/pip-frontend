@@ -14,7 +14,7 @@ const accordionClass = 'govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
 
 const courtName = "Abergavenny Magistrates' Court";
-const expectedHeader = courtName + ': Firm List';
+const expectedHeader = 'Crown Firm List for ' + courtName;
 const restrictionHeadingText = 'Restrictions on publishing or writing about these cases';
 
 let htmlRes: Document;
