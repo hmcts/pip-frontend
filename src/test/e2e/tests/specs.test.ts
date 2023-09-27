@@ -81,6 +81,42 @@ describe('Unverified user', () => {
             });
         });
 
+        describe("following the 'Select from an A-Z list of courts and tribunals' path", async () => {
+            before(async () => {
+                await searchPage.open('/search');
+            });
+
+            it("should click on 'Select from an A-Z list of courts and tribunals' link ", async () => {
+                alphabeticalSearchPage = await searchPage.clickAToZCourtsLink();
+                expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+            });
+
+            it('should select Country Court jurisdiction and Wales region filters', async () => {
+                await alphabeticalSearchPage.selectOption('JurisdictionFilter1');
+                await alphabeticalSearchPage.selectOption('RegionFilter1');
+
+                expect(await alphabeticalSearchPage.checkIfSelected('JurisdictionFilter1')).toBeTruthy();
+                expect(await alphabeticalSearchPage.checkIfSelected('RegionFilter1')).toBeTruthy();
+            });
+
+            it('should click on the apply filters button', async () => {
+                alphabeticalSearchPage = await alphabeticalSearchPage.clickApplyFiltersButton();
+                expect(await alphabeticalSearchPage.getPageTitle()).toEqual('Find a court or tribunal');
+            });
+
+            it('selecting first result should take you to to the summary of publications page', async () => {
+                summaryOfPublicationsPage = await alphabeticalSearchPage.selectFirstListResult();
+                expect(await summaryOfPublicationsPage.getPageTitle()).toEqual(
+                    'What do you want to view from ' + testCourt + '?'
+                );
+            });
+
+            it('should select the first publication', async () => {
+                courtListPage = await summaryOfPublicationsPage.clickSOPListItem();
+                expect(await courtListPage.getPageTitle()).toContain(testCourt);
+            });
+        });
+
         if (process.env.EXCLUDE_E2E === 'true') {
             // TODO: excluded at the moment, no real journey yet
             describe('find live case status updates', async () => {
