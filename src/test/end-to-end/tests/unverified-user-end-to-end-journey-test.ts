@@ -1,13 +1,13 @@
-import {DateTime} from 'luxon';
-import {randomData} from '../shared/random-data';
-import {config} from '../../config';
-import {createLocation, uploadPublication} from '../shared/testingSupportApi';
+import { DateTime } from 'luxon';
+import { randomData } from '../shared/random-data';
+import { config } from '../../config';
+import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 
 Feature('End to end journey test for unverified user');
 
-Scenario('I as a unverified user should be able to make end-to-end journey', async ({I}) => {
-    const displayFrom = DateTime.now().toISO({includeOffset: false});
-    const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
+Scenario('I as a unverified user should be able to make end-to-end journey', async ({ I }) => {
+    const displayFrom = DateTime.now().toISO({ includeOffset: false });
+    const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
@@ -28,9 +28,9 @@ Scenario('I as a unverified user should be able to make end-to-end journey', asy
     I.waitForText('Court and tribunal hearings');
 
     I.click(locate('//a').withText('sign in'));
-    I.seeElement('#sign-in')
-    I.seeElement('#sign-in-2')
-    I.seeElement('#sign-in-3')
+    I.seeElement('#sign-in');
+    I.seeElement('#sign-in-2');
+    I.seeElement('#sign-in-3');
 
     I.click(locate('//a').withText('Home'));
     I.waitForText('Court and tribunal hearings');
