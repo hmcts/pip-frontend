@@ -1,5 +1,10 @@
 @use 'govuk-frontend';
 @use 'accessible-autocomplete.min';
+
+// moj frontend is still using the deprecated govuk ie8 settings. Suppress the warning for now until a new version
+// of the component is released which fixes the issue.
+$govuk-suppressed-warnings: 'ie8';
+
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
