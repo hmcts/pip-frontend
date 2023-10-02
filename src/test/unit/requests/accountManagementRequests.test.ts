@@ -48,7 +48,7 @@ const cftIdamUserEndpoint = '/account/provenance/CFT_IDAM/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
 const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
-const deleteUserByUserIdEndpoint = '/account/delete/';
+const deleteUserByUserIdEndpoint = '/account/v2/';
 const updateUserByUserIdEndpoint = '/account/update/';
 const getAdminUserByEmailAndProvenanceEndpoint = '/account/admin/';
 
