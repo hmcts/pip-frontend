@@ -5,29 +5,28 @@ import { PublicationService } from '../service/publicationService';
 import { prettyPrintJson, FormatOptions } from 'pretty-print-json';
 import { LocationService } from '../service/locationService';
 import { UserManagementService } from '../service/userManagementService';
+import { HttpStatusCode } from "axios";
+import { isValidList } from "../helpers/listHelper";
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const userManagementService = new UserManagementService();
 export default class BlobViewJsonController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const artefactId = req.query['artefactId'];
-        if (artefactId) {
+        const artefactId = req.query.artefactId as string;
+        const data = await publicationService.getIndividualPublicationJson(
+            artefactId,
+            req.user['userId']
+        );
+        const metadata = await publicationService.getIndividualPublicationMetadata(
+            artefactId,
+            req.user['userId']
+        );
+
+        if (isValidList(data, metadata) && metadata && data) {
             const listTypes = publicationService.getListTypes();
             const options: FormatOptions = { indent: 3, lineNumbers: true, trailingComma: false };
-
-            const data = await publicationService.getIndividualPublicationJson(
-                req.query['artefactId'],
-                req.user['userId']
-            );
-
             const jsonData: string = prettyPrintJson.toHtml(data, options);
-
-            const metadata = await publicationService.getIndividualPublicationMetadata(
-                req.query['artefactId'],
-                req.user['userId']
-            );
-
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
             let courtName = '';
             if (!noMatchArtefact) {
@@ -55,6 +54,8 @@ export default class BlobViewJsonController {
                 listUrl,
                 noMatchArtefact,
             });
+        } else if (data === HttpStatusCode.NotFound || metadata === HttpStatusCode.NotFound) {
+            res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
