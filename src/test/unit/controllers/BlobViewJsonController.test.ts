@@ -4,6 +4,7 @@ import sinon from 'sinon';
 import BlobViewJsonController from '../../../main/controllers/BlobViewJsonController';
 import { PublicationService } from '../../../main/service/publicationService';
 import { LocationService } from '../../../main/service/locationService';
+import { HttpStatusCode } from "axios";
 
 const blobViewController = new BlobViewJsonController();
 const i18n = {
@@ -20,6 +21,7 @@ const meta = {
     name: 'hi',
     listType: 'SJP_PUBLIC_LIST',
 };
+jsonStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
 
 describe('Get publication json', () => {
     it('should correctly render if location is passed and ref data exists', async () => {
@@ -111,6 +113,23 @@ describe('Get publication json', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error');
+        await blobViewController.get(request, response);
+        responseMock.verify;
+    });
+
+    it('should render the not found screen if an invalid artefact ID has been passed through', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+
+        const request = mockRequest(i18n);
+        request.user = { userId: 1 };
+        request.query = { artefactId: '5678' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('list-not-found');
         await blobViewController.get(request, response);
         responseMock.verify;
     });
