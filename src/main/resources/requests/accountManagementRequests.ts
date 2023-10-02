@@ -281,9 +281,7 @@ export class AccountManagementRequests {
     public async deleteUser(userId: string, adminUserId: string): Promise<object> {
         try {
             logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
-            const response = await accountManagementApi.delete(`/account/v2/${userId}`, {
-                headers: { 'x-admin-id': adminUserId },
-            });
+            const response = await accountManagementApi.delete(`/account/delete/${userId}`);
             return response.data;
         } catch (error) {
             if (error.response) {
