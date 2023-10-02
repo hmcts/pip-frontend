@@ -4,10 +4,8 @@
     "pStart": "I barhau, gallwch fynd i’ch",
     "pEnd": "i:",
     "yourAccount": "cyfrif",
-    "listItems": [
-        "ychwanegu tanysgrifiad newydd",
-        "rheoli eich tanysgrifiadau presennol",
-        "dod o hyd i lys neu dribiwnlys"
-    ],
+    "addEmailSubscription": "ychwanegu tanysgrifiad e-bost newydd",
+    "manageYourCurrentSubscriptions": "rheoli eich tanysgrifiadau e-bost cyfredol",
+    "findCourt": "dod o hyd i lys neu dribiwnlys",
     "backButton": "Yn ôl"
 }
