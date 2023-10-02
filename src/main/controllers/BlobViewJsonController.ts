@@ -5,8 +5,8 @@ import { PublicationService } from '../service/publicationService';
 import { prettyPrintJson, FormatOptions } from 'pretty-print-json';
 import { LocationService } from '../service/locationService';
 import { UserManagementService } from '../service/userManagementService';
-import { HttpStatusCode } from "axios";
-import { isValidList } from "../helpers/listHelper";
+import { HttpStatusCode } from 'axios';
+import { isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -14,14 +14,8 @@ const userManagementService = new UserManagementService();
 export default class BlobViewJsonController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
-        const data = await publicationService.getIndividualPublicationJson(
-            artefactId,
-            req.user['userId']
-        );
-        const metadata = await publicationService.getIndividualPublicationMetadata(
-            artefactId,
-            req.user['userId']
-        );
+        const data = await publicationService.getIndividualPublicationJson(artefactId, req.user['userId']);
+        const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId']);
 
         if (isValidList(data, metadata) && metadata && data) {
             const listTypes = publicationService.getListTypes();
