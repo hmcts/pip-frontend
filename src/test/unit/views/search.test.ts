@@ -106,7 +106,7 @@ describe('Search Page Invalid Input', () => {
 
     it('should display error message', () => {
         const errorTitle = htmlRes.getElementsByClassName(errorSummaryTitleClass);
-        expect(errorTitle[0].innerHTML).contains('There is a problem', 'Could not find error title');
+        expect(errorTitle[0].innerHTML).contains('No results found', 'Could not find error title');
     });
 
     it('should display input errors', () => {

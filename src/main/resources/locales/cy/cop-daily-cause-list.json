@@ -1,6 +1,6 @@
 {
     "title": "COP Daily Cause List",
-    "listUpdated": "Diweddarwyd ddiwethaf DATE yn ",
+    "listUpdated": "Diweddarwyd ddiwethaf DATE am ",
     "importantInformationHeading": "Gwybodaeth bwysig",
     "dataSource": "Ffynhonnell y Data",
     "backButton": "Yn ôl",
@@ -11,7 +11,7 @@
     "regionalLeadJudge": "Barnwr Arweiniol Rhanbarthol",
     "sittingAt": "Yn eistedd yn",
     "listFor": "Rhestr ar gyfer",
-    "beforeHon": "Before",
+    "beforeHon": "Gerbron",
     "startTime": "Amser dechrau",
     "caseRef": "Cyfeirnod achos",
     "caseDetails": "Manylion yr achos",

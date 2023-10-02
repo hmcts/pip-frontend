@@ -4,8 +4,10 @@ import os from 'os';
 import fs from 'fs';
 import path from 'path';
 import { FileType } from '../models/consts';
+import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 
 const channelManagementRequests = new ChannelManagementRequests();
+const accountManagementRequests = new AccountManagementRequests();
 const logger = Logger.getLogger('list-download');
 
 export class ListDownloadService {
@@ -70,6 +72,10 @@ export class ListDownloadService {
             return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i - 1];
         }
         return null;
+    }
+
+    public async checkUserIsAuthorised(userId, listType, sensitivity): Promise<boolean | null> {
+        return await accountManagementRequests.isAuthorised(userId, listType, sensitivity);
     }
 
     private async downloadFileFromBlobStorage(artefactId, userId, fileExtension): Promise<string | null> {

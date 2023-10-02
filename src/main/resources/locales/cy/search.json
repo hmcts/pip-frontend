@@ -2,7 +2,7 @@
     "title": "Ym mha lys neu dribiwnlys y mae gennych ddiddordeb?",
     "error": {
         "noResults": "Nid oes dim sy'n cyfateb i'ch meini prawf",
-        "summaryTitleText": "Mae problem",
+        "noResultsSummaryText": "Ni ddaethpwyd o hyd i unrhyw ganlyniad",
         "spanText": "Rhowch enw llys, tref neu ddinas",
         "noResultsHeader": "Nid oes unrhyw ganlyniadau cyfatebol.",
         "pText": "Gallwch:",

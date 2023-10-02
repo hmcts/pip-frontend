@@ -15,7 +15,7 @@ const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
 const summaryHeadingText = 'Important information';
-const expectedHeader = 'Primary Health';
+const expectedHeader = 'Tribunal Hearing List for Primary Health';
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
@@ -47,7 +47,7 @@ describe('Primary health list page', () => {
 
     it('should display last updated text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).contains('Last Updated 04 October 2022 at 10am');
+        expect(text[5].innerHTML).contains('Last updated 04 October 2022 at 10am');
     });
 
     it('should display summary', () => {

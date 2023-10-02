@@ -1,0 +1,20 @@
+{
+    "address": [
+        {
+            "line": [
+                "",
+                "Address Line 1",
+                "",
+                "Address Line 2",
+                ""
+            ],
+            "town": "Town",
+            "county": "County",
+            "postCode": "AA1 1AA"
+        },
+        {
+            "town": "Town",
+            "postCode": "AA1 1AA"
+        }
+    ]
+}

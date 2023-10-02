@@ -16,8 +16,6 @@ import { SummaryOfPublicationsPage } from '../pageobjects/SummaryOfPublications.
 import { ViewOptionPage } from '../PageObjects/ViewOption.page';
 import { SessionLoggedOutPage } from '../PageObjects/SessionLoggedOut.page';
 import { ManageThirdPartyUsersPage } from '../PageObjects/ManageThirdPartyUsers.page';
-import { ListDownloadDisclaimerPage } from '../PageObjects/ListDownloadDisclaimer.page';
-import { ListDownloadFilesPage } from '../PageObjects/ListDownloadFiles.page';
 
 const homePage = new HomePage();
 let subscriptionManagementPage: SubscriptionManagementPage;
@@ -34,8 +32,6 @@ let accountHomePage: AccountHomePage;
 let courtListPage: CourtListPage;
 let sjpPublicListPage: SjpPublicListPage;
 let sjpPressListPage: SjpPressListPage;
-let listDownloadDisclaimerPage: ListDownloadDisclaimerPage;
-let listDownloadFilesPage: ListDownloadFilesPage;
 let signInPage: SignInPage;
 let sessionLoggedOutPage: SessionLoggedOutPage;
 let manageThirdPartyUsersPage: ManageThirdPartyUsersPage;
@@ -276,8 +272,6 @@ describe('Unverified user', () => {
                 expect(await sjpPressListPage.displayedFilters()).toBe(1);
             });
         });
-
-
     });
 
     describe('banner navigation', () => {
@@ -333,35 +327,6 @@ describe('Verified user', () => {
             it('should open account home page on successful sign in', async () => {
                 expect(await accountHomePage.getPageTitle()).toBe('Your account');
             });
-        });
-    });
-
-    describe('SJP list download navigation', () => {
-        before(async () => {
-            await accountHomePage.open('account-home');
-        });
-
-        it('should navigate to the SJP list page', async () => {
-            summaryOfPublicationsPage = await searchPage.clickNavSJP(true);
-            expect(await summaryOfPublicationsPage.getPageTitle()).toBe(
-                'What do you want to view from Single Justice Procedure?'
-            );
-
-            sjpPublicListPage = await singleJusticeProcedurePage.clickSjpPublicListItem();
-            expect(await sjpPublicListPage.getPageTitle()).toEqual(
-                'Single Justice Procedure cases that are ready for hearing'
-            );
-        });
-
-        it('should navigate to list download disclaimer page on download button click', async () => {
-            listDownloadDisclaimerPage = await sjpPublicListPage.clickDownloadACopyButton();
-            expect(await listDownloadDisclaimerPage.getPageTitle()).toBe('Terms and conditions');
-        });
-
-        it('should agree to the terms and conditions and continue', async () => {
-            await listDownloadDisclaimerPage.tickAgreeCheckbox();
-            listDownloadFilesPage = await listDownloadDisclaimerPage.clickContinue();
-            expect(await listDownloadFilesPage.getPageTitle()).toEqual('Download your file');
         });
     });
 

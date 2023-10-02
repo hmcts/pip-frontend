@@ -14,22 +14,10 @@
 
 {% block content %}
   <div class="parent-box">
-    <h2 id="page-heading" class="govuk-heading-l">{{ venue.venueName }}: {{ listName }}</h2>
+    <h2 id="page-heading" class="govuk-heading-l">{{ heading }} {{ venue.venueName }}</h2>
     <p class="govuk-body publication-date">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
     <p class="govuk-body version">{{ draft }}: {{ versionText }} {{ version }}</p>
-    <p class="govuk-body venue-address">
-      {% set address = venue.venueAddress %}
-      {% for line in address.line %}
-        {{ line }}<br/>
-      {% endfor %}
-      {% if address.town | length %}
-        {{ address.town }}<br/>
-      {% endif %}
-      {% if address.county | length %}
-        {{ address.county }}<br/>
-      {% endif %}
-      {{ address.postCode }}
-    </p>
+    <p class="govuk-body venue-address">{{ venueAddress | striptags(true) | escape | nl2br }}</p>
 
     <div class="govuk-body list-info">
       <p>{{ headingP1 }} {{ contentDate }}</p>

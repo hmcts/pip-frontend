@@ -197,3 +197,37 @@ export const createMaxSystemAdminAccounts = async (firstName: string, surname: s
         response = await createSystemAdminAccount(firstName, surname, randomData.getRandomEmailAddress());
     }
 };
+
+export const createTestUserAccount = async (
+    firstName: string,
+    surname: string,
+    email: string,
+    role: string = 'VERIFIED'
+) => {
+    const token = await getAccountManagementCredentials();
+
+    const verifiedUserAzureAccount = {
+        email: email,
+        password: testConfig.TEST_USER_PASSWORD,
+        firstName: firstName,
+        surname: surname,
+        role: role,
+        displayName: firstName + surname,
+    };
+    try {
+        const azureResponse = await superagent
+            .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/account`)
+            .send(verifiedUserAzureAccount)
+            .set({ Authorization: 'Bearer ' + token.access_token })
+            .set('Content-Type', 'application/json')
+            .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
+        return azureResponse.body;
+    } catch (e) {
+        if (e.response?.badRequest) {
+            e.response.body['error'] = true;
+            return e.response?.body;
+        } else {
+            throw new Error(`Create test user account failed for: ${email}, http-status: ${e.response?.status}`);
+        }
+    }
+};

@@ -88,6 +88,7 @@ describe('Crown Warned List Controller', () => {
             publishedTime: '12:30pm',
             version: '1.0',
             provenance: 'prov1',
+            venueAddress: 'Princess Square\nManchester\nM1 1AA',
             bill: false,
         };
 

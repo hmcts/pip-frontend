@@ -22,9 +22,11 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.fillField('#search-input', locationName);
     I.selectOption('#listType', listType);
 
-    I.fillField('#content-date-from-day', padFormatted(date.getDate()));
-    I.fillField('#content-date-from-month', padFormatted(date.getMonth() + 1));
-    I.fillField('#content-date-from-year', date.getFullYear());
+    // Set a specific content date of 12/31/2020 so the request to Courtel can be identified.
+    const contentDate = new Date(2020, 11, 31);
+    I.fillField('#content-date-from-day', padFormatted(contentDate.getDate()));
+    I.fillField('#content-date-from-month', padFormatted(contentDate.getMonth() + 1));
+    I.fillField('#content-date-from-year', contentDate.getFullYear());
     I.selectOption('#classification', 'Public');
     I.fillField('#display-date-from-day', padFormatted(date.getDate()));
     I.fillField('#display-date-from-month', padFormatted(date.getMonth() + 1));
@@ -255,7 +257,7 @@ Scenario('I as a admin user should be able to change the data before confirming 
 
     I.click(locate('//dl/div').withText('Sensitivity').find('a').withText('Change'));
     I.waitForText('Manual upload');
-    I.selectOption('#classification', 'Private');
+    I.selectOption('#classification', 'Private - All verified users');
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.click('Continue');
     I.waitForText('Check upload details');

@@ -945,4 +945,33 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual([]);
         });
     });
+
+    describe('Check user is authorised', () => {
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        const userId = '123';
+        const listType = 'SJP_PRESS_LIST';
+        const sensitivity = 'CLASSIFIED';
+
+        it('should return data on success', async () => {
+            getStub.withArgs(`/account/isAuthorised/${userId}/${listType}/${sensitivity}`).resolves({ data: true });
+            const response = await accountManagementRequests.isAuthorised(userId, listType, sensitivity);
+            expect(response).toStrictEqual(true);
+        });
+
+        it('should return false on error response', async () => {
+            getStub.withArgs(`/account/isAuthorised/${userId}/${listType}/${sensitivity}`).rejects(errorResponse);
+            const response = await accountManagementRequests.isAuthorised(userId, listType, sensitivity);
+            expect(response).toStrictEqual(false);
+        });
+
+        it('should return false on error message', async () => {
+            getStub.withArgs(`/account/isAuthorised/${userId}/${listType}/${sensitivity}`).rejects(errorMessage);
+            const response = await accountManagementRequests.isAuthorised(userId, listType, sensitivity);
+            expect(response).toStrictEqual(false);
+        });
+    });
 });

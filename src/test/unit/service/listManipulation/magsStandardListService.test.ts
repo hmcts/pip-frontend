@@ -14,14 +14,9 @@ const languageFile = 'magistrates-standard-list';
 
 describe('Magistrate Standard List Data manipulation service', () => {
     describe('MagsStandardListService', () => {
-        let magistrateStandardList;
-        beforeEach(() => {
-            magistrateStandardList = JSON.parse(rawMagistrateStandardListData);
-        });
-
         it('should format the case time in 12 hour format', async () => {
             const data = await magsStandardListService.manipulatedMagsStandardListData(
-                magistrateStandardList,
+                rawMagistrateStandardListData,
                 lng,
                 languageFile
             );
@@ -32,7 +27,7 @@ describe('Magistrate Standard List Data manipulation service', () => {
 
         it('should format the party information correctly', async () => {
             const data = await magsStandardListService.manipulatedMagsStandardListData(
-                magistrateStandardList,
+                rawMagistrateStandardListData,
                 lng,
                 languageFile
             );
@@ -68,7 +63,7 @@ describe('Magistrate Standard List Data manipulation service', () => {
 
         it('should format conviction and adjournedDate date correctly', async () => {
             const data = await magsStandardListService.manipulatedMagsStandardListData(
-                magistrateStandardList,
+                rawMagistrateStandardListData,
                 lng,
                 languageFile
             );

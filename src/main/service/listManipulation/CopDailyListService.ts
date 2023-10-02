@@ -13,7 +13,7 @@ export class CopDailyListService {
         copDailyCauseListData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
-                    session['formattedJudiciary'] = helperService.getJudiciaryNameSurname(session);
+                    session['formattedJudiciary'] = helperService.findAndManipulateJudiciary(session);
                     delete session['judiciary'];
                     session['sittings'].forEach(sitting => {
                         helperService.calculateDuration(sitting);

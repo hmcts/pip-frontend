@@ -36,6 +36,7 @@ sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListData').returns(listD
 const artefactId = 'abc';
 
 crownFirmListJsonStub.withArgs(artefactId).resolves(unprocessedData);
+crownFirmListJsonStub.withArgs(artefactId, undefined).resolves(undefined);
 crownFirmListJsonStub.withArgs('').resolves([]);
 crownFirmListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
@@ -66,16 +67,17 @@ describe('Crown Firm List Controller', () => {
             ...i18n['crown-firm-list'],
             ...i18n['list-template'],
             listData,
+            startDate: '12 April 2023',
+            endDate: '15 April 2023',
             allocated: JSON.parse(fullyProcessedData),
             contentDate: '14 February 2022',
             publishedDate: '03 March 2023',
-            startDate: '12 April 2023',
-            endDate: '15 April 2023',
             publishedTime: '2:07pm',
             provenance: 'prov1',
             version: '3.4',
             courtName: 'Altrincham County Court and Family Court',
             bill: false,
+            venueAddress: '26 Diego Gardens\nAddress Line 2\nTown\nLancashire\nAA1 AA1'
         };
 
         responseMock.expects('render').once().withArgs('crown-firm-list', expectedData);
@@ -110,8 +112,8 @@ describe('Crown Firm List Controller', () => {
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        sinon.restore();
         request.query = { artefactId: artefactId };
+        request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);

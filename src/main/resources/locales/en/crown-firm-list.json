@@ -1,9 +1,9 @@
 {
     "title": "Crown Firm List",
-    "headerPart1": "Firm List",
+    "heading": "Crown Firm List for ",
     "listDate": "List for",
     "to": " to ",
-    "listUpdated": "Last Updated: DATE at ",
+    "listUpdated": "Last updated: DATE at ",
     "draft": "Draft:",
     "versionText": "Version",
     "restrictionInformationHeading": "Restrictions on publishing or writing about these cases",

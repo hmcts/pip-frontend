@@ -31,32 +31,12 @@
 										}
 									},
 									{
-										"partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-										"individualDetails": {
-											"title": "Mr",
-											"individualForenames": "Test forename 2",
-											"individualMiddleName": "X",
-											"individualSurname": "Test Surname 2"
-										},
-										"friendlyRoleName": "This is a role name"
-									},
-									{
 										"partyRole": "RESPONDENT",
 										"individualDetails": {
 											"title": "Capt.",
 											"individualForenames": "Test forename",
 											"individualMiddleName": "A",
 											"individualSurname": "Test Surname"
-										},
-										"friendlyRoleName": "This is a role name"
-									},
-									{
-										"partyRole": "RESPONDENT_REPRESENTATIVE",
-										"individualDetails": {
-											"title": "Dr",
-											"individualForenames": "Test forename 2",
-											"individualMiddleName": "G",
-											"individualSurname": "Test Surname 2"
 										},
 										"friendlyRoleName": "This is a role name"
 									}
@@ -112,29 +92,9 @@
 												}
 											},
 											{
-												"partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-												"individualDetails": {
-													"title": "Sir",
-													"individualForenames": "Test forename",
-													"individualMiddleName": "V",
-													"individualSurname": "Test Rep Surname"
-												},
-												"friendlyRoleName": "This is a role name"
-											},
-											{
 												"partyRole": "RESPONDENT",
 												"organisationDetails": {
 													"organisationName": "Test Organisation Name"
-												},
-												"friendlyRoleName": "This is a role name"
-											},
-											{
-												"partyRole": "RESPONDENT_REPRESENTATIVE",
-												"individualDetails": {
-													"title": "Dame",
-													"individualForenames": "Test forename",
-													"individualMiddleName": "H",
-													"individualSurname": "Test Rep Surname"
 												},
 												"friendlyRoleName": "This is a role name"
 											}
@@ -163,31 +123,11 @@
 												}
 											},
 											{
-												"partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-												"individualDetails": {
-													"title": "Sir",
-													"individualForenames": "Test forename",
-													"individualMiddleName": "N",
-													"individualSurname": "Test Surname"
-												},
-												"friendlyRoleName": "This is a role name"
-											},
-											{
 												"partyRole": "RESPONDENT",
 												"individualDetails": {
 													"title": "Lord",
 													"individualForenames": "Test forename",
 													"individualMiddleName": "P",
-													"individualSurname": "Test Surname"
-												},
-												"friendlyRoleName": "This is a role name"
-											},
-											{
-												"partyRole": "RESPONDENT_REPRESENTATIVE",
-												"individualDetails": {
-													"title": "Dame",
-													"individualForenames": "Test forename",
-													"individualMiddleName": "Q",
 													"individualSurname": "Test Surname"
 												},
 												"friendlyRoleName": "This is a role name"
@@ -221,31 +161,11 @@
 												}
 											},
 											{
-												"partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-												"individualDetails": {
-													"title": "Sir",
-													"individualForenames": "Test forename",
-													"individualMiddleName": "2",
-													"individualSurname": "Test Surname"
-												},
-												"friendlyRoleName": "This is a role name"
-											},
-											{
 												"partyRole": "RESPONDENT",
 												"individualDetails": {
 													"title": "Lord",
 													"individualForenames": "Test forename",
 													"individualMiddleName": "3",
-													"individualSurname": "Test Surname"
-												},
-												"friendlyRoleName": "This is a role name"
-											},
-											{
-												"partyRole": "RESPONDENT_REPRESENTATIVE",
-												"individualDetails": {
-													"title": "Dame",
-													"individualForenames": "Test forename",
-													"individualMiddleName": "4",
 													"individualSurname": "Test Surname"
 												},
 												"friendlyRoleName": "This is a role name"
@@ -272,16 +192,7 @@
 													"individualForenames": "Party Forename",
 													"individualSurname": "Party Surname"
 												}
-											},
-                                            {
-                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                "individualDetails": {
-                                                    "title": "Sir",
-                                                    "individualForenames": "Party Rep forename",
-                                                    "individualSurname": "Party Rep Surname"
-                                                },
-                                                "friendlyRoleName": "This is a role name"
-                                            }
+											}
                                         ],
 										"hearingType": "Hearing Type 2"
 									}]

@@ -2,7 +2,7 @@
     "title": "What court or tribunal are you interested in?",
     "error": {
         "noResults": "There is nothing matching your criteria",
-        "summaryTitleText": "There is a problem",
+        "noResultsSummaryText": "No results found",
         "spanText": "Enter a court name, town or city",
         "noResultsHeader": "There are no matching results.",
         "pText": "You can:",

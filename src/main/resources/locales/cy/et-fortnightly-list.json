@@ -1,7 +1,7 @@
 {
     "title": "Tribiwnlysoedd Cyflogaeth Rhestr Ddyddiol",
     "listFor": "Rhestr ar gyfer",
-    "listUpdated": "Diweddarwyd ddiwethaf DATE yn ",
+    "listUpdated": "Diweddarwyd ddiwethaf DATE am ",
     "openJustice1": "Mae cyfiawnder agored yn egwyddor hanfodol yn system y llysoedd a’r tribiwnlysoedd, a bydd hyn yn parhau wrth i ni ddefnyddio mwy ar dechnoleg sain a fideo.\n",
     "openJustice2": "Wrth ystyried defnyddio technoleg ffôn a fideo, bydd y farnwriaeth yn rhoi sylw i egwyddorion cyfiawnder agored. Gall barnwyr benderfynu cynnal gwrandawiad yn breifat os oes angen hynny er mwyn sicrhau'r broses o weinyddu cyfiawnder yn briodol.",
     "openJustice3": "Nid yw'r ffaith bod achos wedi ei gynnwys yn Rhestr y Wasg yn gwarantu na fydd yn destun gorchymyn adrodd cyfyngedig.  Dylai aelodau'r Wasg sicrhau nad oes gorchymyn yn bodoli ar achos unigol cyn cyflwyno deunydd i'w gyhoeddi.",
@@ -20,7 +20,6 @@
     "rep": "Cynrychiolydd",
     "noRep": "Dim Cynrychiolydd",
     "tableHeaders": [
-        "Ystafell llys",
         "Amser Cychwyn",
         "Hyd",
         "Cyfeirnod yr Achos",

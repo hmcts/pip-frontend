@@ -9,6 +9,7 @@ import { DateTime } from 'luxon';
 import { FilterService } from '../../../main/service/filterService';
 import { SjpFilterService } from '../../../main/service/sjpFilterService';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
+import { describe } from '@jest/globals';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sjp-press-list.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);

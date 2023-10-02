@@ -48,6 +48,11 @@ describe('Tribunal National Lists Service', () => {
 
     it('Should have added venue to the formatted response', () => {
         const data = tribunalNationalListsService.manipulateData(testData, lng, languageFile);
-        expect(data[0].venue).to.equal('PRESTON\n' + 'Address Line 1\n' + 'AA1 AA1');
+        expect(data[0].venue).to.equal('PRESTON\nAddress Line 1\nAA1 AA1');
+    });
+
+    it('Should have added venue with blank court house name and address line to formatted response', () => {
+        const data = tribunalNationalListsService.manipulateData(testData, lng, languageFile);
+        expect(data[1].venue).to.equal('Address Line 1\nAddress Line 2\nAA1 AA1');
     });
 });

@@ -47,6 +47,46 @@
                     }
                 ]
             }
+        },
+        {
+            "courtHouse": {
+                "courtHouseName": "",
+                "courtHouseAddress": {
+                    "line": [
+                        "Address Line 1",
+                        "",
+                        "Address Line 2"
+                    ],
+                    "postCode": "AA1 AA1"
+                },
+                "courtRoom": [
+                    {
+                        "session": [
+                            {
+                                "sessionStartTime": "2022-10-04T09:00:52.123Z",
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-10-05T11:00:52.123Z",
+                                        "sittingEnd": "2022-10-06T11:30:52.123Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "Remote - Teams",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A Vs B",
+                                                        "caseNumber": "45684548",
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
         }
     ]
 }

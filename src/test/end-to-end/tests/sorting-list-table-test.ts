@@ -36,7 +36,7 @@ Scenario('I should be able to view and sort the list table', async ({ I }) => {
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
     I.click(locate('//a').withText('Primary Health Tribunal Hearing List'));
-    I.waitForText('Primary Health\n' + 'Tribunal Hearing List');
+    I.waitForText('Tribunal Hearing List for Primary Health');
     I.click('Hearing Date');
     const sortedFirstDateAsc = await I.grabTextFrom(firstRow(1));
     Assert.equal(sortedFirstDateAsc, '03 September');

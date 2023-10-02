@@ -1,5 +1,5 @@
 import { ListParseHelperService } from '../listParseHelperService';
-import { formatDate, formatDuration } from '../../helpers/dateTimeHelper';
+import { formatDate } from '../../helpers/dateTimeHelper';
 import { CrimeListsService } from './CrimeListsService';
 
 const helperService = new ListParseHelperService();
@@ -7,11 +7,12 @@ const crimeListsService = new CrimeListsService();
 
 export class MagistratesStandardListService {
     public manipulatedMagsStandardListData(
-        magsStandardListData: object,
+        magsStandardListData: string,
         language: string,
         languageFile: string
     ): object {
-        magsStandardListData['courtLists'].forEach(courtList => {
+        const listData = JSON.parse(magsStandardListData);
+        listData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
                     const allDefendants = [];
@@ -20,15 +21,8 @@ export class MagistratesStandardListService {
                         if (judiciary !== '') {
                             session['formattedJudiciaries'] = judiciary;
                         }
-                        helperService.formatCaseTime(sitting, 'h:mma');
-                        sitting['formattedDuration'] = formatDuration(
-                            sitting['durationAsDays'] as number,
-                            sitting['durationAsHours'] as number,
-                            sitting['durationAsMinutes'] as number,
-                            language,
-                            languageFile
-                        );
-
+                        crimeListsService.calculateDuration(sitting, language, languageFile);
+                        helperService.findAndConcatenateHearingPlatform(sitting, session);
                         allDefendants.push(...this.processHearing(sitting, language));
                     });
                     session['defendants'] = this.combineDefendantSittings(allDefendants);
@@ -36,7 +30,7 @@ export class MagistratesStandardListService {
             });
         });
 
-        return magsStandardListData;
+        return listData;
     }
 
     private processHearing(sitting, language) {
@@ -192,26 +186,12 @@ export class MagistratesStandardListService {
 
         hearing['defendantHeading'] = defendant?.replace(/,\s*$/, '').trim();
         hearing['defendantDateOfBirth'] = party?.individualDetails?.dateOfBirth;
-        hearing['defendantAddress'] = this.formatDefendantAddress(party.individualDetails?.address);
+        hearing['defendantAddress'] = crimeListsService.formatAddress(party.individualDetails?.address, ', ');
         hearing['age'] = party?.individualDetails?.age;
         hearing['gender'] = party?.individualDetails?.gender;
         hearing['plea'] = party?.individualDetails?.plea;
         if (party?.individualDetails?.inCustody) {
             hearing['inCustody'] = party.individualDetails?.inCustody === true ? '*' : '';
         }
-    }
-
-    private formatDefendantAddress(defendantAddress: object): string {
-        let formattedAddress = '';
-        if (defendantAddress !== null) {
-            defendantAddress['line'].forEach(line => {
-                formattedAddress += formattedAddress.length > 0 ? ', ' + line : line;
-            });
-            formattedAddress += defendantAddress['town'] ? ', ' + defendantAddress['town'] : '';
-            formattedAddress += defendantAddress['county'] ? ', ' + defendantAddress['county'] : '';
-            formattedAddress += defendantAddress['postCode'] ? ', ' + defendantAddress['postCode'] : '';
-        }
-
-        return formattedAddress.replace(/,\s*$/, '').trim();
     }
 }

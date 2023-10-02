@@ -1,3 +1,5 @@
+import { ListParseHelperService } from '../listParseHelperService';
+
 export class SjpPublicListService {
     /**
      * Format the SJP public list json data for writing out on screen.
@@ -32,25 +34,42 @@ export class SjpPublicListService {
     }
 
     private buildPartyDetails(parties) {
-        let name = '';
-        let postcode = '';
+        let accusedInfo = { name: '', postcode: '' };
         let organisationName = '';
         parties.forEach(party => {
             if (party.partyRole === 'ACCUSED') {
-                name = [party.individualDetails.individualForenames, party.individualDetails.individualSurname].join(
-                    ' '
-                );
-                postcode = party.individualDetails.address.postCode;
+                accusedInfo = this.processAccusedParty(party);
             } else if (party.partyRole === 'PROSECUTOR') {
                 organisationName = party.organisationDetails.organisationName;
             }
         });
 
         return {
-            name: name,
-            postcode: postcode,
+            ...accusedInfo,
             prosecutorName: organisationName,
         };
+    }
+
+    private processAccusedParty(party) {
+        if (party.individualDetails) {
+            const individual = party.individualDetails;
+            return {
+                name: this.buildIndividualName(individual),
+                postcode: individual.address?.postCode ? individual.address.postCode : '',
+            };
+        } else if (party.organisationDetails) {
+            const organisation = party.organisationDetails;
+            return {
+                name: organisation.organisationName,
+                postcode: organisation.organisationAddress ? organisation.organisationAddress.postCode : '',
+            };
+        }
+    }
+
+    private buildIndividualName(individual) {
+        const forenames = ListParseHelperService.writeStringIfValid(individual?.individualForenames);
+        const surname = ListParseHelperService.writeStringIfValid(individual?.individualSurname);
+        return [forenames, surname].filter(n => n.length > 0).join(' ');
     }
 
     private buildOffence(offences): any {

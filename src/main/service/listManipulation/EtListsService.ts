@@ -37,6 +37,7 @@ export class EtListsService {
     /**
      * Method which runs through an et fortnightly list and splits it out into courtHouses and days.
      * @param inputList - input et daily list json.
+     * @param language - the language for the blob.
      * @private - cos it's internal.
      */
     private dataSplitterEtList(inputList: any, language: string): any {
@@ -70,7 +71,6 @@ export class EtListsService {
                                     jurisdiction: thisCase['caseType'],
                                     hearingPlatform: sitting['caseHearingChannel'],
                                 };
-                                console.log(row);
                                 rows.push(row);
                             });
                         });

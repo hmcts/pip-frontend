@@ -21,6 +21,7 @@ export const config = {
     SYSTEM_ADMIN_PROVENANCE_ID: process.env.SYSTEM_ADMIN_PROVENANCE_ID,
     SYSTEM_ADMIN_USER_ID: process.env.SYSTEM_ADMIN_USER_ID,
     VERIFIED_USER_ID: process.env.VERIFIED_USER_ID,
+    TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD,
     DATA_MANAGEMENT_BASE_URL:
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net',
     SUBSCRIPTION_MANAGEMENT_BASE_URL:

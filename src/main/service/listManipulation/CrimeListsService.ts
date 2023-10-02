@@ -15,20 +15,9 @@ export class CrimeListsService {
         crownDailyListData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
+                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
                     session['sittings'].forEach(sitting => {
-                        helperService.formatCaseTime(sitting, 'h:mma');
-                        sitting['formattedDuration'] = formatDuration(
-                            sitting['durationAsDays'] as number,
-                            sitting['durationAsHours'] as number,
-                            sitting['durationAsMinutes'] as number,
-                            language,
-                            languageFile
-                        );
-                        sitting['durationSortValue'] = calculateDurationSortValue(
-                            sitting['durationAsDays'] as number,
-                            sitting['durationAsHours'] as number,
-                            sitting['durationAsMinutes'] as number
-                        );
+                        this.calculateDuration(sitting, language, languageFile);
                         sitting['hearing'].forEach(hearing => {
                             this.manipulateParty(hearing);
                             this.findLinkedCasesInformation(hearing);
@@ -38,6 +27,22 @@ export class CrimeListsService {
             });
         });
         return crownDailyListData;
+    }
+
+    public calculateDuration(sitting, language, languageFile) {
+        helperService.calculateDuration(sitting);
+        sitting['formattedDuration'] = formatDuration(
+            sitting['durationAsDays'] as number,
+            sitting['durationAsHours'] as number,
+            sitting['durationAsMinutes'] as number,
+            language,
+            languageFile
+        );
+        sitting['durationSortValue'] = calculateDurationSortValue(
+            sitting['durationAsDays'] as number,
+            sitting['durationAsHours'] as number,
+            sitting['durationAsMinutes'] as number
+        );
     }
 
     private pushIfExists(array, item) {
@@ -145,5 +150,17 @@ export class CrimeListsService {
         courtListForUnallocatedCases['unallocatedCases'] = true;
         courtListForUnallocatedCases['courtHouse']['courtRoom'] = unallocatedCase;
         unallocatedCasesCrownListData['courtLists'].push(courtListForUnallocatedCases);
+    }
+
+    public formatAddress(address: object, delimiter = '\n') {
+        const formattedAddress = [];
+        if (address['line']) {
+            address['line'].forEach(line => formattedAddress.push(line));
+        }
+        formattedAddress.push(address['town'] ? address['town'] : '');
+        formattedAddress.push(address['county'] ? address['county'] : '');
+        formattedAddress.push(address['postCode'] ? address['postCode'] : '');
+
+        return formattedAddress.filter(line => line.trim().length > 0).join(delimiter);
     }
 }

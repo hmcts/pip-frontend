@@ -48,9 +48,12 @@ export class SubscriptionRequests {
         return false;
     }
 
-    public async bulkDeleteSubscriptions(subscriptionIds: string[]): Promise<object> {
+    public async bulkDeleteSubscriptions(subscriptionIds: string[], userId: string): Promise<object> {
         try {
-            const response = await subscriptionManagementApi.delete('/subscription/bulk', { data: subscriptionIds });
+            const response = await subscriptionManagementApi.delete('/subscription/v2/bulk', {
+                headers: { 'x-user-id': userId },
+                data: subscriptionIds,
+            });
             return response.data;
         } catch (error) {
             if (error.response) {

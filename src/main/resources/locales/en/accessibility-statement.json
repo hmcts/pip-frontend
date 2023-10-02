@@ -3,10 +3,10 @@
     "backButton": "Back",
     "section1": {
         "text1": "This accessibility statement applies to content published on ",
-        "text2": "The court and tribunal hearings service provides a publishing platform to enable information, such as hearing lists, provided by HMCTS to be shared, displayed and updated as appropriate. It will enable information to be displayed to court users, consistent with jurisdictional procedures and business rules. The service supports HMCTS’ commitment to open justice and the provision of transparent and consistent court and tribunal information across jurisdictions",
-        "text4": "This website is run by HM Courts and Tribunals. We want as many people as possible to be able to use this website, so we have designed it to be accessible. For example, that means you should be able to:",
-        "text5": "We’ve also made the website text as simple as possible to understand.",
-        "text6": "(opens in a new window) has advice on making your device easier to use if you have a disability.",
+        "text2": "The court and tribunal hearings service provides a publishing platform to enable information, such as hearing lists, provided by HM Courts and Tribunals Service (HMCTS) to be shared, displayed and updated as appropriate. It will enable information to be displayed to court users, consistent with jurisdictional procedures and business rules. The service supports HMCTS’ commitment to open justice and the provision of transparent and consistent court and tribunal information across jurisdictions.",
+        "text3": "This website is run by HMCTS. We want as many people as possible to be able to use this website, so we have designed it to be accessible. For example, that means you should be able to:",
+        "text4": "We’ve also made the website text as simple as possible to understand.",
+        "text5": "(opens in a new window) has advice on making your device easier to use if you have a disability.",
         "links": [
             {
                 "link": "https://www.court-tribunal-hearings.service.gov.uk",
@@ -26,9 +26,7 @@
         "heading": "How accessible this website is",
         "upperText": "We know some parts of this website are not fully accessible, for example:",
         "text": [
-            "Many PDF documents published within this service are not fully accessible to screen reader software as the content is untagged, untitled and the tables are not marked up in a logical way to enable screen reader users to navigate and identify the information correctly.",
-            "The sign in and password reset pages for someone with a court and tribunal hearings account are not fully accessible to screen reader software because headings on these pages are not read out. This means screen reader users may find it hard to identify the purpose and logical structure of the page.",
-            "The colour contrast makes it hard to read text in some parts of the website."
+            "Many PDF documents published within this service are not fully accessible to screen reader software as the content is untagged, untitled and the tables are not marked up in a logical way to enable screen reader users to navigate and identify the information correctly."
         ]
     },
     "section3": {
@@ -47,11 +45,12 @@
     },
     "section5": {
         "heading": "Enforcement procedure",
-        "text1": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, ",
+        "text1": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, contact the",
+        "text2": "(opens in a new window).",
         "links": [
             {
                 "link": "https://www.equalityadvisoryservice.com/",
-                "text": "contact the Equality Advisory and Support Service (EASS) (opens in a new window)."
+                "text": "Equality Advisory and Support Service (EASS)"
             }
         ]
     },
@@ -65,7 +64,7 @@
     },
     "section7": {
         "heading": "Technical information about this website’s accessibility",
-        "text1": "HM Courts and Tribunal Service is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
+        "text1": "HMCTS is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
     },
     "section8": {
         "heading": "Compliance status",
@@ -85,17 +84,13 @@
         "text": [
             "Some hearing lists presented within the service are presented and viewable as a PDF or word document (flat files). These can be difficult for screen reader users to navigate as the content is untagged, untitled and the tables are not marked up to enable screen reader users to navigate and identify the information correctly.",
             "This fails WCAG 2.1 A criterion 2.4.2 (page titled) and 1.3.1 (info and relationship).",
-            "Progress will be reviewed on an ongoing basis, with a full review planned for December 2022.",
-            "Sign in and forgotten password screens for a member of the media (with a court and tribunals hearings account) are not fully accessible, as headings are not read out and some images do not have alternative text.",
-            "This fails WCAG 2.1 A criterion 1.3.1 (info and relationship). The interface is based on a third party out of the box design pattern.",
-            "We will look to fix this issue by December 2022."
+            "Progress will be reviewed on an ongoing basis, with a full review planned for September 2024."
         ]
     },
     "section10": {
         "heading": "What we’re doing to improve accessibility",
         "text": [
-            "We plan to improve accessibility by proactively engaging with HMCTS’ Reform Programme to make sure that source systems produce accessible documents for publishing. We have asked services to add work to future enhancements to update the way they produce documents to make they fully accessible. ",
-            "The service team has received a new version of the sign in pages to resolve the accessibility compliance issue.  This should be implemented by December 2022.",
+            "We have actively engaged with HMCTS’ Reform Programme to make sure that source systems produce accessible documents for publishing. We have asked services to add work to future enhancements to update the way they produce documents to make them fully accessible.",
             "We will continually run automated accessibility testing as part of our development practices."
         ]
     },
@@ -104,7 +99,7 @@
         "smallHeading1": "Testing procedure:",
         "smallHeading2": "User testing:",
         "smallHeading3": "Technical auditing:",
-        "text1": "This statement was prepared on 28 April 2022.  It was last reviewed on 3 May 2022.",
+        "text1": "This statement was prepared on 8 September 2023. It was last reviewed on 8 September 2023.",
         "text2": "This website was tested internally at all stages of its build and subjected to ",
         "text3": " testing throughout April 2021 to March 2022.",
         "text4": "This is an excerpt from the DAC report explaining their methodology:",

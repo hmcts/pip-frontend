@@ -1,12 +1,3 @@
-const drivers = {
-    chromiumedge: { version: 'latest' },
-    chrome: {
-        fullUrl:
-            'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/115.0.5790.102/linux64/chrome-linux64.zip',
-    },
-    firefox: { version: 'latest' },
-};
-
 const { TimelineService } = require('wdio-timeline-reporter/timeline-service');
 
 exports.config = {
@@ -139,16 +130,7 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [
-        [
-            'selenium-standalone',
-            {
-                installArgs: { drivers },
-                args: { drivers },
-            },
-        ],
-        [TimelineService],
-    ],
+    services: [[TimelineService]],
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber

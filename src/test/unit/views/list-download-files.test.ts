@@ -4,13 +4,23 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
 import { request as expressRequest } from 'express';
+import { PublicationService } from '../../../main/service/publicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 
 const PAGE_URL = '/list-download-files?artefactId=abc';
 const PAGE_URL_WITH_PDF_ONLY = '/list-download-files?artefactId=def';
 const PAGE_URL_WITH_EXCEL_ONLY = '/list-download-files?artefactId=ghi';
 let htmlRes: Document;
 
+const mockArtefact = {
+    listType: 'SJP_PRESS_LIST',
+    sensitivity: 'CLASSIFIED',
+};
+
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
+sinon.stub(AccountManagementRequests.prototype, 'isAuthorised').resolves(true);
 sinon.stub(ListDownloadService.prototype, 'generateFiles').resolves({});
+
 const getFileSizeStub = sinon.stub(ListDownloadService.prototype, 'getFileSize');
 getFileSizeStub.withArgs('abc', 'pdf').returns('1.1MB');
 getFileSizeStub.withArgs('abc', 'xlsx').returns('25.2KB');

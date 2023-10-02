@@ -11,19 +11,40 @@ describe('Cft Login Controller', () => {
             return '';
         },
     } as unknown as Response;
+
     const request = {} as PipRequest;
 
-    it('should attempt to redirect to the CFT IDAM', async () => {
-        const responseMock = sinon.mock(response);
+    const redirectUri = encodeURIComponent('https://localhost:8080/cft-login/return');
 
-        const redirectUri = encodeURIComponent('https://localhost:8080/cft-login/return');
+    it('should attempt to redirect to the CFT IDAM in English', async () => {
+        request['lng'] = 'en';
+
+        const responseMock = sinon.mock(response);
 
         responseMock
             .expects('redirect')
             .once()
             .withArgs(
                 'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
-                    redirectUri
+                    redirectUri +
+                    '&ui_locales=en'
+            );
+
+        await cftLoginController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should attempt to redirect to the CFT IDAM in Welsh', async () => {
+        request['lng'] = 'cy';
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('redirect')
+            .once()
+            .withArgs(
+                'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
+                    redirectUri +
+                    '&ui_locales=cy'
             );
 
         await cftLoginController.get(request, response);
