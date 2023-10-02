@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import BlobViewJsonController from '../../../main/controllers/BlobViewJsonController';
 import { PublicationService } from '../../../main/service/publicationService';
 import { LocationService } from '../../../main/service/locationService';
-import { HttpStatusCode } from "axios";
+import { HttpStatusCode } from 'axios';
 
 const blobViewController = new BlobViewJsonController();
 const i18n = {
