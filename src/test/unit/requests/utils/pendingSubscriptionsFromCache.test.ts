@@ -52,7 +52,8 @@ getStub.withArgs('pending-cases-subscriptions-1').resolves(mockCaseJson);
 getStub.withArgs('pending-cases-subscriptions-2').resolves(mockCaseWithUrnOnlyJson);
 getStub.withArgs('pending-cases-subscriptions-3').resolves(mockCaseWithUrnOnlyJson);
 getStub.withArgs('pending-courts-subscriptions-2').resolves([]);
-sinon.stub(redisClient, 'status').value('ready');
+redisClient['status'] = 'ready';
+
 const set = sinon.stub(redisClient, 'set');
 
 describe('setPendingSubscriptions with valid user', () => {

@@ -72,7 +72,7 @@
     "cookiesExplanation11": "Caiff cwcis sesiwn eu storio ar eich dyfais wrth ichi fynd drwy wefan, ac maent yn gadael i'r wefan wybod beth rydych wedi'i weld a'i wneud hyd yn hyn. Cwcis dros dro yw'r rhain ac fe'u dilëir yn awtomatig ychydig ar ôl ichi adael y wefan.",
     "tableData3": [
         {
-            "name": "session.sid",
+            "name": "connect.sid",
             "purpose": "Gwybodaeth am eich sesiwn gyfredol",
             "expires": "Pan fyddwch yn cau eich porwr"
         }

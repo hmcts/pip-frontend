@@ -7,14 +7,28 @@ const defaultSessionExpiry = 60 * 60 * 1000;
 
 export class SessionManagementService {
     public logOut(req, res, isWrongFlow, isSessionExpired = false): void {
-        // For cookie-session, the request session needs to be destroyed by setting to null upon logout
-        req.session = null;
+        req.session.user = null;
 
-        res.clearCookie('session');
-        if (req.user['userProvenance'] == 'PI_AAD') {
-            res.redirect(this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng));
+        //If the request doesn't have a user, it must have already been logged out on another tab. Therefore
+        //redirect the user to the most appropriate page
+        if (!req.user) {
+            if (isSessionExpired && req.query && req.query.redirectType) {
+                res.redirect('/session-expired?lng=' + req.lng + '&reSignInUrl=' + req.query.redirectType);
+            } else {
+                res.redirect('/session-logged-out?lng=' + req.lng);
+            }
         } else {
-            res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
+            req.session.save(() => {
+                req.session.regenerate(() => {
+                    if (req.user['userProvenance'] == 'PI_AAD') {
+                        res.redirect(
+                            this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng)
+                        );
+                    } else {
+                        res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
+                    }
+                });
+            });
         }
     }
 
@@ -45,7 +59,7 @@ export class SessionManagementService {
         return false;
     }
 
-    private aadLogOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
+    public aadLogOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
         let b2cUrl;
         let b2cPolicy;
 
