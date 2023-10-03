@@ -72,7 +72,7 @@
     "cookiesExplanation11": "Session cookies are stored on your computer as you travel through a website, and let the website know what you’ve seen and done so far. These are temporary cookies and are automatically deleted a short while after you leave the website.",
     "tableData3": [
         {
-            "name": "session.sid",
+            "name": "connect.sid",
             "purpose": "Carries details of your current session",
             "expires": "When you close your browser"
         }

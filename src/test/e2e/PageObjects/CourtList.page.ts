@@ -1,5 +1,3 @@
 import { CommonPage } from './Common.page';
 
-export class CourtListPage extends CommonPage {
-
-}
+export class CourtListPage extends CommonPage {}

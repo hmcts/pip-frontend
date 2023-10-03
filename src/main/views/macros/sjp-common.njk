@@ -5,9 +5,7 @@
 
 {% macro downloadButton(label = 'Download a copy', artefactId) %}
     {{ govukButton({
-        attributes: {
-            id: 'download-button'
-        },
+        id: 'download-button',
         text: label,
         href: 'list-download-disclaimer?artefactId=' + artefactId
     }) }}
