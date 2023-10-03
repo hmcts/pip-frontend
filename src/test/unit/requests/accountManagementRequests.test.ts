@@ -623,9 +623,11 @@ describe('Account Management Requests', () => {
         });
 
         it('should return string on deletion success', async () => {
-            deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`, {
-                headers: { 'x-admin-id': adminUserId },
-            }).resolves({ status: 200, data: 'Deleted' });
+            deleteStub
+                .withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`, {
+                    headers: { 'x-admin-id': adminUserId },
+                })
+                .resolves({ status: 200, data: 'Deleted' });
             const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
             expect(response).toStrictEqual('Deleted');
         });
