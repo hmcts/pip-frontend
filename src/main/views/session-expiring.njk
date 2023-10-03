@@ -31,7 +31,7 @@
           const expiry = new Date(localStorage.getItem('idleExpiry'))
           const diff = (expiry.getTime() + idleDurationInSeconds * 1000) - new Date().getTime()
           if (diff <= 0) {
-            location.href = '/session-expired-logout'
+            location.href = '/session-expired-logout?redirectType={{ redirectPage }}'
           } else {
             clearTimeout(idleTimeout)
             idleTimeout = setTimeout(handleRedirection, diff)

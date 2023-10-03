@@ -24,7 +24,15 @@ if (process.env.REDIS_LOCAL) {
     // double s is required when using TLS connection (i.e. 'start' profile)
     connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
 }
-const redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
+
+let redisClient;
+if (process.env.REDIS_MOCK) {
+    const redis = require('redis-mock');
+    redisClient = redis.createClient();
+} else {
+    logger.info('Connecting to Redis');
+    redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
+}
 
 export function intervalFunction(redisClient) {
     if (redisClient.status === 'ready') {
