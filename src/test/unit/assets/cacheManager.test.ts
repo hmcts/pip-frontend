@@ -1,6 +1,3 @@
-import * as redisConfig from '../../../main/cacheManager';
-import { intervalFunction } from '../../../main/cacheManager';
-
 const expectedValues = {
     host: '127.0.0.1',
     port: '6379',
@@ -14,8 +11,18 @@ const expectedEnvValues = {
 };
 
 describe('cache manager', () => {
+    let redisConfig;
+
+    beforeAll(() => {
+        redisConfig = require('../../../main/cacheManager');
+    });
+
     afterEach(() => {
         jest.resetModules();
+
+        process.env.REDIS_HOST = '';
+        process.env.REDIS_PORT = '';
+        process.env.REDIS_PASSWORD = '';
     });
 
     it('should pick default variables is env are not set', () => {
@@ -59,16 +66,55 @@ describe('Test interval', () => {
     });
 
     it('should call ping when ready', async () => {
-        await require('../../../main/cacheManager');
+        const redisConfig = await require('../../../main/cacheManager');
         mockRedis.status = 'ready';
-        intervalFunction(mockRedis);
+        redisConfig.intervalFunction(mockRedis);
         expect(pingFunction).toHaveBeenCalledTimes(1);
     });
 
     it('should not call ping when not ready', async () => {
-        await require('../../../main/cacheManager');
+        const redisConfig = await require('../../../main/cacheManager');
         mockRedis.status = 'connecting';
-        intervalFunction(mockRedis);
+        redisConfig.intervalFunction(mockRedis);
         expect(pingFunction).toHaveBeenCalledTimes(0);
+    });
+});
+
+describe('Cache Manager creation', () => {
+    beforeEach(() => {
+        jest.resetModules();
+    });
+
+    it('should create a redis client without mock in non local', async () => {
+        process.env.REDIS_LOCAL = '';
+        process.env.REDIS_MOCK = '';
+
+        const ioRedis = require('ioredis');
+        jest.mock('ioredis');
+
+        await require('../../../main/cacheManager');
+        expect(ioRedis).toHaveBeenCalledTimes(1);
+        expect(ioRedis).toHaveBeenCalledWith('rediss://:@127.0.0.1:6379', { connectTimeout: 10000 });
+    });
+
+    it('should create a redis client without mock in local', async () => {
+        process.env.REDIS_LOCAL = 'true';
+        process.env.REDIS_MOCK = '';
+
+        const ioRedis = require('ioredis');
+        jest.mock('ioredis');
+
+        await require('../../../main/cacheManager');
+        expect(ioRedis).toHaveBeenCalledTimes(1);
+        expect(ioRedis).toHaveBeenCalledWith('redis://:@127.0.0.1:6379', { connectTimeout: 10000 });
+    });
+
+    it('should create a redis client with mock', async () => {
+        process.env.REDIS_LOCAL = '';
+        process.env.REDIS_MOCK = 'true';
+
+        const cacheManager = await require('../../../main/cacheManager');
+
+        expect(cacheManager.redisClient).toHaveProperty('_redisMock');
     });
 });
