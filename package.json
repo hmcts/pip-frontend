@@ -94,7 +94,7 @@
         "passport-azure-ad": "4.3.5",
         "passport-custom": "^1.1.1",
         "playwright": "^1.37.1",
-        "postcss": "^8.4.29",
+        "postcss": "^8.4.31",
         "pretty-print-json": "^2.0.3",
         "require-directory": "^2.1.1",
         "serve-favicon": "^2.5.0",
