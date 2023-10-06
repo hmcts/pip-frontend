@@ -3453,6 +3453,33 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@playwright/browser-chromium@npm:1.38.1":
+  version: 1.38.1
+  resolution: "@playwright/browser-chromium@npm:1.38.1"
+  dependencies:
+    playwright-core: 1.38.1
+  checksum: 0fa4c30792288102a27fd1cdb33f44ab25cbec53c6913e268f4c4609865fa7dd556177f72e54790d0472e73d668fa97e1a2f54d83b9bec7e04cdb6e748d0f555
+  languageName: node
+  linkType: hard
+
+"@playwright/browser-firefox@npm:1.38.1":
+  version: 1.38.1
+  resolution: "@playwright/browser-firefox@npm:1.38.1"
+  dependencies:
+    playwright-core: 1.38.1
+  checksum: d14d91a8c7354eb882b0f4696feedab5a017214edb590c64742220402fc30b721f61012a49d57fde5ef7ec7044ae85635b806f5c91ff4f20f1e11f7494f9dbea
+  languageName: node
+  linkType: hard
+
+"@playwright/browser-webkit@npm:1.38.1":
+  version: 1.38.1
+  resolution: "@playwright/browser-webkit@npm:1.38.1"
+  dependencies:
+    playwright-core: 1.38.1
+  checksum: 941008c3ed7a4a336bf1a860ffb7c8e8b20a39a9f774d71a6499881385a54f05bac83156423c2c1ec29ea6eb789e39c9ace4ff344f859107d646d1eaea882f3d
+  languageName: node
+  linkType: hard
+
 "@puppeteer/browsers@npm:1.3.0":
   version: 1.3.0
   resolution: "@puppeteer/browsers@npm:1.3.0"
@@ -9050,7 +9077,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
+"fsevents@npm:2.3.2, fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
   version: 2.3.2
   resolution: "fsevents@npm:2.3.2"
   dependencies:
@@ -9060,7 +9087,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@^2.3.2#~builtin<compat/fsevents>, fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
@@ -13957,23 +13984,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.37.1":
-  version: 1.37.1
-  resolution: "playwright-core@npm:1.37.1"
+"playwright-core@npm:1.38.1":
+  version: 1.38.1
+  resolution: "playwright-core@npm:1.38.1"
   bin:
     playwright-core: cli.js
-  checksum: 69f818da2230057584140d5b3af7778a4f4a822b5b18d133abfc5d259128becb943c343a2ddf6b0635277a69f28983e83e2bc3fce23595ececb1e410475b6368
+  checksum: 66e83fe040f309b13ad94ba39dea40ac207bfcbbc22de13141af88dbdedd64e1c4e3ce1d0cb070d4efd8050d7e579953ec3681dd8a0acf2c1cc738d9c50e545e
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.37.1":
-  version: 1.37.1
-  resolution: "playwright@npm:1.37.1"
+"playwright@npm:^1.38.1":
+  version: 1.38.1
+  resolution: "playwright@npm:1.38.1"
   dependencies:
-    playwright-core: 1.37.1
+    fsevents: 2.3.2
+    playwright-core: 1.38.1
+  dependenciesMeta:
+    fsevents:
+      optional: true
   bin:
     playwright: cli.js
-  checksum: 99406ef3e15b83a659cb23ef1d92d9935789aad430580d1e0371087dfdf266891483c6f97cfa06bf5f49f081eacd44245d05d20714f98531edef4cc317044d6b
+  checksum: 4e01d4ee52d9ccf75a80d8492829106802590721d56bff7c5957ff1f21eb3c328ee5bc3c1784a59c4b515df1b98d08ef92e4a35a807f454cd00dc481d30fadc2
   languageName: node
   linkType: hard
 
@@ -14316,6 +14347,9 @@ __metadata:
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^1.0.0
     "@ministryofjustice/frontend": ^1.8.0
+    "@playwright/browser-chromium": 1.38.1
+    "@playwright/browser-firefox": 1.38.1
+    "@playwright/browser-webkit": 1.38.1
     "@types/chai-as-promised": ^7.1.6
     "@types/config": ^3.3.1
     "@types/cookie-parser": ^1.4.4
@@ -14390,7 +14424,7 @@ __metadata:
     pa11y: 6.2.3
     passport-azure-ad: 4.3.5
     passport-custom: ^1.1.1
-    playwright: ^1.37.1
+    playwright: ^1.38.1
     postcss: ^8.4.31
     prettier: ^3.0.3
     pretty-print-json: ^2.0.3
