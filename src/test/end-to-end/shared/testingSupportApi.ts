@@ -168,17 +168,19 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
 
 export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
     const token = await getAccountManagementCredentials();
-    const thirdPartyUserAccount = [{
-        forenames:'firstName',
-        surname:'surname',
-        userProvenance: 'THIRD_PARTY',
-        provenanceUserId: provenanceUserId,
-        email: '',
-        roles: 'GENERAL_THIRD_PARTY'
-    }];
+    const thirdPartyUserAccount = [
+        {
+            forenames: 'firstName',
+            surname: 'surname',
+            userProvenance: 'THIRD_PARTY',
+            provenanceUserId: provenanceUserId,
+            email: '',
+            roles: 'GENERAL_THIRD_PARTY'
+        },
+    ];
 
     try {
-        const azureResponse =await superagent
+        const azureResponse = await superagent
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/pi`)
             .send(thirdPartyUserAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
@@ -189,7 +191,9 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(`Create third party user account failed for: ${provenanceUserId}, http-status: ${e.response?.status}`);
+            throw new Error(
+                `Create third party user account failed for: ${provenanceUserId}, http-status: ${e.response?.status}`
+            );
         }
     }
 };
@@ -197,15 +201,17 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
 export const deleteThirdPartyUserAccount = async (userId: string) => {
     const token = await getAccountManagementCredentials();
     try {
-       await superagent
+        await superagent
             .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
-            .set({ Authorization: 'Bearer ' + token.access_token })
+            .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         if (e.response?.badRequest) {
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(`Delete third party user account failed for: ${userId}, http-status: ${e.response?.status}`);
+            throw new Error(
+                `Delete third party user account failed for: ${userId}, http-status: ${e.response?.status}`
+            );
         }
     }
 };

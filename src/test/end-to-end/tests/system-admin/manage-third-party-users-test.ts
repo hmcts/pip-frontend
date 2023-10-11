@@ -1,13 +1,12 @@
 import {createThirdPartyUserAccount} from '../../shared/testingSupportApi';
 import {randomData} from '../../shared/random-data';
+import {config as testConfig} from "../../../config";
 
 Feature('System admin manage Third-Party Users');
 
 Scenario('I as a system admin should be able to manage Third-Party Users', async ({I}) => {
-
-    const testProvenanceUserId = randomData.getRandomString();
-
-  const userId =   await createThirdPartyUserAccount(testProvenanceUserId);
+    const testProvenanceUserId = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
+    const userId = await createThirdPartyUserAccount(testProvenanceUserId);
 
     I.loginAsSystemAdmin();
     I.waitForText('View and edit third-party users and subscriptions');
