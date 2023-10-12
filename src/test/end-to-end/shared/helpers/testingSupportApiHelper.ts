@@ -12,6 +12,8 @@ class TestingSupportApi extends Helper implements TestingSupportAPI {
     clearTestData = TestingSupportAPI.clearTestData;
     createMaxSystemAdminAccounts = TestingSupportAPI.createMaxSystemAdminAccounts;
     createTestUserAccount = TestingSupportAPI.createTestUserAccount;
+    createThirdPartyUserAccount = TestingSupportAPI.createThirdPartyUserAccount;
+    deleteThirdPartyUserAccount = TestingSupportAPI.deleteThirdPartyUserAccount;
 }
 
 export = TestingSupportApi;
