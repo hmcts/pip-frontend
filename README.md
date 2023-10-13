@@ -260,30 +260,37 @@ To run the a11y tests, use the `yarn test:a11y` command.
 
 ### Functional (E2E) Tests
 
-We currently use two forms of functional tests which both run in the build pipeline. Legacy tests (of which there are many) were written using [`Webdriver.io (WDIO)`](https://webdriver.io/) and new tests using [`CodeceptJS`](https://codecept.io/).
-We plan to migrate to using purely Codecept tests iteratively, slowly deprecating the old style.
+Both functional and cross-browser tests are implemented.
+Tests are configured to run in parallel.
+Tests are configured to run in chromium, firefox, webkit (cross-browser testing)
+Allure reports are implemented for both functional and cross-browser tests.
 
-#### Justification for migration to CodeceptJS
+Functional-test-configuration - src/test/end-to-end/functional.conf.ts
+Cross-browser-configuration - src/test/end-to-end/crossbrowser.conf.ts
+Main config - src/test/config.ts
 
--   Cross-browser testing.
--   Plugin ecosystem allows smooth implementation of helpers and utilities on existing tests.
--   Rapid test creation due to simple syntax.
--   [Allure reporting](https://docs.qameta.io/allure/) in CodeceptJS allows developers to view detailed information about test cases, including test steps, screenshots, console logs, and error messages. The Allure report can help to identify trends in test results, identify areas of the application that require further testing or improvement, and provide a detailed view of the state of the test suite.
+The test suite uses [Node.js](https://nodejs.org/en) runtime environment.
+Uses [TypeScript](https://www.typescriptlang.org/) for coding.
 
-#### Running e2e tests:
+#### Running emd-to-end tests:
 
-Our E2E tests can be run through a number of ways:
+All scripts are configured in package.json
 
-- `yarn test:functional` - Runs old and new (but not nightly) tests, and generates the allure report
+- `yarn test:crossbrowser` - This command is to run tests in all browsers (chromium, webkit, firefox) configured in crossbrowser.conf.ts and creates allure report
+
+- `yarn test:crossbrowser:all` - This command is to run tests in all browsers (chromium, webkit, firefox) configured in crossbrowser.conf.ts if tests have @CrossBrowser tag
+
+- `yarn test:crossbrowser:report` - This command is to create allure reports for cross-browser tests from existing xml reports
+
+- `yarn test:functional` - Runs all tests configured in functional.conf.ts and creates allure report
+
+- `yarn test:functional:all` - Runs all tests configured in functional.conf.ts
+
+- `yarn test:functional:report` - This command is to create allure reports for functional tests from existing xml reports
+
+- `yarn test:functional:min` - Run tests excluding nightly
+
 - `yarn test:fullfunctional` - Runs all new tests and generates the allure report
-- `yarn test:functional:old` - Runs the old tests
-- `yarn test:functional:all` - Runs all new tests, including nightly
-- `yarn test:functional:min` - Runs new tests excluding nightly
-- `yarn test:functional:report` - Generates the allure report
-- `yarn test:functional-dev` - Runs the old tests in non-headless mode.
-- `yarn test:crossbrowser` - Runs all cross browser tests and generates the allure report
-- `yarn test:crossbrowser:all` - Runs all cross browser tests
-- `yarn test:crossbrowser:report` - Generates the report for the cross browser tests
 
 ## Contributing
 
