@@ -48,7 +48,7 @@ const cftIdamUserEndpoint = '/account/provenance/CFT_IDAM/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
 const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
-const deleteUserByUserIdEndpoint = '/account/delete/';
+const deleteUserByUserIdEndpoint = '/account/v2/';
 const updateUserByUserIdEndpoint = '/account/update/';
 const getAdminUserByEmailAndProvenanceEndpoint = '/account/admin/';
 
@@ -615,6 +615,7 @@ describe('Account Management Requests', () => {
 
     describe('Delete user by user id', () => {
         const idtoUse = '123';
+        const adminUserId = '456';
 
         beforeEach(() => {
             sinon.restore();
@@ -622,20 +623,24 @@ describe('Account Management Requests', () => {
         });
 
         it('should return string on deletion success', async () => {
-            deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).resolves({ status: 200, data: 'Deleted' });
-            const response = await accountManagementRequests.deleteUser(idtoUse, '1234');
+            deleteStub
+                .withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`, {
+                    headers: { 'x-admin-id': adminUserId },
+                })
+                .resolves({ status: 200, data: 'Deleted' });
+            const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
             expect(response).toStrictEqual('Deleted');
         });
 
         it('should return null on error response', async () => {
             deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
-            const response = await accountManagementRequests.deleteUser(idtoUse, '1234');
+            const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
             expect(response).toBe(null);
         });
 
         it('should return null on error message', async () => {
             deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
-            const response = await accountManagementRequests.deleteUser(idtoUse, '1234');
+            const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
             expect(response).toBe(null);
         });
     });
