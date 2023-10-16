@@ -282,15 +282,15 @@ All scripts are configured in package.json
 
 - `yarn test:crossbrowser:report` - This command is to create allure reports for cross-browser tests from existing xml reports
 
-- `yarn test:functional` - Runs all tests configured in functional.conf.ts and creates allure report
+- `yarn test:functional` - This command is to run all tests configured in functional.conf.ts and creates allure report
 
-- `yarn test:functional:all` - Runs all tests configured in functional.conf.ts
+- `yarn test:functional:all` - This command is to run all tests configured in functional.conf.ts
 
 - `yarn test:functional:report` - This command is to create allure reports for functional tests from existing xml reports
 
-- `yarn test:functional:min` - Run tests excluding nightly
+- `yarn test:functional:min` - This command is to run all tests excluding nightly
 
-- `yarn test:fullfunctional` - Runs all new tests and generates the allure report
+- `yarn test:fullfunctional` - This command is to run all tests including nightly and generates the allure report
 
 ## Contributing
 
