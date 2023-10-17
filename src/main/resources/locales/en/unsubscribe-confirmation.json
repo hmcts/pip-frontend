@@ -4,6 +4,8 @@
     "pStart": "To continue, you can go to",
     "pEnd": "in order to:",
     "yourAccount": "your account",
-    "listItems": ["add a new subscription", "manage your current subscriptions", "find a court or tribunal"],
+    "addEmailSubscription": "add a new email subscription",
+    "manageYourCurrentSubscriptions": "manage your current email subscriptions",
+    "findCourt": "find a court or tribunal",
     "backButton": "Back"
 }

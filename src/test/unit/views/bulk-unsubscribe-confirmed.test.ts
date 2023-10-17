@@ -40,11 +40,31 @@ describe('Bulk Unsubscribe Confirmed Page', () => {
         expect(youAccountLink.getAttribute('href')).to.equal('account-home');
     });
 
-    it('should display unordered list with 3 elements with correct values', () => {
+    it('should display an unordered list with three elements', () => {
         const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
         expect(listElements.length).to.equal(3);
-        expect(listElements[0].innerHTML).to.equal('add a new subscription');
-        expect(listElements[1].innerHTML).to.equal('manage your current subscriptions');
-        expect(listElements[2].innerHTML).to.equal('find a court or tribunal');
+    });
+
+    it('should display unordered list with add a new email subscription', () => {
+        const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
+
+        const anchor = listElements[0].getElementsByTagName('a')[0];
+        expect(anchor.getAttribute('href')).to.equal('/subscription-add');
+        expect(anchor.innerHTML).to.equal('add a new email subscription');
+    });
+
+    it('should display unordered list with manage your email subscriptions', () => {
+        const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
+
+        const anchor = listElements[1].getElementsByTagName('a')[0];
+        expect(anchor.getAttribute('href')).to.equal('/subscription-management');
+        expect(anchor.innerHTML).to.equal('manage your current email subscriptions');
+    });
+
+    it('should display unordered list with find a court or tribunal', () => {
+        const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
+        const anchor = listElements[2].getElementsByTagName('a')[0];
+        expect(anchor.getAttribute('href')).to.equal('/search');
+        expect(anchor.innerHTML).to.equal('find a court or tribunal');
     });
 });
