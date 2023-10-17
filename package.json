@@ -104,9 +104,9 @@
         "validator": "^13.11.0"
     },
     "devDependencies": {
-        "@babel/core": "^7.22.15",
+        "@babel/core": "^7.23.2",
         "@babel/eslint-parser": "7.22.15",
-        "@babel/preset-env": "^7.22.15",
+        "@babel/preset-env": "^7.23.2",
         "@codeceptjs/allure-legacy": "^1.0.2",
         "@evilmartians/lefthook": "^1.4.10",
         "@types/chai-as-promised": "^7.1.6",
