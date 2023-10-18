@@ -58,4 +58,3 @@ nodejs:
                   alias: B2C_URL
                 - name: cft-idam-client-secret
                   alias: CFT_IDAM_CLIENT_SECRET
-    aadIdentityName: pip
