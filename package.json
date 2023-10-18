@@ -31,8 +31,8 @@
         "test:crossbrowser:report": "allure generate functional-output/cross-browser/reports/**/* -c -o functional-output/cross-browser/allure",
         "test:functional": "npm-run-all -scl test:functional:min test:functional:report",
         "test:fullfunctional": "npm-run-all -scl test:functional:all test:functional:report",
-        "test:functional:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-workers 8 parallel --config ./src/test/end-to-end/functional.conf.js",
-        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-workers 8 parallel  --grep \"(?=.*)^(?!.*@Nightly)\" --config ./src/test/end-to-end/functional.conf.js",
+        "test:functional:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-workers 4 parallel --config ./src/test/end-to-end/functional.conf.js",
+        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-workers 4 parallel  --grep \"(?=.*)^(?!.*@Nightly)\" --config ./src/test/end-to-end/functional.conf.js",
         "test:functional:report": "allure generate functional-output/functional/reports/ -c -o functional-output/functional/allure",
         "cichecks": "yarn && yarn build && yarn lint && yarn test && yarn test:routes &&  yarn test:a11y"
     },
