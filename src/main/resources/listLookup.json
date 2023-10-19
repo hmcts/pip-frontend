@@ -198,5 +198,15 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
+    },
+    "OPA_PRESS_LIST": {
+        "friendlyName": "Online Plea and Allocation Press List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "OPA Press List",
+        "url": "opa-press-list",
+        "jurisdictions": ["Crown"],
+        "welshJurisdictions": ["Llys y Goron"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "PRIVATE"
     }
 }
