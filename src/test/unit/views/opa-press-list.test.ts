@@ -148,6 +148,6 @@ describe('OPA Press List page', () => {
 
     it('should display offence wording', () => {
         const offence = htmlRes.getElementsByClassName('govuk-details__text');
-        expect(offence[1].innerHTML).contains('Offence Wording 2', 'Offence wording does not match');
+        expect(offence[1].innerHTML).contains('Offence wording 2', 'Offence wording does not match');
     });
 });
