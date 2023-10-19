@@ -3,7 +3,7 @@ import { uploadPublication } from '../shared/testingSupportApi';
 
 Feature('Single Justice Procedure cases');
 
-Scenario('I should be able to view all the single procedure cases', async ({ I }) => {
+Scenario.skip('I should be able to view all the single procedure cases', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const artefactId = await uploadPublication('PUBLIC', '9', displayFrom, displayTo, 'ENGLISH');

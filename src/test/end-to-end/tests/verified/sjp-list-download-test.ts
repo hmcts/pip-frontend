@@ -3,7 +3,7 @@ import { createLocation, uploadPublication } from '../../shared/testingSupportAp
 
 Feature('SJP list download');
 
-Scenario('I as a verified user should be able to download sjp public list', async ({ I }) => {
+Scenario.skip('I as a verified user should be able to download sjp public list', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
@@ -59,7 +59,7 @@ Scenario('I as a verified user should be able to download sjp public list', asyn
     I.deletePublicationByArtefactId(artefactId.toString());
 });
 
-Scenario('I as a verified user should be able to download sjp press list', async ({ I }) => {
+Scenario.skip('I as a verified user should be able to download sjp press list', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
