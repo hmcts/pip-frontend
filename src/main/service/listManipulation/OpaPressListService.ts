@@ -21,13 +21,13 @@ export class OpaPressListService {
                                 const rows = [];
                                 hearing.case.forEach(hearingCase => {
                                     const caseInfo = this.buildHearingCase(hearingCase);
-                                    const row = { ...caseInfo, ...defendant}
+                                    const row = { ...caseInfo, ...defendant };
                                     rows.push(row);
                                 });
 
                                 // It has been confirmed that all the offences under the same defendant will have the
                                 // same plea date
-                                const key = defendant.offence[0].pleaDate
+                                const key = defendant.offence[0].pleaDate;
                                 if (listData.has(key)) {
                                     listData.set(key, listData.get(key).concat(rows));
                                 } else {
@@ -40,7 +40,9 @@ export class OpaPressListService {
             });
         });
 
-        return new Map([...listData].sort((a, b) => this.convertDateToSortValue(b[0]) - this.convertDateToSortValue(a[0])));
+        return new Map(
+            [...listData].sort((a, b) => this.convertDateToSortValue(b[0]) - this.convertDateToSortValue(a[0]))
+        );
     }
 
     private convertDateToSortValue(date) {
@@ -50,13 +52,14 @@ export class OpaPressListService {
     private buildHearingCase(hearingCase): any {
         const scheduledHearingDate = formatDate(
             ListParseHelperService.writeStringIfValid(hearingCase.scheduledHearingDate),
-            'dd/MM/yyyy', 'en'
+            'dd/MM/yyyy',
+            'en'
         );
         return {
             urn: hearingCase.caseUrn,
             scheduledHearingDate: scheduledHearingDate,
             caseReportingRestriction: this.formatReportingRestriction(hearingCase),
-        }
+        };
     }
 
     private formatReportingRestriction(field): string {
@@ -79,13 +82,10 @@ export class OpaPressListService {
         defendants.forEach(defendant => {
             // The offence's plea date is used to group and sort the cases for the defendant. If plea date is missing,
             // the entry will be dropped
-            if (defendant
-                && defendant.name
-                && defendant.offence.length > 0
-                && defendant.offence[0].pleaDate) {
+            if (defendant && defendant.name && defendant.offence.length > 0 && defendant.offence[0].pleaDate) {
                 defendantInfo.push({ ...defendant, prosecutor });
             }
-        })
+        });
         return defendantInfo;
     }
 
@@ -133,7 +133,7 @@ export class OpaPressListService {
         const informants = [];
         hearing.case.forEach(hearingCase => {
             informants.push(ListParseHelperService.writeStringIfValid(hearingCase.informant?.prosecutionAuthorityRef));
-        })
+        });
         return [...new Set(informants)].filter(n => n.length > 0).join(', ');
     }
 
@@ -148,16 +148,15 @@ export class OpaPressListService {
     }
 
     private processOffence(details) {
-        const offences = []
+        const offences = [];
         details.offence?.forEach(offence => {
             offences.push(this.formatOffenceDetails(offence));
-        })
+        });
         return offences;
     }
 
     private formatOffenceDetails(offence) {
-        const pleaDate = formatDate(ListParseHelperService.writeStringIfValid(offence.pleaDate),
-            'dd/MM/yyyy', 'en');
+        const pleaDate = formatDate(ListParseHelperService.writeStringIfValid(offence.pleaDate), 'dd/MM/yyyy', 'en');
 
         return {
             offenceTitle: ListParseHelperService.writeStringIfValid(offence.offenceTitle),

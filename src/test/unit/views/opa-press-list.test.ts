@@ -19,8 +19,8 @@ const metadata = JSON.parse(rawMetadata)[0];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metadata);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({
-    name: "Court name",
-    welshName: "Welsh court name",
+    name: 'Court name',
+    welshName: 'Welsh court name',
 });
 
 describe('OPA Press List page', () => {
@@ -82,12 +82,18 @@ describe('OPA Press List page', () => {
 
     it('should display the plea date section heading', () => {
         const pleaDateHeading = htmlRes.getElementsByClassName('plea-date-1');
-        expect(pleaDateHeading[0].innerHTML).contains('Open Pleas registered: 22/09/2023', 'Plea date section heading does not match');
+        expect(pleaDateHeading[0].innerHTML).contains(
+            'Open Pleas registered: 22/09/2023',
+            'Plea date section heading does not match'
+        );
     });
 
     it('should display the defendant name', () => {
         const defendantHeading = htmlRes.getElementById('accordion-default-heading-1');
-        expect(defendantHeading.innerHTML).contains('Defendant Name: Surname2, Forename2 MiddleName2', 'Defendant name does not match');
+        expect(defendantHeading.innerHTML).contains(
+            'Defendant Name: Surname2, Forename2 MiddleName2',
+            'Defendant name does not match'
+        );
     });
 
     it('should display defendant information correctly', () => {
@@ -96,7 +102,10 @@ describe('OPA Press List page', () => {
         expect(items1[0].innerHTML).contains('DOB and Age:', 'DOB and age does not match');
         expect(items1[0].innerHTML).contains('01/01/1985 Age: 38', 'DOB and age does not match');
         expect(items1[1].innerHTML).contains('Address:', 'Address does not match');
-        expect(items1[1].innerHTML).contains('Address Line 1, Address Line 2, Town, County, BB1 1BB', 'Address does not match');
+        expect(items1[1].innerHTML).contains(
+            'Address Line 1, Address Line 2, Town, County, BB1 1BB',
+            'Address does not match'
+        );
         expect(items1[2].innerHTML).contains('Prosecuting Authority:', 'Prosecuting authority does not match');
         expect(items1[2].innerHTML).contains('Prosecuting authority ref', 'Prosecuting authority does not match');
         expect(items1[3].innerHTML).contains('Scheduled First Hearing:', 'Scheduled first hearing does not match');
@@ -115,7 +124,10 @@ describe('OPA Press List page', () => {
 
     it('should display offence title and section', () => {
         const offence = htmlRes.getElementsByClassName('govuk-details__summary-text');
-        expect(offence[1].innerHTML).contains('1. Offence title 2 - Offence section 2', 'Offence title and section does not match');
+        expect(offence[1].innerHTML).contains(
+            '1. Offence title 2 - Offence section 2',
+            'Offence title and section does not match'
+        );
     });
 
     it('should display offence information', () => {
@@ -124,8 +136,14 @@ describe('OPA Press List page', () => {
         expect(cell[1].innerHTML).contains('NOT_GUILTY', 'Indicated plea does not match');
         expect(cell[2].innerHTML).contains('Date of Indicated Plea', 'Indicated plea date does not match');
         expect(cell[3].innerHTML).contains('22/09/2023', 'Indicated plea date does not match');
-        expect(cell[4].innerHTML).contains('Offence Reporting Restriction', 'Offence reporting restriction does not match');
-        expect(cell[5].innerHTML).contains('Offence reporting restriction detail 1', 'Offence reporting restriction does not match');
+        expect(cell[4].innerHTML).contains(
+            'Offence Reporting Restriction',
+            'Offence reporting restriction does not match'
+        );
+        expect(cell[5].innerHTML).contains(
+            'Offence reporting restriction detail 1',
+            'Offence reporting restriction does not match'
+        );
     });
 
     it('should display offence wording', () => {

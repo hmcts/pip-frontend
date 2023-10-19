@@ -5,7 +5,7 @@ import { ListParseHelperService } from '../service/listParseHelperService';
 import { LocationService } from '../service/locationService';
 import { isValidList } from '../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
-import { cloneDeep }  from 'lodash';
+import { cloneDeep } from 'lodash';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 import { OpaPressListService } from '../service/listManipulation/OpaPressListService';
 

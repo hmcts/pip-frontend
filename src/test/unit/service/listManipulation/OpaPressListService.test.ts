@@ -63,7 +63,9 @@ describe('OPA Press List service', () => {
     it('should return case reporting restriction', async () => {
         const data: Map<string, object[]> = await opaPressListService.manipulateData(input);
         const cases = data.get(pleaDate);
-        expect(cases[0]['caseReportingRestriction']).is.equal('Case reporting Restriction detail line 1, Case reporting restriction detail line 2');
+        expect(cases[0]['caseReportingRestriction']).is.equal(
+            'Case reporting Restriction detail line 1, Case reporting restriction detail line 2'
+        );
     });
 
     it('should return offence info', async () => {
@@ -95,6 +97,5 @@ describe('OPA Press List service', () => {
         expect(offence2['offenceTitle']).is.equal('Offence title 4');
         expect(offence2['offenceSection']).is.equal('Offence section 4');
         expect(offence2['offenceWording']).is.equal('Offence wording 4');
-
     });
 });

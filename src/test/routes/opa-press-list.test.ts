@@ -5,8 +5,7 @@ import { app } from '../../main/app';
 import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../main/service/publicationService';
-import { LocationService } from '../../main/service/locationService'
-
+import { LocationService } from '../../main/service/locationService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/opaPressList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);
@@ -16,8 +15,8 @@ const metadata = JSON.parse(rawMetadata)[0];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metadata);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({
-    name: "Court name",
-    welshName: "Welsh court name",
+    name: 'Court name',
+    welshName: 'Welsh court name',
 });
 
 describe('OPA Press List Page', () => {

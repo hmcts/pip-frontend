@@ -36,8 +36,8 @@ const jasonDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPub
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({
-    name: "Court name",
-    welshName: "Welsh court name",
+    name: 'Court name',
+    welshName: 'Welsh court name',
 });
 
 sinon.stub(OpaPressListService.prototype, 'manipulateData').returns(listData);
@@ -83,9 +83,7 @@ describe('OPA Press List Controller', () => {
             bill: false,
         };
 
-        responseMock.expects('render')
-            .once()
-            .withArgs(listUrl, expectedData);
+        responseMock.expects('render').once().withArgs(listUrl, expectedData);
 
         await opaPressListController.get(request, response);
         return responseMock.verify();
@@ -110,9 +108,7 @@ describe('OPA Press List Controller', () => {
             bill: true,
         };
 
-        responseMock.expects('render')
-            .once()
-            .withArgs(listUrl, expectedData);
+        responseMock.expects('render').once().withArgs(listUrl, expectedData);
 
         await opaPressListController.get(request, response);
         return responseMock.verify();
@@ -123,9 +119,7 @@ describe('OPA Press List Controller', () => {
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render')
-            .once()
-            .withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
         await opaPressListController.get(request, response);
         return responseMock.verify();
@@ -136,7 +130,8 @@ describe('OPA Press List Controller', () => {
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render')
+        responseMock
+            .expects('render')
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
