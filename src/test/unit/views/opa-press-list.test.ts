@@ -49,10 +49,7 @@ describe('OPA Press List page', () => {
 
         it('should display list content date', () => {
             const body = htmlRes.getElementsByClassName('govuk-body');
-            expect(body[0].innerHTML).contains(
-                'List for 14 February 2022',
-                'List content date does not match'
-            );
+            expect(body[0].innerHTML).contains('List for 14 February 2022', 'List content date does not match');
         });
 
         it('should display publication date', () => {
@@ -129,7 +126,10 @@ describe('OPA Press List page', () => {
             const items2 = div2.item(0).children;
             expect(items2[0].innerHTML).contains('Case Ref / URN:', 'Case ref does not match');
             expect(items2[0].innerHTML).contains('URN8888', 'Case ref does not match');
-            expect(items2[1].innerHTML).contains('Case Reporting Restriction', 'Case reporting restriction does not match');
+            expect(items2[1].innerHTML).contains(
+                'Case Reporting Restriction',
+                'Case reporting restriction does not match'
+            );
             expect(items2[1].innerHTML).contains(
                 'Yes - Case reporting Restriction detail line 1, Case reporting restriction detail line 2',
                 'Case reporting restriction does not match'
@@ -212,14 +212,20 @@ describe('OPA Press List page', () => {
             );
             expect(items1[2].innerHTML).contains(`Yr Awdurdod sy'n Erlyn:`, 'Prosecuting authority does not match');
             expect(items1[2].innerHTML).contains('Prosecuting authority ref', 'Prosecuting authority does not match');
-            expect(items1[3].innerHTML).contains('Gwrandawiad Cyntaf wedi’i Drefnu:', 'Scheduled first hearing does not match');
+            expect(items1[3].innerHTML).contains(
+                'Gwrandawiad Cyntaf wedi’i Drefnu:',
+                'Scheduled first hearing does not match'
+            );
             expect(items1[3].innerHTML).contains('01/10/2023', 'DScheduled first hearing does not match');
 
             const div2 = htmlRes.getElementsByClassName('govuk-grid-column-one-third');
             const items2 = div2.item(0).children;
             expect(items2[0].innerHTML).contains('Cyfeirnod yr Achos / URN:', 'Case ref does not match');
             expect(items2[0].innerHTML).contains('URN8888', 'Case ref does not match');
-            expect(items2[1].innerHTML).contains('Cyfyngiad Riportio ar yr Achos', 'Case reporting restriction does not match');
+            expect(items2[1].innerHTML).contains(
+                'Cyfyngiad Riportio ar yr Achos',
+                'Case reporting restriction does not match'
+            );
             expect(items2[1].innerHTML).contains(
                 'Ydw - Case reporting Restriction detail line 1, Case reporting restriction detail line 2',
                 'Case reporting restriction does not match'
