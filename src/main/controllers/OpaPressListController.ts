@@ -32,7 +32,7 @@ export default class OpaPressListController {
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
 
             const location = await locationService.getLocationById(metadata['locationId']);
-            const locationName = pageLanguage === 'en' ? location.name : location.welshName;
+            const locationName = pageLanguage === 'cy' ? location.welshName : location.name;
             const listData = opaPressListService.manipulateData(JSON.stringify(jsonData));
 
             res.render(listType, {

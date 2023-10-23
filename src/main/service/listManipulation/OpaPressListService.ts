@@ -25,8 +25,7 @@ export class OpaPressListService {
                                     rows.push(row);
                                 });
 
-                                // It has been confirmed that all the offences under the same defendant will have the
-                                // same plea date
+                                // All the offences under the same defendant have the same plea date
                                 const key = defendant.offence[0].pleaDate;
                                 if (listData.has(key)) {
                                     listData.set(key, listData.get(key).concat(rows));
