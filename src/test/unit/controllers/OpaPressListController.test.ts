@@ -19,10 +19,8 @@ const opaPressListController = new OpaPressListListController();
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownWarnedList.json'), 'utf-8');
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const rawWelshMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[0];
-const welshMetadata = JSON.parse(rawWelshMetadata)[0];
-welshMetadata.language = 'WELSH';
+const welshMetadata = JSON.parse(rawMetadata)[2];
 
 const contentDate = DateTime.fromISO(metadata['contentDate'], { zone: 'utc' }).toFormat('dd MMMM yyyy');
 const data1 = { urn: '1', name: 'name1', pleaDate: 'date1' };
@@ -67,6 +65,7 @@ describe('OPA Press List Controller', () => {
     it('should render the OPA press list page with English court', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
+        request.lng = 'en';
 
         const responseMock = sinon.mock(response);
 
@@ -92,6 +91,33 @@ describe('OPA Press List Controller', () => {
     it('should render the OPA press list page with Welsh court', async () => {
         request.query = { artefactId: welshArtefactId };
         request.user = { userId: '1' };
+        request.lng = 'cy';
+
+        const responseMock = sinon.mock(response);
+
+        const expectedData = {
+            ...i18n[listUrl],
+            ...i18n['list-template'],
+            listData: listData,
+            contentDate: '14 Chwefror 2022',
+            publishedDate: '13 Medi 2022',
+            publishedTime: '12:30pm',
+            version: '1.0',
+            courtName: 'Welsh court name',
+            venueAddress: 'Princess Square\nManchester\nM1 1AA',
+            bill: false,
+        };
+
+        responseMock.expects('render').once().withArgs(listUrl, expectedData);
+
+        await opaPressListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render the OPA press list page in bi-lingual', async () => {
+        request.query = { artefactId: welshArtefactId };
+        request.user = { userId: '1' };
+        request.lng = 'en';
 
         const responseMock = sinon.mock(response);
 
@@ -103,7 +129,7 @@ describe('OPA Press List Controller', () => {
             publishedDate: '13 September 2022',
             publishedTime: '12:30pm',
             version: '1.0',
-            courtName: 'Welsh court name',
+            courtName: 'Court name',
             venueAddress: 'Princess Square\nManchester\nM1 1AA',
             bill: true,
         };
