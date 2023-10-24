@@ -124,7 +124,9 @@ describe('Crown daily List page', () => {
 
     it('should display Reporting Restriction detail', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[6].innerHTML).contains('This is a reporting restriction detail, This is another reporting restriction detail');
+        expect(cell[6].innerHTML).contains(
+            'This is a reporting restriction detail, This is another reporting restriction detail'
+        );
     });
 
     it('should display the to be allocated for unallocated case section', () => {
