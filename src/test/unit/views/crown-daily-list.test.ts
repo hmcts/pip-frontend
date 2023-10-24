@@ -113,13 +113,18 @@ describe('Crown daily List page', () => {
 
     it('should display Case Name without Case Sequence Indicator', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(4).children;
+        const cell = rows.item(5).children;
         expect(cell[4].innerHTML.trim()).equals('1 hour 5 mins');
     });
 
     it('should display Prosecuting Authority', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[5].innerHTML).contains('Pro_Auth');
+    });
+
+    it('should display Reporting Restriction detail', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[6].innerHTML).contains('This is a reporting restriction detail, This is another reporting restriction detail');
     });
 
     it('should display the to be allocated for unallocated case section', () => {
