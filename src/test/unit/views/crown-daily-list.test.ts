@@ -127,26 +127,18 @@ describe('Crown daily List page', () => {
         expect(cell[6].innerHTML).contains(
             'This is a reporting restriction detail, This is another reporting restriction detail'
         );
-        expect(cell[6].getAttribute("class")).contains(
-            'no-border-bottom'
-        );
+        expect(cell[6].getAttribute('class')).contains('no-border-bottom');
     });
 
     it('should display Linked Cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[12].innerHTML).contains(
-            'caseid111, caseid222'
-        );
-        expect(cell[6].getAttribute("class")).contains(
-            'no-border-bottom'
-        );
+        expect(cell[12].innerHTML).contains('caseid111, caseid222');
+        expect(cell[6].getAttribute('class')).contains('no-border-bottom');
     });
 
     it('should display Listing Notes', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[18].innerHTML).contains(
-            'Listing details text'
-        );
+        expect(cell[18].innerHTML).contains('Listing details text');
     });
 
     it('should display the to be allocated for unallocated case section', () => {
@@ -160,43 +152,29 @@ describe('Crown daily List page', () => {
 
     it('reporting restriction detail should contain border when only element', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const reportingRestrictionCell = rows.item(8)
-            .getElementsByClassName('govuk-table__cell');
+        const reportingRestrictionCell = rows.item(8).getElementsByClassName('govuk-table__cell');
 
-        expect(reportingRestrictionCell[0].getAttribute("class")).not.contains(
-            'no-border-bottom'
-        );
+        expect(reportingRestrictionCell[0].getAttribute('class')).not.contains('no-border-bottom');
     });
 
     it('linked cases should contain border when only element', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const reportingRestrictionCell = rows.item(8)
-            .getElementsByClassName('govuk-table__cell');
+        const reportingRestrictionCell = rows.item(8).getElementsByClassName('govuk-table__cell');
 
-        expect(reportingRestrictionCell[0].getAttribute("class")).not.contains(
-            'no-border-bottom'
-        );
+        expect(reportingRestrictionCell[0].getAttribute('class')).not.contains('no-border-bottom');
     });
 
     it('linked cases should contain border when only element', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const linkedCases = rows.item(10)
-            .getElementsByClassName('govuk-table__cell');
+        const linkedCases = rows.item(10).getElementsByClassName('govuk-table__cell');
 
-        expect(linkedCases[0].getAttribute("class")).not.contains(
-            'no-border-bottom'
-        );
+        expect(linkedCases[0].getAttribute('class')).not.contains('no-border-bottom');
     });
 
     it('main row should contain border when only element', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const mainRow = rows.item(11)
-            .getElementsByClassName('govuk-table__cell');
+        const mainRow = rows.item(11).getElementsByClassName('govuk-table__cell');
 
-        expect(mainRow[0].getAttribute("class")).not.contains(
-            'no-border-bottom'
-        );
+        expect(mainRow[0].getAttribute('class')).not.contains('no-border-bottom');
     });
-
-
 });
