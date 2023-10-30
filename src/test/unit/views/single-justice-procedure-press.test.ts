@@ -406,6 +406,36 @@ describe('Single Justice Procedure List page', () => {
             );
         });
 
+        it('should display important info link', () => {
+            const link = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text')
+                .item(0)
+                ?.getElementsByTagName('a');
+            expect(link[0].getAttribute('href')).contains(
+                'https://www.gov.uk/government/publications/' +
+                'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
+                'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
+                'Could not find the display summary heading'
+            );
+        });
+
+        it('should display important info link in welsh', () => {
+            const link = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text')
+                .item(0)
+                ?.getElementsByTagName('a');
+            expect(link[1].getAttribute('href')).contains(
+                'https://www.gov.uk/government/publications/' +
+                'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
+                'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
+                'Could not find the display summary heading'
+            );
+        });
+
         it('should display important info link name', () => {
             const link = htmlRes
                 .getElementsByClassName('govuk-details')
