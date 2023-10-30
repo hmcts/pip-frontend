@@ -204,8 +204,8 @@
         "welshFriendlyName": "Rhestr y Wasg – Pledio Ar-Lein a Dyrannu (OPA)",
         "shortenedFriendlyName": "OPA Press List",
         "url": "opa-press-list",
-        "jurisdictions": ["Crown"],
-        "welshJurisdictions": ["Llys y Goron"],
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
         "defaultSensitivity": "PRIVATE"
     }
