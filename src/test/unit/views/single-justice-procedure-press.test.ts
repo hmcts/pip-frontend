@@ -146,7 +146,7 @@ describe('Single Justice Procedure List page', () => {
                 .item(0)
                 ?.getElementsByTagName('a');
             expect(link[0].innerHTML).contains(
-                'Protocol on sharing court lists, registers ' + 'and documents with the media',
+                'Protocol on sharing court lists, registers and documents with the media',
                 'Could not find the display summary heading'
             );
         });
