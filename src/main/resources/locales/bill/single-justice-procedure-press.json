@@ -11,5 +11,13 @@
     "reference": "Reference/Cyfeirnod",
     "address": "Address/Cyfeiriad",
     "prosecutor": "Prosecutor/Erlynydd",
-    "reportingRestriction": "Reporting Restriction/Cyfyngiad adrodd"
+    "reportingRestriction": "Reporting Restriction/Cyfyngiad adrodd",
+    "importantInformationHeading": "Important information/Gwybodaeth Bwysig",
+    "importantInformationPart1": "In accordance with the media protocol, additional documents from these cases are available to the members of the media on request. The link below takes you to the full protocol and further information in relation to what documentation can be obtained",
+    "importantInformationPart2": "https://www.gov.uk/government/publications/guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version",
+    "importantInformationPart3": "Protocol on sharing court lists, registers and documents with the media",
+    "importantInformationPart4": "Yn unol â phrotocol y cyfryngau, mae dogfennau ychwanegol o’r achosion hyn ar gael i aelodau o’r cyfryngau ar gais. Bydd y ddolen isod yn mynd â chi at y protocol llawn a gwybodaeth bellach ynghylch pa ddogfennau y gallwch ofyn amdanynt",
+    "importantInformationPart5": "https://www.gov.uk/government/publications/guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version",
+    "importantInformationPart6": "Protocol ar rannu rhestrau’r llys a dogfennau gyda’r cyfryngau"
+
 }
