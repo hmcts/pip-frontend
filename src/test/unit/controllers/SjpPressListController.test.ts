@@ -106,7 +106,7 @@ describe('SJP Press List Controller', () => {
             filterOptions: filter.filterOptions,
             showDownloadButton: false,
             url: url.substring(1),
-            bill: false
+            bill: false,
         };
 
         it('should render the SJP press list page when filter string is provided', async () => {
@@ -137,12 +137,12 @@ describe('SJP Press List Controller', () => {
             const localExpectedData = {
                 ...expectedData,
                 publishedDateTime: '14 Medi 2016',
-                contactDate: DateTime.fromISO(contentDate, { zone: 'utc' }).setLocale("cy").toFormat('d MMMM yyyy'),
+                contactDate: DateTime.fromISO(contentDate, { zone: 'utc' }).setLocale('cy').toFormat('d MMMM yyyy'),
                 user: request.user,
                 artefactId: sjpPressResource['artefactId'],
                 showFilters: true,
                 showDownloadButton: true,
-                bill: true
+                bill: true,
             };
 
             const responseMock = sinon.mock(response);

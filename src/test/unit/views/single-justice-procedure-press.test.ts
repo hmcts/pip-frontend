@@ -103,33 +103,52 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display summary heading', () => {
             const summary = htmlRes.getElementsByClassName(summaryHeading);
-            expect(summary[1].innerHTML).contains('Important information', 'Could not find the display summary heading');
+            expect(summary[1].innerHTML).contains(
+                'Important information',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display important info message', () => {
-            const detail = htmlRes.getElementsByClassName("govuk-details").item(1)
-                .getElementsByClassName("govuk-details__text");
-            expect(detail[0].innerHTML).contains('In accordance with the media protocol, additional documents ' +
-                'from these cases are available to the members of the media on request. ' +
-                'The link below takes you to the full protocol and further information ' +
-                'in relation to what documentation can be obtained', 'Could not find the display summary heading');
+            const detail = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text');
+            expect(detail[0].innerHTML).contains(
+                'In accordance with the media protocol, additional documents ' +
+                    'from these cases are available to the members of the media on request. ' +
+                    'The link below takes you to the full protocol and further information ' +
+                    'in relation to what documentation can be obtained',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display important info link', () => {
-            const link = htmlRes.getElementsByClassName("govuk-details").item(1)
-                .getElementsByClassName("govuk-details__text").item(0)?.getElementsByTagName("a");
-            expect(link[0].getAttribute("href"))
-                .contains('https://www.gov.uk/government/publications/' +
-                'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
-                'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
-                'Could not find the display summary heading');
+            const link = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text')
+                .item(0)
+                ?.getElementsByTagName('a');
+            expect(link[0].getAttribute('href')).contains(
+                'https://www.gov.uk/government/publications/' +
+                    'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
+                    'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display important info link name', () => {
-            const link = htmlRes.getElementsByClassName("govuk-details").item(1)
-                .getElementsByClassName("govuk-details__text").item(0)?.getElementsByTagName("a");
-            expect(link[0].innerHTML).contains('Protocol on sharing court lists, registers ' +
-                'and documents with the media', 'Could not find the display summary heading');
+            const link = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text')
+                .item(0)
+                ?.getElementsByTagName('a');
+            expect(link[0].innerHTML).contains(
+                'Protocol on sharing court lists, registers ' + 'and documents with the media',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display list date', () => {
@@ -338,10 +357,10 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
-    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("user with bilingual list", url => {
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('user with bilingual list', url => {
         const sjpResource = sjpResourceMap.get(url);
 
-        const pageUrl = url + '?artefactId=' + sjpResource['artefactId'] + "&lng=cy";
+        const pageUrl = url + '?artefactId=' + sjpResource['artefactId'] + '&lng=cy';
 
         beforeAll(async () => {
             await request(app)
@@ -352,48 +371,65 @@ describe('Single Justice Procedure List page', () => {
                 });
         });
 
-
         it('should display summary heading', () => {
             const summary = htmlRes.getElementsByClassName(summaryHeading);
-            expect(summary[1].innerHTML).contains('Important information/Gwybodaeth Bwysig',
-                'Could not find the display summary heading');
+            expect(summary[1].innerHTML).contains(
+                'Important information/Gwybodaeth Bwysig',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display important info message', () => {
-            const detail = htmlRes.getElementsByClassName("govuk-details").item(1)
-                .getElementsByClassName("govuk-details__text");
-            expect(detail[0].innerHTML).contains('In accordance with the media protocol, additional documents ' +
-                'from these cases are available to the members of the media on request. ' +
-                'The link below takes you to the full protocol and further information ' +
-                'in relation to what documentation can be obtained', 'Could not find the display summary heading');
+            const detail = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text');
+            expect(detail[0].innerHTML).contains(
+                'In accordance with the media protocol, additional documents ' +
+                    'from these cases are available to the members of the media on request. ' +
+                    'The link below takes you to the full protocol and further information ' +
+                    'in relation to what documentation can be obtained',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display important info message in welsh', () => {
-            const detail = htmlRes.getElementsByClassName("govuk-details").item(1)
-                .getElementsByClassName("govuk-details__text");
-            expect(detail[0].innerHTML).contains('Yn unol â phrotocol y cyfryngau, mae dogfennau ychwanegol ' +
-                'o’r achosion hyn ar gael i aelodau o’r cyfryngau ar gais. Bydd y ddolen isod yn mynd â chi at y ' +
-                'protocol llawn a gwybodaeth bellach ynghylch pa ddogfennau y gallwch ofyn amdanynt',
-                'Could not find the display summary heading');
+            const detail = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text');
+            expect(detail[0].innerHTML).contains(
+                'Yn unol â phrotocol y cyfryngau, mae dogfennau ychwanegol ' +
+                    'o’r achosion hyn ar gael i aelodau o’r cyfryngau ar gais. Bydd y ddolen isod yn mynd â chi at y ' +
+                    'protocol llawn a gwybodaeth bellach ynghylch pa ddogfennau y gallwch ofyn amdanynt',
+                'Could not find the display summary heading'
+            );
         });
 
-
         it('should display important info link name', () => {
-            const link = htmlRes.getElementsByClassName("govuk-details").item(1)
-                .getElementsByClassName("govuk-details__text").item(0)
-                .getElementsByTagName("a");
-            expect(link[0].innerHTML).contains('Protocol on sharing court lists, registers ' +
-                'and documents with the media', 'Could not find the display summary heading');
+            const link = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text')
+                .item(0)
+                .getElementsByTagName('a');
+            expect(link[0].innerHTML).contains(
+                'Protocol on sharing court lists, registers ' + 'and documents with the media',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display important info link name in welsh', () => {
-            const link = htmlRes.getElementsByClassName("govuk-details").item(1)
-                .getElementsByClassName("govuk-details__text").item(0)
-                .getElementsByTagName("a");
-            expect(link[1].innerHTML).contains('Protocol ar rannu rhestrau’r llys a dogfennau gyda’r cyfryngau',
-                'Could not find the display summary heading');
+            const link = htmlRes
+                .getElementsByClassName('govuk-details')
+                .item(1)
+                .getElementsByClassName('govuk-details__text')
+                .item(0)
+                .getElementsByTagName('a');
+            expect(link[1].innerHTML).contains(
+                'Protocol ar rannu rhestrau’r llys a dogfennau gyda’r cyfryngau',
+                'Could not find the display summary heading'
+            );
         });
-
-
     });
 });
