@@ -415,8 +415,8 @@ describe('Single Justice Procedure List page', () => {
                 ?.getElementsByTagName('a');
             expect(link[0].getAttribute('href')).contains(
                 'https://www.gov.uk/government/publications/' +
-                'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
-                'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
+                    'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
+                    'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
                 'Could not find the display summary heading'
             );
         });
@@ -430,8 +430,8 @@ describe('Single Justice Procedure List page', () => {
                 ?.getElementsByTagName('a');
             expect(link[1].getAttribute('href')).contains(
                 'https://www.gov.uk/government/publications/' +
-                'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
-                'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
+                    'guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/' +
+                    'protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version',
                 'Could not find the display summary heading'
             );
         });
