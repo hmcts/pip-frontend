@@ -42,7 +42,7 @@
 The frontend uses a [Node.js](https://nodejs.org/en) runtime environment, using [Express.js](https://expressjs.com/) as the web application framework.
 Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mostly use [TypeScript](https://www.typescriptlang.org/) for application code.
 
-It is connected to several other microservices in production (all written in Java/Spring Boot):
+It is connected to several other microservices in production (all written in Java/Spring Boot).
 
 | Microservice                              | Summary                                                                                                                                                                                                                                                    |
 | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
