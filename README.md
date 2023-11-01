@@ -63,7 +63,7 @@ Most of the communication with this service benefits from using secure authentic
 -   Processes to manage creation of a new media account for a user with administrator oversight (approve/reject).
 -   Tiered access to specific functionality and content within three main categories (media/administrator/system administrator), as well as unauthenticated functionality.
 -   Management functionality for a maximum of 4 system administrators (set by environment variable). System admins are able to see audit actions by regular administrators, view underlying data, manage users etc.
--   Set up subscriptions to be notified via email when a new publication with given parameters is uploaded.
+-   Set up subscriptions to be notified via email when a new publication with given parameters is uploaded
 
 ### Architecture Diagram
 
