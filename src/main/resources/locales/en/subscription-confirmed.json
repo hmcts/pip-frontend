@@ -1,7 +1,7 @@
 {
     "title": "Subscription confirmation",
-    "header": "Subscription(s) confirmed",
-    "subheader": "Your subscription(s) has been added successfully",
+    "header": "Email subscriptions updated",
+    "subheader": " ",
     "p1": "To continue, you can go to ",
     "link_text": "your account",
     "p2": " in order to:",

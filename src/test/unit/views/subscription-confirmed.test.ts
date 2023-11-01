@@ -31,11 +31,11 @@ describe('Subscriptions Confirmed Page', () => {
     it('should display confirmation panel with correct title and message', () => {
         const panel = htmlRes.getElementsByClassName('govuk-panel--confirmation')[0];
         expect(panel.getElementsByClassName('govuk-panel__title')[0].innerHTML).contains(
-            'Subscription(s) confirmed',
+            'Email subscriptions updated',
             'Could not find panel title or is incorrect'
         );
         expect(panel.getElementsByClassName('govuk-panel__body')[0].innerHTML).contains(
-            'Your subscription(s) has been added successfully',
+            ' ',
             'Could not find panel message or is incorrect'
         );
     });
