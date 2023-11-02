@@ -35,7 +35,7 @@ describe('Subscriptions Confirmed Page', () => {
             'Could not find panel title or is incorrect'
         );
         expect(panel.getElementsByClassName('govuk-panel__body')[0].innerHTML).contains(
-            ' ',
+            'Email subscriptions updated',
             'Could not find panel message or is incorrect'
         );
     });
