@@ -22,8 +22,7 @@ export default class SummaryOfPublicationsController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
                 publications,
                 locationName,
-                court,
-                isSjp: locationId === '9', //TODO: To be removed when custom messages are added to reference data
+                court
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

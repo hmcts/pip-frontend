@@ -29,27 +29,7 @@ describe('Summary of publications page', () => {
 
     const bodyClass = 'govuk-body';
 
-    describe('SJP Summary of Pubs', () => {
-        const PAGE_URL = '/summary-of-publications?locationId=9';
-
-        beforeAll(async () => {
-            await request(app)
-                .get(PAGE_URL)
-                .then(res => {
-                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                });
-        });
-
-        it('should display the custom SJP message', () => {
-            const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
-                'Sorry, the Single Justice Procedure public court lists are temporarily not available. Please contact the Courts and Tribunals Service Centre on 0300 303 0656 for more information.',
-                'SJP message is not displayed'
-            );
-        });
-    });
-
-    describe('Non SJP Summary of Pubs', () => {
+    describe('Summary of pubs', () => {
         describe('with court telephone and email', () => {
             const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithTelephoneAndEmail}`;
             beforeAll(async () => {
