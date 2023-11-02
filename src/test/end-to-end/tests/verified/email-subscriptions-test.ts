@@ -56,7 +56,7 @@ Scenario(
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
+        I.waitForText('Email subscriptions updated');
         I.see('Your subscription(s) has been added successfully');
 
         I.click('Email subscriptions');
