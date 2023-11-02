@@ -62,6 +62,10 @@
                                                                 "caseId": "caseid222",
                                                                 "name": "casename333"
                                                             }
+                                                        ],
+                                                        "reportingRestrictionDetail": [
+                                                            "This is a reporting restriction detail",
+                                                            "This is another reporting restriction detail"
                                                         ]
                                                     },
                                                     {
@@ -93,7 +97,11 @@
                                                 "case": [
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445"
+                                                        "caseNumber": "112233445",
+                                                        "reportingRestrictionDetail": [
+                                                            "This is a reporting restriction detail",
+                                                            "This is another reporting restriction detail"
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -109,7 +117,17 @@
                                                 "case": [
                                                     {
                                                         "caseName": "A1 Vs B1",
-                                                        "caseNumber": "12345678"
+                                                        "caseNumber": "12345678",
+                                                        "caseLinked": [
+                                                            {
+                                                                "caseId": "caseid111",
+                                                                "name": "casename111"
+                                                            },
+                                                            {
+                                                                "caseId": "caseid222",
+                                                                "name": "casename333"
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
