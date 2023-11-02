@@ -38,6 +38,7 @@
     "hearingType": "Hearing type/Math o Wrandawiad",
     "duration": "Duration/Hyd",
     "prosecutingAuthority": "Prosecuting Authority/Yr Awdurdod sy'n Erlyn",
+    "reportingRestriction": "Reporting Restriction/Cyfyngiad adrodd",
     "linkedCases": "Linked Cases/Achosion cysylltiedig",
     "listingNotes": "Listing Notes/Nodiadau Rhestru",
     "unallocatedCourtText": "The following cases may be taken in any court/Gellir gwrando'r achosion canlynol mewn unrhyw lys",
