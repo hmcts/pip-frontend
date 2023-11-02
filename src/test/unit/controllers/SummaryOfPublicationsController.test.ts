@@ -41,7 +41,7 @@ describe('Get publications', () => {
             ...i18n['summary-of-publications'],
             locationName: 'New Court',
             publications: sjpCases,
-            court
+            court,
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -49,7 +49,6 @@ describe('Get publications', () => {
         await publicationController.get(request, response);
         responseMock.verify();
     });
-
 
     it('should render the error screen if there is no locationId passed as a param', async () => {
         const response = {

@@ -22,7 +22,7 @@ export default class SummaryOfPublicationsController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
                 publications,
                 locationName,
-                court
+                court,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
