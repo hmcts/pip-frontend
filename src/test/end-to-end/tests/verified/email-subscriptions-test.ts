@@ -57,7 +57,6 @@ Scenario(
         I.click('Continue');
         I.click('Confirm Subscriptions');
         I.waitForText('Email subscriptions updated');
-        I.see('Your subscription(s) has been added successfully');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -75,8 +74,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -94,8 +92,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -117,8 +114,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -138,8 +134,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.waitForText('All subscriptions');
@@ -286,7 +281,7 @@ Scenario(
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
+        I.waitForText('Email subscriptions updated');
         I.click('Email subscriptions');
 
         I.click('#bulk-unsubscribe-button');
@@ -326,8 +321,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.checkOption('//*[@id="' + locationId + '"]');
     I.click('Continue');
     I.click('Confirm Subscriptions');
-    I.waitForText('Subscription(s) confirmed');
-    I.see('Your subscription(s) has been added successfully');
+    I.waitForText('Email subscriptions updated');
     I.click('Email subscriptions');
     I.click('Select which list types to receive');
     I.waitForText('Select List Types');
