@@ -72,6 +72,7 @@ export default class SjpPressListController {
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
                 url,
+                bill: pageLanguage === 'bill',
             });
         } else if (sjpData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
