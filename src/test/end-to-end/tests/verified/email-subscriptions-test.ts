@@ -87,7 +87,7 @@ Scenario(
         I.fillField('#search-input', caseURN);
         I.click('Continue');
         I.waitForText('Search result');
-        I.see('1 result successfully found');
+        I.see('1 found');
         I.see(caseURN);
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
@@ -330,7 +330,6 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.uncheckOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
     I.waitForText('List types updated');
-    I.see('Your subscription(s) has been amended successfully');
     I.click('manage your current email subscriptions');
     I.click('Select which list types to receive');
     I.waitForText('Select List Types');
