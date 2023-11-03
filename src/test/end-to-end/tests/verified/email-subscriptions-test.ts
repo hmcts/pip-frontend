@@ -177,7 +177,7 @@ Scenario(
         I.waitForText('Are you sure you want to remove this subscription?');
         I.click('#unsubscribe-confirm');
         I.click('Continue');
-        I.waitForText('Your subscription has been removed.');
+        I.waitForText('Your subscription has been removed');
 
         I.click('Email subscriptions');
         I.click('#bulk-unsubscribe-button');
