@@ -106,6 +106,7 @@ describe('SJP Press List Controller', () => {
             filterOptions: filter.filterOptions,
             showDownloadButton: false,
             url: url.substring(1),
+            bill: false,
         };
 
         it('should render the SJP press list page when filter string is provided', async () => {
@@ -118,6 +119,30 @@ describe('SJP Press List Controller', () => {
                 artefactId: sjpPressResource['artefactId'],
                 showFilters: true,
                 showDownloadButton: true,
+            };
+
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
+
+            await sjpPressListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render the SJP press list page in bilingual', async () => {
+            request.user = { userId: '1' };
+            request.query = { artefactId: sjpPressResource['artefactId'], filterValues: '123' };
+            request.lng = 'cy';
+
+            const localExpectedData = {
+                ...expectedData,
+                publishedDateTime: '14 Medi 2016',
+                contactDate: DateTime.fromISO(contentDate, { zone: 'utc' }).setLocale('cy').toFormat('d MMMM yyyy'),
+                user: request.user,
+                artefactId: sjpPressResource['artefactId'],
+                showFilters: true,
+                showDownloadButton: true,
+                bill: true,
             };
 
             const responseMock = sinon.mock(response);
