@@ -30,8 +30,8 @@ describe('Subscriptions List Type Confirmed Page', () => {
             'List types updated',
             'Could not find panel title or is incorrect'
         );
-        expect(panel.getElementsByClassName('govuk-panel__body')[0].innerHTML).contains(
-            ' ',
+        expect(panel.getElementsByClassName('govuk-panel__body').length).equal(
+            0,
             'Could not find panel message or is incorrect'
         );
     });
