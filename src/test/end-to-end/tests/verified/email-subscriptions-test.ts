@@ -190,7 +190,7 @@ Scenario(
         I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ id: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to remove these subscriptions?');
+        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
@@ -292,7 +292,7 @@ Scenario(
 
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to remove these subscriptions?');
+        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
@@ -339,7 +339,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.waitForText('Are you sure you want to remove this subscription?');
     I.click('#unsubscribe-confirm');
     I.click('Continue');
-    I.waitForText('Your subscription has been removed.');
+    I.waitForText('Your subscription has been removed');
     I.click('Email subscriptions');
     I.dontSee(locationName);
     I.logout();
