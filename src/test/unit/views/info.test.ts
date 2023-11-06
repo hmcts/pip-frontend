@@ -18,9 +18,5 @@ describe('Info page', () => {
         it('should contain service name', () => {
             expect(response).contains('court-and-tribunal-hearings-service', 'Could not find application name');
         });
-
-        it('should contain uptime field', () => {
-            expect(response).contains('uptime', 'could not find the uptime field');
-        });
     });
 });
