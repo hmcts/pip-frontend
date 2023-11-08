@@ -130,12 +130,12 @@ describe('Tests for the civil, family and mixed lists service.', function () {
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'applicant'
-                    ]
+                ]
             ).is.undefined;
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'respondent'
-                    ]
+                ]
             ).is.undefined;
         });
 
