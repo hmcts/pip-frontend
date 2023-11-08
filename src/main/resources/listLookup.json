@@ -198,5 +198,15 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
+    },
+    "OPA_PRESS_LIST": {
+        "friendlyName": "Online Plea and Allocation Press List",
+        "welshFriendlyName": "Rhestr y Wasg – Pledio Ar-Lein a Dyrannu (OPA)",
+        "shortenedFriendlyName": "OPA Press List",
+        "url": "opa-press-list",
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "PRIVATE"
     }
 }
