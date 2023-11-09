@@ -12,7 +12,8 @@
     "backToTop": "Yn ôl i frig y dudalen",
     "newWindow": "(yn agor mewn ffenestr newydd)",
     "noLists": "Mae’n ddrwg gennym, nid ydym wedi dod o hyd i unrhyw restrau i’r llys hwn",
-    "noListsWithCourtInfo": "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer COURTNAME ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar CONTACTNO neu EMAIL i gael mwy o wybodaeth.",
+    "noListsWithCourtTelephoneAndEmail": "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer COURTNAME ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar CONTACTNO neu EMAIL am ragor o wybodaeth.",
+    "noListsWithCourtTelephoneOrEmail": "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer COURTNAME ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar COURTCONTACT am ragor o wybodaeth.",
     "sjpMessage": "Mae’n ddrwg gennym ond nid yw’r rhestrau llys cyhoeddus ar gyfer y Gyfundrefn Un Ynad ar gael ar hyn o bryd. Cysylltwch â Chanolfan Wasanaeth y Llysoedd a’r Tribiwnlysoedd ar 0300 303 0656  i gael rhagor o wybodaeth.",
     "backButton": "Yn ôl",
     "missingCourt": "Llys ar Goll"
