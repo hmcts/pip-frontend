@@ -22,7 +22,7 @@ describe('Bulk Unsubscribe Confirmation Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Are you sure you want to remove these subscriptions?',
+                'Are you sure you want to bulk unsubscribe the above selection?',
                 'Page title does not match'
             );
         });
@@ -30,7 +30,7 @@ describe('Bulk Unsubscribe Confirmation Page', () => {
         it('should have correct header', () => {
             const heading = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(heading[0].innerHTML).contains(
-                'Are you sure you want to remove these subscriptions?',
+                'Are you sure you want to bulk unsubscribe the above selection?',
                 'Header does not match'
             );
         });
