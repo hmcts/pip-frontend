@@ -156,8 +156,10 @@ describe('Summary of publications page', () => {
 
             it('should display no contact information', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains('Sorry, no lists found for this court',
-                    'Contact information is displayed');
+                expect(body[4].innerHTML).contains(
+                    'Sorry, no lists found for this court',
+                    'Contact information is displayed'
+                );
             });
         });
     });
