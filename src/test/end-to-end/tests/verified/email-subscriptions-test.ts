@@ -56,8 +56,7 @@ Scenario(
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -70,13 +69,12 @@ Scenario(
         I.fillField('#search-input', caseId);
         I.click('Continue');
         I.waitForText('Search result');
-        I.see('1 result successfully found');
+        I.see('1 found');
         I.see(caseId);
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -89,13 +87,12 @@ Scenario(
         I.fillField('#search-input', caseURN);
         I.click('Continue');
         I.waitForText('Search result');
-        I.see('1 result successfully found');
+        I.see('1 found');
         I.see(caseURN);
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -117,8 +114,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -138,8 +134,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
-        I.see('Your subscription(s) has been added successfully');
+        I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
         I.waitForText('All subscriptions');
@@ -182,7 +177,7 @@ Scenario(
         I.waitForText('Are you sure you want to remove this subscription?');
         I.click('#unsubscribe-confirm');
         I.click('Continue');
-        I.waitForText('Your subscription has been removed.');
+        I.waitForText('Your subscription has been removed');
 
         I.click('Email subscriptions');
         I.click('#bulk-unsubscribe-button');
@@ -195,7 +190,7 @@ Scenario(
         I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ id: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to remove these subscriptions?');
+        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
@@ -286,7 +281,7 @@ Scenario(
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
         I.click('Confirm Subscriptions');
-        I.waitForText('Subscription(s) confirmed');
+        I.waitForText('Email subscriptions updated');
         I.click('Email subscriptions');
 
         I.click('#bulk-unsubscribe-button');
@@ -297,7 +292,7 @@ Scenario(
 
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to remove these subscriptions?');
+        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Subscription(s) removed');
@@ -326,8 +321,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.checkOption('//*[@id="' + locationId + '"]');
     I.click('Continue');
     I.click('Confirm Subscriptions');
-    I.waitForText('Subscription(s) confirmed');
-    I.see('Your subscription(s) has been added successfully');
+    I.waitForText('Email subscriptions updated');
     I.click('Email subscriptions');
     I.click('Select which list types to receive');
     I.waitForText('Select List Types');
@@ -335,8 +329,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Apply filters');
     I.uncheckOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
-    I.waitForText('Court Subscription(s) refined');
-    I.see('Your subscription(s) has been amended successfully');
+    I.waitForText('List types updated');
     I.click('manage your current email subscriptions');
     I.click('Select which list types to receive');
     I.waitForText('Select List Types');
@@ -346,7 +339,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.waitForText('Are you sure you want to remove this subscription?');
     I.click('#unsubscribe-confirm');
     I.click('Continue');
-    I.waitForText('Your subscription has been removed.');
+    I.waitForText('Your subscription has been removed');
     I.click('Email subscriptions');
     I.dontSee(locationName);
     I.logout();
