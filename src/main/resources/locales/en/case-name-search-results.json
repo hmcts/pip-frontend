@@ -1,6 +1,6 @@
 {
     "title": "Search result",
-    "resultsCount": " result(s) successfully found",
+    "resultsCount": " found",
     "backButton": "Back",
     "table": {
         "column0Header": "Select a result",
