@@ -40,11 +40,11 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display the non SJP message', () => {
+            it('should display the telephone and email message', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).contains(
                     'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 or test@test.com for more information.',
-                    'Non SJP is not displayed'
+                    'Telephone and email message is not displayed'
                 );
             });
         });
@@ -59,11 +59,11 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display the non SJP message', () => {
+            it('should display the telephone only message', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).contains(
                     'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 for more information.',
-                    'Non SJP is not displayed'
+                    'Telephone only message is not displayed'
                 );
             });
         });
@@ -78,11 +78,11 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display the non SJP message', () => {
+            it('should display the email only message', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).contains(
                     'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on test@test.com for more information.',
-                    'Non SJP is not displayed'
+                    'Email only message is not displayed'
                 );
             });
         });
@@ -97,11 +97,11 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display the non SJP message', () => {
+            it('should display telephone and email in welsh', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).contains(
                     "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 neu test@test.com am ragor o wybodaeth.",
-                    'Non SJP is not displayed'
+                    'Telephone and email in Welsh is not displayed'
                 );
             });
         });
@@ -116,11 +116,11 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display the non SJP message', () => {
+            it('should display the telephone only message in welsh', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).contains(
                     "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 am ragor o wybodaeth.",
-                    'Non SJP is not displayed'
+                    'Telephone only message in Welsh is not displayed'
                 );
             });
         });
@@ -135,11 +135,11 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display the non SJP message', () => {
+            it('should display the email only message in welsh', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).contains(
                     "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar test@test.com am ragor o wybodaeth.",
-                    'Non SJP is not displayed'
+                    'Email only message in Welsh is not displayed'
                 );
             });
         });
@@ -154,9 +154,10 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display the non SJP message', () => {
+            it('should display no contact information', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains('Sorry, no lists found for this court', 'Non SJP is not displayed');
+                expect(body[4].innerHTML).contains('Sorry, no lists found for this court',
+                    'Contact information is displayed');
             });
         });
     });

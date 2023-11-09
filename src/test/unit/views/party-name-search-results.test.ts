@@ -62,7 +62,7 @@ describe('Party name search results page', () => {
 
     it('should display results count message', () => {
         const resultsMessage = htmlRes.getElementsByClassName('govuk-body');
-        expect(resultsMessage[0].innerHTML).contains('3  result(s) successfully found', 'Results message not found');
+        expect(resultsMessage[0].innerHTML).contains('3 found', 'Results message not found');
     });
 
     it('should contain expected column headings', () => {
