@@ -8,7 +8,7 @@ import { PublicationService } from '../../../main/service/publicationService';
 
 const searchTerm = '56-181-2097';
 const numOfResults = '1';
-const resultFound = '1 result successfully found';
+const resultFound = '1 found';
 const CASE_NUMBER_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-number`;
 const CASE_URN_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-urn`;
 
