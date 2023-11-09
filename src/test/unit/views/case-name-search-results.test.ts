@@ -48,7 +48,7 @@ describe('Case name search results page', () => {
 
     it('should display results count message', () => {
         const resultsMessage = htmlRes.getElementsByClassName('govuk-body');
-        expect(resultsMessage[0].innerHTML).contains('6  result(s) successfully found', 'Results message not found');
+        expect(resultsMessage[0].innerHTML).contains('6  found', 'Results message not found');
     });
 
     it('should contain expected column headings', () => {

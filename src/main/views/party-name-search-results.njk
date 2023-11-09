@@ -13,7 +13,7 @@
 {% block content %}
     <div class="parent-box alphabetical-box">
         <h1 class="govuk-heading-l">{{ title }}</h1>
-        <p class="govuk-body govuk-!-font-weight-bold">{{ searchResults | length }} {{ resultsCount }}</p>
+        <p class="govuk-body govuk-!-font-weight-bold">{{ resultsCount | replace("RESULTS_COUNT", searchResults | length) }}</p>
         <form action="pending-subscriptions" method="post" autocomplete="off">
             <table class="govuk-table" data-module="moj-multi-select">
                 <thead class="govuk-table__head">
