@@ -21,10 +21,10 @@ const selectedFiltersHeadingClass = 'govuk-heading-m';
 const expectedHeader = 'Single Justice Procedure cases that are ready for hearing';
 const summaryHeadingText = 'List containing 2 case(s)';
 const listDate = '01 September 2023';
-const offenderIndividualName = 'This is a forename This is a surname';
+const offenderIndividualName = 'A This is a surname';
 const offenderOrganisationName = 'This is an accused organisation name';
-const offenderIndividualPostcode = 'This is an individual postcode';
-const offenderOrganisationPostcode = 'This is an organisation postcode';
+const offenderIndividualPostcode = 'AA1';
+const offenderOrganisationPostcode = 'A99';
 const offenderProsecutor = 'This is a prosecutor organisation';
 const offenderReason = 'This is an offence title';
 
