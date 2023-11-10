@@ -3892,7 +3892,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:*, axios@npm:^1.6.0":
+"axios@npm:*, axios@npm:^1.6.1":
   version: 1.6.1
   resolution: "axios@npm:1.6.1"
   dependencies:
@@ -10814,7 +10814,7 @@ __metadata:
     allure-commandline: ^2.24.1
     applicationinsights: ^2.8.0
     awilix: ^8.0.1
-    axios: ^1.6.0
+    axios: ^1.6.1
     axios-oauth-client: ^1.5.0
     axios-token-interceptor: ^0.2.0
     babel-loader: ^9.1.3
