@@ -3874,12 +3874,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios-oauth-client@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "axios-oauth-client@npm:1.5.0"
+"axios-oauth-client@npm:^2.0.0":
+  version: 2.0.4
+  resolution: "axios-oauth-client@npm:2.0.4"
   dependencies:
-    qs: ^6.10.1
-  checksum: 9810af1e39f3f14cad592744c47880a189bacc9a1b9d2b512544df5c5501cbd47695f6d424dd30b5717ef0fe90fd624d5c3972efa7f57dde27c90fc04b1eecbc
+    qs: ^6.11.0
+  peerDependencies:
+    axios: ^1.2.1
+  checksum: bf7df94022b43c8c7e44f63ee2d339a23a591979072aedf4372f43e1313182f5b22594099b1f12ee4366212cbdcb75cf8a611f9e736cdc0468084b6ab2f62e90
   languageName: node
   linkType: hard
 
@@ -3892,7 +3894,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:*, axios@npm:^1.6.0":
+"axios@npm:*, axios@npm:^1.6.1":
   version: 1.6.1
   resolution: "axios@npm:1.6.1"
   dependencies:
@@ -10814,8 +10816,8 @@ __metadata:
     allure-commandline: ^2.24.1
     applicationinsights: ^2.8.0
     awilix: ^8.0.1
-    axios: ^1.6.0
-    axios-oauth-client: ^1.5.0
+    axios: ^1.6.1
+    axios-oauth-client: ^2.0.0
     axios-token-interceptor: ^0.2.0
     babel-loader: ^9.1.3
     chai: ^4.3.10
@@ -10945,7 +10947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.1, qs@npm:^6.10.3, qs@npm:^6.11.0":
+"qs@npm:^6.10.3, qs@npm:^6.11.0":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
   dependencies:
