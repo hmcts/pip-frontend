@@ -52,6 +52,6 @@ export class Helmet {
             throw new Error('Referrer policy configuration is required');
         }
 
-        app.use(helmet.referrerPolicy({ policy: "no-referrer" }));
+        app.use(helmet.referrerPolicy({ policy: "origin" }));
     }
 }
