@@ -16,7 +16,9 @@ describe('CFT IDAM Authentication', () => {
     });
 
     it('should call the callback when successful', async () => {
-        jest.mock('jwt-decode', () => () => ({ roles: ['IDAM_ADMIN_USER'] }));
+        jest.mock('jwt-decode', () => ({
+            jwtDecode: () => ({ roles: ['IDAM_ADMIN_USER'] }),
+        }));
         const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
         cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
 

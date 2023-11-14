@@ -1,5 +1,5 @@
 import { FRONTEND_URL } from '../helpers/envUrls';
-import jwt_decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import config = require('config');
 import process from 'process';
 import { cftIdamTokenApi } from '../resources/requests/utils/axiosConfig';
@@ -43,7 +43,7 @@ export async function cftIdamAuthentication(req, callback) {
         });
 
         const data = response.data;
-        const jwtToken = jwt_decode(data.id_token);
+        const jwtToken = jwtDecode(data.id_token);
         jwtToken['flow'] = 'CFT';
 
         if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
