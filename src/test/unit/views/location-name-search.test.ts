@@ -108,7 +108,7 @@ describe('Court Name Search Page', () => {
 
     it('should contain your selections component', () => {
         const selectionsTitle = htmlRes.getElementsByClassName('govuk-heading-m');
-        expect(selectionsTitle[2].innerHTML).contains('Your selection(s)', 'Your selections title does not exist');
+        expect(selectionsTitle[2].innerHTML).contains('Total selected', 'Your selections title does not exist');
     });
 
     it('should contain selections counter', () => {
