@@ -125,15 +125,29 @@ describe('Tests for the civil, family and mixed lists service.', function () {
             );
         });
 
-        it('should build the applicants and the respondents of the party', async () => {
+        it('should not build the applicants and the respondents of the party for hearing with multiple cases', async () => {
             const data = await service.sculptedFamilyMixedListData(rawFamilyDailyCauseData);
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'applicant'
                 ]
-            ).to.equal(expectedApplicant);
+            ).is.undefined;
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'respondent'
+                ]
+            ).is.undefined;
+        });
+
+        it('should build the applicants and the respondents of the party for haring with a single case', async () => {
+            const data = await service.sculptedFamilyMixedListData(rawFamilyDailyCauseData);
+            expect(
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
+                    'applicant'
+                ]
+            ).to.equal(expectedApplicant);
+            expect(
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
                     'respondent'
                 ]
             ).to.equal(expectedRespondent);
@@ -235,8 +249,8 @@ describe('Tests for the civil, family and mixed lists service.', function () {
             const data = await service.sculptedCivilListData(rawFamilyDailyCauseData);
             const hearing =
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2];
-            expect(hearing['applicant']).to.equal('');
-            expect(hearing['respondent']).to.equal('');
+            expect(hearing['applicant']).is.undefined;
+            expect(hearing['respondent']).is.undefined;
         });
     });
 });
