@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as helmet from 'helmet';
-import {B2C_ADMIN_URL, B2C_URL, CFT_IDAM_URL} from "../../helpers/envUrls";
+import { B2C_ADMIN_URL, B2C_URL, CFT_IDAM_URL } from '../../helpers/envUrls';
 
 export interface HelmetConfig {
     referrerPolicy: string;
@@ -28,6 +28,7 @@ export class Helmet {
     private setContentSecurityPolicy(app: express.Express): void {
         app.use(
             helmet.contentSecurityPolicy({
+                useDefaults: false,
                 directives: {
                     connectSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     defaultSrc: ["'none'"],
