@@ -28,12 +28,13 @@ export class CivilFamilyAndMixedListService {
                     session['sittings'].forEach(sitting => {
                         helperService.calculateDuration(sitting);
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
-
-                        sitting['hearing'].forEach(hearing => {
-                            isFamilyMixedList
-                                ? this.handleFamilyMixedListParties(hearing)
-                                : helperService.findAndManipulatePartyInformation(hearing);
-                        });
+                        if (isFamilyMixedList) {
+                            sitting['hearing'].forEach(hearing => {
+                                if (hearing['case'] && hearing['case'].length == 1) {
+                                    this.handleFamilyMixedListParties(hearing);
+                                }
+                            });
+                        }
                     });
                 });
             });

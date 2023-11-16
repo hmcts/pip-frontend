@@ -14,7 +14,6 @@
     "noLists": "Sorry, no lists found for this court",
     "noListsWithCourtTelephoneAndEmail": "Sorry, lists for COURTNAME are temporarily not available. Please contact the court/tribunal direct on CONTACTNO or EMAIL for more information.",
     "noListsWithCourtTelephoneOrEmail": "Sorry, lists for COURTNAME are temporarily not available. Please contact the court/tribunal direct on COURTCONTACT for more information.",
-    "sjpMessage": "Sorry, the Single Justice Procedure public court lists are temporarily not available. Please contact the Courts and Tribunals Service Centre on 0300 303 0656 for more information.",
     "backButton": "Back",
     "missingCourt": "Missing Court"
 }

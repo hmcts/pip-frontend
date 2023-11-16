@@ -13,9 +13,7 @@
 <div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
   {% if publications.length === 0 %}
-    {% if isSjp %}
-        <p class="govuk-body govuk-!-font-size-16">{{ sjpMessage }}</p>
-    {% elseif court.email | length and court.contactNo | length %}
+    {% if court.email | length and court.contactNo | length %}
         <p class="govuk-body govuk-!-font-size-16">{{ noListsWithCourtTelephoneAndEmail | replace("COURTNAME", locationName) | replace("CONTACTNO", court.contactNo) | replace("EMAIL", court.email) }}</p>
     {% elseif court.contactNo | length %}
         <p class="govuk-body govuk-!-font-size-16">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.contactNo) }}</p>

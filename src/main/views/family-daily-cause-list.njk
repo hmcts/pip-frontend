@@ -120,8 +120,16 @@
                               <td class="govuk-table__cell no-wrap">{{ hearing['hearingType'] }}</td>
                               <td class="govuk-table__cell no-wrap">{{ sitting['caseHearingChannel'] }}</td>
                               <td class="govuk-table__cell no-wrap" data-sort-value="{{ durationSortValue }}">{{ duration }} </td>
-                              <td class="govuk-table__cell no-wrap">{{ hearing['applicant'] | addRepresentativeToParty(hearing['applicantRepresentative'], legalAdvisor) }}</td>
-                              <td class="govuk-table__cell no-wrap">{{ hearing['respondent'] | addRepresentativeToParty(hearing['respondentRepresentative'], legalAdvisor) }}</td>
+                                {% if hearing['applicant'] or hearing['applicantRepresentative'] %}
+                                <td class="govuk-table__cell no-wrap">{{ hearing['applicant'] | addRepresentativeToParty(hearing['applicantRepresentative'], legalAdvisor) }}</td>
+                              {% else %}
+                                <td class="govuk-table__cell no-wrap" />
+                              {% endif %}
+                              {% if hearing['respondent'] or hearing['respondentRepresentative'] %}
+                                <td class="govuk-table__cell no-wrap">{{ hearing['respondent'] | addRepresentativeToParty(hearing['respondentRepresentative'], legalAdvisor) }}</td>
+                              {% else %}
+                                <td class="govuk-table__cell no-wrap" />
+                              {% endif %}
                             </tr>
                           {% endfor %}
                         {% endfor %}

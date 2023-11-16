@@ -165,14 +165,26 @@ describe('Family Daily Cause List page', () => {
         expect(cell[6].innerHTML).contains('1 hour 5 mins');
     });
 
-    it('should display Applicant/petitioner', () => {
+    it('should not display applicant petitioner for haring with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[7].innerHTML).contains(applicantRespondent);
+        expect(cell[7].innerHTML).not.contains(applicantRespondent);
+        expect(cell[16].innerHTML).not.contains(applicantRespondent);
     });
 
-    it('should display respondent', () => {
+    it('should not display respondent for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[8].innerHTML).contains(applicantRespondent);
+        expect(cell[8].innerHTML).not.contains(applicantRespondent);
+        expect(cell[17].innerHTML).not.contains(applicantRespondent);
+    });
+
+    it('should display applicant petitioner for haring with a single case', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[25].innerHTML).contains(applicantRespondent);
+    });
+
+    it('should display respondent for hearing with a single case', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[26].innerHTML).contains(applicantRespondent);
     });
 
     it('should display applicant petitioner using organisation', () => {
