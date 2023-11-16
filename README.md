@@ -56,7 +56,7 @@ Most of the communication with this service benefits from using secure authentic
 
 ### Features and functionality
 
--   Viewable by users directly in either HTTP or HTTPS mode (default port: 8080)
+-   Viewable by users directly in either HTTP or HTTPS mode (default port: 8080).
 -   Uploading of publication files using a web interface within the [manual upload](./src/main/views/manual-upload.njk) view.
 -   Account setup, sign-in and user management functionality. Sign-in and password management is managed using Azure B2C user flows for AAD users. We also allow sign in via CFT IDAM for certain user roles.
 -   View publications directly in the browser restricted to the user's account privileges.
