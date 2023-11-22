@@ -27,7 +27,7 @@ describe('Media Account Confirmation Page', () => {
     const appliedValue = '09 May 2022';
     const bottomHeader = 'What happens next';
     const bottomContent =
-        'This account will be created and the applicant will be notified to set up their account. If an account already exists the applicant will be asked to sign in, or choose forgot password.';
+        'This account has been created and the applicant will be notified to confirm their details. If an account already exists the applicant will be asked to sign in, or choose forgot password.';
 
     const dummyApplication = {
         id: '1234',
