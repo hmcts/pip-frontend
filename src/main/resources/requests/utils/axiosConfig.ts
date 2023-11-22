@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios, {InternalAxiosRequestConfig} from 'axios';
 import oauth from 'axios-oauth-client';
-import tokenProvider from 'axios-token-interceptor';
+import tokenProvider, {tokenCache} from 'axios-token-interceptor';
 import config from 'config';
-import { CFT_IDAM_URL } from '../../../helpers/envUrls';
+import {CFT_IDAM_URL} from '../../../helpers/envUrls';
 
 const tenantId = process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID');
 const tokenUrl = 'https://login.microsoftonline.com/' + tenantId + '/oauth2/v2.0/token';
@@ -55,15 +55,14 @@ export const cftIdamTokenApi = axios.create({
     timeout: 10000,
 });
 
-function createCredentials(url): () => any {
+function createCredentials(url): (scope: any) => any {
     if (!process.env.INSECURE) {
-        return oauth.client(axios.create(), {
-            url: tokenUrl,
-            GRANT_TYPE: 'client_credentials',
-            CLIENT_ID: clientId,
-            CLIENT_SECRET: clientSecret,
-            SCOPE: url + '/.default',
-        });
+        return oauth.clientCredentials(axios.create(),
+            tokenUrl,
+            clientId,
+            clientSecret,
+            url + '/.default'
+        );
     }
     return (): string => {
         return '';
@@ -74,15 +73,45 @@ export const getDataManagementCredentials = createCredentials(dataManagementUrl)
 export const getSubscriptionManagementCredentials = createCredentials(subscriptionManagementUrl);
 export const getAccountManagementCredentials = createCredentials(accountManagementUrl);
 export const getChannelManagementCredentials = createCredentials(channelManagementUrl);
+export const temp = (tokenCache, config) => {
+    const temp1 = tokenProvider({
+        getToken: tokenCache,
+        headerFormatter: token => 'Bearer ' + token['access_token']
+    })
+    return temp1(config)
+};
+
+const cache = (tokenCache, house) => {
+    const cache2 = tokenCache({
+        getToken: tokenCache,
+        getMaxAge: (house) => house['expires_in'] * 1000
+    })
+    return cache2(house)
+};
 
 if (!process.env.INSECURE) {
-    dataManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getDataManagementCredentials));
+    dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const house = tokenProvider.tokenCache(getDataManagementCredentials as any, {})
 
-    subscriptionManagementApi.interceptors.request.use(
-        oauth.interceptor(tokenProvider, getSubscriptionManagementCredentials)
-    );
+        return temp(house, config), cache(tokenCache, house) as Promise<InternalAxiosRequestConfig<any>>
+    })
 
-    accountManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getAccountManagementCredentials));
+    subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const house = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, {})
 
-    channelManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getChannelManagementCredentials));
+        return temp(house, config), cache(tokenCache, house) as Promise<InternalAxiosRequestConfig<any>>
+    })
+
+    accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const house = tokenProvider.tokenCache(getAccountManagementCredentials as any, {})
+
+        return temp(house, config), cache(tokenCache, house) as Promise<InternalAxiosRequestConfig<any>>
+    })
+
+    channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const house = tokenProvider.tokenCache(getChannelManagementCredentials as any, {})
+
+        return temp(house, config), cache(tokenCache, house) as Promise<InternalAxiosRequestConfig<any>>
+    })
+
 }
