@@ -1,8 +1,8 @@
-import axios, {InternalAxiosRequestConfig} from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 import oauth from 'axios-oauth-client';
 import tokenProvider from 'axios-token-interceptor';
 import config from 'config';
-import {CFT_IDAM_URL} from '../../../helpers/envUrls';
+import { CFT_IDAM_URL } from '../../../helpers/envUrls';
 
 const tenantId = process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID');
 const tokenUrl = 'https://login.microsoftonline.com/' + tenantId + '/oauth2/v2.0/token';
@@ -80,7 +80,7 @@ const temp = (tokenCache, config) => {
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
         const house = tokenProvider.tokenCache(getDataManagementCredentials as any, {
-            getMaxAge: house => house['expires_in'] * 1000
+            getMaxAge: house => house['expires_in'] * 1000,
         });
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
@@ -88,7 +88,7 @@ if (!process.env.INSECURE) {
 
     subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
         const house = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, {
-            getMaxAge: house => house['expires_in'] * 1000
+            getMaxAge: house => house['expires_in'] * 1000,
         });
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
@@ -96,7 +96,7 @@ if (!process.env.INSECURE) {
 
     accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
         const house = tokenProvider.tokenCache(getAccountManagementCredentials as any, {
-            getMaxAge: house => house['expires_in'] * 1000
+            getMaxAge: house => house['expires_in'] * 1000,
         });
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
@@ -104,7 +104,7 @@ if (!process.env.INSECURE) {
 
     channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
         const house = tokenProvider.tokenCache(getChannelManagementCredentials as any, {
-            getMaxAge: house => house['expires_in'] * 1000
+            getMaxAge: house => house['expires_in'] * 1000,
         });
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
