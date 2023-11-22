@@ -175,7 +175,7 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
             userProvenance: 'THIRD_PARTY',
             provenanceUserId: provenanceUserId,
             email: '',
-            roles: 'GENERAL_THIRD_PARTY'
+            roles: 'GENERAL_THIRD_PARTY',
         },
     ];
 
