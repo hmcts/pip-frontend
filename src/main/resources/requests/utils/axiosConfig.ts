@@ -83,33 +83,25 @@ const options = {
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getDataManagementCredentials as any,
-            options
-        );
+        const house = tokenProvider.tokenCache(getDataManagementCredentials as any, options);
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any,
-            options
-        );
+        const house = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, options);
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getAccountManagementCredentials as any,
-            options
-        );
+        const house = tokenProvider.tokenCache(getAccountManagementCredentials as any, options);
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getChannelManagementCredentials as any,
-            options
-        );
+        const house = tokenProvider.tokenCache(getChannelManagementCredentials as any, options);
 
         return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
