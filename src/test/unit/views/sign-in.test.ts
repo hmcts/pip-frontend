@@ -82,9 +82,7 @@ describe('Sign In option Page', () => {
 
         it('should display hint for Common Platform', () => {
             const message = htmlRes.getElementsByClassName('govuk-radios__hint');
-            expect(message[0].innerHTML).contains(
-                'You will be able to sign in with a Common Platform account later this year.'
-            );
+            expect(message[0].innerHTML).contains('This option will be available as part of a future update.');
         });
 
         it('should display request account message', () => {
