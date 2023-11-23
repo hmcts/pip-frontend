@@ -72,14 +72,14 @@ export const getChannelManagementCredentials = createCredentials(channelManageme
 const temp = (tokenCache, config) => {
     const temp1 = tokenProvider({
         getToken: tokenCache,
-        headerFormatter: token => 'Bearer ' + token['access_token'],
+        headerFormatter: (token: object) => 'Bearer ' + token['access_token'],
     });
     return temp1(config);
 };
 
 const options = {
-    getMaxAge: house => house['expires_in'] * 1000
-}
+    getMaxAge: (house: object) => house['expires_in'] * 1000,
+};
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
