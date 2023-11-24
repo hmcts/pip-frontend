@@ -77,7 +77,7 @@ const getBearerToken = (tokenCache, config) => {
     return bearer(config);
 };
 
-const getMaxAgeOfCache  = {
+const getMaxAgeOfCache = {
     getMaxAge: (bearerToken: object) => bearerToken['expires_in'] * 1000,
 };
 
