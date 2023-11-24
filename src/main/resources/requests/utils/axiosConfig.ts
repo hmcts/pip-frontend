@@ -69,40 +69,40 @@ export const getSubscriptionManagementCredentials = createCredentials(subscripti
 export const getAccountManagementCredentials = createCredentials(accountManagementUrl);
 export const getChannelManagementCredentials = createCredentials(channelManagementUrl);
 
-const temp = (tokenCache, config) => {
-    const temp1 = tokenProvider({
+const getBearerToken = (tokenCache, config) => {
+    const bearer = tokenProvider({
         getToken: tokenCache,
-        headerFormatter: (token: object) => 'Bearer ' + token['access_token'],
+        headerFormatter: (bearerToken: object) => 'Bearer ' + bearerToken['access_token'],
     });
-    return temp1(config);
+    return bearer(config);
 };
 
-const options = {
-    getMaxAge: (house: object) => house['expires_in'] * 1000,
+const getMaxAgeOfCache  = {
+    getMaxAge: (bearerToken: object) => bearerToken['expires_in'] * 1000,
 };
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getDataManagementCredentials as any, options);
+        const bearerToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
 
-        return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, options);
+        const bearerToken = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, getMaxAgeOfCache);
 
-        return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getAccountManagementCredentials as any, options);
+        const bearerToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
 
-        return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const house = tokenProvider.tokenCache(getChannelManagementCredentials as any, options);
+        const bearerToken = tokenProvider.tokenCache(getChannelManagementCredentials as any, getMaxAgeOfCache);
 
-        return temp(house, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 }
