@@ -78,31 +78,31 @@ const getBearerToken = (tokenCache, config) => {
 };
 
 const getMaxAgeOfCache = {
-    getMaxAge: (bearerToken: object) => bearerToken['expires_in'] * 1000,
+    getMaxAge: (cacheToken: object) => cacheToken['expires_in'] * 1000,
 };
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const bearerToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
+        const cacheToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
 
-        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const bearerToken = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, getMaxAgeOfCache);
+        const cacheToken = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, getMaxAgeOfCache);
 
-        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const bearerToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
+        const cacheToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
 
-        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const bearerToken = tokenProvider.tokenCache(getChannelManagementCredentials as any, getMaxAgeOfCache);
+        const cacheToken = tokenProvider.tokenCache(getChannelManagementCredentials as any, getMaxAgeOfCache);
 
-        return getBearerToken(bearerToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 }
