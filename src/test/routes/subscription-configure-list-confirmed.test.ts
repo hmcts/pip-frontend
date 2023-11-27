@@ -6,7 +6,6 @@ import { SubscriptionService } from '../../main/service/subscriptionService';
 
 const PAGE_URL = '/subscription-configure-list-confirmed';
 
-
 describe('Subscription Configure list confirmation result', () => {
     describe('on GET', () => {
         test('should render subscription list type confirmation page', async () => {
