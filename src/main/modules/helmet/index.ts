@@ -34,10 +34,7 @@ export class Helmet {
                     fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
-                    scriptSrcAttr: [
-                        self,
-                        "'unsafe-inline'",
-                    ],
+                    scriptSrcAttr: [self, "'unsafe-inline'"],
                     scriptSrc: [
                         self,
                         ...googleAnalyticsDomains,
