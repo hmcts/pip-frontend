@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as helmet from 'helmet';
+import helmet = require('helmet');
 
 export interface HelmetConfig {
     referrerPolicy: string;
@@ -18,7 +18,7 @@ export class Helmet {
 
     public enableFor(app: express.Express): void {
         // include default helmet functions
-        app.use(helmet.default());
+        app.use(helmet());
 
         this.setContentSecurityPolicy(app);
         this.setReferrerPolicy(app, this.config.referrerPolicy);
@@ -33,7 +33,6 @@ export class Helmet {
                     fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
-                    scriptSrcAttr: [self, "'unsafe-inline'"],
                     scriptSrc: [
                         self,
                         ...googleAnalyticsDomains,
