@@ -52,7 +52,7 @@ describe('Account request submitted page', () => {
     it('should display valid service center message', () => {
         const message = htmlRes.getElementsByClassName('govuk-body');
         expect(message[2].innerHTML).contains(
-            'If you do not get an email from us within 5 days, call our courts and tribunals service center on 0300 303 0656.',
+            'If you do not get an email from us within 5 working days, call our courts and tribunals service centre on 0300 303 0656.',
             'Could not find correct value in the more service message'
         );
     });
