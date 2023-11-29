@@ -2573,15 +2573,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/axios-token-interceptor@npm:^0.2.7":
-  version: 0.2.7
-  resolution: "@types/axios-token-interceptor@npm:0.2.7"
-  dependencies:
-    axios: "*"
-  checksum: 44aa55d1f401bc92ab110cce1fd0cf5a46fb5d6c528778381b4017a1a72ec757eae87cb05fdcc2c202cc06cadc84142e11c363f601783ca86ada18798c6842e8
-  languageName: node
-  linkType: hard
-
 "@types/babel__core@npm:^7.1.14":
   version: 7.20.3
   resolution: "@types/babel__core@npm:7.20.3"
@@ -4031,17 +4022,6 @@ __metadata:
   dependencies:
     lock: ^1.1.0
   checksum: 8238c7b6c16f654a443b29f665b0e23b5fff592a51d4f343dae766d9da88a492f1efd43cfb933a94fdea6706ff65e2a5cd01b469009cc74a3409bcc2dc12ff30
-  languageName: node
-  linkType: hard
-
-"axios@npm:*":
-  version: 1.6.2
-  resolution: "axios@npm:1.6.2"
-  dependencies:
-    follow-redirects: ^1.15.0
-    form-data: ^4.0.0
-    proxy-from-env: ^1.1.0
-  checksum: 4a7429e2b784be0f2902ca2680964391eae7236faa3967715f30ea45464b98ae3f1c6f631303b13dfe721b17126b01f486c7644b9ef276bfc63112db9fd379f8
   languageName: node
   linkType: hard
 
@@ -10945,7 +10925,6 @@ __metadata:
     "@playwright/browser-chromium": 1.39.0
     "@playwright/browser-firefox": 1.39.0
     "@playwright/browser-webkit": 1.39.0
-    "@types/axios-token-interceptor": ^0.2.7
     "@types/chai-as-promised": ^7.1.8
     "@types/config": ^3.3.3
     "@types/cookie-parser": ^1.4.6
