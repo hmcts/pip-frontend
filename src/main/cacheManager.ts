@@ -47,7 +47,7 @@ setInterval(() => intervalFunction(redisClient), 300000);
 redisClient.on('connect', () => {
     /* istanbul ignore next */
     if (!process.env.REDIS_SUPPRESS) {
-        logger.info('Connected to Redis');
+        logger.info('Connected to Redis ' + redisCredentials.host);
     }
 });
 
@@ -62,7 +62,7 @@ redisClient.on('error', error => {
 redisClient.on('ready', () => {
     /* istanbul ignore next */
     if (!process.env.REDIS_SUPPRESS) {
-        logger.info('redis ready');
+        logger.info('redis ready ' + redisCredentials.host);
     }
 });
 
