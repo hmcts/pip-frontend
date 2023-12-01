@@ -244,7 +244,6 @@ describe('Home page', () => {
                 'Gwasanaeth Llysoedd a Thribiwnlysoedd Gogledd Iwerddon'
             );
         });
-
     });
 });
 describe('Cookie banner display', () => {
