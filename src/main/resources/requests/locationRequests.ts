@@ -1,5 +1,8 @@
 import { Location } from '../../models/location';
 import { dataManagementApi } from './utils/axiosConfig';
+import { LogHelper } from '../logging/logHelper';
+
+const logHelper = new LogHelper();
 
 export class LocationRequests {
     public async getLocation(locationId: number): Promise<Location> {
@@ -7,11 +10,7 @@ export class LocationRequests {
             const response = await dataManagementApi.get(`/locations/${locationId}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, `retrieve location with ID ${locationId}`);
         }
         return null;
     }
@@ -21,11 +20,7 @@ export class LocationRequests {
             const response = await dataManagementApi.get(`/locations/name/${courtName}/language/${language}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, `retrieve location with name ${courtName}`);
         }
         return null;
     }
@@ -41,11 +36,7 @@ export class LocationRequests {
             });
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, 'retrieve filtered locations');
         }
         return null;
     }
@@ -55,11 +46,7 @@ export class LocationRequests {
             const response = await dataManagementApi.get('/locations');
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, 'retrieve all locations');
         }
         return null;
     }
@@ -71,13 +58,9 @@ export class LocationRequests {
             const response = await dataManagementApi.delete(`/locations/${locationId}`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `delete location with ID ${locationId}`);
         }
+        return null;
     }
 
     public async getLocationsCsv(userId: string): Promise<Blob> {
@@ -88,11 +71,7 @@ export class LocationRequests {
             console.log('Reference data download requested by user with ID: ' + userId);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.error('Failed to retrieve reference data csv - response', error.response.data);
-            } else {
-                console.error('Failed to retrieve reference data csv - message', error.message);
-            }
+            logHelper.logErrorResponse(error, 'retrieve location reference data');
         }
         return null;
     }
