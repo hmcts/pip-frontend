@@ -138,7 +138,7 @@ describe('Home page', () => {
             expect(message[6].innerHTML).contains('Contact the:', 'Could not find contact message');
         });
 
-        it('should display bullets', () => {
+        it('should display contact bullets', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[7].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
                 'for courts and some tribunals in Scotland',
@@ -153,7 +153,7 @@ describe('Home page', () => {
             );
             expect(bullets[0].getElementsByClassName('govuk-link')[0].innerHTML).contains('Scottish Courts website');
             expect(bullets[1].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-                'https://www.courtsni.gov.uk/en-GB/ContactDetails/Pages/default.aspx'
+                'https://www.justice-ni.gov.uk/topics/courts-and-tribunals'
             );
             expect(bullets[1].getElementsByClassName('govuk-link')[0].innerHTML).contains(
                 'Northern Ireland Courts and Tribunals Service'
@@ -222,6 +222,29 @@ describe('Home page', () => {
                 'Could not find language message'
             );
         });
+
+        it('should display correct contact bullet in welsh', () => {
+            const bullets = htmlRes.getElementsByClassName('govuk-body')[7].getElementsByTagName('li');
+            expect(bullets[0].innerHTML).contains(
+                'ar gyfer rhai Llysoedd a Thribiwnlysoedd yn Yr Alban',
+                'Could not find first bullet in welsh'
+            );
+            expect(bullets[1].innerHTML).contains(
+                'ar gyfer llysoedd a thribiwnlysoedd yng Ngogledd Iwerddon',
+                'Could not find second bullet in welsh'
+            );
+            expect(bullets[0].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
+                'https://www.scotcourts.gov.uk/'
+            );
+            expect(bullets[0].getElementsByClassName('govuk-link')[0].innerHTML).contains('gwefan Llysoedd Yr Alban');
+            expect(bullets[1].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
+                'https://www.justice-ni.gov.uk/topics/courts-and-tribunals'
+            );
+            expect(bullets[1].getElementsByClassName('govuk-link')[0].innerHTML).contains(
+                'Gwasanaeth Llysoedd a Thribiwnlysoedd Gogledd Iwerddon'
+            );
+        });
+
     });
 });
 describe('Cookie banner display', () => {
