@@ -230,7 +230,6 @@ describe('Subscription Configure List', () => {
             expect(tableRows[8].innerHTML).contains(
                 'Single Justice Procedure Public List\nRhestr Gyhoeddus Y Weithdrefn Un Ynad'
             );
-
         });
 
         it('should display expected subscription list type checkboxes', () => {
