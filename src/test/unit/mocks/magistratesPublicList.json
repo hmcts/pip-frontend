@@ -23,22 +23,13 @@
         {
             "courtHouse": {
                 "courtHouseName": "Court A",
-                "courtHouseAddress": {
-                    "line": ["Address Line 1", "Address Line 2"],
-                    "town": "Town A",
-                    "county": "County A",
-                    "postCode": "AA1 AA1"
-                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
-                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
                                         "johKnownAs": "Firstname1 Surname1"
                                     },
                                     {
@@ -54,22 +45,10 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "caseid111",
-                                                                "name": "casename111"
-                                                            },
-                                                            {
-                                                                "caseId": "caseid222",
-                                                                "name": "casename333"
-                                                            }
-                                                        ]
                                                     },
                                                     {
-                                                        "caseName": "A2 Vs B2",
                                                         "caseNumber": "112233445"
                                                     }
                                                 ],
@@ -95,8 +74,7 @@
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
-                                                    {
-                                                        "caseName": "A2 Vs B2",
+                                                    {,
                                                         "caseNumber": "112233445"
                                                     }
                                                 ]
@@ -112,7 +90,6 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678"
                                                     }
                                                 ]
@@ -121,16 +98,11 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A2 Vs B2",
                                                         "caseNumber": "112233445"
                                                     }
                                                 ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "9.40am",
-                                        "durationAsHours": 1,
-                                        "durationAsMinutes": 5
+                                        ]
                                     }
                                 ]
                             }
@@ -141,11 +113,8 @@
                         "courtRoomName": "to be allocated",
                         "session": [
                             {
-                                "sessionStartTime": "",
-                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
                                         "johKnownAs": "Firstname1 Surname1"
                                     },
                                     {
@@ -161,22 +130,10 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "caseid111",
-                                                                "name": "casename111"
-                                                            },
-                                                            {
-                                                                "caseId": "caseid222",
-                                                                "name": "casename333"
-                                                            }
-                                                        ]
                                                     },
                                                     {
-                                                        "caseName": "A2 Vs B2",
                                                         "caseNumber": "112233445"
                                                     }
                                                 ],
@@ -202,7 +159,6 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A2 Vs B2",
                                                         "caseNumber": "112233445"
                                                     }
                                                 ]
@@ -218,7 +174,6 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678"
                                                     }
                                                 ]
@@ -227,16 +182,11 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A2 Vs B2",
                                                         "caseNumber": "112233445"
                                                     }
                                                 ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "9.40am",
-                                        "durationAsHours": 1,
-                                        "durationAsMinutes": 5
+                                        ]
                                     }
                                 ]
                             }
@@ -249,22 +199,13 @@
         {
             "courtHouse": {
                 "courtHouseName": "Court B",
-                "courtHouseAddress": {
-                    "line": ["Address Line 1", "Address Line 2"],
-                    "town": "Town B",
-                    "county": "County B",
-                    "postCode": "BB1 BB1"
-                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
-                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
                                         "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
@@ -277,7 +218,6 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3"
                                                     }
@@ -297,22 +237,13 @@
         {
             "courtHouse": {
                 "courtHouseName": "Court B",
-                "courtHouseAddress": {
-                    "line": ["Address Line 1", "Address Line 2"],
-                    "town": "Town B",
-                    "county": "County B",
-                    "postCode": "BB1 BB1"
-                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
-                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
                                         "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
@@ -345,22 +276,13 @@
         {
             "courtHouse": {
                 "courtHouseName": "Court B",
-                "courtHouseAddress": {
-                    "line": ["Address Line 1", "Address Line 2"],
-                    "town": "Town B",
-                    "county": "County B",
-                    "postCode": "BB1 BB1"
-                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
-                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
                                         "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
