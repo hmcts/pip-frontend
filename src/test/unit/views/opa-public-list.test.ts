@@ -89,24 +89,33 @@ describe('OPA Public List page', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
             expect(tableData[2].innerHTML).contains('Offence title', 'Could not find the offence title');
             expect(tableData[2].innerHTML).contains('Offence section', 'Could not find the offence section');
-            expect(tableData[2].innerHTML).contains('Offence Reporting Restriction detail', 'Could not find the offence reporting restriction');
+            expect(tableData[2].innerHTML).contains(
+                'Offence Reporting Restriction detail',
+                'Could not find the offence reporting restriction'
+            );
         });
 
         it('should have the correct prosecutor', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
-            expect(tableData[3].innerHTML).contains('Prosecution Authority ref 1', "Could not find the offender's prosecutor");
+            expect(tableData[3].innerHTML).contains(
+                'Prosecution Authority ref 1',
+                "Could not find the offender's prosecutor"
+            );
         });
 
         it('should have scheduled first hearing date', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
-            expect(tableData[4].innerHTML).contains('14/09/16', "Could not find the scheduled first hearing date");
+            expect(tableData[4].innerHTML).contains('14/09/16', 'Could not find the scheduled first hearing date');
         });
 
         it('should have case reporting restriction', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
-            expect(tableData[5].innerHTML).contains('Case Reporting Restriction detail line 1', "Could not find the case reporting restriction");
+            expect(tableData[5].innerHTML).contains(
+                'Case Reporting Restriction detail line 1',
+                'Could not find the case reporting restriction'
+            );
         });
-    })
+    });
 
     describe('in Welsh', () => {
         beforeAll(async () => {
@@ -168,25 +177,31 @@ describe('OPA Public List page', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
             expect(tableData[2].innerHTML).contains('Offence title', 'Could not find the offence title');
             expect(tableData[2].innerHTML).contains('Offence section', 'Could not find the offence section');
-            expect(tableData[2].innerHTML).contains('Offence Reporting Restriction detail', 'Could not find the offence reporting restriction');
+            expect(tableData[2].innerHTML).contains(
+                'Offence Reporting Restriction detail',
+                'Could not find the offence reporting restriction'
+            );
         });
 
         it('should have the correct prosecutor', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
-            expect(tableData[3].innerHTML).contains('Prosecution Authority ref 1', "Could not find the offender's prosecutor");
+            expect(tableData[3].innerHTML).contains(
+                'Prosecution Authority ref 1',
+                "Could not find the offender's prosecutor"
+            );
         });
 
         it('should have scheduled first hearing date', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
-            expect(tableData[4].innerHTML).contains('14/09/16', "Could not find the scheduled first hearing date");
+            expect(tableData[4].innerHTML).contains('14/09/16', 'Could not find the scheduled first hearing date');
         });
 
         it('should have case reporting restriction', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
-            expect(tableData[5].innerHTML).contains('Case Reporting Restriction detail line 1', "Could not find the case reporting restriction");
+            expect(tableData[5].innerHTML).contains(
+                'Case Reporting Restriction detail line 1',
+                'Could not find the case reporting restriction'
+            );
         });
-
-    })
-
-
-})
+    });
+});

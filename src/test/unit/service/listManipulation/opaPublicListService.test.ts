@@ -45,4 +45,4 @@ describe('OPA Public List Service', () => {
             'Case Reporting Restriction detail line 1, Case Reporting restriction detail line 2'
         );
     });
-})
+});

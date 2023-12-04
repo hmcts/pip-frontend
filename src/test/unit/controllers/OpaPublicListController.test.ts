@@ -155,4 +155,4 @@ describe('OPA Public List Controller', () => {
         await opaPublicListController.get(request, response);
         return responseMock.verify();
     });
-})
+});
