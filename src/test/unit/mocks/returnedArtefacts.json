@@ -113,5 +113,50 @@
         "contentDate": "2022-02-14T14:14:59.73967",
         "isFlatFile": false,
         "payload": "http://test.com"
+    },
+    {
+        "artefactId": "555",
+        "provenance": "prov1",
+        "sourceArtefactId": "543",
+        "artefactType": "LIST",
+        "sensitivity": "PUBLIC",
+        "language": "WELSH",
+        "search": {
+            "cases": [
+                {
+                    "caseNumber": null,
+                    "caseName": null,
+                    "caseUrn": "URN1234"
+                }
+            ],
+            "parties": [
+                {
+                    "cases": [
+                        {
+                            "caseNumber": null,
+                            "caseName": null,
+                            "caseUrn": "URN1234"
+                        }
+                    ],
+                    "organisations": [
+                        "organisationName"
+                    ],
+                    "individuals": [
+                        {
+                            "forename": "firstName",
+                            "middleName": "middleName",
+                            "surname": "surname"
+                        }
+                    ]
+                }
+            ]
+        },
+        "displayFrom": "2023-02-02T10:40:00Z",
+        "displayTo": "2030-02-02T10:40:00Z",
+        "listType": "OPA_PUBLIC_LIST",
+        "locationId": "500",
+        "contentDate": "2023-08-24T00:00:00Z",
+        "isFlatFile": false,
+        "payload": "http://test.com"
     }
 ]
