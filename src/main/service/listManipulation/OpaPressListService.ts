@@ -120,7 +120,7 @@ export class OpaPressListService {
         return [surname, forenames].filter(n => n.length > 0).join(', ');
     }
 
-    private processProsecutor(hearing): string {
+    public processProsecutor(hearing): string {
         const prosecutor = this.getPartyInformant(hearing);
         if (prosecutor.length === 0) {
             return this.getPartyProsecutor(hearing);
