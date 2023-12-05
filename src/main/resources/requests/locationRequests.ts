@@ -1,7 +1,9 @@
 import { Location } from '../../models/location';
 import { dataManagementApi } from './utils/axiosConfig';
+import { Logger } from '@hmcts/nodejs-logging';
 import { LogHelper } from '../logging/logHelper';
 
+const logger = Logger.getLogger('requests');
 const logHelper = new LogHelper();
 
 export class LocationRequests {
@@ -68,7 +70,7 @@ export class LocationRequests {
             const response = await dataManagementApi.get('/locations/download/csv', {
                 responseType: 'arraybuffer',
             });
-            console.log('Reference data download requested by user with ID: ' + userId);
+            logger.info(`Reference data download requested by user with ID ${userId}`);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve location reference data');
