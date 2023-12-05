@@ -78,6 +78,29 @@
                                                         }
                                                     },
                                                     {
+                                                        "partyRole": "DEFENDANT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "defendantOrganisationName",
+                                                            "organisationAddress": {
+                                                                "line": [
+                                                                    "ORGANISATION ADDRESS"
+                                                                ],
+                                                                "town": "town name",
+                                                                "county": "",
+                                                                "postCode": ""
+                                                            },
+                                                            "offence": [
+                                                                {
+                                                                    "offenceTitle": "Organisation Offence Title",
+                                                                    "offenceSection": "Organisation Offence Section",
+                                                                    "reportingRestrictionDetail": [
+                                                                        "Offence Reporting Restriction detail"
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    },
+                                                    {
                                                         "partyRole": "PROSECUTING_AUTHORITY",
                                                         "friendlyRoleName": "Prosecuting Authority",
                                                         "organisationDetails": {
@@ -89,13 +112,7 @@
                                                                 "town": "town name",
                                                                 "county": "",
                                                                 "postCode": ""
-                                                            },
-                                                            "offence": [
-                                                                {
-                                                                    "offenceTitle": "",
-                                                                    "offenceSection": ""
-                                                                }
-                                                            ]
+                                                            }
                                                         }
                                                     }
                                                 ]

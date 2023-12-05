@@ -14,6 +14,11 @@ describe('OPA Public List Service', () => {
         expect(data[0]['name']).is.equal('IndividualSurname, individualFirstName individualMiddleName');
     });
 
+    it('should format organisation defendant name', async () => {
+        const data = await opaPublicListService.formatOpaPublicList(input);
+        expect(data[2]['name']).is.equal('defendantOrganisationName');
+    });
+
     it('should return URN', async () => {
         const data = await opaPublicListService.formatOpaPublicList(input);
         expect(data[0]['caseUrn']).is.equal('URN1234');
