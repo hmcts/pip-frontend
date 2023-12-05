@@ -282,7 +282,7 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.subscriptionConfigureListController.filterValues
     );
-    app.get('/subscription-configure-list-confirmed', reRenderView);
+    app.get('/subscription-configure-list-confirmed', isPermittedMedia, reRenderView);
     app.post(
         '/subscription-configure-list-confirmed',
         isPermittedMedia,
