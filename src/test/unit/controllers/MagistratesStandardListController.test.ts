@@ -66,9 +66,9 @@ describe('Magistrate Standard List Controller', () => {
             contentDate: DateTime.fromISO(metaData['contentDate'], {
                 zone: 'utc',
             }).toFormat('dd MMMM yyyy'),
-            publishedDate: '14 September 2016',
+            publishedDate: '01 December 2023',
             courtName: "Abergavenny Magistrates' Court",
-            publishedTime: '12:30am',
+            publishedTime: '11:30pm',
             provenance: 'prov1',
             version: '1.0',
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nLancashire\nAA1 AA1',
