@@ -104,7 +104,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
 
     it('should display court email summary paragraph', () => {
         const summary = htmlRes.getElementsByClassName(summaryText);
-        expect(summary[0].innerHTML).contains('court1@moj.gov.u', 'Could not find the court name in summary text');
+        expect(summary[0].innerHTML).contains('court1@moj.gov.uk', 'Could not find the court name in summary text');
     });
 
     it('should display court contact number summary paragraph', () => {
