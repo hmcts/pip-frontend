@@ -256,7 +256,6 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3"
                                                     }
@@ -295,7 +294,6 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3"
                                                     }
