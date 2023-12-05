@@ -21,7 +21,7 @@ describe('Magistrate Standard List Data manipulation service', () => {
                 languageFile
             );
             expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['time']).to.equal(
-                '2:30pm'
+                '1:30pm'
             );
         });
 
@@ -33,7 +33,7 @@ describe('Magistrate Standard List Data manipulation service', () => {
             );
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantHeading']
-            ).to.equal('Surname1, John Smith1 (male)*');
+            ).to.equal('Surname1, Forename1 (male)*');
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantInfo'][0][
                     'defendantDateOfBirth'
@@ -71,12 +71,12 @@ describe('Magistrate Standard List Data manipulation service', () => {
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantInfo'][0][
                     'allOffences'
                 ][0]['formattedConvictionDate']
-            ).to.equal('14/09/2016');
+            ).to.equal('13/12/2023');
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['defendants'][0]['defendantInfo'][0][
                     'allOffences'
                 ][0]['formattedAdjournedDate']
-            ).to.equal('14/09/2016');
+            ).to.equal('13/12/2023');
         });
     });
 });
