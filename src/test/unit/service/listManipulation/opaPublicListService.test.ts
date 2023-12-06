@@ -11,12 +11,12 @@ describe('OPA Public List Service', () => {
 
     it('should format individual defendant name', async () => {
         const data = await opaPublicListService.formatOpaPublicList(input);
-        expect(data[0]['name']).is.equal('IndividualSurname, individualFirstName individualMiddleName');
+        expect(data[0]['name']).is.equal('individualFirstName individualMiddleName IndividualSurname');
     });
 
     it('should format organisation defendant name', async () => {
         const data = await opaPublicListService.formatOpaPublicList(input);
-        expect(data[2]['name']).is.equal('defendantOrganisationName');
+        expect(data[6]['name']).is.equal('defendantOrganisationName');
     });
 
     it('should return URN', async () => {
@@ -34,9 +34,9 @@ describe('OPA Public List Service', () => {
         expect(offence['offenceReportingRestriction']).is.equal('Offence Reporting Restriction detail');
     });
 
-    it('should return prosecuting authority', async () => {
+    it('should return prosecuting authority informant', async () => {
         const data = await opaPublicListService.formatOpaPublicList(input);
-        expect(data[0]['prosecutor']).is.equal('Prosecution Authority ref 1');
+        expect(data[2]['prosecutor']).is.equal('Prosecution Authority ref 1');
     });
 
     it('should return formatted scheduled hearing date', async () => {
