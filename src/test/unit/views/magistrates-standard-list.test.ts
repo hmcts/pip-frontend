@@ -50,7 +50,7 @@ describe('Magistrate Standard List page', () => {
     it('should display publication date', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
         expect(body[1].innerHTML).contains(
-            'Last updated: 14 September 2016 at 12:30am',
+            'Last updated: 01 December 2023 at 11:30pm',
             'Could not find the publication date'
         );
     });
@@ -81,7 +81,7 @@ describe('Magistrate Standard List page', () => {
     it('should display accordion open/close all', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Defendant Name:  Surname1, John Smith1 (male)',
+            'Defendant Name:  Surname1, Forename1 (male)',
             'Could not find the accordion heading'
         );
     });
@@ -89,7 +89,7 @@ describe('Magistrate Standard List page', () => {
     it('should display defendant information correctly', () => {
         const div1 = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding');
         const items1 = div1.item(0).children;
-        expect(items1[0].innerHTML).contains('2:30pm');
+        expect(items1[0].innerHTML).contains('1:30pm');
         expect(items1[0].innerHTML).contains('2 hours 30 mins');
         expect(items1[0].innerHTML).contains('[2 of 3]');
         expect(items1[2].innerHTML).contains('39');
@@ -115,7 +115,7 @@ describe('Magistrate Standard List page', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[1].innerHTML).contains('NOT_GUILTY');
         expect(cell[3].innerHTML).contains('Need to confirm');
-        expect(cell[5].innerHTML).contains('14/09/2016');
-        expect(cell[7].innerHTML).contains('14/09/2016');
+        expect(cell[5].innerHTML).contains('13/12/2023');
+        expect(cell[7].innerHTML).contains('13/12/2023');
     });
 });
