@@ -14,11 +14,13 @@ export class OpaPublicListService {
                         sitting.hearing.forEach(hearing => {
                             const allDefendants = this.processPartyRoles(hearing);
                             allDefendants.forEach(defendant => {
-                                const caseDetails = this.buildCaseDetails(hearing.case);
-                                rows.push({
-                                    ...caseDetails,
-                                    ...defendant,
-                                });
+                                hearing.case.forEach(hearingCase => {
+                                    const caseDetails = this.buildCaseDetails(hearingCase);
+                                    rows.push({
+                                        ...caseDetails,
+                                        ...defendant,
+                                    });
+                                })
                             });
                         });
                     });
@@ -68,9 +70,9 @@ export class OpaPublicListService {
         const middleNames = ListParseHelperService.writeStringIfValid(individual?.individualMiddleName);
         const surname = ListParseHelperService.writeStringIfValid(individual?.individualSurname);
         const forenames = [firstName, middleNames].filter(n => n.length > 0).join(' ');
-        return [surname, forenames]
+        return [forenames, surname]
             .filter(n => n.length > 0)
-            .join(', ')
+            .join(' ')
             .toString();
     }
 
@@ -90,25 +92,20 @@ export class OpaPublicListService {
         };
     }
 
-    private buildCaseDetails(hearingCase) {
-        let caseUrn = '';
-        let caseReportingRestriction = '';
+    private buildCaseDetails(hearingCase): any {
         let scheduledHearingDate = '';
-        hearingCase.forEach(hearingCase => {
-            caseUrn = hearingCase.caseUrn;
-            caseReportingRestriction = hearingCase.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ');
-            if (hearingCase.scheduledHearingDate.length > 0) {
-                scheduledHearingDate = formatDate(
-                    ListParseHelperService.writeStringIfValid(hearingCase.scheduledHearingDate),
-                    'dd/MM/yy',
-                    'en'
-                );
-            }
-        });
+        const caseReportingRestriction = hearingCase.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ');
+        if (hearingCase.scheduledHearingDate.length > 0) {
+            scheduledHearingDate = formatDate(
+                ListParseHelperService.writeStringIfValid(hearingCase.scheduledHearingDate),
+                'dd/MM/yy',
+                'en'
+            );
+        }
         return {
-            caseUrn,
+            caseUrn: hearingCase.caseUrn,
             caseReportingRestriction,
-            scheduledHearingDate,
+            scheduledHearingDate: scheduledHearingDate,
         };
     }
 }
