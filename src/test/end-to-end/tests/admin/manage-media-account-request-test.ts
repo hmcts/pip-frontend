@@ -40,7 +40,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.see(TEST_EMPLOYER);
     I.see('What happens next');
     I.see(
-        'This account will be created and the applicant will be notified to set up their account. If an account' +
+        'This account has been created and the applicant will be notified to confirm their details. If an account' +
             ' already exists the applicant will be asked to sign in, or choose forgot password.'
     );
     I.logout();
