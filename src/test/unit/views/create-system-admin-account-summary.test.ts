@@ -136,7 +136,7 @@ describe('Create System Admin Account Summary page', () => {
                 const whatNextMessage = htmlRes.getElementsByClassName('govuk-body')[0];
                 expect(whatNextTitle.innerHTML).contains('What happens next', 'Could not find title');
                 expect(whatNextMessage.innerHTML).contains(
-                    'This account will be created and the applicant will be notified to set up their account.',
+                    'This account has been created and the applicant will be notified to confirm their details.',
                     'Could not find a message'
                 );
             });
