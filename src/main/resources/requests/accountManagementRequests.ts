@@ -54,7 +54,7 @@ export class AccountManagementRequests {
 
     public async createMediaAccount(form): Promise<boolean> {
         try {
-            const token = await getAccountManagementCredentials();
+            const token = await getAccountManagementCredentials('');
             await superagent
                 .post(`${accountManagementApiUrl}/application`)
                 .set('enctype', 'multipart/form-data')
@@ -77,7 +77,7 @@ export class AccountManagementRequests {
 
     public async bulkCreateMediaAccounts(file, filename, requester): Promise<boolean> {
         try {
-            const token = await getAccountManagementCredentials();
+            const token = await getAccountManagementCredentials('');
             await superagent
                 .post(`${accountManagementApiUrl}/account/media-bulk-upload`)
                 .set('enctype', 'multipart/form-data')
