@@ -19,7 +19,7 @@ const createFile = (filePath, fileName) => {
 };
 
 export const createLocation = async (locationId: string, locationName: string) => {
-    const token = await getDataManagementCredentials();
+    const token = await getDataManagementCredentials('');
     try {
         await superagent
             .post(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/location/${locationId}`)
@@ -40,7 +40,7 @@ export const clearTestData = async () => {
 };
 
 const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
-    const tokenDataManagement = await getDataManagementCredentials();
+    const tokenDataManagement = await getDataManagementCredentials('');
     try {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/publication/${testSuitePrefix}`)
@@ -52,7 +52,7 @@ const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
 };
 
 const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string) => {
-    const tokenSubscriptionManagement = await getSubscriptionManagementCredentials();
+    const tokenSubscriptionManagement = await getSubscriptionManagementCredentials('');
     try {
         await superagent
             .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/testing-support/subscription/${testSuitePrefix}`)
@@ -64,7 +64,7 @@ const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string) => {
 };
 
 const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
-    const tokenDataManagement = await getDataManagementCredentials();
+    const tokenDataManagement = await getDataManagementCredentials('');
     try {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/testing-support/location/${testSuitePrefix}`)
@@ -76,7 +76,7 @@ const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
 };
 
 const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
-    const tokenDataManagement = await getAccountManagementCredentials();
+    const tokenDataManagement = await getAccountManagementCredentials('');
     try {
         await superagent
             .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/account/${testSuitePrefix}`)
@@ -88,7 +88,7 @@ const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
 };
 
 const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: string) => {
-    const tokenDataManagement = await getAccountManagementCredentials();
+    const tokenDataManagement = await getAccountManagementCredentials('');
     try {
         await superagent
             .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/application/${testSuitePrefix}`)
@@ -100,7 +100,7 @@ const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: string) =>
 };
 
 export const createSubscription = async (locationId: string, locationName: string, userId: string) => {
-    const token = await getSubscriptionManagementCredentials();
+    const token = await getSubscriptionManagementCredentials('');
     const payload = {
         channel: 'EMAIL',
         searchType: 'LOCATION_ID',
@@ -129,7 +129,7 @@ export const uploadPublication = async (
     listName = 'civilAndFamilyDailyCauseList.json',
     listType = 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'
 ) => {
-    const token = await getDataManagementCredentials();
+    const token = await getDataManagementCredentials('');
 
     const filePath = path.join(__dirname, './mocks/' + listName);
     const file = createFile(filePath, listName);
@@ -155,7 +155,7 @@ export const uploadPublication = async (
 };
 
 export const deletePublicationByArtefactId = async (artefactId: string) => {
-    const token = await getDataManagementCredentials();
+    const token = await getDataManagementCredentials('');
     try {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${artefactId}`)
@@ -167,7 +167,7 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
 };
 
 export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
-    const token = await getAccountManagementCredentials();
+    const token = await getAccountManagementCredentials('');
     const thirdPartyUserAccount = [
         {
             forenames: 'firstName',
@@ -175,7 +175,7 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
             userProvenance: 'THIRD_PARTY',
             provenanceUserId: provenanceUserId,
             email: '',
-            roles: 'GENERAL_THIRD_PARTY'
+            roles: 'GENERAL_THIRD_PARTY',
         },
     ];
 
@@ -199,7 +199,7 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
 };
 
 export const deleteThirdPartyUserAccount = async (userId: string) => {
-    const token = await getAccountManagementCredentials();
+    const token = await getAccountManagementCredentials('');
     try {
         await superagent
             .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
@@ -217,7 +217,7 @@ export const deleteThirdPartyUserAccount = async (userId: string) => {
 };
 
 export const createSystemAdminAccount = async (firstName: string, surname: string, email: string) => {
-    const token = await getAccountManagementCredentials();
+    const token = await getAccountManagementCredentials('');
     const systemAdminAccount = {
         email: email,
         firstName: firstName,
@@ -254,7 +254,7 @@ export const createTestUserAccount = async (
     email: string,
     role: string = 'VERIFIED'
 ) => {
-    const token = await getAccountManagementCredentials();
+    const token = await getAccountManagementCredentials('');
 
     const verifiedUserAzureAccount = {
         email: email,
