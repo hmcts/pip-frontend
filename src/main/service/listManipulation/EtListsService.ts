@@ -68,7 +68,6 @@ export class EtListsService {
                                     respondent: hearing['respondent'],
                                     respondentRep: hearing['respondentRepresentative'],
                                     hearingType: hearing['hearingType'],
-                                    jurisdiction: thisCase['caseType'],
                                     hearingPlatform: sitting['caseHearingChannel'],
                                 };
                                 rows.push(row);
