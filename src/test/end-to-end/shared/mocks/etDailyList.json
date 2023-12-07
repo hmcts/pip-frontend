@@ -21,8 +21,7 @@
 							"hearing": [{
 								"case": [{
 									"caseNumber": "12341231",
-									"caseSequenceIndicator": "2 of 3",
-									"caseType": "This is a case type"
+									"caseSequenceIndicator": "2 of 3"
 								}],
 								"party": [{
 										"partyRole": "CLAIMANT_PETITIONER",
@@ -79,8 +78,7 @@
 										"case": [{
                                             "caseName": "Test Case Name",
 											"caseNumber": "12341232",
-                                            "caseUrn": "18472381412",
-											"caseType": "This is a case type"
+                                            "caseUrn": "18472381412"
 										}],
 										"party": [{
 												"partyRole": "CLAIMANT_PETITIONER",
@@ -110,8 +108,7 @@
 									"hearing": [{
 										"case": [{
                                             "caseUrn": "Case URN",
-											"caseNumber": "Case URN",
-											"caseType": "This is a case type"
+											"caseNumber": "Case URN"
 										}],
 										"party": [{
 												"partyRole": "CLAIMANT_PETITIONER",
@@ -148,8 +145,7 @@
 									"hearing": [{
 										"case": [{
                                             "caseNumber": "12341234",
-											"caseSequenceIndicator": "2 of 3",
-											"caseType": "This is a case type"
+											"caseSequenceIndicator": "2 of 3"
 										}],
 										"party": [{
 												"partyRole": "CLAIMANT_PETITIONER",
@@ -182,8 +178,7 @@
 									"hearing": [{
 										"case": [{
 											"caseNumber": "12341235",
-                                            "caseUrn": "99999999",
-											"caseType": "This is a case type"
+                                            "caseUrn": "99999999"
 										}],
 										"party": [{
 												"partyRole": "CLAIMANT_PETITIONER",
