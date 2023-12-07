@@ -118,7 +118,7 @@ Scenario(
         I.switchToNextTab(1);
         I.switchToPreviousTab(1);
         I.click('.govuk-details__summary-text');
-        I.waitForText("After you've completed this form, the applicant will be emailed the following:");
+        I.waitForText("After you\\'ve completed this form, the applicant will be emailed the following:");
         I.see('The applicant is not an accredited member of the media.');
         I.seeElement(locate('//a').withText('Court and tribunal hearings service'));
         I.see('ID provided has expired or is not a Press ID.');
