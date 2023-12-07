@@ -137,18 +137,18 @@ describe('ET Daily List page', () => {
 
     it('should display Case Name without Case Sequence Indicator', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        const x = 9;
+        const x = 8;
         expect(cell[x].innerHTML).equals('3 mins');
     });
 
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[13].innerHTML).contains('Hearing Type 1');
+        expect(cell[12].innerHTML).contains('Hearing Type 1');
     });
 
     it('should display Hearing platform (Location)', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[7].innerHTML).contains('This is a sitting channel');
+        expect(cell[6].innerHTML).contains('This is a sitting channel');
     });
 
     it('should display Respondent', () => {
