@@ -2427,30 +2427,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/browser-chromium@npm:1.39.0":
-  version: 1.39.0
-  resolution: "@playwright/browser-chromium@npm:1.39.0"
+"@playwright/browser-chromium@npm:1.40.0":
+  version: 1.40.0
+  resolution: "@playwright/browser-chromium@npm:1.40.0"
   dependencies:
-    playwright-core: 1.39.0
-  checksum: 43cbcef98ee5c8e704f18770f53d7fcb20e11d11dfaef790b6d5fd1abd27cc71c032272a15cfb7c6b3f1ce8a4b8f707000b5318d745594ac5f9f300928414ac3
+    playwright-core: 1.40.0
+  checksum: cbf7214ee0b8c31aa483dc7e32dfc0390d94b544887d0ecf555cb00623774fbc0a6b3d6899bbd87f802c008fd0a69949b636fb1f93f01660948fa699780135a9
   languageName: node
   linkType: hard
 
-"@playwright/browser-firefox@npm:1.39.0":
-  version: 1.39.0
-  resolution: "@playwright/browser-firefox@npm:1.39.0"
+"@playwright/browser-firefox@npm:1.40.0":
+  version: 1.40.0
+  resolution: "@playwright/browser-firefox@npm:1.40.0"
   dependencies:
-    playwright-core: 1.39.0
-  checksum: 6d6c73f26894f78c1851400685e4232284e88a221f7d9caa231114f7f6038f4def96e15f91a1f9b6ec146e95865153973dbed4f318cb48e893adc73371815d30
+    playwright-core: 1.40.0
+  checksum: deac31031030722de0590438016e2cf068db4cdf648a3330e0f651b8cc8720877634e5da1cd561a817c18a615149c3de90ef09bd77bed270b3b2271e0488350f
   languageName: node
   linkType: hard
 
-"@playwright/browser-webkit@npm:1.39.0":
-  version: 1.39.0
-  resolution: "@playwright/browser-webkit@npm:1.39.0"
+"@playwright/browser-webkit@npm:1.40.0":
+  version: 1.40.0
+  resolution: "@playwright/browser-webkit@npm:1.40.0"
   dependencies:
-    playwright-core: 1.39.0
-  checksum: e680f3291ecc3882f714e0e6eeda71c94ddc5698ee93adc2415dd9a72ea6424b3e4bbc8cc6aa4702a8210eb2e8c1e39f00dac5d1aa73ab758afdee2cf89fc17d
+    playwright-core: 1.40.0
+  checksum: 46f9d0d012c91b4ec125927e532185156390c9e3864a0e0df86fec39eb2cb46dcb04b1757a2c7a9cf09e28755d3fc35aa86dabc610fec2bba2e95689a38e5fd6
   languageName: node
   linkType: hard
 
@@ -10637,27 +10637,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.39.0":
-  version: 1.39.0
-  resolution: "playwright-core@npm:1.39.0"
+"playwright-core@npm:1.40.0":
+  version: 1.40.0
+  resolution: "playwright-core@npm:1.40.0"
   bin:
     playwright-core: cli.js
-  checksum: 556e78dee4f9890facf2af8249972e0d6e01a5ae98737b0f6b0166c660a95ffee4cb79350335b1ef96430a0ef01d3669daae9099fa46c8d403d11c623988238b
+  checksum: 57de5c91a4c404b120ed2af8541b21cdedcbc4f27477341157666d356bbee3b3fab8e61d020f0f450708fa2e8f6dc244b9224cb1985d5426e609cebed15af095
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.39.0":
-  version: 1.39.0
-  resolution: "playwright@npm:1.39.0"
+"playwright-core@npm:1.40.1":
+  version: 1.40.1
+  resolution: "playwright-core@npm:1.40.1"
+  bin:
+    playwright-core: cli.js
+  checksum: 84d92fb9b86e3c225b16b6886bf858eb5059b4e60fa1205ff23336e56a06dcb2eac62650992dede72f406c8e70a7b6a5303e511f9b4bc0b85022ede356a01ee0
+  languageName: node
+  linkType: hard
+
+"playwright@npm:^1.40.0":
+  version: 1.40.1
+  resolution: "playwright@npm:1.40.1"
   dependencies:
     fsevents: 2.3.2
-    playwright-core: 1.39.0
+    playwright-core: 1.40.1
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 96d8ca5aa25465c1c5d554d0d6071981d55e22477800ff8f5d47a53ca75193d60ece2df538a01b7165b3277dd5493c67603a5acda713029df7fbd95ce2417bc9
+  checksum: 9e36791c1b4a649c104aa365fdd9d049924eeb518c5967c0e921aa38b9b00994aa6ee54784d6c2af194b3b494b6f69772673081ef53c6c4a4b2065af9955c4ba
   languageName: node
   linkType: hard
 
@@ -10922,9 +10931,9 @@ __metadata:
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^1.1.0
     "@ministryofjustice/frontend": ^1.8.0
-    "@playwright/browser-chromium": 1.39.0
-    "@playwright/browser-firefox": 1.39.0
-    "@playwright/browser-webkit": 1.39.0
+    "@playwright/browser-chromium": 1.40.0
+    "@playwright/browser-firefox": 1.40.0
+    "@playwright/browser-webkit": 1.40.0
     "@types/chai-as-promised": ^7.1.8
     "@types/config": ^3.3.3
     "@types/cookie-parser": ^1.4.6
@@ -10995,7 +11004,7 @@ __metadata:
     pa11y: 6.2.3
     passport-azure-ad: 4.3.5
     passport-custom: ^1.1.1
-    playwright: ^1.39.0
+    playwright: ^1.40.0
     postcss: ^8.4.31
     prettier: ^3.0.3
     pretty-print-json: ^2.0.4

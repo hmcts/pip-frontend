@@ -19,7 +19,7 @@ describe('Bulk Unsubscribe Confirmed Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Subscription(s) removed', 'Page title does not match header');
+        expect(pageTitle).contains('Email subscriptions updated', 'Page title does not match header');
     });
 
     it('should display confirmation panel component', () => {
@@ -30,8 +30,8 @@ describe('Bulk Unsubscribe Confirmed Page', () => {
     it('should display confirmation within the panel', () => {
         const panelTitle = htmlRes.getElementsByClassName('govuk-panel__title');
         const panelMessage = htmlRes.getElementsByClassName('govuk-panel__body');
-        expect(panelTitle[0].innerHTML).to.contains('Subscription(s) removed');
-        expect(panelMessage[0].innerHTML).to.contains('Your subscription(s) has been removed');
+        expect(panelTitle[0].innerHTML).to.contains('Email subscriptions updated');
+        expect(panelMessage[0]).to.be.undefined;
     });
 
     it('should contain you account url', () => {
