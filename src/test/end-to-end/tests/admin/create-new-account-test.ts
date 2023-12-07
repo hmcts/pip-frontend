@@ -30,7 +30,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.click('Confirm');
     I.waitForText('Account has been created');
     I.see('What happens next');
-    I.see('This account will be created and the applicant will be notified to set up their account.');
+    I.see('This account has been created and the applicant will be notified to confirm their details.');
     I.deleteAdminAccount(emailInternalSuperAdminCTSC);
 
     I.click('Home');
@@ -49,7 +49,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.click('Confirm');
     I.waitForText('Account has been created');
     I.see('What happens next');
-    I.see('This account will be created and the applicant will be notified to set up their account.');
+    I.see('This account has been created and the applicant will be notified to confirm their details.');
     I.deleteAdminAccount(emailInternalSuperAdminLocal);
 
     I.click('Home');
@@ -68,7 +68,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.click('Confirm');
     I.waitForText('Account has been created');
     I.see('What happens next');
-    I.see('This account will be created and the applicant will be notified to set up their account.');
+    I.see('This account has been created and the applicant will be notified to confirm their details.');
     I.deleteAdminAccount(emailInternalAdminCTSC);
 
     I.click('Home');
@@ -87,7 +87,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     I.click('Confirm');
     I.waitForText('Account has been created');
     I.see('What happens next');
-    I.see('This account will be created and the applicant will be notified to set up their account.');
+    I.see('This account has been created and the applicant will be notified to confirm their details.');
     I.deleteAdminAccount(emailInternalAdminLocal);
 
     I.logout();
