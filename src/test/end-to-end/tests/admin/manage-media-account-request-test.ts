@@ -18,17 +18,17 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.waitForText('Select application to assess');
     I.see(testFullName);
     I.click(locate('//tr').withText(testFullName).find('a').withText('View'));
-    I.waitForText("Applicant's details");
+    I.waitForText("Applicant\\'s details");
     I.see(testFullName);
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
     I.click(locate('//div').withText('Proof of ID').find('a').withText('View'));
     I.switchToNextTab(1);
     I.switchToPreviousTab(1);
-    I.see("Applicant's details");
+    I.see("Applicant\\'s details");
     I.click('#approve');
     I.waitForText('Are you sure you want to approve this application?');
-    I.see("Applicant's Details");
+    I.see("Applicant\\'s Details");
     I.see(testFullName);
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
@@ -79,7 +79,7 @@ Scenario(
         I.waitForText('Select application to assess');
         I.see(testFullName);
         I.click(locate('//tr').withText(testFullName).find('a').withText('View'));
-        I.waitForText("Applicant's details");
+        I.waitForText("Applicant\\'s details");
         I.see(testFullName);
         I.see(emailTestMediaAccount);
         I.see(TEST_EMPLOYER);
@@ -88,7 +88,7 @@ Scenario(
         I.click('#no');
         I.click('Continue');
 
-        I.waitForText("Applicant's details");
+        I.waitForText("Applicant\\'s details");
         I.click('#reject');
         I.waitForText('Why are you rejecting this application?');
         I.see('Select all that apply.');
@@ -101,7 +101,7 @@ Scenario(
         I.click('#no');
         I.click('Continue');
 
-        I.waitForText("Applicant's details");
+        I.waitForText("Applicant\\'s details");
         I.click('#reject');
         I.waitForText('Why are you rejecting this application?');
         I.click('#rejection-reasons');
@@ -110,7 +110,7 @@ Scenario(
         I.click('Continue');
 
         I.waitForText('Are you sure you want to reject this application?');
-        I.see("Applicant's Details");
+        I.see("Applicant\\'s Details");
         I.see(testFullName);
         I.see(emailTestMediaAccount);
         I.see(TEST_EMPLOYER);
