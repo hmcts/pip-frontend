@@ -193,8 +193,7 @@ Scenario(
         I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
-        I.waitForText('Subscription(s) removed');
-        I.see('Your subscription(s) has been removed.');
+        I.waitForText('Email subscriptions updated');
         I.logout();
     }
 ).tag('@CrossBrowser');
@@ -295,7 +294,7 @@ Scenario(
         I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
-        I.waitForText('Subscription(s) removed');
+        I.waitForText('Email subscriptions updated');
         I.logout();
     }
 ).tag('@Nightly');
