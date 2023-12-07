@@ -2648,6 +2648,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/axios-token-interceptor@npm:^0.2.7":
+  version: 0.2.7
+  resolution: "@types/axios-token-interceptor@npm:0.2.7"
+  dependencies:
+    axios: "*"
+  checksum: 44aa55d1f401bc92ab110cce1fd0cf5a46fb5d6c528778381b4017a1a72ec757eae87cb05fdcc2c202cc06cadc84142e11c363f601783ca86ada18798c6842e8
+  languageName: node
+  linkType: hard
+
 "@types/babel__core@npm:^7.1.14":
   version: 7.20.3
   resolution: "@types/babel__core@npm:7.20.3"
@@ -4082,12 +4091,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios-oauth-client@npm:^1.5.0":
-  version: 1.5.0
-  resolution: "axios-oauth-client@npm:1.5.0"
+"axios-oauth-client@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "axios-oauth-client@npm:2.0.4"
   dependencies:
-    qs: ^6.10.1
-  checksum: 9810af1e39f3f14cad592744c47880a189bacc9a1b9d2b512544df5c5501cbd47695f6d424dd30b5717ef0fe90fd624d5c3972efa7f57dde27c90fc04b1eecbc
+    qs: ^6.11.0
+  peerDependencies:
+    axios: ^1.2.1
+  checksum: bf7df94022b43c8c7e44f63ee2d339a23a591979072aedf4372f43e1313182f5b22594099b1f12ee4366212cbdcb75cf8a611f9e736cdc0468084b6ab2f62e90
   languageName: node
   linkType: hard
 
@@ -4097,6 +4108,17 @@ __metadata:
   dependencies:
     lock: ^1.1.0
   checksum: 8238c7b6c16f654a443b29f665b0e23b5fff592a51d4f343dae766d9da88a492f1efd43cfb933a94fdea6706ff65e2a5cd01b469009cc74a3409bcc2dc12ff30
+  languageName: node
+  linkType: hard
+
+"axios@npm:*, axios@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "axios@npm:1.6.2"
+  dependencies:
+    follow-redirects: ^1.15.0
+    form-data: ^4.0.0
+    proxy-from-env: ^1.1.0
+  checksum: 4a7429e2b784be0f2902ca2680964391eae7236faa3967715f30ea45464b98ae3f1c6f631303b13dfe721b17126b01f486c7644b9ef276bfc63112db9fd379f8
   languageName: node
   linkType: hard
 
@@ -7404,10 +7426,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"helmet@npm:^4.6.0":
-  version: 4.6.0
-  resolution: "helmet@npm:4.6.0"
-  checksum: 139ad678d1cab207b043c206f50f6744eff2ef1f463e4626d36718b45b337485c77d10260ef9d89d292fa678da5153d86b08172b3b365cc8e680241015ed3a49
+"helmet@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "helmet@npm:7.1.0"
+  checksum: 16aaa0df997eaa18821e71389bc9ceffeeaa935df98427ede2bb006065f7e02bb1941caabea16d5a93a791cb3fe7d8a760266bc57b3b9ca5dd7da17ea84244b8
   languageName: node
   linkType: hard
 
@@ -11109,6 +11131,7 @@ __metadata:
     "@playwright/browser-chromium": 1.40.1
     "@playwright/browser-firefox": 1.40.1
     "@playwright/browser-webkit": 1.40.1
+    "@types/axios-token-interceptor": ^0.2.7
     "@types/chai-as-promised": ^7.1.8
     "@types/config": ^3.3.3
     "@types/cookie-parser": ^1.4.6
@@ -11134,7 +11157,7 @@ __metadata:
     applicationinsights: ^2.9.1
     awilix: ^9.0.0
     axios: ^1.6.2
-    axios-oauth-client: ^1.5.0
+    axios-oauth-client: ^2.0.4
     axios-token-interceptor: ^0.2.0
     babel-loader: ^9.1.3
     chai: ^4.3.10
@@ -11154,7 +11177,7 @@ __metadata:
     express-session: ^1.17.3
     glob: ^10.3.10
     govuk-frontend: 4.7.0
-    helmet: ^4.6.0
+    helmet: ^7.1.0
     html-webpack-plugin: ^5.5.3
     http-status-codes: ^2.3.0
     i18next: ^23.7.7
@@ -11264,7 +11287,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.10.1, qs@npm:^6.10.3, qs@npm:^6.11.0":
+"qs@npm:^6.10.3, qs@npm:^6.11.0":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
   dependencies:

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
 import oauth from 'axios-oauth-client';
 import tokenProvider from 'axios-token-interceptor';
 import config from 'config';
@@ -55,15 +55,9 @@ export const cftIdamTokenApi = axios.create({
     timeout: 10000,
 });
 
-function createCredentials(url): () => any {
+function createCredentials(url): (scope: any) => any {
     if (!process.env.INSECURE) {
-        return oauth.client(axios.create(), {
-            url: tokenUrl,
-            GRANT_TYPE: 'client_credentials',
-            CLIENT_ID: clientId,
-            CLIENT_SECRET: clientSecret,
-            SCOPE: url + '/.default',
-        });
+        return oauth.clientCredentials(axios.create(), tokenUrl, clientId, clientSecret, url + '/.default');
     }
     return (): string => {
         return '';
@@ -75,14 +69,40 @@ export const getSubscriptionManagementCredentials = createCredentials(subscripti
 export const getAccountManagementCredentials = createCredentials(accountManagementUrl);
 export const getChannelManagementCredentials = createCredentials(channelManagementUrl);
 
+const getBearerToken = (tokenCache, config) => {
+    const bearer = tokenProvider({
+        getToken: tokenCache,
+        headerFormatter: (bearerToken: object) => 'Bearer ' + bearerToken['access_token'],
+    });
+    return bearer(config);
+};
+
+const getMaxAgeOfCache = {
+    getMaxAge: (cacheToken: object) => cacheToken['expires_in'] * 1000,
+};
+
 if (!process.env.INSECURE) {
-    dataManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getDataManagementCredentials));
+    dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const cacheToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
 
-    subscriptionManagementApi.interceptors.request.use(
-        oauth.interceptor(tokenProvider, getSubscriptionManagementCredentials)
-    );
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+    });
 
-    accountManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getAccountManagementCredentials));
+    subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const cacheToken = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, getMaxAgeOfCache);
 
-    channelManagementApi.interceptors.request.use(oauth.interceptor(tokenProvider, getChannelManagementCredentials));
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+    });
+
+    accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const cacheToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
+
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+    });
+
+    channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
+        const cacheToken = tokenProvider.tokenCache(getChannelManagementCredentials as any, getMaxAgeOfCache);
+
+        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+    });
 }
