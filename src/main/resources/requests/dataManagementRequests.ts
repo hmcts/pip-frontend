@@ -9,7 +9,7 @@ export class DataManagementRequests {
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net';
 
     public async uploadPublication(body: any, headers: object): Promise<string> {
-        const token = await getDataManagementCredentials();
+        const token = await getDataManagementCredentials('');
 
         try {
             const response = await superagent
@@ -35,7 +35,7 @@ export class DataManagementRequests {
     }
 
     public async uploadLocationFile(body: any): Promise<boolean> {
-        const token = await getDataManagementCredentials();
+        const token = await getDataManagementCredentials('');
 
         try {
             await superagent
