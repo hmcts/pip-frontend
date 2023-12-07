@@ -9,7 +9,7 @@
     "confirmButton": "Confirm",
     "panelTitle": "Account has been created",
     "whatNextTitle": "What happens next",
-    "whatNextMessage": "This account will be created and the applicant will be notified to set up their account.",
+    "whatNextMessage": "This account has been created and the applicant will be notified to confirm their details.",
     "error": {
         "title": "There is a problem",
         "message": "This email already exists. The user should try signing in using this email or reset their password."
