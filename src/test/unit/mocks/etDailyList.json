@@ -27,8 +27,7 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12341234",
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "caseType": "This is a case type"
+                                                        "caseSequenceIndicator": "2 of 3"
                                                     }
                                                 ],
                                                 "party": [
@@ -91,8 +90,7 @@
                                             {
                                                 "case": [
                                                     {
-                                                        "caseNumber": "12341234",
-                                                        "caseType": "This is a case type"
+                                                        "caseNumber": "12341234"
                                                     }
                                                 ],
                                                 "party": [
@@ -131,8 +129,7 @@
                                             {
                                                 "case": [
                                                     {
-                                                        "caseNumber": "12341234",
-                                                        "caseType": "This is a case type"
+                                                        "caseNumber": "12341234"
                                                     }
                                                 ],
                                                 "party": [
@@ -177,8 +174,7 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12341234",
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "caseType": "This is a case type"
+                                                        "caseSequenceIndicator": "2 of 3"
                                                     }
                                                 ],
                                                 "party": [
@@ -218,8 +214,7 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12341234",
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "caseType": "This is a case type"
+                                                        "caseSequenceIndicator": "2 of 3"
                                                     }
                                                 ],
                                                 "party": [
