@@ -71,8 +71,7 @@ export class OpaPublicListService {
         const surname = ListParseHelperService.writeStringIfValid(individual?.individualSurname);
         return [firstName, middleNames, surname]
             .filter(n => n.length > 0)
-            .join(' ')
-            .toString();
+            .join(' ');
     }
 
     private buildOffences(defendant) {
