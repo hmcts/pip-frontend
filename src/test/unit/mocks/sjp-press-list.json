@@ -17,6 +17,14 @@
                                             {
                                                 "party": [
                                                     {
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title",
+                                                                "offenceWording": "This is offence wording",
+                                                                "reportingRestriction": true,
+                                                                "formattedReportingRestriction": "True"
+                                                            }
+                                                        ],
                                                         "partyRole": "ACCUSED",
                                                         "individualDetails": {
                                                             "individualForenames": "Test",
@@ -41,14 +49,6 @@
                                                         }
                                                     }
                                                 ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title",
-                                                        "offenceWording": "This is offence wording",
-                                                        "reportingRestriction": true,
-                                                        "formattedReportingRestriction": "True"
-                                                    }
-                                                ],
                                                 "case": [
                                                     {
                                                         "caseUrn": "Case URN"
@@ -62,6 +62,19 @@
                                             {
                                                 "party": [
                                                     {
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title",
+                                                                "offenceWording": "This is offence wording",
+                                                                "reportingRestriction": true,
+                                                                "formattedReportingRestriction": "True"
+                                                            },
+                                                            {
+                                                                "offenceTitle": "Another offence title",
+                                                                "offenceWording": "Another offence wording",
+                                                                "reportingRestriction": true
+                                                            }
+                                                        ],
                                                         "partyRole": "ACCUSED",
                                                         "organisationDetails": {
                                                             "organisationName": "Accused's org name",
@@ -79,19 +92,6 @@
                                                         }
                                                     }
                                                 ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title",
-                                                        "offenceWording": "This is offence wording",
-                                                        "reportingRestriction": true,
-                                                        "formattedReportingRestriction": "True"
-                                                    },
-                                                    {
-                                                        "offenceTitle": "Another offence title",
-                                                        "offenceWording": "Another offence wording",
-                                                        "reportingRestriction": true
-                                                    }
-                                                ],
                                                 "case": [
                                                     {
                                                         "caseUrn": "ABC12345"
@@ -101,6 +101,19 @@
                                             {
                                                 "party": [
                                                     {
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title",
+                                                                "offenceWording": "This is offence wording",
+                                                                "reportingRestriction": true,
+                                                                "formattedReportingRestriction": "True"
+                                                            },
+                                                            {
+                                                                "offenceTitle": "Another offence title",
+                                                                "offenceWording": "Another offence wording",
+                                                                "reportingRestriction": true
+                                                            }
+                                                        ],
                                                         "partyRole": "PROSECUTOR",
                                                         "organisationDetails": {
                                                             "organisationName": "Organisation Name"
@@ -117,19 +130,6 @@
                                                         }
                                                     }
                                                 ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title",
-                                                        "offenceWording": "This is offence wording",
-                                                        "reportingRestriction": true,
-                                                        "formattedReportingRestriction": "True"
-                                                    },
-                                                    {
-                                                        "offenceTitle": "Another offence title",
-                                                        "offenceWording": "Another offence wording",
-                                                        "reportingRestriction": true
-                                                    }
-                                                ],
                                                 "case": [
                                                     {
                                                         "caseUrn": "ABC12346"
@@ -139,6 +139,19 @@
                                             {
                                                 "party": [
                                                     {
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title",
+                                                                "offenceWording": "This is offence wording",
+                                                                "reportingRestriction": true,
+                                                                "formattedReportingRestriction": "True"
+                                                            },
+                                                            {
+                                                                "offenceTitle": "Another offence title",
+                                                                "offenceWording": "Another offence wording",
+                                                                "reportingRestriction": true
+                                                            }
+                                                        ],
                                                         "partyRole": "PROSECUTOR",
                                                         "organisationDetails": {
                                                             "organisationName": "Organisation Name"
@@ -152,19 +165,6 @@
                                                             "age": 200,
                                                             "address": {}
                                                         }
-                                                    }
-                                                ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title",
-                                                        "offenceWording": "This is offence wording",
-                                                        "reportingRestriction": true,
-                                                        "formattedReportingRestriction": "True"
-                                                    },
-                                                    {
-                                                        "offenceTitle": "Another offence title",
-                                                        "offenceWording": "Another offence wording",
-                                                        "reportingRestriction": true
                                                     }
                                                 ],
                                                 "case": [

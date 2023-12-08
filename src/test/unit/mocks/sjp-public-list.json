@@ -17,6 +17,11 @@
                                             {
                                                 "party": [
                                                     {
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title"
+                                                            }
+                                                        ],
                                                         "partyRole": "ACCUSED",
                                                         "individualDetails": {
                                                             "individualForenames": "A",
@@ -32,16 +37,19 @@
                                                             "organisationName": "This is a prosecutor organisation"
                                                         }
                                                     }
-                                                ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title"
-                                                    }
                                                 ]
                                             },
                                             {
                                                 "party": [
                                                     {
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title"
+                                                            },
+                                                            {
+                                                                "offenceTitle": "Another offence title"
+                                                            }
+                                                        ],
                                                         "partyRole": "ACCUSED",
                                                         "organisationDetails": {
                                                             "organisationName": "This is an accused organisation name",
@@ -55,14 +63,6 @@
                                                         "organisationDetails": {
                                                             "organisationName": "This is a prosecutor organisation 2"
                                                         }
-                                                    }
-                                                ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title"
-                                                    },
-                                                    {
-                                                        "offenceTitle": "Another offence title"
                                                     }
                                                 ]
                                             }
