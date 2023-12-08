@@ -69,8 +69,7 @@ export class OpaPublicListService {
         const firstName = ListParseHelperService.writeStringIfValid(individual?.individualFirstName);
         const middleNames = ListParseHelperService.writeStringIfValid(individual?.individualMiddleName);
         const surname = ListParseHelperService.writeStringIfValid(individual?.individualSurname);
-        const forenames = [firstName, middleNames].filter(n => n.length > 0).join(' ');
-        return [forenames, surname]
+        return [firstName, middleNames, surname]
             .filter(n => n.length > 0)
             .join(' ')
             .toString();
