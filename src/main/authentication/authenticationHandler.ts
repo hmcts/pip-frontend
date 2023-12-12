@@ -76,7 +76,7 @@ export function checkAuthenticatedMedia(req: any, res, next, roles: string[]): b
 
 export function forgotPasswordRedirect(req, res, next): void {
     const error_description = req.query['error_description'];
-    if (error_description && error_description.includes('AADB2C90118')) {
+    if (error_description?.includes('AADB2C90118')) {
         let redirectUrl = `${FRONTEND_URL}/password-change-confirmation`;
         let b2cUrl = '';
 
@@ -184,7 +184,7 @@ export function regenerateSession(req, res, next): void {
  * @param next The next function
  */
 export function checkPasswordReset(req, res, next) {
-    if (req.query && req.query['error_description']?.includes('AADB2C90091')) {
+    if (req.query?.['error_description']?.includes('AADB2C90091')) {
         res.redirect('/cancelled-password-reset/' + req.params['isAdmin']);
     } else {
         next();
