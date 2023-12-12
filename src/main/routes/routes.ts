@@ -81,7 +81,7 @@ export default function (app: Application): void {
         app.locals.container.cradle.createMediaAccountController.post
     );
     // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
-    app.post(
+    app.get(
         '/password-change-confirmation/:isAdmin',
         checkPasswordReset,
         app.locals.container.cradle.passwordChangeController.post
@@ -111,7 +111,7 @@ export default function (app: Application): void {
     );
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
-    app.post(
+    app.get(
         '/login/return',
         forgotPasswordRedirect,
         (req, res, next) =>
@@ -122,7 +122,7 @@ export default function (app: Application): void {
         keepSessionLanguage,
         processMediaAccountSignIn
     );
-    app.post(
+    app.get(
         '/login/admin/return',
         forgotPasswordRedirect,
         (req, res, next) =>
@@ -133,7 +133,7 @@ export default function (app: Application): void {
         keepSessionLanguage,
         processAdminAccountSignIn
     );
-    app.post(
+    app.get(
         '/media-verification/return',
         forgotPasswordRedirect,
         (req, res, next) =>

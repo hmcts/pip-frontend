@@ -283,18 +283,18 @@ describe('Test IsPermittedSystemAdmin', () => {
 describe('forgot password reset', () => {
     test('should redirect to azure again if password reset error is returned from the B2C with the correct media redirect url', async () => {
         await request(app)
-            .post('/login/return')
-            .send({ error: 'access_denied', error_description: 'AADB2C90118' })
+            .get('/login/return')
+            .query({ error: 'access_denied', error_description: 'AADB2C90118' })
             .expect(res => expect(res.redirect).to.be.true)
             .expect(res => expect(res.header.location).to.contain('response_type=code'))
-            .expect(res => expect(res.header.location).to.contain('response_mode=form_post'))
+            .expect(res => expect(res.header.location).to.contain('response_mode=query'))
             .expect(res => expect(res.header.location).to.contain('/password-change-confirmation/false'));
     });
 
     test('should redirect to azure again if password reset error is returned from the B2C with the correct admin redirect url', async () => {
         await request(app)
-            .post('/login/admin/return')
-            .send({ error: 'access_denied', error_description: 'AADB2C90118' })
+            .get('/login/admin/return')
+            .query({ error: 'access_denied', error_description: 'AADB2C90118' })
             .expect(res => expect(res.redirect).to.be.true)
             .expect(res => expect(res.header.location).to.contain('/password-change-confirmation/true'));
     });
@@ -407,7 +407,7 @@ describe('process account password change confirmation', () => {
     it('should redirect to cancelled password reset when error is confirmed', async () => {
         const isAdmin = true;
         const mockFunction = jest.fn(argument => argument);
-        const req = { body: { error_description: 'AADB2C90091' }, params: { isAdmin: isAdmin } };
+        const req = { query: { error_description: 'AADB2C90091' }, params: { isAdmin: isAdmin } };
         const res = { redirect: mockFunction };
         const next = null;
 
@@ -447,7 +447,7 @@ describe('test forgotten password redirect', () => {
     it('test next is called if not a forgotten password reset', () => {
         const mockRedirectFunction = jest.fn(argument => argument);
         const res = {};
-        const req = { body: {} };
+        const req = { query: {} };
 
         forgotPasswordRedirect(req, res, mockRedirectFunction);
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
@@ -459,7 +459,7 @@ describe('test forgotten password redirect', () => {
         const next = () => {
             return 0;
         };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login' };
+        const req = { query: { error_description: 'AADB2C90118' }, originalUrl: '/login' };
 
         forgotPasswordRedirect(req, res, next());
 
@@ -473,7 +473,7 @@ describe('test forgotten password redirect', () => {
         const next = () => {
             return 0;
         };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login/admin/return' };
+        const req = { query: { error_description: 'AADB2C90118' }, originalUrl: '/login/admin/return' };
 
         forgotPasswordRedirect(req, res, next());
 
@@ -487,7 +487,7 @@ describe('test forgotten password redirect', () => {
         const next = () => {
             return 0;
         };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'en' };
+        const req = { query: { error_description: 'AADB2C90118' }, originalUrl: '/login', lng: 'en' };
 
         forgotPasswordRedirect(req, res, next());
 
@@ -500,7 +500,7 @@ describe('test forgotten password redirect', () => {
         const next = () => {
             return 0;
         };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'cy' };
+        const req = { query: { error_description: 'AADB2C90118' }, originalUrl: '/login', lng: 'cy' };
 
         forgotPasswordRedirect(req, res, next());
 
