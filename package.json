@@ -8,7 +8,7 @@
     },
     "scripts": {
         "start": "USE_PROTOTYPE=true NODE_ENV=production ./node_modules/.bin/ts-node -r tsconfig-paths/register src/main/server.ts",
-        "start:dev": "REDIS_LOCAL=true && nodemon --config nodemon.json",
+        "start:dev": "REDIS_LOCAL=true SESSION_COOKIE_SAME_SITE= && nodemon --config nodemon.json",
         "start:dev-windows": "set REDIS_LOCAL=true && nodemon --config nodemon.json",
         "lint": "stylelint **/*.scss && eslint . --ext .js,.jsx,.ts,.tsx",
         "lint:fix": "prettier --write . && eslint --fix .",
