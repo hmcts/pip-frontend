@@ -24,7 +24,6 @@ const magsStandardListJsonStub = sinon.stub(PublicationService.prototype, 'getIn
 const magsStandardListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
-
 const data1 = { defendantHeading: 'heading1', caseNumber: 'case1' };
 const data2 = { defendantHeading: 'heading2', caseNumber: 'case2' };
 
