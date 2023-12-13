@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { PipRequest } from '../models/request/PipRequest';
+import { PipRequest } from '../models/request/PipRequest';``
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
@@ -22,11 +22,7 @@ export default class MagistratesStandardListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (isValidList(publicationJson, metaData) && publicationJson && metaData) {
-            const manipulatedData = magsStandardListService.manipulatedMagsStandardListData(
-                JSON.stringify(publicationJson),
-                req.lng,
-                'magistrates-standard-list'
-            );
+            const manipulatedData = magsStandardListService.manipulateData(JSON.stringify(publicationJson), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationJson['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 publicationJson['document']['publicationDate'],

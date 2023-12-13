@@ -1,31 +1,37 @@
-import { ListParseHelperService } from '../listParseHelperService';
-import { formatDate } from '../../helpers/dateTimeHelper';
-import { CrimeListsService } from './CrimeListsService';
+import {ListParseHelperService} from "../listParseHelperService";
+import {CrimeListsService} from "./CrimeListsService";
+import {formatDate} from "../../helpers/dateTimeHelper";
 
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
+const needToConfirm = 'Need to confirm';
 
 export class MagistratesStandardListService {
-    public manipulatedMagsStandardListData(
-        magsStandardListData: string,
-        language: string,
-        languageFile: string
-    ): object {
-        const listData = JSON.parse(magsStandardListData);
-        listData['courtLists'].forEach(courtList => {
-            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-                courtRoom['session'].forEach(session => {
-                    const allDefendants = [];
-                    session['sittings'].forEach(sitting => {
-                        const judiciary = helperService.findAndManipulateJudiciary(sitting);
-                        if (judiciary !== '') {
-                            session['formattedJudiciaries'] = judiciary;
+    public manipulateData(jsonData: string, language: string): Map<string, object[]> {
+        const listData = new Map<string, object[]>();
+
+        JSON.parse(jsonData).courtLists.forEach(courtList => {
+            courtList.courtHouse.courtRoom.forEach(courtRoom => {
+                courtRoom.session.forEach(session => {
+                    session.sittings.forEach(sitting => {
+                        this.processSittingInfo(session, sitting, language);
+                        const cases = [];
+                        sitting.hearing.forEach(hearing => {
+                            hearing.case.forEach(hearingCase => {
+                                if (hearingCase.party) {
+                                    const caseInfo = this.buildHearingCase(hearingCase, sitting, hearing);
+                                    const caseSitting = this.buildCaseSitting(sitting, caseInfo);
+                                    hearingCase.party?.forEach(party => this.processParty(party, caseSitting, cases))
+                                }
+                            });
+                        });
+                        const key = this.formatCourtRoomJudiciary(courtRoom, session, sitting);
+                        if (listData.has(key)) {
+                            listData.set(key, listData.get(key).concat(cases));
+                        } else {
+                            listData.set(key, cases);
                         }
-                        crimeListsService.calculateDuration(sitting, language, languageFile);
-                        helperService.findAndConcatenateHearingPlatform(sitting, session);
-                        allDefendants.push(...this.processHearing(sitting, language));
                     });
-                    session['defendants'] = this.combineDefendantSittings(allDefendants);
                 });
             });
         });
@@ -33,165 +39,107 @@ export class MagistratesStandardListService {
         return listData;
     }
 
-    private processHearing(sitting, language) {
-        const allDefendants = [];
-        sitting['hearing'].forEach(hearing => {
-            hearing.party?.forEach(party => {
-                const allOffences = [];
-                const hearingString = JSON.stringify(hearing);
-                const hearingObject = JSON.parse(hearingString);
+    private processSittingInfo(session, sitting, language) {
+        crimeListsService.calculateDuration(sitting, language, 'magistrates-standard-list');
+        helperService.findAndConcatenateHearingPlatform(sitting, session);
+    }
 
-                this.manipulateHearingObject(hearingObject, party, language);
-                if (hearingObject['defendantHeading'] !== '') {
-                    hearingObject['offence'].forEach(offence => {
-                        allOffences.push(
-                            this.formatOffence(
-                                offence['offenceTitle'],
-                                hearingObject['plea'],
-                                'Need to confirm',
-                                hearingObject['formattedConvictionDate'],
-                                hearingObject['formattedAdjournedDate'],
-                                offence['offenceWording']
-                            )
-                        );
-                    });
+    private buildHearingCase(hearingCase, sitting, hearing) {
+        return {
+            prosecutingAuthorityCode: ListParseHelperService.writeStringIfValid(hearingCase.informant?.prosecutionAuthorityCode),
+            hearingNumber: ListParseHelperService.writeStringIfValid(hearingCase.hearingNumber),
+            attendanceMethod: ListParseHelperService.writeStringIfValid(sitting.caseHearingChannel),
+            caseNumber: ListParseHelperService.writeStringIfValid(hearingCase.caseNumber),
+            caseSequenceIndicator: ListParseHelperService.writeStringIfValid(hearingCase.caseSequenceIndicator),
+            asn: needToConfirm,
+            hearingType: ListParseHelperService.writeStringIfValid(hearing.hearingType),
+            panel: ListParseHelperService.writeStringIfValid(hearingCase.panel),
+            convictionDate: this.formatDate(hearingCase.convictionDate),
+            adjournedDate: this.formatDate(hearingCase.adjournedDate),
+        }
+    }
 
-                    allDefendants.push(
-                        this.formatDefendant(
-                            hearingObject['defendantHeading'],
-                            hearingObject['gender'],
-                            hearingObject['inCustody'],
-                            sitting['time'],
-                            sitting['formattedDuration'],
-                            hearingObject['caseSequenceIndicator'],
-                            hearingObject['defendantDateOfBirth'],
-                            hearingObject['age'],
-                            hearingObject['defendantAddress'],
-                            hearingObject['prosecutionAuthorityCode'],
-                            hearingObject['hearingNumber'],
-                            sitting['caseHearingChannel'],
-                            hearingObject['caseNumber'],
-                            hearingObject['hearingType'],
-                            hearingObject['panel'],
-                            allOffences
-                        )
-                    );
-                }
+    private formatDate(date) {
+        return formatDate(ListParseHelperService.writeStringIfValid(date), 'dd/MM/yyyy', 'en');
+    }
+
+    private buildCaseSitting(sitting, caseInfo) {
+        return {
+            sittingStartTime: ListParseHelperService.writeStringIfValid(sitting.time),
+            sittingDuration: ListParseHelperService.writeStringIfValid(sitting.formattedDuration),
+            caseInfo: caseInfo,
+        }
+    }
+
+    private processParty(party, caseSitting, cases) {
+        if (party.partyRole === 'DEFENDANT' && party.individualDetails) {
+            const defendantHeading = this.formatDefendantHeading(party.individualDetails);
+            caseSitting = {
+                ...caseSitting,
+                defendantInfo: this.buildDefendantInfo(party),
+                offences: this.processOffences(party),
+            }
+            this.addDefendantCase(cases, defendantHeading, caseSitting);
+        }
+    }
+
+    private buildDefendantInfo(party) {
+        return {
+            dob: ListParseHelperService.writeStringIfValid(party.individualDetails.dateOfBirth),
+            age: ListParseHelperService.writeStringIfValid(party.individualDetails.age),
+            address: crimeListsService.formatAddress(party.individualDetails.address, ', '),
+            plea: ListParseHelperService.writeStringIfValid(party.individualDetails.plea),
+            pleaDate: needToConfirm,
+        }
+    }
+
+    private formatDefendantHeading(individualDetails) {
+        const gender = ListParseHelperService.writeStringIfValid(individualDetails.gender)
+        return crimeListsService.createIndividualDetails(individualDetails)
+            + (gender.length > 0 ? ` (${gender})` : '')
+            + (individualDetails.inCustody ? '*' : '');
+    }
+
+    private processOffences(party) {
+        const offences = [];
+        party.offence?.forEach(offence => {
+            offences.push({
+                offenceTitle: ListParseHelperService.writeStringIfValid(offence.offenceTitle),
+                offenceWording: ListParseHelperService.writeStringIfValid(offence.offenceWording),
             });
         });
-
-        return allDefendants;
+        return offences;
     }
 
-    private combineDefendantSittings(allDefendants): object {
-        const defendantsPerSessions = [];
-        const uniqueDefendantNames = helperService.uniquesInArrayByAttrib(allDefendants, 'defendantHeading');
-        uniqueDefendantNames.forEach(defendantNames => {
-            const defendant = allDefendants.filter(row => row.defendantHeading === defendantNames);
-            defendantsPerSessions.push({
-                defendantHeading: defendantNames,
-                defendantInfo: defendant,
-            });
-        });
-        return defendantsPerSessions;
-    }
+    private addDefendantCase(cases, defendantHeading, caseSitting) {
+        // Check if a case with the same defendant info has already been stored. If so append the new case to it,
+        // or else create a new case and add to the list of cases
+        const commonCase = this.fetchCommonDefendantCase(cases, defendantHeading);
 
-    private manipulateHearingObject(hearingObject, party, language) {
-        this.manipulatePartyInformation(hearingObject, party);
-        hearingObject['case'].forEach(thisCase => {
-            hearingObject['formattedConvictionDate'] = formatDate(thisCase['convictionDate'], 'dd/MM/yyyy', language);
-            hearingObject['formattedAdjournedDate'] = formatDate(thisCase['adjournedDate'], 'dd/MM/yyyy', language);
-            hearingObject['caseSequenceIndicator'] = thisCase['caseSequenceIndicator'];
-            hearingObject['hearingNumber'] = thisCase['hearingNumber'];
-            hearingObject['prosecutionAuthorityCode'] = thisCase['informant']['prosecutionAuthorityCode'];
-            hearingObject['caseNumber'] = thisCase['caseNumber'];
-            hearingObject['panel'] = thisCase['panel'];
-        });
-    }
-
-    private formatOffence(
-        offenceTitle,
-        plea,
-        dateOfPlea,
-        formattedConvictionDate,
-        formattedAdjournedDate,
-        offenceWording
-    ) {
-        return {
-            offenceTitle: offenceTitle,
-            plea: plea,
-            dateOfPlea: dateOfPlea,
-            formattedConvictionDate: formattedConvictionDate,
-            formattedAdjournedDate: formattedAdjournedDate,
-            offenceWording: offenceWording,
-        };
-    }
-
-    private formatDefendant(
-        defendantHeading,
-        gender,
-        inCustody,
-        time,
-        formattedDuration,
-        caseSequenceIndicator,
-        defendantDateOfBirth,
-        age,
-        defendantAddress,
-        prosecutionAuthorityCode,
-        hearingNumber,
-        caseHearingChannel,
-        caseNumber,
-        hearingType,
-        panel,
-        allOffences
-    ) {
-        return {
-            defendantHeading: this.formatDefendantHeading(defendantHeading, gender, inCustody),
-            gender: gender,
-            inCustody: inCustody,
-            time: time,
-            formattedDuration: formattedDuration,
-            caseSequenceIndicator: caseSequenceIndicator,
-            defendantDateOfBirth: defendantDateOfBirth,
-            age: age,
-            defendantAddress: defendantAddress,
-            prosecutionAuthorityCode: prosecutionAuthorityCode,
-            hearingNumber: hearingNumber,
-            caseHearingChannel: caseHearingChannel,
-            caseNumber: caseNumber,
-            hearingType: hearingType,
-            panel: panel,
-            allOffences: allOffences,
-        };
-    }
-
-    private formatDefendantHeading(name, gender, inCustody): string {
-        let defendantHeading = name;
-        if (gender?.length > 0) {
-            defendantHeading += ' (' + gender + ')';
+        if (commonCase) {
+            commonCase.caseSittings.push(caseSitting);
+        } else {
+            const caseSittings = [caseSitting];
+            cases.push({defendantHeading, caseSittings});
         }
-
-        if (inCustody?.length > 0) {
-            defendantHeading += inCustody;
-        }
-        return defendantHeading;
     }
 
-    private manipulatePartyInformation(hearing: any, party: any): void {
-        let defendant = '';
-
-        if (ListParseHelperService.convertPartyRole(party.partyRole) === 'DEFENDANT') {
-            defendant = crimeListsService.createIndividualDetails(party.individualDetails).trim();
+    private fetchCommonDefendantCase(cases, defendantHeading) {
+        for (const c of cases) {
+            if (c.defendantHeading === defendantHeading) {
+                return c;
+            }
         }
+        return null;
+    }
 
-        hearing['defendantHeading'] = defendant?.replace(/,\s*$/, '').trim();
-        hearing['defendantDateOfBirth'] = party?.individualDetails?.dateOfBirth;
-        hearing['defendantAddress'] = crimeListsService.formatAddress(party.individualDetails?.address, ', ');
-        hearing['age'] = party?.individualDetails?.age;
-        hearing['gender'] = party?.individualDetails?.gender;
-        hearing['plea'] = party?.individualDetails?.plea;
-        if (party?.individualDetails?.inCustody) {
-            hearing['inCustody'] = party.individualDetails?.inCustody === true ? '*' : '';
+    private formatCourtRoomJudiciary(courtRoom, session, sitting) {
+        let judiciary = helperService.findAndManipulateJudiciary(sitting);
+        if (!judiciary) {
+            judiciary = helperService.findAndManipulateJudiciary(session);
         }
+        const courtRoomName = ListParseHelperService.writeStringIfValid(courtRoom.courtRoomName);
+        return [courtRoomName, judiciary].filter(item => item.length > 0).join(': ');
+
     }
 }

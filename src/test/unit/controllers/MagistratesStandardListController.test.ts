@@ -8,11 +8,9 @@ import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
 import MagistratesStandardListController from '../../../main/controllers/MagistratesStandardListController';
 import { MagistratesStandardListService } from '../../../main/service/listManipulation/MagistratesStandardListService';
-import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magsStandardList.json'), 'utf-8');
-const listData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesStandardList.json'), 'utf-8');
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -25,12 +23,19 @@ const magsStandardListController = new MagistratesStandardListController();
 const magsStandardListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magsStandardListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
-sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardListData').returns(listData);
+
+
+const data1 = { defendantHeading: 'heading1', caseNumber: 'case1' };
+const data2 = { defendantHeading: 'heading2', caseNumber: 'case2' };
+
+const listData = new Map<string, object[]>();
+listData.set('courtRoom1', [data1]);
+listData.set('courtRoom2', [data2]);
+sinon.stub(MagistratesStandardListService.prototype, 'manipulateData').returns(listData);
 
 const artefactId = 'abc';
 
-magsStandardListJsonStub.withArgs(artefactId).resolves(listData);
+magsStandardListJsonStub.withArgs(artefactId).resolves(JSON.parse(rawData));
 magsStandardListJsonStub.withArgs(artefactId, undefined).resolves(undefined);
 magsStandardListJsonStub.withArgs('').resolves([]);
 magsStandardListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
