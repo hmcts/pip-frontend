@@ -118,7 +118,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 ##### Runtime secrets
 
 | Variable                           | Description                                                                                                                                                                             | Required? |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --------- |
 | CLIENT_ID_INTERNAL                 | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                                               |           |
 | CLIENT_SECRET_INTERNAL             | Secret key for authentication requests during service to service communication.                                                                                                         |           |
 | CLIENT_ID                          | The client ID for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                                   |           |
@@ -149,6 +149,8 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | ENABLE_CFT                         | Boolean determining whether CFT IDAM login is possible (defaults to false for local)                                                                                                    | No        |
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
 | INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         | No        |
+| SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie.                                                                                                                                                | No        |
+
 
 ##### Additional test secrets
 
