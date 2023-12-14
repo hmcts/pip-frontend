@@ -13,4 +13,12 @@ export class LogHelper {
         const currentDateTime = new Date();
         logger.info(`Track: ${actioningUserEmail}, ${userAction} ${actionValue}, at ${currentDateTime}`);
     }
+
+    public logErrorResponse(error, requestAction): void {
+        if (error.response) {
+            logger.error(`Failed to ${requestAction} on response. ${error.response.data}`);
+        } else {
+            logger.error(`Failed to ${requestAction} with message. ${error.message}`);
+        }
+    }
 }

@@ -1,7 +1,7 @@
 import { channelManagementApi } from './utils/axiosConfig';
-import { Logger } from '@hmcts/nodejs-logging';
+import { LogHelper } from '../logging/logHelper';
 
-const logger = Logger.getLogger('requests');
+const logHelper = new LogHelper();
 
 export class ChannelManagementRequests {
     /**
@@ -13,12 +13,11 @@ export class ChannelManagementRequests {
             const response = await channelManagementApi.get(`/publication/v2/${artefactId}`, { headers });
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error(`Failed to get stored ${headers['x-list-type']} file from blob storage on response`);
-            } else {
-                logger.error(`Failed to get stored ${headers['x-list-type']} file from blob storage with message`);
-            }
-            return null;
+            logHelper.logErrorResponse(
+                error,
+                `retrieve stored ${headers['x-list-type']} file from blob storage for publication with ID ${artefactId}`
+            );
         }
+        return null;
     }
 }
