@@ -3,9 +3,11 @@ import { Logger } from '@hmcts/nodejs-logging';
 import { MediaAccountApplication } from '../../models/MediaAccountApplication';
 import { DateTime } from 'luxon';
 import { StatusCodes } from 'http-status-codes';
+import { LogHelper } from '../logging/logHelper';
 
 const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
+const logHelper = new LogHelper();
 
 export class AccountManagementRequests {
     /**
@@ -21,13 +23,9 @@ export class AccountManagementRequests {
             logger.info('Azure account created');
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to create azure account on response');
-            } else {
-                logger.error('Failed to create azure account with message');
-            }
-            return null;
+            logHelper.logErrorResponse(error, 'create azure account');
         }
+        return null;
     }
 
     /**
@@ -43,16 +41,12 @@ export class AccountManagementRequests {
             logger.info('P&I account created');
             return response.status === StatusCodes.CREATED;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to create admin P&I on response');
-            } else {
-                logger.error('Failed to create admin P&I with message');
-            }
-            return false;
+            logHelper.logErrorResponse(error, 'create P&I user account');
         }
+        return false;
     }
 
-    public async createMediaAccount(form): Promise<boolean> {
+    public async createMediaApplication(form): Promise<boolean> {
         try {
             const token = await getAccountManagementCredentials('');
             await superagent
@@ -66,13 +60,9 @@ export class AccountManagementRequests {
                 .field('status', form.status);
             return true;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to create media account on response');
-            } else {
-                logger.error('Failed to create media account with message');
-            }
-            return false;
+            logHelper.logErrorResponse(error, 'create media application');
         }
+        return false;
     }
 
     public async bulkCreateMediaAccounts(file, filename, requester): Promise<boolean> {
@@ -86,13 +76,9 @@ export class AccountManagementRequests {
                 .attach('mediaList', file, filename);
             return true;
         } catch (error) {
-            if (error.response) {
-                logger.error(`Failed to bulk create media account on response. ${error.response.data}`);
-            } else {
-                logger.error(`Failed to bulk create media account with message. ${error.message}`);
-            }
-            return false;
+            logHelper.logErrorResponse(error, 'bulk create media accounts');
         }
+        return false;
     }
 
     public async getMediaApplicationById(applicationId): Promise<MediaAccountApplication | null> {
@@ -101,13 +87,9 @@ export class AccountManagementRequests {
             logger.info('Media Application accessed - ' + applicationId);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to retrieve media application', error.response.data);
-            } else {
-                logger.error('Failed to retrieve media application', error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `retrieve media application with ID ${applicationId}`);
         }
+        return null;
     }
 
     public async getMediaApplicationImageById(imageId): Promise<Blob> {
@@ -118,11 +100,7 @@ export class AccountManagementRequests {
             logger.info('Media Application image access with ID - ' + imageId);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to retrieve media application image - response', error.response.data);
-            } else {
-                logger.error('Failed to retrieve media application image - message', error.message);
-            }
+            logHelper.logErrorResponse(error, `retrieve media application image with ID ${imageId}`);
         }
         return null;
     }
@@ -146,11 +124,7 @@ export class AccountManagementRequests {
             }
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to update media application', error.response.data);
-            } else {
-                logger.error('Failed to update media application', error.message);
-            }
+            logHelper.logErrorResponse(error, `update status of media application with ID ${applicantId}`);
         }
         return null;
     }
@@ -160,13 +134,9 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/application/status/PENDING');
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to GET media application requests', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to get media applications', error.message);
-            }
-            return [];
+            logHelper.logErrorResponse(error, 'retrieve pending media applications');
         }
+        return [];
     }
 
     public async getPiUserByAzureOid(oid: string): Promise<any> {
@@ -174,13 +144,9 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to GET PI user request', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to get the pi user from the oid', error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, 'retrieve P&I user account by Azure B2C object ID');
         }
+        return null;
     }
 
     public async getPiUserByCftID(uid: string): Promise<any> {
@@ -188,15 +154,13 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get(`/account/provenance/CFT_IDAM/${uid}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                error.response.status === StatusCodes.NOT_FOUND
-                    ? logger.info(`Could not find CFT IDAM user with provenance user ID: ${uid}`)
-                    : logger.error('Failed to GET PI user request', error.response.data);
+            if (error.response?.status === StatusCodes.NOT_FOUND) {
+                logger.info(`Could not find CFT IDAM user with provenance user ID: ${uid}`);
             } else {
-                logger.error('Something went wrong trying to get the pi user from the uid', error.message);
+                logHelper.logErrorResponse(error, 'retrieve P&I user account by CFT IDAM ID');
             }
-            return null;
         }
+        return null;
     }
 
     public async getThirdPartyAccounts(adminUserId): Promise<any> {
@@ -205,33 +169,24 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/account/all/third-party');
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to GET third party users', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to get third party users', error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, 'retrieve third party accounts');
         }
+        return null;
     }
 
     public async updateMediaAccountVerification(oid: string): Promise<string> {
-        return this.updateAccountDate('PI_AAD', oid, 'lastVerifiedDate', 'Failed to verify media account');
+        return this.updateAccountDate('PI_AAD', oid, 'lastVerifiedDate', 'verify media account');
     }
 
     public async updateAccountLastSignedInDate(userProvenance: string, oid: string): Promise<string> {
-        return this.updateAccountDate(
-            userProvenance,
-            oid,
-            'lastSignedInDate',
-            'Failed to update account last signed in date'
-        );
+        return this.updateAccountDate(userProvenance, oid, 'lastSignedInDate', 'update account last signed in date');
     }
 
     private async updateAccountDate(
         userProvenance: string,
         oid: string,
         field: string,
-        errorMessage: string
+        requestAction: string
     ): Promise<string> {
         try {
             const map = {};
@@ -239,13 +194,9 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.put(`/account/provenance/${userProvenance}/${oid}`, map);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error(errorMessage, error.response.data);
-            } else {
-                logger.error(errorMessage, error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, requestAction);
         }
+        return null;
     }
 
     public async getAllAccountsExceptThirdParty(params: object, adminUserId: string): Promise<any> {
@@ -254,28 +205,20 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/account/all', params);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to get all accounts', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to get all accounts', error.message);
-            }
-            return [];
+            logHelper.logErrorResponse(error, 'retrieve all accounts');
         }
+        return [];
     }
 
     public async getUserByUserId(userId: string, adminUserId: string): Promise<any> {
         try {
-            logger.info('User with ID: ' + userId + ' data requested by Admin with ID: ' + adminUserId);
+            logger.info(`User with ID: ${userId} data requested by Admin with ID: ${adminUserId}`);
             const response = await accountManagementApi.get(`/account/${userId}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to GET PI user request', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to get the pi user from the user id', error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `retrieve account for user with ID ${userId}`);
         }
+        return null;
     }
 
     public async deleteUser(userId: string, adminUserId: string): Promise<object> {
@@ -286,13 +229,9 @@ export class AccountManagementRequests {
             });
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `delete account for user with ID ${userId}`);
         }
+        return null;
     }
 
     public async updateUser(userId: string, role: string, adminUserId: string): Promise<object | string> {
@@ -312,16 +251,14 @@ export class AccountManagementRequests {
             });
             return response.data;
         } catch (error) {
-            if (error.response && error.response.status === 403) {
-                logger.info('Admin user with ID: ' + adminUserId + ' has failed to update user with role');
+            if (error.response?.status === StatusCodes.FORBIDDEN) {
+                logger.info(`Admin user with ID: ${adminUserId}' has failed to update user with role`);
                 return 'FORBIDDEN';
-            } else if (error.response) {
-                logger.info(error.response.data);
             } else {
-                logger.info(`ERROR: ${error.message}`);
+                logHelper.logErrorResponse(error, `update account for user with ID ${userId}`);
             }
-            return null;
         }
+        return null;
     }
 
     public async getAdminUserByEmailAndProvenance(
@@ -334,13 +271,9 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get(`/account/admin/${email}/${provenance}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to GET PI user request', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to get the pi user from the user id', error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, 'retrieve account for admin user by email and provenance');
         }
+        return null;
     }
 
     /**
@@ -356,20 +289,13 @@ export class AccountManagementRequests {
             });
             return response.data;
         } catch (error) {
-            if (error.response) {
-                if (error.response.status == StatusCodes.BAD_REQUEST) {
-                    error.response.data['error'] = true;
-                    return error.response.data;
-                } else {
-                    console.log(
-                        'Request to create a system admin has failed with error code: ' + error.response.status
-                    );
-                }
-            } else {
-                console.log(`ERROR: ${error.message}`);
+            logHelper.logErrorResponse(error, 'create system admin account');
+            if (error.response?.status === StatusCodes.BAD_REQUEST) {
+                error.response.data['error'] = true;
+                return error.response.data;
             }
-            return null;
         }
+        return null;
     }
 
     public async storeAuditAction(auditBody): Promise<any> {
@@ -377,13 +303,9 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.post('/audit', auditBody);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to post audit action', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to post an audit action', error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, 'post audit action');
         }
+        return null;
     }
 
     public async getAllAuditLogs(params: object, adminUserId: string): Promise<any> {
@@ -392,13 +314,9 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/audit', params);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error('Failed to get all audit logs', error.response.data);
-            } else {
-                logger.error('Something went wrong trying to get all audit logs', error.message);
-            }
-            return [];
+            logHelper.logErrorResponse(error, 'retrieve all audit logs');
         }
+        return [];
     }
 
     public async getAuditLogById(id: string): Promise<any> {
@@ -406,13 +324,9 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get(`/audit/${id}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error(`Failed to get audit log with id: ${id}`, error.response.data);
-            } else {
-                logger.error(`Something went wrong trying to get audit log with id: ${id}`, error.message);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `retrieve audit log by ID ${id}`);
         }
+        return null;
     }
 
     public async isAuthorised(userId: string, listType: string, sensitivity: string): Promise<boolean> {
@@ -422,12 +336,8 @@ export class AccountManagementRequests {
             );
             return response.data;
         } catch (error) {
-            if (error.response) {
-                logger.error(`Failed to check user ${userId} is authorised`, error.response.data);
-            } else {
-                logger.error(`Something went wrong trying to check user ${userId} is authorised`, error.message);
-            }
-            return false;
+            logHelper.logErrorResponse(error, `check user ${userId} is authorised`);
         }
+        return false;
     }
 }

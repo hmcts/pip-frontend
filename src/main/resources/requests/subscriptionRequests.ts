@@ -1,5 +1,8 @@
 import { subscriptionManagementApi } from './utils/axiosConfig';
 import { UserSubscriptions } from '../../models/UserSubscriptions';
+import { LogHelper } from '../logging/logHelper';
+
+const logHelper = new LogHelper();
 
 export class SubscriptionRequests {
     public async getUserSubscriptions(userId: string): Promise<UserSubscriptions> {
@@ -7,11 +10,7 @@ export class SubscriptionRequests {
             const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, `retrieve subscriptions for user with ID ${userId}`);
         }
         return null;
     }
@@ -23,13 +22,9 @@ export class SubscriptionRequests {
             });
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `delete subscription with ID ${subscriptionId}`);
         }
+        return null;
     }
 
     public async subscribe(payload, userId: string): Promise<boolean> {
@@ -39,11 +34,7 @@ export class SubscriptionRequests {
             });
             return true;
         } catch (error) {
-            if (error.response) {
-                console.log('Failed to create subscription');
-            } else {
-                console.log('Unknown error while creating a subscription');
-            }
+            logHelper.logErrorResponse(error, 'create subscription');
         }
         return false;
     }
@@ -56,13 +47,9 @@ export class SubscriptionRequests {
             });
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log('Failed to bulk delete subscriptions');
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
-            return null;
+            logHelper.logErrorResponse(error, 'bulk delete subscriptions');
         }
+        return null;
     }
 
     public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
@@ -70,11 +57,7 @@ export class SubscriptionRequests {
             await subscriptionManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);
             return true;
         } catch (error) {
-            if (error.response) {
-                console.log('Failed to configure list type for location subscription');
-            } else {
-                console.log('Unknown error while configuring list type for location subscription');
-            }
+            logHelper.logErrorResponse(error, `configure subscription's list type for user with ID ${userId}`);
         }
         return false;
     }
@@ -84,11 +67,7 @@ export class SubscriptionRequests {
             const channelResponse = await subscriptionManagementApi.get('/meta/channels');
             return channelResponse.data;
         } catch (error) {
-            if (error.response) {
-                console.log('Failed to retrieve the list of channels');
-            } else {
-                console.log('Unknown error while attempting to retrieve the list of channels');
-            }
+            logHelper.logErrorResponse(error, 'retrieve the list of subscription channels');
         }
         return [];
     }
@@ -100,14 +79,8 @@ export class SubscriptionRequests {
             const response = await subscriptionManagementApi.delete(`/subscription/location/${locationId}`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `delete subscriptions for location with ID ${locationId}`);
         }
+        return null;
     }
 }
