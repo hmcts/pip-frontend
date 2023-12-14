@@ -164,7 +164,7 @@ const azureResponse = {
 const validEmail = 'joe@bloggs.com';
 const createAzureAccountStub = sinon.stub(AccountManagementRequests.prototype, 'createAzureAccount');
 const createPIAccStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
-const createMediaAccStub = sinon.stub(AccountManagementRequests.prototype, 'createMediaAccount');
+const createMediaAccStub = sinon.stub(AccountManagementRequests.prototype, 'createMediaApplication');
 const bulkCreateAccountsStub = sinon.stub(AccountManagementRequests.prototype, 'bulkCreateMediaAccounts');
 
 const englishLanguage = 'en';

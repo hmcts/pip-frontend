@@ -323,7 +323,7 @@ export class CreateAccountService {
     }
 
     public async createMediaApplication(payload: object, file: File): Promise<boolean> {
-        return await accountManagementRequests.createMediaAccount(this.formatCreateMediaAccount(payload, file));
+        return await accountManagementRequests.createMediaApplication(this.formatCreateMediaAccount(payload, file));
     }
 
     public async bulkCreateMediaAccounts(file: any, filename: string, id: string): Promise<boolean> {
