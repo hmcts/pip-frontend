@@ -27,7 +27,6 @@ describe('Reference data Manual upload summary', () => {
 
     describe('on GET', () => {
         test('should return reference data file upload summary page', async () => {
-            console.log('app', app.request);
             await request(app)
                 .get(PAGE_URL)
                 .expect(res => expect(res.status).to.equal(200));

@@ -1,6 +1,8 @@
 import { dataManagementApi, getDataManagementCredentials } from './utils/axiosConfig';
+import { LogHelper } from '../logging/logHelper';
 
 const superagent = require('superagent');
+const logHelper = new LogHelper();
 
 export class DataManagementRequests {
     public dataManagementAPI =
@@ -17,11 +19,7 @@ export class DataManagementRequests {
                 .attach('file', body.file, body.fileName);
             return response.body.artefactId;
         } catch (error) {
-            if (error.response) {
-                console.log('Failed to upload publication');
-            } else {
-                console.log('Unknown error when attempting to upload publication');
-            }
+            logHelper.logErrorResponse(error, 'upload flat files publication');
         }
         return null;
     }
@@ -31,11 +29,7 @@ export class DataManagementRequests {
             const response = await dataManagementApi.post('/publication', body.file, { headers });
             return response.data.artefactId;
         } catch (error) {
-            if (error.response) {
-                console.log('Failed to upload publication');
-            } else {
-                console.log('Unknown error when attempting to upload publication');
-            }
+            logHelper.logErrorResponse(error, 'upload JSON publication');
         }
         return null;
     }
@@ -51,11 +45,7 @@ export class DataManagementRequests {
                 .attach('locationList', body.file, body.fileName);
             return true;
         } catch (error) {
-            if (error.response) {
-                console.log('Failed to upload location data file');
-            } else {
-                console.log('Unknown error when attempting to upload location data file');
-            }
+            logHelper.logErrorResponse(error, 'upload location reference data');
         }
         return false;
     }
