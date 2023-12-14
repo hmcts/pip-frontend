@@ -116,7 +116,7 @@ export class MagistratesStandardListService {
     }
 
     private addDefendantCase(cases, defendantHeading, caseSitting) {
-        // Check if a case with the same defendant info has already been stored. If so append the new case to it,
+        // Check if a case with the same defendant heading has already been stored. If so append the new case to it,
         // or else create a new case and add to the list of cases
         const commonCase = this.fetchCommonDefendantCase(cases, defendantHeading);
 
