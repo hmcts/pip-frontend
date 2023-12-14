@@ -151,7 +151,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         | No        |
 | SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie.                                                                                                                                                | No        |
 
-
 ##### Additional test secrets
 
 Secrets required for getting tests to run correctly can be found in the below table. They are all accessible from the bootstrap keyvault.
