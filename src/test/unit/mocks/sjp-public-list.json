@@ -24,18 +24,18 @@
                                                             "address": {
                                                                 "postCode": "AA1"
                                                             }
-                                                        }
+                                                        },
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title"
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "partyRole": "PROSECUTOR",
                                                         "organisationDetails": {
                                                             "organisationName": "This is a prosecutor organisation"
                                                         }
-                                                    }
-                                                ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title"
                                                     }
                                                 ]
                                             },
@@ -48,21 +48,21 @@
                                                             "organisationAddress": {
                                                                 "postCode": "A99"
                                                             }
-                                                        }
+                                                        },
+                                                        "offence": [
+                                                            {
+                                                                "offenceTitle": "This is an offence title"
+                                                            },
+                                                            {
+                                                                "offenceTitle": "Another offence title"
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "partyRole": "PROSECUTOR",
                                                         "organisationDetails": {
                                                             "organisationName": "This is a prosecutor organisation 2"
                                                         }
-                                                    }
-                                                ],
-                                                "offence": [
-                                                    {
-                                                        "offenceTitle": "This is an offence title"
-                                                    },
-                                                    {
-                                                        "offenceTitle": "Another offence title"
                                                     }
                                                 ]
                                             }
