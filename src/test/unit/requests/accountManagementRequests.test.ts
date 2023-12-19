@@ -140,7 +140,7 @@ describe('Account Management Requests', () => {
                 };
             });
 
-            expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(true);
+            expect(await accountManagementRequests.createMediaApplication(mockValidMediaBody)).toBe(true);
         });
 
         it('should return error response', async () => {
@@ -159,7 +159,7 @@ describe('Account Management Requests', () => {
                     },
                 };
             });
-            expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
+            expect(await accountManagementRequests.createMediaApplication(mockValidMediaBody)).toBe(false);
         });
 
         it('should return error message', async () => {
@@ -178,7 +178,7 @@ describe('Account Management Requests', () => {
                     },
                 };
             });
-            expect(await accountManagementRequests.createMediaAccount(mockValidMediaBody)).toBe(false);
+            expect(await accountManagementRequests.createMediaApplication(mockValidMediaBody)).toBe(false);
         });
     });
 

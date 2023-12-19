@@ -1,6 +1,9 @@
 import { dataManagementApi } from './utils/axiosConfig';
 import { Artefact } from '../../models/Artefact';
 import { HttpStatusCode } from 'axios';
+import { LogHelper } from '../logging/logHelper';
+
+const logHelper = new LogHelper();
 
 export class PublicationRequests {
     public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<any> {
@@ -15,15 +18,8 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/${artefactId}`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                if (error.response.status === 404) {
-                    return HttpStatusCode.NotFound;
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
+            logHelper.logErrorResponse(error, `retrieve metadata for publication with ID ${artefactId}`);
+            return error.response?.status === 404 ? HttpStatusCode.NotFound : null;
         }
     }
 
@@ -32,11 +28,7 @@ export class PublicationRequests {
             const response = await dataManagementApi.get('/publication/count-by-location');
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, 'retrieve publication count for all locations');
         }
         return null;
     }
@@ -55,11 +47,7 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/search/${searchQuery}/${searchValue}`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, 'retrieve publications by case value');
         }
         return [];
     }
@@ -74,15 +62,8 @@ export class PublicationRequests {
             const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                if (error.response.status === 404) {
-                    return HttpStatusCode.NotFound;
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
+            logHelper.logErrorResponse(error, `retrieve JSON publication with ID ${artefactId}`);
+            return error.response?.status === 404 ? HttpStatusCode.NotFound : null;
         }
     }
 
@@ -100,15 +81,8 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/${artefactId}/file`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                if (error.response.status === 404) {
-                    return HttpStatusCode.NotFound;
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
+            logHelper.logErrorResponse(error, `retrieve flat file publication with ID ${artefactId}`);
+            return error.response?.status === 404 ? HttpStatusCode.NotFound : null;
         }
     }
 
@@ -124,11 +98,7 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/locationId/${locationId}`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, `retrieve publications for location with ID ${locationId}`);
         }
         return [];
     }
@@ -138,11 +108,7 @@ export class PublicationRequests {
             await dataManagementApi.put(`/publication/${artefactId}/archive`, {}, { headers: { 'x-issuer-id': id } });
             return true;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, `archive publication with ID ${artefactId}`);
         }
         return false;
     }
@@ -154,15 +120,9 @@ export class PublicationRequests {
             const response = await dataManagementApi.delete(`/publication/${locationId}/deleteArtefacts`, header);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else if (error.request) {
-                console.log(`Request failed. ${error.request}`);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
-            return null;
+            logHelper.logErrorResponse(error, `delete publications for location with ID ${locationId}`);
         }
+        return null;
     }
 
     public async getNoMatchPublications(): Promise<Artefact[]> {
@@ -170,11 +130,7 @@ export class PublicationRequests {
             const response = await dataManagementApi.get(`/publication/no-match`);
             return response.data;
         } catch (error) {
-            if (error.response) {
-                console.log(error.response.data);
-            } else {
-                console.log(`ERROR: ${error.message}`);
-            }
+            logHelper.logErrorResponse(error, 'retrieve no-match publications');
         }
         return [];
     }
