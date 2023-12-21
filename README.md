@@ -20,11 +20,12 @@
             1. [Get environment variables with python scripts](#get-environment-variables-with-python-scripts)
             2. [Runtime secrets](#runtime-secrets)
             3. [Additional test secrets](#additional-test-secrets)
-3. [Deployment](#deployment)
-4. [Monitoring and Logging](#monitoring-and-logging)
-5. [Nunjucks Filters](#nunjucks-filters)
-6. [Security & Quality Considerations](#security-and-quality-considerations)
-7. [Test Suite](#test-suite)
+3. [Session Management](#session-management)
+4. [Deployment](#deployment)
+5. [Monitoring and Logging](#monitoring-and-logging)
+6. [Nunjucks Filters](#nunjucks-filters)
+7. [Security & Quality Considerations](#security-and-quality-considerations)
+8. [Test Suite](#test-suite)
     1. [Unit tests](#unit-tests)
         1. [Unit tests by type](#unit-tests-by-type)
         2. [Re-running failed tests](#re-running-failed-tests)
@@ -33,7 +34,7 @@
     4. [Functional (E2E) Tests](#functional-e2e-tests)
         1. [Justification for migration to CodeceptJS](#justification-for-migration-to-codeceptjs)
         2. [Running e2e tests](#running-e2e-tests)
-8. [Contributing](#contributing)[License](#license)
+9. [Contributing](#contributing)[License](#license)
 
 ## Overview
 
@@ -44,13 +45,13 @@ Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mos
 
 It is connected to several other microservices in production (all written in Java/Spring Boot):
 
-| Microservice                              | Summary                                                                                                                                                                                                                                                    |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation                                      |
-| pip-subscription-management (`port:4550`) | Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.                                                                                                                               |
-| pip-channel-management(`port:8181`)       | Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).                                                                              |
-| pip-publication-services(`port:8081`)     | Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers. |
-| pip-account-management(`port:6969`)       | Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                                                                                    |
+| Microservice                              | Summary                                                                                                                                                                                                                                                     |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation                                       |
+| pip-subscription-management (`port:4550`) | Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.                                                                                                                                |
+| pip-channel-management(`port:8181`)       | Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).                                                                               |
+| pip-publication-services(`port:8081`)     | Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers.  |
+| pip-account-management(`port:6969`)       | Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                                                                                     |
 
 Most of the communication with this service benefits from using secure authentication. While possible to stand up locally in insecure mode, to simulate a production environment it is better to use secure mode.
 
