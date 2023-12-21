@@ -85,13 +85,35 @@ describe('OPA Public List page', () => {
             expect(tableData[1].innerHTML).contains('URN1234', 'Could not find the URN');
         });
 
-        it('should have the offence', () => {
+        it('should have the offences', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
             expect(tableData[2].innerHTML).contains('Offence title', 'Could not find the offence title');
             expect(tableData[2].innerHTML).contains('Offence section', 'Could not find the offence section');
             expect(tableData[2].innerHTML).contains(
                 'Offence Reporting Restriction detail',
                 'Could not find the offence reporting restriction'
+            );
+            expect(tableData[20].innerHTML).contains('Offence title 2', 'Could not find the offence title');
+            expect(tableData[20].innerHTML).contains('Offence section 2', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Title', 'Could not find the offence title');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Section', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains(
+                'Offence Reporting Restriction detail',
+                'Could not find the offence reporting restriction'
+            );
+            expect(tableData[38].innerHTML).contains('Organisation Offence Title 2', 'Could not find the offence title');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Section 2', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Title 3', 'Could not find the offence title');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Section 3', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains(
+                'Offence Reporting Restriction detail 3',
+                'Could not find the offence reporting restriction'
+            );
+            expect(tableData[56].innerHTML).contains('', 'The offence title should be empty');
+            expect(tableData[56].innerHTML).contains('', 'The offence section should be empty');
+            expect(tableData[56].innerHTML).contains(
+                '',
+                'The offence reporting restriction should be empty'
             );
         });
 
@@ -173,13 +195,35 @@ describe('OPA Public List page', () => {
             expect(tableData[1].innerHTML).contains('URN1234', 'Could not find the URN');
         });
 
-        it('should have the offence', () => {
+        it('should have the offences', () => {
             const tableData = htmlRes.getElementsByClassName('govuk-table__cell');
             expect(tableData[2].innerHTML).contains('Offence title', 'Could not find the offence title');
             expect(tableData[2].innerHTML).contains('Offence section', 'Could not find the offence section');
             expect(tableData[2].innerHTML).contains(
                 'Offence Reporting Restriction detail',
                 'Could not find the offence reporting restriction'
+            );
+            expect(tableData[20].innerHTML).contains('Offence title 2', 'Could not find the offence title');
+            expect(tableData[20].innerHTML).contains('Offence section 2', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Title', 'Could not find the offence title');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Section', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains(
+                'Offence Reporting Restriction detail',
+                'Could not find the offence reporting restriction'
+            );
+            expect(tableData[38].innerHTML).contains('Organisation Offence Title 2', 'Could not find the offence title');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Section 2', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Title 3', 'Could not find the offence title');
+            expect(tableData[38].innerHTML).contains('Organisation Offence Section 3', 'Could not find the offence section');
+            expect(tableData[38].innerHTML).contains(
+                'Offence Reporting Restriction detail 3',
+                'Could not find the offence reporting restriction'
+            );
+            expect(tableData[56].innerHTML).contains('', 'The offence title should be empty');
+            expect(tableData[56].innerHTML).contains('', 'The offence section should be empty');
+            expect(tableData[56].innerHTML).contains(
+                '',
+                'The offence reporting restriction should be empty'
             );
         });
 

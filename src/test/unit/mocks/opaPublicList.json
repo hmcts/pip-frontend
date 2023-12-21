@@ -84,10 +84,7 @@
                                                             "offence": [
                                                                 {
                                                                     "offenceTitle": "Offence title 2",
-                                                                    "offenceSection": "Offence section 2",
-                                                                    "reportingRestrictionDetail": [
-                                                                        "Offence Reporting Restriction detail"
-                                                                    ]
+                                                                    "offenceSection": "Offence section 2"
                                                                 }
                                                             ]
                                                         }
@@ -111,8 +108,34 @@
                                                                     "reportingRestrictionDetail": [
                                                                         "Offence Reporting Restriction detail"
                                                                     ]
+                                                                },
+                                                                {
+                                                                    "offenceTitle": "Organisation Offence Title 2",
+                                                                    "offenceSection": "Organisation Offence Section 2"
+
+                                                                },
+                                                                {
+                                                                    "offenceTitle": "Organisation Offence Title 3",
+                                                                    "offenceSection": "Organisation Offence Section 3",
+                                                                    "reportingRestrictionDetail": [
+                                                                        "Offence Reporting Restriction detail 3"
+                                                                    ]
                                                                 }
                                                             ]
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "organisationName noOffence",
+                                                            "organisationAddress": {
+                                                                "line": [
+                                                                    "ORGANISATION ADDRESS"
+                                                                ],
+                                                                "town": "town name",
+                                                                "county": "",
+                                                                "postCode": ""
+                                                            }
                                                         }
                                                     },
                                                     {
