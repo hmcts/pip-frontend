@@ -63,7 +63,21 @@
         <div class="parent-box govuk-!-margin-top-5 search-area">
             <div class="overflow-table">
                 {% set opaCases = [] %}
+                {% set offences = [] %}
                 {% for row in listData %}
+                    {% set offenceHtml = "" %}
+                    {% if row.offence.length > 0 %}
+                        {% for offence in row.offence %}
+                            {% set offenceHtml = offenceHtml.concat(offence.offenceTitle + ' - ' + offence.offenceSection) %}
+                            {% if offence.offenceReportingRestriction %}
+                                {% set offenceHtml = offenceHtml.concat('<br><br>Reporting Restriction - ' + offence.offenceReportingRestriction) %}
+                            {% endif %}
+                            {% if loop.index < loop.length %}
+                                {% set offenceHtml = offenceHtml.concat('<br><br>') %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% set _ = offences.push({html: offenceHtml}) %}
                     {% set _ = opaCases.push([
                         {
                             text: row.name
@@ -72,9 +86,11 @@
                             text: row.caseUrn
                         },
                         {
-                            offence: row.offence[0].offenceTitle + " - " + row.offence[0].offenceSection + "\n Reporting Restriction - " + row.offence[0].offenceReportingRestriction
+                            html: offences[loop.index0].html
                         },
-                        {text: row.prosecutor},
+                        {
+                            text: row.prosecutor
+                        },
                         {
                             text: row.scheduledHearingDate
                         },
