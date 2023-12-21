@@ -64,6 +64,7 @@ Most of the communication with this service benefits from using secure authentic
 -   Tiered access to specific functionality and content within three main categories (media/administrator/system administrator), as well as unauthenticated functionality.
 -   Management functionality for a maximum of 4 system administrators (set by environment variable). System admins are able to see audit actions by regular administrators, view underlying data, manage users etc.
 -   Set up subscriptions to be notified via email when a new publication with given parameters is uploaded.
+-   Uses Redis as the backing store for session data.
 
 ### Architecture Diagram
 
@@ -135,7 +136,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | CONFIG_ADMIN_ENDPOINT              | URL that provides metadata about the B2C tenant's OpenID Connect configuration, such as the issuer URL, token signing keys, and supported scopes. This is for the admin journey.        | No        |
 | CONFIG_ENDPOINT                    | Same as above but for media journey.                                                                                                                                                    | No        |
 | MEDIA_VERIFICATION_CONFIG_ENDPOINT | Same as above but for verification of media accounts.                                                                                                                                   | No        |
-| OIDC                               | Boolean referring to whether the service is running secure mode or not.                                                                                                                 | No        |
 | SESSION_SECRET                     | Unique identifier or value that's used to identify a user's session - can really be any string if you're running locally.                                                               | Yes       |
 | FRONTEND_URL                       | This is the host that the service uses to identify what it's running on. Defaults to staging, but you want it to be `https://localhost:8080` if you're running locally (in secure mode) | No        |
 | REDIS_HOST                         | Hostname of utilised Redis instance                                                                                                                                                     | No        |
@@ -179,6 +179,14 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | SUBSCRIPTION_MANAGEMENT_AZ_API | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service |
 | ACCOUNT_MANAGEMENT_AZ_API      | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service      |
 | TENANT_ID                      | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                    |
+
+## Session Management
+
+We use Redis to store session data to ensure sessions are shared across multiple frontend instances.
+
+This is configured in the [app.js](./src/main/app.js) file.
+
+Alongside this, the local unit / route tests use a Mock version of redis to simulate the interactions.
 
 ## Deployment
 
