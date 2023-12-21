@@ -23,7 +23,6 @@ export default class OpaPublicListController {
 
         if (isValidList(searchResults, metaData) && searchResults && metaData) {
             const listData = opaPublicListService.formatOpaPublicList(JSON.stringify(searchResults));
-            console.log(listData);
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
