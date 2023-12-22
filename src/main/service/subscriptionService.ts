@@ -93,12 +93,13 @@ export class SubscriptionService {
 
     async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
         const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
-        return subscriptionData ||
-              {
-                  caseSubscriptions: [],
-                  listTypeSubscriptions: [],
-                  locationSubscriptions: [],
-              };
+        return (
+            subscriptionData || {
+                caseSubscriptions: [],
+                listTypeSubscriptions: [],
+                locationSubscriptions: [],
+            }
+        );
     }
 
     async generateCaseTableRows(subscriptionDataCases, language): Promise<any[]> {
@@ -169,7 +170,7 @@ export class SubscriptionService {
                 case 'case-number':
                 case 'case-number[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
-                        ? hearingIdsList = pendingSubscription[`${selectionName}`]
+                        ? (hearingIdsList = pendingSubscription[`${selectionName}`])
                         : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
 
                     caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
@@ -178,7 +179,7 @@ export class SubscriptionService {
                 case 'case-urn':
                 case 'case-urn[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
-                        ? hearingIdsList = pendingSubscription[`${selectionName}`]
+                        ? (hearingIdsList = pendingSubscription[`${selectionName}`])
                         : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
 
                     caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user);
@@ -186,7 +187,7 @@ export class SubscriptionService {
                     break;
                 case 'court-selections[]':
                     Array.isArray(pendingSubscription[`${selectionName}`])
-                        ? locationIdsList = pendingSubscription[`${selectionName}`]
+                        ? (locationIdsList = pendingSubscription[`${selectionName}`])
                         : locationIdsList.push(pendingSubscription[`${selectionName}`]);
 
                     courtDetailsList = await this.getCourtDetails(locationIdsList);
@@ -475,13 +476,15 @@ export class SubscriptionService {
 
         const finalFilterValueOptions = this.getAllJurisdictions(list, language);
 
-        [...finalFilterValueOptions].sort((a, b) => a.localeCompare(b)).forEach(value => {
-            filterValueOptions['Jurisdiction'][value] = {
-                value: value,
-                text: value,
-                checked: selectedFilters.includes(value),
-            };
-        });
+        [...finalFilterValueOptions]
+            .sort((a, b) => a.localeCompare(b))
+            .forEach(value => {
+                filterValueOptions['Jurisdiction'][value] = {
+                    value: value,
+                    text: value,
+                    checked: selectedFilters.includes(value),
+                };
+            });
         return filterValueOptions;
     }
 

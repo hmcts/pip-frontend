@@ -30,13 +30,15 @@ export class FilterService {
                 }
             });
 
-            [...finalFilterValueOptions].sort((a, b) => a.localeCompare(b)).forEach(value => {
-                filterValueOptions[filter][value] = {
-                    value: value,
-                    text: value,
-                    checked: selectedFilters.includes(value),
-                };
-            });
+            [...finalFilterValueOptions]
+                .sort((a, b) => a.localeCompare(b))
+                .forEach(value => {
+                    filterValueOptions[filter][value] = {
+                        value: value,
+                        text: value,
+                        checked: selectedFilters.includes(value),
+                    };
+                });
         });
         return filterValueOptions;
     }

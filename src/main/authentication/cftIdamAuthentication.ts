@@ -35,22 +35,24 @@ export function cftIdamAuthentication(req, callback) {
     };
 
     try {
-        cftIdamTokenApi.post('/o/token', querystring.stringify(params), {
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        }).then((response) => {
-            const data = response.data;
-            const jwtToken = jwtDecode(data.id_token);
-            jwtToken['flow'] = 'CFT';
+        cftIdamTokenApi
+            .post('/o/token', querystring.stringify(params), {
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            })
+            .then(response => {
+                const data = response.data;
+                const jwtToken = jwtDecode(data.id_token);
+                jwtToken['flow'] = 'CFT';
 
-            if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
-                callback(null, null);
-            } else {
-                callback(null, jwtToken);
-            }
-        });
+                if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
+                    callback(null, null);
+                } else {
+                    callback(null, jwtToken);
+                }
+            });
     } catch (cftIdamException) {
         callback(null, null);
     }
