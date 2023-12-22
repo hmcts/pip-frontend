@@ -27,6 +27,21 @@ const locationSubscriptionSorter = (a, b) => {
     return 0;
 };
 
+const compareByCaseRef = (a, b) => {
+    const caseRefA = a.searchType == 'CASE_ID' ? a.caseNumber : a.urn;
+    const caseRefB = b.searchType == 'CASE_ID' ? b.caseNumber : b.urn;
+
+    if (caseRefA === caseRefB) {
+        return 0;
+    } else if (caseRefA === null) {
+        return 1;
+    } else if (caseRefB === null) {
+        return -1;
+    }
+    return caseRefA > caseRefB ? 1 : -1;
+
+}
+
 const caseSubscriptionSorter = (a, b) => {
     let result;
     if (a.caseName === b.caseName) {
@@ -41,20 +56,11 @@ const caseSubscriptionSorter = (a, b) => {
     }
 
     if (result === 0) {
-        const caseRefA = a.searchType == 'CASE_ID' ? a.caseNumber : a.urn;
-        const caseRefB = b.searchType == 'CASE_ID' ? b.caseNumber : b.urn;
-
-        if (caseRefA === caseRefB) {
-            return 0;
-        } else if (caseRefA === null) {
-            return 1;
-        } else if (caseRefB === null) {
-            return -1;
-        }
-        return caseRefA > caseRefB ? 1 : -1;
+        return compareByCaseRef(a, b);
     }
     return result;
 };
+
 
 export class SubscriptionService {
     public async getSubscriptionDataForView(userId: string, language: string, tab: string): Promise<object> {
@@ -169,26 +175,31 @@ export class SubscriptionService {
             switch (selectionName) {
                 case 'case-number':
                 case 'case-number[]':
-                    Array.isArray(pendingSubscription[`${selectionName}`])
-                        ? (hearingIdsList = pendingSubscription[`${selectionName}`])
-                        : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
-
+                    if (Array.isArray(pendingSubscription[`${selectionName}`])) {
+                        hearingIdsList = pendingSubscription[`${selectionName}`]
+                    } else {
+                        hearingIdsList.push(pendingSubscription[`${selectionName}`]);
+                    }
                     caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'case-urn':
                 case 'case-urn[]':
-                    Array.isArray(pendingSubscription[`${selectionName}`])
-                        ? (hearingIdsList = pendingSubscription[`${selectionName}`])
-                        : hearingIdsList.push(pendingSubscription[`${selectionName}`]);
+                    if (Array.isArray(pendingSubscription[`${selectionName}`])) {
+                        hearingIdsList = pendingSubscription[`${selectionName}`]
+                    } else {
+                        hearingIdsList.push(pendingSubscription[`${selectionName}`]);
+                    }
 
                     caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user);
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'court-selections[]':
-                    Array.isArray(pendingSubscription[`${selectionName}`])
-                        ? (locationIdsList = pendingSubscription[`${selectionName}`])
-                        : locationIdsList.push(pendingSubscription[`${selectionName}`]);
+                    if (Array.isArray(pendingSubscription[`${selectionName}`])) {
+                        locationIdsList = pendingSubscription[`${selectionName}`]
+                    } else {
+                        locationIdsList.push(pendingSubscription[`${selectionName}`]);
+                    }
 
                     courtDetailsList = await this.getCourtDetails(locationIdsList);
                     await this.setPendingSubscriptions(courtDetailsList, 'courts', user.userId);

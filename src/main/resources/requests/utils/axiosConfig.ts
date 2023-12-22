@@ -4,7 +4,7 @@ import tokenProvider from 'axios-token-interceptor';
 import config from 'config';
 import { CFT_IDAM_URL } from '../../../helpers/envUrls';
 
-const tenantId = (process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID')) as string;
+const tenantId = (process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID'));
 const tokenUrl = 'https://login.microsoftonline.com/' + tenantId + '/oauth2/v2.0/token';
 
 const clientId = process.env.CLIENT_ID_INTERNAL
