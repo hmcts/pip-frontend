@@ -34,12 +34,14 @@ export function cftIdamAuthentication(req, callback) {
         code: req.query.code as string,
     };
 
-        cftIdamTokenApi.post('/o/token', querystring.stringify(params), {
+    cftIdamTokenApi
+        .post('/o/token', querystring.stringify(params), {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-        }).then((response) => {
+        })
+        .then(response => {
             const data = response.data;
             const jwtToken = jwtDecode(data.id_token);
             jwtToken['flow'] = 'CFT';
@@ -49,7 +51,8 @@ export function cftIdamAuthentication(req, callback) {
             } else {
                 callback(null, jwtToken);
             }
-        }).catch(() => {
+        })
+        .catch(() => {
             callback(null, null);
         });
 }

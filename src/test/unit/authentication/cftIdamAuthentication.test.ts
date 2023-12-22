@@ -54,7 +54,7 @@ describe('CFT IDAM Authentication', () => {
         });
     });
 
-    it('Should call the callback with null when throwing an error',  done => {
+    it('Should call the callback with null when throwing an error', done => {
         jest.mock('jwt-decode', () => () => ({ roles: 'INTERNAL_ADMIN' }));
         const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
         cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
@@ -62,14 +62,12 @@ describe('CFT IDAM Authentication', () => {
         const mockFunction = jest.fn().mockImplementation((a, b) => {
             expect(a).toBe(null);
             expect(b).toBe(null);
-            done()
+            done();
         });
         const request = { query: { code: '1234' } };
         postStub.returns(Promise.reject('CFT IDAM Callback Error'));
 
         cftIdamAuthenticationInstance(request, mockFunction);
-
-
     });
 
     it('Should call the callback with null when role does not match expected citizen role', done => {
@@ -81,14 +79,14 @@ describe('CFT IDAM Authentication', () => {
         const mockFunction = jest.fn().mockImplementation((a, b) => {
             expect(a).toBe(null);
             expect(b).toBe(null);
-            done()
+            done();
         });
         const request = { query: { code: '1234' } };
 
         cftIdamAuthenticationInstance(request, mockFunction);
     });
 
-    it('Should call the callback with null when role does not match expected letter-holder role',  done => {
+    it('Should call the callback with null when role does not match expected letter-holder role', done => {
         jest.mock('jwt-decode', () => () => ({ roles: ['letter-holder'] }));
         const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
         cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
@@ -97,7 +95,7 @@ describe('CFT IDAM Authentication', () => {
         const mockFunction = jest.fn().mockImplementation((a, b) => {
             expect(a).toBe(null);
             expect(b).toBe(null);
-            done()
+            done();
         });
         const request = { query: { code: '1234' } };
 

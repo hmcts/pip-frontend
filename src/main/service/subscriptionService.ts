@@ -39,8 +39,7 @@ const compareByCaseRef = (a, b) => {
         return -1;
     }
     return caseRefA > caseRefB ? 1 : -1;
-
-}
+};
 
 const caseSubscriptionSorter = (a, b) => {
     let result;
@@ -60,7 +59,6 @@ const caseSubscriptionSorter = (a, b) => {
     }
     return result;
 };
-
 
 export class SubscriptionService {
     public async getSubscriptionDataForView(userId: string, language: string, tab: string): Promise<object> {
@@ -176,7 +174,7 @@ export class SubscriptionService {
                 case 'case-number':
                 case 'case-number[]':
                     if (Array.isArray(pendingSubscription[`${selectionName}`])) {
-                        hearingIdsList = pendingSubscription[`${selectionName}`]
+                        hearingIdsList = pendingSubscription[`${selectionName}`];
                     } else {
                         hearingIdsList.push(pendingSubscription[`${selectionName}`]);
                     }
@@ -186,7 +184,7 @@ export class SubscriptionService {
                 case 'case-urn':
                 case 'case-urn[]':
                     if (Array.isArray(pendingSubscription[`${selectionName}`])) {
-                        hearingIdsList = pendingSubscription[`${selectionName}`]
+                        hearingIdsList = pendingSubscription[`${selectionName}`];
                     } else {
                         hearingIdsList.push(pendingSubscription[`${selectionName}`]);
                     }
@@ -196,7 +194,7 @@ export class SubscriptionService {
                     break;
                 case 'court-selections[]':
                     if (Array.isArray(pendingSubscription[`${selectionName}`])) {
-                        locationIdsList = pendingSubscription[`${selectionName}`]
+                        locationIdsList = pendingSubscription[`${selectionName}`];
                     } else {
                         locationIdsList.push(pendingSubscription[`${selectionName}`]);
                     }
