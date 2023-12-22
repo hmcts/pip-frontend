@@ -14,7 +14,7 @@ export default class ListDownloadDisclaimerController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const artefactId = req.query.artefactId;
+        const artefactId = req.query.artefactId as string;
 
         if (req.body['disclaimer-agreement'] === undefined) {
             return res.render(disclaimerUrl, {

@@ -25,14 +25,12 @@ export class FilterService {
                             finalFilterValueOptions.push(value);
                         }
                     });
-                } else {
-                    if (value) {
-                        finalFilterValueOptions.push(value);
-                    }
+                } else if (value) {
+                    finalFilterValueOptions.push(value);
                 }
             });
 
-            [...finalFilterValueOptions].sort().forEach(value => {
+            [...finalFilterValueOptions].sort((a, b) => a.localeCompare(b)).forEach(value => {
                 filterValueOptions[filter][value] = {
                     value: value,
                     text: value,
@@ -143,12 +141,10 @@ export class FilterService {
         };
     }
 
-    public generateFilterKeyValues(body: string): object {
+    public generateFilterKeyValues(body: string): string {
         const keys = Object.keys(body);
         const values = [];
         keys.forEach(key => values.push(body[key]));
-        const filterValues = Array.prototype.concat.apply([], values);
-
-        return filterValues;
+        return Array.prototype.concat.apply([], values);
     }
 }
