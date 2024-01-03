@@ -13,10 +13,14 @@ export default class SubscriptionManagementController {
                 req.lng,
                 Object.keys(req.query)[0]
             );
-            res.render('subscription-management', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-management']),
-                ...subscriptionData,
-            });
+            if (subscriptionService.checkForNullValues(subscriptionData)) {
+                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+            } else {
+                res.render('subscription-management', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-management']),
+                    ...subscriptionData,
+                });
+            }
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }

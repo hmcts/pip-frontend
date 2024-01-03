@@ -102,6 +102,10 @@ export class SubscriptionService {
               };
     }
 
+    public checkForNullValues(subscriptionData): boolean {
+        return subscriptionData.caseTableData == null || subscriptionData.locationTableData == null;
+    }
+
     async generateCaseTableRows(subscriptionDataCases, language): Promise<any[]> {
         const caseRows = [];
         if (subscriptionDataCases.length) {
