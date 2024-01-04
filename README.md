@@ -20,11 +20,12 @@
             1. [Get environment variables with python scripts](#get-environment-variables-with-python-scripts)
             2. [Runtime secrets](#runtime-secrets)
             3. [Additional test secrets](#additional-test-secrets)
-3. [Deployment](#deployment)
-4. [Monitoring and Logging](#monitoring-and-logging)
-5. [Nunjucks Filters](#nunjucks-filters)
-6. [Security & Quality Considerations](#security-and-quality-considerations)
-7. [Test Suite](#test-suite)
+3. [Session Management](#session-management)
+4. [Deployment](#deployment)
+5. [Monitoring and Logging](#monitoring-and-logging)
+6. [Nunjucks Filters](#nunjucks-filters)
+7. [Security & Quality Considerations](#security-and-quality-considerations)
+8. [Test Suite](#test-suite)
     1. [Unit tests](#unit-tests)
         1. [Unit tests by type](#unit-tests-by-type)
         2. [Re-running failed tests](#re-running-failed-tests)
@@ -33,7 +34,7 @@
     4. [Functional (E2E) Tests](#functional-e2e-tests)
         1. [Justification for migration to CodeceptJS](#justification-for-migration-to-codeceptjs)
         2. [Running e2e tests](#running-e2e-tests)
-8. [Contributing](#contributing)[License](#license)
+9. [Contributing](#contributing)[License](#license)
 
 ## Overview
 
@@ -44,13 +45,13 @@ Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mos
 
 It is connected to several other microservices in production (all written in Java/Spring Boot):
 
-| Microservice                              | Summary                                                                                                                                                                                                                                                    |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation                                      |
-| pip-subscription-management (`port:4550`) | Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.                                                                                                                               |
-| pip-channel-management(`port:8181`)       | Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).                                                                              |
-| pip-publication-services(`port:8081`)     | Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers. |
-| pip-account-management(`port:6969`)       | Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                                                                                    |
+| Microservice                              | Summary                                                                                                                                                                                                                                                     |
+|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation                                       |
+| pip-subscription-management (`port:4550`) | Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.                                                                                                                                |
+| pip-channel-management(`port:8181`)       | Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).                                                                               |
+| pip-publication-services(`port:8081`)     | Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers.  |
+| pip-account-management(`port:6969`)       | Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                                                                                     |
 
 Most of the communication with this service benefits from using secure authentication. While possible to stand up locally in insecure mode, to simulate a production environment it is better to use secure mode.
 
@@ -64,6 +65,7 @@ Most of the communication with this service benefits from using secure authentic
 -   Tiered access to specific functionality and content within three main categories (media/administrator/system administrator), as well as unauthenticated functionality.
 -   Management functionality for a maximum of 4 system administrators (set by environment variable). System admins are able to see audit actions by regular administrators, view underlying data, manage users etc.
 -   Set up subscriptions to be notified via email when a new publication with given parameters is uploaded.
+-   Uses Redis as the backing store for session data.
 
 ### Architecture Diagram
 
@@ -135,7 +137,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | CONFIG_ADMIN_ENDPOINT              | URL that provides metadata about the B2C tenant's OpenID Connect configuration, such as the issuer URL, token signing keys, and supported scopes. This is for the admin journey.        | No        |
 | CONFIG_ENDPOINT                    | Same as above but for media journey.                                                                                                                                                    | No        |
 | MEDIA_VERIFICATION_CONFIG_ENDPOINT | Same as above but for verification of media accounts.                                                                                                                                   | No        |
-| OIDC                               | Boolean referring to whether the service is running secure mode or not.                                                                                                                 | No        |
 | SESSION_SECRET                     | Unique identifier or value that's used to identify a user's session - can really be any string if you're running locally.                                                               | Yes       |
 | FRONTEND_URL                       | This is the host that the service uses to identify what it's running on. Defaults to staging, but you want it to be `https://localhost:8080` if you're running locally (in secure mode) | No        |
 | REDIS_HOST                         | Hostname of utilised Redis instance                                                                                                                                                     | No        |
@@ -179,6 +180,14 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | SUBSCRIPTION_MANAGEMENT_AZ_API | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service |
 | ACCOUNT_MANAGEMENT_AZ_API      | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service      |
 | TENANT_ID                      | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                    |
+
+## Session Management
+
+We use Redis to store session data to ensure sessions are shared across multiple frontend instances.
+
+This is configured in the [app.js](./src/main/app.js) file.
+
+Alongside this, the local unit / route tests use a Mock version of redis to simulate the interactions.
 
 ## Deployment
 
