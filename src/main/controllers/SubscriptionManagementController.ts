@@ -11,12 +11,11 @@ export default class SubscriptionManagementController {
             return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
 
-        const subscriptionData =
-            await subscriptionService.getSubscriptionDataForView(
-                req.user['userId'],
-                req.lng,
-                Object.keys(req.query)[0]
-            );
+        const subscriptionData = await subscriptionService.getSubscriptionDataForView(
+            req.user['userId'],
+            req.lng,
+            Object.keys(req.query)[0]
+        );
 
         if (subscriptionService.checkForNullValues(subscriptionData)) {
             return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
