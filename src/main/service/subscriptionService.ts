@@ -102,7 +102,7 @@ export class SubscriptionService {
               };
     }
 
-    public checkForNullValues(subscriptionData): boolean {
+    public containsNullValues(subscriptionData): boolean {
         return subscriptionData.caseTableData == null || subscriptionData.locationTableData == null;
     }
 

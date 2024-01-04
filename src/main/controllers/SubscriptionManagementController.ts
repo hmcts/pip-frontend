@@ -17,7 +17,7 @@ export default class SubscriptionManagementController {
             Object.keys(req.query)[0]
         );
 
-        if (subscriptionService.checkForNullValues(subscriptionData)) {
+        if (subscriptionService.containsNullValues(subscriptionData)) {
             return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
 
