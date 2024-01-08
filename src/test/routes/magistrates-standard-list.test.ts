@@ -9,11 +9,11 @@ import fs from 'fs';
 import path from 'path';
 import { MagistratesStandardListService } from '../../main/service/listManipulation/MagistratesStandardListService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/magsStandardList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/magistratesStandardList.json'), 'utf-8');
 const magsStandardListData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(magsStandardListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(magsStandardListData);
-sinon.stub(MagistratesStandardListService.prototype, 'manipulatedMagsStandardListData').resolves(magsStandardListData);
+sinon.stub(MagistratesStandardListService.prototype, 'manipulateData').resolves(magsStandardListData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Magistrate Standard List Page', () => {
