@@ -20,7 +20,7 @@ const restrictionHeadingText = 'Restrictions on publishing or writing about thes
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magsStandardList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesStandardList.json'), 'utf-8');
 const magistrateStandardListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -70,18 +70,24 @@ describe('Magistrate Standard List page', () => {
 
     it('should display the site name for both sections', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
-        expect(siteAddress[0].innerHTML).contains('Courtroom 1', 'Could not find the site name in section 1');
+        expect(siteAddress[0].innerHTML).contains(
+            'Courtroom 1: DJ Steve 1',
+            'Could not find the site name in section 1'
+        );
     });
 
     it('should display the courtroom', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
-        expect(siteAddress[1].innerHTML).contains('Courtroom 2', 'Could not find the Court name with Sitting at text');
+        expect(siteAddress[1].innerHTML).contains(
+            'Courtroom 2: DJ Steve 2',
+            'Could not find the Court name with Sitting at text'
+        );
     });
 
     it('should display accordion open/close all', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Defendant Name:  Surname1, Forename1 (male)',
+            'Defendant Name:  Surname1, Forename1 (male)*',
             'Could not find the accordion heading'
         );
     });
@@ -109,6 +115,11 @@ describe('Magistrate Standard List page', () => {
     it('should display correct offence title', () => {
         const cell = htmlRes.getElementsByClassName('govuk-details__summary-text');
         expect(cell[0].innerHTML).contains('1. drink driving');
+    });
+
+    it('should display offence wording', () => {
+        const offence = htmlRes.getElementsByClassName('govuk-details__text');
+        expect(offence[0].innerHTML).contains('driving whilst under the influence of alcohol');
     });
 
     it('should display correct offence information', () => {
