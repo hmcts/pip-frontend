@@ -34,7 +34,7 @@ describe('Create Media Account page', () => {
         it('should display correct text in the first paragraph', () => {
             const hint = htmlRes.getElementsByClassName('govuk-body')[0];
             expect(hint.innerHTML).contains(
-                'A court and tribunal hearings account is for professional users who require the ability to view HMCTS information such as hearing lists, but do not have the ability to create an account using MyHMCTS or Common Platform e.g. members of the media.',
+                'A Court and tribunal hearings account is for professional users who require the ability to view HMCTS information such as hearing lists, but do not have the ability to create an account using MyHMCTS or Common Platform e.g. members of the media.',
                 'Could not find correct text in first paragraph'
             );
         });
@@ -120,7 +120,7 @@ describe('Create Media Account page', () => {
         it('should display t&c paragraph 1', () => {
             const message = htmlRes.getElementsByClassName('govuk-body')[3];
             expect(message.innerHTML).contains(
-                'A court and tribunal hearing account is granted based on you having ' + 'legitimate',
+                'A Court and tribunal hearing account is granted based on you having ' + 'legitimate',
                 'Could not find this paragraph'
             );
         });
