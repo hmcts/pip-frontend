@@ -33,7 +33,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     req.user?.['provenanceUserId']
                 );
 
-                if (response !== null && response['exists']) {
+                if (response?.['exists']) {
                     await userManagementService.auditAction(
                         req.user,
                         'DELETE_LOCATION_ATTEMPT',

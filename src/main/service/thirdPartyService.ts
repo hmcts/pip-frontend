@@ -22,7 +22,7 @@ export class ThirdPartyService {
     public generateListTypes(listTypes, subscriptions) {
         const formattedListTypes = {};
 
-        listTypes = new Map([...listTypes.entries()].sort());
+        listTypes = new Map([...listTypes.entries()].sort((a, b) => a[0].localeCompare([b[0]])));
         for (const [listName, listDetails] of listTypes) {
             formattedListTypes[listName] = {
                 listFriendlyName: listDetails.friendlyName,
@@ -75,7 +75,7 @@ export class ThirdPartyService {
      * @param selectedChannel The channel that has been selected.
      */
     public async handleThirdPartySubscriptionUpdate(adminUserId, selectedUser, selectedListTypes, selectedChannel) {
-        selectedListTypes = selectedListTypes ? selectedListTypes : [];
+        selectedListTypes = selectedListTypes || [];
         selectedListTypes = Array.isArray(selectedListTypes) ? selectedListTypes : Array.of(selectedListTypes);
 
         const currentSubscriptions = await this.subscriptionService.getSubscriptionsByUser(selectedUser);

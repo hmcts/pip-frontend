@@ -7,7 +7,7 @@ const publicationService = new PublicationService();
 
 export default class CaseNameSearchResultsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const searchQuery = req.query.search;
+        const searchQuery = req.query.search as string;
         if (searchQuery) {
             const searchResults = await publicationService.getCasesByCaseName(
                 searchQuery.toString(),
