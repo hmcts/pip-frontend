@@ -21,10 +21,10 @@ export class LocationService {
         if (language === 'cy') {
             locations.forEach(value => {
                 const locationInfo = {
-                    locationId: value['locationId'] != null ? value['locationId'] : value.locationId,
-                    name: value['welshName'] != null ? value['welshName'] : value.name,
-                    jurisdiction: value['welshJurisdiction'] != null ? value['welshJurisdiction'] : value.jurisdiction,
-                    region: value['welshRegion'] != null ? value['welshRegion'] : value.region,
+                    locationId: value['locationId'] ?? value.locationId,
+                    name: value['welshName'] ?? value.name,
+                    jurisdiction: value['welshJurisdiction'] ?? value.jurisdiction,
+                    region: value['welshRegion'] ?? value.region,
                     location: value.location,
                 };
 
@@ -88,7 +88,7 @@ export class LocationService {
         }
 
         if (language === 'cy') {
-            courtName = location['welshName'] != null ? location['welshName'] : location.name;
+            courtName = location['welshName'] ?? location.name;
         } else {
             courtName = location.name;
         }

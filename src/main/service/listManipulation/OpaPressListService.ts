@@ -81,7 +81,7 @@ export class OpaPressListService {
         defendants.forEach(defendant => {
             // The offence's plea date is used to group and sort the cases for the defendant. If plea date is missing,
             // the entry will be dropped
-            if (defendant && defendant.name && defendant.offence.length > 0 && defendant.offence[0].pleaDate) {
+            if (defendant?.name && defendant?.offence.length > 0 && defendant?.offence[0].pleaDate) {
                 defendantInfo.push({ ...defendant, prosecutor });
             }
         });
