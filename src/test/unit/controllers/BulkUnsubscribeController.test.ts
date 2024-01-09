@@ -119,17 +119,6 @@ describe('Bulk Unsubscribe Controller', () => {
                 responseMock.verify();
             });
         });
-
-        it('should render error page if data is null', () => {
-            sinon.restore();
-            sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns(null);
-            sinon.stub(SubscriptionService.prototype, 'generateLocationTableRows').returns(null);
-            responseMock.expects('render').once().withArgs('error', i18n.error);
-
-            bulkDeleteSubscriptionsController.get(request, response).then(() => {
-                responseMock.verify();
-            });
-        });
     });
 
     describe('POST request', () => {

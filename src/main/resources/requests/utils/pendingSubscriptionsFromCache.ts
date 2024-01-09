@@ -6,18 +6,16 @@ export class PendingSubscriptionsFromCache {
             let subscriptionsSet = [];
             const rawData = await redisClient.get(`pending-${subscriptionType}-subscriptions-${userId}`);
             const cachedResults = JSON.parse(rawData);
-            if (cachedResults && cachedResults.length) {
+            if (cachedResults?.length) {
                 subscriptionsSet = cachedResults;
             }
             subscriptions.forEach(subscription => {
                 if (subscriptionType === 'courts') {
                     this.addToSubscriptionSet(subscription, 'locationId', subscriptionsSet);
+                } else if (subscription.urnSearch) {
+                    this.addToSubscriptionSet(subscription, 'caseUrn', subscriptionsSet);
                 } else {
-                    if (subscription.urnSearch) {
-                        this.addToSubscriptionSet(subscription, 'caseUrn', subscriptionsSet);
-                    } else {
-                        this.addToSubscriptionSet(subscription, 'caseNumber', subscriptionsSet);
-                    }
+                    this.addToSubscriptionSet(subscription, 'caseNumber', subscriptionsSet);
                 }
             });
             await redisClient.set(

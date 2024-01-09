@@ -27,7 +27,7 @@ export function isPermittedSystemAdmin(req: any, res, next) {
 }
 
 export function isPermittedAnyRole(req: any, res, next) {
-    if (req.user && req.user['roles']) {
+    if (req.user?.['roles']) {
         return next();
     } else {
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
