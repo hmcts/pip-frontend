@@ -25,7 +25,7 @@ if (process.env.CFT_IDAM_CLIENT_SECRET) {
  * @param req The inbound request from the IDAM.
  * @param callback The passport callback to call once the function is complete
  */
-export async function cftIdamAuthentication(req, callback) {
+export function cftIdamAuthentication(req, callback) {
     const params = {
         client_id: 'app-pip-frontend',
         client_secret: cftIdamClientSecret,
@@ -34,24 +34,25 @@ export async function cftIdamAuthentication(req, callback) {
         code: req.query.code as string,
     };
 
-    try {
-        const response = await cftIdamTokenApi.post('/o/token', querystring.stringify(params), {
+    cftIdamTokenApi
+        .post('/o/token', querystring.stringify(params), {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-        });
+        })
+        .then(response => {
+            const data = response.data;
+            const jwtToken = jwtDecode(data.id_token);
+            jwtToken['flow'] = 'CFT';
 
-        const data = response.data;
-        const jwtToken = jwtDecode(data.id_token);
-        jwtToken['flow'] = 'CFT';
-
-        if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
+            if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
+                callback(null, null);
+            } else {
+                callback(null, jwtToken);
+            }
+        })
+        .catch(() => {
             callback(null, null);
-        } else {
-            callback(null, jwtToken);
-        }
-    } catch (cftIdamException) {
-        callback(null, null);
-    }
+        });
 }
