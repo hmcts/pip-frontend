@@ -184,6 +184,7 @@ export default function (app: Application): void {
     app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
     app.get('/opa-press-list', app.locals.container.cradle.opaPressListController.get);
+    app.get('/opa-public-list', app.locals.container.cradle.opaPublicListController.get);
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
