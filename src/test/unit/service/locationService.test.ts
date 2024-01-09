@@ -54,7 +54,11 @@ const welshLanguage = 'cy';
 const englishLanguageFile = 'sscs-daily-list';
 const deletionResponse = { exists: true, errorMessage: 'test' };
 const requester = 'Test';
-stubCourtsFilter.withArgs('', 'Crown', englishLanguage).returns(hearingsData);
+const crown = 'Crown';
+const magistrates = 'Magistrates';
+
+stubCourtsFilter.withArgs('', crown, englishLanguage).returns(hearingsData);
+stubCourtsFilter.withArgs('', magistrates, englishLanguage).returns([]);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
@@ -155,13 +159,19 @@ describe('Court Service', () => {
     });
 
     it(`should have filtered a ${validCourt} key`, async () => {
-        const data = await courtService.generateFilteredAlphabetisedCourtList('', 'Crown', englishLanguage);
+        const data = await courtService.generateFilteredAlphabetisedCourtList('', crown, englishLanguage);
         expect(validCourt in data['A']).to.be.true;
     });
 
     it(`should return object with ${validKeysCount} keys filtered`, async () => {
-        const data = await courtService.generateFilteredAlphabetisedCourtList('', 'Crown', englishLanguage);
+        const data = await courtService.generateFilteredAlphabetisedCourtList('', crown, englishLanguage);
         expect(Object.keys(data).length).to.equal(validKeysCount);
+    });
+
+    it(`should return empty filtered courts`, async () => {
+        const data = await courtService.generateFilteredAlphabetisedCourtList('', magistrates, englishLanguage);
+        expect(Object.keys(data).length).to.equal(validKeysCount);
+        expect(data['A']).to.be.empty;
     });
 
     it('should return sorted courts list', () => {
