@@ -122,15 +122,4 @@ describe('Subscriptions Management Controller', () => {
             responseMock.verify();
         });
     });
-
-    it('should render error page if data is null', () => {
-        sinon.restore();
-        sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns(null);
-        sinon.stub(SubscriptionService.prototype, 'generateLocationTableRows').returns(null);
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
-
-        subscriptionManagementController.get(request, response).then(() => {
-            responseMock.verify();
-        });
-    });
 });

@@ -9,7 +9,7 @@ const courtService = new LocationService();
 
 export default class SummaryOfPublicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const locationId = req.query['locationId'];
+        const locationId = req.query['locationId'] as string;
         if (locationId) {
             const court = await courtService.getLocationById(parseInt(locationId.toString()));
             const locationName = courtService.findCourtName(court, req.lng, 'summary-of-publications');

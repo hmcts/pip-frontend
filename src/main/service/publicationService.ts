@@ -121,7 +121,7 @@ export class PublicationService {
                 });
             } else {
                 artefact.search.cases.forEach(singleCase => {
-                    if (singleCase.caseName && singleCase.caseName.toLowerCase().includes(value.toLowerCase())) {
+                    if (singleCase.caseName?.toLowerCase().includes(value.toLowerCase())) {
                         const alreadyExists = matches.find(
                             m =>
                                 m.caseName === singleCase.caseName &&
@@ -227,7 +227,7 @@ export class PublicationService {
      */
     public getDefaultSensitivity(listType: string) {
         const listMetadata = Object.entries(listData).find(([key]) => key === listType);
-        if (listMetadata && listMetadata[1]) {
+        if (listMetadata?.[1]) {
             return listMetadata[1]['defaultSensitivity'];
         }
         return '';

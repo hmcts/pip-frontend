@@ -54,51 +54,51 @@ describe('CFT IDAM Authentication', () => {
         });
     });
 
-    it('Should call the callback with null when throwing an error', async () => {
+    it('Should call the callback with null when throwing an error', done => {
         jest.mock('jwt-decode', () => () => ({ roles: 'INTERNAL_ADMIN' }));
         const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
         cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
 
-        const mockFunction = jest.fn();
+        const mockFunction = jest.fn().mockImplementation((a, b) => {
+            expect(a).toBe(null);
+            expect(b).toBe(null);
+            done();
+        });
         const request = { query: { code: '1234' } };
-        postStub.throws(new Error('CFT IDAM Callback Error'));
+        postStub.returns(Promise.reject('CFT IDAM Callback Error'));
 
-        await cftIdamAuthenticationInstance(request, mockFunction);
-
-        expect(mockFunction.mock.calls.length).toBe(1);
-        expect(mockFunction.mock.calls[0][0]).toBe(null);
-        expect(mockFunction.mock.calls[0][1]).toBe(null);
+        cftIdamAuthenticationInstance(request, mockFunction);
     });
 
-    it('Should call the callback with null when role does not match expected citizen role', async () => {
+    it('Should call the callback with null when role does not match expected citizen role', done => {
         jest.mock('jwt-decode', () => () => ({ roles: ['citizen'] }));
         const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
         cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
         postStub.resolves({ data: {} });
 
-        const mockFunction = jest.fn();
+        const mockFunction = jest.fn().mockImplementation((a, b) => {
+            expect(a).toBe(null);
+            expect(b).toBe(null);
+            done();
+        });
         const request = { query: { code: '1234' } };
 
-        await cftIdamAuthenticationInstance(request, mockFunction);
-
-        expect(mockFunction.mock.calls.length).toBe(1);
-        expect(mockFunction.mock.calls[0][0]).toBe(null);
-        expect(mockFunction.mock.calls[0][1]).toBe(null);
+        cftIdamAuthenticationInstance(request, mockFunction);
     });
 
-    it('Should call the callback with null when role does not match expected letter-holder role', async () => {
+    it('Should call the callback with null when role does not match expected letter-holder role', done => {
         jest.mock('jwt-decode', () => () => ({ roles: ['letter-holder'] }));
         const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
         cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
         postStub.resolves({ data: {} });
 
-        const mockFunction = jest.fn();
+        const mockFunction = jest.fn().mockImplementation((a, b) => {
+            expect(a).toBe(null);
+            expect(b).toBe(null);
+            done();
+        });
         const request = { query: { code: '1234' } };
 
-        await cftIdamAuthenticationInstance(request, mockFunction);
-
-        expect(mockFunction.mock.calls.length).toBe(1);
-        expect(mockFunction.mock.calls[0][0]).toBe(null);
-        expect(mockFunction.mock.calls[0][1]).toBe(null);
+        cftIdamAuthenticationInstance(request, mockFunction);
     });
 });

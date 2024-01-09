@@ -19,7 +19,7 @@ const listDownloadService = new ListDownloadService();
 
 export default class SjpPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const artefactId = req.query['artefactId'];
+        const artefactId = req.query['artefactId'] as string;
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
@@ -62,6 +62,6 @@ export default class SjpPublicListController {
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         const filterValues = filterService.generateFilterKeyValues(req.body);
-        res.redirect(`sjp-public-list?artefactId=${req.query.artefactId}&filterValues=${filterValues}`);
+        res.redirect(`sjp-public-list?artefactId=${req.query.artefactId as string}&filterValues=${filterValues}`);
     }
 }

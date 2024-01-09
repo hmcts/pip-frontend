@@ -12,7 +12,7 @@ export default class BulkUnsubscribeController {
         if (req.user) {
             const subscriptionData = await subscriptionService.getSubscriptionDataForView(
                 req.user['userId'],
-                req.lng as string,
+                req.lng,
                 Object.keys(req.query)[0]
             );
             res.render(bulkUnsubscribeUrl, {
@@ -30,7 +30,7 @@ export default class BulkUnsubscribeController {
             if (subscriptionsToDelete.length == 0) {
                 const subscriptionData = await subscriptionService.getSubscriptionDataForView(
                     req.user['userId'],
-                    req.lng as string,
+                    req.lng,
                     Object.keys(req.query)[0]
                 );
 
