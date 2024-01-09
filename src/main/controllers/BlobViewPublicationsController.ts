@@ -8,7 +8,7 @@ const summaryOfPublicationsService = new SummaryOfPublicationsService();
 const locationService = new LocationService();
 export default class BlobViewPublicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const locationId = req.query['locationId'];
+        const locationId = req.query['locationId'] as string;
         if (locationId) {
             let court;
             let locationName = '';

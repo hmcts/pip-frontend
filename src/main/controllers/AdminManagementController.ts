@@ -15,7 +15,7 @@ export default class AdminManagementController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const searchInput = req.body['search-input'];
 
-        if (searchInput && searchInput.length) {
+        if (searchInput?.length) {
             const searchResults = await accountManagementRequests.getAdminUserByEmailAndProvenance(
                 searchInput,
                 'PI_AAD',

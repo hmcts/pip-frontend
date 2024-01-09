@@ -59,7 +59,7 @@ export class SjpFilterService {
         const sortedPostcodes = Array.from(formattedPostcodes).sort((a, b) =>
             a.localeCompare(b, 'en', { numeric: true })
         );
-        const sortedProsecutors = Array.from(prosecutors).sort();
+        const sortedProsecutors = Array.from(prosecutors).sort((a, b) => a.localeCompare(b));
 
         const filterStructure = {
             postcodes: [],
@@ -130,19 +130,19 @@ export class SjpFilterService {
             const formattedProsecutor = item.prosecutorName.replace(replaceRegex, '');
 
             if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
-                if (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) {
-                    filteredCases.push(item);
-                } else if (
-                    postcodeFilters.includes(londonArea) &&
-                    londonPostalAreaCodes.includes(postalAreaCode) &&
-                    prosecutorFilters.includes(formattedProsecutor)
+                if (
+                    (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) ||
+                    (postcodeFilters.includes(londonArea) &&
+                        londonPostalAreaCodes.includes(postalAreaCode) &&
+                        prosecutorFilters.includes(formattedProsecutor))
                 ) {
                     filteredCases.push(item);
                 }
             } else if (postcodeFilters.length > 0) {
-                if (postcodeFilters.includes(formattedPostcode)) {
-                    filteredCases.push(item);
-                } else if (postcodeFilters.includes(londonArea) && londonPostalAreaCodes.includes(postalAreaCode)) {
+                if (
+                    postcodeFilters.includes(formattedPostcode) ||
+                    (postcodeFilters.includes(londonArea) && londonPostalAreaCodes.includes(postalAreaCode))
+                ) {
                     filteredCases.push(item);
                 }
             } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {

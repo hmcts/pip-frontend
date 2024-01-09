@@ -6,7 +6,7 @@ import { reSignInUrls } from '../models/consts';
 export default class SessionExpiredController {
     public get(req: PipRequest, res: Response): void {
         const signInUrl = req.query.reSignInUrl;
-        if (signInUrl && typeof signInUrl === 'string' && reSignInUrls[signInUrl as string]) {
+        if (signInUrl && typeof signInUrl === 'string' && reSignInUrls[signInUrl]) {
             res.render('session-expired', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['session-expired']),
                 signInUrl: reSignInUrls[signInUrl],

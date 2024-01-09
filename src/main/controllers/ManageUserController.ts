@@ -13,7 +13,7 @@ export default class ManageUserController {
             await userManagementService.auditAction(
                 req.user,
                 'MANAGE_USER',
-                'Manage user page requested containing user: ' + req.query.id
+                'Manage user page requested containing user: ' + (req.query.id as string)
             );
         }
 
