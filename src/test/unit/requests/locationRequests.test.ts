@@ -176,41 +176,41 @@ describe('Location get requests', () => {
         expect(await courtRequests.getFilteredCourts(regions, jurisdictions, englishLanguage)).toBe(courtList);
     });
 
-    it('should return null if response fails', async () => {
-        expect(await courtRequests.getFilteredCourts(test, 'error', englishLanguage)).toBe(null);
+    it('should return empty array if response fails', async () => {
+        expect(await courtRequests.getFilteredCourts(test, 'error', englishLanguage)).toStrictEqual([]);
     });
 
     it('should return Welsh list of courts based on search filter', async () => {
         expect(await courtRequests.getFilteredCourts(welshRegions, welshJurisdictions, welshLanguage)).toBe(courtList);
     });
 
-    it('should return null if Welsh request fails', async () => {
-        expect(await courtRequests.getFilteredCourts(test, test, welshLanguage)).toBe(null);
+    it('should return empty array if Welsh request fails', async () => {
+        expect(await courtRequests.getFilteredCourts(test, test, welshLanguage)).toStrictEqual([]);
     });
 
-    it('should return null if Welsh response fails', async () => {
-        expect(await courtRequests.getFilteredCourts(test, 'error', welshLanguage)).toBe(null);
+    it('should return empty array if Welsh response fails', async () => {
+        expect(await courtRequests.getFilteredCourts(test, 'error', welshLanguage)).toStrictEqual([]);
     });
 
     it('should return list of courts', async () => {
         expect(await courtRequests.getAllLocations()).toBe(courtList);
     });
 
-    it('should return null list of courts for error response', async () => {
+    it('should return empty list of courts for error response', async () => {
         stub.withArgs('/locations').rejects(errorResponse);
-        expect(await courtRequests.getFilteredCourts(test, test, englishLanguage)).toBe(null);
+        expect(await courtRequests.getFilteredCourts(test, test, englishLanguage)).toStrictEqual([]);
     });
 
-    it('should return null list of courts for errored call', async () => {
+    it('should return empty list of courts for errored call', async () => {
         stub.withArgs('/locations').rejects(errorMessage);
         stub.withArgs('allCourts').resolves(null);
-        expect(await courtRequests.getAllLocations()).toBe(null);
+        expect(await courtRequests.getAllLocations()).toStrictEqual([]);
     });
 
-    it('should return null list of courts for errored response', async () => {
+    it('should return empty list of courts for errored response', async () => {
         stub.withArgs('/locations').rejects(errorResponse);
         stub.withArgs('allCourts').resolves(null);
-        expect(await courtRequests.getAllLocations()).toBe(null);
+        expect(await courtRequests.getAllLocations()).toStrictEqual([]);
     });
 
     it('should not delete the court if active artefact or subscription exists', async () => {

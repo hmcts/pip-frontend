@@ -5,7 +5,6 @@ nodejs:
     startupPeriod: 30
     startupFailureThreshold: 10
     environment:
-        OIDC: true
         AUTH_RETURN_URL: https://127.0.0.1/login/return
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return

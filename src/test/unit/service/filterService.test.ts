@@ -59,6 +59,12 @@ describe('Filter Service', () => {
         expect(data[jurisdiction][crownCourt]['checked']).toBe(true);
     });
 
+    it('should return empty filter options for empty locations', () => {
+        const data = filterService.buildFilterValueOptions([], []);
+        expect(data[jurisdiction]).toStrictEqual({});
+        expect(data[region]).toStrictEqual({});
+    });
+
     it('should return empty array if clear is set to all', () => {
         expect(filterService.handleFilterClear(['test'], 'all')).toStrictEqual([]);
     });

@@ -40,7 +40,7 @@ export class LocationRequests {
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve filtered locations');
         }
-        return null;
+        return [];
     }
 
     public async getAllLocations(): Promise<Array<Location>> {
@@ -50,7 +50,7 @@ export class LocationRequests {
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve all locations');
         }
-        return null;
+        return [];
     }
 
     public async deleteCourt(locationId: number, adminUserId: string): Promise<object> {

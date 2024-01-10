@@ -1,0 +1,152 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "./macros/common-components.njk" import goBack, searchInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% extends "list-template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton) }}
+{% endblock %}
+{% block content %}
+    <div class="parent-box">
+        <h2 id='page-heading' class="govuk-heading-l">
+            {{ heading }} {{ courtName }}
+        </h2>
+        <p class="govuk-body venue-address">{{ venueAddress | striptags(true) | escape | nl2br }}</p>
+        <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
+            <div class="govuk-body">
+                <h3>{{ restrictionInformationHeading }}</h3>
+                <p class="govuk-body">{{ restrictionInformationP1 }}</p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon align-warning-icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        {{ restrictionInformationBoldText }}
+                    </strong>
+                </div>
+                <p class="govuk-body">{{ restrictionInformationP2 }}</p>
+                <p class="govuk-body">{{ restrictionInformationP3 }}</p>
+                <p class="govuk-body">{{ restrictionInformationP4 }}</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>{{ restrictionBulletPoint1 }}</li>
+                    <li>{{ restrictionBulletPoint2 }}</li>
+                </ul>
+            </div>
+            {% if bill %}
+                <div class="govuk-body">
+                    <h3>{{ restrictionInformationHeadingCy }}</h3>
+                    <p class="govuk-body">{{ restrictionInformationP1Cy }}</p>
+                    <div class="govuk-warning-text">
+                        <span class="govuk-warning-text__icon align-warning-icon" aria-hidden="true">!</span>
+                        <strong class="govuk-warning-text__text">
+                            <span class="govuk-warning-text__assistive">Warning</span>
+                            {{ restrictionInformationBoldTextCy }}
+                        </strong>
+                    </div>
+                    <p class="govuk-body">{{ restrictionInformationP2Cy }}</p>
+                    <p class="govuk-body">{{ restrictionInformationP3Cy }}</p>
+                    <p class="govuk-body">{{ restrictionInformationP4Cy }}</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>{{ restrictionBulletPoint1Cy }}</li>
+                        <li>{{ restrictionBulletPoint2Cy }}</li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDate }} {{ publishedAt }} {{ publishedTime }}</p>
+    {{ searchInput(text = searchCases) }}
+    <div class="govuk-grid-row">
+        <div class="parent-box govuk-!-margin-top-5 search-area">
+            <div class="overflow-table">
+                {% set opaCases = [] %}
+                {% set offences = [] %}
+                {% for row in listData %}
+                    {% set offenceHtml = "" %}
+                    {% if row.offence.length > 0 %}
+                        {% for offence in row.offence %}
+                            {% set offenceHtml = offenceHtml.concat(offence.offenceTitle + ' - ' + offence.offenceSection) %}
+                            {% if offence.offenceReportingRestriction %}
+                                {% set offenceHtml = offenceHtml.concat('<br><br>Reporting Restriction - ' + offence.offenceReportingRestriction) %}
+                            {% endif %}
+                            {% if loop.index < loop.length %}
+                                {% set offenceHtml = offenceHtml.concat('<br><br>') %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% set _ = offences.push({html: offenceHtml}) %}
+                    {% set _ = opaCases.push([
+                        {
+                            text: row.name
+                        },
+                        {
+                            text: row.caseUrn
+                        },
+                        {
+                            html: offences[loop.index0].html
+                        },
+                        {
+                            text: row.prosecutor
+                        },
+                        {
+                            text: row.scheduledHearingDate
+                        },
+                        {
+                            text: row.caseReportingRestriction
+                        }
+                    ]) %}
+                {% endfor %}
+                {{ govukTable({
+                    firstCellIsHeader: false,
+                    attributes: {
+                        "data-module": "moj-sortable-table"
+                    },
+                    head: [
+                        {
+                            text: defendantName,
+                            attributes: {
+                            "aria-sort": "none"
+                        }
+                        },
+                        {
+                            text: caseRef,
+                            attributes: {
+                            "aria-sort": "none"
+                        }
+                        },
+                        {
+                            text: offence,
+                            attributes: {
+                            "aria-sort": "none"
+                        }
+                        },
+                        {
+                            text: prosecutor,
+                            attributes: {
+                            "aria-sort": "none"
+                        }
+                        },
+                        {
+                            text: scheduledFirstHearing,
+                            attributes: {
+                            "aria-sort": "none"
+                        }
+                        },
+                        {
+                            text: caseReportingRestriction,
+                            attributes: {
+                            "aria-sort": "none"
+                        }
+                        }
+                    ],
+                    rows: opaCases
+                }) }}
+            </div>
+            {{ super() }}
+        </div>
+    </div>
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | maskLegacyDataSource }}</p>
+{% endblock %}
