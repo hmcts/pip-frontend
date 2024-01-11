@@ -218,5 +218,15 @@
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
+    },
+    "OPA_RESULTS": {
+        "friendlyName": "Online Plea and Allocation Results",
+        "welshFriendlyName": "Canlyniadau Pledio a Dyrannu Ar-lein",
+        "shortenedFriendlyName": "OPA Results",
+        "url": "opa-results",
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
     }
 }
