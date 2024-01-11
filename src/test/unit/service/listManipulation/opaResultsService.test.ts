@@ -89,6 +89,8 @@ describe('OPA Results service', () => {
         expect(offence1['bailStatus']).is.equal('Unconditional bail');
         expect(offence1['nextHearingDate']).is.equal('10 February 2024');
         expect(offence1['nextHearingLocation']).is.equal('Hearing location 2');
-        expect(offence1['reportingRestrictions']).is.equal('Reporting restriction detail 2, Reporting restriction detail 3');
+        expect(offence1['reportingRestrictions']).is.equal(
+            'Reporting restriction detail 2, Reporting restriction detail 3'
+        );
     });
 });

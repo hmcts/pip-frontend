@@ -150,10 +150,7 @@ describe('OPA Results page', () => {
             expect(cell[1].innerHTML).contains('Allocation decision', 'Decision details header does not match');
             expect(cell[2].innerHTML).contains('Bail status', 'Bail status header does not match');
             expect(cell[3].innerHTML).contains('Next hearing date', 'Next hearing date header does not match');
-            expect(cell[4].innerHTML).contains(
-                'Next hearing location',
-                'Next hearing location header does not match'
-            );
+            expect(cell[4].innerHTML).contains('Next hearing location', 'Next hearing location header does not match');
             expect(cell[5].innerHTML).contains(
                 'Reporting restrictions',
                 'Reporting restrictions header does not match'
@@ -166,10 +163,7 @@ describe('OPA Results page', () => {
             expect(cell[1].innerHTML).contains('Decision detail 2A', 'Decision details value does not match');
             expect(cell[2].innerHTML).contains('Unconditional bail', 'Bail status value does not match');
             expect(cell[3].innerHTML).contains('10 February 2024', 'Next hearing date value does not match');
-            expect(cell[4].innerHTML).contains(
-                'Hearing location 2',
-                'Next hearing location value does not match'
-            );
+            expect(cell[4].innerHTML).contains('Hearing location 2', 'Next hearing location value does not match');
             expect(cell[5].innerHTML).contains(
                 'Reporting restriction detail 2, Reporting restriction detail 3',
                 'Reporting restrictions value does not match'
@@ -247,25 +241,25 @@ describe('OPA Results page', () => {
         it('should display defendant name headings', () => {
             let defendantHeading = htmlRes.getElementById('accordion-default-heading-1');
             expect(defendantHeading.innerHTML).contains(
-                'Enw\'r Diffynnydd: Organisation name',
+                "Enw'r Diffynnydd: Organisation name",
                 'Defendant name does not match'
             );
 
             defendantHeading = htmlRes.getElementById('accordion-default-heading-2');
             expect(defendantHeading.innerHTML).contains(
-                'Enw\'r Diffynnydd: Surname 2, Forename 2 MiddleName 2',
+                "Enw'r Diffynnydd: Surname 2, Forename 2 MiddleName 2",
                 'Defendant name does not match'
             );
 
             defendantHeading = htmlRes.getElementById('accordion-default-heading-3');
             expect(defendantHeading.innerHTML).contains(
-                'Enw\'r Diffynnydd: Surname, Forename MiddleName',
+                "Enw'r Diffynnydd: Surname, Forename MiddleName",
                 'Defendant name does not match'
             );
 
             defendantHeading = htmlRes.getElementById('accordion-default-heading-4');
             expect(defendantHeading.innerHTML).contains(
-                'Enw\'r Diffynnydd: Surname 3, Forename 3 MiddleName 3',
+                "Enw'r Diffynnydd: Surname 3, Forename 3 MiddleName 3",
                 'Defendant name does not match'
             );
         });
@@ -297,15 +291,15 @@ describe('OPA Results page', () => {
             expect(cell[0].innerHTML).contains('Dyddiad penderfynu', 'Decision date header does not match');
             expect(cell[1].innerHTML).contains('Penderfyniad dyrannu', 'Decision details header does not match');
             expect(cell[2].innerHTML).contains('Statws mechnïaeth', 'Bail status header does not match');
-            expect(cell[3].innerHTML).contains('Dyddiad y gwrandawiad nesaf', 'Next hearing date header does not match');
+            expect(cell[3].innerHTML).contains(
+                'Dyddiad y gwrandawiad nesaf',
+                'Next hearing date header does not match'
+            );
             expect(cell[4].innerHTML).contains(
                 'Lleoliad y gwrandawiad nesaf',
                 'Next hearing location header does not match'
             );
-            expect(cell[5].innerHTML).contains(
-                'Cyfyngiadau riportio',
-                'Reporting restrictions header does not match'
-            );
+            expect(cell[5].innerHTML).contains('Cyfyngiadau riportio', 'Reporting restrictions header does not match');
         });
 
         it('should display offence table values correctly', () => {
@@ -314,10 +308,7 @@ describe('OPA Results page', () => {
             expect(cell[1].innerHTML).contains('Decision detail 2A', 'Decision details value does not match');
             expect(cell[2].innerHTML).contains('Unconditional bail', 'Bail status value does not match');
             expect(cell[3].innerHTML).contains('10 Chwefror 2024', 'Next hearing date value does not match');
-            expect(cell[4].innerHTML).contains(
-                'Hearing location 2',
-                'Next hearing location value does not match'
-            );
+            expect(cell[4].innerHTML).contains('Hearing location 2', 'Next hearing location value does not match');
             expect(cell[5].innerHTML).contains(
                 'Reporting restriction detail 2, Reporting restriction detail 3',
                 'Reporting restrictions value does not match'

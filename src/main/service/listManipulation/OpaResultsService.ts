@@ -2,7 +2,7 @@ import { ListParseHelperService } from '../listParseHelperService';
 import { formatDate } from '../../helpers/dateTimeHelper';
 import { DateTime } from 'luxon';
 
-const dateFormat = 'dd MMMM yyyy'
+const dateFormat = 'dd MMMM yyyy';
 
 export class OpaResultsService {
     public manipulateData(jsonData: string, language: string): Map<string, object[]> {
@@ -14,11 +14,11 @@ export class OpaResultsService {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
                             hearing.case.forEach(hearingCase => {
-                                const caseUrn = ListParseHelperService.writeStringIfValid(hearingCase.caseUrn)
+                                const caseUrn = ListParseHelperService.writeStringIfValid(hearingCase.caseUrn);
                                 hearingCase.party?.forEach(party => {
                                     const partyInfo = this.processParty(party, language);
                                     if (partyInfo) {
-                                        const row = {caseUrn, ...partyInfo};
+                                        const row = { caseUrn, ...partyInfo };
                                         const key = partyInfo.offences[0].decisionDate;
                                         if (listData.has(key)) {
                                             listData.set(key, listData.get(key).concat(row));
@@ -35,13 +35,14 @@ export class OpaResultsService {
         });
 
         return new Map(
-            [...listData].sort((a, b) =>
-                this.convertDateToSortValue(b[0], language) - this.convertDateToSortValue(a[0], language))
+            [...listData].sort(
+                (a, b) => this.convertDateToSortValue(b[0], language) - this.convertDateToSortValue(a[0], language)
+            )
         );
     }
 
     private convertDateToSortValue(date, language) {
-        return DateTime.fromFormat(date, dateFormat, { locale : language }).toFormat('yyyyMMdd');
+        return DateTime.fromFormat(date, dateFormat, { locale: language }).toFormat('yyyyMMdd');
     }
 
     private processParty(party, language): any {
@@ -64,7 +65,7 @@ export class OpaResultsService {
             const individualDetails = party.individualDetails;
             return this.formatDefendantName(individualDetails);
         } else if (party.organisationDetails) {
-            return  party.organisationDetails.organisationName;
+            return party.organisationDetails.organisationName;
         }
         return null;
     }
@@ -87,8 +88,16 @@ export class OpaResultsService {
     }
 
     private buildSingleOffence(offence, language) {
-        const decisionDate = formatDate(ListParseHelperService.writeStringIfValid(offence.decision?.decisionDate), dateFormat, language);
-        const nextHearingDate = formatDate(ListParseHelperService.writeStringIfValid(offence.nextHearingDate), dateFormat, language);
+        const decisionDate = formatDate(
+            ListParseHelperService.writeStringIfValid(offence.decision?.decisionDate),
+            dateFormat,
+            language
+        );
+        const nextHearingDate = formatDate(
+            ListParseHelperService.writeStringIfValid(offence.nextHearingDate),
+            dateFormat,
+            language
+        );
 
         return {
             offenceTitle: ListParseHelperService.writeStringIfValid(offence.offenceTitle),
