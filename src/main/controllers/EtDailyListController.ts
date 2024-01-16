@@ -12,6 +12,9 @@ const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const etDailyListService = new EtListsService();
+
+const listType = 'et-daily-list';
+
 export default class EtDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
@@ -27,9 +30,9 @@ export default class EtDailyListController {
                 req.lng
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, 'et-daily-list');
-            res.render('et-daily-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['et-daily-list']),
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listType);
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData,
                 courtName,

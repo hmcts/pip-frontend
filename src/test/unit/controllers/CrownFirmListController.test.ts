@@ -76,7 +76,7 @@ describe('Crown Firm List Controller', () => {
             provenance: 'prov1',
             version: '3.4',
             courtName: 'Altrincham County Court and Family Court',
-            venueAddress: '26 Diego Gardens\nAddress Line 2\nTown\nLancashire\nAA1 AA1'
+            venueAddress: '26 Diego Gardens\nAddress Line 2\nTown\nLancashire\nAA1 AA1',
         };
 
         responseMock.expects('render').once().withArgs('crown-firm-list', expectedData);

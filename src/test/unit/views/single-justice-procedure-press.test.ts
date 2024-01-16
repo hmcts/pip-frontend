@@ -373,10 +373,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display summary heading', () => {
             const summary = htmlRes.getElementsByClassName(summaryHeading);
-            expect(summary[1].innerHTML).contains(
-                'Gwybodaeth Bwysig',
-                'Could not find the display summary heading'
-            );
+            expect(summary[1].innerHTML).contains('Gwybodaeth Bwysig', 'Could not find the display summary heading');
         });
 
         it('should not display important info message in English', () => {
