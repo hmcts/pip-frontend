@@ -13,7 +13,7 @@ const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const etListsService = new EtListsService();
 
-const listType = 'et-fortnightly-list';
+const etFortnightlyList = 'et-fortnightly-list';
 
 export default class EtFortnightlyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -30,9 +30,9 @@ export default class EtFortnightlyListController {
                 req.lng
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, listType);
-            res.render(listType, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, etFortnightlyList);
+            res.render(etFortnightlyList, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[etFortnightlyList]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 tableData,
                 listData,
