@@ -13,8 +13,6 @@ const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const etListsService = new EtListsService();
 
-const etFortnightlyList = 'et-fortnightly-list';
-
 export default class EtFortnightlyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
@@ -23,24 +21,26 @@ export default class EtFortnightlyListController {
 
         if (isValidList(fileData, metaData) && fileData && metaData) {
             const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
-            const listData = etListsService.reshapeEtLists(JSON.stringify(fileData), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 fileData['document']['publicationDate'],
                 req.lng
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, etFortnightlyList);
-            res.render(etFortnightlyList, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[etFortnightlyList]),
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, 'et-fortnightly-list');
+
+            res.render('et-fortnightly-list', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['et-fortnightly-list']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 tableData,
-                listData,
                 courtName,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 region: returnedCourt.region,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
+                venueName: fileData['venue']['venueName'],
+                venueEmail: fileData['venue']['venueContact']['venueEmail'],
+                venueTelephone: fileData['venue']['venueContact']['venueTelephone'],
                 provenance: metaData.provenance,
             });
         } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
