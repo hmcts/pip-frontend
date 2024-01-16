@@ -37,10 +37,7 @@ describe('Nunjucks Custom Filter Tests', function () {
             const languageString = env.renderString('{{ "ENGLISH"|language }}', {});
             expect(languageString).to.equal('English (Saesneg)');
         });
-        it('should return the pretty version of language - bilingual', function () {
-            const languageString = env.renderString('{{ "BI_LINGUAL"|language }}', {});
-            expect(languageString).to.equal('Bilingual (Ddwyieithog)');
-        });
+
         it('should return the pretty version of language - welsh', function () {
             const languageString = env.renderString('{{ "WELSH"|language }}', {});
             expect(languageString).to.equal('Welsh (Cymraeg)');

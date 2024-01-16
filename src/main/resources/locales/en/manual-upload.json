@@ -19,8 +19,7 @@
         "languageText": "Language",
         "language": [
             { "text": "English", "value": "ENGLISH" },
-            { "text": "Welsh", "value": "WELSH" },
-            { "text": "Bilingual English/Welsh", "value": "BI_LINGUAL" }
+            { "text": "Welsh", "value": "WELSH" }
         ],
         "displayDateFrom": "Display file from",
         "displayDateFromHint": "For example, 27 01 2022",

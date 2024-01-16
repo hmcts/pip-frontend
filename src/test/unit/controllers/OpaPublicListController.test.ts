@@ -70,7 +70,6 @@ describe('OPA Public List Controller', () => {
             provenance: 'prov1',
             courtName: 'Court name',
             venueAddress: 'THE LAW COURTS\ntown name',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('opa-public-list', expectedData);
@@ -96,33 +95,6 @@ describe('OPA Public List Controller', () => {
             provenance: 'prov1',
             courtName: 'Welsh court name',
             venueAddress: 'THE LAW COURTS\ntown name',
-            bill: false,
-        };
-
-        responseMock.expects('render').once().withArgs('opa-public-list', expectedData);
-
-        await opaPublicListController.get(request, response);
-        return responseMock.verify();
-    });
-
-    it('should render the OPA public list page in bi-lingual', async () => {
-        request.query = { artefactId: artefactId };
-        request.user = { userId: '1' };
-        request.lng = 'cy';
-
-        const responseMock = sinon.mock(response);
-
-        const expectedData = {
-            ...i18n['opa-public-list'],
-            ...i18n['list-template'],
-            listData: listData,
-            length: listData.length,
-            publishedDate: '13 Chwefror 2022',
-            publishedTime: '9:30am',
-            provenance: 'prov1',
-            courtName: 'Court name',
-            venueAddress: 'THE LAW COURTS\ntown name',
-            bill: true,
         };
 
         responseMock.expects('render').once().withArgs('opa-public-list', expectedData);

@@ -33,19 +33,18 @@ export default class SscsDailyListController {
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
             const courtName = courtService.findCourtName(returnedCourt, req.lng, 'sscs-daily-list');
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
-                ...req.i18n.getDataByLanguage(pageLanguage)[sscsUrl],
-                ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
-                ...req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement'],
+                ...req.i18n.getDataByLanguage(req.lng)[sscsUrl],
+                ...req.i18n.getDataByLanguage(req.lng)['list-template'],
+                ...req.i18n.getDataByLanguage(req.lng)['open-justice-statement'],
             };
 
             if (url === sscsAdditonalHearingsUrl) {
                 languageResource = {
                     ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(pageLanguage)[sscsAdditonalHearingsUrl],
+                    ...req.i18n.getDataByLanguage(req.lng)[sscsAdditonalHearingsUrl],
                 };
             }
 
@@ -57,7 +56,6 @@ export default class SscsDailyListController {
                 publishedTime: publishedTime,
                 courtName: courtName,
                 provenance: metaData.provenance,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

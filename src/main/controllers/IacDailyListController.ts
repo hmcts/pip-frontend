@@ -24,17 +24,14 @@ export default class IacDailyListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
             res.render('iac-daily-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['iac-daily-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['iac-daily-list']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

@@ -51,7 +51,7 @@ describe('Et Fortnightly List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/et-fortnightly-list';
 
-    it('should render the et fortnightly cause list page', async () => {
+    it('should render the ET fortnightly cause list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
 
@@ -67,7 +67,6 @@ describe('Et Fortnightly List Controller', () => {
             publishedTime: '9:30am',
             courtName: "Abergavenny Magistrates' Court",
             provenance: 'prov1',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('et-fortnightly-list', expectedData);

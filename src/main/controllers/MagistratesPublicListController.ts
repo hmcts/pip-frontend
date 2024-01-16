@@ -31,12 +31,11 @@ export default class MagistratesPublicListController {
                 req.lng
             );
             const location = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             res.render('magistrates-public-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-public-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['magistrates-public-list']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
@@ -45,7 +44,6 @@ export default class MagistratesPublicListController {
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 venueAddress: venueAddress,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

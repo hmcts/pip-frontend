@@ -38,11 +38,10 @@ export default class CrownDailyListController {
                 req.lng
             );
             const location = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
             res.render('crown-daily-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-daily-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['crown-daily-list']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: outputData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
@@ -50,7 +49,6 @@ export default class CrownDailyListController {
                 provenance: metaData.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
-                bill: pageLanguage === 'bill',
                 venueAddress: venueAddress,
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {

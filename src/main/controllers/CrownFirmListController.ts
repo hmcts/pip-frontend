@@ -37,7 +37,6 @@ export default class CrownFirmListController {
                 req.lng
             );
             const location = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const dates = firmListService.getSittingDates(outputArray);
             const startDate = DateTime.fromISO(dates[0], {
                 zone: 'Europe/London',
@@ -48,8 +47,8 @@ export default class CrownFirmListController {
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
 
             res.render('crown-firm-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['crown-firm-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['crown-firm-list']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: outputData,
                 startDate,
                 endDate,
@@ -60,8 +59,7 @@ export default class CrownFirmListController {
                 provenance: metaData.provenance,
                 version: jsonData['document']['version'],
                 courtName: location.name,
-                bill: pageLanguage === 'bill',
-                venueAddress: venueAddress
+                venueAddress: venueAddress,
             });
         } else if (jsonData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

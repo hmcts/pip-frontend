@@ -36,13 +36,12 @@ export default class SjpPublicListController {
                 fileData['document']['publicationDate'],
                 req.lng
             );
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
 
             res.render('single-justice-procedure', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sjp-common']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['single-justice-procedure']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sjp-common']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 sjpData: filter.sjpCases,
                 length: filter.sjpCases.length,
                 publishedDateTime: publishedDate,

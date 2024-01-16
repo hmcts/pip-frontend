@@ -29,14 +29,12 @@ export default class CopDailyCauseListController {
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
             const courtName = courtService.findCourtName(returnedCourt, req.lng, 'cop-daily-cause-list');
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
             const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
             res.render('cop-daily-cause-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['cop-daily-cause-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['cop-daily-cause-list']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
@@ -44,7 +42,6 @@ export default class CopDailyCauseListController {
                 courtName: courtName,
                 regionalJoh: regionalJoh,
                 provenance: metaData.provenance,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

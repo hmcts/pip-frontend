@@ -28,11 +28,10 @@ export default class EtFortnightlyListController {
                 req.lng
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, 'et-fortnightly-list');
             res.render('et-fortnightly-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-fortnightly-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['et-fortnightly-list']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 tableData,
                 listData,
                 courtName,
@@ -41,7 +40,6 @@ export default class EtFortnightlyListController {
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
-                bill: pageLanguage === 'bill',
             });
         } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

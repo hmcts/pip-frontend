@@ -76,7 +76,6 @@ describe('Crown Firm List Controller', () => {
             provenance: 'prov1',
             version: '3.4',
             courtName: 'Altrincham County Court and Family Court',
-            bill: false,
             venueAddress: '26 Diego Gardens\nAddress Line 2\nTown\nLancashire\nAA1 AA1'
         };
 

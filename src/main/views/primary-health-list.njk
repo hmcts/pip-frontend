@@ -24,11 +24,6 @@
         <p>{{ importantInformationP1 }}</p>
         <p>{{ importantInformationP2 | replace("EMAIL", venueEmail) }}</p>
         <p>{{ importantInformationP3 }}</p>
-        {% if bill %}
-          <P>{{ importantInformationP4 }}</P>
-          <P>{{ importantInformationP5 | replace("EMAIL", venueEmail) }}</P>
-          <P>{{ importantInformationP6 }}</P>
-        {% endif %}
       </div>
     </details>
 

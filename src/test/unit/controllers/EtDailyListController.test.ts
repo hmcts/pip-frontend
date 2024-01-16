@@ -48,7 +48,7 @@ describe('Et Daily List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/et-daily-list';
 
-    it('should render the et daily cause list page', async () => {
+    it('should render the ET daily cause list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
 
@@ -63,7 +63,6 @@ describe('Et Daily List Controller', () => {
             publishedTime: '9:30am',
             courtName: "Abergavenny Magistrates' Court",
             provenance: 'prov1',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('et-daily-list', expectedData);

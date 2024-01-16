@@ -38,20 +38,19 @@ export default class SjpPressListController {
                 req.lng
             );
 
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
-                ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press'],
-                ...req.i18n.getDataByLanguage(pageLanguage)['sjp-common'],
-                ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
+                ...req.i18n.getDataByLanguage(req.lng)['single-justice-procedure-press'],
+                ...req.i18n.getDataByLanguage(req.lng)['sjp-common'],
+                ...req.i18n.getDataByLanguage(req.lng)['list-template'],
             };
 
             if (metaData.listType === 'SJP_DELTA_PRESS_LIST') {
                 languageResource = {
                     ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press-new-cases'],
+                    ...req.i18n.getDataByLanguage(req.lng)['single-justice-procedure-press-new-cases'],
                 };
             }
 
@@ -72,7 +71,6 @@ export default class SjpPressListController {
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
                 url,
-                bill: pageLanguage === 'bill',
             });
         } else if (sjpData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

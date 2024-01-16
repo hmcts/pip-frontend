@@ -79,7 +79,6 @@ describe('OPA Press List Controller', () => {
             version: '1.0',
             courtName: 'Court name',
             venueAddress: 'Princess Square\nManchester\nM1 1AA',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs(listUrl, expectedData);
@@ -105,33 +104,6 @@ describe('OPA Press List Controller', () => {
             version: '1.0',
             courtName: 'Welsh court name',
             venueAddress: 'Princess Square\nManchester\nM1 1AA',
-            bill: false,
-        };
-
-        responseMock.expects('render').once().withArgs(listUrl, expectedData);
-
-        await opaPressListController.get(request, response);
-        return responseMock.verify();
-    });
-
-    it('should render the OPA press list page in bi-lingual', async () => {
-        request.query = { artefactId: welshArtefactId };
-        request.user = { userId: '1' };
-        request.lng = 'en';
-
-        const responseMock = sinon.mock(response);
-
-        const expectedData = {
-            ...i18n[listUrl],
-            ...i18n['list-template'],
-            listData: listData,
-            contentDate: contentDate,
-            publishedDate: '13 September 2022',
-            publishedTime: '12:30pm',
-            version: '1.0',
-            courtName: 'Court name',
-            venueAddress: 'Princess Square\nManchester\nM1 1AA',
-            bill: true,
         };
 
         responseMock.expects('render').once().withArgs(listUrl, expectedData);
