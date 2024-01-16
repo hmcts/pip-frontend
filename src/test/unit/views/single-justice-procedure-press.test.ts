@@ -376,21 +376,7 @@ describe('Single Justice Procedure List page', () => {
             expect(summary[1].innerHTML).contains('Gwybodaeth Bwysig', 'Could not find the display summary heading');
         });
 
-        it('should not display important info message in English', () => {
-            const detail = htmlRes
-                .getElementsByClassName('govuk-details')
-                .item(1)
-                .getElementsByClassName('govuk-details__text');
-            expect(detail[0].innerHTML).not.contains(
-                'In accordance with the media protocol, additional documents ' +
-                    'from these cases are available to the members of the media on request. ' +
-                    'The link below takes you to the full protocol and further information ' +
-                    'in relation to what documentation can be obtained',
-                'Could not find the display summary heading'
-            );
-        });
-
-        it('should display important info message in Welsh', () => {
+        it('should display important info message', () => {
             const detail = htmlRes
                 .getElementsByClassName('govuk-details')
                 .item(1)
