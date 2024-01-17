@@ -95,7 +95,7 @@ describe('List Helper service', () => {
     });
 
     describe('Find and manipulate judiciary', () => {
-        it('should return presiding judiciary first before other judiciary', async() => {
+        it('should return presiding judiciary first before other judiciary', async () => {
             const judiciaryDetails = {
                 judiciary: [
                     {
@@ -103,22 +103,28 @@ describe('List Helper service', () => {
                     },
                     {
                         johKnownAs: 'Judge KnownAs Presiding',
-                        isPresiding: true
-                    }]
+                        isPresiding: true,
+                    },
+                ],
             };
-            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal('Judge KnownAs Presiding, Judge KnownAs')
+            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal(
+                'Judge KnownAs Presiding, Judge KnownAs'
+            );
         });
-        it('should return presiding judiciary if there are no other judiciary', async() => {
+        it('should return presiding judiciary if there are no other judiciary', async () => {
             const judiciaryDetails = {
                 judiciary: [
                     {
                         johKnownAs: 'Judge KnownAs Presiding',
-                        isPresiding: true
-                    }]
+                        isPresiding: true,
+                    },
+                ],
             };
-            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal('Judge KnownAs Presiding')
+            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal(
+                'Judge KnownAs Presiding'
+            );
         });
-        it('should return list of judiciary if there are no presiding judiciary', async() => {
+        it('should return list of judiciary if there are no presiding judiciary', async () => {
             const judiciaryDetails = {
                 judiciary: [
                     {
@@ -126,27 +132,30 @@ describe('List Helper service', () => {
                     },
                     {
                         johKnownAs: 'Judge KnownAs 2',
-                        isPresiding: false
+                        isPresiding: false,
                     },
                     {
                         johKnownAs: 'Judge KnownAs 3',
-                    }]
+                    },
+                ],
             };
-            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal('Judge KnownAs, Judge KnownAs 2, Judge KnownAs 3')
+            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal(
+                'Judge KnownAs, Judge KnownAs 2, Judge KnownAs 3'
+            );
         });
-        it('should return an empty string if there are no judiciary details', async() => {
+        it('should return an empty string if there are no judiciary details', async () => {
             const judiciaryNoDetails = {
-                judiciary: []
+                judiciary: [],
             };
             const judiciaryNotPresent = {
                 session: [
                     {
-                        sittings: []
-                    }
-                ]
+                        sittings: [],
+                    },
+                ],
             };
-            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryNoDetails)).to.equal('')
-            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryNotPresent)).to.equal('')
+            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryNoDetails)).to.equal('');
+            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryNotPresent)).to.equal('');
         });
-    })
+    });
 });
