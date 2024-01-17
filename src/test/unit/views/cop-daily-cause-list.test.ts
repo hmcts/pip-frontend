@@ -82,12 +82,16 @@ describe('Cop daily cause list page', () => {
 
     it('should display court room name and presiding judge before other judges', () => {
         const courtRoomNameHeading = htmlRes.getElementsByClassName(accordionHeading)[0];
-        expect(courtRoomNameHeading.innerHTML).contains('Room 1, Before Judge KnownAs Presiding, Judge KnownAs 2, Judge KnownAs 3');
+        expect(courtRoomNameHeading.innerHTML).contains(
+            'Room 1, Before Judge KnownAs Presiding, Judge KnownAs 2, Judge KnownAs 3'
+        );
     });
 
     it('should display court room name and all judges if no presiding judge', () => {
         const courtRoomNameHeading = htmlRes.getElementsByClassName(accordionHeading)[1];
-        expect(courtRoomNameHeading.innerHTML).contains('Room 2, Before Judge KnownAs 1, Judge KnownAs 2, Judge KnownAs 3');
+        expect(courtRoomNameHeading.innerHTML).contains(
+            'Room 2, Before Judge KnownAs 1, Judge KnownAs 2, Judge KnownAs 3'
+        );
     });
 
     it('should display court room name only if no judiciary ', () => {
