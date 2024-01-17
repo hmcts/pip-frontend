@@ -28,21 +28,24 @@ export default class EtFortnightlyListController {
                 fileData['document']['publicationDate'],
                 req.lng
             );
+            const venue = {
+                venueName: fileData['venue']['venueName'],
+                venueEmail: fileData['venue']['venueContact']['venueEmail'],
+                venueTelephone: fileData['venue']['venueContact']['venueTelephone'],
+            };
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listType);
 
             res.render(listType, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
+                ...venue,
                 tableData,
                 courtName,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 region: returnedCourt.region,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                venueName: fileData['venue']['venueName'],
-                venueEmail: fileData['venue']['venueContact']['venueEmail'],
-                venueTelephone: fileData['venue']['venueContact']['venueTelephone'],
                 provenance: metaData.provenance,
             });
         } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
