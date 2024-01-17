@@ -139,7 +139,10 @@ export class ListParseHelperService {
      * @param stringToCheck
      */
     public static writeStringIfValid(stringToCheck): string {
-        return stringToCheck ? stringToCheck : '';
+        if (stringToCheck) {
+            return stringToCheck;
+        }
+        return '';
     }
 
     /**
