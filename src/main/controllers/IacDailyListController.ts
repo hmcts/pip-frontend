@@ -11,6 +11,8 @@ const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const iacService = new IacDailyListService();
 
+const listType = 'iac-daily-list';
+
 export default class IacDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -24,8 +26,8 @@ export default class IacDailyListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            res.render('iac-daily-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['iac-daily-list']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

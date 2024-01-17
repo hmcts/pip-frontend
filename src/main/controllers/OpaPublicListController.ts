@@ -15,6 +15,8 @@ const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 const opaPublicListService = new OpaPublicListService();
 
+const listType = 'opa-public-list';
+
 export default class OpaPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -31,8 +33,8 @@ export default class OpaPublicListController {
             const location = await locationService.getLocationById(metaData['locationId']);
             const locationName = req.lng === 'cy' ? location.welshName : location.name;
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
-            res.render('opa-public-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['opa-public-list']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 length: listData.length,

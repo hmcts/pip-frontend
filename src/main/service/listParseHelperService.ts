@@ -1,9 +1,13 @@
 import { partyRoleMappings } from '../models/consts';
 import { DateTime } from 'luxon';
 
-export class ListParseHelperService {
-    public timeZone = 'Europe/London';
+const timeZone = 'Europe/London';
+const utc = 'utc'
+const dateFormat = 'dd MMMM yyyy';
+const timeFormatHourOnly = 'ha';
+const timeFormatHourMinute = 'h:mma';
 
+export class ListParseHelperService {
     /**
      * returns all unique vals for given attribute in array of objs
      * @param data array of obs
@@ -233,10 +237,10 @@ export class ListParseHelperService {
         sitting['duration'] = '';
         if (sitting['sittingStart'] !== '' && sitting['sittingEnd'] !== '') {
             const sittingStart = DateTime.fromISO(sitting['sittingStart'], {
-                zone: 'utc',
+                zone: utc,
             });
             const sittingEnd = DateTime.fromISO(sitting['sittingEnd'], {
-                zone: 'utc',
+                zone: utc,
             });
             let durationAsHours = 0;
             let durationAsMinutes = Math.round(sittingEnd.diff(sittingStart, 'minutes').minutes);
@@ -256,9 +260,9 @@ export class ListParseHelperService {
             sitting['durationAsDays'] = durationAsDays;
 
             if (sittingStart.minute === 0) {
-                this.formatCaseTime(sitting, 'ha');
+                this.formatCaseTime(sitting, timeFormatHourOnly);
             } else {
-                this.formatCaseTime(sitting, 'h:mma');
+                this.formatCaseTime(sitting, timeFormatHourMinute);
             }
         }
     }
@@ -267,7 +271,7 @@ export class ListParseHelperService {
         if (sitting['sittingStart'] !== '') {
             const sittingStart = sitting['sittingStart'];
             let zonedDateTime = DateTime.fromISO(sittingStart, {
-                zone: this.timeZone,
+                zone: timeZone,
             });
             //If json time is zoned time, we do not need to add the offset into the time. Luxon will do automatically.
             //But, if time does not contain zoned time. Luxon always return offset (+01:00) with the time,
@@ -285,13 +289,13 @@ export class ListParseHelperService {
      */
     public publicationTimeInUkTime(publicationDatetime: string): string {
         const publicationZonedDateTime = DateTime.fromISO(publicationDatetime, {
-            zone: this.timeZone,
+            zone: timeZone,
         });
         let publishedTime = '';
         if (publicationZonedDateTime.minute === 0) {
-            publishedTime = publicationZonedDateTime.toFormat('ha').toLowerCase();
+            publishedTime = publicationZonedDateTime.toFormat(timeFormatHourOnly).toLowerCase();
         } else {
-            publishedTime = publicationZonedDateTime.toFormat('h:mma').toLowerCase();
+            publishedTime = publicationZonedDateTime.toFormat(timeFormatHourMinute).toLowerCase();
         }
         return publishedTime;
     }
@@ -301,13 +305,13 @@ export class ListParseHelperService {
      * @param publicationDatetime The publication date time to convert in UTC.
      */
     public publicationDateInUkTime(publicationDatetime: string, language: string): string {
-        return DateTime.fromISO(publicationDatetime, { zone: this.timeZone })
+        return DateTime.fromISO(publicationDatetime, { zone: timeZone })
             .setLocale(language)
-            .toFormat('dd MMMM yyyy');
+            .toFormat(dateFormat);
     }
 
     public contentDateInUtcTime(contentDatetime: string, language: string): string {
-        return DateTime.fromISO(contentDatetime, { zone: 'utc' }).setLocale(language).toFormat('dd MMMM yyyy');
+        return DateTime.fromISO(contentDatetime, { zone: utc }).setLocale(language).toFormat(dateFormat);
     }
 
     /**

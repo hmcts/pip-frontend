@@ -26,11 +26,7 @@ export default class CrownDailyListController {
         if (isValidList(searchResults, metaData) && searchResults && metaData) {
             // initial cleaning of data using mixed list service
             let outputData = civFamMixedService.sculptedCivilListData(JSON.stringify(searchResults));
-            outputData = crimeListsService.manipulateCrimeListData(
-                JSON.stringify(outputData),
-                req.lng,
-                listType
-            );
+            outputData = crimeListsService.manipulateCrimeListData(JSON.stringify(outputData), req.lng, listType);
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);

@@ -28,11 +28,7 @@ export default class CrownFirmListController {
 
         if (isValidList(jsonData, metaData) && metaData && jsonData) {
             const outputData = civilService.sculptedCivilListData(JSON.stringify(jsonData));
-            const outputArray = firmListService.splitOutFirmListData(
-                JSON.stringify(outputData),
-                req.lng,
-                listType
-            );
+            const outputArray = firmListService.splitOutFirmListData(JSON.stringify(outputData), req.lng, listType);
             const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 jsonData['document']['publicationDate'],

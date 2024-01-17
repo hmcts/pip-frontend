@@ -15,6 +15,8 @@ const helperService = new ListParseHelperService();
 const magsStandardListService = new MagistratesStandardListService();
 const crimeListsService = new CrimeListsService();
 
+const listType = 'magistrates-standard-list';
+
 export default class MagistratesStandardListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -31,8 +33,8 @@ export default class MagistratesStandardListController {
             const location = await locationService.getLocationById(metaData['locationId']);
             const venueAddress = crimeListsService.formatAddress(publicationJson['venue']['venueAddress']);
 
-            res.render('magistrates-standard-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['magistrates-standard-list']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
