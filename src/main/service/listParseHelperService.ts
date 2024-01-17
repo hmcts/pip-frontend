@@ -2,10 +2,12 @@ import { partyRoleMappings } from '../models/consts';
 import { DateTime } from 'luxon';
 
 const timeZone = 'Europe/London';
-const utc = 'utc'
+const utc = 'utc';
 const dateFormat = 'dd MMMM yyyy';
 const timeFormatHourOnly = 'ha';
 const timeFormatHourMinute = 'h:mma';
+const minutesPerHour = 60;
+const hoursPerDay = 24;
 
 export class ListParseHelperService {
     /**
@@ -137,10 +139,7 @@ export class ListParseHelperService {
      * @param stringToCheck
      */
     public static writeStringIfValid(stringToCheck): string {
-        if (stringToCheck) {
-            return stringToCheck;
-        }
-        return '';
+        return stringToCheck ? stringToCheck: '';
     }
 
     /**
@@ -149,10 +148,7 @@ export class ListParseHelperService {
      * @param delimiter
      */
     public stringDelimiter(stringSize: number, delimiter: string): string {
-        if (stringSize > 0) {
-            return `${delimiter} `;
-        }
-        return '';
+        return stringSize > 0 ?`${delimiter} ` : '';
     }
 
     /**
@@ -245,14 +241,14 @@ export class ListParseHelperService {
             let durationAsHours = 0;
             let durationAsMinutes = Math.round(sittingEnd.diff(sittingStart, 'minutes').minutes);
 
-            if (durationAsMinutes >= 60) {
-                durationAsHours = Math.floor(durationAsMinutes / 60);
-                durationAsMinutes = durationAsMinutes - durationAsHours * 60;
+            if (durationAsMinutes >= minutesPerHour) {
+                durationAsHours = Math.floor(durationAsMinutes / minutesPerHour);
+                durationAsMinutes = durationAsMinutes - durationAsHours * minutesPerHour;
             }
 
             let durationAsDays = 0;
-            if (durationAsHours >= 24) {
-                durationAsDays = Math.floor(durationAsHours / 24);
+            if (durationAsHours >= hoursPerDay) {
+                durationAsDays = Math.floor(durationAsHours / hoursPerDay);
             }
 
             sitting['durationAsHours'] = durationAsHours;
@@ -305,9 +301,7 @@ export class ListParseHelperService {
      * @param publicationDatetime The publication date time to convert in UTC.
      */
     public publicationDateInUkTime(publicationDatetime: string, language: string): string {
-        return DateTime.fromISO(publicationDatetime, { zone: timeZone })
-            .setLocale(language)
-            .toFormat(dateFormat);
+        return DateTime.fromISO(publicationDatetime, { zone: timeZone }).setLocale(language).toFormat(dateFormat);
     }
 
     public contentDateInUtcTime(contentDatetime: string, language: string): string {
