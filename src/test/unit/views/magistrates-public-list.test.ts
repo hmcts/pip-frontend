@@ -88,12 +88,12 @@ describe('Magistrates public List page', () => {
 
     it('should display accordion open/close all', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
-        expect(accordion[0].innerHTML).to.contains('1: Firstname1 Surname1', 'Could not find the accordion heading');
+        expect(accordion[0].innerHTML).to.contains('1: Judge KnownAs, Judge KnownAs 2', 'Could not find the accordion heading');
     });
 
     it('should not have undefined when title display accordion open/close all', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
-        expect(accordion[0].innerHTML).to.contains('Firstname2 Surname2', 'Could not find the accordion heading');
+        expect(accordion[0].innerHTML).to.contains('Judge KnownAs, Judge KnownAs 2', 'Could not find the accordion heading');
     });
 
     it('should display the search input box', () => {
