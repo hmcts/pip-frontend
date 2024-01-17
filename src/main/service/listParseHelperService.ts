@@ -139,7 +139,7 @@ export class ListParseHelperService {
      * @param stringToCheck
      */
     public static writeStringIfValid(stringToCheck): string {
-        return stringToCheck ? stringToCheck: '';
+        return stringToCheck ? stringToCheck : '';
     }
 
     /**
@@ -148,7 +148,7 @@ export class ListParseHelperService {
      * @param delimiter
      */
     public stringDelimiter(stringSize: number, delimiter: string): string {
-        return stringSize > 0 ?`${delimiter} ` : '';
+        return stringSize > 0 ? `${delimiter} ` : '';
     }
 
     /**
