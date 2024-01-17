@@ -79,7 +79,7 @@ describe('Magistrate Standard List page', () => {
     it('should display the courtroom', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
         expect(siteAddress[1].innerHTML).contains(
-            'Courtroom 2: Judge KnownAs Presiding, Judge KnownAs',
+            'Courtroom 2: Judge KnownAs Presiding 2, Judge KnownAs 2',
             'Could not find the Court name with Sitting at text'
         );
     });
