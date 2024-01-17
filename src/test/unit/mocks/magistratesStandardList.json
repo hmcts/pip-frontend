@@ -165,17 +165,11 @@
                                         ],
                                         "judiciary": [
                                             {
-                                                "johTitle": "DJ",
-                                                "johNameSurname": "Test Name",
-                                                "role": "JUDGE",
-                                                "johKnownAs": "DJ Steve 1",
+                                                "johKnownAs": "Judge KnownAs Presiding",
                                                 "isPresiding": true
                                             },
                                             {
-                                                "johTitle": "Magistrate",
-                                                "johNameSurname": "Test Name",
-                                                "role": "MAGISTRATE",
-                                                "johKnownAs": "Justice of the peace",
+                                                "johKnownAs": "Judge KnownAs",
                                                 "isPresiding": false
                                             }
                                         ],
@@ -330,17 +324,11 @@
                                         ],
                                         "judiciary": [
                                             {
-                                                "johTitle": "DJ",
-                                                "johNameSurname": "Test Name",
-                                                "role": "JUDGE",
-                                                "johKnownAs": "DJ Steve 2",
+                                                "johKnownAs": "Judge KnownAs Presiding 2",
                                                 "isPresiding": true
                                             },
                                             {
-                                                "johTitle": "Magistrate",
-                                                "johNameSurname": "Test Name",
-                                                "role": "MAGISTRATE",
-                                                "johKnownAs": "Justice of the peace",
+                                                "johKnownAs": "Judge KnownAs 2",
                                                 "isPresiding": false
                                             }
                                         ],
