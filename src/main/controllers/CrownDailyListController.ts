@@ -15,6 +15,8 @@ const helperService = new ListParseHelperService();
 const civFamMixedService = new CivilFamilyAndMixedListService();
 const crimeListsService = new CrimeListsService();
 
+const listType = 'crown-daily-list';
+
 export default class CrownDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -27,7 +29,7 @@ export default class CrownDailyListController {
             outputData = crimeListsService.manipulateCrimeListData(
                 JSON.stringify(outputData),
                 req.lng,
-                'crown-daily-list'
+                listType
             );
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
@@ -39,8 +41,8 @@ export default class CrownDailyListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
 
-            res.render('crown-daily-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['crown-daily-list']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: outputData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

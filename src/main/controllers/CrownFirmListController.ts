@@ -18,6 +18,8 @@ const firmListService = new CrownFirmListService();
 const civilService = new CivilFamilyAndMixedListService();
 const crimeListsService = new CrimeListsService();
 
+const listType = 'crown-firm-list';
+
 export default class CrownFirmListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -29,7 +31,7 @@ export default class CrownFirmListController {
             const outputArray = firmListService.splitOutFirmListData(
                 JSON.stringify(outputData),
                 req.lng,
-                'crown-firm-list'
+                listType
             );
             const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -46,8 +48,8 @@ export default class CrownFirmListController {
             }).toFormat('dd MMMM yyyy');
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
 
-            res.render('crown-firm-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['crown-firm-list']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: outputData,
                 startDate,

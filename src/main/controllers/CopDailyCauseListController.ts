@@ -12,6 +12,9 @@ const publicationService = new PublicationService();
 const courtService = new LocationService();
 const helperService = new ListParseHelperService();
 const copDailyListService = new CopDailyListService();
+
+const listType = 'cop-daily-cause-list';
+
 export default class CopDailyCauseListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -28,11 +31,11 @@ export default class CopDailyCauseListController {
             );
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-            const courtName = courtService.findCourtName(returnedCourt, req.lng, 'cop-daily-cause-list');
+            const courtName = courtService.findCourtName(returnedCourt, req.lng, listType);
             const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
-            res.render('cop-daily-cause-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['cop-daily-cause-list']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,
