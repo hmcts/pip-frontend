@@ -148,7 +148,10 @@ export class ListParseHelperService {
      * @param delimiter
      */
     public stringDelimiter(stringSize: number, delimiter: string): string {
-        return stringSize > 0 ? `${delimiter} ` : '';
+        if (stringSize > 0) {
+            return `${delimiter} `;
+        }
+        return '';
     }
 
     /**
