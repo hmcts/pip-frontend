@@ -6,25 +6,25 @@ import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { HttpStatusCode } from 'axios';
-import OpaPressListController from '../../../main/controllers/OpaPressListController';
+import OpaResultsController from '../../../main/controllers/OpaResultsController';
 import { LocationService } from '../../../main/service/locationService';
-import { OpaPressListService } from '../../../main/service/listManipulation/OpaPressListService';
+import { OpaResultsService } from '../../../main/service/listManipulation/OpaResultsService';
 
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 const notFoundArtefactId = 'ghi';
-const listUrl = 'opa-press-list';
+const listUrl = 'opa-results';
 
-const opaPressListController = new OpaPressListController();
+const opaResultsController = new OpaResultsController();
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/opaPressList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/opaResults.json'), 'utf-8');
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[0];
 const welshMetadata = JSON.parse(rawMetadata)[2];
 
 const contentDate = DateTime.fromISO(metadata['contentDate'], { zone: 'utc' }).toFormat('dd MMMM yyyy');
-const data1 = { urn: '1', name: 'name1', pleaDate: 'date1' };
-const data2 = { urn: '2', name: 'name2', pleaDate: 'date2' };
+const data1 = { caseUrn: '1', defendant: 'name1', decisionDate: 'date1' };
+const data2 = { caseUrn: '2', defendant: 'name2', decisionDate: 'date2' };
 
 const listData = new Map<string, object[]>();
 listData.set('date1', [data1]);
@@ -38,7 +38,7 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves({
     welshName: 'Welsh court name',
 });
 
-sinon.stub(OpaPressListService.prototype, 'manipulateData').returns(listData);
+sinon.stub(OpaResultsService.prototype, 'manipulateData').returns(listData);
 
 jasonDataStub.withArgs(artefactId).resolves(JSON.parse(rawData));
 jasonDataStub.withArgs(welshArtefactId).resolves(JSON.parse(rawData));
@@ -49,7 +49,7 @@ metadataStub.withArgs(artefactId).resolves(metadata);
 metadataStub.withArgs(welshArtefactId).resolves(welshMetadata);
 metadataStub.withArgs('').resolves([]);
 
-describe('OPA Press List Controller', () => {
+describe('OPA Results controller', () => {
     const i18n = {
         listUrl: {},
         'list-template': {},
@@ -62,7 +62,7 @@ describe('OPA Press List Controller', () => {
     } as unknown as Response;
     const request = mockRequest(i18n);
 
-    it('should render the OPA press list page with English court', async () => {
+    it('should render the OPA results page with English court', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
         request.lng = 'en';
@@ -74,9 +74,8 @@ describe('OPA Press List Controller', () => {
             ...i18n['list-template'],
             listData: listData,
             contentDate: contentDate,
-            publishedDate: '14 September 2023',
-            publishedTime: '12:30am',
-            version: '1.0',
+            publishedDate: '09 January 2024',
+            publishedTime: '11:30pm',
             courtName: 'Court name',
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA',
             bill: false,
@@ -84,11 +83,11 @@ describe('OPA Press List Controller', () => {
 
         responseMock.expects('render').once().withArgs(listUrl, expectedData);
 
-        await opaPressListController.get(request, response);
+        await opaResultsController.get(request, response);
         return responseMock.verify();
     });
 
-    it('should render the OPA press list page with Welsh court', async () => {
+    it('should render the OPA results page with Welsh court', async () => {
         request.query = { artefactId: welshArtefactId };
         request.user = { userId: '1' };
         request.lng = 'cy';
@@ -100,9 +99,8 @@ describe('OPA Press List Controller', () => {
             ...i18n['list-template'],
             listData: listData,
             contentDate: '14 Chwefror 2022',
-            publishedDate: '14 Medi 2023',
-            publishedTime: '12:30am',
-            version: '1.0',
+            publishedDate: '09 Ionawr 2024',
+            publishedTime: '11:30pm',
             courtName: 'Welsh court name',
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA',
             bill: false,
@@ -110,11 +108,11 @@ describe('OPA Press List Controller', () => {
 
         responseMock.expects('render').once().withArgs(listUrl, expectedData);
 
-        await opaPressListController.get(request, response);
+        await opaResultsController.get(request, response);
         return responseMock.verify();
     });
 
-    it('should render the OPA press list page in bi-lingual', async () => {
+    it('should render the OPA results page in bi-lingual', async () => {
         request.query = { artefactId: welshArtefactId };
         request.user = { userId: '1' };
         request.lng = 'en';
@@ -126,9 +124,8 @@ describe('OPA Press List Controller', () => {
             ...i18n['list-template'],
             listData: listData,
             contentDate: contentDate,
-            publishedDate: '14 September 2023',
-            publishedTime: '12:30am',
-            version: '1.0',
+            publishedDate: '09 January 2024',
+            publishedTime: '11:30pm',
             courtName: 'Court name',
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA',
             bill: true,
@@ -136,7 +133,7 @@ describe('OPA Press List Controller', () => {
 
         responseMock.expects('render').once().withArgs(listUrl, expectedData);
 
-        await opaPressListController.get(request, response);
+        await opaResultsController.get(request, response);
         return responseMock.verify();
     });
 
@@ -147,7 +144,7 @@ describe('OPA Press List Controller', () => {
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await opaPressListController.get(request, response);
+        await opaResultsController.get(request, response);
         return responseMock.verify();
     });
 
@@ -161,7 +158,7 @@ describe('OPA Press List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await opaPressListController.get(request, response);
+        await opaResultsController.get(request, response);
         return responseMock.verify();
     });
 });

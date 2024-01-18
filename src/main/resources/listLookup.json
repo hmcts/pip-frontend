@@ -208,5 +208,25 @@
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
         "defaultSensitivity": "PRIVATE"
+    },
+    "OPA_PUBLIC_LIST": {
+        "friendlyName": "Online Plea and Allocation Public List",
+        "welshFriendlyName": "Rhestr Gyhoeddus – Pledio Ar-Lein a Dyrannu (OPA)",
+        "shortenedFriendlyName": "OPA Public List",
+        "url": "opa-public-list",
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
+    },
+    "OPA_RESULTS": {
+        "friendlyName": "Online Plea and Allocation Results",
+        "welshFriendlyName": "Canlyniadau Pledio a Dyrannu Ar-lein",
+        "shortenedFriendlyName": "OPA Results",
+        "url": "opa-results",
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
     }
 }
