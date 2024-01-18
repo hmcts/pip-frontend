@@ -5,12 +5,12 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
 import { HttpStatusCode } from 'axios';
-import OpaPublicListListController from '../../../main/controllers/OpaPublicListController';
+import OpaPublicListController from '../../../main/controllers/OpaPublicListController';
 import { LocationService } from '../../../main/service/locationService';
 import { OpaPublicListService } from '../../../main/service/listManipulation/OpaPublicListService';
 import { OpaPressListService } from '../../../main/service/listManipulation/OpaPressListService';
 
-const opaPublicListController = new OpaPublicListListController();
+const opaPublicListController = new OpaPublicListController();
 
 const artefactId = 'abc';
 const welshArtefactId = 'def';
