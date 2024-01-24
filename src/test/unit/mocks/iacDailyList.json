@@ -20,7 +20,8 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs Presiding",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
                                     }
                                 ],
@@ -152,7 +153,8 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name",
                                         "isPresiding": false
                                     }
                                 ],
@@ -277,15 +279,18 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs Presiding",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
                                     },
                                     {
-                                        "johKnownAs": "Judge KnownAs 2",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 2",
                                         "isPresiding": false
                                     },
                                     {
-                                        "johKnownAs": "Judge KnownAs 3",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 3",
                                         "isPresiding": false
                                     }
                                 ],
@@ -531,15 +536,18 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs Presiding",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
                                     },
                                     {
-                                        "johKnownAs": "Judge KnownAs 2",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 2",
                                         "isPresiding": false
                                     },
                                     {
-                                        "johKnownAs": "Judge KnownAs 3",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 3",
                                         "isPresiding": false
                                     }
                                 ],
@@ -622,11 +630,13 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs Presiding",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
                                     },
                                     {
-                                        "johKnownAs": "Judge KnownAs",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name",
                                         "isPresiding": false
                                     }
                                 ],

@@ -165,11 +165,13 @@
                                         ],
                                         "judiciary": [
                                             {
-                                                "johKnownAs": "Judge KnownAs Presiding",
+                                                "johTitle": "Judge",
+                                                "johNameSurname": "Test Name Presiding",
                                                 "isPresiding": true
                                             },
                                             {
-                                                "johKnownAs": "Judge KnownAs",
+                                                "johTitle": "Judge",
+                                                "johNameSurname": "Test Name",
                                                 "isPresiding": false
                                             }
                                         ],
@@ -324,11 +326,13 @@
                                         ],
                                         "judiciary": [
                                             {
-                                                "johKnownAs": "Judge KnownAs Presiding 2",
+                                                "johTitle": "Judge",
+                                                "johNameSurname": "Test Name Presiding 2",
                                                 "isPresiding": true
                                             },
                                             {
-                                                "johKnownAs": "Judge KnownAs 2",
+                                                "johTitle": "Judge",
+                                                "johNameSurname": "Test Name 2",
                                                 "isPresiding": false
                                             }
                                         ],

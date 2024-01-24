@@ -74,10 +74,10 @@ describe('IAC daily cause list page', () => {
 
     it('should display the court room name on the page', () => {
         const courtRoomText = htmlRes.getElementsByClassName(courtRoomClass);
-        expect(courtRoomText[0].innerHTML).contains('Room 1, Before Judge KnownAs Presiding');
-        expect(courtRoomText[1].innerHTML).contains('Room 1, Before Judge KnownAs');
+        expect(courtRoomText[0].innerHTML).contains('Room 1, Before Judge Test Name Presiding');
+        expect(courtRoomText[1].innerHTML).contains('Room 1, Before Judge Test Name');
         expect(courtRoomText[2].innerHTML).contains(
-            'Room 2, Before Judge KnownAs Presiding, Judge KnownAs 2, Judge KnownAs 3'
+            'Room 2, Before Judge Test Name Presiding, Judge Test Name 2, Judge Test Name 3'
         );
         expect(courtRoomText[3].innerHTML).contains('Room 2');
         expect(courtRoomText[4].innerHTML).contains('Hearing Room: Room 3');

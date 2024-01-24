@@ -71,7 +71,7 @@ describe('Magistrate Standard List page', () => {
     it('should display the site name for both sections', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
         expect(siteAddress[0].innerHTML).contains(
-            'Courtroom 1: Judge KnownAs Presiding, Judge KnownAs',
+            'Courtroom 1: Judge Test Name Presiding, Judge Test Name',
             'Could not find the site name in section 1'
         );
     });
@@ -79,7 +79,7 @@ describe('Magistrate Standard List page', () => {
     it('should display the courtroom', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
         expect(siteAddress[1].innerHTML).contains(
-            'Courtroom 2: Judge KnownAs Presiding 2, Judge KnownAs 2',
+            'Courtroom 2: Judge Test Name Presiding 2, Judge Test Name 2',
             'Could not find the Court name with Sitting at text'
         );
     });
