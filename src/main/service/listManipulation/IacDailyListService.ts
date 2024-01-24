@@ -10,7 +10,7 @@ export class IacDailyListService {
         iacDailyListData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
-                    session['formattedJudiciary'] = helperService.findAndManipulateJudiciary(session);
+                    session['formattedJudiciary'] = helperService.findAndManipulateJudiciaryForCrime(session);
                     session['sittings'].forEach(sitting => {
                         sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma', language);
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
