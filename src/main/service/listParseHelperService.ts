@@ -188,29 +188,26 @@ export class ListParseHelperService {
      * @param session
      */
     public findAndManipulateJudiciary(session: object): string {
-        let judiciaries = '';
-        let presidingJudiciary = '';
-        let foundPresiding = false;
-        let otherJudges = false;
+        const judiciaries = [];
         session['judiciary']?.forEach(judiciary => {
-            if (judiciary?.isPresiding === true) {
-                presidingJudiciary = ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) + ', ';
-                foundPresiding = true;
-            } else {
-                if (ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) !== '') {
-                    judiciaries += ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) + ', ';
-                    otherJudges = true;
-                }
-            }
+            const name = ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs);
+            judiciary?.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
         });
+        return judiciaries.join(", ");
+    }
 
-        if (foundPresiding && otherJudges) {
-            return [judiciaries.slice(0, 0), presidingJudiciary, judiciaries.slice(0, -2)].join('');
-        } else if (foundPresiding) {
-            return presidingJudiciary.slice(0, -2);
-        } else {
-            return judiciaries.slice(0, -2);
-        }
+    /**
+     * Manipulate crime list judiciary data for writing out to screen.
+     * @param session
+     */
+    public findAndManipulateJudiciaryForCrime(session: object): string {
+        const judiciaries = [];
+        session['judiciary']?.forEach(judiciary => {
+            const name = ListParseHelperService.writeStringIfValid(judiciary?.johTitle)
+                + ' ' + ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
+            judiciary?.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
+        });
+        return judiciaries.join(", ");
     }
 
     /**
