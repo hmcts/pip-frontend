@@ -193,7 +193,7 @@ export class ListParseHelperService {
             const name = ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs);
             judiciary?.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
         });
-        return judiciaries.join(", ");
+        return judiciaries.join(', ');
     }
 
     /**
@@ -203,11 +203,13 @@ export class ListParseHelperService {
     public findAndManipulateJudiciaryForCrime(session: object): string {
         const judiciaries = [];
         session['judiciary']?.forEach(judiciary => {
-            const name = ListParseHelperService.writeStringIfValid(judiciary?.johTitle)
-                + ' ' + ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
+            const name =
+                ListParseHelperService.writeStringIfValid(judiciary?.johTitle) +
+                ' ' +
+                ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
             judiciary?.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
         });
-        return judiciaries.join(", ");
+        return judiciaries.join(', ');
     }
 
     /**
