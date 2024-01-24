@@ -190,8 +190,10 @@ export class ListParseHelperService {
     public findAndManipulateJudiciary(session: object): string {
         const judiciaries = [];
         session['judiciary']?.forEach(judiciary => {
-            const name = ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs);
-            judiciary?.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
+            const name = ListParseHelperService.writeStringIfValid(judiciary.johKnownAs);
+            if (name.trim() !== '') {
+                judiciary.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
+            }
         });
         return judiciaries.join(', ');
     }
@@ -203,11 +205,12 @@ export class ListParseHelperService {
     public findAndManipulateJudiciaryForCrime(session: object): string {
         const judiciaries = [];
         session['judiciary']?.forEach(judiciary => {
-            const name =
-                ListParseHelperService.writeStringIfValid(judiciary?.johTitle) +
-                ' ' +
-                ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
-            judiciary?.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
+            const title = ListParseHelperService.writeStringIfValid(judiciary.johTitle);
+            const name = ListParseHelperService.writeStringIfValid(judiciary.johNameSurname);
+            const judge = [title, name].filter(j => j.length > 0).join(' ');
+            if (judge.trim() !== '') {
+                judiciary.isPresiding === true ? judiciaries.unshift(judge) : judiciaries.push(judge);
+            }
         });
         return judiciaries.join(', ');
     }
