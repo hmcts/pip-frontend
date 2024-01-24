@@ -157,5 +157,22 @@ describe('List Helper service', () => {
             expect(listParseHelperService.findAndManipulateJudiciary(judiciaryNoDetails)).to.equal('');
             expect(listParseHelperService.findAndManipulateJudiciary(judiciaryNotPresent)).to.equal('');
         });
+        it('should display judiciary details correctly if a name is missing', async () => {
+            const judiciaryDetails = {
+                judiciary: [
+                    {
+                        johKnownAs: 'Judge KnownAs',
+                    },
+                    {
+                        johKnownAs: '',
+                        isPresiding: false,
+                    },
+                    {
+                        johKnownAs: 'Judge KnownAs 3',
+                    },
+                ],
+            };
+            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal('Judge KnownAs, Judge KnownAs 3');
+        });
     });
 });
