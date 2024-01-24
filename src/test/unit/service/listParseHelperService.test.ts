@@ -172,7 +172,9 @@ describe('List Helper service', () => {
                     },
                 ],
             };
-            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal('Judge KnownAs, Judge KnownAs 3');
+            expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal(
+                'Judge KnownAs, Judge KnownAs 3'
+            );
         });
     });
 });
