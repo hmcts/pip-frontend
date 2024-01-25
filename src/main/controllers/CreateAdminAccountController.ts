@@ -10,10 +10,9 @@ export default class CreateAdminAccountController {
     public get(req: PipRequest, res: Response): void {
         formCookie = req.cookies['createAdminAccount'];
         const formData = formCookie ? JSON.parse(formCookie) : null;
-        const radio = createAccountService.buildRadiosList(formData?.['user-role']);
         res.render('create-admin-account', {
             formData,
-            radios: radio,
+            radios: createAccountService.buildRadiosList(formData?.['user-role']),
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account']),
         });
     }
