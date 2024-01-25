@@ -13,10 +13,7 @@
 {% block content %}
   <div class="parent-box">
     <h2 id='page-heading' class="govuk-heading-l">
-      {{ headerPart1 }}{{ courtName }}
-      {% if bill %}
-        <br />/{{ headerPart2 }}{{ courtName }}
-      {% endif %}
+      {{ header }}{{ courtName }}
     </h2>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
@@ -40,13 +37,6 @@
       <p>{{ importantInformationP3 }}</p>
       <p>{{ importantInformationP4 }}</p>
       <p>{{ importantInformationP5 }} {{ openJusticeGuidance | urlize | safe }}.</p>
-      {% if bill %}
-        <P>{{ importantInformationP6 }}</P>
-        <P>{{ importantInformationP7 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone']) }}</P>
-        <P>{{ importantInformationP8 }}</P>
-        <P>{{ importantInformationP9 }}</P>
-        <p>{{ importantInformationP10 }} {{ openJusticeGuidance | urlize | safe }}.</p>
-      {% endif %}
     </div>
   </details>
   {{ searchInput(text = searchCases) }}

@@ -13,6 +13,8 @@ const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const etListsService = new EtListsService();
 
+const listType = 'et-fortnightly-list';
+
 export default class EtFortnightlyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
@@ -21,27 +23,30 @@ export default class EtFortnightlyListController {
 
         if (isValidList(fileData, metaData) && fileData && metaData) {
             const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
-            const listData = etListsService.reshapeEtLists(JSON.stringify(fileData), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 fileData['document']['publicationDate'],
                 req.lng
             );
+            const venue = {
+                venueName: fileData['venue']['venueName'],
+                venueEmail: fileData['venue']['venueContact']['venueEmail'],
+                venueTelephone: fileData['venue']['venueContact']['venueTelephone'],
+            };
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, 'et-fortnightly-list');
-            res.render('et-fortnightly-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['et-fortnightly-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listType);
+
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
+                ...venue,
                 tableData,
-                listData,
                 courtName,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 region: returnedCourt.region,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
-                bill: pageLanguage === 'bill',
             });
         } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

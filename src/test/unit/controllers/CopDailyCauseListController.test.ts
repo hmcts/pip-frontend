@@ -68,7 +68,6 @@ describe('Cop Daily Cause List Controller', () => {
             courtName: "Abergavenny Magistrates' Court",
             regionalJoh: 'Test JoH',
             provenance: 'prov1',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('cop-daily-cause-list', expectedData);

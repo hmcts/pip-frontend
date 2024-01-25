@@ -51,7 +51,7 @@ export class CrimeListsService {
         }
     }
 
-    public manipulateParty(hearing: any): void {
+    public manipulateParty(hearing): void {
         const defendants = [];
         const defendantRepresentatives = [];
         const prosecutingAuthorities = [];
@@ -83,17 +83,17 @@ export class CrimeListsService {
         hearing.prosecutingAuthority = prosecutingAuthorities.join(separator);
     }
 
-    public createIndividualDetails(individualDetails: any): string {
+    public createIndividualDetails(individualDetails): string {
         const forenames = ListParseHelperService.writeStringIfValid(individualDetails?.individualForenames);
         const surname = ListParseHelperService.writeStringIfValid(individualDetails?.individualSurname);
-        return surname + (surname.length > 0 && forenames.length > 0 ? ', ' : '') + forenames;
+        return [surname, forenames].filter(n => n.length > 0).join(', ');
     }
 
-    private createOrganisationDetails(organisationDetails: any) {
+    private createOrganisationDetails(organisationDetails) {
         return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
     }
 
-    public findLinkedCasesInformation(hearing: any): void {
+    public findLinkedCasesInformation(hearing): void {
         let linkedCases = '';
         let listingNotes = '';
 
@@ -141,9 +141,9 @@ export class CrimeListsService {
     }
 
     private formatUnallocatedCourtList(
-        unallocatedCasesCrownListData: object,
-        courtListForUnallocatedCases: object,
-        unallocatedCase: any[]
+        unallocatedCasesCrownListData,
+        courtListForUnallocatedCases,
+        unallocatedCase
     ): void {
         courtListForUnallocatedCases['courtHouse']['courtHouseName'] = '';
         courtListForUnallocatedCases['courtHouse']['courtHouseAddress'] = null;
@@ -152,7 +152,7 @@ export class CrimeListsService {
         unallocatedCasesCrownListData['courtLists'].push(courtListForUnallocatedCases);
     }
 
-    public formatAddress(address: object, delimiter = '\n') {
+    public formatAddress(address, delimiter = '\n') {
         if (address) {
             const formattedAddress = [];
             if (address['line']) {

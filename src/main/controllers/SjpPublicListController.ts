@@ -17,6 +17,8 @@ const sjpFilterService = new SjpFilterService();
 const filterService = new FilterService();
 const listDownloadService = new ListDownloadService();
 
+const listType = 'single-justice-procedure';
+
 export default class SjpPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'] as string;
@@ -36,13 +38,12 @@ export default class SjpPublicListController {
                 fileData['document']['publicationDate'],
                 req.lng
             );
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
 
-            res.render('single-justice-procedure', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['sjp-common']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sjp-common']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 sjpData: filter.sjpCases,
                 length: filter.sjpCases.length,
                 publishedDateTime: publishedDate,

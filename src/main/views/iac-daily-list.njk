@@ -13,9 +13,6 @@
   <div class="parent-box">
     <h2 id="page-heading" class="govuk-heading-l">
       {{ heading }}<br />{{ listData['venue']['venueName'] }} {{ dailyList }}
-      {% if bill %}
-        <br /><br />{{ headingWelsh }}<br />{{ listData['venue']['venueName'] }} {{ dailyListWelsh }}
-      {% endif %}
     </h2>
 
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
@@ -29,12 +26,6 @@
         <p>{{ importantInformationP2 }}</p>
         <p>{{ venueContact["venueEmail"] }} {{ venueContact["venueTelephone"] }}</p>
         <p>{{ importantInformationP3 }}</p>
-        {% if bill %}
-          <P>{{ importantInformationP4 }}</P>
-          <P>{{ importantInformationP5 }}</P>
-          <p>{{ venueContact["venueEmail"] }} {{ venueContact["venueTelephone"] }}</p>
-          <P>{{ importantInformationP6 }}</P>
-        {% endif %}
       </div>
     </details>
 
