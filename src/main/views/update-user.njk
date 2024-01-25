@@ -42,7 +42,10 @@
       {{ govukSelect({
         id: "updatedRole",
         name: "updatedRole",
-        items: selectBoxData
+        items: selectBoxData,
+        attributes: {
+          "aria-label": "Updated role"
+        }
       }) }}
       {{ submitButton(continueButton) }}
     </form>

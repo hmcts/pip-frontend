@@ -11,7 +11,6 @@
 {% endblock %}
 {% block content %}
   <div class="parent-box">
-
     <h2 id="page-heading" class="govuk-heading-l">
       {{ title }}: {{ region }}
     </h2>
@@ -33,7 +32,10 @@
 
   {{ searchInput(text = searchCases) }}
   <div class="search-area">
+    {% set courtCount = 0 %}
+    {% set courtRoomCount = 0 %}
     {% for court in tableData %}
+      {% set courtCount = courtCount + 1 %}
       <div class="site-header" tabindex="0" aria-label="Court Details">
         <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ court['courtName'] }}</h1>
         {% for line in court['days'][0][0]['addressLine'] %}
@@ -52,8 +54,7 @@
         {% endif %}
       </div>
 
-      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-      {% set courtRoomCount = 0 %}
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtCount }}">
       {% for day in court['days'] %}
         {% set hearingCount = 1 %}
         {% set courtRoomCount = courtRoomCount + 1 %}

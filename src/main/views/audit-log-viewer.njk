@@ -17,7 +17,10 @@
     </div>
     <div class="parent-box">
       {% set tableRows = [] %}
+      {% set count = 0 %}
       {% for row in auditLogData %}
+        {% set count = count + 1 %}
+        {% set linkId = "view-details-link-" + count %}
         {% set _ = tableRows.push([
           {
             text: row.timestamp
@@ -29,7 +32,7 @@
             text: row.action
           },
           {
-            html: "<a class='govuk-link' id='view-details-link' href='audit-log-details?id=" + row.id + "&timestamp=" + row.timestamp + "'>View</a>"
+            html: "<a class='govuk-link' id='" + linkId + "' href='audit-log-details?id=" + row.id + "&timestamp=" + row.timestamp + "'>View</a>"
           }
         ]) %}
       {% endfor %}
