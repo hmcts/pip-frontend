@@ -15,6 +15,8 @@ const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 const opaPublicListService = new OpaPublicListService();
 
+const listType = 'opa-public-list';
+
 export default class OpaPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -29,12 +31,11 @@ export default class OpaPublicListController {
                 req.lng
             );
             const location = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-            const locationName = pageLanguage === 'cy' ? location.welshName : location.name;
+            const locationName = req.lng === 'cy' ? location.welshName : location.name;
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
-            res.render('opa-public-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['opa-public-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 length: listData.length,
                 publishedDate: publishedDate,
@@ -42,7 +43,6 @@ export default class OpaPublicListController {
                 provenance: metaData.provenance,
                 courtName: locationName,
                 venueAddress: venueAddress,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

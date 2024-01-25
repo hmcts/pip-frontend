@@ -85,7 +85,6 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
                 courtName: "Abergavenny Magistrates' Court",
                 publishedTime: '12:30am',
                 provenance: 'prov1',
-                bill: false,
             };
 
             responseMock.expects('render').once().withArgs('sscs-daily-list', expectedData);

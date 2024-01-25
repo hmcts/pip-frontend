@@ -29,7 +29,6 @@ export default class CrownWarnedListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
@@ -46,8 +45,8 @@ export default class CrownWarnedListController {
             );
 
             res.render(listUrl, {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listUrl]),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listUrl]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: sortedListData,
                 venue: searchResults['venue'],
                 contentDate: crownWarnedListService.formatContentDate(metaData.contentDate, req.lng),
@@ -56,7 +55,6 @@ export default class CrownWarnedListController {
                 version: searchResults['document']['version'],
                 provenance: metaData.provenance,
                 venueAddress: venueAddress,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

@@ -33,16 +33,15 @@ export default class TribunalNationalListsController {
                 req.lng
             );
 
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
 
             res.render(listToLoad, {
                 // The 'open-justice-statement' resource needs to come before the list type resource so it can be
                 // overwritten by the statement in list types with specific open justice statement.
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 listData: manipulatedData,
                 publishedDate: publishedDate,
@@ -51,7 +50,6 @@ export default class TribunalNationalListsController {
                 courtName: courtName,
                 venueEmail: searchResults['venue']['venueContact']['venueEmail'],
                 venueTelephone: searchResults['venue']['venueContact']['venueTelephone'],
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

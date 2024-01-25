@@ -12,6 +12,9 @@ const publicationService = new PublicationService();
 const courtService = new LocationService();
 const helperService = new ListParseHelperService();
 const copDailyListService = new CopDailyListService();
+
+const listType = 'cop-daily-cause-list';
+
 export default class CopDailyCauseListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -28,15 +31,13 @@ export default class CopDailyCauseListController {
             );
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-            const courtName = courtService.findCourtName(returnedCourt, req.lng, 'cop-daily-cause-list');
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
+            const courtName = courtService.findCourtName(returnedCourt, req.lng, listType);
             const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
-            res.render('cop-daily-cause-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['cop-daily-cause-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
@@ -44,7 +45,6 @@ export default class CopDailyCauseListController {
                 courtName: courtName,
                 regionalJoh: regionalJoh,
                 provenance: metaData.provenance,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
