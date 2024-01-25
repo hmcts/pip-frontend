@@ -62,7 +62,6 @@ describe('Tribunal National List Controller', () => {
         courtName: "Abergavenny Magistrates' Court",
         venueEmail: 'court1@moj.gov.uk',
         venueTelephone: '01772 844700',
-        bill: false,
     };
 
     it('should render the primary health list page', async () => {

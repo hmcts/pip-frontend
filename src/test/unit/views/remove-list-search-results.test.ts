@@ -37,21 +37,9 @@ const mockPublications = [
         language: 'WELSH',
         sensitivity: 'CLASSIFIED',
     },
-    {
-        listItem: 'SJP_PUBLIC_LIST',
-        displayFrom: '2022-02-16T12:26:42.908',
-        displayTo: '2024-02-08T12:26:42.908',
-        contDate: '2022-02-08T12:26:42.908',
-        dateRange: '8 Feb 2022 to 8 Feb 2024',
-        listTypeName: 'SJP Public List',
-        locationId: '5',
-        artefactId: 'valid-artefact-777',
-        language: 'BI_LINGUAL',
-        sensitivity: 'CLASSIFIED',
-    },
 ];
 const tableHeaders = ['List type', 'Court', 'Content Date', 'Date', 'Language', 'Sensitivity', 'Actions'];
-const languageRowValues = ['English', 'Welsh', 'Bilingual'];
+const languageRowValues = ['English', 'Welsh'];
 const sensitivityValues = ['Public', 'Classified', 'Classified'];
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon
@@ -81,7 +69,7 @@ describe('Remove List Summary Page', () => {
 
     it('should display results count', () => {
         const resultsCount = htmlRes.getElementsByClassName('govuk-body')[0];
-        expect(resultsCount.innerHTML).contains('Showing 3 result(s)', 'Could not find results paragraph');
+        expect(resultsCount.innerHTML).contains('Showing 2 result(s)', 'Could not find results paragraph');
     });
 
     it('should display correct table headers', () => {
@@ -98,7 +86,7 @@ describe('Remove List Summary Page', () => {
         const tableRows = htmlRes
             .getElementsByClassName('govuk-table__body')[0]
             .getElementsByClassName('govuk-table__row');
-        expect(tableRows.length).equal(3, 'Incorrect table rows count');
+        expect(tableRows.length).equal(2, 'Incorrect table rows count');
         for (let i = 0; i < tableRows.length; i++) {
             const rowCells = tableRows[i].getElementsByClassName('govuk-table__cell');
             const removeActionHref = htmlRes

@@ -28,23 +28,20 @@ export default class OpaResultsController {
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
 
-            const pageLanguage = publicationService.languageToLoadPageIn(metadata.language, req.lng);
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
-
             const location = await locationService.getLocationById(metadata['locationId']);
-            const locationName = pageLanguage === 'cy' ? location.welshName : location.name;
+            const locationName = req.lng === 'cy' ? location.welshName : location.name;
             const listData = opaResultsService.manipulateData(JSON.stringify(jsonData), req.lng);
 
             res.render(listType, {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listType]),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 contentDate: helperService.contentDateInUtcTime(metadata['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 courtName: locationName,
                 venueAddress: venueAddress,
-                bill: pageLanguage === 'bill',
             });
         } else if (jsonData === HttpStatusCode.NotFound || metadata === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

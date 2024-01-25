@@ -71,7 +71,6 @@ describe('Crown Daily List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             version: '',
-            bill: false,
             venueAddress: 'THE LAW COURTS\nPR1 2LL',
         };
 

@@ -51,7 +51,7 @@ describe('Et Fortnightly List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/et-fortnightly-list';
 
-    it('should render the et fortnightly cause list page', async () => {
+    it('should render the ET fortnightly cause list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
 
@@ -60,14 +60,15 @@ describe('Et Fortnightly List Controller', () => {
             ...i18n['et-fortnightly-list'],
             ...i18n['list-template'],
             tableData,
-            listData,
+            venueName: 'Regional Venue South',
+            venueEmail: 'a@b.com',
+            venueTelephone: '+44 1234 1234 1234',
             region: 'Bedford',
             contentDate: '14 February 2022',
             publishedDate: '13 February 2022',
             publishedTime: '9:30am',
             courtName: "Abergavenny Magistrates' Court",
             provenance: 'prov1',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('et-fortnightly-list', expectedData);
