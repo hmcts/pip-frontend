@@ -1,10 +1,10 @@
-import {app} from "../../../main/app";
-import * as supertest from "supertest";
+import { app } from '../../../main/app';
+import * as supertest from 'supertest';
 const pa11y = require('pa11y');
-import {fail} from "assert";
-import {PallyIssue} from "./PallyIssue";
-import {Pa11yResult} from "./Pa11yResult";
-import console from "console";
+import { fail } from 'assert';
+import { PallyIssue } from './PallyIssue';
+import { Pa11yResult } from './Pa11yResult';
+import console from 'console';
 
 const agent = supertest.agent(app);
 
@@ -22,7 +22,7 @@ export const testAccessibility = (path: string, parameter = '', httpMethod = 'GE
                 done(err);
             });
     });
-}
+};
 
 const buildUrl = (path: string, parameter = '') => {
     return parameter ? path + parameter : path;
@@ -37,7 +37,7 @@ const ensurePageCallWillSucceed = async (request): Promise<void> => {
             throw new Error(`Call to ${request.url} resulted in internal server error`);
         }
     });
-}
+};
 
 const runPally = (url: string, httpMethod = 'GET', postBody = {}): Pa11yResult => {
     const request = httpMethod === 'POST' ? agent.post(url).send(postBody) : agent.get(url);
@@ -45,7 +45,7 @@ const runPally = (url: string, httpMethod = 'GET', postBody = {}): Pa11yResult =
         hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
         chromeLaunchConfig: { headless: true, args: ['--no-sandbox'] },
     });
-}
+};
 
 const expectNoErrors = (messages: PallyIssue[]): void => {
     const errors = messages.filter(m => m.type === 'error');
@@ -54,4 +54,4 @@ const expectNoErrors = (messages: PallyIssue[]): void => {
         const errorsAsJson = `${JSON.stringify(errors, null, 2)}`;
         fail(`There are accessibility issues: \n${errorsAsJson}\n`);
     }
-}
+};

@@ -1,21 +1,22 @@
-import {app} from "../../../main/app";
+import { app } from '../../../main/app';
 import sinon from 'sinon';
 import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import {PublicationRequests} from "../../../main/resources/requests/publicationRequests";
-import {PublicationService} from "../../../main/service/publicationService";
-import {AccountManagementRequests} from "../../../main/resources/requests/accountManagementRequests";
-import {FileHandlingService} from "../../../main/service/fileHandlingService";
-import {SubscriptionRequests} from "../../../main/resources/requests/subscriptionRequests";
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import { PublicationService } from '../../../main/service/publicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import {
     testArtefactJsonData,
-    testArtefactMetadata, testAuditData,
+    testArtefactMetadata,
+    testAuditData,
     testLocationData,
     testSubscriptionData,
-    testUserData
-} from "../common/testData";
-import {testAccessibility} from "../common/pa11yHelper";
-import {UserManagementService} from "../../../main/service/userManagementService";
-import {AuditLogService} from "../../../main/service/auditLogService";
+    testUserData,
+} from '../common/testData';
+import { testAccessibility } from '../common/pa11yHelper';
+import { UserManagementService } from '../../../main/service/userManagementService';
+import { AuditLogService } from '../../../main/service/auditLogService';
 
 const userId = '1';
 const name = 'Test';
@@ -83,7 +84,7 @@ const formattedUserData = {
 const formattedAuditLogData = {
     auditLogData: 'test',
     paginationData: 'test2',
-}
+};
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData[0]);
@@ -98,7 +99,10 @@ sinon.stub(AccountManagementRequests.prototype, 'getAuditLogById').returns(audit
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').resolves(subscriptionData);
 sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels').resolves(['EMAIL', 'API']);
 sinon.stub(FileHandlingService.prototype, 'readFileFromRedis').returns('testData');
-sinon.stub(FileHandlingService.prototype, 'readCsvToArray').returns([['email', 'firstName', 'surname'], [emailAddress, name, name]]);
+sinon.stub(FileHandlingService.prototype, 'readCsvToArray').returns([
+    ['email', 'firstName', 'surname'],
+    [emailAddress, name, name],
+]);
 sinon.stub(UserManagementService.prototype, 'getFormattedData').resolves(formattedUserData);
 sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns(formattedAuditLogData);
 

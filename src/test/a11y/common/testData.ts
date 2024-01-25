@@ -1,5 +1,5 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 export const testArtefactJsonData = (filename: string) => {
     const rawData = fs.readFileSync(path.resolve(__dirname, `../../unit/mocks/${filename}`), 'utf-8');
@@ -17,14 +17,20 @@ export const testLocationData = () => {
 };
 
 export const testSubscriptionData = () => {
-    const rawSubscriptionData = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
-    return JSON.parse(rawSubscriptionData).data ;
+    const rawSubscriptionData = fs.readFileSync(
+        path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'),
+        'utf-8'
+    );
+    return JSON.parse(rawSubscriptionData).data;
 };
 
 export const testMediaApplicationData = () => {
-    const rawMediaApplications = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/mediaApplications.json'), 'utf-8');
+    const rawMediaApplications = fs.readFileSync(
+        path.resolve(__dirname, '../../unit/mocks/mediaApplications.json'),
+        'utf-8'
+    );
     return JSON.parse(rawMediaApplications);
-}
+};
 
 export const testUserData = (userProvenance = 'PI_AAD', role = 'VERIFIED') => {
     return {
@@ -35,7 +41,7 @@ export const testUserData = (userProvenance = 'PI_AAD', role = 'VERIFIED') => {
         roles: role,
         createdDate: '2023-06-12 11:32:59.444111',
     };
-}
+};
 
 export const testAuditData = () => {
     return {
@@ -46,5 +52,5 @@ export const testAuditData = () => {
         action: 'MANAGE_USER',
         details: 'Details',
         timestamp: '2023-06-12 11:32:59.444111',
-    }
-}
+    };
+};

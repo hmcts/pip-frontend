@@ -1,18 +1,18 @@
-import {app} from "../../../main/app";
+import { app } from '../../../main/app';
 import sinon from 'sinon';
 import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import {PublicationRequests} from "../../../main/resources/requests/publicationRequests";
-import {AccountManagementRequests} from "../../../main/resources/requests/accountManagementRequests";
-import {randomUUID} from "crypto";
-import {testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData} from "../common/testData";
-import {testAccessibility} from "../common/pa11yHelper";
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { randomUUID } from 'crypto';
+import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
+import { testAccessibility } from '../common/pa11yHelper';
 
 const post = 'POST';
 const userId = '1';
 const name = 'Test';
 const emailAddress = 'test@test.com';
 const superAdminCtscRole = 'INTERNAL_SUPER_ADMIN_CTSC';
-const userProvenance = 'PI_AAD'
+const userProvenance = 'PI_AAD';
 const uuid = randomUUID();
 const rejectionReasons = 'Details provided do not match.';
 
@@ -52,7 +52,7 @@ sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData)
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata);
 sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').resolves(metadata[0]);
 sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
-sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById').resolves(mediaApplications[0])
+sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById').resolves(mediaApplications[0]);
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(userData);
 sinon.stub(AccountManagementRequests.prototype, 'deleteUser').resolves('Success');
 

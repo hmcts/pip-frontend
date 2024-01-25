@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/publicationService';
 import { LocationRequests } from '../../../../main/resources/requests/locationRequests';
-import {testArtefactJsonData, testArtefactMetadata, testLocationData} from "../../common/testData";
-import {testAccessibility} from "../../common/pa11yHelper";
+import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
+import { testAccessibility } from '../../common/pa11yHelper';
 
 const url = '/daily-cause-list?artefactId=abc';
 

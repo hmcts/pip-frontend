@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/publicationService';
 import { ListDownloadService } from '../../../../main/service/listDownloadService';
-import {testArtefactJsonData, testArtefactMetadata} from "../../common/testData";
-import {testAccessibility} from "../../common/pa11yHelper";
+import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
+import { testAccessibility } from '../../common/pa11yHelper';
 
 const url = '/sjp-public-list?artefactId=abc';
 

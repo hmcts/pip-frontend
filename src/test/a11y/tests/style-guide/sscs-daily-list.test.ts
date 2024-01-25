@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/publicationService';
-import {testArtefactJsonData, testArtefactMetadata} from "../../common/testData";
-import {testAccessibility} from "../../common/pa11yHelper";
+import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
+import { testAccessibility } from '../../common/pa11yHelper';
 
 const sscsDailyListUrl = '/sscs-daily-list';
 const sscsDailyListAdditionalHearingsUrl = '/sscs-daily-list-additional-hearings';

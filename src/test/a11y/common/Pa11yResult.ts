@@ -1,4 +1,4 @@
-import {PallyIssue} from "./PallyIssue";
+import { PallyIssue } from './PallyIssue';
 
 export class Pa11yResult {
     documentTitle: string;

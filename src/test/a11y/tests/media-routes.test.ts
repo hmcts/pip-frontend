@@ -1,13 +1,13 @@
 import { app } from '../../../main/app';
 import sinon from 'sinon';
 import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import {PublicationRequests} from "../../../main/resources/requests/publicationRequests";
-import {PublicationService} from "../../../main/service/publicationService";
-import {ListDownloadService} from "../../../main/service/listDownloadService";
-import {PendingSubscriptionsFromCache} from "../../../main/resources/requests/utils/pendingSubscriptionsFromCache";
-import {SubscriptionRequests} from "../../../main/resources/requests/subscriptionRequests";
-import {testArtefactMetadata, testLocationData, testSubscriptionData, testUserData} from "../common/testData";
-import {testAccessibility} from "../common/pa11yHelper";
+import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import { PublicationService } from '../../../main/service/publicationService';
+import { ListDownloadService } from '../../../main/service/listDownloadService';
+import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { testArtefactMetadata, testLocationData, testSubscriptionData, testUserData } from '../common/testData';
+import { testAccessibility } from '../common/pa11yHelper';
 
 const post = 'POST';
 const userId = '1';
@@ -29,7 +29,7 @@ const mediaRoutes = [
     { path: '/location-name-search' },
     { path: '/pending-subscriptions' },
     { path: '/remove-subscription' },
-    { path: '/subscription-add'  },
+    { path: '/subscription-add' },
     { path: '/subscription-confirmed' },
     { path: '/subscription-management' },
     { path: '/subscription-configure-list' },
@@ -48,7 +48,7 @@ const subscriptionSearchResults = [
         caseName: 'myCase',
         caseUrn: '',
         partyNames: 'Surname',
-    }
+    },
 ];
 
 const courtSubscription = {
@@ -106,33 +106,33 @@ describe('Accessibility - Media User Routes', () => {
         describe('Party Name Search Page', () => {
             const url = '/party-name-search';
             describe('with no input data', () => {
-                testAccessibility(url, '', post, {'party-name': ''});
+                testAccessibility(url, '', post, { 'party-name': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', post, {'party-name': 'Invalid name'});
+                testAccessibility(url, '', post, { 'party-name': 'Invalid name' });
             });
         });
 
         describe('Case Name Search Page', () => {
             const url = '/case-name-search';
             describe('with no input data', () => {
-                testAccessibility(url, '', post, {'case-name': ''});
+                testAccessibility(url, '', post, { 'case-name': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', post, {'case-name': 'foo'});
+                testAccessibility(url, '', post, { 'case-name': 'foo' });
             });
         });
 
         describe('Case Reference Number Search Page', () => {
             const url = '/case-reference-number-search';
             describe('with no input data', () => {
-                testAccessibility(url, '', post, {'search-input': ''});
+                testAccessibility(url, '', post, { 'search-input': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', post, {'search-input': '123'});
+                testAccessibility(url, '', post, { 'search-input': '123' });
             });
         });
     });
