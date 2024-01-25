@@ -59,7 +59,6 @@ describe('IAC Daily List Controller', () => {
             publishedDate: '31 August 2022',
             publishedTime: '11am',
             provenance: 'prov1',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('iac-daily-list', expectedData);

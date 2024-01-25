@@ -304,32 +304,6 @@ describe('Publication service', () => {
         });
     });
 
-    describe('Language to load the page in', () => {
-        it('should return english if the user is english and the list is english', () => {
-            expect(publicationService.languageToLoadPageIn('ENGLISH', 'en')).to.equal('en');
-        });
-
-        it('should return bilingual if the user is english and the list is welsh', () => {
-            expect(publicationService.languageToLoadPageIn('WELSH', 'en')).to.equal('bill');
-        });
-
-        it('should return bilingual if the user is english and the list is bilingual', () => {
-            expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'en')).to.equal('bill');
-        });
-
-        it('should return welsh if the user is welsh and the list is welsh', () => {
-            expect(publicationService.languageToLoadPageIn('WELSH', 'cy')).to.equal('cy');
-        });
-
-        it('should return bilingual if the user is welsh and the list is english', () => {
-            expect(publicationService.languageToLoadPageIn('ENGLISH', 'cy')).to.equal('bill');
-        });
-
-        it('should return bilingual if the user is welsh and the list is bilingual', () => {
-            expect(publicationService.languageToLoadPageIn('BI_LINGUAL', 'cy')).to.equal('bill');
-        });
-    });
-
     describe('delete location publication', () => {
         it('should return a message if location subscription is deleted', async () => {
             const payload = await publicationService.deleteLocationPublication(1, requester);

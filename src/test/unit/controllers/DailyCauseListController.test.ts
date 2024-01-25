@@ -80,7 +80,6 @@ describe('Daily Cause List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             courtName: "Abergavenny Magistrates' Court",
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('family-daily-cause-list', expectedData);
@@ -108,7 +107,6 @@ describe('Daily Cause List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             courtName: "Abergavenny Magistrates' Court",
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('daily-cause-list', expectedData);

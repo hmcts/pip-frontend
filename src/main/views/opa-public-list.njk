@@ -35,26 +35,6 @@
                     <li>{{ restrictionBulletPoint2 }}</li>
                 </ul>
             </div>
-            {% if bill %}
-                <div class="govuk-body">
-                    <h3>{{ restrictionInformationHeadingCy }}</h3>
-                    <p class="govuk-body">{{ restrictionInformationP1Cy }}</p>
-                    <div class="govuk-warning-text">
-                        <span class="govuk-warning-text__icon align-warning-icon" aria-hidden="true">!</span>
-                        <strong class="govuk-warning-text__text">
-                            <span class="govuk-warning-text__assistive">Warning</span>
-                            {{ restrictionInformationBoldTextCy }}
-                        </strong>
-                    </div>
-                    <p class="govuk-body">{{ restrictionInformationP2Cy }}</p>
-                    <p class="govuk-body">{{ restrictionInformationP3Cy }}</p>
-                    <p class="govuk-body">{{ restrictionInformationP4Cy }}</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>{{ restrictionBulletPoint1Cy }}</li>
-                        <li>{{ restrictionBulletPoint2Cy }}</li>
-                    </ul>
-                </div>
-            {% endif %}
         </div>
     </div>
     <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDate }} {{ publishedAt }} {{ publishedTime }}</p>

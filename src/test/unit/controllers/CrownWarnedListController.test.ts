@@ -89,7 +89,6 @@ describe('Crown Warned List Controller', () => {
             version: '1.0',
             provenance: 'prov1',
             venueAddress: 'Princess Square\nManchester\nM1 1AA',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('crown-warned-list', expectedData);
