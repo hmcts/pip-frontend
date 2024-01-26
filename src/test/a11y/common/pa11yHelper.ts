@@ -5,7 +5,7 @@ import { fail } from 'assert';
 import { PallyIssue } from './PallyIssue';
 import { Pa11yResult } from './Pa11yResult';
 import console from 'console';
-import process from "process";
+import process from 'process';
 
 const agent = supertest.agent(app);
 const headlessBrowser = process.env.TEST_A11Y_HEADLESS ? process.env.TEST_A11Y_HEADLESS === 'true' : true;
@@ -42,11 +42,10 @@ const ensurePageCallWillSucceed = async (url): Promise<void> => {
 };
 
 const runPally = (url: string, postMethod = false, postBody = {}): Pa11yResult => {
-
     let options: any = {
         hideElements: '.govuk-footer__licence-logo, .govuk-header__logotype-crown',
         chromeLaunchConfig: { headless: headlessBrowser, args: ['--no-sandbox'] },
-    }
+    };
 
     if (postMethod) {
         options = {
@@ -54,7 +53,7 @@ const runPally = (url: string, postMethod = false, postBody = {}): Pa11yResult =
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             postData: JSON.stringify(postBody),
-        }
+        };
     }
 
     return pa11y(agent.get(url).url, options);
