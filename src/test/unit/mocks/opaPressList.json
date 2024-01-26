@@ -34,6 +34,69 @@
                                                 "case": [
                                                     {
                                                         "caseUrn": "URN8888",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename",
+                                                                    "individualMiddleName": "MiddleName",
+                                                                    "individualSurname": "Surname",
+                                                                    "dateOfBirth": "01/01/1980",
+                                                                    "age": 43,
+                                                                    "address": {
+                                                                        "line": [
+                                                                            "Address Line 1",
+                                                                            "Address Line 2"
+                                                                        ],
+                                                                        "town": "Town",
+                                                                        "county": "County",
+                                                                        "postCode": "BB1 1BB"
+                                                                    },
+                                                                    "youth": "Youth",
+                                                                    "offence": [
+                                                                        {
+                                                                            "offenceTitle": "Offence title 1",
+                                                                            "offenceSection": "Offence section 1",
+                                                                            "offenceWording": "Offence wording 1",
+                                                                            "plea": "NOT_GUILTY",
+                                                                            "pleaDate": "2023-09-20T09:00:00.123Z"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename2",
+                                                                    "individualMiddleName": "MiddleName2",
+                                                                    "individualSurname": "Surname2",
+                                                                    "dateOfBirth": "01/01/1985",
+                                                                    "age": 38,
+                                                                    "address": {
+                                                                        "line": [
+                                                                            "Address Line 1",
+                                                                            "Address Line 2"
+                                                                        ],
+                                                                        "town": "Town",
+                                                                        "county": "County",
+                                                                        "postCode": "BB1 1BB"
+                                                                    },
+                                                                    "youth": "Youth",
+                                                                    "offence": [
+                                                                        {
+                                                                            "offenceTitle": "Offence title 2",
+                                                                            "offenceSection": "Offence section 2",
+                                                                            "offenceWording": "Offence wording 2",
+                                                                            "plea": "NOT_GUILTY",
+                                                                            "pleaDate": "2023-09-22T09:00:00.123Z",
+                                                                            "reportingRestrictionDetail": [
+                                                                                "Offence reporting restriction detail 1"
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ],
                                                         "reportingRestrictionDetail": [
                                                             "Case reporting Restriction detail line 1",
                                                             "Case reporting restriction detail line 2"
@@ -45,75 +108,75 @@
                                                     },
                                                     {
                                                         "caseUrn": "URN8889",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename",
+                                                                    "individualMiddleName": "MiddleName",
+                                                                    "individualSurname": "Surname",
+                                                                    "dateOfBirth": "01/01/1980",
+                                                                    "age": 43,
+                                                                    "address": {
+                                                                        "line": [
+                                                                            "Address Line 1",
+                                                                            "Address Line 2"
+                                                                        ],
+                                                                        "town": "Town",
+                                                                        "county": "County",
+                                                                        "postCode": "BB1 1BB"
+                                                                    },
+                                                                    "youth": "Youth",
+                                                                    "offence": [
+                                                                        {
+                                                                            "offenceTitle": "Offence title 1",
+                                                                            "offenceSection": "Offence section 1",
+                                                                            "offenceWording": "Offence wording 1",
+                                                                            "plea": "NOT_GUILTY",
+                                                                            "pleaDate": "2023-09-20T09:00:00.123Z"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename2",
+                                                                    "individualMiddleName": "MiddleName2",
+                                                                    "individualSurname": "Surname2",
+                                                                    "dateOfBirth": "01/01/1985",
+                                                                    "age": 38,
+                                                                    "address": {
+                                                                        "line": [
+                                                                            "Address Line 1",
+                                                                            "Address Line 2"
+                                                                        ],
+                                                                        "town": "Town",
+                                                                        "county": "County",
+                                                                        "postCode": "BB1 1BB"
+                                                                    },
+                                                                    "youth": "Youth",
+                                                                    "offence": [
+                                                                        {
+                                                                            "offenceTitle": "Offence title 2",
+                                                                            "offenceSection": "Offence section 2",
+                                                                            "offenceWording": "Offence wording 2",
+                                                                            "plea": "NOT_GUILTY",
+                                                                            "pleaDate": "2023-09-22T09:00:00.123Z",
+                                                                            "reportingRestrictionDetail": [
+                                                                                "Offence reporting restriction detail 1"
+                                                                            ]
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            }
+                                                        ],
                                                         "reportingRestrictionDetail": [
                                                             "Case reporting Restriction detail line 1"
                                                         ],
                                                         "scheduledHearingDate": "2023-10-01T09:30:00.123Z",
                                                         "informant": {
                                                             "prosecutionAuthorityRef": "Prosecuting authority ref"
-                                                        }
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Forename",
-                                                            "individualMiddleName": "MiddleName",
-                                                            "individualSurname": "Surname",
-                                                            "dateOfBirth": "01/01/1980",
-                                                            "age": 43,
-                                                            "address": {
-                                                                "line": [
-                                                                    "Address Line 1",
-                                                                    "Address Line 2"
-                                                                ],
-                                                                "town": "Town",
-                                                                "county": "County",
-                                                                "postCode": "BB1 1BB"
-                                                            },
-                                                            "youth": "Youth",
-                                                            "offence": [
-                                                                {
-                                                                    "offenceTitle": "Offence title 1",
-                                                                    "offenceSection": "Offence section 1",
-                                                                    "offenceWording": "Offence wording 1",
-                                                                    "plea": "NOT_GUILTY",
-                                                                    "pleaDate": "2023-09-20T09:00:00.123Z"
-                                                                }
-                                                            ]
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Forename2",
-                                                            "individualMiddleName": "MiddleName2",
-                                                            "individualSurname": "Surname2",
-                                                            "dateOfBirth": "01/01/1985",
-                                                            "age": 38,
-                                                            "address": {
-                                                                "line": [
-                                                                    "Address Line 1",
-                                                                    "Address Line 2"
-                                                                ],
-                                                                "town": "Town",
-                                                                "county": "County",
-                                                                "postCode": "BB1 1BB"
-                                                            },
-                                                            "youth": "Youth",
-                                                            "offence": [
-                                                                {
-                                                                    "offenceTitle": "Offence title 2",
-                                                                    "offenceSection": "Offence section 2",
-                                                                    "offenceWording": "Offence wording 2",
-                                                                    "plea": "NOT_GUILTY",
-                                                                    "pleaDate": "2023-09-22T09:00:00.123Z",
-                                                                    "reportingRestrictionDetail": [
-                                                                        "Offence reporting restriction detail 1"
-                                                                    ]
-                                                                }
-                                                            ]
                                                         }
                                                     }
                                                 ]
