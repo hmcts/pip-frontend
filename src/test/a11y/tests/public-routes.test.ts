@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 import { testArtefactMetadata, testLocationData } from '../common/testData';
-import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
+import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 
 const publicRoutes = [
     { path: '/' },

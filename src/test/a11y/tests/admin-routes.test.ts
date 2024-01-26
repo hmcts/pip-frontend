@@ -5,7 +5,7 @@ import { PublicationRequests } from '../../../main/resources/requests/publicatio
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { randomUUID } from 'crypto';
 import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
-import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
+import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 
 const userId = '1';
 const name = 'Test';

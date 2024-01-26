@@ -14,11 +14,11 @@ import {
     testSubscriptionData,
     testUserData,
 } from '../common/testData';
-import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
+import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 import { UserManagementService } from '../../../main/service/userManagementService';
 import { AuditLogService } from '../../../main/service/auditLogService';
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 const userId = '1';
 const name = 'Test';

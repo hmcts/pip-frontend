@@ -7,9 +7,9 @@ import { ListDownloadService } from '../../../main/service/listDownloadService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import { testArtefactMetadata, testLocationData, testSubscriptionData, testUserData } from '../common/testData';
-import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
-import fs from "fs";
-import path from "path";
+import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
+import fs from 'fs';
+import path from 'path';
 
 const userId = '1';
 
@@ -43,9 +43,15 @@ const locationData = testLocationData();
 const metadata = testArtefactMetadata();
 const subscriptionsData = testSubscriptionData();
 
-const rawCourtSubscriptionData = fs.readFileSync(path.resolve(__dirname, '../common/mocks/courtSubscriptions.json'), 'utf-8');
+const rawCourtSubscriptionData = fs.readFileSync(
+    path.resolve(__dirname, '../common/mocks/courtSubscriptions.json'),
+    'utf-8'
+);
 const courtSubscriptionData = JSON.parse(rawCourtSubscriptionData);
-const rawCaseSubscriptionData = fs.readFileSync(path.resolve(__dirname, '../common/mocks/caseSubscriptions.json'), 'utf-8');
+const rawCaseSubscriptionData = fs.readFileSync(
+    path.resolve(__dirname, '../common/mocks/caseSubscriptions.json'),
+    'utf-8'
+);
 const caseSubscriptionData = JSON.parse(rawCaseSubscriptionData);
 
 const subscriptionSearchResults = {
