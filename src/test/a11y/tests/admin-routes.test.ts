@@ -7,7 +7,6 @@ import { randomUUID } from 'crypto';
 import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
 import { testAccessibility } from '../common/pa11yHelper';
 
-const post = 'POST';
 const userId = '1';
 const name = 'Test';
 const emailAddress = 'test@test.com';
@@ -38,7 +37,7 @@ const adminRoutes = [
     { path: '/manage-user' },
     { path: '/update-user', parameter: `?id=${userId}` },
     { path: '/delete-user', parameter: `?id=${userId}` },
-    { path: '/delete-user-confirmation', httpMethod: post, postBody: { 'delete-user-confirm': 'yes' } },
+    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes' } },
 ];
 
 const locationData = testLocationData();
@@ -85,7 +84,7 @@ describe('Accessibility - Admin Routes', () => {
 
     adminRoutes.forEach(route => {
         describe(`Page ${route.path}`, () => {
-            testAccessibility(route.path, route.parameter, route.httpMethod, route.postBody);
+            testAccessibility(route.path, route.parameter, route.postMethod, route.postBody);
         });
     });
 });

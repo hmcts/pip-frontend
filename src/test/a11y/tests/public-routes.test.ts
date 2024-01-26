@@ -4,8 +4,6 @@ import { PublicationRequests } from '../../../main/resources/requests/publicatio
 import { testArtefactMetadata, testLocationData } from '../common/testData';
 import { testAccessibility } from '../common/pa11yHelper';
 
-const post = 'POST';
-
 const publicRoutes = [
     { path: '/' },
     { path: '/accessibility-statement' },
@@ -13,7 +11,7 @@ const publicRoutes = [
     { path: '/alphabetical-search' },
     { path: '/cookie-policy' },
     { path: '/create-media-account' },
-    { path: '/password-change-confirmation', parameter: '/false', httpMethod: post },
+    { path: '/password-change-confirmation', parameter: '/false', postMethod: true },
     { path: '/cancelled-password-reset', parameter: '/false' },
     { path: '/admin-rejected-login' },
     { path: '/media-rejected-login' },
@@ -42,7 +40,7 @@ beforeAll((done /* call it or remove it*/) => {
 describe('Accessibility - Public Routes', () => {
     publicRoutes.forEach(route => {
         describe(`Page ${route.path}`, () => {
-            testAccessibility(route.path, route.parameter, route.httpMethod);
+            testAccessibility(route.path, route.parameter, route.postMethod);
         });
     });
 
@@ -50,7 +48,7 @@ describe('Accessibility - Public Routes', () => {
         describe('A-Z Search Page', () => {
             describe('with no input data', () => {
                 const url = '/search';
-                testAccessibility(url, '', post, { 'input-autocomplete': '' });
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
             });
         });
     });

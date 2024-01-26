@@ -9,7 +9,6 @@ import { SubscriptionRequests } from '../../../main/resources/requests/subscript
 import { testArtefactMetadata, testLocationData, testSubscriptionData, testUserData } from '../common/testData';
 import { testAccessibility } from '../common/pa11yHelper';
 
-const post = 'POST';
 const userId = '1';
 
 const mediaRoutes = [
@@ -42,14 +41,12 @@ const locationData = testLocationData();
 const metadata = testArtefactMetadata();
 const subscriptionsData = testSubscriptionData();
 
-const subscriptionSearchResults = [
-    {
-        caseNumber: 123,
-        caseName: 'myCase',
-        caseUrn: '',
-        partyNames: 'Surname',
-    },
-];
+const subscriptionSearchResults = {
+    caseNumber: 123,
+    caseName: 'myCase',
+    caseUrn: '',
+    partyNames: 'Surname',
+};
 
 const courtSubscription = {
     locationId: 123,
@@ -78,8 +75,8 @@ sinon.stub(LocationRequests.prototype, 'getFilteredCourts').resolves(locationDat
 sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData);
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata);
 sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').returns(metadata[0]);
-sinon.stub(PublicationService.prototype, 'getCasesByPartyName').resolves(subscriptionSearchResults);
-sinon.stub(PublicationService.prototype, 'getCasesByCaseName').resolves(subscriptionSearchResults);
+sinon.stub(PublicationService.prototype, 'getCasesByPartyName').resolves([subscriptionSearchResults]);
+sinon.stub(PublicationService.prototype, 'getCasesByCaseName').resolves([subscriptionSearchResults]);
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(subscriptionSearchResults);
 sinon.stub(ListDownloadService.prototype, 'checkUserIsAuthorised').resolves(true);
 sinon.stub(ListDownloadService.prototype, 'getFileSize').returns('1 MB');
@@ -105,34 +102,53 @@ describe('Accessibility - Media User Routes', () => {
     describe('Page with Errors', () => {
         describe('Party Name Search Page', () => {
             const url = '/party-name-search';
+
+            beforeEach(() => {
+                sinon.restore();
+                sinon.stub(PublicationService.prototype, 'getCasesByPartyName').resolves([]);
+            });
+
             describe('with no input data', () => {
-                testAccessibility(url, '', post, { 'party-name': '' });
+                testAccessibility(url, '', true, { 'party-name': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', post, { 'party-name': 'Invalid name' });
+                testAccessibility(url, '', true, { 'party-name': 'Invalid party name' });
             });
         });
 
         describe('Case Name Search Page', () => {
             const url = '/case-name-search';
+
+            beforeEach(() => {
+                sinon.restore();
+                sinon.stub(PublicationService.prototype, 'getCasesByCaseName').resolves([]);
+            });
+
             describe('with no input data', () => {
-                testAccessibility(url, '', post, { 'case-name': '' });
+                testAccessibility(url, '', true, { 'case-name': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', post, { 'case-name': 'foo' });
+                testAccessibility(url, '', true, { 'case-name': 'Invalid case name' });
             });
         });
 
         describe('Case Reference Number Search Page', () => {
             const url = '/case-reference-number-search';
+
+            beforeEach(() => {
+                sinon.restore();
+                sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(null);
+                sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(null);
+            });
+
             describe('with no input data', () => {
-                testAccessibility(url, '', post, { 'search-input': '' });
+                testAccessibility(url, '', true, { 'search-input': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', post, { 'search-input': '123' });
+                testAccessibility(url, '', true, { 'search-input': 'Invalid case number' });
             });
         });
     });
