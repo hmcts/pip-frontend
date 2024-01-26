@@ -7,7 +7,9 @@ import { ListDownloadService } from '../../../main/service/listDownloadService';
 import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
 import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
 import { testArtefactMetadata, testLocationData, testSubscriptionData, testUserData } from '../common/testData';
-import { testAccessibility } from '../common/pa11yHelper';
+import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
+import fs from "fs";
+import path from "path";
 
 const userId = '1';
 
@@ -41,30 +43,13 @@ const locationData = testLocationData();
 const metadata = testArtefactMetadata();
 const subscriptionsData = testSubscriptionData();
 
+const rawCourtSubscriptionData = fs.readFileSync(path.resolve(__dirname, '../common/mocks/courtSubscriptions.json'), 'utf-8');
+const courtSubscriptionData = JSON.parse(rawCourtSubscriptionData);
+const rawCaseSubscriptionData = fs.readFileSync(path.resolve(__dirname, '../common/mocks/caseSubscriptions.json'), 'utf-8');
+const caseSubscriptionData = JSON.parse(rawCaseSubscriptionData);
+
 const subscriptionSearchResults = {
     caseNumber: 123,
-    caseName: 'myCase',
-    caseUrn: '',
-    partyNames: 'Surname',
-};
-
-const courtSubscription = {
-    locationId: 123,
-    name: 'Aberdeen Tribunal Hearing Centre',
-    jurisdiction: 'Tribunal',
-    location: 'Scotland',
-    hearingList: [],
-    hearings: 0,
-};
-
-const caseSubscription = {
-    hearingId: 1,
-    locationId: 123,
-    courtNumber: 1,
-    date: '15/11/2021 10:00:00',
-    judge: 'Case Judge 1234',
-    platform: 'In person',
-    caseNumber: '123',
     caseName: 'myCase',
     caseUrn: '',
     partyNames: 'Surname',
@@ -83,17 +68,13 @@ sinon.stub(ListDownloadService.prototype, 'getFileSize').returns('1 MB');
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').resolves(subscriptionsData);
 
 const pendingSubscriptionStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
-pendingSubscriptionStub.withArgs(userId, 'courts').resolves([courtSubscription]);
-pendingSubscriptionStub.withArgs(userId, 'cases').resolves([caseSubscription]);
-
-beforeAll((done /* call it or remove it*/) => {
-    done(); // calling it
-});
+pendingSubscriptionStub.withArgs(userId, 'courts').resolves(courtSubscriptionData);
+pendingSubscriptionStub.withArgs(userId, 'cases').resolves(caseSubscriptionData);
 
 describe('Accessibility - Media User Routes', () => {
     app.request['user'] = testUserData();
 
-    mediaRoutes.forEach(route => {
+    filterRoutes(mediaRoutes).forEach(route => {
         describe(`Page ${route.path}`, () => {
             testAccessibility(route.path, route.parameter);
         });

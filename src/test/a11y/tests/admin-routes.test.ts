@@ -5,7 +5,7 @@ import { PublicationRequests } from '../../../main/resources/requests/publicatio
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
 import { randomUUID } from 'crypto';
 import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
-import { testAccessibility } from '../common/pa11yHelper';
+import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
 
 const userId = '1';
 const name = 'Test';
@@ -55,10 +55,6 @@ sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById').resol
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(userData);
 sinon.stub(AccountManagementRequests.prototype, 'deleteUser').resolves('Success');
 
-beforeAll((done /* call it or remove it*/) => {
-    done(); // calling it
-});
-
 describe('Accessibility - Admin Routes', () => {
     app.request['cookies'] = {
         formCookie: JSON.stringify({ listType: 'CIVIL_DAILY_CAUSE_LIST' }),
@@ -82,7 +78,7 @@ describe('Accessibility - Admin Routes', () => {
         reasons: rejectionReasons,
     };
 
-    adminRoutes.forEach(route => {
+    filterRoutes(adminRoutes).forEach(route => {
         describe(`Page ${route.path}`, () => {
             testAccessibility(route.path, route.parameter, route.postMethod, route.postBody);
         });

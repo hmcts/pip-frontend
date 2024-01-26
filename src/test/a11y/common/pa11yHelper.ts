@@ -6,6 +6,7 @@ import { PallyIssue } from './PallyIssue';
 import { Pa11yResult } from './Pa11yResult';
 import console from 'console';
 import process from 'process';
+import {excludedRoutes} from "./excludedRoutes";
 
 const agent = supertest.agent(app);
 const headlessBrowser = process.env.TEST_A11Y_HEADLESS ? process.env.TEST_A11Y_HEADLESS === 'true' : true;
@@ -24,6 +25,10 @@ export const testAccessibility = (path: string, parameter = '', postMethod = fal
                 done(err);
             });
     });
+};
+
+export const filterRoutes = (testRoutes) => {
+    return testRoutes.filter(r => !excludedRoutes.includes(r.path));
 };
 
 const buildUrl = (path: string, parameter = '') => {

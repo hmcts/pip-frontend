@@ -14,9 +14,11 @@ import {
     testSubscriptionData,
     testUserData,
 } from '../common/testData';
-import { testAccessibility } from '../common/pa11yHelper';
+import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
 import { UserManagementService } from '../../../main/service/userManagementService';
 import { AuditLogService } from '../../../main/service/auditLogService';
+import fs from "fs";
+import path from "path";
 
 const userId = '1';
 const name = 'Test';
@@ -30,7 +32,7 @@ const systemAdminRoutes = [
     { path: '/create-system-admin-account-summary' },
     { path: '/blob-view-locations' },
     { path: '/blob-view-publications', parameter: '?locationId=123' },
-    // { path: '/blob-view-json', parameter: '?artefactId=abc' },
+    { path: '/blob-view-json', parameter: '?artefactId=abc' },
     { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
     { path: '/bulk-create-media-accounts-confirmation', parameter: '?artefactId=abc' },
     { path: '/bulk-create-media-accounts-confirmed' },
@@ -40,7 +42,7 @@ const systemAdminRoutes = [
     { path: '/manage-third-party-users' },
     { path: '/manage-third-party-users/view', parameter: `?userId=${userId}` },
     { path: '/manage-third-party-users/subscriptions', parameter: `?userId=${userId}` },
-    // { path: '/user-management' },
+    { path: '/user-management' },
     { path: '/delete-court-reference-data' },
     { path: '/delete-court-reference-data-confirmation', parameter: '?locationId=123' },
     { path: '/delete-court-reference-data-success' },
@@ -59,6 +61,11 @@ const subscriptionData = testSubscriptionData();
 const userDataThirdParty = testUserData('THIRD_PARTY');
 const auditData = testAuditData();
 
+const rawUserPageData = fs.readFileSync(path.resolve(__dirname, '../common/mocks/userPageData.json'), 'utf-8');
+const userPageData = JSON.parse(rawUserPageData);
+const rawAuditLogPageData = fs.readFileSync(path.resolve(__dirname, '../common/mocks/auditLogPageData.json'), 'utf-8');
+const auditLogPageData = JSON.parse(rawAuditLogPageData);
+
 const countPerLocation = [
     {
         locationId: '1',
@@ -69,22 +76,6 @@ const countPerLocation = [
         totalArtefacts: 1,
     },
 ];
-
-const formattedUserData = {
-    userData: 'test',
-    paginationData: 'test2',
-    emailFieldData: 'test3',
-    userIdFieldData: 'test4',
-    userProvenanceIdFieldData: 'test5',
-    provenancesFieldData: 'test6',
-    rolesFieldData: 'test7',
-    categories: 'test8',
-};
-
-const formattedAuditLogData = {
-    auditLogData: 'test',
-    paginationData: 'test2',
-};
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData[0]);
@@ -103,12 +94,8 @@ sinon.stub(FileHandlingService.prototype, 'readCsvToArray').returns([
     ['email', 'firstName', 'surname'],
     [emailAddress, name, name],
 ]);
-sinon.stub(UserManagementService.prototype, 'getFormattedData').resolves(formattedUserData);
-sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns(formattedAuditLogData);
-
-beforeAll((done /* call it or remove it*/) => {
-    done(); // calling it
-});
+sinon.stub(UserManagementService.prototype, 'getFormattedData').resolves(userPageData);
+sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns(auditLogPageData);
 
 describe('Accessibility - System Admin Routes', () => {
     app.request['cookies'] = {
@@ -123,7 +110,7 @@ describe('Accessibility - System Admin Routes', () => {
 
     app.request['user'] = testUserData('PI_AAD', systemAdminRole);
 
-    systemAdminRoutes.forEach(route => {
+    filterRoutes(systemAdminRoutes).forEach(route => {
         describe(`Page ${route.path}`, () => {
             testAccessibility(route.path, route.parameter);
         });

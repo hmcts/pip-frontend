@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { LocationRequests } from '../../../main/resources/requests/locationRequests';
 import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
 import { testArtefactMetadata, testLocationData } from '../common/testData';
-import { testAccessibility } from '../common/pa11yHelper';
+import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
 
 const publicRoutes = [
     { path: '/' },
@@ -33,12 +33,8 @@ sinon.stub(LocationRequests.prototype, 'getFilteredCourts').resolves(locationDat
 sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData);
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata[0]);
 
-beforeAll((done /* call it or remove it*/) => {
-    done(); // calling it
-});
-
 describe('Accessibility - Public Routes', () => {
-    publicRoutes.forEach(route => {
+    filterRoutes(publicRoutes).forEach(route => {
         describe(`Page ${route.path}`, () => {
             testAccessibility(route.path, route.parameter, route.postMethod);
         });
