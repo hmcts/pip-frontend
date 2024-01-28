@@ -182,12 +182,12 @@ Scenario(
         I.click('Email subscriptions');
         I.click('#bulk-unsubscribe-button');
 
-        I.click(locate('//tr').withText(caseName).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
-        I.click(locate('//tr').withText(caseId).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(casePartyNumber).find('input').withAttr({ id: 'caseSubscription' }));
-        I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ id: 'caseSubscription' }));
+        I.click(locate('//tr').withText(caseName).find('input').withAttr({ id: 'caseSubscription-1' }));
+        I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription-1' }));
+        I.click(locate('//tr').withText(caseId).find('input').withAttr({ id: 'caseSubscription-3' }));
+        I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ id: 'caseSubscription-2' }));
+        I.click(locate('//tr').withText(casePartyNumber).find('input').withAttr({ id: 'caseSubscription-4' }));
+        I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ id: 'caseSubscription-5' }));
 
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
