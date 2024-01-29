@@ -185,7 +185,7 @@ export function regenerateSession(req, res, next): void {
  */
 export function checkPasswordReset(req, res, next) {
     if (req.body['error_description']?.includes('AADB2C90091')) {
-        if (req.params && typeof req.params['isAdmin'] == 'boolean') {
+        if (req.params && ["true", "false"].includes(req.params['isAdmin'])) {
             res.redirect('/cancelled-password-reset/' + req.params['isAdmin']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
