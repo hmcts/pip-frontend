@@ -27,7 +27,7 @@ export default class CreateAdminAccountController {
         const isValidForm = Object.values(formValidation).every(o => o.message === null);
         if (isValidForm) {
             formData.userRoleObject = createAccountService.getRoleByKey(formData['user-role']);
-            res.cookie('createAdminAccount', JSON.stringify(formData), {secure: true});
+            res.cookie('createAdminAccount', JSON.stringify(formData), { secure: true });
             res.redirect('create-admin-account-summary');
         } else {
             res.render('create-admin-account', {

@@ -67,7 +67,7 @@ export default class ManualUploadController {
 
                 await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
 
-                res.cookie('formCookie', JSON.stringify(req.body), {secure: true});
+                res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
                 res.redirect('/manual-upload-summary?check=true');
             }
         }
