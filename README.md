@@ -20,6 +20,7 @@
             1. [Get environment variables with python scripts](#get-environment-variables-with-python-scripts)
             2. [Runtime secrets](#runtime-secrets)
             3. [Additional test secrets](#additional-test-secrets)
+    4. [Fortify](#fortify)
 3. [Session Management](#session-management)
 4. [Deployment](#deployment)
 5. [Monitoring and Logging](#monitoring-and-logging)
@@ -180,6 +181,10 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | SUBSCRIPTION_MANAGEMENT_AZ_API | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service |
 | ACCOUNT_MANAGEMENT_AZ_API      | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service      |
 | TENANT_ID                      | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                    |
+
+### Fortify
+
+We use Fortify to scan for security vulnerabilities. This is run as part of our nightly pipelines.
 
 ## Session Management
 
