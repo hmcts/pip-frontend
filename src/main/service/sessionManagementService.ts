@@ -17,8 +17,9 @@ export class SessionManagementService {
             if (isSessionExpired && req.query && req.query.redirectType) {
                 const redirectTypeIndex = reSignInUrlKeys.indexOf(req.query.redirectType);
                 if (redirectTypeIndex != -1) {
-                    res.redirect('/session-expired?lng=' + req.lng + '&reSignInUrl=' +
-                        reSignInUrlKeys[redirectTypeIndex]);
+                    res.redirect(
+                        '/session-expired?lng=' + req.lng + '&reSignInUrl=' + reSignInUrlKeys[redirectTypeIndex]
+                    );
                 } else {
                     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
                 }
