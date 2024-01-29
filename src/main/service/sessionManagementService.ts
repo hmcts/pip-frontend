@@ -14,8 +14,9 @@ export class SessionManagementService {
         //redirect the user to the most appropriate page
         if (!req.user) {
             if (isSessionExpired && req.query && req.query.redirectType) {
-                if (req.query.redirectType in reSignInUrls) {
-                    res.redirect('/session-expired?lng=' + req.lng + '&reSignInUrl=' + req.query.redirectType);
+                const redirectType = req.query.redirectType;
+                if (redirectType in reSignInUrls) {
+                    res.redirect('/session-expired?lng=' + req.lng + '&reSignInUrl=' + redirectType);
                 } else {
                     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
                 }
