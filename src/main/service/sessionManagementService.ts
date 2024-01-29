@@ -5,6 +5,7 @@ import { reSignInUrls } from '../models/consts';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const defaultSessionExpiry = 60 * 60 * 1000;
+const reSignInUrlKeys = Object.keys(reSignInUrls);
 
 export class SessionManagementService {
     public logOut(req, res, isWrongFlow, isSessionExpired = false): void {
@@ -14,9 +15,10 @@ export class SessionManagementService {
         //redirect the user to the most appropriate page
         if (!req.user) {
             if (isSessionExpired && req.query && req.query.redirectType) {
-                const redirectType = req.query.redirectType;
-                if (redirectType in reSignInUrls) {
-                    res.redirect('/session-expired?lng=' + req.lng + '&reSignInUrl=' + redirectType);
+                const redirectTypeIndex = reSignInUrlKeys.indexOf(req.query.redirectType);
+                if (redirectTypeIndex != -1) {
+                    res.redirect('/session-expired?lng=' + req.lng + '&reSignInUrl=' +
+                        reSignInUrlKeys[redirectTypeIndex]);
                 } else {
                     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
                 }
