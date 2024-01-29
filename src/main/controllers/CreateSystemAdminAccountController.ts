@@ -25,7 +25,7 @@ export default class CreateSystemAdminAccountController {
         );
         const isValidForm = Object.values(formValidation).every(o => o.message === null);
         if (isValidForm) {
-            res.cookie('createAdminAccount', JSON.stringify(formData));
+            res.cookie('createAdminAccount', JSON.stringify(formData), {secure: true});
             res.redirect('create-system-admin-account-summary');
         } else {
             res.render('create-system-admin-account', {

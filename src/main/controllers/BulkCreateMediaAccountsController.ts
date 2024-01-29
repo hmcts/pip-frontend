@@ -39,7 +39,7 @@ export default class BulkCreateMediaAccountsController {
             await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
 
             formData.uploadFileName = originalFileName;
-            res.cookie('formCookie', JSON.stringify(formData));
+            res.cookie('formCookie', JSON.stringify(formData), {secure: true});
             res.redirect(bulkCreateAccountsConfirmationUrl);
         } else {
             res.render(bulkCreateAccountsUrl, {

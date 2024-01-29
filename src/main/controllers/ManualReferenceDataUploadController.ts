@@ -40,7 +40,7 @@ export default class ManualReferenceDataUploadController {
                 await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
 
                 req.body['fileName'] = originalFileName;
-                res.cookie('formCookie', JSON.stringify(req.body));
+                res.cookie('formCookie', JSON.stringify(req.body), {secure: true});
                 res.redirect('/manual-reference-data-upload-summary?check=true');
             }
         }

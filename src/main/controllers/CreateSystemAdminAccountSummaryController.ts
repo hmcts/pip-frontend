@@ -42,7 +42,7 @@ export default class CreateSystemAdminAccountSummaryController {
                     'SYSTEM_ADMIN_CREATION',
                     'System admin account created for: ' + formData['emailAddress']
                 );
-                res.cookie('createAdminAccount', '');
+                res.cookie('createAdminAccount', '', {secure: true});
                 res.render('create-system-admin-account-confirm', {
                     formData,
                     accountCreated: !response['error'] && !response['duplicate'] && !response['aboveMaxSystemAdmin'],
