@@ -185,49 +185,49 @@
                                                 "case": [
                                                     {
                                                         "caseUrn": "URN9999",
-                                                        "scheduledHearingDate": "2023-10-02T09:30:00.123Z"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Organisation name",
-                                                            "organisationAddress": {
-                                                                "line": [
-                                                                    "Address Line 1",
-                                                                    "Address Line 2"
-                                                                ],
-                                                                "town": "Town",
-                                                                "county": "County",
-                                                                "postCode": "CC1 1CC"
-                                                            },
-                                                            "offence": [
-                                                                {
-                                                                    "offenceTitle": "Offence title 3",
-                                                                    "offenceSection": "Offence section 3",
-                                                                    "offenceWording": "Offence wording 3",
-                                                                    "plea": "NOT_GUILTY",
-                                                                    "pleaDate": "2023-09-21T09:00:00.123Z"
-                                                                },
-                                                                {
-                                                                    "offenceTitle": "Offence title 4",
-                                                                    "offenceSection": "Offence section 4",
-                                                                    "offenceWording": "Offence wording 4",
-                                                                    "plea": "NOT_GUILTY",
-                                                                    "pleaDate": "2023-09-21T09:00:00.123Z",
-                                                                    "reportingRestrictionDetail": [
-                                                                        "Offence reporting restriction detail 2"
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation name",
+                                                                    "organisationAddress": {
+                                                                        "line": [
+                                                                            "Address Line 1",
+                                                                            "Address Line 2"
+                                                                        ],
+                                                                        "town": "Town",
+                                                                        "county": "County",
+                                                                        "postCode": "CC1 1CC"
+                                                                    },
+                                                                    "offence": [
+                                                                        {
+                                                                            "offenceTitle": "Offence title 3",
+                                                                            "offenceSection": "Offence section 3",
+                                                                            "offenceWording": "Offence wording 3",
+                                                                            "plea": "NOT_GUILTY",
+                                                                            "pleaDate": "2023-09-21T09:00:00.123Z"
+                                                                        },
+                                                                        {
+                                                                            "offenceTitle": "Offence title 4",
+                                                                            "offenceSection": "Offence section 4",
+                                                                            "offenceWording": "Offence wording 4",
+                                                                            "plea": "NOT_GUILTY",
+                                                                            "pleaDate": "2023-09-21T09:00:00.123Z",
+                                                                            "reportingRestrictionDetail": [
+                                                                                "Offence reporting restriction detail 2"
+                                                                            ]
+                                                                        }
                                                                     ]
                                                                 }
-                                                            ]
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecuting authority name"
-                                                        }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecuting authority name"
+                                                                }
+                                                            }
+                                                        ],
+                                                        "scheduledHearingDate": "2023-10-02T09:30:00.123Z"
                                                     }
                                                 ]
                                             }
