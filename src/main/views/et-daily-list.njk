@@ -33,8 +33,11 @@
   </details>
   {{ searchInput(text = searchCases) }}
   <div class="search-area">
+    {% set courtCount = 0 %}
+    {% set courtRoomCount = 0 %}
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
+      {% set courtCount = courtCount + 1 %}
       <div class="site-header" tabindex="0" aria-label="Court Details">
         <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ courtHouse['courtHouseName'] }}</h1>
         {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
@@ -54,8 +57,7 @@
         {% endif %}
       </div>
 
-      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-        {% set courtRoomCount = 0 %}
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtCount }}">
         {% for courtRoom in courtHouse['courtRoom'] %}
           {% set courtRoomCount = courtRoomCount + 1 %}
           <div class="govuk-accordion__section govuk-accordion__section--expanded">
