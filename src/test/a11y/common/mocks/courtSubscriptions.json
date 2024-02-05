@@ -1,0 +1,10 @@
+[
+    {
+        "locationId": 123,
+        "name": "Aberdeen Tribunal Hearing Centre",
+        "jurisdiction": "Tribunal",
+        "location": "Scotland",
+        "hearingList": [],
+        "hearings": 0
+    }
+]

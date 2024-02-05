@@ -1,0 +1,106 @@
+{
+    "userData": [
+        [
+            { "text": "test@test.com" },
+            { "text": "CTSC Admin" },
+            { "text": "B2C" },
+            { "html": "<a class=\"govuk-link\" id=\"manage-link\" href=\"manage-user?id=123\">Manage</a>" }
+        ]
+    ],
+    "paginationData": {
+        "previous": null,
+        "next": null
+    },
+    "emailFieldData": {
+        "id": "email",
+        "name": "email",
+        "label": { "text": "Email", "classes": "govuk-label--m" },
+        "value": ""
+    },
+    "userIdFieldData": {
+        "id": "userId",
+        "name": "userId",
+        "label": { "text": "User ID", "classes": "govuk-label--m" },
+        "value": "",
+        "hint": { "text": "Must be an exact match" }
+    },
+    "userProvenanceIdFieldData": {
+        "id": "userProvenanceId",
+        "name": "userProvenanceId",
+        "label": { "text": "User Provenance ID", "classes": "govuk-label--m" },
+        "value": "",
+        "hint": { "text": "Must be an exact match" }
+    },
+    "provenancesFieldData": {
+        "idPrefix": "provenances",
+        "name": "provenances",
+        "classes": "govuk-checkboxes--small",
+        "fieldset": {
+            "legend": {
+                "text": "Provenance",
+                "classes": "govuk-label--m"
+            }
+        },
+        "items": [
+            {
+                "value": "PI_AAD",
+                "text": "B2C",
+                "checked": false
+            },
+            {
+                "value": "CFT_IDAM",
+                "text": "CFT IdAM",
+                "checked": false
+            },
+            {
+                "value": "CRIME_IDAM",
+                "text": "Crime IdAM",
+                "checked": false
+            }
+        ]
+    },
+    "rolesFieldData": {
+        "idPrefix": "roles",
+        "name": "roles",
+        "classes": "govuk-checkboxes--small",
+        "fieldset": {
+            "legend": {
+                "text": "Role",
+                "classes": "govuk-label--m"
+            }
+        },
+        "items": [
+            {
+                "value": "VERIFIED",
+                "text": "Verified",
+                "checked": false
+            },
+            {
+                "value": "INTERNAL_ADMIN_CTSC",
+                "text": "CTSC Admin",
+                "checked": false
+            },
+            {
+                "value": "INTERNAL_ADMIN_LOCAL",
+                "text": "Local Admin",
+                "checked": false
+            },
+            {
+                "value": "INTERNAL_SUPER_ADMIN_CTSC",
+                "text": "CTSC Super Admin",
+                "checked": false
+            },
+            {
+                "value": "INTERNAL_SUPER_ADMIN_LOCAL",
+                "text": "Local Super Admin",
+                "checked": false
+            },
+            {
+                "value": "SYSTEM_ADMIN",
+                "text": "System Admin",
+                "checked": false
+            }
+        ]
+    },
+    "categories": ""
+}

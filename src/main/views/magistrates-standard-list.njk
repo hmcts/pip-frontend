@@ -52,7 +52,7 @@
             <div class="site-header" tabindex="0" aria-label="List Details">
                 <h1 class="govuk-heading-l site-address court-room-{{ courtRoomCount }}" tabindex="0">{{ courtRoomName }}</h1>
             </div>
-            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtRoomCount }}">
                 {% for row in rows %}
                     {% set defendantCount = defendantCount + 1 %}
                     <div class="govuk-accordion__section govuk-accordion__section--expanded">

@@ -63,7 +63,7 @@ describe('Et Fortnightly List Controller', () => {
             venueName: 'Regional Venue South',
             venueEmail: 'a@b.com',
             venueTelephone: '+44 1234 1234 1234',
-            region: 'Bedford',
+            region: ['Bedford'],
             contentDate: '14 February 2022',
             publishedDate: '13 February 2022',
             publishedTime: '9:30am',
