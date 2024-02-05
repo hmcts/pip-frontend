@@ -57,7 +57,7 @@ describe('Et Daily List Controller', () => {
             ...i18n['et-daily-list'],
             ...i18n['list-template'],
             listData,
-            region: 'Bedford',
+            region: ['Bedford'],
             contentDate: '14 February 2022',
             publishedDate: '13 February 2022',
             publishedTime: '9:30am',
