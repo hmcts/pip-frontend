@@ -71,7 +71,6 @@ export default function (app: Application): void {
     app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
     app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
     // app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
-    app.get('/care-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
     app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
     app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
     app.post(
@@ -109,7 +108,6 @@ export default function (app: Application): void {
             next
         )
     );
-    app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.post(
         '/login/return',
@@ -182,7 +180,9 @@ export default function (app: Application): void {
     app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
     app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
     app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
+    app.get('/care-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
+    app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
     app.get('/opa-press-list', app.locals.container.cradle.opaPressListController.get);
     app.get('/opa-public-list', app.locals.container.cradle.opaPublicListController.get);
     app.get('/opa-results', app.locals.container.cradle.opaResultsController.get);
