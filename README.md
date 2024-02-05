@@ -157,7 +157,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 Secrets required for getting tests to run correctly can be found in the below table. They are all accessible from the bootstrap keyvault.
 
 | Variable                       | Description                                                                                                                                                      |
-| ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | B2C_USERNAME                   | User's username for B2C authentication                                                                                                                           |
 | B2C_PASSWORD                   | User's password for B2C authentication                                                                                                                           |
 | B2C_ADMIN_USERNAME             | B2C administrator's username                                                                                                                                     |
@@ -170,6 +170,7 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | B2C_SYSTEM_ADMIN_PASSWORD      | B2C system administrator's password                                                                                                                              |
 | TEST_URL                       | The URL of the frontend service that the tests will run against                                                                                                  |
 | TEST_HEADLESS                  | Whether the E2E tests should run in headless mode. Default is true                                                                                               |
+| TEST_A11Y_HEADLESS             | Whether the accessibility tests should run in headless mode. Default is true. Used for test debugging.                                                           |
 | DATA_MANAGEMENT_URL            | URL for data management that the codecept tests use when creating test data                                                                                      |
 | SUBSCRIPTION_MANAGEMENT_URL    | URL for data management that the codecept tests use when creating test data                                                                                      |
 | SYSTEM_ADMIN_PROVENANCE_ID     | Test system admin provenance ID, used during E2E tests                                                                                                           |

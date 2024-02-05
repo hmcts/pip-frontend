@@ -1,6 +1,6 @@
 module.exports = {
     transformIgnorePatterns: ['/node_modules/(?!(sinon)|!(axios)/)'],
-    roots: ['<rootDir>/src/test/a11y'],
+    roots: ['<rootDir>/src/test/a11y/tests'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
     testEnvironment: 'node',
     transform: {

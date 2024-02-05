@@ -42,8 +42,10 @@
   </div>
   {{ searchInput(text = searchCases) }}
   <div class="search-area">
+    {% set count = 0 %}
     {% for court in allocated %}
       {% for day in court.days %}
+        {% set count = count + 1 %}
         {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"  data-module="moj-sortable-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + sittingAt  + '</th>
                         <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + caseReference +'</th>
@@ -121,7 +123,7 @@
             }) %}
         {% endfor %}
         {{ govukAccordion({
-          id: "accordion-default-firmList"+loop.index,
+          id: "accordion-default-firmList" + count,
           items: currentTable}) }}
       {% endfor %}
     {% endfor %}

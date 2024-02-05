@@ -78,6 +78,7 @@
                 "listTypes": ["SJP_PUBLIC_LIST"],
                 "locationId": 3
             }
-        ]
+        ],
+        "listTypeSubscriptions": []
     }
 }
