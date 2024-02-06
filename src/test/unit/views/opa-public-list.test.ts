@@ -93,34 +93,34 @@ describe('OPA Public List page', () => {
                 'Offence Reporting Restriction detail',
                 'Could not find the offence reporting restriction'
             );
-            expect(tableData[20].innerHTML).contains('Offence title 2', 'Could not find the offence title');
-            expect(tableData[20].innerHTML).contains('Offence section 2', 'Could not find the offence section');
-            expect(tableData[38].innerHTML).contains('Organisation Offence Title', 'Could not find the offence title');
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[8].innerHTML).contains('Offence title 2', 'Could not find the offence title');
+            expect(tableData[8].innerHTML).contains('Offence section 2', 'Could not find the offence section');
+            expect(tableData[14].innerHTML).contains('Organisation Offence Title', 'Could not find the offence title');
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Section',
                 'Could not find the offence section'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Offence Reporting Restriction detail',
                 'Could not find the offence reporting restriction'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Title 2',
                 'Could not find the offence title'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Section 2',
                 'Could not find the offence section'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Title 3',
                 'Could not find the offence title'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Section 3',
                 'Could not find the offence section'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Offence Reporting Restriction detail 3',
                 'Could not find the offence reporting restriction'
             );
@@ -215,34 +215,34 @@ describe('OPA Public List page', () => {
                 'Offence Reporting Restriction detail',
                 'Could not find the offence reporting restriction'
             );
-            expect(tableData[20].innerHTML).contains('Offence title 2', 'Could not find the offence title');
-            expect(tableData[20].innerHTML).contains('Offence section 2', 'Could not find the offence section');
-            expect(tableData[38].innerHTML).contains('Organisation Offence Title', 'Could not find the offence title');
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[8].innerHTML).contains('Offence title 2', 'Could not find the offence title');
+            expect(tableData[8].innerHTML).contains('Offence section 2', 'Could not find the offence section');
+            expect(tableData[14].innerHTML).contains('Organisation Offence Title', 'Could not find the offence title');
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Section',
                 'Could not find the offence section'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Offence Reporting Restriction detail',
                 'Could not find the offence reporting restriction'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Title 2',
                 'Could not find the offence title'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Section 2',
                 'Could not find the offence section'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Title 3',
                 'Could not find the offence title'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Organisation Offence Section 3',
                 'Could not find the offence section'
             );
-            expect(tableData[38].innerHTML).contains(
+            expect(tableData[14].innerHTML).contains(
                 'Offence Reporting Restriction detail 3',
                 'Could not find the offence reporting restriction'
             );
