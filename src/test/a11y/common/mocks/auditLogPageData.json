@@ -1,0 +1,14 @@
+{
+    "paginationData": {
+        "previous": null,
+        "next": null
+    },
+    "auditLogData": [
+        {
+            "id": "123",
+            "email": "test@test.com",
+            "action": "USER_MANAGEMENT_VIEW",
+            "timestamp": "26/01/2024 16:50:47"
+        }
+    ]
+}

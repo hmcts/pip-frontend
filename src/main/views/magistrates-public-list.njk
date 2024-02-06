@@ -42,14 +42,16 @@
   </div>
   {{ searchInput(text = searchCases) }}
   <div class="search-area">
+    {% set courtCount = 0 %}
+    {% set sessionCount = 0 %}
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
       {% set courtHouseAddress = courtHouse['courtHouseAddress'] %}
+      {% set courtCount = courtCount + 1 %}
       <div class="site-header" tabindex="0" aria-label="Court Details">
         <h1 class="govuk-heading-l site-address" tabindex="0">{{ sittingAtCourt }} {{ courtHouse['courtHouseName'] }}</h1>
       </div>
-      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-        {% set sessionCount = 0 %}
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtCount }}">
         {% for courtRoom in courtHouse['courtRoom'] %}
           {% if courtRoom['exclude'] !== true %}
             {% for session in courtRoom['session'] %}

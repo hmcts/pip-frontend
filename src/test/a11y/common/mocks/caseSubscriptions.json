@@ -1,0 +1,14 @@
+[
+    {
+        "hearingId": 1,
+        "locationId": 123,
+        "courtNumber": 1,
+        "date": "15/11/2021 10:00:00",
+        "judge": "Case Judge 1234",
+        "platform": "In person",
+        "caseNumber": "123",
+        "caseName": "myCase",
+        "caseUrn": "",
+        "partyNames": "Surname"
+    }
+]

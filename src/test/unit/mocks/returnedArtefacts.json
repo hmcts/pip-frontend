@@ -3,7 +3,7 @@
         "artefactId": "123",
         "provenance": "prov1",
         "sourceArtefactId": "543",
-        "artefactType": "LIST",
+        "type": "LIST",
         "sensitivity": "PUBLIC",
         "language": "ENGLISH",
         "search": {
@@ -48,7 +48,7 @@
         "artefactId": "745",
         "provenance": "prov2",
         "sourceArtefactId": "43554",
-        "artefactType": "LIST",
+        "type": "LIST",
         "sensitivity": "PUBLIC",
         "language": "ENGLISH",
         "search": {
@@ -73,7 +73,7 @@
         "artefactId": "123",
         "provenance": "prov1",
         "sourceArtefactId": "543",
-        "artefactType": "LIST",
+        "type": "LIST",
         "sensitivity": "PUBLIC",
         "language": "WELSH",
         "search": {
@@ -118,7 +118,7 @@
         "artefactId": "555",
         "provenance": "prov1",
         "sourceArtefactId": "543",
-        "artefactType": "LIST",
+        "type": "LIST",
         "sensitivity": "PUBLIC",
         "language": "WELSH",
         "search": {
