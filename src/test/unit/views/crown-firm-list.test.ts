@@ -73,7 +73,7 @@ describe('Crown firm List page', () => {
     it('should display second half of accordion title', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Thomas Athorne, Reginald Cork',
+            'Judge KnownAs, Judge KnownAs 2',
             'Could not find the accordion heading'
         );
     });
