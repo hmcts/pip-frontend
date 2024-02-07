@@ -1,6 +1,6 @@
-import {ListParseHelperService} from '../listParseHelperService';
-import {CrimeListsService} from './CrimeListsService';
-import {formatDate} from '../../helpers/dateTimeHelper';
+import { ListParseHelperService } from '../listParseHelperService';
+import { CrimeListsService } from './CrimeListsService';
+import { formatDate } from '../../helpers/dateTimeHelper';
 
 const crimeListService = new CrimeListsService();
 
@@ -14,7 +14,6 @@ export class OpaPressListService {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
                             hearing.case.forEach(hearingCase => {
-
                                 const defendantInfo = this.processPartyRoles(hearingCase);
 
                                 // Each case can have multiple defendants. They will be shown as separate entry on the list
@@ -23,7 +22,7 @@ export class OpaPressListService {
                                     const rows = [];
                                     hearing.case.forEach(hearingCase => {
                                         const caseInfo = this.buildHearingCase(hearingCase);
-                                        const row = {...caseInfo, ...defendant};
+                                        const row = { ...caseInfo, ...defendant };
                                         rows.push(row);
                                     });
 
@@ -84,7 +83,7 @@ export class OpaPressListService {
             // The offence's plea date is used to group and sort the cases for the defendant. If plea date is missing,
             // the entry will be dropped
             if (defendant?.name && defendant?.offence.length > 0 && defendant?.offence[0].pleaDate) {
-                defendantInfo.push({...defendant, prosecutor});
+                defendantInfo.push({ ...defendant, prosecutor });
             }
         });
         return defendantInfo;
@@ -131,9 +130,7 @@ export class OpaPressListService {
     }
 
     private getPartyInformant(hearingCase): string {
-
         return ListParseHelperService.writeStringIfValid(hearingCase.informant?.prosecutionAuthorityRef);
-
     }
 
     private getPartyProsecutor(hearing): string {

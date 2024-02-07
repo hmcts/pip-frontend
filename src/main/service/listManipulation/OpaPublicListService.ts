@@ -14,7 +14,6 @@ export class OpaPublicListService {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
                             hearing.case.forEach(hearingCase => {
-
                                 if (hearingCase['party']) {
                                     const allDefendants = this.processPartyRoles(hearingCase);
                                     allDefendants.forEach(defendant => {
@@ -34,10 +33,9 @@ export class OpaPublicListService {
         return rows;
     }
 
-
     private processPartyRoles(hearingCase): any {
         const defendants = [];
-                hearingCase.party?.forEach(party => {
+        hearingCase.party?.forEach(party => {
             if (party.partyRole === 'DEFENDANT') {
                 const defendant = this.buildDefendantDetails(party);
                 if (defendant) {
@@ -110,4 +108,3 @@ export class OpaPublicListService {
         };
     }
 }
-
