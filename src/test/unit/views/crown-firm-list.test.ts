@@ -67,7 +67,10 @@ describe('Crown firm List page', () => {
 
     it('should display accordion court name', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
-        expect(accordion[0].innerHTML).to.contain('Courtroom 2: Judge KnownAs, Judge KnownAs 2', 'Could not find the accordion heading');
+        expect(accordion[0].innerHTML).to.contain(
+            'Courtroom 2: Judge KnownAs, Judge KnownAs 2',
+            'Could not find the accordion heading'
+        );
     });
 
     it('should display the search input box', () => {
