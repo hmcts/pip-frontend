@@ -6,9 +6,7 @@
         "region": {
             "regionalJOH": [
                 {
-                    "johNameSurname": "Firstname Surname",
-                    "johTitle": "Mr",
-                    "johKnownAs": "Judge"
+                    "johKnownAs": "Judge KnownAs Regional"
                 }
             ],
             "name": "Regional COP Court"
@@ -62,15 +60,15 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Crown Judge",
+                                        "johKnownAs": "Judge KnownAs Presiding",
                                         "isPresiding": true
                                     },
                                     {
-                                        "johKnownAs": "Judge 1",
+                                        "johKnownAs": "Judge KnownAs 2",
                                         "isPresiding": false
                                     },
                                     {
-                                        "johKnownAs": "Judge 2",
+                                        "johKnownAs": "Judge KnownAs 3",
                                         "isPresiding": false
                                     }
                                 ]
@@ -118,15 +116,15 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 1",
+                                        "johKnownAs": "Judge KnownAs 1",
                                         "isPresiding": false
                                     },
                                     {
-                                        "johKnownAs": "Judge 2",
+                                        "johKnownAs": "Judge KnownAs 2",
                                         "isPresiding": false
                                     },
                                     {
-                                        "johKnownAs": "Judge 3",
+                                        "johKnownAs": "Judge KnownAs 3",
                                         "isPresiding": false
                                     }
                                 ]

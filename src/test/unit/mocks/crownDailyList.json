@@ -41,11 +41,10 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Judge 1"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johKnownAs": "Judge 2"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ],
                                 "sittings": [
@@ -185,11 +184,10 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Judge 3"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johKnownAs": "Judge 4"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ],
                                 "sittings": [
@@ -323,8 +321,7 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Judge 5"
+                                        "johKnownAs": "Judge KnownAs"
                                     }
                                 ],
                                 "sittings": [
@@ -378,8 +375,7 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Judge 6"
+                                        "johKnownAs": "Judge KnownAs"
                                     }
                                 ],
                                 "sittings": [
@@ -433,8 +429,7 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Judge 6"
+                                        "johKnownAs": "Judge KnownAs"
                                     }
                                 ],
                                 "sittings": [

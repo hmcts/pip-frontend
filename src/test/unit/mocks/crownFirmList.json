@@ -96,12 +96,10 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Admiral",
-                                        "johKnownAs": "Thomas Athorne"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johTitle": "Lt.",
-                                        "johKnownAs": "Reginald Cork"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ],
                                 "sittings": [
@@ -282,12 +280,10 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Hon",
-                                        "johKnownAs": "Daniel Romper"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johTitle": "Sir",
-                                        "johKnownAs": "Gordon Sausage"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ],
                                 "sittings": [
@@ -487,12 +483,10 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Hon",
-                                        "johKnownAs": "Daniel Switchblade"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johTitle": "Sir",
-                                        "johKnownAs": "Gordon Switchblade"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ],
                                 "sittings": [
