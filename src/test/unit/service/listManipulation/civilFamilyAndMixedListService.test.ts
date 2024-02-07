@@ -22,7 +22,7 @@ const rawFamilyDailyCauseWithReorderedPartyMappings = fs.readFileSync(
     'utf-8'
 );
 const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../../mocks/dailyCauseList.json'), 'utf-8');
-const nonPresidingJudiciary = 'Firstname1 Surname1, Presiding';
+const nonPresidingJudiciary = 'Judge KnownAs, Judge KnownAs Presiding';
 describe('Tests for the civil, family and mixed lists service.', function () {
     describe('manipulatedDailyListData', () => {
         let familyDailyCause;
@@ -108,10 +108,10 @@ describe('Tests for the civil, family and mixed lists service.', function () {
             ).to.equal('');
         });
 
-        it('should set judiciary to presiding judiciary over other judiciaries', async () => {
+        it('should set judiciary to presiding judiciary before other judiciaries', async () => {
             const data = await service.sculptedFamilyMixedListData(rawFamilyDailyCauseData);
             expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciaries']).to.equal(
-                'Presiding'
+                'Judge KnownAs Presiding, Judge KnownAs'
             );
         });
 
