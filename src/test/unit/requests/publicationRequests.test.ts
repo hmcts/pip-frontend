@@ -75,8 +75,8 @@ describe('getIndividualPubJson()', () => {
     it('should return judge title Mr', async () => {
         return await publicationRequests.getIndividualPublicationJson(artefactId, userId).then(data => {
             expect(
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johTitle']
-            ).toEqual('Mr');
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['judiciary'][0]['johKnownAs']
+            ).toEqual('Judge KnownAs');
         });
     });
 

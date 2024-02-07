@@ -34,12 +34,10 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Firstname1 Surname1"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Presiding",
+                                        "johKnownAs": "Judge KnownAs Presiding",
                                         "isPresiding": true
                                     }
                                 ],
@@ -320,12 +318,10 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johNameSurname": "Firstname1 Surname1"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johTitle": "Mr",
-                                        "johNameSurname": "Presiding",
+                                        "johKnownAs": "Judge KnownAs Presiding",
                                         "isPresiding": true
                                     }
                                 ],

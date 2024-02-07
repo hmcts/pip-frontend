@@ -21,7 +21,7 @@
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
-                                        "johNameSurname": "Test Name",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
                                     }
                                 ],
@@ -153,7 +153,7 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johTitle": "Magistrate",
+                                        "johTitle": "Judge",
                                         "johNameSurname": "Test Name",
                                         "isPresiding": false
                                     }
@@ -280,8 +280,18 @@
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
-                                        "johNameSurname": "Test Name",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
+                                    },
+                                    {
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 2",
+                                        "isPresiding": false
+                                    },
+                                    {
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 3",
+                                        "isPresiding": false
                                     }
                                 ],
                                 "sittings": [
@@ -527,17 +537,17 @@
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
-                                        "johNameSurname": "Test Name",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
                                     },
                                     {
-                                        "johTitle": "Magistrate",
-                                        "johNameSurname": "Test Name",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 2",
                                         "isPresiding": false
                                     },
                                     {
-                                        "johTitle": "Magistrate",
-                                        "johNameSurname": "Another Test Name",
+                                        "johTitle": "Judge",
+                                        "johNameSurname": "Test Name 3",
                                         "isPresiding": false
                                     }
                                 ],
@@ -621,11 +631,11 @@
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
-                                        "johNameSurname": "Test Name",
+                                        "johNameSurname": "Test Name Presiding",
                                         "isPresiding": true
                                     },
                                     {
-                                        "johTitle": "Magistrate",
+                                        "johTitle": "Judge",
                                         "johNameSurname": "Test Name",
                                         "isPresiding": false
                                     }

@@ -10,8 +10,8 @@ const rawMagistrateStandardListData = fs.readFileSync(
 );
 
 const lng = 'en';
-const courtRoom1 = 'Courtroom 1: DJ Steve 1';
-const courtRoom2 = 'Courtroom 2: DJ Steve 2';
+const courtRoom1 = 'Courtroom 1: Judge Test Name Presiding, Judge Test Name';
+const courtRoom2 = 'Courtroom 2: Judge Test Name Presiding 2, Judge Test Name 2';
 
 describe('Magistrate Standard List service', () => {
     describe('manipulate data', () => {
