@@ -138,9 +138,9 @@ export class MagistratesStandardListService {
     }
 
     private formatCourtRoomJudiciary(courtRoom, session, sitting) {
-        let judiciary = helperService.findAndManipulateJudiciary(sitting);
+        let judiciary = helperService.findAndManipulateJudiciaryForCrime(sitting);
         if (!judiciary) {
-            judiciary = helperService.findAndManipulateJudiciary(session);
+            judiciary = helperService.findAndManipulateJudiciaryForCrime(session);
         }
         const courtRoomName = ListParseHelperService.writeStringIfValid(courtRoom.courtRoomName);
         return [courtRoomName, judiciary].filter(item => item.length > 0).join(': ');

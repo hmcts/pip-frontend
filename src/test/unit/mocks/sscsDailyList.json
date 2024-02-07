@@ -116,16 +116,10 @@
                                 ],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Judge",
-                                        "johNameSurname": "Test Name",
-                                        "role": "JUDGE",
-                                        "johKnownAs": "Judge"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johTitle": "Magistrate",
-                                        "johNameSurname": "Test Name",
-                                        "role": "MAGISTRATE",
-                                        "johKnownAs": "Justice of the peace"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ]
                             }
