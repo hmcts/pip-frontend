@@ -22,10 +22,7 @@ export class CrownFirmListService {
             const courtName = courtList['courtHouse']['courtHouseName'];
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
-                    const judiciary = helperService.findAndManipulateJudiciary(session);
-                    if (judiciary !== '') {
-                        session['formattedJudiciaries'] = judiciary;
-                    }
+                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
                     session['sittings'].forEach(sitting => {
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         crimeListsService.calculateDuration(sitting, language, languageFile);
@@ -75,10 +72,7 @@ export class CrownFirmListService {
             const courtName = courtList['courtHouse']['courtHouseName'];
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
-                    const judiciary = helperService.findAndManipulateJudiciary(session);
-                    if (judiciary !== '') {
-                        session['formattedJudiciaries'] = judiciary;
-                    }
+                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
                     session['sittings'].forEach(sitting => {
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         crimeListsService.calculateDuration(sitting, language, languageFile);
