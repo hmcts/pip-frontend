@@ -29,10 +29,10 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 1"
+                                        "johKnownAs": "Firstname1 Surname1"
                                     },
                                     {
-                                        "johKnownAs": "Judge 2"
+                                        "johKnownAs": "Firstname2 Surname2"
                                     }
                                 ],
                                 "sittings": [
@@ -45,46 +45,29 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Pro_Auth"
-                                                                }
-                                                            },
-
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualForenames":"Forename 1",
-                                                                    "individualSurname":"Surname 1"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "2 of 3"
                                                     },
                                                     {
-                                                        "caseNumber": "112233445",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Pro_Auth"
-                                                                }
-                                                            },
-
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualForenames":"Forename 2",
-                                                                    "individualSurname":"Surname 2"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseNumber": "112233445"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Pro_Auth"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Defendant_FN",
+                                                            "individualSurname": "Defendant_SN"
+                                                        }
                                                     }
                                                 ],
                                                 "listingDetails": {
-                                                    "listingRepDeadline":"Listing details text"
+                                                    "listingRepDeadline": "Listing details text"
                                                 }
                                             },
                                             {
@@ -96,10 +79,7 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     },
                                     {
                                         "sittingStart": "2022-01-27T08:00:17.496Z",
@@ -125,7 +105,8 @@
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     },
                     {
                         "courtRoomName": "to be allocated",
@@ -133,10 +114,10 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 3"
+                                        "johKnownAs": "Firstname1 Surname1"
                                     },
                                     {
-                                        "johKnownAs": "Judge 4"
+                                        "johKnownAs": "Firstname2 Surname2"
                                     }
                                 ],
                                 "sittings": [
@@ -149,38 +130,24 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "party":[
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "PROSECUTING_AUTHORITY"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualSurname":"Surname 3"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "2 of 3"
                                                     },
                                                     {
-                                                        "caseNumber": "112233445",
-                                                        "party":[
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "PROSECUTING_AUTHORITY"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualSurname":"Surname 4"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseNumber": "112233445"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "organisationDetails": {
+                                                            "organisationName": "PROSECUTING_AUTHORITY"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "DEFENDANT"
+                                                        }
                                                     }
                                                 ],
                                                 "listingDetails": {
@@ -196,10 +163,7 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     },
                                     {
                                         "sittingStart": "2022-01-27T08:05:17.496Z",
@@ -225,7 +189,8 @@
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -240,7 +205,7 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 5"
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -258,14 +223,12 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -280,7 +243,7 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 6"
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -298,14 +261,12 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -320,7 +281,7 @@
                             {
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 7"
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -338,14 +299,12 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }

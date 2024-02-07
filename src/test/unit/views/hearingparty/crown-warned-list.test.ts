@@ -1,10 +1,10 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { app } from '../../../main/app';
+import { app } from '../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/publicationService';
 
 const PAGE_URL = '/crown-warned-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -20,9 +20,9 @@ const dataSourceClass = 'data-source';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownWarnedList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownWarnedList.json'), 'utf-8');
 const crownWarnedListData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(crownWarnedListData);
@@ -109,7 +109,7 @@ describe('Crown Warned List page', () => {
 
     it('should display defendant name(s)', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[1].innerHTML).to.equal('Surname 1, Forename 1', 'Could not find defendant name(s) table cell');
+        expect(cell[1].innerHTML).to.equal('Kelly, Smith', 'Could not find defendant name(s) table cell');
     });
 
     it('should display hearing date', () => {

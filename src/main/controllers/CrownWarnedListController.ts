@@ -5,7 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrownWarnedListService } from '../service/listManipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
-import { isValidList } from '../helpers/listHelper';
+import {hearingHasParty, isValidList} from '../helpers/listHelper';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
@@ -29,7 +29,10 @@ export default class CrownWarnedListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
+            const listData = hearingHasParty(searchResults)
+                ? crownWarnedListService.manipulateDataV1(JSON.stringify(searchResults), req.lng)
+                : crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
+
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             // Sort unallocated list entry to the end of the map so it appears last on the template

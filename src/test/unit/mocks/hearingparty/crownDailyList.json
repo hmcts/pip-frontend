@@ -10,29 +10,35 @@
             "venueEmail": "court1@moj.gov.uk"
         },
         "venueAddress": {
-            "line": [
-                "THE LAW COURTS",
-                "",
-                "Main Road"
-            ],
+            "line": ["THE LAW COURTS"],
             "postCode": "PR1 2LL"
         }
     },
+    "@schemaLocation": "",
     "courtLists": [
         {
             "courtHouse": {
                 "courtHouseName": "Court A",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1", "Address Line 2"],
+                    "town": "Town A",
+                    "county": "County A",
+                    "postCode": "AA1 AA1"
+                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
+                                "sessionStartTime": "",
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 1"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     },
                                     {
-                                        "johKnownAs": "Judge 2"
+                                        "johKnownAs": "Firstname2 Surname2"
                                     }
                                 ],
                                 "sittings": [
@@ -44,143 +50,42 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
+                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3",
-                                                        "party": [
+                                                        "caseLinked": [
                                                             {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Pro_Auth"
-                                                                }
+                                                                "caseId": "caseid111",
+                                                                "name": "casename111"
                                                             },
-
                                                             {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualForenames":"Forename 1",
-                                                                    "individualSurname":"Surname 1"
-                                                                }
+                                                                "caseId": "caseid222",
+                                                                "name": "casename333"
                                                             }
+                                                        ],
+                                                        "reportingRestrictionDetail": [
+                                                            "This is a reporting restriction detail",
+                                                            "This is another reporting restriction detail"
                                                         ]
                                                     },
                                                     {
-                                                        "caseNumber": "112233445",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Pro_Auth"
-                                                                }
-                                                            },
-
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualForenames":"Forename 2",
-                                                                    "individualSurname":"Surname 2"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseName": "A2 Vs B2",
+                                                        "caseNumber": "112233445"
                                                     }
                                                 ],
-                                                "listingDetails": {
-                                                    "listingRepDeadline":"Listing details text"
-                                                }
-                                            },
-                                            {
-                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
-                                                "case": [
+                                                "party": [
                                                     {
-                                                        "caseNumber": "112233445"
-                                                    }
-                                                ]
-                                            }
-                                        ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
-                                    },
-                                    {
-                                        "sittingStart": "2022-01-27T08:00:17.496Z",
-                                        "sittingEnd": "2022-01-27T10:45:17.496Z",
-                                        "hearing": [
-                                            {
-                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
-                                                "case": [
-                                                    {
-                                                        "caseNumber": "12345678"
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
-                                                "case": [
-                                                    {
-                                                        "caseNumber": "112233445"
-                                                    }
-                                                ]
-                                            }
-                                        ]
-                                    }
-                                ]
-                            }
-                        ]
-                    },
-                    {
-                        "courtRoomName": "to be allocated",
-                        "session": [
-                            {
-                                "judiciary": [
-                                    {
-                                        "johKnownAs": "Judge 3"
-                                    },
-                                    {
-                                        "johKnownAs": "Judge 4"
-                                    }
-                                ],
-                                "sittings": [
-                                    {
-                                        "sittingStart": "2022-07-27T09:40:17.496Z",
-                                        "sittingEnd": "2022-07-27T10:45:17.496Z",
-                                        "hearing": [
-                                            {
-                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
-                                                "case": [
-                                                    {
-                                                        "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "party":[
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "PROSECUTING_AUTHORITY"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualSurname":"Surname 3"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Pro_Auth"
+                                                        }
                                                     },
                                                     {
-                                                        "caseNumber": "112233445",
-                                                        "party":[
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "PROSECUTING_AUTHORITY"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails":{
-                                                                    "individualSurname":"Surname 4"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Defendant_FN",
+                                                            "individualSurname": "Defendant_SN"
+                                                        }
                                                     }
                                                 ],
                                                 "listingDetails": {
@@ -191,15 +96,17 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
-                                                        "caseNumber": "112233445"
+                                                        "caseName": "A2 Vs B2",
+                                                        "caseNumber": "112233445",
+                                                        "reportingRestrictionDetail": [
+                                                            "This is a reporting restriction detail",
+                                                            "This is another reporting restriction detail"
+                                                        ]
                                                     }
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     },
                                     {
                                         "sittingStart": "2022-01-27T08:05:17.496Z",
@@ -209,6 +116,123 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
+                                                        "caseName": "A1 Vs B1",
+                                                        "caseNumber": "12345678",
+                                                        "caseLinked": [
+                                                            {
+                                                                "caseId": "caseid111",
+                                                                "name": "casename111"
+                                                            },
+                                                            {
+                                                                "caseId": "caseid222",
+                                                                "name": "casename333"
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A2 Vs B2",
+                                                        "caseNumber": "112233445"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "duration": "",
+                                        "startTime": "9.40am",
+                                        "durationAsHours": 1,
+                                        "durationAsMinutes": 5
+                                    }
+                                ]
+                            }
+                        ],
+                        "totalHearing": 2
+                    },
+                    {
+                        "courtRoomName": "to be allocated",
+                        "session": [
+                            {
+                                "sessionStartTime": "",
+                                "sessionChannel": ["VIDEO HEARING"],
+                                "judiciary": [
+                                    {
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
+                                    },
+                                    {
+                                        "johKnownAs": "Firstname2 Surname2"
+                                    }
+                                ],
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-07-27T09:40:17.496Z",
+                                        "sittingEnd": "2022-07-27T10:45:17.496Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A1 Vs B1",
+                                                        "caseNumber": "12345678",
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "caseLinked": [
+                                                            {
+                                                                "caseId": "caseid111",
+                                                                "name": "casename111"
+                                                            },
+                                                            {
+                                                                "caseId": "caseid222",
+                                                                "name": "casename333"
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "caseName": "A2 Vs B2",
+                                                        "caseNumber": "112233445"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "organisationDetails": {
+                                                            "organisationName": "PROSECUTING_AUTHORITY"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "DEFENDANT"
+                                                        }
+                                                    }
+                                                ],
+                                                "listingDetails": {
+                                                    "listingRepDeadline": "Listing details text"
+                                                }
+                                            },
+                                            {
+                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A2 Vs B2",
+                                                        "caseNumber": "112233445"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "channel": ["Remote", "Teams"]
+                                    },
+                                    {
+                                        "sittingStart": "2022-01-27T08:05:17.496Z",
+                                        "sittingEnd": "2022-01-27T10:45:17.496Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
+                                                "case": [
+                                                    {
+                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678"
                                                     }
                                                 ]
@@ -217,15 +241,21 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
+                                                        "caseName": "A2 Vs B2",
                                                         "caseNumber": "112233445"
                                                     }
                                                 ]
                                             }
-                                        ]
+                                        ],
+                                        "duration": "",
+                                        "startTime": "9.40am",
+                                        "durationAsHours": 1,
+                                        "durationAsMinutes": 5
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -233,14 +263,23 @@
         {
             "courtHouse": {
                 "courtHouseName": "Court B",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1", "Address Line 2"],
+                    "town": "Town B",
+                    "county": "County B",
+                    "postCode": "BB1 BB1"
+                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
+                                "sessionStartTime": "",
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 5"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -252,20 +291,19 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
+                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3"
                                                     }
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -273,14 +311,23 @@
         {
             "courtHouse": {
                 "courtHouseName": "Court B",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1", "Address Line 2"],
+                    "town": "Town B",
+                    "county": "County B",
+                    "postCode": "BB1 BB1"
+                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
+                                "sessionStartTime": "",
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 6"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -292,20 +339,19 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
+                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3"
                                                     }
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -313,14 +359,23 @@
         {
             "courtHouse": {
                 "courtHouseName": "Court B",
+                "courtHouseAddress": {
+                    "line": ["Address Line 1", "Address Line 2"],
+                    "town": "Town B",
+                    "county": "County B",
+                    "postCode": "BB1 BB1"
+                },
                 "courtRoom": [
                     {
                         "courtRoomName": "1",
                         "session": [
                             {
+                                "sessionStartTime": "",
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge 7"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -332,20 +387,19 @@
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
                                                 "case": [
                                                     {
+                                                        "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
                                                         "caseSequenceIndicator": "2 of 3"
                                                     }
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }

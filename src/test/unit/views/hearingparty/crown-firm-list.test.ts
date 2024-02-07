@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { app } from '../../../main/app';
+import { app } from '../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../../main/service/publicationService';
+import { LocationService } from '../../../../main/service/locationService';
 
 const PAGE_URL = '/crown-firm-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -19,12 +19,12 @@ const restrictionHeadingText = 'Restrictions on publishing or writing about thes
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownFirmList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownFirmList.json'), 'utf-8');
 const crownFirmListData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(crownFirmListData);
@@ -67,7 +67,15 @@ describe('Crown firm List page', () => {
 
     it('should display accordion court name', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
-        expect(accordion[0].innerHTML).to.contain('Courtroom 2: Thomas Athorne, Reginald Cork', 'Could not find the accordion heading');
+        expect(accordion[0].innerHTML).to.contain('Courtroom 2:', 'Could not find the accordion heading');
+    });
+
+    it('should display second half of accordion title', () => {
+        const accordion = htmlRes.getElementsByClassName(accordionClass);
+        expect(accordion[0].innerHTML).to.contains(
+            'Thomas Athorne, Reginald Cork',
+            'Could not find the accordion heading'
+        );
     });
 
     it('should display the search input box', () => {
@@ -87,7 +95,7 @@ describe('Crown firm List page', () => {
 
     it('should display Defendant Name', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).equal('Surname 2, Forename 2');
+        expect(cell[2].innerHTML).equal('Cora, Mckinley');
     });
 
     it('should display Hearing Type', () => {

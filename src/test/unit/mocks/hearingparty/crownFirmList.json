@@ -14,10 +14,7 @@
             "postCode": "AA1 AA1",
             "county": "Lancashire",
             "town": "Town",
-            "line": [
-                "26 Diego Gardens",
-                "Address Line 2"
-            ]
+            "line": ["26 Diego Gardens", "Address Line 2"]
         }
     },
     "courtLists": [
@@ -29,17 +26,12 @@
                         "courtRoomName": "to be allocated [Colchester Social Security and Child Support]",
                         "session": [
                             {
-                                "sessionChannel": [
-                                    "Bethel"
-                                ],
+                                "sessionChannel": ["Bethel"],
                                 "sittings": [
                                     {
                                         "sittingStart": "2023-04-12T08:35:11.192108Z",
                                         "sittingEnd": "2023-04-12T10:00:14.123184Z",
-                                        "channel": [
-                                            "Teams",
-                                            "Attended"
-                                        ],
+                                        "channel": ["Teams", "Attended"],
                                         "hearing": [
                                             {
                                                 "hearingType": "Directions",
@@ -56,28 +48,29 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "6 of 6",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "HMCTS"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 1",
-                                                                    "individualForenames": "Forename 1"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Defendant rep 1"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "6 of 6"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "HMCTS"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Butcher",
+                                                            "individualForenames": "Pat"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Boyce",
+                                                            "individualForenames": "Daniel"
+                                                        }
                                                     }
                                                 ]
                                             }
@@ -91,9 +84,7 @@
                         "courtRoomName": "Courtroom 2",
                         "session": [
                             {
-                                "sessionChannel": [
-                                    "Bethel"
-                                ],
+                                "sessionChannel": ["Bethel"],
                                 "judiciary": [
                                     {
                                         "johTitle": "Admiral",
@@ -108,10 +99,7 @@
                                     {
                                         "sittingStart": "2023-04-12T08:00:11.192108Z",
                                         "sittingEnd": "2023-04-12T16:00:14.123184Z",
-                                        "channel": [
-                                            "Teams",
-                                            "Attended"
-                                        ],
+                                        "channel": ["Teams", "Attended"],
                                         "hearing": [
                                             {
                                                 "listingDetails": {
@@ -131,22 +119,22 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "4 of 5",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Queen"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 2",
-                                                                    "individualForenames": "Forename 2"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "4 of 5"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Queen"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Cora",
+                                                            "individualForenames": "Mckinley"
+                                                        }
                                                     }
                                                 ]
                                             },
@@ -165,28 +153,29 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "1 of 4",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Queen"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 3",
-                                                                    "individualForenames": "Forename 3"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Defendant rep 2"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "1 of 4"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Queen"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Alexander",
+                                                            "individualForenames": "Sarah"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Breakfast",
+                                                            "individualForenames": "Daniel"
+                                                        }
                                                     }
                                                 ]
                                             }
@@ -207,17 +196,12 @@
                         "courtRoomName": "to be allocated [Glasgow Social Security and Child Support]",
                         "session": [
                             {
-                                "sessionChannel": [
-                                    "Bethel"
-                                ],
+                                "sessionChannel": ["Bethel"],
                                 "sittings": [
                                     {
                                         "sittingStart": "2023-04-15T13:41:11.192108Z",
                                         "sittingEnd": "2023-04-15T16:04:14.123184Z",
-                                        "channel": [
-                                            "Teams",
-                                            "Attended"
-                                        ],
+                                        "channel": ["Teams", "Attended"],
                                         "hearing": [
                                             {
                                                 "hearingType": "Deposition",
@@ -242,28 +226,29 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "7 of 9",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "The Queen"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 4",
-                                                                    "individualForenames": "Forename 4"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Defendant rep 3"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "7 of 9"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "The Queen"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Sausage",
+                                                            "individualForenames": "Nigel"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Villain",
+                                                            "individualForenames": "Daniel"
+                                                        }
                                                     }
                                                 ]
                                             }
@@ -277,9 +262,7 @@
                         "courtRoomName": "Elwood Room",
                         "session": [
                             {
-                                "sessionChannel": [
-                                    "Bethel"
-                                ],
+                                "sessionChannel": ["Bethel"],
                                 "judiciary": [
                                     {
                                         "johTitle": "Hon",
@@ -294,10 +277,7 @@
                                     {
                                         "sittingStart": "2023-04-14T10:35:11.192108Z",
                                         "sittingEnd": "2023-04-14T16:04:14.123184Z",
-                                        "channel": [
-                                            "Teams",
-                                            "Attended"
-                                        ],
+                                        "channel": ["Teams", "Attended"],
                                         "hearing": [
                                             {
                                                 "listingDetails": {
@@ -321,22 +301,22 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "3 of 8",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Queen"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 5",
-                                                                    "individualForenames": "Forename 5"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "3 of 8"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Queen"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Rolf",
+                                                            "individualForenames": "Victor"
+                                                        }
                                                     }
                                                 ]
                                             },
@@ -355,28 +335,29 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Queen"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 6",
-                                                                    "individualForenames": "Forename 6"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Defendant rep 4"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Queen"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Sausage",
+                                                            "individualForenames": "Nigel"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Switchblade",
+                                                            "individualForenames": "Daniel"
+                                                        }
                                                     }
                                                 ]
                                             }
@@ -385,10 +366,7 @@
                                     {
                                         "sittingStart": "2023-04-15T10:35:11.192108Z",
                                         "sittingEnd": "2023-04-15T16:04:14.123184Z",
-                                        "channel": [
-                                            "Teams",
-                                            "Attended"
-                                        ],
+                                        "channel": ["Teams", "Attended"],
                                         "hearing": [
                                             {
                                                 "listingDetails": {
@@ -412,22 +390,22 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "3 of 8",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "DVSA"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 7",
-                                                                    "individualForenames": "Forename 7"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "3 of 8"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "DVSA"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Renegade",
+                                                            "individualForenames": "Tom"
+                                                        }
                                                     }
                                                 ]
                                             },
@@ -446,34 +424,34 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "HMCTS"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 8",
-                                                                    "individualForenames": "Forename 8"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Defendant rep 5"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "HMCTS"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Cornish",
+                                                            "individualForenames": "Andrew"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Blackmoor",
+                                                            "individualForenames": "Joshua"
+                                                        }
                                                     }
                                                 ]
                                             }
                                         ]
                                     }
-
                                 ]
                             }
                         ]
@@ -482,9 +460,7 @@
                         "courtRoomName": "Breakfast Suite",
                         "session": [
                             {
-                                "sessionChannel": [
-                                    "Bethel"
-                                ],
+                                "sessionChannel": ["Bethel"],
                                 "judiciary": [
                                     {
                                         "johTitle": "Hon",
@@ -499,10 +475,7 @@
                                     {
                                         "sittingStart": "2023-04-15T09:20:11.192108Z",
                                         "sittingEnd": "2023-04-15T16:50:14.123184Z",
-                                        "channel": [
-                                            "Teams",
-                                            "Attended"
-                                        ],
+                                        "channel": ["Teams", "Attended"],
                                         "hearing": [
                                             {
                                                 "listingDetails": {
@@ -522,22 +495,22 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "2 of 2",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Queen"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 9",
-                                                                    "individualForenames": "Forename 9"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "2 of 2"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Queen"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Cora",
+                                                            "individualForenames": "Mckinley"
+                                                        }
                                                     }
                                                 ]
                                             },
@@ -556,28 +529,29 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "1 of 8",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Queen"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 10",
-                                                                    "individualForenames": "Forename 10"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Defendant rep 6"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "1 of 8"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Queen"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Mitchell",
+                                                            "individualForenames": "Janine"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Switchblade",
+                                                            "individualForenames": "Daniel"
+                                                        }
                                                     }
                                                 ]
                                             }

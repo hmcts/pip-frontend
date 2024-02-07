@@ -10,3 +10,22 @@ export const isValidList = (searchResults: any, metaData: any): any => {
         return false;
     }
 };
+
+// TODO: To be removed once all lists have party field on the case level.
+export const hearingHasParty = (jsonData): boolean => {
+    let hearingHasParty = false;
+    jsonData.courtLists.forEach(courtList => {
+        courtList.courtHouse.courtRoom.forEach(courtRoom => {
+            courtRoom.session.forEach(session => {
+                session.sittings.forEach(sitting => {
+                    sitting.hearing.forEach(hearing => {
+                        if (hearing.party) {
+                            hearingHasParty = true;
+                        }
+                    })
+                })
+            })
+        })
+    });
+    return hearingHasParty;
+}

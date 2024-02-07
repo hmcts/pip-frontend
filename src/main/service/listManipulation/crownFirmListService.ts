@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { calculateDurationSortValue, formatDuration } from '../../helpers/dateTimeHelper';
 import { CrimeListsService } from './CrimeListsService';
 import { ListParseHelperService } from '../listParseHelperService';
 
@@ -23,26 +22,68 @@ export class CrownFirmListService {
             const courtName = courtList['courtHouse']['courtHouseName'];
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
+                    const judiciary = helperService.findAndManipulateJudiciary(session);
+                    if (judiciary !== '') {
+                        session['formattedJudiciaries'] = judiciary;
+                    }
                     session['sittings'].forEach(sitting => {
-                        const judiciary = helperService.findAndManipulateJudiciary(sitting);
-                        if (judiciary !== '') {
-                            session['formattedJudiciaries'] = judiciary;
-                        }
-                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], {
-                            zone: this.timeZone,
-                        }).toFormat('EEEE dd MMMM yyyy');
-                        sitting['formattedDuration'] = formatDuration(
-                            sitting['durationAsDays'] as number,
-                            sitting['durationAsHours'] as number,
-                            sitting['durationAsMinutes'] as number,
-                            language,
-                            languageFile
-                        );
-                        sitting['durationSortValue'] = calculateDurationSortValue(
-                            sitting['durationAsDays'] as number,
-                            sitting['durationAsHours'] as number,
-                            sitting['durationAsMinutes'] as number
-                        );
+                        helperService.findAndConcatenateHearingPlatform(sitting, session);
+                        crimeListsService.calculateDuration(sitting, language, languageFile);
+                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], { zone: this.timeZone } )
+                            .toFormat('EEEE dd MMMM yyyy');
+
+                        sitting['hearing'].forEach(hearing => {
+                            crimeListsService.findLinkedCasesInformation(hearing);
+                            hearing['case'].forEach(thisCase => {
+                                crimeListsService.manipulateParty(thisCase);
+                                const row = {
+                                    courtName: courtName,
+                                    sittingDate: sittingDate,
+                                    sittingTime: helperService.publicationTimeInUkTime(sitting['sittingStart']),
+                                    courtRoom: courtRoom['courtRoomName'],
+                                    joh: session['formattedJudiciaries'],
+                                    durationAsHours: sitting['durationAsHours'],
+                                    durationAsMinutes: sitting['durationAsMinutes'],
+                                    formattedDuration: sitting['formattedDuration'],
+                                    durationSortValue: sitting['durationSortValue'],
+                                    caseNumber: thisCase['caseNumber'],
+                                    caseSeparator: thisCase['caseSequenceIndicator'],
+                                    linkedCases: thisCase['linkedCases'],
+                                    hearingNotes: hearing['listingNotes'],
+                                    defendant: thisCase['defendant'],
+                                    defendantRepresentative: thisCase['defendantRepresentative'],
+                                    prosecutingAuthority: thisCase['prosecutingAuthority'],
+                                    hearingType: hearing['hearingType'],
+                                    hearingPlatform: sitting['caseHearingChannel'],
+                                };
+                                rows.push(row);
+                            });
+                        });
+                    });
+                });
+            });
+        });
+        return this.splitByCourtAndDateAndAllocation(rows);
+    }
+
+    // TODO: To be removed once all lists have party field on the case level.
+    public splitOutFirmListDataV1(firmList: string, language: string, languageFile: string) {
+        const rows = [];
+        const firmListData = JSON.parse(firmList);
+        firmListData['courtLists'].forEach(courtList => {
+            const courtName = courtList['courtHouse']['courtHouseName'];
+            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+                courtRoom['session'].forEach(session => {
+                    const judiciary = helperService.findAndManipulateJudiciary(session);
+                    if (judiciary !== '') {
+                        session['formattedJudiciaries'] = judiciary;
+                    }
+                    session['sittings'].forEach(sitting => {
+                        helperService.findAndConcatenateHearingPlatform(sitting, session);
+                        crimeListsService.calculateDuration(sitting, language, languageFile);
+                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], { zone: this.timeZone } )
+                            .toFormat('EEEE dd MMMM yyyy');
+
                         sitting['hearing'].forEach(hearing => {
                             crimeListsService.findLinkedCasesInformation(hearing);
                             crimeListsService.manipulateParty(hearing);

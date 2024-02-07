@@ -1,12 +1,12 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../../../../main/service/listManipulation/CrimeListsService';
 
 const crimeListsService = new CrimeListsService();
-const rawCrownDailyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownDailyList.json'), 'utf-8');
-const rawCrimePartyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crimeListParty.json'), 'utf-8');
-const rawAddressData = fs.readFileSync(path.resolve(__dirname, '../../mocks/address.json'), 'utf-8');
+const rawCrownDailyData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/crownDailyList.json'), 'utf-8');
+const rawCrimePartyData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/crimeListParty.json'), 'utf-8');
+const rawAddressData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/address.json'), 'utf-8');
 
 const lng = 'en';
 const languageFile = 'crown-daily-list';
@@ -19,7 +19,7 @@ describe('Crime Data manipulation service', () => {
         });
 
         it('should formatted the case time in 12 hours format', async () => {
-            const data = await crimeListsService.manipulateCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListDataV1(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
@@ -33,23 +33,25 @@ describe('Crime Data manipulation service', () => {
         });
 
         it('should formatted the party information correctly for prosecution authority and defendant', async () => {
-            const data = await crimeListsService.manipulateCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListDataV1(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
             );
             expect(
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]
-                    ['case'][0]['defendant']
-            ).to.equal('Surname 1, Forename 1');
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'defendant'
+                ]
+            ).to.equal('Defendant_SN, Defendant_FN');
             expect(
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]
-                    ['case'][0]['prosecutingAuthority']
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'prosecutingAuthority'
+                ]
             ).to.equal('Pro_Auth');
         });
 
         it('should be able to find linked cases for a particular case', async () => {
-            const data = await crimeListsService.manipulateCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListDataV1(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
@@ -67,7 +69,7 @@ describe('Crime Data manipulation service', () => {
         });
 
         it('should be able to find listing notes for a particular hearing', async () => {
-            const data = await crimeListsService.manipulateCrimeListData(
+            const data = await crimeListsService.manipulateCrimeListDataV1(
                 JSON.stringify(crownDailyCause),
                 lng,
                 languageFile
