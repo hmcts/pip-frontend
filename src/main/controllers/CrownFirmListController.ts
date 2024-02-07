@@ -8,7 +8,7 @@ import { CrownFirmListService } from '../service/listManipulation/crownFirmListS
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { HttpStatusCode } from 'axios';
-import {hearingHasParty, isValidList} from '../helpers/listHelper';
+import { hearingHasParty, isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

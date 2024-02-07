@@ -22,7 +22,7 @@ export class CrimeListsService {
                             this.findLinkedCasesInformation(hearing);
                             hearing['case'].forEach(hearingCase => {
                                 this.manipulateParty(hearingCase);
-                            })
+                            });
                         });
                     });
                 });

@@ -29,8 +29,9 @@ export class CrownFirmListService {
                     session['sittings'].forEach(sitting => {
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         crimeListsService.calculateDuration(sitting, language, languageFile);
-                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], { zone: this.timeZone } )
-                            .toFormat('EEEE dd MMMM yyyy');
+                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], { zone: this.timeZone }).toFormat(
+                            'EEEE dd MMMM yyyy'
+                        );
 
                         sitting['hearing'].forEach(hearing => {
                             crimeListsService.findLinkedCasesInformation(hearing);
@@ -81,8 +82,9 @@ export class CrownFirmListService {
                     session['sittings'].forEach(sitting => {
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         crimeListsService.calculateDuration(sitting, language, languageFile);
-                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], { zone: this.timeZone } )
-                            .toFormat('EEEE dd MMMM yyyy');
+                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], { zone: this.timeZone }).toFormat(
+                            'EEEE dd MMMM yyyy'
+                        );
 
                         sitting['hearing'].forEach(hearing => {
                             crimeListsService.findLinkedCasesInformation(hearing);

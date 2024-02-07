@@ -1,6 +1,6 @@
-import {hearingHasParty} from "../../../main/helpers/listHelper";
-import fs from "fs";
-import path from "path";
+import { hearingHasParty } from '../../../main/helpers/listHelper';
+import fs from 'fs';
+import path from 'path';
 
 describe('List helper', () => {
     it('Hearing should have party', () => {

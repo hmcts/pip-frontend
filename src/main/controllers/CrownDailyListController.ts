@@ -6,7 +6,7 @@ import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import {hearingHasParty, isValidList} from '../helpers/listHelper';
+import { hearingHasParty, isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -26,10 +26,18 @@ export default class CrownDailyListController {
             let partyAtHearingLevel = false;
 
             if (hearingHasParty(searchResults)) {
-                outputData = crimeListsService.manipulateCrimeListDataV1(JSON.stringify(searchResults), req.lng, listType);
+                outputData = crimeListsService.manipulateCrimeListDataV1(
+                    JSON.stringify(searchResults),
+                    req.lng,
+                    listType
+                );
                 partyAtHearingLevel = true;
             } else {
-                outputData = crimeListsService.manipulateCrimeListData(JSON.stringify(searchResults), req.lng, listType)
+                outputData = crimeListsService.manipulateCrimeListData(
+                    JSON.stringify(searchResults),
+                    req.lng,
+                    listType
+                );
             }
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 

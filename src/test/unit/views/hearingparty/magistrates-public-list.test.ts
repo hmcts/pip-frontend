@@ -20,7 +20,10 @@ const restrictionHeadingText = 'Restrictions on publishing or writing about thes
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty//magistratesPublicList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/hearingparty//magistratesPublicList.json'),
+    'utf-8'
+);
 const magistratesPublicListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];

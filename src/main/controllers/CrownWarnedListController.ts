@@ -5,7 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrownWarnedListService } from '../service/listManipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
-import {hearingHasParty, isValidList} from '../helpers/listHelper';
+import { hearingHasParty, isValidList } from '../helpers/listHelper';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();

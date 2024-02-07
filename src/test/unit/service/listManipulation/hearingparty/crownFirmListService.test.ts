@@ -4,7 +4,10 @@ import path from 'path';
 import { CrownFirmListService } from '../../../../../main/service/listManipulation/crownFirmListService';
 
 const crownFirmListService = new CrownFirmListService();
-const rawCrownFirmData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/crownFirmSemiDigested.json'), 'utf-8');
+const rawCrownFirmData = fs.readFileSync(
+    path.resolve(__dirname, '../../../mocks/hearingparty/crownFirmSemiDigested.json'),
+    'utf-8'
+);
 const row = JSON.parse(`{"caseNumber": "I4Y416QE", "caseSeparator": "7 of 9",
 "courtName": "Glasgow Social Security and Child Support",
 "courtRoom": "to be allocated [Glasgow Social Security and Child Support]",

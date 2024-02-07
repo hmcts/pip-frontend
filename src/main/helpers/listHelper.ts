@@ -22,10 +22,10 @@ export const hearingHasParty = (jsonData): boolean => {
                         if (hearing.party) {
                             hearingHasParty = true;
                         }
-                    })
-                })
-            })
-        })
+                    });
+                });
+            });
+        });
     });
     return hearingHasParty;
-}
+};

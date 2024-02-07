@@ -4,7 +4,10 @@ import path from 'path';
 import { CrimeListsService } from '../../../../../main/service/listManipulation/CrimeListsService';
 
 const crimeListsService = new CrimeListsService();
-const rawCrownDailyData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/crownDailyList.json'), 'utf-8');
+const rawCrownDailyData = fs.readFileSync(
+    path.resolve(__dirname, '../../../mocks/hearingparty/crownDailyList.json'),
+    'utf-8'
+);
 const rawCrimePartyData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/crimeListParty.json'), 'utf-8');
 const rawAddressData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/address.json'), 'utf-8');
 

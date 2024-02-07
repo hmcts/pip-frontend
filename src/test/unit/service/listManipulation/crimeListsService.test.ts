@@ -39,12 +39,14 @@ describe('Crime Data manipulation service', () => {
                 languageFile
             );
             expect(
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]
-                    ['case'][0]['defendant']
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'case'
+                ][0]['defendant']
             ).to.equal('Surname 1, Forename 1');
             expect(
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]
-                    ['case'][0]['prosecutingAuthority']
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'case'
+                ][0]['prosecutingAuthority']
             ).to.equal('Pro_Auth');
         });
 

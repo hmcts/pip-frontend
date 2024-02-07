@@ -11,7 +11,10 @@ import { CrownFirmListService } from '../../../../main/service/listManipulation/
 import { CivilFamilyAndMixedListService } from '../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
 
-const fullyProcessedData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/firmlistfullyprocessed.json'), 'utf-8');
+const fullyProcessedData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/hearingparty/firmlistfullyprocessed.json'),
+    'utf-8'
+);
 const listData = JSON.parse(fullyProcessedData);
 
 const unprocessed = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownFirmList.json'), 'utf-8');

@@ -7,7 +7,10 @@ const crownWarnedListService = new CrownWarnedListService();
 
 describe('Crown Warned List service', () => {
     describe('manipulateData', () => {
-        const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/crownWarnedList.json'), 'utf-8');
+        const rawData = fs.readFileSync(
+            path.resolve(__dirname, '../../../mocks/hearingparty/crownWarnedList.json'),
+            'utf-8'
+        );
         const input = JSON.stringify(JSON.parse(rawData));
 
         it('should return all hearing types', async () => {

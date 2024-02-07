@@ -10,7 +10,10 @@ import { CrimeListsService } from '../../../../main/service/listManipulation/Cri
 import MagistratesPublicListController from '../../../../main/controllers/MagistratesPublicListController';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/magistratesPublicList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/hearingparty/magistratesPublicList.json'),
+    'utf-8'
+);
 const listData = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
