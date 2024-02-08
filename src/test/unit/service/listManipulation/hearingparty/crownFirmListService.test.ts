@@ -23,12 +23,12 @@ const languageFile = 'crown-firm-list';
 describe('Crown firm list splitter service', () => {
     describe('Crown firm list splitter service', () => {
         it('should split the data down to the day, courtroom and courthouse level', async () => {
-            const data = await crownFirmListService.splitOutFirmListData(rawCrownFirmData, lng, languageFile);
+            const data = await crownFirmListService.splitOutFirmListDataV1(rawCrownFirmData, lng, languageFile);
             expect(data[1]['days'][1][2]['data'][0]).to.deep.equal(row);
         });
 
         it('should split the initial json file down to two courtHouses', async () => {
-            const data = await crownFirmListService.splitOutFirmListData(
+            const data = await crownFirmListService.splitOutFirmListDataV1(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile
@@ -39,7 +39,7 @@ describe('Crown firm list splitter service', () => {
         });
 
         it('should split by date on each courtHouse object', async () => {
-            const data = await crownFirmListService.splitOutFirmListData(
+            const data = await crownFirmListService.splitOutFirmListDataV1(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile
@@ -49,7 +49,7 @@ describe('Crown firm list splitter service', () => {
         });
 
         it('should capture the correct courtRoom name at the day level', async () => {
-            const data = await crownFirmListService.splitOutFirmListData(
+            const data = await crownFirmListService.splitOutFirmListDataV1(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile
@@ -61,7 +61,7 @@ describe('Crown firm list splitter service', () => {
         });
 
         it("should append the unallocated cases at the bottom of a given day's cases", async () => {
-            const data = await crownFirmListService.splitOutFirmListData(
+            const data = await crownFirmListService.splitOutFirmListDataV1(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile

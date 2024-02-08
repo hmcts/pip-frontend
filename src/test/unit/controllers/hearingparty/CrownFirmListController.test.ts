@@ -5,17 +5,23 @@ import path from 'path';
 import { PublicationService } from '../../../../main/service/publicationService';
 import { mockRequest } from '../../mocks/mockRequest';
 import { LocationService } from '../../../../main/service/locationService';
-import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
 import CrownFirmListController from '../../../../main/controllers/CrownFirmListController';
 import { CrownFirmListService } from '../../../../main/service/listManipulation/crownFirmListService';
-import { CivilFamilyAndMixedListService } from '../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
+import { DateTime } from 'luxon';
 
-const fullyProcessedData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/hearingparty/firmlistfullyprocessed.json'),
-    'utf-8'
-);
-const listData = JSON.parse(fullyProcessedData);
+const listData = [
+    {
+        "courtName": "Court 1",
+        "days": [],
+    }
+];
+
+const sittingDates = [
+    DateTime.fromFormat('12 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
+    DateTime.fromFormat('13 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
+    DateTime.fromFormat('15 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
+]
 
 const unprocessed = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownFirmList.json'), 'utf-8');
 const unprocessedData = JSON.parse(unprocessed);
@@ -31,10 +37,8 @@ const crownFirmListController = new CrownFirmListController();
 const crownFirmListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownFirmListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[6]);
-sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
-sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listData);
-sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
-sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListData').returns(listData);
+sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListDataV1').returns(listData);
+sinon.stub(CrownFirmListService.prototype, 'getSittingDates').returns(sittingDates);
 
 const artefactId = 'abc';
 
@@ -69,10 +73,9 @@ describe('Crown Firm List Controller', () => {
         const expectedData = {
             ...i18n['crown-firm-list'],
             ...i18n['list-template'],
-            listData,
             startDate: '12 April 2023',
             endDate: '15 April 2023',
-            allocated: JSON.parse(fullyProcessedData),
+            allocated: listData,
             contentDate: '14 February 2022',
             publishedDate: '03 March 2023',
             publishedTime: '2:07pm',

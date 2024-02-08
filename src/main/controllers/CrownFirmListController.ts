@@ -47,7 +47,6 @@ export default class CrownFirmListController {
             res.render(listType, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
-                listData: jsonData,
                 startDate,
                 endDate,
                 allocated: outputData,
