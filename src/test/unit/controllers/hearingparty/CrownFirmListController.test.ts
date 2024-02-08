@@ -12,16 +12,16 @@ import { DateTime } from 'luxon';
 
 const listData = [
     {
-        "courtName": "Court 1",
-        "days": [],
-    }
+        courtName: 'Court 1',
+        days: [],
+    },
 ];
 
 const sittingDates = [
     DateTime.fromFormat('12 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
     DateTime.fromFormat('13 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
     DateTime.fromFormat('15 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
-]
+];
 
 const unprocessed = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownFirmList.json'), 'utf-8');
 const unprocessedData = JSON.parse(unprocessed);
