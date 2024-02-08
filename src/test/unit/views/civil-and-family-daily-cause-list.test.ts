@@ -17,7 +17,7 @@ const siteAddressClass = 'site-address';
 const courtName = "Abergavenny Magistrates' Court";
 const expectedHeader = 'Civil and Family Daily Cause List for ' + courtName;
 const summaryHeadingText = 'Important information';
-const accordionHeading = '1, Before: Presiding';
+const accordionHeading = '1, Before: Judge KnownAs Presiding, Judge KnownAs';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
 let htmlRes: Document;
 
