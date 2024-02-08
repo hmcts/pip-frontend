@@ -14,16 +14,14 @@ export class OpaPublicListService {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
                             hearing.case.forEach(hearingCase => {
-                                //if (hearingCase['party']) {
-                                    const allDefendants = this.processPartyRoles(hearingCase);
-                                    allDefendants.forEach(defendant => {
-                                        const caseDetails = this.buildCaseDetails(hearingCase);
-                                        rows.push({
-                                            ...caseDetails,
-                                            ...defendant,
-                                        });
+                                const allDefendants = this.processPartyRoles(hearingCase);
+                                allDefendants.forEach(defendant => {
+                                    const caseDetails = this.buildCaseDetails(hearingCase);
+                                    rows.push({
+                                        ...caseDetails,
+                                        ...defendant,
                                     });
-                                //}
+                                });
                             });
                         });
                     });
