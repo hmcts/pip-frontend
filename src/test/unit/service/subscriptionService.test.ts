@@ -6,7 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
 import { PublicationService } from '../../../main/service/publicationService';
-import {caseSubscriptionSorter, locationSubscriptionSorter} from "../../../main/helpers/sortHelper";
+import { caseSubscriptionSorter, locationSubscriptionSorter } from '../../../main/helpers/sortHelper';
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
@@ -54,40 +54,40 @@ const mockCaseWithUrnOnly = {
     urnSearch: true,
 };
 const mockCourtSubscription = {
-    subscriptionId: "123",
-    locationName: "Birmingham Social Security and Child Support",
-    locationId: "4",
+    subscriptionId: '123',
+    locationName: 'Birmingham Social Security and Child Support',
+    locationId: '4',
 };
 const mockCourtSubscription2 = {
-    subscriptionId: "124",
-    locationName: "Oxford Combined Court Centre",
-    locationId: "3",
+    subscriptionId: '124',
+    locationName: 'Oxford Combined Court Centre',
+    locationId: '3',
 };
 const mockCourtSubscription3 = {
-    subscriptionId: "125",
-    locationName: "Bradford Social Security and Child Support",
-    locationId: "5",
+    subscriptionId: '125',
+    locationName: 'Bradford Social Security and Child Support',
+    locationId: '5',
 };
 const mockCaseSubscription = {
-    subscriptionId: "123",
+    subscriptionId: '123',
     searchType: 'CASE_ID',
-    caseName: "My Case A",
-    caseNumber: "2222",
+    caseName: 'My Case A',
+    caseNumber: '2222',
     urn: null,
 };
 const mockCaseSubscription2 = {
-    subscriptionId: "124",
+    subscriptionId: '124',
     searchType: 'CASE_ID',
-    caseName: "Another Case",
-    caseNumber: "1111",
+    caseName: 'Another Case',
+    caseNumber: '1111',
     urn: null,
 };
 const mockCaseSubscription3 = {
-    subscriptionId: "125",
+    subscriptionId: '125',
     searchType: 'CASE_URN',
-    caseName: "My Case A",
+    caseName: 'My Case A',
     caseNumber: null,
-    urn: "1111",
+    urn: '1111',
 };
 const courtSubscriptionPayload = {
     channel: 'EMAIL',
@@ -165,8 +165,12 @@ cacheGetStub.withArgs(userIdWithSubscriptions, 'cases').resolves([mockCase]);
 cacheGetStub.withArgs(userIdWithSubscriptions, 'courts').resolves([mockCourt]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
-cacheGetStub.withArgs(userIdForSortedSubscriptions, 'cases').resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
-cacheGetStub.withArgs(userIdForSortedSubscriptions, 'courts').resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
+cacheGetStub
+    .withArgs(userIdForSortedSubscriptions, 'cases')
+    .resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
+cacheGetStub
+    .withArgs(userIdForSortedSubscriptions, 'courts')
+    .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
 
 updateListTypeSubscriptionStub
     .withArgs(userIdWithSubscriptions, courtSubscriptionWithSingleListTypePayload)
@@ -478,34 +482,22 @@ describe('setPendingSubscriptions function', () => {
 
 describe('getPendingSubscriptions function', () => {
     it('should return list of cached courts', async () => {
-        const cachedCourts = await subscriptionService.getPendingSubscriptions(
-            userIdWithSubscriptions,
-            'courts'
-        );
+        const cachedCourts = await subscriptionService.getPendingSubscriptions(userIdWithSubscriptions, 'courts');
         expect(cachedCourts).toStrictEqual([mockCourt]);
     });
 
     it('should return list of cached cases', async () => {
-        const cachedCases = await subscriptionService.getPendingSubscriptions(
-            userIdWithSubscriptions,
-            'cases'
-        );
+        const cachedCases = await subscriptionService.getPendingSubscriptions(userIdWithSubscriptions, 'cases');
         expect(cachedCases).toStrictEqual([mockCase]);
     });
 
     it('should return empty list of courts from the cache', async () => {
-        const cachedCourts = await subscriptionService.getPendingSubscriptions(
-            userIdWithoutSubscriptions,
-            'courts'
-        );
+        const cachedCourts = await subscriptionService.getPendingSubscriptions(userIdWithoutSubscriptions, 'courts');
         expect(cachedCourts).toEqual([]);
     });
 
     it('should return empty list of cases from the cache', async () => {
-        const cachedCases = await subscriptionService.getPendingSubscriptions(
-            userIdWithoutSubscriptions,
-            'cases'
-        );
+        const cachedCases = await subscriptionService.getPendingSubscriptions(userIdWithoutSubscriptions, 'cases');
         expect(cachedCases).toEqual([]);
     });
 });

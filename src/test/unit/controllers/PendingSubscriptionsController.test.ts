@@ -24,31 +24,31 @@ const mockCourt = {
     hearings: 0,
 };
 const mockCaseSubscription = {
-    caseName: "My Case A",
-    caseNumber: "2222",
+    caseName: 'My Case A',
+    caseNumber: '2222',
     urn: null,
 };
 const mockCaseSubscription2 = {
-    caseName: "Another Case",
-    caseNumber: "1111",
+    caseName: 'Another Case',
+    caseNumber: '1111',
     urn: null,
 };
 const mockCaseSubscription3 = {
-    caseName: "My Case A",
+    caseName: 'My Case A',
     caseNumber: null,
-    urn: "1111",
+    urn: '1111',
 };
 const mockCourtSubscription = {
-    name: "Birmingham Social Security and Child Support",
-    locationId: "4",
+    name: 'Birmingham Social Security and Child Support',
+    locationId: '4',
 };
 const mockCourtSubscription2 = {
-    name: "Oxford Combined Court Centre",
-    locationId: "3",
+    name: 'Oxford Combined Court Centre',
+    locationId: '3',
 };
 const mockCourtSubscription3 = {
-    name: "Bradford Social Security and Child Support",
-    locationId: "5",
+    name: 'Bradford Social Security and Child Support',
+    locationId: '5',
 };
 const postData = { 'hearing-selections[]': 'T485913' };
 const queryParams = { court: '643' };
@@ -65,8 +65,12 @@ subscriptionStub.withArgs(userWithSubscriptions, 'cases').resolves([mockCase]);
 subscriptionStub.withArgs(userWithSubscriptions, 'courts').resolves([mockCourt]);
 subscriptionStub.withArgs('3', 'cases').resolves([mockCase]);
 subscriptionStub.withArgs('3', 'courts').resolves([]);
-subscriptionStub.withArgs(userWithMultipleSubscriptions, 'cases').resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
-subscriptionStub.withArgs(userWithMultipleSubscriptions, 'courts').resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
+subscriptionStub
+    .withArgs(userWithMultipleSubscriptions, 'cases')
+    .resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
+subscriptionStub
+    .withArgs(userWithMultipleSubscriptions, 'courts')
+    .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
 handleSubStub.withArgs(postData, userWithSubscriptions).resolves(true);
 
 const i18n = { 'pending-subscriptions': {} };

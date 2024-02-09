@@ -1,8 +1,9 @@
 import {
     caseSubscriptionSorter,
-    locationSubscriptionSorter, pendingCaseSubscriptionSorter,
-    pendingLocationSubscriptionSorter
-} from "../../../main/helpers/sortHelper";
+    locationSubscriptionSorter,
+    pendingCaseSubscriptionSorter,
+    pendingLocationSubscriptionSorter,
+} from '../../../main/helpers/sortHelper';
 
 describe('Sort Helper', () => {
     describe('Location subscription sorter', () => {
@@ -25,12 +26,7 @@ describe('Sort Helper', () => {
 
     describe('Pending location subscription sorter', () => {
         it('should sort by location names', () => {
-            const locations = [
-                { name: 'Test Court' },
-                { name: 'Court A' },
-                { name: 'Court C' },
-                { name: 'Court B' },
-            ];
+            const locations = [{ name: 'Test Court' }, { name: 'Court A' }, { name: 'Court C' }, { name: 'Court B' }];
 
             expect(locations.sort(pendingLocationSubscriptionSorter)).toStrictEqual([
                 { name: 'Court A' },
@@ -59,12 +55,7 @@ describe('Sort Helper', () => {
         });
 
         it('should sort case subscriptions with empty case name comes last', () => {
-            const cases = [
-                { caseName: '' },
-                { caseName: 'Case A' },
-                { caseName: null },
-                { caseName: 'Case B' },
-            ];
+            const cases = [{ caseName: '' }, { caseName: 'Case A' }, { caseName: null }, { caseName: 'Case B' }];
             expect(cases.sort(caseSubscriptionSorter)).toStrictEqual([
                 { caseName: 'Case A' },
                 { caseName: 'Case B' },
@@ -140,12 +131,7 @@ describe('Sort Helper', () => {
         });
 
         it('should sort case subscriptions with empty case name comes last', () => {
-            const cases = [
-                { caseName: '' },
-                { caseName: 'Case A' },
-                { caseName: null },
-                { caseName: 'Case B' },
-            ];
+            const cases = [{ caseName: '' }, { caseName: 'Case A' }, { caseName: null }, { caseName: 'Case B' }];
             expect(cases.sort(pendingCaseSubscriptionSorter)).toStrictEqual([
                 { caseName: 'Case A' },
                 { caseName: 'Case B' },

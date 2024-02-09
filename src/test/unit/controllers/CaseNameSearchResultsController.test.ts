@@ -13,7 +13,9 @@ const caseSubscription2 = { caseName: 'name2', caseUrn: '126', partyNames: 'name
 const caseSubscription3 = { caseName: 'name2', caseNumber: '125', partyNames: 'name3' };
 const caseSubscription4 = { caseName: 'name', caseUrn: '123', partyNames: 'name4', displayUrn: true };
 
-publicationServiceStub.withArgs('urnAndNumberResults').returns([caseSubscription, caseSubscription2, caseSubscription3, caseSubscription4]);
+publicationServiceStub
+    .withArgs('urnAndNumberResults')
+    .returns([caseSubscription, caseSubscription2, caseSubscription3, caseSubscription4]);
 
 describe('Case name search results controller', () => {
     const i18n = {

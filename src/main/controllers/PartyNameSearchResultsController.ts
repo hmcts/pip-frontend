@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/publicationService';
-import {pendingCaseSubscriptionSorter} from "../helpers/sortHelper";
+import { pendingCaseSubscriptionSorter } from '../helpers/sortHelper';
 
 const url = 'party-name-search-results';
 const publicationService = new PublicationService();

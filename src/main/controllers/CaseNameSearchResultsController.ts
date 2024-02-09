@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { PublicationService } from '../service/publicationService';
-import {pendingCaseSubscriptionSorter} from "../helpers/sortHelper";
+import { pendingCaseSubscriptionSorter } from '../helpers/sortHelper';
 
 const publicationService = new PublicationService();
 

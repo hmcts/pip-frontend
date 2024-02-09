@@ -8,7 +8,7 @@ import { FilterService } from './filterService';
 import { Location } from '../models/location';
 import { ListType } from '../models/listType';
 import { AToZHelper } from '../helpers/aToZHelper';
-import {caseSubscriptionSorter, locationSubscriptionSorter} from "../helpers/sortHelper";
+import { caseSubscriptionSorter, locationSubscriptionSorter } from '../helpers/sortHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
