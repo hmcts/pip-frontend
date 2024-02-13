@@ -3,8 +3,8 @@
     "backButton": "Yn ôl",
     "section1": {
         "text1": "Mae'r datganiad hygyrchedd hwn yn berthnasol i gynnwys a gyhoeddir ar ",
-        "text2": "Mae'r gwasanaeth gwrandawiadau lysoedd a Thribiwnlysoedd yn darparu llwyfan cyhoeddi i alluogi i wybodaeth, megis rhestrau gwrandawiadau, a ddarperir gan Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEM) gael ei rhannu, ei harddangos a'i diweddaru fel y bo'n briodol. Bydd yn galluogi arddangos gwybodaeth i ddefnyddwyr y llysoedd, yn gyson â gweithdrefnau awdurdodaethau a rheolau busnes. Mae'r gwasanaeth yn cefnogi ymrwymiad GLlTEM i gyfiawnder agored a darparu gwybodaeth dryloyw a chyson am lysoedd a thribiwnlysoedd ar draws awdurdodaethau.",
-        "text3": "GLlTEM sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
+        "text2": "Mae'r gwasanaeth gwrandawiadau lysoedd a Thribiwnlysoedd yn darparu llwyfan cyhoeddi i alluogi i wybodaeth, megis rhestrau gwrandawiadau, a ddarperir gan Gwasanaeth Llysoedd a Thribiwnlysoedd EM (GLlTEF) gael ei rhannu, ei harddangos a'i diweddaru fel y bo'n briodol. Bydd yn galluogi arddangos gwybodaeth i ddefnyddwyr y llysoedd, yn gyson â gweithdrefnau awdurdodaethau a rheolau busnes. Mae'r gwasanaeth yn cefnogi ymrwymiad GLlTEF i gyfiawnder agored a darparu gwybodaeth dryloyw a chyson am lysoedd a thribiwnlysoedd ar draws awdurdodaethau.",
+        "text3": "GLlTEF sy’n gyfrifol am y wefan hon. Rydym eisiau i gymaint o bobl â phosibl allu defnyddio'r wefan hon, felly rydym wedi ceisio ei gwneud mor hygyrch â phosibl. Er enghraifft, golyga hyn y dylech allu:",
         "text4": "Rydym hefyd wedi sicrhau ein bod wedi defnyddio iaith syml ar y wefan.",
         "text5": "(mae'n agor mewn ffenestr newydd) gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.",
         "links": [
@@ -67,7 +67,7 @@
     },
     "section7": {
         "heading": "Gwybodaeth dechnegol am hygyrchedd y wefan hon",
-        "text1": "Mae GLlTEM wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018."
+        "text1": "Mae GLlTEF wedi ymrwymo i sicrhau bod ei wefannau yn hygyrch, a hynny yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Rhaglenni Symudol) (Rhif 2) 2018."
     },
     "section8": {
         "heading": "Statws cydymffurfiaeth",
@@ -93,7 +93,7 @@
     "section10": {
         "heading": "Beth rydym yn ei wneud i wella hygyrchedd",
         "text": [
-            "Rydym wedi cysylltu â thrafod yn rheolaidd gyda Rhaglen Ddiwygio GLlTEM i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch ar gyfer eu cyhoeddi. Rydym wedi gofyn i wasanaethau wneud gwaith pellach wrth symud ymlaen i ddiweddaru’r ffordd y maent yn cynhyrchu dogfennau i’w gwneud yn gwbl hygyrch.",
+            "Rydym wedi cysylltu â thrafod yn rheolaidd gyda Rhaglen Ddiwygio GLlTEF i sicrhau bod systemau sylfaenol yn cynhyrchu dogfennau hygyrch ar gyfer eu cyhoeddi. Rydym wedi gofyn i wasanaethau wneud gwaith pellach wrth symud ymlaen i ddiweddaru’r ffordd y maent yn cynhyrchu dogfennau i’w gwneud yn gwbl hygyrch.",
             "Byddwn yn cynnal profion hygyrchedd awtomataidd yn barhaus fel rhan o'n gweithgarwch datblygu."
         ]
     },
