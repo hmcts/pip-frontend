@@ -6,9 +6,9 @@ import { PublicationService } from '../../../main/service/publicationService';
 import { mockRequest } from '../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../main/service/locationService';
-import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../main/controllers/MagistratesPublicListController';
 import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { MagistratesPublicListService } from '../../../main/service/listManipulation/MagistratesPublicListService';
 import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesPublicList.json'), 'utf-8');
@@ -26,7 +26,7 @@ const magistratesPublicListJsonStub = sinon.stub(PublicationService.prototype, '
 const magistratesPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
-sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listData);
+sinon.stub(MagistratesPublicListService.prototype, 'manipulateListData').returns(listData);
 
 const artefactId = 'abc';
 
@@ -67,10 +67,10 @@ describe('Magistrates Public List Controller', () => {
                 zone: 'utc',
             }).toFormat('dd MMMM yyyy'),
             publishedDate: '14 September 2020',
-            courtName: "Abergavenny Magistrates' Court",
             publishedTime: '12:30am',
             provenance: 'prov1',
             version: '',
+            courtName: "Abergavenny Magistrates' Court",
             venueAddress: 'THE LAW COURTS\nMain Road\nPR1 2LL',
             bill: false,
         };

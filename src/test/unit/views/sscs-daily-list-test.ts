@@ -124,7 +124,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
 
     it('should display hearing time', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
-        expect(data[0].innerHTML).contains('10:40am', 'Hearing time does not match');
+        expect(data[0].innerHTML).contains('12:30am', 'Hearing time does not match');
     });
 
     it('should display case number', () => {
@@ -140,7 +140,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
     it('should display appellant', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
         expect(data[3].innerHTML).contains(
-            'Surname, Legal Advisor: Mr Individual Forenames Individual Middlenam',
+            'CasePartyNamePetitioner, Legal Advisor: Mr Test A CasePartyNamePetitionerRep',
             'Appellant does not match'
         );
     });

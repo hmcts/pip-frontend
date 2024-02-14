@@ -11,7 +11,7 @@ describe('manipulateSscsDailyListData', () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const hearingTime =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['sittingStartFormatted'];
-        expect(hearingTime).to.equal('10:40am');
+        expect(hearingTime).to.equal('12:30am');
     });
 
     it('should return hearing channel', async () => {
@@ -21,20 +21,36 @@ describe('manipulateSscsDailyListData', () => {
         expect(hearingChannel).to.equal('Teams, Attended');
     });
 
-    it('should return appellant', async () => {
+    it('should return appellant for case level party', async () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const appellant =
-            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['applicant'];
-        expect(appellant).to.equal('Surname');
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0]['applicant'];
+        expect(appellant).to.equal('CasePartyNamePetitioner');
     });
 
-    it('should return appellant representative', async () => {
+    it('should return appellant representative for case level party', async () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const appellantRep =
-            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0][
                 'applicantRepresentative'
             ];
-        expect(appellantRep).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
+        expect(appellantRep).to.equal('Mr Test A CasePartyNamePetitionerRep');
+    });
+
+    it('should return appellant for hearing level party', async () => {
+        const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
+        const appellant =
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['applicant'];
+        expect(appellant).to.equal('HearingPartyNamePetitioner');
+    });
+
+    it('should return appellant representative for hearing level party', async () => {
+        const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
+        const appellantRep =
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
+                'applicantRepresentative'
+                ];
+        expect(appellantRep).to.equal('Mr Test A HearingPartyNamePetitionerRep');
     });
 
     it('should return respondent using informant', async () => {

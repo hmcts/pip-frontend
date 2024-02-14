@@ -153,6 +153,6 @@ describe('ET Daily List page', () => {
 
     it('should display Respondent', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[4].innerHTML).contains('Capt. T. Test Surname 2');
+        expect(cell[4].innerHTML).contains('Capt. T. Test Surname');
     });
 });
