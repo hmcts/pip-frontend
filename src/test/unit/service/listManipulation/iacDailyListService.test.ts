@@ -47,8 +47,12 @@ describe('IAC Daily List service', () => {
         it('should format hearing parties', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearingCase =
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0];
-            expect(hearingCase['appellant']).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'case'
+                ][0];
+            expect(hearingCase['appellant']).to.equal(
+                'Mr Individual Forenames Individual Middlename Individual Surname'
+            );
             expect(hearingCase['appellantRepresentative']).to.equal('Test Name');
             expect(hearingCase['prosecutingAuthority']).to.equal('Test Name');
         });
@@ -56,8 +60,12 @@ describe('IAC Daily List service', () => {
         it('should format hearing parties with no appellant representative', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearingCase =
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['case'][0];
-            expect(hearingCase['appellant']).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
+                    'case'
+                ][0];
+            expect(hearingCase['appellant']).to.equal(
+                'Mr Individual Forenames Individual Middlename Individual Surname'
+            );
             expect(hearingCase['appellantRepresentative']).to.equal('');
             expect(hearingCase['prosecutingAuthority']).to.equal('Test Name');
         });
@@ -65,7 +73,9 @@ describe('IAC Daily List service', () => {
         it('should format hearing parties with multiple appellants and respondents', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearingCase =
-                data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0];
+                data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'case'
+                ][0];
             expect(hearingCase['appellant']).to.equal(
                 'Mr Individual Forenames Individual Middlename Individual Surname, Mrs Individual Forenames Individual Surname'
             );

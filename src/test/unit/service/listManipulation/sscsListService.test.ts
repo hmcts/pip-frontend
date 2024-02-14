@@ -24,7 +24,9 @@ describe('manipulateSscsDailyListData', () => {
     it('should return appellant for case level party', async () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const appellant =
-            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0]['applicant'];
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0][
+                'applicant'
+            ];
         expect(appellant).to.equal('CasePartyNamePetitioner');
     });
 
@@ -49,7 +51,7 @@ describe('manipulateSscsDailyListData', () => {
         const appellantRep =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
                 'applicantRepresentative'
-                ];
+            ];
         expect(appellantRep).to.equal('Mr Test A HearingPartyNamePetitionerRep');
     });
 
