@@ -1,5 +1,5 @@
 import { ListParseHelperService } from '../listParseHelperService';
-import { CrimeListsService } from "./CrimeListsService";
+import { CrimeListsService } from './CrimeListsService';
 
 const helperService = new ListParseHelperService();
 const crimeListHelperService = new CrimeListsService();
@@ -16,7 +16,7 @@ export class MagistratesPublicListService {
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
                                 this.manipulateParty(hearingCase);
-                            })
+                            });
                             crimeListHelperService.findLinkedCasesInformation(hearing);
                         });
                     });
@@ -73,5 +73,4 @@ export class MagistratesPublicListService {
     private createOrganisationDetails(organisationDetails: any) {
         return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
     }
-
 }

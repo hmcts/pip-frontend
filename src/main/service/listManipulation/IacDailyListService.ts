@@ -16,7 +16,7 @@ export class IacDailyListService {
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
                                 this.helperService.findAndManipulatePartyInformation(hearingCase);
-                            })
+                            });
                             this.helperService.findAndManipulateLinkedCases(hearing);
                         });
                     });
