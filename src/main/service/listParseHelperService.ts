@@ -359,4 +359,12 @@ export class ListParseHelperService {
         });
         return judiciaryFormatted;
     }
+
+    public formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase) {
+        if (hearingCase['party']){
+            this.findAndManipulatePartyInformation(hearingCase);
+        } else {
+            this.findAndManipulatePartyInformation(hearing);
+        }
+    }
 }
