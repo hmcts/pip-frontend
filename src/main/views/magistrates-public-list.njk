@@ -126,18 +126,18 @@
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['defendant'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['defendant'] }}</td>
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['prosecutingAuthority'] }}</td>
                               <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ sitting['durationSortValue'] }}">{{ sitting['formattedDuration'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                             </tr>
                             {% if hearing['listingNotes'] | length %}
                               <tr class="govuk-table__row">
                                 <td class="govuk-table__cell" colspan="6" data-sort-value="{{ timeSortValue }}"><span class="linked-cases-heading">{{ listingNotes }}:</span> {{ hearing['listingNotes'] }}</td>
                                 <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['caseNumber'] }}" />
-                                <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['defendant'] }}" />
+                                <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['defendant'] }}" />
                                 <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['hearingType'] }}" />
-                                <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['prosecutingAuthority'] }}" />
+                                <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['prosecutingAuthority'] }}" />
                                 <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ sitting['durationSortValue'] }}" />
                               </tr>
                             {% endif %}
