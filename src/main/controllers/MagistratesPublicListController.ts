@@ -5,6 +5,7 @@ import { PublicationService } from '../service/publicationService';
 import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
+import { MagistratesPublicListService } from '../service/listManipulation/MagistratesPublicListService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../helpers/listHelper';
 
@@ -12,6 +13,7 @@ const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
+const magistratesPublicListService = new MagistratesPublicListService();
 
 export default class MagistratesPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -20,7 +22,7 @@ export default class MagistratesPublicListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (isValidList(searchResults, metaData) && searchResults && metaData) {
-            const manipulatedData = crimeListsService.manipulateCrimeListData(
+            const manipulatedData = magistratesPublicListService.manipulateListData(
                 JSON.stringify(searchResults),
                 req.lng,
                 'magistrates-public-list'
