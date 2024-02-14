@@ -361,7 +361,7 @@ export class ListParseHelperService {
     }
 
     public formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase) {
-        if (hearingCase['party']){
+        if (hearingCase['party']) {
             this.findAndManipulatePartyInformation(hearingCase);
         } else {
             this.findAndManipulatePartyInformation(hearing);

@@ -26,7 +26,7 @@ export class SscsDailyListService {
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
                                 helperService.formatPartyInformationAtCaseOrHearingLevel(hearingCase, hearing);
-                            } )
+                            });
                             hearing['formattedRespondent'] = this.formatRespondent(hearing);
                         });
                     });
