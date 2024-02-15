@@ -11,6 +11,9 @@ const res = {
     clearCookie: function () {
         return '';
     },
+    render: function () {
+        return '';
+    },
 } as unknown as Response;
 
 const mockSession = {
@@ -69,6 +72,25 @@ describe('Test logout', () => {
         responseMock.expects('redirect').once().withArgs('/session-expired?lng=en&reSignInUrl=AAD');
 
         const req = { session: {}, lng: 'en', query: { redirectType: 'AAD' } };
+        sessionManagementService.logOut(req, res, false, true);
+
+        responseMock.verify();
+    });
+
+    it('should redirect to session expired if session is expired and unknown redirect type is set', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('render').once().withArgs('error');
+
+        const req = {
+            session: {},
+            lng: 'en',
+            query: { redirectType: 'UNKNOWN_TYPE' },
+            i18n: {
+                getDataByLanguage: lng => {
+                    return { error: lng };
+                },
+            },
+        };
         sessionManagementService.logOut(req, res, false, true);
 
         responseMock.verify();
