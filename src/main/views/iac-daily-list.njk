@@ -13,9 +13,6 @@
   <div class="parent-box">
     <h2 id="page-heading" class="govuk-heading-l">
       {{ heading }}<br />{{ listData['venue']['venueName'] }} {{ dailyList }}
-      {% if bill %}
-        <br /><br />{{ headingWelsh }}<br />{{ listData['venue']['venueName'] }} {{ dailyListWelsh }}
-      {% endif %}
     </h2>
 
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
@@ -29,25 +26,21 @@
         <p>{{ importantInformationP2 }}</p>
         <p>{{ venueContact["venueEmail"] }} {{ venueContact["venueTelephone"] }}</p>
         <p>{{ importantInformationP3 }}</p>
-        {% if bill %}
-          <P>{{ importantInformationP4 }}</P>
-          <P>{{ importantInformationP5 }}</P>
-          <p>{{ venueContact["venueEmail"] }} {{ venueContact["venueTelephone"] }}</p>
-          <P>{{ importantInformationP6 }}</P>
-        {% endif %}
       </div>
     </details>
 
     {{ searchInput(text = searchCases) }}
     <div class="search-area">
+      {% set courtCount = 0 %}
+      {% set sessionCount = 0 %}
       {% for courtList in listData['courtLists'] %}
         {% set courtHouse = courtList['courtHouse'] %}
+        {% set courtCount = courtCount + 1 %}
         <div class="site-header" tabindex="0" aria-label="Court Details">
           <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtList['courtListName'] }}</h1>
         </div>
 
-        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-          {% set sessionCount = 0 %}
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtCount }}">
           {% for courtRoom in courtHouse['courtRoom'] %}
             {% for session in courtRoom['session'] %}
               {% set sessionCount = sessionCount + 1 %}

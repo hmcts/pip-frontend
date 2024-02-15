@@ -48,7 +48,7 @@ describe('Et Daily List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/et-daily-list';
 
-    it('should render the et daily cause list page', async () => {
+    it('should render the ET daily cause list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
 
@@ -57,13 +57,12 @@ describe('Et Daily List Controller', () => {
             ...i18n['et-daily-list'],
             ...i18n['list-template'],
             listData,
-            region: 'Bedford',
+            region: ['Bedford'],
             contentDate: '14 February 2022',
             publishedDate: '13 February 2022',
             publishedTime: '9:30am',
             courtName: "Abergavenny Magistrates' Court",
             provenance: 'prov1',
-            bill: false,
         };
 
         responseMock.expects('render').once().withArgs('et-daily-list', expectedData);

@@ -38,33 +38,14 @@
         </ul>
         </p>
       </div>
-      {% if bill %}
-        <div class="govuk-body">
-          <h3>{{ restrictionInformationHeadingBill }}</h3>
-          <p class="govuk-body">{{ restrictionInformationP1Bill }}</p>
-          <div class="govuk-warning-text">
-            <span class="govuk-warning-text__icon align-warning-icon" aria-hidden="true">!</span>
-            <strong class="govuk-warning-text__text">
-              <span class="govuk-warning-text__assistive">Warning</span>
-              {{ restrictionInformationBoldTextBill }}
-            </strong>
-          </div>
-          <p class="govuk-body">{{ restrictionInformationP2Bill }}</p>
-          <p class="govuk-body">{{ restrictionInformationP3Bill }}</p>
-          <p class="govuk-body">{{ restrictionInformationP4Bill }}</p>
-          <ul class="govuk-list govuk-list--bullet">
-            <li>{{ restrictionBulletPoint1Bill }}</li>
-            <li>{{ restrictionBulletPoint2Bill }}</li>
-          </ul>
-          </p>
-        </div>
-      {% endif %}
     </div>
   </div>
   {{ searchInput(text = searchCases) }}
   <div class="search-area">
+    {% set count = 0 %}
     {% for court in allocated %}
       {% for day in court.days %}
+        {% set count = count + 1 %}
         {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"  data-module="moj-sortable-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + sittingAt  + '</th>
                         <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + caseReference +'</th>
@@ -142,7 +123,7 @@
             }) %}
         {% endfor %}
         {{ govukAccordion({
-          id: "accordion-default-firmList"+loop.index,
+          id: "accordion-default-firmList" + count,
           items: currentTable}) }}
       {% endfor %}
     {% endfor %}

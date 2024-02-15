@@ -28,24 +28,19 @@
         <p>{{ importantInformationP3 }}</p>
         <p>{{ importantInformationP4 }}</p>
         <p>{{ importantInformationP5 }} {{ openJusticeGuidance | urlize | safe }}.</p>
-        {% if bill %}
-          <P>{{ importantInformationP6 }}</P>
-          <P>{{ importantInformationP7 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone']) }}</P>
-          <P>{{ importantInformationP8 }}</P>
-          <P>{{ importantInformationP9 }}</P>
-          <p>{{ importantInformationP10 }} {{ openJusticeGuidance | urlize | safe }}.</p>
-        {% endif %}
       </div>
     </details>
     {{ searchInput(text = searchCases) }}
     <div class="search-area">
+    {% set courtCount = 0 %}
+    {% set sessionCount = 0 %}
     {% for courtList in listData['courtLists'] %}
       {% set courtHouse = courtList['courtHouse'] %}
+      {% set courtCount = courtCount + 1 %}
       <div class="site-header" tabindex="0" aria-label="Court Details">
         <h1 class="govuk-heading-l site-address" tabindex="0">{{ courtHouse['courtHouseName'] }}</h1>
       </div>
-      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-      {% set sessionCount = 0 %}
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtCount }}">
       {% for courtRoom in courtHouse['courtRoom'] %}
         {% set sessionCount = sessionCount + 1 %}
         {% for session in courtRoom['session'] %}

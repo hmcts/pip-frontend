@@ -15,6 +15,8 @@ const helperService = new ListParseHelperService();
 const magsStandardListService = new MagistratesStandardListService();
 const crimeListsService = new CrimeListsService();
 
+const listType = 'magistrates-standard-list';
+
 export default class MagistratesStandardListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -29,12 +31,11 @@ export default class MagistratesStandardListController {
                 req.lng
             );
             const location = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const venueAddress = crimeListsService.formatAddress(publicationJson['venue']['venueAddress']);
 
-            res.render('magistrates-standard-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['magistrates-standard-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
@@ -43,7 +44,6 @@ export default class MagistratesStandardListController {
                 courtName: location.name,
                 provenance: metaData.provenance,
                 venueAddress: venueAddress,
-                bill: pageLanguage === 'bill',
             });
         } else if (publicationJson === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

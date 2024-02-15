@@ -18,6 +18,9 @@ const sjpFilterService = new SjpFilterService();
 const filterService = new FilterService();
 const listDownloadService = new ListDownloadService();
 
+const sjpPressAll = 'single-justice-procedure-press';
+const sjpPressDelta = 'single-justice-procedure-press-new-cases';
+
 export default class SjpPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -38,24 +41,23 @@ export default class SjpPressListController {
                 req.lng
             );
 
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
             const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
-                ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press'],
-                ...req.i18n.getDataByLanguage(pageLanguage)['sjp-common'],
-                ...req.i18n.getDataByLanguage(pageLanguage)['list-template'],
+                ...req.i18n.getDataByLanguage(req.lng)[sjpPressAll],
+                ...req.i18n.getDataByLanguage(req.lng)['sjp-common'],
+                ...req.i18n.getDataByLanguage(req.lng)['list-template'],
             };
 
             if (metaData.listType === 'SJP_DELTA_PRESS_LIST') {
                 languageResource = {
                     ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(pageLanguage)['single-justice-procedure-press-new-cases'],
+                    ...req.i18n.getDataByLanguage(req.lng)[sjpPressDelta],
                 };
             }
 
-            res.render('single-justice-procedure-press', {
+            res.render(sjpPressAll, {
                 ...cloneDeep(languageResource),
                 sjpData: filter.sjpCases,
                 totalHearings: filter.sjpCases.length,
@@ -72,7 +74,6 @@ export default class SjpPressListController {
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
                 url,
-                bill: pageLanguage === 'bill',
             });
         } else if (sjpData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

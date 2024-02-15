@@ -71,7 +71,9 @@
                   </tr>
                 </thead>
                 <tbody class="govuk-table__body">
+                  {% set caseCount = 0 %}
                   {% for row in caseTableData %}
+                    {% set caseCount = caseCount + 1 %}
                     <tr class="govuk-table__row">
                       <td class="govuk-table__cell bulk-delete-row">{{ row.caseName }}</td>
                       <td class="govuk-table__cell bulk-delete-row">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
@@ -79,8 +81,8 @@
                       <td class="govuk-table__cell bulk-delete-row no-wrap">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription" value={{ row.subscriptionId }}>
-                          <label class="govuk-label govuk-checkboxes__label" for="caseSubscription"> </label>
+                          <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription-{{ caseCount }}" value={{ row.subscriptionId }}>
+                          <label class="govuk-label govuk-checkboxes__label" for="caseSubscription-{{ caseCount }}"> </label>
                         </div>
                       </td>
                     </tr>
@@ -99,14 +101,16 @@
                   </tr>
                 </thead>
                 <tbody class="govuk-table__body">
+                  {% set locationCount = 0 %}
                   {% for row in locationTableData %}
+                    {% set locationCount = locationCount + 1 %}
                     <tr class="govuk-table__row">
                       <td class="govuk-table__cell bulk-delete-row">{{ row.locationName }}</td>
                       <td class="govuk-table__cell bulk-delete-row no-wrap">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription" value={{ row.subscriptionId }}>
-                          <label class="govuk-label govuk-checkboxes__label" for="courtSubscription"> </label>
+                          <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription-{{ locationCount }}" value={{ row.subscriptionId }}>
+                          <label class="govuk-label govuk-checkboxes__label" for="courtSubscription-{{ locationCount }}"> </label>
                         </div>
                       </td>
                     </tr>

@@ -11,6 +11,8 @@ const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
 const iacService = new IacDailyListService();
 
+const listType = 'iac-daily-list';
+
 export default class IacDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
@@ -24,17 +26,14 @@ export default class IacDailyListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
-
-            res.render('iac-daily-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['iac-daily-list']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
+            res.render(listType, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

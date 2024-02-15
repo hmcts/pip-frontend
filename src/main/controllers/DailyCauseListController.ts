@@ -38,19 +38,17 @@ export default class DailyCauseListController {
                 req.lng
             );
             const location = await locationService.getLocationById(metaData['locationId']);
-            const pageLanguage = publicationService.languageToLoadPageIn(metaData.language, req.lng);
 
             res.render(listToLoad, {
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)[listToLoad]),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['list-template']),
-                ...cloneDeep(req.i18n.getDataByLanguage(pageLanguage)['open-justice-statement']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
                 courtName: location.name,
-                bill: pageLanguage === 'bill',
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

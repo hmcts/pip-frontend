@@ -4,8 +4,9 @@
         "fullName": "bob smith",
         "email": "bob@test.com",
         "employer": "Daily Bugle",
-        "MediaLegalApplicationStatus": "PENDING",
+        "status": "PENDING",
         "image": "asdf",
+        "imageName": "image.pdf",
         "requestDate": "2022-05-01T07:36:35",
         "statusDate": "2022-05-01T07:36:35"
     },
@@ -14,8 +15,9 @@
         "fullName": "jack jackson",
         "email": "jack@test.com",
         "employer": "Daily Bugle",
-        "MediaLegalApplicationStatus": "PENDING",
+        "status": "PENDING",
         "image": "asdf",
+        "imageName": "image.pdf",
         "requestDate": "2022-03-05T07:36:35",
         "statusDate": "2022-05-01T07:36:35"
     },
@@ -24,8 +26,9 @@
         "fullName": "lightning mcqueen",
         "email": "kachow@test.com",
         "employer": "stanley cup",
-        "MediaLegalApplicationStatus": "PENDING",
+        "status": "PENDING",
         "image": "asdf",
+        "imageName": "image.pdf",
         "requestDate": "2022-05-11T07:36:35",
         "statusDate": "2022-05-01T07:36:35"
     },
@@ -34,8 +37,9 @@
         "fullName": "Buzz lightyear",
         "email": "buzz@test.com",
         "employer": "Star command",
-        "MediaLegalApplicationStatus": "PENDING",
+        "status": "PENDING",
         "image": "asdf",
+        "imageName": "image.pdf",
         "requestDate": "2023-05-01T07:36:35",
         "statusDate": "2022-05-01T07:36:35"
     }
