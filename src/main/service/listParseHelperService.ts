@@ -194,24 +194,31 @@ export class ListParseHelperService {
      * @param session
      */
     public findAndManipulateJudiciary(session: object): string {
-        let judiciaries = '';
-        let foundPresiding = false;
+        const judiciaries = [];
         session['judiciary']?.forEach(judiciary => {
-            if (judiciary?.isPresiding === true) {
-                judiciaries = ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs);
-                foundPresiding = true;
-            } else if (!foundPresiding) {
-                if (ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) !== '') {
-                    judiciaries += ListParseHelperService.writeStringIfValid(judiciary?.johKnownAs) + ', ';
-                }
+            const name = ListParseHelperService.writeStringIfValid(judiciary.johKnownAs);
+            if (name.trim() !== '') {
+                judiciary.isPresiding === true ? judiciaries.unshift(name) : judiciaries.push(name);
             }
         });
+        return judiciaries.join(', ');
+    }
 
-        if (!foundPresiding) {
-            judiciaries = judiciaries.slice(0, -2);
-        }
-
-        return judiciaries;
+    /**
+     * Manipulate crime list judiciary data for writing out to screen.
+     * @param session
+     */
+    public findAndManipulateJudiciaryForCrime(session: object): string {
+        const judiciaries = [];
+        session['judiciary']?.forEach(judiciary => {
+            const title = ListParseHelperService.writeStringIfValid(judiciary.johTitle);
+            const name = ListParseHelperService.writeStringIfValid(judiciary.johNameSurname);
+            const judge = [title, name].filter(j => j.length > 0).join(' ');
+            if (judge.trim() !== '') {
+                judiciary.isPresiding === true ? judiciaries.unshift(judge) : judiciaries.push(judge);
+            }
+        });
+        return judiciaries.join(', ');
     }
 
     /**
@@ -328,40 +335,8 @@ export class ListParseHelperService {
             if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== '') {
                 formattedJoh += ListParseHelperService.writeStringIfValid(joh?.johKnownAs);
             }
-
-            if (ListParseHelperService.writeStringIfValid(joh?.johNameSurname) !== '') {
-                if (ListParseHelperService.writeStringIfValid(joh?.johKnownAs) !== '') {
-                    formattedJoh += ' ';
-                }
-                formattedJoh += ListParseHelperService.writeStringIfValid(joh?.johNameSurname);
-            }
         });
         return formattedJoh;
-    }
-
-    /**
-     * Take in the session and return the formatted judiciary with their title and nameSurname
-     * @param session The session to get the judiciary from
-     */
-    public getJudiciaryNameSurname(session: object): string {
-        let judiciaryFormatted = '';
-        session['judiciary']?.forEach(judiciary => {
-            if (judiciaryFormatted.length > 0) {
-                judiciaryFormatted += ', ';
-            }
-
-            if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
-                judiciaryFormatted += ListParseHelperService.writeStringIfValid(judiciary?.johTitle);
-            }
-
-            if (ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname) !== '') {
-                if (ListParseHelperService.writeStringIfValid(judiciary?.johTitle) !== '') {
-                    judiciaryFormatted += ' ';
-                }
-                judiciaryFormatted += ListParseHelperService.writeStringIfValid(judiciary?.johNameSurname);
-            }
-        });
-        return judiciaryFormatted;
     }
 
     public formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase) {
@@ -371,4 +346,5 @@ export class ListParseHelperService {
             this.findAndManipulatePartyInformation(hearing);
         }
     }
+
 }

@@ -157,6 +157,6 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
 
     it('should display panel', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
-        expect(data[5].innerHTML).contains('Judge Test Name, Magistrate Test Name', 'Panel does not match');
+        expect(data[5].innerHTML).contains('Judge KnownAs, Judge KnownAs 2', 'Panel does not match');
     });
 });

@@ -77,6 +77,6 @@ describe('manipulateSscsDailyListData', () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const formattedJudiciary =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciary'];
-        expect(formattedJudiciary).to.equal('Judge Test Name, Magistrate Test Name');
+        expect(formattedJudiciary).to.equal('Judge KnownAs, Judge KnownAs 2');
     });
 });

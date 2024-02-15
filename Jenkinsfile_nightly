@@ -73,6 +73,7 @@ static Map<String, Object> secret(String secretName, String envVariable) {
 }
 
 withNightlyPipeline(type, product, component) {
+    enableFortifyScan('pip-ss-kv-stg')
     setupTestSecrets()
     enableFullFunctionalTest()
     enableCrossBrowserTest()
@@ -101,6 +102,10 @@ withNightlyPipeline(type, product, component) {
         ]
 
         steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/cross-browser/reports/**/*'
+    }
+
+    afterSuccess('fortify-scan') {
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: '**/Fortify Scan/**/*'
     }
 }
 

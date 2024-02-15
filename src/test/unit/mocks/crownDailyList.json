@@ -34,11 +34,10 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Firstname1 Surname1"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johKnownAs": "Firstname2 Surname2"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ],
                                 "sittings": [
@@ -159,11 +158,10 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Firstname1 Surname1"
+                                        "johKnownAs": "Judge KnownAs"
                                     },
                                     {
-                                        "johKnownAs": "Firstname2 Surname2"
+                                        "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ],
                                 "sittings": [
@@ -278,8 +276,7 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Firstname1 Surname1"
+                                        "johKnownAs": "Judge KnownAs"
                                     }
                                 ],
                                 "sittings": [
@@ -326,8 +323,7 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Firstname1 Surname1"
+                                        "johKnownAs": "Judge KnownAs"
                                     }
                                 ],
                                 "sittings": [
@@ -374,8 +370,7 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johTitle": "Mr",
-                                        "johKnownAs": "Firstname1 Surname1"
+                                        "johKnownAs": "Judge KnownAs"
                                     }
                                 ],
                                 "sittings": [

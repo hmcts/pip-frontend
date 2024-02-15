@@ -405,7 +405,7 @@ describe('process account password change confirmation', () => {
     });
 
     it('should redirect to cancelled password reset when error is confirmed', async () => {
-        const isAdmin = true;
+        const isAdmin = 'true';
         const mockFunction = jest.fn(argument => argument);
         const req = { body: { error_description: 'AADB2C90091' }, params: { isAdmin: isAdmin } };
         const res = { redirect: mockFunction };
@@ -415,6 +415,26 @@ describe('process account password change confirmation', () => {
 
         expect(mockFunction.mock.calls.length).to.equal(1);
         expect(mockFunction.mock.calls[0][0]).to.equal('/cancelled-password-reset/' + isAdmin);
+    });
+
+    it('should redirect to error page when invalid isAdmin flag is displayed', async () => {
+        const mockFunction = jest.fn(argument => argument);
+        const req = {
+            body: { error_description: 'AADB2C90091' },
+            params: { isAdmin: 'UNKNOWN_TYPE' },
+            i18n: {
+                getDataByLanguage: lng => {
+                    return { error: lng };
+                },
+            },
+        };
+        const res = { render: mockFunction };
+        const next = null;
+
+        checkPasswordReset(req, res, next);
+
+        expect(mockFunction.mock.calls.length).to.equal(1);
+        expect(mockFunction.mock.calls[0][0]).to.equal('error');
     });
 });
 

@@ -26,14 +26,14 @@ describe('IAC Daily List service', () => {
         it('should format single judiciary', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             expect(data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciary']).to.equal(
-                'Judge Test Name'
+                'Judge Test Name Presiding'
             );
         });
 
         it('should format multiple judiciaries', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             expect(data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciary']).to.equal(
-                'Judge Test Name, Magistrate Test Name, Magistrate Another Test Name'
+                'Judge Test Name Presiding, Judge Test Name 2, Judge Test Name 3'
             );
         });
 
