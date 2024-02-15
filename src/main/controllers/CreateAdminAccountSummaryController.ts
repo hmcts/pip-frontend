@@ -31,7 +31,7 @@ export default class CreateAdminAccountSummaryController {
                 `${roleName} account created for: ${formData.emailAddress}`
             );
 
-            res.cookie('createAdminAccount', '');
+            res.cookie('createAdminAccount', '', { secure: true });
         }
 
         res.render('create-admin-account-summary', {

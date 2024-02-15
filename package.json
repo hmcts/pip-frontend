@@ -23,6 +23,7 @@
         "test:coverage": "jest --coverage && jest -c jest.routes.config.js",
         "test:routes": "jest -c jest.routes.config.js --forceExit",
         "test:a11y": "jest -c jest.a11y.config.js --maxWorkers 2 --forceExit",
+        "fortifyScan": "./src/test/fortify/java/gradlew -p src/test/fortify/java fortifyScan",
         "sonar-scan": "sonar-scanner",
         "test:smoke": "NODE_TLS_REJECT_UNAUTHORIZED=0 && jest -c jest.smoke.config.js",
         "test:crossbrowser": "npm-run-all -scl test:crossbrowser:all test:crossbrowser:report",
