@@ -19,6 +19,28 @@ export class CrimeListsService {
                     session['sittings'].forEach(sitting => {
                         this.calculateDuration(sitting, language, languageFile);
                         sitting['hearing'].forEach(hearing => {
+                            this.findLinkedCasesInformation(hearing);
+                            hearing['case'].forEach(hearingCase => {
+                                this.manipulateParty(hearingCase);
+                            });
+                        });
+                    });
+                });
+            });
+        });
+        return crownDailyListData;
+    }
+
+    // TODO: To be removed once all lists have party field on the case level.
+    public manipulateCrimeListDataV1(crimeListData: string, language: string, languageFile: string): object {
+        const crownDailyListData = JSON.parse(crimeListData);
+        crownDailyListData['courtLists'].forEach(courtList => {
+            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+                courtRoom['session'].forEach(session => {
+                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
+                    session['sittings'].forEach(sitting => {
+                        this.calculateDuration(sitting, language, languageFile);
+                        sitting['hearing'].forEach(hearing => {
                             this.manipulateParty(hearing);
                             this.findLinkedCasesInformation(hearing);
                         });
@@ -51,12 +73,12 @@ export class CrimeListsService {
         }
     }
 
-    public manipulateParty(hearing): void {
+    public manipulateParty(node): void {
         const defendants = [];
         const defendantRepresentatives = [];
         const prosecutingAuthorities = [];
 
-        hearing?.party?.forEach(party => {
+        node?.party?.forEach(party => {
             switch (party.partyRole) {
                 case 'DEFENDANT': {
                     this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
@@ -78,9 +100,9 @@ export class CrimeListsService {
                 }
             }
         });
-        hearing.defendant = defendants.join(separator);
-        hearing.defendantRepresentative = defendantRepresentatives.join(separator);
-        hearing.prosecutingAuthority = prosecutingAuthorities.join(separator);
+        node.defendant = defendants.join(separator);
+        node.defendantRepresentative = defendantRepresentatives.join(separator);
+        node.prosecutingAuthority = prosecutingAuthorities.join(separator);
     }
 
     public createIndividualDetails(individualDetails): string {

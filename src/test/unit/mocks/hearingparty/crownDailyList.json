@@ -10,9 +10,7 @@
             "venueEmail": "court1@moj.gov.uk"
         },
         "venueAddress": {
-            "line": [
-                "THE LAW COURTS"
-            ],
+            "line": ["THE LAW COURTS"],
             "postCode": "PR1 2LL"
         }
     },
@@ -22,10 +20,7 @@
             "courtHouse": {
                 "courtHouseName": "Court A",
                 "courtHouseAddress": {
-                    "line": [
-                        "Address Line 1",
-                        "Address Line 2"
-                    ],
+                    "line": ["Address Line 1", "Address Line 2"],
                     "town": "Town A",
                     "county": "County A",
                     "postCode": "AA1 AA1"
@@ -36,15 +31,14 @@
                         "session": [
                             {
                                 "sessionStartTime": "",
-                                "sessionChannel": [
-                                    "VIDEO HEARING"
-                                ],
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     },
                                     {
-                                        "johKnownAs": "Judge KnownAs 2"
+                                        "johKnownAs": "Firstname2 Surname2"
                                     }
                                 ],
                                 "sittings": [
@@ -72,41 +66,26 @@
                                                         "reportingRestrictionDetail": [
                                                             "This is a reporting restriction detail",
                                                             "This is another reporting restriction detail"
-                                                        ],
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Pro_Auth"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualForenames": "Forename 1",
-                                                                    "individualSurname": "Surname 1"
-                                                                }
-                                                            }
                                                         ]
                                                     },
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "Pro_Auth"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole":"DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualForenames": "Forename 2",
-                                                                    "individualSurname": "Surname 2"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseNumber": "112233445"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Pro_Auth"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Defendant_FN",
+                                                            "individualSurname": "Defendant_SN"
+                                                        }
                                                     }
                                                 ],
                                                 "listingDetails": {
@@ -127,10 +106,7 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     },
                                     {
                                         "sittingStart": "2022-01-27T08:05:17.496Z",
@@ -172,22 +148,22 @@
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     },
                     {
                         "courtRoomName": "to be allocated",
                         "session": [
                             {
                                 "sessionStartTime": "",
-                                "sessionChannel": [
-                                    "VIDEO HEARING"
-                                ],
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     },
                                     {
-                                        "johKnownAs": "Judge KnownAs 2"
+                                        "johKnownAs": "Firstname2 Surname2"
                                     }
                                 ],
                                 "sittings": [
@@ -211,39 +187,25 @@
                                                                 "caseId": "caseid222",
                                                                 "name": "casename333"
                                                             }
-                                                        ],
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "PROSECUTING_AUTHORITY"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname":"Surname 3"
-                                                                }
-                                                            }
                                                         ]
                                                     },
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "organisationDetails": {
-                                                                    "organisationName": "PROSECUTING_AUTHORITY"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "DEFENDANT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname 4"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseNumber": "112233445"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTING_AUTHORITY",
+                                                        "organisationDetails": {
+                                                            "organisationName": "PROSECUTING_AUTHORITY"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "DEFENDANT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "DEFENDANT"
+                                                        }
                                                     }
                                                 ],
                                                 "listingDetails": {
@@ -260,10 +222,7 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     },
                                     {
                                         "sittingStart": "2022-01-27T08:05:17.496Z",
@@ -295,7 +254,8 @@
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -304,10 +264,7 @@
             "courtHouse": {
                 "courtHouseName": "Court B",
                 "courtHouseAddress": {
-                    "line": [
-                        "Address Line 1",
-                        "Address Line 2"
-                    ],
+                    "line": ["Address Line 1", "Address Line 2"],
                     "town": "Town B",
                     "county": "County B",
                     "postCode": "BB1 BB1"
@@ -321,7 +278,8 @@
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -340,14 +298,12 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -356,10 +312,7 @@
             "courtHouse": {
                 "courtHouseName": "Court B",
                 "courtHouseAddress": {
-                    "line": [
-                        "Address Line 1",
-                        "Address Line 2"
-                    ],
+                    "line": ["Address Line 1", "Address Line 2"],
                     "town": "Town B",
                     "county": "County B",
                     "postCode": "BB1 BB1"
@@ -370,12 +323,11 @@
                         "session": [
                             {
                                 "sessionStartTime": "",
-                                "sessionChannel": [
-                                    "VIDEO HEARING"
-                                ],
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -394,14 +346,12 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }
@@ -410,10 +360,7 @@
             "courtHouse": {
                 "courtHouseName": "Court B",
                 "courtHouseAddress": {
-                    "line": [
-                        "Address Line 1",
-                        "Address Line 2"
-                    ],
+                    "line": ["Address Line 1", "Address Line 2"],
                     "town": "Town B",
                     "county": "County B",
                     "postCode": "BB1 BB1"
@@ -424,12 +371,11 @@
                         "session": [
                             {
                                 "sessionStartTime": "",
-                                "sessionChannel": [
-                                    "VIDEO HEARING"
-                                ],
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
-                                        "johKnownAs": "Judge KnownAs"
+                                        "johTitle": "Mr",
+                                        "johKnownAs": "Firstname1 Surname1"
                                     }
                                 ],
                                 "sittings": [
@@ -448,14 +394,12 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": [
-                                            "Remote",
-                                            "Teams"
-                                        ]
+                                        "channel": ["Remote", "Teams"]
                                     }
                                 ]
                             }
-                        ]
+                        ],
+                        "totalHearing": 2
                     }
                 ]
             }

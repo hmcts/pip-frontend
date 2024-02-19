@@ -1,0 +1,69 @@
+{
+    "hearing": [
+        {
+            "party": [
+                {
+                    "partyRole": "DEFENDANT",
+                    "individualDetails": {
+                        "individualForenames": "Forenames",
+                        "individualSurname": "Surname"
+                    }
+                },
+                {
+                    "partyRole": "DEFENDANT_REPRESENTATIVE",
+                    "organisationDetails": {
+                        "organisationName": "Defendant rep name"
+                    }
+                },
+                {
+                    "partyRole": "PROSECUTING_AUTHORITY",
+                    "organisationDetails": {
+                        "organisationName": "Prosecuting authority name"
+                    }
+                }
+            ]
+        },
+        {
+            "party": [
+                {
+                    "partyRole": "DEFENDANT",
+                    "individualDetails": {
+                        "individualForenames": "ForenamesA",
+                        "individualSurname": "SurnameA"
+                    }
+                },
+                {
+                    "partyRole": "DEFENDANT",
+                    "individualDetails": {
+                        "individualForenames": "ForenamesB",
+                        "individualSurname": "SurnameB"
+                    }
+                },
+                {
+                    "partyRole": "DEFENDANT_REPRESENTATIVE",
+                    "organisationDetails": {
+                        "organisationName": "Defendant rep nameA"
+                    }
+                },
+                {
+                    "partyRole": "DEFENDANT_REPRESENTATIVE",
+                    "organisationDetails": {
+                        "organisationName": "Defendant rep nameB"
+                    }
+                },
+                {
+                    "partyRole": "PROSECUTING_AUTHORITY",
+                    "organisationDetails": {
+                        "organisationName": "Prosecuting authority nameA"
+                    }
+                },
+                {
+                    "partyRole": "PROSECUTING_AUTHORITY",
+                    "organisationDetails": {
+                        "organisationName": "Prosecuting authority nameB"
+                    }
+                }
+            ]
+        }
+    ]
+}
