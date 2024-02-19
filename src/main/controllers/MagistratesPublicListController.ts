@@ -6,7 +6,7 @@ import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CrimeListsService } from '../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import { isValidList } from '../helpers/listHelper';
+import { hearingHasParty, isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -22,11 +22,24 @@ export default class MagistratesPublicListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
 
         if (isValidList(searchResults, metaData) && searchResults && metaData) {
-            const manipulatedData = crimeListsService.manipulateCrimeListData(
-                JSON.stringify(searchResults),
-                req.lng,
-                listType
-            );
+            let manipulatedData;
+            let partyAtHearingLevel = false;
+
+            if (hearingHasParty(searchResults)) {
+                manipulatedData = crimeListsService.manipulateCrimeListDataV1(
+                    JSON.stringify(searchResults),
+                    req.lng,
+                    listType
+                );
+                partyAtHearingLevel = true;
+            } else {
+                manipulatedData = crimeListsService.manipulateCrimeListData(
+                    JSON.stringify(searchResults),
+                    req.lng,
+                    listType
+                );
+            }
+
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
@@ -46,6 +59,7 @@ export default class MagistratesPublicListController {
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 venueAddress: venueAddress,
+                partyAtHearingLevel,
             });
         } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

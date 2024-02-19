@@ -15,6 +15,46 @@ export class CrownWarnedListService {
                     session.sittings.forEach(sitting => {
                         sitting.sittingStartFormatted = formatDate(sitting.sittingStart, 'dd/MM/yyyy', language);
                         sitting.hearing.forEach(hearing => {
+                            helperService.findAndManipulateLinkedCases(hearing);
+                            const rows = [];
+                            hearing.case.forEach(hearingCase => {
+                                crimeListsService.manipulateParty(hearingCase);
+                                const row = {
+                                    caseReference: hearingCase.caseNumber,
+                                    defendant: hearingCase.defendant,
+                                    hearingDate: sitting.sittingStartFormatted,
+                                    defendantRepresentative: hearingCase.defendantRepresentative,
+                                    prosecutingAuthority: hearingCase.prosecutingAuthority,
+                                    linkedCases: hearingCase.formattedLinkedCases,
+                                    listingNotes: hearing.listNote,
+                                };
+                                rows.push(row);
+                            });
+
+                            const key = hearing.hearingType;
+                            if (listData.has(key)) {
+                                listData.set(key, listData.get(key).concat(rows));
+                            } else {
+                                listData.set(key, rows);
+                            }
+                        });
+                    });
+                });
+            });
+        });
+
+        return listData;
+    }
+
+    // TODO: To be removed once all lists have party field on the case level.
+    public manipulateDataV1(warnedListData: string, language: string): Map<string, object[]> {
+        const listData = new Map<string, object[]>();
+        JSON.parse(warnedListData).courtLists.forEach(courtList => {
+            courtList.courtHouse.courtRoom.forEach(courtRoom => {
+                courtRoom.session.forEach(session => {
+                    session.sittings.forEach(sitting => {
+                        sitting.sittingStartFormatted = formatDate(sitting.sittingStart, 'dd/MM/yyyy', language);
+                        sitting.hearing.forEach(hearing => {
                             crimeListsService.manipulateParty(hearing);
                             helperService.findAndManipulateLinkedCases(hearing);
                             const rows = [];

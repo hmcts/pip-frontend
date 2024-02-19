@@ -2,21 +2,21 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../main/service/publicationService';
-import { mockRequest } from '../mocks/mockRequest';
+import { PublicationService } from '../../../../main/service/publicationService';
+import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { LocationService } from '../../../main/service/locationService';
-import CrownDailyListController from '../../../main/controllers/CrownDailyListController';
-import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
+import { LocationService } from '../../../../main/service/locationService';
+import CrownDailyListController from '../../../../main/controllers/CrownDailyListController';
+import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const crownDailyListController = new CrownDailyListController();
@@ -24,7 +24,7 @@ const crownDailyListController = new CrownDailyListController();
 const crownDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listData);
+sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListDataV1').returns(listData);
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 
 const artefactId = 'abc';
@@ -70,7 +70,7 @@ describe('Crown Daily List Controller', () => {
             provenance: 'prov1',
             version: '',
             venueAddress: 'THE LAW COURTS\nPR1 2LL',
-            partyAtHearingLevel: false,
+            partyAtHearingLevel: true,
         };
 
         responseMock.expects('render').once().withArgs('crown-daily-list', expectedData);
