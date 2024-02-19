@@ -6,7 +6,9 @@
     "venue": {
         "venueName": "Manchester Court",
         "venueAddress": {
-            "line": ["Princess Square"],
+            "line": [
+                "Princess Square"
+            ],
             "town": "Manchester",
             "postCode": "M1 1AA"
         }
@@ -39,31 +41,52 @@
                                                             {
                                                                 "caseId": "123457"
                                                             }
+                                                        ],
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 1",
+                                                                    "individualSurname": "Surname 1"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 1"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
                                                         ]
                                                     },
                                                     {
-                                                        "caseNumber": "112233445"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Smith",
-                                                            "individualSurname": "Kelly"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Defendant rep 1"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecutor"
-                                                        }
+                                                        "caseNumber": "112233445",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 2",
+                                                                    "individualSurname": "Surname 2"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 2"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -78,28 +101,28 @@
                                                                 "caseId": "22222",
                                                                 "name": "case name 22222"
                                                             }
+                                                        ],
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 3",
+                                                                    "individualSurname": "Surname 3"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 2"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
                                                         ]
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Matt",
-                                                            "individualSurname": "Kelly"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Defendant rep 2"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecutor"
-                                                        }
                                                     }
                                                 ]
                                             }
@@ -114,28 +137,28 @@
                                                 "listNote": "Note 3",
                                                 "case": [
                                                     {
-                                                        "caseNumber": "353634435"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "John",
-                                                            "individualSurname": "James"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Defendant rep 3"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecutor"
-                                                        }
+                                                        "caseNumber": "353634435",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 4",
+                                                                    "individualSurname": "Surname 4"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 3"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -151,22 +174,22 @@
                                                             {
                                                                 "caseId": "4633234"
                                                             }
+                                                        ],
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 5",
+                                                                    "individualSurname": "Surname 5"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
                                                         ]
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "James",
-                                                            "individualSurname": "Smith"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecutor"
-                                                        }
                                                     }
                                                 ]
                                             }
@@ -199,31 +222,52 @@
                                                             {
                                                                 "caseId": "6436456546"
                                                             }
+                                                        ],
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 6",
+                                                                    "individualSurname": "Surname 6"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 4"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
                                                         ]
                                                     },
                                                     {
-                                                        "caseNumber": "86643534"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Ken",
-                                                            "individualSurname": "Jackson"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "JMT LLP"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecutor"
-                                                        }
+                                                        "caseNumber": "86643534",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 7",
+                                                                    "individualSurname": "Surname 7"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 5"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -231,21 +275,21 @@
                                                 "hearingType": "Trial",
                                                 "case": [
                                                     {
-                                                        "caseNumber": "0435435435"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Kenji"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Leaman & Co LLP"
-                                                        }
+                                                        "caseNumber": "0435435435",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname 8"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 5"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -261,31 +305,52 @@
                                                             {
                                                                 "caseId": "6436456546"
                                                             }
+                                                        ],
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname 9",
+                                                                    "individualForenames": "Forename 9"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 6"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
                                                         ]
                                                     },
                                                     {
-                                                        "caseNumber": "56646456"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Jones",
-                                                            "individualForenames": "Tom"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Anderson LLP"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecutor"
-                                                        }
+                                                        "caseNumber": "56646456",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname 10",
+                                                                    "individualForenames": "Forename 10"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 7"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -321,38 +386,59 @@
                                                             {
                                                                 "caseId": "2354544A"
                                                             }
+                                                        ],
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 11",
+                                                                    "individualSurname": "Surname 11"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 8"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            }
                                                         ]
                                                     },
                                                     {
-                                                        "caseNumber": "124411"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Mia",
-                                                            "individualSurname": "Jenson"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Defendant rep 4"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Prosecutor"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Thomas",
-                                                            "individualSurname": "Jenson"
-                                                        }
+                                                        "caseNumber": "124411",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 12",
+                                                                    "individualSurname": "Surname 12"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Defendant rep 8"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 13",
+                                                                    "individualSurname": "Surname 13"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
