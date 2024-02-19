@@ -19,7 +19,7 @@ export class EtListsService {
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
                                 this.helperService.findAndManipulatePartyInformation(hearingCase, true);
-                            })
+                            });
                         });
                     });
                 });
