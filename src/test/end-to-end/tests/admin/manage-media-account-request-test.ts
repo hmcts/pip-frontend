@@ -18,7 +18,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.waitForText('Select application to assess');
     I.see(testFullName);
     I.click(locate('//tr').withText(testFullName).find('a').withText('View'));
-    I.waitForText("Applicant\\'s details");
+    I.waitForText("Applicant's details");
     I.see(testFullName);
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
@@ -79,7 +79,7 @@ Scenario(
         I.waitForText('Select application to assess');
         I.see(testFullName);
         I.click(locate('//tr').withText(testFullName).find('a').withText('View'));
-        I.waitForText("Applicant\\'s details");
+        I.waitForText("Applicant's details");
         I.see(testFullName);
         I.see(emailTestMediaAccount);
         I.see(TEST_EMPLOYER);
@@ -88,7 +88,7 @@ Scenario(
         I.click('#no');
         I.click('Continue');
 
-        I.waitForText("Applicant\\'s details");
+        I.waitForText("Applicant's details");
         I.click('#reject');
         I.waitForText('Why are you rejecting this application?');
         I.see('Select all that apply.');
@@ -101,7 +101,7 @@ Scenario(
         I.click('#no');
         I.click('Continue');
 
-        I.waitForText("Applicant\\'s details");
+        I.waitForText("Applicant's details");
         I.click('#reject');
         I.waitForText('Why are you rejecting this application?');
         I.click('#rejection-reasons');
@@ -118,7 +118,7 @@ Scenario(
         I.switchToNextTab(1);
         I.switchToPreviousTab(1);
         I.click('.govuk-details__summary-text');
-        I.waitForText("After you\\'ve completed this form, the applicant will be emailed the following:");
+        I.waitForText("After you've completed this form, the applicant will be emailed the following:");
         I.see('The applicant is not an accredited member of the media.');
         I.seeElement(locate('//a').withText('Court and tribunal hearings service'));
         I.see('ID provided has expired or is not a Press ID.');
