@@ -147,12 +147,18 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
 
     it('should display respondent using informant', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
-        expect(data[4].innerHTML).contains('HearingParty_Informant1, HearingParty_Informant2', 'Respondent (informant) does not match');
+        expect(data[4].innerHTML).contains(
+            'HearingParty_Informant1, HearingParty_Informant2',
+            'Respondent (informant) does not match'
+        );
     });
 
     it('should display respondent using party prosecutor', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
-        expect(data[10].innerHTML).contains('HearingLevel_Prosecutor1, HearingLevel_Prosecutor2', 'Respondent (party prosecutor) does not match');
+        expect(data[10].innerHTML).contains(
+            'HearingLevel_Prosecutor1, HearingLevel_Prosecutor2',
+            'Respondent (party prosecutor) does not match'
+        );
     });
 
     it('should display panel', () => {

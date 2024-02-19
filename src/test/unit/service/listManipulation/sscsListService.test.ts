@@ -42,7 +42,7 @@ describe('manipulateSscsDailyListData', () => {
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0][
                 'formattedRespondent'
-                ];
+            ];
         expect(respondent).to.equal('HearingParty_Informant1, HearingParty_Informant2');
     });
 
@@ -51,14 +51,16 @@ describe('manipulateSscsDailyListData', () => {
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['case'][0][
                 'formattedRespondent'
-                ];
+            ];
         expect(respondent).to.equal('HearingLevel_Prosecutor1, HearingLevel_Prosecutor2');
     });
 
     it('should return case level appellant', async () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const appellant =
-            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['case'][0]['applicant'];
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['case'][0][
+                'applicant'
+            ];
         expect(appellant).to.equal('CaseLevelApplicant');
     });
 
@@ -67,7 +69,7 @@ describe('manipulateSscsDailyListData', () => {
         const appellantRep =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['case'][0][
                 'applicantRepresentative'
-                ];
+            ];
         expect(appellantRep).to.equal('Mr Forename Middlename CaseLevelApplicantRep');
     });
 
@@ -76,7 +78,7 @@ describe('manipulateSscsDailyListData', () => {
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['case'][0][
                 'formattedRespondent'
-                ];
+            ];
         expect(respondent).to.equal('CaseParty_Informant1, CaseParty_Informant2');
     });
 
@@ -85,7 +87,7 @@ describe('manipulateSscsDailyListData', () => {
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][3]['case'][0][
                 'formattedRespondent'
-                ];
+            ];
         expect(respondent).to.equal('CaseLevel_Prosecutor1, CaseLevel_Prosecutor2');
     });
 
