@@ -19,7 +19,7 @@ export default class BlobViewJsonController {
 
         if (isValidList(data, metadata) && metadata && data) {
             const listTypes = publicationService.getListTypes();
-            const options: FormatOptions = { indent: 3, lineNumbers: true, trailingComma: false };
+            const options: FormatOptions = { indent: 3, lineNumbers: true, trailingCommas: false };
             const jsonData: string = prettyPrintJson.toHtml(data, options);
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
             let courtName = '';
