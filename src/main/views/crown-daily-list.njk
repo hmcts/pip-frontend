@@ -114,18 +114,34 @@
                           <tr class="govuk-table__row">
                             <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['defendant'] }}</td>
+                            {% if partyAtHearingLevel %}
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['defendant'] }}</td>
+                            {% else %}
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['defendant'] }}</td>
+                            {% endif %}
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ sitting['durationSortValue'] }}">{{ sitting['formattedDuration'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
-                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
+                            {% if partyAtHearingLevel %}
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['prosecutingAuthority'] }}</td>
+                            {% else %}
+                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['prosecutingAuthority'] }}</td>
+                            {% endif %}
                           </tr>
 
                         {% macro rowMacro() %}
                             <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['caseNumber'] }}" />
-                            <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['defendant'] }}" />
+                            {% if partyAtHearingLevel %}
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['defendant'] }}" />
+                            {% else %}
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['defendant'] }}" />
+                            {% endif %}
                             <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['hearingType'] }}" />
                             <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ sitting['durationSortValue'] }}" />
-                            <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['prosecutingAuthority'] }}" />
+                            {% if partyAtHearingLevel %}
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ hearing['prosecutingAuthority'] }}" />
+                            {% else %}
+                              <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['prosecutingAuthority'] }}" />
+                            {% endif %}
                         {% endmacro %}
 
                           {% if case['reportingRestrictionDetail'] | length !== 0 %}

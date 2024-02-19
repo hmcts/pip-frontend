@@ -2,11 +2,11 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../main/service/publicationService';
-import { mockRequest } from '../mocks/mockRequest';
-import { LocationService } from '../../../main/service/locationService';
-import CrownFirmListController from '../../../main/controllers/CrownFirmListController';
-import { CrownFirmListService } from '../../../main/service/listManipulation/crownFirmListService';
+import { PublicationService } from '../../../../main/service/publicationService';
+import { mockRequest } from '../../mocks/mockRequest';
+import { LocationService } from '../../../../main/service/locationService';
+import CrownFirmListController from '../../../../main/controllers/CrownFirmListController';
+import { CrownFirmListService } from '../../../../main/service/listManipulation/crownFirmListService';
 import { HttpStatusCode } from 'axios';
 import { DateTime } from 'luxon';
 
@@ -23,13 +23,13 @@ const sittingDates = [
     DateTime.fromFormat('15 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
 ];
 
-const unprocessed = fs.readFileSync(path.resolve(__dirname, '../mocks/crownFirmList.json'), 'utf-8');
+const unprocessed = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownFirmList.json'), 'utf-8');
 const unprocessedData = JSON.parse(unprocessed);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const crownFirmListController = new CrownFirmListController();
@@ -37,7 +37,7 @@ const crownFirmListController = new CrownFirmListController();
 const crownFirmListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const crownFirmListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[6]);
-sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListData').returns(listData);
+sinon.stub(CrownFirmListService.prototype, 'splitOutFirmListDataV1').returns(listData);
 sinon.stub(CrownFirmListService.prototype, 'getSittingDates').returns(sittingDates);
 
 const artefactId = 'abc';
