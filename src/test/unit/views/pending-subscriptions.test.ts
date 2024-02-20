@@ -25,7 +25,7 @@ const mockUrnCase = {
     judge: 'Judge for URN case',
     platform: 'In person',
     caseNumber: '11111111',
-    caseName: 'CASENAME1234',
+    caseName: 'CaseName1234',
     caseUrn: 'A11112222',
     partyNames: 'PARTYNAME3',
     urnSearch: true,

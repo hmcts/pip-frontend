@@ -8,6 +8,7 @@ import { FilterService } from './filterService';
 import { Location } from '../models/location';
 import { ListType } from '../models/listType';
 import { AToZHelper } from '../helpers/aToZHelper';
+import { caseSubscriptionSorter, locationSubscriptionSorter } from '../helpers/sortHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -17,48 +18,6 @@ const locationService = new LocationService();
 
 const timeZone = 'Europe/London';
 const dateFormat = 'dd MMMM yyyy';
-
-const locationSubscriptionSorter = (a, b) => {
-    if (a.locationName > b.locationName) {
-        return 1;
-    } else if (a.locationName < b.locationName) {
-        return -1;
-    }
-    return 0;
-};
-
-const compareByCaseRef = (a, b) => {
-    const caseRefA = a.searchType == 'CASE_ID' ? a.caseNumber : a.urn;
-    const caseRefB = b.searchType == 'CASE_ID' ? b.caseNumber : b.urn;
-
-    if (caseRefA === caseRefB) {
-        return 0;
-    } else if (caseRefA === null) {
-        return 1;
-    } else if (caseRefB === null) {
-        return -1;
-    }
-    return caseRefA > caseRefB ? 1 : -1;
-};
-
-const caseSubscriptionSorter = (a, b) => {
-    let result;
-    if (a.caseName === b.caseName) {
-        result = 0;
-    } else if (a.caseName === null) {
-        return 1;
-    } else if (b.caseName === null) {
-        return -1;
-    }
-    if (result != 0) {
-        result = a.caseName > b.caseName ? 1 : -1;
-    }
-
-    if (result === 0) {
-        return compareByCaseRef(a, b);
-    }
-    return result;
-};
 
 export class SubscriptionService {
     public async getSubscriptionDataForView(userId: string, language: string, tab: string): Promise<object> {
@@ -246,6 +205,11 @@ export class SubscriptionService {
 
     public async getPendingSubscriptions(userId, subscriptionType): Promise<any[]> {
         return await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, subscriptionType);
+    }
+
+    public async getSortedPendingSubscriptions(userId, subscriptionType, sorter): Promise<any[]> {
+        const pendingSubscriptions = await this.getPendingSubscriptions(userId, subscriptionType);
+        return pendingSubscriptions.sort(sorter);
     }
 
     public async subscribe(userId): Promise<boolean> {

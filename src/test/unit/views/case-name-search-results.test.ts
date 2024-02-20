@@ -72,8 +72,8 @@ describe('Case name search results page', () => {
 
     it('should display correct data for case urn row', () => {
         const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
-        expect(tableRows[3].innerHTML).contains("Meedoo's hearings", 'Case name incorrect on table row');
-        expect(tableRows[3].innerHTML).contains('caseUrn1234', 'Case urn incorrect on table row');
+        expect(tableRows[4].innerHTML).contains("Meedoo's hearings", 'Case name incorrect on table row');
+        expect(tableRows[4].innerHTML).contains('caseUrn1234', 'Case urn incorrect on table row');
     });
 
     it('should display checkboxes', () => {
