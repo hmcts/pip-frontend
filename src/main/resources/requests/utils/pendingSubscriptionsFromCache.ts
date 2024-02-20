@@ -26,11 +26,11 @@ export class PendingSubscriptionsFromCache {
     }
 
     public async getPendingSubscriptions(userId, type): Promise<any[]> {
-        let cacheResult = [];
         if (redisClient.status === 'ready' && userId) {
-            cacheResult = JSON.parse(await redisClient.get(`pending-${type}-subscriptions-${userId}`));
+            const cacheResult = JSON.parse(await redisClient.get(`pending-${type}-subscriptions-${userId}`));
+            return cacheResult ? cacheResult : [];
         }
-        return cacheResult;
+        return [];
     }
 
     // @param removeObject - post data object {case-number: 'id'} || {case-urn: 'id'} || {court: 'id'}
