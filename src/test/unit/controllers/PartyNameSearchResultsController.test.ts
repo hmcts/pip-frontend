@@ -9,13 +9,14 @@ const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCase
 publicationServiceStub.withArgs('').returns([]);
 
 const searchInput = 'party name';
+const caseSubscription = { caseName: 'name', caseNumber: '124', partyNames: 'name1' };
+const caseSubscription2 = { caseName: 'name2', caseUrn: '126', partyNames: 'name2', displayUrn: true };
+const caseSubscription3 = { caseName: 'name2', caseNumber: '125', partyNames: 'name3' };
+const caseSubscription4 = { caseName: 'name', caseUrn: '123', partyNames: 'name4', displayUrn: true };
 
-const foundResults = [
-    { caseName: 'numberResult', caseNumber: '321322', partyNames: 'party name 1' },
-    { caseName: 'urnResult', caseNumber: '321322', partyNames: 'party name 2', displayUrn: true },
-];
-
-publicationServiceStub.withArgs(searchInput).returns(foundResults);
+publicationServiceStub
+    .withArgs(searchInput)
+    .returns([caseSubscription, caseSubscription2, caseSubscription3, caseSubscription4]);
 
 describe('Party name search results controller', () => {
     const i18n = {
@@ -33,7 +34,7 @@ describe('Party name search results controller', () => {
         request.query = { search: searchInput };
         const expectedData = {
             ...i18n['party-name-search'],
-            searchResults: foundResults,
+            searchResults: [caseSubscription4, caseSubscription, caseSubscription3, caseSubscription2],
         };
 
         const responseMock = sinon.mock(response);
