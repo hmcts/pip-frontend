@@ -18,6 +18,8 @@ const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
 
 const sessionManagement = new SessionManagementService();
 
+const validPasswordResetValues = ['true', 'false'];
+
 export function isPermittedMedia(req: any, res, next) {
     return checkAuthenticatedMedia(req, res, next, verifiedRoles);
 }
@@ -185,7 +187,12 @@ export function regenerateSession(req, res, next): void {
  */
 export function checkPasswordReset(req, res, next) {
     if (req.body['error_description']?.includes('AADB2C90091')) {
-        res.redirect('/cancelled-password-reset/' + req.params['isAdmin']);
+        const resetPath = validPasswordResetValues.indexOf(req.params['isAdmin']);
+        if (req.params && resetPath != -1) {
+            res.redirect('/cancelled-password-reset/' + validPasswordResetValues[resetPath]);
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     } else {
         next();
     }

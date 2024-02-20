@@ -20,6 +20,7 @@
             1. [Get environment variables with python scripts](#get-environment-variables-with-python-scripts)
             2. [Runtime secrets](#runtime-secrets)
             3. [Additional test secrets](#additional-test-secrets)
+    4. [Fortify](#fortify)
 3. [Session Management](#session-management)
 4. [Deployment](#deployment)
 5. [Monitoring and Logging](#monitoring-and-logging)
@@ -120,7 +121,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 ##### Runtime secrets
 
 | Variable                           | Description                                                                                                                                                                             | Required? |
-| ---------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --------- |
 | CLIENT_ID_INTERNAL                 | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                                               |           |
 | CLIENT_SECRET_INTERNAL             | Secret key for authentication requests during service to service communication.                                                                                                         |           |
 | CLIENT_ID                          | The client ID for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                                   |           |
@@ -150,6 +151,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | ENABLE_CFT                         | Boolean determining whether CFT IDAM login is possible (defaults to false for local)                                                                                                    | No        |
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
 | INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         | No        |
+| SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie. This is only used in the clusters, and not required locally.                                                                                   | No        |
 
 ##### Additional test secrets
 
@@ -181,6 +183,10 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | SUBSCRIPTION_MANAGEMENT_AZ_API | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service |
 | ACCOUNT_MANAGEMENT_AZ_API      | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service      |
 | TENANT_ID                      | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                    |
+
+### Fortify
+
+We use Fortify to scan for security vulnerabilities. This is run as part of our nightly pipelines.
 
 ## Session Management
 

@@ -26,13 +26,13 @@ describe('Crown Warned List service', () => {
         it('should format single dependant name', async () => {
             const data: Map<string, object[]> = await crownWarnedListService.manipulateData(input, 'en');
             const cases = data.get('Trial');
-            expect(cases[0]['defendant']).is.equal('Kelly, Smith');
+            expect(cases[0]['defendant']).is.equal('Surname 1, Forename 1');
         });
 
         it('should format multiple dependant names', async () => {
             const data: Map<string, object[]> = await crownWarnedListService.manipulateData(input, 'en');
             const cases = data.get('Appeal');
-            expect(cases[1]['defendant']).is.equal('Jenson, Mia, Jenson, Thomas');
+            expect(cases[1]['defendant']).is.equal('Surname 11, Forename 11');
         });
 
         it('should format hearing date', async () => {

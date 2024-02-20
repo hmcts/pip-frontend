@@ -45,25 +45,42 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Pro_Auth"
+                                                                }
+                                                            },
+
+                                                            {
+                                                                "partyRole":"DEFENDANT",
+                                                                "individualDetails":{
+                                                                    "individualForenames":"Forename 1",
+                                                                    "individualSurname":"Surname 1"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
-                                                        "caseNumber": "112233445"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Pro_Auth"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Defendant_FN",
-                                                            "individualSurname": "Defendant_SN"
-                                                        }
+                                                        "caseNumber": "112233445",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Pro_Auth"
+                                                                }
+                                                            },
+
+                                                            {
+                                                                "partyRole":"DEFENDANT",
+                                                                "individualDetails":{
+                                                                    "individualForenames":"Forename 2",
+                                                                    "individualSurname":"Surname 2"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "listingDetails": {
@@ -79,7 +96,10 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": ["Remote", "Teams"]
+                                        "channel": [
+                                            "Remote",
+                                            "Teams"
+                                        ]
                                     },
                                     {
                                         "sittingStart": "2022-01-27T08:00:17.496Z",
@@ -105,8 +125,7 @@
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     },
                     {
                         "courtRoomName": "to be allocated",
@@ -130,24 +149,38 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "party":[
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "PROSECUTING_AUTHORITY"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole":"DEFENDANT",
+                                                                "individualDetails":{
+                                                                    "individualSurname":"Surname 3"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
-                                                        "caseNumber": "112233445"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "PROSECUTING_AUTHORITY"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "DEFENDANT"
-                                                        }
+                                                        "caseNumber": "112233445",
+                                                        "party":[
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "PROSECUTING_AUTHORITY"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole":"DEFENDANT",
+                                                                "individualDetails":{
+                                                                    "individualSurname":"Surname 4"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "listingDetails": {
@@ -163,7 +196,10 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": ["Remote", "Teams"]
+                                        "channel": [
+                                            "Remote",
+                                            "Teams"
+                                        ]
                                     },
                                     {
                                         "sittingStart": "2022-01-27T08:05:17.496Z",
@@ -189,8 +225,7 @@
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
@@ -223,12 +258,14 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": ["Remote", "Teams"]
+                                        "channel": [
+                                            "Remote",
+                                            "Teams"
+                                        ]
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
@@ -261,12 +298,14 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": ["Remote", "Teams"]
+                                        "channel": [
+                                            "Remote",
+                                            "Teams"
+                                        ]
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
@@ -299,12 +338,14 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": ["Remote", "Teams"]
+                                        "channel": [
+                                            "Remote",
+                                            "Teams"
+                                        ]
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }

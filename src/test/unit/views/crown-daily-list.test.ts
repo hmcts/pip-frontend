@@ -74,14 +74,6 @@ describe('Crown daily List page', () => {
         );
     });
 
-    it('should not have undefined when title display accordion open/close all', () => {
-        const accordion = htmlRes.getElementsByClassName(accordionClass);
-        expect(accordion[0].innerHTML).to.contains(
-            'Judge KnownAs, Judge KnownAs 2',
-            'Could not find the accordion heading'
-        );
-    });
-
     it('should display the search input box', () => {
         const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
         expect(searchInput[0].innerHTML).contains('Search Cases');
@@ -99,7 +91,7 @@ describe('Crown daily List page', () => {
 
     it('should display Defendant Name', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('Defendant_SN, Defendant_FN');
+        expect(cell[2].innerHTML).contains('Surname 1, Forename 1');
     });
 
     it('should display Hearing Type', () => {

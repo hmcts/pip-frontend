@@ -67,13 +67,8 @@ describe('Crown firm List page', () => {
 
     it('should display accordion court name', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
-        expect(accordion[0].innerHTML).to.contain('Courtroom 2:', 'Could not find the accordion heading');
-    });
-
-    it('should display second half of accordion title', () => {
-        const accordion = htmlRes.getElementsByClassName(accordionClass);
-        expect(accordion[0].innerHTML).to.contains(
-            'Judge KnownAs, Judge KnownAs 2',
+        expect(accordion[0].innerHTML).to.contain(
+            'Courtroom 2:  Judge KnownAs, Judge KnownAs 2',
             'Could not find the accordion heading'
         );
     });
@@ -95,7 +90,7 @@ describe('Crown firm List page', () => {
 
     it('should display Defendant Name', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).equal('Cora, Mckinley');
+        expect(cell[2].innerHTML).equal('Surname 2, Forename 2');
     });
 
     it('should display Hearing Type', () => {

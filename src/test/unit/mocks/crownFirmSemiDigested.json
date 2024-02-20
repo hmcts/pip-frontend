@@ -48,52 +48,36 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "6 of 6"
+                                                        "caseSequenceIndicator": "6 of 6",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "HMCTS"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Butcher",
+                                                                    "individualForenames": "Pat"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Forrester Daniel"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "HMCTS"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Butcher",
-                                                            "individualForenames": "Pat"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "HMCTS",
-                                                "defendant": "Pat Butcher",
-                                                "defendantRepresentative": "Daniel Forrester"
+                                                ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "9.35am",
-                                        "durationAsHours": 1,
-                                        "durationAsMinutes": 25,
-                                        "durationAsDays": 0,
-                                        "time": "09:35",
-                                        "caseHearingChannel": "Teams, Attended"
+                                        ]
                                     }
-                                ],
-                                "formattedJudiciaries": ""
+                                ]
                             }
-                        ],
-                        "totalHearing": 1
+                        ]
                     },
                     {
                         "courtRoomName": "Courtroom 2",
@@ -175,52 +159,36 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "1 of 4"
+                                                        "caseSequenceIndicator": "1 of 4",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Queen"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Alexander",
+                                                                    "individualForenames": "Sarah"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Forrester Daniel"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Alexander",
-                                                            "individualForenames": "Sarah"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "Queen",
-                                                "defendant": "Sarah Alexander",
-                                                "defendantRepresentative": "Daniel Forrester"
+                                                ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "9am",
-                                        "durationAsHours": 8,
-                                        "durationAsMinutes": 0,
-                                        "durationAsDays": 0,
-                                        "time": "09:00",
-                                        "caseHearingChannel": "Teams, Attended"
+                                        ]
                                     }
-                                ],
-                                "formattedJudiciaries": "Thomas Athorne, Reginald Cork"
+                                ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
@@ -263,52 +231,36 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "7 of 9"
+                                                        "caseSequenceIndicator": "7 of 9",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "The Queen"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Sausage",
+                                                                    "individualForenames": "Nigel"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Daniel Forrester"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "The Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Sausage",
-                                                            "individualForenames": "Nigel"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Daniel Forrester"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "The Queen",
-                                                "defendant": "Nigel Sausage",
-                                                "defendantRepresentative": "Daniel Forrester"
+                                                ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "2.41pm",
-                                        "durationAsHours": 2,
-                                        "durationAsMinutes": 23,
-                                        "durationAsDays": 0,
-                                        "time": "14:41",
-                                        "caseHearingChannel": "Teams, Attended"
+                                        ]
                                     }
-                                ],
-                                "formattedJudiciaries": ""
+                                ]
                             }
-                        ],
-                        "totalHearing": 1
+                        ]
                     },
                     {
                         "courtRoomName": "Elwood Room",
@@ -353,31 +305,24 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "3 of 8"
+                                                        "caseSequenceIndicator": "3 of 8",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Queen"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Rolf",
+                                                                    "individualForenames": "Victor"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Rolf",
-                                                            "individualForenames": "Victor"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "Queen",
-                                                "defendant": "Victor Rolf",
-                                                "defendantRepresentative": ""
+                                                ]
                                             },
                                             {
                                                 "hearingType": "Directions",
@@ -394,46 +339,32 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Queen"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Sausage",
+                                                                    "individualForenames": "Nigel"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Forrester Daniel"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Sausage",
-                                                            "individualForenames": "Nigel"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "Queen",
-                                                "defendant": "Nigel Sausage",
-                                                "defendantRepresentative": "Daniel Forrester"
+                                                ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "11.35am",
-                                        "durationAsHours": 5,
-                                        "durationAsMinutes": 29,
-                                        "durationAsDays": 0,
-                                        "time": "11:35",
-                                        "caseHearingChannel": "Teams, Attended"
+                                        ]
                                     },
                                     {
                                         "sittingStart": "2023-04-15T10:35:11.192108Z",
@@ -462,31 +393,24 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "3 of 8"
+                                                        "caseSequenceIndicator": "3 of 8",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "DVSA"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Renegade",
+                                                                    "individualForenames": "Tom"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "DVSA"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Renegade",
-                                                            "individualForenames": "Tom"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "DVSA",
-                                                "defendant": "Tom Renegade",
-                                                "defendantRepresentative": ""
+                                                ]
                                             },
                                             {
                                                 "hearingType": "Directions",
@@ -503,52 +427,36 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "HMCTS"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Cornish",
+                                                                    "individualForenames": "Andrew"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Blackmoor Joshua"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "HMCTS"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Cornish",
-                                                            "individualForenames": "Andrew"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Blackmoor Joshua"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "HMCTS",
-                                                "defendant": "Andrew Cornish",
-                                                "defendantRepresentative": "Joshua Blackmoor"
+                                                ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "11.35am",
-                                        "durationAsHours": 5,
-                                        "durationAsMinutes": 29,
-                                        "durationAsDays": 0,
-                                        "time": "11:35",
-                                        "caseHearingChannel": "Teams, Attended"
+                                        ]
                                     }
-                                ],
-                                "formattedJudiciaries": "Daniel Forrester, Gordon Forrester"
+                                ]
                             }
-                        ],
-                        "totalHearing": 4
+                        ]
                     },
                     {
                         "courtRoomName": "Breakfast Suite",
@@ -589,31 +497,24 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "2 of 2]"
+                                                        "caseSequenceIndicator": "2 of 2]",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Queen"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Cora",
+                                                                    "individualForenames": "Mckinley"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Cora",
-                                                            "individualForenames": "Mckinley"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "Queen",
-                                                "defendant": "Mckinley Cora",
-                                                "defendantRepresentative": ""
+                                                ]
                                             },
                                             {
                                                 "hearingType": "Directions",
@@ -630,52 +531,36 @@
                                                                 "name": "Ned Vs Patience"
                                                             }
                                                         ],
-                                                        "caseSequenceIndicator": "1 of 8"
+                                                        "caseSequenceIndicator": "1 of 8",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Queen"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Mitchell",
+                                                                    "individualForenames": "Janine"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT_REPRESENTATIVE",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Forrester Daniel"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Mitchell",
-                                                            "individualForenames": "Janine"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
-                                                    }
-                                                ],
-                                                "appellant": "",
-                                                "appellantRepresentative": "",
-                                                "applicant": "",
-                                                "respondent": "",
-                                                "prosecutingAuthority": "Queen",
-                                                "defendant": "Janine Mitchell",
-                                                "defendantRepresentative": "Daniel Forrester"
+                                                ]
                                             }
-                                        ],
-                                        "duration": "",
-                                        "startTime": "10.20am",
-                                        "durationAsHours": 7,
-                                        "durationAsMinutes": 30,
-                                        "durationAsDays": 0,
-                                        "time": "10:20",
-                                        "caseHearingChannel": "Teams, Attended"
+                                        ]
                                     }
-                                ],
-                                "formattedJudiciaries": "Daniel Forrester, Gordon Forrester"
+                                ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }

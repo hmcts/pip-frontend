@@ -109,7 +109,7 @@ describe('Crown Warned List page', () => {
 
     it('should display defendant name(s)', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[1].innerHTML).to.equal('Kelly, Smith', 'Could not find defendant name(s) table cell');
+        expect(cell[1].innerHTML).to.equal('Surname 1, Forename 1', 'Could not find defendant name(s) table cell');
     });
 
     it('should display hearing date', () => {
