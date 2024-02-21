@@ -58,6 +58,10 @@
               <p class="govuk-body">{{ noSubsCourt }}</p>
             {% endif %}
           {% else %}
+            <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox select-all-checkbox">
+              <input type="checkbox" class="govuk-checkboxes__input" id="select-all" onclick="toggleCheckboxes(this)">
+              <label class="govuk-label govuk-checkboxes__label float-right" for="select-all">{{ selectAll }}</label>
+            </div>
             {% if (activeAllTab == true and caseTableData | length > 0) or (activeCaseTab == true and caseTableData | length > 0) %}
               {# Case Subscriptions Table #}
               <table class="govuk-table govuk-!-margin-bottom-9" id="cases-table">
@@ -145,5 +149,17 @@
         });
       });
     };
+
+    function toggleCheckboxes(source) {
+      caseSubsriptionCheckboxes = document.getElementsByName('caseSubscription');
+      for (let i = 0; i < caseSubsriptionCheckboxes.length; i++) {
+        caseSubsriptionCheckboxes[i].checked = source.checked;
+      }
+
+      courtSubscriptionCheckboxes = document.getElementsByName('courtSubscription');
+      for (let i = 0; i < courtSubscriptionCheckboxes.length; i++) {
+        courtSubscriptionCheckboxes[i].checked = source.checked;
+      }
+    }
   </script>
 {% endblock %}

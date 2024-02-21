@@ -8,6 +8,7 @@
     "noSubs": "Nid oes gennych unrhyw danysgrifiadau gweithredol",
     "noSubsCase": "Nid oes gennych unrhyw danysgrifiadau yn ôl achos",
     "noSubsCourt": "Nid oes gennych unrhyw danysgrifiadau yn ôl llys neu dribiwnlys",
+    "selectAll": "Select all",
     "caseTable": {
         "caseName": "Enw'r achos",
         "partyNames": "Enw’r parti (partïon)",

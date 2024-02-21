@@ -8,6 +8,7 @@
     "noSubs": "You do not have any active subscriptions",
     "noSubsCase": "You currently have no subscriptions by case",
     "noSubsCourt": "You currently have no subscriptions by court or tribunal",
+    "selectAll": "Select all",
     "caseTable": {
         "caseName": "Case name",
         "partyNames": "Party name(s)",

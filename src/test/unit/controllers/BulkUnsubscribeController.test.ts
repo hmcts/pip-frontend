@@ -15,7 +15,7 @@ describe('Bulk Unsubscribe Controller', () => {
 
     const tableData = {
         caseTableData: [],
-        courtTableData: [],
+        locationTableData: [],
     };
 
     const bulkDeleteSubscriptionsUrl = 'bulk-unsubscribe';
@@ -129,6 +129,24 @@ describe('Bulk Unsubscribe Controller', () => {
             },
         } as unknown as Response;
 
+        const userId = '1';
+        request.user = { userId: userId };
+
+        const caseSubscriptions = {
+            caseTableData: [{ subscriptionId: '123' }],
+        };
+
+        const locationSubscriptions = {
+            locationTableData: [{ subscriptionId: '456' }, { subscriptionId: '789' }],
+        };
+
+        const subscriptionViewStub = sinon.stub(SubscriptionService.prototype, 'getSelectedSubscriptionDataForView');
+        subscriptionViewStub.withArgs(userId, 'en', ['123']).resolves(caseSubscriptions);
+        subscriptionViewStub.withArgs(userId, 'en', ['456', '789']).resolves(locationSubscriptions);
+        subscriptionViewStub
+            .withArgs(userId, 'en', ['123', '456', '789'])
+            .resolves({ ...caseSubscriptions, ...locationSubscriptions });
+
         beforeEach(function () {
             sinon.stub(SubscriptionService.prototype, 'generateCaseTableRows').returns({ cases: [] });
             sinon.stub(SubscriptionService.prototype, 'generateLocationTableRows').returns({ courts: [] });
@@ -160,32 +178,15 @@ describe('Bulk Unsubscribe Controller', () => {
         });
 
         it('should render the bulk unsubscribe confirmation page if a case subscription selected', () => {
-            const responseMock = sinon.mock(response);
-
-            const expectedData = {
-                ...i18n[bulkDeleteConfirmationUrl],
-                subscriptions: ['123'],
-            };
-
-            request.query = {};
             request.body = { caseSubscription: '123' };
-            responseMock.expects('render').once().withArgs(bulkDeleteConfirmationUrl, expectedData);
-
-            bulkDeleteSubscriptionsController.post(request, response).then(() => {
-                responseMock.verify();
-            });
-        });
-
-        it('should render the bulk unsubscribe page if a court subscription selected', () => {
             const responseMock = sinon.mock(response);
 
             const expectedData = {
                 ...i18n[bulkDeleteConfirmationUrl],
+                ...caseSubscriptions,
                 subscriptions: ['123'],
             };
 
-            request.query = {};
-            request.body = { courtSubscription: '123' };
             responseMock.expects('render').once().withArgs(bulkDeleteConfirmationUrl, expectedData);
 
             bulkDeleteSubscriptionsController.post(request, response).then(() => {
@@ -193,19 +194,37 @@ describe('Bulk Unsubscribe Controller', () => {
             });
         });
 
-        it('should render the bulk unsubscribe page if both case and court subscriptions selected', () => {
+        it('should render the bulk unsubscribe confirmation page if a court subscription selected', () => {
+            request.body = { courtSubscription: ['456', '789'] };
             const responseMock = sinon.mock(response);
 
             const expectedData = {
                 ...i18n[bulkDeleteConfirmationUrl],
+                ...locationSubscriptions,
+                subscriptions: ['456', '789'],
+            };
+
+            responseMock.expects('render').once().withArgs(bulkDeleteConfirmationUrl, expectedData);
+
+            bulkDeleteSubscriptionsController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render the bulk unsubscribe confirmation page if both case and court subscriptions selected', () => {
+            request.body = {
+                caseSubscription: '123',
+                courtSubscription: ['456', '789'],
+            };
+            const responseMock = sinon.mock(response);
+
+            const expectedData = {
+                ...i18n[bulkDeleteConfirmationUrl],
+                ...caseSubscriptions,
+                ...locationSubscriptions,
                 subscriptions: ['123', '456', '789'],
             };
 
-            request.query = {};
-            request.body = {
-                caseSubscription: ['123', '456'],
-                courtSubscription: '789',
-            };
             responseMock.expects('render').once().withArgs(bulkDeleteConfirmationUrl, expectedData);
 
             bulkDeleteSubscriptionsController.post(request, response).then(() => {

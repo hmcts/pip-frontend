@@ -1,5 +1,15 @@
 {
     "title": "Are you sure you want to bulk unsubscribe the above selection?",
+    "caseTable": {
+        "caseName": "Case name",
+        "partyNames": "Party name(s)",
+        "caseRef": "Reference number",
+        "date": "Date added"
+    },
+    "courtTable": {
+        "courtName": "Court or tribunal name",
+        "date": "Date added"
+    },
     "yes": "Yes",
     "no": "No",
     "error": {

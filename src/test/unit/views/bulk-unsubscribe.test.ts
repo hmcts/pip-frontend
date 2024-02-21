@@ -276,6 +276,11 @@ describe('Bulk Unsubscribe Page', () => {
             const button = htmlRes.getElementsByClassName('govuk-button');
             expect(button[0].innerHTML).contains('Bulk unsubscribe', 'Could not find new subscription button');
         });
+
+        it('should display select all checkbox', () => {
+            const selectAll = htmlRes.getElementsByClassName('select-all-checkbox');
+            expect(selectAll[0].innerHTML).contains('input type="checkbox"');
+        });
     });
 
     describe('with no subscription', () => {
