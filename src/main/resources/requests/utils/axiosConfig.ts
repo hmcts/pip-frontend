@@ -1,6 +1,6 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
 import oauth from 'axios-oauth-client';
-import tokenProvider from 'axios-token-interceptor';
+import tokenProvider, { TokenCacheOptions } from 'axios-token-interceptor';
 import config from 'config';
 import { CFT_IDAM_URL } from '../../../helpers/envUrls';
 
@@ -77,32 +77,35 @@ const getBearerToken = (tokenCache, config) => {
     return bearer(config);
 };
 
+// Cache the token for 95% of the expiry time, to ensure uninterrupted service
 const getMaxAgeOfCache = {
-    getMaxAge: (cacheToken: object) => cacheToken['expires_in'] * 1000,
-};
+    getMaxAge: (cacheToken: object) => {
+        return cacheToken['expires_in'] * 950;
+    },
+} as TokenCacheOptions;
+
+const dataManagementCacheToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
+const subscriptionManagementCacheToken = tokenProvider.tokenCache(
+    getSubscriptionManagementCredentials as any,
+    getMaxAgeOfCache
+);
+const accountManagementCacheToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
+const channelManagementCacheToken = tokenProvider.tokenCache(getChannelManagementCredentials as any, getMaxAgeOfCache);
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const cacheToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
-
-        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(dataManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const cacheToken = tokenProvider.tokenCache(getSubscriptionManagementCredentials as any, getMaxAgeOfCache);
-
-        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(subscriptionManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const cacheToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
-
-        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(accountManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        const cacheToken = tokenProvider.tokenCache(getChannelManagementCredentials as any, getMaxAgeOfCache);
-
-        return getBearerToken(cacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
+        return getBearerToken(channelManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 }
