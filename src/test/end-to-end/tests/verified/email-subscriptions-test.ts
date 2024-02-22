@@ -191,7 +191,7 @@ Scenario.skip(
         I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ name: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
+        I.waitForText('Are you sure you want to remove these subscriptions?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Email subscriptions updated');
@@ -276,7 +276,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('#select-all-cases');
     I.click('#select-all-locations');
     I.click('#bulk-unsubscribe-button');
-    I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
+    I.waitForText('Are you sure you want to remove these subscriptions?');
     I.see(locationName);
     I.see(caseId);
 
@@ -385,7 +385,7 @@ Scenario.skip(
 
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
+        I.waitForText('Are you sure you want to remove these subscriptions?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Email subscriptions updated');
