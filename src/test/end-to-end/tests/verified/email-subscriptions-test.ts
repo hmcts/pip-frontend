@@ -262,16 +262,16 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.see('Subscriptions by court or tribunal (1)');
 
     I.click('Subscriptions by case');
-    I.seeElementInDOM('#select-all-cases')
-    I.dontSeeElementInDOM('#select-all-locations')
+    I.seeElementInDOM('#select-all-cases');
+    I.dontSeeElementInDOM('#select-all-locations');
 
     I.click('Subscriptions by court or tribunal');
-    I.dontSeeElementInDOM('#select-all-cases')
-    I.seeElementInDOM('#select-all-locations')
+    I.dontSeeElementInDOM('#select-all-cases');
+    I.seeElementInDOM('#select-all-locations');
 
     I.click('All subscriptions');
-    I.seeElementInDOM('#select-all-cases')
-    I.seeElementInDOM('#select-all-locations')
+    I.seeElementInDOM('#select-all-cases');
+    I.seeElementInDOM('#select-all-locations');
 
     I.click('#select-all-cases');
     I.click('#select-all-locations');

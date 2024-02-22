@@ -387,7 +387,8 @@ describe('Bulk Unsubscribe Page', () => {
             expect(caseHeaders[1].innerHTML).contains(partyNamesColumn, 'Party names header is not present');
             expect(caseHeaders[2].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
             expect(caseHeaders[3].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[4].innerHTML).contains(checkboxType, 'Select all checkbox not present');        });
+            expect(caseHeaders[4].innerHTML).contains(checkboxType, 'Select all checkbox not present');
+        });
 
         it('should not display court subscriptions table', () => {
             const casesTable = htmlRes.getElementById('locations-table');
