@@ -20,11 +20,9 @@ export class OpaPressListService {
                                 // as each can have its own plea date
                                 defendantInfo.forEach(defendant => {
                                     const rows = [];
-                                    hearing.case.forEach(hearingCase => {
                                         const caseInfo = this.buildHearingCase(hearingCase);
                                         const row = { ...caseInfo, ...defendant };
                                         rows.push(row);
-                                    });
 
                                     // All the offences under the same defendant have the same plea date
                                     const key = defendant.offence[0].pleaDate;
