@@ -133,7 +133,7 @@ describe('Bulk Unsubscribe Controller', () => {
         request.user = { userId: userId };
 
         const caseSubscriptions = {
-            caseTableData: [{ subscriptionId: '123' }] ,
+            caseTableData: [{ subscriptionId: '123' }],
         };
 
         const locationSubscriptions = {
@@ -142,9 +142,7 @@ describe('Bulk Unsubscribe Controller', () => {
 
         const subscriptionViewStub = sinon.stub(SubscriptionService.prototype, 'getSelectedSubscriptionDataForView');
         subscriptionViewStub.withArgs(userId, 'en', ['123']).resolves({ ...caseSubscriptions, locationTableData: [] });
-        subscriptionViewStub
-            .withArgs(userId, 'en', ['456'])
-            .resolves({ caseTableData: [], ...locationSubscriptions });
+        subscriptionViewStub.withArgs(userId, 'en', ['456']).resolves({ caseTableData: [], ...locationSubscriptions });
         subscriptionViewStub
             .withArgs(userId, 'en', ['123', '456'])
             .resolves({ ...caseSubscriptions, ...locationSubscriptions });

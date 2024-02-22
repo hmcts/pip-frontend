@@ -261,62 +261,24 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.see('Subscriptions by case (1)');
     I.see('Subscriptions by court or tribunal (1)');
 
-    I.click('#select-all');
-    I.click('#bulk-unsubscribe-button');
-    I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
-    I.see(locationName);
-    I.see(caseId);
-
-    I.click('#bulk-unsubscribe-choice');
-    I.click('Continue');
-    I.waitForText('Email subscriptions updated');
-
-    I.click('Email subscriptions');
-    I.waitForText('Your email subscriptions');
-    I.dontSee(locationName);
-    I.dontSee(caseId);
-
-    I.click('Email subscriptions');
-    I.waitForText('Your email subscriptions');
-    I.click('Add email subscription');
-    I.waitForText('How do you want to add an email subscription?');
-    I.click('#subscription-choice-1');
-    I.click('Continue');
-    I.checkOption('//*[@id="' + locationId + '"]');
-    I.click('Continue');
-    I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
-
-    I.click('Email subscriptions');
-    I.waitForText('Your email subscriptions');
-    I.click('Add email subscription');
-    I.click('#subscription-choice-3');
-    I.click('Continue');
-    I.waitForText('What is the reference number?');
-    I.see(
-        'Please enter either a case reference number, case ID or unique reference number (URN). You must enter an exact match.'
-    );
-    I.fillField('#search-input', caseId);
-    I.click('Continue');
-    I.waitForText('Search result');
-    I.see('1 found');
-    I.see(caseId);
-    I.click('Continue');
-    I.waitForText('Confirm your email subscriptions');
-    I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
-
-    I.click('Email subscriptions');
-    I.waitForText('Your email subscriptions');
-    I.click('#bulk-unsubscribe-button');
-    I.waitForText('Bulk unsubscribe');
+    I.click('Subscriptions by case');
+    I.seeElementInDOM('#select-all-cases')
+    I.dontSeeElementInDOM('#select-all-locations')
 
     I.click('Subscriptions by court or tribunal');
-    I.click('#select-all');
+    I.dontSeeElementInDOM('#select-all-cases')
+    I.seeElementInDOM('#select-all-locations')
+
+    I.click('All subscriptions');
+    I.seeElementInDOM('#select-all-cases')
+    I.seeElementInDOM('#select-all-locations')
+
+    I.click('#select-all-cases');
+    I.click('#select-all-locations');
     I.click('#bulk-unsubscribe-button');
     I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
     I.see(locationName);
-    I.dontSee(caseId);
+    I.see(caseId);
 
     I.click('#bulk-unsubscribe-choice');
     I.click('Continue');
@@ -325,9 +287,9 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('Email subscriptions');
     I.waitForText('Your email subscriptions');
     I.dontSee(locationName);
-    I.see(caseId);
+    I.dontSee(caseId);
 
-    // I.logout();
+    I.logout();
 }).tag('@Nightly');
 
 Scenario.skip(

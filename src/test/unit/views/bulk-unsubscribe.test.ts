@@ -17,8 +17,8 @@ const caseNameColumn = 'Case name';
 const partyNamesColumn = 'Party name(s)';
 const caseReferenceColumn = 'Reference number';
 const dateAddedColumn = 'Date added';
-const markForDeletionColumn = 'Select';
 const courtNameColumn = 'Court or tribunal name';
+const checkboxType = 'input type="checkbox"';
 
 const expectedRowDateAdded = DateTime.fromISO('2022-08-01T01:10:10.111111').toFormat('dd MMMM yyyy');
 
@@ -169,7 +169,7 @@ describe('Bulk Unsubscribe Page', () => {
             expect(caseHeaders[1].innerHTML).contains(partyNamesColumn, 'Party names header is not present');
             expect(caseHeaders[2].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
             expect(caseHeaders[3].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[4].innerHTML).contains(markForDeletionColumn, 'Mark for deletion header is not present');
+            expect(caseHeaders[4].innerHTML).contains(checkboxType, 'Select all checkbox not present');
         });
 
         it('should display court subscriptions table with 3 columns', () => {
@@ -185,10 +185,7 @@ describe('Bulk Unsubscribe Page', () => {
                 .getElementsByClassName('govuk-table__header');
             expect(courtHeaders[0].innerHTML).contains(courtNameColumn, 'Court name header is not present');
             expect(courtHeaders[1].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(courtHeaders[2].innerHTML).contains(
-                markForDeletionColumn,
-                'Mark for deletion header is not present'
-            );
+            expect(courtHeaders[2].innerHTML).contains(checkboxType, 'Select all checkbox not present');
         });
 
         it('case table should have correct number of rows', () => {
@@ -277,9 +274,14 @@ describe('Bulk Unsubscribe Page', () => {
             expect(button[0].innerHTML).contains('Bulk unsubscribe', 'Could not find new subscription button');
         });
 
-        it('should display select all checkbox', () => {
-            const selectAll = htmlRes.getElementsByClassName('select-all-checkbox');
-            expect(selectAll[0].innerHTML).contains('input type="checkbox"');
+        it('should display select all cases checkbox', () => {
+            const selectAllCases = htmlRes.getElementById('select-all-cases');
+            expect(selectAllCases.getAttribute('type')).equals('checkbox');
+        });
+
+        it('should display select all locations checkbox', () => {
+            const selectAllLocations = htmlRes.getElementById('select-all-locations');
+            expect(selectAllLocations.getAttribute('type')).equals('checkbox');
         });
     });
 
@@ -385,8 +387,7 @@ describe('Bulk Unsubscribe Page', () => {
             expect(caseHeaders[1].innerHTML).contains(partyNamesColumn, 'Party names header is not present');
             expect(caseHeaders[2].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
             expect(caseHeaders[3].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[4].innerHTML).contains(markForDeletionColumn, 'Mark for deletion header is not present');
-        });
+            expect(caseHeaders[4].innerHTML).contains(checkboxType, 'Select all checkbox not present');        });
 
         it('should not display court subscriptions table', () => {
             const casesTable = htmlRes.getElementById('locations-table');
@@ -476,10 +477,7 @@ describe('Bulk Unsubscribe Page', () => {
                 .getElementsByClassName('govuk-table__header');
             expect(courtHeaders[0].innerHTML).contains(courtNameColumn, 'Court name header is not present');
             expect(courtHeaders[1].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(courtHeaders[2].innerHTML).contains(
-                markForDeletionColumn,
-                'Mark for deletion header is not present'
-            );
+            expect(courtHeaders[2].innerHTML).contains(checkboxType, 'Select all checkbox not present');
         });
 
         it('court table should have correct number of rows', () => {
@@ -524,7 +522,7 @@ describe('Bulk Unsubscribe Page', () => {
             expect(caseHeaders[1].innerHTML).contains(partyNamesColumn, 'Party names header is not present');
             expect(caseHeaders[2].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
             expect(caseHeaders[3].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[4].innerHTML).contains(markForDeletionColumn, 'Mark for deletion header is not present');
+            expect(caseHeaders[4].innerHTML).contains(checkboxType, 'Select all checkbox not present');
         });
 
         it('should not display court subscriptions table', () => {
