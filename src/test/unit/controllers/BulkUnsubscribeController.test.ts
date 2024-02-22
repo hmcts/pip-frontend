@@ -184,6 +184,7 @@ describe('Bulk Unsubscribe Controller', () => {
             const expectedData = {
                 ...i18n[bulkDeleteConfirmationUrl],
                 ...caseSubscriptions,
+                locationTableData: [],
                 subscriptions: ['123'],
             };
 
@@ -200,6 +201,7 @@ describe('Bulk Unsubscribe Controller', () => {
 
             const expectedData = {
                 ...i18n[bulkDeleteConfirmationUrl],
+                caseTableData: [],
                 ...locationSubscriptions,
                 subscriptions: ['456', '789'],
             };
@@ -211,7 +213,7 @@ describe('Bulk Unsubscribe Controller', () => {
             });
         });
 
-        it.skip('should render the bulk unsubscribe confirmation page if both case and court subscriptions selected', () => {
+        it('should render the bulk unsubscribe confirmation page if both case and court subscriptions selected', () => {
             request.body = {
                 caseSubscription: '123',
                 courtSubscription: ['456', '789'],
