@@ -79,7 +79,7 @@ const getBearerToken = (tokenCache, config) => {
 
 // Cache the token for 95% of the expiry time, to ensure uninterrupted service
 const getMaxAgeOfCache = {
-    getMaxAge: (cacheToken: object) => cacheToken['expires_in'] * 950
+    getMaxAge: (cacheToken: object) => cacheToken['expires_in'] * 950,
 } as TokenCacheOptions;
 
 const dataManagementCacheToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
