@@ -122,7 +122,6 @@ describe('Bulk Unsubscribe Controller', () => {
     });
 
     describe('POST request', () => {
-        const request = mockRequest(i18n);
         const response = {
             render: () => {
                 return '';
@@ -130,7 +129,6 @@ describe('Bulk Unsubscribe Controller', () => {
         } as unknown as Response;
 
         const userId = '1';
-        request.user = { userId: userId };
 
         const caseSubscriptions = {
             caseTableData: [{ subscriptionId: '123' }],
@@ -157,6 +155,9 @@ describe('Bulk Unsubscribe Controller', () => {
         });
 
         it('should render the bulk unsubscribe page with error if no subscriptions selected', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId };
+            request.query = {};
             const responseMock = sinon.mock(response);
 
             const expectedData = {
@@ -168,8 +169,6 @@ describe('Bulk Unsubscribe Controller', () => {
                 noOptionSelectedError: true,
             };
 
-            request.query = {};
-            request.body = {};
             responseMock.expects('render').once().withArgs(bulkDeleteSubscriptionsUrl, expectedData);
 
             bulkDeleteSubscriptionsController.post(request, response).then(() => {
@@ -178,6 +177,8 @@ describe('Bulk Unsubscribe Controller', () => {
         });
 
         it('should render the bulk unsubscribe confirmation page if a case subscription selected', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId };
             request.body = { caseSubscription: '123' };
             const responseMock = sinon.mock(response);
 
@@ -196,6 +197,8 @@ describe('Bulk Unsubscribe Controller', () => {
         });
 
         it('should render the bulk unsubscribe confirmation page if a court subscription selected', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId };
             request.body = { courtSubscription: '456' };
             const responseMock = sinon.mock(response);
 
@@ -214,6 +217,8 @@ describe('Bulk Unsubscribe Controller', () => {
         });
 
         it('should render the bulk unsubscribe confirmation page if both case and court subscriptions selected', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId };
             request.body = {
                 caseSubscription: '123',
                 courtSubscription: '456',
@@ -235,8 +240,9 @@ describe('Bulk Unsubscribe Controller', () => {
         });
 
         it('should render error page if there is no user defined', () => {
+            const request = mockRequest(i18n);
+            request.query = {};
             const responseMock = sinon.mock(response);
-            request.user = undefined;
             responseMock.expects('render').once().withArgs('error', i18n.error);
 
             bulkDeleteSubscriptionsController.post(request, response).then(() => {
