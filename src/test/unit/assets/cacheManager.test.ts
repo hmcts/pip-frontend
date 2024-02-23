@@ -103,7 +103,9 @@ describe('Cache Manager creation', () => {
         process.env.REDIS_LOCAL = '';
         process.env.REDIS_MOCK = '';
 
-        const importCache = async () => { await require('../../../main/cacheManager'); }
+        const importCache = async () => {
+            await require('../../../main/cacheManager');
+        };
         await expect(importCache()).rejects.toThrow('A password must be set for non local / mock environments');
     });
 
