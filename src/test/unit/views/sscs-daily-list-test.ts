@@ -152,7 +152,10 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
 
     it('should display respondent using party respondent', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
-        expect(data[10].innerHTML).contains('Respondent Organisation, Respondent Organisation 2', 'Respondent does not match');
+        expect(data[10].innerHTML).contains(
+            'Respondent Organisation, Respondent Organisation 2',
+            'Respondent does not match'
+        );
     });
 
     it('should display panel', () => {
