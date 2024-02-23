@@ -13,32 +13,31 @@ export class OpaPressListService {
                 courtRoom.session.forEach(session => {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
-                            const defendantInfo = this.processPartyRoles(hearing);
+                            hearing.case.forEach(hearingCase => {
+                                const defendantInfo = this.processPartyRoles(hearingCase);
 
-                            // Each case can have multiple defendants. They will be shown as separate entry on the list
-                            // as each can have its own plea date
-                            defendantInfo.forEach(defendant => {
-                                const rows = [];
-                                hearing.case.forEach(hearingCase => {
+                                // Each case can have multiple defendants. They will be shown as separate entry on the list
+                                // as each can have its own plea date
+                                defendantInfo.forEach(defendant => {
+                                    const rows = [];
                                     const caseInfo = this.buildHearingCase(hearingCase);
                                     const row = { ...caseInfo, ...defendant };
                                     rows.push(row);
-                                });
 
-                                // All the offences under the same defendant have the same plea date
-                                const key = defendant.offence[0].pleaDate;
-                                if (listData.has(key)) {
-                                    listData.set(key, listData.get(key).concat(rows));
-                                } else {
-                                    listData.set(key, rows);
-                                }
+                                    // All the offences under the same defendant have the same plea date
+                                    const key = defendant.offence[0].pleaDate;
+                                    if (listData.has(key)) {
+                                        listData.set(key, listData.get(key).concat(rows));
+                                    } else {
+                                        listData.set(key, rows);
+                                    }
+                                });
                             });
                         });
                     });
                 });
             });
         });
-
         return new Map(
             [...listData].sort((a, b) => this.convertDateToSortValue(b[0]) - this.convertDateToSortValue(a[0]))
         );
@@ -65,9 +64,9 @@ export class OpaPressListService {
         return field.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ');
     }
 
-    private processPartyRoles(hearing): any {
+    private processPartyRoles(hearingCase): any {
         const defendants = [];
-        hearing.party?.forEach(party => {
+        hearingCase.party?.forEach(party => {
             if (party.partyRole === 'DEFENDANT') {
                 const defendant = this.processDefendant(party);
                 if (defendant) {
@@ -75,7 +74,7 @@ export class OpaPressListService {
                 }
             }
         });
-        const prosecutor = this.processProsecutor(hearing);
+        const prosecutor = this.processProsecutor(hearingCase);
 
         const defendantInfo = [];
         defendants.forEach(defendant => {
@@ -120,20 +119,16 @@ export class OpaPressListService {
         return [surname, forenames].filter(n => n.length > 0).join(', ');
     }
 
-    public processProsecutor(hearing): string {
-        const prosecutor = this.getPartyInformant(hearing);
+    public processProsecutor(hearingCase): string {
+        const prosecutor = this.getPartyInformant(hearingCase);
         if (prosecutor.length === 0) {
-            return this.getPartyProsecutor(hearing);
+            return this.getPartyProsecutor(hearingCase);
         }
         return prosecutor;
     }
 
-    private getPartyInformant(hearing): string {
-        const informants = [];
-        hearing.case.forEach(hearingCase => {
-            informants.push(ListParseHelperService.writeStringIfValid(hearingCase.informant?.prosecutionAuthorityRef));
-        });
-        return [...new Set(informants)].filter(n => n.length > 0).join(', ');
+    private getPartyInformant(hearingCase): string {
+        return ListParseHelperService.writeStringIfValid(hearingCase.informant?.prosecutionAuthorityRef);
     }
 
     private getPartyProsecutor(hearing): string {
