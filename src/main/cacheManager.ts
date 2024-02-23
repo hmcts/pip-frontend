@@ -5,7 +5,7 @@ function getRedisPassword(): string {
     if (config.has('secrets.pip-ss-kv.REDIS_PASSWORD')) {
         return config.get('secrets.pip-ss-kv.REDIS_PASSWORD');
     } else if (process.env.REDIS_LOCAL || process.env.REDIS_MOCK) {
-            return '';
+        return '';
     } else {
         throw new Error('A password must be set for non local / mock environments');
     }
