@@ -7,7 +7,8 @@ export function setRedisCredentials(): any {
         port: process.env.REDIS_PORT ? process.env.REDIS_PORT : config.get('secrets.pip-ss-kv.REDIS_PORT'),
         password: process.env.REDIS_PASSWORD
             ? process.env.REDIS_PASSWORD
-            : config.get('secrets.pip-ss-kv.REDIS_PASSWORD'),
+            : config.has('secrets.pip-ss-kv.REDIS_PASSWORD') ?
+                config.get('secrets.pip-ss-kv.REDIS_PASSWORD') : '',
     };
 }
 
