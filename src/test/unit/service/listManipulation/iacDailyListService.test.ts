@@ -48,7 +48,7 @@ describe('IAC Daily List service', () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearing =
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
-            expect(hearing['appellant']).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
+            expect(hearing['appellant']).to.equal('Mr Individual Forenames Individual Surname');
             expect(hearing['appellantRepresentative']).to.equal('Test Name');
             expect(hearing['prosecutingAuthority']).to.equal('Test Name');
         });
@@ -57,7 +57,7 @@ describe('IAC Daily List service', () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearing =
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1];
-            expect(hearing['appellant']).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
+            expect(hearing['appellant']).to.equal('Mr Individual Forenames Individual Surname');
             expect(hearing['appellantRepresentative']).to.equal('');
             expect(hearing['prosecutingAuthority']).to.equal('Test Name');
         });
@@ -67,7 +67,7 @@ describe('IAC Daily List service', () => {
             const hearing =
                 data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
             expect(hearing['appellant']).to.equal(
-                'Mr Individual Forenames Individual Middlename Individual Surname, Mrs Individual Forenames Individual Surname'
+                'Mr Individual Forenames Individual Surname, Mrs Individual Forenames Individual Surname'
             );
             expect(hearing['appellantRepresentative']).to.equal('Test Name');
             expect(hearing['prosecutingAuthority']).to.equal('Test Name, Test Name');
