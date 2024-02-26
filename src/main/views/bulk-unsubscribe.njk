@@ -86,7 +86,7 @@
                       <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription-{{ caseCount }}" value={{ row.subscriptionId }}>
+                          <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription-{{ caseCount }}" onclick="untickSelectAllCases()" value={{ row.subscriptionId }}>
                           <label class="govuk-label govuk-checkboxes__label" for="caseSubscription-{{ caseCount }}"> </label>
                         </div>
                       </td>
@@ -119,7 +119,7 @@
                       <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription-{{ locationCount }}" value={{ row.subscriptionId }}>
+                          <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription-{{ locationCount }}" onclick="untickSelectAllLocations()" value={{ row.subscriptionId }}>
                           <label class="govuk-label govuk-checkboxes__label" for="courtSubscription-{{ locationCount }}"> </label>
                         </div>
                       </td>
@@ -159,18 +159,44 @@
     function toggleCheckboxes(source, type) {
       switch(type) {
         case 'case':
-          caseSubsriptionCheckboxes = document.getElementsByName('caseSubscription');
-          for (let i = 0; i < caseSubsriptionCheckboxes.length; i++) {
-            caseSubsriptionCheckboxes[i].checked = source.checked;
+          const caseSubscriptionCheckboxes = document.getElementsByName('caseSubscription');
+          for (let i = 0; i < caseSubscriptionCheckboxes.length; i++) {
+              caseSubscriptionCheckboxes[i].checked = source.checked;
           }
           break;
         case 'location':
-          courtSubscriptionCheckboxes = document.getElementsByName('courtSubscription');
+          const courtSubscriptionCheckboxes = document.getElementsByName('courtSubscription');
           for (let i = 0; i < courtSubscriptionCheckboxes.length; i++) {
             courtSubscriptionCheckboxes[i].checked = source.checked;
           }
           break;
       }
+    }
+
+    function untickSelectAllCases() {
+        const caseSubscriptionCheckboxes = document.getElementsByName('caseSubscription');
+        let allSelected = true;
+        for (let i = 0; i < caseSubscriptionCheckboxes.length; i++) {
+            if (!caseSubscriptionCheckboxes[i].checked) {
+                allSelected = false;
+                break;
+            }
+        }
+        const selectAllCheckbox = document.getElementById('select-all-cases');
+        selectAllCheckbox.checked = allSelected;
+    }
+
+    function untickSelectAllLocations() {
+        const locationSubscriptionCheckboxes = document.getElementsByName('courtSubscription');
+        let allSelected = true;
+        for (let i = 0; i < locationSubscriptionCheckboxes.length; i++) {
+            if (!locationSubscriptionCheckboxes[i].checked) {
+                allSelected = false;
+                break;
+            }
+        }
+        const selectAllCheckbox = document.getElementById('select-all-locations');
+        selectAllCheckbox.checked = allSelected;
     }
   </script>
 {% endblock %}
