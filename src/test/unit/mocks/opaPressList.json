@@ -52,7 +52,6 @@
                                                                         "county": "County",
                                                                         "postCode": "BB1 1BB"
                                                                     },
-                                                                    "youth": "Youth",
                                                                     "offence": [
                                                                         {
                                                                             "offenceTitle": "Offence title 1",
@@ -81,7 +80,6 @@
                                                                         "county": "County",
                                                                         "postCode": "BB1 1BB"
                                                                     },
-                                                                    "youth": "Youth",
                                                                     "offence": [
                                                                         {
                                                                             "offenceTitle": "Offence title 2",
@@ -126,7 +124,6 @@
                                                                         "county": "County",
                                                                         "postCode": "BB1 1BB"
                                                                     },
-                                                                    "youth": "Youth",
                                                                     "offence": [
                                                                         {
                                                                             "offenceTitle": "Offence title 1",
@@ -155,7 +152,6 @@
                                                                         "county": "County",
                                                                         "postCode": "BB1 1BB"
                                                                     },
-                                                                    "youth": "Youth",
                                                                     "offence": [
                                                                         {
                                                                             "offenceTitle": "Offence title 2",
