@@ -5,16 +5,17 @@ import { OpaPressListService } from './OpaPressListService';
 const opaPressListService = new OpaPressListService();
 
 export class OpaPublicListService {
-    public formatOpaPublicList(opaPublicListJson: string): any {
+    public formatOpaPublicList(jsonData: string): any {
         const rows = [];
-        JSON.parse(opaPublicListJson).courtLists.forEach(courtList => {
+
+        JSON.parse(jsonData).courtLists.forEach(courtList => {
             courtList.courtHouse.courtRoom.forEach(courtRoom => {
                 courtRoom.session.forEach(session => {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
-                            const allDefendants = this.processPartyRoles(hearing);
-                            allDefendants.forEach(defendant => {
-                                hearing.case.forEach(hearingCase => {
+                            hearing.case.forEach(hearingCase => {
+                                const allDefendants = this.processPartyRoles(hearingCase);
+                                allDefendants.forEach(defendant => {
                                     const caseDetails = this.buildCaseDetails(hearingCase);
                                     rows.push({
                                         ...caseDetails,
@@ -30,9 +31,9 @@ export class OpaPublicListService {
         return rows;
     }
 
-    private processPartyRoles(hearing): any {
+    private processPartyRoles(hearingCase): any {
         const defendants = [];
-        hearing.party?.forEach(party => {
+        hearingCase.party?.forEach(party => {
             if (party.partyRole === 'DEFENDANT') {
                 const defendant = this.buildDefendantDetails(party);
                 if (defendant) {
@@ -40,7 +41,7 @@ export class OpaPublicListService {
                 }
             }
         });
-        const prosecutor = opaPressListService.processProsecutor(hearing);
+        const prosecutor = opaPressListService.processProsecutor(hearingCase);
         const allDefendants = [];
         defendants.forEach(defendant => {
             allDefendants.push({ ...defendant, prosecutor });
