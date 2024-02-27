@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../../main/service/publicationService';
+import { LocationService } from '../../../../main/service/locationService';
 import sinon from 'sinon';
 import request from 'supertest';
-import { app } from '../../../main/app';
+import { app } from '../../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
 import { describe } from '@jest/globals';
@@ -37,10 +37,10 @@ const expectWarningText =
     'Please note: There may be 2 hearing lists available for this date. Please make sure you look at both lists to see all hearings happening on this date for this location.';
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/sscsDailyList.json'), 'utf-8');
 const sscsDailyList = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataSscs = JSON.parse(rawMetaData)[0];
 metaDataSscs.listType = 'SSCS_DAILY_LIST';
@@ -48,7 +48,7 @@ metaDataSscs.listType = 'SSCS_DAILY_LIST';
 const metaDataSscsAdditionalHearings = JSON.parse(rawMetaData)[0];
 metaDataSscsAdditionalHearings.listType = 'SSCS_DAILY_LIST_ADDITIONAL_HEARINGS';
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sscsDailyList);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
