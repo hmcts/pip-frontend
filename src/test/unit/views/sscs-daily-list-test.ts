@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
-import {LocationService} from '../../../main/service/locationService';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
-import {request as expressRequest} from 'express';
-import {describe} from '@jest/globals';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
+import { request as expressRequest } from 'express';
+import { describe } from '@jest/globals';
 
 const userId = '1234';
 const sscDailyListUrl = '/sscs-daily-list';
@@ -59,7 +59,7 @@ metadataStub
     .withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId)
     .returns(metaDataSscsAdditionalHearings);
 
-expressRequest['user'] = {userId: userId};
+expressRequest['user'] = { userId: userId };
 
 describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily list page with path '%s'", url => {
     const pageUrl = url + '?artefactId=' + artefactIdMap.get(url);
