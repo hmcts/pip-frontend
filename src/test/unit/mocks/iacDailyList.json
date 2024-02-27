@@ -63,7 +63,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -90,7 +89,6 @@
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -126,7 +124,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -196,7 +193,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -217,7 +213,6 @@
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -253,7 +248,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -332,7 +326,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -353,7 +346,6 @@
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -389,7 +381,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -446,7 +437,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -467,7 +457,6 @@
                                                         "partyRole": "RESPONDENT_REPRESENTATIVE",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -503,7 +492,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -577,7 +565,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -586,7 +573,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mrs"
                                                         }
@@ -666,7 +652,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mr"
                                                         }
@@ -675,7 +660,6 @@
                                                         "partyRole": "CLAIMANT_PETITIONER",
                                                         "individualDetails": {
                                                             "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "",
                                                             "individualSurname": "Individual Surname",
                                                             "title": "Mrs"
                                                         }
