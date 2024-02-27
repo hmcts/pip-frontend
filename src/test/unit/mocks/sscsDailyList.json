@@ -112,6 +112,76 @@
                                                         ]
                                                     }
                                                 ]
+                                            },
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341236",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Applicant Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename",
+                                                                    "individualMiddleName": "Middlename",
+                                                                    "individualSurname": "Applicant Representative",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTOR",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor1"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTOR",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor2"
+                                                                }
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "caseNumber": "12341237",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Applicant Surname 2"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename",
+                                                                    "individualMiddleName": "Middlename",
+                                                                    "individualSurname": "Applicant Representative 2",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTOR",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor1"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTOR",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecutor2"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
                                             }
                                         ],
                                         "channel": ["Teams", "Attended"]

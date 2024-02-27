@@ -161,6 +161,18 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
         );
     });
 
+    it('should display appellants where there are multiple cases in a hearing', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[15].innerHTML).contains(
+            'Applicant Surname, Legal Advisor: Mr Forename Middlename Applicant Representative',
+            'Appellant does not match'
+        );
+        expect(data[21].innerHTML).contains(
+            'Applicant Surname 2, Legal Advisor: Mr Forename Middlename Applicant Representative 2',
+            'Appellant does not match'
+        );
+    });
+
     it('should display panel', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
         expect(data[5].innerHTML).contains('Judge KnownAs, Judge KnownAs 2', 'Panel does not match');
