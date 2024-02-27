@@ -112,6 +112,27 @@
                                                         }
                                                     }
                                                 ]
+                                            },
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341236"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Prosecutor1"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "PROSECUTOR",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Prosecutor2"
+                                                        }
+                                                    }
+                                                ]
                                             }
                                         ],
                                         "channel": ["Teams", "Attended"]

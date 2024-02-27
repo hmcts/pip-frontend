@@ -161,6 +161,14 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
         );
     });
 
+    it('should display blank box when appellant not provided', () => {
+        const data = htmlRes.getElementsByClassName(tableCell);
+        expect(data[9].innerHTML).contains(
+            '',
+            'Appellant does not match'
+        );
+    });
+
     it('should display panel', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
         expect(data[5].innerHTML).contains('Judge KnownAs, Judge KnownAs 2', 'Panel does not match');
