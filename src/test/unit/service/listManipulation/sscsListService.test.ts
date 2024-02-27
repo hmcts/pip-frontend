@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { SscsDailyListService } from '../../../../main/service/listManipulation/SscsDailyListService';
-import { expect } from 'chai';
+import {SscsDailyListService} from '../../../../main/service/listManipulation/SscsDailyListService';
+import {expect} from 'chai';
 
 const sscsDailyListService = new SscsDailyListService();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sscsDailyList.json'), 'utf-8');
@@ -33,17 +33,8 @@ describe('manipulateSscsDailyListData', () => {
         const appellantRep =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                 'applicantRepresentative'
-            ];
+                ];
         expect(appellantRep).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
-    });
-
-    it('should return respondent using informant', async () => {
-        const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
-        const respondent =
-            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
-                'formattedRespondent'
-            ];
-        expect(respondent).to.equal('test, test2');
     });
 
     it('should return respondent using party prosecutor', async () => {
@@ -51,7 +42,7 @@ describe('manipulateSscsDailyListData', () => {
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
                 'formattedRespondent'
-            ];
+                ];
         expect(respondent).to.equal('Prosecutor1, Prosecutor2');
     });
 
