@@ -25,7 +25,7 @@ const casePartyURN = '99999999';
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
-Scenario.skip(
+Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
         'should be able to remove subscription and bulk unsubscribe',
     async ({ I }) => {
@@ -279,7 +279,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('#select-all-locations');
     I.click('#bulk-unsubscribe-button');
     I.waitForText('There is a problem');
-    I.see("At least one subscription must be selected");
+    I.see('At least one subscription must be selected');
 
     I.click('#select-all-cases');
     I.click('#select-all-locations');
@@ -300,7 +300,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.logout();
 }).tag('@Nightly');
 
-Scenario.skip(
+Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
     async ({ I }) => {
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
@@ -401,7 +401,7 @@ Scenario.skip(
     }
 ).tag('@Nightly');
 
-Scenario.skip('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
+Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
