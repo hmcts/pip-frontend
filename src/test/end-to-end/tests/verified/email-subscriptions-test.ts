@@ -275,6 +275,14 @@ Scenario('I as a verified user should be able to select all subscriptions when b
 
     I.click('#select-all-cases');
     I.click('#select-all-locations');
+    I.click('#select-all-cases');
+    I.click('#select-all-locations');
+    I.click('#bulk-unsubscribe-button');
+    I.waitForText('There is a problem');
+    I.see("At least one subscription must be selected");
+
+    I.click('#select-all-cases');
+    I.click('#select-all-locations');
     I.click('#bulk-unsubscribe-button');
     I.waitForText('Are you sure you want to remove these subscriptions?');
     I.see(locationName);
