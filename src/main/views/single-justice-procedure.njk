@@ -30,7 +30,7 @@
 
   <div class="govuk-grid-row">
     {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
-    <div class="parent-box govuk-!-margin-top-5 search-area">
+    <div class="parent-box overflow-table govuk-!-margin-top-5 search-area">
       <div class="overflow-table">
       {% set sjpCases = [] %}
       {% for sjpCase in sjpData %}
