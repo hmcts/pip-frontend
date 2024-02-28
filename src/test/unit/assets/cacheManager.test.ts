@@ -83,18 +83,30 @@ describe('Test interval', () => {
 describe('Cache Manager creation', () => {
     beforeEach(() => {
         jest.resetModules();
+        process.env.REDIS_PASSWORD = '';
     });
 
-    it('should create a redis client without mock in non local', async () => {
+    it('should create a redis client without mock in non local when a non empty password is set', async () => {
         process.env.REDIS_LOCAL = '';
         process.env.REDIS_MOCK = '';
+        process.env.REDIS_PASSWORD = 'TEST_PASSWORD';
 
         const ioRedis = require('ioredis');
         jest.mock('ioredis');
 
         await require('../../../main/cacheManager');
         expect(ioRedis).toHaveBeenCalledTimes(1);
-        expect(ioRedis).toHaveBeenCalledWith('rediss://:@127.0.0.1:6379', { connectTimeout: 10000 });
+        expect(ioRedis).toHaveBeenCalledWith('rediss://:TEST_PASSWORD@127.0.0.1:6379', { connectTimeout: 10000 });
+    });
+
+    it('should throw an error if password has not been set in a non-local or mock environment', async () => {
+        process.env.REDIS_LOCAL = '';
+        process.env.REDIS_MOCK = '';
+
+        const importCache = async () => {
+            await require('../../../main/cacheManager');
+        };
+        await expect(importCache()).rejects.toThrow('A password must be set for non local / mock environments');
     });
 
     it('should create a redis client without mock in local', async () => {
