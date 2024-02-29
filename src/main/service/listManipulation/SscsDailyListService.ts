@@ -37,7 +37,7 @@ export class SscsDailyListService {
     private formatRespondent(hearing): string {
         const informant = this.getInformant(hearing);
         if (informant.length === 0) {
-            return this.getPartyProsecutor(hearing);
+            return this.getPartyRespondent(hearing);
         }
         return informant;
     }
@@ -54,16 +54,16 @@ export class SscsDailyListService {
         return informants.join(', ');
     }
 
-    private getPartyProsecutor(hearing): string {
-        const prosecutors = [];
+    private getPartyRespondent(hearing): string {
+        const respondents = [];
         hearing.party?.forEach(party => {
-            if (party.partyRole === 'PROSECUTOR') {
-                const prosecutor = party.organisationDetails?.organisationName;
-                if (prosecutor && prosecutor.length > 0) {
-                    prosecutors.push(prosecutor);
+            if (party.partyRole === 'RESPONDENT') {
+                const respondent = party.organisationDetails?.organisationName;
+                if (respondent && respondent.length > 0) {
+                    respondents.push(respondent);
                 }
             }
         });
-        return prosecutors.join(', ');
+        return respondents.join(', ');
     }
 }
