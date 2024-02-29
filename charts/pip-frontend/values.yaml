@@ -36,8 +36,6 @@ nodejs:
                   alias: REDIS_PASSWORD
                 - name: REDIS-V6-PORT
                   alias: REDIS_PORT
-                - name: b2c-auth-endpoint
-                  alias: B2C_AUTH_ENDPOINT
                 - name: app-pip-frontend-id
                   alias: CLIENT_ID_INTERNAL
                 - name: app-pip-frontend-pwd
