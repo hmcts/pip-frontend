@@ -16,7 +16,7 @@ describe('OPA Public List Service', () => {
 
     it('should format organisation defendant name', async () => {
         const data = await opaPublicListService.formatOpaPublicList(input);
-        expect(data[6]['name']).is.equal('defendantOrganisationName');
+        expect(data[2]['name']).is.equal('defendantOrganisationName');
     });
 
     it('should return URN', async () => {

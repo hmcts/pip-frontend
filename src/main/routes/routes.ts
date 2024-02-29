@@ -79,7 +79,6 @@ export default function (app: Application): void {
         fileSizeLimitErrorHandler,
         app.locals.container.cradle.createMediaAccountController.post
     );
-    // app.get('/hearing-list', app.locals.container.cradle.hearingListController.get);
     app.post(
         '/password-change-confirmation/:isAdmin',
         checkPasswordReset,
