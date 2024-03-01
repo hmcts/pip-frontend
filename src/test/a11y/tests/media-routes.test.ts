@@ -12,11 +12,14 @@ import fs from 'fs';
 import path from 'path';
 
 const userId = '1';
+const caseSubscriptionId = '952899d6-2b05-43ec-86e0-a438d3854fa8';
+const locationSubscriptionId = 'f038b7ea-2972-4be4-a5ff-70abb4f78686';
+const subscriptionIds = [caseSubscriptionId, locationSubscriptionId].join(',').toString();
 
 const mediaRoutes = [
     { path: '/account-home', parameter: '?verified=true' },
     { path: '/bulk-unsubscribe' },
-    { path: '/bulk-unsubscribe-confirmation' },
+    { path: '/bulk-unsubscribe-confirmation', postMethod: true, postBody: { subscriptions: subscriptionIds } },
     { path: '/bulk-unsubscribe-confirmed' },
     { path: '/party-name-search' },
     { path: '/party-name-search-results', parameter: '?search=Surname' },
@@ -82,7 +85,7 @@ describe('Accessibility - Media User Routes', () => {
 
     filterRoutes(mediaRoutes).forEach(route => {
         describe(`Page ${route.path}`, () => {
-            testAccessibility(route.path, route.parameter);
+            testAccessibility(route.path, route.parameter, route.postMethod, route.postBody);
         });
     });
 

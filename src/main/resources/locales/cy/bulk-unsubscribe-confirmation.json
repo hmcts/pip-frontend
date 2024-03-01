@@ -1,5 +1,15 @@
 {
-    "title": "A ydych yn siŵr eich bod eisiau rhoi’r gorau i danysgrifio i’r detholiad uchod?",
+    "title": "A ydych yn siŵr eich bod am gael gwared ar y tanysgrifiadau hyn?",
+    "caseTable": {
+        "caseName": "Enw'r achos",
+        "partyNames": "Enw’r parti (partïon)",
+        "caseRef": "Cyfeirnod",
+        "date": "Dyddiad wedi’i ychwanegu"
+    },
+    "courtTable": {
+        "courtName": "Enw’r llys neu’r tribiwnlys",
+        "date": "Dyddiad wedi’i ychwanegu"
+    },
     "yes": "Ydw",
     "no": "Nac ydw",
     "error": {
