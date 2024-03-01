@@ -35,32 +35,16 @@
                                                             {
                                                                 "partyRole": "APPLICANT_PETITIONER",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Applicant Surname"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "RESPONDENT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Respondent Surname"
+                                                                    "individualSurname": "Surname"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
                                                                 "friendlyRoleName": "Legal Advisor",
                                                                 "individualDetails": {
-                                                                    "individualForenames": "Forename",
-                                                                    "individualMiddleName": "Middlename",
-                                                                    "individualSurname": "Applicant Representative",
-                                                                    "title": "Mr"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                                "friendlyRoleName": "Legal Advisor",
-                                                                "individualDetails": {
-                                                                    "individualForenames": "Forename",
-                                                                    "individualMiddleName": "Middlename",
-                                                                    "individualSurname": "Respondent Representative",
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
                                                                     "title": "Mr"
                                                                 }
                                                             }
@@ -69,12 +53,10 @@
                                                 ],
                                                 "informant": [
                                                     {
-                                                        "prosecutionAuthorityRef": [
-                                                            "Informant1",
-                                                            "Informant2"
-                                                        ]
+                                                        "prosecutionAuthorityRef": ["test", "test2"]
                                                     }
-                                                ]
+                                                ],
+
                                             },
                                             {
                                                 "case": [
@@ -135,15 +117,15 @@
                                                                 }
                                                             },
                                                             {
-                                                                "partyRole": "PROSECUTOR",
+                                                                "partyRole": "RESPONDENT",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Prosecutor1"
+                                                                "organisationName": "Respondent Organisation"
                                                                 }
                                                             },
                                                             {
-                                                                "partyRole": "PROSECUTOR",
+                                                                "partyRole": "RESPONDENT",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Prosecutor2"
+                                                                    "organisationName": "Respondent Organisation 2"
                                                                 }
                                                             }
                                                         ]
@@ -168,15 +150,15 @@
                                                                 }
                                                             },
                                                             {
-                                                                "partyRole": "PROSECUTOR",
+                                                                "partyRole": "RESPONDENT",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Prosecutor1"
+                                                                "organisationName": "Respondent Organisation"
                                                                 }
                                                             },
                                                             {
-                                                                "partyRole": "PROSECUTOR",
+                                                                "partyRole": "RESPONDENT",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Prosecutor2"
+                                                                    "organisationName": "Respondent Organisation 2"
                                                                 }
                                                             }
                                                         ]

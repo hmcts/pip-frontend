@@ -39,7 +39,7 @@ export class SscsDailyListService {
     private formatRespondent(hearing, hearingCase): string {
         const informant = this.getInformant(hearing);
         if (informant.length === 0) {
-            return this.getPartyProsecutor(hearing, hearingCase);
+            return this.getPartyRespondent(hearing, hearingCase);
         }
         return informant;
     }
@@ -56,27 +56,27 @@ export class SscsDailyListService {
         return informants.join(', ');
     }
 
-    private getPartyProsecutor(hearing, hearingCase): string {
-        const prosecutors = [];
+    private getPartyRespondent(hearing, hearingCase): string {
+        const respondents = [];
         hearingCase.party?.forEach(party => {
-            if (party.partyRole === 'PROSECUTOR') {
-                const prosecutor = party.organisationDetails?.organisationName;
-                if (prosecutor && prosecutor.length > 0) {
-                    prosecutors.push(prosecutor);
+            if (party.partyRole === 'RESPONDENT') {
+                const respondent = party.organisationDetails?.organisationName;
+                if (respondent && respondent.length > 0) {
+                    respondents.push(respondent);
                 }
             }
         });
-        if (prosecutors.length === 0) {
+        if (respondents.length === 0) {
             hearing.party?.forEach(party => {
-                if (party.partyRole === 'PROSECUTOR') {
-                    const prosecutor = party.organisationDetails?.organisationName;
-                    if (prosecutor && prosecutor.length > 0) {
-                        prosecutors.push(prosecutor);
+                if (party.partyRole === 'RESPONDENT') {
+                    const respondent = party.organisationDetails?.organisationName;
+                    if (respondent && respondent.length > 0) {
+                        respondents.push(respondent);
                     }
                 }
             });
         }
-        return prosecutors.join(', ');
+        return respondents.join(', ');
     }
 
     public formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase) {

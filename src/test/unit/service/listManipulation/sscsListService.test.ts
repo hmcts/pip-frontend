@@ -48,13 +48,13 @@ describe('manipulateSscsDailyListData', () => {
         expect(respondent).to.equal('Informant1, Informant2');
     });
 
-    it('should return respondent using party prosecutor', async () => {
+    it('should return respondent using party respondent', async () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['case'][0][
                 'formattedRespondent'
             ];
-        expect(respondent).to.equal('Prosecutor1, Prosecutor2');
+        expect(respondent).to.equal('Respondent Organisation, Respondent Organisation 2');
     });
 
     it('should return appellants where there are multiple cases in a hearing', async () => {

@@ -63,11 +63,16 @@
               <table class="govuk-table govuk-!-margin-bottom-9" id="cases-table">
                 <thead class="govuk-table__head">
                   <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ caseTable.caseName }}</th>
-                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ caseTable.partyNames }}</th>
-                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ caseTable.caseRef }}</th>
-                    <th scope="col" class="govuk-table__header">{{ caseTable.date }}</th>
-                    <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">{{ caseTable.deletion }}</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter bulk-delete-table-padding" aria-sort="none">{{ caseTable.caseName }}</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter bulk-delete-table-padding" aria-sort="none">{{ caseTable.partyNames }}</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter bulk-delete-table-padding" aria-sort="none">{{ caseTable.caseRef }}</th>
+                    <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ caseTable.date }}</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
+                      <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
+                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-cases" onclick="toggleCheckboxes(this, 'case')">
+                        <label class="govuk-label govuk-checkboxes__label" for="select-all-cases"> </label>
+                      </div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="govuk-table__body">
@@ -75,13 +80,13 @@
                   {% for row in caseTableData %}
                     {% set caseCount = caseCount + 1 %}
                     <tr class="govuk-table__row">
-                      <td class="govuk-table__cell bulk-delete-row">{{ row.caseName }}</td>
-                      <td class="govuk-table__cell bulk-delete-row">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
-                      <td class="govuk-table__cell bulk-delete-row">{{ row.caseRef }}</td>
-                      <td class="govuk-table__cell bulk-delete-row no-wrap">{{ row.date }}</td>
+                      <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.caseName }}</td>
+                      <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
+                      <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.caseRef }}</td>
+                      <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription-{{ caseCount }}" value={{ row.subscriptionId }}>
+                          <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription-{{ caseCount }}" onclick="untickSelectAllCases()" value={{ row.subscriptionId }}>
                           <label class="govuk-label govuk-checkboxes__label" for="caseSubscription-{{ caseCount }}"> </label>
                         </div>
                       </td>
@@ -95,9 +100,14 @@
               <table class="govuk-table govuk-!-margin-bottom-9" id="locations-table">
                 <thead class="govuk-table__head">
                   <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header govuk-!-width-three-quarters" aria-sort="none">{{ courtTable.courtName }}</th>
-                    <th scope="col" class="govuk-table__header">{{ courtTable.date }}</th>
-                    <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">{{ courtTable.deletion }}</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-three-quarters bulk-delete-table-padding" aria-sort="none">{{ courtTable.courtName }}</th>
+                    <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ courtTable.date }}</th>
+                    <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
+                      <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
+                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-locations" onclick="toggleCheckboxes(this, 'location')">
+                        <label class="govuk-label govuk-checkboxes__label" for="select-all-locations"> </label>
+                      </div>
+                    </th>
                   </tr>
                 </thead>
                 <tbody class="govuk-table__body">
@@ -105,11 +115,11 @@
                   {% for row in locationTableData %}
                     {% set locationCount = locationCount + 1 %}
                     <tr class="govuk-table__row">
-                      <td class="govuk-table__cell bulk-delete-row">{{ row.locationName }}</td>
-                      <td class="govuk-table__cell bulk-delete-row no-wrap">{{ row.date }}</td>
+                      <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.locationName }}</td>
+                      <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription-{{ locationCount }}" value={{ row.subscriptionId }}>
+                          <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription-{{ locationCount }}" onclick="untickSelectAllLocations()" value={{ row.subscriptionId }}>
                           <label class="govuk-label govuk-checkboxes__label" for="courtSubscription-{{ locationCount }}"> </label>
                         </div>
                       </td>
@@ -145,5 +155,48 @@
         });
       });
     };
+
+    function toggleCheckboxes(source, type) {
+      switch(type) {
+        case 'case':
+          const caseSubscriptionCheckboxes = document.getElementsByName('caseSubscription');
+          for (let i = 0; i < caseSubscriptionCheckboxes.length; i++) {
+              caseSubscriptionCheckboxes[i].checked = source.checked;
+          }
+          break;
+        case 'location':
+          const courtSubscriptionCheckboxes = document.getElementsByName('courtSubscription');
+          for (let i = 0; i < courtSubscriptionCheckboxes.length; i++) {
+            courtSubscriptionCheckboxes[i].checked = source.checked;
+          }
+          break;
+      }
+    }
+
+    function untickSelectAllCases() {
+        const caseSubscriptionCheckboxes = document.getElementsByName('caseSubscription');
+        let allSelected = true;
+        for (let i = 0; i < caseSubscriptionCheckboxes.length; i++) {
+            if (!caseSubscriptionCheckboxes[i].checked) {
+                allSelected = false;
+                break;
+            }
+        }
+        const selectAllCheckbox = document.getElementById('select-all-cases');
+        selectAllCheckbox.checked = allSelected;
+    }
+
+    function untickSelectAllLocations() {
+        const locationSubscriptionCheckboxes = document.getElementsByName('courtSubscription');
+        let allSelected = true;
+        for (let i = 0; i < locationSubscriptionCheckboxes.length; i++) {
+            if (!locationSubscriptionCheckboxes[i].checked) {
+                allSelected = false;
+                break;
+            }
+        }
+        const selectAllCheckbox = document.getElementById('select-all-locations');
+        selectAllCheckbox.checked = allSelected;
+    }
   </script>
 {% endblock %}
