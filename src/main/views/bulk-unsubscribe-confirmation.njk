@@ -28,6 +28,48 @@
       }) }}
     {% endif %}
     <h2 class="govuk-heading-l">{{ title }}</h2>
+    {% if caseTableData | length > 0 %}
+      {# Case Subscriptions Table #}
+      <table class="govuk-table govuk-!-margin-bottom-9" id="cases-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ caseTable.caseName }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ caseTable.partyNames }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ caseTable.caseRef }}</th>
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ caseTable.date }}</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for row in caseTableData %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell bulk-delete-row">{{ row.caseName }}</td>
+              <td class="govuk-table__cell bulk-delete-row">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
+              <td class="govuk-table__cell bulk-delete-row">{{ row.caseRef }}</td>
+              <td class="govuk-table__cell bulk-delete-row no-wrap govuk-table__header--numeric">{{ row.date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+    {% if locationTableData | length > 0 %}
+      {# location Subscriptions Table #}
+      <table class="govuk-table govuk-!-margin-bottom-9" id="locations-table">
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header govuk-!-width-three-quarters" aria-sort="none">{{ courtTable.courtName }}</th>
+            <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ courtTable.date }}</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for row in locationTableData %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell bulk-delete-row">{{ row.locationName }}</td>
+              <td class="govuk-table__cell bulk-delete-row no-wrap govuk-table__header--numeric">{{ row.date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
     <form method="post" action="bulk-unsubscribe-confirmation">
       {{ govukInput({
         id: "subscriptions",
@@ -36,6 +78,7 @@
         value: subscriptions
       }) }}
       {{ govukRadios({
+        classes: "govuk-radios--inline",
         idPrefix: "bulk-unsubscribe-choice",
         name: "bulk-unsubscribe-choice",
         items: [

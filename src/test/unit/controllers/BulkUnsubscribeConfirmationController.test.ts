@@ -44,12 +44,22 @@ describe('Bulk Unsubscribe Confirmation Controller', () => {
                 return '';
             },
         } as unknown as Response;
-        const stub = sinon.stub(SubscriptionService.prototype, 'bulkDeleteSubscriptions');
 
-        beforeAll(() => {
-            stub.withArgs(['aaa', 'bbb']).resolves(true);
-            stub.withArgs(['foo']).resolves(undefined);
-        });
+        const caseSubscriptions = {
+            caseTableData: [{ subscriptionId: 'abc' }, { subscriptionId: 'def' }],
+        };
+
+        const locationSubscriptions = {
+            locationTableData: [{ subscriptionId: 'ghi' }],
+        };
+
+        const stub = sinon.stub(SubscriptionService.prototype, 'bulkDeleteSubscriptions');
+        sinon
+            .stub(SubscriptionService.prototype, 'getSelectedSubscriptionDataForView')
+            .resolves({ ...caseSubscriptions, ...locationSubscriptions });
+
+        stub.withArgs(['aaa', 'bbb']).resolves(true);
+        stub.withArgs(['foo']).resolves(undefined);
 
         it("should render the bulk unsubscribe confirmed page if 'Yes' is selected", () => {
             const responseMock = sinon.mock(response);
@@ -88,13 +98,17 @@ describe('Bulk Unsubscribe Confirmation Controller', () => {
         });
 
         it('should render the bulk unsubscribe confirmation page with error if no option selected', () => {
+            request.body = { subscriptions: 'abc,def,ghi' };
             const responseMock = sinon.mock(response);
+
             const expectedData = {
                 ...i18n[bulkDeleteConfirmationUrl],
+                ...caseSubscriptions,
+                ...locationSubscriptions,
+                subscriptions: ['abc', 'def', 'ghi'],
                 noOptionSelectedError: true,
             };
 
-            request.body = {};
             responseMock.expects('render').once().withArgs(bulkDeleteConfirmationUrl, expectedData);
 
             bulkDeleteSubscriptionsConfirmationController.post(request, response).then(() => {
