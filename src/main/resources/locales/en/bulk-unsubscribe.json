@@ -12,13 +12,11 @@
         "caseName": "Case name",
         "partyNames": "Party name(s)",
         "caseRef": "Reference number",
-        "date": "Date added",
-        "deletion": "Select"
+        "date": "Date added"
     },
     "courtTable": {
         "courtName": "Court or tribunal name",
-        "date": "Date added",
-        "deletion": "Select"
+        "date": "Date added"
     },
     "error": {
         "title": "There is a problem",

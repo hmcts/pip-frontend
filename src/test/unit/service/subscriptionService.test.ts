@@ -348,6 +348,77 @@ describe('getSubscriptionDataForView function', () => {
     });
 });
 
+describe('getSelectedSubscriptionDataForView function', () => {
+    it('should return selected case subscriptions only', async () => {
+        const subscriptionsToDelete = ['952899d6-2b05-43ec-86e0-a438d3854fa8', '5a45699f-47e3-4283-904a-581afe624155'];
+        const result = await subscriptionService.getSelectedSubscriptionDataForView(
+            userIdWithSubscriptions,
+            'en',
+            subscriptionsToDelete
+        );
+        const subscriptionData = JSON.parse(JSON.stringify(result));
+
+        expect(subscriptionData.caseTableData).toHaveLength(2);
+        expect(subscriptionData.locationTableData).toHaveLength(0);
+        const caseDataRow = subscriptionData.caseTableData[0];
+        expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
+        expect(caseDataRow.caseName).toEqual('Test Name');
+        expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
+        expect(caseDataRow.caseRef).toEqual('C123123');
+    });
+
+    it('should return selected location subscriptions only', async () => {
+        const subscriptionsToDelete = ['f038b7ea-2972-4be4-a5ff-70abb4f78686', 'd5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6'];
+        const result = await subscriptionService.getSelectedSubscriptionDataForView(
+            userIdWithSubscriptions,
+            'en',
+            subscriptionsToDelete
+        );
+        const subscriptionData = JSON.parse(JSON.stringify(result));
+
+        expect(subscriptionData.caseTableData).toHaveLength(0);
+        expect(subscriptionData.locationTableData).toHaveLength(2);
+        const locationDataRow = subscriptionData.locationTableData[0];
+        expect(locationDataRow.subscriptionId).toEqual('d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6');
+        expect(locationDataRow.locationName).toEqual('Aberdeen Tribunal Hearing Centre');
+    });
+
+    it('should return selected case subscriptions and location subscriptions', async () => {
+        const subscriptionsToDelete = [
+            '952899d6-2b05-43ec-86e0-a438d3854fa8',
+            '5a45699f-47e3-4283-904a-581afe624155',
+            'f038b7ea-2972-4be4-a5ff-70abb4f78686',
+            'd5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6',
+        ];
+        const result = await subscriptionService.getSelectedSubscriptionDataForView(
+            userIdWithSubscriptions,
+            'en',
+            subscriptionsToDelete
+        );
+        const subscriptionData = JSON.parse(JSON.stringify(result));
+
+        expect(subscriptionData.caseTableData).toHaveLength(2);
+        const caseDataRow = subscriptionData.caseTableData[0];
+        expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
+        expect(caseDataRow.caseName).toEqual('Test Name');
+        expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
+        expect(caseDataRow.caseRef).toEqual('C123123');
+
+        expect(subscriptionData.locationTableData).toHaveLength(2);
+        const locationDataRow = subscriptionData.locationTableData[0];
+        expect(locationDataRow.subscriptionId).toEqual('d5b65f6f-4c43-45f7-a52d-d2c5cf8ac0e6');
+        expect(locationDataRow.locationName).toEqual('Aberdeen Tribunal Hearing Centre');
+    });
+
+    it('should return nothing if no subscription to delete', async () => {
+        const result = await subscriptionService.getSelectedSubscriptionDataForView(userIdWithSubscriptions, 'en', []);
+        const subscriptionData = JSON.parse(JSON.stringify(result));
+
+        expect(subscriptionData.caseTableData).toHaveLength(0);
+        expect(subscriptionData.locationTableData).toHaveLength(0);
+    });
+});
+
 describe('handleNewSubscription function', () => {
     it('should add new case number subscription', async () => {
         const pendingSubscription = { 'case-number': 'T485914' };

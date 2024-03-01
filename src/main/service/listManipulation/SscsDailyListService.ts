@@ -36,14 +36,17 @@ export class SscsDailyListService {
     }
     private getPartyProsecutor(hearing): string {
         const prosecutors = [];
+
+    private getPartyRespondent(hearing): string {
+        const respondents = [];
         hearing.party?.forEach(party => {
-            if (party.partyRole === 'PROSECUTOR') {
-                const prosecutor = party.organisationDetails?.organisationName;
-                if (prosecutor && prosecutor.length > 0) {
-                    prosecutors.push(prosecutor);
+            if (party.partyRole === 'RESPONDENT') {
+                const respondent = party.organisationDetails?.organisationName;
+                if (respondent && respondent.length > 0) {
+                    respondents.push(respondent);
                 }
             }
         });
-        return prosecutors.join(', ');
+        return respondents.join(', ');
     }
 }

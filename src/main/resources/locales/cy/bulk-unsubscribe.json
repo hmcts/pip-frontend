@@ -12,13 +12,11 @@
         "caseName": "Enw'r achos",
         "partyNames": "Enw’r parti (partïon)",
         "caseRef": "Cyfeirnod",
-        "date": "Dyddiad wedi’i ychwanegu",
-        "deletion": "Dewis"
+        "date": "Dyddiad wedi’i ychwanegu"
     },
     "courtTable": {
         "courtName": "Enw’r llys neu’r tribiwnlys",
-        "date": "Dyddiad wedi’i ychwanegu",
-        "deletion": "Dewis"
+        "date": "Dyddiad wedi’i ychwanegu"
     },
     "error": {
         "title": "Mae yna broblem",

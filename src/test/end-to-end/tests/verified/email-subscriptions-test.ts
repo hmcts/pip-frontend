@@ -8,26 +8,27 @@ Feature('Verified user email subscriptions');
 const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
 
+const caseId = '12341234';
+const caseName = 'Test Case Name';
+const caseURN = 'Case URN';
+const caseNameNumber = '12341232';
+const caseNameUrn = '18472381412';
+const caseNamePartyFullName = 'Test Forename B Test Surname';
+const caseNamePartyOrganisationName = 'Test Organisation Name';
+const caseNamePartyRepSurname = 'Test Rep Surname';
+const casePartySurname = 'Party Surname';
+const casePartyFullName = 'Party Forename Party Surname';
+const casePartyRepSurname = 'Party Rep Surname';
+const casePartyNumber = '12341235';
+const casePartyURN = '99999999';
+
+const displayFrom = DateTime.now().toISO({ includeOffset: false });
+const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
+
 Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
         'should be able to remove subscription and bulk unsubscribe',
     async ({ I }) => {
-        const caseId = '12341234';
-        const caseName = 'Test Case Name';
-        const caseURN = 'Case URN';
-        const caseNameNumber = '12341232';
-        const caseNameUrn = '18472381412';
-        const caseNamePartyFullName = 'Test Forename B Test Surname';
-        const caseNamePartyOrganisationName = 'Test Organisation Name';
-        const caseNamePartyRepSurname = 'Test Rep Surname';
-        const casePartySurname = 'Party Surname';
-        const casePartyFullName = 'Party Forename Party Surname';
-        const casePartyRepSurname = 'Party Rep Surname';
-        const casePartyNumber = '12341235';
-        const casePartyURN = '99999999';
-
-        const displayFrom = DateTime.now().toISO({ includeOffset: false });
-        const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
         const locationId = randomData.getRandomLocationId();
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         const testUserEmail = randomData.getRandomEmailAddress();
@@ -190,13 +191,114 @@ Scenario(
         I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ name: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
+        I.waitForText('Are you sure you want to remove these subscriptions?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Email subscriptions updated');
         I.logout();
     }
 ).tag('@CrossBrowser');
+
+Scenario('I as a verified user should be able to select all subscriptions when bulk unsubscribing', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    const testUserEmail = randomData.getRandomEmailAddress();
+
+    const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
+    await createLocation(locationId, locationName);
+    await uploadPublication(
+        'PUBLIC',
+        locationId,
+        displayFrom,
+        displayTo,
+        'ENGLISH',
+        'etDailyList.json',
+        'ET_DAILY_LIST'
+    );
+
+    I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
+    I.waitForText('Your account');
+    I.click('#card-subscription-management');
+    I.waitForText('Your email subscriptions');
+    I.click('Add email subscription');
+    I.waitForText('How do you want to add an email subscription?');
+    I.click('#subscription-choice-1');
+    I.click('Continue');
+    I.checkOption('//*[@id="' + locationId + '"]');
+    I.click('Continue');
+    I.click('Confirm Subscriptions');
+    I.waitForText('Email subscriptions updated');
+
+    I.click('Email subscriptions');
+    I.waitForText('Your email subscriptions');
+    I.click('Add email subscription');
+    I.click('#subscription-choice-3');
+    I.click('Continue');
+    I.waitForText('What is the reference number?');
+    I.see(
+        'Please enter either a case reference number, case ID or unique reference number (URN). You must enter an exact match.'
+    );
+    I.fillField('#search-input', caseId);
+    I.click('Continue');
+    I.waitForText('Search result');
+    I.see('1 found');
+    I.see(caseId);
+    I.click('Continue');
+    I.waitForText('Confirm your email subscriptions');
+    I.click('Confirm Subscriptions');
+    I.waitForText('Email subscriptions updated');
+
+    I.click('Email subscriptions');
+    I.waitForText('Your email subscriptions');
+    I.see(locationName);
+    I.see(caseId);
+
+    I.click('Email subscriptions');
+    I.waitForText('Your email subscriptions');
+    I.click('#bulk-unsubscribe-button');
+    I.waitForText('Bulk unsubscribe');
+    I.see('All subscriptions (2)');
+    I.see('Subscriptions by case (1)');
+    I.see('Subscriptions by court or tribunal (1)');
+
+    I.click('Subscriptions by case');
+    I.seeElementInDOM('#select-all-cases');
+    I.dontSeeElementInDOM('#select-all-locations');
+
+    I.click('Subscriptions by court or tribunal');
+    I.dontSeeElementInDOM('#select-all-cases');
+    I.seeElementInDOM('#select-all-locations');
+
+    I.click('All subscriptions');
+    I.seeElementInDOM('#select-all-cases');
+    I.seeElementInDOM('#select-all-locations');
+
+    I.click('#select-all-cases');
+    I.click('#select-all-locations');
+    I.click('#select-all-cases');
+    I.click('#select-all-locations');
+    I.click('#bulk-unsubscribe-button');
+    I.waitForText('There is a problem');
+    I.see('At least one subscription must be selected');
+
+    I.click('#select-all-cases');
+    I.click('#select-all-locations');
+    I.click('#bulk-unsubscribe-button');
+    I.waitForText('Are you sure you want to remove these subscriptions?');
+    I.see(locationName);
+    I.see(caseId);
+
+    I.click('#bulk-unsubscribe-choice');
+    I.click('Continue');
+    I.waitForText('Email subscriptions updated');
+
+    I.click('Email subscriptions');
+    I.waitForText('Your email subscriptions');
+    I.dontSee(locationName);
+    I.dontSee(caseId);
+
+    I.logout();
+}).tag('@Nightly');
 
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
@@ -291,7 +393,7 @@ Scenario(
 
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
         I.click('#bulk-unsubscribe-button');
-        I.waitForText('Are you sure you want to bulk unsubscribe the above selection?');
+        I.waitForText('Are you sure you want to remove these subscriptions?');
         I.click('#bulk-unsubscribe-choice');
         I.click('Continue');
         I.waitForText('Email subscriptions updated');

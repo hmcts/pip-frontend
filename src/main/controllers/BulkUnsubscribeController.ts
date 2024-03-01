@@ -40,8 +40,15 @@ export default class BulkUnsubscribeController {
                     noOptionSelectedError: true,
                 });
             } else {
+                const subscriptionData = await subscriptionService.getSelectedSubscriptionDataForView(
+                    req.user['userId'],
+                    req.lng,
+                    subscriptionsToDelete
+                );
+
                 res.render(bulkUnsubscribeConfirmationUrl, {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkUnsubscribeConfirmationUrl]),
+                    ...subscriptionData,
                     subscriptions: subscriptionsToDelete,
                 });
             }
