@@ -140,7 +140,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
     it('should display appellant', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
         expect(data[3].innerHTML).contains(
-            'Applicant Surname, Legal Advisor: Mr Forename Middlename Applicant Representative',
+            'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname',
             'Appellant does not match'
         );
     });
@@ -148,7 +148,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
     it('should display respondent using informant', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
         expect(data[4].innerHTML).contains(
-            'Informant1, Informant2',
+            'test, test2',
             'Respondent (informant) does not match'
         );
     });

@@ -35,10 +35,7 @@
                                                 ],
                                                 "informant": [
                                                     {
-                                                        "prosecutionAuthorityRef": [
-                                                            "Informant1",
-                                                            "Informant2"
-                                                        ]
+                                                        "prosecutionAuthorityRef": ["test", "test2"]
                                                     }
                                                 ],
                                                 "party": [
@@ -100,15 +97,15 @@
                                                         }
                                                     },
                                                     {
-                                                        "partyRole": "PROSECUTOR",
+                                                        "partyRole": "RESPONDENT",
                                                         "organisationDetails": {
-                                                            "organisationName": "Prosecutor1"
+                                                            "organisationName": "Respondent Organisation"
                                                         }
                                                     },
                                                     {
-                                                        "partyRole": "PROSECUTOR",
+                                                        "partyRole": "RESPONDENT",
                                                         "organisationDetails": {
-                                                            "organisationName": "Prosecutor2"
+                                                            "organisationName": "Respondent Organisation 2"
                                                         }
                                                     }
                                                 ]
@@ -121,15 +118,15 @@
                                                 ],
                                                 "party": [
                                                     {
-                                                        "partyRole": "PROSECUTOR",
+                                                        "partyRole": "RESPONDENT",
                                                         "organisationDetails": {
-                                                            "organisationName": "Prosecutor1"
+                                                            "organisationName": "Respondent Organisation"
                                                         }
                                                     },
                                                     {
-                                                        "partyRole": "PROSECUTOR",
+                                                        "partyRole": "RESPONDENT",
                                                         "organisationDetails": {
-                                                            "organisationName": "Prosecutor2"
+                                                            "organisationName": "Respondent Organisation 2"
                                                         }
                                                     }
                                                 ]

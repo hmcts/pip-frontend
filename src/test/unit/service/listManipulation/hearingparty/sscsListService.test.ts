@@ -43,7 +43,7 @@ describe('manipulateSscsDailyListData', () => {
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0][
                 'formattedRespondent'
                 ];
-        expect(respondent).to.equal('Informant1, Informant2');
+        expect(respondent).to.equal('test, test2');
     });
 
     it('should return respondent using party prosecutor', async () => {
@@ -52,7 +52,7 @@ describe('manipulateSscsDailyListData', () => {
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['case'][0][
                 'formattedRespondent'
                 ];
-        expect(respondent).to.equal('Prosecutor1, Prosecutor2');
+        expect(respondent).to.equal('Respondent Organisation, Respondent Organisation 2');
     });
 
     it('should return empty string appellant if not present', async () => {
