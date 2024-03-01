@@ -54,6 +54,29 @@ export class SubscriptionService {
         };
     }
 
+    public async getSelectedSubscriptionDataForView(
+        userId: string,
+        language: string,
+        subscriptionsToDelete: string[]
+    ): Promise<object> {
+        const subscriptionData = await this.getSubscriptionsByUser(userId);
+
+        const caseSubscriptions = subscriptionData.caseSubscriptions.filter(subscription =>
+            subscriptionsToDelete.includes(subscription.subscriptionId)
+        );
+        const caseTableData = await this.generateCaseTableRows(caseSubscriptions, language);
+
+        const locationSubscriptions = subscriptionData.locationSubscriptions.filter(subscription =>
+            subscriptionsToDelete.includes(subscription.subscriptionId)
+        );
+        const locationTableData = await this.generateLocationTableRows(locationSubscriptions, language);
+
+        return {
+            caseTableData,
+            locationTableData,
+        };
+    }
+
     async getSubscriptionsByUser(userid: string): Promise<UserSubscriptions> {
         const subscriptionData = await subscriptionRequests.getUserSubscriptions(userid);
         return (
