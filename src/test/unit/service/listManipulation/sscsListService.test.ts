@@ -37,14 +37,11 @@ describe('manipulateSscsDailyListData', () => {
         expect(appellantRep).to.equal('Mr Individual Forenames Individual Middlename Individual Surname');
     });
 
-
-    it('should return respondent using party prosecutor', async () => {
-
     it('should return respondent using party respondent', async () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
-                'getPartyProsecutor'
+                'formattedRespondent'
             ];
         expect(respondent).to.equal('Respondent Organisation, Respondent Organisation 2');
     });

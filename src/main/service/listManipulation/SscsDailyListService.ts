@@ -26,7 +26,7 @@ export class SscsDailyListService {
                         delete session['sessionChannel'];
                         sitting['hearing'].forEach(hearing => {
                             helperService.findAndManipulatePartyInformation(hearing);
-                            hearing['getPartyProsecutor'] = this.getPartyProsecutor(hearing);
+                            hearing['formattedRespondent'] = this.getPartyRespondent(hearing);
                         });
                     });
                 });
@@ -34,8 +34,6 @@ export class SscsDailyListService {
         });
         return sscsDailyListData;
     }
-    private getPartyProsecutor(hearing): string {
-        const prosecutors = [];
 
     private getPartyRespondent(hearing): string {
         const respondents = [];
