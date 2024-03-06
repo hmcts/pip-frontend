@@ -72,23 +72,5 @@ describe('IAC Daily List service', () => {
             expect(hearing['appellantRepresentative']).to.equal('Test Name');
             expect(hearing['prosecutingAuthority']).to.equal('Test Name, Test Name');
         });
-
-        it('should format single linked case', async () => {
-            const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
-            expect(
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
-                    'case'
-                ][0]['formattedLinkedCases']
-            ).to.equal('1234');
-        });
-
-        it('should format multiple linked cases', async () => {
-            const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
-            expect(
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
-                    'case'
-                ][0]['formattedLinkedCases']
-            ).to.equal('123, 456, 999');
-        });
     });
 });

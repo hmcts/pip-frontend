@@ -14,11 +14,11 @@
     "beforeJudge": "Gerbron",
     "startTime": "Amser Cychwyn",
     "caseRef": "Cyfeirnod yr Achos",
-    "appellant": "Apelydd",
+    "appellant": "Apelydd/Ymgeisydd",
     "respondent": "Atebydd",
     "interpreterLanguage": "Iaith y Cyfieithydd",
+    "hearingType": "Math o Clyw",
     "hearingChannel": "Sianel y Gwrandawiad",
-    "linkCases": "Achos cysylltiedig",
     "rep": "Cynrychiolydd",
     "noRep": "Dim Cynrychiolydd"
 }
