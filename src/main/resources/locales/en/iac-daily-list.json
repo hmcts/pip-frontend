@@ -14,11 +14,11 @@
     "beforeJudge": "Before",
     "startTime": "Start Time",
     "caseRef": "Case Ref",
-    "appellant": "Appellant",
+    "appellant": "Appellant/Applicant",
     "respondent": "Respondent",
     "interpreterLanguage": "Interpreter Language",
     "hearingChannel": "Hearing Channel",
-    "linkCases": "Linked Cases",
+    "linkCases": "",
     "rep": "Rep",
     "noRep": "No Representative"
 }
