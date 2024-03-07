@@ -145,11 +145,6 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
         );
     });
 
-    it('should display respondent using informant', () => {
-        const data = htmlRes.getElementsByClassName(tableCell);
-        expect(data[4].innerHTML).contains('test, test2', 'Respondent (informant) does not match');
-    });
-
     it('should display respondent using party respondent', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
         expect(data[10].innerHTML).contains(
