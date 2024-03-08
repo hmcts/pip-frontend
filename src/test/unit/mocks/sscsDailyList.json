@@ -144,6 +144,61 @@
                                         "johKnownAs": "Judge KnownAs 2"
                                     }
                                 ]
+                            },
+                            {
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-07-27T09:40:17.496Z",
+                                        "hearing": [
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341235"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Individual Forenames",
+                                                            "individualMiddleName": "Individual Middlename",
+                                                            "individualSurname": "Individual Surname",
+                                                            "title": "Mr"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation 2"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "channel": []
+                                    }
+                                ],
+                                "judiciary": [
+                                    {
+                                        "johKnownAs": "Judge KnownAs"
+                                    },
+                                    {
+                                        "johKnownAs": "Judge KnownAs 2"
+                                    }
+                                ]
                             }
                         ]
                     }

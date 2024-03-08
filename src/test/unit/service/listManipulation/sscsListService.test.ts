@@ -59,4 +59,11 @@ describe('manipulateSscsDailyListData', () => {
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['caseHearingChannel'];
         expect(hearingChannel).to.equal('VIDEO HEARING');
     });
+
+    it('should return empty channel when no session channel is present, and sitting channel is empty', async () => {
+        const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
+        const hearingChannel =
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][1]['sittings'][0]['caseHearingChannel'];
+        expect(hearingChannel).to.equal('');
+    });
 });
