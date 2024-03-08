@@ -146,6 +146,7 @@
                                 ]
                             },
                             {
+                                "sessionChannel": [],
                                 "sittings": [
                                     {
                                         "sittingStart": "2022-07-27T09:40:17.496Z",
