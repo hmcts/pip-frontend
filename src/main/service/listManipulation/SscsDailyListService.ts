@@ -23,12 +23,12 @@ export class SscsDailyListService {
                         delete sitting['sittingStart'];
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         delete sitting['channel'];
-                        delete session['sessionChannel'];
                         sitting['hearing'].forEach(hearing => {
                             helperService.findAndManipulatePartyInformation(hearing);
                             hearing['formattedRespondent'] = this.getPartyRespondent(hearing);
                         });
                     });
+                    delete session['sessionChannel'];
                 });
             });
         });
