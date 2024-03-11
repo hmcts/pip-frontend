@@ -17,8 +17,8 @@
     "appellant": "Appellant/Applicant",
     "respondent": "Respondent",
     "interpreterLanguage": "Interpreter Language",
-    "hearingType": "Hearing Type",
     "hearingChannel": "Hearing Channel",
+    "hearingType": "Hearing Type",
     "rep": "Rep",
     "noRep": "No Representative"
 }
