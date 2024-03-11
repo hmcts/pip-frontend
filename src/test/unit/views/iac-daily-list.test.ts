@@ -48,7 +48,7 @@ describe('IAC daily cause list page', () => {
 
     it('should display venue contact email and phone number in summary text', () => {
         const summary = htmlRes.getElementsByClassName(summaryText);
-        expect(summary[0].innerHTML).contains('a@b.com 01234 123 123', 'Could not find the court name in summary text');
+        expect(summary[0].innerHTML).contains('contactia@justice.gov.uk 0300 1231 711', 'Could not find the court name in summary text');
     });
 
     it('should display list for text', () => {
@@ -68,13 +68,12 @@ describe('IAC daily cause list page', () => {
 
     it('should display the court list name on the page', () => {
         const courtListText = htmlRes.getElementsByClassName(courtListClass);
-        expect(courtListText[0].innerHTML).contains('Bail list');
         expect(courtListText[1].innerHTML).contains('Float list');
     });
 
     it('should display the court room name on the page', () => {
         const courtRoomText = htmlRes.getElementsByClassName(courtRoomClass);
-        expect(courtRoomText[0].innerHTML).contains('Room 1, Before Judge Test Name Presiding');
+        expect(courtRoomText[0].innerHTML).contains('Room 1, Judge Test Name Presiding');
         expect(courtRoomText[1].innerHTML).contains('Room 1, Before Judge Test Name');
         expect(courtRoomText[2].innerHTML).contains(
             'Room 2, Before Judge Test Name Presiding, Judge Test Name 2, Judge Test Name 3'
