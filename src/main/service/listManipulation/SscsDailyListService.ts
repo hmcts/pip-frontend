@@ -1,6 +1,7 @@
 import { ListParseHelperService } from '../listParseHelperService';
 
 const helperService = new ListParseHelperService();
+
 export class SscsDailyListService {
     /**
      * Manipulate the sscsDailyList json data for writing out on screen.
@@ -26,7 +27,7 @@ export class SscsDailyListService {
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
                                 this.formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase);
-                                hearingCase['formattedRespondent'] = this.formatRespondent(hearing, hearingCase);
+                                hearingCase['formattedRespondent'] = this.getPartyRespondent(hearing, hearingCase);
                             });
                         });
                     });
@@ -34,26 +35,6 @@ export class SscsDailyListService {
             });
         });
         return sscsDailyListData;
-    }
-
-    private formatRespondent(hearing, hearingCase): string {
-        const informant = this.getInformant(hearing);
-        if (informant.length === 0) {
-            return this.getPartyRespondent(hearing, hearingCase);
-        }
-        return informant;
-    }
-
-    private getInformant(hearing): string {
-        const informants = [];
-        hearing.informant?.forEach(informant => {
-            informant.prosecutionAuthorityRef?.forEach(proscAuthRef => {
-                if (proscAuthRef.length > 0) {
-                    informants.push(proscAuthRef);
-                }
-            });
-        });
-        return informants.join(', ');
     }
 
     private getPartyRespondent(hearing, hearingCase): string {
