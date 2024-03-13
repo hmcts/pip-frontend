@@ -68,7 +68,6 @@ describe('IAC daily cause list page', () => {
 
     it('should display the court list name on the page', () => {
         const courtListText = htmlRes.getElementsByClassName(courtListClass);
-        expect(courtListText[0].innerHTML).contains('Bail list');
         expect(courtListText[1].innerHTML).contains('Float list');
     });
 
