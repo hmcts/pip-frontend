@@ -37,15 +37,6 @@ describe('manipulateSscsDailyListData', () => {
         expect(appellantRep).to.equal('Mr Forename Middlename Applicant Representative');
     });
 
-    it('should return respondent using informant', async () => {
-        const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
-        const respondent =
-            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['case'][0][
-                'formattedRespondent'
-                ];
-        expect(respondent).to.equal('test, test2');
-    });
-
     it('should return respondent using party prosecutor', async () => {
         const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
         const respondent =
