@@ -24,6 +24,7 @@ export const testSubscriptionData = () => {
     return JSON.parse(rawSubscriptionData).data;
 };
 
+
 export const testMediaApplicationData = () => {
     const rawMediaApplications = fs.readFileSync(
         path.resolve(__dirname, '../../unit/mocks/mediaApplications.json'),
