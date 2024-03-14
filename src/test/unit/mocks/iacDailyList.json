@@ -34,11 +34,11 @@
                                                         "caseSequenceIndicator": "1 of 2",
                                                         "caseType": "case type",
                                                         "language": "French"
+
                                                     },
                                                     {
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 2",
-                                                        "caseType": "case type",
                                                         "language": "English"
                                                     }
                                                 ],
