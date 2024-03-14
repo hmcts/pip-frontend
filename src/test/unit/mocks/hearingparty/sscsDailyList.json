@@ -22,7 +22,7 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionChannel": ["VIDEO HEARING", ""],
+                                "sessionChannel": ["VIDEO HEARING"],
                                 "sittings": [
                                     {
                                         "sittingStart": "2022-07-27T09:40:17.496Z",
@@ -128,6 +128,229 @@
                                             }
                                         ],
                                         "channel": ["Teams", "Attended"]
+                                    },
+                                    {
+                                        "sittingStart": "2022-07-27T09:40:17.496Z",
+                                        "hearing": [
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341234"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Applicant Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Respondent Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forename",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "Applicant Representative",
+                                                            "title": "Mr"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forename",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "Respondent Representative",
+                                                            "title": "Mr"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341235"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Applicant Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forename",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "Applicant Representative",
+                                                            "title": "Mr"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation 2"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341236"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation 2"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "channel": []
+                                    }
+                                ],
+                                "judiciary": [
+                                    {
+                                        "johKnownAs": "Judge KnownAs"
+                                    },
+                                    {
+                                        "johKnownAs": "Judge KnownAs 2"
+                                    }
+                                ]
+                            },
+                            {
+                                "sessionChannel": [],
+                                "sittings": [
+                                    {
+                                        "sittingStart": "2022-07-27T09:40:17.496Z",
+                                        "hearing": [
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341234"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Applicant Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Respondent Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forename",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "Applicant Representative",
+                                                            "title": "Mr"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forename",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "Respondent Representative",
+                                                            "title": "Mr"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341235"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Applicant Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forename",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "Applicant Representative",
+                                                            "title": "Mr"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation 2"
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "case": [
+                                                    {
+                                                        "caseNumber": "12341236"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "organisationDetails": {
+                                                            "organisationName": "Respondent Organisation 2"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "channel": []
                                     }
                                 ],
                                 "judiciary": [
