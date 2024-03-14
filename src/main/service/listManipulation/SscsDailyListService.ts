@@ -25,8 +25,10 @@ export class SscsDailyListService {
                         delete sitting['channel'];
                         delete session['sessionChannel'];
                         sitting['hearing'].forEach(hearing => {
-                            helperService.findAndManipulatePartyInformation(hearing);
-                            hearing['formattedRespondent'] = this.getPartyRespondent(hearing);
+                            hearing['case'].forEach(hearingCase => {
+                                this.formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase);
+                                hearingCase['formattedRespondent'] = this.getPartyRespondent(hearing, hearingCase);
+                            });
                         });
                     });
                 });
@@ -35,9 +37,9 @@ export class SscsDailyListService {
         return sscsDailyListData;
     }
 
-    private getPartyRespondent(hearing): string {
+    private getPartyRespondent(hearing, hearingCase): string {
         const respondents = [];
-        hearing.party?.forEach(party => {
+        hearingCase.party?.forEach(party => {
             if (party.partyRole === 'RESPONDENT') {
                 const respondent = party.organisationDetails?.organisationName;
                 if (respondent && respondent.length > 0) {
@@ -45,6 +47,24 @@ export class SscsDailyListService {
                 }
             }
         });
+        if (respondents.length === 0) {
+            hearing.party?.forEach(party => {
+                if (party.partyRole === 'RESPONDENT') {
+                    const respondent = party.organisationDetails?.organisationName;
+                    if (respondent && respondent.length > 0) {
+                        respondents.push(respondent);
+                    }
+                }
+            });
+        }
         return respondents.join(', ');
+    }
+
+    public formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase) {
+        if (hearingCase['party']) {
+            helperService.findAndManipulatePartyInformation(hearingCase);
+        } else {
+            helperService.findAndManipulatePartyInformation(hearing);
+        }
     }
 }
