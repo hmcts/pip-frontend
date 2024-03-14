@@ -27,28 +27,28 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12341234",
-                                                        "caseSequenceIndicator": "2 of 3"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "title": "Mr",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "Test Middle Name",
-                                                            "individualSurname": "Test Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "title": "Capt.",
-                                                            "individualForenames": "Test forename 2",
-                                                            "individualMiddleName": "Test Middle Name 2",
-                                                            "individualSurname": "Test Surname 2"
-                                                        },
-                                                        "friendlyRoleName": "This is a role name"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "title": "Mr",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "Test Middle Name",
+                                                                    "individualSurname": "Test Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "title": "Capt.",
+                                                                    "individualForenames": "Test forename 2",
+                                                                    "individualMiddleName": "Test Middle Name 2",
+                                                                    "individualSurname": "Test Surname 2"
+                                                                },
+                                                                "friendlyRoleName": "This is a role name"
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "hearingType": "This is a hearing type"
@@ -90,28 +90,28 @@
                                             {
                                                 "case": [
                                                     {
-                                                        "caseNumber": "12341234"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "title": "Ms",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "B",
-                                                            "individualSurname": "Test Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "title": "Lord",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "A",
-                                                            "individualSurname": "Test Surname"
-                                                        },
-                                                        "friendlyRoleName": "This is a role name"
+                                                        "caseNumber": "12341234",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "title": "Ms",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "B",
+                                                                    "individualSurname": "Test Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "title": "Lord",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "A",
+                                                                    "individualSurname": "Test Surname"
+                                                                },
+                                                                "friendlyRoleName": "This is a role name"
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "hearingType": "Hearing Type 1"
@@ -129,28 +129,28 @@
                                             {
                                                 "case": [
                                                     {
-                                                        "caseNumber": "12341234"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "title": "Ms",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "G",
-                                                            "individualSurname": "Test Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "title": "Lord",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "P",
-                                                            "individualSurname": "Test Surname"
-                                                        },
-                                                        "friendlyRoleName": "This is a role name"
+                                                        "caseNumber": "12341234",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "title": "Ms",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "G",
+                                                                    "individualSurname": "Test Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "title": "Lord",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "P",
+                                                                    "individualSurname": "Test Surname"
+                                                                },
+                                                                "friendlyRoleName": "This is a role name"
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "hearingType": "Hearing Type 2"
@@ -174,28 +174,28 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12341234",
-                                                        "caseSequenceIndicator": "2 of 3"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "title": "Ms",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "1",
-                                                            "individualSurname": "Test Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "title": "Lord",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "3",
-                                                            "individualSurname": "Test Surname"
-                                                        },
-                                                        "friendlyRoleName": "This is a role name"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "title": "Ms",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "1",
+                                                                    "individualSurname": "Test Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "title": "Lord",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "3",
+                                                                    "individualSurname": "Test Surname"
+                                                                },
+                                                                "friendlyRoleName": "This is a role name"
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "hearingType": "Hearing Type 1"
@@ -214,28 +214,28 @@
                                                 "case": [
                                                     {
                                                         "caseNumber": "12341234",
-                                                        "caseSequenceIndicator": "2 of 3"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "title": "Ms",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "5",
-                                                            "individualSurname": "Test Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "title": "Lord",
-                                                            "individualForenames": "Test forename",
-                                                            "individualMiddleName": "7",
-                                                            "individualSurname": "Test Surname"
-                                                        },
-                                                        "friendlyRoleName": "This is a role name"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "title": "Ms",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "5",
+                                                                    "individualSurname": "Test Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "title": "Lord",
+                                                                    "individualForenames": "Test forename",
+                                                                    "individualMiddleName": "7",
+                                                                    "individualSurname": "Test Surname"
+                                                                },
+                                                                "friendlyRoleName": "This is a role name"
+                                                            }
+                                                        ]
                                                     }
                                                 ],
                                                 "hearingType": "Hearing Type 2"
