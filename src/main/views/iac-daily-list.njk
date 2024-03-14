@@ -86,12 +86,12 @@
                             <tr class="govuk-table__row">
                               <td class="govuk-table__cell" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
                               <td class="govuk-table__cell">{{ case['caseNumber'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
-                              {% if hearing['appellantRepresentative'] | length %}
-                                <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ hearing['appellantRepresentative'] }}</td>
+                              {% if case['appellantRepresentative'] | length %}
+                                <td class="govuk-table__cell">{{ case['appellant'] }}<br />{{ rep }}: {{ case['appellantRepresentative'] }}</td>
                               {% else %}
-                                <td class="govuk-table__cell">{{ hearing['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
+                                <td class="govuk-table__cell">{{ case['appellant'] }}<br />{{ rep }}: {{ noRep }}</td>
                               {% endif %}
-                              <td class="govuk-table__cell">{{ hearing['prosecutingAuthority'] }}</td>
+                              <td class="govuk-table__cell">{{ case['prosecutingAuthority'] }}</td>
                               <td class="govuk-table__cell">{{ case['language'] }}</td>
                               <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
                               <td class="govuk-table__cell" data-sort-value="{{ linkedCasesSortValue }}">{{ case['formattedLinkedCases'] }}</td>
