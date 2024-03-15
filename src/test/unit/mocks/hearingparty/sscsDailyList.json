@@ -172,64 +172,6 @@
                                                         }
                                                     }
                                                 ]
-                                            },
-                                            {
-                                                "case": [
-                                                    {
-                                                        "caseNumber": "12341235"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "APPLICANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Applicant Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Forename",
-                                                            "individualMiddleName": "Middlename",
-                                                            "individualSurname": "Applicant Representative",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation 2"
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "case": [
-                                                    {
-                                                        "caseNumber": "12341236"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation 2"
-                                                        }
-                                                    }
-                                                ]
                                             }
                                         ],
                                         "channel": []
@@ -287,64 +229,6 @@
                                                             "individualMiddleName": "Middlename",
                                                             "individualSurname": "Respondent Representative",
                                                             "title": "Mr"
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "case": [
-                                                    {
-                                                        "caseNumber": "12341235"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "APPLICANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Applicant Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Forename",
-                                                            "individualMiddleName": "Middlename",
-                                                            "individualSurname": "Applicant Representative",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation 2"
-                                                        }
-                                                    }
-                                                ]
-                                            },
-                                            {
-                                                "case": [
-                                                    {
-                                                        "caseNumber": "12341236"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation 2"
                                                         }
                                                     }
                                                 ]
