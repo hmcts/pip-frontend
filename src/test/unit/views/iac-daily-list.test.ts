@@ -86,4 +86,14 @@ describe('IAC daily cause list page', () => {
         const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
         expect(listForText.innerHTML).contains('Data Source');
     });
+
+    it('should display sitting channel if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[5].innerHTML).contains('Teams, Attended');
+    });
+
+    it('should display session channel if sitting channel is not present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[26].innerHTML).contains('VIDEO HEARING,');
+    });
 });

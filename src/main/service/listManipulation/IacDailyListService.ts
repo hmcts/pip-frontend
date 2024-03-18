@@ -15,7 +15,9 @@ export class IacDailyListService {
                         sitting['sittingStartFormatted'] = formatDate(sitting['sittingStart'], 'h:mma', language);
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         sitting['hearing'].forEach(hearing => {
-                            helperService.findAndManipulatePartyInformation(hearing);
+                            hearing['case'].forEach(hearingCase => {
+                                helperService.findAndManipulatePartyInformation(hearingCase);
+                            });
                         });
                     });
                 });
