@@ -48,7 +48,7 @@ describe('IAC daily cause list page', () => {
 
     it('should display venue contact email and phone number in summary text', () => {
         const summary = htmlRes.getElementsByClassName(summaryText);
-        expect(summary[0].innerHTML).contains('a@b.com 01234 123 123', 'Could not find the court name in summary text');
+        expect(summary[0].innerHTML).contains('contactia@justice.gov.uk 0300 1231 711', 'Could not find the court name in summary text');
     });
 
     it('should display list for text', () => {
