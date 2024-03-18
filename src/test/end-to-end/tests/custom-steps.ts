@@ -10,7 +10,7 @@ export = function () {
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in', null, { noWaitAfter: true });
+            this.click('Sign in');
         },
 
         loginAsAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
@@ -18,7 +18,7 @@ export = function () {
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in', null, { noWaitAfter: true });
+            this.click('Sign in');
         },
 
         loginAsMediaUser: function (
@@ -31,7 +31,7 @@ export = function () {
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in', null, { noWaitAfter: true });
+            this.click('Sign in');
         },
 
         loginAsCftUser: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
@@ -41,7 +41,7 @@ export = function () {
             this.see('Sign in');
             this.fillField('#username', secret(username));
             this.fillField('#password', secret(password));
-            this.click('Sign in', null, { noWaitAfter: true });
+            this.click('Sign in');
         },
 
         loginAsCftUserInWelsh: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
