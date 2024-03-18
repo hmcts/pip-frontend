@@ -14,6 +14,10 @@
                         "courtRoomName": "Room 1",
                         "session": [
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -118,6 +122,10 @@
                                 ]
                             },
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -204,8 +212,7 @@
                                                     }
                                                 ]
                                             }
-                                        ],
-                                        "channel": ["Teams", "Attended"]
+                                        ]
                                     }
                                 ]
                             }
@@ -215,6 +222,10 @@
                         "courtRoomName": "Room 2",
                         "session": [
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -317,6 +328,10 @@
                                 ]
                             },
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "sittings": [
                                     {
                                         "sittingStart": "2022-08-31T10:30:00.001Z",
@@ -414,6 +429,10 @@
                         "courtRoomName": "Room 3",
                         "session": [
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -500,6 +519,10 @@
                                 ]
                             },
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
