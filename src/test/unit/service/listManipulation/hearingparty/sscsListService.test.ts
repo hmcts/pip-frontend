@@ -33,7 +33,7 @@ describe('manipulateSscsDailyListData', () => {
         const appellantRep =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                 'applicantRepresentative'
-                ];
+            ];
         expect(appellantRep).to.equal('Mr Forename Middlename Applicant Representative');
     });
 
@@ -42,7 +42,7 @@ describe('manipulateSscsDailyListData', () => {
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['case'][0][
                 'formattedRespondent'
-                ];
+            ];
         expect(respondent).to.equal('Respondent Organisation, Respondent Organisation 2');
     });
 

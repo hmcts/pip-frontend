@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 
 const PAGE_URL = '/iac-daily-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
