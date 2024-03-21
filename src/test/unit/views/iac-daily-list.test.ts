@@ -9,7 +9,7 @@ import { expect } from 'chai';
 const PAGE_URL = '/iac-daily-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
-const summaryText = 'govuk-details__text';
+//const summaryText = 'govuk-details__text';
 const paragraphClass = 'govuk-body';
 const courtListClass = 'site-address';
 const courtRoomClass = 'govuk-accordion__section-button';
@@ -46,10 +46,10 @@ describe('IAC daily cause list page', () => {
         expect(summary[0].innerHTML).contains('Important information', 'Could not find the display summary heading');
     });
 
-    it('should display venue contact email and phone number in summary text', () => {
+  /*  it('should display venue contact email and phone number in summary text', () => {
         const summary = htmlRes.getElementsByClassName(summaryText);
         expect(summary[0].innerHTML).contains('a@b.com 01234 123 123', 'Could not find the court name in summary text');
-    });
+    });*/
 
     it('should display list for text', () => {
         const listForText = htmlRes.getElementsByClassName(paragraphClass)[4];

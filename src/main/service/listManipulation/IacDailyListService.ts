@@ -16,7 +16,6 @@ export class IacDailyListService {
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         sitting['hearing'].forEach(hearing => {
                             helperService.findAndManipulatePartyInformation(hearing);
-                            helperService.findAndManipulateLinkedCases(hearing);
                         });
                     });
                 });
