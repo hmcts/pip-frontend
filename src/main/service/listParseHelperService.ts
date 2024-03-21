@@ -182,7 +182,7 @@ export class ListParseHelperService {
         if (sitting['channel'] || session['sessionChannel']) {
             if (sitting['channel']?.length > 0) {
                 caseHearingChannel = sitting['channel'].join(', ');
-            } else if (session['sessionChannel'].length > 0) {
+            } else if (session['sessionChannel']?.length > 0) {
                 caseHearingChannel = session['sessionChannel'].join(', ');
             }
         }
