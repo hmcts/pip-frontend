@@ -51,11 +51,13 @@
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "caseType": "case type"
                                                     },
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445"
+                                                        "caseNumber": "112233445",
+                                                        "caseType": "case type"
                                                     }
                                                 ]
                                             },
@@ -64,7 +66,8 @@
                                                 "case": [
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445"
+                                                        "caseNumber": "112233445",
+                                                        "caseType": "case type"
                                                     }
                                                 ]
                                             }
@@ -80,7 +83,8 @@
                                                 "case": [
                                                     {
                                                         "caseName": "A1 Vs B1",
-                                                        "caseNumber": "12345678"
+                                                        "caseNumber": "12345678",
+                                                        "caseType": "case type"
                                                     }
                                                 ]
                                             },
@@ -89,7 +93,8 @@
                                                 "case": [
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445"
+                                                        "caseNumber": "112233445",
+                                                        "caseType": "case type"
                                                     }
                                                 ]
                                             }
@@ -139,7 +144,8 @@
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "caseType": "case type"
                                                     }
                                                 ]
                                             }
@@ -186,7 +192,8 @@
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "caseType": "case type"
                                                     }
                                                 ]
                                             }
@@ -233,7 +240,8 @@
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseSequenceIndicator": "2 of 3"
+                                                        "caseSequenceIndicator": "2 of 3",
+                                                        "caseType": "case type"
                                                     }
                                                 ]
                                             }
