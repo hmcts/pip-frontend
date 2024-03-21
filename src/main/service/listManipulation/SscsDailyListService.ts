@@ -23,7 +23,6 @@ export class SscsDailyListService {
                         delete sitting['sittingStart'];
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         delete sitting['channel'];
-                        delete session['sessionChannel'];
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
                                 this.formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase);
@@ -31,6 +30,7 @@ export class SscsDailyListService {
                             });
                         });
                     });
+                    delete session['sessionChannel'];
                 });
             });
         });

@@ -33,7 +33,7 @@ describe('manipulateSscsDailyListData', () => {
         const appellantRep =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                 'applicantRepresentative'
-                ];
+            ];
         expect(appellantRep).to.equal('Mr Forename Middlename Applicant Representative');
     });
 
@@ -42,7 +42,7 @@ describe('manipulateSscsDailyListData', () => {
         const respondent =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1]['case'][0][
                 'formattedRespondent'
-                ];
+            ];
         expect(respondent).to.equal('Respondent Organisation, Respondent Organisation 2');
     });
 
@@ -58,5 +58,19 @@ describe('manipulateSscsDailyListData', () => {
         const formattedJudiciary =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['formattedJudiciary'];
         expect(formattedJudiciary).to.equal('Judge KnownAs, Judge KnownAs 2');
+    });
+
+    it('should return session channel when sitting channel is not present', async () => {
+        const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
+        const hearingChannel =
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][1]['caseHearingChannel'];
+        expect(hearingChannel).to.equal('VIDEO HEARING');
+    });
+
+    it('should return empty channel when both session and sitting channel are empty', async () => {
+        const data = await sscsDailyListService.manipulateSscsDailyListData(rawData);
+        const hearingChannel =
+            data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][1]['sittings'][0]['caseHearingChannel'];
+        expect(hearingChannel).to.equal('');
     });
 });
