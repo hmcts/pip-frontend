@@ -46,41 +46,41 @@
                                                         "caseName": "This is a case name",
                                                         "caseNumber": "12341234",
                                                         "caseJurisdictionET": "Family Law",
-                                                        "caseSequenceIndicator": "2 of 3",
-                                                        "party": [
-                                                            {
-                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                                "friendlyRoleName": "Legal Advisor",
-                                                                "individualDetails": {
-                                                                    "individualForenames": "Forenames",
-                                                                    "individualMiddleName": "Middlename",
-                                                                    "individualSurname": "SurnameRespondent",
-                                                                    "title": "Mr"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                                                                "friendlyRoleName": "Legal Advisor",
-                                                                "individualDetails": {
-                                                                    "individualForenames": "Forenames",
-                                                                    "individualMiddleName": "Middlename",
-                                                                    "individualSurname": "SurnameApplicant",
-                                                                    "title": "Mr"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "APPLICANT_PETITIONER",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname"
-                                                                }
-                                                            },
-                                                            {
-                                                                "partyRole": "RESPONDENT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Surname"
-                                                                }
-                                                            }
-                                                        ]
+                                                        "caseSequenceIndicator": "2 of 3"
+                                                    }
+                                                ],
+                                                "party": [
+                                                    {
+                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forenames",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "SurnameRespondent",
+                                                            "title": "Mr"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                        "friendlyRoleName": "Legal Advisor",
+                                                        "individualDetails": {
+                                                            "individualForenames": "Forenames",
+                                                            "individualMiddleName": "Middlename",
+                                                            "individualSurname": "SurnameApplicant",
+                                                            "title": "Mr"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "APPLICANT_PETITIONER",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Surname"
+                                                        }
+                                                    },
+                                                    {
+                                                        "partyRole": "RESPONDENT",
+                                                        "individualDetails": {
+                                                            "individualSurname": "Surname"
+                                                        }
                                                     }
                                                 ]
                                             }

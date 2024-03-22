@@ -18,7 +18,6 @@ const courtName = "Abergavenny Magistrates' Court";
 const expectedHeader = 'Civil and Family Daily Cause List for ' + courtName;
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Judge KnownAs Presiding, Judge KnownAs';
-const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/civilAndFamilyDailyCauseList.json'), 'utf-8');
@@ -168,37 +167,35 @@ describe('Civil And Family Daily Cause List page', () => {
         expect(cell[6].innerHTML).contains('1 hour 5 mins');
     });
 
-    it('should not display applicant petitioner for hearing with multiple cases', () => {
+    it('should display applicant petitioner for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[7].innerHTML).not.contains(applicantRespondent);
-        expect(cell[16].innerHTML).not.contains(applicantRespondent);
+        expect(cell[7].innerHTML).contains('Applicant Surname 1, Legal Advisor: Mr Rep Forenames 1 Rep Middlename 1 Rep Surname 1');
+        expect(cell[16].innerHTML).contains('Applicant Surname 2, Legal Advisor: Mr Rep Forenames 2 Rep Middlename 2 Rep Surname 2');
     });
 
-    it('should not display respondent for hearing with multiple cases', () => {
+    it('should display respondent for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[8].innerHTML).not.contains(applicantRespondent);
-        expect(cell[17].innerHTML).not.contains(applicantRespondent);
+        expect(cell[8].innerHTML).contains('Respondent Surname 1');
+        expect(cell[17].innerHTML).contains('Respondent Surname 2');
     });
 
     it('should display applicant petitioner for haring with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[25].innerHTML).contains(applicantRespondent);
+        expect(cell[34].innerHTML).contains('Applicant Surname 3, Legal Advisor: Mr Rep Forenames 3 Rep Middlename 3 Rep Surname 3');
     });
 
     it('should display respondent for hearing with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[26].innerHTML).contains(applicantRespondent);
+        expect(cell[35].innerHTML).contains('Respondent Surname 3, Legal Advisor: Mr Rep Forenames 4 Rep Middlename 4 Rep Surname 4');
     });
 
     it('should display applicant petitioner using organisation', () => {
-        const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(4).children;
-        expect(cell[7].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[25].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
     });
 
     it('should display respondent using organisation', () => {
-        const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(4).children;
-        expect(cell[8].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[26].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
     });
 });

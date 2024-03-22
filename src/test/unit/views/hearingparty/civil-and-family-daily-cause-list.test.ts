@@ -1,13 +1,13 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { app } from '../../../main/app';
+import { app } from '../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../../main/service/publicationService';
+import { LocationService } from '../../../../main/service/locationService';
 
-const PAGE_URL = '/family-daily-cause-list?artefactId=abc';
+const PAGE_URL = '/civil-and-family-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
@@ -15,25 +15,26 @@ const accordionClass = 'govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
 
 const courtName = "Abergavenny Magistrates' Court";
-const expectedHeader = 'Family Daily Cause List for ' + courtName;
+const expectedHeader = 'Civil and Family Daily Cause List for ' + courtName;
 const summaryHeadingText = 'Important information';
 const accordionHeading = '1, Before: Judge KnownAs Presiding, Judge KnownAs';
+const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/familyDailyCauseList.json'), 'utf-8');
-const familyDailyCauseListData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/civilAndFamilyDailyCauseList.json'), 'utf-8');
+const civilAndFamilyDailyCauseListData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'FAMILY_DAILY_CAUSE_LIST';
+metaData.listType = 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST';
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(familyDailyCauseListData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(civilAndFamilyDailyCauseListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
-describe('Family Daily Cause List page', () => {
+describe('Civil And Family Daily Cause List page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -113,6 +114,19 @@ describe('Family Daily Cause List page', () => {
         expect(accordion[0].innerHTML).contains(accordionHeading, 'Could not find the accordion heading');
     });
 
+    it('should display table headers', () => {
+        const header = htmlRes.getElementsByClassName('govuk-table__header');
+        expect(header[0].innerHTML).equals('Time');
+        expect(header[1].innerHTML).equals('Case ref');
+        expect(header[2].innerHTML).equals('Case name');
+        expect(header[3].innerHTML).equals('Case type');
+        expect(header[4].innerHTML).equals('Hearing type');
+        expect(header[5].innerHTML).equals('Location');
+        expect(header[6].innerHTML).equals('Duration');
+        expect(header[7].innerHTML).equals('Applicant/Petitioner');
+        expect(header[8].innerHTML).equals('Respondent');
+    });
+
     it('should display case time', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[0].innerHTML).contains('10:40');
@@ -123,17 +137,7 @@ describe('Family Daily Cause List page', () => {
         expect(cell[1].innerHTML).contains('12345678');
     });
 
-    it('should display Case name', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('A1 Vs B1');
-    });
-
-    it('should display Case Sequence Indicator if it is there', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('[2 of 3]');
-    });
-
-    it('should display Case name with Case Sequence Indicator if it is there', () => {
+    it('should display Case name with Case Sequence Indicator', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[2].innerHTML).equal('A1 Vs B1 [2 of 3]');
     });
@@ -144,14 +148,14 @@ describe('Family Daily Cause List page', () => {
         expect(cell[2].innerHTML).equals('A2 Vs B2');
     });
 
-    it('should display Case type', () => {
+    it('should display Case Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[3].innerHTML).contains('type');
+        expect(cell[3].innerHTML).contains('Case Type');
     });
 
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[4].innerHTML).contains('FMPO');
+        expect(cell[4].innerHTML).contains('Hearing Type');
     });
 
     it('should display Hearing platform', () => {
@@ -164,35 +168,37 @@ describe('Family Daily Cause List page', () => {
         expect(cell[6].innerHTML).contains('1 hour 5 mins');
     });
 
-    it('should display applicant petitioner for haring with multiple cases', () => {
+    it('should not display applicant petitioner for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[7].innerHTML).contains('Applicant Surname 1, Legal Advisor: Mr Rep Forenames 1 Rep Middlename 1 Rep Surname 1');
-        expect(cell[16].innerHTML).contains('Applicant Surname 2, Legal Advisor: Mr Rep Forenames 3 Rep Middlename 3 Rep Surname 3');
+        expect(cell[7].innerHTML).not.contains(applicantRespondent);
+        expect(cell[16].innerHTML).not.contains(applicantRespondent);
     });
 
-    it('should display respondent for hearing with multiple cases', () => {
+    it('should not display respondent for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[8].innerHTML).contains('Respondent Surname 1');
-        expect(cell[17].innerHTML).contains('Respondent Surname 2');
+        expect(cell[8].innerHTML).not.contains(applicantRespondent);
+        expect(cell[17].innerHTML).not.contains(applicantRespondent);
     });
 
     it('should display applicant petitioner for haring with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[34].innerHTML).contains('Applicant Surname 3, Applicant Surname 3a, Legal Advisor: Mr Rep Forenames 5 Rep Middlename 5 Rep Surname 5');
+        expect(cell[25].innerHTML).contains(applicantRespondent);
     });
 
     it('should display respondent for hearing with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[35].innerHTML).contains('Respondent Surname 3, Respondent Surname 3a, Legal Advisor: Mr Rep Forenames 6 Rep Middlename 6 Rep Surname 6');
+        expect(cell[26].innerHTML).contains(applicantRespondent);
     });
 
     it('should display applicant petitioner using organisation', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[25].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
+        const rows = htmlRes.getElementsByClassName('govuk-table__row');
+        const cell = rows.item(4).children;
+        expect(cell[7].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
     });
 
     it('should display respondent using organisation', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[26].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
+        const rows = htmlRes.getElementsByClassName('govuk-table__row');
+        const cell = rows.item(4).children;
+        expect(cell[8].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
     });
 });
