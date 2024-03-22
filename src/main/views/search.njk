@@ -91,7 +91,14 @@
           accessibleAutocomplete({
               element: element,
               id: 'search-input',
-              source: source,
+              source: function suggest (query, populateResults) {
+                  let queryLC = query.toLowerCase()
+                  let filteredPrimaryResults = source.filter(s => s.toLowerCase().indexOf(queryLC) === 0)
+                  filteredPrimaryResults.sort((a, b) => a.localeCompare(b))
+                  let filteredSecondaryResults = source.filter(s => s.toLowerCase().indexOf(queryLC) !== -1 && s.toLowerCase().indexOf(queryLC) !== 0)
+                  filteredSecondaryResults.sort((a, b) => a.localeCompare(b))
+                  populateResults(filteredPrimaryResults.concat(filteredSecondaryResults));
+              },
               displayMenu: 'overlay',
               tNoResults: () => '{{ error.noResultsSummaryText }}'
           });
@@ -99,7 +106,14 @@
           accessibleAutocomplete({
               element: element,
               id: 'search-input',
-              source: source,
+              source: function suggest (query, populateResults) {
+                  let queryLC = query.toLowerCase()
+                  let filteredPrimaryResults = source.filter(s => s.toLowerCase().indexOf(queryLC) === 0)
+                  filteredPrimaryResults.sort((a, b) => a.localeCompare(b))
+                  let filteredSecondaryResults = source.filter(s => s.toLowerCase().indexOf(queryLC) !== -1 && s.toLowerCase().indexOf(queryLC) !== 0)
+                  filteredSecondaryResults.sort((a, b) => a.localeCompare(b))
+                  populateResults(filteredPrimaryResults.concat(filteredSecondaryResults));
+              },
               displayMenu: 'overlay'
           });
       }
