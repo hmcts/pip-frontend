@@ -169,8 +169,12 @@ describe('Civil And Family Daily Cause List page', () => {
 
     it('should display applicant petitioner for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[7].innerHTML).contains('Applicant Surname 1, Legal Advisor: Mr Rep Forenames 1 Rep Middlename 1 Rep Surname 1');
-        expect(cell[16].innerHTML).contains('Applicant Surname 2, Legal Advisor: Mr Rep Forenames 2 Rep Middlename 2 Rep Surname 2');
+        expect(cell[7].innerHTML).contains(
+            'Applicant Surname 1, Legal Advisor: Mr Rep Forenames 1 Rep Middlename 1 Rep Surname 1'
+        );
+        expect(cell[16].innerHTML).contains(
+            'Applicant Surname 2, Legal Advisor: Mr Rep Forenames 2 Rep Middlename 2 Rep Surname 2'
+        );
     });
 
     it('should display respondent for hearing with multiple cases', () => {
@@ -181,12 +185,16 @@ describe('Civil And Family Daily Cause List page', () => {
 
     it('should display applicant petitioner for haring with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[34].innerHTML).contains('Applicant Surname 3, Legal Advisor: Mr Rep Forenames 3 Rep Middlename 3 Rep Surname 3');
+        expect(cell[34].innerHTML).contains(
+            'Applicant Surname 3, Legal Advisor: Mr Rep Forenames 3 Rep Middlename 3 Rep Surname 3'
+        );
     });
 
     it('should display respondent for hearing with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[35].innerHTML).contains('Respondent Surname 3, Legal Advisor: Mr Rep Forenames 4 Rep Middlename 4 Rep Surname 4');
+        expect(cell[35].innerHTML).contains(
+            'Respondent Surname 3, Legal Advisor: Mr Rep Forenames 4 Rep Middlename 4 Rep Surname 4'
+        );
     });
 
     it('should display applicant petitioner using organisation', () => {

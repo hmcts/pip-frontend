@@ -35,7 +35,7 @@ export class CivilFamilyAndMixedListService {
                             sitting['hearing'].forEach(hearing => {
                                 hearing['case'].forEach(hearingCase => {
                                     this.handleFamilyMixedListParties(hearingCase);
-                                })
+                                });
                             });
                         }
                     });

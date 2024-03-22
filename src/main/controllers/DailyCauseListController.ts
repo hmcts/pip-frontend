@@ -6,7 +6,7 @@ import { LocationService } from '../service/locationService';
 import { ListParseHelperService } from '../service/listParseHelperService';
 import { CivilFamilyAndMixedListService } from '../service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
-import {hearingHasParty, isValidList} from '../helpers/listHelper';
+import { hearingHasParty, isValidList } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -30,10 +30,15 @@ export default class DailyCauseListController {
 
             if (url === familyDailyListUrl || url === mixedDailyListUrl) {
                 if (hearingHasParty(searchResults)) {
-                    manipulatedData = civilFamMixedListService.sculptedFamilyMixedListData(JSON.stringify(searchResults), true);
+                    manipulatedData = civilFamMixedListService.sculptedFamilyMixedListData(
+                        JSON.stringify(searchResults),
+                        true
+                    );
                     partyAtHearingLevel = true;
                 } else {
-                    manipulatedData = civilFamMixedListService.sculptedFamilyMixedListData(JSON.stringify(searchResults));
+                    manipulatedData = civilFamMixedListService.sculptedFamilyMixedListData(
+                        JSON.stringify(searchResults)
+                    );
                 }
             } else {
                 manipulatedData = civilFamMixedListService.sculptedCivilListData(JSON.stringify(searchResults));

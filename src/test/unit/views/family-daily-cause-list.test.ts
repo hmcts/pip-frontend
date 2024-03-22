@@ -166,8 +166,12 @@ describe('Family Daily Cause List page', () => {
 
     it('should display applicant petitioner for haring with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[7].innerHTML).contains('Applicant Surname 1, Legal Advisor: Mr Rep Forenames 1 Rep Middlename 1 Rep Surname 1');
-        expect(cell[16].innerHTML).contains('Applicant Surname 2, Legal Advisor: Mr Rep Forenames 3 Rep Middlename 3 Rep Surname 3');
+        expect(cell[7].innerHTML).contains(
+            'Applicant Surname 1, Legal Advisor: Mr Rep Forenames 1 Rep Middlename 1 Rep Surname 1'
+        );
+        expect(cell[16].innerHTML).contains(
+            'Applicant Surname 2, Legal Advisor: Mr Rep Forenames 3 Rep Middlename 3 Rep Surname 3'
+        );
     });
 
     it('should display respondent for hearing with multiple cases', () => {
@@ -178,12 +182,16 @@ describe('Family Daily Cause List page', () => {
 
     it('should display applicant petitioner for haring with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[34].innerHTML).contains('Applicant Surname 3, Applicant Surname 3a, Legal Advisor: Mr Rep Forenames 5 Rep Middlename 5 Rep Surname 5');
+        expect(cell[34].innerHTML).contains(
+            'Applicant Surname 3, Applicant Surname 3a, Legal Advisor: Mr Rep Forenames 5 Rep Middlename 5 Rep Surname 5'
+        );
     });
 
     it('should display respondent for hearing with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[35].innerHTML).contains('Respondent Surname 3, Respondent Surname 3a, Legal Advisor: Mr Rep Forenames 6 Rep Middlename 6 Rep Surname 6');
+        expect(cell[35].innerHTML).contains(
+            'Respondent Surname 3, Respondent Surname 3a, Legal Advisor: Mr Rep Forenames 6 Rep Middlename 6 Rep Surname 6'
+        );
     });
 
     it('should display applicant petitioner using organisation', () => {
