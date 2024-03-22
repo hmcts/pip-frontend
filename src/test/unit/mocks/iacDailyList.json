@@ -18,6 +18,10 @@
                         "courtRoomName": "Room 1",
                         "session": [
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -43,7 +47,45 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "caseNumber": "12341234",
@@ -55,43 +97,45 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "English"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
+                                                        "language": "English",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -116,29 +160,30 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -148,6 +193,10 @@
                                 ]
                             },
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -173,7 +222,39 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "caseNumber": "12341234",
@@ -185,37 +266,39 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "English"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
+                                                        "language": "English",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -240,28 +323,28 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
-                                        ],
-                                        "channel": ["Teams", "Attended"]
+                                        ]
                                     }
                                 ]
                             }
@@ -271,6 +354,10 @@
                         "courtRoomName": "Room 2",
                         "session": [
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -306,7 +393,39 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "caseNumber": "12341234",
@@ -318,37 +437,39 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "English"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
+                                                        "language": "English",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -373,23 +494,24 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -399,6 +521,10 @@
                                 ]
                             },
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "sittings": [
                                     {
                                         "sittingStart": "2022-08-31T10:30:00.001Z",
@@ -417,7 +543,39 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "caseNumber": "12341234",
@@ -429,37 +587,39 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "English"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
+                                                        "language": "English",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -484,23 +644,24 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -522,6 +683,10 @@
                         "courtRoomName": "Room 3",
                         "session": [
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -557,55 +722,57 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mrs"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mrs"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
@@ -614,6 +781,10 @@
                                 ]
                             },
                             {
+                                "sessionChannel": [
+                                    "VIDEO HEARING",
+                                    ""
+                                ],
                                 "judiciary": [
                                     {
                                         "johTitle": "Judge",
@@ -644,43 +815,45 @@
                                                                 "name": "A Vs B"
                                                             }
                                                         ],
-                                                        "language": "French"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mrs"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Test Name"
-                                                        }
+                                                        "language": "French",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mrs"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Test Name"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }

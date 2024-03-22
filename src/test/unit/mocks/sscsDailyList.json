@@ -30,67 +30,132 @@
                                             {
                                                 "case": [
                                                     {
-                                                        "caseNumber": "12341234"
-                                                    }
-                                                ],
-                                                "informant": [
-                                                    {
-                                                        "prosecutionAuthorityRef": ["test", "test2"]
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "APPLICANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
+                                                        "caseNumber": "12341234",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
                                             {
                                                 "case": [
                                                     {
-                                                        "caseNumber": "12341235"
+                                                        "caseNumber": "12341235",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Applicant Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename",
+                                                                    "individualMiddleName": "Middlename",
+                                                                    "individualSurname": "Applicant Representative",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Respondent Organisation"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Respondent Organisation 2"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
-                                                ],
-                                                "party": [
+                                                ]
+                                            },
+                                            {
+                                                "case": [
                                                     {
-                                                        "partyRole": "APPLICANT_PETITIONER",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Surname"
-                                                        }
+                                                        "caseNumber": "12341236",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Applicant Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename",
+                                                                    "individualMiddleName": "Middlename",
+                                                                    "individualSurname": "Applicant Representative",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "organisationDetails": {
+                                                                "organisationName": "Respondent Organisation"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Respondent Organisation 2"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
-                                                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RESPONDENT",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Respondent Organisation 2"
-                                                        }
+                                                        "caseNumber": "12341237",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Applicant Surname 2"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename",
+                                                                    "individualMiddleName": "Middlename",
+                                                                    "individualSurname": "Applicant Representative 2",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "organisationDetails": {
+                                                                "organisationName": "Respondent Organisation"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Respondent Organisation 2"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }

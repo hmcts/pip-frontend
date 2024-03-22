@@ -190,7 +190,8 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth() + 1));
     I.fillField('#display-date-to-year', dayAfter.getFullYear());
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
-    I.selectOption('#listType', 'ET Daily List');
+    const etDailyList = 'invalidEtDailyList.json';
+    I.attachFile('#manual-file-upload', './shared/mocks/' + etDailyList);
     I.selectOption('#classification', 'Public');
     I.click('Continue');
     I.waitForText('Check upload details');

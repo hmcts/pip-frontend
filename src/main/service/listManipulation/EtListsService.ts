@@ -17,7 +17,9 @@ export class EtListsService {
                         this.helperService.calculateDuration(sitting);
                         this.helperService.findAndConcatenateHearingPlatform(sitting, session);
                         sitting['hearing'].forEach(hearing => {
-                            this.helperService.findAndManipulatePartyInformation(hearing, true);
+                            hearing['case'].forEach(hearingCase => {
+                                this.helperService.findAndManipulatePartyInformation(hearingCase, true);
+                            });
                         });
                     });
                 });
@@ -63,10 +65,10 @@ export class EtListsService {
                                     durationAsMinutes: sitting['durationAsMinutes'],
                                     caseNumber: thisCase['caseNumber'],
                                     caseSeparator: thisCase['caseSequenceIndicator'],
-                                    claimant: hearing['appellant'],
-                                    claimantRep: hearing['appellantRepresentative'],
-                                    respondent: hearing['respondent'],
-                                    respondentRep: hearing['respondentRepresentative'],
+                                    claimant: thisCase['appellant'],
+                                    claimantRep: thisCase['appellantRepresentative'],
+                                    respondent: thisCase['respondent'],
+                                    respondentRep: thisCase['respondentRepresentative'],
                                     hearingType: hearing['hearingType'],
                                     hearingPlatform: sitting['caseHearingChannel'],
                                 };
