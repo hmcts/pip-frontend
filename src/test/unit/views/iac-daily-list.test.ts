@@ -9,7 +9,6 @@ import { expect } from 'chai';
 const PAGE_URL = '/iac-daily-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
-//const summaryText = 'govuk-details__text';
 const paragraphClass = 'govuk-body';
 const courtListClass = 'site-address';
 const courtRoomClass = 'govuk-accordion__section-button';
