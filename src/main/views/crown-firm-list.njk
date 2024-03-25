@@ -36,7 +36,6 @@
           <li>{{ restrictionBulletPoint1 }}</li>
           <li>{{ restrictionBulletPoint2 }}</li>
         </ul>
-        </p>
       </div>
     </div>
   </div>
@@ -46,7 +45,7 @@
     {% for court in allocated %}
       {% for day in court.days %}
         {% set count = count + 1 %}
-        {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table"  data-module="moj-sortable-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
+        {% set tableHeaders = '<div class="parent-box overflow-table"><table class="govuk-table overflow-table"  data-module="moj-sortable-table"><thead class="govuk-table__head"><tr class="govuk-table__row">
                         <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + sittingAt  + '</th>
                         <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + caseReference +'</th>
                         <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">' + defendantName +'</th>
