@@ -48,7 +48,7 @@
 
   <div class="govuk-grid-row">
     {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
-    <div class="parent-box">
+    <div class="parent-box overflow-table">
       <div class="overflow-table govuk-body search-area">
         {% set hearingCount = 0 %}
         {% for sjpCase in sjpData %}
