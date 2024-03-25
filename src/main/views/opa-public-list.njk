@@ -39,94 +39,92 @@
     </div>
     <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDate }} {{ publishedAt }} {{ publishedTime }}</p>
     {{ searchInput(text = searchCases) }}
-    <div class="govuk-grid-row">
-        <div class="parent-box govuk-!-margin-top-5 search-area">
-            <div class="overflow-table">
-                {% set opaCases = [] %}
-                {% set offences = [] %}
-                {% for row in listData %}
-                    {% set offenceHtml = "" %}
-                    {% if row.offence.length > 0 %}
-                        {% for offence in row.offence %}
-                            {% set offenceHtml = offenceHtml.concat(offence.offenceTitle + ' - ' + offence.offenceSection) %}
-                            {% if offence.offenceReportingRestriction %}
-                                {% set offenceHtml = offenceHtml.concat('<br><br>Reporting Restriction - ' + offence.offenceReportingRestriction) %}
-                            {% endif %}
-                            {% if loop.index < loop.length %}
-                                {% set offenceHtml = offenceHtml.concat('<br><br>') %}
-                            {% endif %}
-                        {% endfor %}
-                    {% endif %}
-                    {% set _ = offences.push({html: offenceHtml}) %}
-                    {% set _ = opaCases.push([
-                        {
-                            text: row.name
-                        },
-                        {
-                            text: row.caseUrn
-                        },
-                        {
-                            html: offences[loop.index0].html
-                        },
-                        {
-                            text: row.prosecutor
-                        },
-                        {
-                            text: row.scheduledHearingDate
-                        },
-                        {
-                            text: row.caseReportingRestriction
-                        }
-                    ]) %}
-                {% endfor %}
-                {{ govukTable({
-                    firstCellIsHeader: false,
-                    attributes: {
-                        "data-module": "moj-sortable-table"
+    <div class="parent-box govuk-!-margin-top-5 search-area">
+        <div class="govuk-grid-row">
+            {% set opaCases = [] %}
+            {% set offences = [] %}
+            {% for row in listData %}
+                {% set offenceHtml = "" %}
+                {% if row.offence.length > 0 %}
+                    {% for offence in row.offence %}
+                        {% set offenceHtml = offenceHtml.concat(offence.offenceTitle + ' - ' + offence.offenceSection) %}
+                        {% if offence.offenceReportingRestriction %}
+                            {% set offenceHtml = offenceHtml.concat('<br><br>Reporting Restriction - ' + offence.offenceReportingRestriction) %}
+                        {% endif %}
+                        {% if loop.index < loop.length %}
+                            {% set offenceHtml = offenceHtml.concat('<br><br>') %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% set _ = offences.push({html: offenceHtml}) %}
+                {% set _ = opaCases.push([
+                    {
+                        text: row.name
                     },
-                    head: [
-                        {
-                            text: defendantName,
-                            attributes: {
-                            "aria-sort": "none"
-                        }
-                        },
-                        {
-                            text: caseRef,
-                            attributes: {
-                            "aria-sort": "none"
-                        }
-                        },
-                        {
-                            text: offence,
-                            attributes: {
-                            "aria-sort": "none"
-                        }
-                        },
-                        {
-                            text: prosecutor,
-                            attributes: {
-                            "aria-sort": "none"
-                        }
-                        },
-                        {
-                            text: scheduledFirstHearing,
-                            attributes: {
-                            "aria-sort": "none"
-                        }
-                        },
-                        {
-                            text: caseReportingRestriction,
-                            attributes: {
-                            "aria-sort": "none"
-                        }
-                        }
-                    ],
-                    rows: opaCases
-                }) }}
-            </div>
-            {{ super() }}
-        </div>
+                    {
+                        text: row.caseUrn
+                    },
+                    {
+                        html: offences[loop.index0].html
+                    },
+                    {
+                        text: row.prosecutor
+                    },
+                    {
+                        text: row.scheduledHearingDate
+                    },
+                    {
+                        text: row.caseReportingRestriction
+                    }
+                ]) %}
+            {% endfor %}
+            {{ govukTable({
+                firstCellIsHeader: false,
+                attributes: {
+                    "data-module": "moj-sortable-table"
+                },
+                head: [
+                    {
+                        text: defendantName,
+                        attributes: {
+                        "aria-sort": "none"
+                    }
+                    },
+                    {
+                        text: caseRef,
+                        attributes: {
+                        "aria-sort": "none"
+                    }
+                    },
+                    {
+                        text: offence,
+                        attributes: {
+                        "aria-sort": "none"
+                    }
+                    },
+                    {
+                        text: prosecutor,
+                        attributes: {
+                        "aria-sort": "none"
+                    }
+                    },
+                    {
+                        text: scheduledFirstHearing,
+                        attributes: {
+                        "aria-sort": "none"
+                    }
+                    },
+                    {
+                        text: caseReportingRestriction,
+                        attributes: {
+                        "aria-sort": "none"
+                    }
+                    }
+                ],
+                rows: opaCases
+            }) }}
+        {{ super() }}
+    </div>
     </div>
     <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | maskLegacyDataSource }}</p>
 {% endblock %}
