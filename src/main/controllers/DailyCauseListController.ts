@@ -30,18 +30,19 @@ export default class DailyCauseListController {
 
             if (url === familyDailyListUrl || url === mixedDailyListUrl) {
                 if (hearingHasParty(searchResults)) {
-                    manipulatedData = civilFamMixedListService.sculptedFamilyMixedListData(
+                    manipulatedData = civilFamMixedListService.sculptedListDataPartyAtHearingLevel(
                         JSON.stringify(searchResults),
                         true
                     );
                     partyAtHearingLevel = true;
                 } else {
-                    manipulatedData = civilFamMixedListService.sculptedFamilyMixedListData(
-                        JSON.stringify(searchResults)
+                    manipulatedData = civilFamMixedListService.sculptedListData(
+                        JSON.stringify(searchResults),
+                        true
                     );
                 }
             } else {
-                manipulatedData = civilFamMixedListService.sculptedCivilListData(JSON.stringify(searchResults));
+                manipulatedData = civilFamMixedListService.sculptedListData(JSON.stringify(searchResults));
             }
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);

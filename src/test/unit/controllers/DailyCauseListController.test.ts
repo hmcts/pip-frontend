@@ -30,8 +30,7 @@ const dailyCauseListJsonStub = sinon.stub(PublicationService.prototype, 'getIndi
 const dailyCauseListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').returns(listData);
-sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedFamilyMixedListData').returns(listData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedListData').returns(listData);
 
 const artefactIdFamily = 'abc';
 const artefactIdCivil = 'def';

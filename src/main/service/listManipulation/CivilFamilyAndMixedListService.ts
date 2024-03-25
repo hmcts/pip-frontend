@@ -4,25 +4,10 @@ const helperService = new ListParseHelperService();
 
 export class CivilFamilyAndMixedListService {
     /**
-     * Manipulate the civil json data for rendering to the screen.
+     * Manipulate the civil/family/mixed json data for rendering to the screen.
      * @param list
      */
-    public sculptedCivilListData(list: string): object {
-        return this.sculptedListData(list);
-    }
-
-    /**
-     * Manipulate the family/mixed json data for rendering to the screen.
-     * @param list
-     */
-    public sculptedFamilyMixedListData(list: string, partyAtHearingLevel = false): object {
-        if (partyAtHearingLevel) {
-            return this.sculptedListDataV1(list, true);
-        }
-        return this.sculptedListData(list, true);
-    }
-
-    private sculptedListData(list: string, isFamilyMixedList = false): object {
+    public sculptedListData(list: string, isFamilyMixedList = false): object {
         const outputData = JSON.parse(list);
         outputData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -47,7 +32,7 @@ export class CivilFamilyAndMixedListService {
     }
 
     // TODO: To be removed once all lists have party field on the case level.
-    private sculptedListDataV1(list: string, isFamilyMixedList = false): object {
+    public sculptedListDataPartyAtHearingLevel(list: string, isFamilyMixedList = false): object {
         const outputData = JSON.parse(list);
         outputData['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
