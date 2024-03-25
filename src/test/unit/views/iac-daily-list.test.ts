@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../main/service/publicationService';
+import {PublicationService} from '../../../main/service/publicationService';
 import sinon from 'sinon';
 import request from 'supertest';
-import { app } from '../../../main/app';
-import { expect } from 'chai';
+import {app} from '../../../main/app';
+import {expect} from 'chai';
 
 const PAGE_URL = '/iac-daily-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -89,5 +89,10 @@ describe('IAC daily cause list page', () => {
     it('should display session channel if sitting channel is not present', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[26].innerHTML).contains('VIDEO HEARING,');
+    });
+
+    it('should display hearing type if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[6].innerHTML).contains('Directions');
     });
 });
