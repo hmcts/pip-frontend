@@ -171,7 +171,10 @@ describe('Tests for the civil, family and mixed lists service.', function () {
         });
 
         it('when there is reordered party mappings in the array, it still provides the correct mappings', async () => {
-            const data = await service.sculptedListDataPartyAtHearingLevel(rawFamilyDailyCauseWithReorderedPartyMappings, true);
+            const data = await service.sculptedListDataPartyAtHearingLevel(
+                rawFamilyDailyCauseWithReorderedPartyMappings,
+                true
+            );
             expect(
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'applicant'

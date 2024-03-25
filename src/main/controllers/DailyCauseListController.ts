@@ -36,10 +36,7 @@ export default class DailyCauseListController {
                     );
                     partyAtHearingLevel = true;
                 } else {
-                    manipulatedData = civilFamMixedListService.sculptedListData(
-                        JSON.stringify(searchResults),
-                        true
-                    );
+                    manipulatedData = civilFamMixedListService.sculptedListData(JSON.stringify(searchResults), true);
                 }
             } else {
                 manipulatedData = civilFamMixedListService.sculptedListData(JSON.stringify(searchResults));
