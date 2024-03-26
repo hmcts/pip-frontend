@@ -2607,30 +2607,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/browser-chromium@npm:1.41.2":
-  version: 1.41.2
-  resolution: "@playwright/browser-chromium@npm:1.41.2"
+"@playwright/browser-chromium@npm:1.42.1":
+  version: 1.42.1
+  resolution: "@playwright/browser-chromium@npm:1.42.1"
   dependencies:
-    playwright-core: 1.41.2
-  checksum: f6c597efab24c000613f9d43100e134b8e1c304500855951da3306ae0da22107c4881df9c3f8cce4a913026ab7ffdf50a781ff96ebdcbbf51c7742da69b126f5
+    playwright-core: 1.42.1
+  checksum: 9ce62f8682e69b3aa03dbe1dcf44f2c710e48fd1e1dedcc7584dcbf39ccf0237d88c29f0f93a381419374c35dbb6dc7572d7338b48d688508aae5c0ef6b07c0f
   languageName: node
   linkType: hard
 
-"@playwright/browser-firefox@npm:1.41.2":
-  version: 1.41.2
-  resolution: "@playwright/browser-firefox@npm:1.41.2"
+"@playwright/browser-firefox@npm:1.42.1":
+  version: 1.42.1
+  resolution: "@playwright/browser-firefox@npm:1.42.1"
   dependencies:
-    playwright-core: 1.41.2
-  checksum: 5292d5860cb3515722bdb9fbedc061acdd4b01e99fb3146f74e1b02b2f8bff13772155223fbe51dad014a086c611dd9298a1df006a792b0e4de40e269f59d831
+    playwright-core: 1.42.1
+  checksum: b6721196c39de9de819614251d4ae883d5d66d3dbf23ca7f9eb314544589acebad61c69cf46cbeaaf78cf6a15b014150f7f2651501d37b2dd3ff179903d9550a
   languageName: node
   linkType: hard
 
-"@playwright/browser-webkit@npm:1.41.2":
-  version: 1.41.2
-  resolution: "@playwright/browser-webkit@npm:1.41.2"
+"@playwright/browser-webkit@npm:1.42.1":
+  version: 1.42.1
+  resolution: "@playwright/browser-webkit@npm:1.42.1"
   dependencies:
-    playwright-core: 1.41.2
-  checksum: f31240a79116dba78d822362f93691903ba1bd0a5d254fec81dd1b8ed73c0dadf9247b55d0f8f596fd980b24c60a5fd2b90fb8b9a24651f53d80e722dc647726
+    playwright-core: 1.42.1
+  checksum: 2cb3982e0be092b42aeecd3f7fe6b8f39f5105a388454adce891bc39a24c3bbc96e91f96cd14e073e7b671c6b6097859d7da1a74eab1be8a7dcfa48893248786
   languageName: node
   linkType: hard
 
@@ -11484,15 +11484,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.41.2":
-  version: 1.41.2
-  resolution: "playwright-core@npm:1.41.2"
-  bin:
-    playwright-core: cli.js
-  checksum: b41ede0db3fd3e3f7e0b0efbdfb2dbc4db345e113cf9c4451af21d1d5b5d9ab5e969f5662852925e37b2198ae5daab92aa48108fe3d4eb81c849ba8752aaf8cc
-  languageName: node
-  linkType: hard
-
 "playwright-core@npm:1.42.1":
   version: 1.42.1
   resolution: "playwright-core@npm:1.42.1"
@@ -11877,9 +11868,9 @@ __metadata:
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^1.1.0
     "@ministryofjustice/frontend": ^1.8.1
-    "@playwright/browser-chromium": 1.41.2
-    "@playwright/browser-firefox": 1.41.2
-    "@playwright/browser-webkit": 1.41.2
+    "@playwright/browser-chromium": 1.42.1
+    "@playwright/browser-firefox": 1.42.1
+    "@playwright/browser-webkit": 1.42.1
     "@types/axios-token-interceptor": ^0.2.8
     "@types/chai-as-promised": ^7.1.8
     "@types/config": ^3.3.3
