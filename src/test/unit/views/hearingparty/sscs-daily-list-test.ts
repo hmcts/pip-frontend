@@ -155,10 +155,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
 
     it('should display blank box when appellant not provided', () => {
         const data = htmlRes.getElementsByClassName(tableCell);
-        expect(data[9].innerHTML).contains(
-            '',
-            'Appellant does not match'
-        );
+        expect(data[9].innerHTML).contains('', 'Appellant does not match');
     });
 
     it('should display panel', () => {

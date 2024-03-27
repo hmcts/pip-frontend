@@ -53,14 +53,13 @@ describe('manipulateSscsDailyListData', () => {
         const appellant1 =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['case'][0][
                 'applicant'
-                ];
+            ];
         const appellant2 =
             data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2]['case'][1][
                 'applicant'
-                ];
+            ];
         expect(appellant1).to.equal('Applicant Surname');
         expect(appellant2).to.equal('Applicant Surname 2');
-
     });
 
     it('should return judiciary panel', async () => {
