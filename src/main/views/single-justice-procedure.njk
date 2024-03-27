@@ -2,7 +2,7 @@
 {% from "./macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
-{% extends "list-template.njk" %}
+{% extends "sjp-template.njk" %}
 {% set url = "sjp-public-list" %}
 
 {% block pageTitle %}
@@ -30,22 +30,26 @@
 
   <div class="govuk-grid-row">
     {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
-    <div class="parent-box overflow-table govuk-!-margin-top-5 search-area">
+    <div class="parent-box overflow-table govuk-!-margin-top-5">
       <div class="overflow-table govuk-body">
       {% set sjpCases = [] %}
       {% for sjpCase in sjpData %}
         {% set _ = sjpCases.push([
           {
-            text: sjpCase.name
+            text: sjpCase.name,
+            classes: "search-area"
           },
           {
-            text: sjpCase.postcode
+            text: sjpCase.postcode,
+            classes: "search-area"
           },
           {
-            text: sjpCase.offence
+            text: sjpCase.offence,
+            classes: "search-area"
           },
           {
-            text: sjpCase.prosecutorName
+            text: sjpCase.prosecutorName,
+            classes: "search-area"
           }
         ]) %}
       {% endfor %}

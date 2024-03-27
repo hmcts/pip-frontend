@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
+import Assert from "assert";
 
 Feature('SJP list download');
 
-Scenario('I as a verified user should be able to download sjp public list', async ({ I }) => {
+Scenario('I as a verified user should be able to search and download sjp public list', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
@@ -30,6 +31,13 @@ Scenario('I as a verified user should be able to download sjp public list', asyn
     I.see(sjpListToDownload);
     I.click(locate('//a').withText(sjpListToDownload));
     I.waitForText('Single Justice Procedure cases that are ready for hearing');
+
+    I.see('Search Cases');
+    I.click('#search-input');
+    I.type('sur');
+    const highlightedText = (await I.grabTextFrom(locate('//mark'))).trim();
+    Assert.equal(highlightedText, 'sur');
+
     I.see('Download a copy');
     I.click('Download a copy');
     I.waitForText('Terms and conditions');
