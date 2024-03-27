@@ -1,5 +1,6 @@
 {% extends "template.njk" %}
 {% from "./macros/common-components.njk" import goBack %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block pageTitle %}
     {{ title }}
@@ -13,6 +14,25 @@
     <div class="govuk-grid-row parent-box">
         <h1 class="govuk-heading-l">{{ heading }}</h1>
     </div>
+    {% set mediaApplicationsCount = mediaApplications | sum %}
+    {% set html %}
+        <p class="govuk-notification-banner__heading">
+            There
+            {% if mediaApllicationsCount == 1 %} is {% else %} are {% endif %}
+            {{ mediaApplicationsCount }} outstanding media
+            {% if mediaApplicationsCount == 1 %} request. {% else %} requests. {% endif %}
+            <a href="{{ mediaCard.link }}"
+               class="govuk-link govuk-notification-banner__heading"
+               id="banner-{{ mediaCard.link }}"
+            >{{ mediaCard.title }}</a>.
+        </p>
+    {% endset %}
+
+    {% if user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
+        {{ govukNotificationBanner({
+            html: html
+        }) }}
+    {% endif %}
     <div class="cards-wrapper">
       {% if user.isAdmin %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
