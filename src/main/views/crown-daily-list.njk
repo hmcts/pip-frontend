@@ -112,7 +112,7 @@
                           {% set timeSortValue = sitting['time'] | timeToSortValue %}
                           {% set durationSortValue = sitting['durationSortValue'] %}
                           {% if partyAtHearingLevel %}
-                            {% set defandant = hearing['defendant'] %}
+                            {% set defendant = hearing['defendant'] %}
                             {% set prosecutor = hearing['prosecutingAuthority'] %}
                           {% else %}
                             {% set defendant = case['defendant'] %}
