@@ -4,7 +4,7 @@ Feature('Search for court or tribunal');
 
 const invalidCourtName = 'InvalidCourt';
 
-Scenario('I should be able to view error summary if no results', async ({I}) => {
+Scenario('I should be able to view error summary if no results', async ({ I }) => {
     I.amOnPage('/search');
     I.waitForText('What court or tribunal are you interested in?');
     I.fillField('#search-input', invalidCourtName);
@@ -15,7 +15,7 @@ Scenario('I should be able to view error summary if no results', async ({I}) => 
     I.see('There is nothing matching your criteria');
 });
 
-Scenario('I should be able to view error summary in Welsh if no results', async ({I}) => {
+Scenario('I should be able to view error summary in Welsh if no results', async ({ I }) => {
     I.amOnPage('/search');
     I.waitForText('What court or tribunal are you interested in?');
     I.click(locate('//a').withText('Cymraeg'));
@@ -32,7 +32,7 @@ Scenario('I should be able to view error summary in Welsh if no results', async 
 
 Scenario(
     'As a user when I search I should be able to view dynamic court list to present as the first matching focussed results',
-    async ({I}) => {
+    async ({ I }) => {
         I.amOnPage('/search');
         I.waitForText('What court or tribunal are you interested in?');
         I.fillField('#search-input', 'Mil');
