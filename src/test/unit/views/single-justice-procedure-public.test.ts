@@ -38,7 +38,7 @@ const metaData = JSON.parse(rawMetaData)[0];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sjpList);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 
-const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
+const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
 generatesFilesStub.withArgs('abc').resolves(false);
 
 describe('Single Justice Procedure List page', () => {
