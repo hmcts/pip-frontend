@@ -35,9 +35,11 @@ async function downloadFile(req, res, artefactId, type): Promise<void> {
         const readStream = new stream.PassThrough();
         readStream.end(fileContents);
 
-        res.set('Content-disposition', 'attachment; filename=' + fileName);
-        res.set('Content-Type', contentType);
+        res.setHeader('Content-disposition', 'attachment; filename=' + fileName);
+        res.setHeader('Content-type', contentType);
         readStream.pipe(res);
+    } else {
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
 }
 
