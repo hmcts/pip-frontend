@@ -2,10 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { ListDownloadService } from '../service/listDownloadService';
 import { cloneDeep } from 'lodash';
-import {fileTypeMappings, FileType} from '../models/consts';
+import { fileTypeMappings, FileType } from '../models/consts';
 import { PublicationService } from '../service/publicationService';
 import { HttpStatusCode } from 'axios';
-import * as stream from "stream";
+import * as stream from 'stream';
 
 const url = 'list-download-files';
 const listDownloadService = new ListDownloadService();
@@ -31,7 +31,7 @@ async function downloadFile(req, res, artefactId, type): Promise<void> {
         const fileName = `${artefactId}.${fileExtension}`;
         const contentType = fileTypeMappings[fileExtension];
 
-        const  fileContents = Buffer.from(fileData, "base64");
+        const fileContents = Buffer.from(fileData, 'base64');
         const readStream = new stream.PassThrough();
         readStream.end(fileContents);
 
@@ -63,7 +63,7 @@ export default class ListDownloadFilesController {
                     if (type) {
                         await downloadFile(req, res, artefactId, type);
                     } else {
-                        await getFileSizes(req, res, artefactId)
+                        await getFileSizes(req, res, artefactId);
                     }
                 } else {
                     res.render('unauthorised-access', req.i18n.getDataByLanguage(req.lng)['unauthorised-access']);

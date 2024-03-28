@@ -1,6 +1,6 @@
 import { channelManagementApi } from './utils/axiosConfig';
 import { LogHelper } from '../logging/logHelper';
-import {PublicationFileSizes} from "../../models/PublicationFileSizes";
+import { PublicationFileSizes } from '../../models/PublicationFileSizes';
 
 const logHelper = new LogHelper();
 

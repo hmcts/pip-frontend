@@ -26,17 +26,17 @@ downloadFilesStub.withArgs('123', { 'x-user-id': '1234', 'x-file-type': 'PDF' })
 downloadFilesStub.withArgs('123', { 'x-user-id': '1234', 'x-file-type': 'EXCEL' }).resolves(expectedExcelData);
 downloadFilesStub.withArgs('124', { 'x-user-id': '1234', 'x-file-type': 'PDF' }).resolves(null);
 
-const getFileSizeStub =  sinon.stub(ChannelManagementRequests.prototype, 'getFileSizes');
+const getFileSizeStub = sinon.stub(ChannelManagementRequests.prototype, 'getFileSizes');
 getFileSizeStub.withArgs('123').resolves({
     primaryPdf: 1024,
     additionalPdf: null,
     excel: 512,
-})
+});
 getFileSizeStub.withArgs('124').resolves({
     primaryPdf: 1048576,
     additionalPdf: null,
     excel: null,
-})
+});
 
 describe('List Download Service', () => {
     describe('Check user is authorised', () => {

@@ -9,9 +9,7 @@ const numberOfBytes = 1024;
 
 export class ListDownloadService {
     public async showDownloadButton(artefactId, user): Promise<boolean> {
-        return user && user['roles'] === 'VERIFIED'
-            ? await channelManagementRequests.fileExists(artefactId)
-            : false;
+        return user && user['roles'] === 'VERIFIED' ? await channelManagementRequests.fileExists(artefactId) : false;
     }
 
     public async getFile(artefactId, userId, fileExtension): Promise<string> {

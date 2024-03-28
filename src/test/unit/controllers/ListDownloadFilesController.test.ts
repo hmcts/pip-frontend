@@ -35,7 +35,6 @@ getFileSizeStub.withArgs('124', 'xlsx').returns(null);
 getFileSizeStub.withArgs('125', 'pdf').returns(null);
 getFileSizeStub.withArgs('125', 'xlsx').returns('200.0KB');
 
-
 describe('List Download Files Controller', () => {
     const i18n = {
         'list-download-files': {},
