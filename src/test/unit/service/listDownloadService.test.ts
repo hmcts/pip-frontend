@@ -3,9 +3,6 @@ import { expect } from 'chai';
 import { ChannelManagementRequests } from '../../../main/resources/requests/channelManagementRequests';
 import { ListDownloadService } from '../../../main/service/listDownloadService';
 import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
-import fs from 'fs';
-import path from 'path';
-import os from 'os';
 
 const listDownloadService = new ListDownloadService();
 const artefactId = '123';
@@ -20,18 +17,26 @@ const isAuthorisedStub = sinon.stub(AccountManagementRequests.prototype, 'isAuth
 isAuthorisedStub.withArgs('1').resolves(true);
 isAuthorisedStub.withArgs('2').resolves(false);
 
+const fileExistsStub = sinon.stub(ChannelManagementRequests.prototype, 'fileExists');
+fileExistsStub.withArgs('123').resolves(true);
+fileExistsStub.withArgs('124').resolves(false);
+
 const downloadFilesStub = sinon.stub(ChannelManagementRequests.prototype, 'getStoredFile');
 downloadFilesStub.withArgs('123', { 'x-user-id': '1234', 'x-file-type': 'PDF' }).resolves(expectedPdfData);
 downloadFilesStub.withArgs('123', { 'x-user-id': '1234', 'x-file-type': 'EXCEL' }).resolves(expectedExcelData);
-
 downloadFilesStub.withArgs('124', { 'x-user-id': '1234', 'x-file-type': 'PDF' }).resolves(null);
-downloadFilesStub.withArgs('124', { 'x-user-id': '1234', 'x-file-type': 'EXCEL' }).resolves(expectedExcelData);
 
-downloadFilesStub.withArgs('125', { 'x-user-id': '1234', 'x-file-type': 'PDF' }).resolves(expectedPdfData);
-downloadFilesStub.withArgs('125', { 'x-user-id': '1234', 'x-file-type': 'EXCEL' }).resolves(null);
-
-const statstub = sinon.stub(fs, 'statSync').returns({ size: 1000 });
-const existsSyncStub = sinon.stub(fs, 'existsSync');
+const getFileSizeStub =  sinon.stub(ChannelManagementRequests.prototype, 'getFileSizes');
+getFileSizeStub.withArgs('123').resolves({
+    primaryPdf: 1024,
+    additionalPdf: null,
+    excel: 512,
+})
+getFileSizeStub.withArgs('124').resolves({
+    primaryPdf: 1048576,
+    additionalPdf: null,
+    excel: null,
+})
 
 describe('List Download Service', () => {
     describe('Check user is authorised', () => {
@@ -46,53 +51,76 @@ describe('List Download Service', () => {
         });
     });
 
+    describe('Show download button', () => {
+        it('should show download button for verified user if file exists', async () => {
+            const user = {
+                userId: userId,
+                roles: 'VERIFIED',
+            };
+            const response = await listDownloadService.showDownloadButton(artefactId, user);
+            expect(response).to.be.true;
+        });
+
+        it('should not show download button for verified user if file does not exist', async () => {
+            const user = {
+                userId: userId,
+                roles: 'VERIFIED',
+            };
+            const response = await listDownloadService.showDownloadButton('124', user);
+            expect(response).to.be.false;
+        });
+
+        it('should not show download button for admin user', async () => {
+            const user = {
+                userId: userId,
+                roles: 'INTERNAL_SUPER_ADMIN_CTSC',
+            };
+            const response = await listDownloadService.showDownloadButton(artefactId, user);
+            expect(response).to.be.false;
+        });
+
+        it('should not show download button if no user', async () => {
+            const response = await listDownloadService.showDownloadButton(artefactId, null);
+            expect(response).to.be.false;
+        });
+    });
+
     describe('Get file', () => {
         it('should return expected PDF file', async () => {
-            existsSyncStub.returns(true);
-            const response = await listDownloadService.getFile(artefactId, 'pdf');
-            expect(response)
-                .to.be.a('string')
-                .and.satisfy(msg => msg.endsWith(artefactId + '.pdf'));
+            const response = await listDownloadService.getFile(artefactId, userId, 'pdf');
+            expect(response).to.equal(expectedPdfData);
         });
 
         it('should return expected excel file', async () => {
-            existsSyncStub.returns(true);
-            const response = await listDownloadService.getFile(artefactId, 'xlsx');
-            expect(response)
-                .to.be.a('string')
-                .and.satisfy(msg => msg.endsWith(artefactId + '.xlsx'));
+            const response = await listDownloadService.getFile(artefactId, userId, 'xlsx');
+            expect(response).to.equal(expectedExcelData);
+        });
+
+        it('should return null if channel management does not return any file', async () => {
+            const response = await listDownloadService.getFile('124', userId, 'pdf');
+            expect(response).to.be.null;
         });
 
         it('should not return file if no artefact ID provided', async () => {
-            const response = await listDownloadService.getFile(null, 'xlsx');
-            expect(response).to.be.null;
-        });
-
-        it('should not return file if no file type provided', async () => {
-            const response = await listDownloadService.getFile(artefactId, null);
-            expect(response).to.be.null;
-        });
-
-        it('should not return file if the file does not exist', async () => {
-            existsSyncStub.returns(false);
-            const response = await listDownloadService.getFile(artefactId, null);
+            const response = await listDownloadService.getFile(null, userId, 'pdf');
             expect(response).to.be.null;
         });
     });
 
     describe('Get file size', () => {
         it('should return file size in KB', async () => {
-            existsSyncStub.returns(true);
-            statstub.withArgs(path.join(os.tmpdir(), `${artefactId}.pdf`)).returns({ size: 1000 });
             const response = await listDownloadService.getFileSize(artefactId, 'pdf');
             expect(response).to.equal('1.0KB');
         });
 
         it('should return file size in MB', async () => {
-            existsSyncStub.returns(true);
-            statstub.withArgs(path.join(os.tmpdir(), `${artefactId}.pdf`)).returns({ size: 1000000 });
-            const response = await listDownloadService.getFileSize(artefactId, 'pdf');
+            const response = await listDownloadService.getFileSize('124', 'pdf');
             expect(response).to.equal('1.0MB');
+        });
+
+        it('should return file size for excel', async () => {
+            const response = await listDownloadService.getFileSize(artefactId, 'xlsx');
+            expect(response).to.equal('0.5KB');
         });
 
         it('should not return file size if no artefact ID provided', async () => {
@@ -103,65 +131,6 @@ describe('List Download Service', () => {
         it('should not return file size if no file type provided', async () => {
             const response = await listDownloadService.getFileSize(artefactId, null);
             expect(response).to.be.null;
-        });
-    });
-
-    describe('Generate files', () => {
-        afterAll(() => {
-            sinon.restore();
-        });
-
-        it('should return expected data', async () => {
-            const artefactId = '123';
-            const user = {
-                userId: userId,
-                roles: 'VERIFIED',
-            };
-            const response = await listDownloadService.generateFiles(artefactId, user);
-            expect(response).to.be.true;
-        });
-
-        it('should not generate files if channel management get PDF file returns null', async () => {
-            const artefactId = '124';
-            const user = {
-                userId: userId,
-                roles: 'VERIFIED',
-            };
-            const response = await listDownloadService.generateFiles(artefactId, user);
-            expect(response).to.be.true;
-        });
-
-        it('should not generate files if channel management get Excel file returns null', async () => {
-            const artefactId = '125';
-            const user = {
-                userId: userId,
-                roles: 'VERIFIED',
-            };
-            const response = await listDownloadService.generateFiles(artefactId, user);
-            expect(response).to.be.true;
-        });
-
-        it('should not generate files if no artefact ID provided', async () => {
-            const user = {
-                userId: userId,
-                roles: 'VERIFIED',
-            };
-            const response = await listDownloadService.generateFiles(null, user);
-            expect(response).to.be.false;
-        });
-
-        it('should not generate files if roles not VERIFIED', async () => {
-            const user = {
-                userId: userId,
-                roles: 'INTERNAL_SUPER_ADMIN_CTSC',
-            };
-            const response = await listDownloadService.generateFiles(artefactId, user);
-            expect(response).to.be.false;
-        });
-
-        it('should not generate files if no user', async () => {
-            const response = await listDownloadService.generateFiles(artefactId, null);
-            expect(response).to.be.false;
         });
     });
 });

@@ -1,43 +1,43 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { ListDownloadService } from '../service/listDownloadService';
-import fs from 'fs';
-import path from 'path';
-import mime from 'mime-types';
 import { cloneDeep } from 'lodash';
-import { FileType } from '../models/consts';
+import {fileTypeMappings, FileType} from '../models/consts';
 import { PublicationService } from '../service/publicationService';
 import { HttpStatusCode } from 'axios';
+import * as stream from "stream";
 
 const url = 'list-download-files';
 const listDownloadService = new ListDownloadService();
 const publicationService = new PublicationService();
 
-function getFiles(req, res, artefactId, type) {
-    if (type === undefined) {
-        const pdfFileSize = listDownloadService.getFileSize(artefactId, FileType.PDF);
-        const excelFileSize = listDownloadService.getFileSize(artefactId, FileType.EXCEL);
+async function getFileSizes(req, res, artefactId): Promise<void> {
+    const pdfFileSize = await listDownloadService.getFileSize(artefactId, FileType.PDF);
+    const excelFileSize = await listDownloadService.getFileSize(artefactId, FileType.EXCEL);
 
-        res.render(url, {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
-            artefactId: artefactId,
-            pdfFileSize: pdfFileSize,
-            excelFileSize: excelFileSize,
-        });
-    } else {
-        const file = listDownloadService.getFile(artefactId, FileType[type.toUpperCase()]);
-        if (file) {
-            const filename = path.basename(file);
-            const mimetype = mime.lookup(file);
+    res.render(url, {
+        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
+        artefactId: artefactId,
+        pdfFileSize: pdfFileSize,
+        excelFileSize: excelFileSize,
+    });
+}
 
-            res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-            res.setHeader('Content-type', mimetype);
+async function downloadFile(req, res, artefactId, type): Promise<void> {
+    const fileData = await listDownloadService.getFile(artefactId, req.user['userId'], FileType[type.toUpperCase()]);
 
-            const filestream = fs.createReadStream(file);
-            filestream.pipe(res);
-        } else {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        }
+    if (fileData) {
+        const fileExtension = FileType[type.toUpperCase()];
+        const fileName = `${artefactId}.${fileExtension}`;
+        const contentType = fileTypeMappings[fileExtension];
+
+        const  fileContents = Buffer.from(fileData, "base64");
+        const readStream = new stream.PassThrough();
+        readStream.end(fileContents);
+
+        res.set('Content-disposition', 'attachment; filename=' + fileName);
+        res.set('Content-Type', contentType);
+        readStream.pipe(res);
     }
 }
 
@@ -60,7 +60,11 @@ export default class ListDownloadFilesController {
                     publicationMetadata.sensitivity
                 );
                 if (isAuthorised) {
-                    getFiles(req, res, artefactId, type);
+                    if (type) {
+                        await downloadFile(req, res, artefactId, type);
+                    } else {
+                        await getFileSizes(req, res, artefactId)
+                    }
                 } else {
                     res.render('unauthorised-access', req.i18n.getDataByLanguage(req.lng)['unauthorised-access']);
                 }
