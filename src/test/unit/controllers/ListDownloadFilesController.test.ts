@@ -39,6 +39,8 @@ getFileStub.withArgs('123').returns('abc');
 getFileStub.withArgs('124').returns('def');
 getFileStub.withArgs('125').returns(null);
 
+sinon.stub(ListDownloadService.prototype, 'handleFileDownload');
+
 describe('List Download Files Controller', () => {
     const i18n = {
         'list-download-files': {},
@@ -60,8 +62,6 @@ describe('List Download Files Controller', () => {
             return '';
         },
     } as unknown as Response;
-
-    jest.mock('fs');
 
     describe('without file type', () => {
         request.user = { userId: '1' };
@@ -121,32 +121,31 @@ describe('List Download Files Controller', () => {
     describe('with file type', () => {
         request.user = { userId: '1' };
 
-        // it('should set response headers when downloading PDF', () => {
-        //     request.query = { type: 'pdf', artefactId: '123' };
-        //     const responseMock = sinon.mock(response);
-        //
-        //     responseMock.expects('setHeader').once().withArgs('Content-disposition', 'attachment; filename=123.pdf');
-        //     responseMock.expects('setHeader').once().withArgs('Content-type', 'application/pdf');
-        //
-        //     listDownloadFilesController.get(request, response).then(() => {
-        //         responseMock.verify();
-        //     });
-        // });
-        //
-        // it('should set response headers when downloading Excel spreadsheet', () => {
-        //     request.query = { type: 'excel', artefactId: '124' };
-        //     const responseMock = sinon.mock(response);
-        //
-        //     responseMock.expects('setHeader').once().withArgs('Content-disposition', 'attachment; filename=test.xlsx');
-        //     responseMock
-        //         .expects('setHeader')
-        //         .once()
-        //         .withArgs('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        //
-        //     listDownloadFilesController.get(request, response).then(() => {
-        //         responseMock.verify();
-        //     });
-        // });
+        it('should set response headers when downloading PDF', () => {
+            request.query = { type: 'pdf', artefactId: '123' };
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('setHeader').once().withArgs('Content-disposition', 'attachment; filename=123.pdf');
+            responseMock.expects('setHeader').once().withArgs('Content-type', 'application/pdf');
+
+            listDownloadFilesController.get(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should set response headers when downloading Excel spreadsheet', () => {
+            request.query = { type: 'excel', artefactId: '124' };
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('setHeader').once().withArgs('Content-disposition', 'attachment; filename=124.xlsx');
+            responseMock.expects('setHeader')
+                .once()
+                .withArgs('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+            listDownloadFilesController.get(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
 
         it('should render the error page if no file returned', () => {
             request.query = { artefactId: '125', type: 'pdf' };

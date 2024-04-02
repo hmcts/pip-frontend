@@ -5,7 +5,6 @@ import { cloneDeep } from 'lodash';
 import { fileTypeMappings, FileType } from '../models/consts';
 import { PublicationService } from '../service/publicationService';
 import { HttpStatusCode } from 'axios';
-import * as stream from 'stream';
 
 const url = 'list-download-files';
 const listDownloadService = new ListDownloadService();
@@ -31,13 +30,10 @@ async function downloadFile(req, res, artefactId, type): Promise<void> {
         const fileName = `${artefactId}.${fileExtension}`;
         const contentType = fileTypeMappings[fileExtension];
 
-        const fileContents = Buffer.from(fileData, 'base64');
-        const readStream = new stream.PassThrough();
-        readStream.end(fileContents);
-
         res.setHeader('Content-disposition', 'attachment; filename=' + fileName);
         res.setHeader('Content-type', contentType);
-        readStream.pipe(res);
+
+        listDownloadService.handleFileDownload(res, Buffer.from(fileData, 'base64'));
     } else {
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }

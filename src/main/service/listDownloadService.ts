@@ -1,6 +1,7 @@
 import { ChannelManagementRequests } from '../resources/requests/channelManagementRequests';
 import { FileType } from '../models/consts';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import stream from "stream";
 
 const channelManagementRequests = new ChannelManagementRequests();
 const accountManagementRequests = new AccountManagementRequests();
@@ -45,6 +46,12 @@ export class ListDownloadService {
             }
         }
         return null;
+    }
+
+    public handleFileDownload(res, fileContents) {
+        const readStream = new stream.PassThrough();
+        readStream.end(fileContents);
+        readStream.pipe(res);
     }
 
     public async checkUserIsAuthorised(userId, listType, sensitivity): Promise<boolean | null> {
