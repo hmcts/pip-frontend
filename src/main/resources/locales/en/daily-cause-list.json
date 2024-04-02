@@ -11,6 +11,7 @@
     "time": "Time",
     "caseId": "Case ID",
     "caseName": "Case name",
+    "caseType": "Case type",
     "hearingType": "Hearing type",
     "hearingPlatform": "Location",
     "duration": "Duration",
