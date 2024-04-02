@@ -138,7 +138,8 @@ describe('List Download Files Controller', () => {
             const responseMock = sinon.mock(response);
 
             responseMock.expects('setHeader').once().withArgs('Content-disposition', 'attachment; filename=124.xlsx');
-            responseMock.expects('setHeader')
+            responseMock
+                .expects('setHeader')
                 .once()
                 .withArgs('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
