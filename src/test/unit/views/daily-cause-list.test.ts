@@ -136,9 +136,10 @@ describe('Daily Cause List page', () => {
         expect(header[0].innerHTML).equals('Time');
         expect(header[1].innerHTML).equals('Case ID');
         expect(header[2].innerHTML).equals('Case name');
-        expect(header[3].innerHTML).equals('Hearing type');
-        expect(header[4].innerHTML).equals('Location');
-        expect(header[5].innerHTML).equals('Duration');
+        expect(header[3].innerHTML).equals('Case type');
+        expect(header[4].innerHTML).equals('Hearing type');
+        expect(header[5].innerHTML).equals('Location');
+        expect(header[6].innerHTML).equals('Duration');
     });
 
     it('should display Hearing time', () => {
@@ -162,19 +163,24 @@ describe('Daily Cause List page', () => {
         expect(cell[2].innerHTML).equals('A2 Vs B2');
     });
 
+    it('should display Case Type', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[3].innerHTML).contains('case type');
+    });
+
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[3].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
+        expect(cell[4].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
     });
 
     it('should display Hearing platform (Location)', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[4].innerHTML).contains('Remote, Teams');
+        expect(cell[5].innerHTML).contains('Remote, Teams');
     });
 
     it('should display Hearing duration', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[5].innerHTML).contains('1 hour');
+        expect(cell[6].innerHTML).contains('1 hour');
     });
 });
 
