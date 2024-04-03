@@ -18,7 +18,7 @@ metaData.listType = 'CIVIL_DAILY_CAUSE_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(dailyReferenceData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
-sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedCivilListData').resolves(dailyReferenceData);
+sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedListData').resolves(dailyReferenceData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
 describe('Daily Cause List Page', () => {
