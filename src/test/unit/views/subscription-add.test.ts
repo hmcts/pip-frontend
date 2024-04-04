@@ -13,9 +13,10 @@ const radioClass = 'govuk-radios__item';
 const expectedHeader = 'How do you want to add an email subscription?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'By court or tribunal name';
-const expectedRadioLabel2 = 'By party name';
+const expectedRadioLabel2 = 'By case name';
 const expectedRadioLabel3 = 'By case reference number, case ID or unique reference number (URN)';
-const expectedRadioLabel4 = 'By case name';
+const expectedRadioLabel4 = 'By party name';
+
 
 app.request['user'] = { roles: 'VERIFIED' };
 
