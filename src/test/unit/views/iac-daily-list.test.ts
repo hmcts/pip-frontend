@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/publicationService';
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../../main/app';
-import {expect} from 'chai';
+import { app } from '../../../main/app';
+import { expect } from 'chai';
 
 const PAGE_URL = '/iac-daily-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -62,8 +62,8 @@ describe('IAC daily cause list page', () => {
 
     it('should display the court list name on the page', () => {
         const courtListText = htmlRes.getElementsByClassName(courtListClass);
-        expect(courtListText[0].innerHTML).contains('');
-        expect(courtListText[1].innerHTML).contains('Float list');
+        expect(courtListText[0].innerHTML).contains('Bail List');
+        expect(courtListText[1].innerHTML).contains('Non Bail list');
     });
 
     it('should display the court room name on the page', () => {

@@ -7,7 +7,7 @@
     },
     "courtLists": [
         {
-            "courtListName": "",
+            "courtListName": "Bail List",
             "courtHouse": {
                 "courtRoom": [
                     {
@@ -568,7 +568,7 @@
             }
         },
         {
-            "courtListName": "Float list",
+            "courtListName": "Non Bail list",
             "courtHouse": {
                 "courtRoom": [
                     {
