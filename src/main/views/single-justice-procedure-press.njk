@@ -1,7 +1,7 @@
 {% from "./macros/common-components.njk" import goBack, searchInput %}
 {% from "./macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
 
-{% extends "list-template.njk" %}
+{% extends "sjp-template.njk" %}
 
 {% block pageTitle %}
   {{ title }}
@@ -49,7 +49,7 @@
   <div class="govuk-grid-row">
     {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
     <div class="parent-box overflow-table">
-      <div class="overflow-table govuk-body search-area">
+      <div class="overflow-table govuk-body">
         {% set hearingCount = 0 %}
         {% for sjpCase in sjpData %}
           {% set hearingCount = hearingCount + 1 %}
@@ -58,7 +58,7 @@
               <dt class="govuk-summary-list__key">
                 {{ name }}
               </dt>
-              <dd class="govuk-summary-list__value">
+              <dd class="govuk-summary-list__value search-area">
                 {{ sjpCase.name }}
               </dd>
             </div>
@@ -66,7 +66,7 @@
               <dt class="govuk-summary-list__key">
                 {{ dateOfBirth }}
               </dt>
-              <dd class="govuk-summary-list__value">
+              <dd class="govuk-summary-list__value search-area">
                 {% if sjpCase.age > 0 %}
                   {{ sjpCase.dob }} ({{ sjpCase.age }})
                 {% else %}
@@ -78,7 +78,7 @@
               <dt class="govuk-summary-list__key">
                 {{ reference }}
               </dt>
-              <dd class="govuk-summary-list__value">
+              <dd class="govuk-summary-list__value search-area">
                 {{ sjpCase.caseUrn }}
               </dd>
             </div>
@@ -86,7 +86,7 @@
               <dt class="govuk-summary-list__key">
                 {{ address }}
               </dt>
-              <dd class="govuk-summary-list__value">
+              <dd class="govuk-summary-list__value search-area">
                 {{ sjpCase.address }}
               </dd>
             </div>
@@ -94,15 +94,16 @@
               <dt class="govuk-summary-list__key">
                 {{ prosecutor }}
               </dt>
-              <dd class="govuk-summary-list__value">
+              <dd class="govuk-summary-list__value search-area">
                 {{ sjpCase.prosecutorName }}
               </dd>
             </div>
 
             {% for offence in sjpCase.offences %}
               <p class="govuk-body">
-                {{ reportingRestriction }} - {{ offence.reportingRestrictionFlag }}<br/>
-                {{ offence.offenceTitle }} - {{ offence.offenceWording }}
+                  <span class="search-area">{{ reportingRestriction }} - {{ offence.reportingRestrictionFlag }}</span>
+                  <br/>
+                  <span class="search-area">{{ offence.offenceTitle }} - {{ offence.offenceWording }}</span>
               </p>
             {% endfor %}
             {% if totalHearings !== hearingCount %}
