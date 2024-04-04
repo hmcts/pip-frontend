@@ -17,7 +17,6 @@ const expectedRadioLabel2 = 'By case name';
 const expectedRadioLabel3 = 'By case reference number, case ID or unique reference number (URN)';
 const expectedRadioLabel4 = 'By party name';
 
-
 app.request['user'] = { roles: 'VERIFIED' };
 
 let htmlRes: Document;
