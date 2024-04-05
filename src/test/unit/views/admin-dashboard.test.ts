@@ -1,6 +1,8 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
+import { MediaApplicationService } from '../../../main/service/mediaApplicationService';
+import sinon from 'sinon';
 
 const PAGE_URL = '/admin-dashboard';
 const pageTitleValue = 'Staff dashboard';
@@ -34,51 +36,103 @@ const cards = [
 ];
 let htmlRes: Document;
 
+const mediaApplicationsStub = sinon.stub(MediaApplicationService.prototype, 'getDateOrderedMediaApplications')
+
 describe('Admin Dashboard page all cards', () => {
-    beforeAll(async () => {
-        app.request['user'] = { userId: '1', roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
-        await request(app)
-            .get(PAGE_URL)
-            .then(res => {
-                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-            });
+    describe('with one media application', () => {
+        beforeAll(async () => {
+            mediaApplicationsStub.resolves([{id: '1'}]);
+            app.request['user'] = { userId: '1', roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName('govuk-heading-l');
+            expect(header[0].innerHTML).contains('Your Dashboard', 'Could not find correct value in header');
+        });
+
+        it('should display 5 links in banner', () => {
+            const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
+            expect(bannerComponents.length).equal(5);
+
+            expect(bannerComponents[0].innerHTML).equal('Home');
+            expect(bannerComponents[1].innerHTML).equal('Upload');
+            expect(bannerComponents[2].innerHTML).equal('Review apps');
+            expect(bannerComponents[3].innerHTML).equal('Remove');
+            expect(bannerComponents[4].innerHTML).equal('Sign out');
+        });
+
+        it('should display 5 card options', () => {
+            const cardComponents = htmlRes.getElementsByClassName('account-card');
+            expect(cardComponents.length).equal(cards.length);
+        });
+
+        it('cards should have correct content and links', () => {
+            for (let i = 0; i < cards.length; i++) {
+                const adminCards = htmlRes.getElementsByClassName('account-card');
+                const link = adminCards[i].getElementsByTagName('a')[0];
+                const description = adminCards[i].getElementsByTagName('p')[1];
+                expect(link.innerHTML).contains(cards[i].title);
+                expect(link.getAttribute('href')).contains(cards[i].link);
+                expect(description.innerHTML).contains(cards[i].description);
+            }
+        });
+
+        it('should contain notification banner', () => {
+            const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
+            expect(bannerHeadings[0].innerHTML).contains('1 outstanding media');
+
+            const bannerLink = htmlRes.getElementById("banner-media-applications");
+            expect(bannerLink.innerHTML).contains('Manage media account requests');
+            expect(bannerLink.getAttribute('href')).contains('media-applications');
+        });
     });
 
-    it('should have correct page title', () => {
-        const pageTitle = htmlRes.title;
-        expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
+    describe('with multiple media applications', () => {
+        beforeAll(async () => {
+            mediaApplicationsStub.resolves([{id: '1'}, {id: '2'}]);
+            app.request['user'] = { userId: '1', roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should contain notification banner', () => {
+            const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
+            expect(bannerHeadings[0].innerHTML).contains('2 outstanding media');
+
+            const bannerLink = htmlRes.getElementById("banner-media-applications");
+            expect(bannerLink.innerHTML).contains('Manage media account requests');
+            expect(bannerLink.getAttribute('href')).contains('media-applications');
+        });
     });
 
-    it('should display header', () => {
-        const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains('Your Dashboard', 'Could not find correct value in header');
-    });
+    describe('with no media application', () => {
+        beforeAll(async () => {
+            mediaApplicationsStub.resolves([]);
+            app.request['user'] = { userId: '1', roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
 
-    it('should display 5 links in banner', () => {
-        const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(5);
-
-        expect(bannerComponents[0].innerHTML).equal('Home');
-        expect(bannerComponents[1].innerHTML).equal('Upload');
-        expect(bannerComponents[2].innerHTML).equal('Review apps');
-        expect(bannerComponents[3].innerHTML).equal('Remove');
-        expect(bannerComponents[4].innerHTML).equal('Sign out');
-    });
-
-    it('should display 5 card options', () => {
-        const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(cards.length);
-    });
-
-    it('cards should have correct content and links', () => {
-        for (let i = 0; i < cards.length; i++) {
-            const adminCards = htmlRes.getElementsByClassName('account-card');
-            const link = adminCards[i].getElementsByTagName('a')[0];
-            const description = adminCards[i].getElementsByTagName('p')[1];
-            expect(link.innerHTML).contains(cards[i].title);
-            expect(link.getAttribute('href')).contains(cards[i].link);
-            expect(description.innerHTML).contains(cards[i].description);
-        }
+        it('should not contain notification banner', () => {
+            const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
+            expect(bannerHeadings).to.be.empty
+        });
     });
 });
 
