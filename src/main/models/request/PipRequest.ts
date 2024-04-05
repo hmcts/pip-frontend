@@ -20,8 +20,6 @@ export interface PipRequest extends Request {
             'file-upload-confirm': {};
             home: {};
             'list-option': {};
-            'live-case-alphabet-search': {};
-            'live-case-status': {};
             'location-name-search': {};
             'manage-third-party-users': {};
             'manage-third-party-users-view': {};
@@ -37,7 +35,6 @@ export interface PipRequest extends Request {
             'remove-list-success': {};
             search: {};
             'search-results': {};
-            'session-management': {};
             'sign-in': {};
             'single-justice-procedure': {};
             'standard-list': {};
@@ -48,7 +45,6 @@ export interface PipRequest extends Request {
             template: {};
             'unsubscribe-confirmation': {};
             'view-option': {};
-            'warned-list': {};
             'list-not-found': {};
         };
     };
