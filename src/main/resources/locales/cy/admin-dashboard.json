@@ -25,5 +25,9 @@
         "title": "User Management",
         "description": "Update and delete users.",
         "link": "admin-management"
+    },
+    "mediaRequestNotificationBanner": {
+        "singular": "There is COUNT outstanding media request.",
+        "plural": "There are COUNT outstanding media requests."
     }
 }

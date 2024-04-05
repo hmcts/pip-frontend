@@ -16,10 +16,11 @@
     </div>
     {% set html %}
         <p class="govuk-notification-banner__heading">
-            There
-            {% if mediaApplicationsCount == 1 %} is {% else %} are {% endif %}
-            {{ mediaApplicationsCount }} outstanding media
-            {% if mediaApplicationsCount == 1 %} request. {% else %} requests. {% endif %}
+            {% if mediaApplicationsCount == 1 %}
+                {{ mediaRequestNotificationBanner.singular | replace("COUNT", mediaApplicationsCount) }}
+            {% else %}
+                {{ mediaRequestNotificationBanner.plural | replace("COUNT", mediaApplicationsCount) }}
+            {% endif %}
             <a href="{{ mediaCard.link }}"
                class="govuk-link govuk-notification-banner__heading"
                id="banner-{{ mediaCard.link }}"
