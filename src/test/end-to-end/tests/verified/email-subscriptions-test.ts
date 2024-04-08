@@ -97,7 +97,7 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-4');
+        I.click('#subscription-choice-2');
         I.click('Continue');
         I.waitForText('What is the name of the case?');
         I.see('For example, Smith');
@@ -119,7 +119,7 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-2');
+        I.click('#subscription-choice-4');
         I.click('Continue');
         I.waitForText('What is the surname or organisation name of the party involved in the case?');
         I.see('For example, Smith');
@@ -345,7 +345,7 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-2');
+        I.click('#subscription-choice-4');
         I.click('Continue');
         I.click('Continue');
         I.waitForText('There is a problem');
@@ -363,7 +363,7 @@ Scenario(
         I.see('There is nothing matching your criteria');
         I.click('Add subscription by an alternative type');
 
-        I.click('#subscription-choice-4');
+        I.click('#subscription-choice-2');
         I.click('Continue');
         I.click('Continue');
         I.waitForText('There is a problem');
