@@ -7,8 +7,8 @@
     },
     "insetText": "You can only search for information that is currently published.",
     "radio1": "By court or tribunal name",
-    "radio2": "By party name",
+    "radio2": "By case name",
     "radio3": "By case reference number, case ID or unique reference number (URN)",
-    "radio4": "By case name",
+    "radio4": "By party name",
     "backButton": "Back"
 }
