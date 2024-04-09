@@ -14,21 +14,20 @@
     <div class="govuk-grid-row parent-box">
         <h1 class="govuk-heading-l">{{ heading }}</h1>
     </div>
-    {% set html %}
-        <p class="govuk-notification-banner__heading">
-            {% if mediaApplicationsCount == 1 %}
-                {{ mediaRequestNotificationBanner.singular | replace("COUNT", mediaApplicationsCount) }}
-            {% else %}
-                {{ mediaRequestNotificationBanner.plural | replace("COUNT", mediaApplicationsCount) }}
-            {% endif %}
-            <a href="{{ mediaCard.link }}"
-               class="govuk-link govuk-notification-banner__heading"
-               id="banner-{{ mediaCard.link }}"
-            >{{ mediaCard.title }}</a>.
-        </p>
-    {% endset %}
-
     {% if user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] and mediaApplicationsCount > 0 %}
+        {% set html %}
+            <p class="govuk-notification-banner__heading">
+                {% if mediaApplicationsCount == 1 %}
+                    {{ mediaRequestNotificationBanner.singular | replace("COUNT", mediaApplicationsCount) }}
+                {% else %}
+                    {{ mediaRequestNotificationBanner.plural | replace("COUNT", mediaApplicationsCount) }}
+                {% endif %}
+                <a href="{{ mediaCard.link }}"
+                   class="govuk-link govuk-notification-banner__heading"
+                   id="banner-{{ mediaCard.link }}"
+                >{{ mediaCard.title }}</a>.
+            </p>
+        {% endset %}
         {{ govukNotificationBanner({
             html: html
         }) }}
