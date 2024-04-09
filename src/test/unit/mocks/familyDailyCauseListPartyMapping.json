@@ -14,7 +14,6 @@
             "postCode": "PR1 2LL"
         }
     },
-    "@schemaLocation": "",
     "courtLists": [
         {
             "courtHouse": {
@@ -54,41 +53,41 @@
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseType": "type"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "APL",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEBT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CREP",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DREP",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
+                                                        "caseType": "type",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APL",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEBT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CREP",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DREP",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -97,23 +96,23 @@
                                                 "case": [
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CREP20",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Individual Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "RREP",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Individual Surname"
-                                                        }
+                                                        "caseNumber": "112233445",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CREP20",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Individual Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RREP",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Individual Surname"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -123,21 +122,21 @@
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseType": "type"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "APL",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Individual Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEBT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Individual Surname"
-                                                        }
+                                                        "caseType": "type",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APL",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Individual Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEBT",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Individual Surname"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             },
@@ -152,16 +151,11 @@
                                                 ]
                                             }
                                         ],
-                                        "channel": ["testSittingChannel"],
-                                        "duration": "",
-                                        "startTime": "9.40am",
-                                        "durationAsHours": 1,
-                                        "durationAsMinutes": 5
+                                        "channel": ["testSittingChannel"]
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
@@ -204,55 +198,50 @@
                                                     {
                                                         "caseName": "A1 Vs B1",
                                                         "caseNumber": "12345678",
-                                                        "caseType": "type"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "CLP20",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEF",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Surname"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "CREP",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DREP20",
-                                                        "friendlyRoleName": "Legal Advisor",
-                                                        "individualDetails": {
-                                                            "individualForenames": "Individual Forenames",
-                                                            "individualMiddleName": "Individual Middlename",
-                                                            "individualSurname": "Individual Surname",
-                                                            "title": "Mr"
-                                                        }
+                                                        "caseType": "type",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "CLP20",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEF",
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "CREP",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DREP20",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Individual Forenames",
+                                                                    "individualMiddleName": "Individual Middlename",
+                                                                    "individualSurname": "Individual Surname",
+                                                                    "title": "Mr"
+                                                                }
+                                                            }
+                                                        ]
                                                     }
                                                 ]
                                             }
                                         ],
-                                        "channel": ["testSittingChannel"],
-                                        "duration": "",
-                                        "startTime": "9.40am",
-                                        "durationAsHours": 1,
-                                        "durationAsMinutes": 5
+                                        "channel": ["testSittingChannel"]
                                     }
                                 ]
                             }
-                        ],
-                        "totalHearing": 2
+                        ]
                     }
                 ]
             }
