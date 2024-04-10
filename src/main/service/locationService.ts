@@ -49,12 +49,6 @@ export class LocationService {
         return this.generateAlphabetisedCourtList(await this.fetchAllLocations(language));
     }
 
-    public async generateAlphabetisedCrownCourtList(language: string): Promise<object> {
-        const regions = '';
-        const jurisdictions = 'Crown';
-        return this.generateFilteredAlphabetisedCourtList(regions, jurisdictions, language);
-    }
-
     public async generateFilteredAlphabetisedCourtList(
         regions: string,
         jurisdictions: string,
