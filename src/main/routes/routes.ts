@@ -70,7 +70,6 @@ export default function (app: Application): void {
     app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
     app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
     app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
-    // app.get('/case-event-glossary', app.locals.container.cradle.caseEventGlossaryController.get);
     app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
     app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
     app.post(
@@ -145,8 +144,6 @@ export default function (app: Application): void {
     app.get('/session-expired', app.locals.container.cradle.sessionExpiredController.get);
     app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true));
     app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get);
-    // app.get('/live-case-alphabet-search', app.locals.container.cradle.liveCaseCourtSearchController.get);
-    // app.get('/live-case-status', app.locals.container.cradle.liveCaseStatusController.get);
     app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
     app.get('/unprocessed-request', app.locals.container.cradle.unprocessedRequestController.get);
 
