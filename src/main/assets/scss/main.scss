@@ -147,6 +147,11 @@ $callout-bg: #f0f4f5;
     margin-right: 0;
 }
 
+// Required due to changes in the core checkbox components in gov-frontend
+.bulk-unsubscribe-label {
+    margin-left: -25px;
+}
+
 .app-back-to-top__icon {
     margin-right: 10px;
 }
