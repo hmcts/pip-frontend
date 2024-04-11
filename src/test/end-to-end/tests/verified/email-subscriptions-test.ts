@@ -399,7 +399,7 @@ Scenario(
         I.waitForText('Email subscriptions updated');
         I.logout();
     }
-).tag('@Nightly');
+);
 
 Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
