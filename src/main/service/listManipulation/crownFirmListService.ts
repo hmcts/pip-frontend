@@ -170,7 +170,6 @@ export class CrownFirmListService {
                 });
                 // custom sort def - basically if it's got the string, move to end. Needed to be suppressed because eslint
                 // does not understand that a compare function needs two vars.
-                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 function compare(a, b) {
                     if (a.courtRoom.toLowerCase().includes('to be allocated')) {
                         return 1;

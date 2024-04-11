@@ -1,9 +1,8 @@
 @use 'govuk-frontend';
 @use 'accessible-autocomplete.min';
 
-// moj frontend is still using the deprecated govuk ie8 settings. Suppress the warning for now until a new version
-// of the component is released which fixes the issue.
-$govuk-suppressed-warnings: 'ie8';
+// This font size is due to be removed in version 6. Need to consider which font size to move to.
+$govuk-suppressed-warnings: 'govuk-typography-scale-14';
 
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
@@ -500,6 +499,8 @@ nav {
     position: relative;
     top: 2em;
 }
+
+
 
 .json-container {
     background-color: black;
