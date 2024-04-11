@@ -391,7 +391,7 @@ Scenario(
         I.waitForText('There is a problem');
         I.see('At least one subscription must be selected');
 
-        I.click(locate('//tr').withText(locationName).find('input').withAttr({ id: 'courtSubscription' }));
+        I.click(locate('//tr').withText(locationName).find('input').withAttr({ name: 'courtSubscription' }));
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
         I.click('#bulk-unsubscribe-choice');
