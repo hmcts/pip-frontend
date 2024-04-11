@@ -35,6 +35,7 @@ export class Helmet {
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
                     scriptSrcAttr: [self, "'unsafe-inline'"],
+                    manifestSrc: [self, process.env.FRONTEND_URL],
                     scriptSrc: [
                         self,
                         ...googleAnalyticsDomains,
