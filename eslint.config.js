@@ -1,4 +1,4 @@
-const globals = require("globals");
+const globals = require('globals');
 const eslint = require('@eslint/js');
 const tslint = require('typescript-eslint');
 const babelParser = require('@babel/eslint-parser');
@@ -6,7 +6,16 @@ const eslintConfigPrettier = require('eslint-config-prettier');
 
 module.exports = tslint.config(
     {
-        ignores: ['coverage/**', '**/*.d.ts', 'dist/**', 'src/main/public/**', 'src/main/types/**', 'jest.*config.js','**/**.min.js', 'src/main/views/govuk/**'],
+        ignores: [
+            'coverage/**',
+            '**/*.d.ts',
+            'dist/**',
+            'src/main/public/**',
+            'src/main/types/**',
+            'jest.*config.js',
+            '**/**.min.js',
+            'src/main/views/govuk/**',
+        ],
     },
     eslint.configs.recommended,
     eslintConfigPrettier,
@@ -15,9 +24,7 @@ module.exports = tslint.config(
         plugins: {
             '@typescript-eslint': tslint.plugin,
         },
-        extends: [
-            ...tslint.configs.recommended,
-        ],
+        extends: [...tslint.configs.recommended],
         languageOptions: {
             ecmaVersion: 2018,
             sourceType: 'module',
@@ -64,15 +71,14 @@ module.exports = tslint.config(
                 ...globals.node,
                 ...globals.jest,
                 ...globals.browser,
-                ...globals.commonjs
+                ...globals.commonjs,
             },
             parser: babelParser,
         },
         rules: {
             'linebreak-style': ['error', 'unix'],
             semi: ['error', 'always'],
-            'no-multiple-empty-lines': ['error', {max: 1}],
-        }
+            'no-multiple-empty-lines': ['error', { max: 1 }],
+        },
     }
 );
-
