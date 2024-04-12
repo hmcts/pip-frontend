@@ -48,14 +48,13 @@
 
   }</script>
     {% if env != 'production' %}
-        {{ govukPhaseBanner ({
-            tag: {
-                text: branchName
-            },
-            attributes: {
-                id: "branch-bar"
-            }
-        }) }}
+        <div id= "branch-bar" class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag govuk-phase-banner__content__tag">
+                    {{ branchName }}
+                </strong>
+            </p>
+        </div>
     {% endif %}
   {% if user.roles and 'ADMIN' in user.roles %}
     {% set betaDisplay = betaHeadingAdmin %}
