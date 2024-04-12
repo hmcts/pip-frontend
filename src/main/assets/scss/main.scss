@@ -291,12 +291,16 @@ tbody {
     @extend %govuk-body !optional;
 }
 
-#branch-bar .govuk-phase-banner__content {
-    display: block;
-}
-
-.branch-tag {
-    display: inline
+// Styling changes to ensure consistency between main and login pages, as the default
+// phase banner has now changed.
+// To be removed once colour is agreed, and changes made in both systems.
+.govuk-phase-banner__content__tag {
+    display: inline;
+    background-color: #1d70b8;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 div {
