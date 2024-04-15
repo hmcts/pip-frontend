@@ -34,7 +34,6 @@
                                         "individualDetails": {
                                             "title": "Capt.",
                                             "individualForenames": "Test forename",
-                                            "individualMiddleName": "A",
                                             "individualSurname": "Test Surname"
                                         },
                                         "friendlyRoleName": "This is a role name"
@@ -86,7 +85,6 @@
                                             "individualDetails": {
                                                 "title": "Ms",
                                                 "individualForenames": "Test Forename",
-                                                "individualMiddleName": "B",
                                                 "individualSurname": "Test Surname"
                                             }
                                         },
@@ -117,7 +115,6 @@
                                                 "individualDetails": {
                                                     "title": "Ms",
                                                     "individualForenames": "Test forename",
-                                                    "individualMiddleName": "G",
                                                     "individualSurname": "Test Surname"
                                                 }
                                             },
@@ -126,7 +123,6 @@
                                                 "individualDetails": {
                                                     "title": "Lord",
                                                     "individualForenames": "Test forename",
-                                                    "individualMiddleName": "P",
                                                     "individualSurname": "Test Surname"
                                                 },
                                                 "friendlyRoleName": "This is a role name"
@@ -155,7 +151,6 @@
                                                 "individualDetails": {
                                                     "title": "Ms",
                                                     "individualForenames": "Test forename",
-                                                    "individualMiddleName": "1",
                                                     "individualSurname": "Test Surname"
                                                 }
                                             },
@@ -164,7 +159,6 @@
                                                 "individualDetails": {
                                                     "title": "Lord",
                                                     "individualForenames": "Test forename",
-                                                    "individualMiddleName": "3",
                                                     "individualSurname": "Test Surname"
                                                 },
                                                 "friendlyRoleName": "This is a role name"
