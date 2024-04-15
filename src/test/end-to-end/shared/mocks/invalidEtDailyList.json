@@ -34,7 +34,6 @@
                                         "individualDetails": {
                                             "title": "Capt.",
                                             "individualForenames": "Test forename",
-                                            "individualMiddleName": "A",
                                             "individualSurname": "Test Surname"
                                         },
                                         "friendlyRoleName": "This is a role name"
