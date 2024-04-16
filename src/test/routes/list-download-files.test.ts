@@ -18,7 +18,7 @@ const mockArtefact = {
 describe('List download files', () => {
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
     sinon.stub(AccountManagementRequests.prototype, 'isAuthorised').resolves(true);
-    sinon.stub(ListDownloadService.prototype, 'generateFiles').resolves({});
+    sinon.stub(ListDownloadService.prototype, 'getFile').resolves('abc');
     sinon.stub(ListDownloadService.prototype, 'getFileSize').returns('100KB');
 
     describe('on GET', () => {
