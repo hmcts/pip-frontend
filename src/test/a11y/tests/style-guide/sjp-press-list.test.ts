@@ -26,7 +26,7 @@ metadataStub.withArgs(artefactIdMap.get(sjpPressNewCasesUrl)).resolves(metaDataS
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData);
-sinon.stub(ListDownloadService.prototype, 'generateFiles').resolves(true);
+sinon.stub(ListDownloadService.prototype, 'showDownloadButton').resolves(true);
 
 describe('Accessibility - SJP Press List (Full List) Page', () => {
     testAccessibility(`${sjpPressFullListUrl}?artefactId=abc`);

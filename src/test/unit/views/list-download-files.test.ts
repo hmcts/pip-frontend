@@ -19,7 +19,7 @@ const mockArtefact = {
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(AccountManagementRequests.prototype, 'isAuthorised').resolves(true);
-sinon.stub(ListDownloadService.prototype, 'generateFiles').resolves({});
+sinon.stub(ListDownloadService.prototype, 'getFile').resolves('abc');
 
 const getFileSizeStub = sinon.stub(ListDownloadService.prototype, 'getFileSize');
 getFileSizeStub.withArgs('abc', 'pdf').returns('1.1MB');

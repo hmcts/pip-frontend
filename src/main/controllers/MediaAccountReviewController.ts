@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { allowedImageTypeMappings } from '../models/consts';
+import { fileTypeMappings } from '../models/consts';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
@@ -29,7 +29,7 @@ export default class MediaAccountReviewController {
             const imageName = applicant.imageName;
             const extension = imageName.substring(imageName.lastIndexOf('.') + 1, imageName.length);
 
-            const contentType = allowedImageTypeMappings[extension.toLowerCase()];
+            const contentType = fileTypeMappings[extension.toLowerCase()];
             if (contentType) {
                 res.set('Content-Disposition', 'inline;filename=' + imageName);
                 res.set('Content-Type', contentType);

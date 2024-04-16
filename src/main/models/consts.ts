@@ -4,11 +4,12 @@ export const allowedFileTypes = ['pdf', 'json', 'csv', 'doc', 'docx', 'htm', 'ht
 
 export const allowedImageTypes = ['jpg', 'jpeg', 'png', 'pdf'];
 
-export const allowedImageTypeMappings = {
+export const fileTypeMappings = {
     jpg: 'image/jpeg',
     jpeg: 'image/jpeg',
     png: 'image/png',
     pdf: 'application/pdf',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 };
 
 export const partyRoleMappings = {

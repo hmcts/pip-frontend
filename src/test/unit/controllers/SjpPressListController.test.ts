@@ -24,7 +24,7 @@ metaDataSjpPressNewCases.listType = 'SJP_DELTA_PRESS_LIST';
 
 const sjpPressListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const sjpPressListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
+const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
 
 const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
