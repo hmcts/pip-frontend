@@ -32,7 +32,7 @@ sjpPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 sjpPublicListMetaDataStub.withArgs(artefactIdWithNoFiles).resolves(metaData);
 sjpPublicListMetaDataStub.withArgs('').resolves([]);
 
-const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
+const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
 generatesFilesStub.withArgs(artefactId).resolves(true);
 generatesFilesStub.withArgs(artefactIdWithNoFiles).resolves(false);
 
