@@ -11,7 +11,7 @@ const metadata = testArtefactMetadata()[0];
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
-sinon.stub(ListDownloadService.prototype, 'generateFiles').resolves(true);
+sinon.stub(ListDownloadService.prototype, 'showDownloadButton').resolves(true);
 
 describe('Accessibility - SJP Public List Page', () => {
     testAccessibility(url);

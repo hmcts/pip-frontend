@@ -1,90 +1,60 @@
 import { ChannelManagementRequests } from '../resources/requests/channelManagementRequests';
-import { Logger } from '@hmcts/nodejs-logging';
-import os from 'os';
-import fs from 'fs';
-import path from 'path';
 import { FileType } from '../models/consts';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import stream from 'stream';
 
 const channelManagementRequests = new ChannelManagementRequests();
 const accountManagementRequests = new AccountManagementRequests();
-const logger = Logger.getLogger('list-download');
+
+const numberOfBytes = 1024;
 
 export class ListDownloadService {
-    public async generateFiles(artefactId, user): Promise<boolean> {
-        if (user && user['roles'] === 'VERIFIED') {
-            const pdfResponse = await this.generateFile(artefactId, user['userId'], FileType.PDF);
-            const excelResponse = await this.generateFile(artefactId, user['userId'], FileType.EXCEL);
-            if (pdfResponse || excelResponse) {
-                return true;
-            }
-        }
-        return false;
+    public async showDownloadButton(artefactId, user): Promise<boolean> {
+        return user && user['roles'] === 'VERIFIED' ? await channelManagementRequests.fileExists(artefactId) : false;
     }
 
-    private async generateFile(artefactId, userId, fileExtension): Promise<string | null> {
-        const response = await this.downloadFileFromBlobStorage(artefactId, userId, fileExtension);
-
-        if (response) {
-            const fileName = path.join(os.tmpdir(), `${artefactId}.${fileExtension}`);
-
-            try {
-                fs.writeFileSync(fileName, Buffer.from(response, 'base64'));
-            } catch (err) {
-                const fileType = Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)];
-                logger.error(`Failed to write ${fileType} file to disk`, err.message);
-            }
-        }
-        return response;
-    }
-
-    /**
-     * Retrieves the file using the Artefact ID and File Type.
-     * @param artefactId The Artefact ID.
-     * @param fileExtension The File extension.
-     * @returns The path to the file, or null if the file does not exist in the tmp directory.
-     */
-    public getFile(artefactId, fileExtension): string {
-        if (artefactId && fileExtension) {
-            const jointPath = path.join(os.tmpdir(), `${artefactId}.${fileExtension}`);
-
-            if (fs.existsSync(jointPath)) {
-                return jointPath;
-            }
-        }
-        return null;
-    }
-
-    public getFileSize(artefactId, fileExtension): string {
-        const byteUnits = ['KB', 'MB'];
-        const file = this.getFile(artefactId, fileExtension);
-
-        if (file) {
-            const stats = fs.statSync(file);
-            let fileSizeInBytes = stats.size;
-            let i = 0;
-
-            do {
-                fileSizeInBytes /= 1000;
-                i++;
-            } while (fileSizeInBytes >= 1000 && i <= byteUnits.length);
-
-            return Math.max(fileSizeInBytes, 0.1).toFixed(1) + byteUnits[i - 1];
-        }
-        return null;
-    }
-
-    public async checkUserIsAuthorised(userId, listType, sensitivity): Promise<boolean | null> {
-        return await accountManagementRequests.isAuthorised(userId, listType, sensitivity);
-    }
-
-    private async downloadFileFromBlobStorage(artefactId, userId, fileExtension): Promise<string | null> {
+    public async getFile(artefactId, userId, fileExtension): Promise<string> {
         if (artefactId) {
-            return channelManagementRequests.getStoredFile(artefactId, {
+            return await channelManagementRequests.getStoredFile(artefactId, {
                 'x-user-id': userId,
                 'x-file-type': Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)],
             });
         }
         return null;
+    }
+
+    public async getFileSize(artefactId, fileExtension): Promise<string> {
+        const byteUnits = ['KB', 'MB'];
+        const fileSizes = await channelManagementRequests.getFileSizes(artefactId);
+
+        if (fileSizes) {
+            let fileSize;
+            if (fileExtension === FileType.PDF) {
+                fileSize = fileSizes.primaryPdf;
+            } else if (fileExtension === FileType.EXCEL) {
+                fileSize = fileSizes.excel;
+            }
+
+            if (fileSize != null) {
+                let i = 0;
+                do {
+                    fileSize /= numberOfBytes;
+                    i++;
+                } while (fileSize >= numberOfBytes && i <= byteUnits.length);
+
+                return Math.max(fileSize, 0.1).toFixed(1) + byteUnits[i - 1];
+            }
+        }
+        return null;
+    }
+
+    public handleFileDownload(res, fileContents) {
+        const readStream = new stream.PassThrough();
+        readStream.end(fileContents);
+        readStream.pipe(res);
+    }
+
+    public async checkUserIsAuthorised(userId, listType, sensitivity): Promise<boolean | null> {
+        return await accountManagementRequests.isAuthorised(userId, listType, sensitivity);
     }
 }
