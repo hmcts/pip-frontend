@@ -1,7 +1,8 @@
 module.exports = {
     cache: true,
     cacheDirectory: '/tmp/jest-cache',
-    transformIgnorePatterns: ['/node_modules/(?!(sinon)|!(axios)/)'],
+    preset: 'ts-jest/presets/js-with-babel',
+    transformIgnorePatterns: ['/node_modules/(?!(chai)/)'],
     roots: ['<rootDir>/src/test/unit'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
     moduleNameMapper: {
