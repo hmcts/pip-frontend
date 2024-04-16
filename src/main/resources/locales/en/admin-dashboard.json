@@ -12,7 +12,7 @@
         "link": "remove-list-search"
     },
     "mediaCard": {
-        "title": "Manage media account request",
+        "title": "Manage media account requests",
         "description": "CTSC assess new media account applications.",
         "link": "media-applications"
     },
@@ -25,5 +25,9 @@
         "title": "User Management",
         "description": "Update and delete users.",
         "link": "admin-management"
+    },
+    "mediaRequestNotificationBanner": {
+        "singular": "There is COUNT outstanding media request.",
+        "plural": "There are COUNT outstanding media requests."
     }
 }
