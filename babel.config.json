@@ -9,7 +9,7 @@
                     "ios": "12.1"
                 },
                 "useBuiltIns": "entry",
-                "corejs": "3.16.2",
+                "corejs": "3.36.1",
                 "modules": "commonjs"
             }
         ]
