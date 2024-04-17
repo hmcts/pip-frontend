@@ -73,7 +73,7 @@ metadataStub.withArgs(sjpNewCasesResource['artefactId']).returns(metaDataSjpPres
 metadataStub.withArgs(sjpFullListResource['artefactIdWithDownloadButton']).returns(metaDataSjpPressFullList);
 metadataStub.withArgs(sjpNewCasesResource['artefactIdWithDownloadButton']).returns(metaDataSjpPressNewCases);
 
-const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'generateFiles');
+const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
 generatesFilesStub.withArgs(sjpFullListResource['artefactId']).resolves(false);
 generatesFilesStub.withArgs(sjpNewCasesResource['artefactId']).resolves(false);
 

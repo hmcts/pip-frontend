@@ -41,7 +41,7 @@ export default class SjpPressListController {
                 req.lng
             );
 
-            const showDownloadButton = await listDownloadService.generateFiles(artefactId, req.user);
+            const showDownloadButton = await listDownloadService.showDownloadButton(artefactId, req.user);
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
