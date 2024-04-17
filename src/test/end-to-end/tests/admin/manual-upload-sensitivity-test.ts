@@ -11,7 +11,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const [date, dayAfter] = getDateNowAndFuture();
 
     I.loginAsAdmin();
-    I.waitForText('Your Dashboard',5);
+    I.waitForText('Your Dashboard', 5);
     I.click('#card-manual-upload');
     I.selectOption(listTypeId, 'SJP Press List (Full list)');
 

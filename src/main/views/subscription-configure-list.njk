@@ -150,7 +150,7 @@
                         </th>
                       {% endif %}
                       <td class="govuk-table__cell">
-                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox">
+                        <div class="govuk-checkboxes__item govuk-checkboxes--small">
                           <input type="checkbox" class="govuk-checkboxes__input"
                                  id="{{ listName }}"
                                  value="{{ listName}}" name="list-selections[]"
@@ -158,7 +158,7 @@
                                   checked
                                  {% endif %}
                                  onclick="calculateChecked()">
-                          <label class="govuk-label govuk-checkboxes__label"
+                          <label class="govuk-label govuk-checkboxes__label no_padding"
                                  for="{{ listName }}">
                             <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>
                           </label>

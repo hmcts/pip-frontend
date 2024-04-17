@@ -68,9 +68,9 @@
                     <th scope="col" class="govuk-table__header govuk-!-width-one-quarter bulk-delete-table-padding" aria-sort="none">{{ caseTable.caseRef }}</th>
                     <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ caseTable.date }}</th>
                     <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
-                      <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
+                      <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
                         <input type="checkbox" class="govuk-checkboxes__input" id="select-all-cases" onclick="toggleCheckboxes(this, 'case')">
-                        <label class="govuk-label govuk-checkboxes__label" for="select-all-cases"> </label>
+                        <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-cases" > </label>
                       </div>
                     </th>
                   </tr>
@@ -85,9 +85,9 @@
                       <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.caseRef }}</td>
                       <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
-                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
+                        <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
                           <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription-{{ caseCount }}" onclick="untickSelectAllCases()" value={{ row.subscriptionId }}>
-                          <label class="govuk-label govuk-checkboxes__label" for="caseSubscription-{{ caseCount }}"> </label>
+                          <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="caseSubscription-{{ caseCount }}"> </label>
                         </div>
                       </td>
                     </tr>
@@ -103,9 +103,9 @@
                     <th scope="col" class="govuk-table__header govuk-!-width-three-quarters bulk-delete-table-padding" aria-sort="none">{{ courtTable.courtName }}</th>
                     <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ courtTable.date }}</th>
                     <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
-                      <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
+                      <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
                         <input type="checkbox" class="govuk-checkboxes__input" id="select-all-locations" onclick="toggleCheckboxes(this, 'location')">
-                        <label class="govuk-label govuk-checkboxes__label" for="select-all-locations"> </label>
+                        <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-locations"> </label>
                       </div>
                     </th>
                   </tr>
@@ -118,9 +118,9 @@
                       <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.locationName }}</td>
                       <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
-                        <div class="govuk-checkboxes__item govuk-checkboxes--small moj-multi-select__checkbox bulk-delete-checkbox">
+                        <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
                           <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription-{{ locationCount }}" onclick="untickSelectAllLocations()" value={{ row.subscriptionId }}>
-                          <label class="govuk-label govuk-checkboxes__label" for="courtSubscription-{{ locationCount }}"> </label>
+                          <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="courtSubscription-{{ locationCount }}"> </label>
                         </div>
                       </td>
                     </tr>

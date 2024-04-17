@@ -1,9 +1,8 @@
 @use 'govuk-frontend';
 @use 'accessible-autocomplete.min';
 
-// moj frontend is still using the deprecated govuk ie8 settings. Suppress the warning for now until a new version
-// of the component is released which fixes the issue.
-$govuk-suppressed-warnings: 'ie8';
+// This font size is due to be removed in version 6. Need to consider which font size to move to.
+$govuk-suppressed-warnings: 'govuk-typography-scale-14';
 
 @import 'node_modules/@ministryofjustice/frontend/moj/all';
 
@@ -148,6 +147,11 @@ $callout-bg: #f0f4f5;
     margin-right: 0;
 }
 
+// Required due to changes in the core checkbox components in gov-frontend
+.bulk-unsubscribe-label {
+    margin-left: -25px;
+}
+
 .app-back-to-top__icon {
     margin-right: 10px;
 }
@@ -287,8 +291,16 @@ tbody {
     @extend %govuk-body !optional;
 }
 
-#branch-bar .govuk-phase-banner__content {
-    display: block;
+// Styling changes to ensure consistency between main and login pages, as the default
+// phase banner has now changed.
+// To be removed once colour is agreed, and changes made in both systems.
+.govuk-phase-banner__content__tag {
+    display: inline;
+    background-color: #1d70b8;
+    color: white;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 div {
