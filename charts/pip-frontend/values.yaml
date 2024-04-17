@@ -56,3 +56,5 @@ nodejs:
                   alias: B2C_URL
                 - name: cft-idam-client-secret
                   alias: CFT_IDAM_CLIENT_SECRET
+    autoscaling:
+        enabled: false #To be enabled as part of PUB-1692
