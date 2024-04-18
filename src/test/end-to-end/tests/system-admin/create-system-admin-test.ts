@@ -12,7 +12,6 @@ Scenario(
         const email = randomData.getRandomEmailAddress();
 
         I.loginAsSystemAdmin();
-        I.waitForText('System Admin Dashboard');
         I.createNewSystemAdminAndContinue(TEST_FIRST_NAME, TEST_SURNAME, email);
         I.waitForText('Check account details');
         I.see(TEST_FIRST_NAME);

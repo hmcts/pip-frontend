@@ -24,7 +24,6 @@ Scenario('I as a verified user should be able to search and download sjp public 
     );
 
     I.loginAsMediaUser();
-    I.waitForText('Your account');
     I.see('Single Justice Procedure cases');
     I.click('#card-summary-of-publications\\?locationId\\=9');
     I.waitForText('What do you want to view from Single Justice Procedure?');
@@ -87,7 +86,6 @@ Scenario('I as a verified user should be able to download sjp press list', async
     );
 
     I.loginAsMediaUser();
-    I.waitForText('Your account');
     I.see('Single Justice Procedure cases');
     I.click('#card-summary-of-publications\\?locationId\\=9');
     I.waitForText('What do you want to view from Single Justice Procedure?');

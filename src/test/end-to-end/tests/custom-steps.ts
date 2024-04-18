@@ -11,6 +11,7 @@ export = function () {
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
             this.click('Sign in');
+            this.waitForText('System Admin Dashboard');
         },
 
         loginAsAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
@@ -19,6 +20,7 @@ export = function () {
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
             this.click('Sign in');
+            this.waitForText('Your Dashboard');
         },
 
         loginAsMediaUser: function (
@@ -32,6 +34,7 @@ export = function () {
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
             this.click('Sign in');
+            this.waitForText('Your account');
         },
 
         loginAsCftUser: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
@@ -42,6 +45,7 @@ export = function () {
             this.fillField('#username', secret(username));
             this.fillField('#password', secret(password));
             this.click('Sign in');
+            this.waitForText('Your account');
         },
 
         loginAsCftUserInWelsh: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
@@ -63,12 +67,12 @@ export = function () {
 
         logout: function () {
             this.click('Sign out');
-            this.see('You have been signed out');
+            this.waitForText('You have been signed out');
         },
 
         logoutWelsh: function () {
             this.click('Allgofnodi');
-            this.see('Rydych wedi cael eich allgofnodi');
+            this.waitForText('Rydych wedi cael eich allgofnodi');
         },
 
         createAdminAccount: function (firstName, lastName, email, role) {

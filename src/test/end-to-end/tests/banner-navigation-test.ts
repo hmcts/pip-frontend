@@ -18,7 +18,6 @@ Scenario('Unverified user - all banner navigation links should take user to the 
 
 Scenario('Verified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsMediaUser();
-    I.waitForText('Your account');
     I.click(locate('//li').withText('Find a court or tribunal'));
     I.waitForText('What court or tribunal are you interested in?');
     I.click(locate('//li').withText('Single Justice Procedure cases'));
@@ -32,7 +31,6 @@ Scenario('Verified user - all banner navigation links should take user to the co
 
 Scenario('Cft user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsCftUser();
-    I.waitForText('Your account');
     I.click(locate('//li').withText('Find a court or tribunal'));
     I.waitForText('What court or tribunal are you interested in?');
     I.click(locate('//li').withText('Single Justice Procedure cases'));
@@ -46,7 +44,6 @@ Scenario('Cft user - all banner navigation links should take user to the correct
 
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsAdmin();
-    I.waitForText('Your Dashboard');
     I.click(locate('//li').withText('Upload'));
     I.waitForText('Manual upload');
     I.click(locate('//li').withText('Review apps'));
@@ -60,7 +57,6 @@ Scenario('Admin user - all banner navigation links should take user to the corre
 
 Scenario('System admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsSystemAdmin();
-    I.waitForText('System Admin Dashboard');
     I.click(locate('//li').withText('Admin Dashboard'));
     I.waitForText('Your Dashboard');
     I.click(locate('//li').withText('Upload'));
