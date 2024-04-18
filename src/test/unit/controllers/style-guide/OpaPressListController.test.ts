@@ -13,12 +13,12 @@ import { OpaPressListService } from '../../../../main/service/listManipulation/O
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 const notFoundArtefactId = 'ghi';
-const listUrl = 'opa-press-list';
+const listPath = 'style-guide/opa-press-list'
 
 const opaPressListController = new OpaPressListController();
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/opaPressList.json'), 'utf-8');
-const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/opaPressList.json'), 'utf-8');
+const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[0];
 const welshMetadata = JSON.parse(rawMetadata)[2];
 
@@ -51,7 +51,7 @@ metadataStub.withArgs('').resolves([]);
 
 describe('OPA Press List Controller', () => {
     const i18n = {
-        listUrl: {},
+        listPath: {},
         'list-template': {},
     };
 
@@ -70,7 +70,7 @@ describe('OPA Press List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listUrl],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData: listData,
             contentDate: contentDate,
@@ -81,7 +81,7 @@ describe('OPA Press List Controller', () => {
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA',
         };
 
-        responseMock.expects('render').once().withArgs(listUrl, expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await opaPressListController.get(request, response);
         return responseMock.verify();
@@ -95,7 +95,7 @@ describe('OPA Press List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listUrl],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData: listData,
             contentDate: '14 Chwefror 2022',
@@ -106,7 +106,7 @@ describe('OPA Press List Controller', () => {
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA',
         };
 
-        responseMock.expects('render').once().withArgs(listUrl, expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await opaPressListController.get(request, response);
         return responseMock.verify();

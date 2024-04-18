@@ -11,13 +11,13 @@ import { SscsDailyListService } from '../../../../main/service/listManipulation/
 import { HttpStatusCode } from 'axios';
 import { describe } from '@jest/globals';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sscsDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sscsDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataSscs = JSON.parse(rawMetaData)[0];
 metaDataSscs.listType = 'SSCS_DAILY_LIST';
@@ -52,9 +52,10 @@ sscsDailyListMetaDataStub
     .resolves(metaDataSscsAdditionalHearings);
 sscsDailyListMetaDataStub.withArgs('', userId).resolves([]);
 
+const sscsListPath = 'style-guide/sscs-daily-list';
 const i18n = {
-    'sscs-daily-list': { warning: 'warning1' },
-    'sscs-daily-list-additional-hearings': { warning: 'warning2' },
+    sscsListPath: { warning: 'warning1' },
+    'style-guide/sscs-daily-list-additional-hearings': { warning: 'warning2' },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -76,7 +77,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
 
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n[url.substring(1)],
+                ...i18n[`style-guide${url}`],
                 ...i18n['list-template'],
                 ...i18n['open-justice-statement'],
                 listData,
@@ -87,7 +88,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
                 provenance: 'prov1',
             };
 
-            responseMock.expects('render').once().withArgs('sscs-daily-list', expectedData);
+            responseMock.expects('render').once().withArgs(sscsListPath, expectedData);
 
             await sscsDailyListController.get(request, response);
             return responseMock.verify();

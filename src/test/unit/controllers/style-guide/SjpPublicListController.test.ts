@@ -15,13 +15,15 @@ const sjpPublicListController = new SjpPublicListController();
 const artefactId = '1';
 const artefactIdWithNoFiles = '2';
 
-const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../mocks/sjp-public-list.json'), 'utf-8');
+const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-public-list.json'), 'utf-8');
 const data = JSON.parse(mockSJPPublic);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const i18n = { 'single-justice-procedure': {}, 'list-template': {} };
+const listPath = 'style-guide/single-justice-procedure';
+const i18n = { listPath: {}, 'list-template': {} };
+
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 jsonStub.withArgs(artefactId, '123').resolves(data);
 jsonStub.withArgs(artefactIdWithNoFiles, '123').resolves(data);
@@ -57,7 +59,7 @@ describe('SJP Public List Type Controller', () => {
 
     describe('get', () => {
         const expectedData = {
-            ...i18n['single-justice-procedure-press'],
+            ...i18n[listPath],
             ...i18n['sjp-common'],
             ...i18n['list-template'],
             sjpData: filter.sjpCases,
@@ -79,7 +81,7 @@ describe('SJP Public List Type Controller', () => {
             };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
+            responseMock.expects('render').once().withArgs(listPath, localExpectedData);
 
             await sjpPublicListController.get(request, response);
             return responseMock.verify();
@@ -97,7 +99,7 @@ describe('SJP Public List Type Controller', () => {
             };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
+            responseMock.expects('render').once().withArgs(listPath, localExpectedData);
 
             await sjpPublicListController.get(request, response);
             return responseMock.verify();
@@ -115,7 +117,7 @@ describe('SJP Public List Type Controller', () => {
             };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
+            responseMock.expects('render').once().withArgs(listPath, localExpectedData);
 
             await sjpPublicListController.get(request, response);
             return responseMock.verify();
@@ -133,7 +135,7 @@ describe('SJP Public List Type Controller', () => {
             };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('single-justice-procedure', localExpectedData);
+            responseMock.expects('render').once().withArgs(listPath, localExpectedData);
 
             await sjpPublicListController.get(request, response);
             return responseMock.verify();

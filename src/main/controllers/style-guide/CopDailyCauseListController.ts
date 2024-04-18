@@ -32,7 +32,7 @@ export default class CopDailyCauseListController {
             );
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-            const courtName = courtService.findCourtName(returnedCourt, req.lng, listType);
+            const courtName = courtService.findCourtName(returnedCourt, req.lng, listPath);
             const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
             res.render(listPath, {

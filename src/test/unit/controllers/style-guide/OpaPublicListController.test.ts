@@ -15,9 +15,9 @@ const opaPublicListController = new OpaPublicListController();
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/opaPublicList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/opaPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 const welshMetadata = JSON.parse(rawMetaData)[2];
 
@@ -40,8 +40,9 @@ opaPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 opaPublicListMetaDataStub.withArgs(welshArtefactId).resolves(welshMetadata);
 opaPublicListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/opa-public-list'
 const i18n = {
-    'opa-public-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -61,7 +62,7 @@ describe('OPA Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['opa-public-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData: listData,
             length: listData.length,
@@ -72,7 +73,7 @@ describe('OPA Public List Controller', () => {
             venueAddress: 'THE LAW COURTS\ntown name',
         };
 
-        responseMock.expects('render').once().withArgs('opa-public-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await opaPublicListController.get(request, response);
         return responseMock.verify();
@@ -86,7 +87,7 @@ describe('OPA Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['opa-public-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData: listData,
             length: listData.length,
@@ -97,7 +98,7 @@ describe('OPA Public List Controller', () => {
             venueAddress: 'THE LAW COURTS\ntown name',
         };
 
-        responseMock.expects('render').once().withArgs('opa-public-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await opaPublicListController.get(request, response);
         return responseMock.verify();

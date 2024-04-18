@@ -10,13 +10,13 @@ import CrownDailyListController from '../../../../main/controllers/style-guide/C
 import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const crownDailyListController = new CrownDailyListController();
@@ -37,8 +37,9 @@ crownDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 crownDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownDailyListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/crown-daily-list';
 const i18n = {
-    'crown-daily-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -58,7 +59,7 @@ describe('Crown Daily List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['crown-daily-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {
@@ -73,7 +74,7 @@ describe('Crown Daily List Controller', () => {
             partyAtHearingLevel: false,
         };
 
-        responseMock.expects('render').once().withArgs('crown-daily-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await crownDailyListController.get(request, response);
         return responseMock.verify();

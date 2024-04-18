@@ -13,12 +13,12 @@ import { OpaResultsService } from '../../../../main/service/listManipulation/Opa
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 const notFoundArtefactId = 'ghi';
-const listUrl = 'opa-results';
+const listPath = 'style-guide/opa-results';
 
 const opaResultsController = new OpaResultsController();
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/opaResults.json'), 'utf-8');
-const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/opaResults.json'), 'utf-8');
+const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[0];
 const welshMetadata = JSON.parse(rawMetadata)[2];
 
@@ -70,7 +70,7 @@ describe('OPA Results controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listUrl],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData: listData,
             contentDate: contentDate,
@@ -80,7 +80,7 @@ describe('OPA Results controller', () => {
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA',
         };
 
-        responseMock.expects('render').once().withArgs(listUrl, expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await opaResultsController.get(request, response);
         return responseMock.verify();
@@ -94,7 +94,7 @@ describe('OPA Results controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listUrl],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData: listData,
             contentDate: '14 Chwefror 2022',
@@ -104,7 +104,7 @@ describe('OPA Results controller', () => {
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nCounty\nAA1 1AA',
         };
 
-        responseMock.expects('render').once().withArgs(listUrl, expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await opaResultsController.get(request, response);
         return responseMock.verify();

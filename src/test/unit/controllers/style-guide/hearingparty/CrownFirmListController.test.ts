@@ -2,11 +2,11 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { mockRequest } from '../../mocks/mockRequest';
-import { LocationService } from '../../../../main/service/locationService';
-import CrownFirmListController from '../../../../main/controllers/style-guide/CrownFirmListController';
-import { CrownFirmListService } from '../../../../main/service/listManipulation/crownFirmListService';
+import { PublicationService } from '../../../../../main/service/publicationService';
+import { mockRequest } from '../../../mocks/mockRequest';
+import { LocationService } from '../../../../../main/service/locationService';
+import CrownFirmListController from '../../../../../main/controllers/style-guide/CrownFirmListController';
+import { CrownFirmListService } from '../../../../../main/service/listManipulation/crownFirmListService';
 import { HttpStatusCode } from 'axios';
 import { DateTime } from 'luxon';
 
@@ -23,13 +23,13 @@ const sittingDates = [
     DateTime.fromFormat('15 April 2023', 'dd MMMM yyyy', { zone: 'utc' }),
 ];
 
-const unprocessed = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownFirmList.json'), 'utf-8');
+const unprocessed = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/crownFirmList.json'), 'utf-8');
 const unprocessedData = JSON.parse(unprocessed);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const crownFirmListController = new CrownFirmListController();
@@ -50,8 +50,9 @@ crownFirmListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 crownFirmListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownFirmListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/crown-firm-list';
 const i18n = {
-    'crown-firm-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -71,7 +72,7 @@ describe('Crown Firm List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['crown-firm-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             startDate: '12 April 2023',
             endDate: '15 April 2023',
@@ -85,7 +86,7 @@ describe('Crown Firm List Controller', () => {
             venueAddress: '26 Diego Gardens\nAddress Line 2\nTown\nLancashire\nAA1 AA1',
         };
 
-        responseMock.expects('render').once().withArgs('crown-firm-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await crownFirmListController.get(request, response);
         return responseMock.verify();

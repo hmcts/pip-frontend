@@ -1,19 +1,19 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import DailyCauseListController from '../../../../main/controllers/style-guide/DailyCauseListController';
+import DailyCauseListController from '../../../../../main/controllers/style-guide/DailyCauseListController';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { mockRequest } from '../../mocks/mockRequest';
+import { PublicationService } from '../../../../../main/service/publicationService';
+import { mockRequest } from '../../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { LocationService } from '../../../../main/service/locationService';
-import { CivilFamilyAndMixedListService } from '../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { LocationService } from '../../../../../main/service/locationService';
+import { CivilFamilyAndMixedListService } from '../../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/familyDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/familyDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataFamily = JSON.parse(rawMetaData)[0];
 metaDataFamily.listType = 'FAMILY_DAILY_CAUSE_LIST';
@@ -21,7 +21,7 @@ metaDataFamily.listType = 'FAMILY_DAILY_CAUSE_LIST';
 const metaDataCivil = JSON.parse(rawMetaData)[0];
 metaDataCivil.listType = 'CIVIL_DAILY_CAUSE_LIST';
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const dailyCauseListController = new DailyCauseListController();
@@ -46,9 +46,11 @@ dailyCauseListMetaDataStub.withArgs(artefactIdFamily).resolves(metaDataFamily);
 dailyCauseListMetaDataStub.withArgs(artefactIdCivil).resolves(metaDataCivil);
 dailyCauseListMetaDataStub.withArgs('').resolves([]);
 
+const civilListPath = 'style-guide/daily-cause-list';
+const familyListPath = 'style-guide/family-daily-cause-list';
 const i18n = {
-    'daily-cause-list': {},
-    'family-daily-cause-list': {},
+    civilListPath: {},
+    familyListPath: {},
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -69,7 +71,7 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['family-daily-cause-list'],
+            ...i18n[familyListPath],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,
@@ -83,7 +85,7 @@ describe('Daily Cause List Controller', () => {
             partyAtHearingLevel: true,
         };
 
-        responseMock.expects('render').once().withArgs('family-daily-cause-list', expectedData);
+        responseMock.expects('render').once().withArgs(familyListPath, expectedData);
 
         await dailyCauseListController.get(request, response);
         return responseMock.verify();
@@ -97,7 +99,7 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['daily-cause-list'],
+            ...i18n[civilListPath],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,
@@ -111,7 +113,7 @@ describe('Daily Cause List Controller', () => {
             partyAtHearingLevel: false,
         };
 
-        responseMock.expects('render').once().withArgs('daily-cause-list', expectedData);
+        responseMock.expects('render').once().withArgs(civilListPath, expectedData);
 
         await dailyCauseListController.get(request, response);
         return responseMock.verify();

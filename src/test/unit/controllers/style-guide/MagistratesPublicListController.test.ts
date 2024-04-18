@@ -10,13 +10,13 @@ import { CrimeListsService } from '../../../../main/service/listManipulation/Cri
 import MagistratesPublicListController from '../../../../main/controllers/style-guide/MagistratesPublicListController';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesPublicList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const magistratesPublicListController = new MagistratesPublicListController();
@@ -37,8 +37,9 @@ magistratesPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magistratesPublicListMetaDataStub.withArgs(artefactId, undefined).resolves(null);
 magistratesPublicListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/magistrates-public-list';
 const i18n = {
-    'magistrates-public-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -58,7 +59,7 @@ describe('Magistrates Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['magistrates-public-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {
@@ -73,7 +74,7 @@ describe('Magistrates Public List Controller', () => {
             partyAtHearingLevel: false,
         };
 
-        responseMock.expects('render').once().withArgs('magistrates-public-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await magistratesPublicListController.get(request, response);
         return responseMock.verify();

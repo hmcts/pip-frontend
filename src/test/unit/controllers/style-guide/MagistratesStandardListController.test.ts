@@ -10,12 +10,12 @@ import MagistratesStandardListController from '../../../../main/controllers/styl
 import { MagistratesStandardListService } from '../../../../main/service/listManipulation/MagistratesStandardListService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesStandardList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesStandardList.json'), 'utf-8');
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const magsStandardListController = new MagistratesStandardListController();
@@ -42,7 +42,7 @@ magsStandardListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 magsStandardListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magsStandardListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'magistrates-standard-list';
+const listPath = 'style-guide/magistrates-standard-list';
 const i18n = {
     listPath: {},
     'list-template': {},

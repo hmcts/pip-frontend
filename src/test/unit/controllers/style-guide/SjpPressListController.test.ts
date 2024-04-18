@@ -11,10 +11,10 @@ import { SjpFilterService } from '../../../../main/service/sjpFilterService';
 import { ListDownloadService } from '../../../../main/service/listDownloadService';
 import { describe } from '@jest/globals';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sjp-press-list.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-press-list.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataSjpPressFullList = JSON.parse(rawMetaData)[0];
 metaDataSjpPressFullList.listType = 'SJP_PRESS_LIST';
@@ -35,17 +35,18 @@ const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 const sjpResourceMap = new Map<string, object>([
     [
         sjpPressFullListUrl,
-        { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: 'single-justice-procedure-press' },
+        { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: 'style-guide/single-justice-procedure-press' },
     ],
     [
         sjpPressNewCasesUrl,
-        { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: 'single-justice-procedure-press-new-cases' },
+        { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: 'style-guide/single-justice-procedure-press-new-cases' },
     ],
 ]);
 const contentDate = metaDataSjpPressFullList['contentDate'];
 
 const sjpPressFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
 const sjpPressNewCasesResource = sjpResourceMap.get(sjpPressNewCasesUrl);
+const sjpPressFullListPath = 'style-guide/single-justice-procedure-press';
 
 sjpPressListJsonStub.withArgs(sjpPressFullListResource['artefactId']).resolves(sjpData);
 sjpPressListJsonStub.withArgs(sjpPressNewCasesResource['artefactId']).resolves(sjpData);
@@ -65,10 +66,10 @@ generatesFilesStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).r
 generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(false);
 
 const i18n = {
-    'single-justice-procedure-press': {
+    sjpPressFullListPath: {
         header: 'Single Justice Procedure cases - Press view (Full list)',
     },
-    'single-justice-procedure-press-new-cases': {
+    'style-guide/single-justice-procedure-press-new-cases': {
         header: 'Single Justice Procedure cases - Press view (New cases)',
     },
     'list-template': {},
@@ -96,7 +97,7 @@ describe('SJP Press List Controller', () => {
         const sjpPressResource = sjpResourceMap.get(url);
         const expectedData = {
             ...i18n[sjpPressResource['resourceName']],
-            ...i18n['sjp-common'],
+            ...i18n['style-guide/sjp-common'],
             ...i18n['list-template'],
             sjpData: filter.sjpCases,
             totalHearings: 2,
@@ -122,7 +123,7 @@ describe('SJP Press List Controller', () => {
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
+            responseMock.expects('render').once().withArgs(sjpPressFullListPath, localExpectedData);
 
             await sjpPressListController.get(request, response);
             return responseMock.verify();
@@ -142,7 +143,7 @@ describe('SJP Press List Controller', () => {
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
+            responseMock.expects('render').once().withArgs(sjpPressFullListPath, localExpectedData);
 
             await sjpPressListController.get(request, response);
             return responseMock.verify();
@@ -162,7 +163,7 @@ describe('SJP Press List Controller', () => {
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
+            responseMock.expects('render').once().withArgs(sjpPressFullListPath, localExpectedData);
 
             await sjpPressListController.get(request, response);
             return responseMock.verify();
@@ -182,7 +183,7 @@ describe('SJP Press List Controller', () => {
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('single-justice-procedure-press', localExpectedData);
+            responseMock.expects('render').once().withArgs(sjpPressFullListPath, localExpectedData);
 
             await sjpPressListController.get(request, response);
             return responseMock.verify();

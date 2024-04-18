@@ -9,13 +9,13 @@ import EtDailyListController from '../../../../main/controllers/style-guide/EtDa
 import { EtListsService } from '../../../../main/service/listManipulation/EtListsService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const etDailyListController = new EtDailyListController();
@@ -34,8 +34,9 @@ etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/et-daily-list';
 const i18n = {
-    'et-daily-cause-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -54,7 +55,7 @@ describe('Et Daily List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['et-daily-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData,
             region: ['Bedford'],
@@ -65,7 +66,7 @@ describe('Et Daily List Controller', () => {
             provenance: 'prov1',
         };
 
-        responseMock.expects('render').once().withArgs('et-daily-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await etDailyListController.get(request, response);
         return responseMock.verify();

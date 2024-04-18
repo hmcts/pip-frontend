@@ -2,17 +2,17 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { mockRequest } from '../../mocks/mockRequest';
+import { PublicationService } from '../../../../../main/service/publicationService';
+import { mockRequest } from '../../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { CrownWarnedListService } from '../../../../main/service/listManipulation/CrownWarnedListService';
-import CrownWarnedListController from '../../../../main/controllers/style-guide/CrownWarnedListController';
+import { CrownWarnedListService } from '../../../../../main/service/listManipulation/CrownWarnedListService';
+import CrownWarnedListController from '../../../../../main/controllers/style-guide/CrownWarnedListController';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownWarnedList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/crownWarnedList.json'), 'utf-8');
 const rawDataObj = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
 const crownWarnedListController = new CrownWarnedListController();
@@ -56,8 +56,9 @@ crownWarnedListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 crownWarnedListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownWarnedListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/crown-warned-list';
 const i18n = {
-    'crown-warned-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -77,7 +78,7 @@ describe('Crown Warned List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['crown-warned-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData: listData,
             venue: rawDataObj['venue'],
@@ -91,7 +92,7 @@ describe('Crown Warned List Controller', () => {
             venueAddress: 'Princess Square\nManchester\nM1 1AA',
         };
 
-        responseMock.expects('render').once().withArgs('crown-warned-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await crownWarnedListController.get(request, response);
         return responseMock.verify();

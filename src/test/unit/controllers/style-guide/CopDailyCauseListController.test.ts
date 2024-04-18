@@ -10,13 +10,13 @@ import { DateTime } from 'luxon';
 import CopDailyCauseListController from '../../../../main/controllers/style-guide/CopDailyCauseListController';
 import { CopDailyListService } from '../../../../main/service/listManipulation/CopDailyListService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/copDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/copDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const copDailyCauseListController = new CopDailyCauseListController();
@@ -35,8 +35,9 @@ copDailyCauseListJsonStub.withArgs('').resolves([]);
 copDailyCauseListMetaDataStub.withArgs(artefactId).resolves(metaData);
 copDailyCauseListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/cop-daily-cause-list';
 const i18n = {
-    'cop-daily-cause-list': {},
+    listPath: {},
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -56,7 +57,7 @@ describe('Cop Daily Cause List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['cop-daily-cause-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,
@@ -70,7 +71,7 @@ describe('Cop Daily Cause List Controller', () => {
             provenance: 'prov1',
         };
 
-        responseMock.expects('render').once().withArgs('cop-daily-cause-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await copDailyCauseListController.get(request, response);
         return responseMock.verify();

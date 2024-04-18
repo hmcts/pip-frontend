@@ -9,10 +9,10 @@ import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/iacDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/iacDailyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
 const iacDailyListController = new IacDailyListController();
@@ -30,8 +30,9 @@ iacDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 iacDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 iacDailyListMetaDataStub.withArgs(undefined).resolves(null);
 
+const listPath = 'style-guide/iac-daily-list';
 const i18n = {
-    'iac-daily-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -50,7 +51,7 @@ describe('IAC Daily List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['iac-daily-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {
@@ -61,7 +62,7 @@ describe('IAC Daily List Controller', () => {
             provenance: 'prov1',
         };
 
-        responseMock.expects('render').once().withArgs('iac-daily-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await iacDailyListController.get(request, response);
         return responseMock.verify();

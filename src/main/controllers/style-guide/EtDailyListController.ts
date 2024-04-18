@@ -31,7 +31,7 @@ export default class EtDailyListController {
                 req.lng
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, listType);
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
             res.render(listPath, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),

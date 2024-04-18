@@ -36,7 +36,7 @@ export default class TribunalNationalListsController {
             );
 
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
 
             res.render(listPath, {
                 // The 'open-justice-statement' resource needs to come before the list type resource so it can be

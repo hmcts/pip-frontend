@@ -10,13 +10,13 @@ import { DateTime } from 'luxon';
 import { TribunalNationalListsService } from '../../../../main/service/listManipulation/TribunalNationalListsService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/primaryHealthList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const tribunalNationalListsController = new TribunalNationalListsController();
@@ -35,9 +35,11 @@ tribunalNationalListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 tribunalNationalListMetaDataStub.withArgs(artefactId).resolves(metaData);
 tribunalNationalListMetaDataStub.withArgs('').resolves([]);
 
+const careStandardsListPath = 'style-guide/care-standards-list';
+const primaryHealthListPath = 'style-guide/primary-health-list';
 const i18n = {
-    'care-standards-list': {},
-    'primary-health-list': {},
+    careStandardsListPath: {},
+    primaryHealthListPath: {},
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -73,11 +75,11 @@ describe('Tribunal National List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedPrimaryHealthListData = {
-            ...i18n['primary-health-list'],
+            ...i18n[primaryHealthListPath],
             ...expectedData,
         };
 
-        responseMock.expects('render').once().withArgs('primary-health-list', expectedPrimaryHealthListData);
+        responseMock.expects('render').once().withArgs(primaryHealthListPath, expectedPrimaryHealthListData);
 
         await tribunalNationalListsController.get(request, response);
         return responseMock.verify();
@@ -91,11 +93,11 @@ describe('Tribunal National List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedCareStandardsListData = {
-            ...i18n['care-standards-list'],
+            ...i18n[careStandardsListPath],
             ...expectedData,
         };
 
-        responseMock.expects('render').once().withArgs('care-standards-list', expectedCareStandardsListData);
+        responseMock.expects('render').once().withArgs(careStandardsListPath, expectedCareStandardsListData);
 
         await tribunalNationalListsController.get(request, response);
         return responseMock.verify();

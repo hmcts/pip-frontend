@@ -9,15 +9,15 @@ import EtFortnightlyListController from '../../../../main/controllers/style-guid
 import { EtListsService } from '../../../../main/service/listManipulation/EtListsService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');
-const rawTableData = fs.readFileSync(path.resolve(__dirname, '../mocks/etFortnightlyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etDailyList.json'), 'utf-8');
+const rawTableData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etFortnightlyList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 const tableData = JSON.parse(rawTableData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 const etDailyListController = new EtFortnightlyListController();
@@ -37,8 +37,9 @@ etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
 
+const listPath = 'style-guide/et-fortnightly-list';
 const i18n = {
-    'et-daily-cause-list': {},
+    listPath: {},
     'list-template': {},
 };
 
@@ -57,7 +58,7 @@ describe('Et Fortnightly List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['et-fortnightly-list'],
+            ...i18n[listPath],
             ...i18n['list-template'],
             tableData,
             venueName: 'Regional Venue South',
@@ -71,7 +72,7 @@ describe('Et Fortnightly List Controller', () => {
             provenance: 'prov1',
         };
 
-        responseMock.expects('render').once().withArgs('et-fortnightly-list', expectedData);
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
 
         await etDailyListController.get(request, response);
         return responseMock.verify();

@@ -34,7 +34,7 @@ export default class SscsDailyListController {
             );
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-            const courtName = courtService.findCourtName(returnedCourt, req.lng, 'sscs-daily-list');
+            const courtName = courtService.findCourtName(returnedCourt, req.lng, sscsPath);
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
