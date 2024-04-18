@@ -15,6 +15,8 @@ const sscsListService = new SscsDailyListService();
 
 const sscsUrl = 'sscs-daily-list';
 const sscsAdditonalHearingsUrl = 'sscs-daily-list-additional-hearings';
+const sscsPath = `style-guide/${sscsUrl}`;
+const sscsAdditonalHearingsPath = `style-guide/${sscsAdditonalHearingsUrl}`;
 
 export default class SscsDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -36,7 +38,7 @@ export default class SscsDailyListController {
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
-                ...req.i18n.getDataByLanguage(req.lng)[sscsUrl],
+                ...req.i18n.getDataByLanguage(req.lng)[sscsPath],
                 ...req.i18n.getDataByLanguage(req.lng)['list-template'],
                 ...req.i18n.getDataByLanguage(req.lng)['open-justice-statement'],
             };
@@ -44,11 +46,11 @@ export default class SscsDailyListController {
             if (url === sscsAdditonalHearingsUrl) {
                 languageResource = {
                     ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(req.lng)[sscsAdditonalHearingsUrl],
+                    ...req.i18n.getDataByLanguage(req.lng)[sscsAdditonalHearingsPath],
                 };
             }
 
-            res.render(sscsUrl, {
+            res.render(sscsPath, {
                 ...cloneDeep(languageResource),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

@@ -17,6 +17,7 @@ const firmListService = new CrownFirmListService();
 const crimeListsService = new CrimeListsService();
 
 const listType = 'crown-firm-list';
+const listPath = `style-guide/${listType}`;
 const dateFormat = 'dd MMMM yyyy';
 
 export default class CrownFirmListController {
@@ -44,8 +45,8 @@ export default class CrownFirmListController {
             const endDate = DateTime.fromISO(dates[dates.length - 1], { zone: 'Europe/London' }).toFormat(dateFormat);
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
 
-            res.render(listType, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+            res.render(listPath, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 startDate,
                 endDate,

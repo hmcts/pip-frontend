@@ -14,6 +14,7 @@ const helperService = new ListParseHelperService();
 const etDailyListService = new EtListsService();
 
 const listType = 'et-daily-list';
+const listPath = `style-guide/${listType}`;
 
 export default class EtDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -31,8 +32,8 @@ export default class EtDailyListController {
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listType);
-            res.render(listType, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+            res.render(listPath, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData,
                 courtName,

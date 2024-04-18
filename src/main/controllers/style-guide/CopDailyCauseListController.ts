@@ -14,6 +14,7 @@ const helperService = new ListParseHelperService();
 const copDailyListService = new CopDailyListService();
 
 const listType = 'cop-daily-cause-list';
+const listPath = `style-guide/${listType}`;
 
 export default class CopDailyCauseListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -34,8 +35,8 @@ export default class CopDailyCauseListController {
             const courtName = courtService.findCourtName(returnedCourt, req.lng, listType);
             const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
-            res.render(listType, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+            res.render(listPath, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,

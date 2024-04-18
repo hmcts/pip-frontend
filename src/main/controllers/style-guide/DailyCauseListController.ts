@@ -19,6 +19,8 @@ const mixedDailyListUrl = publicationService.getListTypes().get('CIVIL_AND_FAMIL
 export default class DailyCauseListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const listToLoad = req.path.slice(1, req.path.length);
+        const listPath = `style-guide/${listToLoad}`;
+
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
@@ -49,8 +51,8 @@ export default class DailyCauseListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
 
-            res.render(listToLoad, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
+            res.render(listPath, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,

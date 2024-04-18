@@ -14,6 +14,7 @@ const crownWarnedListService = new CrownWarnedListService();
 const crimeListsService = new CrimeListsService();
 
 const listUrl = 'crown-warned-list';
+const listPath = `style-guide/${listUrl}`;
 const toBeAllocated = 'To be allocated';
 const toBeAllocatedLowerCase = toBeAllocated.toLowerCase();
 
@@ -47,8 +48,8 @@ export default class CrownWarnedListController {
                 })
             );
 
-            res.render(listUrl, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listUrl]),
+            res.render(listPath, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: sortedListData,
                 venue: searchResults['venue'],

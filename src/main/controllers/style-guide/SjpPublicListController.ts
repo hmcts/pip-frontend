@@ -18,6 +18,7 @@ const filterService = new FilterService();
 const listDownloadService = new ListDownloadService();
 
 const listType = 'single-justice-procedure';
+const listPath = `style-guide/${listType}`;
 
 export default class SjpPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -40,9 +41,9 @@ export default class SjpPublicListController {
             );
             const showDownloadButton = await listDownloadService.showDownloadButton(artefactId, req.user);
 
-            res.render(listType, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sjp-common']),
+            res.render(listPath, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide/sjp-common']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 sjpData: filter.sjpCases,
                 length: filter.sjpCases.length,

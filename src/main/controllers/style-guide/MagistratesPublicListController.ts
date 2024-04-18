@@ -14,6 +14,7 @@ const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
 const listType = 'magistrates-public-list';
+const listPath = `style-guide/${listType}`;
 
 export default class MagistratesPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -48,8 +49,8 @@ export default class MagistratesPublicListController {
             const location = await locationService.getLocationById(metaData['locationId']);
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
-            res.render(listType, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
+            res.render(listPath, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

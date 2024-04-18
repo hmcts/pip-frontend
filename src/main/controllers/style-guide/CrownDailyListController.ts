@@ -14,6 +14,7 @@ const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
 const listType = 'crown-daily-list';
+const listPath = `style-guide/${listType}`;
 
 export default class CrownDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -49,9 +50,9 @@ export default class CrownDailyListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
 
-            res.render(listType, {
+            res.render(listPath, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 listData: outputData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,

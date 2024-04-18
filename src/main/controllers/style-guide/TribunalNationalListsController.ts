@@ -16,6 +16,8 @@ const locationService = new LocationService();
 export default class TribunalNationalListsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const listToLoad = req.path.slice(1, req.path.length);
+        const listPath = `style-guide/${listToLoad}`;
+
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
@@ -36,11 +38,11 @@ export default class TribunalNationalListsController {
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listToLoad);
 
-            res.render(listToLoad, {
+            res.render(listPath, {
                 // The 'open-justice-statement' resource needs to come before the list type resource so it can be
                 // overwritten by the statement in list types with specific open justice statement.
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listToLoad]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 listData: manipulatedData,
