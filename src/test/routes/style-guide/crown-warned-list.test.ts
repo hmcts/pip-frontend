@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 
-import { app } from '../../main/app';
-import { PublicationService } from '../../main/service/publicationService';
+import { app } from '../../../main/app';
+import { PublicationService } from '../../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { CrownWarnedListService } from '../../main/service/listManipulation/CrownWarnedListService';
+import { CrownWarnedListService } from '../../../main/service/listManipulation/CrownWarnedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownWarnedList.json'), 'utf-8');
 const crownWarnedData = JSON.parse(rawData);

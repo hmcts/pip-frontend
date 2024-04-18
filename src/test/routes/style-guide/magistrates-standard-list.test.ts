@@ -2,12 +2,12 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 
-import { app } from '../../main/app';
-import { PublicationService } from '../../main/service/publicationService';
-import { LocationService } from '../../main/service/locationService';
+import { app } from '../../../main/app';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
-import { MagistratesStandardListService } from '../../main/service/listManipulation/MagistratesStandardListService';
+import { MagistratesStandardListService } from '../../../main/service/listManipulation/MagistratesStandardListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/magistratesStandardList.json'), 'utf-8');
 const magsStandardListData = JSON.parse(rawData);

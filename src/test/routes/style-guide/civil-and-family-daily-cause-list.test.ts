@@ -2,12 +2,12 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 
-import { app } from '../../main/app';
-import { PublicationService } from '../../main/service/publicationService';
-import { LocationService } from '../../main/service/locationService';
+import { app } from '../../../main/app';
+import { PublicationService } from '../../../main/service/publicationService';
+import { LocationService } from '../../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
-import { CivilFamilyAndMixedListService } from '../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/civilAndFamilyDailyCauseList.json'), 'utf-8');
 const civilAndFamilyDailyReferenceData = JSON.parse(rawData);

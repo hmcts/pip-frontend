@@ -2,11 +2,11 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 
-import { app } from '../../main/app';
-import { PublicationService } from '../../main/service/publicationService';
+import { app } from '../../../main/app';
+import { PublicationService } from '../../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { IacDailyListService } from '../../main/service/listManipulation/IacDailyListService';
+import { IacDailyListService } from '../../../main/service/listManipulation/IacDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/iacDailyList.json'), 'utf-8');
 const iacData = JSON.parse(rawData);
