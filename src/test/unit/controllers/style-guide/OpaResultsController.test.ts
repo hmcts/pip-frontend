@@ -13,7 +13,8 @@ import { OpaResultsService } from '../../../../main/service/listManipulation/Opa
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 const notFoundArtefactId = 'ghi';
-const listPath = 'style-guide/opa-results';
+const listType = 'opa-results'
+const listPath = `style-guide/${listType}`;
 
 const opaResultsController = new OpaResultsController();
 
@@ -51,7 +52,9 @@ metadataStub.withArgs('').resolves([]);
 
 describe('OPA Results controller', () => {
     const i18n = {
-        listUrl: {},
+        'style-guide': {
+            listType: { value: '123' },
+        },
         'list-template': {},
     };
 
@@ -70,7 +73,7 @@ describe('OPA Results controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData: listData,
             contentDate: contentDate,
@@ -94,7 +97,7 @@ describe('OPA Results controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData: listData,
             contentDate: '14 Chwefror 2022',

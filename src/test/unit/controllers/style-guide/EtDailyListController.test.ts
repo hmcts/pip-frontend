@@ -34,9 +34,12 @@ etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/et-daily-list';
+const listType = 'et-daily-list'
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': {},
 };
 
@@ -55,7 +58,7 @@ describe('Et Daily List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData,
             region: ['Bedford'],

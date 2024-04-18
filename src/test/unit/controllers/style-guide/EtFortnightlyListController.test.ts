@@ -37,9 +37,12 @@ etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/et-fortnightly-list';
+const listType = 'et-fortnightly-list'
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': {},
 };
 
@@ -58,7 +61,7 @@ describe('Et Fortnightly List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             tableData,
             venueName: 'Regional Venue South',

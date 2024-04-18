@@ -37,9 +37,12 @@ crownDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 crownDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownDailyListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/crown-daily-list';
+const listType = 'crown-daily-list';
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': {},
 };
 
@@ -59,7 +62,7 @@ describe('Crown Daily List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {

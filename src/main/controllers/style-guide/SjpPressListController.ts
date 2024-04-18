@@ -21,7 +21,6 @@ const listDownloadService = new ListDownloadService();
 const sjpPressAll = 'single-justice-procedure-press';
 const sjpPressDelta = 'single-justice-procedure-press-new-cases';
 const sjpPressAllPath = `style-guide/${sjpPressAll}`;
-const sjpPressDeltaPath = `style-guide/${sjpPressDelta}`;
 
 export default class SjpPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -47,7 +46,7 @@ export default class SjpPressListController {
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
-                ...req.i18n.getDataByLanguage(req.lng)[sjpPressAllPath],
+                ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressAll],
                 ...req.i18n.getDataByLanguage(req.lng)['style-guide/sjp-common'],
                 ...req.i18n.getDataByLanguage(req.lng)['list-template'],
             };
@@ -55,7 +54,7 @@ export default class SjpPressListController {
             if (metaData.listType === 'SJP_DELTA_PRESS_LIST') {
                 languageResource = {
                     ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(req.lng)[sjpPressDeltaPath],
+                    ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressDelta],
                 };
             }
 

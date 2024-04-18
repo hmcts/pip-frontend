@@ -12,9 +12,9 @@ const WELSH_PAGE_URL = '/opa-press-list?artefactId=def&lng=cy';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/opaPressList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/opaPressList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);
-const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const englishMetadata = JSON.parse(rawMetadata)[0];
 const welshMetadata = JSON.parse(rawMetadata)[2];
 

@@ -29,17 +29,19 @@ const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownlo
 const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
 
+const sjpPressFullListName = 'single-justice-procedure-press';
+const sjpPressNewCasesName = 'single-justice-procedure-press';
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
 const sjpResourceMap = new Map<string, object>([
     [
         sjpPressFullListUrl,
-        { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: 'style-guide/single-justice-procedure-press' },
+        { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: sjpPressFullListName },
     ],
     [
         sjpPressNewCasesUrl,
-        { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: 'style-guide/single-justice-procedure-press-new-cases' },
+        { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: sjpPressNewCasesName },
     ],
 ]);
 const contentDate = metaDataSjpPressFullList['contentDate'];
@@ -66,11 +68,9 @@ generatesFilesStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).r
 generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(false);
 
 const i18n = {
-    sjpPressFullListPath: {
-        header: 'Single Justice Procedure cases - Press view (Full list)',
-    },
-    'style-guide/single-justice-procedure-press-new-cases': {
-        header: 'Single Justice Procedure cases - Press view (New cases)',
+    'style-guide': {
+        sjpPressFullListName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
+        sjpPressNewCasesName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
     },
     'list-template': {},
 };
@@ -96,7 +96,7 @@ describe('SJP Press List Controller', () => {
     describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("get with path '%s'", url => {
         const sjpPressResource = sjpResourceMap.get(url);
         const expectedData = {
-            ...i18n[sjpPressResource['resourceName']],
+            ...i18n['style-guide'][sjpPressResource['resourceName']],
             ...i18n['style-guide/sjp-common'],
             ...i18n['list-template'],
             sjpData: filter.sjpCases,

@@ -42,9 +42,12 @@ magsStandardListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 magsStandardListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magsStandardListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/magistrates-standard-list';
+const listType = 'magistrates-standard-list'
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': {},
 };
 
@@ -64,7 +67,7 @@ describe('Magistrate Standard List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {

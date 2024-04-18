@@ -31,9 +31,9 @@ const reportingRestriction = 'Reporting Restriction - True';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/sjp-press-list.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-press-list.json'), 'utf-8');
 const sjpList = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataSjpPressFullList = JSON.parse(rawMetaData)[0];
 metaDataSjpPressFullList.listType = 'SJP_PRESS_LIST';

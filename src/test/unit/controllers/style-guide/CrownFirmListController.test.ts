@@ -50,9 +50,12 @@ crownFirmListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 crownFirmListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownFirmListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/crown-firm-list';
+const listType = 'crown-firm-list'
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': {},
 };
 
@@ -72,7 +75,7 @@ describe('Crown Firm List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             startDate: '12 April 2023',
             endDate: '15 April 2023',

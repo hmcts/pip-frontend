@@ -35,11 +35,16 @@ tribunalNationalListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 tribunalNationalListMetaDataStub.withArgs(artefactId).resolves(metaData);
 tribunalNationalListMetaDataStub.withArgs('').resolves([]);
 
-const careStandardsListPath = 'style-guide/care-standards-list';
-const primaryHealthListPath = 'style-guide/primary-health-list';
+const careStandardsListType = 'care-standards-list';
+const primaryHealthListType = 'primary-health-list';
+const careStandardsListPath = `style-guide/${careStandardsListType}`;
+const primaryHealthListPath = `style-guide/${primaryHealthListType}`;
+
 const i18n = {
-    careStandardsListPath: {},
-    primaryHealthListPath: {},
+    'style-guide': {
+        careStandardsListType: { value: '123' },
+        primaryHealthListType: { value: '124' },
+    },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -75,7 +80,7 @@ describe('Tribunal National List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedPrimaryHealthListData = {
-            ...i18n[primaryHealthListPath],
+            ...i18n['style-guide'][primaryHealthListType],
             ...expectedData,
         };
 
@@ -93,7 +98,7 @@ describe('Tribunal National List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedCareStandardsListData = {
-            ...i18n[careStandardsListPath],
+            ...i18n['style-guide'][careStandardsListType],
             ...expectedData,
         };
 

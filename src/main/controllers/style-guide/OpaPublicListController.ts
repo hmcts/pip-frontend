@@ -35,7 +35,7 @@ export default class OpaPublicListController {
             const locationName = req.lng === 'cy' ? location.welshName : location.name;
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 length: listData.length,

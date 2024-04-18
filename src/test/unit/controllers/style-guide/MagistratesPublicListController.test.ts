@@ -37,9 +37,12 @@ magistratesPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magistratesPublicListMetaDataStub.withArgs(artefactId, undefined).resolves(null);
 magistratesPublicListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/magistrates-public-list';
+const listType = 'magistrates-public-list'
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': {},
 };
 
@@ -59,7 +62,7 @@ describe('Magistrates Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {

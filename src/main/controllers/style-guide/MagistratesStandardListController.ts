@@ -35,7 +35,7 @@ export default class MagistratesStandardListController {
             const venueAddress = crimeListsService.formatAddress(publicationJson['venue']['venueAddress']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

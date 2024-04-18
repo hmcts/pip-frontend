@@ -52,10 +52,13 @@ sscsDailyListMetaDataStub
     .resolves(metaDataSscsAdditionalHearings);
 sscsDailyListMetaDataStub.withArgs('', userId).resolves([]);
 
-const sscsListPath = 'style-guide/sscs-daily-list';
+const sscsListType = 'sscs-daily-list';
+const sscsListPath = `style-guide/${sscsListType}`;
 const i18n = {
-    sscsListPath: { warning: 'warning1' },
-    'style-guide/sscs-daily-list-additional-hearings': { warning: 'warning2' },
+    'style-guide': {
+        sscsListType: { warning: 'warning1' },
+        'sscs-daily-list-additional-hearings': { warning: 'warning2' },
+    },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -77,7 +80,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
 
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n[`style-guide${url}`],
+                ...i18n['style-guide'][url.substring(1)],
                 ...i18n['list-template'],
                 ...i18n['open-justice-statement'],
                 listData,

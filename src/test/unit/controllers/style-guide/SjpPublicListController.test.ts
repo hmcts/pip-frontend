@@ -21,8 +21,14 @@ const data = JSON.parse(mockSJPPublic);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const listPath = 'style-guide/single-justice-procedure';
-const i18n = { listPath: {}, 'list-template': {} };
+const listType = 'single-justice-procedure'
+const listPath = `style-guide/${listType}`;
+const i18n = {
+    'style-guide': {
+        listType: { value: '123' },
+    },
+    'list-template': {},
+};
 
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 jsonStub.withArgs(artefactId, '123').resolves(data);
@@ -59,7 +65,7 @@ describe('SJP Public List Type Controller', () => {
 
     describe('get', () => {
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['sjp-common'],
             ...i18n['list-template'],
             sjpData: filter.sjpCases,

@@ -46,7 +46,7 @@ export default class CrownFirmListController {
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 startDate,
                 endDate,

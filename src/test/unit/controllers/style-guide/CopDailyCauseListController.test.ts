@@ -35,9 +35,12 @@ copDailyCauseListJsonStub.withArgs('').resolves([]);
 copDailyCauseListMetaDataStub.withArgs(artefactId).resolves(metaData);
 copDailyCauseListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/cop-daily-cause-list';
+const listType = 'cop-daily-cause-list';
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -57,7 +60,7 @@ describe('Cop Daily Cause List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,

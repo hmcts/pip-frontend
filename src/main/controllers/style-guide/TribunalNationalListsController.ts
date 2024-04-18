@@ -42,7 +42,7 @@ export default class TribunalNationalListsController {
                 // The 'open-justice-statement' resource needs to come before the list type resource so it can be
                 // overwritten by the statement in list types with specific open justice statement.
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listToLoad]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 listData: manipulatedData,

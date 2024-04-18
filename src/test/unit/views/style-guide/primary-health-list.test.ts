@@ -18,9 +18,9 @@ const summaryHeadingText = 'Important information';
 const expectedHeader = 'Tribunal Hearing List for Primary Health';
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/primaryHealthList.json'), 'utf-8');
 const primaryHealthList = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(primaryHealthList);

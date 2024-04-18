@@ -36,7 +36,7 @@ export default class OpaPressListController {
             const listData = opaPressListService.manipulateData(JSON.stringify(jsonData));
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 contentDate: helperService.contentDateInUtcTime(metadata['contentDate'], req.lng),

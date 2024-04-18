@@ -13,7 +13,8 @@ import { OpaPressListService } from '../../../../main/service/listManipulation/O
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 const notFoundArtefactId = 'ghi';
-const listPath = 'style-guide/opa-press-list'
+const listType = 'opa-press-list'
+const listPath = `style-guide/${listType}`;
 
 const opaPressListController = new OpaPressListController();
 
@@ -51,7 +52,9 @@ metadataStub.withArgs('').resolves([]);
 
 describe('OPA Press List Controller', () => {
     const i18n = {
-        listPath: {},
+        'style-guide': {
+            listType: { value: '123' },
+        },
         'list-template': {},
     };
 
@@ -70,7 +73,7 @@ describe('OPA Press List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData: listData,
             contentDate: contentDate,
@@ -95,7 +98,7 @@ describe('OPA Press List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData: listData,
             contentDate: '14 Chwefror 2022',

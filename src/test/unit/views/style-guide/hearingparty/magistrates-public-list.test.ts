@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { app } from '../../../../main/app';
+import { app } from '../../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { LocationService } from '../../../../main/service/locationService';
+import { PublicationService } from '../../../../../main/service/publicationService';
+import { LocationService } from '../../../../../main/service/locationService';
 
 const PAGE_URL = '/magistrates-public-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -21,14 +21,14 @@ const restrictionHeadingText = 'Restrictions on publishing or writing about thes
 let htmlRes: Document;
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/hearingparty//magistratesPublicList.json'),
+    path.resolve(__dirname, '../../../mocks/hearingparty//magistratesPublicList.json'),
     'utf-8'
 );
 const magistratesPublicListData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(magistratesPublicListData);

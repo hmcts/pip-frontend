@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 import request from 'supertest';
-import { app } from '../../../../main/app';
+import { app } from '../../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { LocationService } from '../../../../main/service/locationService';
+import { PublicationService } from '../../../../../main/service/publicationService';
+import { LocationService } from '../../../../../main/service/locationService';
 
 const PAGE_URL = '/family-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
@@ -21,13 +21,13 @@ const accordionHeading = '1, Before: Judge KnownAs Presiding, Judge KnownAs';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/familyDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/familyDailyCauseList.json'), 'utf-8');
 const familyDailyCauseListData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 metaData.listType = 'FAMILY_DAILY_CAUSE_LIST';
 
-const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(familyDailyCauseListData);

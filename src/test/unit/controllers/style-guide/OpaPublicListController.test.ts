@@ -40,9 +40,12 @@ opaPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 opaPublicListMetaDataStub.withArgs(welshArtefactId).resolves(welshMetadata);
 opaPublicListMetaDataStub.withArgs('').resolves([]);
 
-const listPath = 'style-guide/opa-public-list'
+const listType = 'opa-public-list'
+const listPath = `style-guide/${listType}`;
 const i18n = {
-    listPath: {},
+    'style-guide': {
+        listType: { value: '123' },
+    },
     'list-template': {},
 };
 
@@ -62,7 +65,7 @@ describe('OPA Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData: listData,
             length: listData.length,
@@ -87,7 +90,7 @@ describe('OPA Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[listPath],
+            ...i18n['style-guide'][listType],
             ...i18n['list-template'],
             listData: listData,
             length: listData.length,

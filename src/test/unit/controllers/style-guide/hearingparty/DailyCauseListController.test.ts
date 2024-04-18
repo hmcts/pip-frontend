@@ -10,7 +10,10 @@ import { LocationService } from '../../../../../main/service/locationService';
 import { CivilFamilyAndMixedListService } from '../../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/familyDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../../mocks/hearingparty/familyDailyCauseList.json'),
+    'utf-8'
+);
 const listData = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
@@ -46,11 +49,16 @@ dailyCauseListMetaDataStub.withArgs(artefactIdFamily).resolves(metaDataFamily);
 dailyCauseListMetaDataStub.withArgs(artefactIdCivil).resolves(metaDataCivil);
 dailyCauseListMetaDataStub.withArgs('').resolves([]);
 
-const civilListPath = 'style-guide/daily-cause-list';
-const familyListPath = 'style-guide/family-daily-cause-list';
+const civilListType = 'daily-cause-list';
+const familyListType = 'family-daily-cause-list';
+const civilListPath = `style-guide/${civilListType}`;
+const familyListPath = `style-guide/${familyListType}`;
+
 const i18n = {
-    civilListPath: {},
-    familyListPath: {},
+    'style-guide': {
+        civilListType: { value: '123' },
+        familyListType: { value: '124' },
+    },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -71,7 +79,7 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[familyListPath],
+            ...i18n['style-guide'][familyListType],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,
@@ -99,7 +107,7 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n[civilListPath],
+            ...i18n['style-guide'][civilListType],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,
