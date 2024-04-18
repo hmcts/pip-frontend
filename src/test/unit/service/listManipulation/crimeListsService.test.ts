@@ -9,7 +9,7 @@ const rawCrimePartyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/c
 const rawAddressData = fs.readFileSync(path.resolve(__dirname, '../../mocks/address.json'), 'utf-8');
 
 const lng = 'en';
-const languageFile = 'crown-daily-list';
+const languageFile = 'style-guide/crown-daily-list';
 
 describe('Crime Data manipulation service', () => {
     describe('CrimeListsDataManipulatedService', () => {

@@ -29,9 +29,9 @@ export default class CrownFirmListController {
         if (isValidList(jsonData, metaData) && metaData && jsonData) {
             let outputData;
             if (hearingHasParty(jsonData)) {
-                outputData = firmListService.splitOutFirmListDataV1(JSON.stringify(jsonData), req.lng, listType);
+                outputData = firmListService.splitOutFirmListDataV1(JSON.stringify(jsonData), req.lng, listPath);
             } else {
-                outputData = firmListService.splitOutFirmListData(JSON.stringify(jsonData), req.lng, listType);
+                outputData = firmListService.splitOutFirmListData(JSON.stringify(jsonData), req.lng, listPath);
             }
 
             const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);

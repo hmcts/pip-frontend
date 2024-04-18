@@ -30,14 +30,14 @@ export default class MagistratesPublicListController {
                 manipulatedData = crimeListsService.manipulateCrimeListDataV1(
                     JSON.stringify(searchResults),
                     req.lng,
-                    listType
+                    listPath
                 );
                 partyAtHearingLevel = true;
             } else {
                 manipulatedData = crimeListsService.manipulateCrimeListData(
                     JSON.stringify(searchResults),
                     req.lng,
-                    listType
+                    listPath
                 );
             }
 

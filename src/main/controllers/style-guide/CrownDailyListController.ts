@@ -30,14 +30,14 @@ export default class CrownDailyListController {
                 outputData = crimeListsService.manipulateCrimeListDataV1(
                     JSON.stringify(searchResults),
                     req.lng,
-                    listType
+                    listPath
                 );
                 partyAtHearingLevel = true;
             } else {
                 outputData = crimeListsService.manipulateCrimeListData(
                     JSON.stringify(searchResults),
                     req.lng,
-                    listType
+                    listPath
                 );
             }
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));

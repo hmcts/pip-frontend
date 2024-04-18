@@ -18,7 +18,7 @@ const row = JSON.parse(`{"caseNumber": "I4Y416QE", "caseSeparator": "7 of 9",
 "sittingDate": "Saturday 15 April 2023", "sittingTime": "2:41pm"}
 `);
 const lng = 'en';
-const languageFile = 'crown-firm-list';
+const languageFile = 'style-guide/crown-firm-list';
 
 describe('Crown firm list splitter service', () => {
     describe('Crown firm list splitter service', () => {
