@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
-import Assert from "assert";
+import Assert from 'assert';
 
 Feature('SJP list download');
 
