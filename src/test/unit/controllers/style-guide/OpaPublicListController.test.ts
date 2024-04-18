@@ -40,7 +40,7 @@ opaPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 opaPublicListMetaDataStub.withArgs(welshArtefactId).resolves(welshMetadata);
 opaPublicListMetaDataStub.withArgs('').resolves([]);
 
-const listType = 'opa-public-list'
+const listType = 'opa-public-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {

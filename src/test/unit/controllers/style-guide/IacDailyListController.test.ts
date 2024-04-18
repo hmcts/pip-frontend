@@ -30,7 +30,7 @@ iacDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 iacDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 iacDailyListMetaDataStub.withArgs(undefined).resolves(null);
 
-const listType = 'iac-daily-list'
+const listType = 'iac-daily-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {

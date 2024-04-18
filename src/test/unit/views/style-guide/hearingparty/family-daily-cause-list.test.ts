@@ -21,7 +21,10 @@ const accordionHeading = '1, Before: Judge KnownAs Presiding, Judge KnownAs';
 const applicantRespondent = 'Surname, Legal Advisor: Mr Individual Forenames Individual Middlename Individual Surname';
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingparty/familyDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../../mocks/hearingparty/familyDailyCauseList.json'),
+    'utf-8'
+);
 const familyDailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];

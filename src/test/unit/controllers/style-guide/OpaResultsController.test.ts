@@ -13,7 +13,7 @@ import { OpaResultsService } from '../../../../main/service/listManipulation/Opa
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 const notFoundArtefactId = 'ghi';
-const listType = 'opa-results'
+const listType = 'opa-results';
 const listPath = `style-guide/${listType}`;
 
 const opaResultsController = new OpaResultsController();

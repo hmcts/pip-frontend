@@ -13,7 +13,7 @@ import { OpaPressListService } from '../../../../main/service/listManipulation/O
 const artefactId = 'abc';
 const welshArtefactId = 'def';
 const notFoundArtefactId = 'ghi';
-const listType = 'opa-press-list'
+const listType = 'opa-press-list';
 const listPath = `style-guide/${listType}`;
 
 const opaPressListController = new OpaPressListController();

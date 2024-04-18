@@ -21,7 +21,7 @@ const data = JSON.parse(mockSJPPublic);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
-const listType = 'single-justice-procedure'
+const listType = 'single-justice-procedure';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {

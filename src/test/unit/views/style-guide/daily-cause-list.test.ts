@@ -29,7 +29,10 @@ metaData.listType = 'CIVIL_DAILY_CAUSE_LIST';
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
-const emptyCourtListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/dailyCauseEmptyCourtList.json'), 'utf-8');
+const emptyCourtListData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/dailyCauseEmptyCourtList.json'),
+    'utf-8'
+);
 const dailyCauseEmptyCourtList = JSON.parse(emptyCourtListData);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);

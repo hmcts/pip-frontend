@@ -35,14 +35,8 @@ const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
 const sjpResourceMap = new Map<string, object>([
-    [
-        sjpPressFullListUrl,
-        { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: sjpPressFullListName },
-    ],
-    [
-        sjpPressNewCasesUrl,
-        { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: sjpPressNewCasesName },
-    ],
+    [sjpPressFullListUrl, { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: sjpPressFullListName }],
+    [sjpPressNewCasesUrl, { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: sjpPressNewCasesName }],
 ]);
 const contentDate = metaDataSjpPressFullList['contentDate'];
 

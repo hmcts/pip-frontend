@@ -56,7 +56,7 @@ crownWarnedListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 crownWarnedListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownWarnedListMetaDataStub.withArgs('').resolves([]);
 
-const listType = 'crown-warned-list'
+const listType = 'crown-warned-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {

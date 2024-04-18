@@ -37,7 +37,7 @@ etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
 
-const listType = 'et-fortnightly-list'
+const listType = 'et-fortnightly-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {

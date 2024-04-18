@@ -40,7 +40,7 @@ export class MagistratesStandardListService {
     }
 
     private processSittingInfo(session, sitting, language) {
-        crimeListsService.calculateDuration(sitting, language, 'magistrates-standard-list');
+        crimeListsService.calculateDuration(sitting, language, 'style-guide/magistrates-standard-list');
         helperService.findAndConcatenateHearingPlatform(sitting, session);
     }
 

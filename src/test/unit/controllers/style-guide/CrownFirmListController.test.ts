@@ -50,7 +50,7 @@ crownFirmListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 crownFirmListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownFirmListMetaDataStub.withArgs('').resolves([]);
 
-const listType = 'crown-firm-list'
+const listType = 'crown-firm-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {

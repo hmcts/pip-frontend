@@ -42,7 +42,7 @@ magsStandardListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 magsStandardListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magsStandardListMetaDataStub.withArgs('').resolves([]);
 
-const listType = 'magistrates-standard-list'
+const listType = 'magistrates-standard-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {

@@ -40,7 +40,7 @@ magistratesPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magistratesPublicListMetaDataStub.withArgs(artefactId, undefined).resolves(null);
 magistratesPublicListMetaDataStub.withArgs('').resolves([]);
 
-const listType = 'magistrates-public-list'
+const listType = 'magistrates-public-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {
