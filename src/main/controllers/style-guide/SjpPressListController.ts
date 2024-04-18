@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { DateTime } from 'luxon';
 import { PublicationService } from '../../service/publicationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { SjpPressListService } from '../../service/list-manipulation/SjpPressListService';
+import { SjpPressListService } from '../../service/listManipulation/SjpPressListService';
 import { FilterService } from '../../service/filterService';
 import { SjpFilterService } from '../../service/sjpFilterService';
 import { HttpStatusCode } from 'axios';

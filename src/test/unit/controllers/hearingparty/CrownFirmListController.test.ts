@@ -6,7 +6,7 @@ import { PublicationService } from '../../../../main/service/publicationService'
 import { mockRequest } from '../../mocks/mockRequest';
 import { LocationService } from '../../../../main/service/locationService';
 import CrownFirmListController from '../../../../main/controllers/style-guide/CrownFirmListController';
-import { CrownFirmListService } from '../../../../main/service/list-manipulation/crownFirmListService';
+import { CrownFirmListService } from '../../../../main/service/listManipulation/crownFirmListService';
 import { HttpStatusCode } from 'axios';
 import { DateTime } from 'luxon';
 

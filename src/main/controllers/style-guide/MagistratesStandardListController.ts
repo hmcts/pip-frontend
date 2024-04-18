@@ -4,10 +4,10 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/publicationService';
 import { LocationService } from '../../service/locationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { MagistratesStandardListService } from '../../service/list-manipulation/MagistratesStandardListService';
+import { MagistratesStandardListService } from '../../service/listManipulation/MagistratesStandardListService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';
-import { CrimeListsService } from '../../service/list-manipulation/CrimeListsService';
+import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

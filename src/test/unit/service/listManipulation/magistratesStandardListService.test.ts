@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { MagistratesStandardListService } from '../../../../main/service/list-manipulation/MagistratesStandardListService';
+import { MagistratesStandardListService } from '../../../../main/service/listManipulation/MagistratesStandardListService';
 
 const magistratesStandardListService = new MagistratesStandardListService();
 const rawMagistrateStandardListData = fs.readFileSync(

@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { SjpPublicListService } from '../../main/service/list-manipulation/SjpPublicListService';
+import { SjpPublicListService } from '../../main/service/listManipulation/SjpPublicListService';
 import { SjpFilterService } from '../../main/service/sjpFilterService';
 
 const mockJSON = JSON.parse(

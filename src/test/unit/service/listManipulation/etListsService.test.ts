@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { EtListsService } from '../../../../main/service/list-manipulation/EtListsService';
+import { EtListsService } from '../../../../main/service/listManipulation/EtListsService';
 
 const etListsService = new EtListsService();
 const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etDailyList.json'), 'utf-8');

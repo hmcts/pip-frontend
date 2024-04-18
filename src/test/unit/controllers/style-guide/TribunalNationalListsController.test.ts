@@ -7,7 +7,7 @@ import { LocationService } from '../../../../main/service/locationService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { TribunalNationalListsService } from '../../../../main/service/list-manipulation/TribunalNationalListsService';
+import { TribunalNationalListsService } from '../../../../main/service/listManipulation/TribunalNationalListsService';
 import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/primaryHealthList.json'), 'utf-8');

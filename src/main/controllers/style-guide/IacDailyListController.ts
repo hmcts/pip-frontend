@@ -3,7 +3,7 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/publicationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { IacDailyListService } from '../../service/list-manipulation/IacDailyListService';
+import { IacDailyListService } from '../../service/listManipulation/IacDailyListService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';
 

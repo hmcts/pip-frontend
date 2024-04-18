@@ -6,7 +6,7 @@ import { PublicationService } from '../../../../main/service/publicationService'
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../../main/service/locationService';
-import { CrimeListsService } from '../../../../main/service/list-manipulation/CrimeListsService';
+import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../../main/controllers/style-guide/MagistratesPublicListController';
 import { HttpStatusCode } from 'axios';
 

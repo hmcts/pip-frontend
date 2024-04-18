@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/publicationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { SjpPublicListService } from '../../service/list-manipulation/SjpPublicListService';
+import { SjpPublicListService } from '../../service/listManipulation/SjpPublicListService';
 import { SjpFilterService } from '../../service/sjpFilterService';
 import { FilterService } from '../../service/filterService';
 import { HttpStatusCode } from 'axios';

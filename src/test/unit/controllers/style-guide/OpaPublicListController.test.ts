@@ -7,8 +7,8 @@ import { mockRequest } from '../../mocks/mockRequest';
 import { HttpStatusCode } from 'axios';
 import OpaPublicListController from '../../../../main/controllers/style-guide/OpaPublicListController';
 import { LocationService } from '../../../../main/service/locationService';
-import { OpaPublicListService } from '../../../../main/service/list-manipulation/OpaPublicListService';
-import { OpaPressListService } from '../../../../main/service/list-manipulation/OpaPressListService';
+import { OpaPublicListService } from '../../../../main/service/listManipulation/OpaPublicListService';
+import { OpaPressListService } from '../../../../main/service/listManipulation/OpaPressListService';
 
 const opaPublicListController = new OpaPublicListController();
 

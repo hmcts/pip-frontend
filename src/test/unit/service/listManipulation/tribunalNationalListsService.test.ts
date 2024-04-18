@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { TribunalNationalListsService } from '../../../../main/service/list-manipulation/TribunalNationalListsService';
+import { TribunalNationalListsService } from '../../../../main/service/listManipulation/TribunalNationalListsService';
 
 const tribunalNationalListsService = new TribunalNationalListsService();
 

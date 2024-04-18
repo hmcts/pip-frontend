@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
 import { HttpStatusCode } from 'axios';
 import OpaResultsController from '../../../../main/controllers/style-guide/OpaResultsController';
 import { LocationService } from '../../../../main/service/locationService';
-import { OpaResultsService } from '../../../../main/service/list-manipulation/OpaResultsService';
+import { OpaResultsService } from '../../../../main/service/listManipulation/OpaResultsService';
 
 const artefactId = 'abc';
 const welshArtefactId = 'def';

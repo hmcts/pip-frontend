@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { IacDailyListService } from '../../../../main/service/list-manipulation/IacDailyListService';
+import { IacDailyListService } from '../../../../main/service/listManipulation/IacDailyListService';
 
 const iacService = new IacDailyListService();
 

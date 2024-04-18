@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import IacDailyListController from '../../../../main/controllers/style-guide/IacDailyListController';
 import { PublicationService } from '../../../../main/service/publicationService';
-import { IacDailyListService } from '../../../../main/service/list-manipulation/IacDailyListService';
+import { IacDailyListService } from '../../../../main/service/listManipulation/IacDailyListService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';

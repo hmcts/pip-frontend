@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { OpaResultsService } from '../../../../main/service/list-manipulation/OpaResultsService';
+import { OpaResultsService } from '../../../../main/service/listManipulation/OpaResultsService';
 
 const opaResultsService = new OpaResultsService();
 
