@@ -11,7 +11,6 @@ const controllerBasePath = '../../controllers';
 
 export class Container {
     public enableFor(app: Application): void {
-
         const files = fs.readdirSync(path.join(__dirname, controllerBasePath));
         files.forEach(file => {
             if (path.extname(file)) {
