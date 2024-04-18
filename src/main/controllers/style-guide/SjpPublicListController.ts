@@ -43,7 +43,7 @@ export default class SjpPublicListController {
 
             res.render(listPath, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide/sjp-common']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide']['sjp-common']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 sjpData: filter.sjpCases,
                 length: filter.sjpCases.length,

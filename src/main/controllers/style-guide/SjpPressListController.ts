@@ -47,7 +47,7 @@ export default class SjpPressListController {
 
             let languageResource = {
                 ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressAll],
-                ...req.i18n.getDataByLanguage(req.lng)['style-guide/sjp-common'],
+                ...req.i18n.getDataByLanguage(req.lng)['style-guide']['sjp-common'],
                 ...req.i18n.getDataByLanguage(req.lng)['list-template'],
             };
 

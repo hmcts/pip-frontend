@@ -26,6 +26,7 @@ const listPath = `style-guide/${listType}`;
 const i18n = {
     'style-guide': {
         listType: { value: '123' },
+        'sjp-common': { downloadButtonLabel: 'Download a copy' },
     },
     'list-template': {},
 };
@@ -66,7 +67,7 @@ describe('SJP Public List Type Controller', () => {
     describe('get', () => {
         const expectedData = {
             ...i18n['style-guide'][listType],
-            ...i18n['sjp-common'],
+            ...i18n['style-guide']['sjp-common'],
             ...i18n['list-template'],
             sjpData: filter.sjpCases,
             length: 2,

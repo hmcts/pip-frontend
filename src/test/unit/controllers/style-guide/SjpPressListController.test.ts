@@ -65,6 +65,7 @@ const i18n = {
     'style-guide': {
         sjpPressFullListName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
         sjpPressNewCasesName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
+        'sjp-common': { downloadButtonLabel: 'Download a copy' },
     },
     'list-template': {},
 };
@@ -91,7 +92,7 @@ describe('SJP Press List Controller', () => {
         const sjpPressResource = sjpResourceMap.get(url);
         const expectedData = {
             ...i18n['style-guide'][sjpPressResource['resourceName']],
-            ...i18n['style-guide/sjp-common'],
+            ...i18n['style-guide']['sjp-common'],
             ...i18n['list-template'],
             sjpData: filter.sjpCases,
             totalHearings: 2,
