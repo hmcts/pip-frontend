@@ -17,9 +17,9 @@ const artefactIdMap = new Map<string, string>([
     [sscDailyListAdditionalHearingsUrl, 'def'],
 ]);
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/sscsDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/sscsDailyList.json'), 'utf-8');
 const sscsData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataSscs = JSON.parse(rawMetaData)[0];
 metaDataSscs.listType = 'SSCS_DAILY_LIST';

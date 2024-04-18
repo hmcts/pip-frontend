@@ -8,9 +8,9 @@ import fs from 'fs';
 import path from 'path';
 import { CrownWarnedListService } from '../../../main/service/listManipulation/CrownWarnedListService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownWarnedList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/crownWarnedList.json'), 'utf-8');
 const crownWarnedData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
 
 const listData = new Map<string, object[]>();

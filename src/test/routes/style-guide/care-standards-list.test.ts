@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { TribunalNationalListsService } from '../../../main/service/listManipulation/TribunalNationalListsService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/careStandardsList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/careStandardsList.json'), 'utf-8');
 const careStandardsListData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(careStandardsListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(careStandardsListData);

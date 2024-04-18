@@ -7,9 +7,9 @@ import path from 'path';
 import { PublicationService } from '../../../main/service/publicationService';
 import { LocationService } from '../../../main/service/locationService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/opaPublicList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/opaPublicList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);
-const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[0];
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);

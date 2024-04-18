@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 import { CopDailyListService } from '../../../main/service/listManipulation/CopDailyListService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/copDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/copDailyCauseList.json'), 'utf-8');
 const copData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(copData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(copData);

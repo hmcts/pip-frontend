@@ -9,7 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/crownDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/crownDailyList.json'), 'utf-8');
 const crownDailyData = JSON.parse(rawData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(crownDailyData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(crownDailyData);
