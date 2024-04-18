@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/publicationService';
 import { LocationService } from '../../service/locationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../service/list-manipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
 import { hearingHasParty, isValidList } from '../../helpers/listHelper';
 

@@ -7,7 +7,7 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { SjpPressListService } from '../../main/service/listManipulation/SjpPressListService';
+import { SjpPressListService } from '../../main/service/list-manipulation/SjpPressListService';
 import { SjpFilterService } from '../../main/service/sjpFilterService';
 
 const sjpPressFullListUrl = '/sjp-press-list';

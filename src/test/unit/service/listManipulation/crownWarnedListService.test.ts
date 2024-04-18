@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { CrownWarnedListService } from '../../../../main/service/listManipulation/CrownWarnedListService';
+import { CrownWarnedListService } from '../../../../main/service/list-manipulation/CrownWarnedListService';
 
 const crownWarnedListService = new CrownWarnedListService();
 

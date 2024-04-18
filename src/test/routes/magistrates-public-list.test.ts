@@ -7,7 +7,7 @@ import { PublicationService } from '../../main/service/publicationService';
 import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
-import { CrimeListsService } from '../../main/service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../main/service/list-manipulation/CrimeListsService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/magistratesPublicList.json'), 'utf-8');
 const crownDailyData = JSON.parse(rawData);

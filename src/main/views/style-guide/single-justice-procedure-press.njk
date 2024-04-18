@@ -1,0 +1,123 @@
+{% from "./macros/common-components.njk" import goBack, searchInput %}
+{% from "./macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
+
+{% extends "src/main/views/sjp-template.njk" %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+  <h2 id='page-heading' class="govuk-heading-l">{{ header }}</h2>
+
+  <details class="govuk-details" data-module="govuk-details">
+    <summary class="govuk-details__summary">
+      <span class="govuk-details__summary-text">
+      {{ whatIsSJP }}
+      </span>
+    </summary>
+    <div class="govuk-details__text">
+      {{ sjpDescription }}
+    </div>
+  </details>
+
+  <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contactDate }}</p>
+  <p class="govuk-body">{{ published }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
+
+  <details class="govuk-details" data-module="govuk-details" open>
+    <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformationHeading }}</span></summary>
+    <div class="govuk-details__text">
+        <p><span>{{ importantInformationPart1 }}</span> <a href="{{ importantInformationLink }}">{{ importantInformationPart2 }}</a></p>
+    </div>
+  </details>
+
+  {% if showDownloadButton %}
+    {{ downloadButton(label = downloadButtonLabel, artefactId = artefactId) }}
+  {% endif %}
+
+  {{ searchInput(text = searchCases) }}
+
+  <button class="govuk-button govuk-button--secondary govuk-!-margin-top-5 hide-show-button" id="show-filters" data-module="govuk-button">
+    {% if showFilters %} {{ filter.hide }} {% else %} {{ filter.show }} {% endif %}
+  </button>
+
+  <div class="govuk-grid-row">
+    {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
+    <div class="parent-box overflow-table">
+      <div class="overflow-table govuk-body">
+        {% set hearingCount = 0 %}
+        {% for sjpCase in sjpData %}
+          {% set hearingCount = hearingCount + 1 %}
+          <dl class="govuk-summary-list--no-border">
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ name }}
+              </dt>
+              <dd class="govuk-summary-list__value search-area">
+                {{ sjpCase.name }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ dateOfBirth }}
+              </dt>
+              <dd class="govuk-summary-list__value search-area">
+                {% if sjpCase.age > 0 %}
+                  {{ sjpCase.dob }} ({{ sjpCase.age }})
+                {% else %}
+                  {{ sjpCase.dob }}
+                {% endif %}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ reference }}
+              </dt>
+              <dd class="govuk-summary-list__value search-area">
+                {{ sjpCase.caseUrn }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ address }}
+              </dt>
+              <dd class="govuk-summary-list__value search-area">
+                {{ sjpCase.address }}
+              </dd>
+            </div>
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ prosecutor }}
+              </dt>
+              <dd class="govuk-summary-list__value search-area">
+                {{ sjpCase.prosecutorName }}
+              </dd>
+            </div>
+
+            {% for offence in sjpCase.offences %}
+              <p class="govuk-body">
+                  <span class="search-area">{{ reportingRestriction }} - {{ offence.reportingRestrictionFlag }}</span>
+                  <br/>
+                  <span class="search-area">{{ offence.offenceTitle }} - {{ offence.offenceWording }}</span>
+              </p>
+            {% endfor %}
+            {% if totalHearings !== hearingCount %}
+              <hr>
+            {% endif %}
+          </dl>
+        {% endfor %}
+      </div>
+      {{ super() }}
+    </div>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ super() }}
+    {{ filterManipulation(url = url, artefactId = artefactId, filter = filter) }}
+{% endblock %}

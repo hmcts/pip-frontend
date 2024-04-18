@@ -8,7 +8,7 @@ import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import CopDailyCauseListController from '../../../../main/controllers/style-guide/CopDailyCauseListController';
-import { CopDailyListService } from '../../../../main/service/listManipulation/CopDailyListService';
+import { CopDailyListService } from '../../../../main/service/list-manipulation/CopDailyListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/copDailyCauseList.json'), 'utf-8');
 const listData = JSON.parse(rawData);

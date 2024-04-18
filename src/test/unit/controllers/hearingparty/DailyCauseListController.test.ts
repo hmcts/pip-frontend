@@ -7,7 +7,7 @@ import { PublicationService } from '../../../../main/service/publicationService'
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../../main/service/locationService';
-import { CivilFamilyAndMixedListService } from '../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../../main/service/list-manipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/familyDailyCauseList.json'), 'utf-8');

@@ -7,7 +7,7 @@ import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../../main/service/locationService';
 import MagistratesStandardListController from '../../../../main/controllers/style-guide/MagistratesStandardListController';
-import { MagistratesStandardListService } from '../../../../main/service/listManipulation/MagistratesStandardListService';
+import { MagistratesStandardListService } from '../../../../main/service/list-manipulation/MagistratesStandardListService';
 import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/magistratesStandardList.json'), 'utf-8');

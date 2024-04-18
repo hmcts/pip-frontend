@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { CrownFirmListService } from '../../../../main/service/listManipulation/crownFirmListService';
+import { CrownFirmListService } from '../../../../main/service/list-manipulation/crownFirmListService';
 
 const crownFirmListService = new CrownFirmListService();
 const rawCrownFirmData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownFirmSemiDigested.json'), 'utf-8');

@@ -7,7 +7,7 @@ import { app } from '../../main/app';
 import { PublicationService } from '../../main/service/publicationService';
 import fs from 'fs';
 import path from 'path';
-import { SscsDailyListService } from '../../main/service/listManipulation/SscsDailyListService';
+import { SscsDailyListService } from '../../main/service/list-manipulation/SscsDailyListService';
 
 const userId = '2';
 const sscDailyListUrl = '/sscs-daily-list';

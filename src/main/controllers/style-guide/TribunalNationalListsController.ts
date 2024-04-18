@@ -3,7 +3,7 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/publicationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { TribunalNationalListsService } from '../../service/listManipulation/TribunalNationalListsService';
+import { TribunalNationalListsService } from '../../service/list-manipulation/TribunalNationalListsService';
 import { LocationService } from '../../service/locationService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';

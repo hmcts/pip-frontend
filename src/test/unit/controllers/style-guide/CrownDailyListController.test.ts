@@ -7,7 +7,7 @@ import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../../main/service/locationService';
 import CrownDailyListController from '../../../../main/controllers/style-guide/CrownDailyListController';
-import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../../../main/service/list-manipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');

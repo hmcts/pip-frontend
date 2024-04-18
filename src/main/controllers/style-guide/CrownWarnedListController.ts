@@ -3,10 +3,10 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/publicationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { CrownWarnedListService } from '../../service/listManipulation/CrownWarnedListService';
+import { CrownWarnedListService } from '../../service/list-manipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
 import { hearingHasParty, isValidList } from '../../helpers/listHelper';
-import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../service/list-manipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();

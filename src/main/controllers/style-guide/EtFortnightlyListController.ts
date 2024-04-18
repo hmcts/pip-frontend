@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/publicationService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
-import { EtListsService } from '../../service/listManipulation/EtListsService';
+import { EtListsService } from '../../service/list-manipulation/EtListsService';
 import { LocationService } from '../../service/locationService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';

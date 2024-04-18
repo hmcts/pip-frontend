@@ -6,7 +6,7 @@ import { LocationService } from '../../../../main/service/locationService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import EtFortnightlyListController from '../../../../main/controllers/style-guide/EtFortnightlyListController';
-import { EtListsService } from '../../../../main/service/listManipulation/EtListsService';
+import { EtListsService } from '../../../../main/service/list-manipulation/EtListsService';
 import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/etDailyList.json'), 'utf-8');

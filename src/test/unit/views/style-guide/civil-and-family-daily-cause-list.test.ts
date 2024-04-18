@@ -1,0 +1,209 @@
+import { expect } from 'chai';
+import request from 'supertest';
+import { app } from '../../../../main/app';
+import fs from 'fs';
+import path from 'path';
+import sinon from 'sinon';
+import { PublicationService } from '../../../../main/service/publicationService';
+import { LocationService } from '../../../../main/service/locationService';
+
+const PAGE_URL = '/civil-and-family-daily-cause-list?artefactId=abc';
+const headingClass = 'govuk-heading-l';
+const summaryHeading = 'govuk-details__summary-text';
+const summaryText = 'govuk-details__text';
+const accordionClass = 'govuk-accordion__section-button';
+const siteAddressClass = 'site-address';
+
+const courtName = "Abergavenny Magistrates' Court";
+const expectedHeader = 'Civil and Family Daily Cause List for ' + courtName;
+const summaryHeadingText = 'Important information';
+const accordionHeading = '1, Before: Judge KnownAs Presiding, Judge KnownAs';
+let htmlRes: Document;
+
+const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/civilAndFamilyDailyCauseList.json'), 'utf-8');
+const civilAndFamilyDailyCauseListData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST';
+
+const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const courtData = JSON.parse(rawDataCourt);
+
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(civilAndFamilyDailyCauseListData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
+
+describe('Civil And Family Daily Cause List page', () => {
+    beforeAll(async () => {
+        await request(app)
+            .get(PAGE_URL)
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+            });
+    });
+
+    it('should display header', () => {
+        const header = htmlRes.getElementsByClassName(headingClass);
+        expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    });
+
+    it('should display summary', () => {
+        const summary = htmlRes.getElementsByClassName(summaryHeading);
+        expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
+    });
+
+    it('should display court name summary paragraph', () => {
+        const summary = htmlRes.getElementsByClassName(summaryText);
+        expect(summary[0].innerHTML).contains(courtName, 'Could not find the court name in summary text');
+    });
+
+    it('should display court email summary paragraph', () => {
+        const summary = htmlRes.getElementsByClassName(summaryText);
+        expect(summary[0].innerHTML).contains('court1@moj.gov.uk', 'Could not find the court name in summary text');
+    });
+
+    it('should display court contact number summary paragraph', () => {
+        const summary = htmlRes.getElementsByClassName(summaryText);
+        expect(summary[0].innerHTML).contains('01772 844700', 'Could not find the court name in summary text');
+    });
+
+    it('should display the search input box', () => {
+        const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+        expect(searchInput[0].innerHTML).contains('Search Cases');
+    });
+
+    it('should display the site name for both sections', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+        expect(siteAddress[0].innerHTML).contains('Court A', 'Could not find the site name in section 1');
+        expect(siteAddress[6].innerHTML).contains('Court B', 'Could not find the site name in section 2');
+    });
+
+    it('should display the site address line 1 for both sections', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+        expect(siteAddress[1].innerHTML).contains('Address Line 1', 'Could not find the address line 1 in section 1');
+        expect(siteAddress[7].innerHTML).contains('Address Line 1', 'Could not find the address line 1 in section 2');
+    });
+
+    it('should display the site address line 2 for both sections', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+        expect(siteAddress[2].innerHTML).contains('Address Line 2', 'Could not find the address line 2 in section 1');
+        expect(siteAddress[8].innerHTML).contains('Address Line 2', 'Could not find the address line 2 in section 2');
+    });
+
+    it('should display the site town for both sections', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+        expect(siteAddress[3].innerHTML).contains('Town A', 'Could not find the town in section 1');
+        expect(siteAddress[9].innerHTML).contains('Town B', 'Could not find the town in section 2');
+    });
+
+    it('should display the site county for both sections', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+        expect(siteAddress[4].innerHTML).contains('County A', 'Could not find the county in section 1');
+        expect(siteAddress[10].innerHTML).contains('County B', 'Could not find the county in section 2');
+    });
+
+    it('should display the site postcode for both sections', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+        expect(siteAddress[5].innerHTML).contains('AA1 AA1', 'Could not find the postcode in section 1');
+        expect(siteAddress[11].innerHTML).contains('BB1 BB1', 'Could not find the postcode in section 2');
+    });
+
+    it('should display accordion heading', () => {
+        const accordion = htmlRes.getElementsByClassName(accordionClass);
+        expect(accordion[0].innerHTML).contains(accordionHeading, 'Could not find the accordion heading');
+    });
+
+    it('should display table headers', () => {
+        const header = htmlRes.getElementsByClassName('govuk-table__header');
+        expect(header[0].innerHTML).equals('Time');
+        expect(header[1].innerHTML).equals('Case ref');
+        expect(header[2].innerHTML).equals('Case name');
+        expect(header[3].innerHTML).equals('Case type');
+        expect(header[4].innerHTML).equals('Hearing type');
+        expect(header[5].innerHTML).equals('Location');
+        expect(header[6].innerHTML).equals('Duration');
+        expect(header[7].innerHTML).equals('Applicant/Petitioner');
+        expect(header[8].innerHTML).equals('Respondent');
+    });
+
+    it('should display case time', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[0].innerHTML).contains('10:40');
+    });
+
+    it('should display Case Id', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[1].innerHTML).contains('12345678');
+    });
+
+    it('should display Case name with Case Sequence Indicator', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[2].innerHTML).equal('A1 Vs B1 [2 of 3]');
+    });
+
+    it('should display Case Name without Case Sequence Indicator', () => {
+        const rows = htmlRes.getElementsByClassName('govuk-table__row');
+        const cell = rows.item(2).children;
+        expect(cell[2].innerHTML).equals('A2 Vs B2');
+    });
+
+    it('should display Case Type', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[3].innerHTML).contains('Case Type');
+    });
+
+    it('should display Hearing Type', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[4].innerHTML).contains('Hearing Type');
+    });
+
+    it('should display Hearing platform', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[5].innerHTML).contains('testSittingChannel');
+    });
+
+    it('should display Hearing duration', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[6].innerHTML).contains('1 hour 5 mins');
+    });
+
+    it('should display applicant petitioner for hearing with multiple cases', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[7].innerHTML).contains(
+            'Applicant Surname 1, Legal Advisor: Mr Rep Forenames 1 Rep Middlename 1 Rep Surname 1'
+        );
+        expect(cell[16].innerHTML).contains(
+            'Applicant Surname 2, Legal Advisor: Mr Rep Forenames 2 Rep Middlename 2 Rep Surname 2'
+        );
+    });
+
+    it('should display respondent for hearing with multiple cases', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[8].innerHTML).contains('Respondent Surname 1');
+        expect(cell[17].innerHTML).contains('Respondent Surname 2');
+    });
+
+    it('should display applicant petitioner for haring with a single case', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[34].innerHTML).contains(
+            'Applicant Surname 3, Legal Advisor: Mr Rep Forenames 3 Rep Middlename 3 Rep Surname 3'
+        );
+    });
+
+    it('should display respondent for hearing with a single case', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[35].innerHTML).contains(
+            'Respondent Surname 3, Legal Advisor: Mr Rep Forenames 4 Rep Middlename 4 Rep Surname 4'
+        );
+    });
+
+    it('should display applicant petitioner using organisation', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[25].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
+    });
+
+    it('should display respondent using organisation', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[26].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
+    });
+});

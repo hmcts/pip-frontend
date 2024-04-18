@@ -1,0 +1,44 @@
+{% from "macros/common-components.njk" import mojAll %}
+{% extends "src/main/views/template.njk" %}
+
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+
+    const input = document.getElementById("search-input");
+    let id = 0;
+    let markRegex = new RegExp("<mark>", "g");
+
+    //A custom function used to highlight the search results. This is specific to the SJP lists to help
+    //improve performance unique to SJP. It has not been used in other list types due to limitations with the way it
+    //handles embedded html tags and page breaks.
+    //
+    //This will wait 800ms for the user to stop typing before highlighting the search results. This reduces the
+    //number of times the javascript is called to also help improve performance.
+    const highlightFunction = () => {
+
+      id = setTimeout(function() {
+          if (input.value !== '' && input.value !== undefined) {
+              let inputRegex = new RegExp(input.value, 'g');
+              document.querySelectorAll(".search-area").forEach((item) => {
+                  item.innerHTML = item.innerHTML.replace(markRegex, '');
+                  item.innerHTML = item.innerHTML.replace(inputRegex, `<mark>${input.value}</mark>`);
+              });
+          } else {
+              document.querySelectorAll(".search-area").forEach((item) => {
+                  item.innerHTML = item.innerHTML.replace(markRegex, '');
+              });
+          }
+      }, 800)
+    }
+
+    input.addEventListener("keyup", () => {
+        clearTimeout(id);
+        highlightFunction();
+    });
+  </script>
+  {{ mojAll() }}
+  {{ super() }}
+{% endblock %}

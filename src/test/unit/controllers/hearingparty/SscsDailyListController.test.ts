@@ -7,7 +7,7 @@ import { LocationService } from '../../../../main/service/locationService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { SscsDailyListService } from '../../../../main/service/listManipulation/SscsDailyListService';
+import { SscsDailyListService } from '../../../../main/service/list-manipulation/SscsDailyListService';
 import { HttpStatusCode } from 'axios';
 import { describe } from '@jest/globals';
 

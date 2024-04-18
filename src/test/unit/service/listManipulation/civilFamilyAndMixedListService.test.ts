@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { CivilFamilyAndMixedListService } from '../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
+import { CivilFamilyAndMixedListService } from '../../../../main/service/list-manipulation/CivilFamilyAndMixedListService';
 
 const service = new CivilFamilyAndMixedListService();
 

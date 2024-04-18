@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
+import { CrimeListsService } from '../../../../main/service/list-manipulation/CrimeListsService';
 
 const crimeListsService = new CrimeListsService();
 const rawCrownDailyData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownDailyList.json'), 'utf-8');

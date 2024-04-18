@@ -6,8 +6,8 @@ import { LocationService } from '../../service/locationService';
 import { isValidList } from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';
-import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
-import { OpaResultsService } from '../../service/listManipulation/OpaResultsService';
+import { CrimeListsService } from '../../service/list-manipulation/CrimeListsService';
+import { OpaResultsService } from '../../service/list-manipulation/OpaResultsService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

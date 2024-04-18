@@ -7,7 +7,7 @@ import { PublicationService } from '../../main/service/publicationService';
 import { LocationService } from '../../main/service/locationService';
 import fs from 'fs';
 import path from 'path';
-import { MagistratesStandardListService } from '../../main/service/listManipulation/MagistratesStandardListService';
+import { MagistratesStandardListService } from '../../main/service/list-manipulation/MagistratesStandardListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/magistratesStandardList.json'), 'utf-8');
 const magsStandardListData = JSON.parse(rawData);

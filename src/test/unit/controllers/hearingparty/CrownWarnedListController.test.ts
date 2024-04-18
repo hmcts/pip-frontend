@@ -5,7 +5,7 @@ import path from 'path';
 import { PublicationService } from '../../../../main/service/publicationService';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { CrownWarnedListService } from '../../../../main/service/listManipulation/CrownWarnedListService';
+import { CrownWarnedListService } from '../../../../main/service/list-manipulation/CrownWarnedListService';
 import CrownWarnedListController from '../../../../main/controllers/style-guide/CrownWarnedListController';
 import { HttpStatusCode } from 'axios';
 
