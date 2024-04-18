@@ -6,7 +6,7 @@ import { PublicationService } from '../../../../main/service/publicationService'
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { CrownWarnedListService } from '../../../../main/service/listManipulation/CrownWarnedListService';
-import CrownWarnedListController from '../../../../main/controllers/CrownWarnedListController';
+import CrownWarnedListController from '../../../../main/controllers/style-guide/CrownWarnedListController';
 import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/hearingparty/crownWarnedList.json'), 'utf-8');

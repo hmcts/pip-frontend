@@ -6,7 +6,7 @@ import { PublicationService } from '../../../../main/service/publicationService'
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../../main/service/locationService';
-import CrownDailyListController from '../../../../main/controllers/CrownDailyListController';
+import CrownDailyListController from '../../../../main/controllers/style-guide/CrownDailyListController';
 import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
 

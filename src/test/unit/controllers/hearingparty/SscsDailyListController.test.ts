@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import SscsDailyListController from '../../../../main/controllers/SscsDailyListController';
+import SscsDailyListController from '../../../../main/controllers/style-guide/SscsDailyListController';
 import { PublicationService } from '../../../../main/service/publicationService';
 import { LocationService } from '../../../../main/service/locationService';
 import { Response } from 'express';

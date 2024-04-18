@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import DailyCauseListController from '../../../../main/controllers/DailyCauseListController';
+import DailyCauseListController from '../../../../main/controllers/style-guide/DailyCauseListController';
 import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../../main/service/publicationService';
