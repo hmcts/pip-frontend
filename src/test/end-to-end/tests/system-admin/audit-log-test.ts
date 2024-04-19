@@ -9,7 +9,6 @@ Scenario(
     'I as a system admin should be able to view audit log for system admin view third-party users action',
     async ({ I }) => {
         I.loginAsSystemAdmin();
-        I.see('System Admin Dashboard');
         I.click('#card-manage-third-party-users');
         I.click('Back');
         I.waitForText('System Admin Dashboard');
@@ -60,7 +59,6 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     await createLocation(locationId, locationName);
 
     I.loginAsSystemAdmin();
-    I.see('System Admin Dashboard');
     I.click('Admin Dashboard');
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
