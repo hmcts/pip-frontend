@@ -4,8 +4,8 @@ import { app } from '../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { ListDownloadService } from '../../../../main/service/listDownloadService';
+import { PublicationService } from '../../../../main/service/PublicationService';
+import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
 
 const headingClass = 'govuk-heading-l';

@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { LocationService } from '../../../../main/service/locationService';
-import { ListParseHelperService } from '../../../../main/service/listParseHelperService';
+import { PublicationService } from '../../../../main/service/PublicationService';
+import { LocationService } from '../../../../main/service/LocationService';
+import { ListParseHelperService } from '../../../../main/service/ListParseHelperService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';

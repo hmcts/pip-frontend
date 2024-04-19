@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import { ManualUploadService } from '../../main/service/manualUploadService';
-import { FileHandlingService } from '../../main/service/fileHandlingService';
+import { ManualUploadService } from '../../main/service/ManualUploadService';
+import { FileHandlingService } from '../../main/service/FileHandlingService';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/manual-upload-summary';

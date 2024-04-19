@@ -2,7 +2,7 @@ import SubscriptionManagementController from '../../../main/controllers/Subscrip
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 
 const subscriptionManagementController = new SubscriptionManagementController();

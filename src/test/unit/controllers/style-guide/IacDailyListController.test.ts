@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import IacDailyListController from '../../../../main/controllers/style-guide/IacDailyListController';
-import { PublicationService } from '../../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 import { IacDailyListService } from '../../../../main/service/listManipulation/IacDailyListService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';

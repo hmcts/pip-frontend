@@ -2,8 +2,8 @@ import { cloneDeep } from 'lodash';
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import { ManualUploadService } from '../../../main/service/manualUploadService';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
 import ManualReferenceDataUploadSummaryController from '../../../main/controllers/ManualReferenceDataUploadSummaryController';
 
 const mockData = { fileName: 'fileName', foo: 'blah', file: '' };

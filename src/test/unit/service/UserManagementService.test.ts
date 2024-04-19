@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { UserManagementService } from '../../../main/service/userManagementService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { UserManagementService } from '../../../main/service/UserManagementService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { UserSearchCriteria } from '../../../main/models/UserSearchCriteria';
 
 const userManagementService = new UserManagementService();

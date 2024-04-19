@@ -1,6 +1,6 @@
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import fs from 'fs';
-import { FileHandlingService } from './fileHandlingService';
+import { FileHandlingService } from './FileHandlingService';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 
 const languageFileParser = new LanguageFileParser();

@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
-import { SubscriptionService } from '../service/subscriptionService';
+import { SubscriptionService } from '../service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import { pendingCaseSubscriptionSorter, pendingLocationSubscriptionSorter } from '../helpers/sortHelper';
 

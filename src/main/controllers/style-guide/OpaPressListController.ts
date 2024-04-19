@@ -1,8 +1,8 @@
 import { Response } from 'express';
 import { PipRequest } from '../../models/request/PipRequest';
-import { PublicationService } from '../../service/publicationService';
-import { ListParseHelperService } from '../../service/listParseHelperService';
-import { LocationService } from '../../service/locationService';
+import { PublicationService } from '../../service/PublicationService';
+import { ListParseHelperService } from '../../service/ListParseHelperService';
+import { LocationService } from '../../service/LocationService';
 import { isValidList } from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';

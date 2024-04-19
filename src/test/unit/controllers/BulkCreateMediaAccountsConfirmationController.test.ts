@@ -2,9 +2,9 @@ import BulkCreateMediaAccountsConfirmationController from '../../../main/control
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
-import { CreateAccountService } from '../../../main/service/createAccountService';
-import { UserManagementService } from '../../../main/service/userManagementService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
+import { UserManagementService } from '../../../main/service/UserManagementService';
 
 const bulkCreateMediaAccountsConfirmationController = new BulkCreateMediaAccountsConfirmationController();
 const bulkCreateAccountsConfirmationUrl = 'bulk-create-media-accounts-confirmation';

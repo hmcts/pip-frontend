@@ -4,8 +4,8 @@ import { app } from '../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { LocationService } from '../../../../main/service/locationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
+import { LocationService } from '../../../../main/service/LocationService';
 
 const PAGE_URL = '/opa-results?artefactId=abc';
 const WELSH_PAGE_URL = '/opa-results?artefactId=def&lng=cy';

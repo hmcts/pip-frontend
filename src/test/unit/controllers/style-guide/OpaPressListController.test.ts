@@ -2,12 +2,12 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { HttpStatusCode } from 'axios';
 import OpaPressListController from '../../../../main/controllers/style-guide/OpaPressListController';
-import { LocationService } from '../../../../main/service/locationService';
+import { LocationService } from '../../../../main/service/LocationService';
 import { OpaPressListService } from '../../../../main/service/listManipulation/OpaPressListService';
 
 const artefactId = 'abc';

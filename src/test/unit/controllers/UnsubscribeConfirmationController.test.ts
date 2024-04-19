@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import sinon from 'sinon';
 import UnsubscribeConfirmationController from '../../../main/controllers/UnsubscribeConfirmationController';
 

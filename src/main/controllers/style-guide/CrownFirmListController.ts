@@ -2,11 +2,11 @@ import { Response } from 'express';
 import { PipRequest } from '../../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { DateTime } from 'luxon';
-import { PublicationService } from '../../service/publicationService';
-import { LocationService } from '../../service/locationService';
+import { PublicationService } from '../../service/PublicationService';
+import { LocationService } from '../../service/LocationService';
 import { CrownFirmListService } from '../../service/listManipulation/CrownFirmListService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
-import { ListParseHelperService } from '../../service/listParseHelperService';
+import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { HttpStatusCode } from 'axios';
 import { hearingHasParty, isValidList } from '../../helpers/listHelper';
 

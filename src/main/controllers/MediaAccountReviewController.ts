@@ -1,5 +1,5 @@
 import { PipRequest } from '../models/request/PipRequest';
-import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { fileTypeMappings } from '../helpers/consts';

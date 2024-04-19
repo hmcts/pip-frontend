@@ -1,4 +1,4 @@
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';

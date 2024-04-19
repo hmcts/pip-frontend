@@ -1,11 +1,11 @@
-import { LocationService } from '../../../main/service/locationService';
-import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { LocationService } from '../../../main/service/LocationService';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 import { caseSubscriptionSorter, locationSubscriptionSorter } from '../../../main/helpers/sortHelper';
 
 const userIdWithSubscriptions = '1';

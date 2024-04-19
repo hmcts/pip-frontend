@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { ManualUploadService } from '../../../main/service/manualUploadService';
-import { LocationService } from '../../../main/service/locationService';
-import { DataManagementRequests } from '../../../main/resources/requests/dataManagementRequests';
-import { PublicationService } from '../../../main/service/publicationService';
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
+import { LocationService } from '../../../main/service/LocationService';
+import { DataManagementRequests } from '../../../main/resources/requests/DataManagementRequests';
+import { PublicationService } from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 

@@ -1,9 +1,9 @@
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import sinon from 'sinon';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { LocationRequests } from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
 
 const courtService = new LocationService();
 

@@ -3,9 +3,9 @@ import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { PublicationService } from '../../main/service/publicationService';
-import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
-import { ListDownloadService } from '../../main/service/listDownloadService';
+import { PublicationService } from '../../main/service/PublicationService';
+import { AccountManagementRequests } from '../../main/resources/requests/AccountManagementRequests';
+import { ListDownloadService } from '../../main/service/ListDownloadService';
 
 const PAGE_URL = '/list-download-files?artefactId=123';
 expressRequest['user'] = { roles: 'VERIFIED' };

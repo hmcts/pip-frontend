@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 import FlatFileController from '../../../main/controllers/FlatFileController';
 import { mockRequest } from '../mocks/mockRequest';
 

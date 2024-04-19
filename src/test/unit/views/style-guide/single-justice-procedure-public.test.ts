@@ -4,8 +4,8 @@ import { app } from '../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { ListDownloadService } from '../../../../main/service/listDownloadService';
+import { PublicationService } from '../../../../main/service/PublicationService';
+import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 
 const PAGE_URL = '/sjp-public-list?artefactId=abc';
 const PAGE_URL_WITH_DOWNLOAD_BUTTON = '/sjp-public-list?artefactId=def';

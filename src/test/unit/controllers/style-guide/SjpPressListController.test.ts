@@ -3,12 +3,12 @@ import { Response } from 'express';
 import SjpPressListController from '../../../../main/controllers/style-guide/SjpPressListController';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { FilterService } from '../../../../main/service/filterService';
-import { SjpFilterService } from '../../../../main/service/sjpFilterService';
-import { ListDownloadService } from '../../../../main/service/listDownloadService';
+import { FilterService } from '../../../../main/service/FilterService';
+import { SjpFilterService } from '../../../../main/service/SjpFilterService';
+import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-press-list.json'), 'utf-8');

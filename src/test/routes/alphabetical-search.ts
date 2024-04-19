@@ -3,7 +3,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 import { app } from '../../main/app';
-import { FilterService } from '../../main/service/filterService';
+import { FilterService } from '../../main/service/FilterService';
 
 const options = {
     alphabetisedList: {},

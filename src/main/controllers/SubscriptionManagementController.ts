@@ -1,6 +1,6 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { SubscriptionService } from '../service/subscriptionService';
+import { SubscriptionService } from '../service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 
 const subscriptionService = new SubscriptionService();

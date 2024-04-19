@@ -1,7 +1,7 @@
-import { FilterService } from '../../../main/service/filterService';
+import { FilterService } from '../../../main/service/FilterService';
 import fs from 'fs';
 import path from 'path';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import sinon from 'sinon';
 
 const filterService = new FilterService();

@@ -2,8 +2,8 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import { LocationService } from '../../main/service/locationService';
-import { SubscriptionService } from '../../main/service/subscriptionService';
+import { LocationService } from '../../main/service/LocationService';
+import { SubscriptionService } from '../../main/service/SubscriptionService';
 
 const URL = '/delete-court-subscription-confirmation';
 

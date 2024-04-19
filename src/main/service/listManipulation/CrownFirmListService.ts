@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { CrimeListsService } from './CrimeListsService';
-import { ListParseHelperService } from '../listParseHelperService';
+import { ListParseHelperService } from '../ListParseHelperService';
 
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();

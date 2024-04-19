@@ -1,4 +1,4 @@
-import { PublicationRequests } from '../resources/requests/publicationRequests';
+import { PublicationRequests } from '../resources/requests//PublicationRequests';
 import { Artefact } from '../models/Artefact';
 import { ListType } from '../models/ListType';
 import { SearchObject } from '../models/SearchObject';

@@ -2,9 +2,9 @@ import ListDownloadFilesController from '../../../main/controllers/ListDownloadF
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { ListDownloadService } from '../../../main/service/listDownloadService';
-import { PublicationService } from '../../../main/service/publicationService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { ListDownloadService } from '../../../main/service/ListDownloadService';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { HttpStatusCode } from 'axios';
 
 const listDownloadFilesController = new ListDownloadFilesController();

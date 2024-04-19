@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import { describe } from '@jest/globals';
 
 import { app } from '../../../main/app';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 import { SscsDailyListService } from '../../../main/service/listManipulation/SscsDailyListService';

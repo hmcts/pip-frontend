@@ -1,9 +1,9 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { ListDownloadService } from '../service/listDownloadService';
+import { ListDownloadService } from '../service/ListDownloadService';
 import { cloneDeep } from 'lodash';
 import { fileTypeMappings, FileType } from '../helpers/consts';
-import { PublicationService } from '../service/publicationService';
+import { PublicationService } from '../service/PublicationService';
 import { HttpStatusCode } from 'axios';
 
 const url = 'list-download-files';

@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import { ThirdPartyService } from '../../../main/service/thirdPartyService';
+import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 import { Response } from 'express';
 import ManageThirdPartyUsersController from '../../../main/controllers/ManageThirdPartyUsersController';
 

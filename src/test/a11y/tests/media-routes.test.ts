@@ -1,11 +1,11 @@
 import { app } from '../../../main/app';
 import sinon from 'sinon';
-import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
-import { PublicationService } from '../../../main/service/publicationService';
-import { ListDownloadService } from '../../../main/service/listDownloadService';
-import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
+import { PublicationRequests } from '../../../main/resources/requests//PublicationRequests';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { ListDownloadService } from '../../../main/service/ListDownloadService';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
 import { testArtefactMetadata, testLocationData, testSubscriptionData, testUserData } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 import fs from 'fs';

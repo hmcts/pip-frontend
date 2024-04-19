@@ -1,4 +1,4 @@
-import { LocationRequests } from '../resources/requests/locationRequests';
+import { LocationRequests } from '../resources/requests//LocationRequests';
 import { Location } from '../models/Location';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';

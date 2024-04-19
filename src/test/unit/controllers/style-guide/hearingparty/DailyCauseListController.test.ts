@@ -3,10 +3,10 @@ import { Response } from 'express';
 import DailyCauseListController from '../../../../../main/controllers/style-guide/DailyCauseListController';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../../main/service/publicationService';
+import { PublicationService } from '../../../../../main/service/PublicationService';
 import { mockRequest } from '../../../mocks/mockRequest';
 import { DateTime } from 'luxon';
-import { LocationService } from '../../../../../main/service/locationService';
+import { LocationService } from '../../../../../main/service/LocationService';
 import { CivilFamilyAndMixedListService } from '../../../../../main/service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
 

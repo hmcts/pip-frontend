@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { accountManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import fs from 'fs';
 import path from 'path';
 import { DateTime } from 'luxon';

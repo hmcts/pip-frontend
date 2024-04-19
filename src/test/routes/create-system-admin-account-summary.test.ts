@@ -2,7 +2,7 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { CreateAccountService } from '../../main/service/createAccountService';
+import { CreateAccountService } from '../../main/service/CreateAccountService';
 
 const createAccountStub = sinon.stub(CreateAccountService.prototype, 'createSystemAdminAccount');
 const mockData = {

@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { dataManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
-import { LocationRequests } from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
 import fs from 'fs';
 import path from 'path';
 

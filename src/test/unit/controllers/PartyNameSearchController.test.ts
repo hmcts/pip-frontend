@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import PartyNameSearchController from '../../../main/controllers/PartyNameSearchController';
 import { mockRequest } from '../mocks/mockRequest';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const partyNameSearchController = new PartyNameSearchController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByPartyName');

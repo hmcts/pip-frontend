@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { Response } from 'express';
-import { SessionManagementService } from '../../../main/service/sessionManagementService';
+import { SessionManagementService } from '../../../main/service/SessionManagementService';
 
 const sessionManagementService = new SessionManagementService();
 const res = {

@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import { mockRequest } from '../mocks/mockRequest';
 
 const searchController = new SearchController();

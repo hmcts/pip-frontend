@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { LocationService } from '../../../../main/service/locationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
+import { LocationService } from '../../../../main/service/LocationService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import EtDailyListController from '../../../../main/controllers/style-guide/EtDailyListController';

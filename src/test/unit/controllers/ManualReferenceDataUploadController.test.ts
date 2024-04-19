@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { ManualUploadService } from '../../../main/service/manualUploadService';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
 import ManualReferenceDataUploadController from '../../../main/controllers/ManualReferenceDataUploadController';
 
 const manualReferenceDataUploadController = new ManualReferenceDataUploadController();

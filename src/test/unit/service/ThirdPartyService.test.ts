@@ -1,9 +1,9 @@
 import { expect } from 'chai';
-import { ThirdPartyService } from '../../../main/service/thirdPartyService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import sinon from 'sinon';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const thirdPartyService = new ThirdPartyService();
 

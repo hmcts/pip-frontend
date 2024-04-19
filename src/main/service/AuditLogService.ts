@@ -1,4 +1,4 @@
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 
 const accountManagementRequests = new AccountManagementRequests();
 import { DateTime } from 'luxon';
@@ -16,7 +16,6 @@ export class AuditLogService {
             { text: '', classes: 'govuk-!-padding-top-0' },
         ];
     }
-
 
     public async getFormattedAuditData(pageNumber: number, adminUserId: string) {
         const rawData = await accountManagementRequests.getAllAuditLogs(

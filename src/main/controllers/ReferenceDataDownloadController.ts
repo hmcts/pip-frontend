@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { LocationRequests } from '../resources/requests/locationRequests';
-import { UserManagementService } from '../service/userManagementService';
+import { LocationRequests } from '../resources/requests//LocationRequests';
+import { UserManagementService } from '../service/UserManagementService';
 
 const locationRequests = new LocationRequests();
 const userManagementService = new UserManagementService();

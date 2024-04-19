@@ -1,9 +1,9 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { ManualUploadService } from '../service/manualUploadService';
-import { FileHandlingService } from '../service/fileHandlingService';
-import { UserManagementService } from '../service/userManagementService';
+import { ManualUploadService } from '../service/ManualUploadService';
+import { FileHandlingService } from '../service/FileHandlingService';
+import { UserManagementService } from '../service/UserManagementService';
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();

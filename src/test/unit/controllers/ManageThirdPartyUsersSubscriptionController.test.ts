@@ -1,9 +1,9 @@
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import { ThirdPartyService } from '../../../main/service/thirdPartyService';
-import { PublicationService } from '../../../main/service/publicationService';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import ManageThirdPartyUsersSubscriptionsController from '../../../main/controllers/ManageThirdPartyUsersSubscriptionsController';
 

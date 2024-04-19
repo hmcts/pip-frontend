@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { mockRequest } from '../mocks/mockRequest';
 import SubscriptionConfirmedController from '../../../main/controllers/SubscriptionConfirmedController';
-import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 
 const subscriptionConfirmedController = new SubscriptionConfirmedController();
 const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');

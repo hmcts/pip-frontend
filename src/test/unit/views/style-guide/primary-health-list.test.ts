@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../../main/app';

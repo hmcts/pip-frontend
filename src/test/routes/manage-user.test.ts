@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import { UserManagementService } from '../../main/service/userManagementService';
-import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
+import { UserManagementService } from '../../main/service/UserManagementService';
+import { AccountManagementRequests } from '../../main/resources/requests/AccountManagementRequests';
 
 const PAGE_URL = '/manage-user?id=1234';
 

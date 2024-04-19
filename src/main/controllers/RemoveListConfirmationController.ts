@@ -1,11 +1,11 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { LocationService } from '../service/locationService';
-import { PublicationService } from '../service/publicationService';
-import { ManualUploadService } from '../service/manualUploadService';
+import { LocationService } from '../service/LocationService';
+import { PublicationService } from '../service/PublicationService';
+import { ManualUploadService } from '../service/ManualUploadService';
 import { DateTime } from 'luxon';
-import { UserManagementService } from '../service/userManagementService';
+import { UserManagementService } from '../service/UserManagementService';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();

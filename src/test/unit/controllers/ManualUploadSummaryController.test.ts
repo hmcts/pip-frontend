@@ -3,8 +3,8 @@ import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
 import ManualUploadSummaryController from '../../../main/controllers/ManualUploadSummaryController';
-import { ManualUploadService } from '../../../main/service/manualUploadService';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
 
 const mockData = {
     fileName: 'fileName',

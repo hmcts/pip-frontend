@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { AuditLogService } from '../../../main/service/auditLogService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AuditLogService } from '../../../main/service/AuditLogService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import sinon from 'sinon';
 
 const auditLogService = new AuditLogService();

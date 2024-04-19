@@ -4,7 +4,7 @@ import { app } from '../../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const PAGE_URL = '/crown-warned-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';

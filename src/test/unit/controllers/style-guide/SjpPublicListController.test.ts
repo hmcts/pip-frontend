@@ -1,14 +1,14 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import { PublicationService } from '../../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 import { mockRequest } from '../../mocks/mockRequest';
 import SjpPublicListController from '../../../../main/controllers/style-guide/SjpPublicListController';
-import { FilterService } from '../../../../main/service/filterService';
-import { SjpFilterService } from '../../../../main/service/sjpFilterService';
+import { FilterService } from '../../../../main/service/FilterService';
+import { SjpFilterService } from '../../../../main/service/SjpFilterService';
 import { HttpStatusCode } from 'axios';
-import { ListDownloadService } from '../../../../main/service/listDownloadService';
+import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 
 const sjpPublicListController = new SjpPublicListController();
 

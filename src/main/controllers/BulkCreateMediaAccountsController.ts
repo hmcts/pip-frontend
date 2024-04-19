@@ -1,9 +1,9 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { FileHandlingService } from '../service/fileHandlingService';
+import { FileHandlingService } from '../service/FileHandlingService';
 import { cloneDeep } from 'lodash';
 import { uploadType } from '../helpers/consts';
-import { CreateAccountService } from '../service/createAccountService';
+import { CreateAccountService } from '../service/CreateAccountService';
 
 const fileHandlingService = new FileHandlingService();
 const createAccountService = new CreateAccountService();

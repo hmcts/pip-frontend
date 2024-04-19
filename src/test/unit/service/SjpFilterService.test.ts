@@ -1,4 +1,4 @@
-import { SjpFilterService } from '../../../main/service/sjpFilterService';
+import { SjpFilterService } from '../../../main/service/SjpFilterService';
 import { expect } from 'chai';
 
 const filterService = new SjpFilterService();

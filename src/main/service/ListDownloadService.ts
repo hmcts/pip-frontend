@@ -1,6 +1,6 @@
-import { ChannelManagementRequests } from '../resources/requests/channelManagementRequests';
+import { ChannelManagementRequests } from '../resources/requests/ChannelManagementRequests';
 import { FileType } from '../helpers/consts';
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import stream from 'stream';
 
 const channelManagementRequests = new ChannelManagementRequests();

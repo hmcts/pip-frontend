@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { ManualUploadService } from '../../../main/service/manualUploadService';
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
 import ManualUploadController from '../../../main/controllers/ManualUploadController';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
 
 const manualUploadController = new ManualUploadController();
 

@@ -4,11 +4,11 @@ import sinon from 'sinon';
 import { describe } from '@jest/globals';
 
 import { app } from '../../../main/app';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 import { SjpPressListService } from '../../../main/service/listManipulation/SjpPressListService';
-import { SjpFilterService } from '../../../main/service/sjpFilterService';
+import { SjpFilterService } from '../../../main/service/SjpFilterService';
 
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';

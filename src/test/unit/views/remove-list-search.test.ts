@@ -1,6 +1,6 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { LocationRequests } from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';

@@ -1,10 +1,10 @@
 import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { PublicationService } from '../../service/publicationService';
-import { ListParseHelperService } from '../../service/listParseHelperService';
+import { PublicationService } from '../../service/PublicationService';
+import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { EtListsService } from '../../service/listManipulation/EtListsService';
-import { LocationService } from '../../service/locationService';
+import { LocationService } from '../../service/LocationService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';
 

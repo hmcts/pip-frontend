@@ -2,8 +2,8 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { PublicationService } from '../../../main/service/publicationService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/list-download-files?artefactId=abc';

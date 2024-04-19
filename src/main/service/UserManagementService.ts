@@ -1,4 +1,4 @@
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { formattedProvenances, formattedRoles } from '../helpers/consts';
 import { DateTime } from 'luxon';
 import { UserSearchCriteria } from '../models/UserSearchCriteria';

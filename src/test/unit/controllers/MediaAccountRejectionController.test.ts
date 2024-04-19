@@ -1,8 +1,8 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
 import MediaAccountRejectionController from '../../../main/controllers/MediaAccountRejectionController';
-import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
-import { UserManagementService } from '../../../main/service/userManagementService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
+import { UserManagementService } from '../../../main/service/UserManagementService';
 
 describe('MediaAccountRejectionController', () => {
     // @ts-ignore: otherwise starts a whole chain of things

@@ -1,14 +1,24 @@
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import { CreateAccountService } from './createAccountService';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
+import { CreateAccountService } from './CreateAccountService';
 import { MediaAccount } from '../models/MediaAccount';
 import { DateTime } from 'luxon';
 import { LogHelper } from '../resources/logging/logHelper';
+import { MediaAccountApplication } from '../models/MediaAccountApplication';
 
 const accountManagementRequests = new AccountManagementRequests();
 const createAccountService = new CreateAccountService();
 const logHelper = new LogHelper();
 
 export class MediaAccountApplicationService {
+    public async getDateOrderedMediaApplications(): Promise<MediaAccountApplication[]> {
+        const applications = await accountManagementRequests.getPendingMediaApplications();
+        applications?.sort((a, b) => new Date(a.requestDate).getTime() - new Date(b.requestDate).getTime());
+        applications?.forEach(application => {
+            application.requestDate = DateTime.fromISO(application.requestDate).toFormat('dd MMM yyyy');
+        });
+        return applications;
+    }
+
     public async getApplicationById(applicationId): Promise<MediaAccount | null> {
         if (applicationId) {
             const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId);

@@ -2,8 +2,8 @@ import request from 'supertest';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { FileHandlingService } from '../../main/service/fileHandlingService';
-import { CreateAccountService } from '../../main/service/createAccountService';
+import { FileHandlingService } from '../../main/service/FileHandlingService';
+import { CreateAccountService } from '../../main/service/CreateAccountService';
 
 const PAGE_URL = '/bulk-create-media-accounts';
 

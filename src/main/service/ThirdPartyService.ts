@@ -1,7 +1,7 @@
-import { SubscriptionService } from './subscriptionService';
-import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
+import { SubscriptionService } from './SubscriptionService';
+import { SubscriptionRequests } from '../resources/requests//SubscriptionRequests';
 import { DateTime } from 'luxon';
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { Logger } from '@hmcts/nodejs-logging';
 
 /**

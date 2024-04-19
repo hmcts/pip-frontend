@@ -1,5 +1,5 @@
 import { Location } from '../models/Location';
-import { LocationService } from './locationService';
+import { LocationService } from './LocationService';
 
 const filterNames = ['Jurisdiction', 'Region'];
 

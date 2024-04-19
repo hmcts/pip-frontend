@@ -19,7 +19,7 @@ import {
     keepSessionLanguage,
     regenerateSession,
 } from '../authentication/authenticationHandler';
-import { SessionManagementService } from '../service/sessionManagementService';
+import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
 

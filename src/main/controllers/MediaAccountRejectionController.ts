@@ -1,8 +1,8 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
-import { UserManagementService } from '../service/userManagementService';
+import { UserManagementService } from '../service/UserManagementService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();

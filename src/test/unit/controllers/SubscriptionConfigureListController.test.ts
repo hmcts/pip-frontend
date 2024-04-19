@@ -1,9 +1,9 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import sinon from 'sinon';
 import SubscriptionConfigureListController from '../../../main/controllers/SubscriptionConfigureListController';
-import { FilterService } from '../../../main/service/filterService';
+import { FilterService } from '../../../main/service/FilterService';
 
 const subscriptionConfigureListController = new SubscriptionConfigureListController();
 

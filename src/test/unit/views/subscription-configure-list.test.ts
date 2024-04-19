@@ -1,10 +1,10 @@
 import { app } from '../../../main/app';
 import request from 'supertest';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import { expect } from 'chai';
 
 const PAGE_URL = '/subscription-configure-list';

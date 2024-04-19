@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { AuditLogService } from '../../../main/service/auditLogService';
+import { AuditLogService } from '../../../main/service/AuditLogService';
 import sinon from 'sinon';
 import AuditLogDetailsController from '../../../main/controllers/AuditLogDetailsController';
 

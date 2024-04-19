@@ -1,4 +1,4 @@
-const { redisClient } = require('../../../cacheManager');
+const { redisClient } = require('../cacheManager');
 
 export class PendingSubscriptionsFromCache {
     public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {

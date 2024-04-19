@@ -1,8 +1,8 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { LocationService } from '../service/locationService';
-import { UserManagementService } from '../service/userManagementService';
+import { LocationService } from '../service/LocationService';
+import { UserManagementService } from '../service/UserManagementService';
 
 const locationService = new LocationService();
 const userManagementService = new UserManagementService();

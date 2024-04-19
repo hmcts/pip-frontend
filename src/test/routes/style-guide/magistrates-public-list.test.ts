@@ -3,8 +3,8 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 import { app } from '../../../main/app';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { LocationService } from '../../../main/service/LocationService';
 import fs from 'fs';
 import path from 'path';
 import { CrimeListsService } from '../../../main/service/listManipulation/CrimeListsService';

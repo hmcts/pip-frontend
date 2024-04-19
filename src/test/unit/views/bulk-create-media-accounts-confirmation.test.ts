@@ -2,7 +2,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
 
 const PAGE_URL = '/bulk-create-media-accounts-confirmation';
 const fileName = 'fileName';

@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import validator from 'validator';
-import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const templateName = 'media-account-rejection-reasons';

@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { CreateAccountService } from '../../../main/service/createAccountService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 import CreateSystemAdminAccountSummaryController from '../../../main/controllers/CreateSystemAdminAccountSummaryController';
 import sinon from 'sinon';
 

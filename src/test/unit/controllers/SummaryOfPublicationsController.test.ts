@@ -4,8 +4,8 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { LocationService } from '../../../main/service/locationService';
-import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
+import { LocationService } from '../../../main/service/LocationService';
+import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {

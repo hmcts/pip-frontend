@@ -1,5 +1,5 @@
 import { formatDate } from '../../helpers/dateTimeHelper';
-import { ListParseHelperService } from '../listParseHelperService';
+import { ListParseHelperService } from '../ListParseHelperService';
 
 export class EtListsService {
     public helperService = new ListParseHelperService();

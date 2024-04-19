@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { ChannelManagementRequests } from '../../../main/resources/requests/channelManagementRequests';
-import { ListDownloadService } from '../../../main/service/listDownloadService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { ChannelManagementRequests } from '../../../main/resources/requests/ChannelManagementRequests';
+import { ListDownloadService } from '../../../main/service/ListDownloadService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const listDownloadService = new ListDownloadService();
 const artefactId = '123';

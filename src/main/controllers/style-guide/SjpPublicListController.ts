@@ -1,14 +1,14 @@
 import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { PublicationService } from '../../service/publicationService';
-import { ListParseHelperService } from '../../service/listParseHelperService';
+import { PublicationService } from '../../service/PublicationService';
+import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { SjpPublicListService } from '../../service/listManipulation/SjpPublicListService';
-import { SjpFilterService } from '../../service/sjpFilterService';
-import { FilterService } from '../../service/filterService';
+import { SjpFilterService } from '../../service/SjpFilterService';
+import { FilterService } from '../../service/FilterService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';
-import { ListDownloadService } from '../../service/listDownloadService';
+import { ListDownloadService } from '../../service/ListDownloadService';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();

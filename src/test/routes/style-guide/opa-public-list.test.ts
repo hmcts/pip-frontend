@@ -4,8 +4,8 @@ import sinon from 'sinon';
 import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { LocationService } from '../../../main/service/LocationService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/opaPublicList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);

@@ -2,9 +2,9 @@ import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import AdminDashboardController from '../../../main/controllers/AdminDashboardController';
 import sinon from 'sinon';
-import { MediaApplicationService } from '../../../main/service/mediaApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 
-sinon.stub(MediaApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
+sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
 const adminDashboardController = new AdminDashboardController();
 describe('Admin Dashboard controller', () => {
     const i18n = { 'admin-dashboard': {} };

@@ -1,10 +1,10 @@
 import { DateTime } from 'luxon';
-import { SubscriptionRequests } from '../resources/requests/subscriptionRequests';
-import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../resources/requests//SubscriptionRequests';
+import { PendingSubscriptionsFromCache } from './PendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
-import { PublicationService } from './publicationService';
-import { LocationService } from './locationService';
-import { FilterService } from './filterService';
+import { PublicationService } from './PublicationService';
+import { LocationService } from './LocationService';
+import { FilterService } from './FilterService';
 import { Location } from '../models/Location';
 import { ListType } from '../models/ListType';
 import { AToZHelper } from '../helpers/aToZHelper';

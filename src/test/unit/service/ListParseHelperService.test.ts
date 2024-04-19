@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { ListParseHelperService } from '../../../main/service/listParseHelperService';
+import { ListParseHelperService } from '../../../main/service/ListParseHelperService';
 
 const listParseHelperService = new ListParseHelperService();
 const rawDailyCauseData = fs.readFileSync(path.resolve(__dirname, '../mocks/dailyCauseList.json'), 'utf-8');

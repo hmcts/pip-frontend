@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
-import { SubscriptionService } from '../../main/service/subscriptionService';
+import { SubscriptionService } from '../../main/service/SubscriptionService';
 
 const PAGE_URL = '/subscription-configure-list-confirmed';
 

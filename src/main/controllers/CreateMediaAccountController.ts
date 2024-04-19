@@ -1,8 +1,8 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { CreateAccountService } from '../service/createAccountService';
+import { CreateAccountService } from '../service/CreateAccountService';
 import { cloneDeep } from 'lodash';
-import { FileHandlingService } from '../service/fileHandlingService';
+import { FileHandlingService } from '../service/FileHandlingService';
 
 const createAccountService = new CreateAccountService();
 const fileHandlingService = new FileHandlingService();

@@ -1,6 +1,6 @@
-import { CreateAccountService } from '../../../main/service/createAccountService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 import sinon from 'sinon';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { multerFile } from '../mocks/multerFile';
 import fs from 'fs';
 

@@ -1,12 +1,12 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { DateTime } from 'luxon';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 
 const PAGE_URL = '/subscription-management';
 const expectedAllSubsTitle = 'All subscriptions (9)';

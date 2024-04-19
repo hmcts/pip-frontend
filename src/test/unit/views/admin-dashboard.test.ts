@@ -1,8 +1,8 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
-import { MediaApplicationService } from '../../../main/service/mediaApplicationService';
 import sinon from 'sinon';
+import {MediaAccountApplicationService} from "../../../main/service/MediaAccountApplicationService";
 
 const PAGE_URL = '/admin-dashboard';
 const pageTitleValue = 'Staff dashboard';
@@ -37,7 +37,7 @@ const cards = [
 
 let htmlRes: Document;
 
-const mediaApplicationsStub = sinon.stub(MediaApplicationService.prototype, 'getDateOrderedMediaApplications');
+const mediaApplicationsStub = sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications');
 describe('Admin Dashboard page all cards', () => {
     describe('with one media application', () => {
         beforeAll(async () => {

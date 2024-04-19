@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
 import { request as expressRequest } from 'express';
-import { LocationService } from '../../main/service/locationService';
+import { LocationService } from '../../main/service/LocationService';
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const PAGE_URL = '/delete-court-publication-success?locationId=2';

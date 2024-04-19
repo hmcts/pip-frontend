@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/publicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { CrownWarnedListService } from '../../../../main/service/listManipulation/CrownWarnedListService';

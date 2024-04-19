@@ -1,4 +1,4 @@
-import { PublicationRequests } from '../resources/requests/publicationRequests';
+import { PublicationRequests } from '../resources/requests//PublicationRequests';
 import { Artefact } from '../models/Artefact';
 
 const publicationRequests = new PublicationRequests();

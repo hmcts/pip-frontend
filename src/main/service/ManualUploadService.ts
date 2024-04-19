@@ -1,9 +1,9 @@
-import { LocationService } from './locationService';
-import { DataManagementRequests } from '../resources/requests/dataManagementRequests';
+import { LocationService } from './LocationService';
+import { DataManagementRequests } from '../resources/requests/DataManagementRequests';
 import { DateTime } from 'luxon';
 
-import { FileHandlingService } from './fileHandlingService';
-import { PublicationService } from './publicationService';
+import { FileHandlingService } from './FileHandlingService';
+import { PublicationService } from './PublicationService';
 
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();

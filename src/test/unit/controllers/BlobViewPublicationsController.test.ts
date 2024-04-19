@@ -1,9 +1,9 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import BlobViewPublicationsController from '../../../main/controllers/BlobViewPublicationsController';
-import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
+import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 import fs from 'fs';
 import path from 'path';
 

@@ -1,4 +1,4 @@
-import { FilterService } from './filterService';
+import { FilterService } from './FilterService';
 
 const filterService = new FilterService();
 

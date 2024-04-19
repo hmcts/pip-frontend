@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import AdminManagementController from '../../../main/controllers/AdminManagementController';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const adminManagementController = new AdminManagementController();
 const stub = sinon.stub(AccountManagementRequests.prototype, 'getAdminUserByEmailAndProvenance');

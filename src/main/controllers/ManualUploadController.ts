@@ -1,8 +1,8 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { ManualUploadService } from '../service/manualUploadService';
+import { ManualUploadService } from '../service/ManualUploadService';
 import { cloneDeep } from 'lodash';
-import { FileHandlingService } from '../service/fileHandlingService';
+import { FileHandlingService } from '../service/FileHandlingService';
 import { uploadType } from '../helpers/consts';
 
 const manualUploadService = new ManualUploadService();
