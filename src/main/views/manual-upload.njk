@@ -26,8 +26,8 @@
           {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
           <div class="govuk-inset-text">
             {{ govukFileUpload({
-              id: "manual-upload",
-              name: "manual-upload",
+              id: "manual-file-upload",
+              name: "manual-file-upload",
               accept: ".json,.csv,.doc,.docx,.htm,.html",
               label: {
                 text: fileUploadText

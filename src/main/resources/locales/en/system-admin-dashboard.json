@@ -10,7 +10,7 @@
         {
             "title": "Upload Reference Data",
             "description": "Upload CSV location reference data",
-            "link": "manual-reference-data-upload"
+            "link": "reference-data-upload"
         },
         {
             "title": "Delete Court",
