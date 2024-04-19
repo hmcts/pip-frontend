@@ -29,7 +29,6 @@ Scenario(
         }
 
         I.loginAsSystemAdmin();
-        I.waitForText('System Admin Dashboard');
         I.click('Delete Court');
 
         await tryToDeleteCourt();

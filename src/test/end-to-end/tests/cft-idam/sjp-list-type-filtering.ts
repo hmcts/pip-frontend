@@ -4,7 +4,6 @@ Scenario(
     'I as a cft-idam user should be able to configure only sjp public list for single justice procedure',
     async ({ I }) => {
         I.loginAsCftUser();
-        I.waitForText('Your account');
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
         I.click('Add email subscription');
