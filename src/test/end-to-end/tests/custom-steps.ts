@@ -90,7 +90,6 @@ export = function () {
             this.click('Sign in');
         },
 
-
         loginAsCftUserInWelsh: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
             this.amOnPage('/sign-in');
             this.click('Cymraeg');
