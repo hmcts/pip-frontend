@@ -4,10 +4,10 @@ import { Response } from 'express';
 import sinon from 'sinon';
 import { ManualUploadService } from '../../../main/service/ManualUploadService';
 import { FileHandlingService } from '../../../main/service/FileHandlingService';
-import ManualReferenceDataUploadSummaryController from '../../../main/controllers/ManualReferenceDataUploadSummaryController';
+import ReferenceDataUploadSummaryController from '../../../main/controllers/ReferenceDataUploadSummaryController';
 
 const mockData = { fileName: 'fileName', foo: 'blah', file: '' };
-const manualReferenceDataUploadSummaryController = new ManualReferenceDataUploadSummaryController();
+const referenceDataUploadSummaryController = new ReferenceDataUploadSummaryController();
 const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadLocationDataPublication');
 
 const readFileStub = sinon.stub(FileHandlingService.prototype, 'readFileFromRedis');
@@ -19,7 +19,7 @@ removeFileStub.resolves('');
 uploadStub.withArgs({ ...mockData, file: '', userId: '1' }).resolves(false);
 
 describe('Reference manual manual upload summary controller', () => {
-    const i18n = { 'manual-reference-data-upload-summary': {} };
+    const i18n = { 'reference-data-upload-summary': {} };
     const request = mockRequest(i18n);
     const response = {
         render: () => {
@@ -32,14 +32,14 @@ describe('Reference manual manual upload summary controller', () => {
         it('should render reference manual data upload summary page', async () => {
             request.user = { id: '1' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-reference-data-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
             };
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('manual-reference-data-upload-summary', options);
+            responseMock.expects('render').once().withArgs('reference-data-upload-summary', options);
 
-            await manualReferenceDataUploadSummaryController.get(request, response);
+            await referenceDataUploadSummaryController.get(request, response);
             responseMock.verify();
         });
 
@@ -47,14 +47,14 @@ describe('Reference manual manual upload summary controller', () => {
             request.query = { error: 'true' };
             request.user = { id: '1' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-reference-data-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
             };
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('manual-reference-data-upload-summary', options);
+            responseMock.expects('render').once().withArgs('reference-data-upload-summary', options);
 
-            await manualReferenceDataUploadSummaryController.get(request, response);
+            await referenceDataUploadSummaryController.get(request, response);
             responseMock.verify();
         });
     });
@@ -63,28 +63,28 @@ describe('Reference manual manual upload summary controller', () => {
         it('should render reference data manual upload summary page with error', async () => {
             request.user = { emails: ['1'], oid: '1234' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-reference-data-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
             };
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('manual-reference-data-upload-summary', options);
+            responseMock.expects('render').once().withArgs('reference-data-upload-summary', options);
 
-            await manualReferenceDataUploadSummaryController.post(request, response);
+            await referenceDataUploadSummaryController.post(request, response);
             responseMock.verify();
         });
 
         it('should render reference data manual upload summary page with query params', async () => {
             request.query = { check: 'true' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-reference-data-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
             };
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('manual-reference-data-upload-summary', options);
+            responseMock.expects('render').once().withArgs('reference-data-upload-summary', options);
 
-            await manualReferenceDataUploadSummaryController.post(request, response);
+            await referenceDataUploadSummaryController.post(request, response);
             responseMock.verify();
         });
 
@@ -104,9 +104,9 @@ describe('Reference manual manual upload summary controller', () => {
 
             uploadStub.withArgs({ ...mockData, file: '' }).resolves(res);
 
-            responseMock.expects('redirect').once().withArgs('manual-reference-data-upload-confirmation');
+            responseMock.expects('redirect').once().withArgs('reference-data-upload-confirmation');
 
-            await manualReferenceDataUploadSummaryController.post(req, res);
+            await referenceDataUploadSummaryController.post(req, res);
             responseMock.verify();
         });
     });

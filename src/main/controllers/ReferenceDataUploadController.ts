@@ -5,12 +5,12 @@ import { FileHandlingService } from '../service/FileHandlingService';
 import { uploadType } from '../helpers/consts';
 
 const fileHandlingService = new FileHandlingService();
-export default class ManualReferenceDataUploadController {
+export default class ReferenceDataUploadController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const formValues = {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload']),
         };
-        res.render('manual-reference-data-upload', formValues);
+        res.render('reference-data-upload', formValues);
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
@@ -21,19 +21,19 @@ export default class ManualReferenceDataUploadController {
                 fileErrors: fileHandlingService.validateFileUpload(
                     req.file,
                     req.lng,
-                    'manual-reference-data-upload',
+                    'reference-data-upload',
                     uploadType.CSV
                 ),
             };
 
             const formValues = {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload']),
                 errors,
                 formData: req.body,
             };
 
             if (errors.fileErrors) {
-                res.render('manual-reference-data-upload', formValues);
+                res.render('reference-data-upload', formValues);
             } else {
                 const originalFileName = req.file['originalname'];
                 const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
@@ -41,7 +41,7 @@ export default class ManualReferenceDataUploadController {
 
                 req.body['fileName'] = originalFileName;
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
-                res.redirect('/manual-reference-data-upload-summary?check=true');
+                res.redirect('/reference-data-upload-summary?check=true');
             }
         }
     }

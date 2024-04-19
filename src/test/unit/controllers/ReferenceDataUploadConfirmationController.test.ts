@@ -1,13 +1,13 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import ManualReferenceDataUploadConfirmationController from '../../../main/controllers/ManualReferenceDataUploadConfirmationController';
+import ReferenceDataUploadConfirmationController from '../../../main/controllers/ReferenceDataUploadConfirmationController';
 
-const manualReferenceDataUploadConfirmationController = new ManualReferenceDataUploadConfirmationController();
+const referenceDataUploadConfirmationController = new ReferenceDataUploadConfirmationController();
 
 describe('Reference data file upload Confirmation Controller', () => {
     it('should render confirmation page', async () => {
-        const i18n = { 'manual-reference-data-upload-confirmation': {} };
+        const i18n = { 'reference-data-upload-confirmation': {} };
         const response = {
             render: () => {
                 return '';
@@ -19,11 +19,11 @@ describe('Reference data file upload Confirmation Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('manual-reference-data-upload-confirmation', {
-                ...i18n['manual-reference-data-upload-confirmation'],
+            .withArgs('reference-data-upload-confirmation', {
+                ...i18n['reference-data-upload-confirmation'],
             });
 
-        await manualReferenceDataUploadConfirmationController.get(request, response);
+        await referenceDataUploadConfirmationController.get(request, response);
         responseMock.verify();
     });
 });

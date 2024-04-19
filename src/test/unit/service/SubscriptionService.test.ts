@@ -1,6 +1,6 @@
 import { LocationService } from '../../../main/service/LocationService';
 import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
-import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import fs from 'fs';
 import path from 'path';

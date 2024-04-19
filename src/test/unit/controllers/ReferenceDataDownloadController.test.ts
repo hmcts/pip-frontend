@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
 import ReferenceDataDownloadController from '../../../main/controllers/ReferenceDataDownloadController';
 
 const fileStub = sinon.stub(LocationRequests.prototype, 'getLocationsCsv');

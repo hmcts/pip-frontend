@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
 
 const courtService = new LocationService();
 

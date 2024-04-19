@@ -1,13 +1,13 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import FileUploadConfirmationController from '../../../main/controllers/FileUploadConfirmationController';
+import ManualUploadConfirmationController from '../../../main/controllers/ManualUploadConfirmationController';
 
-const fileUploadConfirmationController = new FileUploadConfirmationController();
+const manualUploadConfirmationController = new ManualUploadConfirmationController();
 
-describe('File Upload Confirmation Controller', () => {
+describe('Manual Upload Confirmation Controller', () => {
     it('should render confirmation page', async () => {
-        const i18n = { 'file-upload-confirm': {} };
+        const i18n = { 'manual-upload-confirmation': {} };
         const response = {
             render: () => {
                 return '';
@@ -19,9 +19,9 @@ describe('File Upload Confirmation Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('file-upload-confirm', { ...i18n['file-upload-confirm'] });
+            .withArgs('manual-upload-confirmation', { ...i18n['manual-upload-confirmation'] });
 
-        await fileUploadConfirmationController.get(request, response);
+        await manualUploadConfirmationController.get(request, response);
         responseMock.verify();
     });
 });

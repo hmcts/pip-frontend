@@ -1,5 +1,5 @@
 import { SubscriptionService } from './SubscriptionService';
-import { SubscriptionRequests } from '../resources/requests//SubscriptionRequests';
+import { SubscriptionRequests } from '../resources/requests/SubscriptionRequests';
 import { DateTime } from 'luxon';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { Logger } from '@hmcts/nodejs-logging';

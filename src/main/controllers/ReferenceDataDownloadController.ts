@@ -1,6 +1,6 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { LocationRequests } from '../resources/requests//LocationRequests';
+import { LocationRequests } from '../resources/requests/LocationRequests';
 import { UserManagementService } from '../service/UserManagementService';
 
 const locationRequests = new LocationRequests();

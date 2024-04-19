@@ -2,7 +2,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { PublicationRequests } from '../../../main/resources/requests//PublicationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 
 const PAGE_URL = '/party-name-search-results?search=name';
 let htmlRes: Document;

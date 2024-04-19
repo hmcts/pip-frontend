@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { SubscriptionRequests } from '../resources/requests//SubscriptionRequests';
+import { SubscriptionRequests } from '../resources/requests/SubscriptionRequests';
 import { PendingSubscriptionsFromCache } from './PendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
 import { PublicationService } from './PublicationService';

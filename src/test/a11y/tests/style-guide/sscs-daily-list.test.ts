@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
-import { LocationRequests } from '../../../../main/resources/requests//LocationRequests';
+import { LocationRequests } from '../../../../main/resources/requests/LocationRequests';
 
 const sscsDailyListUrl = '/sscs-daily-list';
 const sscsDailyListAdditionalHearingsUrl = '/sscs-daily-list-additional-hearings';

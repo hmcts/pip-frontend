@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import sinon from 'sinon';
-import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const thirdPartyService = new ThirdPartyService();

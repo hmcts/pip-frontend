@@ -46,7 +46,7 @@ describe('Delete Court Subscription Data Success Page', () => {
         expect(links[5].innerHTML).contains('Continue deletion of ');
         expect(links[5].getAttribute('href')).contains('delete-court-reference-data-confirmation');
         expect(links[6].innerHTML).to.equal('Upload Reference Data');
-        expect(links[6].getAttribute('href')).contains('manual-reference-data-upload');
+        expect(links[6].getAttribute('href')).contains('reference-data-upload');
         expect(links[7].innerHTML).to.equal('Home');
         expect(links[7].getAttribute('href')).contains('system-admin-dashboard');
     });

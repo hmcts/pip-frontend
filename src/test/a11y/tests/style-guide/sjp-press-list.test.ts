@@ -3,7 +3,7 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
-import { LocationRequests } from '../../../../main/resources/requests//LocationRequests';
+import { LocationRequests } from '../../../../main/resources/requests/LocationRequests';
 
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';

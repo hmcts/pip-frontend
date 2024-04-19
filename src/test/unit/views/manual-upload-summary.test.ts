@@ -40,7 +40,7 @@ const mockData = {
     classificationName: 'Classified',
 };
 
-describe('File Upload Summary Page', () => {
+describe('Manual Upload Summary Page', () => {
     beforeAll(async () => {
         app.request['user'] = { roles: 'SYSTEM_ADMIN' };
         app.request['cookies'] = { formCookie: JSON.stringify(mockData) };
@@ -104,7 +104,7 @@ describe('File Upload Summary Page', () => {
     });
 });
 
-describe('File Upload Summary when classification mismatch', () => {
+describe('Manual Upload Summary when classification mismatch', () => {
     const clonedMockData = JSON.parse(JSON.stringify(mockData));
     clonedMockData['listType'] = 'SJP_PRESS_LIST';
 

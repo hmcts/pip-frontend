@@ -6,7 +6,7 @@ import { ManualUploadService } from '../../main/service/ManualUploadService';
 import { FileHandlingService } from '../../main/service/FileHandlingService';
 import { request as expressRequest } from 'express';
 
-const PAGE_URL = '/manual-reference-data-upload-summary';
+const PAGE_URL = '/reference-data-upload-summary';
 const mockCookie = { foo: 'blah' };
 const successCookie = { cookie: 'cookie' };
 
@@ -26,13 +26,13 @@ describe('Reference data Manual upload summary', () => {
     });
 
     describe('on GET', () => {
-        test('should return reference data file upload summary page', async () => {
+        test('should return reference data manual upload summary page', async () => {
             await request(app)
                 .get(PAGE_URL)
                 .expect(res => expect(res.status).to.equal(200));
         });
 
-        test('should return location data file upload summary page with error summary', async () => {
+        test('should return location data manual upload summary page with error summary', async () => {
             await request(app)
                 .get(`${PAGE_URL}?query=true`)
                 .expect(res => expect(res.status).to.equal(200));
@@ -64,7 +64,7 @@ describe('Reference data Manual upload summary', () => {
                 .send({ data: 'valid' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('manual-reference-data-upload-confirmation');
+                    expect(res.header['location']).to.equal('reference-data-upload-confirmation');
                 });
         });
     });

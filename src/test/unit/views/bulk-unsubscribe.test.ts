@@ -5,7 +5,7 @@ import { DateTime } from 'luxon';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import { LocationService } from '../../../main/service/LocationService';
 
 const PAGE_URL = '/bulk-unsubscribe';

@@ -4,7 +4,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/manual-upload';

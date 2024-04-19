@@ -20,16 +20,16 @@ export default class ManualUploadSummaryController {
         );
 
         req.query?.error === 'true'
-            ? res.render('file-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+            ? res.render('manual-upload-summary', {
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                   fileUploadData: {
                       ...manualUploadService.formatPublicationDates(formData, false),
                   },
                   displaySensitivityMismatch: sensitivityMismatch,
                   displayError: true,
               })
-            : res.render('file-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+            : res.render('manual-upload-summary', {
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                   displaySensitivityMismatch: sensitivityMismatch,
                   displayError: false,
                   fileUploadData: {
@@ -52,8 +52,8 @@ export default class ManualUploadSummaryController {
         );
 
         if (req.query?.check === 'true') {
-            res.render('file-upload-summary', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+            res.render('manual-upload-summary', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                 displaySensitivityMismatch: sensitivityMismatch,
                 displayError: false,
                 fileUploadData: {
@@ -72,10 +72,10 @@ export default class ManualUploadSummaryController {
                     `Publication with artefact id ${artefactId} successfully uploaded`
                 );
                 res.clearCookie('formCookie');
-                res.redirect('upload-confirmation');
+                res.redirect('manual-upload-confirmation');
             } else {
-                res.render('file-upload-summary', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['file-upload-summary']),
+                res.render('manual-upload-summary', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                     fileUploadData: {
                         ...manualUploadService.formatPublicationDates(formData, false),
                     },

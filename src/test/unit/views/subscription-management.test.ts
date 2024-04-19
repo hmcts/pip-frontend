@@ -1,7 +1,7 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { DateTime } from 'luxon';
-import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';

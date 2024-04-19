@@ -11,7 +11,7 @@ describe('Reference Data Manual upload', () => {
         test('should return reference data manual upload page', async () => {
             app.request['user'] = { roles: 'SYSTEM_ADMIN' };
             await request(app)
-                .get('/manual-reference-data-upload')
+                .get('/reference-data-upload')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
@@ -24,7 +24,7 @@ describe('Reference Data Manual upload', () => {
         });
         test('should render reference data manual upload page if errors present', async () => {
             await request(app)
-                .post('/manual-reference-data-upload')
+                .post('/reference-data-upload')
                 .expect(res => expect(res.status).to.equal(200));
         });
         test('should redirect to summary page', async () => {
@@ -33,10 +33,10 @@ describe('Reference Data Manual upload', () => {
             sinon.stub(ManualUploadService.prototype, 'validateFormFields').resolves(null);
             sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({});
             await request(app)
-                .post('/manual-reference-data-upload')
+                .post('/reference-data-upload')
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('/manual-reference-data-upload-summary?check=true');
+                    expect(res.header['location']).to.equal('/reference-data-upload-summary?check=true');
                 });
         });
     });

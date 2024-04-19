@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import { PublicationService } from '../../../main/service/PublicationService';
-import { PublicationRequests } from '../../../main/resources/requests//PublicationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 
 const userId = '123';

@@ -8,18 +8,18 @@ Scenario('I as a system admin should be able to upload reference data manually',
 
     I.loginAsSystemAdmin();
     I.see('Upload Reference Data');
-    I.click('#card-manual-reference-data-upload');
+    I.click('#card-reference-data-upload');
     I.see(
         'Prior to upload you must ensure the file is suitable for location data upload e.g. ' +
             'file should be in correct formats.'
     );
     I.see('Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB');
-    I.attachFile('#manual-reference-data-upload', CSV_FILE_PATH);
+    I.attachFile('#reference-data-upload', CSV_FILE_PATH);
     I.click('Continue');
     I.see('Check upload details');
     I.click('Change');
     I.see('Reference manual data upload');
-    I.attachFile('#manual-reference-data-upload', CSV_FILE_PATH);
+    I.attachFile('#reference-data-upload', CSV_FILE_PATH);
     I.click('Continue');
     I.click('Confirm');
     I.waitForText('Success');
@@ -42,10 +42,10 @@ Scenario(
     async ({ I }) => {
         I.loginAsSystemAdmin();
         I.see('Upload Reference Data');
-        I.click('#card-manual-reference-data-upload');
+        I.click('#card-reference-data-upload');
         I.click('Continue');
         I.waitForText('Please provide a file');
-        I.attachFile('#manual-reference-data-upload', INVALID_FILE_PATH);
+        I.attachFile('#reference-data-upload', INVALID_FILE_PATH);
         I.click('Continue');
         I.click('Confirm');
         I.waitForText('There is a problem');

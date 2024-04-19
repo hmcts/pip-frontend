@@ -1,7 +1,7 @@
 import { app } from '../../../main/app';
 import sinon from 'sinon';
-import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
-import { PublicationRequests } from '../../../main/resources/requests//PublicationRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { randomUUID } from 'crypto';
 import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
@@ -21,8 +21,8 @@ const adminRoutes = [
     { path: '/create-admin-account-summary' },
     { path: '/manual-upload' },
     { path: '/manual-upload-summary' },
+    { path: '/manual-upload-confirmation' },
     { path: '/media-applications' },
-    { path: '/upload-confirmation' },
     { path: '/media-account-review', parameter: '?applicantId=123' },
     { path: '/media-account-approval', parameter: '?applicantId=123' },
     { path: '/media-account-rejection', parameter: '?applicantId=123' },

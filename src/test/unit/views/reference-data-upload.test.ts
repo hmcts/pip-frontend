@@ -4,10 +4,10 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { LocationRequests } from '../../../main/resources/requests//LocationRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
 import { request as expressRequest } from 'express';
 
-const PAGE_URL = '/manual-reference-data-upload';
+const PAGE_URL = '/reference-data-upload';
 const headingClass = 'govuk-heading-xl';
 const insetTextClass = 'govuk-inset-text';
 const linkClass = 'govuk-link';
@@ -96,7 +96,7 @@ describe('Reference Data Manual upload page', () => {
         });
 
         it('should display file too large error', () => {
-            const fileError = htmlRes.getElementById('manual-reference-data-upload-error');
+            const fileError = htmlRes.getElementById('reference-data-upload-error');
             expect(fileError.innerHTML).contains(
                 'File too large, please upload file smaller than 2MB',
                 'Could not find file error'

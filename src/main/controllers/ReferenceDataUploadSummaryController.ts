@@ -9,17 +9,17 @@ const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();
 const userManagementService = new UserManagementService();
 
-export default class ManualReferenceDataUploadSummaryController {
+export default class ReferenceDataUploadSummaryController {
     public get(req: PipRequest, res: Response): void {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         req.query?.error === 'true'
-            ? res.render('manual-reference-data-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
+            ? res.render('reference-data-upload-summary', {
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                   displayError: true,
                   fileUploadData: formData,
               })
-            : res.render('manual-reference-data-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
+            : res.render('reference-data-upload-summary', {
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                   displayError: false,
                   fileUploadData: formData,
               });
@@ -31,8 +31,8 @@ export default class ManualReferenceDataUploadSummaryController {
         formData.file = await fileHandlingService.readFileFromRedis(req.user['userId'], formData.fileName);
 
         if (req.query?.check === 'true') {
-            res.render('manual-reference-data-upload-summary', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
+            res.render('reference-data-upload-summary', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                 displayError: false,
                 fileUploadData: formData,
             });
@@ -56,10 +56,10 @@ export default class ManualReferenceDataUploadSummaryController {
                     'Reference data successfully uploaded'
                 );
                 res.clearCookie('formCookie');
-                res.redirect('manual-reference-data-upload-confirmation');
+                res.redirect('reference-data-upload-confirmation');
             } else {
-                res.render('manual-reference-data-upload-summary', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-reference-data-upload-summary']),
+                res.render('reference-data-upload-summary', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                     fileUploadData: formData,
                     displayError: true,
                 });

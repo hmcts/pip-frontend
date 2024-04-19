@@ -17,7 +17,7 @@ export interface PipRequest extends Request {
             'create-media-account': object;
             'delete-subscription': object;
             error: object;
-            'file-upload-confirm': object;
+            'manual-upload-confirmation': object;
             home: object;
             'list-option': object;
             'location-name-search': object;

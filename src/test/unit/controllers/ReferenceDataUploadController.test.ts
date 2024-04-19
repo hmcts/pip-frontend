@@ -3,12 +3,12 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import { ManualUploadService } from '../../../main/service/ManualUploadService';
 import { FileHandlingService } from '../../../main/service/FileHandlingService';
-import ManualReferenceDataUploadController from '../../../main/controllers/ManualReferenceDataUploadController';
+import ReferenceDataUploadController from '../../../main/controllers/ReferenceDataUploadController';
 
-const manualReferenceDataUploadController = new ManualReferenceDataUploadController();
+const referenceDataUploadController = new ReferenceDataUploadController();
 describe('Reference Data Manual Upload Controller', () => {
     const i18n = {
-        'manual-reference-data-upload': {},
+        'reference-data-upload': {},
         error: {},
     };
     const request = mockRequest(i18n);
@@ -21,15 +21,15 @@ describe('Reference Data Manual Upload Controller', () => {
                 return '';
             },
         } as unknown as Response;
-        it('should render the manual-reference-data-upload page', async () => {
+        it('should render the reference-data-upload page', async () => {
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n['manual-reference-data-upload'],
+                ...i18n['reference-data-upload'],
             };
 
-            responseMock.expects('render').once().withArgs('manual-reference-data-upload', expectedData);
+            responseMock.expects('render').once().withArgs('reference-data-upload', expectedData);
 
-            await manualReferenceDataUploadController.get(request, response);
+            await referenceDataUploadController.get(request, response);
             responseMock.verify();
         });
     });
@@ -57,7 +57,7 @@ describe('Reference Data Manual Upload Controller', () => {
                 .once()
                 .withArgs('error', { ...i18n.error });
 
-            await manualReferenceDataUploadController.post(req, response);
+            await referenceDataUploadController.post(req, response);
             responseMock.verify();
         });
 
@@ -69,14 +69,14 @@ describe('Reference Data Manual Upload Controller', () => {
             } as unknown as Response;
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n['manual-reference-data-upload'],
+                ...i18n['reference-data-upload'],
                 errors: { fileErrors: 'error' },
                 formData: request.body,
             };
 
-            responseMock.expects('render').once().withArgs('manual-reference-data-upload', expectedData);
+            responseMock.expects('render').once().withArgs('reference-data-upload', expectedData);
 
-            await manualReferenceDataUploadController.post(request, response);
+            await referenceDataUploadController.post(request, response);
             responseMock.verify();
         });
 
@@ -97,9 +97,9 @@ describe('Reference Data Manual Upload Controller', () => {
             request.file = testFile;
             request.user = { oid: '1234' };
 
-            responseMock.expects('redirect').once().withArgs('/manual-reference-data-upload-summary?check=true');
+            responseMock.expects('redirect').once().withArgs('/reference-data-upload-summary?check=true');
 
-            await manualReferenceDataUploadController.post(request, response);
+            await referenceDataUploadController.post(request, response);
             responseMock.verify();
             sinon.assert.called(fileUploadStub);
         });

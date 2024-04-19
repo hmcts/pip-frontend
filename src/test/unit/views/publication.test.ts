@@ -5,7 +5,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { LocationService } from '../../../main/service/LocationService';
-import { PublicationRequests } from '../../../main/resources/requests//PublicationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 
 const PAGE_URL = '/summary-of-publications?locationId=0';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/summaryOfPublications.json'), 'utf-8');

@@ -3,12 +3,12 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
 
-const PAGE_URL = '/upload-confirmation';
+const PAGE_URL = '/manual-upload-confirmation';
 let htmlRes: Document;
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-describe('File Upload Confirmation Page', () => {
+describe('Manual Upload Confirmation Page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)

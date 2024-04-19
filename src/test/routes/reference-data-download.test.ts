@@ -3,7 +3,7 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
 const Blob = require('node-blob');
-import { LocationRequests } from '../../main/resources/requests//LocationRequests';
+import { LocationRequests } from '../../main/resources/requests/LocationRequests';
 
 const mockCsv = new Blob(['testCsv']);
 

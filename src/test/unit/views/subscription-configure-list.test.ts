@@ -1,6 +1,6 @@
 import { app } from '../../../main/app';
 import request from 'supertest';
-import { SubscriptionRequests } from '../../../main/resources/requests//SubscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
