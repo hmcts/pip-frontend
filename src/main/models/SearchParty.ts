@@ -1,5 +1,5 @@
-import { SearchCase } from './searchCase';
-import { SearchIndividual } from './searchIndividual';
+import { SearchCase } from './SearchCase';
+import { SearchIndividual } from './SearchIndividual';
 
 export interface SearchParty {
     cases: SearchCase[];

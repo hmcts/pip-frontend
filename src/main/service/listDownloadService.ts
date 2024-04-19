@@ -1,5 +1,5 @@
 import { ChannelManagementRequests } from '../resources/requests/channelManagementRequests';
-import { FileType } from '../models/consts';
+import { FileType } from '../helpers/consts';
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import stream from 'stream';
 

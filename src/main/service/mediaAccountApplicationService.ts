@@ -1,6 +1,6 @@
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
 import { CreateAccountService } from './createAccountService';
-import { MediaAccount } from '../models/mediaAccount';
+import { MediaAccount } from '../models/MediaAccount';
 import { DateTime } from 'luxon';
 import { LogHelper } from '../resources/logging/logHelper';
 

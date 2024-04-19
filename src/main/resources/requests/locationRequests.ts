@@ -1,4 +1,4 @@
-import { Location } from '../../models/location';
+import { Location } from '../../models/Location';
 import { dataManagementApi } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LogHelper } from '../logging/logHelper';

@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { FileHandlingService } from '../service/fileHandlingService';
 import { cloneDeep } from 'lodash';
-import { uploadType } from '../models/consts';
+import { uploadType } from '../helpers/consts';
 import { CreateAccountService } from '../service/createAccountService';
 
 const fileHandlingService = new FileHandlingService();

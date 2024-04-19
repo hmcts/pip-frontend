@@ -5,8 +5,8 @@ import { UserSubscriptions } from '../models/UserSubscriptions';
 import { PublicationService } from './publicationService';
 import { LocationService } from './locationService';
 import { FilterService } from './filterService';
-import { Location } from '../models/location';
-import { ListType } from '../models/listType';
+import { Location } from '../models/Location';
+import { ListType } from '../models/ListType';
 import { AToZHelper } from '../helpers/aToZHelper';
 import { caseSubscriptionSorter, locationSubscriptionSorter } from '../helpers/sortHelper';
 

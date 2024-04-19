@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import { formattedRoles } from '../models/consts';
+import { formattedRoles } from '../helpers/consts';
 import { UserManagementService } from '../service/userManagementService';
 
 const accountManagementRequests = new AccountManagementRequests();

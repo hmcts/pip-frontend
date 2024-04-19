@@ -1,4 +1,4 @@
-import { partyRoleMappings } from '../models/consts';
+import { partyRoleMappings } from '../helpers/consts';
 import { DateTime } from 'luxon';
 
 const timeZone = 'Europe/London';

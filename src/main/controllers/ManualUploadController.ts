@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { ManualUploadService } from '../service/manualUploadService';
 import { cloneDeep } from 'lodash';
 import { FileHandlingService } from '../service/fileHandlingService';
-import { uploadType } from '../models/consts';
+import { uploadType } from '../helpers/consts';
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();

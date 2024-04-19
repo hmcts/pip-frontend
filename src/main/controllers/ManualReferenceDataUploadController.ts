@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { FileHandlingService } from '../service/fileHandlingService';
-import { uploadType } from '../models/consts';
+import { uploadType } from '../helpers/consts';
 
 const fileHandlingService = new FileHandlingService();
 export default class ManualReferenceDataUploadController {

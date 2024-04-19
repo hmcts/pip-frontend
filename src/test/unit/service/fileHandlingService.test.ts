@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import fs from 'fs';
 import { multerFile } from '../mocks/multerFile';
 import { FileHandlingService } from '../../../main/service/fileHandlingService';
-import { uploadType } from '../../../main/models/consts';
+import { uploadType } from '../../../main/helpers/consts';
 const { redisClient } = require('../../../main/cacheManager');
 
 const fileHandlingService = new FileHandlingService();

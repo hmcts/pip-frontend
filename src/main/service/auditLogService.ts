@@ -2,7 +2,7 @@ import { AccountManagementRequests } from '../resources/requests/accountManageme
 
 const accountManagementRequests = new AccountManagementRequests();
 import { DateTime } from 'luxon';
-import { formattedProvenances, formattedRoles } from '../models/consts';
+import { formattedProvenances, formattedRoles } from '../helpers/consts';
 
 export class AuditLogService {
     /**

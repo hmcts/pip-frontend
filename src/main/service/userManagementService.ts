@@ -1,5 +1,5 @@
 import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import { formattedProvenances, formattedRoles } from '../models/consts';
+import { formattedProvenances, formattedRoles } from '../helpers/consts';
 import { DateTime } from 'luxon';
 import { UserSearchCriteria } from '../models/UserSearchCriteria';
 

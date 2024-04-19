@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { fileTypeMappings } from '../models/consts';
+import { fileTypeMappings } from '../helpers/consts';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 

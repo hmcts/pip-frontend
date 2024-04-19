@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { reSignInUrls } from '../models/consts';
+import { reSignInUrls } from '../helpers/consts';
 
 export default class SessionExpiredController {
     public get(req: PipRequest, res: Response): void {

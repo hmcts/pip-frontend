@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { ListDownloadService } from '../service/listDownloadService';
 import { cloneDeep } from 'lodash';
-import { fileTypeMappings, FileType } from '../models/consts';
+import { fileTypeMappings, FileType } from '../helpers/consts';
 import { PublicationService } from '../service/publicationService';
 import { HttpStatusCode } from 'axios';
 

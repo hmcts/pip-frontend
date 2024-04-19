@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import { DateTime } from 'luxon';
 import { PublicationService } from '../../service/publicationService';
 import { LocationService } from '../../service/locationService';
-import { CrownFirmListService } from '../../service/listManipulation/crownFirmListService';
+import { CrownFirmListService } from '../../service/listManipulation/CrownFirmListService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { ListParseHelperService } from '../../service/listParseHelperService';
 import { HttpStatusCode } from 'axios';

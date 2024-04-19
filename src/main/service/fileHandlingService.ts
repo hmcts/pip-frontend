@@ -1,4 +1,4 @@
-import { allowedFileTypes, allowedImageTypes, allowedCsvFileTypes, uploadType } from '../models/consts';
+import { allowedFileTypes, allowedImageTypes, allowedCsvFileTypes, uploadType } from '../helpers/consts';
 import fs from 'fs';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 

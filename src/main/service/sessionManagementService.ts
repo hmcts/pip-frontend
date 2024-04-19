@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
 import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
-import { reSignInUrls } from '../models/consts';
+import { reSignInUrls } from '../helpers/consts';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const defaultSessionExpiry = 60 * 60 * 1000;

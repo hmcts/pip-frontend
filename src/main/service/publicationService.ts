@@ -1,10 +1,10 @@
 import { PublicationRequests } from '../resources/requests/publicationRequests';
 import { Artefact } from '../models/Artefact';
-import { ListType } from '../models/listType';
-import { SearchObject } from '../models/searchObject';
+import { ListType } from '../models/ListType';
+import { SearchObject } from '../models/SearchObject';
 import { HttpStatusCode } from 'axios';
-import { SearchParty } from '../models/searchParty';
-import { SearchCase } from '../models/searchCase';
+import { SearchParty } from '../models/SearchParty';
+import { SearchCase } from '../models/SearchCase';
 
 const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
