@@ -202,7 +202,7 @@ describe('Manual upload page', () => {
         });
 
         it('should display file too large error', () => {
-            const fileError = htmlRes.getElementById('manual-file-upload-error');
+            const fileError = htmlRes.getElementById('manual-upload-error');
             expect(fileError.innerHTML).contains(
                 'File too large, please upload file smaller than 2MB',
                 'Could not find file error'

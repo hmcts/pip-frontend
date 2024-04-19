@@ -16,7 +16,7 @@ const summaryKeys = [
 ];
 const manualUploadLinks = [
     '#search-input',
-    '#manual-file-upload',
+    '#manual-upload',
     '#listType',
     '#content-date-from-day',
     '#classification',
