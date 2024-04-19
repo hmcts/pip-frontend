@@ -10,7 +10,7 @@ Scenario('I as a system admin should be able to sign-in with the valid credentia
 Scenario(
     'I as a system admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginAsSystemAdmin('', '');
+        I.loginTestSystemAdmin('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -19,7 +19,7 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginAsSystemAdmin('email@justice.gov.uk', 'password');
+        I.loginTestSystemAdmin('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -27,21 +27,20 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginAsSystemAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestSystemAdmin('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
 
 Scenario('I as a admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsAdmin();
-    I.waitForText('Your Dashboard');
     I.logout();
 }).tag('@CrossBrowser');
 
 Scenario(
     'I as a admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginAsAdmin('', '');
+        I.loginTestAdmin('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -50,7 +49,7 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginAsAdmin('email@justice.gov.uk', 'password');
+        I.loginTestAdmin('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -58,7 +57,7 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginAsAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestAdmin('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
@@ -75,14 +74,13 @@ Scenario('I as a admin should be able to see the beta tag and feedback link when
 
 Scenario('I as a media user should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsMediaUser();
-    I.waitForText('Your account');
     I.logout();
 }).tag('@CrossBrowser');
 
 Scenario(
     'I as a media user should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginAsMediaUser('', '');
+        I.loginTestMediaUser('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -91,7 +89,7 @@ Scenario(
 Scenario(
     'I as a media user should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginAsMediaUser('email@justice.gov.uk', 'password');
+        I.loginTestMediaUser('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -99,7 +97,7 @@ Scenario(
 Scenario(
     'I as a media user should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginAsMediaUser('email..@justice.gov.uk', 'password');
+        I.loginTestMediaUser('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
@@ -118,7 +116,6 @@ Scenario('I as a media user should be able to see the beta tag and feedback link
 
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCftUser();
-    I.waitForText('Your account');
     I.logout();
 }).tag('@CrossBrowser');
 
@@ -131,7 +128,7 @@ Scenario('I as a CFT user should be able to sign-in with the valid credentials i
 Scenario(
     'I as a CFT user should be able to see proper error message when email is invalid in English',
     async ({ I }) => {
-        I.loginAsCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
+        I.loginTestCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
         I.waitForText(
             'You have successfully signed into your MyHMCTS account. Unfortunately, ' +
                 'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
@@ -151,7 +148,7 @@ Scenario('I as a CFT user should be able to see proper error message when email 
 Scenario(
     'I as a CFT user should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginAsCftUser('', '');
+        I.loginTestCftUser('', '');
         I.waitForText('Email address cannot be blank');
         I.see('Password cannot be blank');
     }
@@ -160,7 +157,7 @@ Scenario(
 Scenario(
     'I as a CFT user should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginAsCftUser('email@justice.gov.uk', 'password');
+        I.loginTestCftUser('email@justice.gov.uk', 'password');
         I.waitForText('Incorrect email or password');
     }
 ).tag('@Nightly');
@@ -168,7 +165,7 @@ Scenario(
 Scenario(
     'I as a CFT user should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginAsCftUser('email..justice.gov.uk', 'password');
+        I.loginTestCftUser('email..justice.gov.uk', 'password');
         I.waitForText('Email address is not valid');
         I.see('Email address is not valid');
     }
@@ -177,7 +174,7 @@ Scenario(
 Scenario(
     'I as a media user should see the media rejected login screen when logging in via the admin flow',
     async ({ I }) => {
-        I.loginAsAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
+        I.loginTestAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'
@@ -189,7 +186,7 @@ Scenario(
 Scenario(
     'I as a admin user should see the admin rejected login screen when logging in via the media flow',
     async ({ I }) => {
-        I.loginAsMediaUser(testConfig.ADMIN_USERNAME, testConfig.ADMIN_PASSWORD);
+        I.loginTestMediaUser(testConfig.ADMIN_USERNAME, testConfig.ADMIN_PASSWORD);
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user'

@@ -14,6 +14,17 @@ export = function () {
             this.waitForText('System Admin Dashboard');
         },
 
+        loginTestSystemAdmin: function (
+            username = testConfig.SYSTEM_ADMIN_USERNAME,
+            password = testConfig.SYSTEM_ADMIN_PASSWORD
+        ) {
+            this.amOnPage('/system-admin-dashboard');
+            this.see('Sign in with your email address');
+            this.fillField('#email', secret(username));
+            this.fillField('#password', secret(password));
+            this.click('Sign in');
+        },
+
         loginAsAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
             this.amOnPage('/admin-dashboard');
             this.see('Sign in with your email address');
@@ -21,6 +32,14 @@ export = function () {
             this.fillField('#password', secret(password));
             this.click('Sign in');
             this.waitForText('Your Dashboard');
+        },
+
+        loginTestAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
+            this.amOnPage('/admin-dashboard');
+            this.see('Sign in with your email address');
+            this.fillField('#email', secret(username));
+            this.fillField('#password', secret(password));
+            this.click('Sign in');
         },
 
         loginAsMediaUser: function (
@@ -37,6 +56,19 @@ export = function () {
             this.waitForText('Your account');
         },
 
+        loginTestMediaUser: function (
+            username = testConfig.MEDIA_USER_USERNAME,
+            password = testConfig.MEDIA_USER_PASSWORD
+        ) {
+            this.amOnPage('/sign-in');
+            this.click('With a Court and tribunal hearings account');
+            this.click('Continue');
+            this.see('Sign in with your email address');
+            this.fillField('#email', secret(username));
+            this.fillField('#password', secret(password));
+            this.click('Sign in');
+        },
+
         loginAsCftUser: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
             this.amOnPage('/sign-in');
             this.click('With a MyHMCTS account');
@@ -47,6 +79,17 @@ export = function () {
             this.click('Sign in');
             this.waitForText('Your account');
         },
+
+        loginTestCftUser: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
+            this.amOnPage('/sign-in');
+            this.click('With a MyHMCTS account');
+            this.click('Continue');
+            this.see('Sign in');
+            this.fillField('#username', secret(username));
+            this.fillField('#password', secret(password));
+            this.click('Sign in');
+        },
+
 
         loginAsCftUserInWelsh: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
             this.amOnPage('/sign-in');
