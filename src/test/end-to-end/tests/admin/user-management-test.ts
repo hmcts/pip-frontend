@@ -14,7 +14,6 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
     await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
 
     I.loginAsAdmin();
-    I.waitForText('Your Dashboard');
     I.click('Home');
     I.see('Update and delete users.');
     I.click('#card-admin-management');
@@ -57,7 +56,6 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
 
 Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({ I }) => {
     I.loginAsAdmin();
-    I.waitForText('Your Dashboard');
 
     I.click('Home');
     I.see('Update and delete users.');

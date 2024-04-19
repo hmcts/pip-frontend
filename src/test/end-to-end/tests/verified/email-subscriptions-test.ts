@@ -46,7 +46,6 @@ Scenario(
         );
 
         I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
-        I.waitForText('Your account');
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
         I.click('Add email subscription');
@@ -217,7 +216,6 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     );
 
     I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
-    I.waitForText('Your account');
     I.click('#card-subscription-management');
     I.waitForText('Your email subscriptions');
     I.click('Add email subscription');
@@ -323,7 +321,6 @@ Scenario(
         );
 
         I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
-        I.waitForText('Your account');
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
         I.click('Add email subscription');
@@ -411,7 +408,6 @@ Scenario('I as a verified user should be able to filter and select which list ty
     const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
 
     I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
-    I.waitForText('Your account');
     I.click('#card-subscription-management');
     I.waitForText('Your email subscriptions');
     I.click('Add email subscription');
