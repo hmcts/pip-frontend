@@ -2,7 +2,7 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
-import {MediaAccountApplicationService} from "../../../main/service/MediaAccountApplicationService";
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 
 const PAGE_URL = '/admin-dashboard';
 const pageTitleValue = 'Staff dashboard';
