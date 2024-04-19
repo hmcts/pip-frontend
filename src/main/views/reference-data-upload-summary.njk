@@ -24,7 +24,7 @@
   {% endif %}
   <div class="parent-box">
     <h1 class="govuk-heading-l">{{ header }}</h1>
-    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-reference-data-upload-summary">
+    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="reference-data-upload-summary">
       {{ govukSummaryList({
         rows: [
           {
@@ -37,7 +37,7 @@
             actions: {
             items: [
               {
-                href: "manual-reference-data-upload#manual-reference-data-upload",
+                href: "reference-data-upload#reference-data-upload",
                 text: actionName,
                 visuallyHiddenText: fileKey
               }
