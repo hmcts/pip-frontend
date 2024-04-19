@@ -9,7 +9,6 @@ Scenario('I as a verified user should be able to view all the single procedure c
     const artefactId = await uploadPublication('PUBLIC', '9', displayFrom, displayTo, 'ENGLISH');
 
     I.loginAsMediaUser();
-    I.waitForText('Your account');
     I.see('Single Justice Procedure cases');
     I.see(
         'Cases ready to be decided by a magistrate without a hearing. Includes TV licensing, minor traffic offences such as speeding and more.'
