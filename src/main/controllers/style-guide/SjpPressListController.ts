@@ -20,7 +20,6 @@ const listDownloadService = new ListDownloadService();
 
 const sjpPressAll = 'single-justice-procedure-press';
 const sjpPressDelta = 'single-justice-procedure-press-new-cases';
-const sjpPressAllPath = `style-guide/${sjpPressAll}`;
 
 export default class SjpPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -58,7 +57,7 @@ export default class SjpPressListController {
                 };
             }
 
-            res.render(sjpPressAllPath, {
+            res.render(`style-guide/${sjpPressAll}`, {
                 ...cloneDeep(languageResource),
                 sjpData: filter.sjpCases,
                 totalHearings: filter.sjpCases.length,

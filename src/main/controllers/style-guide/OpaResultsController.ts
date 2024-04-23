@@ -16,7 +16,6 @@ const crimeListsService = new CrimeListsService();
 const opaResultsService = new OpaResultsService();
 
 const listType = 'opa-results';
-const listPath = `style-guide/${listType}`;
 
 export default class OpaResultsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -34,7 +33,7 @@ export default class OpaResultsController {
             const locationName = req.lng === 'cy' ? location.welshName : location.name;
             const listData = opaResultsService.manipulateData(JSON.stringify(jsonData), req.lng);
 
-            res.render(listPath, {
+            res.render(`style-guide/${listType}`, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,

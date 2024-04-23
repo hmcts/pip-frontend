@@ -12,7 +12,6 @@ const helperService = new ListParseHelperService();
 const iacService = new IacDailyListService();
 
 const listType = 'iac-daily-list';
-const listPath = `style-guide/${listType}`;
 
 export default class IacDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -27,7 +26,7 @@ export default class IacDailyListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            res.render(listPath, {
+            res.render(`style-guide/${listType}`, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
