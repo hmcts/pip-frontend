@@ -37,9 +37,19 @@ describe('formatSJPPressList', () => {
         expect(data[0].dob).to.equal('1 January 1801');
     });
 
+    it('should return empty date of birth if missing', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[3].dob).to.be.empty;
+    });
+
     it('should return age', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
         expect(data[0].age).to.equal(200);
+    });
+
+    it('should return age value of zero if missing', async () => {
+        const data = await sjpPressListService.formatSJPPressList(rawSJPData);
+        expect(data[3].age).to.equal(0);
     });
 
     it('should return case URN', async () => {

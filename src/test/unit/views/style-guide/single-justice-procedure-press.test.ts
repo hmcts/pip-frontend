@@ -22,7 +22,6 @@ const summaryHeadingText = 'What are Single Justice Procedure cases?';
 const listText = 'List for 14 February 2022';
 const offenderIndividualName = 'Test Name';
 const offenderOrganisationName = `Accused's org name`;
-const offenderDateOfBirth = '1 January 1801';
 const offenderCaseNumber = 'Case URN';
 const offenderIndividualAddress = 'Line 1 Line 2, Test Town, Test County, TEST POSTCODE';
 const offenderOrganisationAddress = 'London, London, TEST POSTCODE';
@@ -166,12 +165,22 @@ describe('Single Justice Procedure List page', () => {
             expect(offenderData[0].innerHTML).contains(offenderIndividualName, 'Could not find the offender name');
         });
 
-        it('should have offender date of birth', () => {
+        it('should have offender date of birth and age', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
             expect(offenderData[1].innerHTML).contains(
-                offenderDateOfBirth,
+                '1 January 1801 (200)',
                 'Could not find the offender date of birth'
             );
+        });
+
+        it('should have offender date of birth only if age missing', () => {
+            const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+            expect(offenderData[11].innerHTML.replace(/\n/g, '').trim()).equals('1 January 1980');
+        });
+
+        it('should not have offender date of birth and age if fields missing', () => {
+            const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
+            expect(offenderData[16].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
         });
 
         it('should have offender Case Reference', () => {
