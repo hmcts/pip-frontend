@@ -110,8 +110,7 @@
                                                         "partyRole": "ACCUSED",
                                                         "individualDetails": {
                                                             "individualSurname": "Name",
-                                                            "dateOfBirth": "01/01/1801",
-                                                            "age": 200,
+                                                            "dateOfBirth": "01/01/1980",
                                                             "title": "Mr",
                                                             "individualMiddleName": "M"
                                                         }
@@ -148,8 +147,6 @@
                                                         "partyRole": "ACCUSED",
                                                         "individualDetails": {
                                                             "individualForenames": "Test",
-                                                            "dateOfBirth": "01/01/1801",
-                                                            "age": 200,
                                                             "address": {}
                                                         }
                                                     }
