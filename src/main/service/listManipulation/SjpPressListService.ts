@@ -76,7 +76,7 @@ export class SjpPressListService {
         return {
             name: listParseHelperService.createIndividualDetails(individualDetails),
             dob: individualDetails.dateOfBirth ? this.formatDateOfBirth(individualDetails) : '',
-            age: individualDetails.age ? individualDetails.age: 0,
+            age: individualDetails.age ? individualDetails.age : 0,
             address: individualDetails.address ? this.buildAddress(individualDetails.address) : '',
             postcode: individualDetails.address?.postCode ? individualDetails.address?.postCode : '',
         };
