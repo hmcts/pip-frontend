@@ -21,10 +21,9 @@
     <details class="govuk-details" data-module="govuk-details" open>
       <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformationHeading }}</span></summary>
       <div class="govuk-details__text">
-        {% set venueContact = listData['venue']['venueContact'] %}
         <p>{{ importantInformationP1 }}</p>
         <p>{{ importantInformationP2 }}</p>
-        <p>{{ venueContact["venueEmail"] }} {{ venueContact["venueTelephone"] }}</p>
+        <p>contactia@justice.gov.uk 03001231711</p>
         <p>{{ importantInformationP3 }}</p>
       </div>
     </details>
@@ -72,7 +71,7 @@
                         <th scope="col" class="govuk-table__header" aria-sort="none">{{ respondent }}</th>
                         <th scope="col" class="govuk-table__header" aria-sort="none">{{ interpreterLanguage }}</th>
                         <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingChannel }}</th>
-                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ linkCases }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingType }}</th>
                       </tr>
                       </thead>
                       <tbody class="govuk-table__body">
@@ -94,7 +93,7 @@
                               <td class="govuk-table__cell">{{ case['prosecutingAuthority'] }}</td>
                               <td class="govuk-table__cell">{{ case['language'] }}</td>
                               <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
-                              <td class="govuk-table__cell" data-sort-value="{{ linkedCasesSortValue }}">{{ case['formattedLinkedCases'] }}</td>
+                              <td class="govuk-table__cell" data-sort-value="{{ hearingType}}">{{ hearing['hearingType'] }}</td>
                             </tr>
                           {% endfor %}
                         {% endfor %}
