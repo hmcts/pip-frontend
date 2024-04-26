@@ -3,15 +3,11 @@
         "publicationDate": "2022-08-31T10:00:00.001Z"
     },
     "venue": {
-        "venueName": "This is the venue name",
-        "venueContact": {
-            "venueTelephone": "01234 123 123",
-            "venueEmail": "a@b.com"
-        }
+        "venueName": "This is the venue name"
     },
     "courtLists": [
         {
-            "courtListName": "Bail list",
+            "courtListName": "Bail List",
             "courtHouse": {
                 "courtRoom": [
                     {
@@ -41,12 +37,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "1 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -91,12 +81,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "English",
                                                         "party": [
                                                             {
@@ -146,20 +130,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "123",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "456",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "999",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -216,12 +186,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "1 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -260,12 +224,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "English",
                                                         "party": [
                                                             {
@@ -309,20 +267,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "123",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "456",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "999",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -387,12 +331,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "1 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -431,12 +369,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "English",
                                                         "party": [
                                                             {
@@ -480,20 +412,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "123",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "456",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "999",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -537,12 +455,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "1 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -581,12 +493,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 2",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "English",
                                                         "party": [
                                                             {
@@ -630,20 +536,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "123",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "456",
-                                                                "name": "A Vs B"
-                                                            },
-                                                            {
-                                                                "caseId": "999",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -676,7 +568,7 @@
             }
         },
         {
-            "courtListName": "Float list",
+            "courtListName": "Non Bail list",
             "courtHouse": {
                 "courtRoom": [
                     {
@@ -716,12 +608,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {
@@ -809,12 +695,6 @@
                                                         "caseNumber": "12341234",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "caseType": "case type",
-                                                        "caseLinked": [
-                                                            {
-                                                                "caseId": "1234",
-                                                                "name": "A Vs B"
-                                                            }
-                                                        ],
                                                         "language": "French",
                                                         "party": [
                                                             {

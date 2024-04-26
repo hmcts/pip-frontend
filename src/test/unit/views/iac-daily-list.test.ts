@@ -9,7 +9,6 @@ import { expect } from 'chai';
 const PAGE_URL = '/iac-daily-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
-const summaryText = 'govuk-details__text';
 const paragraphClass = 'govuk-body';
 const courtListClass = 'site-address';
 const courtRoomClass = 'govuk-accordion__section-button';
@@ -46,11 +45,6 @@ describe('IAC daily cause list page', () => {
         expect(summary[0].innerHTML).contains('Important information', 'Could not find the display summary heading');
     });
 
-    it('should display venue contact email and phone number in summary text', () => {
-        const summary = htmlRes.getElementsByClassName(summaryText);
-        expect(summary[0].innerHTML).contains('a@b.com 01234 123 123', 'Could not find the court name in summary text');
-    });
-
     it('should display list for text', () => {
         const listForText = htmlRes.getElementsByClassName(paragraphClass)[4];
         expect(listForText.innerHTML).contains('List for ');
@@ -68,8 +62,8 @@ describe('IAC daily cause list page', () => {
 
     it('should display the court list name on the page', () => {
         const courtListText = htmlRes.getElementsByClassName(courtListClass);
-        expect(courtListText[0].innerHTML).contains('Bail list');
-        expect(courtListText[1].innerHTML).contains('Float list');
+        expect(courtListText[0].innerHTML).contains('Bail List');
+        expect(courtListText[1].innerHTML).contains('Non Bail list');
     });
 
     it('should display the court room name on the page', () => {
@@ -96,5 +90,10 @@ describe('IAC daily cause list page', () => {
     it('should display session channel if sitting channel is not present', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[26].innerHTML).contains('VIDEO HEARING,');
+    });
+
+    it('should display hearing type if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[6].innerHTML).contains('Directions');
     });
 });
