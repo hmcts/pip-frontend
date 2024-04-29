@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/delete-court-publication-confirmation?locationId=1';

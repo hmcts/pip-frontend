@@ -1,9 +1,9 @@
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { CreateAccountService } from '../service/createAccountService';
-import { UserManagementService } from '../service/userManagementService';
-import { formattedRoles } from '../models/consts';
+import { CreateAccountService } from '../service/CreateAccountService';
+import { UserManagementService } from '../service/UserManagementService';
+import { formattedRoles } from '../helpers/consts';
 
 const createAccountService = new CreateAccountService();
 const userManagementService = new UserManagementService();

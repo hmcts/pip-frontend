@@ -1,6 +1,6 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { PendingSubscriptionsFromCache } from '../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 import request from 'supertest';
 import sinon from 'sinon';
 

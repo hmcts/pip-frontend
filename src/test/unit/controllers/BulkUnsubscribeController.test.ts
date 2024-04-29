@@ -2,7 +2,7 @@ import BulkUnsubscribeController from '../../../main/controllers/BulkUnsubscribe
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const bulkDeleteSubscriptionsController = new BulkUnsubscribeController();
 
@@ -11,13 +11,9 @@ const bulkDeleteConfirmationUrl = 'bulk-unsubscribe-confirmation';
 
 const userId = '1';
 
-const caseSubscriptions = [
-    { subscriptionId: '123' },
-]
+const caseSubscriptions = [{ subscriptionId: '123' }];
 
-const locationSubscriptions = [
-    { subscriptionId: '456' },
-];
+const locationSubscriptions = [{ subscriptionId: '456' }];
 
 const userSubscriptions = {
     caseSubscriptions: caseSubscriptions,

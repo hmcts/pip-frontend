@@ -1,8 +1,8 @@
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import { Response } from 'express';
-import { ThirdPartyService } from '../../../main/service/thirdPartyService';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import ManageThirdPartyUsersViewController from '../../../main/controllers/ManageThirdPartyUsersViewController';
 

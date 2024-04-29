@@ -1,6 +1,6 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { AuditLogService } from '../service/auditLogService';
+import { AuditLogService } from '../service/AuditLogService';
 import { cloneDeep } from 'lodash';
 
 const auditLogService = new AuditLogService();

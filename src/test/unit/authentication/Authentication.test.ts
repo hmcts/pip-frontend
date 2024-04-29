@@ -74,7 +74,7 @@ describe('Authentication', () => {
         it(`Test that profile is returned if user is found for Azure AAD ${parameter.strategy} authentication`, async () => {
             const sinon = await import('sinon');
             const AccountManagementRequests = await import(
-                '../../../main/resources/requests/accountManagementRequests'
+                '../../../main/resources/requests/AccountManagementRequests'
             );
             const stub = sinon.stub(
                 AccountManagementRequests.AccountManagementRequests.prototype,
@@ -101,7 +101,7 @@ describe('Authentication', () => {
         it(`Test that null is returned if no user is found for Azure AAD ${parameter.strategy} authentication`, async () => {
             const sinon = await import('sinon');
             const AccountManagementRequests = await import(
-                '../../../main/resources/requests/accountManagementRequests'
+                '../../../main/resources/requests/AccountManagementRequests'
             );
             const stub = sinon.stub(
                 AccountManagementRequests.AccountManagementRequests.prototype,
@@ -141,7 +141,7 @@ describe('Authentication', () => {
 
     it('Test that serialising a user for CFT IDAM where user exists returns their uid and flow', async () => {
         const sinon = await import('sinon');
-        const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
         const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByCftID');
         stub.resolves({ userId: '1234' });
 
@@ -163,7 +163,7 @@ describe('Authentication', () => {
 
     it('Test that serialising a user for CFT IDAM where user does not exist returns their uid and flow', async () => {
         const sinon = await import('sinon');
-        const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
         const getUserByIdStub = sinon.stub(
             AccountManagementRequests.AccountManagementRequests.prototype,
             'getPiUserByCftID'
@@ -218,7 +218,7 @@ describe('Authentication', () => {
         it(`Test that deserialising a user returns user object from the PI user table for Azure AAD ${parameter.strategy} authentication`, async () => {
             const sinon = await import('sinon');
             const AccountManagementRequests = await import(
-                '../../../main/resources/requests/accountManagementRequests'
+                '../../../main/resources/requests/AccountManagementRequests'
             );
             const stub = sinon.stub(
                 AccountManagementRequests.AccountManagementRequests.prototype,
@@ -241,7 +241,7 @@ describe('Authentication', () => {
 
     it('Test that deserialising a CFT IDAM user returns the user object from the PI User table', async () => {
         const sinon = await import('sinon');
-        const AccountManagementRequests = await import('../../../main/resources/requests/accountManagementRequests');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
         const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByCftID');
         stub.resolves(userId);
 

@@ -6,7 +6,7 @@ import { request as expressRequest } from 'express';
 
 import fs from 'fs';
 import path from 'path';
-import { LocationService } from '../../main/service/locationService';
+import { LocationService } from '../../main/service/LocationService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../unit/mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);

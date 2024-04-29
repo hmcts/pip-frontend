@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import { mockRequest } from '../mocks/mockRequest';
 import RemoveListSearchController from '../../../main/controllers/RemoveListSearchController';
 import sinon from 'sinon';

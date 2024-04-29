@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { PublicationService } from '../service/publicationService';
+import { PublicationService } from '../service/PublicationService';
 import { pendingCaseSubscriptionSorter } from '../helpers/sortHelper';
 
 const url = 'party-name-search-results';

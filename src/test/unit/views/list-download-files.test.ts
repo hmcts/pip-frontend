@@ -2,10 +2,10 @@ import { app } from '../../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { ListDownloadService } from '../../../main/service/listDownloadService';
+import { ListDownloadService } from '../../../main/service/ListDownloadService';
 import { request as expressRequest } from 'express';
-import { PublicationService } from '../../../main/service/publicationService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const PAGE_URL = '/list-download-files?artefactId=abc';
 const PAGE_URL_WITH_PDF_ONLY = '/list-download-files?artefactId=def';

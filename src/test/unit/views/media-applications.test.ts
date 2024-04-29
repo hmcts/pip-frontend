@@ -1,15 +1,15 @@
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { MediaApplicationService } from '../../../main/service/mediaApplicationService';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
 const mediaApplications = JSON.parse(rawData);
-sinon.stub(MediaApplicationService.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
+sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
 
 const PAGE_URL = '/media-applications';
 let htmlRes: Document;

@@ -1,10 +1,10 @@
 import sinon from 'sinon';
-import { MediaApplicationService } from '../../../main/service/mediaApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import MediaApplicationsController from '../../../main/controllers/MediaApplicationsController';
 
-sinon.stub(MediaApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
+sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
 const mediaApplications = new MediaApplicationsController();
 describe('Media application assessment controller', () => {
     const i18n = { 'media-applications': {} };

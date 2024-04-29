@@ -1,5 +1,5 @@
 import MediaAccountRejectionReasonsController from '../../../main/controllers/MediaAccountRejectionReasonsController';
-import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';

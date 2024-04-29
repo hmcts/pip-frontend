@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import { ManualUploadService } from '../../main/service/manualUploadService';
-import { FileHandlingService } from '../../main/service/fileHandlingService';
+import { ManualUploadService } from '../../main/service/ManualUploadService';
+import { FileHandlingService } from '../../main/service/FileHandlingService';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/manual-upload-summary';
@@ -30,13 +30,13 @@ describe('Manual upload summary', () => {
     });
 
     describe('on GET', () => {
-        test('should return file upload summary page', async () => {
+        test('should return manual upload summary page', async () => {
             await request(app)
                 .get(PAGE_URL)
                 .expect(res => expect(res.status).to.equal(200));
         });
 
-        test('should return file upload summary page with error summary', async () => {
+        test('should return manual upload summary page with error summary', async () => {
             await request(app)
                 .get(`${PAGE_URL}?query=true`)
                 .expect(res => expect(res.status).to.equal(200));
@@ -67,7 +67,7 @@ describe('Manual upload summary', () => {
                 .send({ data: 'valid' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('upload-confirmation');
+                    expect(res.header['location']).to.equal('manual-upload-confirmation');
                 });
         });
     });

@@ -3,7 +3,7 @@ import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
 import request from 'supertest';
 import sinon from 'sinon';
-import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../main/resources/requests/AccountManagementRequests';
 
 expressRequest['user'] = { roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
 

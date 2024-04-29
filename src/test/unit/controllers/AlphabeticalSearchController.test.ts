@@ -3,7 +3,7 @@ import { Response } from 'express';
 import AlphabeticalSearchController from '../../../main/controllers/AlphabeticalSearchController';
 
 import { mockRequest } from '../mocks/mockRequest';
-import { FilterService } from '../../../main/service/filterService';
+import { FilterService } from '../../../main/service/FilterService';
 
 const alphabeticalSearchController = new AlphabeticalSearchController();
 

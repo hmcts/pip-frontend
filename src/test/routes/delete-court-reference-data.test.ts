@@ -2,7 +2,7 @@ import { app } from '../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
-import { LocationService } from '../../main/service/locationService';
+import { LocationService } from '../../main/service/LocationService';
 import fs from 'fs';
 import path from 'path';
 import { request as expressRequest } from 'express';

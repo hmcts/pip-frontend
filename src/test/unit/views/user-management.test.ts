@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { UserManagementService } from '../../../main/service/userManagementService';
+import { UserManagementService } from '../../../main/service/UserManagementService';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/user-management';

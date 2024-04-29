@@ -1,4 +1,4 @@
-import { ListParseHelperService } from '../listParseHelperService';
+import { ListParseHelperService } from '../ListParseHelperService';
 
 const helperService = new ListParseHelperService();
 

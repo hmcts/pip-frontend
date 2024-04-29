@@ -1,7 +1,7 @@
 import config from 'config';
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { B2C_URL, FRONTEND_URL, B2C_ADMIN_URL } from '../helpers/envUrls';
-import { SessionManagementService } from '../service/sessionManagementService';
+import { SessionManagementService } from '../service/SessionManagementService';
 import {
     verifiedRoles,
     systemAdminRoles,

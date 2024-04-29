@@ -2,8 +2,8 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SessionExpiredController from '../../../main/controllers/SessionExpiredController';
-import { SessionManagementService } from '../../../main/service/sessionManagementService';
-import { reSignInUrls } from '../../../main/models/consts';
+import { SessionManagementService } from '../../../main/service/SessionManagementService';
+import { reSignInUrls } from '../../../main/helpers/consts';
 
 const sessionExpiredController = new SessionExpiredController();
 const i18n = {

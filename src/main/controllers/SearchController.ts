@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { LocationService } from '../service/locationService';
+import { LocationService } from '../service/LocationService';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 

@@ -2,7 +2,7 @@ import { app } from '../../../main/app';
 import sinon from 'sinon';
 import request from 'supertest';
 import { expect } from 'chai';
-import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { request as expressRequest } from 'express';
 import { randomUUID } from 'crypto';
 

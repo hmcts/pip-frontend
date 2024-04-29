@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { LocationService } from '../../../main/service/LocationService';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';

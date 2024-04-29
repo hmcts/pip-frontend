@@ -2,8 +2,8 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import { PublicationService } from '../../main/service/publicationService';
-import { LocationService } from '../../main/service/locationService';
+import { PublicationService } from '../../main/service/PublicationService';
+import { LocationService } from '../../main/service/LocationService';
 
 const URL = '/remove-list-confirmation';
 

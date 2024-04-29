@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import DeleteCourtSubscriptionSuccessController from '../../../main/controllers/DeleteCourtSubscriptionSuccessController';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 
 const deleteCourtSubscriptionSuccessController = new DeleteCourtSubscriptionSuccessController();
 

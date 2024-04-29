@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import DeleteUserConfirmationController from '../../../main/controllers/DeleteUserConfirmationController';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const stub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
 const validBody = { 'delete-user-confirm': 'yes', user: '123' };

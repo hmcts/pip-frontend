@@ -1,6 +1,6 @@
 import { app } from '../../../main/app';
 import request from 'supertest';
-import { CreateAccountService } from '../../../main/service/createAccountService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 import sinon from 'sinon';
 import { expect } from 'chai';
 

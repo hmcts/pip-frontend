@@ -1,9 +1,9 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { MediaApplicationService } from '../service/mediaApplicationService';
+import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 
-const mediaApplicationService = new MediaApplicationService();
+const mediaApplicationService = new MediaAccountApplicationService();
 
 export default class AdminDashboardController {
     public async get(req: PipRequest, res: Response): Promise<void> {

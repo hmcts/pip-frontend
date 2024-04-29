@@ -2,9 +2,9 @@ import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../main/app';
 import sinon from 'sinon';
-import { ManualUploadService } from '../../main/service/manualUploadService';
+import { ManualUploadService } from '../../main/service/ManualUploadService';
 import { multerFile } from '../unit/mocks/multerFile';
-import { FileHandlingService } from '../../main/service/fileHandlingService';
+import { FileHandlingService } from '../../main/service/FileHandlingService';
 
 describe('Manual upload', () => {
     describe('on GET', () => {

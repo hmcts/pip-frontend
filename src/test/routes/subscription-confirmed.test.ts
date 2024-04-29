@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
-import { SubscriptionService } from '../../main/service/subscriptionService';
-import { PendingSubscriptionsFromCache } from '../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { SubscriptionService } from '../../main/service/SubscriptionService';
+import { PendingSubscriptionsFromCache } from '../../main/service/PendingSubscriptionsFromCache';
 
 const PAGE_URL = '/subscription-confirmed';
 const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');

@@ -1,4 +1,4 @@
-import { Search } from './search';
+import { Search } from './Search';
 
 export interface Artefact {
     artefactId: string;

@@ -2,8 +2,8 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import RemoveListConfirmationController from '../../../main/controllers/RemoveListConfirmationController';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { LocationService } from '../../../main/service/LocationService';
 
 const i18n = {
     'remove-list-confirmation': {},

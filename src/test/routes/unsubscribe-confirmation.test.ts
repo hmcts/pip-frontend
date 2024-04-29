@@ -2,7 +2,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import { SubscriptionService } from '../../main/service/subscriptionService';
+import { SubscriptionService } from '../../main/service/SubscriptionService';
 
 const stub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
 const PAGE_URL = '/unsubscribe-confirmation';

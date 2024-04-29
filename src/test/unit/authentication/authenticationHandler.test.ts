@@ -29,8 +29,8 @@ import {
 
 import request from 'supertest';
 import { app } from '../../../main/app';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
-import { SessionManagementService } from '../../../main/service/sessionManagementService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
+import { SessionManagementService } from '../../../main/service/SessionManagementService';
 
 const updateMediaAccountVerification = sinon.stub(
     AccountManagementRequests.prototype,

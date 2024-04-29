@@ -2,7 +2,7 @@ import MediaAccountReviewController from '../../../main/controllers/MediaAccount
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
 
 const i18n = { 'media-account-review': {}, error: {} };

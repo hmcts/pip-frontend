@@ -2,10 +2,10 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { ThirdPartyService } from '../../main/service/thirdPartyService';
+import { ThirdPartyService } from '../../main/service/ThirdPartyService';
 import sinon from 'sinon';
-import { SubscriptionService } from '../../main/service/subscriptionService';
-import { PublicationService } from '../../main/service/publicationService';
+import { SubscriptionService } from '../../main/service/SubscriptionService';
+import { PublicationService } from '../../main/service/PublicationService';
 
 describe('Manage third party users subscription', () => {
     const userId = '1234-1234';

@@ -4,7 +4,7 @@ import { app } from '../../../main/app';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { LocationRequests } from '../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
 
 const PAGE_URL = '/search';
 const headingClass = 'govuk-label-wrapper';

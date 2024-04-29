@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
-import { PublicationService } from '../service/publicationService';
+import { PublicationService } from '../service/PublicationService';
 
 const publicationService = new PublicationService();
 

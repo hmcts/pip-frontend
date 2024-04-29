@@ -1,7 +1,7 @@
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import { UserManagementService } from '../../../main/service/userManagementService';
+import { UserManagementService } from '../../../main/service/UserManagementService';
 import UserManagementController from '../../../main/controllers/UserManagementController';
 import { UserSearchCriteria } from '../../../main/models/UserSearchCriteria';
 

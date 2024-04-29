@@ -2,7 +2,7 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { ThirdPartyService } from '../../main/service/thirdPartyService';
+import { ThirdPartyService } from '../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 
 describe('Manage third party users', () => {

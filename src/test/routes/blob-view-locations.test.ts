@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
-import { PublicationRequests } from '../../main/resources/requests/publicationRequests';
+import { PublicationRequests } from '../../main/resources/requests/PublicationRequests';
 
 const countPerLocation = [
     {

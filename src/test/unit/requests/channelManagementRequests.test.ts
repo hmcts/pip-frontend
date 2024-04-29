@@ -1,5 +1,5 @@
 import { channelManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
-import { ChannelManagementRequests } from '../../../main/resources/requests/channelManagementRequests';
+import { ChannelManagementRequests } from '../../../main/resources/requests/ChannelManagementRequests';
 import sinon from 'sinon';
 
 const dummyData = '123';
