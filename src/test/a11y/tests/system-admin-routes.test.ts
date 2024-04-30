@@ -1,11 +1,11 @@
 import { app } from '../../../main/app';
 import sinon from 'sinon';
-import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
-import { PublicationService } from '../../../main/service/publicationService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import {
     testArtefactJsonData,
     testArtefactMetadata,
@@ -15,8 +15,8 @@ import {
     testUserData,
 } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
-import { UserManagementService } from '../../../main/service/userManagementService';
-import { AuditLogService } from '../../../main/service/auditLogService';
+import { UserManagementService } from '../../../main/service/UserManagementService';
+import { AuditLogService } from '../../../main/service/AuditLogService';
 import fs from 'fs';
 import path from 'path';
 
@@ -36,9 +36,9 @@ const systemAdminRoutes = [
     { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
     { path: '/bulk-create-media-accounts-confirmation', parameter: '?artefactId=abc' },
     { path: '/bulk-create-media-accounts-confirmed' },
-    { path: '/manual-reference-data-upload' },
-    { path: '/manual-reference-data-upload-summary' },
-    { path: '/manual-reference-data-upload-confirmation' },
+    { path: '/reference-data-upload' },
+    { path: '/reference-data-upload-summary' },
+    { path: '/reference-data-upload-confirmation' },
     { path: '/manage-third-party-users' },
     { path: '/manage-third-party-users/view', parameter: `?userId=${userId}` },
     { path: '/manage-third-party-users/subscriptions', parameter: `?userId=${userId}` },

@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { Response } from 'express';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { mockRequest } from '../mocks/mockRequest';
 import PendingSubscriptionsController from '../../../main/controllers/PendingSubscriptionsController';
 

@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { PublicationService } from '../service/publicationService';
+import { PublicationService } from '../service/PublicationService';
 
 const url = 'party-name-search';
 const publicationService = new PublicationService();

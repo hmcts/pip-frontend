@@ -1,6 +1,6 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { cloneDeep } from 'lodash';
 
 const accountManagementRequests = new AccountManagementRequests();

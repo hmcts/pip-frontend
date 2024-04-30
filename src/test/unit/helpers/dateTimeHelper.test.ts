@@ -3,7 +3,7 @@ import { calculateDurationSortValue, formatDate, formatDuration } from '../../..
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
-const languageFile = 'care-standards-list';
+const languageFile = 'style-guide/care-standards-list';
 const testBstDate = '2022-10-27T09:40:17.496Z';
 const testGmtDate = '2022-11-27T09:40:17.496Z';
 

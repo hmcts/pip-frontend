@@ -1,12 +1,12 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
-import { UserManagementService } from '../service/userManagementService';
+import { UserManagementService } from '../service/UserManagementService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
-const rejectReasons = require('../../main/resources/media-account-rejection-reasons-lookup.json');
+const rejectReasons = require('../resources/media-account-rejection-reasons-lookup.json');
 
 export default class MediaAccountRejectionController {
     public async get(req: PipRequest, res: Response): Promise<void> {

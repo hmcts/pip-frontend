@@ -1,4 +1,4 @@
-import { AuditLogService } from '../../main/service/auditLogService';
+import { AuditLogService } from '../../main/service/AuditLogService';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import request from 'supertest';

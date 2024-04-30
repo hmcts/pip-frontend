@@ -2,8 +2,8 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { LocationService } from '../../../main/service/locationService';
-import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
+import { LocationService } from '../../../main/service/LocationService';
+import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 
 const locationIdForCourtWithTelephoneAndEmail = 10;
 const locationIdForCourtWithTelephoneOnly = 11;

@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
-import { FilterService } from '../service/filterService';
+import { FilterService } from '../service/FilterService';
 
 const filterService = new FilterService();
 

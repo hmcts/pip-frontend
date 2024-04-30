@@ -3,7 +3,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 
 const PAGE_URL = '/delete-court-publication-success';
 
@@ -46,7 +46,7 @@ describe('Delete Court Publication Success Page', () => {
         expect(links[5].innerHTML).contains('Continue deletion of ');
         expect(links[5].getAttribute('href')).contains('delete-court-reference-data-confirmation');
         expect(links[6].innerHTML).to.equal('Upload Reference Data');
-        expect(links[6].getAttribute('href')).contains('manual-reference-data-upload');
+        expect(links[6].getAttribute('href')).contains('reference-data-upload');
         expect(links[7].innerHTML).to.equal('Home');
         expect(links[7].getAttribute('href')).contains('system-admin-dashboard');
     });

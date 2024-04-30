@@ -2,7 +2,7 @@ import BulkUnsubscribeConfirmationController from '../../../main/controllers/Bul
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const bulkDeleteSubscriptionsConfirmationController = new BulkUnsubscribeConfirmationController();
 

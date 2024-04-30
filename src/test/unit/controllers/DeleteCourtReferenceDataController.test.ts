@@ -1,5 +1,5 @@
 import { Response } from 'express';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import fs from 'fs';

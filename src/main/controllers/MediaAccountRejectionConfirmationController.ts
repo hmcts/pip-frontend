@@ -1,6 +1,6 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import { MediaAccountApplicationService } from '../service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
 
 const url = 'media-account-rejection-confirmation';

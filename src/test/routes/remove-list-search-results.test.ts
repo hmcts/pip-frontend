@@ -2,9 +2,9 @@ import { app } from '../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
-import { LocationService } from '../../main/service/locationService';
-import { SummaryOfPublicationsService } from '../../main/service/summaryOfPublicationsService';
-import { ManualUploadService } from '../../main/service/manualUploadService';
+import { LocationService } from '../../main/service/LocationService';
+import { SummaryOfPublicationsService } from '../../main/service/SummaryOfPublicationsService';
+import { ManualUploadService } from '../../main/service/ManualUploadService';
 import { request as expressRequest } from 'express';
 
 const URL = '/remove-list-search';

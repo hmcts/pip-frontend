@@ -1,10 +1,10 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { LocationService } from '../service/locationService';
-import { SubscriptionService } from '../service/subscriptionService';
-import { PublicationService } from '../service/publicationService';
-import { UserManagementService } from '../service/userManagementService';
+import { LocationService } from '../service/LocationService';
+import { SubscriptionService } from '../service/SubscriptionService';
+import { PublicationService } from '../service/PublicationService';
+import { UserManagementService } from '../service/UserManagementService';
 
 const locationService = new LocationService();
 const subscriptionsService = new SubscriptionService();

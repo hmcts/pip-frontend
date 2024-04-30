@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
-import { PublicationService } from '../../main/service/publicationService';
+import { PublicationService } from '../../main/service/PublicationService';
 import sinon from 'sinon';
-import { SummaryOfPublicationsService } from '../../main/service/summaryOfPublicationsService';
+import { SummaryOfPublicationsService } from '../../main/service/SummaryOfPublicationsService';
 
 const mockJSON = '{"data":"false"}';
 const mockArray = '[{"data":"false"}]';

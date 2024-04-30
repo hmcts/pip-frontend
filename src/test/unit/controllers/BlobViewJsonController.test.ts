@@ -2,8 +2,8 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import BlobViewJsonController from '../../../main/controllers/BlobViewJsonController';
-import { PublicationService } from '../../../main/service/publicationService';
-import { LocationService } from '../../../main/service/locationService';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { LocationService } from '../../../main/service/LocationService';
 import { HttpStatusCode } from 'axios';
 
 const blobViewController = new BlobViewJsonController();

@@ -2,7 +2,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { CreateAccountService } from '../../../main/service/createAccountService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/create-system-admin-account-summary';

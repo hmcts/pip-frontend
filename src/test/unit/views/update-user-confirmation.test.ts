@@ -2,9 +2,9 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { request as expressRequest } from 'express';
-import { UserManagementService } from '../../../main/service/userManagementService';
+import { UserManagementService } from '../../../main/service/UserManagementService';
 
 const PAGE_URL = '/update-user';
 const validBody = { userId: '1234', updatedRole: 'SYSTEM_ADMIN' };

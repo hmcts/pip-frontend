@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
+import { uploadPublication } from '../../shared/testingSupportApi';
 import Assert from 'assert';
 
 Feature('SJP list download');
@@ -10,9 +10,7 @@ Scenario('I as a verified user should be able to search and download sjp public 
     const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
     const sjpListToDownload = 'Single Justice Procedure Public List ' + contentDate;
     const locationId = '9';
-    const locationName = 'Single Justice Procedure';
 
-    await createLocation(locationId, locationName);
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,
@@ -72,9 +70,7 @@ Scenario('I as a verified user should be able to download sjp press list', async
     const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
     const sjpListToDownload = 'Single Justice Procedure Press List (Full List) ' + contentDate;
     const locationId = '9';
-    const locationName = 'Single Justice Procedure';
 
-    await createLocation(locationId, locationName);
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,

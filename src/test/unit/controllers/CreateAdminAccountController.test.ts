@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import CreateAdminAccountController from '../../../main/controllers/CreateAdminAccountController';
-import { CreateAccountService } from '../../../main/service/createAccountService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 
 const mockData = {
     firstName: 'joe',

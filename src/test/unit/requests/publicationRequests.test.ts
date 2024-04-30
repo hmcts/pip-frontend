@@ -1,4 +1,4 @@
-import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';

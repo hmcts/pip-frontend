@@ -2,9 +2,9 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
-import { formattedRoles } from '../models/consts';
-import { UserManagementService } from '../service/userManagementService';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
+import { formattedRoles } from '../helpers/consts';
+import { UserManagementService } from '../service/UserManagementService';
 
 const accountManagementRequests = new AccountManagementRequests();
 const userManagementService = new UserManagementService();

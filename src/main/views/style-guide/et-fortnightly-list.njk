@@ -1,0 +1,115 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "../macros/common-components.njk" import goBack, searchInput %}
+
+{% extends "../list-template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton) }}
+{% endblock %}
+{% block content %}
+  <div class="parent-box">
+    <h2 id="page-heading" class="govuk-heading-l">
+      {{ title }}: {{ region }}
+    </h2>
+    <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listFor }} {{ contentDate }}</p>
+    <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
+  </div>
+  <details class="govuk-details" data-module="govuk-details" open>
+    <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformation }}</span>
+    </summary>
+    <div class="govuk-details__text">
+      <p>{{ openJustice1 }}</p>
+      <p>{{ openJustice2 }}</p>
+      <p>{{ openJustice3 }}</p>
+      <p>{{ openJustice4 }} {{ venueName }}, {{ venueEmail }}, {{ venueTelephone }}</p>
+      <p>{{ openJustice5 }}</p>
+      <p>{{ openJustice6 }}</p>
+    </div>
+  </details>
+
+  {{ searchInput(text = searchCases) }}
+  <div class="search-area">
+    {% set courtCount = 0 %}
+    {% set courtRoomCount = 0 %}
+    {% for court in tableData %}
+      {% set courtCount = courtCount + 1 %}
+      <div class="site-header" tabindex="0" aria-label="Court Details">
+        <h1 class="govuk-heading-l site-address" tabindex="0">{{ venue }}{{ court['courtName'] }}</h1>
+        {% for line in court['days'][0][0]['addressLine'] %}
+          {% if line | length %}
+            <p class="govuk-body site-address" tabindex="0">{{ line }}</p>
+          {% endif %}
+        {% endfor %}
+        {% if court['days'][0][0]['addressTown'] | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressTown'] }}</p>
+        {% endif %}
+        {% if court['days'][0][0]['addressCounty'] | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressCounty'] }}</p>
+        {% endif %}
+        {% if court['days'][0][0]['addressPostCode'] | length %}
+          <p class="govuk-body site-address" tabindex="0">{{ court['days'][0][0]['addressPostCode'] }}</p>
+        {% endif %}
+      </div>
+
+      <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtCount }}">
+      {% for day in court['days'] %}
+        {% set hearingCount = 1 %}
+        {% set courtRoomCount = courtRoomCount + 1 %}
+        <div class="govuk-accordion__section govuk-accordion__section--expanded">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-{{courtRoomCount }}">
+              {{ day[0].sittingDate }}
+              </span>
+            </h2>
+
+          </div>
+          <div id="accordion-default-content-{{ courtRoomCount }}" class="govuk-accordion__section-content"
+               aria-labelledby="accordion-default-heading-{{ courtRoomCount }}">
+            <div class="parent-box overflow-table">
+              <table class="govuk-table overflow-table" data-module="moj-sortable-table">
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                  {% for header in tableHeaders %}
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
+                  {% endfor %}
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                {% for record in day %}
+                  {% set duration = record.durationAsHours | getDuration(record.durationAsMinutes, lng) | appendCaseSequenceIndicator(record.caseSeparator) | trim %}
+                  {% set durationSortValue = record.durationAsHours | durationToSortValue(record.durationAsMinutes) %}
+                  <tr class="govuk-table__row">
+                    <td class="govuk-table__cell" data-sort-value="{{ record.sittingTime | timeToSortValue }}">{{ record.sittingTime }}</td>
+                    <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
+                    <td class="govuk-table__cell">{{ record.caseNumber }}</td>
+                    {% if record.claimantRep | length %}
+                      <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}
+                        : {{ record.claimantRep }}</td>
+                    {% else %}
+                      <td class="govuk-table__cell">{{ record.claimant }}<br/>{{ rep }}: {{ noRep }}</td>
+                    {% endif %}
+                    {% if record.respondentRep | length %}
+                      <td class="govuk-table__cell">{{ record.respondent }}<br />{{ rep }}: {{ record.respondentRep }}</td>
+                    {% else %}
+                      <td class="govuk-table__cell">{{ record.respondent }}<br />{{ rep }}: {{ noRep }}</td>
+                    {% endif %}
+                    <td class="govuk-table__cell">{{ record.hearingType }}</td>
+                    <td class="govuk-table__cell">{{ record.hearingPlatform }}</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    {% endfor %}
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | maskLegacyDataSource }}</p>
+    {{ super() }}
+  </div>
+{% endblock %}

@@ -1,4 +1,4 @@
-import { DataManagementRequests } from '../../../main/resources/requests/dataManagementRequests';
+import { DataManagementRequests } from '../../../main/resources/requests/DataManagementRequests';
 import { dataManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 import sinon from 'sinon';
 

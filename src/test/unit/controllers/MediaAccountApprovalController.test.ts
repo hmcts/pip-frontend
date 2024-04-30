@@ -2,7 +2,7 @@ import MediaAccountApprovalController from '../../../main/controllers/MediaAccou
 import { Response } from 'express';
 import sinon from 'sinon';
 import { mockRequest } from '../mocks/mockRequest';
-import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
 import { dummyApplication } from '../../helpers/testConsts';
 

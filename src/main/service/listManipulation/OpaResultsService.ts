@@ -1,4 +1,4 @@
-import { ListParseHelperService } from '../listParseHelperService';
+import { ListParseHelperService } from '../ListParseHelperService';
 import { formatDate } from '../../helpers/dateTimeHelper';
 import { DateTime } from 'luxon';
 

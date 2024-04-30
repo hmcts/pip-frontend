@@ -1,9 +1,9 @@
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/publicationService';
-import { ListDownloadService } from '../../../../main/service/listDownloadService';
+import { PublicationService } from '../../../../main/service/PublicationService';
+import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
-import { LocationRequests } from '../../../../main/resources/requests/locationRequests';
+import { LocationRequests } from '../../../../main/resources/requests/LocationRequests';
 
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';

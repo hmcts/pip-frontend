@@ -1,9 +1,9 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import BlobViewLocationController from '../../../main/controllers/BlobViewLocationController';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const blobViewController = new BlobViewLocationController();
 const i18n = {

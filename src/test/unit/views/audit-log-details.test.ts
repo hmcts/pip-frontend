@@ -2,7 +2,7 @@ import { request as expressRequest } from 'express';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { AuditLogService } from '../../../main/service/auditLogService';
+import { AuditLogService } from '../../../main/service/AuditLogService';
 import sinon from 'sinon';
 
 const PAGE_URL = '/audit-log-details';

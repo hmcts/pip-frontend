@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { ListParseHelperService } from '../listParseHelperService';
+import { ListParseHelperService } from '../ListParseHelperService';
 
 const listParseHelperService = new ListParseHelperService();
 
@@ -75,8 +75,8 @@ export class SjpPressListService {
     private formatIndividualInformation(individualDetails) {
         return {
             name: listParseHelperService.createIndividualDetails(individualDetails),
-            dob: this.formatDateOfBirth(individualDetails),
-            age: individualDetails.age,
+            dob: individualDetails.dateOfBirth ? this.formatDateOfBirth(individualDetails) : '',
+            age: individualDetails.age ? individualDetails.age : 0,
             address: individualDetails.address ? this.buildAddress(individualDetails.address) : '',
             postcode: individualDetails.address?.postCode ? individualDetails.address?.postCode : '',
         };

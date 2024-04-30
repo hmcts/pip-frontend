@@ -1,6 +1,6 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import request from 'supertest';
 import sinon from 'sinon';
 

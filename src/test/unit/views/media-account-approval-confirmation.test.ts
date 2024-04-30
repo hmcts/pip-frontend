@@ -2,7 +2,7 @@ import { app } from '../../../main/app';
 import request from 'supertest';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { MediaAccountApplicationService } from '../../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 
 let htmlRes: Document;
 

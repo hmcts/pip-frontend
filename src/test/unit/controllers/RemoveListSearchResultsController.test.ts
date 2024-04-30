@@ -1,7 +1,7 @@
 import sinon from 'sinon';
-import { LocationService } from '../../../main/service/locationService';
-import { SummaryOfPublicationsService } from '../../../main/service/summaryOfPublicationsService';
-import { ManualUploadService } from '../../../main/service/manualUploadService';
+import { LocationService } from '../../../main/service/LocationService';
+import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import RemoveListSearchResultsController from '../../../main/controllers/RemoveListSearchResultsController';

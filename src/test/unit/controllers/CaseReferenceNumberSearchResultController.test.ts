@@ -4,7 +4,7 @@ import CaseReferenceNumberSearchResultController from '../../../main/controllers
 import fs from 'fs';
 import path from 'path';
 import { mockRequest } from '../mocks/mockRequest';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const caseReferenceNumberSearchResultController = new CaseReferenceNumberSearchResultController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');

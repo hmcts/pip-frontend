@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { PendingSubscriptionsFromCache } from '../../../../main/resources/requests/utils/pendingSubscriptionsFromCache';
+import { PendingSubscriptionsFromCache } from '../../../../main/service/PendingSubscriptionsFromCache';
 const { redisClient } = require('../../../../main/cacheManager');
 
 const mockUser = {

@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { PublicationService } from '../../service/publicationService';
+import { PublicationService } from '../../service/PublicationService';
 import { printableDuration } from './printableDuration';
 import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
 import { runtime } from 'nunjucks';

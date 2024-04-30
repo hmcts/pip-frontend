@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SubscriptionConfigureListConfirmedController from '../../../main/controllers/SubscriptionConfigureListConfirmedController';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const subscriptionConfigureListConfirmedController = new SubscriptionConfigureListConfirmedController();
 

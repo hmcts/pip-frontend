@@ -1,5 +1,5 @@
-import { SubscriptionService } from '../../main/service/subscriptionService';
-import { FilterService } from '../../main/service/filterService';
+import { SubscriptionService } from '../../main/service/SubscriptionService';
+import { FilterService } from '../../main/service/FilterService';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../main/app';

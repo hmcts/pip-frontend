@@ -2,8 +2,8 @@ import BulkCreateMediaAccountsController from '../../../main/controllers/BulkCre
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
-import { CreateAccountService } from '../../../main/service/createAccountService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 
 const bulkCreateMediaAccountsController = new BulkCreateMediaAccountsController();
 const bulkCreateAccountsUrl = 'bulk-create-media-accounts';

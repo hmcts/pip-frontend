@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { UserManagementService } from '../service/userManagementService';
+import { UserManagementService } from '../service/UserManagementService';
 import { UserSearchCriteria } from '../models/UserSearchCriteria';
 
 const userManagementService = new UserManagementService();

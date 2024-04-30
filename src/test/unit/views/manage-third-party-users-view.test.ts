@@ -2,9 +2,9 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { request as expressRequest } from 'express';
 import { expect } from 'chai';
-import { ThirdPartyService } from '../../../main/service/thirdPartyService';
+import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 describe('Manage third party users - view', () => {
     const PAGE_URL = '/manage-third-party-users/view';

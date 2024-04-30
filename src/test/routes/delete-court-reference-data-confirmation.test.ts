@@ -2,7 +2,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import { LocationService } from '../../main/service/locationService';
+import { LocationService } from '../../main/service/LocationService';
 
 const URL = '/delete-court-reference-data-confirmation';
 

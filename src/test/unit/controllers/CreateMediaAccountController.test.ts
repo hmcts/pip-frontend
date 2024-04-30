@@ -2,9 +2,9 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import CreateMediaAccountController from '../../../main/controllers/CreateMediaAccountController';
-import { CreateAccountService } from '../../../main/service/createAccountService';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 import { multerFile } from '../mocks/multerFile';
-import { FileHandlingService } from '../../../main/service/fileHandlingService';
+import { FileHandlingService } from '../../../main/service/FileHandlingService';
 
 const createMediaAccountController = new CreateMediaAccountController();
 const validBody = {

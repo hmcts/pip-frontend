@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import { AccountManagementRequests } from '../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../main/resources/requests/AccountManagementRequests';
 
 const PAGE_URL = '/delete-user-confirmation';
 

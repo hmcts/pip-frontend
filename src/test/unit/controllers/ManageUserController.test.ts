@@ -1,8 +1,8 @@
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import { UserManagementService } from '../../../main/service/userManagementService';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { UserManagementService } from '../../../main/service/UserManagementService';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import ManageUserController from '../../../main/controllers/ManageUserController';
 
 const manageUserController = new ManageUserController();

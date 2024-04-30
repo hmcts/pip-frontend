@@ -3,7 +3,7 @@ import { app } from '../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
 import sinon from 'sinon';
-import { SubscriptionService } from '../../main/service/subscriptionService';
+import { SubscriptionService } from '../../main/service/SubscriptionService';
 
 const PAGE_URL = '/bulk-unsubscribe-confirmation';
 expressRequest['user'] = { roles: 'VERIFIED' };

@@ -1,7 +1,7 @@
 import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import DeleteUserController from '../../../main/controllers/DeleteUserController';
 
 const deleteUserController = new DeleteUserController();

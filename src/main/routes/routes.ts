@@ -19,7 +19,7 @@ import {
     keepSessionLanguage,
     regenerateSession,
 } from '../authentication/authenticationHandler';
-import { SessionManagementService } from '../service/sessionManagementService';
+import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
 
@@ -333,14 +333,14 @@ export default function (app: Application): void {
         app.locals.container.cradle.manualUploadSummaryController.post
     );
     app.get(
+        '/manual-upload-confirmation',
+        isPermittedManualUpload,
+        app.locals.container.cradle.manualUploadConfirmationController.get
+    );
+    app.get(
         '/media-applications',
         isPermittedMediaAccount,
         app.locals.container.cradle.mediaApplicationsController.get
-    );
-    app.get(
-        '/upload-confirmation',
-        isPermittedManualUpload,
-        app.locals.container.cradle.fileUploadConfirmationController.get
     );
     app.get(
         '/media-account-review',
@@ -506,31 +506,31 @@ export default function (app: Application): void {
         app.locals.container.cradle.bulkCreateMediaAccountsConfirmedController.get
     );
     app.get(
-        '/manual-reference-data-upload',
+        '/reference-data-upload',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manualReferenceDataUploadController.get
+        app.locals.container.cradle.referenceDataUploadController.get
     );
     app.post(
-        '/manual-reference-data-upload',
+        '/reference-data-upload',
         isPermittedSystemAdmin,
-        multer(fileUploadOptions).single('manual-reference-data-upload'),
+        multer(fileUploadOptions).single('reference-data-upload'),
         fileSizeLimitErrorHandler,
-        app.locals.container.cradle.manualReferenceDataUploadController.post
+        app.locals.container.cradle.referenceDataUploadController.post
     );
     app.get(
-        '/manual-reference-data-upload-summary',
+        '/reference-data-upload-summary',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manualReferenceDataUploadSummaryController.get
+        app.locals.container.cradle.referenceDataUploadSummaryController.get
     );
     app.post(
-        '/manual-reference-data-upload-summary',
+        '/reference-data-upload-summary',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manualReferenceDataUploadSummaryController.post
+        app.locals.container.cradle.referenceDataUploadSummaryController.post
     );
     app.get(
-        '/manual-reference-data-upload-confirmation',
+        '/reference-data-upload-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manualReferenceDataUploadConfirmationController.get
+        app.locals.container.cradle.referenceDataUploadConfirmationController.get
     );
     app.get(
         '/manual-reference-data-download',

@@ -2,7 +2,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
 import AuditLogViewerController from '../../../main/controllers/AuditLogViewerController';
-import { AuditLogService } from '../../../main/service/auditLogService';
+import { AuditLogService } from '../../../main/service/AuditLogService';
 
 const auditLogViewerController = new AuditLogViewerController();
 

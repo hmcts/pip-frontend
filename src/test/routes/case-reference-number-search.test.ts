@@ -3,7 +3,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { request as expressRequest } from 'express';
-import { PublicationService } from '../../main/service/publicationService';
+import { PublicationService } from '../../main/service/PublicationService';
 
 expressRequest['user'] = { roles: 'VERIFIED' };
 

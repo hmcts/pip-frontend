@@ -1,6 +1,6 @@
 import process from 'process';
 import config = require('config');
-import { AccountManagementRequests } from '../resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import passportCustom from 'passport-custom';
 import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';

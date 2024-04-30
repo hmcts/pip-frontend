@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import { MediaAccountApplicationService } from '../../main/service/mediaAccountApplicationService';
+import { MediaAccountApplicationService } from '../../main/service/MediaAccountApplicationService';
 import sinon from 'sinon';
 import { request as expressRequest } from 'express';
 

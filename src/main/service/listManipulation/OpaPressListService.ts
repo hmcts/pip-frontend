@@ -1,4 +1,4 @@
-import { ListParseHelperService } from '../listParseHelperService';
+import { ListParseHelperService } from '../ListParseHelperService';
 import { CrimeListsService } from './CrimeListsService';
 import { formatDate } from '../../helpers/dateTimeHelper';
 

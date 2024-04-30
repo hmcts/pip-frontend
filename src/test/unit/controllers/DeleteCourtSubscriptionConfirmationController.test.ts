@@ -1,10 +1,10 @@
 import { Response } from 'express';
-import { LocationService } from '../../../main/service/locationService';
-import { SubscriptionService } from '../../../main/service/subscriptionService';
+import { LocationService } from '../../../main/service/LocationService';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import DeleteCourtSubscriptionConfirmationController from '../../../main/controllers/DeleteCourtSubscriptionConfirmationController';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationByName');
 const subDeleteStub = sinon.stub(SubscriptionService.prototype, 'deleteLocationSubscription');

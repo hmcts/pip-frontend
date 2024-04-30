@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import CaseNameSearchResultsController from '../../../main/controllers/CaseNameSearchResultsController';
 import { mockRequest } from '../mocks/mockRequest';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const caseNameSearchResultsController = new CaseNameSearchResultsController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');

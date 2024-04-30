@@ -3,7 +3,7 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
 const Blob = require('node-blob');
-import { PublicationService } from '../../main/service/publicationService';
+import { PublicationService } from '../../main/service/PublicationService';
 
 const mockPDF = new Blob(['testPDF']);
 

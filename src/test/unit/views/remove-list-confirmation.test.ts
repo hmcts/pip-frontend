@@ -1,9 +1,9 @@
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
-import { PublicationService } from '../../../main/service/publicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 import { expect } from 'chai';
-import { LocationService } from '../../../main/service/locationService';
+import { LocationService } from '../../../main/service/LocationService';
 import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/remove-list-confirmation?artefact=18dec6ee-3a30-47bb-9fb3-6a343d6b9efb';

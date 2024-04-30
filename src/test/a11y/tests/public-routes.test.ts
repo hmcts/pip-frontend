@@ -1,6 +1,6 @@
 import sinon from 'sinon';
-import { LocationRequests } from '../../../main/resources/requests/locationRequests';
-import { PublicationRequests } from '../../../main/resources/requests/publicationRequests';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 import { testArtefactMetadata, testLocationData } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 

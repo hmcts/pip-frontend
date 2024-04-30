@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { AccountManagementRequests } from '../../../main/resources/requests/accountManagementRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const PAGE_URL = '/manage-user?id=1234';
 const headingClass = 'govuk-heading-l';

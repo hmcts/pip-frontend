@@ -1,7 +1,7 @@
 import { Response } from 'express';
-import { PendingSubscriptionsFromCache } from '../resources/requests/utils/pendingSubscriptionsFromCache';
+import { PendingSubscriptionsFromCache } from '../service/PendingSubscriptionsFromCache';
 import { PipRequest } from '../models/request/PipRequest';
-import { SubscriptionService } from '../service/subscriptionService';
+import { SubscriptionService } from '../service/SubscriptionService';
 
 const subscriptionService = new SubscriptionService();
 

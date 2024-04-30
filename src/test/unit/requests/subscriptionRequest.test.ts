@@ -1,4 +1,4 @@
-import { SubscriptionRequests } from '../../../main/resources/requests/subscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';

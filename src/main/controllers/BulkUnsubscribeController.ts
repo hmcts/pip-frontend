@@ -1,7 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { SubscriptionService } from '../service/subscriptionService';
+import { SubscriptionService } from '../service/SubscriptionService';
 
 const bulkUnsubscribeUrl = 'bulk-unsubscribe';
 const bulkUnsubscribeConfirmationUrl = 'bulk-unsubscribe-confirmation';
