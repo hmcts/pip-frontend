@@ -40,7 +40,7 @@ export class ListParseHelperService {
             hearing.party.forEach(party => {
                 switch (ListParseHelperService.convertPartyRole(party.partyRole)) {
                     case 'APPLICANT_PETITIONER': {
-                        applicant += this.handleParties(party, initialised).trim();;
+                        applicant += this.handleParties(party, initialised).trim();
                         applicant += this.stringDelimiter(applicant.length, ',');
                         break;
                     }
@@ -102,7 +102,7 @@ export class ListParseHelperService {
         if (party.individualDetails) {
             return this.createIndividualDetails(party.individualDetails, initialised);
         } else if (party.organisationDetails) {
-            return this.createOrganisationDetails(party.organisationDetails)
+            return this.createOrganisationDetails(party.organisationDetails);
         }
 
         return '';

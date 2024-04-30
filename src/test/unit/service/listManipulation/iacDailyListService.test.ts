@@ -62,10 +62,8 @@ describe('IAC Daily List service', () => {
             const hearingCase =
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'case'
-                    ][1];
-            expect(hearingCase['appellant']).to.equal(
-                'Organisation Name'
-            );
+                ][1];
+            expect(hearingCase['appellant']).to.equal('Organisation Name');
             expect(hearingCase['appellantRepresentative']).to.equal('Organisation Name');
             expect(hearingCase['prosecutingAuthority']).to.equal('Organisation Name');
         });
