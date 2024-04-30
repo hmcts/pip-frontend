@@ -101,38 +101,32 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "CLAIMANT_PETITIONER",
-                                                                "individualDetails": {
-                                                                    "individualForenames": "Individual Forenames",
-                                                                    "individualMiddleName": "Individual Middlename",
-                                                                    "individualSurname": "Individual Surname",
-                                                                    "title": "Mr"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "RESPONDENT",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Test Name"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "PROSECUTING_AUTHORITY",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Test Name"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                                                                "individualDetails": {
-                                                                    "individualSurname": "Test Name"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "RESPONDENT_REPRESENTATIVE",
-                                                                "individualDetails": {
-                                                                    "individualForenames": "Individual Forenames",
-                                                                    "individualMiddleName": "Individual Middlename",
-                                                                    "individualSurname": "Individual Surname",
-                                                                    "title": "Mr"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name"
                                                                 }
                                                             }
                                                         ]

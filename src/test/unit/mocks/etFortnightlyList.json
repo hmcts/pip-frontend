@@ -30,8 +30,16 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "CLAIMANT_PETITIONER",
-                                                                "OrganisationDetails": {
-                                                                    "OrganisationName": "Test Organisation"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name",
+                                                                    "organisationAddress": {
+                                                                        "line": [
+                                                                            "ORGANISATION ADDRESS"
+                                                                        ],
+                                                                        "town": "town name",
+                                                                        "county": "",
+                                                                        "postCode": ""
+                                                                    }
                                                                 }
                                                             },
                                                             {

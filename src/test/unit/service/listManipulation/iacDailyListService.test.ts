@@ -57,6 +57,19 @@ describe('IAC Daily List service', () => {
             expect(hearingCase['prosecutingAuthority']).to.equal('Test Name');
         });
 
+        it('should use organisation details when there are no individual details', async () => {
+            const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
+            const hearingCase =
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'case'
+                    ][1];
+            expect(hearingCase['appellant']).to.equal(
+                'Organisation Name'
+            );
+            expect(hearingCase['appellantRepresentative']).to.equal('Organisation Name');
+            expect(hearingCase['prosecutingAuthority']).to.equal('Organisation Name');
+        });
+
         it('should format hearing parties with no appellant representative', async () => {
             const data = await iacService.manipulateIacDailyListData(rawIacDailyListData, 'en');
             const hearingCase =
