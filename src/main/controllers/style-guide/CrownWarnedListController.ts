@@ -7,7 +7,8 @@ import { CrownWarnedListService } from '../../service/listManipulation/CrownWarn
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
-    hearingHasParty, isUnexpectedListType,
+    hearingHasParty,
+    isUnexpectedListType,
     isValidList,
     isValidListType,
 } from '../../helpers/listHelper';

@@ -6,12 +6,7 @@ import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { LocationService } from '../../service/LocationService';
 import { EtListsService } from '../../service/listManipulation/EtListsService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

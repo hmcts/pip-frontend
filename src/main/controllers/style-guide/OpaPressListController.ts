@@ -3,12 +3,7 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { LocationService } from '../../service/LocationService';
-import {
-    formatMetaDataListType,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';

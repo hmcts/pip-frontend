@@ -32,8 +32,8 @@ export const missingListType = (metaDataListType: any): any => {
 };
 
 export const isUnexpectedListType = (metaDataListType: any, listType: any): any => {
-    return !missingListType(metaDataListType) && !isValidListType(metaDataListType, listType)
-}
+    return !missingListType(metaDataListType) && !isValidListType(metaDataListType, listType);
+};
 
 // TODO: To be removed once all lists have party field on the case level.
 export const hearingHasParty = (jsonData): boolean => {

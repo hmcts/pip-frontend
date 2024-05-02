@@ -8,7 +8,8 @@ import { CrimeListsService } from '../../service/listManipulation/CrimeListsServ
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
-    hearingHasParty, isUnexpectedListType,
+    hearingHasParty,
+    isUnexpectedListType,
     isValidList,
     isValidListType,
 } from '../../helpers/listHelper';
