@@ -6,7 +6,7 @@ import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { EtListsService } from '../../service/listManipulation/EtListsService';
 import { LocationService } from '../../service/LocationService';
 import { HttpStatusCode } from 'axios';
-import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
+import { isValidList } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -21,9 +21,8 @@ export default class EtFortnightlyListController {
         const artefactId = req.query['artefactId'];
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metadataListType, listType)) {
+        if (isValidList(fileData, metaData) && fileData && metaData) {
             const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -50,11 +49,7 @@ export default class EtFortnightlyListController {
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
             });
-        } else if (
-            fileData === HttpStatusCode.NotFound ||
-            metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metadataListType, listType)
-        ) {
+        } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

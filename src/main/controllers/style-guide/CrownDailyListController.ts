@@ -6,13 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    hearingHasParty,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { hearingHasParty, isValidList } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -27,14 +21,8 @@ export default class CrownDailyListController {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metadataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(searchResults, metaData) &&
-            searchResults &&
-            metaData &&
-            isValidListType(metadataListType, listUrl)
-        ) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData) {
             let outputData;
             let partyAtHearingLevel = false;
             if (hearingHasParty(searchResults)) {
@@ -74,11 +62,7 @@ export default class CrownDailyListController {
                 venueAddress: venueAddress,
                 partyAtHearingLevel,
             });
-        } else if (
-            searchResults === HttpStatusCode.NotFound ||
-            metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metadataListType, listUrl)
-        ) {
+        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
