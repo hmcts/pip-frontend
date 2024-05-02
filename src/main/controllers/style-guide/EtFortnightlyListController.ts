@@ -13,8 +13,8 @@ const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const etListsService = new EtListsService();
 
-const listUrl = 'et-fortnightly-list';
-const listPath = `style-guide/${listUrl}`;
+const listType = 'et-fortnightly-list';
+const listPath = `style-guide/${listType}`;
 
 export default class EtFortnightlyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -23,7 +23,7 @@ export default class EtFortnightlyListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metadataListType, listUrl)) {
+        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metadataListType, listType)) {
             const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -39,7 +39,7 @@ export default class EtFortnightlyListController {
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...venue,
                 tableData,
@@ -53,7 +53,7 @@ export default class EtFortnightlyListController {
         } else if (
             fileData === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metadataListType, listUrl)
+            isUnexpectedListType(metadataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
