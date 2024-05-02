@@ -17,21 +17,27 @@ const listUrl = 'et-daily-list';
 const listPath = `style-guide/${listUrl}`;
 
 export default class EtDailyListController {
+
     public async get(req: PipRequest, res: Response): Promise<void> {
+
         const artefactId = req.query['artefactId'];
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metadataListType, listUrl)) {
+
             const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData), req.lng);
+
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 fileData['document']['publicationDate'],
                 req.lng
             );
+
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
+
             res.render(listPath, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),

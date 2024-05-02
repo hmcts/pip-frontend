@@ -18,20 +18,26 @@ const opaPressListService = new OpaPressListService();
 const listUrl = 'opa-press-list';
 
 export default class OpaPressListController {
+
     public async get(req: PipRequest, res: Response): Promise<void> {
+
         const artefactId = req.query['artefactId'];
         const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(jsonData, metaData) && jsonData && metaData && isValidListType(metadataListType, listUrl)) {
+
             const publicationDate = jsonData['document']['publicationDate'];
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
+
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
             const location = await locationService.getLocationById(metaData['locationId']);
             const locationName = req.lng === 'cy' ? location.welshName : location.name;
+
             const listData = opaPressListService.manipulateData(JSON.stringify(jsonData));
+
             res.render(`style-guide/${listUrl}`, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
