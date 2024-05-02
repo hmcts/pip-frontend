@@ -9,9 +9,8 @@ import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
     hearingHasParty,
-    isUnexpectedListType,
     isValidList,
-    isValidListType,
+    isValidListType, missingListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -77,7 +76,7 @@ export default class CrownDailyListController {
         } else if (
             searchResults === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metadataListType, listUrl)
+            (!missingListType(metadataListType) && !isValidListType(metadataListType, listUrl))
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
