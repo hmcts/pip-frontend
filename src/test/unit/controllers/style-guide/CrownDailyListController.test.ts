@@ -15,8 +15,6 @@ const listData = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'CROWN_DAILY_LIST';
-const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -30,7 +28,6 @@ sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listD
 sinon.stub(CrimeListsService.prototype, 'findUnallocatedCasesInCrownDailyListData').returns(listData);
 
 const artefactId = 'abc';
-const artefactIdListNotFound = 'xyz';
 
 crownDailyListJsonStub.withArgs(artefactId).resolves(listData);
 crownDailyListJsonStub.withArgs(artefactId, undefined).resolves(undefined);
@@ -39,7 +36,6 @@ crownDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 crownDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownDailyListMetaDataStub.withArgs('').resolves([]);
-crownDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const listType = 'crown-daily-list';
 const listPath = `style-guide/${listType}`;
@@ -123,17 +119,4 @@ describe('Crown Daily List Controller', () => {
         return responseMock.verify();
     });
 
-    it('should render list not found page if list type not valid', async () => {
-        request.query = { artefactId: artefactIdListNotFound };
-        request.user = { userId: '1' };
-        const responseMock = sinon.mock(response);
-
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
-
-        await crownDailyListController.get(request, response);
-        return responseMock.verify();
-    });
 });

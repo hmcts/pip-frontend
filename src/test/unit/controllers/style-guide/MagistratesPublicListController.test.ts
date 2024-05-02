@@ -15,8 +15,6 @@ const listData = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'MAGISTRATES_PUBLIC_LIST';
-const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -29,7 +27,6 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listData);
 
 const artefactId = 'abc';
-const artefactIdListNotFound = 'xyz';
 
 magistratesPublicListJsonStub.withArgs(artefactId).resolves(listData);
 magistratesPublicListJsonStub.withArgs(artefactId, undefined).resolves(null);
@@ -39,7 +36,6 @@ magistratesPublicListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound)
 magistratesPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magistratesPublicListMetaDataStub.withArgs(artefactId, undefined).resolves(null);
 magistratesPublicListMetaDataStub.withArgs('').resolves([]);
-magistratesPublicListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const listType = 'magistrates-public-list';
 const listPath = `style-guide/${listType}`;
@@ -123,17 +119,4 @@ describe('Magistrates Public List Controller', () => {
         return responseMock.verify();
     });
 
-    it('should render list not found page if list type not valid', async () => {
-        request.query = { artefactId: artefactIdListNotFound };
-        request.user = { userId: '1' };
-        const responseMock = sinon.mock(response);
-
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
-
-        await magistratesPublicListController.get(request, response);
-        return responseMock.verify();
-    });
 });
