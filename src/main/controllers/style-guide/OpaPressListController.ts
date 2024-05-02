@@ -47,8 +47,7 @@ export default class OpaPressListController {
                 venueAddress: venueAddress,
             });
         } else if (
-            jsonData === HttpStatusCode.NotFound ||
-            metadata === HttpStatusCode.NotFound ||
+            jsonData === HttpStatusCode.NotFound || metadata === HttpStatusCode.NotFound ||
             isUnexpectedListType(metaDataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

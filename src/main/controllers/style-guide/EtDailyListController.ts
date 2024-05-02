@@ -45,8 +45,7 @@ export default class EtDailyListController {
                 provenance: metaData.provenance,
             });
         } else if (
-            fileData === HttpStatusCode.NotFound ||
-            metaData === HttpStatusCode.NotFound ||
+            fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
             isUnexpectedListType(metaDataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
