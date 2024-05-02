@@ -5,9 +5,9 @@ import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { LocationService } from '../../service/LocationService';
 import {
     formatMetaDataListType,
+    isUnexpectedListType,
     isValidList,
-    isValidListType,
-    missingListType
+    isValidListType
 } from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';
@@ -54,7 +54,7 @@ export default class OpaPressListController {
         } else if (
             jsonData === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metadataListType) && !isValidListType(metadataListType, listUrl))
+            isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

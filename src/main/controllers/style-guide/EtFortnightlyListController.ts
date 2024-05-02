@@ -8,9 +8,9 @@ import { LocationService } from '../../service/LocationService';
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
+    isUnexpectedListType,
     isValidList,
-    isValidListType,
-    missingListType
+    isValidListType
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -58,7 +58,7 @@ export default class EtFortnightlyListController {
         } else if (
             fileData === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metadataListType) && !isValidListType(metadataListType, listUrl))
+            isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
