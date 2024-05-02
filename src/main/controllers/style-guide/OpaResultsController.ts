@@ -21,15 +21,15 @@ export default class OpaResultsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
         const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
-        const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metadataListType = formatMetaDataListType(metadata);
+        const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(jsonData, metadata) && jsonData && metadata && isValidListType(metadataListType, listUrl)) {
+        if (isValidList(jsonData, metaData) && jsonData && metaData && isValidListType(metadataListType, listUrl)) {
             const publicationDate = jsonData['document']['publicationDate'];
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
-            const location = await locationService.getLocationById(metadata['locationId']);
+            const location = await locationService.getLocationById(metaData['locationId']);
             const locationName = req.lng === 'cy' ? location.welshName : location.name;
             const listData = opaResultsService.manipulateData(JSON.stringify(jsonData), req.lng);
 
@@ -37,7 +37,7 @@ export default class OpaResultsController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
-                contentDate: helperService.contentDateInUtcTime(metadata['contentDate'], req.lng),
+                contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 courtName: locationName,
@@ -45,7 +45,7 @@ export default class OpaResultsController {
             });
         } else if (
             jsonData === HttpStatusCode.NotFound ||
-            metadata === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
             isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

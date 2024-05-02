@@ -20,10 +20,10 @@ export default class EtFortnightlyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
-        const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metadataListType = formatMetaDataListType(metadata);
+        const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(fileData, metadata) && fileData && metadata && isValidListType(metadataListType, listUrl)) {
+        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metadataListType, listUrl)) {
             const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -35,7 +35,7 @@ export default class EtFortnightlyListController {
                 venueEmail: fileData['venue']['venueContact']['venueEmail'],
                 venueTelephone: fileData['venue']['venueContact']['venueTelephone'],
             };
-            const returnedCourt = await locationService.getLocationById(metadata['locationId']);
+            const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
 
             res.render(listPath, {
@@ -44,15 +44,15 @@ export default class EtFortnightlyListController {
                 ...venue,
                 tableData,
                 courtName,
-                contentDate: helperService.contentDateInUtcTime(metadata['contentDate'], req.lng),
+                contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 region: returnedCourt.region,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metadata.provenance,
+                provenance: metaData.provenance,
             });
         } else if (
             fileData === HttpStatusCode.NotFound ||
-            metadata === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
             isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
