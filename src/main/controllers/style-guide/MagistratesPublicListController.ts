@@ -8,9 +8,10 @@ import { CrimeListsService } from '../../service/listManipulation/CrimeListsServ
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
-    hearingHasParty, isUnexpectedListType,
+    hearingHasParty,
+    isUnexpectedListType,
     isValidList,
-    isValidListType
+    isValidListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -36,7 +37,6 @@ export default class MagistratesPublicListController {
         ) {
             let manipulatedData;
             let partyAtHearingLevel = false;
-
             if (hearingHasParty(searchResults)) {
                 manipulatedData = crimeListsService.manipulateCrimeListDataV1(
                     JSON.stringify(searchResults),
@@ -51,7 +51,6 @@ export default class MagistratesPublicListController {
                     listPath
                 );
             }
-
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
@@ -59,7 +58,6 @@ export default class MagistratesPublicListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
-
             res.render(listPath, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
