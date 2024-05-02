@@ -24,6 +24,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownWarned
 const crownWarnedListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'CROWN_WARNED_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(crownWarnedListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
