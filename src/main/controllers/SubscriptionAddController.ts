@@ -19,16 +19,12 @@ export default class SubscriptionAddController {
             case 'court-or-tribunal':
                 res.redirect('/location-name-search');
                 break;
-            case 'party-name': {
-                res.redirect('/party-name-search');
+            case 'name': {
+                res.redirect('/case-name-search');
                 break;
             }
             case 'case-reference': {
                 res.redirect('/case-reference-number-search');
-                break;
-            }
-            case 'name': {
-                res.redirect('/case-name-search');
                 break;
             }
             default:
