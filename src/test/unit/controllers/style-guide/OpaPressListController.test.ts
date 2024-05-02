@@ -54,7 +54,6 @@ metadataStub.withArgs(welshArtefactId).resolves(welshMetadata);
 metadataStub.withArgs('').resolves([]);
 metadataStub.withArgs(notFoundArtefactId).resolves(metaDataListNotFound);
 
-
 describe('OPA Press List Controller', () => {
     const i18n = {
         'style-guide': {

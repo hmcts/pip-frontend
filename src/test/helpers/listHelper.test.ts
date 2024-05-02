@@ -2,7 +2,8 @@ import {
     formatMetaDataListType,
     isOneOfValidListTypes,
     isValidList,
-    isValidListType, missingListType
+    isValidListType,
+    missingListType,
 } from '../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 
@@ -29,13 +30,13 @@ describe('List Helper', () => {
     });
 
     it('should return formatted list type', () => {
-        const metaData = {listType: 'TEST_LIST_TYPE'}
+        const metaData = { listType: 'TEST_LIST_TYPE' };
 
         expect(formatMetaDataListType(metaData)).toBe('test-list-type');
     });
 
     it('should not return any list type', () => {
-        const metaData = null
+        const metaData = null;
 
         expect(formatMetaDataListType(metaData)).toBe('');
     });
