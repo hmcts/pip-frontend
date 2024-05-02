@@ -17,6 +17,7 @@ const listUrl = 'et-daily-list';
 const listPath = `style-guide/${listUrl}`;
 
 export default class EtDailyListController {
+
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);

@@ -23,6 +23,7 @@ const listUrl = 'magistrates-public-list';
 const listPath = `style-guide/${listUrl}`;
 
 export default class MagistratesPublicListController {
+
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);

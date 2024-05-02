@@ -18,6 +18,7 @@ const opaPressListService = new OpaPressListService();
 const listUrl = 'opa-press-list';
 
 export default class OpaPressListController {
+
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
         const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
