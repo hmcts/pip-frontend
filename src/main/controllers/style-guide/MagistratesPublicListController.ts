@@ -26,13 +26,13 @@ export default class MagistratesPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
-        const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metadataListType = formatMetaDataListType(metaData);
+        const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metadataListType = formatMetaDataListType(metadata);
 
         if (
-            isValidList(searchResults, metaData) &&
+            isValidList(searchResults, metadata) &&
             searchResults &&
-            metaData &&
+            metadata &&
             isValidListType(metadataListType, listUrl)
         ) {
             let manipulatedData;
@@ -58,17 +58,17 @@ export default class MagistratesPublicListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            const location = await locationService.getLocationById(metaData['locationId']);
+            const location = await locationService.getLocationById(metadata['locationId']);
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             res.render(listPath, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
-                contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
+                contentDate: helperService.contentDateInUtcTime(metadata['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                provenance: metaData.provenance,
+                provenance: metadata.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 venueAddress: venueAddress,
@@ -76,7 +76,7 @@ export default class MagistratesPublicListController {
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||
-            metaData === HttpStatusCode.NotFound ||
+            metadata === HttpStatusCode.NotFound ||
             isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
