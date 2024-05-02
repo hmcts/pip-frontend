@@ -5,7 +5,7 @@ import { PublicationService } from '../../service/PublicationService';
 import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { HttpStatusCode } from 'axios';
-import { isValidList } from '../../helpers/listHelper';
+import {formatMetaDataListType, isValidList, isValidListType, missingListType} from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { OpaPublicListService } from '../../service/listManipulation/OpaPublicListService';
 
@@ -22,8 +22,9 @@ export default class OpaPublicListController {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData && isValidListType(metaDataListType, listType)) {
             const listData = opaPublicListService.formatOpaPublicList(JSON.stringify(searchResults));
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -44,7 +45,8 @@ export default class OpaPublicListController {
                 courtName: locationName,
                 venueAddress: venueAddress,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listType))) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

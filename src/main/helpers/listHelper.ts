@@ -17,19 +17,19 @@ export const formatMetaDataListType = (metaData: any): any => {
     } else {
         return '';
     }
-}
+};
 
 export const isValidListType = (metaDataListType: any, listType: any): any => {
     return metaDataListType === listType;
-}
+};
 
 export const isOneOfValidListTypes = (metaDataListType: any, listType: any, altListType: any): any => {
     return metaDataListType === listType || metaDataListType === altListType;
-}
+};
 
 export const missingListType = (metaDataListType: any): any => {
     return metaDataListType === '';
-}
+};
 
 // TODO: To be removed once all lists have party field on the case level.
 export const hearingHasParty = (jsonData): boolean => {

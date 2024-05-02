@@ -5,7 +5,13 @@ import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrownWarnedListService } from '../../service/listManipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
-import { hearingHasParty, isValidList } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    hearingHasParty,
+    isValidList,
+    isValidListType,
+    missingListType
+} from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
@@ -22,8 +28,9 @@ export default class CrownWarnedListController {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData && isValidListType(metaDataListType, listUrl)) {
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
@@ -59,7 +66,8 @@ export default class CrownWarnedListController {
                 provenance: metaData.provenance,
                 venueAddress: venueAddress,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listUrl))) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

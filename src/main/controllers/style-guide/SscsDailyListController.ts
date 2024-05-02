@@ -6,7 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { SscsDailyListService } from '../../service/listManipulation/SscsDailyListService';
 import { HttpStatusCode } from 'axios';
-import { isValidList } from '../../helpers/listHelper';
+import {formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType} from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
@@ -22,8 +22,9 @@ export default class SscsDailyListController {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData && isOneOfValidListTypes(metaDataListType, sscsUrl, sscsAdditonalHearingsUrl)) {
             const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
@@ -58,7 +59,8 @@ export default class SscsDailyListController {
                 courtName: courtName,
                 provenance: metaData.provenance,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) && !isOneOfValidListTypes(metaDataListType, sscsUrl, sscsAdditonalHearingsUrl))) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
