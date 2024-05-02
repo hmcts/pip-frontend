@@ -6,7 +6,12 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { MagistratesStandardListService } from '../../service/listManipulation/MagistratesStandardListService';
 import { HttpStatusCode } from 'axios';
-import { formatMetaDataListType, isValidList, isValidListType, missingListType } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    isUnexpectedListType,
+    isValidList,
+    isValidListType,
+} from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
@@ -54,7 +59,7 @@ export default class MagistratesStandardListController {
         } else if (
             publicationJson === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listType))
+            isUnexpectedListType(metaDataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

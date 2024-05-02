@@ -3,7 +3,12 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { LocationService } from '../../service/LocationService';
-import { formatMetaDataListType, isValidList, isValidListType, missingListType } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    isUnexpectedListType,
+    isValidList,
+    isValidListType,
+} from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
@@ -47,7 +52,7 @@ export default class OpaResultsController {
         } else if (
             jsonData === HttpStatusCode.NotFound ||
             metadata === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listType))
+            isUnexpectedListType(metaDataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

@@ -7,7 +7,12 @@ import { SjpPublicListService } from '../../service/listManipulation/SjpPublicLi
 import { SjpFilterService } from '../../service/SjpFilterService';
 import { FilterService } from '../../service/FilterService';
 import { HttpStatusCode } from 'axios';
-import { formatMetaDataListType, isValidList, isValidListType, missingListType } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    isUnexpectedListType,
+    isValidList,
+    isValidListType,
+} from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
 
 const publicationService = new PublicationService();
@@ -59,7 +64,7 @@ export default class SjpPublicListController {
         } else if (
             fileData === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, validList))
+            isUnexpectedListType(metaDataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

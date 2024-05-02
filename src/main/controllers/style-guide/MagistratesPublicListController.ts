@@ -8,10 +8,9 @@ import { CrimeListsService } from '../../service/listManipulation/CrimeListsServ
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
-    hearingHasParty,
+    hearingHasParty, isUnexpectedListType,
     isValidList,
     isValidListType,
-    missingListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -77,7 +76,7 @@ export default class MagistratesPublicListController {
         } else if (
             searchResults === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listType))
+            isUnexpectedListType(metaDataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

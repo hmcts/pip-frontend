@@ -5,7 +5,12 @@ import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { IacDailyListService } from '../../service/listManipulation/IacDailyListService';
 import { HttpStatusCode } from 'axios';
-import { formatMetaDataListType, isValidList, isValidListType, missingListType } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    isUnexpectedListType,
+    isValidList,
+    isValidListType,
+} from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -44,7 +49,7 @@ export default class IacDailyListController {
         } else if (
             searchResults === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listType))
+            isUnexpectedListType(metaDataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

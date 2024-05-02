@@ -7,10 +7,9 @@ import { CrownWarnedListService } from '../../service/listManipulation/CrownWarn
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
-    hearingHasParty,
+    hearingHasParty, isUnexpectedListType,
     isValidList,
     isValidListType,
-    missingListType,
 } from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
@@ -74,7 +73,7 @@ export default class CrownWarnedListController {
         } else if (
             searchResults === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listUrl))
+            isUnexpectedListType(metaDataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
