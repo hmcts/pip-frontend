@@ -16,11 +16,6 @@ const caseNameUrn = '18472381412';
 const caseNamePartyFullName = 'Test Forename Test Surname';
 const caseNamePartyOrganisationName = 'Test Organisation Name';
 const caseNamePartyRepSurname = 'Test Rep Surname';
-const casePartySurname = 'Party Surname';
-const casePartyFullName = 'Party Forename Party Surname';
-const casePartyRepSurname = 'Party Rep Surname';
-const casePartyNumber = '12341235';
-const casePartyURN = '99999999';
 
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
@@ -117,26 +112,6 @@ Scenario(
         I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
-        I.click('Add email subscription');
-        I.click('#subscription-choice-4');
-        I.click('Continue');
-        I.waitForText('What is the surname or organisation name of the party involved in the case?');
-        I.see('For example, Smith');
-        I.fillField('#party-name', casePartySurname);
-        I.click('Continue', null, { noWaitAfter: true });
-        I.waitForText('Search result');
-        I.see(casePartyFullName);
-        I.see(casePartyNumber);
-        I.see(casePartyURN);
-        I.dontSee(casePartyRepSurname);
-        I.checkOption('//*[@id="12341235"]');
-        I.checkOption('//*[@id="99999999"]');
-        I.click('Continue');
-        I.waitForText('Confirm your email subscriptions');
-        I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
-
-        I.click('Email subscriptions');
         I.waitForText('All subscriptions');
         I.see(locationName);
         I.see(caseId);
@@ -146,9 +121,6 @@ Scenario(
         I.see(caseNameUrn);
         I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
-        I.see(casePartyFullName);
-        I.see(casePartyNumber);
-        I.see(casePartyURN);
 
         I.click('Subscriptions by case');
         I.dontSee(locationName);
@@ -159,16 +131,12 @@ Scenario(
         I.see(caseNameUrn);
         I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
-        I.see(casePartyFullName);
-        I.see(casePartyNumber);
-        I.see(casePartyURN);
 
         I.click('Subscriptions by court or tribunal');
         I.see(locationName);
         I.dontSee(caseId);
         I.dontSee(caseName);
         I.dontSee(caseURN);
-        I.dontSee(casePartyFullName);
 
         I.click('All subscriptions');
         I.see(caseURN);
@@ -186,8 +154,6 @@ Scenario(
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ name: 'courtSubscription' }));
         I.click(locate('//tr').withText(caseId).find('input').withAttr({ name: 'caseSubscription' }));
         I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ name: 'caseSubscription' }));
-        I.click(locate('//tr').withText(casePartyNumber).find('input').withAttr({ name: 'caseSubscription' }));
-        I.click(locate('//tr').withText(casePartyURN).find('input').withAttr({ name: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');

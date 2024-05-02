@@ -11,8 +11,6 @@ const caseUrnValue = '456';
 const fullCaseNameValue = 'test name 1';
 const partialCaseNameValue = 'test';
 const uppercaseCaseNameValue = 'TEST NAME 2';
-const partialPartyNameValue = 'PARTYNAME';
-const mixedCasePartyNameValue = 'ParTYNamE3';
 const userId = '123';
 
 const returnedArtefact = [
@@ -161,65 +159,6 @@ describe('Publication service', () => {
         expect(result).to.eql({
             ...returnedArtefact[0].search.cases[0],
             partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
-        });
-    });
-
-    it('should return array of Search Objects based on partial party name', async () => {
-        const results = await publicationService.getCasesByPartyName(partialPartyNameValue, userId);
-        expect(results).to.have.length(7);
-
-        expect(results[0]).to.eql({
-            ...returnedArtefact[0].search.cases[0],
-            partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
-        });
-
-        expect(results[1]).to.eql({
-            ...returnedArtefact[0].search.cases[0],
-            partyNames: 'FORENAME PARTYNAME2,\nPARTYNAME1',
-            displayUrn: true,
-        });
-
-        expect(results[2]).to.eql({
-            ...returnedArtefact[0].search.cases[1],
-            partyNames: 'PARTYNAME3',
-        });
-
-        expect(results[3]).to.eql({
-            ...returnedArtefact[0].search.cases[1],
-            partyNames: 'PARTYNAME3',
-            displayUrn: true,
-        });
-
-        expect(results[4]).to.eql({
-            ...returnedArtefact[0].search.cases[3],
-            partyNames: 'PARTYNAME4',
-        });
-
-        expect(results[5]).to.eql({
-            ...returnedArtefact[0].search.cases[3],
-            partyNames: 'PARTYNAME4',
-            displayUrn: true,
-        });
-
-        expect(results[6]).to.eql({
-            ...returnedArtefact[0].search.cases[4],
-            partyNames: 'PARTYNAME4',
-        });
-    });
-
-    it('should return search case for party name with mismatched casing', async () => {
-        const results = await publicationService.getCasesByPartyName(mixedCasePartyNameValue, userId);
-        expect(results).to.have.length(2);
-
-        expect(results[0]).to.eql({
-            ...returnedArtefact[0].search.cases[1],
-            partyNames: 'PARTYNAME3',
-        });
-
-        expect(results[1]).to.eql({
-            ...returnedArtefact[0].search.cases[1],
-            partyNames: 'PARTYNAME3',
-            displayUrn: true,
         });
     });
 

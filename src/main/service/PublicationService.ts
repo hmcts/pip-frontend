@@ -51,26 +51,6 @@ export class PublicationService {
         return formattedResults;
     }
 
-    public async getCasesByPartyName(partyName: string, userId: string): Promise<object[]> {
-        const artefacts = await publicationRequests.getPublicationByCaseValue('PARTY_NAME', partyName, userId);
-        const searchResults = this.getFuzzyPartyCasesFromArtefact(artefacts, partyName);
-
-        const formattedResults = [];
-        searchResults.forEach(searchResult => {
-            if (searchResult.caseNumber) {
-                formattedResults.push(searchResult);
-            }
-
-            if (searchResult.caseUrn) {
-                const newSearchResult = JSON.parse(JSON.stringify(searchResult));
-                newSearchResult['displayUrn'] = true;
-                formattedResults.push(newSearchResult);
-            }
-        });
-
-        return formattedResults;
-    }
-
     public async getCaseByCaseNumber(caseNumber: string, userId: string): Promise<SearchObject> | null {
         const artefact = await publicationRequests.getPublicationByCaseValue('CASE_ID', caseNumber, userId);
         return this.getCaseFromArtefact(artefact[0], 'caseNumber', caseNumber);
@@ -139,24 +119,6 @@ export class PublicationService {
         return matches;
     }
 
-    private getFuzzyPartyCasesFromArtefact(artefacts: Artefact[], value: string): SearchObject[] {
-        const matches: SearchObject[] = [];
-        artefacts.forEach(artefact => {
-            if (artefact?.search.parties) {
-                artefact.search.parties.forEach(party => {
-                    const partyNames = this.constructPartyNames(party);
-                    const searchPartyNames = this.constructSearchPartyNames(party);
-                    party.cases.forEach(singleCase => {
-                        if (searchPartyNames?.find(name => name.toLowerCase().includes(value.toLowerCase()))) {
-                            this.storeUniquePartyCases(matches, singleCase, partyNames);
-                        }
-                    });
-                });
-            }
-        });
-        return matches;
-    }
-
     private constructPartyNames(party: SearchParty): string {
         const parties = [];
 
@@ -176,19 +138,6 @@ export class PublicationService {
 
         party.organisations?.forEach(o => parties.push(o));
         return parties.join(',\n');
-    }
-
-    private constructSearchPartyNames(party: SearchParty): string[] {
-        const parties = [];
-
-        party.individuals?.forEach(i => {
-            if (i.surname) {
-                parties.push(i.surname);
-            }
-        });
-
-        party.organisations?.forEach(o => parties.push(o));
-        return parties;
     }
 
     private storeUniquePartyCases(matches: SearchObject[], singleCase: SearchCase, partyNames: string) {

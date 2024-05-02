@@ -21,8 +21,6 @@ const mediaRoutes = [
     { path: '/bulk-unsubscribe' },
     { path: '/bulk-unsubscribe-confirmation', postMethod: true, postBody: { subscriptions: subscriptionIds } },
     { path: '/bulk-unsubscribe-confirmed' },
-    { path: '/party-name-search' },
-    { path: '/party-name-search-results', parameter: '?search=Surname' },
     { path: '/case-name-search' },
     { path: '/case-name-search-results', parameter: '?search=myCase' },
     { path: '/case-reference-number-search' },
@@ -69,7 +67,6 @@ sinon.stub(LocationRequests.prototype, 'getFilteredCourts').resolves(locationDat
 sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData);
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata);
 sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').returns(metadata[0]);
-sinon.stub(PublicationService.prototype, 'getCasesByPartyName').resolves([subscriptionSearchResults]);
 sinon.stub(PublicationService.prototype, 'getCasesByCaseName').resolves([subscriptionSearchResults]);
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(subscriptionSearchResults);
 sinon.stub(ListDownloadService.prototype, 'checkUserIsAuthorised').resolves(true);
@@ -90,23 +87,6 @@ describe('Accessibility - Media User Routes', () => {
     });
 
     describe('Page with Errors', () => {
-        describe('Party Name Search Page', () => {
-            const url = '/party-name-search';
-
-            beforeEach(() => {
-                sinon.restore();
-                sinon.stub(PublicationService.prototype, 'getCasesByPartyName').resolves([]);
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'party-name': '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'party-name': 'Invalid party name' });
-            });
-        });
-
         describe('Case Name Search Page', () => {
             const url = '/case-name-search';
 
