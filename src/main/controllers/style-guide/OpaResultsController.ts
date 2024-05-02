@@ -18,7 +18,6 @@ const opaResultsService = new OpaResultsService();
 const listUrl = 'opa-results';
 
 export default class OpaResultsController {
-
     public async get(req: PipRequest, res: Response): Promise<void> {
 
         const artefactId = req.query['artefactId'];
@@ -27,15 +26,12 @@ export default class OpaResultsController {
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(jsonData, metaData) && jsonData && metaData && isValidListType(metadataListType, listUrl)) {
-
             const publicationDate = jsonData['document']['publicationDate'];
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
-
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
             const location = await locationService.getLocationById(metaData['locationId']);
             const locationName = req.lng === 'cy' ? location.welshName : location.name;
-
             const listData = opaResultsService.manipulateData(JSON.stringify(jsonData), req.lng);
 
             res.render(`style-guide/${listUrl}`, {

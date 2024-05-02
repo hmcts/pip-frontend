@@ -23,9 +23,7 @@ const listUrl = 'crown-daily-list';
 const listPath = `style-guide/${listUrl}`;
 
 export default class CrownDailyListController {
-
     public async get(req: PipRequest, res: Response): Promise<void> {
-
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
@@ -39,7 +37,6 @@ export default class CrownDailyListController {
         ) {
             let outputData;
             let partyAtHearingLevel = false;
-
             if (hearingHasParty(searchResults)) {
                 outputData = crimeListsService.manipulateCrimeListDataV1(
                     JSON.stringify(searchResults),
@@ -56,15 +53,12 @@ export default class CrownDailyListController {
             }
 
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
-
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
-
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-
             const location = await locationService.getLocationById(metaData['locationId']);
 
             res.render(listPath, {
