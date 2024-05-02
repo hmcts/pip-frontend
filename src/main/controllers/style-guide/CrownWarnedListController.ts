@@ -10,7 +10,7 @@ import {
     hearingHasParty,
     isValidList,
     isValidListType,
-    missingListType
+    missingListType,
 } from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
@@ -30,7 +30,12 @@ export default class CrownWarnedListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData && isValidListType(metaDataListType, listUrl)) {
+        if (
+            isValidList(searchResults, metaData) &&
+            searchResults &&
+            metaData &&
+            isValidListType(metaDataListType, listUrl)
+        ) {
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 searchResults['document']['publicationDate'],
@@ -66,8 +71,11 @@ export default class CrownWarnedListController {
                 provenance: metaData.provenance,
                 venueAddress: venueAddress,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listUrl))) {
+        } else if (
+            searchResults === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listUrl))
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

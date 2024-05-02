@@ -13,7 +13,7 @@ import {
     hearingHasParty,
     isValidList,
     isValidListType,
-    missingListType
+    missingListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -66,8 +66,11 @@ export default class CrownFirmListController {
                 courtName: location.name,
                 venueAddress: venueAddress,
             });
-        } else if (jsonData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listType))) {
+        } else if (
+            jsonData === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listType))
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

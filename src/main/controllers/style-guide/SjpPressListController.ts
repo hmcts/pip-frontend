@@ -8,12 +8,7 @@ import { SjpPressListService } from '../../service/listManipulation/SjpPressList
 import { FilterService } from '../../service/FilterService';
 import { SjpFilterService } from '../../service/SjpFilterService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isOneOfValidListTypes,
-    isValidList,
-    missingListType
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType } from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
 
 const publicationService = new PublicationService();
@@ -35,7 +30,12 @@ export default class SjpPressListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(sjpData, metaData) && sjpData && metaData && isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)) {
+        if (
+            isValidList(sjpData, metaData) &&
+            sjpData &&
+            metaData &&
+            isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)
+        ) {
             const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
             const filter = sjpFilterService.generateFilters(
                 allCases,
@@ -83,8 +83,12 @@ export default class SjpPressListController {
                 showDownloadButton,
                 url,
             });
-        } else if (sjpData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType))) {
+        } else if (
+            sjpData === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) &&
+                !isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType))
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

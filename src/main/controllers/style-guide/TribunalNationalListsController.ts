@@ -6,7 +6,7 @@ import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { TribunalNationalListsService } from '../../service/listManipulation/TribunalNationalListsService';
 import { LocationService } from '../../service/LocationService';
 import { HttpStatusCode } from 'axios';
-import {formatMetaDataListType, isValidList, isValidListType, missingListType} from '../../helpers/listHelper';
+import { formatMetaDataListType, isValidList, isValidListType, missingListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -23,7 +23,12 @@ export default class TribunalNationalListsController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData && isValidListType(metaDataListType, listToLoad)) {
+        if (
+            isValidList(searchResults, metaData) &&
+            searchResults &&
+            metaData &&
+            isValidListType(metaDataListType, listToLoad)
+        ) {
             const manipulatedData = tribunalNationalListsService.manipulateData(
                 JSON.stringify(searchResults),
                 req.lng,
@@ -54,8 +59,11 @@ export default class TribunalNationalListsController {
                 venueEmail: searchResults['venue']['venueContact']['venueEmail'],
                 venueTelephone: searchResults['venue']['venueContact']['venueTelephone'],
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listToLoad))) {
+        } else if (
+            searchResults === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) && !isValidListType(metaDataListType, listToLoad))
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

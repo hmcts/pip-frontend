@@ -11,7 +11,7 @@ import {
     hearingHasParty,
     isOneOfValidListTypes,
     isValidList,
-    missingListType
+    missingListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -32,7 +32,12 @@ export default class DailyCauseListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData && isOneOfValidListTypes(metaDataListType, listToLoad, civilListType)) {
+        if (
+            isValidList(searchResults, metaData) &&
+            searchResults &&
+            metaData &&
+            isOneOfValidListTypes(metaDataListType, listToLoad, civilListType)
+        ) {
             const url = publicationService.getListTypes().get(metaData.listType).url;
             let manipulatedData;
             let partyAtHearingLevel = false;
@@ -70,8 +75,11 @@ export default class DailyCauseListController {
                 courtName: location.name,
                 partyAtHearingLevel,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isOneOfValidListTypes(metaDataListType, listToLoad, civilListType))) {
+        } else if (
+            searchResults === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            (!missingListType(metaDataListType) && !isOneOfValidListTypes(metaDataListType, listToLoad, civilListType))
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
