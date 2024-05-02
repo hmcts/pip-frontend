@@ -18,14 +18,13 @@ const opaPressListService = new OpaPressListService();
 const listUrl = 'opa-press-list';
 
 export default class OpaPressListController {
-
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
         const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metaDataListType = formatMetaDataListType(metadata);
+        const metadataListType = formatMetaDataListType(metadata);
 
-        if (isValidList(jsonData, metadata) && jsonData && metadata && isValidListType(metaDataListType, listUrl)) {
+        if (isValidList(jsonData, metadata) && jsonData && metadata && isValidListType(metadataListType, listUrl)) {
             const publicationDate = jsonData['document']['publicationDate'];
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
@@ -50,7 +49,7 @@ export default class OpaPressListController {
         } else if (
             jsonData === HttpStatusCode.NotFound ||
             metadata === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metaDataListType, listUrl)
+            isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

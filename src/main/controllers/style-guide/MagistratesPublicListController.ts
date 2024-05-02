@@ -23,18 +23,17 @@ const listUrl = 'magistrates-public-list';
 const listPath = `style-guide/${listUrl}`;
 
 export default class MagistratesPublicListController {
-
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metaDataListType = formatMetaDataListType(metaData);
+        const metadataListType = formatMetaDataListType(metaData);
 
         if (
             isValidList(searchResults, metaData) &&
             searchResults &&
             metaData &&
-            isValidListType(metaDataListType, listUrl)
+            isValidListType(metadataListType, listUrl)
         ) {
             let manipulatedData;
             let partyAtHearingLevel = false;
@@ -78,7 +77,7 @@ export default class MagistratesPublicListController {
         } else if (
             searchResults === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metaDataListType, listUrl)
+            isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

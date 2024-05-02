@@ -17,14 +17,13 @@ const listUrl = 'et-daily-list';
 const listPath = `style-guide/${listUrl}`;
 
 export default class EtDailyListController {
-
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'];
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
-        const metaDataListType = formatMetaDataListType(metaData);
+        const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metaDataListType, listUrl)) {
+        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metadataListType, listUrl)) {
             const listData = etDailyListService.reshapeEtLists(JSON.stringify(fileData), req.lng);
 
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
@@ -48,7 +47,7 @@ export default class EtDailyListController {
         } else if (
             fileData === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metaDataListType, listUrl)
+            isUnexpectedListType(metadataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
