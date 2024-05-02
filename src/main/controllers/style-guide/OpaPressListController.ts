@@ -15,7 +15,7 @@ const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 const opaPressListService = new OpaPressListService();
 
-const listType = 'opa-press-list';
+const listUrl = 'opa-press-list';
 
 export default class OpaPressListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -24,7 +24,7 @@ export default class OpaPressListController {
         const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metadata);
 
-        if (isValidList(jsonData, metadata) && jsonData && metadata && isValidListType(metaDataListType, listType)) {
+        if (isValidList(jsonData, metadata) && jsonData && metadata && isValidListType(metaDataListType, listUrl)) {
             const publicationDate = jsonData['document']['publicationDate'];
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
@@ -35,8 +35,8 @@ export default class OpaPressListController {
             const locationName = req.lng === 'cy' ? location.welshName : location.name;
             const listData = opaPressListService.manipulateData(JSON.stringify(jsonData));
 
-            res.render(`style-guide/${listType}`, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+            res.render(`style-guide/${listUrl}`, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 contentDate: helperService.contentDateInUtcTime(metadata['contentDate'], req.lng),
@@ -47,8 +47,9 @@ export default class OpaPressListController {
                 venueAddress: venueAddress,
             });
         } else if (
-            jsonData === HttpStatusCode.NotFound || metadata === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metaDataListType, listType)
+            jsonData === HttpStatusCode.NotFound ||
+            metadata === HttpStatusCode.NotFound ||
+            isUnexpectedListType(metaDataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

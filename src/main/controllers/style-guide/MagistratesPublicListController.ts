@@ -11,7 +11,7 @@ import {
     hearingHasParty,
     isUnexpectedListType,
     isValidList,
-    isValidListType
+    isValidListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -19,8 +19,8 @@ const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
-const listType = 'magistrates-public-list';
-const listPath = `style-guide/${listType}`;
+const listUrl = 'magistrates-public-list';
+const listPath = `style-guide/${listUrl}`;
 
 export default class MagistratesPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -33,7 +33,7 @@ export default class MagistratesPublicListController {
             isValidList(searchResults, metaData) &&
             searchResults &&
             metaData &&
-            isValidListType(metaDataListType, listType)
+            isValidListType(metaDataListType, listUrl)
         ) {
             let manipulatedData;
             let partyAtHearingLevel = false;
@@ -62,7 +62,7 @@ export default class MagistratesPublicListController {
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
@@ -75,8 +75,9 @@ export default class MagistratesPublicListController {
                 partyAtHearingLevel,
             });
         } else if (
-            searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metaDataListType, listType)
+            searchResults === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            isUnexpectedListType(metaDataListType, listUrl)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
