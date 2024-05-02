@@ -141,5 +141,4 @@ describe('OPA Press List Controller', () => {
         await opaPressListController.get(request, response);
         return responseMock.verify();
     });
-
 });

@@ -139,5 +139,4 @@ describe('OPA Results controller', () => {
         await opaResultsController.get(request, response);
         return responseMock.verify();
     });
-
 });

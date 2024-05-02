@@ -118,5 +118,4 @@ describe('Magistrates Public List Controller', () => {
         await magistratesPublicListController.get(request, response);
         return responseMock.verify();
     });
-
 });
