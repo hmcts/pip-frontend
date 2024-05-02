@@ -14,6 +14,7 @@ const rawDataObj = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+const metaDataListNotFound = JSON.parse(rawMetaData)[1];
 
 const crownWarnedListController = new CrownWarnedListController();
 
@@ -21,6 +22,8 @@ const crownWarnedListJsonStub = sinon.stub(PublicationService.prototype, 'getInd
 const crownWarnedListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 const artefactId = 'abc';
+const artefactIdListNotFound = 'xyz';
+
 const allocatedData = {
     caseReference: '1',
     defendant: '2',
@@ -55,6 +58,7 @@ crownWarnedListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 crownWarnedListMetaDataStub.withArgs(artefactId).resolves(metaData);
 crownWarnedListMetaDataStub.withArgs('').resolves([]);
+crownWarnedListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const listType = 'crown-warned-list';
 const listPath = `style-guide/${listType}`;
@@ -114,6 +118,20 @@ describe('Crown Warned List Controller', () => {
 
     it('should render list not found page if response is 404', async () => {
         request.query = { artefactId: '1234' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await crownWarnedListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.query = { artefactId: artefactIdListNotFound };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 

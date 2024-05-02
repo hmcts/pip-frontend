@@ -17,9 +17,9 @@ const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returne
 
 const metaDataFamily = JSON.parse(rawMetaData)[0];
 metaDataFamily.listType = 'FAMILY_DAILY_CAUSE_LIST';
-
 const metaDataCivil = JSON.parse(rawMetaData)[0];
 metaDataCivil.listType = 'CIVIL_DAILY_CAUSE_LIST';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -34,6 +34,7 @@ sinon.stub(CivilFamilyAndMixedListService.prototype, 'sculptedListData').returns
 
 const artefactIdFamily = 'abc';
 const artefactIdCivil = 'def';
+const artefactIdListNotFound = 'xyz';
 
 dailyCauseListJsonStub.withArgs(artefactIdFamily).resolves(listData);
 dailyCauseListJsonStub.withArgs(artefactIdCivil).resolves(listData);
@@ -44,6 +45,7 @@ dailyCauseListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 dailyCauseListMetaDataStub.withArgs(artefactIdFamily).resolves(metaDataFamily);
 dailyCauseListMetaDataStub.withArgs(artefactIdCivil).resolves(metaDataCivil);
 dailyCauseListMetaDataStub.withArgs('').resolves([]);
+dailyCauseListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const civilListType = 'daily-cause-list';
 const familyListType = 'family-daily-cause-list';
@@ -157,6 +159,21 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await dailyCauseListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.path = '/family-daily-cause-list';
+        request.query = { artefactId: artefactIdListNotFound };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await dailyCauseListController.get(request, response);
         return responseMock.verify();
