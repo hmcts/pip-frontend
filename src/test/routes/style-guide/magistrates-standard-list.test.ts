@@ -11,8 +11,12 @@ import { MagistratesStandardListService } from '../../../main/service/listManipu
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/magistratesStandardList.json'), 'utf-8');
 const magsStandardListData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'MAGISTRATES_STANDARD_LIST';
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(magsStandardListData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(magsStandardListData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 sinon.stub(MagistratesStandardListService.prototype, 'manipulateData').resolves(magsStandardListData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 
