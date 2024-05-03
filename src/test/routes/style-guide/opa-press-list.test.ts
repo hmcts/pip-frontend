@@ -11,6 +11,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/opaPre
 const jsonData = JSON.parse(rawData);
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[0];
+metadata.listType = 'OPA_PRESS_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metadata);

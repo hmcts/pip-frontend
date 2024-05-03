@@ -24,6 +24,7 @@ const metadata = JSON.parse(rawMetadata)[0];
 metadata.listType = 'OPA_PRESS_LIST';
 const welshMetadata = JSON.parse(rawMetadata)[2];
 welshMetadata.listType = 'OPA_PRESS_LIST';
+const metaDataListNotFound = JSON.parse(metadata)[0];
 
 const contentDate = DateTime.fromISO(metadata['contentDate'], { zone: 'utc' }).toFormat('dd MMMM yyyy');
 const data1 = { urn: '1', name: 'name1', pleaDate: 'date1' };
@@ -51,6 +52,7 @@ jasonDataStub.withArgs(notFoundArtefactId).resolves(HttpStatusCode.NotFound);
 metadataStub.withArgs(artefactId).resolves(metadata);
 metadataStub.withArgs(welshArtefactId).resolves(welshMetadata);
 metadataStub.withArgs('').resolves([]);
+metadataStub.withArgs(notFoundArtefactId).resolves(metaDataListNotFound);
 
 describe('OPA Press List Controller', () => {
     const i18n = {
@@ -130,6 +132,20 @@ describe('OPA Press List Controller', () => {
 
     it('should render list not found page if response is 404', async () => {
         request.query = { artefactId: notFoundArtefactId };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await opaPressListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.query = { artefactId: artefactIdListNotFound };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
