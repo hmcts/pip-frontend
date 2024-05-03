@@ -3,7 +3,7 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { LocationService } from '../../service/LocationService';
-import {formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
@@ -24,12 +24,7 @@ export default class OpaPressListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(jsonData, metaData) &&
-            jsonData &&
-            metaData &&
-            isValidListType(metadataListType, listType)
-        ) {
+        if (isValidList(jsonData, metaData) && jsonData && metaData && isValidListType(metadataListType, listType)) {
             const publicationDate = jsonData['document']['publicationDate'];
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
