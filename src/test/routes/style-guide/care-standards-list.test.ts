@@ -10,6 +10,7 @@ import { TribunalNationalListsService } from '../../../main/service/listManipula
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/careStandardsList.json'), 'utf-8');
 const careStandardsListData = JSON.parse(rawData);
+careStandardsListData.listType = 'CARE_STANDARDS_LIST';
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(careStandardsListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(careStandardsListData);
 sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').resolves(careStandardsListData);

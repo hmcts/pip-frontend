@@ -2,7 +2,8 @@ import {
     formatMetaDataListType,
     hearingHasParty,
     isOneOfValidListTypes,
-    isValidListType, missingListType
+    isValidListType,
+    missingListType,
 } from '../../../main/helpers/listHelper';
 import fs from 'fs';
 import path from 'path';
@@ -60,5 +61,4 @@ describe('List helper', () => {
 
         expect(missingListType(metaDataListType)).toBe(false);
     });
-
 });

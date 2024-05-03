@@ -1,6 +1,4 @@
-import {
-    isValidList
-} from '../../main/helpers/listHelper';
+import { isValidList } from '../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 
 describe('List Helper', () => {
