@@ -145,7 +145,7 @@ describe('OPA Press List Controller', () => {
     });
 
     it('should render list not found page if list type not valid', async () => {
-        request.query = { artefactId: artefactIdListNotFound };
+        request.query = { artefactId: notFoundArtefactId };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
