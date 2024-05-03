@@ -6,23 +6,30 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import { hearingHasParty, isValidList } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    hearingHasParty,
+    isUnexpectedListType,
+    isValidList,
+    isValidListType
+} from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
-const listUrl = 'magistrates-public-list';
-const listPath = `style-guide/${listUrl}`;
+const listType = 'magistrates-public-list';
+const listPath = `style-guide/${listType}`;
 
 export default class MagistratesPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData) {
+        if (isValidList(searchResults, metaData) && searchResults && metaData && isValidListType(metadataListType, listType)) {
             let manipulatedData;
             let partyAtHearingLevel = false;
 
@@ -50,7 +57,7 @@ export default class MagistratesPublicListController {
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
@@ -62,7 +69,9 @@ export default class MagistratesPublicListController {
                 venueAddress: venueAddress,
                 partyAtHearingLevel,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
+            isUnexpectedListType(metadataListType, listType)
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
