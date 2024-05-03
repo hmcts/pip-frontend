@@ -3,7 +3,7 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { LocationService } from '../../service/LocationService';
-import {formatMetaDataListType, isUnexpectedListType, isValidList} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList } from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
@@ -44,7 +44,9 @@ export default class OpaPressListController {
                 courtName: locationName,
                 venueAddress: venueAddress,
             });
-        } else if (jsonData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
+        } else if (
+            jsonData === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
             isUnexpectedListType(metadataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
