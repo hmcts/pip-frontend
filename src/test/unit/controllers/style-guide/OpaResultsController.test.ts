@@ -24,7 +24,7 @@ const metadata = JSON.parse(rawMetadata)[0];
 metadata.listType = 'OPA_RESULTS';
 const welshMetadata = JSON.parse(rawMetadata)[2];
 welshMetadata.listType = 'OPA_RESULTS';
-const metaDataListNotFound = JSON.parse(metadata)[0];
+const metaDataListNotFound = JSON.parse(rawMetadata)[0];
 
 const contentDate = DateTime.fromISO(metadata['contentDate'], { zone: 'utc' }).toFormat('dd MMMM yyyy');
 const data1 = { caseUrn: '1', defendant: 'name1', decisionDate: 'date1' };

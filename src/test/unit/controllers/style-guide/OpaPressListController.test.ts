@@ -130,9 +130,9 @@ describe('OPA Press List Controller', () => {
         return responseMock.verify();
     });
 
-    it('should render list not found page if response is 404', async () => {
+    it('should render list not found page if list type not valid', async () => {
         request.query = { artefactId: notFoundArtefactId };
-        request.user = { userId: '1' };
+        request.user = { userId: '123' };
         const responseMock = sinon.mock(response);
 
         responseMock
@@ -144,7 +144,7 @@ describe('OPA Press List Controller', () => {
         return responseMock.verify();
     });
 
-    it('should render list not found page if list type not valid', async () => {
+    it('should render list not found page if response is 404', async () => {
         request.query = { artefactId: notFoundArtefactId };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
