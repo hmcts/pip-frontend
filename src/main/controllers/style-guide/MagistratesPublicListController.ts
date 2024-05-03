@@ -11,7 +11,7 @@ import {
     hearingHasParty,
     isUnexpectedListType,
     isValidList,
-    isValidListType
+    isValidListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -29,7 +29,12 @@ export default class MagistratesPublicListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData && isValidListType(metadataListType, listType)) {
+        if (
+            isValidList(searchResults, metaData) &&
+            searchResults &&
+            metaData &&
+            isValidListType(metadataListType, listType)
+        ) {
             let manipulatedData;
             let partyAtHearingLevel = false;
 
@@ -69,7 +74,9 @@ export default class MagistratesPublicListController {
                 venueAddress: venueAddress,
                 partyAtHearingLevel,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound ||
+        } else if (
+            searchResults === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
             isUnexpectedListType(metadataListType, listType)
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
