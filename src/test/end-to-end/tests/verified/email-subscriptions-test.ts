@@ -308,7 +308,6 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-
         I.click('#subscription-choice-3');
         I.click('Continue');
         I.click('Continue');
