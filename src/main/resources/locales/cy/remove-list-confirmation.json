@@ -1,8 +1,8 @@
 {
-    "header": "Are you sure you want to remove this publication?",
+    "header": "Are you sure you want to remove this content?",
     "optionYes": "Yes",
     "optionNo": "No",
-    "warning": "You are about to remove the following publication:",
+    "warning": "You are about to remove the following content:",
     "error": {
         "title": "There is a problem",
         "text": "Please select an option"
@@ -13,5 +13,13 @@
         "date": "Display Dates",
         "language": "Language",
         "sensitivity": "Sensitivity"
-    }
+    },
+    "tableHeaders": [
+        "List type",
+        "Court or Tribunal Name",
+        "Content Date",
+        "Display Dates",
+        "Language",
+        "Sensitivity"
+    ]
 }

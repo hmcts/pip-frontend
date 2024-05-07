@@ -14,7 +14,7 @@
         "Display Dates",
         "Language",
         "Sensitivity",
-        "Actions"
+        "Select"
     ],
     "rowAction": "Remove",
     "languageItems": ["English", "Welsh", "Bilingual"]
