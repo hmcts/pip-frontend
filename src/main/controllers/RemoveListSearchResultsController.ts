@@ -13,7 +13,6 @@ const bulkListRemovalConfirmationUrl = 'remove-list-confirmation';
 const publicationsService = new PublicationRequests();
 
 export default class RemoveListSearchResultsController {
-    F
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = parseInt(req.query?.locationId as string);
         locationId
@@ -39,17 +38,17 @@ export default class RemoveListSearchResultsController {
                     removalList: manualUploadService.formatListRemovalValues(
                         await summaryOfPublicationsService.getPublications(locationId, req.user?.['userId'], true)
                     ),
-                //     add error message
+                    //     add error message
                 });
             } else {
                 const listData = [];
                 for (const list of listsToDelete) {
-                    await RemoveListSearchResultsController.getListDetails(list, userId, listData)
+                    await RemoveListSearchResultsController.getListDetails(list, userId, listData);
                 }
                 res.render(bulkListRemovalConfirmationUrl, {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkListRemovalConfirmationUrl]),
                     court: await courtService.getLocationById(locationId),
-                    removalList: manualUploadService.formatListRemovalValues(listData)
+                    removalList: manualUploadService.formatListRemovalValues(listData),
                 });
             }
         } else {
@@ -57,7 +56,7 @@ export default class RemoveListSearchResultsController {
         }
     }
 
-    private static getSelectedLists(body: { courtLists: any; }): string[] {
+    private static getSelectedLists(body: { courtLists: any }): string[] {
         const { courtLists } = body;
         const listsToDelete = [];
         if (courtLists !== undefined) {
