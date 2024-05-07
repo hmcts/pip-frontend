@@ -32,94 +32,37 @@
       text: warning,
       iconFallbackText: "Warning"
     }) }}
-    {{ govukSummaryList({
-      rows: [
-        {
-          key: {
-          text: summaryListHeaders.publication
-        },
-          value: {
-          text: artefact.listTypeName
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.courtName
-        },
-          value: {
-          text: court.name
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.contentDate
-        },
-          value: {
-          text: artefact.contDate
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.date
-        },
-          value: {
-          text: artefact | dateRange
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.language
-        },
-          value: {
-          text: artefact.language | titleCase
-        }
-        },
-
-        {
-          key: {
-          text: summaryListHeaders.sensitivity
-        },
-          value: {
-          text: artefact.sensitivity | titleCase
-        }
-        }
-      ]
-    }) }}
     <h2 class="govuk-heading-l">{{ header }}</h2>
-    <form action="remove-list-confirmation" method="post">
-      {{ govukInput({
-        id: "artefactId",
-        name: "artefactId",
-        type: "hidden",
-        value: artefact.artefactId
-      }) }}
-      {{ govukInput({
-        id: "locationId",
-        name: "locationId",
-        type: "hidden",
-        value: court.locationId
-      }) }}
-      {{ govukRadios({
-        classes: "govuk-radios--inline",
-        idPrefix: "remove-choice",
-        name: "remove-choice",
-        items: [
-          {
-            value: "yes",
-            text: optionYes
-          },
-          {
-            value: "no",
-            text: optionNo
-          }
-        ]
-      }) }}
-      {{ submitButton(continueButton) }}
-    </form>
+    {% if removalList | length > 0 %}
+        <form action="remove-list-confirmation" method="post">
+            <table class="govuk-table" data-module="moj-sortable-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[0] }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[1] }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[2] }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[3] }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[4] }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[5] }}</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    {% set listCount = 0 %}
+                    {% for item in removalList %}
+                        {% set listCount = listCount + 1 %}
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">{{ item.listTypeName }}</td>
+                            <td class="govuk-table__cell">{{ court.name }}</td>
+                            <td class="govuk-table__cell" data-sort-value="{{ item.contDate | dateWithShortMonthNameToSortValue }}">{{ item.contDate }}</td>
+                            <td class="govuk-table__cell">{{ item.dateRange }}</td>
+                            <td class="govuk-table__cell">{{ item.language | titleCase }}</td>
+                            <td class="govuk-table__cell">{{ item.sensitivity | titleCase }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+          {{ submitButton(continueButton) }}
+        </form>
+    {% endif %}
     {{ super() }}
   </div>
 {% endblock %}
