@@ -3,7 +3,7 @@ import { SubscriptionRequests } from '../resources/requests/SubscriptionRequests
 import { DateTime } from 'luxon';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { Logger } from '@hmcts/nodejs-logging';
-import {thirdPartyRoles} from "../helpers/consts";
+import { thirdPartyRoles } from '../helpers/consts';
 
 /**
  * This service class handles support methods for dealing with third parties
@@ -201,7 +201,7 @@ export class ThirdPartyService {
                 provenanceUserId: formData.thirdPartyName,
                 roles: formData.thirdPartyRole,
                 userProvenance: 'THIRD_PARTY',
-            }
+            },
         ];
     }
 }

@@ -1,9 +1,9 @@
-import request from "supertest";
-import {app} from "../../main/app";
-import {expect} from "chai";
+import request from 'supertest';
+import { app } from '../../main/app';
+import { expect } from 'chai';
 import sinon from 'sinon';
-import {request as expressRequest} from "express";
-import {ThirdPartyService} from "../../main/service/ThirdPartyService";
+import { request as expressRequest } from 'express';
+import { ThirdPartyService } from '../../main/service/ThirdPartyService';
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
@@ -14,7 +14,7 @@ const userRoleList = [
         checked: true,
         hint: {
             text: 'User allowed access to public and private publications only',
-        }
+        },
     },
     {
         value: 'VERIFIED_THIRD_PARTY_ALL',
@@ -22,9 +22,9 @@ const userRoleList = [
         checked: true,
         hint: {
             text: 'User allowed access to classified publications for all list types',
-        }
+        },
     },
-]
+];
 
 sinon.stub(ThirdPartyService.prototype, 'buildThirdPartyRoleList').returns(userRoleList);
 

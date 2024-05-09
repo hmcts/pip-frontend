@@ -1,6 +1,6 @@
-import {PipRequest} from "../models/request/PipRequest";
-import {Response} from "express";
-import {cloneDeep} from "lodash";
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
+import { cloneDeep } from 'lodash';
 
 export default class CreateThirdPartyUserSuccessController {
     public get(req: PipRequest, res: Response): void {
@@ -10,7 +10,7 @@ export default class CreateThirdPartyUserSuccessController {
             formData,
         });
 
-        this.removeThirdPartyUserFromFormCookie(res, formData)
+        this.removeThirdPartyUserFromFormCookie(res, formData);
     }
 
     private removeThirdPartyUserFromFormCookie(res, formData) {

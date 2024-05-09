@@ -60,41 +60,41 @@ export const thirdPartyRoles = [
     {
         key: 'GENERAL_THIRD_PARTY',
         name: 'General third party',
-        description: 'User allowed access to public and private publications only'
+        description: 'User allowed access to public and private publications only',
     },
     {
         key: 'VERIFIED_THIRD_PARTY_CFT',
         name: 'Verified third party - CFT',
-        description: 'User allowed access to classified publications for CFT list types'
+        description: 'User allowed access to classified publications for CFT list types',
     },
     {
         key: 'VERIFIED_THIRD_PARTY_CRIME',
         name: 'Verified third party - Crime',
-        description: 'User allowed access to classified publications for Crime list types'
+        description: 'User allowed access to classified publications for Crime list types',
     },
     {
         key: 'VERIFIED_THIRD_PARTY_PRESS',
         name: 'Verified third party - Press',
-        description: 'User allowed access to classified publications for Press list types'
+        description: 'User allowed access to classified publications for Press list types',
     },
     {
         key: 'VERIFIED_THIRD_PARTY_CRIME_CFT',
         name: 'Verified third party - CFT and Crime',
-        description: 'User allowed access to classified publications for Crime and CFT list types'
+        description: 'User allowed access to classified publications for Crime and CFT list types',
     },
     {
         key: 'VERIFIED_THIRD_PARTY_CFT_PRESS',
         name: 'Verified third party - CFT and Press',
-        description: 'User allowed access to classified publications for CFT and Press list types'
+        description: 'User allowed access to classified publications for CFT and Press list types',
     },
     {
         key: 'VERIFIED_THIRD_PARTY_CRIME_PRESS',
         name: 'Verified third party - Crime and Press',
-        description: 'User allowed access to classified publications for Crime and Press list types'
+        description: 'User allowed access to classified publications for Crime and Press list types',
     },
     {
         key: 'VERIFIED_THIRD_PARTY_ALL',
         name: 'Verified third party - All',
-        description: 'User allowed access to classified publications for all list types'
-    }
-]
+        description: 'User allowed access to classified publications for all list types',
+    },
+];

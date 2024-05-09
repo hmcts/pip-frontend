@@ -1,7 +1,7 @@
-import request from "supertest";
-import {app} from "../../main/app";
-import {expect} from "chai";
-import {request as expressRequest} from "express";
+import request from 'supertest';
+import { app } from '../../main/app';
+import { expect } from 'chai';
+import { request as expressRequest } from 'express';
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 

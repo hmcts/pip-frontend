@@ -1,17 +1,19 @@
-import {Response} from "express";
-import {mockRequest} from "../mocks/mockRequest";
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import {ThirdPartyService} from "../../../main/service/ThirdPartyService";
-import CreateThirdPartyUserSummaryController from "../../../main/controllers/CreateThirdPartyUserSummaryController";
+import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
+import CreateThirdPartyUserSummaryController from '../../../main/controllers/CreateThirdPartyUserSummaryController';
 
 const formData = {
     thirdPartyName: 'name',
-    thirdPartyRoleObject: { name: 'General third party'},
+    thirdPartyRoleObject: { name: 'General third party' },
 };
 
-const i18n = { 'create-third-party-user-summary': {
-    title: 'Create third party user summary'
-}};
+const i18n = {
+    'create-third-party-user-summary': {
+        title: 'Create third party user summary',
+    },
+};
 
 const response = {
     render: () => {

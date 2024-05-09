@@ -1,8 +1,8 @@
-import request from "supertest";
-import {app} from "../../main/app";
-import {expect} from "chai";
+import request from 'supertest';
+import { app } from '../../main/app';
+import { expect } from 'chai';
 import sinon from 'sinon';
-import {ThirdPartyService} from "../../main/service/ThirdPartyService";
+import { ThirdPartyService } from '../../main/service/ThirdPartyService';
 
 const formData = { thirdPartyName: 'name', thirdPartyRole: 'GENERAL_THIRD_PARTY' };
 

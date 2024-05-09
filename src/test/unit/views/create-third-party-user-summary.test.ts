@@ -1,13 +1,12 @@
-import {expect} from "chai";
-import {app} from "../../../main/app";
-import request from "supertest";
-
+import { expect } from 'chai';
+import { app } from '../../../main/app';
+import request from 'supertest';
 
 const PAGE_URL = '/create-third-party-user-summary';
 
 const cookie = {
     thirdPartyName: 'Test',
-    thirdPartyRoleObject: { name: 'General third party'},
+    thirdPartyRoleObject: { name: 'General third party' },
 };
 
 app.request['cookies'] = {
@@ -43,7 +42,10 @@ describe('Create third party user summary page', () => {
     it('should display correct summary values', async () => {
         const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
         expect(values[0].innerHTML).to.contain(cookie.thirdPartyName, 'Third party name value does not match');
-        expect(values[1].innerHTML).to.contain(cookie.thirdPartyRoleObject.name, 'Third party role value does not match');
+        expect(values[1].innerHTML).to.contain(
+            cookie.thirdPartyRoleObject.name,
+            'Third party role value does not match'
+        );
     });
 
     it('should display correct summary actions', async () => {
@@ -51,11 +53,17 @@ describe('Create third party user summary page', () => {
 
         let action = actions[0].getElementsByClassName('govuk-link')[0];
         expect(action.innerHTML).to.contain('Change', 'Third party name action does not match');
-        expect(action.getAttribute('href')).to.equal('create-third-party-user#thirdPartyName', 'Third party name action link does not match');
+        expect(action.getAttribute('href')).to.equal(
+            'create-third-party-user#thirdPartyName',
+            'Third party name action link does not match'
+        );
 
         action = actions[1].getElementsByClassName('govuk-link')[0];
         expect(action.innerHTML).to.contain('Change', 'Third party role action does not match');
-        expect(action.getAttribute('href')).to.equal('create-third-party-user#thirdPartyRole', 'Third party role action link does not match');
+        expect(action.getAttribute('href')).to.equal(
+            'create-third-party-user#thirdPartyRole',
+            'Third party role action link does not match'
+        );
     });
 
     it('should display a confirm button', () => {

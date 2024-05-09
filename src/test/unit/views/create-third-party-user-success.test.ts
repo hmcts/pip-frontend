@@ -1,13 +1,12 @@
-import {expect} from "chai";
-import {app} from "../../../main/app";
-import request from "supertest";
-
+import { expect } from 'chai';
+import { app } from '../../../main/app';
+import request from 'supertest';
 
 const PAGE_URL = '/create-third-party-user-success';
 
 const cookie = {
     thirdPartyName: 'Test',
-    thirdPartyRoleObject: { name: 'General third party'},
+    thirdPartyRoleObject: { name: 'General third party' },
 };
 
 app.request['cookies'] = {
@@ -43,6 +42,9 @@ describe('Create third party user success page', () => {
     it('should display correct summary values', async () => {
         const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
         expect(values[0].innerHTML).to.contain(cookie.thirdPartyName, 'Third party name value does not match');
-        expect(values[1].innerHTML).to.contain(cookie.thirdPartyRoleObject.name, 'Third party role value does not match');
+        expect(values[1].innerHTML).to.contain(
+            cookie.thirdPartyRoleObject.name,
+            'Third party role value does not match'
+        );
     });
 });

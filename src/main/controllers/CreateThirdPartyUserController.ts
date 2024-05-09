@@ -1,6 +1,6 @@
-import {PipRequest} from "../models/request/PipRequest";
-import {Response} from "express";
-import {cloneDeep} from "lodash";
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
+import { cloneDeep } from 'lodash';
 import { ThirdPartyService } from '../service/ThirdPartyService';
 
 const thirdPartyService = new ThirdPartyService();

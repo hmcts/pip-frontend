@@ -1,6 +1,6 @@
-import {expect} from "chai";
-import {app} from "../../../main/app";
-import request from "supertest";
+import { expect } from 'chai';
+import { app } from '../../../main/app';
+import request from 'supertest';
 
 const PAGE_URL = '/create-third-party-user';
 
@@ -17,7 +17,7 @@ const radioLabels = [
     'Verified third party - CFT and Crime',
     'Verified third party - CFT and Press',
     'Verified third party - Crime and Press',
-    'Verified third party - All'
+    'Verified third party - All',
 ];
 
 app.request['cookies'] = {

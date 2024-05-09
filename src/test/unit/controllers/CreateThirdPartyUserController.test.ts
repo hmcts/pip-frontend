@@ -1,15 +1,17 @@
-import {Response} from "express";
-import {mockRequest} from "../mocks/mockRequest";
+import { Response } from 'express';
+import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import CreateThirdPartyUserController from "../../../main/controllers/CreateThirdPartyUserController";
-import {ThirdPartyService} from "../../../main/service/ThirdPartyService";
+import CreateThirdPartyUserController from '../../../main/controllers/CreateThirdPartyUserController';
+import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 
 const generalThirdPartyFormData = { thirdPartyName: 'name', thirdPartyRole: 'GENERAL_THIRD_PARTY' };
 const verifiedThirdPartyFormData = { thirdPartyName: 'name', thirdPartyRole: 'VERIFIED_THIRD_PARTY_ALL' };
 
-const i18n = { 'create-third-party-user': {
-    title: 'Create third party user'
-}};
+const i18n = {
+    'create-third-party-user': {
+        title: 'Create third party user',
+    },
+};
 
 const response = {
     render: () => {
@@ -33,7 +35,7 @@ const userRoleList = [
         checked: true,
         hint: {
             text: 'User allowed access to public and private publications only',
-        }
+        },
     },
     {
         value: 'VERIFIED_THIRD_PARTY_ALL',
@@ -41,9 +43,9 @@ const userRoleList = [
         checked: true,
         hint: {
             text: 'User allowed access to classified publications for all list types',
-        }
+        },
     },
-]
+];
 
 const formErrors = {
     userNameError: true,
