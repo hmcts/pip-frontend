@@ -308,7 +308,10 @@ describe('Third Party Service tests', () => {
         });
 
         it('should return null when both third party name and role present', () => {
-            const result = thirdPartyService.validateThirdPartyUserFormFields({ thirdPartyName: 'name', thirdPartyRole: 'role' });
+            const result = thirdPartyService.validateThirdPartyUserFormFields({
+                thirdPartyName: 'name',
+                thirdPartyRole: 'role',
+            });
             expect(result).to.be.null;
         });
     });
@@ -325,16 +328,16 @@ describe('Third Party Service tests', () => {
                 provenanceUserId: 'name',
                 roles: 'role',
                 userProvenance: 'THIRD_PARTY',
-            }
+            },
         ];
 
         const createThirdPartyStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
-        createThirdPartyStub.withArgs(payload, '1').resolves(
-            { "CREATED_ACCOUNTS": [ { userId: '123' } ], "ERRORED_ACCOUNTS": [] }
-        );
-        createThirdPartyStub.withArgs(payload, '2').resolves(
-            { "CREATED_ACCOUNTS": [], "ERRORED_ACCOUNTS": [ { userId: null } ] }
-        );
+        createThirdPartyStub
+            .withArgs(payload, '1')
+            .resolves({ CREATED_ACCOUNTS: [{ userId: '123' }], ERRORED_ACCOUNTS: [] });
+        createThirdPartyStub
+            .withArgs(payload, '2')
+            .resolves({ CREATED_ACCOUNTS: [], ERRORED_ACCOUNTS: [{ userId: null }] });
         createThirdPartyStub.withArgs(payload, '3').resolves(null);
 
         it('should return a value if account management request return created accounts', async () => {
