@@ -10,10 +10,10 @@ export default class CreateThirdPartyUserSuccessController {
             formData,
         });
 
-        this.removeThirdPartyUserFromFormCookie(res, formData);
+        CreateThirdPartyUserSuccessController.removeThirdPartyUserFromFormCookie(res, formData);
     }
 
-    private removeThirdPartyUserFromFormCookie(res, formData) {
+    private static removeThirdPartyUserFromFormCookie(res, formData) {
         formData.thirdPartyName = '';
         formData.thirdPartyRole = '';
         formData.thirdPartyRoleObject = null;
