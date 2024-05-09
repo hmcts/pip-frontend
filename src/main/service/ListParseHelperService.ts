@@ -40,59 +40,47 @@ export class ListParseHelperService {
             hearing.party.forEach(party => {
                 switch (ListParseHelperService.convertPartyRole(party.partyRole)) {
                     case 'APPLICANT_PETITIONER': {
-                        applicant += this.createIndividualDetails(party.individualDetails, initialised).trim();
+                        applicant += this.handleParties(party, initialised).trim();
                         applicant += this.stringDelimiter(applicant.length, ',');
                         break;
                     }
                     case 'APPLICANT_PETITIONER_REPRESENTATIVE': {
-                        applicantRepresentative += this.createIndividualDetails(
-                            party.individualDetails,
-                            initialised
-                        ).trim();
+                        applicantRepresentative += this.handleParties(party, initialised).trim();
                         applicantRepresentative += this.stringDelimiter(applicantRepresentative.length, ',');
                         break;
                     }
                     case 'CLAIMANT_PETITIONER': {
-                        appellant += this.createIndividualDetails(party.individualDetails, initialised).trim();
+                        appellant += this.handleParties(party, initialised).trim();
                         appellant += this.stringDelimiter(appellant.length, ',');
                         break;
                     }
                     case 'CLAIMANT_PETITIONER_REPRESENTATIVE': {
-                        appellantRepresentative += this.createIndividualDetails(
-                            party.individualDetails,
-                            initialised
-                        ).trim();
+                        appellantRepresentative += this.handleParties(party, initialised).trim();
                         appellantRepresentative += this.stringDelimiter(appellantRepresentative.length, ',');
                         break;
                     }
                     case 'RESPONDENT': {
-                        respondent += this.createIndividualDetails(party.individualDetails, initialised).trim();
+                        respondent += this.handleParties(party, initialised).trim();
                         respondent += this.stringDelimiter(respondent.length, ',');
                         break;
                     }
                     case 'RESPONDENT_REPRESENTATIVE': {
-                        respondentRepresentative += this.createIndividualDetails(
-                            party.individualDetails,
-                            initialised
-                        ).trim();
+                        respondentRepresentative += this.handleParties(party, initialised).trim();
                         respondentRepresentative += this.stringDelimiter(respondentRepresentative.length, ',');
                         break;
                     }
                     case 'PROSECUTING_AUTHORITY': {
-                        prosecutingAuthority += this.createIndividualDetails(
-                            party.individualDetails,
-                            initialised
-                        ).trim();
+                        prosecutingAuthority += this.handleParties(party, initialised).trim();
                         prosecutingAuthority += this.stringDelimiter(prosecutingAuthority.length, ',');
                         break;
                     }
                     case 'DEFENDANT': {
-                        defendant += this.createIndividualDetails(party.individualDetails, initialised).trim();
+                        defendant += this.handleParties(party, initialised).trim();
                         defendant += this.stringDelimiter(defendant.length, ',');
                         break;
                     }
                     case 'DEFENDANT_REPRESENTATIVE': {
-                        defendantRep += this.createIndividualDetails(party.individualDetails, initialised).trim();
+                        defendantRep += this.handleParties(party, initialised).trim();
                         defendantRep += this.stringDelimiter(defendant.length, ',');
                     }
                 }
@@ -108,6 +96,16 @@ export class ListParseHelperService {
             hearing['defendant'] = defendant.replace(/,\s*$/, '').trim();
             hearing['defendantRepresentative'] = defendantRep.replace(/,\s*$/, '').trim();
         }
+    }
+
+    private handleParties(party: any, initialised = false) {
+        if (party.individualDetails) {
+            return this.createIndividualDetails(party.individualDetails, initialised);
+        } else if (party.organisationDetails) {
+            return this.createOrganisationDetails(party.organisationDetails);
+        }
+
+        return '';
     }
 
     /**
@@ -132,6 +130,14 @@ export class ListParseHelperService {
         } else {
             return [title, forenames, middleName, surname].filter(n => n.length > 0).join(' ');
         }
+    }
+
+    /**
+     * Format a set of organisation details.
+     * @param organisationDetails
+     */
+    public createOrganisationDetails(organisationDetails) {
+        return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
     }
 
     /**

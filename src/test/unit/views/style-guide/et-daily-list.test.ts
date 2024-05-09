@@ -156,4 +156,9 @@ describe('ET Daily List page', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[4].innerHTML).contains('Capt. T. Test Surname 2');
     });
+
+    it('should display respondent using organisation', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[11].innerHTML).contains('Organisation Name');
+    });
 });

@@ -93,6 +93,16 @@ describe('IAC daily cause list page', () => {
         expect(cell[26].innerHTML).contains('VIDEO HEARING,');
     });
 
+    it('should display Respondent', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[3].innerHTML).contains('Test Name');
+    });
+
+    it('should display respondent using organisation', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[10].innerHTML).contains('Organisation Name');
+    });
+
     it('should display hearing type if present', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[6].innerHTML).contains('Directions');
