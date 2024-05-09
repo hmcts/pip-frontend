@@ -185,13 +185,13 @@ export class ThirdPartyService {
         return fields.userNameError || fields.userRoleError ? fields : null;
     }
 
-    public async createThirdPartyUser(formData, requesterId) {
+    public async createThirdPartyUser(formData, requesterId) : Promise<boolean> {
         const response = await this.accountManagementRequests.createPIAccount(
             this.formatThirdPartyUserPayload(formData),
             requesterId
         );
 
-        return response?.['CREATED_ACCOUNTS'][0];
+        return response?.['CREATED_ACCOUNTS'][0] ? true : false;
     }
 
     private formatThirdPartyUserPayload(formData) {

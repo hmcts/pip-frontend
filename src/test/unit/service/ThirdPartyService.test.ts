@@ -340,19 +340,19 @@ describe('Third Party Service tests', () => {
             .resolves({ CREATED_ACCOUNTS: [], ERRORED_ACCOUNTS: [{ userId: null }] });
         createThirdPartyStub.withArgs(payload, '3').resolves(null);
 
-        it('should return a value if account management request return created accounts', async () => {
+        it('should return true if account management request return created accounts', async () => {
             const result = await thirdPartyService.createThirdPartyUser(formData, '1');
-            expect(result).to.not.be.empty;
+            expect(result).to.be.true;
         });
 
-        it('should return undefined if account management request return errored accounts', async () => {
+        it('should return false if account management request return errored accounts', async () => {
             const result = await thirdPartyService.createThirdPartyUser(formData, '2');
-            expect(result).to.be.undefined;
+            expect(result).to.be.false;
         });
 
-        it('should return undefined if account management request returns null', async () => {
+        it('should return false if account management request returns null', async () => {
             const result = await thirdPartyService.createThirdPartyUser(formData, '3');
-            expect(result).to.be.undefined;
+            expect(result).to.be.false;
         });
     });
 });
