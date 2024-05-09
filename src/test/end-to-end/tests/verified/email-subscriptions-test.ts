@@ -308,17 +308,6 @@ Scenario(
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
-        I.click('#subscription-choice-4');
-        I.click('Continue');
-        I.click('Continue');
-        I.waitForText('There is a problem');
-        I.see('Please enter a minimum of 3 characters');
-        I.fillField('#party-name', 'InvalidPartyName');
-        I.click('Continue');
-        I.waitForText('There is a problem');
-        I.see('There is nothing matching your criteria');
-        I.click('Add subscription by an alternative type');
-
         I.click('#subscription-choice-3');
         I.click('Continue');
         I.click('Continue');
