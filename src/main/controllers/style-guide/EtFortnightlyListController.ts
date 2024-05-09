@@ -13,8 +13,9 @@ const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const etListsService = new EtListsService();
 
-const listType = 'et-fortnightly-list';
-const listPath = `style-guide/${listType}`;
+const listUrl = 'et-fortnightly-list';
+const listPath = `style-guide/${listUrl}`;
+const listType = 'et-fortnightly-press-list';
 
 export default class EtFortnightlyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -39,7 +40,7 @@ export default class EtFortnightlyListController {
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...venue,
                 tableData,
