@@ -57,9 +57,31 @@
                             <td class="govuk-table__cell">{{ item.dateRange }}</td>
                             <td class="govuk-table__cell">{{ item.language | titleCase }}</td>
                             <td class="govuk-table__cell">{{ item.sensitivity | titleCase }}</td>
+                            <input type="hidden" name="artfactId" id="cartfactId-{{ listCount }}" value={{ item.artefactId }}>
                         </tr>
                     {% endfor %}
                 </tbody>
+                {{ govukInput({
+                    id: "locationId",
+                    name: "locationId",
+                    type: "hidden",
+                    value: court.locationId
+                }) }}
+                {{ govukRadios({
+                    classes: "govuk-radios--inline",
+                    idPrefix: "remove-choice",
+                    name: "remove-choice",
+                    items: [
+                        {
+                            value: "yes",
+                            text: optionYes
+                        },
+                        {
+                            value: "no",
+                            text: optionNo
+                        }
+                    ]
+                }) }}
           {{ submitButton(continueButton) }}
         </form>
     {% endif %}
