@@ -12,6 +12,7 @@ const cookie = {
 app.request['cookies'] = {
     formCookie: JSON.stringify(cookie),
 };
+
 app.request['user'] = {
     roles: 'SYSTEM_ADMIN',
 };
