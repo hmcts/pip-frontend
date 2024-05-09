@@ -92,18 +92,30 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "CLAIMANT_PETITIONER",
-                                                                "individualDetails": {
-                                                                    "title": "Ms",
-                                                                    "individualForenames": "Test forename",
-                                                                    "individualSurname": "Test Surname"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name",
+                                                                    "organisationAddress": {
+                                                                        "line": [
+                                                                            "ORGANISATION ADDRESS"
+                                                                        ],
+                                                                        "town": "town name",
+                                                                        "county": "",
+                                                                        "postCode": ""
+                                                                    }
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "RESPONDENT",
-                                                                "individualDetails": {
-                                                                    "title": "Lord",
-                                                                    "individualForenames": "Test forename",
-                                                                    "individualSurname": "Test Surname"
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Organisation Name",
+                                                                    "organisationAddress": {
+                                                                        "line": [
+                                                                            "ORGANISATION ADDRESS"
+                                                                        ],
+                                                                        "town": "town name",
+                                                                        "county": "",
+                                                                        "postCode": ""
+                                                                    }
                                                                 },
                                                                 "friendlyRoleName": "This is a role name"
                                                             }
