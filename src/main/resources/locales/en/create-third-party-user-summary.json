@@ -1,0 +1,12 @@
+{
+    "title": "Create third party user summary",
+    "header": "Check user details",
+    "name": "Name",
+    "userRole": "User role",
+    "actionName": "Change",
+    "confirmButton": "Confirm",
+    "error": {
+        "title": "There is a problem",
+        "message": "Failed to create third party user. It is possible that the user already exists."
+    }
+}

@@ -3,6 +3,7 @@ import { SubscriptionRequests } from '../resources/requests/SubscriptionRequests
 import { DateTime } from 'luxon';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { Logger } from '@hmcts/nodejs-logging';
+import {thirdPartyRoles} from "../helpers/consts";
 
 /**
  * This service class handles support methods for dealing with third parties
@@ -155,5 +156,52 @@ export class ThirdPartyService {
             return account;
         }
         return null;
+    }
+
+    public getThirdPartyRoleByKey(key: string): object {
+        return thirdPartyRoles.find(item => item.key === key);
+    }
+
+    public buildThirdPartyRoleList(selectedRole = '') {
+        const roleList = [];
+        thirdPartyRoles.forEach(role => {
+            roleList.push({
+                value: role.key,
+                text: role.name,
+                checked: selectedRole === role.key,
+                hint: {
+                    text: role.description,
+                },
+            });
+        });
+        return roleList;
+    }
+
+    public validateThirdPartyUserFormFields(formData) {
+        const fields = {
+            userNameError: !formData.thirdPartyName,
+            userRoleError: !formData.thirdPartyRole,
+        };
+        return fields.userNameError || fields.userRoleError ? fields : null;
+    }
+
+    public async createThirdPartyUser(formData, requesterId) {
+        const response = await this.accountManagementRequests.createPIAccount(
+            this.formatThirdPartyUserPayload(formData),
+            requesterId
+        );
+
+        return response?.['CREATED_ACCOUNTS'][0];
+    }
+
+    private formatThirdPartyUserPayload(formData) {
+        return [
+            {
+                email: null,
+                provenanceUserId: formData.thirdPartyName,
+                roles: formData.thirdPartyRole,
+                userProvenance: 'THIRD_PARTY',
+            }
+        ];
     }
 }

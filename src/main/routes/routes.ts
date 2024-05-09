@@ -550,6 +550,31 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.manageThirdPartyUsersSubscriptionsController.post
     );
+    app.get(
+        '/create-third-party-user',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartyUserController.get
+    );
+    app.post(
+        '/create-third-party-user',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartyUserController.post
+    );
+    app.get(
+        '/create-third-party-user-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartyUserSummaryController.get
+    );
+    app.post(
+        '/create-third-party-user-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartyUserSummaryController.post
+    );
+    app.get(
+        '/create-third-party-user-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartyUserSuccessController.get
+    );
     app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
 

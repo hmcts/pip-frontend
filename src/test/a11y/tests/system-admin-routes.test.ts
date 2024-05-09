@@ -52,6 +52,9 @@ const systemAdminRoutes = [
     { path: '/delete-court-publication-success', parameter: '?locationId=123' },
     { path: '/audit-log-viewer', parameter: '?locationId=123' },
     { path: '/audit-log-details', parameter: '?id=123&timestamp=10/01/2024' },
+    { path: '/create-third-party-user' },
+    { path: '/create-third-party-user-summary'},
+    { path: '/create-third-party-user-success'},
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');
@@ -99,7 +102,12 @@ sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns(auditLogP
 
 describe('Accessibility - System Admin Routes', () => {
     app.request['cookies'] = {
-        formCookie: JSON.stringify({ uploadFileName: fileName, fileName: fileName }),
+        formCookie: JSON.stringify({
+            uploadFileName: fileName,
+            fileName: fileName,
+            thirdPartyName: 'Third party user name',
+            thirdPartyRoleObject: { name: 'General third party'},
+        }),
         createAdminAccount: JSON.stringify({
             firstName: name,
             lastName: name,

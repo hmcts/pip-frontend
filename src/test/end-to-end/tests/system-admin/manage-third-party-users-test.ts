@@ -11,7 +11,7 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
     I.loginAsSystemAdmin();
     I.waitForText('View and edit third-party users and subscriptions');
     I.click('#card-manage-third-party-users');
-    I.waitForText('Manage Third Party Users');
+    I.waitForText('Manage third party users');
     I.see('Name');
     I.see('Role');
     I.see('Created Date');

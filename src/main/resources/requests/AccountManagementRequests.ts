@@ -33,17 +33,17 @@ export class AccountManagementRequests {
      * @param payload The payload containing the azure accounts to request.
      * @param requester The user ID of the person requesting this.
      */
-    public async createPIAccount(payload, requester): Promise<boolean> {
+    public async createPIAccount(payload, requester): Promise<object | null> {
         try {
-            const response = await accountManagementApi.post('/account/add/pi', payload, {
+            const response = await accountManagementApi.post('/account/v2/pi', payload, {
                 headers: { 'x-issuer-id': requester },
             });
             logger.info('P&I account created');
-            return response.status === StatusCodes.CREATED;
+            return response.status === StatusCodes.CREATED ? response.data : null;
         } catch (error) {
             logHelper.logErrorResponse(error, 'create P&I user account');
         }
-        return false;
+        return null;
     }
 
     public async createMediaApplication(form): Promise<boolean> {
