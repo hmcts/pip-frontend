@@ -258,4 +258,98 @@ describe('Third Party Service tests', () => {
             expect(unsubscribeStub.calledWith('2345')).to.equal(true);
         });
     });
+
+    describe('getThirdPartyRoleByKey', () => {
+        it('should return correct third party role', () => {
+            const result = thirdPartyService.getThirdPartyRoleByKey('VERIFIED_THIRD_PARTY_CFT');
+            expect(result.name).to.equal('Verified third party - CFT', 'Third party role name does not match');
+            expect(result.description).to.equal(
+                'User allowed access to classified publications for CFT list types',
+                'Third party role description does not match'
+            );
+        });
+    });
+
+    describe('buildThirdPartyRoleList', () => {
+        it('should return third party role list without checked item', () => {
+            const result = thirdPartyService.buildThirdPartyRoleList();
+            expect(result.length).to.equal(8);
+            expect(result[0].value).to.equal('GENERAL_THIRD_PARTY');
+            expect(result[0].text).to.contain('General third party');
+            expect(result[0].checked).to.be.false;
+        });
+
+        it('should return third party role list with checked item', () => {
+            const result = thirdPartyService.buildThirdPartyRoleList('GENERAL_THIRD_PARTY');
+            expect(result.length).to.equal(8);
+            expect(result[0].value).to.equal('GENERAL_THIRD_PARTY');
+            expect(result[0].text).to.contain('General third party');
+            expect(result[0].checked).to.be.true;
+        });
+    });
+
+    describe('validateThirdPartyUserFormFields', () => {
+        it('should return errors with no third party name and role', () => {
+            const result = thirdPartyService.validateThirdPartyUserFormFields({});
+            expect(result.userNameError).to.be.true;
+            expect(result.userRoleError).to.be.true;
+        });
+
+        it('should return name error with third party role only', () => {
+            const result = thirdPartyService.validateThirdPartyUserFormFields({ thirdPartyRole: 'role' });
+            expect(result.userNameError).to.be.true;
+            expect(result.userRoleError).to.be.false;
+        });
+
+        it('should return role error with third party name only', () => {
+            const result = thirdPartyService.validateThirdPartyUserFormFields({ thirdPartyName: 'name' });
+            expect(result.userNameError).to.be.false;
+            expect(result.userRoleError).to.be.true;
+        });
+
+        it('should return null when both third party name and role present', () => {
+            const result = thirdPartyService.validateThirdPartyUserFormFields({ thirdPartyName: 'name', thirdPartyRole: 'role' });
+            expect(result).to.be.null;
+        });
+    });
+
+    describe('createThirdPartyUser', () => {
+        const formData = {
+            thirdPartyName: 'name',
+            thirdPartyRole: 'role',
+        };
+
+        const payload = [
+            {
+                email: null,
+                provenanceUserId: 'name',
+                roles: 'role',
+                userProvenance: 'THIRD_PARTY',
+            }
+        ];
+
+        const createThirdPartyStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
+        createThirdPartyStub.withArgs(payload, '1').resolves(
+            { "CREATED_ACCOUNTS": [ { userId: '123' } ], "ERRORED_ACCOUNTS": [] }
+        );
+        createThirdPartyStub.withArgs(payload, '2').resolves(
+            { "CREATED_ACCOUNTS": [], "ERRORED_ACCOUNTS": [ { userId: null } ] }
+        );
+        createThirdPartyStub.withArgs(payload, '3').resolves(null);
+
+        it('should return a value if account management request return created accounts', async () => {
+            const result = await thirdPartyService.createThirdPartyUser(formData, '1');
+            expect(result).to.not.be.empty;
+        });
+
+        it('should return undefined if account management request return errored accounts', async () => {
+            const result = await thirdPartyService.createThirdPartyUser(formData, '2');
+            expect(result).to.be.undefined;
+        });
+
+        it('should return undefined if account management request returns null', async () => {
+            const result = await thirdPartyService.createThirdPartyUser(formData, '3');
+            expect(result).to.be.undefined;
+        });
+    });
 });

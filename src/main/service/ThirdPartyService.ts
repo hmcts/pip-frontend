@@ -158,11 +158,11 @@ export class ThirdPartyService {
         return null;
     }
 
-    public getThirdPartyRoleByKey(key: string): object {
+    public getThirdPartyRoleByKey(key: string): any {
         return thirdPartyRoles.find(item => item.key === key);
     }
 
-    public buildThirdPartyRoleList(selectedRole = '') {
+    public buildThirdPartyRoleList(selectedRole = ''): any[] {
         const roleList = [];
         thirdPartyRoles.forEach(role => {
             roleList.push({
@@ -177,7 +177,7 @@ export class ThirdPartyService {
         return roleList;
     }
 
-    public validateThirdPartyUserFormFields(formData) {
+    public validateThirdPartyUserFormFields(formData): any | null {
         const fields = {
             userNameError: !formData.thirdPartyName,
             userRoleError: !formData.thirdPartyRole,
