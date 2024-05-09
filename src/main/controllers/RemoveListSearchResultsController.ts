@@ -4,13 +4,12 @@ import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/LocationService';
 import { SummaryOfPublicationsService } from '../service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../service/ManualUploadService';
-import { PublicationRequests } from '../resources/requests/PublicationRequests';
+import { getListDetailsArray } from '../helpers/listHelper';
 
 const courtService = new LocationService();
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
 const manualUploadService = new ManualUploadService();
 const bulkListRemovalConfirmationUrl = 'remove-list-confirmation';
-const publicationsService = new PublicationRequests();
 
 export default class RemoveListSearchResultsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -29,21 +28,13 @@ export default class RemoveListSearchResultsController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const listsToDelete = RemoveListSearchResultsController.getSelectedLists(req.body);
         const locationId = req.body.locationId;
-        const userId = req.body.userId;
         if (req.user) {
             if (listsToDelete.length == 0) {
-                res.render('remove-list-search-results', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search-results']),
-                    court: await courtService.getLocationById(locationId),
-                    removalList: manualUploadService.formatListRemovalValues(
-                        await summaryOfPublicationsService.getPublications(locationId, req.user?.['userId'], true)
-                    ),
-                    //     add error message
-                });
+                res.redirect(`remove-list-search-results?locationId=${locationId}`);
             } else {
                 const listData = [];
                 for (const list of listsToDelete) {
-                    await RemoveListSearchResultsController.getListDetails(list, userId, listData);
+                    await getListDetailsArray(list, req.user?.['userId'], listData);
                 }
                 res.render(bulkListRemovalConfirmationUrl, {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[bulkListRemovalConfirmationUrl]),
@@ -71,9 +62,5 @@ export default class RemoveListSearchResultsController {
         } else {
             listsToDelete.push(lists);
         }
-    }
-
-    private static async getListDetails(artefactId: string, userId: any, lists: any[]) {
-        lists.push(await publicationsService.getIndividualPublicationMetadata(artefactId, userId, true));
     }
 }

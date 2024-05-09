@@ -6,6 +6,7 @@ import { PublicationService } from '../service/PublicationService';
 import { ManualUploadService } from '../service/ManualUploadService';
 import { DateTime } from 'luxon';
 import { UserManagementService } from '../service/UserManagementService';
+import { getListDetailsArray } from '../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const courtService = new LocationService();
@@ -37,21 +38,21 @@ export default class RemoveListConfirmationController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
+        const listsToDelete = req.body.artefactIds;
+        const locationId = req.body.locationId;
         const formData = req.body;
-        const artefact = await publicationService.getIndividualPublicationMetadata(
-            formData.artefactId,
-            req.user?.['userId'],
-            true
-        );
+        const listData = [];
         switch (formData['remove-choice']) {
             case 'yes': {
-                const response = await publicationService.removePublication(formData.artefactId, req.user?.['userId']);
-
+                const response = await RemoveListConfirmationController.removeLists(
+                    listsToDelete,
+                    req.user?.['userId']
+                );
                 if (response) {
                     await userManagementService.auditAction(
                         req.user,
                         'DELETE_PUBLICATION',
-                        `Publication with artefact id ${formData.artefactId} successfully deleted`
+                        RemoveListConfirmationController.formatArtefactIds(listsToDelete)
                     );
                     res.redirect('/remove-list-success');
                 } else {
@@ -60,17 +61,46 @@ export default class RemoveListConfirmationController {
                 break;
             }
             case 'no': {
-                res.redirect(`/remove-list-search-results?locationId=${formData.locationId}`);
+                res.redirect(`/remove-list-search-results?locationId=${locationId}`);
                 break;
             }
             default:
-                artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
+                if (Array.isArray(listsToDelete)) {
+                    for (const artefactId of listsToDelete) {
+                        await getListDetailsArray(artefactId, req.user?.['userId'], listData);
+                    }
+                } else {
+                    await getListDetailsArray(listsToDelete, req.user?.['userId'], listData);
+                }
                 res.render('remove-list-confirmation', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
-                    artefact,
-                    court: await courtService.getLocationById(formData.locationId),
+                    court: await courtService.getLocationById(locationId),
+                    removalList: manualUploadService.formatListRemovalValues(listData),
                     displayError: true,
                 });
+        }
+    }
+
+    private static async removeLists(artefactIds: any, userId: string) {
+        let response = true;
+        if (Array.isArray(artefactIds)) {
+            for (const artefactId of artefactIds) {
+                response = await publicationService.removePublication(artefactId, userId);
+                if (!response) {
+                    return (response = false);
+                }
+            }
+        } else {
+            response = await publicationService.removePublication(artefactIds, userId);
+        }
+        return response;
+    }
+
+    private static formatArtefactIds(artefactIds: any) {
+        if (Array.isArray(artefactIds)) {
+            return `Publications with artefact ids ${artefactIds.join(', ')} successfully deleted`;
+        } else {
+            return `Publication with artefact id ${artefactIds.toString()} successfully deleted`;
         }
     }
 }

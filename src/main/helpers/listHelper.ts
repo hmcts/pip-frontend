@@ -1,5 +1,7 @@
 import { HttpStatusCode } from 'axios';
+import { PublicationService } from '../service/PublicationService';
 
+const publicationService = new PublicationService();
 export const isValidList = (searchResults: any, metaData: any): any => {
     if (
         (searchResults !== null && searchResults !== HttpStatusCode.NotFound) ||
@@ -28,4 +30,8 @@ export const hearingHasParty = (jsonData): boolean => {
         });
     });
     return hearingHasParty;
+};
+
+export const getListDetailsArray = async (artefactId: string, userId: any, lists: any[]) => {
+    lists.push(await publicationService.getIndividualPublicationMetadata(artefactId, userId, true));
 };
