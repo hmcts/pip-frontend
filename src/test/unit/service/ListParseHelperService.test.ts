@@ -26,6 +26,84 @@ describe('List Helper service', () => {
         });
     });
 
+    describe('Find and manipulate party details', () => {
+        it('should return applicant petitioner details', async () => {
+            const partyDetails = {
+                "party": [
+                    {
+                        "partyRole": "APPLICANT_PETITIONER",
+                        "individualDetails": {
+                            "individualForenames": "Forenames",
+                            "individualMiddleName": "Middlename",
+                            "individualSurname": "Surname",
+                            "title": "Mr"
+                        }
+                    },
+                    {
+                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                        "individualDetails": {
+                            "individualForenames": "Forenames",
+                            "individualMiddleName": "Middlename",
+                            "individualSurname": "Surname",
+                            "title": "Mr"
+                        }
+                    },
+                    {
+                        "partyRole": "CLAIMANT_PETITIONER",
+                        "individualDetails": {
+                            "individualForenames": "Forenames",
+                            "individualMiddleName": "Middlename",
+                            "individualSurname": "Surname",
+                            "title": "Mr"
+                        }
+                    },
+                    {
+                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
+                        "individualDetails": {
+                            "individualForenames": "Forenames",
+                            "individualMiddleName": "Middlename",
+                            "individualSurname": "Surname",
+                            "title": "Mr"
+                        }
+                    },
+                    {
+                        "partyRole": "RESPONDENT",
+                        "organisationDetails": {
+                            "organisationName": "Organisation Name"
+                        }
+                    },
+                    {
+                        "partyRole": "RESPONDENT_REPRESENTATIVE",
+                        "organisationDetails": {
+                            "organisationName": "Organisation Name"
+                        }
+                    },
+                    {
+                        "partyRole": "PROSECUTING_AUTHORITY",
+                        "organisationDetails": {
+                            "organisationName": "Organisation Name"
+                        }
+                    },
+                    {
+                        "partyRole": "DEFENDANT"
+                    },
+                    {
+                        "partyRole": "DEFENDANT_REPRESENTATIVE"
+                    }
+                ]
+            };
+            listParseHelperService.findAndManipulatePartyInformation(partyDetails);
+            expect(partyDetails['appellant']).to.equal('Mr Forenames Middlename Surname');
+            expect(partyDetails['appellantRepresentative']).to.equal('Mr Forenames Middlename Surname');
+            expect(partyDetails['applicant']).to.equal('Mr Forenames Middlename Surname');
+            expect(partyDetails['applicantRepresentative']).to.equal('Mr Forenames Middlename Surname');
+            expect(partyDetails['respondent']).to.equal('Organisation Name');
+            expect(partyDetails['respondentRepresentative']).to.equal('Organisation Name');
+            expect(partyDetails['defendant']).to.equal('');
+            expect(partyDetails['defendantRepresentative']).to.equal('');
+        });
+    });
+
     describe('findAndManipulateLinkedCases', () => {
         it('should format hearing case with multiple linked case', async () => {
             const hearing = {
@@ -91,6 +169,17 @@ describe('List Helper service', () => {
                 individualSurname: 'Surname',
             };
             expect(listParseHelperService.createIndividualDetails(individualDetails, false)).to.equal('Surname');
+        });
+    });
+
+    describe('createOrganisationDetails', () => {
+        it('should create organisation details with organisation name', async () => {
+            const organisationDetails = {
+                "organisationName": "Organisation name"
+            };
+            expect(listParseHelperService.createOrganisationDetails(organisationDetails)).to.equal(
+                'Organisation name'
+            );
         });
     });
 

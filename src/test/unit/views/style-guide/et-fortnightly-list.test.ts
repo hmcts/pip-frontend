@@ -155,4 +155,9 @@ describe('ET Fortnightly List page', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[4].innerHTML).contains('Rep: Dr T. Test Surname 2');
     });
+
+    it('should display claimant using organisation', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[3].innerHTML).contains('Organisation Name');
+    });
 });

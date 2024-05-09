@@ -149,6 +149,43 @@
                                                         "caseType": "type"
                                                     }
                                                 ]
+                                            },
+                                            {
+                                                "hearingType": "FMPO",
+                                                "case": [
+                                                    {
+                                                        "caseName": "ABCD",
+                                                        "caseNumber": "1234",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Applicant org name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Respondent org name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Applicant rep org name"
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "RESPONDENT_REPRESENTATIVE",
+                                                                "friendlyRoleName": "Legal Advisor",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Respondent rep org name"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
                                             }
                                         ],
                                         "channel": ["testSittingChannel"]
