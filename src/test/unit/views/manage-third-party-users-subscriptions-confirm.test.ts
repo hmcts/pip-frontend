@@ -65,7 +65,7 @@ describe('Manage third party subscription confirm', () => {
     it('should display manage third party text', () => {
         const paragraph = htmlRes.getElementsByClassName(paragraphClass);
         const anchor = paragraph[0].getElementsByTagName(anchorTag);
-        expect(anchor[0].innerHTML).contains('Manage Third Party Users', 'Manage Users link text incorrect');
+        expect(anchor[0].innerHTML).contains('Manage third party users', 'Manage Users link text incorrect');
     });
 
     it('should display manage third party link', () => {
