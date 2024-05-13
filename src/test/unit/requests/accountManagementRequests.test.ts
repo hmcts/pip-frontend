@@ -40,7 +40,7 @@ const mockValidMediaBody = {
 };
 
 const azureEndpoint = '/account/add/azure';
-const piEndpoint = '/account/v2/pi';
+const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
 const piAadUserEndpoint = '/account/provenance/PI_AAD/';
