@@ -35,7 +35,7 @@ export class AccountManagementRequests {
      */
     public async createPIAccount(payload, requester): Promise<object | null> {
         try {
-            const response = await accountManagementApi.post('/account/v2/pi', payload, {
+            const response = await accountManagementApi.post('/account/add/pi', payload, {
                 headers: { 'x-issuer-id': requester },
             });
             logger.info('P&I account created');
