@@ -1,0 +1,11 @@
+{
+    "title": "Delete third party user",
+    "header": "Are you sure you want to delete USER?",
+    "radio1": "Yes",
+    "radio2": "No",
+    "error": {
+        "title": "There is a problem",
+        "noOptionMessage": "An option must be selected",
+        "failedRequestMessage": "Failed to delete third party user"
+    }
+}

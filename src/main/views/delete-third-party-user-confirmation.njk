@@ -1,0 +1,67 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton) }}
+{% endblock %}
+
+{% block content %}
+    {% if noOptionError or failedRequestError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.noOptionMessage if noOptionError else error.failedRequestMessage,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+    <h2 class="govuk-heading-l">{{ header | replace("USER", thirdPartyUser.provenanceUserId ) }}</h2>
+    <form action="delete-third-party-user-confirmation" method="post">
+        {{ govukInput({
+            id: "user",
+            name: "user",
+            type: "hidden",
+            value: userId
+        }) }}
+        {{ govukRadios({
+            idPrefix: "delete-user-confirm",
+            name: "delete-user-confirm",
+            items: [
+                {
+                    value: "yes",
+                    text: radio1
+                },
+                {
+                    value: "no",
+                    text: radio2
+                }
+            ]
+        }) }}
+        {{ submitButton() }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+        const button = document.getElementsByClassName('govuk-button')[0];
+        button.addEventListener('click', (e) => {
+            const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+            if (!checkedRadios.length) {
+                e.preventDefault();
+            }
+        });
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+{% endblock %}

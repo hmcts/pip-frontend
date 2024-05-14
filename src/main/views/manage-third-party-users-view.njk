@@ -64,22 +64,25 @@
     ]
   }) }}
 
-  <form method="get">
-    <div class="govuk-grid-row">
-      <input type="hidden" id="userId" name="userId" value="{{ userDetails.userId }}" }}>
-      <div class="govuk-grid-column-one-quarter govuk-!-padding-left-0">
-        <button id ="approve" class="govuk-button" data-module="govuk-button" formaction="subscriptions">
-          {{ manageSubscriptions }}
-        </button>
-      </div>
-    </div>
+  <div class="govuk-button-group">
+    {{ govukButton({
+      text: manageSubscriptions,
+      href: 'subscriptions?userId=' + userDetails.userId
+    }) }}
 
-  </form>
+    {{ govukButton({
+      text: deleteUser,
+      classes: "govuk-button--warning",
+      href: '/delete-third-party-user-confirmation?userId=' + userDetails.userId
+    }) }}
+  </div>
+
+
 {% endblock %}
 {% block bodyEnd %}
   <script>
     if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
+      window.history.replaceState(null, null, window.location.href);
     }
   </script>
   {{ super() }}

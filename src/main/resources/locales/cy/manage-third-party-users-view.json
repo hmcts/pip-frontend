@@ -1,12 +1,12 @@
 {
-    "title": "Manage User",
-    "heading": "Manage User",
+    "title": "Manage user",
+    "heading": "Manage user",
     "name": "Name",
     "role": "Role",
     "createdDate": "Created Date",
     "numberOfSubs": "Number of Subscriptions",
     "subsChannel": "Subscriptions Channel",
     "noChannels": "N/A - No subscriptions",
-    "manageSubscriptions": "Manage Subscriptions",
-    "deleteUser": "Delete User"
+    "manageSubscriptions": "Manage subscriptions",
+    "deleteUser": "Delete user"
 }

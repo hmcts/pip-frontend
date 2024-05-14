@@ -86,17 +86,17 @@ describe('Manage third party users', () => {
         expect(cells[2].innerHTML).contains('18th November 2022', 'Created date is incorrect');
     });
 
-    it('row one should have the correct view text', () => {
+    it('row one should have the correct manage text', () => {
         const cells = htmlRes.getElementsByClassName(cellClass);
-        expect(cells[3].innerHTML).contains('View', 'View link does not have the correct text');
+        expect(cells[3].innerHTML).contains('manage', 'Manage link does not have the correct text');
     });
 
-    it('row one should have the correct view link', () => {
+    it('row one should have the correct manage link', () => {
         const linkHref = htmlRes.getElementsByClassName(cellClass)[3].getElementsByTagName('a')[0].getAttribute('href');
 
         expect(linkHref).equals(
             '/manage-third-party-users/view?userId=' + '1234-1234',
-            'View link does not have the correct text'
+            'Manage link does not have the correct URL'
         );
     });
 });
