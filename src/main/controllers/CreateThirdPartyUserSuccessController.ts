@@ -10,13 +10,6 @@ export default class CreateThirdPartyUserSuccessController {
             formData,
         });
 
-        CreateThirdPartyUserSuccessController.removeThirdPartyUserFromFormCookie(res, formData);
-    }
-
-    private static removeThirdPartyUserFromFormCookie(res, formData) {
-        formData.thirdPartyName = '';
-        formData.thirdPartyRole = '';
-        formData.thirdPartyRoleObject = null;
-        res.cookie('formCookie', JSON.stringify(formData), { secure: true });
+        res.cookie('formCookie', '', { secure: true });
     }
 }
