@@ -34,6 +34,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-public-
 const sjpList = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'SJP_PUBLIC_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sjpList);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);

@@ -7,7 +7,7 @@ import { SjpPublicListService } from '../../service/listManipulation/SjpPublicLi
 import { SjpFilterService } from '../../service/SjpFilterService';
 import { FilterService } from '../../service/FilterService';
 import { HttpStatusCode } from 'axios';
-import { isValidList } from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
 
 const publicationService = new PublicationService();
@@ -18,14 +18,16 @@ const filterService = new FilterService();
 const listDownloadService = new ListDownloadService();
 
 const listType = 'single-justice-procedure';
+const validList = 'sjp-public-list';
 
 export default class SjpPublicListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query['artefactId'] as string;
         const fileData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(fileData, metaData) && fileData && metaData) {
+        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metaDataListType, validList)) {
             const allCases = sjpPublicListService.formatSjpPublicList(JSON.stringify(fileData));
             const filter = sjpFilterService.generateFilters(
                 allCases,
@@ -54,7 +56,11 @@ export default class SjpPublicListController {
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
             });
-        } else if (fileData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (
+            fileData === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            isUnexpectedListType(metaDataListType, listType)
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

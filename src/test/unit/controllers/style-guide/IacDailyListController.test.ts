@@ -14,6 +14,8 @@ const listData = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'IAC_DAILY_LIST';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const iacDailyListController = new IacDailyListController();
 
@@ -22,6 +24,7 @@ const iacDailyListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIn
 sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').returns(listData);
 
 const artefactId = 'abc';
+const artefactIdListNotFound = 'xyz';
 
 iacDailyListJsonStub.withArgs(artefactId).resolves(listData);
 iacDailyListJsonStub.withArgs(undefined).resolves(null);
@@ -29,6 +32,7 @@ iacDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 iacDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 iacDailyListMetaDataStub.withArgs(undefined).resolves(null);
+iacDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const listType = 'iac-daily-list';
 const listPath = `style-guide/${listType}`;
@@ -95,6 +99,20 @@ describe('IAC Daily List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await iacDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.query = { artefactId: artefactIdListNotFound };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await iacDailyListController.get(request, response);
         return responseMock.verify();

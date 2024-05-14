@@ -8,7 +8,13 @@ import { CrownFirmListService } from '../../service/listManipulation/CrownFirmLi
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { HttpStatusCode } from 'axios';
-import { hearingHasParty, isValidList } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    hearingHasParty,
+    isUnexpectedListType,
+    isValidList,
+    isValidListType,
+} from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -25,8 +31,9 @@ export default class CrownFirmListController {
         const artefactId = req.query.artefactId as string;
         const jsonData = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(jsonData, metaData) && metaData && jsonData) {
+        if (isValidList(jsonData, metaData) && metaData && jsonData && isValidListType(metaDataListType, listType)) {
             let outputData;
             if (hearingHasParty(jsonData)) {
                 outputData = firmListService.splitOutFirmListDataV1(JSON.stringify(jsonData), req.lng, listPath);
@@ -59,7 +66,11 @@ export default class CrownFirmListController {
                 courtName: location.name,
                 venueAddress: venueAddress,
             });
-        } else if (jsonData === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (
+            jsonData === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            isUnexpectedListType(metaDataListType, listType)
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

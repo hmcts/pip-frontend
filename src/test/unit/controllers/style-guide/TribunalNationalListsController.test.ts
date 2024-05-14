@@ -15,6 +15,7 @@ const listData = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -27,6 +28,7 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(TribunalNationalListsService.prototype, 'manipulateData').returns(listData);
 
 const artefactId = 'abc';
+const artefactIdListNotFound = 'xyz';
 
 tribunalNationalListJsonStub.withArgs(artefactId).resolves(listData);
 tribunalNationalListJsonStub.withArgs('').resolves([]);
@@ -34,6 +36,7 @@ tribunalNationalListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 tribunalNationalListMetaDataStub.withArgs(artefactId).resolves(metaData);
 tribunalNationalListMetaDataStub.withArgs('').resolves([]);
+tribunalNationalListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const careStandardsListType = 'care-standards-list';
 const primaryHealthListType = 'primary-health-list';
@@ -76,6 +79,7 @@ describe('Tribunal National List Controller', () => {
         request.path = '/primary-health-list';
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
+        metaData.listType = 'PRIMARY_HEALTH_LIST';
 
         const responseMock = sinon.mock(response);
 
@@ -95,6 +99,7 @@ describe('Tribunal National List Controller', () => {
         request.path = '/care-standards-list';
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
+        metaData.listType = 'CARE_STANDARDS_LIST';
 
         const responseMock = sinon.mock(response);
         const expectedCareStandardsListData = {
@@ -128,6 +133,38 @@ describe('Tribunal National List Controller', () => {
         request.user = { userId: '123' };
         request.path = '/primary-health-list';
 
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await tribunalNationalListsController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        const request = mockRequest(i18n);
+        request.path = '/primary-health-list';
+        request.query = { artefactId: artefactIdListNotFound };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await tribunalNationalListsController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        const request = mockRequest(i18n);
+        request.path = '/care-standards-list';
+        request.query = { artefactId: artefactIdListNotFound };
+        request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
         responseMock

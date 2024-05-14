@@ -22,6 +22,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/primaryHeal
 const primaryHealthList = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'PRIMARY_HEALTH_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(primaryHealthList);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);

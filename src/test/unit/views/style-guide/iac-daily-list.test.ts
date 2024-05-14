@@ -19,6 +19,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/iacDailyLis
 const listData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'IAC_DAILY_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(listData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
