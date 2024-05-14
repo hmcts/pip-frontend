@@ -23,6 +23,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/hearingp
 const crownFirmListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'CROWN_FIRM_LIST';
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);

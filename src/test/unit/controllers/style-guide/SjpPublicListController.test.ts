@@ -14,12 +14,15 @@ const sjpPublicListController = new SjpPublicListController();
 
 const artefactId = '1';
 const artefactIdWithNoFiles = '2';
+const artefactIdListNotFound = 'xyz';
 
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-public-list.json'), 'utf-8');
 const data = JSON.parse(mockSJPPublic);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'SJP_PUBLIC_LIST';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const listType = 'single-justice-procedure';
 const listPath = `style-guide/${listType}`;
@@ -40,6 +43,7 @@ const sjpPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getI
 sjpPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 sjpPublicListMetaDataStub.withArgs(artefactIdWithNoFiles).resolves(metaData);
 sjpPublicListMetaDataStub.withArgs('').resolves([]);
+sjpPublicListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
 generatesFilesStub.withArgs(artefactId).resolves(true);
@@ -197,5 +201,19 @@ describe('SJP Public List Type Controller', () => {
                 responseMock.verify();
             });
         });
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.query = { artefactId: artefactIdListNotFound };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await sjpPublicListController.get(request, response);
+        return responseMock.verify();
     });
 });

@@ -18,9 +18,9 @@ const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returne
 
 const metaDataSjpPressFullList = JSON.parse(rawMetaData)[0];
 metaDataSjpPressFullList.listType = 'SJP_PRESS_LIST';
-
 const metaDataSjpPressNewCases = JSON.parse(rawMetaData)[0];
 metaDataSjpPressNewCases.listType = 'SJP_DELTA_PRESS_LIST';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const sjpPressListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const sjpPressListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
@@ -38,6 +38,7 @@ const sjpResourceMap = new Map<string, object>([
     [sjpPressFullListUrl, { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: sjpPressFullListName }],
     [sjpPressNewCasesUrl, { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: sjpPressNewCasesName }],
 ]);
+const artefactIdListNotFound = 'xyz';
 const contentDate = metaDataSjpPressFullList['contentDate'];
 
 const sjpPressFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
@@ -54,6 +55,7 @@ sjpPressListMetaDataStub.withArgs(sjpPressFullListResource['artefactId']).resolv
 sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactId']).resolves(metaDataSjpPressNewCases);
 sjpPressListMetaDataStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressFullList);
 sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressNewCases);
+sjpPressListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 sjpPressListMetaDataStub.withArgs('').resolves([]);
 
 generatesFilesStub.withArgs(sjpPressFullListResource['artefactId']).resolves(true);
@@ -202,6 +204,20 @@ describe('SJP Press List Controller', () => {
             const responseMock = sinon.mock(response);
 
             responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+            await sjpPressListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render list not found page if list type not valid', async () => {
+            request.query = { artefactId: artefactIdListNotFound };
+            request.user = { userId: '1' };
+            const responseMock = sinon.mock(response);
+
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
             await sjpPressListController.get(request, response);
             return responseMock.verify();
