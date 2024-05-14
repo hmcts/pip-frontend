@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { app } from '../../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import {AccountManagementRequests} from "../../../main/resources/requests/AccountManagementRequests";
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const thirdPartyUserName = 'test name';
 const PAGE_URL = `/delete-third-party-user-confirmation?userId=${thirdPartyUserName}`;
@@ -11,7 +11,7 @@ app.request['user'] = {
     roles: 'SYSTEM_ADMIN',
 };
 
-sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({provenanceUserId: thirdPartyUserName})
+sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({ provenanceUserId: thirdPartyUserName });
 
 let htmlRes: Document;
 
@@ -27,7 +27,10 @@ describe('Delete third party user confirmation page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains(`Are you sure you want to delete ${thirdPartyUserName}?`, 'Header does not match');
+        expect(header[0].innerHTML).contains(
+            `Are you sure you want to delete ${thirdPartyUserName}?`,
+            'Header does not match'
+        );
     });
 
     it('should display yes radio option', () => {

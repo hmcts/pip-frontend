@@ -2,9 +2,9 @@ import request from 'supertest';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import {AccountManagementRequests} from "../../main/resources/requests/AccountManagementRequests";
+import { AccountManagementRequests } from '../../main/resources/requests/AccountManagementRequests';
 
-sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({provenanceUserId: 'thirdPartyName'})
+sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({ provenanceUserId: 'thirdPartyName' });
 const deleteUserStub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
 deleteUserStub.withArgs('123', '1').resolves('success');
 deleteUserStub.withArgs('124', '1').resolves(null);
@@ -36,7 +36,6 @@ describe('Delete third party user confirmation page', () => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('/delete-third-party-user-success');
                 });
-
         });
 
         test('should render delete third party user confirmation page with error', async () => {
@@ -48,10 +47,9 @@ describe('Delete third party user confirmation page', () => {
             await request(app)
                 .post('/delete-third-party-user-confirmation')
                 .expect(res => expect(res.status).to.equal(200));
-
         });
 
-        test('should redirect to manage third party user page for a \'no\' response', async () => {
+        test("should redirect to manage third party user page for a 'no' response", async () => {
             app.request['body'] = {
                 user: '123',
                 'delete-user-confirm': 'no',
@@ -63,7 +61,6 @@ describe('Delete third party user confirmation page', () => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('/manage-third-party-users/view?userId=123');
                 });
-
         });
     });
 });

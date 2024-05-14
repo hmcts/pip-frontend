@@ -1,9 +1,8 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import DeleteThirdPartyUserConfirmationController
-    from "../../../main/controllers/DeleteThirdPartyUserConfirmationController";
-import {AccountManagementRequests} from "../../../main/resources/requests/AccountManagementRequests";
+import DeleteThirdPartyUserConfirmationController from '../../../main/controllers/DeleteThirdPartyUserConfirmationController';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const i18n = {
     'delete-third-party-user-confirmation': {
@@ -19,7 +18,7 @@ const thirdPartyUser = {
     userProvenance: 'THIRD_PARTY',
     provenanceUserId: 'thirdPartyName',
     roles: 'GENERAL_THIRD_PARTY',
-}
+};
 
 const response = {
     render: () => {
@@ -60,7 +59,6 @@ describe('Delete third party user confirmation controller', () => {
                 failedRequestError: false,
             };
 
-
             responseMock.expects('render').once().withArgs('delete-third-party-user-confirmation', expectedOptions);
 
             await deleteThirdPartyUserConfirmationController.get(request, response);
@@ -95,7 +93,6 @@ describe('Delete third party user confirmation controller', () => {
 
             await deleteThirdPartyUserConfirmationController.post(request, response);
             responseMock.verify();
-
         });
 
         it('should render the delete third party user confirmation page with failed request error', async () => {
@@ -114,7 +111,6 @@ describe('Delete third party user confirmation controller', () => {
 
             await deleteThirdPartyUserConfirmationController.post(request, response);
             responseMock.verify();
-
         });
 
         it('should redirect to manage third party user view page', async () => {
@@ -125,7 +121,6 @@ describe('Delete third party user confirmation controller', () => {
 
             await deleteThirdPartyUserConfirmationController.post(request, response);
             responseMock.verify();
-
         });
     });
 });

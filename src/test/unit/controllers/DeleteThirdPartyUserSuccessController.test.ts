@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import DeleteThirdPartyUserSuccessController from "../../../main/controllers/DeleteThirdPartyUserSuccessController";
+import DeleteThirdPartyUserSuccessController from '../../../main/controllers/DeleteThirdPartyUserSuccessController';
 
 const i18n = {
     'delete-third-party-user-success': {
@@ -22,7 +22,10 @@ const deleteThirdPartyUserSuccessController = new DeleteThirdPartyUserSuccessCon
 describe('Delete third party user success controller', () => {
     it('should render the delete third party user success page', async () => {
         const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('delete-third-party-user-success', i18n['delete-third-party-user-success']);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('delete-third-party-user-success', i18n['delete-third-party-user-success']);
 
         await deleteThirdPartyUserSuccessController.get(request, response);
         responseMock.verify();
