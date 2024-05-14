@@ -16,6 +16,8 @@ const tableData = JSON.parse(rawTableData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'ET_FORTNIGHTLY_PRESS_LIST';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -29,6 +31,7 @@ sinon.stub(EtListsService.prototype, 'reshapeEtLists').returns(listData);
 sinon.stub(EtListsService.prototype, 'dataSplitterEtList').returns(tableData);
 
 const artefactId = 'abc';
+const artefactIdListNotFound = 'xyz';
 
 etDailyListJsonStub.withArgs(artefactId).resolves(listData);
 etDailyListJsonStub.withArgs('').resolves([]);
@@ -36,6 +39,7 @@ etDailyListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 etDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 etDailyListMetaDataStub.withArgs('').resolves([]);
+etDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const listType = 'et-fortnightly-list';
 const listPath = `style-guide/${listType}`;
@@ -99,6 +103,20 @@ describe('Et Fortnightly List Controller', () => {
         request.query = { artefactId: '1234' };
         request.user = { userId: '123' };
 
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await etDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.query = { artefactId: artefactIdListNotFound };
+        request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
         responseMock

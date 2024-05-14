@@ -6,7 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { MagistratesStandardListService } from '../../service/listManipulation/MagistratesStandardListService';
 import { HttpStatusCode } from 'axios';
-import { isValidList } from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
@@ -22,8 +22,14 @@ export default class MagistratesStandardListController {
         const artefactId = req.query.artefactId as string;
         const publicationJson = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(publicationJson, metaData) && publicationJson && metaData) {
+        if (
+            isValidList(publicationJson, metaData) &&
+            publicationJson &&
+            metaData &&
+            isValidListType(metaDataListType, listType)
+        ) {
             const manipulatedData = magsStandardListService.manipulateData(JSON.stringify(publicationJson), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationJson['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -45,7 +51,11 @@ export default class MagistratesStandardListController {
                 provenance: metaData.provenance,
                 venueAddress: venueAddress,
             });
-        } else if (publicationJson === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (
+            publicationJson === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            isUnexpectedListType(metaDataListType, listType)
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

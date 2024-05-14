@@ -11,8 +11,11 @@ import { CrimeListsService } from '../../../main/service/listManipulation/CrimeL
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/magistratesPublicList.json'), 'utf-8');
 const crownDailyData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'MAGISTRATES_PUBLIC_LIST';
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(crownDailyData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(crownDailyData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').resolves(crownDailyData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 

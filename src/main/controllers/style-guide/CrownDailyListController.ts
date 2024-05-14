@@ -6,26 +6,37 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import { hearingHasParty, isValidList } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    hearingHasParty,
+    isUnexpectedListType,
+    isValidList,
+    isValidListType,
+} from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
 
-const listType = 'crown-daily-list';
-const listPath = `style-guide/${listType}`;
+const listUrl = 'crown-daily-list';
+const listPath = `style-guide/${listUrl}`;
 
 export default class CrownDailyListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
+        const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(searchResults, metaData) && searchResults && metaData) {
+        if (
+            isValidList(searchResults, metaData) &&
+            searchResults &&
+            metaData &&
+            isValidListType(metadataListType, listUrl)
+        ) {
             let outputData;
             let partyAtHearingLevel = false;
-
             if (hearingHasParty(searchResults)) {
                 outputData = crimeListsService.manipulateCrimeListDataV1(
                     JSON.stringify(searchResults),
@@ -40,8 +51,8 @@ export default class CrownDailyListController {
                     listPath
                 );
             }
-            outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
 
+            outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -51,7 +62,7 @@ export default class CrownDailyListController {
             const location = await locationService.getLocationById(metaData['locationId']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: outputData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
@@ -63,7 +74,11 @@ export default class CrownDailyListController {
                 venueAddress: venueAddress,
                 partyAtHearingLevel,
             });
-        } else if (searchResults === HttpStatusCode.NotFound || metaData === HttpStatusCode.NotFound) {
+        } else if (
+            searchResults === HttpStatusCode.NotFound ||
+            metaData === HttpStatusCode.NotFound ||
+            isUnexpectedListType(metadataListType, listUrl)
+        ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

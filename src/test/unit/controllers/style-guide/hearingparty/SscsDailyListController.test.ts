@@ -21,9 +21,9 @@ const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/retu
 
 const metaDataSscs = JSON.parse(rawMetaData)[0];
 metaDataSscs.listType = 'SSCS_DAILY_LIST';
-
 const metaDataSscsAdditionalHearings = JSON.parse(rawMetaData)[0];
 metaDataSscsAdditionalHearings.listType = 'SSCS_DAILY_LIST_ADDITIONAL_HEARINGS';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const contentDate = metaDataSscs['contentDate'];
 const userId = '1';
@@ -34,6 +34,7 @@ const artefactIdMap = new Map<string, string>([
     [sscDailyListUrl, 'abc'],
     [sscDailyListAdditionalHearingsUrl, 'def'],
 ]);
+const artefactIdListNotFound = 'xyz';
 
 const sscsDailyListController = new SscsDailyListController();
 const sscsDailyListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
@@ -51,6 +52,7 @@ sscsDailyListMetaDataStub
     .withArgs(artefactIdMap.get(sscDailyListAdditionalHearingsUrl), userId)
     .resolves(metaDataSscsAdditionalHearings);
 sscsDailyListMetaDataStub.withArgs('', userId).resolves([]);
+sscsDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const sscsListType = 'sscs-daily-list';
 const sscsListPath = `style-guide/${sscsListType}`;
@@ -114,6 +116,21 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
             request.query = { artefactId: '1234' };
             request.user = { userId: userId };
 
+            const responseMock = sinon.mock(response);
+
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+            await sscsDailyListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render list not found page if list type not valid', async () => {
+            request.path = url;
+            request.query = { artefactId: artefactIdListNotFound };
+            request.user = { userId: '1' };
             const responseMock = sinon.mock(response);
 
             responseMock

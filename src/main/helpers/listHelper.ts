@@ -11,6 +11,30 @@ export const isValidList = (searchResults: any, metaData: any): any => {
     }
 };
 
+export const formatMetaDataListType = (metaData: any): any => {
+    if (metaData) {
+        return metaData.listType.toLowerCase().replaceAll('_', '-');
+    } else {
+        return '';
+    }
+};
+
+export const isValidListType = (metaDataListType: any, listType: any): any => {
+    return metaDataListType === listType;
+};
+
+export const isOneOfValidListTypes = (metaDataListType: any, listType: any, altListType: any): any => {
+    return metaDataListType === listType || metaDataListType === altListType;
+};
+
+export const missingListType = (metaDataListType: any): any => {
+    return metaDataListType === '';
+};
+
+export const isUnexpectedListType = (metaDataListType: any, listType: any): any => {
+    return !missingListType(metaDataListType) && !isValidListType(metaDataListType, listType);
+};
+
 // TODO: To be removed once all lists have party field on the case level.
 export const hearingHasParty = (jsonData): boolean => {
     let hearingHasParty = false;

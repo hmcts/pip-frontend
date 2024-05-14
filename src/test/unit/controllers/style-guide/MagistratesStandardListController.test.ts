@@ -14,6 +14,8 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistrates
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'MAGISTRATES_STANDARD_LIST';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -33,6 +35,7 @@ listData.set('courtRoom2', [data2]);
 sinon.stub(MagistratesStandardListService.prototype, 'manipulateData').returns(listData);
 
 const artefactId = 'abc';
+const artefactIdListNotFound = 'xyz';
 
 magsStandardListJsonStub.withArgs(artefactId).resolves(JSON.parse(rawData));
 magsStandardListJsonStub.withArgs(artefactId, undefined).resolves(undefined);
@@ -41,6 +44,7 @@ magsStandardListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 magsStandardListMetaDataStub.withArgs(artefactId).resolves(metaData);
 magsStandardListMetaDataStub.withArgs('').resolves([]);
+magsStandardListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const listType = 'magistrates-standard-list';
 const listPath = `style-guide/${listType}`;
@@ -118,6 +122,20 @@ describe('Magistrate Standard List Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+
+        await magsStandardListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.query = { artefactId: artefactIdListNotFound };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
         await magsStandardListController.get(request, response);
         return responseMock.verify();

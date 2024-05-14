@@ -10,8 +10,12 @@ import { IacDailyListService } from '../../../main/service/listManipulation/IacD
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/iacDailyList.json'), 'utf-8');
 const iacData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'IAC_DAILY_LIST';
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(iacData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(iacData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').resolves(iacData);
 
 describe('IAC Daily List Page', () => {
