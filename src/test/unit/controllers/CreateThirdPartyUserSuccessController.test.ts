@@ -20,6 +20,9 @@ const response = {
     cookie: (cookieName, cookieValue) => {
         return cookieName + cookieValue;
     },
+    clearCookie: () => {
+        return '';
+    },
 } as unknown as Response;
 
 const request = mockRequest(i18n);
