@@ -10,6 +10,6 @@ export default class CreateThirdPartyUserSuccessController {
             formData,
         });
 
-        res.cookie('formCookie', '', { secure: true });
+        res.clearCookie('formCookie');
     }
 }
