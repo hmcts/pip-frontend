@@ -18,7 +18,7 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
     I.see(testProvenanceUserId);
     I.see('GENERAL_THIRD_PARTY');
     I.click(locate('//tr').withText(testProvenanceUserId).find('a').withText('Manage'));
-    I.waitForText('Manage User');
+    I.waitForText('Manage user');
     I.see(testProvenanceUserId);
     I.see('GENERAL_THIRD_PARTY');
     I.see('N/A - No subscriptions');
