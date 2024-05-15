@@ -242,7 +242,10 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display offence title and offence wording', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[5].innerHTML).contains('This is an offence title - This is offence wording', 'Offence text does not match');
+            expect(body[5].innerHTML).contains(
+                'This is an offence title - This is offence wording',
+                'Offence text does not match'
+            );
         });
 
         it('should display offence title only if no offence wording', () => {
