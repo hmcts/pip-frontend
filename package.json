@@ -53,7 +53,7 @@
         "@types/nunjucks": "^3.2.6",
         "@types/require-directory": "^2.1.6",
         "@types/serve-favicon": "^2.5.7",
-        "applicationinsights": "3.1.0",
+        "applicationinsights": "2.9.5",
         "awilix": "^10.0.2",
         "axios": "^1.6.8",
         "axios-oauth-client": "^2.2.0",
