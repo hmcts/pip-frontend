@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
-import {UserManagementService} from "../service/UserManagementService";
+import { UserManagementService } from '../service/UserManagementService';
 
 const accountManagementRequests = new AccountManagementRequests();
 const userManagementService = new UserManagementService();
