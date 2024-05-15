@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
+import {UserManagementService} from "../service/UserManagementService";
 
 const accountManagementRequests = new AccountManagementRequests();
+const userManagementService = new UserManagementService();
 
 export default class DeleteThirdPartyUserConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -24,6 +26,12 @@ export default class DeleteThirdPartyUserConfirmationController {
         if (req.body['delete-user-confirm'] === 'yes') {
             const response = await accountManagementRequests.deleteUser(userId, req.user['userId']);
             if (response) {
+                await userManagementService.auditAction(
+                    req.user,
+                    'DELETE_THIRD_PARTY_USER',
+                    `Third party user with id ${userId} has been deleted`
+                );
+
                 res.redirect('/delete-third-party-user-success');
             } else {
                 res.render('delete-third-party-user-confirmation', {

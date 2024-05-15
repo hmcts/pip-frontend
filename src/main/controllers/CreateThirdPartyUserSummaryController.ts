@@ -2,8 +2,10 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { ThirdPartyService } from '../service/ThirdPartyService';
+import {UserManagementService} from "../service/UserManagementService";
 
 const thirdPartyService = new ThirdPartyService();
+const userManagementService = new UserManagementService();
 
 export default class CreateThirdPartyUserSummaryController {
     public get(req: PipRequest, res: Response): void {
@@ -20,6 +22,11 @@ export default class CreateThirdPartyUserSummaryController {
         const response = await thirdPartyService.createThirdPartyUser(formData, req.user['userId']);
 
         if (response) {
+            await userManagementService.auditAction(
+                req.user,
+                'THIRD_PARTY_USER_CREATION',
+                `Third party user created for: ${formData.thirdPartyName}`
+            );
             res.redirect('/create-third-party-user-success');
         } else {
             res.render('create-third-party-user-summary', {
