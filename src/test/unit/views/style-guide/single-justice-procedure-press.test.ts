@@ -12,7 +12,7 @@ const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const listSummary = 'govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1';
 const offenderInformationClass = 'govuk-summary-list__value';
-const reportingRestrictionClass = 'govuk-body';
+const bodyClass = 'govuk-body';
 const buttonClass = 'govuk-button';
 const linkClass = 'govuk-link';
 const filterTitleClass = 'moj-filter__header-title';
@@ -228,7 +228,7 @@ describe('Single Justice Procedure List page', () => {
         });
 
         it('should have reporting restriction section', () => {
-            const reportingRestrictionSection = htmlRes.getElementsByClassName(reportingRestrictionClass);
+            const reportingRestrictionSection = htmlRes.getElementsByClassName(bodyClass);
             expect(reportingRestrictionSection[4].innerHTML).contains(
                 reportingRestriction,
                 'Could not find the reporting Restriction'
@@ -238,6 +238,17 @@ describe('Single Justice Procedure List page', () => {
         it('should display the show filters button', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
             expect(buttons[0].innerHTML).contains('Show Filters', 'Could not find the show filters button');
+        });
+
+        it('should display offence title and offence wording', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[5].innerHTML).contains('This is an offence title - This is offence wording', 'Offence text does not match');
+        });
+
+        it('should display offence title only if no offence wording', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[7].innerHTML).contains('Another offence title', 'Offence text does not match');
+            expect(body[7].innerHTML).not.contains('Another offence title -', 'Offence text does not match');
         });
     });
 
