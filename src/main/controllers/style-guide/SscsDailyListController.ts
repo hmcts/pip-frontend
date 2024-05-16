@@ -24,12 +24,7 @@ export default class SscsDailyListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(searchResults, metaData) &&
-            searchResults &&
-            metaData &&
-            isOneOfValidListTypes(metaDataListType, sscsUrl, sscsAdditonalHearingsUrl)
-        ) {
+        if (isValidList(searchResults, metaData) && isOneOfValidListTypes(metaDataListType, sscsUrl, sscsAdditonalHearingsUrl)) {
             const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
