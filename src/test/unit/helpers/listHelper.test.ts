@@ -8,12 +8,15 @@ import {
 } from '../../../main/helpers/listHelper';
 import fs from 'fs';
 import path from 'path';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 describe('List helper', () => {
     describe('hearing has party', () => {
         it('Hearing should have party', () => {
-            const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/hearingparty/crownDailyList.json'), 'utf-8');
+            const rawData = fs.readFileSync(
+                path.resolve(__dirname, '../mocks/hearingparty/crownDailyList.json'),
+                'utf-8'
+            );
             expect(hearingHasParty(JSON.parse(rawData))).toBeTruthy();
         });
 
@@ -109,4 +112,3 @@ describe('List helper', () => {
         });
     });
 });
-
