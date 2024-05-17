@@ -29,12 +29,7 @@ export default class CrownDailyListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(searchResults, metaData) &&
-            searchResults &&
-            metaData &&
-            isValidListType(metadataListType, listUrl)
-        ) {
+        if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listUrl)) {
             let outputData;
             let partyAtHearingLevel = false;
             if (hearingHasParty(searchResults)) {

@@ -29,12 +29,7 @@ export default class MagistratesPublicListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(searchResults, metaData) &&
-            searchResults &&
-            metaData &&
-            isValidListType(metadataListType, listType)
-        ) {
+        if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listType)) {
             let manipulatedData;
             let partyAtHearingLevel = false;
 

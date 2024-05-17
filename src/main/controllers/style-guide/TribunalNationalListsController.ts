@@ -23,12 +23,7 @@ export default class TribunalNationalListsController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(searchResults, metaData) &&
-            searchResults &&
-            metaData &&
-            isValidListType(metaDataListType, listToLoad)
-        ) {
+        if (isValidList(searchResults, metaData) && isValidListType(metaDataListType, listToLoad)) {
             const manipulatedData = tribunalNationalListsService.manipulateData(
                 JSON.stringify(searchResults),
                 req.lng,
