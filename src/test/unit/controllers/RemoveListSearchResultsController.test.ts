@@ -55,9 +55,9 @@ const mockArtefactsArray = [
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
         contDate: '24 Mar 2022'
-    }
+    },
 ];
-const removeListFormData = { courtLists: ['valid-artefact', 'valid-artefact'], locationId: '5'}
+const removeListFormData = { courtLists: ['valid-artefact', 'valid-artefact'], locationId: '5' };
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefactsArray);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockArtefactsArray);
@@ -103,7 +103,9 @@ describe('Remove List Summary Controller', () => {
             request.user = { userId: adminUserId };
             request.body = { locationId: '5' };
             const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once()
+            responseMock
+                .expects('redirect')
+                .once()
                 .withArgs(`remove-list-search-results?locationId=${mockCourt.locationId}&error=true`);
 
             await removeListSearchResultsController.post(request, response).then(() => {
@@ -117,7 +119,7 @@ describe('Remove List Summary Controller', () => {
             request.body = removeListFormData;
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('redirect').once().withArgs(bulkListRemovalConfirmationUrl)
+            responseMock.expects('redirect').once().withArgs(bulkListRemovalConfirmationUrl);
 
             await removeListSearchResultsController.post(request, response);
             await responseMock.verify();

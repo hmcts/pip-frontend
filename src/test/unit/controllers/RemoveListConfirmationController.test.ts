@@ -14,7 +14,7 @@ const mockArtefact = {
     locationId: '5',
     artefactId: 'valid-artefact',
     dateRange: 'Invalid DateTime to Invalid DateTime',
-    contDate: '24 Mar 2022'
+    contDate: '24 Mar 2022',
 };
 const mockArtefactsArray = [
     {
@@ -24,7 +24,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
     {
         listType: 'CIVIL_DAILY_CAUSE_LIST',
@@ -33,7 +33,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
     {
         listType: 'CIVIL_DAILY_CAUSE_LIST',
@@ -42,8 +42,8 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
-    }
+        contDate: '24 Mar 2022',
+    },
 ];
 
 const formData = {

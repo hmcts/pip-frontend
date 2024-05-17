@@ -37,10 +37,10 @@ describe('List helper', () => {
                 artefactId: 'valid-artefact',
                 dateRange: 'Invalid DateTime to Invalid DateTime',
                 contDate: '24 Mar 2022'
-            }
+            },
         ];
         const list = [];
         await addListDetailsToArray('artfactId', 1, list);
-        expect(list).toEqual(expectedResult)
+        expect(list).toEqual(expectedResult);
     });
 });

@@ -21,10 +21,10 @@ export default class RemoveListConfirmationController {
             await addListDetailsToArray(list, req.user?.['userId'], listData);
         }
         res.render('remove-list-confirmation', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
-                    removalList: manualUploadService.formatListRemovalValues(listData),
-                    locationId: formData.locationId,
-                    displayError: false,
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
+            removalList: manualUploadService.formatListRemovalValues(listData),
+            locationId: formData.locationId,
+            displayError: false,
         });
     }
 
