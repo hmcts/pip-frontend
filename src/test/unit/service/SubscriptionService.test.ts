@@ -823,7 +823,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
 
         const listKeysS = Object.keys(listOptions['S']);
-        expect(listKeysS).toEqual(['SJP_PRESS_LIST', 'SJP_DELTA_PRESS_LIST', 'SJP_PRESS_REGISTER', 'SJP_PUBLIC_LIST']);
+        expect(listKeysS).toEqual(['SJP_PRESS_LIST', 'SJP_DELTA_PRESS_LIST', 'SJP_PRESS_REGISTER', 'SJP_PUBLIC_LIST', 'SJP_DELTA_PUBLIC_LIST']);
     });
 
     it('Test sorting of lists in welsh', async () => {
@@ -846,7 +846,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
 
         const listKeysS = Object.keys(listOptions['S']);
-        expect(listKeysS).toEqual(['SJP_PRESS_LIST', 'SJP_DELTA_PRESS_LIST', 'SJP_PRESS_REGISTER', 'SJP_PUBLIC_LIST']);
+        expect(listKeysS).toEqual(['SJP_PRESS_LIST', 'SJP_DELTA_PRESS_LIST', 'SJP_PRESS_REGISTER', 'SJP_PUBLIC_LIST', 'SJP_DELTA_PUBLIC_LIST']);
     });
 
     it('generate list types with no filters with no selected', async () => {
