@@ -1,4 +1,4 @@
-import { AToZHelper } from '../../main/helpers/aToZHelper';
+import { AToZHelper } from '../../../main/helpers/aToZHelper';
 
 describe('A to Z Helper', () => {
     it('should generate the alphabet object', () => {

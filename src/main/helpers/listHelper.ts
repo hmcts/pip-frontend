@@ -1,37 +1,26 @@
 import { HttpStatusCode } from 'axios';
 
-export const isValidList = (searchResults: any, metaData: any): any => {
-    if (
-        (searchResults !== null && searchResults !== HttpStatusCode.NotFound) ||
-        (searchResults !== null && metaData !== HttpStatusCode.NotFound)
-    ) {
-        return true;
-    } else {
-        return false;
-    }
+export const isValidList = (listData: any, metaData: any): boolean => {
+    return listData && metaData && listData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound;
 };
 
-export const formatMetaDataListType = (metaData: any): any => {
-    if (metaData) {
-        return metaData.listType.toLowerCase().replaceAll('_', '-');
-    } else {
-        return '';
-    }
+export const formatMetaDataListType = (metaData: any): string => {
+    return metaData?.listType ? metaData.listType.toLowerCase().replaceAll('_', '-') : '';
 };
 
-export const isValidListType = (metaDataListType: any, listType: any): any => {
+export const isValidListType = (metaDataListType: string, listType: string): boolean => {
     return metaDataListType === listType;
 };
 
-export const isOneOfValidListTypes = (metaDataListType: any, listType: any, altListType: any): any => {
+export const isOneOfValidListTypes = (metaDataListType: string, listType: string, altListType: string): boolean => {
     return metaDataListType === listType || metaDataListType === altListType;
 };
 
-export const missingListType = (metaDataListType: any): any => {
+export const missingListType = (metaDataListType: string): boolean => {
     return metaDataListType === '';
 };
 
-export const isUnexpectedListType = (metaDataListType: any, listType: any): any => {
+export const isUnexpectedListType = (metaDataListType: string, listType: string): boolean => {
     return !missingListType(metaDataListType) && !isValidListType(metaDataListType, listType);
 };
 
