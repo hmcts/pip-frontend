@@ -33,7 +33,7 @@ export default class CrownFirmListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(jsonData, metaData) && metaData && jsonData && isValidListType(metaDataListType, listType)) {
+        if (isValidList(jsonData, metaData) && isValidListType(metaDataListType, listType)) {
             let outputData;
             if (hearingHasParty(jsonData)) {
                 outputData = firmListService.splitOutFirmListDataV1(JSON.stringify(jsonData), req.lng, listPath);

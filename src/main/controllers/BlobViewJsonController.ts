@@ -17,7 +17,7 @@ export default class BlobViewJsonController {
         const data = await publicationService.getIndividualPublicationJson(artefactId, req.user['userId']);
         const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId']);
 
-        if (isValidList(data, metadata) && metadata && data) {
+        if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
             const options: FormatOptions = { indent: 3, lineNumbers: true, trailingCommas: false };
             const jsonData: string = prettyPrintJson.toHtml(data, options);

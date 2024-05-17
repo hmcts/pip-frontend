@@ -24,7 +24,7 @@ export default class EtFortnightlyListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metadataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metadataListType, listType)) {
+        if (isValidList(fileData, metaData) && isValidListType(metadataListType, listType)) {
             const tableData = etListsService.reshapeEtFortnightlyListData(JSON.stringify(fileData), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
