@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import RemoveListConfirmationController from '../../../main/controllers/RemoveListConfirmationController';
 import { PublicationService } from '../../../main/service/PublicationService';
 import { LocationService } from '../../../main/service/LocationService';
-import {ManualUploadService} from "../../../main/service/ManualUploadService";
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
 
 const validArtefactId = '1';
 const validArtefactId2 = '2';
@@ -26,7 +26,7 @@ const metadata3 = {
     artefactId: validArtefactId3,
 };
 
-const mockArtefactsArray = [ metadata, metadata2, metadata3 ];
+const mockArtefactsArray = [metadata, metadata2, metadata3];
 
 const mockCourt = { locationId: '5', name: 'Mock Court' };
 const i18n = {
@@ -59,7 +59,7 @@ const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePu
 removePublicationStub.withArgs(validArtefactId).resolves(true);
 removePublicationStub.withArgs(invalidArtefactId).resolves(false);
 
-const formatRemovalListStub = sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues')
+const formatRemovalListStub = sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues');
 formatRemovalListStub.withArgs(mockArtefactsArray).returns(mockArtefactsArray);
 formatRemovalListStub.withArgs([metadata]).returns([metadata]);
 
