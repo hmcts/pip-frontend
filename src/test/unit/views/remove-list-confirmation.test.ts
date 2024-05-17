@@ -6,7 +6,7 @@ import { expect } from 'chai';
 import { LocationService } from '../../../main/service/LocationService';
 import { request as expressRequest } from 'express';
 
-const PAGE_URL = '/remove-list-confirmation?artefact=18dec6ee-3a30-47bb-9fb3-6a343d6b9efb';
+const PAGE_URL = '/remove-list-confirmation';
 
 const mockArtefact = {
     listType: 'CIVIL_DAILY_CAUSE_LIST',
@@ -50,7 +50,7 @@ describe('Remove List Confirmation Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Are you sure you want to remove this publication?',
+                'Are you sure you want to remove this content?',
                 'Page title does not match header'
             );
         });
@@ -58,7 +58,7 @@ describe('Remove List Confirmation Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(
-                'Are you sure you want to remove this publication?',
+                'Are you sure you want to remove this content?',
                 'Could not find correct value in header'
             );
         });
@@ -66,7 +66,7 @@ describe('Remove List Confirmation Page', () => {
         it('should display warning message', () => {
             const warning = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
             expect(warning.innerHTML).contains(
-                'You are about to remove the following publication:',
+                'You are about to remove the following content:',
                 'Could not find correct warning message'
             );
         });

@@ -3,7 +3,8 @@
     "error": {
         "noResults": "There are no matching results",
         "invalidInput": "Court or tribunal name must be 3 characters or more",
-        "summaryTitleText": "There is a problem"
+        "summaryTitleText": "There is a problem",
+        "noOptionSelectedError": "At least one publication must be selected"
     },
     "header": "Select content to remove",
     "resultsMessage": "Showing RESULTS_COUNT result(s)",

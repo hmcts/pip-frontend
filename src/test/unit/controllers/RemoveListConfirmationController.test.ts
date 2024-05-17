@@ -5,6 +5,52 @@ import RemoveListConfirmationController from '../../../main/controllers/RemoveLi
 import { PublicationService } from '../../../main/service/PublicationService';
 import { LocationService } from '../../../main/service/LocationService';
 
+const adminUserId = '1234-1234-1234-1234';
+
+const mockArtefact = {
+    listType: 'CIVIL_DAILY_CAUSE_LIST',
+    listTypeName: 'Civil Daily Cause List',
+    contentDate: '2022-03-24T07:36:35',
+    locationId: '5',
+    artefactId: 'valid-artefact',
+    dateRange: 'Invalid DateTime to Invalid DateTime',
+    contDate: '24 Mar 2022'
+};
+const mockArtefactsArray = [
+    {
+        listType: 'CIVIL_DAILY_CAUSE_LIST',
+        listTypeName: 'Civil Daily Cause List',
+        contentDate: '2022-03-24T07:36:35',
+        locationId: '5',
+        artefactId: 'valid-artefact',
+        dateRange: 'Invalid DateTime to Invalid DateTime',
+        contDate: '24 Mar 2022'
+    },
+    {
+        listType: 'CIVIL_DAILY_CAUSE_LIST',
+        listTypeName: 'Civil And Family Daily Cause List',
+        contentDate: '2022-03-24T07:36:35',
+        locationId: '5',
+        artefactId: 'valid-artefact',
+        dateRange: 'Invalid DateTime to Invalid DateTime',
+        contDate: '24 Mar 2022'
+    },
+    {
+        listType: 'CIVIL_DAILY_CAUSE_LIST',
+        listTypeName: 'IAC Daily List',
+        contentDate: '2022-03-24T07:36:35',
+        locationId: '5',
+        artefactId: 'valid-artefact',
+        dateRange: 'Invalid DateTime to Invalid DateTime',
+        contDate: '24 Mar 2022'
+    }
+];
+
+const formData = {
+    courtLists: mockArtefactsArray,
+    locationId: '5',
+};
+const mockCourt = { locationId: '5', name: 'Mock Court' };
 const i18n = {
     'remove-list-confirmation': {},
     error: {},
@@ -17,52 +63,33 @@ const response = {
     redirect: () => {
         return '';
     },
+    cookie: (cookieName, cookieValue) => {
+        return cookieName + cookieValue;
+    },
 } as unknown as Response;
 const request = mockRequest(i18n);
-const adminUserId = '1234-1234-1234-1234';
 
-const mockArtefact = {
-    listType: 'CIVIL_DAILY_CAUSE_LIST',
-    listTypeName: 'Civil Daily Cause List',
-    contentDate: '2022-03-24T07:36:35',
-    locationId: '5',
-    artefactId: 'valid-artefact',
-};
-const mockCourt = { locationId: '5', name: 'Mock Court' };
-const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
-const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
+const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
 removePublicationStub.withArgs('valid-artefact', adminUserId).resolves(true);
 removePublicationStub.withArgs('foo', adminUserId).resolves(false);
-metadataStub.withArgs('valid-artefact', adminUserId).resolves(mockArtefact);
-metadataStub.withArgs('invalid-artefact', adminUserId).resolves({ ...mockArtefact, artefactId: 'invalid-artefact' });
 
 describe('Remove List Confirmation Controller', () => {
     it('should render remove list confirmation page', async () => {
-        request.query = { artefact: 'valid-artefact', court: '5' };
+        request['cookies'] = { formCookie: JSON.stringify(formData) };
         request.user = { userId: adminUserId };
 
         const responseMock = sinon.mock(response);
+
         const expectedOptions = {
             ...i18n['remove-list-confirmation'],
-            artefact: mockArtefact,
-            court: mockCourt,
+            removalList: mockArtefactsArray,
+            locationId: '5',
             displayError: false,
         };
 
         responseMock.expects('render').once().withArgs('remove-list-confirmation', expectedOptions);
-        await removeListConfirmationController.get(request, response);
-        await responseMock.verify();
-    });
-
-    it('should render error page if artefact query param is not provided', async () => {
-        request.query = { court: '5' };
-        const responseMock = sinon.mock(response);
-
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('error', { ...i18n.error });
         await removeListConfirmationController.get(request, response);
         await responseMock.verify();
     });
@@ -73,7 +100,7 @@ describe('Remove List Confirmation Controller', () => {
         request.user = { userId: adminUserId };
         request.body = {
             'remove-choice': 'yes',
-            artefactId: 'valid-artefact',
+            artefactIds: 'valid-artefact',
         };
 
         responseMock.expects('redirect').once().withArgs('/remove-list-success');
@@ -87,7 +114,7 @@ describe('Remove List Confirmation Controller', () => {
         request.user = { userId: adminUserId };
         request.body = {
             'remove-choice': 'yes',
-            artefactId: 'foo',
+            artefactIds: 'foo',
         };
 
         responseMock
@@ -117,12 +144,12 @@ describe('Remove List Confirmation Controller', () => {
         request.user = { userId: adminUserId };
         request.body = {
             locationId: '5',
-            artefactId: 'valid-artefact',
+            artefactIds: 'valid-artefact',
         };
         const expectedOptions = {
             ...i18n['remove-list-confirmation'],
-            artefact: mockArtefact,
             court: mockCourt,
+            removalList: [mockArtefact],
             displayError: true,
         };
 

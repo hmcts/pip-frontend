@@ -38,9 +38,10 @@ const mockPublications = [
         sensitivity: 'CLASSIFIED',
     },
 ];
-const tableHeaders = ['List type', 'Court', 'Content Date', 'Date', 'Language', 'Sensitivity', 'Actions'];
+const tableHeaders = ['List type', 'Court', 'Content Date', 'Date', 'Language', 'Sensitivity', 'Select'];
 const languageRowValues = ['English', 'Welsh'];
 const sensitivityValues = ['Public', 'Classified', 'Classified'];
+const checkboxType = 'input type="checkbox"';
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon
     .stub(SummaryOfPublicationsService.prototype, 'getPublications')
@@ -89,10 +90,6 @@ describe('Remove List Summary Page', () => {
         expect(tableRows.length).equal(2, 'Incorrect table rows count');
         for (let i = 0; i < tableRows.length; i++) {
             const rowCells = tableRows[i].getElementsByClassName('govuk-table__cell');
-            const removeActionHref = htmlRes
-                .getElementsByClassName('unsubscribe-action')
-                [i].getAttribute('href')
-                .valueOf();
             expect(rowCells[0].innerHTML).contains(
                 mockPublications[i].listTypeName,
                 'Could not find valid list type name'
@@ -105,11 +102,7 @@ describe('Remove List Summary Page', () => {
             );
             expect(rowCells[4].innerHTML).contains(languageRowValues[i], 'Could not find valid language');
             expect(rowCells[5].innerHTML).contains(sensitivityValues[i], 'Could not find valid sensitivity');
-            expect(rowCells[6].innerHTML).contains('Remove', 'Could not find valid action');
-            expect(removeActionHref).contains(
-                `remove-list-confirmation?artefact=${mockPublications[i].artefactId}`,
-                'Could not find valid action href'
-            );
+            expect(rowCells[6].innerHTML).contains(checkboxType);
         }
     });
 });

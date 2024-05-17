@@ -32,6 +32,6 @@ export const hearingHasParty = (jsonData): boolean => {
     return hearingHasParty;
 };
 
-export const getListDetailsArray = async (artefactId: string, userId: any, lists: any[]) => {
+export const addListDetailsToArray = async (artefactId: string, userId: any, lists: any[]) => {
     lists.push(await publicationService.getIndividualPublicationMetadata(artefactId, userId, true));
 };

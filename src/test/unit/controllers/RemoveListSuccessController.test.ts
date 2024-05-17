@@ -12,6 +12,12 @@ describe('Remove List Success Controller', () => {
             render: () => {
                 return '';
             },
+            cookie: (cookieName, cookieValue) => {
+                return cookieName + cookieValue;
+            },
+            clearCookie: () => {
+                return '';
+            },
         } as unknown as Response;
         const responseMock = sinon.mock(response);
         const request = mockRequest(i18n);
