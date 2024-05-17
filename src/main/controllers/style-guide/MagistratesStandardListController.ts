@@ -24,12 +24,7 @@ export default class MagistratesStandardListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(publicationJson, metaData) &&
-            publicationJson &&
-            metaData &&
-            isValidListType(metaDataListType, listType)
-        ) {
+        if (isValidList(publicationJson, metaData) && isValidListType(metaDataListType, listType)) {
             const manipulatedData = magsStandardListService.manipulateData(JSON.stringify(publicationJson), req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(publicationJson['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(

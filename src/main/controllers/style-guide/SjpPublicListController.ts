@@ -27,7 +27,7 @@ export default class SjpPublicListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (isValidList(fileData, metaData) && fileData && metaData && isValidListType(metaDataListType, validList)) {
+        if (isValidList(fileData, metaData) && isValidListType(metaDataListType, validList)) {
             const allCases = sjpPublicListService.formatSjpPublicList(JSON.stringify(fileData));
             const filter = sjpFilterService.generateFilters(
                 allCases,
