@@ -175,7 +175,10 @@ describe('Subscription Configure List', () => {
             );
             expect(checkboxes[8]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
             expect(checkboxes[9]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[10]['value']).contains('SJP_DELTA_PUBLIC_LIST', 'Could not find SJP delta public list checkbox');
+            expect(checkboxes[10]['value']).contains(
+                'SJP_DELTA_PUBLIC_LIST',
+                'Could not find SJP delta public list checkbox'
+            );
         });
     });
 
@@ -262,7 +265,10 @@ describe('Subscription Configure List', () => {
             );
             expect(checkboxes[8]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
             expect(checkboxes[9]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[10]['value']).contains('SJP_DELTA_PUBLIC_LIST', 'Could not find SJP delta public list checkbox');
+            expect(checkboxes[10]['value']).contains(
+                'SJP_DELTA_PUBLIC_LIST',
+                'Could not find SJP delta public list checkbox'
+            );
         });
     });
 });

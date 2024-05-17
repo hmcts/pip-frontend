@@ -6,7 +6,7 @@ import path from 'path';
 import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
-import {describe} from "@jest/globals";
+import { describe } from '@jest/globals';
 
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-body';
@@ -160,7 +160,6 @@ describe('Single Justice Procedure List page', () => {
             generatesFilesStub
                 .withArgs(sjpResource['artefactIdWithDownloadButton'], { roles: 'VERIFIED' })
                 .resolves(true);
-
 
             beforeAll(async () => {
                 app.request['user'] = { roles: 'VERIFIED' };

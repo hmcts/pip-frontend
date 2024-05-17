@@ -7,12 +7,7 @@ import { SjpPublicListService } from '../../service/listManipulation/SjpPublicLi
 import { SjpFilterService } from '../../service/SjpFilterService';
 import { FilterService } from '../../service/FilterService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isOneOfValidListTypes,
-    isValidList,
-    missingListType
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType } from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
 
 const publicationService = new PublicationService();

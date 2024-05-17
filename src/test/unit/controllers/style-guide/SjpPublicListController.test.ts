@@ -9,7 +9,7 @@ import { FilterService } from '../../../../main/service/FilterService';
 import { SjpFilterService } from '../../../../main/service/SjpFilterService';
 import { HttpStatusCode } from 'axios';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
-import {describe} from "@jest/globals";
+import { describe } from '@jest/globals';
 
 const sjpPublicListController = new SjpPublicListController();
 
@@ -158,7 +158,7 @@ describe('SJP Public List Type Controller', () => {
 
         it('should render the SJP public list page when no publication files exist', async () => {
             request.user = { userId: '123' };
-            request.query = { artefactId:  sjpResource.artefactIdWithNoFiles };
+            request.query = { artefactId: sjpResource.artefactIdWithNoFiles };
             const localExpectedData = {
                 ...expectedData,
                 user: request.user,
@@ -218,7 +218,10 @@ describe('SJP Public List Type Controller', () => {
             request.query = { artefactId: artefactId };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once().withArgs(`sjp-public-list?artefactId=${artefactId}&filterValues=TestValue`);
+            responseMock
+                .expects('redirect')
+                .once()
+                .withArgs(`sjp-public-list?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPublicListController.filterValues(request, response).then(() => {
                 responseMock.verify();
