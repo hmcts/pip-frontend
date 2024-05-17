@@ -22,7 +22,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityClassified);
 
-    I.selectOption(listTypeId, 'SJP Public List');
+    I.selectOption(listTypeId, 'SJP Public List (Full list)');
 
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, '');

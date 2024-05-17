@@ -8,7 +8,7 @@ Scenario('I as a verified user should be able to search and download sjp public 
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
-    const sjpListToDownload = 'Single Justice Procedure Public List ' + contentDate;
+    const sjpListToDownload = 'Single Justice Procedure Public List (Full List) ' + contentDate;
     const locationId = '9';
 
     const artefactId = await uploadPublication(
@@ -27,7 +27,7 @@ Scenario('I as a verified user should be able to search and download sjp public 
     I.waitForText('What do you want to view from Single Justice Procedure?');
     I.see(sjpListToDownload);
     I.click(locate('//a').withText(sjpListToDownload));
-    I.waitForText('Single Justice Procedure cases that are ready for hearing');
+    I.waitForText('Single Justice Procedure cases that are ready for hearing (Full list)');
 
     I.see('Search Cases');
     I.click('#search-input');
