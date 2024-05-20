@@ -52,6 +52,7 @@ export default class RemoveListConfirmationController {
                 break;
             }
             case 'no': {
+                res.clearCookie('formCookie');
                 res.redirect(`/remove-list-search-results?locationId=${locationId}`);
                 break;
             }
