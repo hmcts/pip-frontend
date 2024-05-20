@@ -39,16 +39,16 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.click('#create-user');
-    I.waitForText("Create third party user");
+    I.waitForText('Create third party user');
     I.click('#thirdPartyName');
-    I.fillField('#thirdPartyName',testName);
+    I.fillField('#thirdPartyName', testName);
     I.click('#thirdPartyRole');
     I.click('Continue');
     I.waitForText('Check user details');
     I.see(testName);
     I.see('General third party');
     I.click(locate('//div').withText('General third party').find('a').withText('Change'));
-    I.waitForText("Create third party user");
+    I.waitForText('Create third party user');
     I.click('#thirdPartyRole-8');
     I.click('Continue');
     I.waitForText('Check user details');
@@ -58,7 +58,7 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.waitForText('Third party user has been created');
 
     I.click(locate('//li').withText('Home'));
-    I.waitForText("System Admin Dashboard");
+    I.waitForText('System Admin Dashboard');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.see(testName);
@@ -67,7 +67,7 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.see(testName);
     I.see('VERIFIED_THIRD_PARTY_ALL');
     I.click('Delete user');
-    I.waitForText('Are you sure you want to delete '+testName+'?');
+    I.waitForText('Are you sure you want to delete ' + testName + '?');
     I.click('#delete-user-confirm');
     I.click('Continue');
     I.waitForText('Success');
@@ -86,13 +86,13 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.click('#create-user');
-    I.waitForText("Create third party user");
+    I.waitForText('Create third party user');
     I.click('Continue');
     I.waitForText('There is a problem');
     I.see('Enter name');
     I.see('Select a role');
 
-    I.fillField('#thirdPartyName',testName);
+    I.fillField('#thirdPartyName', testName);
     I.click('#thirdPartyRole');
     I.click('Continue');
     I.waitForText('Check user details');
@@ -100,12 +100,12 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.waitForText('Third party user has been created');
 
     I.click(locate('//li').withText('Home'));
-    I.waitForText("System Admin Dashboard");
+    I.waitForText('System Admin Dashboard');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.click('#create-user');
-    I.waitForText("Create third party user");
-    I.fillField('#thirdPartyName',testName);
+    I.waitForText('Create third party user');
+    I.fillField('#thirdPartyName', testName);
     I.click('#thirdPartyRole');
     I.click('Continue');
     I.waitForText('Check user details');
@@ -114,7 +114,7 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.see('Failed to create third party user. It is possible that the user already exists.');
 
     I.click(locate('//li').withText('Home'));
-    I.waitForText("System Admin Dashboard");
+    I.waitForText('System Admin Dashboard');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.see(testName);
@@ -122,7 +122,7 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.waitForText('Manage user');
     I.see(testName);
     I.click('Delete user');
-    I.waitForText('Are you sure you want to delete '+testName+'?');
+    I.waitForText('Are you sure you want to delete ' + testName + '?');
     I.click('Continue');
     I.waitForText('There is a problem');
     I.waitForText('An option must be selected');
@@ -130,6 +130,4 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.click('#delete-user-confirm');
     I.click('Continue');
     I.waitForText('Success');
-});
-
-
+}).tag('@Nightly');
