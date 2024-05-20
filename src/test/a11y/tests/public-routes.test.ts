@@ -71,27 +71,27 @@ describe('Accessibility - Public Routes', () => {
             const url = '/create-media-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'firstName': '' });
+                testAccessibility(url, '', true, { firstName: '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'firstName': 'Invalid fullName' });
+                testAccessibility(url, '', true, { firstName: 'Invalid fullName' });
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'lastName': '' });
+                testAccessibility(url, '', true, { lastName: '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'lastName':'Invalid fullName' });
+                testAccessibility(url, '', true, { lastName: 'Invalid fullName' });
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'emailAddress': '' });
+                testAccessibility(url, '', true, { emailAddress: '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'emailAddress': 'Invalid emailAddress' });
+                testAccessibility(url, '', true, { emailAddress: 'Invalid emailAddress' });
             });
 
             describe('with no input data', () => {
