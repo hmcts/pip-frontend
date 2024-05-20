@@ -83,4 +83,180 @@ describe('Accessibility - Admin Routes', () => {
             testAccessibility(route.path, route.parameter, route.postMethod, route.postBody);
         });
     });
+
+    describe('Page with Errors', () => {
+        describe('A-Z Search Page', () => {
+            const url = '/create-admin-account';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { firstName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { firstName: 'Invalid firstName' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { lastName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { lastName: 'Invalid lastName' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { firstName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { firstName: 'Invalid firstName' });
+            });
+        });
+    });
+
+    describe('Admin Management Page', () => {
+        const url = '/admin-management';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { 'search-input': '' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { 'search-input': 'Not found' });
+        });
+    });
+
+    describe('Create Admin Account Summary Page', () => {
+        const url = '/create-admin-account-summary';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { 'view-choice': '' });
+        });
+    });
+
+    describe('Update User Page', () => {
+        const url = '/update-user';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { errorMessage: '' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { errorMessage: 'Incorrect Title' });
+        });
+    });
+
+    describe('Manual Upload Page', () => {
+        const url = '/manual-upload';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { 'manual-file-upload': '' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { fileErrorMessage: 'Incorrect file format' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { courtError: 'Incorrect Court' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { contentDateError: 'Incorrect Content Date' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { classificationError: 'Incorrect Classification' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { displayDateError: 'Incorrect Display Date' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { displayDateFrom: 'Incorrect From Date' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { displayDateTo: 'Incorrect To Date' });
+        });
+    });
+
+    describe('Manual Upload Summary Page', () => {
+        describe('A-Z Search Page', () => {
+            const url = '/manual-upload-summary';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'manual-upload': '' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'view-choice': 'Invalid Choice' });
+            });
+        });
+    });
+
+    describe('User Management Page', () => {
+        const url = '/user-management';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { 'view-choice': '' });
+        });
+    });
+
+    describe('Remove List Confirmation Page', () => {
+        const url = '/remove-list-confirmation';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { 'remove-choice': '' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { 'remove-choice': 'Incorrect Text' });
+        });
+    });
+
+    describe('Remove List Search Page', () => {
+        const url = '/remove-list-search';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { 'search-input': '' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { 'search-input': 'Invalid Input' });
+        });
+    });
+
+    describe('Media Account Approval Page', () => {
+        const url = '/media-account-approval';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { title: '' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { title: 'Azure Message' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { title: 'Radio Message' });
+        });
+    });
+
+    describe('Media Account Rejection Page', () => {
+        const url = '/media.account-rejection';
+
+        describe('with no input data', () => {
+            testAccessibility(url, '', true, { title: '' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { title: 'Azure Message' });
+        });
+
+        describe('with invalid input data', () => {
+            testAccessibility(url, '', true, { title: 'Radio Message' });
+        });
+    });
 });

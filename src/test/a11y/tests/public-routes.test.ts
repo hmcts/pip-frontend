@@ -47,5 +47,24 @@ describe('Accessibility - Public Routes', () => {
                 testAccessibility(url, '', true, { 'input-autocomplete': '' });
             });
         });
+
+        describe('Sign-in Page', () => {
+            describe('with no input data', () => {
+                const url = '/sign-in';
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
+            });
+        });
+
+        describe('View option  Page', () => {
+            const url = '/view-option';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'view-choice': '' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'view-choice': 'Invalid Choice' });
+            });
+        });
     });
 });

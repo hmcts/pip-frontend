@@ -115,4 +115,198 @@ describe('Accessibility - System Admin Routes', () => {
             testAccessibility(route.path, route.parameter);
         });
     });
+
+    describe('Page with Errors', () => {
+        describe('Create System Admin Account Page', () => {
+            const url = '/create-system-admin-account';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { firstName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { firstName: 'Invalid firstName' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { lastName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { lastName: 'Invalid lastName' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { emailAddress: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { emailAddress: 'Invalid emailAddress' });
+            });
+        });
+
+        describe('Create System Admin Confirmation Page', () => {
+            const url = '/create-system-admin-account-confirm';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { SummaryIsDuplicate: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { SummaryIsDuplicate: 'Duplicate Summary' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { SummaryIsAboveMax: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { SummaryIsAboveMax: 'Summary is Above Max' });
+            });
+        });
+
+        describe('Create System Admin Account Summary Page', () => {
+            const url = '/create-system-admin-account-summary';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { firstName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { firstName: 'Invalid First Name' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { lastName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { lastName: 'Invalid Last Name' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { emailAddress: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { emailAddress: 'Invalid Email Address' });
+            });
+        });
+
+        describe('Create System Admin Account Page', () => {
+            const url = '/create-system--admin-account';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { firstName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { firstName: 'Invalid First Name' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { lastName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { lastName: 'Invalid Last Name' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { emailAddress: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { emailAddress: 'Invalid Email Address' });
+            });
+        });
+
+        describe('Reference Data upload Page', () => {
+            const url = '/reference-data-upload';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'reference-data-upload': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'reference-data-upload': 'Invalid File Format Error' });
+            });
+        });
+
+        describe('Delete Court Application Confirmation Page', () => {
+            const url = '/delete-court-application-comfirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+            });
+        });
+
+        describe('Page with Errors', () => {
+            describe('Delete Court Reference Data Page', () => {
+                const url = '/delete-court-reference-data';
+
+                describe('with no input data', () => {
+                    testAccessibility(url, '', true, { 'search-input': '' });
+                });
+
+                describe('with invalid input data', () => {
+                    testAccessibility(url, '', true, { 'search-input': 'Invalid Input' });
+                });
+            });
+        });
+
+        describe('Delete Court Reference Data Confirmation Page', () => {
+            const url = '/delete-court-reference-data-confirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+            });
+        });
+
+        describe('Page with Errors', () => {
+            describe('Reference Data Upload Summary Page', () => {
+                const url = '/reference-data-upload-summary';
+
+                describe('with no input data', () => {
+                    testAccessibility(url, '', true, { 'reference-data-upload': '' });
+                });
+
+                describe('with invalid input data', () => {
+                    testAccessibility(url, '', true, { 'reference-data-upload': 'Reference Data Upload Error' });
+                });
+            });
+        });
+
+        describe('Delete Court Publication Confirmation Page', () => {
+            const url = '/delete-account-publication-confirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+            });
+        });
+
+        describe('Delete Court Subscription Confirmation Page', () => {
+            const url = '/delete-court-subscription-confirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': '' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+            });
+        });
+    });
 });

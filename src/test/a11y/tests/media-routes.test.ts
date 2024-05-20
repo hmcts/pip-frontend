@@ -121,5 +121,141 @@ describe('Accessibility - Media User Routes', () => {
                 testAccessibility(url, '', true, { 'search-input': 'Invalid case number' });
             });
         });
+
+        describe('Create Media Account Page', () => {
+            const url = '/create-media-account';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { fullName: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { fullName: 'Invalid fullName' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { emailAddress: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { emailAddress: 'Invalid emailAddress' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { employer: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { employer: 'Invalid employer' });
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'file-upload': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'file-upload': 'Invalid File upload' });
+            });
+        });
+
+        describe('Bulk Create Media Accounts Page', () => {
+            const url = '/bulk-create-media-accounts';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'bulk-account-upload': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'bulk-account-upload': 'Invalid Bulk Account Upload' });
+            });
+        });
+
+        describe('Media Account Rejection Reasons Page', () => {
+            const url = '/media-account-rejection-reasons';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'rejection-reasons': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'rejection-reasons': 'Invalid Check Boxes' });
+            });
+        });
+
+        describe('Bulk Create Media Accounts Confirmation Page', () => {
+            const url = '/bulk-create-media-accounts-confirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { confirmed: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { confirmed: 'No Option Selected' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { confirmed: 'Account Creation Error' });
+            });
+        });
+
+        describe('Bulk Unsubscribe Page', () => {
+            const url = '/bulk-unsubscribe';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': 'Incorrect Choice' });
+            });
+        });
+
+        describe('Bulk Unsubscribe Confirmation Page', () => {
+            const url = '/bulk-unsubscribe-confirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': 'Incorrect Choice' });
+            });
+        });
+
+        describe('List Download Disclaimer Page', () => {
+            const url = '/list-download-disclaimer';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'disclaimer-agreement': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'disclaimer-agreement': 'Incorrect Disclaimer Agreement Choice' });
+            });
+        });
+
+        describe('Pending Subscriptions Page', () => {
+            const url = '/pending-subscriptions';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'subscription-add': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'subscription-add': 'Invalid subscription' });
+            });
+        });
+
+        describe('Subscription Add Page', () => {
+            const url = '/subscription-add';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'subscription-choice': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'subscription-choice': 'Incorrect Subscription Selection' });
+            });
+        });
     });
 });
