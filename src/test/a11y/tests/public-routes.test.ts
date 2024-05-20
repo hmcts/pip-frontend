@@ -71,19 +71,11 @@ describe('Accessibility - Public Routes', () => {
             const url = '/create-media-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { firstName: '' });
+                testAccessibility(url, '', true, { fullName: '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { firstName: 'Invalid fullName' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { lastName: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { lastName: 'Invalid fullName' });
+                testAccessibility(url, '', true, { fullName: 'Invalid fullName' });
             });
 
             describe('with no input data', () => {
@@ -95,12 +87,23 @@ describe('Accessibility - Public Routes', () => {
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'user-role': '' });
+                testAccessibility(url, '', true, { employer: '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'user-role': 'Invalid User Role' });
+                testAccessibility(url, '', true, { employer: 'Invalid Employer' });
             });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'file-upload': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'file-upload': 'Invalid file format' });
+            });
+
         });
     });
 });
+
+'file-upload'
