@@ -101,9 +101,8 @@ describe('Accessibility - Public Routes', () => {
             describe('with invalid input data', () => {
                 testAccessibility(url, '', true, { 'file-upload': 'Invalid file format' });
             });
-
         });
     });
 });
 
-'file-upload'
+('file-upload');
