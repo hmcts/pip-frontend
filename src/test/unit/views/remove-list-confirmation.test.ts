@@ -8,13 +8,14 @@ import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/remove-list-confirmation';
 
+const artefactId = 'valid-artefact';
 const mockArtefact = {
     listType: 'CIVIL_DAILY_CAUSE_LIST',
     listTypeName: 'Civil Daily Cause List',
     contentDate: '2022-03-24T07:36:35',
     locationId: '5',
     language: 'ENGLISH',
-    artefactId: 'valid-artefact',
+    artefactId: artefactId,
     displayFrom: '2022-03-23T07:36:35',
     displayTo: '2022-03-28T07:36:35',
     sensitivity: 'CLASSIFIED',
@@ -28,6 +29,11 @@ const content = [
     'English',
     'Classified',
 ];
+const formData = {
+    courtLists: [artefactId],
+    locationId: '5',
+};
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ locationId: '5', name: 'Mock Court' });
 
@@ -39,6 +45,10 @@ let htmlRes: Document;
 describe('Remove List Confirmation Page', () => {
     describe('without error', () => {
         beforeAll(async () => {
+            app.request['cookies'] = {
+                formCookie: JSON.stringify(formData),
+            };
+
             await request(app)
                 .get(PAGE_URL)
                 .then(res => {
