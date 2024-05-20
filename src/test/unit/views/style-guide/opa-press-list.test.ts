@@ -16,7 +16,9 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/opaPressLis
 const jsonData = JSON.parse(rawData);
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const englishMetadata = JSON.parse(rawMetadata)[0];
+englishMetadata.listType = 'OPA_PRESS_LIST';
 const welshMetadata = JSON.parse(rawMetadata)[2];
+welshMetadata.listType = 'OPA_PRESS_LIST';
 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({
     name: 'Court name',

@@ -25,14 +25,12 @@ const rawData = fs.readFileSync(
     'utf-8'
 );
 const magistratesPublicListData = JSON.parse(rawData);
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData)[0];
-
+magistratesPublicListData.listType = 'MAGISTRATES_PUBLIC_LIST';
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(magistratesPublicListData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(magistratesPublicListData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
 describe('Magistrates public List page', () => {
