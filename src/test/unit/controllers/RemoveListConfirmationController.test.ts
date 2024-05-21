@@ -81,6 +81,7 @@ describe('Remove List Confirmation Controller', () => {
             ...i18n['remove-list-confirmation'],
             removalList: mockArtefactsArray,
             locationId: '5',
+            court: mockCourt,
             displayError: false,
         };
 
