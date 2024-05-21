@@ -1,0 +1,9 @@
+{
+    "title": "Create third party user",
+    "heading": "Create third party user",
+    "userNameLabel": "Name",
+    "userRoleLabel": "User role",
+    "userNameError": "Enter name",
+    "userRoleError": "Select a role",
+    "errorTitle": "There is a problem"
+}

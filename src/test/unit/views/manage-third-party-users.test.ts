@@ -10,6 +10,7 @@ describe('Manage third party users', () => {
     let htmlRes: Document;
 
     const headingClass = 'govuk-heading-l';
+    const buttonClass = 'govuk-button';
     const columnClass = 'govuk-table__header';
     const rowClass = 'govuk-table__row';
     const cellClass = 'govuk-table__cell';
@@ -42,7 +43,12 @@ describe('Manage third party users', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Manage Third Party Users', 'Could not find the header');
+        expect(header[0].innerHTML).contains('Manage third party users', 'Could not find the header');
+    });
+
+    it('should display create new user button', () => {
+        const button = htmlRes.getElementsByClassName(buttonClass);
+        expect(button[0].innerHTML).contains('Create new user', 'Could not find the create new user button');
     });
 
     it('should display name header', () => {

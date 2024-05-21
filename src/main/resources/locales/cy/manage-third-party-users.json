@@ -1,6 +1,7 @@
 {
-    "title": "Manage Third Party Users",
-    "heading": "Manage Third Party Users",
+    "title": "Manage third party users",
+    "heading": "Manage third party users",
+    "createUser": "Create new user",
     "thirdPartyName": "Name",
     "role": "Role",
     "createdDate": "Created Date",
