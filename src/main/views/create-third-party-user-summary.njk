@@ -1,0 +1,75 @@
+{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" action="create-third-party-user-summary">
+        {{ govukSummaryList({
+            rows: [
+                {
+                    key: {
+                        text: name
+                    },
+                    value: {
+                        text: formData.thirdPartyName
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "create-third-party-user#thirdPartyName",
+                                text: actionName,
+                                visuallyHiddenText: name
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: userRole
+                    },
+                    value: {
+                        text: formData.thirdPartyRoleObject.name
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "create-third-party-user#thirdPartyRole",
+                                text: actionName,
+                                visuallyHiddenText: userRole
+                            }
+                        ]
+                    }
+                }
+            ]
+        }) }}
+        {{ submitButton(confirmButton) }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+{% endblock %}
