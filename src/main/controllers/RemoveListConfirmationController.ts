@@ -80,7 +80,7 @@ export default class RemoveListConfirmationController {
             for (const artefactId of artefactIds) {
                 response = await publicationService.removePublication(artefactId, userId);
                 if (!response) {
-                    return (response = false);
+                    return false;
                 }
             }
         } else {
