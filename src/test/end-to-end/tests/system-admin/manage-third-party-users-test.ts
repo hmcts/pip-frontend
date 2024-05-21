@@ -1,17 +1,17 @@
-import {createThirdPartyUserAccount} from '../../shared/testingSupportApi';
-import {randomData} from '../../shared/random-data';
-import {config as testConfig} from "../../../config";
+import { createThirdPartyUserAccount } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
+import { config as testConfig } from '../../../config';
 
 Feature('System admin manage Third-Party Users');
 
-Scenario('I as a system admin should be able to manage Third-Party Users', async ({I}) => {
+Scenario('I as a system admin should be able to manage Third-Party Users', async ({ I }) => {
     const testProvenanceUserId = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
     const userId = await createThirdPartyUserAccount(testProvenanceUserId);
 
     I.loginAsSystemAdmin();
     I.waitForText('View and edit third-party users and subscriptions');
     I.click('#card-manage-third-party-users');
-    I.waitForText('Manage Third Party Users');
+    I.waitForText('Manage third party users');
     I.see('Name');
     I.see('Role');
     I.see('Created Date');

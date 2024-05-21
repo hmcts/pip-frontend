@@ -1,0 +1,68 @@
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    {% if formErrors %}
+        {% set errorList = [] %}
+        {% if formErrors.userNameError %}
+            {% set errorList = (errorList.push({text: userNameError, href: "#thirdPartyName"}), errorList) %}
+        {% endif %}
+        {% if formErrors.userRoleError %}
+            {% set errorList = (errorList.push({text: userRoleError, href: "#thirdPartyRole"}), errorList) %}
+        {% endif %}
+        {{ govukErrorSummary({
+            titleText: errorTitle,
+            errorList: errorList
+        }) }}
+    {% endif %}
+
+    {% set userNameErrorMessage = {text: userNameError} if formErrors.userNameError else '' %}
+    {% set userRoleErrorMessage = {text: userRoleError} if formErrors.userRoleError else '' %}
+    {% set userNameInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "thirdPartyName",
+        name: "thirdPartyName",
+        value: formData.thirdPartyName,
+        label: {
+            text: userNameLabel
+        },
+        errorMessage: userNameErrorMessage
+    }) %}
+    {% set userRoleInput = govukRadios({
+        idPrefix: "thirdPartyRole",
+        name: "thirdPartyRole",
+        fieldset: {
+            legend: {
+                text: userRoleLabel
+            }
+        },
+        items: userRoleList,
+        errorMessage: userRoleErrorMessage
+    }) %}
+
+    <h1 class="govuk-heading-l">{{ heading }}</h1>
+    <form method="post" novalidate>
+        {{ userNameInput }}
+        {{ userRoleInput }}
+        {{ submitButton() }}
+    </form>
+
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+{% endblock %}

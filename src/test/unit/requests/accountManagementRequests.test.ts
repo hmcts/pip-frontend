@@ -82,22 +82,22 @@ describe('Account Management Requests', () => {
     });
 
     describe('Create P&I Account', () => {
-        it('should return true on success', async () => {
-            postStub.withArgs(piEndpoint).resolves({ status: 201 });
+        it('should return response data on success', async () => {
+            postStub.withArgs(piEndpoint).resolves({ status: 201, data: 'test' });
             const response = await accountManagementRequests.createPIAccount(mockValidPIBody, mockHeaders);
-            expect(response).toBe(true);
+            expect(response).toBe('test');
         });
 
         it('should return false on error response', async () => {
             postStub.withArgs(piEndpoint).resolves(Promise.reject(errorResponse));
             const response = await accountManagementRequests.createPIAccount({ foo: 'blah' }, mockHeaders);
-            expect(response).toBe(false);
+            expect(response).toBeNull();
         });
 
         it('should return false on error message', async () => {
             postStub.withArgs(piEndpoint).resolves(Promise.reject(errorMessage));
             const response = await accountManagementRequests.createPIAccount({ bar: 'baz' }, mockHeaders);
-            expect(response).toBe(false);
+            expect(response).toBeNull();
         });
     });
 
