@@ -37,12 +37,6 @@ describe('Remove List Confirmation', () => {
     describe('on GET', () => {
         test('should return remove list confirmation page', async () => {
             await request(app)
-                .get(URL + '?artefact=valid-artefact&court=1')
-                .expect(res => expect(res.status).to.equal(200));
-        });
-
-        test('should return error page', async () => {
-            await request(app)
                 .get(URL)
                 .expect(res => expect(res.status).to.equal(200));
         });
@@ -54,7 +48,7 @@ describe('Remove List Confirmation', () => {
                 .post(URL)
                 .send({
                     'remove-choice': 'yes',
-                    artefactId: 'valid-artefact',
+                    artefactIds: ['valid-artefact'],
                 })
                 .expect(res => {
                     expect(res.status).to.equal(302);
@@ -94,12 +88,8 @@ describe('Remove List Confirmation', () => {
             await request(app)
                 .post(URL)
                 .send({
-                    artefactId: 'valid-artefact',
+                    artefactIds: ['valid-artefact'],
                     locationId: '1',
-                    language: 'ENGLISH',
-                    displayFrom: '2022-03-23T07:36:35',
-                    displayTo: '2022-03-28T07:36:35',
-                    sensitivity: 'CLASSIFIED',
                 })
                 .expect(res => expect(res.status).to.equal(200));
         });
