@@ -93,11 +93,15 @@ describe('formatSJPPressList', () => {
 
     it('should return offences', async () => {
         const data = await sjpPressListService.formatSJPPressList(rawSJPData);
-        const offences = data[0].offences;
+        const offences = data[1].offences;
+        expect(offences).to.have.length(2);
 
-        expect(offences).to.have.length(1);
         expect(offences[0].reportingRestrictionFlag).to.equal('True');
         expect(offences[0].offenceTitle).to.equal('This is an offence title');
         expect(offences[0].offenceWording).to.equal('This is offence wording');
+
+        expect(offences[1].reportingRestrictionFlag).to.equal('True');
+        expect(offences[1].offenceTitle).to.equal('Another offence title');
+        expect(offences[1].offenceWording).to.equal('');
     });
 });
