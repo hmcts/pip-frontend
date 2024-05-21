@@ -34,8 +34,6 @@ export default class DailyCauseListController {
 
         if (
             isValidList(searchResults, metaData) &&
-            searchResults &&
-            metaData &&
             isOneOfValidListTypes(metaDataListType, listToLoad, civilListType)
         ) {
             const url = publicationService.getListTypes().get(metaData.listType).url;

@@ -26,8 +26,6 @@ export default class SscsDailyListController {
 
         if (
             isValidList(searchResults, metaData) &&
-            searchResults &&
-            metaData &&
             isOneOfValidListTypes(metaDataListType, sscsUrl, sscsAdditonalHearingsUrl)
         ) {
             const manipulatedData = sscsListService.manipulateSscsDailyListData(JSON.stringify(searchResults));

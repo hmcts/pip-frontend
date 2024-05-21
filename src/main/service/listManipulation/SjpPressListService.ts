@@ -124,7 +124,7 @@ export class SjpPressListService {
             const row = {
                 reportingRestrictionFlag: formattedReportingRestriction,
                 offenceTitle: offence.offenceTitle,
-                offenceWording: offence.offenceWording,
+                offenceWording: ListParseHelperService.writeStringIfValid(offence.offenceWording).trim(),
             };
             rows.push(row);
         });

@@ -103,7 +103,11 @@
               <p class="govuk-body">
                   <span class="search-area">{{ reportingRestriction }} - {{ offence.reportingRestrictionFlag }}</span>
                   <br/>
-                  <span class="search-area">{{ offence.offenceTitle }} - {{ offence.offenceWording }}</span>
+                  {% if offence.offenceWording | length > 0 %}
+                    <span class="search-area">{{ offence.offenceTitle }} - {{ offence.offenceWording }}</span>
+                  {% else %}
+                    <span class="search-area">{{ offence.offenceTitle }}</span>
+                  {% endif %}
               </p>
             {% endfor %}
             {% if totalHearings !== hearingCount %}

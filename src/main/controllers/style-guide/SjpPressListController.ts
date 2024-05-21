@@ -30,12 +30,7 @@ export default class SjpPressListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(sjpData, metaData) &&
-            sjpData &&
-            metaData &&
-            isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)
-        ) {
+        if (isValidList(sjpData, metaData) && isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)) {
             const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
             const filter = sjpFilterService.generateFilters(
                 allCases,
