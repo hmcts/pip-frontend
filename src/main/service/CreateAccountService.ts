@@ -284,10 +284,11 @@ export class CreateAccountService {
             requester
         );
         if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
-            return await accountManagementRequests.createPIAccount(
+            const response = await accountManagementRequests.createPIAccount(
                 this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
                 requester
             );
+            return response ? true : false;
         }
         return false;
     }
@@ -314,10 +315,11 @@ export class CreateAccountService {
             requester
         );
         if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
-            return await accountManagementRequests.createPIAccount(
+            const response = await accountManagementRequests.createPIAccount(
                 this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
                 requester
             );
+            return response ? true : false;
         }
         return false;
     }
