@@ -188,7 +188,7 @@ export default function (app: Application): void {
     app.get('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.get);
     app.post('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.post);
     app.get(
-        '/bulk-unsubscribe-confirmation/',
+        '/bulk-unsubscribe-confirmation',
         isPermittedMedia,
         app.locals.container.cradle.bulkUnsubscribeConfirmationController.get
     );

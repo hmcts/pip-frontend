@@ -14,12 +14,16 @@ const opaPublicListController = new OpaPublicListController();
 
 const artefactId = 'abc';
 const welshArtefactId = 'def';
+const artefactIdListNotFound = 'xyz';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/opaPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'OPA_PUBLIC_LIST';
 const welshMetadata = JSON.parse(rawMetaData)[2];
+welshMetadata.listType = 'OPA_PUBLIC_LIST';
+const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const opaPublicListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const opaPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
@@ -39,6 +43,7 @@ opaPublicListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 opaPublicListMetaDataStub.withArgs(artefactId).resolves(metaData);
 opaPublicListMetaDataStub.withArgs(welshArtefactId).resolves(welshMetadata);
 opaPublicListMetaDataStub.withArgs('').resolves([]);
+opaPublicListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
 
 const listType = 'opa-public-list';
 const listPath = `style-guide/${listType}`;
@@ -120,6 +125,20 @@ describe('OPA Public List Controller', () => {
 
     it('should render list not found page if response is 404', async () => {
         request.query = { artefactId: '1234' };
+        request.user = { userId: '1' };
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+        await opaPublicListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render list not found page if list type not valid', async () => {
+        request.query = { artefactId: artefactIdListNotFound };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 

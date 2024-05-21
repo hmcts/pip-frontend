@@ -9,12 +9,17 @@ const etDailyListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etD
 describe('Reshaped ET Fortnightly List - splitting data from a courtroom format to a day by day view.', () => {
     it('should return ET Fortnightly List', async () => {
         const data = await etListsService.reshapeEtFortnightlyListData(etDailyListData, 'en');
-        expect(JSON.stringify(data).length).to.equal(2481);
+        expect(JSON.stringify(data).length).to.equal(2477);
     });
 
     it('should match the completed mock', async () => {
         const data = await etListsService.reshapeEtFortnightlyListData(etDailyListData, 'en');
         expect(JSON.stringify(data)).to.contain('Mr T. Test Surname');
+    });
+
+    it('should used organisation details when individual details are not present', async () => {
+        const data = await etListsService.reshapeEtFortnightlyListData(etDailyListData, 'en');
+        expect(JSON.stringify(data)).to.contain('Organisation Name');
     });
 
     it('should have data for two courthouses', async () => {

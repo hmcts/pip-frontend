@@ -10,8 +10,12 @@ import { CopDailyListService } from '../../../main/service/listManipulation/CopD
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/copDailyCauseList.json'), 'utf-8');
 const copData = JSON.parse(rawData);
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'COP_DAILY_CAUSE_LIST';
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(copData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(copData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 sinon.stub(CopDailyListService.prototype, 'manipulateCopDailyCauseList').resolves(copData);
 
 describe('Cop Daily Cause List Page', () => {

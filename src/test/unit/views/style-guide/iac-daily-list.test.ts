@@ -19,6 +19,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/iacDailyLis
 const listData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'IAC_DAILY_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(listData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
@@ -90,6 +91,16 @@ describe('IAC daily cause list page', () => {
     it('should display session channel if sitting channel is not present', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[26].innerHTML).contains('VIDEO HEARING,');
+    });
+
+    it('should display Respondent', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[3].innerHTML).contains('Test Name');
+    });
+
+    it('should display respondent using organisation', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[10].innerHTML).contains('Organisation Name');
     });
 
     it('should display hearing type if present', () => {

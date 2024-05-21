@@ -24,6 +24,7 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/etFortnight
 const dailyCauseListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
+metaData.listType = 'ET_FORTNIGHTLY_PRESS_LIST';
 
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
@@ -154,5 +155,10 @@ describe('ET Fortnightly List page', () => {
     it('should display Respondent', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[4].innerHTML).contains('Rep: Dr T. Test Surname 2');
+    });
+
+    it('should display claimant using organisation', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[3].innerHTML).contains('Organisation Name');
     });
 });

@@ -24,6 +24,7 @@ export default class RemoveListConfirmationController {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
             removalList: manualUploadService.formatListRemovalValues(listData),
             locationId: formData.locationId,
+            court: await courtService.getLocationById(formData.locationId),
             displayError: false,
         });
     }
