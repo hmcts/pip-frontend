@@ -1,0 +1,43 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack, successPanel %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+    {{ successPanel(panelTitle) }}
+    {{ govukSummaryList({
+        rows: [
+            {
+                key: {
+                    text: name
+                },
+                    value: {
+                    text: formData.thirdPartyName
+                }
+            },
+            {
+                key: {
+                    text: userRole
+                },
+                    value: {
+                    text: formData.thirdPartyRoleObject.name
+                }
+            }
+        ]
+    }) }}
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+{% endblock %}
