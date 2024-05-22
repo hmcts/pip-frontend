@@ -37,22 +37,10 @@ export default class DailyCauseListController {
             isOneOfValidListTypes(metaDataListType, listToLoad, civilListType)
         ) {
             const url = publicationService.getListTypes().get(metaData.listType).url;
-            let manipulatedData;
-            let partyAtHearingLevel = false;
-
-            if (url === familyDailyListUrl || url === mixedDailyListUrl) {
-                if (hearingHasParty(searchResults)) {
-                    manipulatedData = civilFamMixedListService.sculptedListDataPartyAtHearingLevel(
-                        JSON.stringify(searchResults),
-                        true
-                    );
-                    partyAtHearingLevel = true;
-                } else {
-                    manipulatedData = civilFamMixedListService.sculptedListData(JSON.stringify(searchResults), true);
-                }
-            } else {
-                manipulatedData = civilFamMixedListService.sculptedListData(JSON.stringify(searchResults));
-            }
+            const manipulatedData = DailyCauseListController.manipulateListData(url, searchResults);
+            const partyAtHearingLevel = (url === familyDailyListUrl || url === mixedDailyListUrl)
+                && hearingHasParty(searchResults);
+            const displayLinkToCourtDetails = url === mixedDailyListUrl && metaData.locationId === '3';
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -72,6 +60,7 @@ export default class DailyCauseListController {
                 provenance: metaData.provenance,
                 courtName: location.name,
                 partyAtHearingLevel,
+                displayLinkToCourtDetails,
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||
@@ -81,6 +70,16 @@ export default class DailyCauseListController {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
+    }
+
+    private static manipulateListData(url, searchResults) {
+        if (url === familyDailyListUrl || url === mixedDailyListUrl) {
+            return hearingHasParty(searchResults)
+                ? civilFamMixedListService.sculptedListDataPartyAtHearingLevel(JSON.stringify(searchResults), true)
+                : civilFamMixedListService.sculptedListData(JSON.stringify(searchResults), true);
+        } else {
+            return civilFamMixedListService.sculptedListData(JSON.stringify(searchResults));
         }
     }
 }

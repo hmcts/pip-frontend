@@ -12,6 +12,12 @@
     "welshMessage": "Mae'r gwasanaeth hwn hefyd ar gael yn",
     "languageLink": "Saesneg (English)",
     "continue": "Parhau",
+    "findCourtDetails": {
+        "header": "If you need to Find A Court or Tribunal....",
+        "message": "...If you need to find contact details and information on courts and tribunals use the",
+        "linkText": "Find a Court or Tribunal Service",
+        "link": "https://www.find-court-tribunal.service.gov.uk"
+    },
     "beforeMessage": "Cyn i chi ddechrau",
     "scoAndNI": "Os ydych yn byw yn Yr Alban neu Gogledd Iwerddon",
     "contactMessage": "Cysylltwch â:",

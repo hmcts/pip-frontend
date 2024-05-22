@@ -20,5 +20,9 @@
     "respondent": "Respondent",
     "dataSource": "Data Source",
     "backButton": "Back",
-    "legalAdvisor": "Legal Advisor"
+    "legalAdvisor": "Legal Advisor",
+    "findCourtDetails": {
+        "text": "Find contact details and other information for this location",
+        "oxfordCourtLink": "https://www.find-court-tribunal.service.gov.uk/courts/oxford-combined-court-centre"
+    }
 }

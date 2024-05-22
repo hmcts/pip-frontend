@@ -12,6 +12,12 @@
     "welshMessage": "This service is also available in",
     "languageLink": "Welsh (Cymraeg)",
     "continue": "Continue",
+    "findCourtDetails": {
+        "header": "If you need to Find A Court or Tribunal....",
+        "message": "...If you need to find contact details and information on courts and tribunals use the",
+        "linkText": "Find a Court or Tribunal Service",
+        "link": "https://www.find-court-tribunal.service.gov.uk"
+    },
     "beforeMessage": "Before you start",
     "scoAndNI": "If you're in Scotland or Northern Ireland",
     "contactMessage": "Contact the:",

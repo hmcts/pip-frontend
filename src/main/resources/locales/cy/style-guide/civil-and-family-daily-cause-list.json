@@ -20,5 +20,9 @@
     "respondent": "Atebydd",
     "dataSource": "Ffynhonnell y Data",
     "backButton": "Yn ôl",
-    "legalAdvisor": "Cynghorydd Cyfreithiol"
+    "legalAdvisor": "Cynghorydd Cyfreithiol",
+    "findCourtDetails": {
+        "text": "Find contact details and other information for this location",
+        "oxfordCourtLink": "https://www.find-court-tribunal.service.gov.uk/courts/oxford-combined-court-centre"
+    }
 }

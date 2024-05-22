@@ -122,12 +122,12 @@ describe('Home page', () => {
 
         it('should display message under continue button', () => {
             const message = htmlRes.getElementsByClassName('govuk-heading-m');
-            expect(message[0].innerHTML).contains('Before you start', 'Could not find before you start message');
+            expect(message[1].innerHTML).contains('Before you start', 'Could not find before you start message');
         });
 
         it('should display Scotland and NI message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[5].innerHTML).contains(
+            expect(message[6].innerHTML).contains(
                 "If you're in Scotland or Northern Ireland",
                 'Could not find Sco and NI message'
             );
@@ -135,11 +135,11 @@ describe('Home page', () => {
 
         it('should display contact message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[6].innerHTML).contains('Contact the:', 'Could not find contact message');
+            expect(message[7].innerHTML).contains('Contact the:', 'Could not find contact message');
         });
 
         it('should display contact bullets', () => {
-            const bullets = htmlRes.getElementsByClassName('govuk-body')[7].getElementsByTagName('li');
+            const bullets = htmlRes.getElementsByClassName('govuk-body')[8].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
                 'for courts and some tribunals in Scotland',
                 'Could not find first bullet'
@@ -224,7 +224,7 @@ describe('Home page', () => {
         });
 
         it('should display correct contact bullet in welsh', () => {
-            const bullets = htmlRes.getElementsByClassName('govuk-body')[7].getElementsByTagName('li');
+            const bullets = htmlRes.getElementsByClassName('govuk-body')[8].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
                 'ar gyfer rhai Llysoedd a Thribiwnlysoedd yn Yr Alban',
                 'Could not find first bullet in welsh'
