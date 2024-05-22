@@ -38,8 +38,8 @@ export default class DailyCauseListController {
         ) {
             const url = publicationService.getListTypes().get(metaData.listType).url;
             const manipulatedData = DailyCauseListController.manipulateListData(url, searchResults);
-            const partyAtHearingLevel = (url === familyDailyListUrl || url === mixedDailyListUrl)
-                && hearingHasParty(searchResults);
+            const partyAtHearingLevel =
+                (url === familyDailyListUrl || url === mixedDailyListUrl) && hearingHasParty(searchResults);
             const displayLinkToCourtDetails = url === mixedDailyListUrl && metaData.locationId === '3';
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
