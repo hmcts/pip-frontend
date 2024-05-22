@@ -27,11 +27,11 @@ export default class RemoveListSearchResultsController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         if (req.user) {
-            if (req.body.courtLists == undefined) {
-                res.redirect(`remove-list-search-results?locationId=${req.body.locationId}&error=true`);
-            } else {
+            if (req.body?.courtLists) {
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
                 res.redirect('/remove-list-confirmation');
+            } else {
+                res.redirect(`remove-list-search-results?locationId=${req.body.locationId}&error=true`);
             }
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
