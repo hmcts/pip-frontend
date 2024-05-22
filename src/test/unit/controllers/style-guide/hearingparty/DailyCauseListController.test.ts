@@ -93,6 +93,7 @@ describe('Daily Cause List Controller', () => {
             provenance: 'prov1',
             courtName: "Abergavenny Magistrates' Court",
             partyAtHearingLevel: true,
+            displayLinkToCourtDetails: false,
         };
 
         responseMock.expects('render').once().withArgs(familyListPath, expectedData);
@@ -121,6 +122,7 @@ describe('Daily Cause List Controller', () => {
             provenance: 'prov1',
             courtName: "Abergavenny Magistrates' Court",
             partyAtHearingLevel: false,
+            displayLinkToCourtDetails: false,
         };
 
         responseMock.expects('render').once().withArgs(civilListPath, expectedData);
