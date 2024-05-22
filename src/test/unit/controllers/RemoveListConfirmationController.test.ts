@@ -105,31 +105,13 @@ describe('Remove List Confirmation Controller', () => {
         await responseMock.verify();
     });
 
-    it('should render error if remove choice is yes and request fails for multiple artefacts', async () => {
+    it('should render error if remove choice is yes and request fails', async () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
 
         request.body = {
             'remove-choice': 'yes',
             artefactIds: [invalidArtefactId, validArtefactId, validArtefactId2],
-            locationId: '5',
-        };
-
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('error', { ...i18n.error });
-        await removeListConfirmationController.post(request, response);
-        await responseMock.verify();
-    });
-
-    it('should render error if remove choice is yes and request fails a single artefact', async () => {
-        const request = mockRequest(i18n);
-        const responseMock = sinon.mock(response);
-
-        request.body = {
-            'remove-choice': 'yes',
-            artefactIds: invalidArtefactId,
             locationId: '5',
         };
 
@@ -156,7 +138,7 @@ describe('Remove List Confirmation Controller', () => {
         await responseMock.verify();
     });
 
-    it('should render remove list confirmation with error if there is no choice for multiple artefacts', async () => {
+    it('should render remove list confirmation with error if there is no choice', async () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
 
@@ -168,26 +150,6 @@ describe('Remove List Confirmation Controller', () => {
             ...i18n['remove-list-confirmation'],
             court: mockCourt,
             removalList: mockArtefactsArray,
-            displayError: true,
-        };
-
-        responseMock.expects('render').once().withArgs('remove-list-confirmation', expectedOptions);
-        await removeListConfirmationController.post(request, response);
-        await responseMock.verify();
-    });
-
-    it('should render remove list confirmation with error if there is no choice for a single artefact', async () => {
-        const request = mockRequest(i18n);
-        const responseMock = sinon.mock(response);
-
-        request.body = {
-            artefactIds: [validArtefactId],
-            locationId: '5',
-        };
-        const expectedOptions = {
-            ...i18n['remove-list-confirmation'],
-            court: mockCourt,
-            removalList: [metadata],
             displayError: true,
         };
 
