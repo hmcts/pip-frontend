@@ -13,10 +13,10 @@
     "languageLink": "Saesneg (English)",
     "continue": "Parhau",
     "findCourtDetails": {
-        "header": "If you need to Find A Court or Tribunal....",
-        "message": "...If you need to find contact details and information on courts and tribunals use the",
-        "linkText": "Find a Court or Tribunal Service",
-        "link": "https://www.find-court-tribunal.service.gov.uk"
+        "header": "Find a court or tribunal",
+        "linkText": "Find contact details and other information about courts and tribunals",
+        "message": "in England and Wales, and some non-devolved tribunals in Scotland.",
+        "link": "https://fact.demo.platform.hmcts.net"
     },
     "beforeMessage": "Cyn i chi ddechrau",
     "scoAndNI": "Os ydych yn byw yn Yr Alban neu Gogledd Iwerddon",
