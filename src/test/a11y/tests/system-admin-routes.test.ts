@@ -55,6 +55,8 @@ const systemAdminRoutes = [
     { path: '/create-third-party-user' },
     { path: '/create-third-party-user-summary' },
     { path: '/create-third-party-user-success' },
+    { path: '/delete-third-party-user-confirmation' },
+    { path: '/delete-third-party-user-success' },
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');
