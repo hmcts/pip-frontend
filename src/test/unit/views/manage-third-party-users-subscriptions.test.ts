@@ -59,7 +59,7 @@ describe('Manage third party subscription', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Manage Third Party Subscriptions', 'Could not find the header');
+        expect(header[0].innerHTML).contains('Manage third party subscriptions', 'Could not find the header');
     });
 
     it('should display channel header', () => {
