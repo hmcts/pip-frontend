@@ -31,7 +31,6 @@ export default class DeleteThirdPartyUserConfirmationController {
                     'DELETE_THIRD_PARTY_USER',
                     `Third party user with id ${userId} has been deleted`
                 );
-
                 res.redirect('/delete-third-party-user-success');
             } else {
                 res.render('delete-third-party-user-confirmation', {

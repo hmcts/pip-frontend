@@ -88,7 +88,7 @@ describe('Manage third party users', () => {
 
     it('row one should have the correct manage text', () => {
         const cells = htmlRes.getElementsByClassName(cellClass);
-        expect(cells[3].innerHTML).contains('manage', 'Manage link does not have the correct text');
+        expect(cells[3].innerHTML).contains('Manage', 'Manage link does not have the correct text');
     });
 
     it('row one should have the correct manage link', () => {
