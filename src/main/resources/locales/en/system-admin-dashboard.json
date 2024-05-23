@@ -19,7 +19,7 @@
         },
         {
             "title": "Manage Third-Party Users",
-            "description": "View and edit third-party users and subscriptions",
+            "description": "View, create, update and remove third-party users and subscriptions",
             "link": "manage-third-party-users"
         },
         {
