@@ -10,12 +10,12 @@ import { RemoveListHelperService } from '../service/RemoveListHelperService';
 const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
 const userManagementService = new UserManagementService();
-const removeListHelperService = new RemoveListHelperService()
+const removeListHelperService = new RemoveListHelperService();
 
 export default class RemoveListConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
-        if (formData && formData.courtLists && formData.locationId) {
+        if (formData.courtLists && formData.locationId) {
             const listsToDelete = removeListHelperService.getSelectedLists(formData);
             const listData = [];
             for (const list of listsToDelete) {
@@ -31,8 +31,6 @@ export default class RemoveListConfirmationController {
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
-
-
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
