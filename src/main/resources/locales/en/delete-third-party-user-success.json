@@ -1,0 +1,8 @@
+{
+    "title": "Delete third party user success",
+    "panelTitle": "Success",
+    "panelBodyMessage": "The third party user and associated subscriptions have been removed.",
+    "nextMessage": "What do you want to do next?",
+    "manageThirdPartyUser": "Manage another third party user",
+    "home": "Home"
+}

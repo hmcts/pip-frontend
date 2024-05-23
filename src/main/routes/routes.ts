@@ -575,6 +575,21 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.createThirdPartyUserSuccessController.get
     );
+    app.get(
+        '/delete-third-party-user-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartyUserConfirmationController.get
+    );
+    app.post(
+        '/delete-third-party-user-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartyUserConfirmationController.post
+    );
+    app.get(
+        '/delete-third-party-user-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartyUserSuccessController.get
+    );
     app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
 
