@@ -14,6 +14,7 @@ Scenario('I as a verified user should be able to search and download sjp public 
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,
+        contentDate,
         displayFrom,
         displayTo,
         'ENGLISH',
@@ -74,6 +75,7 @@ Scenario('I as a verified user should be able to download sjp press list', async
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,
+        contentDate,
         displayFrom,
         displayTo,
         'ENGLISH',

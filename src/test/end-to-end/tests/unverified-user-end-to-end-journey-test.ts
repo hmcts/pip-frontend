@@ -11,7 +11,7 @@ Scenario('I as a unverified user should be able to make end-to-end journey', asy
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
-    await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
+    await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
     I.amOnPage('/');
     I.waitForText('Court and tribunal hearings');
