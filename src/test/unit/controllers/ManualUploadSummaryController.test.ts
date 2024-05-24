@@ -10,7 +10,7 @@ const mockData = {
     fileName: 'fileName',
     foo: 'blah',
     listType: 'SJP_PUBLIC_LIST',
-    listTypeName: 'SJP Public List',
+    listTypeName: 'SJP Public List (Full list)',
     language: 'English',
     languageName: 'English',
     classification: 'PUBLIC',

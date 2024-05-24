@@ -159,6 +159,8 @@ export default function (app: Application): void {
     // List Templates
     app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
     app.post('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.filterValues);
+    app.get('/sjp-public-list-new-cases', app.locals.container.cradle.sjpPublicListController.get);
+    app.post('/sjp-public-list-new-cases', app.locals.container.cradle.sjpPublicListController.filterValues);
     app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
     app.post('/sjp-press-list', app.locals.container.cradle.sjpPressListController.filterValues);
     app.get('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.get);
