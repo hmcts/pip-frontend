@@ -46,19 +46,7 @@ export default class SjpPressListController {
 
             const showDownloadButton = await listDownloadService.showDownloadButton(artefactId, req.user);
             const url = publicationService.getListTypes().get(metaData.listType).url;
-
-            let languageResource = {
-                ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressAll],
-                ...req.i18n.getDataByLanguage(req.lng)['style-guide']['sjp-common'],
-                ...req.i18n.getDataByLanguage(req.lng)['list-template'],
-            };
-
-            if (metaData.listType === 'SJP_DELTA_PRESS_LIST') {
-                languageResource = {
-                    ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressDelta],
-                };
-            }
+            const languageResource = SjpPressListController.getLanguageResources(req, metaData.listType);
 
             res.render(`style-guide/${sjpPressAll}`, {
                 ...cloneDeep(languageResource),
@@ -93,5 +81,21 @@ export default class SjpPressListController {
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         const filterValues = filterService.generateFilterKeyValues(req.body);
         res.redirect(`sjp-press-list?artefactId=${req.query.artefactId as string}&filterValues=${filterValues}`);
+    }
+
+    private static getLanguageResources(req, listType) {
+        let languageResource = {
+            ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressAll],
+            ...req.i18n.getDataByLanguage(req.lng)['style-guide']['sjp-common'],
+            ...req.i18n.getDataByLanguage(req.lng)['list-template'],
+        };
+
+        if (listType === 'SJP_DELTA_PRESS_LIST') {
+            languageResource = {
+                ...cloneDeep(languageResource),
+                ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressDelta],
+            };
+        }
+        return languageResource;
     }
 }

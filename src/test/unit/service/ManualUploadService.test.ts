@@ -56,7 +56,7 @@ const expectedRemoveList = [
         contDate: '8 Feb 2022',
         displayFrom: '2022-02-08T12:26:42.908',
         displayTo: '2024-02-08T12:26:42.908',
-        listTypeName: 'SJP Public List',
+        listTypeName: 'SJP Public List (Full list)',
         dateRange: '8 Feb 2022 to 8 Feb 2024',
     },
 ];
@@ -87,7 +87,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage);
-            expect(data['listSubtypes'].length).to.equal(24);
+            expect(data['listSubtypes'].length).to.equal(25);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',
