@@ -42,9 +42,9 @@ describe('Publication Page', () => {
                 'Civil and Family Daily Cause List 14 July 2022 - English (Saesneg)',
                 'Civil Daily Cause List 14 July 2022 - English (Saesneg)',
                 'Family Daily Cause List 14 July 2022 - English (Saesneg)',
-                'Single Justice Procedure Public List 02 February 2022 - English (Saesneg)',
+                'Single Justice Procedure Public List (Full List) 02 February 2022 - English (Saesneg)',
                 'Single Justice Procedure Press List (Full List) 02 February 2022 - English (Saesneg)',
-                'Single Justice Procedure Public List 28 January 2022 - English (Saesneg)',
+                'Single Justice Procedure Public List (Full List) 28 January 2022 - English (Saesneg)',
             ]);
     });
 

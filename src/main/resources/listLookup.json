@@ -1,9 +1,19 @@
 {
     "SJP_PUBLIC_LIST": {
-        "friendlyName": "Single Justice Procedure Public List",
-        "welshFriendlyName": "Rhestr Gyhoeddus Y Weithdrefn Un Ynad",
-        "shortenedFriendlyName": "SJP Public List",
+        "friendlyName": "Single Justice Procedure Public List (Full List)",
+        "welshFriendlyName": "Rhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)",
+        "shortenedFriendlyName": "SJP Public List (Full list)",
         "url": "sjp-public-list",
+        "jurisdictions": ["Magistrates"],
+        "welshJurisdictions": ["Llys Ynadon"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
+    },
+    "SJP_DELTA_PUBLIC_LIST": {
+        "friendlyName": "Single Justice Procedure Public List (New Cases)",
+        "welshFriendlyName": "Rhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)",
+        "shortenedFriendlyName": "SJP Public List (New cases)",
+        "url": "sjp-public-list-new-cases",
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
