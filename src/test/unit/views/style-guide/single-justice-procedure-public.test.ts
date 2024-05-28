@@ -21,8 +21,8 @@ const summaryHeadingText = 'List containing 2 case(s)';
 const listDate = '01 September 2023';
 const offenderIndividualName = 'A This is a surname';
 const offenderOrganisationName = 'This is an accused organisation name';
-const offenderIndividualPostcode = 'AA1';
-const offenderOrganisationPostcode = 'A99';
+const offenderIndividualPostcode = 'AA';
+const offenderOrganisationPostcode = 'A9';
 const offenderProsecutor = 'This is a prosecutor organisation';
 const offenderReason = 'This is an offence title';
 
