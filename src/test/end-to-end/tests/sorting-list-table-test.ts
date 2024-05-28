@@ -17,6 +17,7 @@ Scenario('I should be able to view and sort the list table', async ({ I }) => {
         'PUBLIC',
         locationId,
         displayFrom,
+        displayFrom,
         displayTo,
         'ENGLISH',
         'primaryHealthList.json',

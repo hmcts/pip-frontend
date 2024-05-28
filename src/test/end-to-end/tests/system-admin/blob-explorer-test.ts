@@ -13,7 +13,7 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
     await createLocation(locationId, locationName);
-    const artefactId = await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
+    const artefactId = await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
     I.loginAsSystemAdmin();
     I.click('#card-blob-view-locations');

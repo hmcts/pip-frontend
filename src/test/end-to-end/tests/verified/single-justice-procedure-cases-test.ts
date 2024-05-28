@@ -6,7 +6,7 @@ Feature('Verified user single Justice Procedure cases');
 Scenario('I as a verified user should be able to view all the single procedure cases', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-    const artefactId = await uploadPublication('PUBLIC', '9', displayFrom, displayTo, 'ENGLISH');
+    const artefactId = await uploadPublication('PUBLIC', '9', displayFrom, displayFrom, displayTo, 'ENGLISH');
 
     I.loginAsMediaUser();
     I.see('Single Justice Procedure cases');
