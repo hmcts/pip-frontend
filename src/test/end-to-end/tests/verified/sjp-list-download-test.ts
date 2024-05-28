@@ -7,13 +7,15 @@ Feature('SJP list download');
 Scenario('I as a verified user should be able to search and download sjp public list', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-    const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
-    const sjpListToDownload = 'Single Justice Procedure Public List (Full List) ' + contentDate;
+    const contentDate = DateTime.now().plus({ months: 1 });
+    const sjpListToDownload =
+        'Single Justice Procedure Public List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
     const locationId = '9';
 
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,
+        contentDate.toISO({ includeOffset: false }),
         displayFrom,
         displayTo,
         'ENGLISH',
@@ -67,13 +69,14 @@ Scenario('I as a verified user should be able to search and download sjp public 
 Scenario('I as a verified user should be able to download sjp press list', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-    const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
-    const sjpListToDownload = 'Single Justice Procedure Press List (Full List) ' + contentDate;
+    const contentDate = DateTime.now().plus({ months: 1 });
+    const sjpListToDownload = 'Single Justice Procedure Press List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
     const locationId = '9';
 
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,
+        contentDate.toISO({ includeOffset: false }),
         displayFrom,
         displayTo,
         'ENGLISH',

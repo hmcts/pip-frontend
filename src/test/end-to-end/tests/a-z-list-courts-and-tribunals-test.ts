@@ -11,7 +11,7 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
-    await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
+    await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
     I.amOnPage('/search');
     I.waitForText('Want to see all courts and tribunals?');

@@ -12,7 +12,7 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
-    await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
+    await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
     I.loginAsAdmin();
     I.click('#card-remove-list-search');
     I.waitForText('Find content to remove');
@@ -45,7 +45,7 @@ Scenario('I as an admin user should be able to see proper error messages related
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
-    await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
+    await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
     I.loginAsAdmin();
     I.click('#card-remove-list-search');

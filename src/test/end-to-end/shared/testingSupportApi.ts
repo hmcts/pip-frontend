@@ -123,6 +123,7 @@ export const createSubscription = async (locationId: string, locationName: strin
 export const uploadPublication = async (
     sensitivity: string,
     locationId: string,
+    contentDate: string,
     displayFrom: string,
     displayTo: string,
     language: string,
@@ -145,7 +146,7 @@ export const uploadPublication = async (
             .set('x-display-to', displayTo)
             .set('x-list-type', listType)
             .set('x-court-id', locationId)
-            .set('x-content-date', displayFrom)
+            .set('x-content-date', contentDate)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.artefactId;
