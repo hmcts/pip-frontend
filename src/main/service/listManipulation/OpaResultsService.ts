@@ -60,7 +60,7 @@ export class OpaResultsService {
             return {
                 defendant: this.formatDefendantName(party.individualDetails),
                 offences: this.processOffences(party.individualDetails, language),
-            }
+            };
         } else if (party.organisationDetails) {
             return {
                 defendant: party.organisationDetails.organisationName,
