@@ -159,6 +159,8 @@ export default function (app: Application): void {
     // List Templates
     app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
     app.post('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.filterValues);
+    app.get('/sjp-public-list-new-cases', app.locals.container.cradle.sjpPublicListController.get);
+    app.post('/sjp-public-list-new-cases', app.locals.container.cradle.sjpPublicListController.filterValues);
     app.get('/sjp-press-list', app.locals.container.cradle.sjpPressListController.get);
     app.post('/sjp-press-list', app.locals.container.cradle.sjpPressListController.filterValues);
     app.get('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.get);
@@ -574,6 +576,21 @@ export default function (app: Application): void {
         '/create-third-party-user-success',
         isPermittedSystemAdmin,
         app.locals.container.cradle.createThirdPartyUserSuccessController.get
+    );
+    app.get(
+        '/delete-third-party-user-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartyUserConfirmationController.get
+    );
+    app.post(
+        '/delete-third-party-user-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartyUserConfirmationController.post
+    );
+    app.get(
+        '/delete-third-party-user-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartyUserSuccessController.get
     );
     app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);

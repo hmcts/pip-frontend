@@ -24,12 +24,12 @@ describe('formatSjpPublicList', () => {
 
     it('should return accused postcode using individual details', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data[0].postcode).to.equal('AA1');
+        expect(data[0].postcode).to.equal('AA');
     });
 
     it('should return accused postcode using organisation details', async () => {
         const data = await sjpPublicListService.formatSjpPublicList(rawSJPData);
-        expect(data[1].postcode).to.equal('A99');
+        expect(data[1].postcode).to.equal('A9');
     });
 
     it('should return prosecutor', async () => {

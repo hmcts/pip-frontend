@@ -17,7 +17,7 @@ Scenario(
 
         await createLocation(locationId, locationName);
         await createSubscription(locationId, locationName, USER_ID);
-        await uploadPublication('PUBLIC', locationId, displayFrom, displayTo, 'ENGLISH');
+        await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
         function tryToDeleteCourt() {
             I.fillField('#search-input', locationName);

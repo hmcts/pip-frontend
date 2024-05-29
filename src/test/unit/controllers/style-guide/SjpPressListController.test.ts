@@ -30,7 +30,7 @@ const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
 
 const sjpPressFullListName = 'single-justice-procedure-press';
-const sjpPressNewCasesName = 'single-justice-procedure-press';
+const sjpPressNewCasesName = 'single-justice-procedure-press-new-cases';
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
@@ -63,10 +63,12 @@ generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactId']).resolves(tru
 generatesFilesStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(false);
 generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(false);
 
+sinon.stub(FilterService.prototype, 'generateFilterKeyValues').returns('TestValue');
+
 const i18n = {
     'style-guide': {
         sjpPressFullListName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
-        sjpPressNewCasesName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
+        sjpPressNewCasesName: { header: 'Single Justice Procedure cases - Press view (New cases)' },
         'sjp-common': { downloadButtonLabel: 'Download a copy' },
     },
     'list-template': {},
@@ -227,15 +229,9 @@ describe('SJP Press List Controller', () => {
     describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("post with path '%s'", url => {
         const sjpPressResource = sjpResourceMap.get(url);
 
-        afterEach(() => {
-            sinon.restore();
-        });
-
         it('should redirect to configure list page with correct filters', () => {
             const artefactId = sjpPressResource['artefactId'];
             request.query = { artefactId: artefactId };
-
-            sinon.stub(FilterService.prototype, 'generateFilterKeyValues').withArgs(request.body).returns('TestValue');
 
             const responseMock = sinon.mock(response);
             responseMock

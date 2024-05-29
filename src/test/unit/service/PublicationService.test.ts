@@ -177,11 +177,11 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(23);
+        expect(listTypes.size).to.equal(24);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
-        expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List');
-        expect(sjpResult['shortenedFriendlyName']).to.equal('SJP Public List');
+        expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List (Full List)');
+        expect(sjpResult['shortenedFriendlyName']).to.equal('SJP Public List (Full list)');
         expect(sjpResult['url']).to.equal('sjp-public-list');
         expect(sjpResult['jurisdictions']).to.deep.equal(['Magistrates']);
         expect(sjpResult['restrictedProvenances']).to.deep.equal([]);

@@ -23,15 +23,15 @@
 
   {% set tableRows = [] %}
   {% for account in thirdPartyAccounts %}
-    {% set viewButton %}
-      <a class="govuk-table__cell govuk-link" href="/manage-third-party-users/view?userId={{ account.userId }}">{{ view }}</a>
+    {% set manageButton %}
+      <a class="govuk-table__cell govuk-link" href="/manage-third-party-users/view?userId={{ account.userId }}">{{ manage }}</a>
     {% endset %}
     {% set _ = tableRows.push([
       {text: account.provenanceUserId},
       {text: account.roles},
       {text: account.createdDate},
       {
-        html: viewButton
+        html: manageButton
       }
     ]) %}
   {% endfor %}

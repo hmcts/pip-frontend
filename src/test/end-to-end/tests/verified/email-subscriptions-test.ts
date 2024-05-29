@@ -34,6 +34,7 @@ Scenario(
             'PUBLIC',
             locationId,
             displayFrom,
+            displayFrom,
             displayTo,
             'ENGLISH',
             'etDailyList.json',
@@ -175,6 +176,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
         'PUBLIC',
         locationId,
         displayFrom,
+        displayFrom,
         displayTo,
         'ENGLISH',
         'etDailyList.json',
@@ -279,6 +281,7 @@ Scenario(
         await uploadPublication(
             'PUBLIC',
             locationId,
+            displayFrom,
             displayFrom,
             displayTo,
             'ENGLISH',

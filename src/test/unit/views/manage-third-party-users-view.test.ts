@@ -45,7 +45,7 @@ describe('Manage third party users - view', () => {
 
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
-            expect(header[0].innerHTML).contains('Manage User', 'Could not find the header');
+            expect(header[0].innerHTML).contains('Manage user', 'Could not find the header');
         });
 
         it('should display name list header', () => {
@@ -100,7 +100,12 @@ describe('Manage third party users - view', () => {
 
         it('manage subscriptions button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0].innerHTML).contains('Manage Subscriptions', 'Button does not contain the correct text');
+            expect(buttons[0].innerHTML).contains('Manage subscriptions', 'Button does not contain the correct text');
+        });
+
+        it('manage subscriptions button should be correct', () => {
+            const buttons = htmlRes.getElementsByClassName(buttonClass);
+            expect(buttons[1].innerHTML).contains('Delete user', 'Button does not contain the correct text');
         });
     });
 

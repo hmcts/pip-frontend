@@ -7,13 +7,15 @@ Feature('SJP list download');
 Scenario('I as a verified user should be able to search and download sjp public list', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-    const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
-    const sjpListToDownload = 'Single Justice Procedure Public List ' + contentDate;
+    const contentDate = DateTime.now().plus({ months: 1 });
+    const sjpListToDownload =
+        'Single Justice Procedure Public List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
     const locationId = '9';
 
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,
+        contentDate.toISO({ includeOffset: false }),
         displayFrom,
         displayTo,
         'ENGLISH',
@@ -27,7 +29,7 @@ Scenario('I as a verified user should be able to search and download sjp public 
     I.waitForText('What do you want to view from Single Justice Procedure?');
     I.see(sjpListToDownload);
     I.click(locate('//a').withText(sjpListToDownload));
-    I.waitForText('Single Justice Procedure cases that are ready for hearing');
+    I.waitForText('Single Justice Procedure cases that are ready for hearing (Full list)');
 
     I.see('Search Cases');
     I.click('#search-input');
@@ -67,13 +69,14 @@ Scenario('I as a verified user should be able to search and download sjp public 
 Scenario('I as a verified user should be able to download sjp press list', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-    const contentDate = DateTime.now().toFormat('dd MMMM yyyy');
-    const sjpListToDownload = 'Single Justice Procedure Press List (Full List) ' + contentDate;
+    const contentDate = DateTime.now().plus({ months: 1 });
+    const sjpListToDownload = 'Single Justice Procedure Press List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
     const locationId = '9';
 
     const artefactId = await uploadPublication(
         'PUBLIC',
         locationId,
+        contentDate.toISO({ includeOffset: false }),
         displayFrom,
         displayTo,
         'ENGLISH',
