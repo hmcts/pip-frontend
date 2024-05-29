@@ -32,7 +32,6 @@
       text: warning,
       iconFallbackText: "Warning"
     }) }}
-    <h2 class="govuk-heading-l">{{ header }}</h2>
     {% if removalList | length > 0 %}
         <form action="remove-list-confirmation" method="post">
             <table class="govuk-table" data-module="moj-sortable-table">
@@ -62,6 +61,7 @@
                     {% endfor %}
                 </tbody>
             </table>
+            <h2 class="govuk-heading-l">{{ header }}</h2>
             {{ govukInput({
                 id: "locationId",
                 name: "locationId",
