@@ -48,7 +48,7 @@ export class OpaResultsService {
     private processParty(party, language): any {
         if (party.partyRole === 'DEFENDANT') {
             const opaResults = this.processDefendant(party, language);
-            if (opaResults.defendant && opaResults.offences.length > 0 && opaResults.offences[0].decisionDate) {
+            if (opaResults?.defendant && opaResults?.offences.length > 0 && opaResults?.offences[0].decisionDate) {
                 return opaResults;
             }
         }
