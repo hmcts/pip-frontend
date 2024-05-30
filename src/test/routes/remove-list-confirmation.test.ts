@@ -49,6 +49,7 @@ describe('Remove List Confirmation', () => {
                 .send({
                     'remove-choice': 'yes',
                     artefactIds: ['valid-artefact'],
+                    locationId: '1'
                 })
                 .expect(res => {
                     expect(res.status).to.equal(302);
@@ -61,7 +62,8 @@ describe('Remove List Confirmation', () => {
                 .post(URL)
                 .send({
                     'remove-choice': 'yes',
-                    artefactId: 'invalid-artefact',
+                    artefactIds: ['invalid-artefact'],
+                    locationId: '1'
                 })
                 .expect(res => expect(res.status).to.equal(200));
         });
@@ -71,7 +73,7 @@ describe('Remove List Confirmation', () => {
                 .post(URL)
                 .send({
                     'remove-choice': 'no',
-                    artefactId: 'valid-artefact',
+                    artefactIds: ['valid-artefact'],
                     locationId: '1',
                     language: 'ENGLISH',
                     displayFrom: '2022-03-23T07:36:35',
