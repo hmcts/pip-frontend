@@ -39,7 +39,6 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves({ locationId: 
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-sinon.stub(PublicationService.prototype, 'removePublication').withArgs('foo').resolves(false);
 let htmlRes: Document;
 
 describe('Remove List Confirmation Page', () => {
@@ -107,7 +106,7 @@ describe('Remove List Confirmation Page', () => {
         beforeAll(async () => {
             await request(app)
                 .post(PAGE_URL)
-                .send({ locationId: '5', artefactId: 'foo' })
+                .send({ locationId: '5', artefactIds: ['foo'] })
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 });
