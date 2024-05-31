@@ -48,6 +48,7 @@ export const formattedProvenances = {
     PI_AAD: 'B2C',
     CFT_IDAM: 'CFT IdAM',
     CRIME_IDAM: 'Crime IdAM',
+    SSO: 'SSO'
 };
 
 export const reSignInUrls = {
