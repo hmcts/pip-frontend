@@ -199,7 +199,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.waitForText('There is a problem');
     I.see('Unable to upload publication, please verify that provided fields are correct');
     I.logout();
-});
+}).tag('@Nightly');
 
 Scenario('I as a admin user should be able to change the data before confirming upload', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
@@ -276,4 +276,4 @@ Scenario('I as a admin user should be able to change the data before confirming 
     I.click('Continue');
     I.waitForText('Check upload details');
     I.logout();
-});
+}).tag('@Nightly');
