@@ -70,4 +70,4 @@ Scenario('I as a system admin should be able to see error messages when input fi
     I.waitForText('There is a problem');
     I.see('Enter an email address in the correct format, like name@example.com');
     I.logout();
-});
+}).tag('@Nightly');
