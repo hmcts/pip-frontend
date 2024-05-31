@@ -52,4 +52,4 @@ Scenario(
         I.waitForText('Unable to upload reference data file, please verify that provided fields are correct');
         I.logout();
     }
-);
+).tag('@Nightly');
