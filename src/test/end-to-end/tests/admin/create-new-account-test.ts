@@ -140,4 +140,4 @@ Scenario('I as an admin user should be able to see all error messages related to
     I.deleteAdminAccount(testEmail);
 
     I.logout();
-});
+}).tag('@Nightly');

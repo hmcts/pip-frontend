@@ -89,4 +89,4 @@ Scenario(
 
         I.click('Sign out');
     }
-);
+).tag('@Nightly');

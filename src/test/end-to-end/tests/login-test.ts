@@ -143,7 +143,7 @@ Scenario('I as a CFT user should be able to see proper error message when email 
             'galluogi ichi gael mynediad at y rhan o wasanaeth gwrandawiadau’r llysoedd a’r tribiwnlysoedd ar ' +
             'gyfer defnyddwyr sydd wedi eu dilysu.'
     );
-}).tag('@CrossBrowser');
+}).tag('@Nightly');
 
 Scenario(
     'I as a CFT user should be able to see proper error messages when username or password fields are empty',
