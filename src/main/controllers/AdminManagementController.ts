@@ -18,7 +18,7 @@ export default class AdminManagementController {
         if (searchInput?.length) {
             const searchResults = await accountManagementRequests.getAdminUserByEmailAndProvenance(
                 searchInput,
-                'PI_AAD',
+                'SSO',  // PROVENANCE PI_AAD & SSO NEED TO BE ALLOWED FOR FULL SEARCH
                 req.user['userId']
             );
 
