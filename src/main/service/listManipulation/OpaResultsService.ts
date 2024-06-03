@@ -47,25 +47,25 @@ export class OpaResultsService {
 
     private processParty(party, language): any {
         if (party.partyRole === 'DEFENDANT') {
-            const defendant = this.processDefendant(party);
-            const offences = this.processOffences(party, language);
-
-            if (defendant && offences.length > 0 && offences[0].decisionDate) {
-                return {
-                    defendant: defendant,
-                    offences: offences,
-                };
+            const opaResults = this.processDefendant(party, language);
+            if (opaResults?.defendant && opaResults?.offences.length > 0 && opaResults?.offences[0].decisionDate) {
+                return opaResults;
             }
         }
         return null;
     }
 
-    private processDefendant(party): any {
+    private processDefendant(party, language): any {
         if (party.individualDetails) {
-            const individualDetails = party.individualDetails;
-            return this.formatDefendantName(individualDetails);
+            return {
+                defendant: this.formatDefendantName(party.individualDetails),
+                offences: this.processOffences(party.individualDetails, language),
+            };
         } else if (party.organisationDetails) {
-            return party.organisationDetails.organisationName;
+            return {
+                defendant: party.organisationDetails.organisationName,
+                offences: this.processOffences(party.organisationDetails, language),
+            };
         }
         return null;
     }
@@ -79,9 +79,9 @@ export class OpaResultsService {
         return [surname, forenames].filter(n => n.length > 0).join(', ');
     }
 
-    private processOffences(party, language) {
+    private processOffences(details, language) {
         const offences = [];
-        party.offence?.forEach(offence => {
+        details.offence?.forEach(offence => {
             offences.push(this.buildSingleOffence(offence, language));
         });
         return offences;
