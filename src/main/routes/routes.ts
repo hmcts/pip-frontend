@@ -145,7 +145,6 @@ export default function (app: Application): void {
     app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true));
     app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get);
     app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
-    app.get('/unprocessed-request', app.locals.container.cradle.unprocessedRequestController.get);
 
     app.get('/search', app.locals.container.cradle.searchController.get);
     app.post('/search', app.locals.container.cradle.searchController.post);
