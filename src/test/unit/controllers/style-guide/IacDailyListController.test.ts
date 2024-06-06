@@ -70,7 +70,7 @@ describe('IAC Daily List Controller', () => {
         metaData.listType = url.substring(1).toUpperCase();
 
         it('should render the IAC daily list page', async () => {
-            let artefactIdToUse = url == iacMainListUrl ? artefactId : additionalCasesArtefactId;
+            const artefactIdToUse = url == iacMainListUrl ? artefactId : additionalCasesArtefactId;
             request.query = { artefactId: artefactIdToUse };
             request.user = { userId: '1' };
 
