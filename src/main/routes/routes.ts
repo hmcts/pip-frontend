@@ -418,6 +418,11 @@ export default function (app: Application): void {
         isPermittedManualUpload,
         app.locals.container.cradle.removeListSearchResultsController.get
     );
+    app.post(
+        '/remove-list-search-results',
+        isPermittedManualUpload,
+        app.locals.container.cradle.removeListSearchResultsController.post
+    );
     app.get(
         '/remove-list-success',
         isPermittedManualUpload,

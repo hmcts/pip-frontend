@@ -1,3 +1,4 @@
+import sinon from 'sinon';
 import {
     formatMetaDataListType,
     hearingHasParty,
@@ -5,10 +6,24 @@ import {
     isValidList,
     isValidListType,
     missingListType,
+    addListDetailsToArray
 } from '../../../main/helpers/listHelper';
+import { HttpStatusCode } from 'axios';
 import fs from 'fs';
 import path from 'path';
-import { HttpStatusCode } from 'axios';
+import { PublicationService } from '../../../main/service/PublicationService';
+
+const mockArtefact = {
+    listType: 'CIVIL_DAILY_CAUSE_LIST',
+    listTypeName: 'Civil Daily Cause List',
+    contentDate: '2022-03-24T07:36:35',
+    locationId: '5',
+    artefactId: 'valid-artefact',
+    dateRange: 'Invalid DateTime to Invalid DateTime',
+    contDate: '24 Mar 2022'
+};
+
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 
 describe('List helper', () => {
     describe('hearing has party', () => {
@@ -109,6 +124,25 @@ describe('List helper', () => {
             const metaDataListType = 'TEST_LIST_TYPE';
 
             expect(missingListType(metaDataListType)).toBe(false);
+        });
+    });
+
+    describe('adding list details to an array', () => {
+        it('Should add list details to an array', async () => {
+            const expectedResult = [
+                {
+                    listType: 'CIVIL_DAILY_CAUSE_LIST',
+                    listTypeName: 'Civil Daily Cause List',
+                    contentDate: '2022-03-24T07:36:35',
+                    locationId: '5',
+                    artefactId: 'valid-artefact',
+                    dateRange: 'Invalid DateTime to Invalid DateTime',
+                    contDate: '24 Mar 2022'
+                },
+            ];
+            const list = [];
+            await addListDetailsToArray('artfactId', 1, list);
+            expect(list).toEqual(expectedResult);
         });
     });
 });

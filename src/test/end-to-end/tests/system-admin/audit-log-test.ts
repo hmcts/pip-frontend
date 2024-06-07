@@ -108,8 +108,9 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('Select content to remove');
-    I.click(locate('//tr').withText(listType).find('a').withText('Remove'));
-    I.waitForText('You are about to remove the following publication:');
+    I.click(locate('//tr').withText(listType).find('.govuk-checkboxes__input'));
+    I.click('Continue');
+    I.waitForText('Are you sure you want to remove this content?');
     I.click('#remove-choice');
     I.click('Continue');
     I.waitForText('Success');

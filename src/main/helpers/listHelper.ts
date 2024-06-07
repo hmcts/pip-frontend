@@ -1,4 +1,7 @@
 import { HttpStatusCode } from 'axios';
+import { PublicationService } from '../service/PublicationService';
+
+const publicationService = new PublicationService();
 
 export const isValidList = (listData: any, metaData: any): boolean => {
     return listData && metaData && listData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound;
@@ -22,6 +25,10 @@ export const missingListType = (metaDataListType: string): boolean => {
 
 export const isUnexpectedListType = (metaDataListType: string, listType: string): boolean => {
     return !missingListType(metaDataListType) && !isValidListType(metaDataListType, listType);
+};
+
+export const addListDetailsToArray = async (artefactId: string, userId: any, lists: any[]) => {
+    lists.push(await publicationService.getIndividualPublicationMetadata(artefactId, userId, true));
 };
 
 // TODO: To be removed once all lists have party field on the case level.
