@@ -1,7 +1,7 @@
 {
-    "title": "File Removal Successful",
+    "title": "Content Removal Successful",
     "panelTitle": "Success",
-    "panelBodyMessage": "Your file has been removed",
+    "panelBodyMessage": "Your content has been removed",
     "nextMessage": "What do you want to do next?",
     "removeFile": "Remove another file",
     "uploadFile": "Upload a file",
