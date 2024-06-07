@@ -5,11 +5,7 @@ import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { IacDailyListService } from '../../service/listManipulation/IacDailyListService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isOneOfValidListTypes,
-    isValidList, missingListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
