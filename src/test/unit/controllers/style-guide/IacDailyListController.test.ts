@@ -20,8 +20,10 @@ metaData.listType = 'IAC_DAILY_LIST';
 const metaDataAdditionalCases = JSON.parse(rawMetaData)[0];
 metaDataAdditionalCases.listType = 'IAC_DAILY_LIST_ADDITIONAL_CASES';
 
-metaData.listType = 'IAC_DAILY_LIST';
 const metaDataListNotFound = JSON.parse(rawMetaData)[0];
+
+const metaDataListTypeMissing = JSON.parse(rawMetaData)[0];
+metaDataListTypeMissing.listType = '';
 
 const iacDailyListController = new IacDailyListController();
 
@@ -31,7 +33,8 @@ sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').returns(
 
 const artefactId = 'abc';
 const additionalCasesArtefactId = 'abcd';
-const artefactIdListNotFound = 'xyz';
+const artefactIdListInvalidType = 'xyz';
+const artefactIdMissingType = '12341234';
 
 iacDailyListJsonStub.withArgs(artefactId).resolves(listData);
 iacDailyListJsonStub.withArgs(additionalCasesArtefactId).resolves(listData);
@@ -42,7 +45,12 @@ iacDailyListMetaDataStub.withArgs(artefactId).resolves(metaData);
 iacDailyListMetaDataStub.withArgs(additionalCasesArtefactId).resolves(metaDataAdditionalCases);
 
 iacDailyListMetaDataStub.withArgs(undefined).resolves(null);
-iacDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
+
+iacDailyListJsonStub.withArgs(artefactIdListInvalidType).resolves(listData);
+iacDailyListMetaDataStub.withArgs(artefactIdListInvalidType).resolves(metaDataListNotFound);
+
+iacDailyListJsonStub.withArgs(artefactIdMissingType).resolves(listData);
+iacDailyListMetaDataStub.withArgs(artefactIdMissingType).resolves(metaDataListTypeMissing);
 
 const iacMainListUrl = '/iac-daily-list';
 const iacAdditionalCasesListUrl = '/iac-daily-list-additional-cases';
@@ -130,7 +138,7 @@ describe('IAC Daily List Controller', () => {
         });
 
         it('should render list not found page if list type not valid', async () => {
-            request.query = { artefactId: artefactIdListNotFound };
+            request.query = { artefactId: artefactIdListInvalidType };
             request.user = { userId: '1' };
             const responseMock = sinon.mock(response);
 
@@ -138,6 +146,20 @@ describe('IAC Daily List Controller', () => {
                 .expects('render')
                 .once()
                 .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+
+            await iacDailyListController.get(request, response);
+            return responseMock.verify();
+        });
+
+        it('should render error page if list type missing', async () => {
+            request.query = { artefactId: artefactIdMissingType };
+            request.user = { userId: '1' };
+            const responseMock = sinon.mock(response);
+
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
             await iacDailyListController.get(request, response);
             return responseMock.verify();

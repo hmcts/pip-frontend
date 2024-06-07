@@ -8,8 +8,7 @@ import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
     isOneOfValidListTypes,
-    isUnexpectedListType,
-    isValidList,
+    isValidList, missingListType,
 } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
@@ -50,7 +49,8 @@ export default class IacDailyListController {
         } else if (
             searchResults === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            isUnexpectedListType(metaDataListType, listType)
+            (!missingListType(metaDataListType) &&
+                !isOneOfValidListTypes(metaDataListType, listType, additionalCasesListType))
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {
