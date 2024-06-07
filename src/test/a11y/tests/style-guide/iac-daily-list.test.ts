@@ -16,8 +16,8 @@ additionalCasesMetadata.listType = 'IAC_DAILY_LIST_ADDITIONAL_CASES';
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-metadataStub.withArgs('1234').resolves(metadata)
-metadataStub.withArgs('12345').resolves(additionalCasesMetadata)
+metadataStub.withArgs('1234').resolves(metadata);
+metadataStub.withArgs('12345').resolves(additionalCasesMetadata);
 
 describe('Accessibility - IAC Daily List Page', () => {
     testAccessibility(url);
@@ -26,4 +26,3 @@ describe('Accessibility - IAC Daily List Page', () => {
 describe('Accessibility - IAC Daily List Additional Hearings Page', () => {
     testAccessibility(additionalCasesUrl);
 });
-
