@@ -6,15 +6,16 @@ import { expect } from 'chai';
 import { LocationService } from '../../../main/service/LocationService';
 import { request as expressRequest } from 'express';
 
-const PAGE_URL = '/remove-list-confirmation?artefact=18dec6ee-3a30-47bb-9fb3-6a343d6b9efb';
+const PAGE_URL = '/remove-list-confirmation';
 
+const artefactId = 'valid-artefact';
 const mockArtefact = {
     listType: 'CIVIL_DAILY_CAUSE_LIST',
     listTypeName: 'Civil Daily Cause List',
     contentDate: '2022-03-24T07:36:35',
     locationId: '5',
     language: 'ENGLISH',
-    artefactId: 'valid-artefact',
+    artefactId: artefactId,
     displayFrom: '2022-03-23T07:36:35',
     displayTo: '2022-03-28T07:36:35',
     sensitivity: 'CLASSIFIED',
@@ -28,17 +29,25 @@ const content = [
     'English',
     'Classified',
 ];
+const formData = {
+    courtLists: [artefactId],
+    locationId: '5',
+};
+
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ locationId: '5', name: 'Mock Court' });
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-sinon.stub(PublicationService.prototype, 'removePublication').withArgs('foo').resolves(false);
 let htmlRes: Document;
 
 describe('Remove List Confirmation Page', () => {
     describe('without error', () => {
         beforeAll(async () => {
+            app.request['cookies'] = {
+                formCookie: JSON.stringify(formData),
+            };
+
             await request(app)
                 .get(PAGE_URL)
                 .then(res => {
@@ -50,7 +59,7 @@ describe('Remove List Confirmation Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Are you sure you want to remove this publication?',
+                'Are you sure you want to remove this content?',
                 'Page title does not match header'
             );
         });
@@ -58,7 +67,7 @@ describe('Remove List Confirmation Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(
-                'Are you sure you want to remove this publication?',
+                'Are you sure you want to remove this content?',
                 'Could not find correct value in header'
             );
         });
@@ -66,7 +75,7 @@ describe('Remove List Confirmation Page', () => {
         it('should display warning message', () => {
             const warning = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
             expect(warning.innerHTML).contains(
-                'You are about to remove the following publication:',
+                'You are about to remove the following content:',
                 'Could not find correct warning message'
             );
         });
@@ -97,7 +106,7 @@ describe('Remove List Confirmation Page', () => {
         beforeAll(async () => {
             await request(app)
                 .post(PAGE_URL)
-                .send({ locationId: '5', artefactId: 'foo' })
+                .send({ locationId: '5', artefactIds: ['foo'] })
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 });
