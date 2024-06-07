@@ -4,7 +4,8 @@ import { randomData } from '../../shared/random-data';
 import { config } from '../../../config';
 
 Feature('Admin remove list');
-const listType = 'Civil And Family Daily Cause List';
+const listType1 = 'Civil And Family Daily Cause List';
+const listType2 = 'ET Daily List';
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
@@ -13,6 +14,16 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
     await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
+    await uploadPublication(
+        'PUBLIC',
+        locationId,
+        displayFrom,
+        displayFrom,
+        displayTo,
+        'ENGLISH',
+        'etDailyList.json',
+        'ET_DAILY_LIST'
+    );
     I.loginAsAdmin();
     I.click('#card-remove-list-search');
     I.waitForText('Find content to remove');
@@ -21,15 +32,18 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('Select content to remove');
-    I.click(locate('//tr').withText(listType).find('a').withText('Remove'));
-    I.waitForText('You are about to remove the following publication:');
+    I.click(locate('//tr').withText(listType1).find('.govuk-checkboxes__input'));
+    I.click(locate('//tr').withText(listType2).find('.govuk-checkboxes__input'));
+    I.click('Continue');
+    I.waitForText('Are you sure you want to remove this content?');
     I.see(locationName);
-    I.see(listType);
+    I.see(listType1);
+    I.see(listType2);
     I.click('#remove-choice');
     I.click('Continue');
     I.waitForText('Success');
     I.see('What do you want to do next?');
-    I.see('Your file has been removed');
+    I.see('Your content has been removed');
     I.seeElement(locate('//a').withText('Remove another file'));
     I.seeElement(locate('//a').withText('Upload a file'));
     I.seeElement(locate('//a').withText('Home'));
@@ -62,12 +76,18 @@ Scenario('I as an admin user should be able to see proper error messages related
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('Select content to remove');
-    I.click(locate('//tr').withText(listType).find('a').withText('Remove'));
-    I.waitForText('You are about to remove the following publication:');
+
+    I.click('Continue');
+    I.waitForText('There is a problem');
+    I.see('At least one publication must be selected');
+
+    I.click(locate('//tr').withText(listType1).find('.govuk-checkboxes__input'));
+    I.click('Continue');
+    I.waitForText('Are you sure you want to remove this content?');
     I.see(locationName);
-    I.see(listType);
+    I.see(listType1);
     I.click('#remove-choice-2');
     I.click('Continue');
     I.waitForText('Select content to remove');
     I.logout();
-});
+}).tag('@Nightly');
