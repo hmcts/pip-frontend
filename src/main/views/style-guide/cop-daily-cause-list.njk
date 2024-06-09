@@ -60,31 +60,39 @@
             <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content"
                  aria-labelledby="accordion-default-heading-{{ sessionCount }}">
               <div class="parent-box overflow-table">
-                <table class="govuk-table overflow-table" data-module="moj-sortable-table">
+                <table class="govuk-table overflow-table">
                   <thead class="govuk-table__head">
                   <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ startTime }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ caseRef }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ caseDetails }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingType }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ timeEstimate }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingChannel }}</th>
+                    <th scope="col" class="govuk-table__header">{{ startTime }}</th>
+                    <th scope="col" class="govuk-table__header">{{ caseRef }}</th>
+                    <th scope="col" class="govuk-table__header">{{ caseDetails }}</th>
+                    <th scope="col" class="govuk-table__header">{{ hearingType }}</th>
+                    <th scope="col" class="govuk-table__header">{{ timeEstimate }}</th>
+                    <th scope="col" class="govuk-table__header">{{ hearingChannel }}</th>
                   </tr>
                   </thead>
                   <tbody class="govuk-table__body">
                   {% for sitting in session['sittings'] %}
                     {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
-                    {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                     {% for hearing in sitting['hearing'] %}
                       {% for case in hearing['case'] %}
+                        {% set noBorder = '' %}
+                        {% if case['formattedReportingRestriction'] | length %}
+                          {% set noBorder = 'no-border-bottom' %}
+                        {% endif %}
                         <tr class="govuk-table__row">
-                          <td class="govuk-table__cell" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
-                          <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
-                          <td class="govuk-table__cell">{{ case['caseSuppressionName'] }}</td>
-                          <td class="govuk-table__cell">{{ hearing['hearingType'] }}</td>
-                          <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
-                          <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['time'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseSuppressionName'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ duration | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
+                        {% if case['formattedReportingRestriction'] | length %}
+                          <tr class="govuk-table__row">
+                              <td class="govuk-table__cell" colspan="6"><span class="linked-cases-heading">{{ reportingRestriction }}:</span> {{ case['formattedReportingRestriction'] }}</td>
+                          </tr>
+                        {% endif %}
                       {% endfor %}
                     {% endfor %}
                   {% endfor %}

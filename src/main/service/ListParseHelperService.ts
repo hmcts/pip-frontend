@@ -344,4 +344,8 @@ export class ListParseHelperService {
         });
         return formattedJoh;
     }
+
+    public static formatReportingRestrictionDetail(jsonNode): string {
+        return jsonNode.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ')
+    }
 }
