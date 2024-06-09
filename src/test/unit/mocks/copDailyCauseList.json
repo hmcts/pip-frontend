@@ -50,7 +50,7 @@
                                                         "caseNumber": "12341234",
                                                         "caseSuppressionName": "ThisIsACaseSuppressionName",
                                                         "caseSequenceIndicator": "1 of 2",
-                                                        "reportingRestrictionDetails": [
+                                                        "reportingRestrictionDetail": [
                                                             "Restriction 1",
                                                             "Restriction 2"
                                                         ]

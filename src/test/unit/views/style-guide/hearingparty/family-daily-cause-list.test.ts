@@ -192,13 +192,18 @@ describe('Family Daily Cause List page', () => {
 
     it('should display applicant petitioner using organisation', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(4).children;
+        const cell = rows.item(5).children;
         expect(cell[7].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
     });
 
     it('should display respondent using organisation', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(4).children;
+        const cell = rows.item(5).children;
         expect(cell[8].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
+    });
+
+    it('should display reporting restrictions', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[27].innerHTML).contains('Restriction 1, Restriction 2');
     });
 });

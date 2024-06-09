@@ -100,7 +100,11 @@
                                                 "case": [
                                                     {
                                                         "caseName": "A2 Vs B2",
-                                                        "caseNumber": "112233445"
+                                                        "caseNumber": "112233445",
+                                                        "reportingRestrictionDetail": [
+                                                            "Restriction 1",
+                                                            "Restriction 2"
+                                                        ]
                                                     }
                                                 ],
                                                 "party": [
