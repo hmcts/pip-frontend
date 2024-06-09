@@ -1,8 +1,8 @@
 import { FRONTEND_URL } from '../helpers/envUrls';
 import { jwtDecode } from 'jwt-decode';
 import process from 'process';
-import {ssoTokenApi} from '../resources/requests/utils/axiosConfig';
-import {getSsoUserGroups} from "../helpers/graphApiHelper";
+import { ssoTokenApi } from '../resources/requests/utils/axiosConfig';
+import { getSsoUserGroups } from '../helpers/graphApiHelper';
 
 const querystring = require('querystring');
 

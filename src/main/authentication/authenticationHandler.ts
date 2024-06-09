@@ -151,7 +151,6 @@ export async function processSsoSignIn(req, res): Promise<any> {
     }
 }
 
-
 //This is now needed due to passport by default removing session data on successful login. Alternatively
 //keepSessionData could have been used, however this is the more secure approach as it is explicit in what we
 //want to keep in the session.

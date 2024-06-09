@@ -1,6 +1,6 @@
-import {PipRequest} from "../models/request/PipRequest";
-import {Response} from "express";
-import {FRONTEND_URL, MICROSOFT_LOGIN_URL} from "../helpers/envUrls";
+import { PipRequest } from '../models/request/PipRequest';
+import { Response } from 'express';
+import { FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
 
 export default class SsoLoginController {
     public async get(req: PipRequest, res: Response): Promise<void> {

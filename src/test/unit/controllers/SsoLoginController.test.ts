@@ -1,7 +1,7 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import { PipRequest } from '../../../main/models/request/PipRequest';
-import SsoLoginController from "../../../main/controllers/SsoLoginController";
+import SsoLoginController from '../../../main/controllers/SsoLoginController';
 
 const ssoLoginController = new SsoLoginController();
 

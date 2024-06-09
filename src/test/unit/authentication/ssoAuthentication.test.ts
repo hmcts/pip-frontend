@@ -1,13 +1,11 @@
-import querystring from "querystring";
-import {graphApi, ssoTokenApi} from '../../../main/resources/requests/utils/axiosConfig';
+import querystring from 'querystring';
+import { graphApi, ssoTokenApi } from '../../../main/resources/requests/utils/axiosConfig';
 import sinon from 'sinon';
-import process from "process";
-
-
+import process from 'process';
 
 const systemAdminSecurityGroup = 'Group1';
 
-sinon.stub(graphApi, 'post').resolves({data: {value: [systemAdminSecurityGroup]}});
+sinon.stub(graphApi, 'post').resolves({ data: { value: [systemAdminSecurityGroup] } });
 
 describe('SSO Authentication', () => {
     let sinon;
@@ -64,7 +62,7 @@ describe('SSO Authentication', () => {
         expect(mockFunction.mock.calls[0][1]).toEqual({
             oid: '123',
             flow: 'SSO',
-            roles: 'SYSTEM_ADMIN'
+            roles: 'SYSTEM_ADMIN',
         });
     });
 

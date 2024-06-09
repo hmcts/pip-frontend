@@ -1,6 +1,6 @@
-import {graphApi} from "../../../main/resources/requests/utils/axiosConfig";
+import { graphApi } from '../../../main/resources/requests/utils/axiosConfig';
 import sinon from 'sinon';
-import {getSsoUserGroups} from "../../../main/helpers/graphApiHelper";
+import { getSsoUserGroups } from '../../../main/helpers/graphApiHelper';
 
 const errorResponse = {
     response: {
@@ -15,7 +15,7 @@ const oid = '123';
 const accessToken = '456';
 
 describe('Graph API helper', () => {
-    let postStub = sinon.stub(graphApi, 'post');
+    const postStub = sinon.stub(graphApi, 'post');
 
     describe('Create Azure Account', () => {
         it('should return the response value on success', async () => {

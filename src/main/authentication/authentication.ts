@@ -4,7 +4,7 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 import passportCustom from 'passport-custom';
 import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
-import {ssoAuthentication} from "./ssoAuthentication";
+import { ssoAuthentication } from './ssoAuthentication';
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');

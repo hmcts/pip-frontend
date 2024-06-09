@@ -2,7 +2,7 @@ import axios, { InternalAxiosRequestConfig } from 'axios';
 import oauth from 'axios-oauth-client';
 import tokenProvider, { TokenCacheOptions } from 'axios-token-interceptor';
 import config from 'config';
-import {CFT_IDAM_URL, MICROSOFT_GRAPH_API_URL, MICROSOFT_LOGIN_URL} from '../../../helpers/envUrls';
+import { CFT_IDAM_URL, MICROSOFT_GRAPH_API_URL, MICROSOFT_LOGIN_URL } from '../../../helpers/envUrls';
 
 const tenantId = process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID');
 const tokenUrl = 'https://login.microsoftonline.com/' + tenantId + '/oauth2/v2.0/token';

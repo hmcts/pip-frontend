@@ -18,7 +18,8 @@ import {
     isPermittedAnyRole,
     forgotPasswordRedirect,
     keepSessionLanguage,
-    regenerateSession, processSsoSignIn,
+    regenerateSession,
+    processSsoSignIn,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -473,7 +474,6 @@ describe('process SSO sign in', () => {
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
         expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
     });
-
 
     it('should redirect to system admin dashboard for system admin user when signing in via SSO', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
