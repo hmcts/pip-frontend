@@ -20,7 +20,8 @@ export class CopDailyListService {
                         helperService.findAndConcatenateHearingPlatform(sitting, session);
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
-                                hearingCase['formattedReportingRestriction'] = ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
+                                hearingCase['formattedReportingRestriction'] =
+                                    ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
                             });
                         });
                     });

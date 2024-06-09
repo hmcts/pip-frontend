@@ -346,6 +346,6 @@ export class ListParseHelperService {
     }
 
     public static formatReportingRestrictionDetail(jsonNode): string {
-        return jsonNode.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ')
+        return jsonNode.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ');
     }
 }
