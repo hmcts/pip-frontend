@@ -20,8 +20,7 @@ export class CivilFamilyAndMixedListService {
                             sitting['hearing'].forEach(hearing => {
                                 hearing['case'].forEach(hearingCase => {
                                     this.handleFamilyMixedListParties(hearingCase);
-                                    const data =
-                                        ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
+                                    const data = ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
                                     hearingCase['formattedReportingRestriction'] = data;
                                 });
                             });
