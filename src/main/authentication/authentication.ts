@@ -4,6 +4,7 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 import passportCustom from 'passport-custom';
 import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
+import {ssoAuthentication} from "./ssoAuthentication";
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -24,24 +25,18 @@ async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken,
 }
 
 async function serializeUser(foundUser, done) {
-    if (foundUser['flow'] === 'CFT') {
-        const user = await accountManagementRequests.getPiUserByCftID(foundUser['uid']);
-
+    if (foundUser.flow === 'CFT') {
+        const user = await accountManagementRequests.getPiUserByCftID(foundUser.uid);
         if (!user) {
-            const piAccount = [
-                {
-                    userProvenance: 'CFT_IDAM',
-                    email: foundUser['sub'],
-                    roles: 'VERIFIED',
-                    provenanceUserId: foundUser['uid'],
-                    forenames: foundUser['given_name'],
-                    surname: foundUser['family_name'],
-                },
-            ];
-
-            await accountManagementRequests.createPIAccount(piAccount, '');
+            await createCftUser(foundUser);
         }
         done(null, { uid: foundUser.uid, flow: 'CFT' });
+    } else if (foundUser.flow === 'SSO') {
+        const user = await accountManagementRequests.getPiUserByAzureOid(foundUser.oid, 'SSO');
+        if (!user) {
+            await createSsoUser(foundUser);
+        }
+        done(null, { oid: foundUser.oid, flow: 'SSO' });
     } else {
         done(null, { oid: foundUser.oid, flow: 'AAD' });
     }
@@ -51,11 +46,40 @@ async function deserializeUser(userDetails, done) {
     let user;
     if (userDetails['flow'] === 'CFT') {
         user = await accountManagementRequests.getPiUserByCftID(userDetails['uid']);
+    } else if (userDetails['flow'] === 'SSO') {
+        user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid'], 'SSO');
     } else {
         user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
     }
-
     return done(null, user);
+}
+
+async function createCftUser(foundUser) {
+    const piAccount = [
+        {
+            userProvenance: 'CFT_IDAM',
+            email: foundUser['sub'],
+            roles: 'VERIFIED',
+            provenanceUserId: foundUser['uid'],
+            forenames: foundUser['given_name'],
+            surname: foundUser['family_name'],
+        },
+    ];
+
+    await accountManagementRequests.createPIAccount(piAccount, '');
+}
+
+async function createSsoUser(foundUser) {
+    const piAccount = [
+        {
+            userProvenance: 'SSO',
+            email: foundUser['preferred_username'],
+            roles: foundUser['roles'],
+            provenanceUserId: foundUser['oid'],
+        },
+    ];
+
+    await accountManagementRequests.createPIAccount(piAccount, '');
 }
 
 /**
@@ -154,6 +178,8 @@ function oidcSetup(): void {
     );
 
     passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
+
+    passport.use('sso', new CustomStrategy(ssoAuthentication));
 }
 
 /**

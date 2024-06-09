@@ -44,6 +44,7 @@ const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
 const piAadUserEndpoint = '/account/provenance/PI_AAD/';
+const ssoUserEndpoint = '/account/provenance/SSO/';
 const cftIdamUserEndpoint = '/account/provenance/CFT_IDAM/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
 const getAllAccountsEndpoint = '/account/all';
@@ -427,6 +428,39 @@ describe('Account Management Requests', () => {
         it('should return null on error message', async () => {
             getStub.withArgs(`${piAadUserEndpoint}${idtoUse}`).rejects(errorMessage);
             const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse);
+            expect(response).toBe(null);
+        });
+    });
+
+    describe('Get SSO user by oid', () => {
+        const idtoUse = '123';
+
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        it('should return pi user on success', async () => {
+            getStub.withArgs(`${ssoUserEndpoint}${idtoUse}`).resolves({
+                status: 200,
+                data: { userId: '321', userProvenance: 'SSO' },
+            });
+            const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse, 'SSO');
+            expect(response).toStrictEqual({
+                userId: '321',
+                userProvenance: 'SSO',
+            });
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs(`${ssoUserEndpoint}${idtoUse}`).rejects(errorResponse);
+            const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse, 'SSO');
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs(`${ssoUserEndpoint}${idtoUse}`).rejects(errorMessage);
+            const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse, 'SSO');
             expect(response).toBe(null);
         });
     });

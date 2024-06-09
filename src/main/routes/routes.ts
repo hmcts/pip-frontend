@@ -18,6 +18,7 @@ import {
     mapAzureLanguage,
     keepSessionLanguage,
     regenerateSession,
+    processSsoSignIn,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
@@ -675,6 +676,24 @@ export default function (app: Application): void {
             processCftIdamSignIn
         );
         app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+    }
+
+    // SSO Routes
+    if (process.env.ENABLE_SSO === 'true') {
+        app.get(
+            '/sso-login',
+            regenerateSession,
+            keepSessionLanguage,
+            app.locals.container.cradle.ssoLoginController.get
+        );
+        app.get(
+            '/sso',
+            passport.authenticate('sso', {
+                failureRedirect: '/cft-rejected-login',
+            }),
+            keepSessionLanguage,
+            processSsoSignIn
+        );
     }
 
     app.get('/info', getInfo());

@@ -9,6 +9,7 @@ nodejs:
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return
         ENABLE_CFT: false
+        ENABLE_SSO: false
         SESSION_COOKIE_SAME_SITE: 'lax'
     memoryLimits: 1024Mi
     cpuRequests: 300m
@@ -56,5 +57,21 @@ nodejs:
                   alias: B2C_URL
                 - name: cft-idam-client-secret
                   alias: CFT_IDAM_CLIENT_SECRET
+                - name: sso-client-id
+                  alias: SSO_CLIENT_ID
+                - name: sso-client-secret
+                  alias: SSO_CLIENT_SECRET
+                - name: sso-tenant-id
+                  alias: SSO_TENANT_ID
+                - name: sso-sg-system-admin
+                  alias: SSO_SG_SYSTEM_ADMIN
+                - name: sso-sg-super-admin-ctsc
+                  alias: SSO_SG_SUPER_ADMIN_CTSC
+                - name: sso-sg-super-admin-local
+                  alias: SSO_SG_SUPER_ADMIN_LOCAL
+                - name: sso-sg-admin-ctsc
+                  alias: SSO_SG_ADMIN_CTSC
+                - name: sso-sg-admin-local
+                  alias: SSO_SG_ADMIN_LOCAL
     autoscaling:
         enabled: false #To be enabled as part of PUB-1692

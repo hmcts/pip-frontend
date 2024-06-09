@@ -139,12 +139,12 @@ export class AccountManagementRequests {
         return [];
     }
 
-    public async getPiUserByAzureOid(oid: string): Promise<any> {
+    public async getPiUserByAzureOid(oid: string, userProvenance = 'PI_AAD'): Promise<any> {
         try {
-            const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
+            const response = await accountManagementApi.get(`/account/provenance/${userProvenance}/${oid}`);
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve P&I user account by Azure B2C object ID');
+            logHelper.logErrorResponse(error, 'retrieve P&I user account by Azure object ID');
         }
         return null;
     }

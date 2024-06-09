@@ -1,4 +1,5 @@
 const userId = { userId: '1234', userProvenance: 'PI_AAD', roles: 'VERIFIED' };
+const ssoUserProfile = { oid: '1234', flow: 'SSO', preferred_username: 'test@test.com' };
 
 describe('Authentication', () => {
     let authentication;
@@ -42,6 +43,7 @@ describe('Authentication', () => {
             'https://pip-frontend.staging.platform.hmcts.net/media-verification/return'
         );
         expect(passport._strategies['cft-idam'].name).to.eql('custom');
+        expect(passport._strategies['sso'].name).to.eql('custom');
     });
 
     it('Should set up passport correctly for azure authentication when FRONTEND_URL is set', () => {
@@ -68,6 +70,7 @@ describe('Authentication', () => {
             'https://pip-frontend.staging.platform.hmcts.net/media-verification/return'
         );
         expect(passport._strategies['cft-idam'].name).to.eql('custom');
+        expect(passport._strategies['sso'].name).to.eql('custom');
     });
 
     parameters.forEach(parameter => {
@@ -214,6 +217,55 @@ describe('Authentication', () => {
         expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'CFT' });
     });
 
+    it('Test that serialising a SSO user where the user exists', async () => {
+        const sinon = await import('sinon');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
+        const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+        stub.resolves({ userId: '1234' });
+
+        authentication();
+
+        const serializers = passport._serializers;
+        const firstSerializer = serializers[0];
+
+        const mockCallback = jest.fn();
+        await firstSerializer(ssoUserProfile, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(stub.calledWith('1234')).to.be.true;
+        expect(mockCallback.mock.calls[0][1]).to.eql({ oid: '1234', flow: 'SSO' });
+    });
+
+    it('Test that serialising a SSO user where the user does not exist', async () => {
+        const sinon = await import('sinon');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
+        const getUserByIdStub = sinon.stub(
+            AccountManagementRequests.AccountManagementRequests.prototype,
+            'getPiUserByAzureOid'
+        );
+        getUserByIdStub.resolves(null);
+
+        const createUserStub = sinon.stub(
+            AccountManagementRequests.AccountManagementRequests.prototype,
+            'createPIAccount'
+        );
+        createUserStub.resolves({});
+
+        authentication();
+
+        const serializers = passport._serializers;
+        const firstSerializer = serializers[0];
+
+        const mockCallback = jest.fn();
+        await firstSerializer(ssoUserProfile, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(getUserByIdStub.calledWith('1234')).to.be.true;
+        expect(mockCallback.mock.calls[0][1]).to.eql({ oid: '1234', flow: 'SSO' });
+    });
+
     parameters.forEach(parameter => {
         it(`Test that deserialising a user returns user object from the PI user table for Azure AAD ${parameter.strategy} authentication`, async () => {
             const sinon = await import('sinon');
@@ -253,6 +305,23 @@ describe('Authentication', () => {
         const serializeMockCallback = jest.fn();
 
         await firstDeserializer(profile, serializeMockCallback);
+
+        expect(serializeMockCallback.mock.calls.length).to.eql(1);
+        expect(serializeMockCallback.mock.calls[0][0]).to.eql(null);
+        expect(serializeMockCallback.mock.calls[0][1]).to.eql(userId);
+    });
+
+    it('Test that deserialising a SSO user returns the user object from the PI User table', async () => {
+        const sinon = await import('sinon');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
+        const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+        stub.resolves(userId);
+
+        authentication();
+
+        const firstDeserializer = passport._deserializers[0];
+        const serializeMockCallback = jest.fn();
+        await firstDeserializer(ssoUserProfile, serializeMockCallback);
 
         expect(serializeMockCallback.mock.calls.length).to.eql(1);
         expect(serializeMockCallback.mock.calls[0][0]).to.eql(null);

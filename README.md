@@ -60,7 +60,7 @@ Most of the communication with this service benefits from using secure authentic
 
 -   Viewable by users directly in either HTTP or HTTPS mode (default port: 8080)
 -   Uploading of publication files using a web interface within the [manual upload](./src/main/views/manual-upload.njk) view.
--   Account setup, sign-in and user management functionality. Sign-in and password management is managed using Azure B2C user flows for AAD users. We also allow sign in via CFT IDAM for certain user roles.
+-   Account setup, sign-in and user management functionality. Sign-in and password management is managed using Azure B2C user flows for AAD users. We also allow sign in via CFT IDAM for verified users, and Single Sign-On for admin users.
 -   View publications directly in the browser restricted to the user's account privileges.
 -   Processes to manage creation of a new media account for a user with administrator oversight (approve/reject).
 -   Tiered access to specific functionality and content within three main categories (media/administrator/system administrator), as well as unauthenticated functionality.
@@ -121,11 +121,19 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 ##### Runtime secrets
 
 | Variable                           | Description                                                                                                                                                                             | Required? |
-|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| --------- |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------|
 | CLIENT_ID_INTERNAL                 | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                                               |           |
 | CLIENT_SECRET_INTERNAL             | Secret key for authentication requests during service to service communication.                                                                                                         |           |
 | CLIENT_ID                          | The client ID for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                                   |           |
 | CLIENT_SECRET                      | The client secret for the app (Azure B2C). Used during authentication of Azure B2C users.                                                                                               | No        |
+| SSO_CLIENT_ID                      | The client ID for the SSO app in Microsoft identity platform. Used during authentication of SSO users.                                                                                  | Yes       |
+| SSO_CLIENT_SECRET                  | The client secret for the SSO app in Microsoft identity platform. Used during authentication of SSO users.                                                                              | Yes       |
+| SSO_TENANT_ID                      | Directory unique ID assigned to the Ministry of Justice Azure AD tenant.                                                                                                                | Yes       |
+| SSO_SG_SYSTEM_ADMIN                | The ID of SSO security group for system admin users.                                                                                                                                    | Yes       |
+| SSO_SG_SUPER_ADMIN_CTSC            | The ID of SSO security group for CTSC super admin users.                                                                                                                                | Yes       |
+| SSO_SG_SUPER_ADMIN_LOCAL           | The ID of SSO security group for local super admin users.                                                                                                                               | Yes       |
+| SSO_SG_ADMIN_CTSC                  | The ID of SSO security group for CTSC admin user.                                                                                                                                       | Yes       |
+| SSO_SG_ADMIN_LOCAL                 | The ID of SSO security group for local admin users.                                                                                                                                     | Yes       |
 | ACCOUNT_MANAGEMENT_URL             | URL used for connecting to the pip-account-management service. Defaults to staging if not provided.                                                                                     | No        |
 | DATA_MANAGEMENT_URL                | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        | No        |
 | SUBSCRIPTION_MANAGEMENT_URL        | URL used for connecting to the pip-subscription-management service. Defaults to staging if not provided.                                                                                | No        |
@@ -149,6 +157,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | SUBSCRIPTION_MANAGEMENT_AZ_API     | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service                        | No        |
 | CHANNEL_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-channel-management service                             | No        |
 | ENABLE_CFT                         | Boolean determining whether CFT IDAM login is possible (defaults to false for local)                                                                                                    | No        |
+| ENABLE_SSO                         | Boolean determining whether SSO login is possible (defaults to false)                                                                                                                   | No        |
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
 | INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         | No        |
 | SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie. This is only used in the clusters, and not required locally.                                                                                   | No        |
