@@ -20,8 +20,8 @@ export class CivilFamilyAndMixedListService {
                             sitting['hearing'].forEach(hearing => {
                                 hearing['case'].forEach(hearingCase => {
                                     this.handleFamilyMixedListParties(hearingCase);
-                                    const data = ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
-                                    hearingCase['formattedReportingRestriction'] = data;
+                                    hearingCase['formattedReportingRestriction'] =
+                                        ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
                                 });
                             });
                         }
@@ -47,10 +47,11 @@ export class CivilFamilyAndMixedListService {
                             sitting['hearing'].forEach(hearing => {
                                 if (hearing['case'] && hearing['case'].length == 1) {
                                     this.handleFamilyMixedListParties(hearing);
-                                    const hearingCase = hearing['case'][0];
+                                }
+                                hearing['case'].forEach(hearingCase => {
                                     hearingCase['formattedReportingRestriction'] =
                                         ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
-                                }
+                                });
                             });
                         }
                     });

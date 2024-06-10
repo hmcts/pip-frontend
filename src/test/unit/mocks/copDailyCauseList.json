@@ -51,8 +51,8 @@
                                                         "caseSuppressionName": "ThisIsACaseSuppressionName",
                                                         "caseSequenceIndicator": "1 of 2",
                                                         "reportingRestrictionDetail": [
-                                                            "Restriction 1",
-                                                            "Restriction 2"
+                                                            "Reporting restriction 1",
+                                                            "Reporting restriction 2"
                                                         ]
                                                     }
                                                 ],

@@ -54,8 +54,8 @@
                                                         "caseType": "Case Type",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "reportingRestrictionDetail": [
-                                                            "Restriction 1",
-                                                            "Restriction 2"
+                                                            "Reporting restriction 1",
+                                                            "Reporting restriction 2"
                                                         ],
                                                         "party": [
                                                             {

@@ -195,21 +195,21 @@ describe('Tests for the civil, family and mixed lists service.', function () {
             expect(hearing['respondent']).to.equal('Respondent org name');
         });
 
-        it('should format reporting restrictions if reportingRestrictionDetails present', async () => {
+        it('should format reporting restrictions if reportingRestrictionDetail present', async () => {
             const data = await service.sculptedListData(rawFamilyDailyCauseData, true);
             const hearingCase =
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][1][
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'case'
                 ][0];
-            expect(hearingCase['formattedReportingRestriction']).to.equal('Restriction 1, Restriction 2');
+            expect(hearingCase['formattedReportingRestriction']).to.equal('Reporting restriction 1, Reporting restriction 2');
         });
 
-        it('should not format reporting restrictions if reportingRestrictionDetails missing', async () => {
+        it('should not format reporting restrictions if reportingRestrictionDetail missing', async () => {
             const data = await service.sculptedListData(rawFamilyDailyCauseData, true);
             const hearingCase =
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][2][
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'case'
-                ][0];
+                ][1];
             expect(hearingCase['formattedReportingRestriction']).to.be.undefined;
         });
     });

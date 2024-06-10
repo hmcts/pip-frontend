@@ -206,6 +206,6 @@ describe('Family Daily Cause List page', () => {
 
     it('should display reporting restrictions', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[9].innerHTML).contains('Restriction 1, Restriction 2');
+        expect(cell[9].innerHTML).contains('Reporting restriction 1, Reporting restriction 2');
     });
 });
