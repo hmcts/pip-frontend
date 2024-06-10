@@ -195,7 +195,9 @@ describe('Tests for the civil, family and mixed lists service.', function () {
                 data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
                     'case'
                 ][0];
-            expect(hearingCase['formattedReportingRestriction']).to.equal('Reporting restriction 1, Reporting restriction 2');
+            expect(hearingCase['formattedReportingRestriction']).to.equal(
+                'Reporting restriction 1, Reporting restriction 2'
+            );
         });
 
         it('should not format reporting restrictions if reportingRestrictionDetail missing', async () => {
