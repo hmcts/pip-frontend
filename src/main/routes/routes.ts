@@ -680,17 +680,14 @@ export default function (app: Application): void {
 
     // SSO Routes
     if (process.env.ENABLE_SSO === 'true') {
-        app.get(
-            '/sso-login',
+        app.get('/sso-login',
             regenerateSession,
             keepSessionLanguage,
-            app.locals.container.cradle.ssoLoginController.get
+            (req, res, next) => passport.authenticate('sso', { failureRedirect: '/' })(req, res, next)
         );
-        app.get(
-            '/sso',
-            passport.authenticate('sso', {
-                failureRedirect: '/cft-rejected-login',
-            }),
+
+        app.post('/sso',
+            (req, res, next) => passport.authenticate('sso', { failureRedirect: '/' })(req, res, next),
             keepSessionLanguage,
             processSsoSignIn
         );

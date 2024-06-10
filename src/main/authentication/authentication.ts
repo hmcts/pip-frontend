@@ -2,9 +2,13 @@ import process from 'process';
 import config = require('config');
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import passportCustom from 'passport-custom';
-import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
+import {
+    AUTH_RETURN_URL,
+    MEDIA_VERIFICATION_RETURN_URL,
+    ADMIN_AUTH_RETURN_URL,
+} from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
-import { ssoAuthentication } from './ssoAuthentication';
+import {determineUserRole, handleSsoUser, ssoOidcConfig} from "./ssoAuthentication";
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -24,6 +28,18 @@ async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken,
     }
 }
 
+async function ssoCallbackFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
+    const userRole = await determineUserRole(profile.oid, accessToken);
+    if (userRole) {
+        profile['roles'] = userRole;
+        profile['email'] = profile.preferred_username;
+        profile['flow'] = 'SSO';
+        return done(null, profile);
+    } else {
+        return done(null, null);
+    }
+}
+
 async function serializeUser(foundUser, done) {
     if (foundUser.flow === 'CFT') {
         const user = await accountManagementRequests.getPiUserByCftID(foundUser.uid);
@@ -32,10 +48,7 @@ async function serializeUser(foundUser, done) {
         }
         done(null, { uid: foundUser.uid, flow: 'CFT' });
     } else if (foundUser.flow === 'SSO') {
-        const user = await accountManagementRequests.getPiUserByAzureOid(foundUser.oid, 'SSO');
-        if (!user) {
-            await createSsoUser(foundUser);
-        }
+        await handleSsoUser(foundUser);
         done(null, { oid: foundUser.oid, flow: 'SSO' });
     } else {
         done(null, { oid: foundUser.oid, flow: 'AAD' });
@@ -46,10 +59,10 @@ async function deserializeUser(userDetails, done) {
     let user;
     if (userDetails['flow'] === 'CFT') {
         user = await accountManagementRequests.getPiUserByCftID(userDetails['uid']);
-    } else if (userDetails['flow'] === 'SSO') {
-        user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid'], 'SSO');
     } else {
-        user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
+        user = userDetails['flow'] === 'SSO'
+            ? await accountManagementRequests.getPiUserByAzureOid(userDetails['oid'], 'SSO')
+            : await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
     }
     return done(null, user);
 }
@@ -69,58 +82,15 @@ async function createCftUser(foundUser) {
     await accountManagementRequests.createPIAccount(piAccount, '');
 }
 
-async function createSsoUser(foundUser) {
-    const piAccount = [
-        {
-            userProvenance: 'SSO',
-            email: foundUser['preferred_username'],
-            roles: foundUser['roles'],
-            provenanceUserId: foundUser['oid'],
-        },
-    ];
-
-    await accountManagementRequests.createPIAccount(piAccount, '');
-}
-
 /**
  * This sets up the OIDC version of authentication, integrating with Azure.
  */
 function oidcSetup(): void {
-    let clientSecret;
-    let clientId;
-    let identityMetadata;
-    let adminIdentityMetadata;
-    let mediaVerificationIdentityMetadata;
-
-    if (process.env.CLIENT_SECRET) {
-        clientSecret = process.env.CLIENT_SECRET;
-    } else {
-        clientSecret = config.get('secrets.pip-ss-kv.CLIENT_SECRET');
-    }
-
-    if (process.env.CLIENT_ID) {
-        clientId = process.env.CLIENT_ID;
-    } else {
-        clientId = config.get('secrets.pip-ss-kv.CLIENT_ID');
-    }
-
-    if (process.env.CONFIG_ENDPOINT) {
-        identityMetadata = process.env.CONFIG_ENDPOINT;
-    } else {
-        identityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT');
-    }
-
-    if (process.env.CONFIG_ADMIN_ENDPOINT) {
-        adminIdentityMetadata = process.env.CONFIG_ADMIN_ENDPOINT;
-    } else {
-        adminIdentityMetadata = config.get('secrets.pip-ss-kv.CONFIG_ADMIN_ENDPOINT');
-    }
-
-    if (process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT) {
-        mediaVerificationIdentityMetadata = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT;
-    } else {
-        mediaVerificationIdentityMetadata = config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT');
-    }
+    const clientSecret = process.env.CLIENT_SECRET ? process.env.CLIENT_SECRET : config.get('secrets.pip-ss-kv.CLIENT_SECRET');
+    const clientId = process.env.CLIENT_ID ? process.env.CLIENT_ID : config.get('secrets.pip-ss-kv.CLIENT_ID');
+    const identityMetadata = process.env.CONFIG_ENDPOINT ? process.env.CONFIG_ENDPOINT : config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT');
+    const adminIdentityMetadata = process.env.CONFIG_ADMIN_ENDPOINT ? process.env.CONFIG_ADMIN_ENDPOINT : config.get('secrets.pip-ss-kv.CONFIG_ADMIN_ENDPOINT');
+    const mediaVerificationIdentityMetadata = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT ? process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT : config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT');
 
     passport.serializeUser(serializeUser);
 
@@ -177,9 +147,15 @@ function oidcSetup(): void {
         )
     );
 
-    passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
+    passport.use(
+        'sso',
+        new AzureOIDCStrategy(
+            ssoOidcConfig,
+            ssoCallbackFunction
+        )
+    );
 
-    passport.use('sso', new CustomStrategy(ssoAuthentication));
+    passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
 }
 
 /**
