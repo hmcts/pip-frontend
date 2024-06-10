@@ -1,13 +1,19 @@
 import process from 'process';
 import { getSsoUserGroups } from '../helpers/graphApiHelper';
-import {AccountManagementRequests} from "../resources/requests/AccountManagementRequests";
-import {FRONTEND_URL} from "../helpers/envUrls";
+import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
+import { FRONTEND_URL } from '../helpers/envUrls';
 import config = require('config');
 const authenticationConfig = require('./authentication-config.json');
 
-const ssoClientId = process.env.SSO_CLIENT_ID ? process.env.SSO_CLIENT_ID : config.get('secrets.pip-ss-kv.SSO_CLIENT_ID');
-const ssoClientSecret = process.env.SSO_CLIENT_SECRET ? process.env.SSO_CLIENT_SECRET : config.get('secrets.pip-ss-kv.SSO_CLIENT_SECRET');
-const ssoMetadata = process.env.SSO_CONFIG_ENDPOINT ? process.env.SSO_CONFIG_ENDPOINT : config.get('secrets.pip-ss-kv.SSO_CONFIG_ENDPOINT');
+const ssoClientId = process.env.SSO_CLIENT_ID
+    ? process.env.SSO_CLIENT_ID
+    : config.get('secrets.pip-ss-kv.SSO_CLIENT_ID');
+const ssoClientSecret = process.env.SSO_CLIENT_SECRET
+    ? process.env.SSO_CLIENT_SECRET
+    : config.get('secrets.pip-ss-kv.SSO_CLIENT_SECRET');
+const ssoMetadata = process.env.SSO_CONFIG_ENDPOINT
+    ? process.env.SSO_CONFIG_ENDPOINT
+    : config.get('secrets.pip-ss-kv.SSO_CONFIG_ENDPOINT');
 
 const securityGroupMap = new Map<string, string>([
     [process.env.SSO_SG_SYSTEM_ADMIN, 'SYSTEM_ADMIN'],
@@ -30,7 +36,7 @@ export const ssoOidcConfig = () => {
         clientSecret: ssoClientSecret,
         scope: 'openid profile email',
     };
-}
+};
 
 export async function determineUserRole(oid: string, accessToken: string): Promise<string> {
     const userGroupsObject = await getSsoUserGroups(oid, accessToken);
@@ -51,7 +57,7 @@ export async function handleSsoUser(foundUser) {
     if (!user) {
         await createSsoUser(foundUser);
     }
-};
+}
 
 async function createSsoUser(foundUser) {
     const piAccount = [
