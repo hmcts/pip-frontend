@@ -25,18 +25,17 @@ const securityGroupMap = new Map<string, string>([
 
 const accountManagementRequests = new AccountManagementRequests();
 
-export const ssoOidcConfig = () => {
-    return {
-        identityMetadata: ssoMetadata,
-        clientID: ssoClientId,
-        responseType: authenticationConfig.RESPONSE_TYPE,
-        responseMode: authenticationConfig.RESPONSE_MODE,
-        redirectUrl: FRONTEND_URL + '/sso',
-        allowHttpForRedirectUrl: true,
-        clientSecret: ssoClientSecret,
-        scope: 'openid profile email',
-    };
+export const ssoOidcConfig = {
+    identityMetadata: ssoMetadata,
+    clientID: ssoClientId,
+    responseType: authenticationConfig.RESPONSE_TYPE,
+    responseMode: authenticationConfig.RESPONSE_MODE,
+    redirectUrl: FRONTEND_URL + '/sso',
+    allowHttpForRedirectUrl: true,
+    clientSecret: ssoClientSecret,
+    scope: 'openid profile email',
 };
+
 
 export async function determineUserRole(oid: string, accessToken: string): Promise<string> {
     const userGroupsObject = await getSsoUserGroups(oid, accessToken);
