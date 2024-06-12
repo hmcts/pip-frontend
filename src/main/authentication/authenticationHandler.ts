@@ -148,6 +148,8 @@ export async function processSsoSignIn(req, res): Promise<any> {
             res.redirect('/admin-dashboard');
         }
     } else {
+        // TODO: If the user has signed in to CaTH via SSO but failed to create the PI user account, we should display
+        //  an appropriate rejected login page. Use the error page for now.
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
 }

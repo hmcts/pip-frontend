@@ -16,7 +16,7 @@
             "CONFIG_ENDPOINT": "https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInUserFlow/v2.0/.well-known/openid-configuration",
             "CONFIG_ADMIN_ENDPOINT": "https://staff.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInAdminUserFlow/v2.0/.well-known/openid-configuration",
             "MEDIA_VERIFICATION_CONFIG_ENDPOINT": "https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInMediaVerification/v2.0/.well-known/openid-configuration",
-            "SSO_CONFIG_ENDPOINT": "https://login.microsoftonline.com/34c125c9-c7f3-486f-a78c-cf762c718831/v2.0/.well-known/openid-configuration",
+            "SSO_CONFIG_ENDPOINT": "https://login.microsoftonline.com/0bb413d7-160d-4839-868a-f3d46537f6af/v2.0/.well-known/openid-configuration",
             "B2C_FLOW_NAME": "B2C_1_SignInUserFlow",
             "CLIENT_ID_INTERNAL": "",
             "CLIENT_SECRET_INTERNAL": "",
