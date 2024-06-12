@@ -885,7 +885,7 @@ describe('Account Management Requests', () => {
             postStub = sinon.stub(accountManagementApi, 'post');
         });
 
-        const userId = '123'
+        const userId = '123';
         const systemAdminAccount = {
             email: 'test-email',
             provenanceUserId: '456',
@@ -898,9 +898,7 @@ describe('Account Management Requests', () => {
         };
 
         it('should return system admin account', async () => {
-            postStub
-                .withArgs('/account/system-admin', systemAdminAccount)
-                .resolves(mockResponseData);
+            postStub.withArgs('/account/system-admin', systemAdminAccount).resolves(mockResponseData);
 
             const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount);
             expect(response).toStrictEqual({ userId: userId });
@@ -928,9 +926,7 @@ describe('Account Management Requests', () => {
         });
 
         it('should return false on error message', async () => {
-            postStub
-                .withArgs('/account/system-admin', systemAdminAccount)
-                .rejects(errorMessage);
+            postStub.withArgs('/account/system-admin', systemAdminAccount).rejects(errorMessage);
             const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount);
             expect(response).toBe(null);
         });

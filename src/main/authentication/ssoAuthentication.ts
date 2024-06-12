@@ -29,8 +29,6 @@ export const ssoOidcConfig = {
 const accountManagementRequests = new AccountManagementRequests();
 
 export class SsoAuthentication {
-
-
     public async determineUserRole(oid: string, accessToken: string): Promise<string> {
         const userGroupsObject = await getSsoUserGroups(oid, accessToken);
         const securityGroupMap = new Map<string, string>([
@@ -59,7 +57,7 @@ export class SsoAuthentication {
         if (!user) {
             return await this.createSsoUser(foundUser);
         }
-        return user
+        return user;
     }
 
     private async createSsoUser(foundUser): Promise<object> {
@@ -67,9 +65,9 @@ export class SsoAuthentication {
             const piAccount = {
                 email: foundUser['email'],
                 provenanceUserId: foundUser['oid'],
-            }
+            };
             return await accountManagementRequests.createSystemAdminUser(piAccount);
-        }  else {
+        } else {
             const piAccount = [
                 {
                     userProvenance: 'SSO',

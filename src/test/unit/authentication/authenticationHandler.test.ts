@@ -465,7 +465,12 @@ describe('process SSO sign in', () => {
 
     it('should redirect to admin dashboard for admin user when signing in via SSO', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
-        req['user'] = { roles: 'INTERNAL_ADMIN_CTSC', userProvenance: 'SSO', provenanceUserId: provenanceUserId, created: true };
+        req['user'] = {
+            roles: 'INTERNAL_ADMIN_CTSC',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
         const res = { redirect: mockRedirectFunction };
 
         await processSsoSignIn(req, res);
@@ -476,7 +481,12 @@ describe('process SSO sign in', () => {
 
     it('should redirect to admin dashboard for super admin user when signing in via SSO', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
-        req['user'] = { roles: 'INTERNAL_SUPER_ADMIN_LOCAL', userProvenance: 'SSO', provenanceUserId: provenanceUserId, created: true };
+        req['user'] = {
+            roles: 'INTERNAL_SUPER_ADMIN_LOCAL',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
         const res = { redirect: mockRedirectFunction };
 
         await processSsoSignIn(req, res);
@@ -487,7 +497,12 @@ describe('process SSO sign in', () => {
 
     it('should redirect to system admin dashboard for system admin user when signing in via SSO', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
-        req['user'] = { roles: 'SYSTEM_ADMIN', userProvenance: 'SSO', provenanceUserId: provenanceUserId, created: true };
+        req['user'] = {
+            roles: 'SYSTEM_ADMIN',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
         const res = { redirect: mockRedirectFunction };
 
         await processSsoSignIn(req, res);

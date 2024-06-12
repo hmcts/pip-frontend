@@ -1,7 +1,13 @@
-import process from "process";
+import process from 'process';
 
 const userId = { userId: '1234', userProvenance: 'PI_AAD', roles: 'VERIFIED' };
-const ssoUserProfile = { oid: '1234', _json: { preferred_username: 'test@test.com' }, email: 'test@test.com', roles: 'SYSTEM_ADMIN', flow: 'SSO' };
+const ssoUserProfile = {
+    oid: '1234',
+    _json: { preferred_username: 'test@test.com' },
+    email: 'test@test.com',
+    roles: 'SYSTEM_ADMIN',
+    flow: 'SSO',
+};
 
 describe('Authentication', () => {
     let authentication;
@@ -130,19 +136,17 @@ describe('Authentication', () => {
 
     it(`Test that profile is returned if user role is found and user created during SSO authentication`, async () => {
         const sinon = await import('sinon');
-        const SsoAuthentication = await import(
-            '../../../main/authentication/ssoAuthentication'
-            );
-        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole')
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
         determineRoleStub.resolves('SYSTEM_ADMIN');
-        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser')
+        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser');
         handleUserStub.resolves({ success: true });
 
         authentication();
 
         const strategy = passport._strategies['sso'];
         const verifyFunction = strategy._verify;
-        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' }};
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
         const mockCallback = jest.fn();
 
         await verifyFunction(null, null, profile, null, null, mockCallback);
@@ -157,19 +161,17 @@ describe('Authentication', () => {
 
     it(`Test that profile is returned if user role is found and user creation error during SSO authentication`, async () => {
         const sinon = await import('sinon');
-        const SsoAuthentication = await import(
-            '../../../main/authentication/ssoAuthentication'
-            );
-        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole')
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
         determineRoleStub.resolves('SYSTEM_ADMIN');
-        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser')
+        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser');
         handleUserStub.resolves({ error: true });
 
         authentication();
 
         const strategy = passport._strategies['sso'];
         const verifyFunction = strategy._verify;
-        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' }};
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
         const mockCallback = jest.fn();
 
         await verifyFunction(null, null, profile, null, null, mockCallback);
@@ -184,19 +186,17 @@ describe('Authentication', () => {
 
     it(`Test that profile is returned if user role is found and user not created during SSO authentication`, async () => {
         const sinon = await import('sinon');
-        const SsoAuthentication = await import(
-            '../../../main/authentication/ssoAuthentication'
-            );
-        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole')
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
         determineRoleStub.resolves('SYSTEM_ADMIN');
-        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser')
+        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser');
         handleUserStub.resolves(null);
 
         authentication();
 
         const strategy = passport._strategies['sso'];
         const verifyFunction = strategy._verify;
-        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' }};
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
         const mockCallback = jest.fn();
 
         await verifyFunction(null, null, profile, null, null, mockCallback);
@@ -211,17 +211,15 @@ describe('Authentication', () => {
 
     it(`Test that no profile is returned if no user role is found during SSO authentication`, async () => {
         const sinon = await import('sinon');
-        const SsoAuthentication = await import(
-            '../../../main/authentication/ssoAuthentication'
-            );
-        const stub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole')
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const stub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
         stub.resolves(null);
 
         authentication();
 
         const strategy = passport._strategies['sso'];
         const verifyFunction = strategy._verify;
-        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' }};
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
         const mockCallback = jest.fn();
 
         await verifyFunction(null, null, profile, null, null, mockCallback);
