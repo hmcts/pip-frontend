@@ -138,8 +138,9 @@ export async function processCftIdamSignIn(req, res): Promise<any> {
     await AccountManagementRequests.prototype.updateAccountLastSignedInDate('CFT_IDAM', req.user['uid']);
     res.redirect('/account-home');
 }
+
 export async function processSsoSignIn(req, res): Promise<any> {
-    if (checkRoles(req, allAdminRoles)) {
+    if (req.user['created'] && checkRoles(req, allAdminRoles)) {
         await AccountManagementRequests.prototype.updateAccountLastSignedInDate('SSO', req.user['oid']);
         if (checkRoles(req, systemAdminRoles)) {
             res.redirect('/system-admin-dashboard');

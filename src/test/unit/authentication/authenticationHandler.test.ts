@@ -453,9 +453,19 @@ describe('process cft sign in', () => {
 });
 
 describe('process SSO sign in', () => {
+    const provenanceUserId = '123';
+    const req = {
+        lng: 'en',
+        i18n: {
+            getDataByLanguage: lng => {
+                return { error: lng };
+            },
+        },
+    };
+
     it('should redirect to admin dashboard for admin user when signing in via SSO', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'INTERNAL_ADMIN_CTSC', userProvenance: 'SSO', provenanceUserId: '12345' } };
+        req['user'] = { roles: 'INTERNAL_ADMIN_CTSC', userProvenance: 'SSO', provenanceUserId: provenanceUserId, created: true };
         const res = { redirect: mockRedirectFunction };
 
         await processSsoSignIn(req, res);
@@ -466,7 +476,7 @@ describe('process SSO sign in', () => {
 
     it('should redirect to admin dashboard for super admin user when signing in via SSO', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'INTERNAL_SUPER_ADMIN_LOCAL', userProvenance: 'SSO', provenanceUserId: '12345' } };
+        req['user'] = { roles: 'INTERNAL_SUPER_ADMIN_LOCAL', userProvenance: 'SSO', provenanceUserId: provenanceUserId, created: true };
         const res = { redirect: mockRedirectFunction };
 
         await processSsoSignIn(req, res);
@@ -477,7 +487,7 @@ describe('process SSO sign in', () => {
 
     it('should redirect to system admin dashboard for system admin user when signing in via SSO', async () => {
         const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'SYSTEM_ADMIN', userProvenance: 'SSO', provenanceUserId: '12346' } };
+        req['user'] = { roles: 'SYSTEM_ADMIN', userProvenance: 'SSO', provenanceUserId: provenanceUserId, created: true };
         const res = { redirect: mockRedirectFunction };
 
         await processSsoSignIn(req, res);
@@ -489,18 +499,29 @@ describe('process SSO sign in', () => {
     it('should render the error page for non-admin user when signing in via SSO', async () => {
         const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
 
-        const req = {
-            user: {
-                roles: 'VERIFIED',
-                userProvenance: 'SSO',
-                provenanceUserId: '12346',
-            },
-            lng: 'en',
-            i18n: {
-                getDataByLanguage: lng => {
-                    return { error: lng };
-                },
-            },
+        req['user'] = {
+            roles: 'VERIFIED',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
+        const res = { render: mockRenderFunction };
+
+        processSsoSignIn(req, res);
+
+        expect(mockRenderFunction.mock.calls.length).to.equal(1);
+        expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
+        expect(mockRenderFunction.mock.calls[0][1]).to.equal('en');
+    });
+
+    it('should render the error page when PiUser not created when signing in via SSO', async () => {
+        const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
+
+        req['user'] = {
+            roles: 'SYSTEM_ADMIN',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: false,
         };
         const res = { render: mockRenderFunction };
 

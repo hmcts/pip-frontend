@@ -548,8 +548,8 @@ describe('Create Account Service', () => {
         });
     });
 
-    describe('createSystemAdminAccount', () => {
-        const createSystemAccStub = sinon.stub(AccountManagementRequests.prototype, 'createSystemAdminUser');
+    describe('createSystemAdminUserB2C', () => {
+        const createSystemAccStub = sinon.stub(AccountManagementRequests.prototype, 'createSystemAdminUserB2C');
 
         const response = {
             userId: '1234-1234',

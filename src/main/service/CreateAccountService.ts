@@ -299,7 +299,7 @@ export class CreateAccountService {
      * @param requester The ID of the system admin who requested the account.
      */
     public async createSystemAdminAccount(payload: object, requester: string): Promise<any> {
-        const creationResponse = accountManagementRequests.createSystemAdminUser(
+        const creationResponse = accountManagementRequests.createSystemAdminUserB2C(
             this.formatCreateSystemAdminAccountPayload(payload),
             requester
         );

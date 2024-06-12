@@ -1,74 +1,66 @@
-import querystring from 'querystring';
-import { graphApi, ssoTokenApi } from '../../../main/resources/requests/utils/axiosConfig';
+import { graphApi } from '../../../main/resources/requests/utils/axiosConfig';
 import sinon from 'sinon';
 import process from 'process';
+import {AccountManagementRequests} from "../../../main/resources/requests/AccountManagementRequests";
+import {SsoAuthentication} from "../../../main/authentication/ssoAuthentication";
 
-const systemAdminSecurityGroup = 'Group1';
+const systemAdminSecurityGroup = '1111';
+const superAdminSecurityGroup = '1112';
+const adminSecurityGroup = '1113';
+const accessToken = '123';
 
-sinon.stub(graphApi, 'post').resolves({ data: { value: [systemAdminSecurityGroup] } });
+const ssoAuthentication = new SsoAuthentication();
+
+const graphApiStub = sinon.stub(graphApi, 'post');
+graphApiStub.withArgs('/users/1/getMemberObjects').resolves({ data: { value: [systemAdminSecurityGroup] } });
+graphApiStub.withArgs('/users/2/getMemberObjects').resolves({ data: { value: [superAdminSecurityGroup] } });
+graphApiStub.withArgs('/users/3/getMemberObjects').resolves({ data: { value: [adminSecurityGroup] } });
+
+const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+getUserStub.withArgs('1').resolves({userId: '123', roles: 'SYSTEM_ADMIN'});
+getUserStub.withArgs('2').resolves(null);
+
+sinon.stub(AccountManagementRequests.prototype, 'createSystemAdminUser').resolves({userId: '124', roles: 'SYSTEM_ADMIN'})
+sinon.stub(AccountManagementRequests.prototype, 'createPIAccount').resolves({userId: '125', roles: 'INTERNAL_ADMIN_CTSC'})
 
 describe('SSO Authentication', () => {
-    let sinon;
-    let postStub;
-    let ssoAuthenticationInstance;
+    process.env.SSO_SG_SYSTEM_ADMIN = systemAdminSecurityGroup;
+    process.env.SSO_SG_SUPER_ADMIN_CTSC = superAdminSecurityGroup;
+    process.env.SSO_SG_ADMIN_CTSC = adminSecurityGroup;
 
-    beforeEach(() => {
-        sinon = require('sinon');
-        postStub = sinon.stub(ssoTokenApi, 'post');
+    it('should return system admin user role', async () => {
+        const response = await ssoAuthentication.determineUserRole('1', accessToken);
+        expect(response).toEqual('SYSTEM_ADMIN')
     });
 
-    afterEach(() => {
-        jest.resetModules();
+    it('should return super admin user role', async () => {
+        const response = await ssoAuthentication.determineUserRole('2', accessToken);
+        expect(response).toEqual('INTERNAL_SUPER_ADMIN_CTSC')
     });
 
-    it('should call the callback when successful', async () => {
-        process.env.SSO_CLIENT_ID = '1234';
-        process.env.SSO_CLIENT_SECRET = '5678';
-        process.env.SSO_SG_SYSTEM_ADMIN = systemAdminSecurityGroup;
+    it('should return admin user role', async () => {
+        const response = await ssoAuthentication.determineUserRole('3', accessToken);
+        expect(response).toEqual('INTERNAL_ADMIN_CTSC')
+    });
 
-        jest.mock('jwt-decode', () => ({
-            jwtDecode: () => ({ oid: '123' }),
-        }));
+    it('should return PI user if found', async () => {
+        const response = await ssoAuthentication.handleSsoUser({oid: '1', roles: 'SYSTEM_ADMIN'});
+        expect(response).toEqual({userId: '123', roles: 'SYSTEM_ADMIN'})
+    });
 
-        const ssoAuthentication = require('../../../main/authentication/ssoAuthentication');
-        ssoAuthenticationInstance = ssoAuthentication.ssoAuthentication;
+    it('should create system admin PI user if user not found', async () => {
+        const response = await ssoAuthentication.handleSsoUser({oid: '2', roles: 'SYSTEM_ADMIN'});
+        expect(response).toEqual({userId: '124', roles: 'SYSTEM_ADMIN'})
+    });
 
-        const mockFunction = jest.fn();
-        const request = { query: { code: '9999' } };
-        postStub.resolves({ data: {} });
-
-        const params = {
-            client_id: '1234',
-            client_secret: '5678',
-            grant_type: 'authorization_code',
-            redirect_uri: 'https://localhost:8080/sso',
-            code: '9999',
-        };
-
-        await ssoAuthenticationInstance(request, mockFunction);
-
-        const ssoIdamTokenCall = await postStub.getCall(0).args;
-        expect(ssoIdamTokenCall[0]).toEqual('/oauth2/v2.0/token');
-        expect(ssoIdamTokenCall[1]).toEqual(querystring.stringify(params));
-        expect(ssoIdamTokenCall[2]).toEqual({
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-        });
-
-        expect(mockFunction.mock.calls.length).toBe(1);
-        expect(mockFunction.mock.calls[0][0]).toBe(null);
-        expect(mockFunction.mock.calls[0][1]).toEqual({
-            oid: '123',
-            flow: 'SSO',
-            roles: 'SYSTEM_ADMIN',
-        });
+    it('should create admin PI user if user not found', async () => {
+        const response = await ssoAuthentication.handleSsoUser({oid: '2', roles: 'INTERNAL_ADMIN_CTSC'});
+        expect(response).toEqual({userId: '125', roles: 'INTERNAL_ADMIN_CTSC'})
     });
 
     afterAll(() => {
-        delete process.env.SSO_CLIENT_ID;
-        delete process.env.SSO_CLIENT_SECRET;
         delete process.env.SSO_SG_SYSTEM_ADMIN;
+        delete process.env.SSO_SG_SUPER_ADMIN_CTSC;
+        delete process.env.SSO_SG_ADMIN_CTSC;
     });
 });

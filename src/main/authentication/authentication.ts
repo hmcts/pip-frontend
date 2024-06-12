@@ -4,13 +4,14 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 import passportCustom from 'passport-custom';
 import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
-import { determineUserRole, handleSsoUser, ssoOidcConfig } from './ssoAuthentication';
+import {SsoAuthentication, ssoOidcConfig} from './ssoAuthentication';
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
 const authenticationConfig = require('./authentication-config.json');
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
+const ssoAuthentication = new SsoAuthentication();
 
 async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
     const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
@@ -24,12 +25,14 @@ async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken,
     }
 }
 
-async function ssoCallbackFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-    const userRole = await determineUserRole(profile.oid, accessToken);
+async function ssoVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
+    const userRole = await ssoAuthentication.determineUserRole(profile.oid, accessToken);
     if (userRole) {
         profile['roles'] = userRole;
-        profile['email'] = profile.preferred_username;
+        profile['email'] = profile._json['preferred_username'];
         profile['flow'] = 'SSO';
+        const response = await ssoAuthentication.handleSsoUser(profile);
+        profile['created'] = response && !response['error'];
         return done(null, profile);
     } else {
         return done(null, null);
@@ -54,11 +57,8 @@ async function serializeUser(foundUser, done) {
             await accountManagementRequests.createPIAccount(piAccount, '');
         }
         done(null, { uid: foundUser.uid, flow: 'CFT' });
-    } else if (foundUser.flow === 'SSO') {
-        await handleSsoUser(foundUser);
-        done(null, { oid: foundUser.oid, flow: 'SSO' });
     } else {
-        done(null, { oid: foundUser.oid, flow: 'AAD' });
+        done(null, { oid: foundUser.oid, flow: foundUser.flow === 'SSO' ? 'SSO' : 'AAD' });
     }
 }
 
@@ -148,7 +148,7 @@ function oidcSetup(): void {
         )
     );
 
-    passport.use('sso', new AzureOIDCStrategy(ssoOidcConfig, ssoCallbackFunction));
+    passport.use('sso', new AzureOIDCStrategy(ssoOidcConfig, ssoVerifyFunction));
 
     passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
 }
