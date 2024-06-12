@@ -189,6 +189,16 @@
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
+    "IAC_DAILY_LIST_ADDITIONAL_CASES": {
+        "friendlyName": "Immigration and Asylum Chamber Daily List - Additional Cases",
+        "welshFriendlyName": "Rhestr Dyddiol y Siambr Mewnfudo a Lloches  – Achosion Ychwanegol",
+        "shortenedFriendlyName": "IAC Daily List – Additional Cases",
+        "url": "iac-daily-list-additional-cases",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
+    },
     "PRIMARY_HEALTH_LIST": {
         "friendlyName": "Primary Health Tribunal Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Iechyd Sylfaenol",
