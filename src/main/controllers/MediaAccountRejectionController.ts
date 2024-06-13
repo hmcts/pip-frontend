@@ -62,10 +62,12 @@ export default class MediaAccountRejectionController {
         if (rejected === 'Yes') {
             return MediaAccountRejectionController.rejectionFlow(req, res, applicantId, reasons);
         } else {
-            return res.redirect(url.format({
-                pathname: '/media-account-review',
-                query: { applicantId: applicantId }
-            }));
+            return res.redirect(
+                url.format({
+                    pathname: '/media-account-review',
+                    query: { applicantId: applicantId },
+                })
+            );
         }
     }
 

@@ -50,10 +50,12 @@ export default class MediaAccountApprovalController {
         if (approved === 'Yes') {
             return MediaAccountApprovalController.approvalFlow(req, res, applicantId, applicantData);
         } else {
-            return res.redirect(url.format({
-                pathname: '/media-account-review',
-                query: { applicantId: applicantId }
-            }));
+            return res.redirect(
+                url.format({
+                    pathname: '/media-account-review',
+                    query: { applicantId: applicantId },
+                })
+            );
         }
     }
 
@@ -67,11 +69,12 @@ export default class MediaAccountApprovalController {
                 'APPROVE_MEDIA_APPLICATION',
                 `Media application with id ${applicantId} approved`
             );
-            return res.redirect(url.format({
-                pathname: '/media-account-approval-confirmation',
-                query: { applicantId: applicantId }
-
-            }));
+            return res.redirect(
+                url.format({
+                    pathname: '/media-account-approval-confirmation',
+                    query: { applicantId: applicantId },
+                })
+            );
         } else {
             return res.render('media-account-approval', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),

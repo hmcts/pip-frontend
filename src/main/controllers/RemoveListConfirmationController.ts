@@ -57,10 +57,12 @@ export default class RemoveListConfirmationController {
                 }
                 case 'no': {
                     res.clearCookie('formCookie');
-                    res.redirect(url.format({
-                        pathname: '/remove-list-search-results',
-                        query: { locationId: locationId }
-                    }));
+                    res.redirect(
+                        url.format({
+                            pathname: '/remove-list-search-results',
+                            query: { locationId: locationId },
+                        })
+                    );
                     break;
                 }
                 default:

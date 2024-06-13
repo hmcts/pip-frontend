@@ -52,11 +52,12 @@ export default class UpdateUserController {
                 'User has attempted to update their own role to: ' + req.body.updatedRole
             );
 
-            res.redirect(url.format({
-                pathname: '/update-user',
-                query: { id: req.body.userId, error: true}
-                }
-            ));
+            res.redirect(
+                url.format({
+                    pathname: '/update-user',
+                    query: { id: req.body.userId, error: true },
+                })
+            );
         } else {
             await userManagementService.auditAction(
                 req.user,

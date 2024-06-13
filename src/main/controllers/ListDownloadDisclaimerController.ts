@@ -24,10 +24,12 @@ export default class ListDownloadDisclaimerController {
                 artefactId: artefactId,
             });
         } else {
-            res.redirect(url.format({
-                pathname: downloadFilesUrl,
-                query: { artefactId: artefactId },
-            }));
+            res.redirect(
+                url.format({
+                    pathname: downloadFilesUrl,
+                    query: { artefactId: artefactId },
+                })
+            );
         }
     }
 }

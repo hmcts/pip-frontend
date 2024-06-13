@@ -48,12 +48,14 @@ export default class DeleteCourtSubscriptionConfirmationController {
                 });
             } else {
                 await userManagementService.auditAction(req.user, action, response.toString());
-                res.redirect(url.format({
-                    pathname: successPage,
-                    query: {
-                        'locationId': court.locationId,
-                    }
-                }));
+                res.redirect(
+                    url.format({
+                        pathname: successPage,
+                        query: {
+                            locationId: court.locationId,
+                        },
+                    })
+                );
             }
         } else if (formData['delete-choice'] == 'no') {
             res.redirect('/delete-court-reference-data');

@@ -43,10 +43,12 @@ export default class DeleteThirdPartyUserConfirmationController {
                 });
             }
         } else if (req.body['delete-user-confirm'] === 'no') {
-            res.redirect(url.format({
-                pathname: '/manage-third-party-users/view',
-                query: { userId: userId }
-            }));
+            res.redirect(
+                url.format({
+                    pathname: '/manage-third-party-users/view',
+                    query: { userId: userId },
+                })
+            );
         } else {
             res.render('delete-third-party-user-confirmation', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']),

@@ -81,13 +81,15 @@ export default class SjpPressListController {
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         const filterValues = filterService.generateFilterKeyValues(req.body);
-        res.redirect(url.format({
-            pathname: 'sjp-press-list',
-            query: {
-                artefactId: req.query.artefactId as string,
-                filterValues: filterValues,
-            },
-        }));
+        res.redirect(
+            url.format({
+                pathname: 'sjp-press-list',
+                query: {
+                    artefactId: req.query.artefactId as string,
+                    filterValues: filterValues,
+                },
+            })
+        );
     }
 
     private static getLanguageResources(req, listType) {

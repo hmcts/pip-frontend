@@ -29,10 +29,12 @@ export default class CaseNameSearchController {
                 req.user['userId']
             );
             if (searchResults.length > 0) {
-                res.redirect(url.format({
-                    pathname: 'case-name-search-results',
-                    query: { search: searchInput }
-                }));
+                res.redirect(
+                    url.format({
+                        pathname: 'case-name-search-results',
+                        query: { search: searchInput },
+                    })
+                );
             } else {
                 res.render('case-name-search', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search']),

@@ -30,10 +30,7 @@ export default class DailyCauseListController {
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
         const metaDataListType = formatMetaDataListType(metaData);
 
-        if (
-            isValidList(searchResults, metaData) &&
-            isOneOfValidListTypes(metaDataListType, list, civilListType)
-        ) {
+        if (isValidList(searchResults, metaData) && isOneOfValidListTypes(metaDataListType, list, civilListType)) {
             const url = publicationService.getListTypes().get(metaData.listType).url;
             let manipulatedData;
             let partyAtHearingLevel = false;
