@@ -29,7 +29,7 @@ export default class DeleteUserConfirmationController {
         } else {
             res.redirect(
                 url.format({
-                    pathname: 'manage-user',
+                    pathname: '/manage-user',
                     query: { id: req.body.user },
                 })
             );

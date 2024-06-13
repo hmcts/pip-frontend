@@ -20,7 +20,6 @@ describe('Delete Court Subscription Data Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/delete-court-subscription-success';
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -29,7 +28,7 @@ describe('Delete Court Subscription Data Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs('delete-court-subscription-success', expectedData);
-        return deleteCourtSubscriptionSuccessController.get(request, response).then(() => {
+        return deleteCourtSubscriptionSuccessController.get(request, response, 'delete-court-subscription-success').then(() => {
             responseMock.verify();
         });
     });
@@ -42,7 +41,6 @@ describe('Delete Court Subscription Data Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/delete-court-publication-success?locationId=1';
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -50,8 +48,8 @@ describe('Delete Court Subscription Data Controller', () => {
             court: court,
         };
 
-        responseMock.expects('render').once().withArgs('delete-court-publication-success?locationId=1', expectedData);
-        return deleteCourtSubscriptionSuccessController.get(request, response).then(() => {
+        responseMock.expects('render').once().withArgs('delete-court-publication-success', expectedData);
+        return deleteCourtSubscriptionSuccessController.get(request, response, 'delete-court-publication-success').then(() => {
             responseMock.verify();
         });
     });

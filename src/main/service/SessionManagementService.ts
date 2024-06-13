@@ -20,7 +20,7 @@ export class SessionManagementService {
                 if (redirectTypeIndex != -1) {
                     res.redirect(
                         url.format({
-                            pathname: 'session-expired',
+                            pathname: '/session-expired',
                             query: {
                                 lng: req.lng,
                                 reSignInUrl: reSignInUrlKeys[redirectTypeIndex],
@@ -33,7 +33,7 @@ export class SessionManagementService {
             } else {
                 res.redirect(
                     url.format({
-                        pathname: 'session-logged-out',
+                        pathname: '/session-logged-out',
                         query: {
                             lng: req.lng,
                         },

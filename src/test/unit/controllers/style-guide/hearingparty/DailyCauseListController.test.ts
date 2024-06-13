@@ -74,7 +74,6 @@ describe('Daily Cause List Controller', () => {
     const request = mockRequest(i18n);
 
     it('should render the family daily cause list page', async () => {
-        request.path = '/family-daily-cause-list';
         request.query = { artefactId: artefactIdFamily };
         request.user = { userId: '1' };
 
@@ -97,12 +96,11 @@ describe('Daily Cause List Controller', () => {
 
         responseMock.expects('render').once().withArgs(familyListPath, expectedData);
 
-        await dailyCauseListController.get(request, response);
+        await dailyCauseListController.get(request, response, familyListType);
         return responseMock.verify();
     });
 
     it('should render the civil daily cause list page', async () => {
-        request.path = '/daily-cause-list';
         request.query = { artefactId: artefactIdCivil };
         request.user = { userId: '1' };
 
@@ -125,24 +123,22 @@ describe('Daily Cause List Controller', () => {
 
         responseMock.expects('render').once().withArgs(civilListPath, expectedData);
 
-        await dailyCauseListController.get(request, response);
+        await dailyCauseListController.get(request, response, civilListType);
         return responseMock.verify();
     });
 
     it('should render error page is query param is empty', async () => {
-        request.path = '/family-daily-cause-list';
         request.query = {};
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await dailyCauseListController.get(request, response);
+        await dailyCauseListController.get(request, response, familyListType);
         return responseMock.verify();
     });
 
     it('should render list not found page if response is 404', async () => {
-        request.path = '/family-daily-cause-list';
         request.query = { artefactId: '1234' };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
@@ -152,36 +148,33 @@ describe('Daily Cause List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await dailyCauseListController.get(request, response);
+        await dailyCauseListController.get(request, response, familyListType);
         return responseMock.verify();
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        request.path = '/family-daily-cause-list';
         request.query = { artefactId: artefactIdFamily };
         request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await dailyCauseListController.get(request, response);
+        await dailyCauseListController.get(request, response, familyListType);
         return responseMock.verify();
     });
 
     it('should render error page if list is not allowed to view by the user', async () => {
-        request.path = '/family-daily-cause-list';
         request.query = { artefactId: artefactIdFamily };
         request.user = {};
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await dailyCauseListController.get(request, response);
+        await dailyCauseListController.get(request, response, familyListType);
         return responseMock.verify();
     });
 
     it('should render list not found page if list type not valid', async () => {
-        request.path = '/family-daily-cause-list';
         request.query = { artefactId: artefactIdListNotFound };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
@@ -191,7 +184,7 @@ describe('Daily Cause List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await dailyCauseListController.get(request, response);
+        await dailyCauseListController.get(request, response, familyListType);
         return responseMock.verify();
     });
 });

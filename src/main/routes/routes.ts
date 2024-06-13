@@ -666,7 +666,7 @@ export default function (app: Application): void {
     app.get(
         '/delete-court-publication-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+        (req, res) => app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get(req, res, 'delete-court-publication-confirmation')
     );
     app.post('/delete-court-publication-confirmation', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post(
