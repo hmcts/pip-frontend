@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { UserManagementService } from '../service/UserManagementService';
+import * as url from 'url';
 
 const accountManagementRequests = new AccountManagementRequests();
 const userManagementService = new UserManagementService();
@@ -42,7 +43,10 @@ export default class DeleteThirdPartyUserConfirmationController {
                 });
             }
         } else if (req.body['delete-user-confirm'] === 'no') {
-            res.redirect(`/manage-third-party-users/view?userId=${userId}`);
+            res.redirect(url.format({
+                pathname: '/manage-third-party-users/view',
+                query: { userId: userId }
+            }));
         } else {
             res.render('delete-third-party-user-confirmation', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']),

@@ -1,6 +1,7 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
+import * as url from 'url';
 
 const disclaimerUrl = 'list-download-disclaimer';
 const downloadFilesUrl = 'list-download-files';
@@ -23,7 +24,10 @@ export default class ListDownloadDisclaimerController {
                 artefactId: artefactId,
             });
         } else {
-            res.redirect(`${downloadFilesUrl}?artefactId=${artefactId}`);
+            res.redirect(url.format({
+                pathname: downloadFilesUrl,
+                query: { artefactId: artefactId },
+            }));
         }
     }
 }

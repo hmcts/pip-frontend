@@ -9,6 +9,7 @@ import { FilterService } from '../../service/FilterService';
 import { HttpStatusCode } from 'axios';
 import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType } from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
+import * as url from 'url';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -71,7 +72,10 @@ export default class SjpPublicListController {
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         const filterValues = filterService.generateFilterKeyValues(req.body);
-        res.redirect(`sjp-public-list?artefactId=${req.query.artefactId as string}&filterValues=${filterValues}`);
+        res.redirect(url.format({
+            pathname: 'sjp-public-list',
+            query: { artefactId: req.query.artefactId as string, filterValues: filterValues }
+        }));
     }
 
     private static getLanguageResources(req, listType) {

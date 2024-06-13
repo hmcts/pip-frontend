@@ -24,9 +24,7 @@ const mixedDailyListUrl = publicationService.getListTypes().get('CIVIL_AND_FAMIL
 const civilListType = 'civil-daily-cause-list';
 
 export default class DailyCauseListController {
-    public async get(req: PipRequest, res: Response): Promise<void> {
-        const listToLoad = req.path.slice(1, req.path.length);
-
+    public async get(req: PipRequest, res: Response, list: string): Promise<void> {
         const artefactId = req.query.artefactId as string;
         const searchResults = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
         const metaData = await publicationService.getIndividualPublicationMetadata(artefactId, req.user?.['userId']);
@@ -34,7 +32,7 @@ export default class DailyCauseListController {
 
         if (
             isValidList(searchResults, metaData) &&
-            isOneOfValidListTypes(metaDataListType, listToLoad, civilListType)
+            isOneOfValidListTypes(metaDataListType, list, civilListType)
         ) {
             const url = publicationService.getListTypes().get(metaData.listType).url;
             let manipulatedData;
@@ -61,8 +59,8 @@ export default class DailyCauseListController {
             );
             const location = await locationService.getLocationById(metaData['locationId']);
 
-            res.render(`style-guide/${listToLoad}`, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listToLoad]),
+            res.render(`style-guide/${list}`, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][list]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,
@@ -76,7 +74,7 @@ export default class DailyCauseListController {
         } else if (
             searchResults === HttpStatusCode.NotFound ||
             metaData === HttpStatusCode.NotFound ||
-            (!missingListType(metaDataListType) && !isOneOfValidListTypes(metaDataListType, listToLoad, civilListType))
+            (!missingListType(metaDataListType) && !isOneOfValidListTypes(metaDataListType, list, civilListType))
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
         } else {

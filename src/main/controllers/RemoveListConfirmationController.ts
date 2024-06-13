@@ -6,6 +6,7 @@ import { ManualUploadService } from '../service/ManualUploadService';
 import { UserManagementService } from '../service/UserManagementService';
 import { addListDetailsToArray } from '../helpers/listHelper';
 import { RemoveListHelperService } from '../service/RemoveListHelperService';
+import * as url from 'url';
 
 const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
@@ -56,7 +57,10 @@ export default class RemoveListConfirmationController {
                 }
                 case 'no': {
                     res.clearCookie('formCookie');
-                    res.redirect(`/remove-list-search-results?locationId=${locationId}`);
+                    res.redirect(url.format({
+                        pathname: '/remove-list-search-results',
+                        query: { locationId: locationId }
+                    }));
                     break;
                 }
                 default:

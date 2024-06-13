@@ -5,6 +5,7 @@ import { LocationService } from '../service/LocationService';
 import { SubscriptionService } from '../service/SubscriptionService';
 import { PublicationService } from '../service/PublicationService';
 import { UserManagementService } from '../service/UserManagementService';
+import * as url from 'url';
 
 const locationService = new LocationService();
 const subscriptionsService = new SubscriptionService();
@@ -47,7 +48,12 @@ export default class DeleteCourtSubscriptionConfirmationController {
                 });
             } else {
                 await userManagementService.auditAction(req.user, action, response.toString());
-                res.redirect(successPage + '?locationId=' + formData.locationId);
+                res.redirect(url.format({
+                    pathname: successPage,
+                    query: {
+                        'locationId': court.locationId,
+                    }
+                }));
             }
         } else if (formData['delete-choice'] == 'no') {
             res.redirect('/delete-court-reference-data');

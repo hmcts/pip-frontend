@@ -169,12 +169,12 @@ export default function (app: Application): void {
     app.post('/sjp-press-list', app.locals.container.cradle.sjpPressListController.filterValues);
     app.get('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.get);
     app.post('/sjp-press-list-new-cases', app.locals.container.cradle.sjpPressListController.filterValues);
-    app.get('/civil-and-family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+    app.get('/civil-and-family-daily-cause-list', (req, res) => app.locals.container.cradle.dailyCauseListController.get(req, res, 'civil-and-family-daily-cause-list'));
     app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
     app.get('/crown-firm-list', app.locals.container.cradle.crownFirmListController.get);
     app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedListController.get);
-    app.get('/daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
-    app.get('/family-daily-cause-list', app.locals.container.cradle.dailyCauseListController.get);
+    app.get('/daily-cause-list', (req, res) => app.locals.container.cradle.dailyCauseListController.get(req, res, 'daily-cause-list'));
+    app.get('/family-daily-cause-list', (req, res) => app.locals.container.cradle.dailyCauseListController.get(req, res, 'family-daily-cause-list'));
     app.get('/sscs-daily-list', app.locals.container.cradle.sscsDailyListController.get);
     app.get('/sscs-daily-list-additional-hearings', app.locals.container.cradle.sscsDailyListController.get);
     app.get('/cop-daily-cause-list', app.locals.container.cradle.copDailyCauseListController.get);
@@ -182,8 +182,10 @@ export default function (app: Application): void {
     app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
     app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
     app.get('/iac-daily-list-additional-cases', app.locals.container.cradle.iacDailyListController.get);
-    app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
-    app.get('/care-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
+    app.get('/primary-health-list',
+        (req, res) => app.locals.container.cradle.tribunalNationalListsController.get(req, res, 'primary-health-list')
+    );
+    app.get('/care-standards-list', (req, res) => app.locals.container.cradle.tribunalNationalListsController.get(req, res, 'care-standards-list'));
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
     app.get('/opa-press-list', app.locals.container.cradle.opaPressListController.get);
@@ -417,11 +419,11 @@ export default function (app: Application): void {
         isPermittedManualUpload,
         app.locals.container.cradle.removeListConfirmationController.post
     );
-    app.get('/remove-list-search', isPermittedManualUpload, app.locals.container.cradle.removeListSearchController.get);
+    app.get('/remove-list-search', isPermittedManualUpload, (req, res) => app.locals.container.cradle.removeListSearchController.get(req, res, 'remove-list-search'));
     app.post(
         '/remove-list-search',
         isPermittedManualUpload,
-        app.locals.container.cradle.removeListSearchController.post
+        (req, res) => app.locals.container.cradle.removeListSearchController.post(req, res, 'remove-list-search')
     );
     app.get(
         '/remove-list-search-results',
@@ -612,17 +614,17 @@ export default function (app: Application): void {
     app.get(
         '/delete-court-reference-data',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.removeListSearchController.get
+        (req, res) => app.locals.container.cradle.removeListSearchController.get(req, res, 'delete-court-reference-data')
     );
     app.post(
         '/delete-court-reference-data',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.removeListSearchController.post
+        (req, res) => app.locals.container.cradle.removeListSearchController.post(req, res, 'delete-court-reference-data')
     );
     app.get(
         '/delete-court-reference-data-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+        (req, res) => app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get(req, res, 'delete-court-reference-data-confirmation')
     );
     app.post(
         '/delete-court-reference-data-confirmation',
@@ -637,7 +639,7 @@ export default function (app: Application): void {
     app.get(
         '/delete-court-subscription-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get
+        (req, res) => app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get(req, res, 'delete-court-subscription-confirmation')
     );
     app.post(
         '/delete-court-subscription-confirmation',
@@ -647,7 +649,7 @@ export default function (app: Application): void {
     app.get(
         '/delete-court-subscription-success',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
+        (req, res) => app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get(req, res, 'delete-court-subscription-success')
     );
     app.get(
         '/delete-court-publication-confirmation',
@@ -662,7 +664,7 @@ export default function (app: Application): void {
     app.get(
         '/delete-court-publication-success',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get
+        (req, res) => app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get(req, res, 'delete-court-publication-success')
     );
     app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
     app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);

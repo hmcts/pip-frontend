@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
 import { UserManagementService } from '../service/UserManagementService';
+import * as url from 'url';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
@@ -61,7 +62,10 @@ export default class MediaAccountRejectionController {
         if (rejected === 'Yes') {
             return MediaAccountRejectionController.rejectionFlow(req, res, applicantId, reasons);
         } else {
-            return res.redirect('/media-account-review?applicantId=' + applicantId);
+            return res.redirect(url.format({
+                pathname: '/media-account-review',
+                query: { applicantId: applicantId }
+            }));
         }
     }
 

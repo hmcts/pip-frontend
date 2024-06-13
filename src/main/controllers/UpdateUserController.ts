@@ -5,6 +5,7 @@ import { cloneDeep } from 'lodash';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { formattedRoles } from '../helpers/consts';
 import { UserManagementService } from '../service/UserManagementService';
+import * as url from 'url';
 
 const accountManagementRequests = new AccountManagementRequests();
 const userManagementService = new UserManagementService();
@@ -51,7 +52,11 @@ export default class UpdateUserController {
                 'User has attempted to update their own role to: ' + req.body.updatedRole
             );
 
-            res.redirect('/update-user?id=' + req.body.userId + '&error=true');
+            res.redirect(url.format({
+                pathname: '/update-user',
+                query: { id: req.body.userId, error: true}
+                }
+            ));
         } else {
             await userManagementService.auditAction(
                 req.user,
