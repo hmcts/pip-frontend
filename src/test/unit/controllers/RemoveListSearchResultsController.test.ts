@@ -36,7 +36,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
     {
         listType: 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
@@ -45,7 +45,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
     {
         listType: 'IAC_DAILY_LIST',
@@ -54,7 +54,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
 ];
 const removeListFormData = { courtLists: ['valid-artefact', 'valid-artefact'], locationId: '5' };

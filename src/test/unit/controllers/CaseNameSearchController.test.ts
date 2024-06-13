@@ -161,5 +161,4 @@ describe('Case name search controller', () => {
             responseMock.verify();
         });
     });
-
 });

@@ -233,16 +233,12 @@ describe('SJP Public List Type Controller', () => {
             request.query = { artefactId: 'abcd' };
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('render')
-                .once()
-                .withArgs(`error`);
+            responseMock.expects('render').once().withArgs(`error`);
 
             return sjpPublicListController.filterValues(request, response).then(() => {
                 responseMock.verify();
             });
         });
-
     });
 
     it('should render list not found page if list type not valid', async () => {

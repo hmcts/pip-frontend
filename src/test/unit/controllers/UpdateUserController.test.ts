@@ -95,7 +95,7 @@ const stub = sinon.stub(AccountManagementRequests.prototype, 'updateUser');
 
 const userId2 = uuidv4();
 const userId3 = uuidv4();
-const invalidUserId = "abcd";
+const invalidUserId = 'abcd';
 
 const validBody = { userId: userId, updatedRole: 'SYSTEM_ADMIN' };
 const invalidBody = { userId: userId2, updatedRole: 'WRONG_ROLE' };

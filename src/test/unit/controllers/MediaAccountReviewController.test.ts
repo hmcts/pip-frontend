@@ -251,7 +251,7 @@ describe('Media Account Review Controller Test', () => {
         const responseMock = sinon.mock(response);
 
         const request = mockRequest(i18n);
-        request['body'] = { applicantId: "abcd" };
+        request['body'] = { applicantId: 'abcd' };
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
         await mediaAccountReviewController.approve(request, response);

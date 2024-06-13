@@ -32,10 +32,19 @@ export default class MediaAccountApprovalController {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const approved = req.body['approved'];
-            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+                applicantId,
+                'PENDING'
+            );
 
             if (applicantData) {
-                return MediaAccountApprovalController.applicationFoundFlow(req, res, approved, applicantId, applicantData);
+                return MediaAccountApprovalController.applicationFoundFlow(
+                    req,
+                    res,
+                    approved,
+                    applicantId,
+                    applicantData
+                );
             } else {
                 res.render('error', req.i18n.getDataByLanguage(req.lng).error);
             }

@@ -3,7 +3,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import DeleteUserConfirmationController from '../../../main/controllers/DeleteUserConfirmationController';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const validUUID1 = uuidv4();
 const validUUID2 = uuidv4();
@@ -86,7 +86,10 @@ describe('Delete User Confirmation Controller', () => {
         request.body = redirectBody;
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('redirect').once().withArgs('/manage-user?id=' + validUUID3);
+        responseMock
+            .expects('redirect')
+            .once()
+            .withArgs('/manage-user?id=' + validUUID3);
 
         return deleteUserConfirmationController.post(request, response).then(() => {
             responseMock.verify();

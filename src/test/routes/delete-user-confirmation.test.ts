@@ -3,7 +3,7 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
 import { AccountManagementRequests } from '../../main/resources/requests/AccountManagementRequests';
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 const PAGE_URL = '/delete-user-confirmation';
 const validUUID1 = uuidv4();

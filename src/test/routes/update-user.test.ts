@@ -22,8 +22,6 @@ sinon.stub(UserManagementService.prototype, 'auditAction');
 
 const stub = sinon.stub(AccountManagementRequests.prototype, 'updateUser');
 
-
-
 const validBody = { userId: userId, updatedRole: 'SYSTEM_ADMIN' };
 const invalidBody = { userId: userId2, updatedRole: 'WRONG_ROLE' };
 const forbiddenBody = { userId: userId3, updatedRole: 'FORBIDDEN' };

@@ -10,7 +10,7 @@ import { testArtefactMetadata, testLocationData, testSubscriptionData, testUserD
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 import fs from 'fs';
 import path from 'path';
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 const userId = '1';
 const caseSubscriptionId = '952899d6-2b05-43ec-86e0-a438d3854fa8';

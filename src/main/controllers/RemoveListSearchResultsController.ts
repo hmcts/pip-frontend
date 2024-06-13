@@ -5,7 +5,7 @@ import { LocationService } from '../service/LocationService';
 import { SummaryOfPublicationsService } from '../service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../service/ManualUploadService';
 import * as url from 'url';
-import {checkIfUrl} from "../helpers/urlHelper";
+import { checkIfUrl } from '../helpers/urlHelper';
 
 const courtService = new LocationService();
 const summaryOfPublicationsService = new SummaryOfPublicationsService();

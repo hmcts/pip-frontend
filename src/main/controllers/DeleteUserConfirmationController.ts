@@ -24,15 +24,15 @@ export default class DeleteUserConfirmationController {
                 );
                 deleteUserResponse
                     ? res.render('delete-user-confirmation', {
-                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-user-confirmation']),
-                        isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
-                    })
+                          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-user-confirmation']),
+                          isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
+                      })
                     : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
             } else {
                 res.redirect(
                     url.format({
                         pathname: '/manage-user',
-                        query: {id: req.body.user},
+                        query: { id: req.body.user },
                     })
                 );
             }

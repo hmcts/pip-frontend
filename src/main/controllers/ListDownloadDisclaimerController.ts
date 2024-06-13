@@ -29,7 +29,7 @@ export default class ListDownloadDisclaimerController {
                 res.redirect(
                     url.format({
                         pathname: downloadFilesUrl,
-                        query: {artefactId: artefactId},
+                        query: { artefactId: artefactId },
                     })
                 );
             }

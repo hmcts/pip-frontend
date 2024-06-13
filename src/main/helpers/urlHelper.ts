@@ -4,9 +4,9 @@
  */
 export const checkIfUrl = (text: string) => {
     try {
-        new URL(text)
+        new URL(text);
         return true;
     } catch (error) {
         return false;
     }
-}
+};

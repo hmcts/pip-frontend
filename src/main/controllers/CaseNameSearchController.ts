@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { PublicationService } from '../service/PublicationService';
 import * as url from 'url';
-import {checkIfUrl} from "../helpers/urlHelper";
+import { checkIfUrl } from '../helpers/urlHelper';
 
 const publicationService = new PublicationService();
 

@@ -187,7 +187,11 @@ describe('MediaAccountRejectionController', () => {
 
             expect(res.render.calledWith('media-account-rejection-confirmation')).to.be.true;
             expect(
-                userManStub.calledWith(req.user, 'REJECT_MEDIA_APPLICATION', `Media application with id ${applicantId} rejected`)
+                userManStub.calledWith(
+                    req.user,
+                    'REJECT_MEDIA_APPLICATION',
+                    `Media application with id ${applicantId} rejected`
+                )
             ).to.be.true;
         });
         it('should render error view when rejected is Yes and the application rejection fails', async () => {

@@ -36,8 +36,14 @@ const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
 const sjpResourceMap = new Map<string, object>([
-    [sjpPressFullListUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpPressFullListName }],
-    [sjpPressNewCasesUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpPressNewCasesName }],
+    [
+        sjpPressFullListUrl,
+        { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpPressFullListName },
+    ],
+    [
+        sjpPressNewCasesUrl,
+        { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpPressNewCasesName },
+    ],
 ]);
 const artefactIdListNotFound = uuidv4();
 const contentDate = metaDataSjpPressFullList['contentDate'];
@@ -246,11 +252,10 @@ describe('SJP Press List Controller', () => {
         });
 
         it('should redirect to error page if invalid ID provided', () => {
-            request.query = { artefactId: "abcd" };
+            request.query = { artefactId: 'abcd' };
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('render').once().withArgs(`error`);
+            responseMock.expects('render').once().withArgs(`error`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();

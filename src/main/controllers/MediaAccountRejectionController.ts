@@ -37,7 +37,10 @@ export default class MediaAccountRejectionController {
             const rejected = req.body['reject-confirmation'];
             const reasons = req.body['reasons'];
 
-            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+                applicantId,
+                'PENDING'
+            );
             if (applicantData) {
                 return MediaAccountRejectionController.applicationFoundFlow(
                     req,

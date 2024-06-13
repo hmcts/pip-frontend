@@ -32,7 +32,6 @@ export default class UpdateUserController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-
         if (validate(req.body?.userId)) {
             const updateUserResponse = await accountManagementRequests.updateUser(
                 req.body.userId as string,
@@ -58,7 +57,7 @@ export default class UpdateUserController {
                 res.redirect(
                     url.format({
                         pathname: '/update-user',
-                        query: {id: req.body.userId, error: true},
+                        query: { id: req.body.userId, error: true },
                     })
                 );
             } else {

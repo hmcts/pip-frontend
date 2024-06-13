@@ -30,7 +30,7 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolve
 sinon.stub(ListDownloadService.prototype, 'showDownloadButton').resolves(true);
 
 describe('Accessibility - SJP Public List (Full List) Page', () => {
-    testAccessibility(`${sjpPublicFullListUrl}?artefactId=${sjpPublicFullListUuid}`)
+    testAccessibility(`${sjpPublicFullListUrl}?artefactId=${sjpPublicFullListUuid}`);
 });
 
 describe('Accessibility - SJP Public List (New Cases) Page', () => {

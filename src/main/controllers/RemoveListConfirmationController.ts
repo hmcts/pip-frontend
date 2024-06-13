@@ -7,7 +7,7 @@ import { UserManagementService } from '../service/UserManagementService';
 import { addListDetailsToArray } from '../helpers/listHelper';
 import { RemoveListHelperService } from '../service/RemoveListHelperService';
 import * as url from 'url';
-import {checkIfUrl} from "../helpers/urlHelper";
+import { checkIfUrl } from '../helpers/urlHelper';
 
 const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
