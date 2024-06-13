@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { cloneDeep } from 'lodash';
 import { UserManagementService } from '../service/UserManagementService';
+import * as url from "url";
 
 const accountManagementRequests = new AccountManagementRequests();
 const userManagementService = new UserManagementService();
@@ -26,8 +27,10 @@ export default class DeleteUserConfirmationController {
                   })
                 : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
-            const hrefDeletion = '/manage-user?id=' + req.body.user;
-            res.redirect(hrefDeletion);
+            res.redirect(
+                url.format({
+                    pathname: 'manage-user', query: { id: req.body.user }
+                }));
         }
     }
 }
