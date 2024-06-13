@@ -177,7 +177,7 @@ describe('Remove List Confirmation Controller', () => {
         const responseMock = sinon.mock(response);
 
         request.body = {
-            artefactIds: [validArtefactId, validArtefactId2, validArtefactId3]
+            artefactIds: [validArtefactId, validArtefactId2, validArtefactId3],
         };
 
         responseMock.expects('render').once().withArgs('error');

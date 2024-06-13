@@ -270,6 +270,5 @@ describe('SJP Press List Controller', () => {
                 responseMock.verify();
             });
         });
-
     });
 });
