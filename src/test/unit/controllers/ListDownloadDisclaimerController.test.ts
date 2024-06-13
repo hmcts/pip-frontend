@@ -15,7 +15,7 @@ describe('List Download Disclaimer Controller', () => {
     };
 
     const listDownloadDisclaimerUrl = 'list-download-disclaimer';
-    const listDownloadFilesUrl = 'list-download-files?artefactId=123';
+    const listDownloadFilesUrl = `list-download-files?artefactId=${artefactId}`;
 
     const request = mockRequest(i18n);
     const response = {
@@ -78,16 +78,16 @@ describe('List Download Disclaimer Controller', () => {
             request.query = { artefactId: 'abcd' };
             request.body = { 'disclaimer-agreement': 'agree' };
 
-            const redirectResponse = {
-                redirect: () => {
+            const renderResponse = {
+                render: () => {
                     return '';
                 },
             } as unknown as Response;
 
-            const responseMock = sinon.mock(redirectResponse);
-            responseMock.expects('redirect').once().withArgs('error');
+            const responseMock = sinon.mock(renderResponse);
+            responseMock.expects('render').once().withArgs('error');
 
-            listDownloadDisclaimerController.post(request, redirectResponse).then(() => {
+            listDownloadDisclaimerController.post(request, renderResponse).then(() => {
                 responseMock.verify();
             });
         });
