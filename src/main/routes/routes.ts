@@ -652,7 +652,7 @@ export default function (app: Application): void {
     app.post(
         '/delete-court-subscription-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+        (req, res) => app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post(req, res, 'delete-court-subscription-confirmation')
     );
     app.get('/delete-court-subscription-success', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get(
@@ -669,7 +669,7 @@ export default function (app: Application): void {
     app.post(
         '/delete-court-publication-confirmation',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post
+        (req, res) => app.locals.container.cradle.deleteCourtSubscriptionConfirmationController.post(req, res, 'delete-court-publication-confirmation')
     );
     app.get('/delete-court-publication-success', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteCourtSubscriptionSuccessController.get(

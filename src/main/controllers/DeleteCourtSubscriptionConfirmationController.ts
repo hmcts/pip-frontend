@@ -13,15 +13,14 @@ const publicationService = new PublicationService();
 const userManagementService = new UserManagementService();
 
 export default class DeleteCourtSubscriptionConfirmationController {
-    public async post(req: PipRequest, res: Response): Promise<void> {
+    public async post(req: PipRequest, res: Response, page: string): Promise<void> {
         const formData = req.body;
-        const pageToLoad = req.path.slice(1, req.path.length);
         const court = await locationService.getLocationById(formData.locationId as unknown as number);
         if (formData['delete-choice'] == 'yes') {
             let response;
             let successPage;
             let action;
-            if (pageToLoad == 'delete-court-subscription-confirmation') {
+            if (page == 'delete-court-subscription-confirmation') {
                 response = await subscriptionsService.deleteLocationSubscription(
                     formData.locationId,
                     req.user?.['provenanceUserId']
@@ -37,12 +36,12 @@ export default class DeleteCourtSubscriptionConfirmationController {
                 successPage = '/delete-court-publication-success';
             }
             if (response === null) {
-                res.render(pageToLoad, {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
+                res.render(page, {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
                     court: locationService.formatCourtValue(court),
                     apiError: true,
                     errorMessage:
-                        pageToLoad == 'delete-court-subscription-confirmation'
+                        page == 'delete-court-subscription-confirmation'
                             ? 'Unknown error when attempting to delete all the subscriptions for the court'
                             : 'Unknown error when attempting to delete all the artefacts for the court',
                 });
@@ -60,8 +59,8 @@ export default class DeleteCourtSubscriptionConfirmationController {
         } else if (formData['delete-choice'] == 'no') {
             res.redirect('/delete-court-reference-data');
         } else {
-            res.render(pageToLoad, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
+            res.render(page, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
                 court: locationService.formatCourtValue(court),
                 apiError: false,
                 displayError: true,
