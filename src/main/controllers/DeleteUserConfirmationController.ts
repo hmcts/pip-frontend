@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { cloneDeep } from 'lodash';
 import { UserManagementService } from '../service/UserManagementService';
-import * as url from "url";
+import * as url from 'url';
 
 const accountManagementRequests = new AccountManagementRequests();
 const userManagementService = new UserManagementService();
@@ -29,8 +29,10 @@ export default class DeleteUserConfirmationController {
         } else {
             res.redirect(
                 url.format({
-                    pathname: 'manage-user', query: { id: req.body.user }
-                }));
+                    pathname: 'manage-user',
+                    query: { id: req.body.user },
+                })
+            );
         }
     }
 }

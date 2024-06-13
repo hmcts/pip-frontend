@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { PublicationService } from '../service/PublicationService';
-import * as url from "url";
+import * as url from 'url';
 
 const publicationService = new PublicationService();
 
@@ -19,23 +19,24 @@ export default class CaseReferenceNumberSearchController {
             if (searchResults) {
                 res.redirect(
                     url.format({
-                     pathname: 'case-reference-number-search-results',
-                     query: {
-                        'search-input': searchInput,
-                        'search-type': 'case-number'
-                     }})
+                        pathname: 'case-reference-number-search-results',
+                        query: {
+                            'search-input': searchInput,
+                            'search-type': 'case-number',
+                        },
+                    })
                 );
             } else {
                 searchResults = await publicationService.getCaseByCaseUrn(searchInput, req.user['userId']);
                 searchResults
                     ? res.redirect(
-                        url.format({
-                          pathname: 'case-reference-number-search-results',
-                          query: {
-                              'search-input': searchInput,
-                              'search-type': 'case-urn',
-                          }
-                        })
+                          url.format({
+                              pathname: 'case-reference-number-search-results',
+                              query: {
+                                  'search-input': searchInput,
+                                  'search-type': 'case-urn',
+                              },
+                          })
                       )
                     : res.render('case-reference-number-search', {
                           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
