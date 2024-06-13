@@ -56,9 +56,11 @@ describe('Delete Court Reference Data Controller', () => {
             displayError: false,
         };
         responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response, 'delete-court-subscription-confirmation').then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtReferenceDataConfirmationController
+            .get(request, response, 'delete-court-subscription-confirmation')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render the court publication data page', () => {
@@ -77,9 +79,11 @@ describe('Delete Court Reference Data Controller', () => {
             displayError: false,
         };
         responseMock.expects('render').once().withArgs('delete-court-publication-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response, 'delete-court-publication-confirmation').then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtReferenceDataConfirmationController
+            .get(request, response, 'delete-court-publication-confirmation')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render the court subscription deletion data page', () => {
@@ -99,9 +103,11 @@ describe('Delete Court Reference Data Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response, 'delete-court-subscription-confirmation').then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtReferenceDataConfirmationController
+            .get(request, response, 'delete-court-subscription-confirmation')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render confirmation page if active artefact or subscription is available', () => {

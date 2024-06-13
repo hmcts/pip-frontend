@@ -28,9 +28,11 @@ describe('Delete Court Subscription Data Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs('delete-court-subscription-success', expectedData);
-        return deleteCourtSubscriptionSuccessController.get(request, response, 'delete-court-subscription-success').then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtSubscriptionSuccessController
+            .get(request, response, 'delete-court-subscription-success')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render the court publication list page', () => {
@@ -49,8 +51,10 @@ describe('Delete Court Subscription Data Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs('delete-court-publication-success', expectedData);
-        return deleteCourtSubscriptionSuccessController.get(request, response, 'delete-court-publication-success').then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtSubscriptionSuccessController
+            .get(request, response, 'delete-court-publication-success')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 });
