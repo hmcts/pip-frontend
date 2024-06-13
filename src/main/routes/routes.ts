@@ -68,8 +68,12 @@ export default function (app: Application): void {
     app.get('/', app.locals.container.cradle.homeController.get);
     app.get('/accessibility-statement', app.locals.container.cradle.accessibilityStatementController.get);
     app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
-    app.get('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.get);
-    app.post('/alphabetical-search', app.locals.container.cradle.alphabeticalSearchController.post);
+    app.get('/alphabetical-search', (req, res) =>
+        app.locals.container.cradle.alphabeticalSearchController.get(req, res, 'alphabetical-search')
+    );
+    app.post('/alphabetical-search', (req, res) =>
+        app.locals.container.cradle.alphabeticalSearchController.post(req, res, 'alphabetical-search')
+    );
     app.get('/cookie-policy', app.locals.container.cradle.cookiePolicyPageController.get);
     app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
     app.post(
@@ -239,8 +243,12 @@ export default function (app: Application): void {
         app.locals.container.cradle.listDownloadDisclaimerController.post
     );
     app.get('/list-download-files', isPermittedMedia, app.locals.container.cradle.listDownloadFilesController.get);
-    app.get('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.get);
-    app.post('/location-name-search', isPermittedMedia, app.locals.container.cradle.alphabeticalSearchController.post);
+    app.get('/location-name-search', isPermittedMedia, (req, res) =>
+        app.locals.container.cradle.alphabeticalSearchController.get(req, res, 'location-name-search')
+    );
+    app.post('/location-name-search', isPermittedMedia, (req, res) =>
+        app.locals.container.cradle.alphabeticalSearchController.post(req, res, 'location-name-search')
+    );
     app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
     app.post(
         '/pending-subscriptions',
