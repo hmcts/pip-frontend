@@ -171,4 +171,17 @@ describe('Remove List Confirmation Controller', () => {
         await removeListConfirmationController.post(request, response);
         await responseMock.verify();
     });
+
+    it('should render error page if no location ID is provided', async () => {
+        const request = mockRequest(i18n);
+        const responseMock = sinon.mock(response);
+
+        request.body = {
+            artefactIds: [validArtefactId, validArtefactId2, validArtefactId3]
+        };
+
+        responseMock.expects('render').once().withArgs('error');
+        await removeListConfirmationController.post(request, response);
+        await responseMock.verify();
+    });
 });

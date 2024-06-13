@@ -229,7 +229,7 @@ describe('SJP Public List Type Controller', () => {
             });
         });
 
-        it('should redirect to configure list page with correct filters', () => {
+        it('should render error page when invalid artefact ID provided', () => {
             request.query = { artefactId: 'abcd' };
 
             const responseMock = sinon.mock(response);
@@ -239,6 +239,17 @@ describe('SJP Public List Type Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render error page when no artefact ID provided', () => {
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs(`error`);
+
+            return sjpPublicListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
     });
 
     it('should render list not found page if list type not valid', async () => {
@@ -254,4 +265,5 @@ describe('SJP Public List Type Controller', () => {
         await sjpPublicListController.get(request, response);
         return responseMock.verify();
     });
+
 });

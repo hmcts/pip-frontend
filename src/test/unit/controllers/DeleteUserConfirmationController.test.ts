@@ -54,8 +54,21 @@ describe('Delete User Confirmation Controller', () => {
         });
     });
 
-    it('should render delete user confirmation page if body data is not a UUID', () => {
+    it('should render error page if body data is not a UUID', () => {
         request.body = invalidUuid;
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
+
+        return deleteUserConfirmationController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+    it('should render error page if no body is provided', () => {
         const responseMock = sinon.mock(response);
 
         responseMock

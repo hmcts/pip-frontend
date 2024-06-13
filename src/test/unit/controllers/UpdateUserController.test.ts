@@ -199,4 +199,14 @@ describe('Update User Confirmation Controller', () => {
             responseMock.verify();
         });
     });
+
+    it('should redirect to error page when no user id provided', () => {
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error');
+
+        return updateUserController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
 });

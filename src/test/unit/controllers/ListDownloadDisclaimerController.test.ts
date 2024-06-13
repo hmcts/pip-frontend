@@ -91,5 +91,22 @@ describe('List Download Disclaimer Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render error if no artefactId is provided', () => {
+            request.body = { 'disclaimer-agreement': 'agree' };
+
+            const renderResponse = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const responseMock = sinon.mock(renderResponse);
+            responseMock.expects('render').once().withArgs('error');
+
+            listDownloadDisclaimerController.post(request, renderResponse).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });

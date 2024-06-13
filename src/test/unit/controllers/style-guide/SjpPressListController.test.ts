@@ -251,7 +251,7 @@ describe('SJP Press List Controller', () => {
             });
         });
 
-        it('should redirect to error page if invalid ID provided', () => {
+        it('should redirect to error page if invalid artefact ID provided', () => {
             request.query = { artefactId: 'abcd' };
 
             const responseMock = sinon.mock(response);
@@ -261,5 +261,15 @@ describe('SJP Press List Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should redirect to error page if no artefact ID provided', () => {
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs(`error`);
+
+            return sjpPressListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
     });
 });

@@ -147,5 +147,16 @@ describe('Remove List Summary Controller', () => {
             await removeListSearchResultsController.post(request, response);
             await responseMock.verify();
         });
+
+        it('should render error page if no location ID is provided', async () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: adminUserId };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', i18n.error);
+
+            await removeListSearchResultsController.post(request, response);
+            await responseMock.verify();
+        });
     });
 });

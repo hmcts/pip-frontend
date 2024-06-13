@@ -245,5 +245,23 @@ describe('MediaAccountRejectionController', () => {
             await controller.post(req, res);
             expect(res.render.calledWith('error')).to.be.true;
         });
+
+        it('should render error view when no applicant ID provided', async () => {
+            const req = {
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ error: {} }),
+                },
+                lng: 'en',
+                user: {
+                    userId: '456',
+                },
+            };
+            const res = {
+                render: sinon.spy(),
+            };
+
+            await controller.post(req, res);
+            expect(res.render.calledWith('error')).to.be.true;
+        });
     });
 });

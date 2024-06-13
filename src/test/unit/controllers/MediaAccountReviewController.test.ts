@@ -259,6 +259,17 @@ describe('Media Account Review Controller Test', () => {
         responseMock.verify();
     });
 
+    it('should render error page when no applicant ID is provided', async () => {
+        const responseMock = sinon.mock(response);
+
+        const request = mockRequest(i18n);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+        await mediaAccountReviewController.approve(request, response);
+
+        responseMock.verify();
+    });
+
     it('should render rejection page when applicant id provided', async () => {
         const responseMock = sinon.mock(response);
 
@@ -290,6 +301,17 @@ describe('Media Account Review Controller Test', () => {
 
         const request = mockRequest(i18n);
         request['body'] = { applicantId: 'abcd' };
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+        await mediaAccountReviewController.reject(request, response);
+
+        responseMock.verify();
+    });
+
+    it('should render error page when no applicant id is provided', async () => {
+        const responseMock = sinon.mock(response);
+
+        const request = mockRequest(i18n);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
         await mediaAccountReviewController.reject(request, response);

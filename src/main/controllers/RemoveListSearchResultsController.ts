@@ -28,7 +28,7 @@ export default class RemoveListSearchResultsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.user && !checkIfUrl(req.body?.locationId)) {
+        if (req.user && req.body?.locationId && !checkIfUrl(req.body?.locationId)) {
             if (req.body?.courtLists) {
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
                 res.redirect('/remove-list-confirmation');

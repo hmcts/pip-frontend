@@ -188,4 +188,18 @@ describe('Media Account Approval Controller', () => {
 
         responseMock.verify();
     });
+
+    it('should render error page if applicant is not provided', async () => {
+        const responseMock = sinon.mock(response);
+
+        const request = mockRequest(i18n);
+        request['body'] = { approved: 'Yes' };
+        request['user'] = { userId: adminAccountId };
+
+        responseMock.expects('render').once().withArgs('error');
+
+        await mediaAccountApprovalController.post(request, response);
+
+        responseMock.verify();
+    });
 });
