@@ -18,22 +18,27 @@ export class SessionManagementService {
             if (isSessionExpired && req.query && req.query.redirectType) {
                 const redirectTypeIndex = reSignInUrlKeys.indexOf(req.query.redirectType);
                 if (redirectTypeIndex != -1) {
-                    res.redirect(url.format({
-                        pathname: 'session-expired',
-                        query: {
-                            lng: req.lng,
-                            reSignInUrl: reSignInUrlKeys[redirectTypeIndex]
-                        }
-                    }));
+                    res.redirect(
+                        url.format({
+                            pathname: 'session-expired',
+                            query: {
+                                lng: req.lng,
+                                reSignInUrl: reSignInUrlKeys[redirectTypeIndex],
+                            },
+                        })
+                    );
                 } else {
                     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
                 }
             } else {
-                res.redirect(url.format({
-                    pathname: 'session-logged-out',
-                    query: {
-                        lng: req.lng
-                    }}));
+                res.redirect(
+                    url.format({
+                        pathname: 'session-logged-out',
+                        query: {
+                            lng: req.lng,
+                        },
+                    })
+                );
             }
         } else {
             req.session.save(() => {
