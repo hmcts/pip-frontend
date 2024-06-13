@@ -10,6 +10,7 @@ import { FilterService } from '../../../../main/service/FilterService';
 import { SjpFilterService } from '../../../../main/service/SjpFilterService';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
+import { v4 as uuidv4 } from 'uuid';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-press-list.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -35,10 +36,10 @@ const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
 const sjpResourceMap = new Map<string, object>([
-    [sjpPressFullListUrl, { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: sjpPressFullListName }],
-    [sjpPressNewCasesUrl, { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: sjpPressNewCasesName }],
+    [sjpPressFullListUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpPressFullListName }],
+    [sjpPressNewCasesUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpPressNewCasesName }],
 ]);
-const artefactIdListNotFound = 'xyz';
+const artefactIdListNotFound = uuidv4();
 const contentDate = metaDataSjpPressFullList['contentDate'];
 
 const sjpPressFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
@@ -238,6 +239,18 @@ describe('SJP Press List Controller', () => {
                 .expects('redirect')
                 .once()
                 .withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=TestValue`);
+
+            return sjpPressListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should redirect to error page if invalid ID provided', () => {
+            request.query = { artefactId: "abcd" };
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('render').once().withArgs(`error`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();

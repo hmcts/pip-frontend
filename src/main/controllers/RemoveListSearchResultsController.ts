@@ -5,6 +5,7 @@ import { LocationService } from '../service/LocationService';
 import { SummaryOfPublicationsService } from '../service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../service/ManualUploadService';
 import * as url from 'url';
+import {checkIfUrl} from "../helpers/urlHelper";
 
 const courtService = new LocationService();
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
@@ -27,7 +28,7 @@ export default class RemoveListSearchResultsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.user) {
+        if (req.user && !checkIfUrl(req.body?.locationId)) {
             if (req.body?.courtLists) {
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
                 res.redirect('/remove-list-confirmation');

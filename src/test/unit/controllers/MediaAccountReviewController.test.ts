@@ -4,6 +4,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
+import { v4 as uuidv4 } from 'uuid';
 
 const i18n = { 'media-account-review': {}, error: {} };
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
@@ -11,12 +12,12 @@ const mediaAccountApplicationByIdOnlyStub = sinon.stub(MediaAccountApplicationSe
 const mediaAccountApplicationImageStub = sinon.stub(MediaAccountApplicationService.prototype, 'getImageById');
 
 describe('Media Account Review Controller Test', () => {
-    const applicantId = '1234';
+    const applicantId = uuidv4();
     const imageId = '12345';
     const status = 'PENDING';
 
     const dummyApplication = {
-        id: '1234',
+        id: applicantId,
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'Employer',
@@ -28,7 +29,7 @@ describe('Media Account Review Controller Test', () => {
     };
 
     const dummyApplicationAllCapsFileType = {
-        id: '1234',
+        id: applicantId,
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'Employer',
@@ -40,7 +41,7 @@ describe('Media Account Review Controller Test', () => {
     };
 
     const dummyApplicationMixedCapsFileType = {
-        id: '1234',
+        id: applicantId,
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'Employer',
@@ -52,7 +53,7 @@ describe('Media Account Review Controller Test', () => {
     };
 
     const dummyApplicationWithUnknownImageType = {
-        id: '1234',
+        id: applicantId,
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'Employer',
@@ -246,6 +247,18 @@ describe('Media Account Review Controller Test', () => {
         responseMock.verify();
     });
 
+    it('should render error page when applicant ID is invalid', async () => {
+        const responseMock = sinon.mock(response);
+
+        const request = mockRequest(i18n);
+        request['body'] = { applicantId: "abcd" };
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+        await mediaAccountReviewController.approve(request, response);
+
+        responseMock.verify();
+    });
+
     it('should render rejection page when applicant id provided', async () => {
         const responseMock = sinon.mock(response);
 
@@ -265,6 +278,18 @@ describe('Media Account Review Controller Test', () => {
         const responseMock = sinon.mock(response);
 
         const request = mockRequest(i18n);
+
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+        await mediaAccountReviewController.reject(request, response);
+
+        responseMock.verify();
+    });
+
+    it('should render error page when applicant id is invalid', async () => {
+        const responseMock = sinon.mock(response);
+
+        const request = mockRequest(i18n);
+        request['body'] = { applicantId: 'abcd' };
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
         await mediaAccountReviewController.reject(request, response);

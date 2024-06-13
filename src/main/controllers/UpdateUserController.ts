@@ -6,6 +6,7 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 import { formattedRoles } from '../helpers/consts';
 import { UserManagementService } from '../service/UserManagementService';
 import * as url from 'url';
+import { validate } from 'uuid';
 
 const accountManagementRequests = new AccountManagementRequests();
 const userManagementService = new UserManagementService();
@@ -31,44 +32,49 @@ export default class UpdateUserController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const updateUserResponse = await accountManagementRequests.updateUser(
-            req.body.userId as string,
-            req.body.updatedRole as string,
-            req.user['userId']
-        );
 
-        if (updateUserResponse === null) {
-            await userManagementService.auditAction(
-                req.user,
-                'UPDATE_USER',
-                'User with id: ' + req.body.userId + ' failed to be updated to: ' + req.body.updatedRole
+        if (validate(req.body?.userId)) {
+            const updateUserResponse = await accountManagementRequests.updateUser(
+                req.body.userId as string,
+                req.body.updatedRole as string,
+                req.user['userId']
             );
 
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        } else if (updateUserResponse === 'FORBIDDEN') {
-            await userManagementService.auditAction(
-                req.user,
-                'UPDATE_USER',
-                'User has attempted to update their own role to: ' + req.body.updatedRole
-            );
+            if (updateUserResponse === null) {
+                await userManagementService.auditAction(
+                    req.user,
+                    'UPDATE_USER',
+                    'User with id: ' + req.body.userId + ' failed to be updated to: ' + req.body.updatedRole
+                );
 
-            res.redirect(
-                url.format({
-                    pathname: '/update-user',
-                    query: { id: req.body.userId, error: true },
-                })
-            );
+                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+            } else if (updateUserResponse === 'FORBIDDEN') {
+                await userManagementService.auditAction(
+                    req.user,
+                    'UPDATE_USER',
+                    'User has attempted to update their own role to: ' + req.body.updatedRole
+                );
+
+                res.redirect(
+                    url.format({
+                        pathname: '/update-user',
+                        query: {id: req.body.userId, error: true},
+                    })
+                );
+            } else {
+                await userManagementService.auditAction(
+                    req.user,
+                    'UPDATE_USER',
+                    'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
+                );
+                res.render('update-user-confirmation', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user-confirmation']),
+                    updatedRole: formattedRoles[req.body.updatedRole],
+                    isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
+                });
+            }
         } else {
-            await userManagementService.auditAction(
-                req.user,
-                'UPDATE_USER',
-                'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
-            );
-            res.render('update-user-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user-confirmation']),
-                updatedRole: formattedRoles[req.body.updatedRole],
-                isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
-            });
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
 }

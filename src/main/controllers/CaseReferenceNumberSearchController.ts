@@ -3,6 +3,7 @@ import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { PublicationService } from '../service/PublicationService';
 import * as url from 'url';
+import {checkIfUrl} from "../helpers/urlHelper";
 
 const publicationService = new PublicationService();
 
@@ -13,7 +14,7 @@ export default class CaseReferenceNumberSearchController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const searchInput = req.body['search-input'] as string;
-        if (searchInput) {
+        if (searchInput && !checkIfUrl(searchInput)) {
             let searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user['userId']);
 
             if (searchResults) {

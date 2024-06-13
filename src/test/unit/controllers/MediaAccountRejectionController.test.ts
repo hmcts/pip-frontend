@@ -3,14 +3,17 @@ import sinon from 'sinon';
 import MediaAccountRejectionController from '../../../main/controllers/MediaAccountRejectionController';
 import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { UserManagementService } from '../../../main/service/UserManagementService';
+import { v4 as uuidv4 } from 'uuid';
 
 describe('MediaAccountRejectionController', () => {
+    const applicantId = uuidv4();
+
     // @ts-ignore: otherwise starts a whole chain of things
     let controller;
     // eslint-disable-next-line prefer-const
     controller = new MediaAccountRejectionController();
     const applicantData = {
-        id: '123',
+        id: applicantId,
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'Employer',
@@ -31,7 +34,7 @@ describe('MediaAccountRejectionController', () => {
             const req = {
                 body: {
                     reasons: 'noMatch',
-                    applicantId: '123',
+                    applicantId: applicantId,
                 },
                 i18n: {
                     getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
@@ -42,7 +45,7 @@ describe('MediaAccountRejectionController', () => {
                 render: sinon.spy(),
             };
 
-            appIdAndStatus.withArgs('123', 'PENDING').resolves(applicantData);
+            appIdAndStatus.withArgs(applicantId, 'PENDING').resolves(applicantData);
 
             await controller.get(req, res);
 
@@ -54,7 +57,7 @@ describe('MediaAccountRejectionController', () => {
             const req = {
                 body: {
                     reasons: 'Some reasons',
-                    applicantId: '123',
+                    applicantId: applicantId,
                 },
                 i18n: {
                     getDataByLanguage: sinon.stub().returns({ error: {} }),
@@ -78,7 +81,7 @@ describe('MediaAccountRejectionController', () => {
             const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
             const req = {
                 query: {
-                    applicantId: '123',
+                    applicantId: applicantId,
                 },
                 body: {
                     'reject-confirmation': 'Yes',
@@ -104,7 +107,7 @@ describe('MediaAccountRejectionController', () => {
 
             const req = {
                 query: {
-                    applicantId: '123',
+                    applicantId: applicantId,
                 },
                 body: {
                     'reject-confirmation': 'No',
@@ -118,17 +121,17 @@ describe('MediaAccountRejectionController', () => {
             const res = {
                 redirect: sinon.spy(),
             };
-            const applicantData = { id: '123', status: 'PENDING' };
+            const applicantData = { id: applicantId, status: 'PENDING' };
 
-            appIdAndStatus.withArgs('123', 'PENDING').resolves(applicantData);
+            appIdAndStatus.withArgs(applicantId, 'PENDING').resolves(applicantData);
             await controller.post(req, res);
 
-            expect(res.redirect.calledWith('/media-account-review?applicantId=123')).to.be.true;
+            expect(res.redirect.calledWith('/media-account-review?applicantId=' + applicantId)).to.be.true;
         });
         it('should render media-account-rejection view with displayRadioError when rejected is not provided', async () => {
             const req = {
                 query: {
-                    applicantId: '123',
+                    applicantId: applicantId,
                 },
                 body: {
                     'reject-confirmation': undefined,
@@ -142,10 +145,10 @@ describe('MediaAccountRejectionController', () => {
             const res = {
                 render: sinon.spy(),
             };
-            const applicantData = { id: '123', status: 'PENDING' };
+            const applicantData = { id: applicantId, status: 'PENDING' };
 
             const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
-            appIdAndStatus.withArgs('123', 'PENDING').resolves(applicantData);
+            appIdAndStatus.withArgs(applicantId, 'PENDING').resolves(applicantData);
 
             await controller.post(req, res);
 
@@ -155,7 +158,7 @@ describe('MediaAccountRejectionController', () => {
         it('should render media-account-rejection-confirmation view when rejected is Yes and the application is rejected successfully', async () => {
             const req = {
                 query: {
-                    applicantId: '123',
+                    applicantId: applicantId,
                 },
                 body: {
                     'reject-confirmation': 'Yes',
@@ -172,7 +175,7 @@ describe('MediaAccountRejectionController', () => {
             const res = {
                 render: sinon.spy(),
             };
-            const applicantData = { id: '123', status: 'PENDING' };
+            const applicantData = { id: applicantId, status: 'PENDING' };
             const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
             const rejectAppStub = sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication');
             const userManStub = sinon.stub(UserManagementService.prototype, 'auditAction');
@@ -184,13 +187,13 @@ describe('MediaAccountRejectionController', () => {
 
             expect(res.render.calledWith('media-account-rejection-confirmation')).to.be.true;
             expect(
-                userManStub.calledWith(req.user, 'REJECT_MEDIA_APPLICATION', 'Media application with id 123 rejected')
+                userManStub.calledWith(req.user, 'REJECT_MEDIA_APPLICATION', `Media application with id ${applicantId} rejected`)
             ).to.be.true;
         });
         it('should render error view when rejected is Yes and the application rejection fails', async () => {
             const req = {
                 query: {
-                    applicantId: '123',
+                    applicantId: applicantId,
                 },
                 body: {
                     'reject-confirmation': 'Yes',
@@ -207,7 +210,7 @@ describe('MediaAccountRejectionController', () => {
             const res = {
                 render: sinon.spy(),
             };
-            const applicantData = { id: '123', status: 'PENDING' };
+            const applicantData = { id: applicantId, status: 'PENDING' };
 
             const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
             const rejectAppStub = sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication');
@@ -215,6 +218,27 @@ describe('MediaAccountRejectionController', () => {
             rejectAppStub.resolves(false);
             await controller.post(req, res);
 
+            expect(res.render.calledWith('error')).to.be.true;
+        });
+
+        it('should render error view when invalid applicant ID provided', async () => {
+            const req = {
+                query: {
+                    applicantId: 'abcd',
+                },
+                i18n: {
+                    getDataByLanguage: sinon.stub().returns({ error: {} }),
+                },
+                lng: 'en',
+                user: {
+                    userId: '456',
+                },
+            };
+            const res = {
+                render: sinon.spy(),
+            };
+
+            await controller.post(req, res);
             expect(res.render.calledWith('error')).to.be.true;
         });
     });

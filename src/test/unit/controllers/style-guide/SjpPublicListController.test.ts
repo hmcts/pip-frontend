@@ -10,10 +10,11 @@ import { SjpFilterService } from '../../../../main/service/SjpFilterService';
 import { HttpStatusCode } from 'axios';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
+import { v4 as uuidv4 } from 'uuid';
 
 const sjpPublicListController = new SjpPublicListController();
 
-const artefactIdListNotFound = 'xyz';
+const artefactIdListNotFound = uuidv4();
 
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-public-list.json'), 'utf-8');
 const data = JSON.parse(mockSJPPublic);
@@ -31,8 +32,8 @@ const sjpFullListUrl = '/sjp-press-list';
 const sjpNewCasesUrl = '/sjp-press-list-new-cases';
 
 const sjpResourceMap = new Map<string, any>([
-    [sjpFullListUrl, { artefactId: 'abc', artefactIdWithNoFiles: 'def', resourceName: sjpFullListName }],
-    [sjpNewCasesUrl, { artefactId: 'ghi', artefactIdWithNoFiles: 'jkl', resourceName: sjpNewCasesName }],
+    [sjpFullListUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpFullListName }],
+    [sjpNewCasesUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpNewCasesName }],
 ]);
 
 const sjpFullListResource = sjpResourceMap.get(sjpFullListUrl);
@@ -227,6 +228,21 @@ describe('SJP Public List Type Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should redirect to configure list page with correct filters', () => {
+            request.query = { artefactId: 'abcd' };
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs(`error`);
+
+            return sjpPublicListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
     });
 
     it('should render list not found page if list type not valid', async () => {

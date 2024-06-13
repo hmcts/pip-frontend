@@ -4,10 +4,14 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { request as expressRequest } from 'express';
+import {v4 as uuidv4} from "uuid";
 
 const PAGE_URL = '/delete-user-confirmation';
-const deleteSuccessBody = { 'delete-user-confirm': 'yes', user: '1234' };
-const deleteFailureBody = { 'delete-user-confirm': 'yes', user: '5678' };
+const validUUID1 = uuidv4();
+const validUUID2 = uuidv4();
+
+const deleteSuccessBody = { 'delete-user-confirm': 'yes', user: validUUID1 };
+const deleteFailureBody = { 'delete-user-confirm': 'yes', user: validUUID2 };
 const panelHeadingClass = 'govuk-panel__title';
 const panelBodyClass = 'govuk-panel__body';
 const linkClass = 'govuk-link';
@@ -15,8 +19,8 @@ const listClass = 'govuk-list';
 let htmlRes: Document;
 
 const stub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
-stub.withArgs('1234').resolves('User deleted');
-stub.withArgs('5678').resolves(null);
+stub.withArgs(validUUID1).resolves('User deleted');
+stub.withArgs(validUUID2).resolves(null);
 
 describe('Delete User Confirmation Page', () => {
     describe('delete user success', () => {

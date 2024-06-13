@@ -2,10 +2,13 @@ import ListDownloadDisclaimerController from '../../../main/controllers/ListDown
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
+import { v4 as uuidv4 } from 'uuid';
 
 const listDownloadDisclaimerController = new ListDownloadDisclaimerController();
 
 describe('List Download Disclaimer Controller', () => {
+    const artefactId = uuidv4();
+
     const i18n = {
         'list-download-disclaimer': {},
         error: {},
@@ -26,12 +29,12 @@ describe('List Download Disclaimer Controller', () => {
 
     describe('GET request', () => {
         it('should render the list download disclaimer page', () => {
-            request.query = { artefactId: '123' };
+            request.query = { artefactId: artefactId };
             const responseMock = sinon.mock(response);
 
             const expectedData = {
                 ...i18n[listDownloadDisclaimerUrl],
-                artefactId: '123',
+                artefactId: artefactId,
             };
             responseMock.expects('render').once().withArgs(listDownloadDisclaimerUrl, expectedData);
 
@@ -44,13 +47,13 @@ describe('List Download Disclaimer Controller', () => {
     describe('POST request', () => {
         it('should render the list download disclaimer page with error if terms and conditions not agreed', () => {
             const responseMock = sinon.mock(response);
-            request.query = { artefactId: '123' };
+            request.query = { artefactId: artefactId };
             request.body = {};
 
             const expectedData = {
                 ...i18n[listDownloadDisclaimerUrl],
                 noAgreementError: true,
-                artefactId: '123',
+                artefactId: artefactId,
             };
             responseMock.expects('render').once().withArgs(listDownloadDisclaimerUrl, expectedData);
 
@@ -60,13 +63,31 @@ describe('List Download Disclaimer Controller', () => {
         });
 
         it('should redirect to list download files page if terms and conditions agreed', () => {
-            request.query = { artefactId: '123' };
+            request.query = { artefactId: artefactId };
             request.body = { 'disclaimer-agreement': 'agree' };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('redirect').once().withArgs(listDownloadFilesUrl);
 
             listDownloadDisclaimerController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render error if invalid UUID', () => {
+            request.query = { artefactId: 'abcd' };
+            request.body = { 'disclaimer-agreement': 'agree' };
+
+            const redirectResponse = {
+                redirect: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const responseMock = sinon.mock(redirectResponse);
+            responseMock.expects('redirect').once().withArgs('error');
+
+            listDownloadDisclaimerController.post(request, redirectResponse).then(() => {
                 responseMock.verify();
             });
         });

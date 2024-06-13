@@ -5,9 +5,12 @@ import { expect } from 'chai';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { request as expressRequest } from 'express';
 import { UserManagementService } from '../../../main/service/UserManagementService';
+import { v4 as uuidv4 } from 'uuid';
+
+const userId = uuidv4();
 
 const PAGE_URL = '/update-user';
-const validBody = { userId: '1234', updatedRole: 'SYSTEM_ADMIN' };
+const validBody = { userId: userId, updatedRole: 'SYSTEM_ADMIN' };
 const panelHeadingClass = 'govuk-panel__title';
 const panelBodyClass = 'govuk-panel__body';
 const linkClass = 'govuk-link';
@@ -16,7 +19,7 @@ let htmlRes: Document;
 
 sinon.stub(UserManagementService.prototype, 'auditAction').resolves({});
 const stub = sinon.stub(AccountManagementRequests.prototype, 'updateUser');
-stub.withArgs('1234', 'SYSTEM_ADMIN').resolves(true);
+stub.withArgs(userId, 'SYSTEM_ADMIN').resolves(true);
 
 describe('Update User Confirmation Page', () => {
     beforeAll(async () => {

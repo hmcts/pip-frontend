@@ -4,6 +4,7 @@ import { cloneDeep } from 'lodash';
 import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { UserManagementService } from '../service/UserManagementService';
 import * as url from 'url';
+import { validate } from 'uuid';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
@@ -25,14 +26,20 @@ export default class MediaAccountApprovalController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const applicantId = req.body['applicantId'];
-        const approved = req.body['approved'];
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+        const applicantId = req.body?.applicantId;
 
-        if (applicantData) {
-            return MediaAccountApprovalController.applicationFoundFlow(req, res, approved, applicantId, applicantData);
+        if (!validate(applicantId)) {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else {
+            const approved = req.body['approved'];
+            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+
+            if (applicantData) {
+                return MediaAccountApprovalController.applicationFoundFlow(req, res, approved, applicantId, applicantData);
+            } else {
+                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+            }
         }
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
 
     /**

@@ -3,17 +3,24 @@ import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 import DeleteUserConfirmationController from '../../../main/controllers/DeleteUserConfirmationController';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
+import {v4 as uuidv4} from 'uuid';
+
+const validUUID1 = uuidv4();
+const validUUID2 = uuidv4();
+const validUUID3 = uuidv4();
 
 const stub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
-const validBody = { 'delete-user-confirm': 'yes', user: '123' };
-const invalidBody = { 'delete-user-confirm': 'yes', user: 'foo' };
-const redirectBody = { 'delete-user-confirm': 'no', user: '1234' };
+const validBody = { 'delete-user-confirm': 'yes', user: validUUID1 };
+const invalidBody = { 'delete-user-confirm': 'yes', user: validUUID2 };
+const redirectBody = { 'delete-user-confirm': 'no', user: validUUID3 };
+const invalidUuid = { 'delete-user-confirm': 'no', user: 'abcd' };
+
 const deleteUserConfirmationController = new DeleteUserConfirmationController();
 
 describe('Delete User Confirmation Controller', () => {
     beforeEach(() => {
-        stub.withArgs('123').resolves(true);
-        stub.withArgs('foo').resolves(undefined);
+        stub.withArgs(validUUID1).resolves(true);
+        stub.withArgs(validUUID2).resolves(undefined);
     });
 
     const i18n = {
@@ -47,6 +54,20 @@ describe('Delete User Confirmation Controller', () => {
         });
     });
 
+    it('should render delete user confirmation page if body data is not a UUID', () => {
+        request.body = invalidUuid;
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
+
+        return deleteUserConfirmationController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
     it('should render error page if delete user call fails', () => {
         request.body = invalidBody;
         const responseMock = sinon.mock(response);
@@ -65,7 +86,7 @@ describe('Delete User Confirmation Controller', () => {
         request.body = redirectBody;
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('redirect').once().withArgs('/manage-user?id=1234');
+        responseMock.expects('redirect').once().withArgs('/manage-user?id=' + validUUID3);
 
         return deleteUserConfirmationController.post(request, response).then(() => {
             responseMock.verify();
