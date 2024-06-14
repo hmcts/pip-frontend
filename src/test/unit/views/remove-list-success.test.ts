@@ -21,7 +21,7 @@ describe('Remove List Success Page', () => {
         const panelTitle = htmlRes.getElementsByClassName('govuk-panel__title');
         const panelMessage = htmlRes.getElementsByClassName('govuk-panel__body');
         expect(panelTitle[0].innerHTML).to.contains('Success');
-        expect(panelMessage[0].innerHTML).to.contains('Your file has been removed');
+        expect(panelMessage[0].innerHTML).to.contains('Your content has been removed');
     });
 
     it('should display what happens next paragraph', () => {

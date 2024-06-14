@@ -103,4 +103,4 @@ Scenario(
         I.see('Search by court or tribunal name');
         I.logout();
     }
-);
+).tag('@Nightly');

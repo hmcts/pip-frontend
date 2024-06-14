@@ -177,6 +177,7 @@ export default function (app: Application): void {
     app.get('/et-daily-list', app.locals.container.cradle.etDailyListController.get);
     app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
     app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
+    app.get('/iac-daily-list-additional-cases', app.locals.container.cradle.iacDailyListController.get);
     app.get('/primary-health-list', app.locals.container.cradle.tribunalNationalListsController.get);
     app.get('/care-standards-list', app.locals.container.cradle.tribunalNationalListsController.get);
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
@@ -418,6 +419,11 @@ export default function (app: Application): void {
         '/remove-list-search-results',
         isPermittedManualUpload,
         app.locals.container.cradle.removeListSearchResultsController.get
+    );
+    app.post(
+        '/remove-list-search-results',
+        isPermittedManualUpload,
+        app.locals.container.cradle.removeListSearchResultsController.post
     );
     app.get(
         '/remove-list-success',

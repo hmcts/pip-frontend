@@ -2,33 +2,30 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/LocationService';
-import { PublicationService } from '../service/PublicationService';
 import { ManualUploadService } from '../service/ManualUploadService';
-import { DateTime } from 'luxon';
 import { UserManagementService } from '../service/UserManagementService';
+import { addListDetailsToArray } from '../helpers/listHelper';
+import { RemoveListHelperService } from '../service/RemoveListHelperService';
 
-const publicationService = new PublicationService();
 const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
 const userManagementService = new UserManagementService();
+const removeListHelperService = new RemoveListHelperService();
 
 export default class RemoveListConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const artefactId = req.query.artefact;
-        if (artefactId) {
-            const artefact = await publicationService.getIndividualPublicationMetadata(
-                artefactId,
-                req.user['userId'],
-                true
-            );
-            artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
-            artefact.contDate = DateTime.fromISO(artefact.contentDate, {
-                zone: 'Europe/London',
-            }).toFormat('dd MMMM yyyy');
+        const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
+        if (formData.courtLists && formData.locationId) {
+            const listsToDelete = removeListHelperService.getSelectedLists(formData);
+            const listData = [];
+            for (const list of listsToDelete) {
+                await addListDetailsToArray(list, req.user?.['userId'], listData);
+            }
             res.render('remove-list-confirmation', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
-                artefact,
-                court: await courtService.getLocationById(artefact.locationId),
+                removalList: manualUploadService.formatListRemovalValues(listData),
+                locationId: formData.locationId,
+                court: await courtService.getLocationById(formData.locationId),
                 displayError: false,
             });
         } else {
@@ -37,40 +34,48 @@ export default class RemoveListConfirmationController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
+        const listsToDelete = req.body?.artefactIds;
+        const locationId = req.body?.locationId;
         const formData = req.body;
-        const artefact = await publicationService.getIndividualPublicationMetadata(
-            formData.artefactId,
-            req.user?.['userId'],
-            true
-        );
-        switch (formData['remove-choice']) {
-            case 'yes': {
-                const response = await publicationService.removePublication(formData.artefactId, req.user?.['userId']);
-
-                if (response) {
-                    await userManagementService.auditAction(
-                        req.user,
-                        'DELETE_PUBLICATION',
-                        `Publication with artefact id ${formData.artefactId} successfully deleted`
-                    );
-                    res.redirect('/remove-list-success');
-                } else {
-                    res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        const listData = [];
+        if (listsToDelete && locationId) {
+            switch (formData['remove-choice']) {
+                case 'yes': {
+                    const response = await removeListHelperService.removeLists(listsToDelete, req.user?.['userId']);
+                    if (response) {
+                        await userManagementService.auditAction(
+                            req.user,
+                            'DELETE_PUBLICATION',
+                            removeListHelperService.formatArtefactIdsForAudit(listsToDelete)
+                        );
+                        res.redirect('/remove-list-success');
+                    } else {
+                        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+                    }
+                    break;
                 }
-                break;
+                case 'no': {
+                    res.clearCookie('formCookie');
+                    res.redirect(`/remove-list-search-results?locationId=${locationId}`);
+                    break;
+                }
+                default:
+                    if (Array.isArray(listsToDelete)) {
+                        for (const artefactId of listsToDelete) {
+                            await addListDetailsToArray(artefactId, req.user?.['userId'], listData);
+                        }
+                    } else {
+                        await addListDetailsToArray(listsToDelete, req.user?.['userId'], listData);
+                    }
+                    res.render('remove-list-confirmation', {
+                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
+                        court: await courtService.getLocationById(locationId),
+                        removalList: manualUploadService.formatListRemovalValues(listData),
+                        displayError: true,
+                    });
             }
-            case 'no': {
-                res.redirect(`/remove-list-search-results?locationId=${formData.locationId}`);
-                break;
-            }
-            default:
-                artefact.listTypeName = manualUploadService.getListItemName(artefact.listType);
-                res.render('remove-list-confirmation', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
-                    artefact,
-                    court: await courtService.getLocationById(formData.locationId),
-                    displayError: true,
-                });
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
 }

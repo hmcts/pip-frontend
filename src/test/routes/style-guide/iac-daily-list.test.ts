@@ -11,19 +11,33 @@ import { IacDailyListService } from '../../../main/service/listManipulation/IacD
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/iacDailyList.json'), 'utf-8');
 const iacData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
-const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'IAC_DAILY_LIST';
+
+const dailyListMetaData = JSON.parse(rawMetaData)[0];
+dailyListMetaData.listType = 'IAC_DAILY_LIST';
+
+const additionalCasesMetadata = JSON.parse(rawMetaData)[0];
+additionalCasesMetadata.listType = 'IAC_DAILY_LIST_ADDITIONAL_CASES';
+
+const iacDailyListUrl = '/iac-daily-list';
+const iacAdditionalCasesUrl = '/iac-daily-list-additional-cases';
+
+const artefactId = '1234';
+const additionalCasesArtefactId = '12345';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(iacData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
+
+const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+metadataStub.withArgs(artefactId).resolves(dailyListMetaData);
+metadataStub.withArgs(additionalCasesArtefactId).resolves(additionalCasesMetadata);
+
 sinon.stub(IacDailyListService.prototype, 'manipulateIacDailyListData').resolves(iacData);
 
-describe('IAC Daily List Page', () => {
+describe.each([iacDailyListUrl, iacAdditionalCasesUrl])('IAC Daily List Page with path %s', url => {
     describe('on GET', () => {
-        test('should return IAC daily list page', async () => {
+        test('should return IAC list page', async () => {
             app.request['user'] = { userId: '2' };
             await request(app)
-                .get('/iac-daily-list?artefactId=test')
+                .get(url + '?artefactId=' + (url == iacDailyListUrl ? artefactId : additionalCasesArtefactId))
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
