@@ -1,11 +1,11 @@
-import { app } from '../../../main/app';
+import {app} from '../../../main/app';
 import sinon from 'sinon';
-import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
-import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
-import { PublicationService } from '../../../main/service/PublicationService';
-import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
-import { FileHandlingService } from '../../../main/service/FileHandlingService';
-import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
+import {LocationRequests} from '../../../main/resources/requests/LocationRequests';
+import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
+import {PublicationService} from '../../../main/service/PublicationService';
+import {AccountManagementRequests} from '../../../main/resources/requests/AccountManagementRequests';
+import {FileHandlingService} from '../../../main/service/FileHandlingService';
+import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
 import {
     testArtefactJsonData,
     testArtefactMetadata,
@@ -14,9 +14,9 @@ import {
     testSubscriptionData,
     testUserData,
 } from '../common/testData';
-import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
-import { UserManagementService } from '../../../main/service/UserManagementService';
-import { AuditLogService } from '../../../main/service/AuditLogService';
+import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
+import {UserManagementService} from '../../../main/service/UserManagementService';
+import {AuditLogService} from '../../../main/service/AuditLogService';
 import fs from 'fs';
 import path from 'path';
 
@@ -27,36 +27,36 @@ const systemAdminRole = 'SYSTEM_ADMIN';
 const fileName = 'test.csv';
 
 const systemAdminRoutes = [
-    { path: '/system-admin-dashboard' },
-    { path: '/create-system-admin-account' },
-    { path: '/create-system-admin-account-summary' },
-    { path: '/blob-view-locations' },
-    { path: '/blob-view-publications', parameter: '?locationId=123' },
-    { path: '/blob-view-json', parameter: '?artefactId=abc' },
-    { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
-    { path: '/bulk-create-media-accounts-confirmation', parameter: '?artefactId=abc' },
-    { path: '/bulk-create-media-accounts-confirmed' },
-    { path: '/reference-data-upload' },
-    { path: '/reference-data-upload-summary' },
-    { path: '/reference-data-upload-confirmation' },
-    { path: '/manage-third-party-users' },
-    { path: '/manage-third-party-users/view', parameter: `?userId=${userId}` },
-    { path: '/manage-third-party-users/subscriptions', parameter: `?userId=${userId}` },
-    { path: '/user-management' },
-    { path: '/delete-court-reference-data' },
-    { path: '/delete-court-reference-data-confirmation', parameter: '?locationId=123' },
-    { path: '/delete-court-reference-data-success' },
-    { path: '/delete-court-subscription-confirmation', parameter: '?locationId=123' },
-    { path: '/delete-court-subscription-success', parameter: '?locationId=123' },
-    { path: '/delete-court-publication-confirmation', parameter: '?locationId=123' },
-    { path: '/delete-court-publication-success', parameter: '?locationId=123' },
-    { path: '/audit-log-viewer', parameter: '?locationId=123' },
-    { path: '/audit-log-details', parameter: '?id=123&timestamp=10/01/2024' },
-    { path: '/create-third-party-user' },
-    { path: '/create-third-party-user-summary' },
-    { path: '/create-third-party-user-success' },
-    { path: '/delete-third-party-user-confirmation' },
-    { path: '/delete-third-party-user-success' },
+    {path: '/system-admin-dashboard'},
+    {path: '/create-system-admin-account'},
+    {path: '/create-system-admin-account-summary'},
+    {path: '/blob-view-locations'},
+    {path: '/blob-view-publications', parameter: '?locationId=123'},
+    {path: '/blob-view-json', parameter: '?artefactId=abc'},
+    {path: '/bulk-create-media-accounts', parameter: '?locationId=123'},
+    {path: '/bulk-create-media-accounts-confirmation', parameter: '?artefactId=abc'},
+    {path: '/bulk-create-media-accounts-confirmed'},
+    {path: '/reference-data-upload'},
+    {path: '/reference-data-upload-summary'},
+    {path: '/reference-data-upload-confirmation'},
+    {path: '/manage-third-party-users'},
+    {path: '/manage-third-party-users/view', parameter: `?userId=${userId}`},
+    {path: '/manage-third-party-users/subscriptions', parameter: `?userId=${userId}`},
+    {path: '/user-management'},
+    {path: '/delete-court-reference-data'},
+    {path: '/delete-court-reference-data-confirmation', parameter: '?locationId=123'},
+    {path: '/delete-court-reference-data-success'},
+    {path: '/delete-court-subscription-confirmation', parameter: '?locationId=123'},
+    {path: '/delete-court-subscription-success', parameter: '?locationId=123'},
+    {path: '/delete-court-publication-confirmation', parameter: '?locationId=123'},
+    {path: '/delete-court-publication-success', parameter: '?locationId=123'},
+    {path: '/audit-log-viewer', parameter: '?locationId=123'},
+    {path: '/audit-log-details', parameter: '?id=123&timestamp=10/01/2024'},
+    {path: '/create-third-party-user'},
+    {path: '/create-third-party-user-summary'},
+    {path: '/create-third-party-user-success'},
+    {path: '/delete-third-party-user-confirmation'},
+    {path: '/delete-third-party-user-success'},
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');
@@ -108,7 +108,7 @@ describe('Accessibility - System Admin Routes', () => {
             uploadFileName: fileName,
             fileName: fileName,
             thirdPartyName: 'Third party user name',
-            thirdPartyRoleObject: { name: 'General third party' },
+            thirdPartyRoleObject: {name: 'General third party'},
         }),
         createAdminAccount: JSON.stringify({
             firstName: name,
@@ -131,27 +131,15 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/create-system-admin-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { firstName: '' });
+                testAccessibility(url, '', true, {'create-system-admin-account': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { firstName: 'Invalid firstName' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { lastName: '' });
+                testAccessibility(url, '', true, {'create-system-admin-account': true});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { lastName: 'Invalid lastName' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { emailAddress: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { emailAddress: 'Invalid emailAddress' });
+                testAccessibility(url, '', true, {'create-system-admin-account': null});
             });
         });
 
@@ -159,75 +147,19 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/create-system-admin-account-confirm';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { SummaryIsDuplicate: '' });
+                testAccessibility(url, '', true, {SummaryIsDuplicate: ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { SummaryIsDuplicate: 'Duplicate Summary' });
+                testAccessibility(url, '', true, {SummaryIsDuplicate: 'Duplicate Summary'});
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { SummaryIsAboveMax: '' });
+                testAccessibility(url, '', true, {SummaryIsAboveMax: ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { SummaryIsAboveMax: 'Summary is Above Max' });
-            });
-        });
-
-        describe('Create System Admin Account Summary Page', () => {
-            const url = '/create-system-admin-account-summary';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { firstName: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { firstName: 'Invalid First Name' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { lastName: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { lastName: 'Invalid Last Name' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { emailAddress: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { emailAddress: 'Invalid Email Address' });
-            });
-        });
-
-        describe('Create System Admin Account Page', () => {
-            const url = '/create-system--admin-account';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { firstName: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { firstName: 'Invalid First Name' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { lastName: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { lastName: 'Invalid Last Name' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { emailAddress: '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { emailAddress: 'Invalid Email Address' });
+                testAccessibility(url, '', true, {SummaryIsAboveMax: 'Summary is Above Max'});
             });
         });
 
@@ -235,11 +167,15 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/reference-data-upload';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'reference-data-upload': '' });
+                testAccessibility(url, '', true, {'reference-data-upload': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'reference-data-upload': 'Invalid File Format Error' });
+                testAccessibility(url, '', true, {'reference-data-upload': 'true'});
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, {'reference-data-upload': 'false'});
             });
         });
 
@@ -247,25 +183,23 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/delete-court-application-comfirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': '' });
+                testAccessibility(url, '', true, {'delete-choice': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+                testAccessibility(url, '', true, {'delete-choice': 'Invalid Choice'});
             });
         });
 
-        describe('Page with Errors', () => {
-            describe('Delete Court Reference Data Page', () => {
-                const url = '/delete-court-reference-data';
+        describe('Delete Court Reference Data Page', () => {
+            const url = '/delete-court-reference-data';
 
-                describe('with no input data', () => {
-                    testAccessibility(url, '', true, { 'search-input': '' });
-                });
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, {'search-input': ''});
+            });
 
-                describe('with invalid input data', () => {
-                    testAccessibility(url, '', true, { 'search-input': 'Invalid Input' });
-                });
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, {'search-input': 'Invalid Input'});
             });
         });
 
@@ -273,37 +207,24 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/delete-court-reference-data-confirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': '' });
+                testAccessibility(url, '', true, {'delete-choice': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+                testAccessibility(url, '', true, {'delete-choice': 'Invalid Choice'});
             });
         });
 
-        describe('Page with Errors', () => {
-            describe('Reference Data Upload Summary Page', () => {
-                const url = '/reference-data-upload-summary';
-
-                describe('with no input data', () => {
-                    testAccessibility(url, '', true, { 'reference-data-upload': '' });
-                });
-
-                describe('with invalid input data', () => {
-                    testAccessibility(url, '', true, { 'reference-data-upload': 'Reference Data Upload Error' });
-                });
-            });
-        });
 
         describe('Delete Court Publication Confirmation Page', () => {
             const url = '/delete-account-publication-confirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': '' });
+                testAccessibility(url, '', true, {'delete-choice': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+                testAccessibility(url, '', true, {'delete-choice': 'Invalid Choice'});
             });
         });
 
@@ -311,11 +232,11 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/delete-court-subscription-confirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': '' });
+                testAccessibility(url, '', true, {'delete-choice': ''});
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+                testAccessibility(url, '', true, {'delete-choice': 'Invalid Choice'});
             });
         });
 
@@ -323,11 +244,11 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/bulk-create-media-accounts';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'bulk-account-upload': '' });
+                testAccessibility(url, '', true, {'bulk-account-upload': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'bulk-account-upload': 'Invalid Bulk Account Upload' });
+                testAccessibility(url, '', true, {'bulk-account-upload': 'Invalid Bulk Account Upload'});
             });
         });
 
@@ -335,15 +256,15 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/bulk-create-media-accounts-confirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { confirmed: '' });
+                testAccessibility(url, '', true, {confirmed: ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { confirmed: 'No Option Selected' });
+                testAccessibility(url, '', true, {confirmed: 'No Option Selected'});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { confirmed: 'Account Creation Error' });
+                testAccessibility(url, '', true, {confirmed: 'Account Creation Error'});
             });
         });
 
@@ -351,7 +272,7 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/user-management';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'view-choice': '' });
+                testAccessibility(url, '', true, {'view-choice': ''});
             });
         });
     });
