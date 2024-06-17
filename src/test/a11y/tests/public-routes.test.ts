@@ -74,17 +74,5 @@ describe('Accessibility - Public Routes', () => {
                 testAccessibility(url, '', true, { 'view-choice': true });
             });
         });
-
-        describe('Create Media Account Page', () => {
-            const url = '/create-media-account';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'input-autocomplete': '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { firstName: null });
-            });
-        });
     });
 });

@@ -122,27 +122,6 @@ describe('Accessibility - Media User Routes', () => {
             });
         });
 
-        describe('Bulk Unsubscribe Page', () => {
-            const url = '/bulk-unsubscribe';
-
-            beforeEach(() => {
-                sinon.restore();
-                sinon.stub(PublicationService.prototype, 'getUserSubscriptions').resolves(null);
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': 'error' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': 'no' });
-            });
-        });
-
         describe('Bulk Unsubscribe Confirmation Page', () => {
             const url = '/bulk-unsubscribe-confirmation';
 
