@@ -2,7 +2,9 @@
     "secrets": {
         "pip-ss-kv": {
             "CLIENT_ID": "1234",
-            "CLIENT_SECRET": "12345"
+            "CLIENT_SECRET": "12345",
+            "SSO_CLIENT_ID": "1234",
+            "SSO_CLIENT_SECRET": "12345"
         }
     }
 }

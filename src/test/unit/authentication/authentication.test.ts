@@ -1,4 +1,13 @@
+import process from 'process';
+
 const userId = { userId: '1234', userProvenance: 'PI_AAD', roles: 'VERIFIED' };
+const ssoUserProfile = {
+    oid: '1234',
+    _json: { preferred_username: 'test@test.com' },
+    email: 'test@test.com',
+    roles: 'SYSTEM_ADMIN',
+    flow: 'SSO',
+};
 
 describe('Authentication', () => {
     let authentication;
@@ -41,6 +50,7 @@ describe('Authentication', () => {
         expect(passport._strategies['media-verification']._options.redirectUrl).to.eql(
             'https://pip-frontend.staging.platform.hmcts.net/media-verification/return'
         );
+        expect(passport._strategies['sso'].name).to.eql('azuread-openidconnect');
         expect(passport._strategies['cft-idam'].name).to.eql('custom');
     });
 
@@ -67,6 +77,7 @@ describe('Authentication', () => {
         expect(passport._strategies['media-verification']._options.redirectUrl).to.eql(
             'https://pip-frontend.staging.platform.hmcts.net/media-verification/return'
         );
+        expect(passport._strategies['sso'].name).to.eql('azuread-openidconnect');
         expect(passport._strategies['cft-idam'].name).to.eql('custom');
     });
 
@@ -121,6 +132,101 @@ describe('Authentication', () => {
             expect(mockCallback.mock.calls[0][0]).to.eql(null);
             expect(mockCallback.mock.calls[0][1]).to.eql(null);
         });
+    });
+
+    it(`Test that profile is returned if user role is found and user created during SSO authentication`, async () => {
+        const sinon = await import('sinon');
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
+        determineRoleStub.resolves('SYSTEM_ADMIN');
+        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser');
+        handleUserStub.resolves({ success: true });
+
+        authentication();
+
+        const strategy = passport._strategies['sso'];
+        const verifyFunction = strategy._verify;
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
+        const mockCallback = jest.fn();
+
+        await verifyFunction(null, null, profile, null, null, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(mockCallback.mock.calls[0][1]).to.eql({
+            ...ssoUserProfile,
+            created: true,
+        });
+    });
+
+    it(`Test that profile is returned if user role is found and user creation error during SSO authentication`, async () => {
+        const sinon = await import('sinon');
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
+        determineRoleStub.resolves('SYSTEM_ADMIN');
+        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser');
+        handleUserStub.resolves({ error: true });
+
+        authentication();
+
+        const strategy = passport._strategies['sso'];
+        const verifyFunction = strategy._verify;
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
+        const mockCallback = jest.fn();
+
+        await verifyFunction(null, null, profile, null, null, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(mockCallback.mock.calls[0][1]).to.eql({
+            ...ssoUserProfile,
+            created: false,
+        });
+    });
+
+    it(`Test that profile is returned if user role is found and user not created during SSO authentication`, async () => {
+        const sinon = await import('sinon');
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const determineRoleStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
+        determineRoleStub.resolves('SYSTEM_ADMIN');
+        const handleUserStub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'handleSsoUser');
+        handleUserStub.resolves(null);
+
+        authentication();
+
+        const strategy = passport._strategies['sso'];
+        const verifyFunction = strategy._verify;
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
+        const mockCallback = jest.fn();
+
+        await verifyFunction(null, null, profile, null, null, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(mockCallback.mock.calls[0][1]).to.eql({
+            ...ssoUserProfile,
+            created: null,
+        });
+    });
+
+    it(`Test that no profile is returned if no user role is found during SSO authentication`, async () => {
+        const sinon = await import('sinon');
+        const SsoAuthentication = await import('../../../main/authentication/ssoAuthentication');
+        const stub = sinon.stub(SsoAuthentication.SsoAuthentication.prototype, 'determineUserRole');
+        stub.resolves(null);
+
+        authentication();
+
+        const strategy = passport._strategies['sso'];
+        const verifyFunction = strategy._verify;
+        const profile = { oid: '1234', _json: { preferred_username: 'test@test.com' } };
+        const mockCallback = jest.fn();
+
+        await verifyFunction(null, null, profile, null, null, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(mockCallback.mock.calls[0][1]).to.eql(null);
     });
 
     it('Test that serialising a user for Azure AAD returns their oid and flow', async () => {
@@ -214,6 +320,20 @@ describe('Authentication', () => {
         expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'CFT' });
     });
 
+    it('Test serialising a SSO user', async () => {
+        authentication();
+
+        const serializers = passport._serializers;
+        const firstSerializer = serializers[0];
+
+        const mockCallback = jest.fn();
+        await firstSerializer(ssoUserProfile, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(mockCallback.mock.calls[0][1]).to.eql({ oid: '1234', flow: 'SSO' });
+    });
+
     parameters.forEach(parameter => {
         it(`Test that deserialising a user returns user object from the PI user table for Azure AAD ${parameter.strategy} authentication`, async () => {
             const sinon = await import('sinon');
@@ -253,6 +373,23 @@ describe('Authentication', () => {
         const serializeMockCallback = jest.fn();
 
         await firstDeserializer(profile, serializeMockCallback);
+
+        expect(serializeMockCallback.mock.calls.length).to.eql(1);
+        expect(serializeMockCallback.mock.calls[0][0]).to.eql(null);
+        expect(serializeMockCallback.mock.calls[0][1]).to.eql(userId);
+    });
+
+    it('Test that deserialising a SSO user returns the user object from the PI User table', async () => {
+        const sinon = await import('sinon');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
+        const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByAzureOid');
+        stub.resolves(userId);
+
+        authentication();
+
+        const firstDeserializer = passport._deserializers[0];
+        const serializeMockCallback = jest.fn();
+        await firstDeserializer(ssoUserProfile, serializeMockCallback);
 
         expect(serializeMockCallback.mock.calls.length).to.eql(1);
         expect(serializeMockCallback.mock.calls[0][0]).to.eql(null);

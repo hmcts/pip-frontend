@@ -139,12 +139,12 @@ export class AccountManagementRequests {
         return [];
     }
 
-    public async getPiUserByAzureOid(oid: string): Promise<any> {
+    public async getPiUserByAzureOid(oid: string, userProvenance = 'PI_AAD'): Promise<any> {
         try {
-            const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
+            const response = await accountManagementApi.get(`/account/provenance/${userProvenance}/${oid}`);
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve P&I user account by Azure B2C object ID');
+            logHelper.logErrorResponse(error, 'retrieve P&I user account by Azure object ID');
         }
         return null;
     }
@@ -277,16 +277,34 @@ export class AccountManagementRequests {
     }
 
     /**
-     * Request method that attempts to create a system admin account.
+     * Request method that attempts to create a B2C system admin account.
      * @param systemAdminAccount The System Admin account to create.
      * @param adminUserId The System Admin who is creating the account.
      */
-    public async createSystemAdminUser(systemAdminAccount, adminUserId: string): Promise<object> {
+    public async createSystemAdminUserB2C(systemAdminAccount, adminUserId: string): Promise<object> {
         try {
             logger.info('A system admin user is being created with ID: ' + adminUserId);
             const response = await accountManagementApi.post('/account/add/system-admin', systemAdminAccount, {
                 headers: { 'x-issuer-id': adminUserId },
             });
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'create system admin account');
+            if (error.response?.status === StatusCodes.BAD_REQUEST) {
+                error.response.data['error'] = true;
+                return error.response.data;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Request method that attempts to create an SSO system admin account.
+     * @param systemAdminAccount The System Admin account to create.
+     */
+    public async createSystemAdminUser(systemAdminAccount): Promise<object> {
+        try {
+            const response = await accountManagementApi.post('/account/system-admin', systemAdminAccount);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'create system admin account');
