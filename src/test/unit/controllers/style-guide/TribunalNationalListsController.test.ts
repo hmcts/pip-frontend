@@ -76,7 +76,6 @@ describe('Tribunal National List Controller', () => {
 
     it('should render the primary health list page', async () => {
         const request = mockRequest(i18n);
-        request.path = '/primary-health-list';
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
         metaData.listType = 'PRIMARY_HEALTH_LIST';
@@ -90,13 +89,12 @@ describe('Tribunal National List Controller', () => {
 
         responseMock.expects('render').once().withArgs(primaryHealthListPath, expectedPrimaryHealthListData);
 
-        await tribunalNationalListsController.get(request, response);
+        await tribunalNationalListsController.get(request, response, 'primary-health-list');
         return responseMock.verify();
     });
 
     it('should render the care standards list page', async () => {
         const request = mockRequest(i18n);
-        request.path = '/care-standards-list';
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
         metaData.listType = 'CARE_STANDARDS_LIST';
@@ -109,7 +107,7 @@ describe('Tribunal National List Controller', () => {
 
         responseMock.expects('render').once().withArgs(careStandardsListPath, expectedCareStandardsListData);
 
-        await tribunalNationalListsController.get(request, response);
+        await tribunalNationalListsController.get(request, response, 'care-standards-list');
         return responseMock.verify();
     });
 
@@ -117,13 +115,12 @@ describe('Tribunal National List Controller', () => {
         const request = mockRequest(i18n);
         request.query = {};
         request.user = { userId: '123' };
-        request.path = '/primary-health-list';
 
         const responseMock = sinon.mock(response);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await tribunalNationalListsController.get(request, response);
+        await tribunalNationalListsController.get(request, response, 'primary-health-list');
         return responseMock.verify();
     });
 
@@ -131,7 +128,6 @@ describe('Tribunal National List Controller', () => {
         const request = mockRequest(i18n);
         request.query = { artefactId: '1234' };
         request.user = { userId: '123' };
-        request.path = '/primary-health-list';
 
         const responseMock = sinon.mock(response);
 
@@ -140,13 +136,12 @@ describe('Tribunal National List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await tribunalNationalListsController.get(request, response);
+        await tribunalNationalListsController.get(request, response, 'primary-health-list');
         return responseMock.verify();
     });
 
     it('should render list not found page if list type not valid', async () => {
         const request = mockRequest(i18n);
-        request.path = '/primary-health-list';
         request.query = { artefactId: artefactIdListNotFound };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
@@ -156,13 +151,12 @@ describe('Tribunal National List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await tribunalNationalListsController.get(request, response);
+        await tribunalNationalListsController.get(request, response, 'primary-health-list');
         return responseMock.verify();
     });
 
     it('should render list not found page if list type not valid', async () => {
         const request = mockRequest(i18n);
-        request.path = '/care-standards-list';
         request.query = { artefactId: artefactIdListNotFound };
         request.user = { userId: '1' };
         const responseMock = sinon.mock(response);
@@ -172,7 +166,7 @@ describe('Tribunal National List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await tribunalNationalListsController.get(request, response);
+        await tribunalNationalListsController.get(request, response, 'care-standards-list');
         return responseMock.verify();
     });
 });

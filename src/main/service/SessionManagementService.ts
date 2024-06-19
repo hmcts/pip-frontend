@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
 import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
 import { reSignInUrls } from '../helpers/consts';
+import * as url from 'url';
 
 const authenticationConfig = require('../authentication/authentication-config.json');
 const defaultSessionExpiry = 60 * 60 * 1000;
@@ -18,13 +19,26 @@ export class SessionManagementService {
                 const redirectTypeIndex = reSignInUrlKeys.indexOf(req.query.redirectType);
                 if (redirectTypeIndex != -1) {
                     res.redirect(
-                        '/session-expired?lng=' + req.lng + '&reSignInUrl=' + reSignInUrlKeys[redirectTypeIndex]
+                        url.format({
+                            pathname: '/session-expired',
+                            query: {
+                                lng: req.lng,
+                                reSignInUrl: reSignInUrlKeys[redirectTypeIndex],
+                            },
+                        })
                     );
                 } else {
                     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
                 }
             } else {
-                res.redirect('/session-logged-out?lng=' + req.lng);
+                res.redirect(
+                    url.format({
+                        pathname: '/session-logged-out',
+                        query: {
+                            lng: req.lng,
+                        },
+                    })
+                );
             }
         } else {
             req.session.save(() => {

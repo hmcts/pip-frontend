@@ -8,13 +8,12 @@ const locationService = new LocationService();
 const userManagementService = new UserManagementService();
 
 export default class DeleteCourtReferenceDataConfirmationController {
-    public async get(req: PipRequest, res: Response): Promise<void> {
+    public async get(req: PipRequest, res: Response, page: string): Promise<void> {
         const locationId = req.query.locationId as unknown as number;
-        const pageToLoad = req.path.slice(1, req.path.length);
         if (locationId) {
             const court = await locationService.getLocationById(locationId);
-            res.render(pageToLoad, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[pageToLoad]),
+            res.render(page, {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
                 court: locationService.formatCourtValue(court),
                 displayError: false,
             });

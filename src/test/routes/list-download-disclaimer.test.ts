@@ -2,8 +2,10 @@ import request from 'supertest';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
-const PAGE_URL = '/list-download-disclaimer?artefactId=123';
+const validUuid = uuidv4();
+const PAGE_URL = '/list-download-disclaimer?artefactId=' + validUuid;
 expressRequest['user'] = { roles: 'VERIFIED' };
 
 describe('List download disclaimer', () => {
@@ -29,7 +31,7 @@ describe('List download disclaimer', () => {
                 .send({ 'disclaimer-agreement': 'agree' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('list-download-files?artefactId=123');
+                    expect(res.header['location']).to.equal('list-download-files?artefactId=' + validUuid);
                 });
         });
     });

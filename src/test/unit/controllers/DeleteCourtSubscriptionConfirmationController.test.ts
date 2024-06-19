@@ -6,7 +6,7 @@ import sinon from 'sinon';
 import DeleteCourtSubscriptionConfirmationController from '../../../main/controllers/DeleteCourtSubscriptionConfirmationController';
 import { PublicationService } from '../../../main/service/PublicationService';
 
-const courtStub = sinon.stub(LocationService.prototype, 'getLocationByName');
+const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subDeleteStub = sinon.stub(SubscriptionService.prototype, 'deleteLocationSubscription');
 const pubDeleteStub = sinon.stub(PublicationService.prototype, 'deleteLocationPublication');
 
@@ -33,7 +33,6 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '2', 'delete-choice': 'yes' };
-        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n[pageName],
@@ -43,7 +42,7 @@ describe('Delete Court Subscription Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
+        return deleteCourtSubscriptionConfirmationController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });
@@ -56,7 +55,6 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '2', 'delete-choice': 'yes' };
-        request.path = '/' + pagePublicationName;
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n[pagePublicationName],
@@ -66,7 +64,7 @@ describe('Delete Court Subscription Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs(pagePublicationName, expectedData);
-        return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
+        return deleteCourtSubscriptionConfirmationController.post(request, response, pagePublicationName).then(() => {
             responseMock.verify();
         });
     });
@@ -79,11 +77,10 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '1', 'delete-choice': 'yes' };
-        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/delete-court-subscription-success?locationId=1');
-        return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
+        return deleteCourtSubscriptionConfirmationController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });
@@ -96,11 +93,10 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '1', 'delete-choice': 'yes' };
-        request.path = '/' + pagePublicationName;
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/delete-court-publication-success?locationId=1');
-        return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
+        return deleteCourtSubscriptionConfirmationController.post(request, response, pagePublicationName).then(() => {
             responseMock.verify();
         });
     });
@@ -113,11 +109,10 @@ describe('Delete Court Subscription Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.body = { locationId: '1', 'delete-choice': 'no' };
-        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/delete-court-reference-data');
-        return deleteCourtSubscriptionConfirmationController.post(request, response).then(() => {
+        return deleteCourtSubscriptionConfirmationController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });

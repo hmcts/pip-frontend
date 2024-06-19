@@ -9,15 +9,28 @@ import { HttpStatusCode } from 'axios';
 
 const listDownloadFilesController = new ListDownloadFilesController();
 
-const mockArtefact = {
+const mockArtefact1 = {
+    artefactId: '123',
+    listType: 'SJP_PRESS_LIST',
+    sensitivity: 'CLASSIFIED',
+};
+
+const mockArtefact2 = {
+    artefactId: '124',
+    listType: 'SJP_PRESS_LIST',
+    sensitivity: 'CLASSIFIED',
+};
+
+const mockArtefact3 = {
+    artefactId: '125',
     listType: 'SJP_PRESS_LIST',
     sensitivity: 'CLASSIFIED',
 };
 
 const publicationMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
-publicationMetaDataStub.withArgs('123').resolves(mockArtefact);
-publicationMetaDataStub.withArgs('124').resolves(mockArtefact);
-publicationMetaDataStub.withArgs('125').resolves(mockArtefact);
+publicationMetaDataStub.withArgs('123').resolves(mockArtefact1);
+publicationMetaDataStub.withArgs('124').resolves(mockArtefact2);
+publicationMetaDataStub.withArgs('125').resolves(mockArtefact3);
 publicationMetaDataStub.withArgs('999').resolves(HttpStatusCode.NotFound);
 
 const isAuthorisedStub = sinon.stub(AccountManagementRequests.prototype, 'isAuthorised');

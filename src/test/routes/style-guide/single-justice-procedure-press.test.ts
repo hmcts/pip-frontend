@@ -9,6 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import { SjpPressListService } from '../../../main/service/listManipulation/SjpPressListService';
 import { SjpFilterService } from '../../../main/service/SjpFilterService';
+import { v4 as uuidv4 } from 'uuid';
 
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
@@ -38,7 +39,7 @@ describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("Single Justice Proced
         test('should return Single Justice Procedure Press page', async () => {
             app.request['user'] = { userId: '2' };
             await request(app)
-                .get(url + '?artefactId=test')
+                .get(url + '?artefactId=' + uuidv4())
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
@@ -47,7 +48,7 @@ describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("Single Justice Proced
         test('should redirect to Single Justice Procedure Press page', async () => {
             app.request['user'] = { userId: '2' };
             await request(app)
-                .post(url + '?artefactId=test&filterValues=AA1')
+                .post(url + `?artefactId=${uuidv4()}&filterValues=AA1`)
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).contains('sjp-press-list');

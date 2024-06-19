@@ -6,6 +6,8 @@ import { ManualUploadService } from '../service/ManualUploadService';
 import { UserManagementService } from '../service/UserManagementService';
 import { addListDetailsToArray } from '../helpers/listHelper';
 import { RemoveListHelperService } from '../service/RemoveListHelperService';
+import * as url from 'url';
+import { checkIfUrl } from '../helpers/urlHelper';
 
 const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
@@ -38,7 +40,7 @@ export default class RemoveListConfirmationController {
         const locationId = req.body?.locationId;
         const formData = req.body;
         const listData = [];
-        if (listsToDelete && locationId) {
+        if (listsToDelete && locationId && !checkIfUrl(locationId)) {
             switch (formData['remove-choice']) {
                 case 'yes': {
                     const response = await removeListHelperService.removeLists(listsToDelete, req.user?.['userId']);
@@ -56,7 +58,12 @@ export default class RemoveListConfirmationController {
                 }
                 case 'no': {
                     res.clearCookie('formCookie');
-                    res.redirect(`/remove-list-search-results?locationId=${locationId}`);
+                    res.redirect(
+                        url.format({
+                            pathname: '/remove-list-search-results',
+                            query: { locationId: locationId },
+                        })
+                    );
                     break;
                 }
                 default:
