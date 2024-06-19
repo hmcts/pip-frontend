@@ -188,5 +188,25 @@ describe('Tests for the civil, family and mixed lists service.', function () {
             expect(hearingCase['applicant']).is.undefined;
             expect(hearingCase['respondent']).is.undefined;
         });
+
+        it('should format reporting restrictions if reportingRestrictionDetail present', async () => {
+            const data = await service.sculptedListData(rawFamilyDailyCauseData, true);
+            const hearingCase =
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'case'
+                ][0];
+            expect(hearingCase['formattedReportingRestriction']).to.equal(
+                'Reporting restriction 1, Reporting restriction 2'
+            );
+        });
+
+        it('should not format reporting restrictions if reportingRestrictionDetail missing', async () => {
+            const data = await service.sculptedListData(rawFamilyDailyCauseData, true);
+            const hearingCase =
+                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
+                    'case'
+                ][1];
+            expect(hearingCase['formattedReportingRestriction']).to.be.undefined;
+        });
     });
 });
