@@ -82,59 +82,67 @@
               </div>
               <div id="accordion-default-content-{{ sessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sessionCount }}">
                 <div class="parent-box overflow-table">
-                  <table class="govuk-table overflow-table" data-module="moj-sortable-table">
+                  <table class="govuk-table overflow-table">
                     <thead class="govuk-table__head">
                     <tr class="govuk-table__row">
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ time }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ CaseRef }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ caseName }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ caseType }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ hearingType }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ location }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ duration }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ applicant }}</th>
-                      <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ respondent }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ time }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ CaseRef }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ caseName }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ caseType }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ hearingType }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ location }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ duration }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ applicant }}</th>
+                      <th scope="col" class="govuk-table__header no-wrap">{{ respondent }}</th>
                     </tr>
                     </thead>
 
                     <tbody class="govuk-table__body">
                     {% for sitting in session['sittings'] %}
                       {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
-                      {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                       {% for hearing in sitting['hearing'] %}
                         {% for case in hearing['case'] %}
+                          {% set noBorder = '' %}
+                          {% if case['formattedReportingRestriction'] | length %}
+                            {% set noBorder = 'no-border-bottom' %}
+                          {% endif %}
                           <tr class="govuk-table__row">
-                            <td class="govuk-table__cell no-wrap" data-sort-value="{{ sitting['time'] | timeToSortValue }}">{{ sitting['time'] }}</td>
-                            <td class="govuk-table__cell no-wrap">{{ case['caseNumber'] }}</td>
-                            <td class="govuk-table__cell no-wrap">{{ case['caseName'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
-                            <td class="govuk-table__cell no-wrap">{{ case['caseType'] }}</td>
-                            <td class="govuk-table__cell no-wrap">{{ hearing['hearingType'] }}</td>
-                            <td class="govuk-table__cell no-wrap">{{ sitting['caseHearingChannel'] }}</td>
-                            <td class="govuk-table__cell no-wrap" data-sort-value="{{ durationSortValue }}">{{ duration }} </td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['time'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseName'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseType'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
+                            <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ duration }} </td>
                             {% if partyAtHearingLevel %}
                               {% if hearing['applicant'] or hearing['applicantRepresentative'] %}
-                                <td class="govuk-table__cell no-wrap">{{ hearing['applicant'] | addRepresentativeToParty(hearing['applicantRepresentative'], legalAdvisor) }}</td>
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['applicant'] | addRepresentativeToParty(hearing['applicantRepresentative'], legalAdvisor) }}</td>
                               {% else %}
-                                <td class="govuk-table__cell no-wrap" />
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}" />
                               {% endif %}
                               {% if hearing['respondent'] or hearing['respondentRepresentative'] %}
-                                <td class="govuk-table__cell no-wrap">{{ hearing['respondent'] | addRepresentativeToParty(hearing['respondentRepresentative'], legalAdvisor) }}</td>
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['respondent'] | addRepresentativeToParty(hearing['respondentRepresentative'], legalAdvisor) }}</td>
                               {% else %}
-                                <td class="govuk-table__cell no-wrap" />
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}" />
                               {% endif %}
                             {% else %}
                               {% if case['applicant'] or case['applicantRepresentative'] %}
-                                <td class="govuk-table__cell no-wrap">{{ case['applicant'] | addRepresentativeToParty(case['applicantRepresentative'], legalAdvisor) }}</td>
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['applicant'] | addRepresentativeToParty(case['applicantRepresentative'], legalAdvisor) }}</td>
                               {% else %}
-                                <td class="govuk-table__cell no-wrap" />
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}" />
                               {% endif %}
                               {% if case['respondent'] or case['respondentRepresentative'] %}
-                                <td class="govuk-table__cell no-wrap">{{ case['respondent'] | addRepresentativeToParty(case['respondentRepresentative'], legalAdvisor) }}</td>
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['respondent'] | addRepresentativeToParty(case['respondentRepresentative'], legalAdvisor) }}</td>
                               {% else %}
-                                <td class="govuk-table__cell no-wrap" />
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}" />
                               {% endif %}
                             {% endif %}
                           </tr>
+                          {% if case['formattedReportingRestriction'] | length %}
+                            <tr class="govuk-table__row">
+                              <td class="govuk-table__cell" colspan="9"><span class="linked-cases-heading">{{ reportingRestriction }}:</span> {{ case['formattedReportingRestriction'] }}</td>
+                            </tr>
+                          {% endif %}
                         {% endfor %}
                       {% endfor %}
                     {% endfor %}

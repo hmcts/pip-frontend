@@ -56,12 +56,8 @@ export class OpaPressListService {
         return {
             urn: hearingCase.caseUrn,
             scheduledHearingDate: scheduledHearingDate,
-            caseReportingRestriction: this.formatReportingRestriction(hearingCase),
+            caseReportingRestriction: ListParseHelperService.formatReportingRestrictionDetail(hearingCase),
         };
-    }
-
-    private formatReportingRestriction(field): string {
-        return field.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ');
     }
 
     private processPartyRoles(hearingCase): any {
@@ -158,7 +154,7 @@ export class OpaPressListService {
             offenceWording: ListParseHelperService.writeStringIfValid(offence.offenceWording),
             plea: ListParseHelperService.writeStringIfValid(offence.plea),
             pleaDate: pleaDate,
-            offenceReportingRestriction: this.formatReportingRestriction(offence),
+            offenceReportingRestriction: ListParseHelperService.formatReportingRestrictionDetail(offence),
         };
     }
 }
