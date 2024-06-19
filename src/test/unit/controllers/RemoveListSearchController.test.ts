@@ -28,7 +28,6 @@ describe('Remove List Search Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n[pageName],
@@ -38,7 +37,7 @@ describe('Remove List Search Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.get(request, response).then(() => {
+        return removeListSearchController.get(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });
@@ -50,7 +49,6 @@ describe('Remove List Search Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/' + pageName;
         request.body = { 'input-autocomplete': 'aa' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -61,7 +59,7 @@ describe('Remove List Search Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.post(request, response).then(() => {
+        return removeListSearchController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });
@@ -73,7 +71,6 @@ describe('Remove List Search Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/' + pageName;
         request.body = { 'input-autocomplete': 'test' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -84,7 +81,7 @@ describe('Remove List Search Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.post(request, response).then(() => {
+        return removeListSearchController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });
@@ -96,7 +93,6 @@ describe('Remove List Search Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/' + pageName;
         request.body = { 'input-autocomplete': 'Mut' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -107,7 +103,7 @@ describe('Remove List Search Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.post(request, response).then(() => {
+        return removeListSearchController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });
@@ -119,12 +115,11 @@ describe('Remove List Search Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/' + pageName;
         request.body = { 'input-autocomplete': 'Valid Location' };
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('remove-list-search-results?locationId=1');
-        return removeListSearchController.post(request, response).then(() => {
+        return removeListSearchController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });

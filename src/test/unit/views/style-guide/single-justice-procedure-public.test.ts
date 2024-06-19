@@ -7,6 +7,7 @@ import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
+import { v4 as uuidv4 } from 'uuid';
 
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-body';
@@ -45,16 +46,16 @@ const sjpResourceMap = new Map<string, any>([
     [
         sjpFullListUrl,
         {
-            artefactId: 'abc',
-            artefactIdWithDownloadButton: 'def',
+            artefactId: uuidv4(),
+            artefactIdWithDownloadButton: uuidv4(),
             title: 'Single Justice Procedure cases that are ready for hearing (Full list)',
         },
     ],
     [
         sjpNewCasesUrl,
         {
-            artefactId: 'ghi',
-            artefactIdWithDownloadButton: 'jkl',
+            artefactId: uuidv4(),
+            artefactIdWithDownloadButton: uuidv4(),
             title: 'Single Justice Procedure cases that are ready for hearing (New cases)',
         },
     ],

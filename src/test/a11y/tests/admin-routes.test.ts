@@ -6,8 +6,9 @@ import { AccountManagementRequests } from '../../../main/resources/requests/Acco
 import { randomUUID } from 'crypto';
 import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
+import { v4 as uuidv4 } from 'uuid';
 
-const userId = '1';
+const userId = uuidv4();
 const name = 'Test';
 const emailAddress = 'test@test.com';
 const superAdminCtscRole = 'INTERNAL_SUPER_ADMIN_CTSC';
@@ -23,10 +24,10 @@ const adminRoutes = [
     { path: '/manual-upload-summary' },
     { path: '/manual-upload-confirmation' },
     { path: '/media-applications' },
-    { path: '/media-account-review', parameter: '?applicantId=123' },
-    { path: '/media-account-approval', parameter: '?applicantId=123' },
-    { path: '/media-account-rejection', parameter: '?applicantId=123' },
-    { path: '/media-account-approval-confirmation', parameter: '?applicantId=123' },
+    { path: '/media-account-review', parameter: '?applicantId=' + uuidv4() },
+    { path: '/media-account-approval', parameter: '?applicantId=' + uuidv4() },
+    { path: '/media-account-rejection', parameter: '?applicantId=' + uuidv4() },
+    { path: '/media-account-approval-confirmation', parameter: '?applicantId=' + uuidv4() },
     { path: '/media-account-rejection-reasons', parameter: `?applicantId=${uuid}` },
     { path: '/media-account-rejection-confirmation' },
     { path: '/remove-list-confirmation', parameter: '?artefact=123' },
@@ -37,7 +38,7 @@ const adminRoutes = [
     { path: '/manage-user' },
     { path: '/update-user', parameter: `?id=${userId}` },
     { path: '/delete-user', parameter: `?id=${userId}` },
-    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes' } },
+    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
 ];
 
 const locationData = testLocationData();
