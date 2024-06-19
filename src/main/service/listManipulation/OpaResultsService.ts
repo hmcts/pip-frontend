@@ -107,7 +107,7 @@ export class OpaResultsService {
             bailStatus: ListParseHelperService.writeStringIfValid(offence.bailStatus),
             nextHearingDate: nextHearingDate,
             nextHearingLocation: ListParseHelperService.writeStringIfValid(offence.nextHearingLocation),
-            reportingRestrictions: offence.reportingRestrictionDetail?.filter(n => n.length > 0).join(', '),
+            reportingRestrictions: ListParseHelperService.formatReportingRestrictionDetail(offence),
         };
     }
 }

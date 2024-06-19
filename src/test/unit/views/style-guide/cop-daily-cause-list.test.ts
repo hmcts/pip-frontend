@@ -105,4 +105,9 @@ describe('Cop daily cause list page', () => {
         const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
         expect(listForText.innerHTML).contains('Data Source');
     });
+
+    it('should display reporting restrictions', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[6].innerHTML).contains('Reporting restriction 1, Reporting restriction 2');
+    });
 });
