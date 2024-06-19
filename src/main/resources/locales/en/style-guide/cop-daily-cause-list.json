@@ -18,6 +18,7 @@
     "hearingType": "Hearing Type",
     "timeEstimate": "Time Estimate",
     "hearingChannel": "Hearing Channel",
+    "reportingRestriction": "Reporting Restriction",
     "inCop": "In the Court of Protection",
     "missingCourt": "Missing Court"
 }
