@@ -40,8 +40,9 @@ export class SsoAuthentication {
         ]);
 
         if (userGroupsObject?.value.length > 0) {
-            const matchedSecurityGroup = Array.from(securityGroupMap.keys())
-                .find(key => userGroupsObject.value.includes(key));
+            const matchedSecurityGroup = Array.from(securityGroupMap.keys()).find(key =>
+                userGroupsObject.value.includes(key)
+            );
 
             if (matchedSecurityGroup) {
                 return securityGroupMap.get(matchedSecurityGroup);
