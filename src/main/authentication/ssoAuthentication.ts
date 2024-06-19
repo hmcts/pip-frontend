@@ -38,18 +38,16 @@ export class SsoAuthentication {
             [process.env.SSO_SG_ADMIN_CTSC, 'INTERNAL_ADMIN_CTSC'],
             [process.env.SSO_SG_ADMIN_LOCAL, 'INTERNAL_ADMIN_LOCAL'],
         ]);
-        let userRole;
 
         if (userGroupsObject?.value.length > 0) {
-            const userGroups = userGroupsObject.value;
-            securityGroupMap.forEach((value: string, key: string) => {
-                if (userGroups.includes(key)) {
-                    userRole = value;
-                    return;
-                }
-            });
+            const matchedSecurityGroup = Array.from(securityGroupMap.keys())
+                .find(key => userGroupsObject.value.includes(key));
+
+            if (matchedSecurityGroup) {
+                return securityGroupMap.get(matchedSecurityGroup);
+            }
         }
-        return userRole;
+        return null;
     }
 
     public async handleSsoUser(foundUser): Promise<object> {

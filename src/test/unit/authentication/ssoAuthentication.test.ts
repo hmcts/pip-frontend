@@ -15,6 +15,7 @@ const graphApiStub = sinon.stub(graphApi, 'post');
 graphApiStub.withArgs('/users/1/getMemberObjects').resolves({ data: { value: [systemAdminSecurityGroup] } });
 graphApiStub.withArgs('/users/2/getMemberObjects').resolves({ data: { value: [superAdminSecurityGroup] } });
 graphApiStub.withArgs('/users/3/getMemberObjects').resolves({ data: { value: [adminSecurityGroup] } });
+graphApiStub.withArgs('/users/4/getMemberObjects').resolves({ data: { value: [] } });
 
 const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getPiUserByAzureOid');
 getUserStub.withArgs('1').resolves({ userId: '123', roles: 'SYSTEM_ADMIN' });
@@ -45,6 +46,11 @@ describe('SSO Authentication', () => {
     it('should return admin user role', async () => {
         const response = await ssoAuthentication.determineUserRole('3', accessToken);
         expect(response).toEqual('INTERNAL_ADMIN_CTSC');
+    });
+
+    it('should return no user role', async () => {
+        const response = await ssoAuthentication.determineUserRole('4', accessToken);
+        expect(response).toBeNull();
     });
 
     it('should return PI user if found', async () => {
