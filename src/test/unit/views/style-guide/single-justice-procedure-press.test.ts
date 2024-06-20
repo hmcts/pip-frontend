@@ -7,6 +7,7 @@ import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
+import { v4 as uuidv4 } from 'uuid';
 
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
@@ -47,16 +48,16 @@ const sjpResourceMap = new Map<string, object>([
     [
         sjpPressFullListUrl,
         {
-            artefactId: 'abc',
-            artefactIdWithDownloadButton: 'def',
+            artefactId: uuidv4(),
+            artefactIdWithDownloadButton: uuidv4(),
             title: 'Single Justice Procedure cases - Press view (Full list)',
         },
     ],
     [
         sjpPressNewCasesUrl,
         {
-            artefactId: 'ghi',
-            artefactIdWithDownloadButton: 'jkl',
+            artefactId: uuidv4(),
+            artefactIdWithDownloadButton: uuidv4(),
             title: 'Single Justice Procedure cases - Press view (New cases)',
         },
     ],

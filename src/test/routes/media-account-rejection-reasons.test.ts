@@ -4,14 +4,15 @@ import { expect } from 'chai';
 import { MediaAccountApplicationService } from '../../main/service/MediaAccountApplicationService';
 import sinon from 'sinon';
 import { request as expressRequest } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 expressRequest['user'] = { roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
 
 describe('Media Account Rejection', () => {
-    const applicationID = '1234';
+    const applicationID = uuidv4();
 
     const dummyApplication = {
-        id: '1234',
+        id: applicationID,
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'Employer',

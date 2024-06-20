@@ -4,9 +4,10 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 describe('Media Account Review Test', () => {
-    const applicationId = '1234';
+    const applicationId = uuidv4();
 
     const PAGE_URL = '/media-account-review?applicantId=' + applicationId;
     const headingClass = 'govuk-heading-l';
@@ -27,12 +28,12 @@ describe('Media Account Review Test', () => {
     const proofOfIdHeader = 'Proof of ID';
     const proofOfIdValue = 'ImageName.jpg (opens in a new window)';
     const proofOfIdView = 'View';
-    const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
+    const proofOfIdViewLink = `/media-account-review/image?imageId=12345&applicantId=${applicationId}`;
     const approveButtonText = 'Approve application';
     const rejectButtonText = 'Reject application';
 
     const dummyApplication = {
-        id: '1234',
+        id: applicationId,
         fullName: 'Test Name',
         email: 'a@b.com',
         employer: 'employer',
