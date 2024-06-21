@@ -85,13 +85,13 @@ export class OpaPublicListService {
         return {
             offenceTitle: ListParseHelperService.writeStringIfValid(offence.offenceTitle),
             offenceSection: ListParseHelperService.writeStringIfValid(offence.offenceSection),
-            offenceReportingRestriction: offence.reportingRestrictionDetail?.filter(n => n.length > 0).join(', '),
+            offenceReportingRestriction: ListParseHelperService.formatReportingRestrictionDetail(offence),
         };
     }
 
     private buildCaseDetails(hearingCase): any {
         let scheduledHearingDate = '';
-        const caseReportingRestriction = hearingCase.reportingRestrictionDetail?.filter(n => n.length > 0).join(', ');
+        const caseReportingRestriction = ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
         if (hearingCase.scheduledHearingDate.length > 0) {
             scheduledHearingDate = formatDate(
                 ListParseHelperService.writeStringIfValid(hearingCase.scheduledHearingDate),

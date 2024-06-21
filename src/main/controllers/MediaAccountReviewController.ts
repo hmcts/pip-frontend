@@ -3,6 +3,8 @@ import { MediaAccountApplicationService } from '../service/MediaAccountApplicati
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { fileTypeMappings } from '../helpers/consts';
+import * as url from 'url';
+import { validate } from 'uuid';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 
@@ -42,18 +44,28 @@ export default class MediaAccountReviewController {
     }
 
     public approve(req: PipRequest, res: Response): void {
-        const applicantId = req.body['applicantId'];
-        if (applicantId) {
-            res.redirect('/media-account-approval?applicantId=' + applicantId);
+        const applicantId = req.body?.applicantId;
+        if (validate(applicantId)) {
+            res.redirect(
+                url.format({
+                    pathname: '/media-account-approval',
+                    query: { applicantId: applicantId },
+                })
+            );
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
 
     public reject(req: PipRequest, res: Response): void {
-        const applicantId = req.body['applicantId'];
-        if (applicantId) {
-            res.redirect('/media-account-rejection-reasons?applicantId=' + applicantId);
+        const applicantId = req.body?.applicantId;
+        if (validate(applicantId)) {
+            res.redirect(
+                url.format({
+                    pathname: '/media-account-rejection-reasons',
+                    query: { applicantId: applicantId },
+                })
+            );
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }

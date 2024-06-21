@@ -18,6 +18,7 @@
     "hearingType": "Math o wrandawiad",
     "timeEstimate": "Amcangyfrif o'r amser",
     "hearingChannel": "Sianel y Gwrandawiad",
+    "reportingRestriction": "Cyfyngiad adrodd",
     "inCop": "Yn y Llys Gwarchod",
     "missingCourt": "Llys ar Goll"
 }

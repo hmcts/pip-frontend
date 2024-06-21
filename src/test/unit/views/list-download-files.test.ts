@@ -13,11 +13,28 @@ const PAGE_URL_WITH_EXCEL_ONLY = '/list-download-files?artefactId=ghi';
 let htmlRes: Document;
 
 const mockArtefact = {
+    artefactId: 'abc',
     listType: 'SJP_PRESS_LIST',
     sensitivity: 'CLASSIFIED',
 };
 
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
+const mockArtefactForPdfOnly = {
+    artefactId: 'def',
+    listType: 'SJP_PRESS_LIST',
+    sensitivity: 'CLASSIFIED',
+};
+
+const mockArtefactForExcelOnly = {
+    artefactId: 'ghi',
+    listType: 'SJP_PRESS_LIST',
+    sensitivity: 'CLASSIFIED',
+};
+
+const getMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+
+getMetadataStub.withArgs('abc').resolves(mockArtefact);
+getMetadataStub.withArgs('def').resolves(mockArtefactForPdfOnly);
+getMetadataStub.withArgs('ghi').resolves(mockArtefactForExcelOnly);
 sinon.stub(AccountManagementRequests.prototype, 'isAuthorised').resolves(true);
 sinon.stub(ListDownloadService.prototype, 'getFile').resolves('abc');
 

@@ -4,16 +4,16 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { request as expressRequest } from 'express';
-import { randomUUID } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 
-const applicationId = randomUUID();
+const applicationId = uuidv4();
 
 const PAGE_URL = '/media-account-rejection-reasons?applicantId=' + applicationId;
 
 let htmlRes: Document;
 
 const dummyApplication = {
-    id: '1234',
+    id: applicationId,
     fullName: 'Test Name',
     email: 'a@b.com',
     employer: 'employer',

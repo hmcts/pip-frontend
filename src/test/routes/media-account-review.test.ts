@@ -5,11 +5,12 @@ import { MediaAccountApplicationService } from '../../main/service/MediaAccountA
 import sinon from 'sinon';
 import { dummyApplication } from '../helpers/testConsts';
 import { request as expressRequest } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 expressRequest['user'] = { roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
 
 describe('Media Account Review Pages', () => {
-    const applicationID = '1234';
+    const applicationID = uuidv4();
     const imageID = '12345';
 
     const getApplicationByIdStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');

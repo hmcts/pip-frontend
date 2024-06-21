@@ -28,7 +28,6 @@ describe('Delete Court Reference Data Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.query = { locationId: '1' };
-        request.path = '/' + pageName;
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n[pageName],
@@ -36,7 +35,7 @@ describe('Delete Court Reference Data Controller', () => {
             displayError: false,
         };
         responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
+        return deleteCourtReferenceDataConfirmationController.get(request, response, pageName).then(() => {
             responseMock.verify();
         });
     });
@@ -50,7 +49,6 @@ describe('Delete Court Reference Data Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.query = { locationId: '1' };
-        request.path = '/delete-court-subscription-confirmation';
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['delete-court-subscription-confirmation'],
@@ -58,9 +56,11 @@ describe('Delete Court Reference Data Controller', () => {
             displayError: false,
         };
         responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtReferenceDataConfirmationController
+            .get(request, response, 'delete-court-subscription-confirmation')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render the court publication data page', () => {
@@ -72,7 +72,6 @@ describe('Delete Court Reference Data Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.query = { locationId: '1' };
-        request.path = '/delete-court-publication-confirmation';
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['delete-court-publication-confirmation'],
@@ -80,9 +79,11 @@ describe('Delete Court Reference Data Controller', () => {
             displayError: false,
         };
         responseMock.expects('render').once().withArgs('delete-court-publication-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtReferenceDataConfirmationController
+            .get(request, response, 'delete-court-publication-confirmation')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render the court subscription deletion data page', () => {
@@ -94,7 +95,6 @@ describe('Delete Court Reference Data Controller', () => {
         } as unknown as Response;
         const request = mockRequest(i18n);
         request.query = { locationId: '1' };
-        request.path = '/delete-court-subscription-confirmation';
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['delete-court-subscription-confirmation'],
@@ -103,9 +103,11 @@ describe('Delete Court Reference Data Controller', () => {
         };
 
         responseMock.expects('render').once().withArgs('delete-court-subscription-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response).then(() => {
-            responseMock.verify();
-        });
+        return deleteCourtReferenceDataConfirmationController
+            .get(request, response, 'delete-court-subscription-confirmation')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render confirmation page if active artefact or subscription is available', () => {

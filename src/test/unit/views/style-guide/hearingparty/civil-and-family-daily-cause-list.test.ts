@@ -147,7 +147,7 @@ describe('Civil And Family Daily Cause List page', () => {
 
     it('should display Case Name without Case Sequence Indicator', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(2).children;
+        const cell = rows.item(3).children;
         expect(cell[2].innerHTML).equals('A2 Vs B2');
     });
 
@@ -174,34 +174,39 @@ describe('Civil And Family Daily Cause List page', () => {
     it('should not display applicant petitioner for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[7].innerHTML).not.contains(applicantRespondent);
-        expect(cell[16].innerHTML).not.contains(applicantRespondent);
+        expect(cell[17].innerHTML).not.contains(applicantRespondent);
     });
 
     it('should not display respondent for hearing with multiple cases', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[8].innerHTML).not.contains(applicantRespondent);
-        expect(cell[17].innerHTML).not.contains(applicantRespondent);
+        expect(cell[18].innerHTML).not.contains(applicantRespondent);
     });
 
-    it('should display applicant petitioner for haring with a single case', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[25].innerHTML).contains(applicantRespondent);
-    });
-
-    it('should display respondent for hearing with a single case', () => {
+    it('should display applicant petitioner for hearing with a single case', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[26].innerHTML).contains(applicantRespondent);
     });
 
+    it('should display respondent for hearing with a single case', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[27].innerHTML).contains(applicantRespondent);
+    });
+
     it('should display applicant petitioner using organisation', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(4).children;
+        const cell = rows.item(5).children;
         expect(cell[7].innerHTML).contains('Applicant org name, Legal Advisor: Applicant rep org name');
     });
 
     it('should display respondent using organisation', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(4).children;
+        const cell = rows.item(5).children;
         expect(cell[8].innerHTML).contains('Respondent org name, Legal Advisor: Respondent rep org name');
+    });
+
+    it('should display reporting restrictions', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[9].innerHTML).contains('Reporting restriction 1, Reporting restriction 2');
     });
 });

@@ -7,6 +7,7 @@ import fs from 'fs';
 import path from 'path';
 import { SjpPublicListService } from '../../../main/service/listManipulation/SjpPublicListService';
 import { SjpFilterService } from '../../../main/service/SjpFilterService';
+import { v4 as uuidv4 } from 'uuid';
 
 const sjpFullListUrl = '/sjp-public-list';
 const sjpNewCasesUrl = '/sjp-public-list-new-cases';
@@ -34,7 +35,7 @@ describe.each([sjpFullListUrl, sjpNewCasesUrl])("Single Justice Procedure Public
     describe('on GET', () => {
         test('should return list publication', async () => {
             await request(app)
-                .get(`${url}?artefactId=0`)
+                .get(`${url}?artefactId=` + uuidv4())
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
@@ -43,7 +44,7 @@ describe.each([sjpFullListUrl, sjpNewCasesUrl])("Single Justice Procedure Public
         test('should redirect to Single Justice Procedure public page', async () => {
             app.request['user'] = { userId: '2' };
             await request(app)
-                .post(`${url}?artefactId=test&filterValues=AA1`)
+                .post(`${url}?artefactId=${uuidv4()}&filterValues=AA1`)
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).contains('sjp-public-list');

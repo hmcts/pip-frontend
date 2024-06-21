@@ -3,6 +3,8 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { UserManagementService } from '../service/UserManagementService';
+import * as url from 'url';
+import { validate } from 'uuid';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
@@ -24,14 +26,29 @@ export default class MediaAccountApprovalController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const applicantId = req.body['applicantId'];
-        const approved = req.body['approved'];
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+        const applicantId = req.body?.applicantId;
 
-        if (applicantData) {
-            return MediaAccountApprovalController.applicationFoundFlow(req, res, approved, applicantId, applicantData);
+        if (!validate(applicantId)) {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else {
+            const approved = req.body['approved'];
+            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+                applicantId,
+                'PENDING'
+            );
+
+            if (applicantData) {
+                return MediaAccountApprovalController.applicationFoundFlow(
+                    req,
+                    res,
+                    approved,
+                    applicantId,
+                    applicantData
+                );
+            } else {
+                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+            }
         }
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
 
     /**
@@ -49,7 +66,12 @@ export default class MediaAccountApprovalController {
         if (approved === 'Yes') {
             return MediaAccountApprovalController.approvalFlow(req, res, applicantId, applicantData);
         } else {
-            return res.redirect('/media-account-review?applicantId=' + applicantId);
+            return res.redirect(
+                url.format({
+                    pathname: '/media-account-review',
+                    query: { applicantId: applicantId },
+                })
+            );
         }
     }
 
@@ -63,7 +85,12 @@ export default class MediaAccountApprovalController {
                 'APPROVE_MEDIA_APPLICATION',
                 `Media application with id ${applicantId} approved`
             );
-            return res.redirect('/media-account-approval-confirmation?applicantId=' + applicantId);
+            return res.redirect(
+                url.format({
+                    pathname: '/media-account-approval-confirmation',
+                    query: { applicantId: applicantId },
+                })
+            );
         } else {
             return res.render('media-account-approval', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),

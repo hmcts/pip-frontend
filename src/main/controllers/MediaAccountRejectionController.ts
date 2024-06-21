@@ -3,6 +3,8 @@ import { Response } from 'express';
 import { MediaAccountApplicationService } from '../service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
 import { UserManagementService } from '../service/UserManagementService';
+import * as url from 'url';
+import { validate } from 'uuid';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
@@ -27,22 +29,31 @@ export default class MediaAccountRejectionController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const applicantId = req.query['applicantId'];
-        const rejected = req.body['reject-confirmation'];
-        const reasons = req.body['reasons'];
+        const applicantId = req.query?.applicantId as string;
 
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
-        if (applicantData) {
-            return MediaAccountRejectionController.applicationFoundFlow(
-                req,
-                res,
-                rejected,
+        if (!validate(applicantId)) {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else {
+            const rejected = req.body['reject-confirmation'];
+            const reasons = req.body['reasons'];
+
+            const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
                 applicantId,
-                reasons,
-                applicantData
+                'PENDING'
             );
+            if (applicantData) {
+                return MediaAccountRejectionController.applicationFoundFlow(
+                    req,
+                    res,
+                    rejected,
+                    applicantId,
+                    reasons,
+                    applicantData
+                );
+            } else {
+                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+            }
         }
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
 
     /**
@@ -61,7 +72,12 @@ export default class MediaAccountRejectionController {
         if (rejected === 'Yes') {
             return MediaAccountRejectionController.rejectionFlow(req, res, applicantId, reasons);
         } else {
-            return res.redirect('/media-account-review?applicantId=' + applicantId);
+            return res.redirect(
+                url.format({
+                    pathname: '/media-account-review',
+                    query: { applicantId: applicantId },
+                })
+            );
         }
     }
 

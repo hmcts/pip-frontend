@@ -14,7 +14,6 @@ describe('Alphabetical Search Controller', () => {
         'alphabetical-search': {},
     };
     const request = mockRequest(i18n);
-    request.path = '/alphabetical-search';
 
     describe('get', () => {
         it('should render the alphabetical search page', () => {
@@ -36,7 +35,7 @@ describe('Alphabetical Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
 
-            return alphabeticalSearchController.get(request, response).then(() => {
+            return alphabeticalSearchController.get(request, response, 'alphabetical-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -59,7 +58,7 @@ describe('Alphabetical Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
 
-            return alphabeticalSearchController.get(request, response).then(() => {
+            return alphabeticalSearchController.get(request, response, 'alphabetical-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -78,7 +77,7 @@ describe('Alphabetical Search Controller', () => {
 
             responseMock.expects('redirect').once().withArgs('alphabetical-search?filterValues=Manchester');
 
-            return alphabeticalSearchController.post(request, response).then(() => {
+            return alphabeticalSearchController.post(request, response, 'alphabetical-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -90,7 +89,7 @@ describe('Alphabetical Search Controller', () => {
 
             responseMock.expects('redirect').once().withArgs('alphabetical-search?filterValues=Crown');
 
-            return alphabeticalSearchController.post(request, response).then(() => {
+            return alphabeticalSearchController.post(request, response, 'alphabetical-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -102,7 +101,6 @@ describe('Location Name Search Controller', () => {
         'alphabetical-search': {},
     };
     const request = mockRequest(i18n);
-    request.path = '/location-name-search';
     const expectedData = {
         ...i18n['location-name-search'],
         filterOptions: {},
@@ -122,7 +120,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            return alphabeticalSearchController.get(request, response).then(() => {
+            return alphabeticalSearchController.get(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -134,7 +132,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            return alphabeticalSearchController.get(request, response).then(() => {
+            return alphabeticalSearchController.get(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -146,7 +144,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            return alphabeticalSearchController.get(request, response).then(() => {
+            return alphabeticalSearchController.get(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -158,7 +156,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            return alphabeticalSearchController.get(request, response).then(() => {
+            return alphabeticalSearchController.get(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -170,7 +168,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            return alphabeticalSearchController.get(request, response).then(() => {
+            return alphabeticalSearchController.get(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -181,7 +179,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            await alphabeticalSearchController.get(request, response);
+            await alphabeticalSearchController.get(request, response, 'location-name-search');
             responseMock.verify();
         });
 
@@ -191,7 +189,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            await alphabeticalSearchController.get(request, response);
+            await alphabeticalSearchController.get(request, response, 'location-name-search');
             responseMock.verify();
         });
 
@@ -204,7 +202,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('render').once().withArgs('location-name-search', expectedData);
 
-            await alphabeticalSearchController.get(request, response);
+            await alphabeticalSearchController.get(request, response, 'location-name-search');
             responseMock.verify();
         });
     });
@@ -222,7 +220,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=');
 
-            return alphabeticalSearchController.post(request, response).then(() => {
+            return alphabeticalSearchController.post(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -234,7 +232,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=crown,london');
 
-            return alphabeticalSearchController.post(request, response).then(() => {
+            return alphabeticalSearchController.post(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -246,7 +244,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=crown');
 
-            return alphabeticalSearchController.post(request, response).then(() => {
+            return alphabeticalSearchController.post(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -258,7 +256,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=london');
 
-            return alphabeticalSearchController.post(request, response).then(() => {
+            return alphabeticalSearchController.post(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
@@ -270,7 +268,7 @@ describe('Location Name Search Controller', () => {
 
             responseMock.expects('redirect').once().withArgs('location-name-search?filterValues=');
 
-            return alphabeticalSearchController.post(request, response).then(() => {
+            return alphabeticalSearchController.post(request, response, 'location-name-search').then(() => {
                 responseMock.verify();
             });
         });
