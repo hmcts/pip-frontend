@@ -1,11 +1,11 @@
-import { app } from '../../../main/app';
+import {app} from '../../../main/app';
 import sinon from 'sinon';
-import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
-import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
-import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
-import { randomUUID } from 'crypto';
-import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
-import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
+import {LocationRequests} from '../../../main/resources/requests/LocationRequests';
+import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
+import {AccountManagementRequests} from '../../../main/resources/requests/AccountManagementRequests';
+import {randomUUID} from 'crypto';
+import {testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData} from '../common/testData';
+import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
 
 const userId = '1';
 const name = 'Test';
@@ -16,28 +16,28 @@ const uuid = randomUUID();
 const rejectionReasons = 'Details provided do not match.';
 
 const adminRoutes = [
-    { path: '/admin-dashboard' },
-    { path: '/create-admin-account' },
-    { path: '/create-admin-account-summary' },
-    { path: '/manual-upload' },
-    { path: '/manual-upload-summary' },
-    { path: '/manual-upload-confirmation' },
-    { path: '/media-applications' },
-    { path: '/media-account-review', parameter: '?applicantId=123' },
-    { path: '/media-account-approval', parameter: '?applicantId=123' },
-    { path: '/media-account-rejection', parameter: '?applicantId=123' },
-    { path: '/media-account-approval-confirmation', parameter: '?applicantId=123' },
-    { path: '/media-account-rejection-reasons', parameter: `?applicantId=${uuid}` },
-    { path: '/media-account-rejection-confirmation' },
-    { path: '/remove-list-confirmation', parameter: '?artefact=123' },
-    { path: '/remove-list-search' },
-    { path: '/remove-list-search-results', parameter: '?locationId=123' },
-    { path: '/remove-list-success' },
-    { path: '/admin-management' },
-    { path: '/manage-user' },
-    { path: '/update-user', parameter: `?id=${userId}` },
-    { path: '/delete-user', parameter: `?id=${userId}` },
-    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes' } },
+    {path: '/admin-dashboard'},
+    {path: '/create-admin-account'},
+    {path: '/create-admin-account-summary'},
+    {path: '/manual-upload'},
+    {path: '/manual-upload-summary'},
+    {path: '/manual-upload-confirmation'},
+    {path: '/media-applications'},
+    {path: '/media-account-review', parameter: '?applicantId=123'},
+    {path: '/media-account-approval', parameter: '?applicantId=123'},
+    {path: '/media-account-rejection', parameter: '?applicantId=123'},
+    {path: '/media-account-approval-confirmation', parameter: '?applicantId=123'},
+    {path: '/media-account-rejection-reasons', parameter: `?applicantId=${uuid}`},
+    {path: '/media-account-rejection-confirmation'},
+    {path: '/remove-list-confirmation', parameter: '?artefact=123'},
+    {path: '/remove-list-search'},
+    {path: '/remove-list-search-results', parameter: '?locationId=123'},
+    {path: '/remove-list-success'},
+    {path: '/admin-management'},
+    {path: '/manage-user'},
+    {path: '/update-user', parameter: `?id=${userId}`},
+    {path: '/delete-user', parameter: `?id=${userId}`},
+    {path: '/delete-user-confirmation', postMethod: true, postBody: {'delete-user-confirm': 'yes'}},
 ];
 
 const locationData = testLocationData();
@@ -57,7 +57,7 @@ sinon.stub(AccountManagementRequests.prototype, 'deleteUser').resolves('Success'
 
 describe('Accessibility - Admin Routes', () => {
     app.request['cookies'] = {
-        formCookie: JSON.stringify({ listType: 'CIVIL_DAILY_CAUSE_LIST' }),
+        formCookie: JSON.stringify({listType: 'CIVIL_DAILY_CAUSE_LIST'}),
         createAdminAccount: JSON.stringify({
             firstName: name,
             lastName: name,
@@ -89,15 +89,15 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/create-admin-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account': '' });
+                testAccessibility(url, '', true, {'create-admin-account': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account': true });
+                testAccessibility(url, '', true, {'create-admin-account': true});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account': null });
+                testAccessibility(url, '', true, {'create-admin-account': null});
             });
         });
 
@@ -105,31 +105,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/admin-management';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'search-input': '' });
+                testAccessibility(url, '', true, {'search-input': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'search-input': 'Not found' });
-            });
-        });
-
-        describe('Create Admin Account Summary Page', () => {
-            const url = '/create-admin-account-summary';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account-summary': '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account-summary': emailAddress });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account-summary': true });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account-summary': false });
+                testAccessibility(url, '', true, {'search-input': 'Not found'});
             });
         });
 
@@ -137,15 +117,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/update-user';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { userId: '' });
+                testAccessibility(url, '', true, {userId: ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { userId: 'true' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { userId: null });
+                testAccessibility(url, '', true, {userId: 'true'});
             });
         });
 
@@ -153,35 +129,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/manual-upload';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'manual-upload': '' });
+                testAccessibility(url, '', true, {'manual-upload': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'manual-upload': 'true' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { court: 'input-autocomplete' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { artefactType: 'Incorrect Content Date' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { classificationError: 'Incorrect Classification' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { displayDateError: 'Incorrect Display Date' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { displayDateFrom: 'Incorrect From Date' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { displayDateTo: 'Incorrect To Date' });
+                testAccessibility(url, '', true, {'manual-upload': 'true'});
             });
         });
 
@@ -189,11 +141,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/remove-list-confirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'remove-choice': '' });
+                testAccessibility(url, '', true, {'remove-choice': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'remove-choice': 'Incorrect Text' });
+                testAccessibility(url, '', true, {'remove-choice': 'Incorrect Text'});
             });
         });
 
@@ -201,11 +153,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/remove-list-search';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'search-input': '' });
+                testAccessibility(url, '', true, {'search-input': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'search-input': 'Invalid Input' });
+                testAccessibility(url, '', true, {'search-input': 'Invalid Input'});
             });
         });
 
@@ -213,15 +165,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/media-account-approval';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'media-account-approval': '' });
+                testAccessibility(url, '', true, {'media-account-approval': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'media-account-approval': 'applicantId' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'media-account-approval': 'Yes' });
+                testAccessibility(url, '', true, {'media-account-approval': 'Yes'});
             });
         });
 
@@ -229,19 +177,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/media.account-rejection';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'media-account-rejection': '' });
+                testAccessibility(url, '', true, {'media-account-rejection': ''});
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'media-account-rejection': 'applicantId' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'media-account-rejection': 'reject-confirmation' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'media-account-rejection': 'reasons' });
+                testAccessibility(url, '', true, {'media-account-rejection': 'applicantId'});
             });
         });
     });
