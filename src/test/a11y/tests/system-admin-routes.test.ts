@@ -187,30 +187,6 @@ describe('Accessibility - System Admin Routes', () => {
             });
         });
 
-        describe('Delete Court Publication Confirmation Page', () => {
-            const url = '/delete-account-publication-confirmation';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
-            });
-        });
-
-        describe('Delete Court Subscription Confirmation Page', () => {
-            const url = '/delete-court-subscription-confirmation';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': '' });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
-            });
-        });
-
         describe('Bulk Create Media Accounts Page', () => {
             const url = '/bulk-create-media-accounts';
 

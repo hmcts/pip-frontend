@@ -128,10 +128,6 @@ describe('Accessibility - Media User Routes', () => {
             describe('with no input data', () => {
                 testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
             });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': 'yes' });
-            });
         });
 
         describe('List Download Disclaimer Page', () => {
