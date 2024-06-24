@@ -51,28 +51,40 @@ export class SsoAuthentication {
         return null;
     }
 
-    public async handleSsoUser(foundUser): Promise<object> {
+    public async handleSsoUser(foundUser): Promise<object | string> {
         const user = await accountManagementRequests.getPiUserByAzureOid(foundUser.oid, 'SSO');
-        if (!user) {
-            return await this.createSsoUser(foundUser);
+        if (user) {
+            if (user.roles !== foundUser.roles) {
+                return await this.updateSsoUser(foundUser, user['userId']);
+            }
+            return user;
         }
-        return user;
+        return await this.createSsoUser(foundUser);
     }
 
-    private async createSsoUser(foundUser): Promise<object> {
-        if (foundUser['roles'] == 'SYSTEM_ADMIN') {
+    private async updateSsoUser(ssoUser, userId): Promise<object | string> {
+        if (ssoUser['roles'] === 'SYSTEM_ADMIN') {
+            const deleteUserResponse = await accountManagementRequests.deleteUser(userId, null);
+            return deleteUserResponse ? this.createSsoUser(ssoUser) : null;
+        } else {
+            return await accountManagementRequests.updateUser(userId, ssoUser['roles'], null);
+        }
+    }
+
+    private async createSsoUser(ssoUser): Promise<object> {
+        if (ssoUser['roles'] === 'SYSTEM_ADMIN') {
             const piAccount = {
-                email: foundUser['email'],
-                provenanceUserId: foundUser['oid'],
+                email: ssoUser['email'],
+                provenanceUserId: ssoUser['oid'],
             };
             return await accountManagementRequests.createSystemAdminUser(piAccount);
         } else {
             const piAccount = [
                 {
                     userProvenance: 'SSO',
-                    email: foundUser['email'],
-                    roles: foundUser['roles'],
-                    provenanceUserId: foundUser['oid'],
+                    email: ssoUser['email'],
+                    roles: ssoUser['roles'],
+                    provenanceUserId: ssoUser['oid'],
                 },
             ];
             return await accountManagementRequests.createPIAccount(piAccount, '');

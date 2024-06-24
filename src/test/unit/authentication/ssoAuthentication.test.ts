@@ -20,6 +20,15 @@ graphApiStub.withArgs('/users/4/getMemberObjects').resolves({ data: { value: [] 
 const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getPiUserByAzureOid');
 getUserStub.withArgs('1').resolves({ userId: '123', roles: 'SYSTEM_ADMIN' });
 getUserStub.withArgs('2').resolves(null);
+getUserStub.withArgs('3').resolves({ userId: '124', roles: 'SYSTEM_ADMIN' });
+getUserStub.withArgs('4').resolves({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
+getUserStub.withArgs('5').resolves({ userId: '126', roles: 'INTERNAL_ADMIN_LOCAL' });
+
+const deleteUserStub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
+deleteUserStub.withArgs('124').resolves("User deleted");
+deleteUserStub.withArgs('126').resolves(null);
+
+sinon.stub(AccountManagementRequests.prototype, 'updateUser').resolves("User updated");
 
 sinon
     .stub(AccountManagementRequests.prototype, 'createSystemAdminUser')
@@ -53,9 +62,24 @@ describe('SSO Authentication', () => {
         expect(response).toBeNull();
     });
 
-    it('should return PI user if found', async () => {
+    it('should return PI user if user is found with the same role', async () => {
         const response = await ssoAuthentication.handleSsoUser({ oid: '1', roles: 'SYSTEM_ADMIN' });
         expect(response).toEqual({ userId: '123', roles: 'SYSTEM_ADMIN' });
+    });
+
+    it('should return PI user if user is found with different role (system admin)', async () => {
+        const response = await ssoAuthentication.handleSsoUser({ oid: '3', roles: 'SYSTEM_ADMIN' });
+        expect(response).toEqual({ userId: '124', roles: 'SYSTEM_ADMIN' });
+    });
+
+    it('should return PI user if user is found with different role (admin)', async () => {
+        const response = await ssoAuthentication.handleSsoUser({ oid: '4', roles: 'INTERNAL_ADMIN_CTSC' });
+        expect(response).toEqual({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
+    });
+
+    it('should not create system admin if existing user failed to be deleted', async () => {
+        const response = await ssoAuthentication.handleSsoUser({ oid: '5', roles: 'SYSTEM_ADMIN' });
+        expect(response).toBeNull();
     });
 
     it('should create system admin PI user if user not found', async () => {

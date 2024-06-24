@@ -221,11 +221,12 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async deleteUser(userId: string, adminUserId: string): Promise<object> {
+    public async deleteUser(userId: string, adminUserId = null): Promise<object> {
         try {
             logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
+            const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
             const response = await accountManagementApi.delete(`/account/v2/${userId}`, {
-                headers: { 'x-admin-id': adminUserId },
+                headers: headers,
             });
             return response.data;
         } catch (error) {
@@ -234,7 +235,7 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async updateUser(userId: string, role: string, adminUserId: string): Promise<object | string> {
+    public async updateUser(userId: string, role: string, adminUserId = null): Promise<object | string> {
         try {
             logger.info(
                 'User with ID: ' +
@@ -244,10 +245,9 @@ export class AccountManagementRequests {
                     ' by Admin with ID: ' +
                     adminUserId
             );
+            const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
             const response = await accountManagementApi.put(`/account/update/${userId}/${role}`, null, {
-                headers: {
-                    'x-admin-id': adminUserId,
-                },
+                headers: headers,
             });
             return response.data;
         } catch (error) {
