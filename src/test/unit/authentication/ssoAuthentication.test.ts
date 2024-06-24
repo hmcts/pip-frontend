@@ -25,10 +25,10 @@ getUserStub.withArgs('4').resolves({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC'
 getUserStub.withArgs('5').resolves({ userId: '126', roles: 'INTERNAL_ADMIN_LOCAL' });
 
 const deleteUserStub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
-deleteUserStub.withArgs('124').resolves("User deleted");
+deleteUserStub.withArgs('124').resolves('User deleted');
 deleteUserStub.withArgs('126').resolves(null);
 
-sinon.stub(AccountManagementRequests.prototype, 'updateUser').resolves("User updated");
+sinon.stub(AccountManagementRequests.prototype, 'updateUser').resolves('User updated');
 
 sinon
     .stub(AccountManagementRequests.prototype, 'createSystemAdminUser')
