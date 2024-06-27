@@ -46,9 +46,14 @@
     {% if showFilters %} {{ filter.hide }} {% else %} {{ filter.show }} {% endif %}
   </button>
 
+  {% from "govuk/components/pagination/macro.njk" import govukPagination %}
+
+
+
   <div class="govuk-grid-row">
     {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
     <div class="parent-box overflow-table">
+        {{ govukPagination(paginationData) }}
       <div class="overflow-table govuk-body">
         {% set hearingCount = 0 %}
         {% for sjpCase in sjpData %}

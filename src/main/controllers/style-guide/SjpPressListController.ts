@@ -50,9 +50,19 @@ export default class SjpPressListController {
             const url = publicationService.getListTypes().get(metaData.listType).url;
             const languageResource = SjpPressListController.getLanguageResources(req, metaData.listType);
 
+            const currentPage = req.query?.page && Number(req.query.page) ? parseInt(req.query.page as string) : 1;
+
+            const paginationData = SjpPressListController.generatePaginationData(
+                filter.sjpCases,
+                currentPage,
+                artefactId,
+                req.query?.filterValues
+            );
+
             res.render(`style-guide/${sjpPressAll}`, {
                 ...cloneDeep(languageResource),
-                sjpData: filter.sjpCases,
+                sjpData: filter.sjpCases.slice((currentPage - 1) * 1000, currentPage * 1000),
+                paginationData,
                 totalHearings: filter.sjpCases.length,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
@@ -78,6 +88,47 @@ export default class SjpPressListController {
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+    }
+
+    public static generatePaginationData(sjpCases, currentPage, artefactId, filterValues) {
+        let numberOfPages = Math.ceil(sjpCases.length / 1000);
+
+        const baseUrl = url
+            .format({
+                pathname: 'sjp-press-list',
+                query: {
+                    artefactId: artefactId,
+                    filterValues: filterValues,
+                },
+            })
+            .toString();
+
+        let paginationData = {};
+
+        if (currentPage > 1) {
+            paginationData['previous'] = {
+                href: baseUrl + '&page=' + (currentPage - 1),
+            };
+        }
+
+        if (currentPage != numberOfPages) {
+            paginationData['next'] = {
+                href: baseUrl + '&page=' + (currentPage + 1),
+            };
+        }
+
+        let items = [];
+        for (let i = 1; i <= numberOfPages; i++) {
+            items.push({
+                number: i,
+                current: i === currentPage,
+                href: baseUrl + '&page=' + i,
+            });
+        }
+
+        paginationData['items'] = items;
+
+        return paginationData;
     }
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
