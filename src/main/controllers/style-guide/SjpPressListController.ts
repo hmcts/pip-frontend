@@ -91,7 +91,7 @@ export default class SjpPressListController {
     }
 
     public static generatePaginationData(sjpCases, currentPage, artefactId, filterValues) {
-        let numberOfPages = Math.ceil(sjpCases.length / 1000);
+        const numberOfPages = Math.ceil(sjpCases.length / 1000);
 
         const baseUrl = url
             .format({
@@ -103,7 +103,7 @@ export default class SjpPressListController {
             })
             .toString();
 
-        let paginationData = {};
+        const paginationData = {};
 
         if (currentPage > 1) {
             paginationData['previous'] = {
@@ -117,7 +117,7 @@ export default class SjpPressListController {
             };
         }
 
-        let items = [];
+        const items = [];
         for (let i = 1; i <= numberOfPages; i++) {
             items.push({
                 number: i,
