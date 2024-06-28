@@ -18,7 +18,6 @@ const publicRoutes = [
     { path: '/session-expired', parameter: '?reSignInUrl=CFT' },
     { path: '/session-logged-out' },
     { path: '/not-found' },
-    { path: '/unprocessed-request' },
     { path: '/search' },
     { path: '/sign-in' },
     { path: '/view-option' },
