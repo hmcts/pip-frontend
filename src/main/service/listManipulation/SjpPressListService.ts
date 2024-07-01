@@ -129,5 +129,4 @@ export class SjpPressListService {
         });
         return rows;
     }
-
 }

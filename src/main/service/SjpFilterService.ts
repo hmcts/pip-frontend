@@ -1,5 +1,5 @@
 import { FilterService } from './FilterService';
-import url from "url";
+import url from 'url';
 
 const filterService = new FilterService();
 
@@ -169,16 +169,15 @@ export class SjpFilterService {
     public generatePaginationData(sjpCases, currentPage, artefactId, filterValues, page) {
         const numberOfPages = Math.ceil(sjpCases.length / 1000);
 
-        const query = {artefactId: artefactId};
+        const query = { artefactId: artefactId };
         if (filterValues && filterValues.length > 0) {
             query['filterValues'] = filterValues;
         }
 
-        const baseUrl = url
-            .format({
-                pathname: page,
-                query: query,
-            });
+        const baseUrl = url.format({
+            pathname: page,
+            query: query,
+        });
 
         const paginationData = {};
 
@@ -220,12 +219,12 @@ export class SjpFilterService {
             if (currentPage == 1 || currentPage == 2) {
                 pageRange = [2, 3];
             } else if (currentPage == numberOfPages || currentPage == numberOfPages - 1) {
-                pageRange = [numberOfPages - 2, numberOfPages -1];
+                pageRange = [numberOfPages - 2, numberOfPages - 1];
             } else {
                 pageRange = [currentPage - 1, currentPage, currentPage + 1];
             }
 
-            pageRange.forEach((page) => {
+            pageRange.forEach(page => {
                 items.push({
                     number: page,
                     current: page === currentPage,

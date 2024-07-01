@@ -32,7 +32,6 @@ export default class SjpPublicListController {
         const metaDataListType = formatMetaDataListType(metaData);
 
         if (isValidList(fileData, metaData) && isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)) {
-
             const currentPage = req.query?.page && Number(req.query.page) ? parseInt(req.query.page as string) : 1;
 
             const allCases = sjpPublicListService.formatSjpPublicList(fileData as JSON);
