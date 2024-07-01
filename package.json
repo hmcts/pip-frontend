@@ -58,7 +58,7 @@
         "axios": "^1.6.8",
         "axios-oauth-client": "^2.2.0",
         "axios-token-interceptor": "^0.2.0",
-        "codeceptjs": "3.6.2",
+        "codeceptjs": "3.6.4",
         "config": "^3.3.11",
         "connect-redis": "7.1.1",
         "core-js": "3.37.1",
