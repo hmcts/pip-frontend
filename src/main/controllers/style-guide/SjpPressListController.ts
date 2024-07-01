@@ -33,30 +33,30 @@ export default class SjpPressListController {
         const metaDataListType = formatMetaDataListType(metaData);
 
         if (isValidList(sjpData, metaData) && isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)) {
-            const allCases = sjpPressListService.formatSJPPressList(JSON.stringify(sjpData));
+
+            const currentPage = req.query?.page && Number(req.query.page) ? parseInt(req.query.page as string) : 1;
+
+            const allCases = sjpPressListService.formatSJPPressList(sjpData as JSON);
             const filter = sjpFilterService.generateFilters(
                 allCases,
                 req.query?.filterValues as string,
                 req.query?.clear as string
             );
 
-            const publishedTime = helperService.publicationTimeInUkTime(sjpData['document']['publicationDate']);
-            const publishedDate = helperService.publicationDateInUkTime(
-                sjpData['document']['publicationDate'],
-                req.lng
-            );
+            const publicationDate = sjpData['document']['publicationDate'];
+            const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
+            const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
 
             const showDownloadButton = await listDownloadService.showDownloadButton(artefactId, req.user);
             const url = publicationService.getListTypes().get(metaData.listType).url;
             const languageResource = SjpPressListController.getLanguageResources(req, metaData.listType);
 
-            const currentPage = req.query?.page && Number(req.query.page) ? parseInt(req.query.page as string) : 1;
-
-            const paginationData = SjpPressListController.generatePaginationData(
+            const paginationData = sjpFilterService.generatePaginationData(
                 filter.sjpCases,
                 currentPage,
                 artefactId,
-                req.query?.filterValues
+                req.query?.filterValues,
+                'sjp-press-list'
             );
 
             res.render(`style-guide/${sjpPressAll}`, {
@@ -90,47 +90,6 @@ export default class SjpPressListController {
         }
     }
 
-    public static generatePaginationData(sjpCases, currentPage, artefactId, filterValues) {
-        const numberOfPages = Math.ceil(sjpCases.length / 1000);
-
-        const baseUrl = url
-            .format({
-                pathname: 'sjp-press-list',
-                query: {
-                    artefactId: artefactId,
-                    filterValues: filterValues,
-                },
-            })
-            .toString();
-
-        const paginationData = {};
-
-        if (currentPage > 1) {
-            paginationData['previous'] = {
-                href: baseUrl + '&page=' + (currentPage - 1),
-            };
-        }
-
-        if (currentPage != numberOfPages) {
-            paginationData['next'] = {
-                href: baseUrl + '&page=' + (currentPage + 1),
-            };
-        }
-
-        const items = [];
-        for (let i = 1; i <= numberOfPages; i++) {
-            items.push({
-                number: i,
-                current: i === currentPage,
-                href: baseUrl + '&page=' + i,
-            });
-        }
-
-        paginationData['items'] = items;
-
-        return paginationData;
-    }
-
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         if (validate(req.query?.artefactId as string)) {
             const filterValues = filterService.generateFilterKeyValues(req.body);
@@ -139,7 +98,7 @@ export default class SjpPressListController {
                     pathname: 'sjp-press-list',
                     query: {
                         artefactId: req.query.artefactId as string,
-                        filterValues: filterValues,
+                        filterValues: filterValues.toString(),
                     },
                 })
             );

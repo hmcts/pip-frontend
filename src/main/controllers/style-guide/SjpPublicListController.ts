@@ -32,24 +32,34 @@ export default class SjpPublicListController {
         const metaDataListType = formatMetaDataListType(metaData);
 
         if (isValidList(fileData, metaData) && isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)) {
-            const allCases = sjpPublicListService.formatSjpPublicList(JSON.stringify(fileData));
+
+            const currentPage = req.query?.page && Number(req.query.page) ? parseInt(req.query.page as string) : 1;
+
+            const allCases = sjpPublicListService.formatSjpPublicList(fileData as JSON);
             const filter = sjpFilterService.generateFilters(
                 allCases,
                 req.query?.filterValues as string,
                 req.query?.clear as string
             );
 
-            const publishedTime = helperService.publicationTimeInUkTime(fileData['document']['publicationDate']);
-            const publishedDate = helperService.publicationDateInUkTime(
-                fileData['document']['publicationDate'],
-                req.lng
-            );
+            const publicationDate = fileData['document']['publicationDate'];
+            const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
+            const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const showDownloadButton = await listDownloadService.showDownloadButton(artefactId, req.user);
             const languageResource = SjpPublicListController.getLanguageResources(req, metaData.listType);
 
+            const paginationData = sjpFilterService.generatePaginationData(
+                filter.sjpCases,
+                currentPage,
+                artefactId,
+                req.query?.filterValues,
+                'sjp-public-list'
+            );
+
             res.render(`style-guide/${sjpAlStyleGuide}`, {
                 ...cloneDeep(languageResource),
-                sjpData: filter.sjpCases,
+                sjpData: filter.sjpCases.slice((currentPage - 1) * 1000, currentPage * 1000),
+                paginationData,
                 length: filter.sjpCases.length,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,

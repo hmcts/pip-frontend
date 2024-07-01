@@ -223,6 +223,7 @@
         })
 
         function buildHref(elementHref, currentQueryArray) {
+            console.log("Here we are");
             const elementQueryString = elementHref.slice(elementHref.indexOf('?'), elementHref.length);
             const deleteVal = elementQueryString.split('=')[1];
 

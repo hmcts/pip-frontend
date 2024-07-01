@@ -5,9 +5,9 @@ export class SjpPublicListService {
      * Format the SJP public list json data for writing out on screen.
      * @param formatSjpPublicList SJP list raw data
      */
-    public formatSjpPublicList(sjpPublicListJson: string): any {
+    public formatSjpPublicList(sjpPublicListJson: JSON): any {
         const rows = [];
-        JSON.parse(sjpPublicListJson).courtLists.forEach(courtList => {
+        sjpPublicListJson['courtLists'].forEach(courtList => {
             courtList.courtHouse.courtRoom.forEach(courtRoom => {
                 courtRoom.session.forEach(session => {
                     session.sittings.forEach(sitting => {

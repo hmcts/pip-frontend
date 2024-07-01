@@ -8,10 +8,9 @@ export class SjpPressListService {
      * Manipulate the sjpPressList json data for writing out on screen.
      * @param sjpPressListJson
      */
-    public formatSJPPressList(sjpPressListJson: string): any {
-        const sjpPressListData = JSON.parse(sjpPressListJson);
+    public formatSJPPressList(sjpPressListJson: JSON): any {
         const rows = [];
-        sjpPressListData['courtLists'].forEach(courtList => {
+        sjpPressListJson['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
                     session['sittings'].forEach(sitting => {
@@ -130,4 +129,5 @@ export class SjpPressListService {
         });
         return rows;
     }
+
 }
