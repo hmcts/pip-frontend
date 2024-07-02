@@ -11,7 +11,7 @@ import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingList
 import { ListDownloadService } from '../../service/ListDownloadService';
 import * as url from 'url';
 import { validate } from 'uuid';
-import { SjpPressList } from '../../models/style-guide/sjp-model';
+import { SjpModel } from '../../models/style-guide/sjp-model';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -33,7 +33,7 @@ export default class SjpPublicListController {
         const metaDataListType = formatMetaDataListType(metaData);
 
         if (isValidList(fileData, metaData) && isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)) {
-            const sjpModel = new SjpPressList();
+            const sjpModel = new SjpModel();
             const currentPage = sjpModel.setCurrentPage(req.query?.page);
             sjpModel.setCurrentFilterValues(
                 sjpFilterService.generateFilterValues(req.query?.filterValues as string, req.query?.clear as string)

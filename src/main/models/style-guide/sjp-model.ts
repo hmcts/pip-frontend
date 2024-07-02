@@ -1,4 +1,4 @@
-export class SjpPressList {
+export class SjpModel {
     totalNumberOfCases: number = 0;
     currentPage: number = 1;
     postcodes = new Set<string>();
@@ -46,7 +46,7 @@ export class SjpPressList {
         this.currentFilterValues = filterValues;
     }
 
-    addFilteredRow(row: object): void {
+    addFilteredCase(row: object): void {
         this.filteredCases.push(row);
     }
 

@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { ListParseHelperService } from '../ListParseHelperService';
-import { SjpPressList } from '../../models/style-guide/sjp-model';
+import { SjpModel } from '../../models/style-guide/sjp-model';
 import { SjpFilterService } from '../SjpFilterService';
 
 const listParseHelperService = new ListParseHelperService();
@@ -12,7 +12,7 @@ export class SjpPressListService {
      * @param sjpPressListJson The JSON data for the list
      * @param sjpModel The model to store the formatted data, and metadata while processing
      */
-    public formatSJPPressList(sjpPressListJson: JSON, sjpModel: SjpPressList): void {
+    public formatSJPPressList(sjpPressListJson: JSON, sjpModel: SjpModel): void {
         const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
         sjpPressListJson['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
@@ -34,7 +34,7 @@ export class SjpPressListService {
      * @param hasFilterValues whether there are filter values associated with the request.
      * @private
      */
-    private buildCases(hearing: any, sjpModel: SjpPressList, hasFilterValues: boolean): void {
+    private buildCases(hearing: any, sjpModel: SjpModel, hasFilterValues: boolean): void {
         if (hearing.party) {
             sjpModel.addTotalCaseNumber();
 
@@ -54,7 +54,7 @@ export class SjpPressListService {
             if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.currentFilterValues)) {
                 sjpModel.countOfFilteredCases++;
                 if (sjpModel.isRowWithinPage()) {
-                    sjpModel.addFilteredRow(row);
+                    sjpModel.addFilteredCase(row);
                 }
             }
         }
