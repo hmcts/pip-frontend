@@ -5,11 +5,11 @@ import { cloneDeep } from 'lodash';
 
 const locationService = new LocationService();
 
-export default class RemoveListSearchController {
+export default class DeleteCourtReferenceDataController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const autocompleteList = await locationService.fetchAllLocations(req.lng);
-        res.render('admin/remove-list-search', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['remove-list-search']),
+        res.render('system-admin/delete-court-reference-data', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-court-reference-data']),
             autocompleteList,
             invalidInputError: false,
             noResultsError: false,
@@ -22,16 +22,16 @@ export default class RemoveListSearchController {
         if (searchInput && searchInput.length >= 3) {
             const court = await locationService.getLocationByName(searchInput, req.lng);
             court
-                ? res.redirect(`remove-list-search-results?locationId=${court.locationId}`)
-                : res.render('admin/remove-list-search', {
-                      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['remove-list-search']),
-                      autocompleteList,
-                      invalidInputError: false,
-                      noResultsError: true,
-                  });
+                ? res.redirect(`delete-court-reference-data-confirmation?locationId=${court.locationId}`)
+                : res.render('system-admin/delete-court-reference-data', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-court-reference-data']),
+                    autocompleteList,
+                    invalidInputError: false,
+                    noResultsError: true,
+                });
         } else {
-            res.render('admin/remove-list-search', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['remove-list-search']),
+            res.render('system-admin/delete-court-reference-data', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-court-reference-data']),
                 autocompleteList,
                 invalidInputError: true,
                 noResultsError: false,

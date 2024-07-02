@@ -1,14 +1,14 @@
-import { app } from '../../../main/app';
+import { app } from '../../../../main/app';
 import { expect } from 'chai';
-import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
+import { LocationRequests } from '../../../../main/resources/requests/LocationRequests';
 import fs from 'fs';
 import path from 'path';
 import request from 'supertest';
 import sinon from 'sinon';
 import { request as expressRequest } from 'express';
 
-const PAGE_URL = '/remove-list-search';
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
+const PAGE_URL = '/delete-court-reference-data';
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 sinon.stub(LocationRequests.prototype, 'getLocationByName').returns(null);
@@ -17,7 +17,7 @@ expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
 let htmlRes: Document;
 
-describe('Remove List Search Page', () => {
+describe('Delete Court List Search Page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -29,7 +29,7 @@ describe('Remove List Search Page', () => {
 
     it('should display the header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains('Find content to remove', 'Could not find the header');
+        expect(header[0].innerHTML).contains('Find the court to remove', 'Could not find the header');
     });
 
     it('should display continue button', () => {
@@ -63,7 +63,7 @@ describe('Remove List Search Page', () => {
     });
 });
 
-describe('Remove List Blank Input', () => {
+describe('Delete Court Blank Input', () => {
     beforeAll(async () => {
         await request(app)
             .post(PAGE_URL)

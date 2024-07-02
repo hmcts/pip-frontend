@@ -4,10 +4,10 @@ import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import RemoveListSearchController from '../../../../main/controllers/admin/RemoveListSearchController';
+import DeleteCourtReferenceDataController from '../../../../main/controllers/system-admin/DeleteCourtReferenceDataController';
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationByName');
-const deleteCourtReferenceDataController = new RemoveListSearchController();
+const deleteCourtReferenceDataController = new DeleteCourtReferenceDataController();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 const court = { locationId: 1 };
@@ -16,9 +16,12 @@ courtStub.withArgs('aa').resolves(null);
 courtStub.withArgs('test').resolves(null);
 courtStub.withArgs('Mut').resolves(null);
 courtStub.withArgs('Valid Location').resolves(court);
-const pageName = 'delete-court-reference-data';
 
-const i18n = { pageName: {} };
+const i18n = {
+    'system-admin': {
+        'delete-court-reference-data': {}
+    }
+};
 
 describe('Delete Court Search Controller', () => {
     it('should render the court list search page', () => {
@@ -30,14 +33,14 @@ describe('Delete Court Search Controller', () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['system-admin']['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: false,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return deleteCourtReferenceDataController.get(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data', expectedData);
+        return deleteCourtReferenceDataController.get(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -52,14 +55,14 @@ describe('Delete Court Search Controller', () => {
         request.body = { 'input-autocomplete': 'aa' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['system-admin']['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: true,
             noResultsError: false,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return deleteCourtReferenceDataController.post(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data', expectedData);
+        return deleteCourtReferenceDataController.post(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -74,14 +77,14 @@ describe('Delete Court Search Controller', () => {
         request.body = { 'input-autocomplete': 'test' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['system-admin']['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: true,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return deleteCourtReferenceDataController.post(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data', expectedData);
+        return deleteCourtReferenceDataController.post(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -96,14 +99,14 @@ describe('Delete Court Search Controller', () => {
         request.body = { 'input-autocomplete': 'Mut' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['system-admin']['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: true,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return deleteCourtReferenceDataController.post(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data', expectedData);
+        return deleteCourtReferenceDataController.post(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -115,12 +118,12 @@ describe('Delete Court Search Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/' + pageName;
+        request.path = '/delete-court-reference-data';
         request.body = { 'input-autocomplete': 'Valid Location' };
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('delete-court-reference-data-confirmation?locationId=1');
-        return deleteCourtReferenceDataController.post(request, response, pageName).then(() => {
+        return deleteCourtReferenceDataController.post(request, response).then(() => {
             responseMock.verify();
         });
     });

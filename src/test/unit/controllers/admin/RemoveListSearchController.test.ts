@@ -16,9 +16,12 @@ courtStub.withArgs('aa').resolves(null);
 courtStub.withArgs('test').resolves(null);
 courtStub.withArgs('Mut').resolves(null);
 courtStub.withArgs('Valid Location').resolves(court);
-const pageName = 'remove-list-search';
 
-const i18n = { pageName: {} };
+const i18n = {
+    admin: {
+        'remove-list-search': {}
+    }
+};
 
 describe('Remove List Search Controller', () => {
     it('should render the remove list search page', () => {
@@ -30,14 +33,14 @@ describe('Remove List Search Controller', () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['admin']['remove-list-search'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: false,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.get(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('admin/remove-list-search', expectedData);
+        return removeListSearchController.get(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -52,14 +55,14 @@ describe('Remove List Search Controller', () => {
         request.body = { 'input-autocomplete': 'aa' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['admin']['remove-list-search'],
             autocompleteList: courtList,
             invalidInputError: true,
             noResultsError: false,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.post(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('admin/remove-list-search', expectedData);
+        return removeListSearchController.post(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -74,14 +77,14 @@ describe('Remove List Search Controller', () => {
         request.body = { 'input-autocomplete': 'test' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['admin']['remove-list-search'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: true,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.post(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('admin/remove-list-search', expectedData);
+        return removeListSearchController.post(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -96,14 +99,14 @@ describe('Remove List Search Controller', () => {
         request.body = { 'input-autocomplete': 'Mut' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n[pageName],
+            ...i18n['admin']['remove-list-search'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: true,
         };
 
-        responseMock.expects('render').once().withArgs(pageName, expectedData);
-        return removeListSearchController.post(request, response, pageName).then(() => {
+        responseMock.expects('render').once().withArgs('admin/remove-list-search', expectedData);
+        return removeListSearchController.post(request, response).then(() => {
             responseMock.verify();
         });
     });
@@ -119,7 +122,7 @@ describe('Remove List Search Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('remove-list-search-results?locationId=1');
-        return removeListSearchController.post(request, response, pageName).then(() => {
+        return removeListSearchController.post(request, response).then(() => {
             responseMock.verify();
         });
     });
