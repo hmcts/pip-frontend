@@ -21,7 +21,7 @@ const jsonContent = '{"TestContent": "TestValue"}';
 const stub = sinon.stub(fs, 'unlinkSync');
 const englishLanguage = 'en';
 const createMediaAccountLanguageFile = 'create-media-account';
-const manualUploadLanguageFile = 'manual-upload';
+const manualUploadLanguageFile = 'admin/manual-upload';
 
 describe('File handling service', () => {
     describe('validateImage', () => {

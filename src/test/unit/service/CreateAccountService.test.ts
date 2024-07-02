@@ -169,8 +169,8 @@ const bulkCreateAccountsStub = sinon.stub(AccountManagementRequests.prototype, '
 
 const englishLanguage = 'en';
 const createMediaAccountLanguageFile = 'create-media-account';
-const createAdminAccountLanguageFile = 'create-admin-account';
-const bulkCreateMediaAccountsLanguageFile = 'bulk-create-media-accounts';
+const createAdminAccountLanguageFile = 'admin/create-admin-account';
+const bulkCreateMediaAccountsLanguageFile = 'system-admin/bulk-create-media-accounts';
 
 describe('Create Account Service', () => {
     describe('isValidEmail', () => {
