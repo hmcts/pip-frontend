@@ -16,6 +16,7 @@ const offenderInformationClass = 'govuk-summary-list__value';
 const bodyClass = 'govuk-body';
 const buttonClass = 'govuk-button';
 const linkClass = 'govuk-link';
+const paginationClass = 'govuk-pagination__link';
 const filterTitleClass = 'moj-filter__header-title';
 const selectedFiltersHeadingClass = 'govuk-heading-m';
 
@@ -24,8 +25,8 @@ const listText = 'List for 14 February 2022';
 const offenderIndividualName = 'Test Name';
 const offenderOrganisationName = `Accused's org name`;
 const offenderCaseNumber = 'Case URN';
-const offenderIndividualAddress = 'Line 1 Line 2, Test Town, Test County, TEST POSTCODE';
-const offenderOrganisationAddress = 'London, London, TEST POSTCODE';
+const offenderIndividualAddress = 'Line 1 Line 2, Test Town, Test County, AA1 1AA';
+const offenderOrganisationAddress = 'London, London, AA2 1AA';
 const prosecutor = 'Organisation Name';
 const reportingRestriction = 'Reporting Restriction - True';
 
@@ -50,6 +51,7 @@ const sjpResourceMap = new Map<string, object>([
         {
             artefactId: uuidv4(),
             artefactIdWithDownloadButton: uuidv4(),
+            artefactIdWithPagination: uuidv4(),
             title: 'Single Justice Procedure cases - Press view (Full list)',
         },
     ],
@@ -58,6 +60,7 @@ const sjpResourceMap = new Map<string, object>([
         {
             artefactId: uuidv4(),
             artefactIdWithDownloadButton: uuidv4(),
+            artefactIdWithPagination: uuidv4(),
             title: 'Single Justice Procedure cases - Press view (New cases)',
         },
     ],
@@ -66,12 +69,20 @@ const sjpResourceMap = new Map<string, object>([
 const sjpFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
 const sjpNewCasesResource = sjpResourceMap.get(sjpPressNewCasesUrl);
 
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(sjpList);
+const getJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
+
+getJsonStub.withArgs(sjpFullListResource['artefactId']).returns(sjpList);
+getJsonStub.withArgs(sjpFullListResource['artefactIdWithDownloadButton']).returns(sjpList);
+getJsonStub.withArgs(sjpNewCasesResource['artefactId']).returns(sjpList);
+getJsonStub.withArgs(sjpNewCasesResource['artefactIdWithDownloadButton']).returns(sjpList);
+
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 metadataStub.withArgs(sjpFullListResource['artefactId']).returns(metaDataSjpPressFullList);
 metadataStub.withArgs(sjpNewCasesResource['artefactId']).returns(metaDataSjpPressNewCases);
 metadataStub.withArgs(sjpFullListResource['artefactIdWithDownloadButton']).returns(metaDataSjpPressFullList);
 metadataStub.withArgs(sjpNewCasesResource['artefactIdWithDownloadButton']).returns(metaDataSjpPressNewCases);
+metadataStub.withArgs(sjpFullListResource['artefactIdWithPagination']).returns(metaDataSjpPressFullList);
+metadataStub.withArgs(sjpNewCasesResource['artefactIdWithPagination']).returns(metaDataSjpPressNewCases);
 
 const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
 generatesFilesStub.withArgs(sjpFullListResource['artefactId']).resolves(false);
@@ -154,11 +165,6 @@ describe('Single Justice Procedure List page', () => {
         it('should display list date', () => {
             const offenderData = htmlRes.getElementsByClassName(listSummary);
             expect(offenderData[0].innerHTML).contains(listText, 'Could not find the list date information');
-        });
-
-        it('should display the search input box', () => {
-            const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
-            expect(searchInput[0].innerHTML).contains('Search Cases');
         });
 
         it('should have offender individual name', () => {
@@ -364,7 +370,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display the search filters box', () => {
             const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
-            expect(searchInput[1].innerHTML).contains(
+            expect(searchInput[0].innerHTML).contains(
                 'Search filters',
                 'Could not find the search filters search box title'
             );
@@ -440,5 +446,51 @@ describe('Single Justice Procedure List page', () => {
                 'Could not find the display summary heading'
             );
         });
+    });
+
+    describe.each([sjpPressFullListUrl, sjpPressFullListUrl])("Test pagination appears correctly '%s'", url => {
+        const pageUrl = url + '?artefactId=' + sjpResourceMap.get(url)['artefactIdWithPagination'] + '&page=2';
+
+        let copyOfRawData = JSON.parse(rawData);
+        const courtLists = copyOfRawData['courtLists'] as object[];
+        const courtList = courtLists[0];
+        for (let i = 0; i < 1000; i++) {
+            courtLists.push(courtList);
+        }
+        copyOfRawData['courtLists'] = courtLists;
+
+        getJsonStub.withArgs(sjpResourceMap.get(url)['artefactIdWithPagination']).returns(
+            JSON.parse(JSON.stringify(copyOfRawData)));
+
+        beforeAll(async () => {
+            await request(app)
+                .get(pageUrl)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+        });
+
+        it('should display the previous pagination button', () => {
+            const links = htmlRes.getElementsByClassName(paginationClass);
+            expect(links[0].innerHTML).contains('Previous', 'Could not find the Previous button');
+        });
+
+        it('should display the next', () => {
+            const links = htmlRes.getElementsByClassName(paginationClass);
+            expect(links[6].innerHTML).contains('Next', 'Could not find the Next button');
+        });
+
+        it('should display a non selected page button', () => {
+            const links = htmlRes.getElementsByClassName(paginationClass);
+            expect(links[1].innerHTML).contains('1', 'Could not find page 1');
+        });
+
+        it('should display the selected page button', () => {
+            const links =
+                htmlRes.getElementsByClassName('govuk-pagination__item--current');
+            expect(links[0].innerHTML).contains('2', 'Could not find the currently selected page');
+        });
+
     });
 });
