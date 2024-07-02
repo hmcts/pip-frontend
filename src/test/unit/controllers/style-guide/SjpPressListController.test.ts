@@ -70,7 +70,7 @@ generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).r
 const generateKeyValuesStub = sinon.stub(FilterService.prototype, 'generateFilterKeyValues');
 generateKeyValuesStub.withArgs({}).returns(['TestValue']);
 
-const paginationData = {"previous": {href: 'abcd'}};
+const paginationData = { previous: { href: 'abcd' } };
 sinon.stub(SjpFilterService.prototype, 'generatePaginationData').returns(paginationData);
 
 const i18n = {
@@ -125,20 +125,24 @@ describe('SJP Press List Controller', () => {
                 showFilters: true,
                 totalHearings: 1,
                 showDownloadButton: true,
-                sjpData: [{
-                    name: 'Test Name',
-                    dob: '1 January 1801',
-                    age: 200,
-                    address: 'Line 1 Line 2, Test Town, Test County, AA1 1AA',
-                    postcode: 'AA1 1AA',
-                    prosecutorName: 'Organisation Name',
-                    caseUrn: 'Case URN',
-                    offences: [{
-                        reportingRestrictionFlag: 'True',
-                        offenceTitle: 'This is an offence title',
-                        offenceWording: 'This is offence wording'
-                    }]
-                }],
+                sjpData: [
+                    {
+                        name: 'Test Name',
+                        dob: '1 January 1801',
+                        age: 200,
+                        address: 'Line 1 Line 2, Test Town, Test County, AA1 1AA',
+                        postcode: 'AA1 1AA',
+                        prosecutorName: 'Organisation Name',
+                        caseUrn: 'Case URN',
+                        offences: [
+                            {
+                                reportingRestrictionFlag: 'True',
+                                offenceTitle: 'This is an offence title',
+                                offenceWording: 'This is offence wording',
+                            },
+                        ],
+                    },
+                ],
                 filterOptions: {
                     postcodes: [
                         {
@@ -150,14 +154,16 @@ describe('SJP Press List Controller', () => {
                             value: 'AA2',
                             text: 'AA2',
                             checked: false,
-                        }],
+                        },
+                    ],
                     prosecutor: [
                         {
                             value: 'OrganisationName',
                             text: 'Organisation Name',
                             checked: false,
-                        }],
-                }
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);
@@ -179,33 +185,40 @@ describe('SJP Press List Controller', () => {
                 showFilters: false,
                 showDownloadButton: true,
                 totalHearings: 2,
-                sjpData: [{
-                    name: 'Test Name',
-                    dob: '1 January 1801',
-                    age: 200,
-                    address: 'Line 1 Line 2, Test Town, Test County, AA1 1AA',
-                    postcode: 'AA1 1AA',
-                    prosecutorName: 'Organisation Name',
-                    caseUrn: 'Case URN',
-                    offences: [{
-                        reportingRestrictionFlag: 'True',
-                        offenceTitle: 'This is an offence title',
-                        offenceWording: 'This is offence wording'
-                    }]
-                }, {
-                    name: 'Test Name',
-                    dob: '1 January 1801',
-                    age: 200,
-                    address: 'Line 1 Line 2, Test Town, Test County, AA2 1AA',
-                    postcode: 'AA2 1AA',
-                    prosecutorName: 'Organisation Name',
-                    caseUrn: 'Case URN',
-                    offences: [{
-                        reportingRestrictionFlag: 'True',
-                        offenceTitle: 'This is an offence title',
-                        offenceWording: 'This is offence wording'
-                    }]
-                }],
+                sjpData: [
+                    {
+                        name: 'Test Name',
+                        dob: '1 January 1801',
+                        age: 200,
+                        address: 'Line 1 Line 2, Test Town, Test County, AA1 1AA',
+                        postcode: 'AA1 1AA',
+                        prosecutorName: 'Organisation Name',
+                        caseUrn: 'Case URN',
+                        offences: [
+                            {
+                                reportingRestrictionFlag: 'True',
+                                offenceTitle: 'This is an offence title',
+                                offenceWording: 'This is offence wording',
+                            },
+                        ],
+                    },
+                    {
+                        name: 'Test Name',
+                        dob: '1 January 1801',
+                        age: 200,
+                        address: 'Line 1 Line 2, Test Town, Test County, AA2 1AA',
+                        postcode: 'AA2 1AA',
+                        prosecutorName: 'Organisation Name',
+                        caseUrn: 'Case URN',
+                        offences: [
+                            {
+                                reportingRestrictionFlag: 'True',
+                                offenceTitle: 'This is an offence title',
+                                offenceWording: 'This is offence wording',
+                            },
+                        ],
+                    },
+                ],
                 filterOptions: {
                     postcodes: [
                         {
@@ -217,14 +230,16 @@ describe('SJP Press List Controller', () => {
                             value: 'AA2',
                             text: 'AA2',
                             checked: false,
-                        }],
+                        },
+                    ],
                     prosecutor: [
                         {
                             value: 'OrganisationName',
                             text: 'Organisation Name',
                             checked: false,
-                        }],
-                }
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);
@@ -246,33 +261,40 @@ describe('SJP Press List Controller', () => {
                 showFilters: true,
                 totalHearings: 2,
                 showDownloadButton: true,
-                sjpData: [{
-                    name: 'Test Name',
-                    dob: '1 January 1801',
-                    age: 200,
-                    address: 'Line 1 Line 2, Test Town, Test County, AA1 1AA',
-                    postcode: 'AA1 1AA',
-                    prosecutorName: 'Organisation Name',
-                    caseUrn: 'Case URN',
-                    offences: [{
-                        reportingRestrictionFlag: 'True',
-                        offenceTitle: 'This is an offence title',
-                        offenceWording: 'This is offence wording'
-                    }]
-                }, {
-                    name: 'Test Name',
-                    dob: '1 January 1801',
-                    age: 200,
-                    address: 'Line 1 Line 2, Test Town, Test County, AA2 1AA',
-                    postcode: 'AA2 1AA',
-                    prosecutorName: 'Organisation Name',
-                    caseUrn: 'Case URN',
-                    offences: [{
-                        reportingRestrictionFlag: 'True',
-                        offenceTitle: 'This is an offence title',
-                        offenceWording: 'This is offence wording'
-                    }]
-                }],
+                sjpData: [
+                    {
+                        name: 'Test Name',
+                        dob: '1 January 1801',
+                        age: 200,
+                        address: 'Line 1 Line 2, Test Town, Test County, AA1 1AA',
+                        postcode: 'AA1 1AA',
+                        prosecutorName: 'Organisation Name',
+                        caseUrn: 'Case URN',
+                        offences: [
+                            {
+                                reportingRestrictionFlag: 'True',
+                                offenceTitle: 'This is an offence title',
+                                offenceWording: 'This is offence wording',
+                            },
+                        ],
+                    },
+                    {
+                        name: 'Test Name',
+                        dob: '1 January 1801',
+                        age: 200,
+                        address: 'Line 1 Line 2, Test Town, Test County, AA2 1AA',
+                        postcode: 'AA2 1AA',
+                        prosecutorName: 'Organisation Name',
+                        caseUrn: 'Case URN',
+                        offences: [
+                            {
+                                reportingRestrictionFlag: 'True',
+                                offenceTitle: 'This is an offence title',
+                                offenceWording: 'This is offence wording',
+                            },
+                        ],
+                    },
+                ],
                 filterOptions: {
                     postcodes: [
                         {
@@ -284,14 +306,16 @@ describe('SJP Press List Controller', () => {
                             value: 'AA2',
                             text: 'AA2',
                             checked: false,
-                        }],
+                        },
+                    ],
                     prosecutor: [
                         {
                             value: 'OrganisationName',
                             text: 'Organisation Name',
                             checked: false,
-                        }],
-                }
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);

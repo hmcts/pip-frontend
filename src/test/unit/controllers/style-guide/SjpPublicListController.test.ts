@@ -70,7 +70,7 @@ generatesFilesStub.withArgs(sjpNewCasesResource['artefactId']).resolves(true);
 generatesFilesStub.withArgs(sjpFullListResource['artefactIdWithNoFiles']).resolves(false);
 generatesFilesStub.withArgs(sjpNewCasesResource['artefactIdWithNoFiles']).resolves(false);
 
-const paginationData = {"previous": {href: 'abcd'}};
+const paginationData = { previous: { href: 'abcd' } };
 sinon.stub(SjpFilterService.prototype, 'generatePaginationData').returns(paginationData);
 
 const generateKeyValuesStub = sinon.stub(FilterService.prototype, 'generateFilterKeyValues');
@@ -113,12 +113,14 @@ describe('SJP Public List Type Controller', () => {
                 artefactId: sjpResource.artefactId,
                 showFilters: true,
                 showDownloadButton: true,
-                sjpData: [{
-                    name: "A This is a surname",
-                    postcode: "AA",
-                    prosecutorName: "This is a prosecutor organisation",
-                    offence: "This is an offence title"
-                }],
+                sjpData: [
+                    {
+                        name: 'A This is a surname',
+                        postcode: 'AA',
+                        prosecutorName: 'This is a prosecutor organisation',
+                        offence: 'This is an offence title',
+                    },
+                ],
                 filterOptions: {
                     postcodes: [
                         {
@@ -130,7 +132,8 @@ describe('SJP Public List Type Controller', () => {
                             value: 'AA',
                             text: 'AA',
                             checked: true,
-                        }],
+                        },
+                    ],
                     prosecutor: [
                         {
                             value: 'Thisisaprosecutororganisation',
@@ -141,8 +144,9 @@ describe('SJP Public List Type Controller', () => {
                             value: 'Thisisaprosecutororganisation2',
                             text: 'This is a prosecutor organisation 2',
                             checked: false,
-                        }],
-                }
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);
@@ -161,17 +165,20 @@ describe('SJP Public List Type Controller', () => {
                 artefactId: sjpResource.artefactId,
                 showFilters: false,
                 showDownloadButton: true,
-                sjpData: [{
-                    name: "A This is a surname",
-                    postcode: "AA",
-                    prosecutorName: "This is a prosecutor organisation",
-                    offence: "This is an offence title"
-                },{
-                    name: "This is an accused organisation name",
-                    postcode: "A9",
-                    prosecutorName: "This is a prosecutor organisation 2",
-                    offence: "This is an offence title, Another offence title"
-                }],
+                sjpData: [
+                    {
+                        name: 'A This is a surname',
+                        postcode: 'AA',
+                        prosecutorName: 'This is a prosecutor organisation',
+                        offence: 'This is an offence title',
+                    },
+                    {
+                        name: 'This is an accused organisation name',
+                        postcode: 'A9',
+                        prosecutorName: 'This is a prosecutor organisation 2',
+                        offence: 'This is an offence title, Another offence title',
+                    },
+                ],
                 filterOptions: {
                     postcodes: [
                         {
@@ -183,7 +190,8 @@ describe('SJP Public List Type Controller', () => {
                             value: 'AA',
                             text: 'AA',
                             checked: false,
-                        }],
+                        },
+                    ],
                     prosecutor: [
                         {
                             value: 'Thisisaprosecutororganisation',
@@ -194,8 +202,9 @@ describe('SJP Public List Type Controller', () => {
                             value: 'Thisisaprosecutororganisation2',
                             text: 'This is a prosecutor organisation 2',
                             checked: false,
-                        }],
-                }
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);
@@ -214,17 +223,20 @@ describe('SJP Public List Type Controller', () => {
                 artefactId: sjpResource.artefactId,
                 showFilters: true,
                 showDownloadButton: true,
-                sjpData: [{
-                    name: "A This is a surname",
-                    postcode: "AA",
-                    prosecutorName: "This is a prosecutor organisation",
-                    offence: "This is an offence title"
-                },{
-                    name: "This is an accused organisation name",
-                    postcode: "A9",
-                    prosecutorName: "This is a prosecutor organisation 2",
-                    offence: "This is an offence title, Another offence title"
-                }],
+                sjpData: [
+                    {
+                        name: 'A This is a surname',
+                        postcode: 'AA',
+                        prosecutorName: 'This is a prosecutor organisation',
+                        offence: 'This is an offence title',
+                    },
+                    {
+                        name: 'This is an accused organisation name',
+                        postcode: 'A9',
+                        prosecutorName: 'This is a prosecutor organisation 2',
+                        offence: 'This is an offence title, Another offence title',
+                    },
+                ],
                 filterOptions: {
                     postcodes: [
                         {
@@ -236,7 +248,8 @@ describe('SJP Public List Type Controller', () => {
                             value: 'AA',
                             text: 'AA',
                             checked: false,
-                        }],
+                        },
+                    ],
                     prosecutor: [
                         {
                             value: 'Thisisaprosecutororganisation',
@@ -247,8 +260,9 @@ describe('SJP Public List Type Controller', () => {
                             value: 'Thisisaprosecutororganisation2',
                             text: 'This is a prosecutor organisation 2',
                             checked: false,
-                        }],
-                }
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);
@@ -267,17 +281,20 @@ describe('SJP Public List Type Controller', () => {
                 artefactId: sjpResource.artefactIdWithNoFiles,
                 showFilters: false,
                 showDownloadButton: false,
-                sjpData: [{
-                    name: "A This is a surname",
-                    postcode: "AA",
-                    prosecutorName: "This is a prosecutor organisation",
-                    offence: "This is an offence title"
-                },{
-                    name: "This is an accused organisation name",
-                    postcode: "A9",
-                    prosecutorName: "This is a prosecutor organisation 2",
-                    offence: "This is an offence title, Another offence title"
-                }],
+                sjpData: [
+                    {
+                        name: 'A This is a surname',
+                        postcode: 'AA',
+                        prosecutorName: 'This is a prosecutor organisation',
+                        offence: 'This is an offence title',
+                    },
+                    {
+                        name: 'This is an accused organisation name',
+                        postcode: 'A9',
+                        prosecutorName: 'This is a prosecutor organisation 2',
+                        offence: 'This is an offence title, Another offence title',
+                    },
+                ],
                 filterOptions: {
                     postcodes: [
                         {
@@ -289,7 +306,8 @@ describe('SJP Public List Type Controller', () => {
                             value: 'AA',
                             text: 'AA',
                             checked: false,
-                        }],
+                        },
+                    ],
                     prosecutor: [
                         {
                             value: 'Thisisaprosecutororganisation',
@@ -300,8 +318,9 @@ describe('SJP Public List Type Controller', () => {
                             value: 'Thisisaprosecutororganisation2',
                             text: 'This is a prosecutor organisation 2',
                             checked: false,
-                        }],
-                }
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);
