@@ -86,7 +86,7 @@ export default class SjpPublicListController {
             res.redirect(
                 url.format({
                     pathname: 'sjp-public-list',
-                    query: { artefactId: req.query.artefactId as string, filterValues: filterValues },
+                    query: { artefactId: req.query.artefactId as string, filterValues: filterValues.toString() },
                 })
             );
         } else {
