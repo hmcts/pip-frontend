@@ -92,11 +92,6 @@ describe('Crown daily List page', () => {
         expect(cell[1].innerHTML).contains('12345678');
     });
 
-    it('should display Defendant Name', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('Defendant_SN, Defendant_FN');
-    });
-
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[3].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
@@ -116,11 +111,6 @@ describe('Crown daily List page', () => {
         const rows = htmlRes.getElementsByClassName('govuk-table__row');
         const cell = rows.item(5).children;
         expect(cell[4].innerHTML.trim()).equals('1 hour 5 mins');
-    });
-
-    it('should display Prosecuting Authority', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[5].innerHTML).contains('Pro_Auth');
     });
 
     it('should display Reporting Restriction detail', () => {

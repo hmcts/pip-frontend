@@ -107,24 +107,9 @@ describe('Crown Warned List page', () => {
         expect(cell[0].innerHTML).to.equal('12345678', 'Could not find case reference table cell');
     });
 
-    it('should display defendant name(s)', () => {
-        const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[1].innerHTML).to.equal('Kelly, Smith', 'Could not find defendant name(s) table cell');
-    });
-
     it('should display hearing date', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
         expect(cell[2].innerHTML).to.equal('27/07/2022', 'Could not find hearing date table cell');
-    });
-
-    it('should display defendant representative', () => {
-        const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[3].innerHTML).to.equal('Defendant rep 1', 'Could not find defendant representative table cell');
-    });
-
-    it('should display prosecuting authority', () => {
-        const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[4].innerHTML).to.equal('Prosecutor', 'Could not find prosecuting authority table cell');
     });
 
     it('should display linked cases', () => {

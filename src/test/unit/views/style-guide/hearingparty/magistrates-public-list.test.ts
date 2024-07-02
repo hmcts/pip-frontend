@@ -117,19 +117,9 @@ describe('Magistrates public List page', () => {
         expect(cell[1].innerHTML).contains('12345678');
     });
 
-    it('should display Defendant Name', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('Defendant_SN, Defendant_FN');
-    });
-
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[3].innerHTML).contains('FHDRA1 (First Hearing and Dispute Resolution Appointment)');
-    });
-
-    it('should display Prosecuting Authority', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[4].innerHTML).contains('Pro_Auth');
     });
 
     it('should display Case Sequence Indicator if it is there', () => {

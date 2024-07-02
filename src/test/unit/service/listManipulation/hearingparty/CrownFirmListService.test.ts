@@ -11,10 +11,10 @@ const rawCrownFirmData = fs.readFileSync(
 const row = JSON.parse(`{"caseNumber": "I4Y416QE", "caseSeparator": "7 of 9",
 "courtName": "Glasgow Social Security and Child Support",
 "courtRoom": "to be allocated [Glasgow Social Security and Child Support]",
-"defendant": "Sausage, Nigel", "defendantRepresentative": "Daniel Forrester", "durationAsHours": 2,
+"defendant": "", "defendantRepresentative": "", "durationAsHours": 2,
 "durationAsMinutes": 23, "formattedDuration": "2 hours 23 mins", "durationSortValue": 143, "hearingNotes": "",
 "hearingPlatform": "Teams, Attended", "hearingType": "Deposition", "joh": "",
-"linkedCases": "YRYCTRR3, YRYCTRR4, YRYCTRR5", "prosecutingAuthority": "The Queen",
+"linkedCases": "YRYCTRR3, YRYCTRR4, YRYCTRR5", "prosecutingAuthority": "",
 "sittingDate": "Saturday 15 April 2023", "sittingTime": "2:41pm"}
 `);
 const lng = 'en';
@@ -23,12 +23,12 @@ const languageFile = 'style-guide/crown-firm-list';
 describe('Crown firm list splitter service', () => {
     describe('Crown firm list splitter service', () => {
         it('should split the data down to the day, courtroom and courthouse level', async () => {
-            const data = await crownFirmListService.splitOutFirmListDataV1(rawCrownFirmData, lng, languageFile);
+            const data = await crownFirmListService.splitOutFirmListData(rawCrownFirmData, lng, languageFile);
             expect(data[1]['days'][1][2]['data'][0]).to.deep.equal(row);
         });
 
         it('should split the initial json file down to two courtHouses', async () => {
-            const data = await crownFirmListService.splitOutFirmListDataV1(
+            const data = await crownFirmListService.splitOutFirmListData(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile
@@ -39,7 +39,7 @@ describe('Crown firm list splitter service', () => {
         });
 
         it('should split by date on each courtHouse object', async () => {
-            const data = await crownFirmListService.splitOutFirmListDataV1(
+            const data = await crownFirmListService.splitOutFirmListData(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile
@@ -49,7 +49,7 @@ describe('Crown firm list splitter service', () => {
         });
 
         it('should capture the correct courtRoom name at the day level', async () => {
-            const data = await crownFirmListService.splitOutFirmListDataV1(
+            const data = await crownFirmListService.splitOutFirmListData(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile
@@ -61,7 +61,7 @@ describe('Crown firm list splitter service', () => {
         });
 
         it("should append the unallocated cases at the bottom of a given day's cases", async () => {
-            const data = await crownFirmListService.splitOutFirmListDataV1(
+            const data = await crownFirmListService.splitOutFirmListData(
                 JSON.stringify(JSON.parse(rawCrownFirmData)),
                 lng,
                 languageFile

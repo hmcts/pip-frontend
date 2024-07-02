@@ -94,11 +94,6 @@ describe('Crown firm List page', () => {
         expect(cell[1].innerHTML).contains('I4Y416QE');
     });
 
-    it('should display Defendant Name', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).equal('Cora, Mckinley');
-    });
-
     it('should display Hearing Type', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[3].innerHTML).contains('Directions');
@@ -112,10 +107,5 @@ describe('Crown firm List page', () => {
     it('should display Case name with Case Sequence Indicator if it is there', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[4].innerHTML).equal('8 hours [4 of 5]');
-    });
-
-    it('should display Prosecuting Authority', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[6].innerHTML).contains('Queen');
     });
 });

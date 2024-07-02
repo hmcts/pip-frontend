@@ -77,8 +77,7 @@ describe('Crown Daily List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             version: '',
-            venueAddress: 'THE LAW COURTS\nPR1 2LL',
-            partyAtHearingLevel: false,
+            venueAddress: 'THE LAW COURTS\nPR1 2LL'
         };
 
         responseMock.expects('render').once().withArgs(listPath, expectedData);

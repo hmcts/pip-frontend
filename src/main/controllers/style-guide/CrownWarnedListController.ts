@@ -7,7 +7,6 @@ import { CrownWarnedListService } from '../../service/listManipulation/CrownWarn
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
-    hearingHasParty,
     isUnexpectedListType,
     isValidList,
     isValidListType,
@@ -36,9 +35,8 @@ export default class CrownWarnedListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            const listData = hearingHasParty(searchResults)
-                ? crownWarnedListService.manipulateDataV1(JSON.stringify(searchResults), req.lng)
-                : crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
+
+            const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
 
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 

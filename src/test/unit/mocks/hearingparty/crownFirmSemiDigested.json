@@ -51,27 +51,6 @@
                                                         "caseSequenceIndicator": "6 of 6"
                                                     }
                                                 ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "HMCTS"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Butcher",
-                                                            "individualForenames": "Pat"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
-                                                    }
-                                                ],
                                                 "appellant": "",
                                                 "appellantRepresentative": "",
                                                 "applicant": "",
@@ -137,21 +116,6 @@
                                                         "caseSequenceIndicator": "4 of 5"
                                                     }
                                                 ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Cora",
-                                                            "individualForenames": "Mckinley"
-                                                        }
-                                                    }
-                                                ],
                                                 "appellant": "",
                                                 "appellantRepresentative": "",
                                                 "applicant": "",
@@ -176,27 +140,6 @@
                                                             }
                                                         ],
                                                         "caseSequenceIndicator": "1 of 4"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Alexander",
-                                                            "individualForenames": "Sarah"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
                                                     }
                                                 ],
                                                 "appellant": "",
@@ -264,27 +207,6 @@
                                                             }
                                                         ],
                                                         "caseSequenceIndicator": "7 of 9"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "The Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Sausage",
-                                                            "individualForenames": "Nigel"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Daniel Forrester"
-                                                        }
                                                     }
                                                 ],
                                                 "appellant": "",
@@ -356,21 +278,6 @@
                                                         "caseSequenceIndicator": "3 of 8"
                                                     }
                                                 ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Rolf",
-                                                            "individualForenames": "Victor"
-                                                        }
-                                                    }
-                                                ],
                                                 "appellant": "",
                                                 "appellantRepresentative": "",
                                                 "applicant": "",
@@ -395,27 +302,6 @@
                                                             }
                                                         ],
                                                         "caseSequenceIndicator": "2 of 3"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Sausage",
-                                                            "individualForenames": "Nigel"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
                                                     }
                                                 ],
                                                 "appellant": "",
@@ -465,21 +351,6 @@
                                                         "caseSequenceIndicator": "3 of 8"
                                                     }
                                                 ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "DVSA"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Renegade",
-                                                            "individualForenames": "Tom"
-                                                        }
-                                                    }
-                                                ],
                                                 "appellant": "",
                                                 "appellantRepresentative": "",
                                                 "applicant": "",
@@ -504,27 +375,6 @@
                                                             }
                                                         ],
                                                         "caseSequenceIndicator": "2 of 3"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "HMCTS"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Cornish",
-                                                            "individualForenames": "Andrew"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Blackmoor Joshua"
-                                                        }
                                                     }
                                                 ],
                                                 "appellant": "",
@@ -592,21 +442,6 @@
                                                         "caseSequenceIndicator": "2 of 2]"
                                                     }
                                                 ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Cora",
-                                                            "individualForenames": "Mckinley"
-                                                        }
-                                                    }
-                                                ],
                                                 "appellant": "",
                                                 "appellantRepresentative": "",
                                                 "applicant": "",
@@ -631,27 +466,6 @@
                                                             }
                                                         ],
                                                         "caseSequenceIndicator": "1 of 8"
-                                                    }
-                                                ],
-                                                "party": [
-                                                    {
-                                                        "partyRole": "PROSECUTING_AUTHORITY",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Queen"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT",
-                                                        "individualDetails": {
-                                                            "individualSurname": "Mitchell",
-                                                            "individualForenames": "Janine"
-                                                        }
-                                                    },
-                                                    {
-                                                        "partyRole": "DEFENDANT_REPRESENTATIVE",
-                                                        "organisationDetails": {
-                                                            "organisationName": "Forrester Daniel"
-                                                        }
                                                     }
                                                 ],
                                                 "appellant": "",

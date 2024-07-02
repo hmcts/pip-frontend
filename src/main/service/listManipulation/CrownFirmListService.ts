@@ -64,56 +64,6 @@ export class CrownFirmListService {
         return this.splitByCourtAndDateAndAllocation(rows);
     }
 
-    // TODO: To be removed once all lists have party field on the case level.
-    public splitOutFirmListDataV1(firmList: string, language: string, languageFile: string) {
-        const rows = [];
-        const firmListData = JSON.parse(firmList);
-        firmListData['courtLists'].forEach(courtList => {
-            const courtName = courtList['courtHouse']['courtHouseName'];
-            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-                courtRoom['session'].forEach(session => {
-                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
-                    session['sittings'].forEach(sitting => {
-                        helperService.findAndConcatenateHearingPlatform(sitting, session);
-                        crimeListsService.calculateDuration(sitting, language, languageFile);
-                        const sittingDate = DateTime.fromISO(sitting['sittingStart'], { zone: this.timeZone }).toFormat(
-                            'EEEE dd MMMM yyyy'
-                        );
-
-                        sitting['hearing'].forEach(hearing => {
-                            crimeListsService.findLinkedCasesInformation(hearing);
-                            crimeListsService.manipulateParty(hearing);
-                            hearing['case'].forEach(thisCase => {
-                                const row = {
-                                    courtName: courtName,
-                                    sittingDate: sittingDate,
-                                    sittingTime: helperService.publicationTimeInUkTime(sitting['sittingStart']),
-                                    courtRoom: courtRoom['courtRoomName'],
-                                    joh: session['formattedJudiciaries'],
-                                    durationAsHours: sitting['durationAsHours'],
-                                    durationAsMinutes: sitting['durationAsMinutes'],
-                                    formattedDuration: sitting['formattedDuration'],
-                                    durationSortValue: sitting['durationSortValue'],
-                                    caseNumber: thisCase['caseNumber'],
-                                    caseSeparator: thisCase['caseSequenceIndicator'],
-                                    linkedCases: thisCase['linkedCases'],
-                                    hearingNotes: hearing['listingNotes'],
-                                    defendant: hearing['defendant'],
-                                    defendantRepresentative: hearing['defendantRepresentative'],
-                                    prosecutingAuthority: hearing['prosecutingAuthority'],
-                                    hearingType: hearing['hearingType'],
-                                    hearingPlatform: sitting['caseHearingChannel'],
-                                };
-                                rows.push(row);
-                            });
-                        });
-                    });
-                });
-            });
-        });
-        return this.splitByCourtAndDateAndAllocation(rows);
-    }
-
     /**
      * Gets the maximum list date from a given firm list
      */
