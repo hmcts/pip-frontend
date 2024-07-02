@@ -28,7 +28,7 @@ export default class BulkCreateMediaAccountsController {
                 3,
                 ['email', 'firstName', 'surname'],
                 req.lng,
-                'bulk-create-media-accounts'
+                'system-admin/bulk-create-media-accounts'
             );
         }
 
