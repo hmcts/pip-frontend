@@ -24,11 +24,11 @@ export default class DeleteCourtReferenceDataController {
             court
                 ? res.redirect(`delete-court-reference-data-confirmation?locationId=${court.locationId}`)
                 : res.render('system-admin/delete-court-reference-data', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-court-reference-data']),
-                    autocompleteList,
-                    invalidInputError: false,
-                    noResultsError: true,
-                });
+                      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-court-reference-data']),
+                      autocompleteList,
+                      invalidInputError: false,
+                      noResultsError: true,
+                  });
         } else {
             res.render('system-admin/delete-court-reference-data', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-court-reference-data']),

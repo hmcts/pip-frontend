@@ -19,8 +19,8 @@ courtStub.withArgs('Valid Location').resolves(court);
 
 const i18n = {
     'system-admin': {
-        'delete-court-reference-data': {}
-    }
+        'delete-court-reference-data': {},
+    },
 };
 
 describe('Delete Court Search Controller', () => {

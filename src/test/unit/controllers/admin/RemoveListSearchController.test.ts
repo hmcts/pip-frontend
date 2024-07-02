@@ -19,8 +19,8 @@ courtStub.withArgs('Valid Location').resolves(court);
 
 const i18n = {
     admin: {
-        'remove-list-search': {}
-    }
+        'remove-list-search': {},
+    },
 };
 
 describe('Remove List Search Controller', () => {
