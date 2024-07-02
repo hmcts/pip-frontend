@@ -23,17 +23,20 @@ export class SjpFilterService {
         const postalAreaCode = sjpCase.postcode.split(/\d/)[0];
         const formattedProsecutor = sjpCase.prosecutorName.replace(replaceRegex, '');
 
-        return filterOptions.includes(formattedPostcode) ||
+        return (
+            filterOptions.includes(formattedPostcode) ||
             filterOptions.includes(formattedProsecutor) ||
-            (londonPostalAreaCodes.includes(postalAreaCode) && filterOptions.includes(londonArea));
-
+            (londonPostalAreaCodes.includes(postalAreaCode) && filterOptions.includes(londonArea))
+        );
     }
 
-    public generatePaginationData(totalNumberOfCases: number,
-                                  currentPage: number,
-                                  artefactId: string,
-                                  filterValues: string,
-                                  styleGuideUrl: string) {
+    public generatePaginationData(
+        totalNumberOfCases: number,
+        currentPage: number,
+        artefactId: string,
+        filterValues: string,
+        styleGuideUrl: string
+    ) {
         const numberOfPages = Math.ceil(totalNumberOfCases / 1000);
 
         const query = { artefactId: artefactId };
@@ -49,11 +52,11 @@ export class SjpFilterService {
         const paginationData = {};
 
         if (currentPage > 1) {
-            paginationData['previous'] = {href: baseUrl + '&page=' + (currentPage - 1)};
+            paginationData['previous'] = { href: baseUrl + '&page=' + (currentPage - 1) };
         }
 
         if (currentPage != numberOfPages) {
-            paginationData['next'] = {href: baseUrl + '&page=' + (currentPage + 1)};
+            paginationData['next'] = { href: baseUrl + '&page=' + (currentPage + 1) };
         }
 
         if (numberOfPages <= 10) {
@@ -78,7 +81,7 @@ export class SjpFilterService {
         items.push(this.generatePageOption(1, 1 === currentPage, baseUrl + '&page=1'));
 
         if (currentPage > 3) {
-            items.push({ellipsis: true});
+            items.push({ ellipsis: true });
         }
 
         let pageRange = [];
@@ -95,14 +98,14 @@ export class SjpFilterService {
         });
 
         if (currentPage < numberOfPages - 2) {
-            items.push({ellipsis: true});
+            items.push({ ellipsis: true });
         }
 
-        items.push(this.generatePageOption(numberOfPages,
-            numberOfPages === currentPage, baseUrl + '&page=' + numberOfPages));
+        items.push(
+            this.generatePageOption(numberOfPages, numberOfPages === currentPage, baseUrl + '&page=' + numberOfPages)
+        );
 
         return items;
-
     }
 
     private generatePageOption(numberOfPages: number, isCurrent: boolean, href: string) {
