@@ -88,7 +88,7 @@ export default class SjpPressListController {
                     pathname: 'sjp-press-list',
                     query: {
                         artefactId: req.query.artefactId as string,
-                        filterValues: filterValues,
+                        filterValues: filterValues.toString(),
                     },
                 })
             );

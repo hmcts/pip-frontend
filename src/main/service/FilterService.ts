@@ -101,9 +101,9 @@ export class FilterService {
         return filterValueOptions;
     }
 
-    public stripFilters(currentFilters: string): string[] {
+    public stripFilters(currentFilters: string | string[]): string[] {
         if (currentFilters && currentFilters !== ',') {
-            return currentFilters.split(',');
+            return currentFilters.toString().split(',');
         }
         return [];
     }

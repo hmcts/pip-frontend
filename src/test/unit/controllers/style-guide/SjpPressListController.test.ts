@@ -70,7 +70,8 @@ generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactId']).resolves(tru
 generatesFilesStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(false);
 generatesFilesStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(false);
 
-sinon.stub(FilterService.prototype, 'generateFilterKeyValues').returns('TestValue');
+const generateKeyValuesStub = sinon.stub(FilterService.prototype, 'generateFilterKeyValues');
+generateKeyValuesStub.withArgs({}).returns(['TestValue']);
 
 const i18n = {
     'style-guide': {
@@ -239,6 +240,7 @@ describe('SJP Press List Controller', () => {
         it('should redirect to configure list page with correct filters', () => {
             const artefactId = sjpPressResource['artefactId'];
             request.query = { artefactId: artefactId };
+            request.body = {};
 
             const responseMock = sinon.mock(response);
             responseMock
@@ -251,8 +253,27 @@ describe('SJP Press List Controller', () => {
             });
         });
 
+        it('should redirect to configure list page with a concatenated string when multiple filters selected', () => {
+            request.body = { value1: 'value1', value2: 'value2' };
+            generateKeyValuesStub.withArgs(request.body).returns(['value1', 'value2']);
+
+            const artefactId = sjpPressResource['artefactId'];
+            request.query = { artefactId: artefactId };
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('redirect')
+                .once()
+                .withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
+
+            return sjpPressListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
         it('should redirect to error page if invalid artefact ID provided', () => {
             request.query = { artefactId: 'abcd' };
+            request.body = {};
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs(`error`);
