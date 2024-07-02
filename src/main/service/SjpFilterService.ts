@@ -8,7 +8,6 @@ const londonArea = 'London Postcodes';
 const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
-
     public generateFilterValues(filterValuesQuery, clearQuery): string[] {
         let filterValues = filterService.stripFilters(filterValuesQuery);
 
@@ -24,9 +23,11 @@ export class SjpFilterService {
         const postalAreaCode = sjpCase.postcode.split(/\d/)[0];
         const formattedProsecutor = sjpCase.prosecutorName.replace(replaceRegex, '');
 
-        if (filterOptions.includes(formattedPostcode)
-            || filterOptions.includes(formattedProsecutor)
-            || (londonPostalAreaCodes.includes(postalAreaCode) && filterOptions.includes(londonArea))) {
+        if (
+            filterOptions.includes(formattedPostcode) ||
+            filterOptions.includes(formattedProsecutor) ||
+            (londonPostalAreaCodes.includes(postalAreaCode) && filterOptions.includes(londonArea))
+        ) {
             return true;
         }
         return false;

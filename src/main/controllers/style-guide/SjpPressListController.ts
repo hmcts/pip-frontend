@@ -12,7 +12,7 @@ import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingList
 import { ListDownloadService } from '../../service/ListDownloadService';
 import * as url from 'url';
 import { validate } from 'uuid';
-import {SjpPressList} from "../../models/style-guide/sjp-press-list-model";
+import { SjpPressList } from '../../models/style-guide/sjp-press-list-model';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -37,10 +37,10 @@ export default class SjpPressListController {
             const currentPage = req.query?.page && Number(req.query.page) ? parseInt(req.query.page as string) : 1;
 
             const sjpModel = new SjpPressList();
-            sjpModel.setCurrentPage(req.query?.page)
+            sjpModel.setCurrentPage(req.query?.page);
             sjpModel.setCurrentFilterValues(
-                sjpFilterService.generateFilterValues(req.query?.filterValues as string, req.query?.clear as string));
-
+                sjpFilterService.generateFilterValues(req.query?.filterValues as string, req.query?.clear as string)
+            );
 
             sjpPressListService.formatSJPPressList(sjpData as JSON, sjpModel);
 
@@ -74,7 +74,10 @@ export default class SjpPressListController {
                     .toFormat('d MMMM yyyy'),
                 artefactId: artefactId,
                 user: req.user,
-                filterOptions: ({'postcodes': sjpModel.generatePostcodeFilters(), 'prosecutor': sjpModel.generateProsecutorFilters()}),
+                filterOptions: {
+                    postcodes: sjpModel.generatePostcodeFilters(),
+                    prosecutor: sjpModel.generateProsecutorFilters(),
+                },
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
                 url,

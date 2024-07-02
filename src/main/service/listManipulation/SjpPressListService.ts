@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { ListParseHelperService } from '../ListParseHelperService';
-import {SjpPressList} from "../../models/style-guide/sjp-press-list-model";
+import { SjpPressList } from '../../models/style-guide/sjp-press-list-model';
 import { SjpFilterService } from '../../service/SjpFilterService';
 
 const listParseHelperService = new ListParseHelperService();
@@ -26,9 +26,8 @@ export class SjpPressListService {
     }
 
     private buildCases(hearing, sjpModel: SjpPressList): void {
-        const hasFilterValues : boolean = sjpModel.currentFilterValues.length > 0;
+        const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
         if (hearing.party) {
-
             sjpModel.addTotalCaseNumber();
 
             const row = {
@@ -47,7 +46,7 @@ export class SjpPressListService {
             if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.currentFilterValues)) {
                 sjpModel.countOfFilteredCases++;
                 if (sjpModel.isRowWithinPage()) {
-                    sjpModel.addFilteredRow(row)
+                    sjpModel.addFilteredRow(row);
                 }
             }
         }

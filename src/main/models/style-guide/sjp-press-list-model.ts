@@ -1,7 +1,6 @@
 export class SjpPressList {
-
     totalNumberOfCases: number = 0;
-    currentPage: number = 1
+    currentPage: number = 1;
     postcodes = new Set<string>();
     prosecutors = new Set<string>();
     hasLondonPostcodeArea: boolean = false;
@@ -19,7 +18,7 @@ export class SjpPressList {
 
     setCurrentPage(page: any | undefined): void {
         if (page && Number(page)) {
-            this.currentPage = parseInt(page as string)
+            this.currentPage = parseInt(page as string);
         }
     }
 
@@ -36,9 +35,7 @@ export class SjpPressList {
     }
 
     sortPostcodes(): string[] {
-        return Array.from(this.postcodes).sort((a, b) =>
-            a.localeCompare(b, 'en', { numeric: true })
-        );
+        return Array.from(this.postcodes).sort((a, b) => a.localeCompare(b, 'en', { numeric: true }));
     }
 
     sortProsecutors(): string[] {
@@ -85,7 +82,7 @@ export class SjpPressList {
             });
         }
 
-        return postCodeFilters
+        return postCodeFilters;
     }
 
     generateProsecutorFilters(): object[] {
@@ -99,7 +96,6 @@ export class SjpPressList {
                 checked: this.currentFilterValues.includes(formattedProsecutor),
             });
         });
-        return prosecutorFilters
+        return prosecutorFilters;
     }
-
 }

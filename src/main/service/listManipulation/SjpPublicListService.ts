@@ -1,5 +1,5 @@
 import { ListParseHelperService } from '../ListParseHelperService';
-import {SjpPressList} from "../../models/style-guide/sjp-press-list-model";
+import { SjpPressList } from '../../models/style-guide/sjp-press-list-model';
 import { SjpFilterService } from '../../service/SjpFilterService';
 
 const sjpFilterService = new SjpFilterService();
@@ -24,12 +24,11 @@ export class SjpPublicListService {
     }
 
     private buildCases(hearing, sjpModel: SjpPressList): any {
-        const hasFilterValues : boolean = sjpModel.currentFilterValues.length > 0;
+        const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
         const partyDetails = this.buildPartyDetails(hearing.party);
         const offence = this.buildOffence(hearing.offence);
 
         if (partyDetails.name && partyDetails.postcode && partyDetails.prosecutorName && offence) {
-
             sjpModel.addTotalCaseNumber();
 
             if (partyDetails.postcode) {
@@ -47,7 +46,7 @@ export class SjpPublicListService {
             if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.currentFilterValues)) {
                 sjpModel.countOfFilteredCases++;
                 if (sjpModel.isRowWithinPage()) {
-                    sjpModel.addFilteredRow(row)
+                    sjpModel.addFilteredRow(row);
                 }
             }
         }
