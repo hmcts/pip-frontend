@@ -1,37 +1,55 @@
 import { DateTime } from 'luxon';
 import { ListParseHelperService } from '../ListParseHelperService';
+import {SjpPressList} from "../../models/style-guide/sjp-press-list-model";
+import { SjpFilterService } from '../../service/SjpFilterService';
 
 const listParseHelperService = new ListParseHelperService();
+const sjpFilterService = new SjpFilterService();
 
 export class SjpPressListService {
     /**
      * Manipulate the sjpPressList json data for writing out on screen.
      * @param sjpPressListJson
      */
-    public formatSJPPressList(sjpPressListJson: JSON): any {
-        const rows = [];
+    public formatSJPPressList(sjpPressListJson: JSON, sjpModel: SjpPressList): void {
         sjpPressListJson['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
                     session['sittings'].forEach(sitting => {
                         sitting['hearing'].forEach(hearing => {
-                            this.buildCases(hearing, rows);
+                            this.buildCases(hearing, sjpModel);
                         });
                     });
                 });
             });
         });
-        return rows;
     }
 
-    private buildCases(hearing, rows): any {
+    private buildCases(hearing, sjpModel: SjpPressList): void {
+        const hasFilterValues : boolean = sjpModel.currentFilterValues.length > 0;
         if (hearing.party) {
+
+            sjpModel.addTotalCaseNumber();
+
             const row = {
                 ...this.processPartyRoles(hearing),
                 caseUrn: hearing.case[0].caseUrn,
                 offences: this.buildOffences(hearing.offence),
             };
-            rows.push(row);
+
+            if (row.postcode) {
+                sjpModel.addPostcode(row.postcode);
+            }
+            if (row.prosecutorName) {
+                sjpModel.addProsecutor(row.prosecutorName);
+            }
+
+            if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.currentFilterValues)) {
+                sjpModel.countOfFilteredCases++;
+                if (sjpModel.isRowWithinPage()) {
+                    sjpModel.addFilteredRow(row)
+                }
+            }
         }
     }
 

@@ -12,6 +12,7 @@ import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingList
 import { ListDownloadService } from '../../service/ListDownloadService';
 import * as url from 'url';
 import { validate } from 'uuid';
+import {SjpPressList} from "../../models/style-guide/sjp-press-list-model";
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -35,12 +36,13 @@ export default class SjpPressListController {
         if (isValidList(sjpData, metaData) && isOneOfValidListTypes(metaDataListType, sjpListType, sjpDeltaListType)) {
             const currentPage = req.query?.page && Number(req.query.page) ? parseInt(req.query.page as string) : 1;
 
-            const allCases = sjpPressListService.formatSJPPressList(sjpData as JSON);
-            const filter = sjpFilterService.generateFilters(
-                allCases,
-                req.query?.filterValues as string,
-                req.query?.clear as string
-            );
+            const sjpModel = new SjpPressList();
+            sjpModel.setCurrentPage(req.query?.page)
+            sjpModel.setCurrentFilterValues(
+                sjpFilterService.generateFilterValues(req.query?.filterValues as string, req.query?.clear as string));
+
+
+            sjpPressListService.formatSJPPressList(sjpData as JSON, sjpModel);
 
             const publicationDate = sjpData['document']['publicationDate'];
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
@@ -51,7 +53,7 @@ export default class SjpPressListController {
             const languageResource = SjpPressListController.getLanguageResources(req, metaData.listType);
 
             const paginationData = sjpFilterService.generatePaginationData(
-                filter.sjpCases,
+                sjpModel.countOfFilteredCases,
                 currentPage,
                 artefactId,
                 req.query?.filterValues,
@@ -60,9 +62,9 @@ export default class SjpPressListController {
 
             res.render(`style-guide/${sjpPressAll}`, {
                 ...cloneDeep(languageResource),
-                sjpData: filter.sjpCases.slice((currentPage - 1) * 1000, currentPage * 1000),
+                sjpData: sjpModel.filteredCases,
                 paginationData,
-                totalHearings: filter.sjpCases.length,
+                totalHearings: sjpModel.totalNumberOfCases,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 contactDate: DateTime.fromISO(metaData['contentDate'], {
@@ -72,7 +74,7 @@ export default class SjpPressListController {
                     .toFormat('d MMMM yyyy'),
                 artefactId: artefactId,
                 user: req.user,
-                filterOptions: filter.filterOptions,
+                filterOptions: ({'postcodes': sjpModel.generatePostcodeFilters(), 'prosecutor': sjpModel.generateProsecutorFilters()}),
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
                 url,

@@ -1,35 +1,55 @@
 import { ListParseHelperService } from '../ListParseHelperService';
+import {SjpPressList} from "../../models/style-guide/sjp-press-list-model";
+import { SjpFilterService } from '../../service/SjpFilterService';
+
+const sjpFilterService = new SjpFilterService();
 
 export class SjpPublicListService {
     /**
      * Format the SJP public list json data for writing out on screen.
      * @param formatSjpPublicList SJP list raw data
      */
-    public formatSjpPublicList(sjpPublicListJson: JSON): any {
-        const rows = [];
+    public formatSjpPublicList(sjpPublicListJson: JSON, sjpModel: SjpPressList): void {
         sjpPublicListJson['courtLists'].forEach(courtList => {
             courtList.courtHouse.courtRoom.forEach(courtRoom => {
                 courtRoom.session.forEach(session => {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
-                            this.buildCases(hearing, rows);
+                            this.buildCases(hearing, sjpModel);
                         });
                     });
                 });
             });
         });
-        return rows;
     }
 
-    private buildCases(hearing, rows): any {
+    private buildCases(hearing, sjpModel: SjpPressList): any {
+        const hasFilterValues : boolean = sjpModel.currentFilterValues.length > 0;
         const partyDetails = this.buildPartyDetails(hearing.party);
         const offence = this.buildOffence(hearing.offence);
 
         if (partyDetails.name && partyDetails.postcode && partyDetails.prosecutorName && offence) {
-            rows.push({
+
+            sjpModel.addTotalCaseNumber();
+
+            if (partyDetails.postcode) {
+                sjpModel.addPostcode(partyDetails.postcode);
+            }
+            if (partyDetails.prosecutorName) {
+                sjpModel.addProsecutor(partyDetails.prosecutorName);
+            }
+
+            const row = {
                 ...partyDetails,
                 offence: offence,
-            });
+            };
+
+            if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.currentFilterValues)) {
+                sjpModel.countOfFilteredCases++;
+                if (sjpModel.isRowWithinPage()) {
+                    sjpModel.addFilteredRow(row)
+                }
+            }
         }
     }
 
