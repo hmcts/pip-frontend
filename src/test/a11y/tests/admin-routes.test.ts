@@ -84,4 +84,54 @@ describe('Accessibility - Admin Routes', () => {
             testAccessibility(route.path, route.parameter, route.postMethod, route.postBody);
         });
     });
+
+    describe('Page with Errors', () => {
+        describe('Create Admin Account Page', () => {
+            const url = '/create-admin-account';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'create-admin-account': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'create-admin-account': null });
+            });
+        });
+
+        describe('Admin Management Page', () => {
+            const url = '/admin-management';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'search-input': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'search-input': 'test@test.com' });
+            });
+        });
+
+        describe('Manual Upload Page', () => {
+            const url = '/manual-upload';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'manual-upload': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'manual-upload': 'true' });
+            });
+        });
+
+        describe('Remove List Search Page', () => {
+            const url = '/remove-list-search';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'search-input': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'search-input': 'Invalid Input' });
+            });
+        });
+    });
 });

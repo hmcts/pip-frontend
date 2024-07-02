@@ -122,5 +122,37 @@ describe('Accessibility - Media User Routes', () => {
                 testAccessibility(url, '', true, { 'search-input': 'Invalid case number' });
             });
         });
+
+        describe('Bulk Unsubscribe Confirmation Page', () => {
+            const url = '/bulk-unsubscribe-confirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
+            });
+        });
+
+        describe('Pending Subscriptions Page', () => {
+            const url = '/pending-subscriptions';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { userId: '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { userId: true });
+            });
+        });
+
+        describe('Subscription Add Page', () => {
+            const url = '/subscription-add';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'subscription-add': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'subscription-add': true });
+            });
+        });
     });
 });

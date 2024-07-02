@@ -125,4 +125,74 @@ describe('Accessibility - System Admin Routes', () => {
             testAccessibility(route.path, route.parameter);
         });
     });
+
+    describe('Page with Errors', () => {
+        describe('Create System Admin Account Page', () => {
+            const url = '/create-system-admin-account';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'create-system-admin-account': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
+            });
+        });
+
+        describe('Reference Data upload Page', () => {
+            const url = '/reference-data-upload';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'reference-data-upload': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'reference-data-upload': 'true' });
+            });
+        });
+
+        describe('Delete Court Reference Data Page', () => {
+            const url = '/delete-court-reference-data';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'search-input': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'search-input': 'Invalid Input' });
+            });
+        });
+
+        describe('Delete Court Reference Data Confirmation Page', () => {
+            const url = '/delete-court-reference-data-confirmation';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+            });
+        });
+
+        describe('Bulk Create Media Accounts Page', () => {
+            const url = '/bulk-create-media-accounts';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'bulk-account-upload': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'bulk-account-upload': 'Invalid Bulk Account Upload' });
+            });
+        });
+
+        describe('User Management Page', () => {
+            const url = '/user-management';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'view-choice': '' });
+            });
+        });
+    });
 });
