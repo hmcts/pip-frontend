@@ -6,8 +6,8 @@ import { mockRequest } from '../../mocks/mockRequest';
 const bulkCreateMediaAccountsConfirmedController = new BulkCreateMediaAccountsConfirmedController();
 const i18n = {
     'system-admin': {
-        'bulk-create-media-accounts-confirmed': {}
-    }
+        'bulk-create-media-accounts-confirmed': {},
+    },
 };
 const response = {
     render: () => {
@@ -21,7 +21,13 @@ describe('Bulk Create Media Accounts Confirmed Controller', () => {
             const responseMock = sinon.mock(response);
             const request = mockRequest(i18n);
 
-            responseMock.expects('render').once().withArgs('system-admin/bulk-create-media-accounts-confirmed', i18n['system-admin']['bulk-create-media-accounts-confirmed']);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs(
+                    'system-admin/bulk-create-media-accounts-confirmed',
+                    i18n['system-admin']['bulk-create-media-accounts-confirmed']
+                );
 
             bulkCreateMediaAccountsConfirmedController.get(request, response).then(() => {
                 responseMock.verify();

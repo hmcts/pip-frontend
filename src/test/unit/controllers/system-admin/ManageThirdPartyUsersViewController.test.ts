@@ -13,7 +13,8 @@ describe('Manage third party users view Controller', () => {
         'system-admin': {
             'manage-third-party-users': {},
         },
-        error: {} };
+        error: {},
+    };
     const request = mockRequest(i18n);
     const response = {
         render: () => {

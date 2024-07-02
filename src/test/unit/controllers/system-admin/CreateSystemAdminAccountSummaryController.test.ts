@@ -49,7 +49,7 @@ describe('Create System Admin Account Summary Controller', () => {
     const i18n = {
         'system-admin': {
             'create-system-admin-account-summary': {},
-        }
+        },
     };
     const response = {
         render: () => {
@@ -72,7 +72,10 @@ describe('Create System Admin Account Summary Controller', () => {
                 ...i18n['system-admin']['create-system-admin-account-summary'],
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/create-system-admin-account-summary', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/create-system-admin-account-summary', expectedOptions);
 
             await createSystemAdminAccountSummaryController.get(request, response);
             await responseMock.verify();
@@ -91,7 +94,10 @@ describe('Create System Admin Account Summary Controller', () => {
                 ...i18n['system-admin']['create-system-admin-account-confirm'],
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/create-system-admin-account-confirm', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/create-system-admin-account-confirm', expectedOptions);
             responseMock.expects('cookie').once().withArgs('createAdminAccount', '');
             await createSystemAdminAccountSummaryController.post(request, response);
             await responseMock.verify();
@@ -109,7 +115,10 @@ describe('Create System Admin Account Summary Controller', () => {
                 ...i18n['system-admin']['create-system-admin-account-summary'],
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/create-system-admin-account-summary', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/create-system-admin-account-summary', expectedOptions);
             await createSystemAdminAccountSummaryController.post(request, response);
             await responseMock.verify();
         });
@@ -128,7 +137,10 @@ describe('Create System Admin Account Summary Controller', () => {
                 ...i18n['system-admin']['create-system-admin-account-confirm'],
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/create-system-admin-account-confirm', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/create-system-admin-account-confirm', expectedOptions);
             await createSystemAdminAccountSummaryController.post(request, response);
             await responseMock.verify();
         });
@@ -147,7 +159,10 @@ describe('Create System Admin Account Summary Controller', () => {
                 ...i18n['system-admin']['create-system-admin-account-confirm'],
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/create-system-admin-account-confirm', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/create-system-admin-account-confirm', expectedOptions);
             await createSystemAdminAccountSummaryController.post(request, response);
             await responseMock.verify();
         });

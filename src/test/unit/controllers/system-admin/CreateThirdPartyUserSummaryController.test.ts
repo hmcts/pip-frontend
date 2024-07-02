@@ -50,7 +50,10 @@ describe('Create third party user summary controller', () => {
                 displayError: false,
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/create-third-party-user-summary', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/create-third-party-user-summary', expectedOptions);
 
             await createThirdPartyUserSummaryController.get(request, response);
             responseMock.verify();
@@ -68,7 +71,10 @@ describe('Create third party user summary controller', () => {
                 displayError: true,
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/create-third-party-user-summary', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/create-third-party-user-summary', expectedOptions);
 
             await createThirdPartyUserSummaryController.post(request, response);
             responseMock.verify();

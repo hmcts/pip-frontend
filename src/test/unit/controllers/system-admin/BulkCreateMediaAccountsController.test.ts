@@ -8,8 +8,8 @@ import { CreateAccountService } from '../../../../main/service/CreateAccountServ
 const bulkCreateMediaAccountsController = new BulkCreateMediaAccountsController();
 const i18n = {
     'system-admin': {
-        'bulk-create-media-accounts': {}
-    }
+        'bulk-create-media-accounts': {},
+    },
 };
 
 const response = {

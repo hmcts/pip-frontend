@@ -34,7 +34,9 @@ export default class CreateSystemAdminAccountSummaryController {
                 res.render('system-admin/create-system-admin-account-summary', {
                     formData,
                     displayError: true,
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account-summary']),
+                    ...cloneDeep(
+                        req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account-summary']
+                    ),
                 });
             } else {
                 await userManagementService.auditAction(
@@ -48,7 +50,9 @@ export default class CreateSystemAdminAccountSummaryController {
                     accountCreated: !response['error'] && !response['duplicate'] && !response['aboveMaxSystemAdmin'],
                     isDuplicateError: response['duplicate'],
                     isAboveMaxError: response['aboveMaxSystemAdmin'],
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account-confirm']),
+                    ...cloneDeep(
+                        req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account-confirm']
+                    ),
                 });
             }
         }

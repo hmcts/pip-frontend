@@ -36,10 +36,15 @@ describe('Delete Court Reference Data Controller', () => {
             court: court,
             displayError: false,
         };
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.get(request, response, 'delete-court-reference-data-confirmation').then(() => {
-            responseMock.verify();
-        });
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
+        return deleteCourtReferenceDataConfirmationController
+            .get(request, response, 'delete-court-reference-data-confirmation')
+            .then(() => {
+                responseMock.verify();
+            });
     });
 
     it('should render the court subscription data page', () => {
@@ -61,7 +66,10 @@ describe('Delete Court Reference Data Controller', () => {
             court: court,
             displayError: false,
         };
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-subscription-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-subscription-confirmation', expectedData);
         return deleteCourtReferenceDataConfirmationController
             .get(request, response, 'delete-court-subscription-confirmation')
             .then(() => {
@@ -88,7 +96,10 @@ describe('Delete Court Reference Data Controller', () => {
             court: court,
             displayError: false,
         };
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-publication-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-publication-confirmation', expectedData);
         return deleteCourtReferenceDataConfirmationController
             .get(request, response, 'delete-court-publication-confirmation')
             .then(() => {
@@ -99,7 +110,7 @@ describe('Delete Court Reference Data Controller', () => {
     it('should render the court subscription deletion data page', () => {
         const i18n = {
             'system-admin': {
-                'delete-court-subscription-confirmation': {}
+                'delete-court-subscription-confirmation': {},
             },
         };
         const response = {
@@ -116,7 +127,10 @@ describe('Delete Court Reference Data Controller', () => {
             displayError: false,
         };
 
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-subscription-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-subscription-confirmation', expectedData);
         return deleteCourtReferenceDataConfirmationController
             .get(request, response, 'delete-court-subscription-confirmation')
             .then(() => {
@@ -127,7 +141,7 @@ describe('Delete Court Reference Data Controller', () => {
     it('should render confirmation page if active artefact or subscription is available', () => {
         const i18n = {
             'system-admin': {
-                'delete-court-reference-data-confirmation': {}
+                'delete-court-reference-data-confirmation': {},
             },
         };
         const response = {
@@ -145,7 +159,10 @@ describe('Delete Court Reference Data Controller', () => {
             errorMessage: 'test',
         };
 
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
         return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
@@ -154,7 +171,7 @@ describe('Delete Court Reference Data Controller', () => {
     it('should render confirmation page if unexpected error occurred', () => {
         const i18n = {
             'system-admin': {
-                'delete-court-reference-data-confirmation': {}
+                'delete-court-reference-data-confirmation': {},
             },
         };
         const response = {
@@ -172,7 +189,10 @@ describe('Delete Court Reference Data Controller', () => {
             errorMessage: 'Unknown error when attempting to delete the court from reference data',
         };
 
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
         return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });
@@ -181,7 +201,7 @@ describe('Delete Court Reference Data Controller', () => {
     it('should render redirect to success page if court is deleted', () => {
         const i18n = {
             'system-admin': {
-                'delete-court-reference-data-confirmation': {}
+                'delete-court-reference-data-confirmation': {},
             },
         };
         const response = {
@@ -199,7 +219,10 @@ describe('Delete Court Reference Data Controller', () => {
             errorMessage: 'Unknown error when attempting to delete the court from reference data',
         };
 
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
         return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
             responseMock.verify();
         });

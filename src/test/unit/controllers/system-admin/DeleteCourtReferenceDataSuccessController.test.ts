@@ -24,7 +24,10 @@ describe('Delete Court Reference Data Controller', () => {
             ...i18n['system-admin']['delete-court-reference-data-success'],
         };
 
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data-success', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-reference-data-success', expectedData);
         return deleteCourtReferenceDataSuccessController.get(request, response).then(() => {
             responseMock.verify();
         });

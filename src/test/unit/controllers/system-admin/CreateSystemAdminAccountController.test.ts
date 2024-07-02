@@ -20,7 +20,7 @@ describe('Create System Admin Account Controller', () => {
     const i18n = {
         'system-admin': {
             'create-system-admin-account': {},
-        }
+        },
     };
     const response = {
         render: () => {

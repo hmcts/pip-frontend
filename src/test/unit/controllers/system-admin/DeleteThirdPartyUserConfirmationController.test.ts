@@ -61,7 +61,10 @@ describe('Delete third party user confirmation controller', () => {
                 failedRequestError: false,
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/delete-third-party-user-confirmation', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/delete-third-party-user-confirmation', expectedOptions);
 
             await deleteThirdPartyUserConfirmationController.get(request, response);
             responseMock.verify();
@@ -81,7 +84,10 @@ describe('Delete third party user confirmation controller', () => {
                 failedRequestError: false,
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/delete-third-party-user-confirmation', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/delete-third-party-user-confirmation', expectedOptions);
 
             await deleteThirdPartyUserConfirmationController.post(request, response);
             responseMock.verify();
@@ -109,7 +115,10 @@ describe('Delete third party user confirmation controller', () => {
                 failedRequestError: true,
             };
 
-            responseMock.expects('render').once().withArgs('system-admin/delete-third-party-user-confirmation', expectedOptions);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/delete-third-party-user-confirmation', expectedOptions);
 
             await deleteThirdPartyUserConfirmationController.post(request, response);
             responseMock.verify();

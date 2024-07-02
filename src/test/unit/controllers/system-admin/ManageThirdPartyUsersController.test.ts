@@ -11,7 +11,7 @@ describe('Manage third party users Controller', () => {
     const i18n = {
         'system-admin': {
             'manage-third-party-users': {},
-        }
+        },
     };
     const request = mockRequest(i18n);
     const response = {

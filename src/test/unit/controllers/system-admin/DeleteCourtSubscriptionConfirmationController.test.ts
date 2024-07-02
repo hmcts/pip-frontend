@@ -24,7 +24,7 @@ const pageName = 'delete-court-subscription-confirmation';
 const pagePublicationName = 'delete-court-publication-confirmation';
 const i18n = {
     'system-admin': {
-        'delete-court-subscription-confirmation': {}
+        'delete-court-subscription-confirmation': {},
     },
 };
 
@@ -45,7 +45,10 @@ describe('Delete Court Subscription Controller', () => {
             errorMessage: 'Unknown error when attempting to delete all the subscriptions for the court',
         };
 
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-subscription-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-subscription-confirmation', expectedData);
         return deleteCourtSubscriptionConfirmationController.post(request, response, pageName).then(() => {
             responseMock.verify();
         });
@@ -67,7 +70,10 @@ describe('Delete Court Subscription Controller', () => {
             errorMessage: 'Unknown error when attempting to delete all the artefacts for the court',
         };
 
-        responseMock.expects('render').once().withArgs('system-admin/delete-court-publication-confirmation', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/delete-court-publication-confirmation', expectedData);
         return deleteCourtSubscriptionConfirmationController.post(request, response, pagePublicationName).then(() => {
             responseMock.verify();
         });

@@ -15,7 +15,7 @@ describe('Delete Court Subscription Data Controller', () => {
     it('should render the court subscription list page', () => {
         const i18n = {
             'system-admin': {
-                'delete-court-subscription-success': {}
+                'delete-court-subscription-success': {},
             },
         };
         const response = {
@@ -42,7 +42,7 @@ describe('Delete Court Subscription Data Controller', () => {
     it('should render the court publication list page', () => {
         const i18n = {
             'system-admin': {
-                'delete-court-publication-success': {}
+                'delete-court-publication-success': {},
             },
         };
         const response = {

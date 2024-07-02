@@ -27,7 +27,10 @@ describe('Delete third party user success controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('system-admin/delete-third-party-user-success', i18n['system-admin']['delete-third-party-user-success']);
+            .withArgs(
+                'system-admin/delete-third-party-user-success',
+                i18n['system-admin']['delete-third-party-user-success']
+            );
 
         await deleteThirdPartyUserSuccessController.get(request, response);
         responseMock.verify();

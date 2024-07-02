@@ -11,7 +11,7 @@ const bulkCreateMediaAccountsConfirmationController = new BulkCreateMediaAccount
 const i18n = {
     'system-admin': {
         'bulk-create-media-accounts-confirmation': {},
-    }
+    },
 };
 
 const response = {
@@ -52,7 +52,10 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
                 ...i18n['system-admin']['bulk-create-media-accounts-confirmation'],
                 accountsToCreate: mockAccounts,
             };
-            responseMock.expects('render').once().withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
 
             bulkCreateMediaAccountsConfirmationController.get(request, response).then(() => {
                 responseMock.verify();
@@ -84,7 +87,10 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
                 accountsToCreate: mockAccounts,
                 displayNoOptionError: true,
             };
-            responseMock.expects('render').once().withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
 
             bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
                 responseMock.verify();
@@ -114,7 +120,10 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
                 accountsToCreate: mockAccounts,
                 displayAccountCreationError: true,
             };
-            responseMock.expects('render').once().withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
 
             bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
                 responseMock.verify();

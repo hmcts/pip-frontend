@@ -49,7 +49,7 @@ describe('Remove List Confirmation', () => {
                 .send({
                     'remove-choice': 'yes',
                     artefactIds: ['valid-artefact'],
-                    locationId: '1'
+                    locationId: '1',
                 })
                 .expect(res => {
                     expect(res.status).to.equal(302);
@@ -63,7 +63,7 @@ describe('Remove List Confirmation', () => {
                 .send({
                     'remove-choice': 'yes',
                     artefactIds: ['invalid-artefact'],
-                    locationId: '1'
+                    locationId: '1',
                 })
                 .expect(res => expect(res.status).to.equal(200));
         });
