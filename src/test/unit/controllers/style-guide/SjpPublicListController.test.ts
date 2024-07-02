@@ -219,7 +219,7 @@ describe('SJP Public List Type Controller', () => {
 
         it('should redirect to configure list page with correct filters', () => {
             request.query = { artefactId: artefactId };
-            request.body = {}
+            request.body = {};
 
             const responseMock = sinon.mock(response);
             responseMock
@@ -233,7 +233,7 @@ describe('SJP Public List Type Controller', () => {
         });
 
         it('should redirect to configure list page with a concatenated string when multiple filters selected', () => {
-            request.body = {"value1": "value1", "value2": "value2"}
+            request.body = { value1: 'value1', value2: 'value2' };
             generateKeyValuesStub.withArgs(request.body).returns(['value1', 'value2']);
 
             request.query = { artefactId: artefactId };
@@ -251,7 +251,7 @@ describe('SJP Public List Type Controller', () => {
 
         it('should render error page when invalid artefact ID provided', () => {
             request.query = { artefactId: 'abcd' };
-            request.body = {}
+            request.body = {};
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs(`error`);

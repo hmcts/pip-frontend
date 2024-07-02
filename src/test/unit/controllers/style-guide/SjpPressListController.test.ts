@@ -240,7 +240,7 @@ describe('SJP Press List Controller', () => {
         it('should redirect to configure list page with correct filters', () => {
             const artefactId = sjpPressResource['artefactId'];
             request.query = { artefactId: artefactId };
-            request.body = {}
+            request.body = {};
 
             const responseMock = sinon.mock(response);
             responseMock
@@ -254,7 +254,7 @@ describe('SJP Press List Controller', () => {
         });
 
         it('should redirect to configure list page with a concatenated string when multiple filters selected', () => {
-            request.body = {"value1": "value1", "value2": "value2"}
+            request.body = { value1: 'value1', value2: 'value2' };
             generateKeyValuesStub.withArgs(request.body).returns(['value1', 'value2']);
 
             const artefactId = sjpPressResource['artefactId'];
