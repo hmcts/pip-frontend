@@ -1,23 +1,25 @@
 import { DateTime } from 'luxon';
 import { ListParseHelperService } from '../ListParseHelperService';
-import { SjpPressList } from '../../models/style-guide/sjp-press-list-model';
-import { SjpFilterService } from '../../service/SjpFilterService';
+import { SjpPressList } from '../../models/style-guide/sjp-model';
+import { SjpFilterService } from '../SjpFilterService';
 
 const listParseHelperService = new ListParseHelperService();
 const sjpFilterService = new SjpFilterService();
 
 export class SjpPressListService {
     /**
-     * Manipulate the sjpPressList json data for writing out on screen.
-     * @param sjpPressListJson
+     * Format the SJP public list json data for writing out on screen.
+     * @param sjpPressListJson The JSON data for the list
+     * @param sjpModel The model to store the formatted data, and metadata while processing
      */
     public formatSJPPressList(sjpPressListJson: JSON, sjpModel: SjpPressList): void {
+        const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
         sjpPressListJson['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
                     session['sittings'].forEach(sitting => {
                         sitting['hearing'].forEach(hearing => {
-                            this.buildCases(hearing, sjpModel);
+                            this.buildCases(hearing, sjpModel, hasFilterValues);
                         });
                     });
                 });
@@ -25,8 +27,14 @@ export class SjpPressListService {
         });
     }
 
-    private buildCases(hearing, sjpModel: SjpPressList): void {
-        const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
+    /**
+     * Builds the cases for each of the hearings in the list.
+     * @param hearing The hearing object in the data.
+     * @param sjpModel The SJP model to update with the metadata.
+     * @param hasFilterValues whether there are filter values associated with the request.
+     * @private
+     */
+    private buildCases(hearing: any, sjpModel: SjpPressList, hasFilterValues: boolean): void {
         if (hearing.party) {
             sjpModel.addTotalCaseNumber();
 
@@ -52,7 +60,7 @@ export class SjpPressListService {
         }
     }
 
-    private processPartyRoles(hearing): any {
+    private processPartyRoles(hearing: any): any {
         let prosecutorName = '';
         let accusedInfo = this.initialiseAccusedParty();
 
@@ -69,7 +77,7 @@ export class SjpPressListService {
         return { ...accusedInfo, prosecutorName };
     }
 
-    private processAccusedParty(party) {
+    private processAccusedParty(party: any) {
         if (party.individualDetails) {
             return this.formatIndividualInformation(party.individualDetails);
         } else if (party.organisationDetails) {
@@ -88,7 +96,7 @@ export class SjpPressListService {
         return { name: '', dob: '', age: 0, address: '', postcode: '' };
     }
 
-    private formatIndividualInformation(individualDetails) {
+    private formatIndividualInformation(individualDetails: any) {
         return {
             name: listParseHelperService.createIndividualDetails(individualDetails),
             dob: individualDetails.dateOfBirth ? this.formatDateOfBirth(individualDetails) : '',
@@ -98,11 +106,11 @@ export class SjpPressListService {
         };
     }
 
-    private formatDateOfBirth(individualDetails): string {
+    private formatDateOfBirth(individualDetails: any): string {
         return DateTime.fromISO(individualDetails.dateOfBirth.split('/').reverse().join('-')).toFormat('d MMMM yyyy');
     }
 
-    private buildAddress(address): string {
+    private buildAddress(address: any): string {
         const addressLines = [];
         if (address.line?.length > 0) {
             let formattedLines = '';
@@ -131,7 +139,7 @@ export class SjpPressListService {
         return addressLines.join(', ');
     }
 
-    private buildOffences(offences): any {
+    private buildOffences(offences: any): any {
         const rows = [];
         offences.forEach(offence => {
             const reportingRestriction = offence['reportingRestriction'].toString();

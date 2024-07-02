@@ -1,8 +1,8 @@
-{% from "../macros/common-components.njk" import goBack %}
+{% from "../macros/common-components.njk" import goBack, mojAll %}
 {% from "../macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
-{% extends "../sjp-template.njk" %}
+{% extends "template.njk" %}
 
 {% block pageTitle %}
   {{ title }}
@@ -122,6 +122,12 @@
 {% endblock %}
 
 {% block bodyEnd %}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
+    {{ mojAll() }}
     {{ super() }}
     {{ filterManipulation(url = url, artefactId = artefactId, filter = filter) }}
 {% endblock %}

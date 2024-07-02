@@ -1,21 +1,23 @@
 import { ListParseHelperService } from '../ListParseHelperService';
-import { SjpPressList } from '../../models/style-guide/sjp-press-list-model';
-import { SjpFilterService } from '../../service/SjpFilterService';
+import { SjpPressList } from '../../models/style-guide/sjp-model';
+import { SjpFilterService } from '../SjpFilterService';
 
 const sjpFilterService = new SjpFilterService();
 
 export class SjpPublicListService {
     /**
      * Format the SJP public list json data for writing out on screen.
-     * @param formatSjpPublicList SJP list raw data
+     * @param sjpPublicListJson The JSON data for the list
+     * @param sjpModel The model to store the formatted data, and metadata while processing
      */
     public formatSjpPublicList(sjpPublicListJson: JSON, sjpModel: SjpPressList): void {
+        const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
         sjpPublicListJson['courtLists'].forEach(courtList => {
             courtList.courtHouse.courtRoom.forEach(courtRoom => {
                 courtRoom.session.forEach(session => {
                     session.sittings.forEach(sitting => {
                         sitting.hearing.forEach(hearing => {
-                            this.buildCases(hearing, sjpModel);
+                            this.buildCases(hearing, sjpModel, hasFilterValues);
                         });
                     });
                 });
@@ -23,8 +25,14 @@ export class SjpPublicListService {
         });
     }
 
-    private buildCases(hearing, sjpModel: SjpPressList): any {
-        const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
+    /**
+     * Builds the cases for each of the hearings in the list.
+     * @param hearing The hearing object in the data.
+     * @param sjpModel The SJP model to update with the metadata.
+     * @param hasFilterValues whether there are filter values associated with the request.
+     * @private
+     */
+    private buildCases(hearing: any, sjpModel: SjpPressList, hasFilterValues: boolean): any {
         const partyDetails = this.buildPartyDetails(hearing.party);
         const offence = this.buildOffence(hearing.offence);
 
@@ -52,7 +60,7 @@ export class SjpPublicListService {
         }
     }
 
-    private buildPartyDetails(parties) {
+    private buildPartyDetails(parties: any) {
         let accusedInfo = { name: '', postcode: '' };
         let organisationName = '';
         parties.forEach(party => {
@@ -69,7 +77,7 @@ export class SjpPublicListService {
         };
     }
 
-    private processAccusedParty(party) {
+    private processAccusedParty(party: any) {
         if (party.individualDetails) {
             const individual = party.individualDetails;
             return {
@@ -85,7 +93,7 @@ export class SjpPublicListService {
         }
     }
 
-    private buildIndividualName(individual) {
+    private buildIndividualName(individual: any) {
         const forenames = ListParseHelperService.writeStringIfValid(individual?.individualForenames);
         const surname = ListParseHelperService.writeStringIfValid(individual?.individualSurname);
         return [forenames, surname].filter(n => n.length > 0).join(' ');

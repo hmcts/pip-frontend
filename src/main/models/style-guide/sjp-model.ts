@@ -9,17 +9,17 @@ export class SjpPressList {
     londonPostalAreaCodes: string[] = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
     currentFilterValues: string[] = [];
     filteredCases: object[] = [];
-    hasReachedPageSize: boolean = false;
     countOfFilteredCases: number = 0;
 
     addTotalCaseNumber(): void {
         this.totalNumberOfCases++;
     }
 
-    setCurrentPage(page: any | undefined): void {
+    setCurrentPage(page: any | undefined): number {
         if (page && Number(page)) {
             this.currentPage = parseInt(page as string);
         }
+        return this.currentPage;
     }
 
     addPostcode(postcode: string): void {
@@ -48,20 +48,13 @@ export class SjpPressList {
 
     addFilteredRow(row: object): void {
         this.filteredCases.push(row);
-        if (this.filteredCases.length > 1000) {
-            this.hasReachedPageSize = true;
-        }
     }
 
     isRowWithinPage() {
         const minPageLimit = (this.currentPage - 1) * 1000;
         const maxPageLimit = this.currentPage * 1000;
 
-        if (this.countOfFilteredCases > minPageLimit && this.countOfFilteredCases <= maxPageLimit) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.countOfFilteredCases > minPageLimit && this.countOfFilteredCases <= maxPageLimit;
     }
 
     generatePostcodeFilters(): object[] {

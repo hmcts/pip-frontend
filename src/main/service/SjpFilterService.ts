@@ -8,7 +8,7 @@ const londonArea = 'London Postcodes';
 const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
-    public generateFilterValues(filterValuesQuery, clearQuery): string[] {
+    public generateFilterValues(filterValuesQuery: string | string[], clearQuery: string): string[] {
         let filterValues = filterService.stripFilters(filterValuesQuery);
 
         if (clearQuery) {
@@ -18,22 +18,22 @@ export class SjpFilterService {
         return filterValues;
     }
 
-    public filterSjpCase(sjpCase, filterOptions: string[]): boolean {
+    public filterSjpCase(sjpCase: any, filterOptions: string[]): boolean {
         const formattedPostcode = sjpCase.postcode.split(' ', 2)[0];
         const postalAreaCode = sjpCase.postcode.split(/\d/)[0];
         const formattedProsecutor = sjpCase.prosecutorName.replace(replaceRegex, '');
 
-        if (
-            filterOptions.includes(formattedPostcode) ||
+        return filterOptions.includes(formattedPostcode) ||
             filterOptions.includes(formattedProsecutor) ||
-            (londonPostalAreaCodes.includes(postalAreaCode) && filterOptions.includes(londonArea))
-        ) {
-            return true;
-        }
-        return false;
+            (londonPostalAreaCodes.includes(postalAreaCode) && filterOptions.includes(londonArea));
+
     }
 
-    public generatePaginationData(totalNumberOfCases, currentPage, artefactId, filterValues, page) {
+    public generatePaginationData(totalNumberOfCases: number,
+                                  currentPage: number,
+                                  artefactId: string,
+                                  filterValues: string,
+                                  styleGuideUrl: string) {
         const numberOfPages = Math.ceil(totalNumberOfCases / 1000);
 
         const query = { artefactId: artefactId };
@@ -42,78 +42,74 @@ export class SjpFilterService {
         }
 
         const baseUrl = url.format({
-            pathname: page,
+            pathname: styleGuideUrl,
             query: query,
         });
 
         const paginationData = {};
 
         if (currentPage > 1) {
-            paginationData['previous'] = {
-                href: baseUrl + '&page=' + (currentPage - 1),
-            };
+            paginationData['previous'] = {href: baseUrl + '&page=' + (currentPage - 1)};
         }
 
         if (currentPage != numberOfPages) {
-            paginationData['next'] = {
-                href: baseUrl + '&page=' + (currentPage + 1),
-            };
+            paginationData['next'] = {href: baseUrl + '&page=' + (currentPage + 1)};
         }
 
-        const items = [];
         if (numberOfPages <= 10) {
-            for (let i = 1; i <= numberOfPages; i++) {
-                items.push({
-                    number: i,
-                    current: i === currentPage,
-                    href: baseUrl + '&page=' + i,
-                });
-            }
+            paginationData['items'] = this.generatePageOptionsWithoutElipsis(currentPage, numberOfPages, baseUrl);
         } else {
-            items.push({
-                number: 1,
-                current: 1 === currentPage,
-                href: baseUrl + '&page=1',
-            });
-
-            if (currentPage > 3) {
-                items.push({
-                    ellipsis: true,
-                });
-            }
-
-            let pageRange = [];
-            if (currentPage == 1 || currentPage == 2) {
-                pageRange = [2, 3];
-            } else if (currentPage == numberOfPages || currentPage == numberOfPages - 1) {
-                pageRange = [numberOfPages - 2, numberOfPages - 1];
-            } else {
-                pageRange = [currentPage - 1, currentPage, currentPage + 1];
-            }
-
-            pageRange.forEach(page => {
-                items.push({
-                    number: page,
-                    current: page === currentPage,
-                    href: baseUrl + '&page=' + page,
-                });
-            });
-
-            if (currentPage < numberOfPages - 2) {
-                items.push({
-                    ellipsis: true,
-                });
-            }
-
-            items.push({
-                number: numberOfPages,
-                current: numberOfPages === currentPage,
-                href: baseUrl + '&page=' + numberOfPages,
-            });
+            paginationData['items'] = this.generatePageOptionsWithElipsis(currentPage, numberOfPages, baseUrl);
         }
-
-        paginationData['items'] = items;
 
         return paginationData;
+    }
+
+    private generatePageOptionsWithoutElipsis(currentPage: number, numberOfPages: number, baseUrl: string): any[] {
+        const items = [];
+        for (let i = 1; i <= numberOfPages; i++) {
+            items.push(this.generatePageOption(i, i === currentPage, baseUrl + '&page=' + i));
+        }
+        return items;
+    }
+
+    private generatePageOptionsWithElipsis(currentPage: number, numberOfPages: number, baseUrl: string): any[] {
+        const items = [];
+        items.push(this.generatePageOption(1, 1 === currentPage, baseUrl + '&page=1'));
+
+        if (currentPage > 3) {
+            items.push({ellipsis: true});
+        }
+
+        let pageRange = [];
+        if (currentPage == 1 || currentPage == 2) {
+            pageRange = [2, 3];
+        } else if (currentPage == numberOfPages || currentPage == numberOfPages - 1) {
+            pageRange = [numberOfPages - 2, numberOfPages - 1];
+        } else {
+            pageRange = [currentPage - 1, currentPage, currentPage + 1];
+        }
+
+        pageRange.forEach(page => {
+            items.push(this.generatePageOption(page, page === currentPage, baseUrl + '&page=' + page));
+        });
+
+        if (currentPage < numberOfPages - 2) {
+            items.push({ellipsis: true});
+        }
+
+        items.push(this.generatePageOption(numberOfPages,
+            numberOfPages === currentPage, baseUrl + '&page=' + numberOfPages));
+
+        return items;
+
+    }
+
+    private generatePageOption(numberOfPages: number, isCurrent: boolean, href: string) {
+        return {
+            number: numberOfPages,
+            current: isCurrent,
+            href: href,
+        };
     }
 }
