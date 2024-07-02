@@ -94,10 +94,6 @@ describe('Accessibility - Admin Routes', () => {
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'create-admin-account': true });
-            });
-
-            describe('with invalid input data', () => {
                 testAccessibility(url, '', true, { 'create-admin-account': null });
             });
         });
