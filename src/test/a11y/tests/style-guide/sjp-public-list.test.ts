@@ -16,7 +16,7 @@ const artefactIdMap = new Map<string, string>([
     [sjpPublicNewCasesUrl, sjpPublicNewCasesUuid],
 ]);
 
-const jsonData = testArtefactJsonData('sjp-public-list.json');
+const jsonData = testArtefactJsonData('sjp/minimalSjpPublicList.json');
 const metaDataSjpFullList = testArtefactMetadata()[0];
 metaDataSjpFullList.listType = 'SJP_PUBLIC_LIST';
 const metaDataSjpNewCases = testArtefactMetadata()[0];

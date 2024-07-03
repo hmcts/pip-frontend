@@ -23,16 +23,16 @@ const selectedFiltersHeadingClass = 'govuk-heading-m';
 const summaryHeadingText = 'What are Single Justice Procedure cases?';
 const listText = 'List for 14 February 2022';
 const offenderIndividualName = 'Test Name';
-const offenderOrganisationName = `Accused's org name`;
+const offenderOrganisationName = `Organisation Name`;
 const offenderCaseNumber = 'Case URN';
 const offenderIndividualAddress = 'Line 1 Line 2, Test Town, Test County, AA1 1AA';
-const offenderOrganisationAddress = 'London, London, AA2 1AA';
+const offenderOrganisationAddress = 'Line 1 Line 2, Test Town, Test County, AA1 1AA';
 const prosecutor = 'Organisation Name';
 const reportingRestriction = 'Reporting Restriction - True';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-press-list.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/extendedSjpPressList.json'), 'utf-8');
 const sjpList = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
@@ -182,12 +182,12 @@ describe('Single Justice Procedure List page', () => {
 
         it('should have offender date of birth only if age missing', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
-            expect(offenderData[11].innerHTML.replace(/\n/g, '').trim()).equals('1 January 1980');
+            expect(offenderData[21].innerHTML.replace(/\n/g, '').trim()).equals('1 January 1801');
         });
 
         it('should not have offender date of birth and age if fields missing', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
-            expect(offenderData[16].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
+            expect(offenderData[6].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
         });
 
         it('should have offender Case Reference', () => {
@@ -213,7 +213,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should have empty offender individual address if address field is empty', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
-            expect(offenderData[18].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
+            expect(offenderData[23].innerHTML.replace(/\n/g, '').trim()).to.be.empty;
         });
 
         it('should have prosecutor', () => {
@@ -223,12 +223,12 @@ describe('Single Justice Procedure List page', () => {
 
         it('should have offender organisation name', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
-            expect(offenderData[5].innerHTML).contains(offenderOrganisationName, 'Could not find the offender name');
+            expect(offenderData[15].innerHTML).contains(offenderOrganisationName, 'Could not find the offender name');
         });
 
         it('should have offender organisation address', () => {
             const offenderData = htmlRes.getElementsByClassName(offenderInformationClass);
-            expect(offenderData[8].innerHTML).contains(
+            expect(offenderData[18].innerHTML).contains(
                 offenderOrganisationAddress,
                 'Could not find the offender organisation address'
             );
@@ -257,8 +257,8 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display offence title only if no offence wording', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[7].innerHTML).contains('Another offence title', 'Offence text does not match');
-            expect(body[7].innerHTML).not.contains('Another offence title -', 'Offence text does not match');
+            expect(body[10].innerHTML).contains('This is an offence title', 'Offence text does not match');
+            expect(body[10].innerHTML).not.contains('This is an offence title -', 'Offence text does not match');
         });
     });
 
@@ -451,16 +451,17 @@ describe('Single Justice Procedure List page', () => {
     describe.each([sjpPressFullListUrl, sjpPressFullListUrl])("Test pagination appears correctly '%s'", url => {
         const pageUrl = url + '?artefactId=' + sjpResourceMap.get(url)['artefactIdWithPagination'] + '&page=2';
 
-        let copyOfRawData = JSON.parse(rawData);
+        const copyOfRawData = JSON.parse(rawData);
         const courtLists = copyOfRawData['courtLists'] as object[];
         const courtList = courtLists[0];
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 999; i++) {
             courtLists.push(courtList);
         }
         copyOfRawData['courtLists'] = courtLists;
 
-        getJsonStub.withArgs(sjpResourceMap.get(url)['artefactIdWithPagination']).returns(
-            JSON.parse(JSON.stringify(copyOfRawData)));
+        getJsonStub
+            .withArgs(sjpResourceMap.get(url)['artefactIdWithPagination'])
+            .returns(JSON.parse(JSON.stringify(copyOfRawData)));
 
         beforeAll(async () => {
             await request(app)
@@ -487,10 +488,8 @@ describe('Single Justice Procedure List page', () => {
         });
 
         it('should display the selected page button', () => {
-            const links =
-                htmlRes.getElementsByClassName('govuk-pagination__item--current');
+            const links = htmlRes.getElementsByClassName('govuk-pagination__item--current');
             expect(links[0].innerHTML).contains('2', 'Could not find the currently selected page');
         });
-
     });
 });

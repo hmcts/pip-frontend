@@ -30,7 +30,7 @@ const offenderReason = 'This is an offence title';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-public-list.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/minimalSjpPublicList.json'), 'utf-8');
 const sjpList = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
@@ -286,7 +286,7 @@ describe('Single Justice Procedure List page', () => {
     describe.each([sjpFullListUrl, sjpNewCasesUrl])("Test pagination appears correctly '%s'", url => {
         const pageUrl = url + '?artefactId=' + sjpResourceMap.get(url).artefactIdWithPagination + '&page=2';
 
-        let copyOfRawData = JSON.parse(rawData);
+        const copyOfRawData = JSON.parse(rawData);
         const courtLists = copyOfRawData['courtLists'] as object[];
         const courtList = courtLists[0];
         for (let i = 0; i < 2000; i++) {
@@ -294,8 +294,9 @@ describe('Single Justice Procedure List page', () => {
         }
         copyOfRawData['courtLists'] = courtLists;
 
-        getJsonStub.withArgs(sjpResourceMap.get(url).artefactIdWithPagination).returns(
-            JSON.parse(JSON.stringify(copyOfRawData)));
+        getJsonStub
+            .withArgs(sjpResourceMap.get(url).artefactIdWithPagination)
+            .returns(JSON.parse(JSON.stringify(copyOfRawData)));
 
         beforeAll(async () => {
             await request(app)
@@ -322,10 +323,8 @@ describe('Single Justice Procedure List page', () => {
         });
 
         it('should display the selected page button', () => {
-            const links =
-                htmlRes.getElementsByClassName('govuk-pagination__item--current');
+            const links = htmlRes.getElementsByClassName('govuk-pagination__item--current');
             expect(links[0].innerHTML).contains('2', 'Could not find the currently selected page');
         });
-
     });
 });

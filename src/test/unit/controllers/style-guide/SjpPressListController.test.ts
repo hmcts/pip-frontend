@@ -335,7 +335,63 @@ describe('SJP Press List Controller', () => {
                 user: request.user,
                 artefactId: sjpPressResource['artefactIdWithNoFiles'],
                 showFilters: false,
+                totalHearings: 2,
                 showDownloadButton: false,
+                sjpData: [
+                    {
+                        name: 'Test Name',
+                        dob: '1 January 1801',
+                        age: 200,
+                        address: 'Line 1 Line 2, Test Town, Test County, AA1 1AA',
+                        postcode: 'AA1 1AA',
+                        prosecutorName: 'Organisation Name',
+                        caseUrn: 'Case URN',
+                        offences: [
+                            {
+                                reportingRestrictionFlag: 'True',
+                                offenceTitle: 'This is an offence title',
+                                offenceWording: 'This is offence wording',
+                            },
+                        ],
+                    },
+                    {
+                        name: 'Test Name',
+                        dob: '1 January 1801',
+                        age: 200,
+                        address: 'Line 1 Line 2, Test Town, Test County, AA2 1AA',
+                        postcode: 'AA2 1AA',
+                        prosecutorName: 'Organisation Name',
+                        caseUrn: 'Case URN',
+                        offences: [
+                            {
+                                reportingRestrictionFlag: 'True',
+                                offenceTitle: 'This is an offence title',
+                                offenceWording: 'This is offence wording',
+                            },
+                        ],
+                    },
+                ],
+                filterOptions: {
+                    postcodes: [
+                        {
+                            value: 'AA1',
+                            text: 'AA1',
+                            checked: false,
+                        },
+                        {
+                            value: 'AA2',
+                            text: 'AA2',
+                            checked: false,
+                        },
+                    ],
+                    prosecutor: [
+                        {
+                            value: 'OrganisationName',
+                            text: 'Organisation Name',
+                            checked: false,
+                        },
+                    ],
+                },
             };
 
             const responseMock = sinon.mock(response);

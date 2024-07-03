@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 const sjpFullListUrl = '/sjp-public-list';
 const sjpNewCasesUrl = '/sjp-public-list-new-cases';
 
-const mockSJPPublic = fs.readFileSync(path.resolve('src/test/unit/mocks/sjp-public-list.json'), 'utf-8');
+const mockSJPPublic = fs.readFileSync(path.resolve('src/test/unit/mocks/sjp/minimalSjpPublicList.json'), 'utf-8');
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataSjpFullList = JSON.parse(rawMetaData)[0];

@@ -173,7 +173,6 @@
                                                         "individualDetails": {
                                                             "individualForenames": "Test",
                                                             "dateOfBirth": "01/01/1801",
-                                                            "age": 200,
                                                             "address": {}
                                                         },
                                                         "organisationDetails": {
@@ -190,7 +189,6 @@
                                                 "offence": [
                                                     {
                                                         "offenceTitle": "This is an offence title",
-                                                        "offenceWording": "This is offence wording",
                                                         "reportingRestriction": true,
                                                         "formattedReportingRestriction": "True"
                                                     }

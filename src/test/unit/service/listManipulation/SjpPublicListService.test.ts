@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { SjpModel } from '../../../../main/models/style-guide/sjp-model';
 
-const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp-public-list.json'), 'utf-8');
+const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/minimalSjpPublicList.json'), 'utf-8');
 const sjpPublicListService = new SjpPublicListService();
 
 describe('formatSjpPublicList', () => {
