@@ -6,12 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -30,10 +25,10 @@ export default class MagistratesPublicListController {
 
         if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listType)) {
             const manipulatedData = crimeListsService.manipulateCrimeListData(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
+                JSON.stringify(searchResults),
+                req.lng,
+                listPath
+            );
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -53,7 +48,7 @@ export default class MagistratesPublicListController {
                 provenance: metaData.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
-                venueAddress: venueAddress
+                venueAddress: venueAddress,
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||
