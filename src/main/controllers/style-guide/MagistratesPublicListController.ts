@@ -8,7 +8,6 @@ import { CrimeListsService } from '../../service/listManipulation/CrimeListsServ
 import { HttpStatusCode } from 'axios';
 import {
     formatMetaDataListType,
-    hearingHasParty,
     isUnexpectedListType,
     isValidList,
     isValidListType,
@@ -30,23 +29,11 @@ export default class MagistratesPublicListController {
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listType)) {
-            let manipulatedData;
-            let partyAtHearingLevel = false;
-
-            if (hearingHasParty(searchResults)) {
-                manipulatedData = crimeListsService.manipulateCrimeListDataV1(
+            const manipulatedData = crimeListsService.manipulateCrimeListData(
                     JSON.stringify(searchResults),
                     req.lng,
                     listPath
                 );
-                partyAtHearingLevel = true;
-            } else {
-                manipulatedData = crimeListsService.manipulateCrimeListData(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
-            }
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -66,8 +53,7 @@ export default class MagistratesPublicListController {
                 provenance: metaData.provenance,
                 version: searchResults['document']['version'],
                 courtName: location.name,
-                venueAddress: venueAddress,
-                partyAtHearingLevel,
+                venueAddress: venueAddress
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||

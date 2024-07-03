@@ -5,12 +5,7 @@ import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrownWarnedListService } from '../../service/listManipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();

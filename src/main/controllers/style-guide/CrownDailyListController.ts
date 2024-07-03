@@ -6,12 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -31,11 +26,7 @@ export default class CrownDailyListController {
         if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listUrl)) {
             let outputData: object;
 
-            outputData = crimeListsService.manipulateCrimeListData(
-                JSON.stringify(searchResults),
-                req.lng,
-                listPath
-            );
+            outputData = crimeListsService.manipulateCrimeListData(JSON.stringify(searchResults), req.lng, listPath);
 
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);

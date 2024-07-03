@@ -8,12 +8,7 @@ import { CrownFirmListService } from '../../service/listManipulation/CrownFirmLi
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -33,7 +28,7 @@ export default class CrownFirmListController {
         const metaDataListType = formatMetaDataListType(metaData);
 
         if (isValidList(jsonData, metaData) && isValidListType(metaDataListType, listType)) {
-           const outputData = firmListService.splitOutFirmListData(JSON.stringify(jsonData), req.lng, listPath);
+            const outputData = firmListService.splitOutFirmListData(JSON.stringify(jsonData), req.lng, listPath);
 
             const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
