@@ -19,7 +19,7 @@ Scenario('I as a verified user should be able to search and download sjp public 
         displayFrom,
         displayTo,
         'ENGLISH',
-        'sjp/minimalSjpPublicList.json',
+        'sjp-public-list.json',
         'SJP_PUBLIC_LIST'
     );
 
@@ -80,7 +80,7 @@ Scenario('I as a verified user should be able to download sjp press list', async
         displayFrom,
         displayTo,
         'ENGLISH',
-        'sjp/minimalSjpPressList.json',
+        'sjp-press-list.json',
         'SJP_PRESS_LIST'
     );
 
