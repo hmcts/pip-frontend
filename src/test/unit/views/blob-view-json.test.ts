@@ -7,7 +7,9 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 
-const testList = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../mocks/sjp/minimalSjpPublicList.json'), 'utf-8'));
+const testList = JSON.parse(
+    fs.readFileSync(path.resolve(__dirname, '../mocks/sjp/minimalSjpPublicList.json'), 'utf-8')
+);
 const metaData = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8'))[1];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(testList);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
