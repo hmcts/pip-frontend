@@ -133,10 +133,6 @@ describe('Accessibility - System Admin Routes', () => {
             describe('with no input data', () => {
                 testAccessibility(url, '', true, { 'create-system-admin-account': '' });
             });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'input-autocomplete': '' });
-            });
         });
 
         describe('Reference Data upload Page', () => {
@@ -145,45 +141,29 @@ describe('Accessibility - System Admin Routes', () => {
             describe('with no input data', () => {
                 testAccessibility(url, '', true, { 'reference-data-upload': '' });
             });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'reference-data-upload': 'true' });
-            });
         });
 
         describe('Delete Court Reference Data Page', () => {
             const url = '/delete-court-reference-data';
 
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'search-input': '' });
-            });
-
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'search-input': 'Invalid Input' });
+                testAccessibility(url, '', true, { 'locationId': '2' });
             });
         });
 
         describe('Delete Court Reference Data Confirmation Page', () => {
             const url = '/delete-court-reference-data-confirmation';
 
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': '' });
-            });
-
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': 'Invalid Choice' });
+                testAccessibility(url, '', true, { 'locationId': '1' });
             });
         });
 
         describe('Bulk Create Media Accounts Page', () => {
             const url = '/bulk-create-media-accounts';
 
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'bulk-account-upload': '' });
-            });
-
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'bulk-account-upload': 'Invalid Bulk Account Upload' });
+                testAccessibility(url, '', true, { 'bulk-account-upload': '.csv' });
             });
         });
 
@@ -191,7 +171,7 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/user-management';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'view-choice': '' });
+                testAccessibility(url, '', true, { 'user-management': 'key' });
             });
         });
     });

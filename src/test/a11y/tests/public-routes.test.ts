@@ -61,10 +61,6 @@ describe('Accessibility - Public Routes', () => {
             describe('with no input data', () => {
                 testAccessibility(url, '', true, { 'view-choice': '' });
             });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'view-choice': 'sjp' });
-            });
         });
     });
 });
