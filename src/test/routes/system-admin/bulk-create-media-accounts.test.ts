@@ -26,10 +26,10 @@ readFileStub.withArgs(fileName1).returns(file1);
 readFileStub.withArgs(fileName2).returns(file2);
 
 validateFileStub
-    .withArgs(file1, 3, ['email', 'firstName', 'surname'], 'en', 'bulk-create-media-accounts')
+    .withArgs(file1, 3, ['email', 'firstName', 'surname'], 'en', 'system-admin/bulk-create-media-accounts')
     .returns(null);
 validateFileStub
-    .withArgs(file2, 3, ['email', 'firstName', 'surname'], 'en', 'bulk-create-media-accounts')
+    .withArgs(file2, 3, ['email', 'firstName', 'surname'], 'en', 'system-admin/bulk-create-media-accounts')
     .returns('error');
 
 describe('Bulk create media accounts', () => {
