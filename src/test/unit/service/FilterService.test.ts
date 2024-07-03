@@ -132,6 +132,10 @@ describe('Filter Service', () => {
         expect(filterService.stripFilters(null)).toStrictEqual([]);
     });
 
+    it('should return array from array of strings', () => {
+        expect(filterService.stripFilters(['test,filter', 'test2'])).toEqual(['test', 'filter', 'test2']);
+    });
+
     it('should return object for rendering with no clear or filters selected', async () => {
         expect(await filterService.handleFilterInitialisation(null, null, englishLanguage)).toStrictEqual({
             alphabetisedList: listData,
