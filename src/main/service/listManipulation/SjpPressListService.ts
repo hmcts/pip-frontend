@@ -13,7 +13,7 @@ export class SjpPressListService {
      * @param sjpModel The model to store the formatted data, and metadata while processing
      */
     public formatSJPPressList(sjpPressListJson: JSON, sjpModel: SjpModel): void {
-        const hasFilterValues: boolean = sjpModel.currentFilterValues.length > 0;
+        const hasFilterValues: boolean = sjpModel.getCurrentFilterValues().length > 0;
         sjpPressListJson['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
@@ -51,10 +51,10 @@ export class SjpPressListService {
                 sjpModel.addProsecutor(row.prosecutorName);
             }
 
-            if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.currentFilterValues)) {
-                sjpModel.countOfFilteredCases++;
+            if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.getCurrentFilterValues())) {
+                sjpModel.incrementCountOfFilteredCases();
                 if (sjpModel.isRowWithinPage()) {
-                    sjpModel.addFilteredCase(row);
+                    sjpModel.addFilteredCaseForPage(row);
                 }
             }
         }

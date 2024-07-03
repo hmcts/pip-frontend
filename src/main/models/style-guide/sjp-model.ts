@@ -1,18 +1,23 @@
+import { londonPostalAreaCodes, londonArea, replaceRegex } from '../../service/SjpFilterService';
+
 export class SjpModel {
-    totalNumberOfCases: number = 0;
-    currentPage: number = 1;
-    postcodes = new Set<string>();
-    prosecutors = new Set<string>();
-    hasLondonPostcodeArea: boolean = false;
-    replaceRegex = /[\s,]/g;
-    londonArea = 'London Postcodes';
-    londonPostalAreaCodes: string[] = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
-    currentFilterValues: string[] = [];
-    filteredCases: object[] = [];
-    countOfFilteredCases: number = 0;
+    private totalNumberOfCases: number = 0;
+    private currentPage: number = 1;
+    private postcodes = new Set<string>();
+    private prosecutors = new Set<string>();
+    private hasLondonPostcodeArea: boolean = false;
+    private currentFilterValues: string[] = [];
+    private filteredCasesForPage: object[] = [];
+
+    ///This value includes filtered cases outside the current page, and is used to work out the total page count.
+    private countOfFilteredCases: number = 0;
 
     addTotalCaseNumber(): void {
         this.totalNumberOfCases++;
+    }
+
+    getTotalNumberOfCases(): number {
+        return this.totalNumberOfCases;
     }
 
     setCurrentPage(page: any | undefined): number {
@@ -25,13 +30,25 @@ export class SjpModel {
     addPostcode(postcode: string): void {
         this.postcodes.add(postcode.split(' ', 2)[0]);
 
-        if (!this.hasLondonPostcodeArea && this.londonPostalAreaCodes.includes(postcode.split(/\d/)[0])) {
+        if (!this.hasLondonPostcodeArea && londonPostalAreaCodes.includes(postcode.split(/\d/)[0])) {
             this.hasLondonPostcodeArea = true;
         }
     }
 
+    getPostcodes(): Set<string> {
+        return this.postcodes;
+    }
+
     addProsecutor(prosecutor: string): void {
         this.prosecutors.add(prosecutor);
+    }
+
+    getProsecutors(): Set<string> {
+        return this.prosecutors;
+    }
+
+    containsLondonPostcodeArea(): boolean {
+        return this.hasLondonPostcodeArea;
     }
 
     sortPostcodes(): string[] {
@@ -46,8 +63,28 @@ export class SjpModel {
         this.currentFilterValues = filterValues;
     }
 
-    addFilteredCase(row: object): void {
-        this.filteredCases.push(row);
+    getCurrentFilterValues(): string[] {
+        return this.currentFilterValues;
+    }
+
+    addFilteredCaseForPage(row: object): void {
+        this.filteredCasesForPage.push(row);
+    }
+
+    getFilteredCasesForPage(): object[] {
+        return this.filteredCasesForPage;
+    }
+
+    incrementCountOfFilteredCases(): void {
+        this.countOfFilteredCases++;
+    }
+
+    setCountOfFilteredCases(filteredCasesCount: number): void {
+        this.countOfFilteredCases = filteredCasesCount;
+    }
+
+    getCountOfFilteredCases(): number {
+        return this.countOfFilteredCases;
     }
 
     isRowWithinPage() {
@@ -69,9 +106,9 @@ export class SjpModel {
 
         if (this.hasLondonPostcodeArea) {
             postCodeFilters.push({
-                value: this.londonArea,
-                text: this.londonArea,
-                checked: this.currentFilterValues.includes(this.londonArea),
+                value: londonArea,
+                text: londonArea,
+                checked: this.currentFilterValues.includes(londonArea),
             });
         }
 
@@ -81,7 +118,7 @@ export class SjpModel {
     generateProsecutorFilters(): object[] {
         const prosecutorFilters: object[] = [];
         this.sortProsecutors().forEach(prosecutor => {
-            const formattedProsecutor = prosecutor.replace(this.replaceRegex, '');
+            const formattedProsecutor = prosecutor.replace(replaceRegex, '');
 
             prosecutorFilters.push({
                 value: formattedProsecutor,

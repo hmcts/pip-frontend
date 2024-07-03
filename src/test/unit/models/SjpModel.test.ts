@@ -5,7 +5,7 @@ describe('SJP Model Test', () => {
     it('test add total case number', () => {
         const sjpModel = new SjpModel();
         sjpModel.addTotalCaseNumber();
-        expect(sjpModel.totalNumberOfCases).toBe(1);
+        expect(sjpModel.getTotalNumberOfCases()).toBe(1);
     });
 
     it('test set current page when page is not defined', () => {
@@ -27,23 +27,23 @@ describe('SJP Model Test', () => {
         const sjpModel = new SjpModel();
         sjpModel.addPostcode('AA1 AAA');
 
-        expect(sjpModel.postcodes).toContain('AA1');
-        expect(sjpModel.hasLondonPostcodeArea).toBe(false);
+        expect(sjpModel.getPostcodes()).toContain('AA1');
+        expect(sjpModel.containsLondonPostcodeArea()).toBe(false);
     });
 
     it('test add a postcode when london area', () => {
         const sjpModel = new SjpModel();
         sjpModel.addPostcode('E1 AAA');
 
-        expect(sjpModel.postcodes).toContain('E1');
-        expect(sjpModel.hasLondonPostcodeArea).toBe(true);
+        expect(sjpModel.getPostcodes()).toContain('E1');
+        expect(sjpModel.containsLondonPostcodeArea()).toBe(true);
     });
 
     it('test add a prosecutor', () => {
         const sjpModel = new SjpModel();
         sjpModel.addProsecutor('This is a prosecutor');
 
-        expect(sjpModel.prosecutors).toContain('This is a prosecutor');
+        expect(sjpModel.getProsecutors()).toContain('This is a prosecutor');
     });
 
     it('test sort postcodes', () => {
@@ -67,20 +67,20 @@ describe('SJP Model Test', () => {
     it('test set current filter values', () => {
         const sjpModel = new SjpModel();
         sjpModel.setCurrentFilterValues(['Filter 1', 'Filter 2']);
-        expect(sjpModel.currentFilterValues).toEqual(['Filter 1', 'Filter 2']);
+        expect(sjpModel.getCurrentFilterValues()).toEqual(['Filter 1', 'Filter 2']);
     });
 
     it('test add filtered case', () => {
         const sjpModel = new SjpModel();
-        sjpModel.addFilteredCase({ test: 'Test 1' });
-        expect(sjpModel.filteredCases).toEqual([{ test: 'Test 1' }]);
+        sjpModel.addFilteredCaseForPage({ test: 'Test 1' });
+        expect(sjpModel.getFilteredCasesForPage()).toEqual([{ test: 'Test 1' }]);
     });
 
     it('test is row within page limit when below range', () => {
         const sjpModel = new SjpModel();
 
         sjpModel.setCurrentPage(1);
-        sjpModel.countOfFilteredCases = 2000;
+        sjpModel.setCountOfFilteredCases(2000);
 
         expect(sjpModel.isRowWithinPage()).toEqual(false);
     });
@@ -89,16 +89,25 @@ describe('SJP Model Test', () => {
         const sjpModel = new SjpModel();
 
         sjpModel.setCurrentPage(2);
-        sjpModel.countOfFilteredCases = 2000;
+        sjpModel.setCountOfFilteredCases(2000);
 
         expect(sjpModel.isRowWithinPage()).toEqual(true);
+    });
+
+    it('test increment total filtered case count', () => {
+        const sjpModel = new SjpModel();
+
+        sjpModel.incrementCountOfFilteredCases();
+        sjpModel.incrementCountOfFilteredCases();
+
+        expect(sjpModel.getCountOfFilteredCases()).toEqual(2);
     });
 
     it('test is row within page limit when above range', () => {
         const sjpModel = new SjpModel();
 
         sjpModel.setCurrentPage(3);
-        sjpModel.countOfFilteredCases = 2000;
+        sjpModel.setCountOfFilteredCases(2000);
 
         expect(sjpModel.isRowWithinPage()).toEqual(false);
     });

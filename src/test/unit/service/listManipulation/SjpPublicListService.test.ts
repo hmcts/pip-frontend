@@ -11,63 +11,65 @@ describe('formatSjpPublicList', () => {
     it('should return SJP Public List cases', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases.length).to.equal(2);
+        expect(sjpModel.getFilteredCasesForPage().length).to.equal(2);
     });
 
     it('should return accused name using individual details', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases[0]['name']).to.equal('A This is a surname');
+        expect(sjpModel.getFilteredCasesForPage()[0]['name']).to.equal('A This is a surname');
     });
 
     it('should return accused name using organisation details', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases[1]['name']).to.equal('This is an accused organisation name');
+        expect(sjpModel.getFilteredCasesForPage()[1]['name']).to.equal('This is an accused organisation name');
     });
 
     it('should return accused postcode using individual details', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases[0]['postcode']).to.equal('AA');
+        expect(sjpModel.getFilteredCasesForPage()[0]['postcode']).to.equal('AA');
     });
 
     it('should return accused postcode using organisation details', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases[1]['postcode']).to.equal('A9');
+        expect(sjpModel.getFilteredCasesForPage()[1]['postcode']).to.equal('A9');
     });
 
     it('should return prosecutor', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases[0]['prosecutorName']).to.equal('This is a prosecutor organisation');
+        expect(sjpModel.getFilteredCasesForPage()[0]['prosecutorName']).to.equal('This is a prosecutor organisation');
     });
 
     it('should return single offence', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases[0]['offence']).to.equal('This is an offence title');
+        expect(sjpModel.getFilteredCasesForPage()[0]['offence']).to.equal('This is an offence title');
     });
 
     it('should return combined offences', async () => {
         const sjpModel = new SjpModel();
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases[1]['offence']).to.equal('This is an offence title, Another offence title');
+        expect(sjpModel.getFilteredCasesForPage()[1]['offence']).to.equal(
+            'This is an offence title, Another offence title'
+        );
     });
 
     it('should remove filtered out cases for postcode', async () => {
         const sjpModel = new SjpModel();
-        sjpModel.currentFilterValues = ['AA'];
+        sjpModel.setCurrentFilterValues(['AA']);
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases.length).to.equal(1);
+        expect(sjpModel.getFilteredCasesForPage().length).to.equal(1);
     });
 
     it('should remove filtered out cases for prosecutor', async () => {
         const sjpModel = new SjpModel();
-        sjpModel.currentFilterValues = ['Thisisaprosecutororganisation2'];
+        sjpModel.setCurrentFilterValues(['Thisisaprosecutororganisation2']);
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.filteredCases.length).to.equal(1);
+        expect(sjpModel.getFilteredCasesForPage().length).to.equal(1);
     });
 
     it('should only include correct number of cases', async () => {
@@ -81,25 +83,25 @@ describe('formatSjpPublicList', () => {
         }
 
         sjpPublicListService.formatSjpPublicList(JSON.parse(JSON.stringify({ courtLists: courtLists })), sjpModel);
-        expect(sjpModel.filteredCases.length).to.equal(1000);
-        expect(sjpModel.totalNumberOfCases).to.equal(2000);
+        expect(sjpModel.getFilteredCasesForPage().length).to.equal(1000);
+        expect(sjpModel.getTotalNumberOfCases()).to.equal(2000);
     });
 
     it('should contain the right postcodes in the filter list', async () => {
         const sjpModel = new SjpModel();
-        sjpModel.currentFilterValues = ['AA'];
+        sjpModel.setCurrentFilterValues(['AA']);
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.postcodes.size).to.equal(2);
-        expect(sjpModel.postcodes).contains('AA');
-        expect(sjpModel.postcodes).contains('A9');
+        expect(sjpModel.getPostcodes().size).to.equal(2);
+        expect(sjpModel.getPostcodes()).contains('AA');
+        expect(sjpModel.getPostcodes()).contains('A9');
     });
 
     it('should contain the right prosecutors in the filter list', async () => {
         const sjpModel = new SjpModel();
-        sjpModel.currentFilterValues = ['Thisisaprosecutororganisation2'];
+        sjpModel.setCurrentFilterValues(['Thisisaprosecutororganisation2']);
         sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.prosecutors.size).to.equal(2);
-        expect(sjpModel.prosecutors).contains('This is a prosecutor organisation');
-        expect(sjpModel.prosecutors).contains('This is a prosecutor organisation 2');
+        expect(sjpModel.getProsecutors().size).to.equal(2);
+        expect(sjpModel.getProsecutors()).contains('This is a prosecutor organisation');
+        expect(sjpModel.getProsecutors()).contains('This is a prosecutor organisation 2');
     });
 });

@@ -3,9 +3,9 @@ import url from 'url';
 
 const filterService = new FilterService();
 
-const replaceRegex = /[\s,]/g;
-const londonArea = 'London Postcodes';
-const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
+export const replaceRegex = /[\s,]/g;
+export const londonArea = 'London Postcodes';
+export const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
     public generateFilterValues(filterValuesQuery: string | string[], clearQuery: string): string[] {

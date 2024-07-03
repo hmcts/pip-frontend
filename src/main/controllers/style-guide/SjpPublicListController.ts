@@ -48,18 +48,18 @@ export default class SjpPublicListController {
             const languageResource = SjpPublicListController.getLanguageResources(req, metaData.listType);
 
             const paginationData = sjpFilterService.generatePaginationData(
-                sjpModel.countOfFilteredCases,
+                sjpModel.getCountOfFilteredCases(),
                 currentPage,
                 artefactId,
-                sjpModel.currentFilterValues.toString(),
+                sjpModel.getCurrentFilterValues().toString(),
                 'sjp-public-list'
             );
 
             res.render(`style-guide/${sjpAlStyleGuide}`, {
                 ...cloneDeep(languageResource),
-                sjpData: sjpModel.filteredCases,
+                sjpData: sjpModel.getFilteredCasesForPage(),
                 paginationData,
-                length: sjpModel.totalNumberOfCases,
+                length: sjpModel.getTotalNumberOfCases(),
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 artefactId: artefactId,

@@ -51,18 +51,18 @@ export default class SjpPressListController {
             const languageResource = SjpPressListController.getLanguageResources(req, metaData.listType);
 
             const paginationData = sjpFilterService.generatePaginationData(
-                sjpModel.countOfFilteredCases,
+                sjpModel.getCountOfFilteredCases(),
                 currentPage,
                 artefactId,
-                sjpModel.currentFilterValues.toString(),
+                sjpModel.getCurrentFilterValues().toString(),
                 'sjp-press-list'
             );
 
             res.render(`style-guide/${sjpPressAll}`, {
                 ...cloneDeep(languageResource),
-                sjpData: sjpModel.filteredCases,
+                sjpData: sjpModel.getFilteredCasesForPage(),
                 paginationData,
-                totalHearings: sjpModel.filteredCases.length,
+                totalHearings: sjpModel.getFilteredCasesForPage().length,
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 contactDate: DateTime.fromISO(metaData['contentDate'], {
