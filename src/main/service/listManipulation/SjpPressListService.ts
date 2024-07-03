@@ -8,7 +8,7 @@ const sjpFilterService = new SjpFilterService();
 
 export class SjpPressListService {
     /**
-     * Format the SJP public list json data for writing out on screen.
+     * Format the SJP Press list json data for writing out on screen.
      * @param sjpPressListJson The JSON data for the list
      * @param sjpModel The model to store the formatted data, and metadata while processing
      */
