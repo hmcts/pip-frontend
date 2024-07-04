@@ -77,7 +77,7 @@ describe('Magistrates Public List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             version: '',
-            venueAddress: 'THE LAW COURTS\nMain Road\nPR1 2LL'
+            venueAddress: 'THE LAW COURTS\nMain Road\nPR1 2LL',
         };
 
         responseMock.expects('render').once().withArgs(listPath, expectedData);
