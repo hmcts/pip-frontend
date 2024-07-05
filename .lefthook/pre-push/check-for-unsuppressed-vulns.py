@@ -16,8 +16,8 @@ print(
   f"\n{colors[5]}{header}\nChecking all your code for currently known vulnerabilities and comparing with those you've elected to already suppress...")
 print("This should only take a few seconds.")
 
+audit = "yarn npm audit --recursive --json > yarn-audit-known-issues"
 suppressions = "cat yarn-audit-known-issues"
-audit = "yarn npm audit --recursive --json"
 
 @dataclass
 class advisory:
@@ -99,6 +99,3 @@ def print_outputs(unsuppressed, unused):
     j.pretty_print(colors[0] + str(i))
 
 print_outputs(*run_audit_and_suppression_checks())
-
-
-
