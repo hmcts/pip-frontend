@@ -68,7 +68,7 @@ def build_advisory(data):
                   id=data['id'])
 
 
-def read_in_json_yarn_v4(audit, cmd):
+def read_in_json_yarn_v3(audit, cmd):
   output = getRawData(cmd)
   advisoryList = []
   empty_files = handle_empty_bodies(audit, output)
@@ -82,8 +82,8 @@ def read_in_json_yarn_v4(audit, cmd):
 
 
 def run_audit_and_suppression_checks():
-  audit_results = read_in_json_yarn_v4(True, audit)
-  suppression_results = read_in_json_yarn_v4(False, suppressions)
+  audit_results = read_in_json_yarn_v3(True, audit)
+  suppression_results = read_in_json_yarn_v3(False, suppressions)
 
   unsuppressed = [i for i in audit_results if i not in suppression_results]
   unused = [i for i in suppression_results if i not in audit_results]
