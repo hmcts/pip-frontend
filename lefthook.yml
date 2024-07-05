@@ -9,7 +9,7 @@ pre-push:
             runner: python3
         commands:
             audit:
-                run: yarn npm audit --environment production --recursive --json > yarn-audit-known-issues | cat
+                run: yarn audit | cat
 pre-commit:
     parallel: true
     commands:
