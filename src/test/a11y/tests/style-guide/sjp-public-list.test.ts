@@ -3,13 +3,17 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
+import { v4 as uuidv4 } from 'uuid';
 
 const sjpPublicFullListUrl = '/sjp-public-list';
 const sjpPublicNewCasesUrl = '/sjp-public-list-new-cases';
 
+const sjpPublicFullListUuid = uuidv4();
+const sjpPublicNewCasesUuid = uuidv4();
+
 const artefactIdMap = new Map<string, string>([
-    [sjpPublicFullListUrl, 'abc'],
-    [sjpPublicNewCasesUrl, 'def'],
+    [sjpPublicFullListUrl, sjpPublicFullListUuid],
+    [sjpPublicNewCasesUrl, sjpPublicNewCasesUuid],
 ]);
 
 const jsonData = testArtefactJsonData('sjp-public-list.json');
@@ -26,9 +30,9 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolve
 sinon.stub(ListDownloadService.prototype, 'showDownloadButton').resolves(true);
 
 describe('Accessibility - SJP Public List (Full List) Page', () => {
-    testAccessibility(`${sjpPublicFullListUrl}?artefactId=abc`);
+    testAccessibility(`${sjpPublicFullListUrl}?artefactId=${sjpPublicFullListUuid}`);
 });
 
 describe('Accessibility - SJP Public List (New Cases) Page', () => {
-    testAccessibility(`${sjpPublicNewCasesUrl}?artefactId=def`);
+    testAccessibility(`${sjpPublicNewCasesUrl}?artefactId=${sjpPublicNewCasesUuid}`);
 });

@@ -10,6 +10,8 @@ import { SjpFilterService } from '../../service/SjpFilterService';
 import { HttpStatusCode } from 'axios';
 import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType } from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
+import * as url from 'url';
+import { validate } from 'uuid';
 
 const publicationService = new PublicationService();
 const helperService = new ListParseHelperService();
@@ -79,8 +81,20 @@ export default class SjpPressListController {
     }
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
-        const filterValues = filterService.generateFilterKeyValues(req.body);
-        res.redirect(`sjp-press-list?artefactId=${req.query.artefactId as string}&filterValues=${filterValues}`);
+        if (validate(req.query?.artefactId as string)) {
+            const filterValues = filterService.generateFilterKeyValues(req.body);
+            res.redirect(
+                url.format({
+                    pathname: 'sjp-press-list',
+                    query: {
+                        artefactId: req.query.artefactId as string,
+                        filterValues: filterValues.toString(),
+                    },
+                })
+            );
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     }
 
     private static getLanguageResources(req, listType) {

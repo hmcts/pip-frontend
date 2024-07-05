@@ -5,6 +5,7 @@ import { mockRequest } from '../mocks/mockRequest';
 import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { cloneDeep } from 'lodash';
 import { dummyApplication } from '../../helpers/testConsts';
+import { v4 as uuidv4 } from 'uuid';
 
 const i18n = {
     'media-account-approval': {},
@@ -15,7 +16,8 @@ const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.pr
 const mediaAccountCreationStub = sinon.stub(MediaAccountApplicationService.prototype, 'createAccountFromApplication');
 
 describe('Media Account Approval Controller', () => {
-    const applicantId = '1234';
+    const applicantId = uuidv4();
+    const notFoundApplicantId = uuidv4();
     const status = 'PENDING';
     const adminAccountId = '1234-1234-1234-1234';
 
@@ -60,9 +62,9 @@ describe('Media Account Approval Controller', () => {
         const responseMock = sinon.mock(response);
 
         const request = mockRequest(i18n);
-        request['query'] = { applicantId: '1234' };
+        request['query'] = { applicantId: notFoundApplicantId };
 
-        mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
+        mediaAccountApplicationStub.withArgs(notFoundApplicantId, status).resolves(null);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
@@ -95,10 +97,10 @@ describe('Media Account Approval Controller', () => {
         const responseMock = sinon.mock(response);
 
         const request = mockRequest(i18n);
-        request['body'] = { approved: 'Yes', applicantId: '1234' };
+        request['body'] = { approved: 'Yes', applicantId: notFoundApplicantId };
         request['user'] = { userId: adminAccountId };
 
-        mediaAccountApplicationStub.withArgs('1234', status).resolves(null);
+        mediaAccountApplicationStub.withArgs(notFoundApplicantId, status).resolves(null);
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
@@ -167,6 +169,34 @@ describe('Media Account Approval Controller', () => {
                 applicantData: dummyApplication,
                 displayAzureError: true,
             });
+
+        await mediaAccountApprovalController.post(request, response);
+
+        responseMock.verify();
+    });
+
+    it('should render error page if applicant is invalid ID', async () => {
+        const responseMock = sinon.mock(response);
+
+        const request = mockRequest(i18n);
+        request['body'] = { approved: 'Yes', applicantId: 'abcd' };
+        request['user'] = { userId: adminAccountId };
+
+        responseMock.expects('render').once().withArgs('error');
+
+        await mediaAccountApprovalController.post(request, response);
+
+        responseMock.verify();
+    });
+
+    it('should render error page if applicant is not provided', async () => {
+        const responseMock = sinon.mock(response);
+
+        const request = mockRequest(i18n);
+        request['body'] = { approved: 'Yes' };
+        request['user'] = { userId: adminAccountId };
+
+        responseMock.expects('render').once().withArgs('error');
 
         await mediaAccountApprovalController.post(request, response);
 

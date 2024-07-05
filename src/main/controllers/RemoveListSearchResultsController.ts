@@ -4,6 +4,8 @@ import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/LocationService';
 import { SummaryOfPublicationsService } from '../service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../service/ManualUploadService';
+import * as url from 'url';
+import { checkIfUrl } from '../helpers/urlHelper';
 
 const courtService = new LocationService();
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
@@ -26,12 +28,17 @@ export default class RemoveListSearchResultsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.user) {
+        if (req.user && req.body?.locationId && !checkIfUrl(req.body?.locationId)) {
             if (req.body?.courtLists) {
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
                 res.redirect('/remove-list-confirmation');
             } else {
-                res.redirect(`remove-list-search-results?locationId=${req.body.locationId}&error=true`);
+                res.redirect(
+                    url.format({
+                        pathname: 'remove-list-search-results',
+                        query: { locationId: req.body.locationId, error: true },
+                    })
+                );
             }
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

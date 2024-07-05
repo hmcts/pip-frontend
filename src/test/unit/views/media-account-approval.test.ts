@@ -4,8 +4,9 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
 import { request as expressRequest } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
-const applicationId = '1234';
+const applicationId = uuidv4();
 
 const PAGE_URL = '/media-account-approval?applicantId=' + applicationId;
 const headingClass = 'govuk-heading-l';
@@ -31,7 +32,7 @@ const appliedValue = '09 May 2022';
 const proofOfIdHeader = 'Proof of ID';
 const proofOfIdValue = 'ImageName.jpg (opens in a new window)';
 const proofOfIdView = 'View';
-const proofOfIdViewLink = '/media-account-review/image?imageId=12345&applicantId=1234';
+const proofOfIdViewLink = `/media-account-review/image?imageId=12345&applicantId=${applicationId}`;
 const yesRadio = 'Yes';
 const noRadio = 'No';
 const continueButtonText = 'Continue';
@@ -45,7 +46,7 @@ let htmlRes: Document;
 expressRequest['user'] = { email: 'emailA', roles: 'INTERNAL_ADMIN_CTSC' };
 
 const dummyApplication = {
-    id: '1234',
+    id: applicationId,
     fullName: 'Test Name',
     email: 'a@b.com',
     employer: 'employer',
@@ -160,7 +161,7 @@ describe('Media Account Approval No Selection', () => {
     beforeAll(async () => {
         await request(app)
             .post(PAGE_URL)
-            .send({ applicationId: applicationId })
+            .send({ applicantId: applicationId })
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
@@ -184,7 +185,7 @@ describe('Media Account Approval Page Errored', () => {
     beforeAll(async () => {
         await request(app)
             .post(PAGE_URL)
-            .send({ approved: 'Yes', applicationId: applicationId })
+            .send({ approved: 'Yes', applicantId: applicationId })
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();

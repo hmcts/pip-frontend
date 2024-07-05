@@ -36,7 +36,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
     {
         listType: 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
@@ -45,7 +45,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
     {
         listType: 'IAC_DAILY_LIST',
@@ -54,7 +54,7 @@ const mockArtefactsArray = [
         locationId: '5',
         artefactId: 'valid-artefact',
         dateRange: 'Invalid DateTime to Invalid DateTime',
-        contDate: '24 Mar 2022'
+        contDate: '24 Mar 2022',
     },
 ];
 const removeListFormData = { courtLists: ['valid-artefact', 'valid-artefact'], locationId: '5' };
@@ -128,6 +128,29 @@ describe('Remove List Summary Controller', () => {
         it('should render error page if there is no user defined', async () => {
             const request = mockRequest(i18n);
             request.user = undefined;
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', i18n.error);
+
+            await removeListSearchResultsController.post(request, response);
+            await responseMock.verify();
+        });
+
+        it('should render error page if location ID is a URL', async () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: adminUserId };
+            request.body = { locationId: 'http://localhost' };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', i18n.error);
+
+            await removeListSearchResultsController.post(request, response);
+            await responseMock.verify();
+        });
+
+        it('should render error page if no location ID is provided', async () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: adminUserId };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('error', i18n.error);

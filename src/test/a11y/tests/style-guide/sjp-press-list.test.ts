@@ -4,13 +4,17 @@ import { ListDownloadService } from '../../../../main/service/ListDownloadServic
 import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
 import { LocationRequests } from '../../../../main/resources/requests/LocationRequests';
+import { v4 as uuidv4 } from 'uuid';
 
 const sjpPressFullListUrl = '/sjp-press-list';
 const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
 
+const sjpPressFullListUuid = uuidv4();
+const sjpPressNewCasesUuid = uuidv4();
+
 const artefactIdMap = new Map<string, string>([
-    [sjpPressFullListUrl, 'abc'],
-    [sjpPressNewCasesUrl, 'def'],
+    [sjpPressFullListUrl, sjpPressFullListUuid],
+    [sjpPressNewCasesUrl, sjpPressNewCasesUuid],
 ]);
 
 const jsonData = testArtefactJsonData('sjp-press-list.json');
@@ -29,9 +33,9 @@ sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData);
 sinon.stub(ListDownloadService.prototype, 'showDownloadButton').resolves(true);
 
 describe('Accessibility - SJP Press List (Full List) Page', () => {
-    testAccessibility(`${sjpPressFullListUrl}?artefactId=abc`);
+    testAccessibility(`${sjpPressFullListUrl}?artefactId=${sjpPressFullListUuid}`);
 });
 
 describe('Accessibility - SJP Press List (New Cases) Page', () => {
-    testAccessibility(`${sjpPressNewCasesUrl}?artefactId=def`);
+    testAccessibility(`${sjpPressNewCasesUrl}?artefactId=${sjpPressNewCasesUuid}`);
 });

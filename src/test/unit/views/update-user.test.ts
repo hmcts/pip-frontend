@@ -5,8 +5,10 @@ import { expect } from 'chai';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { request as expressRequest } from 'express';
 import { UserManagementService } from '../../../main/service/UserManagementService';
+import { v4 as uuidv4 } from 'uuid';
 
-const PAGE_URL = '/update-user?id=1234';
+const userId = uuidv4();
+const PAGE_URL = `/update-user?id=${userId}`;
 const headingClass = 'govuk-heading-l';
 const insetTextClass = 'govuk-inset-text';
 const roleSelectBoxClass = 'govuk-select';
@@ -18,7 +20,7 @@ const errorSummaryBodyClass = 'govuk-error-summary__body';
 
 sinon.stub(UserManagementService.prototype, 'auditAction').resolves({});
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
-    userId: '1234',
+    userId: userId,
     userProvenance: 'PI_AAD',
     provenanceUserId: '4dcea424-03ed-43d6-88b8-a99ce8159da2',
     email: 'test@email.com',

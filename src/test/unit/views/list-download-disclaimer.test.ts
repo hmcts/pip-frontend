@@ -2,8 +2,9 @@ import { app } from '../../../main/app';
 import request from 'supertest';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
-const PAGE_URL = '/list-download-disclaimer?artefactId=abc';
+const PAGE_URL = '/list-download-disclaimer?artefactId=' + uuidv4();
 let htmlRes: Document;
 
 expressRequest['user'] = { roles: 'VERIFIED' };

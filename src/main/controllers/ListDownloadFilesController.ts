@@ -59,9 +59,9 @@ export default class ListDownloadFilesController {
                 );
                 if (isAuthorised) {
                     if (type) {
-                        await downloadFile(req, res, artefactId, type);
+                        await downloadFile(req, res, publicationMetadata['artefactId'], type);
                     } else {
-                        await getFileSizes(req, res, artefactId);
+                        await getFileSizes(req, res, publicationMetadata['artefactId']);
                     }
                 } else {
                     res.render('unauthorised-access', req.i18n.getDataByLanguage(req.lng)['unauthorised-access']);

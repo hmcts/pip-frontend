@@ -123,6 +123,26 @@ describe('Case Reference Number Search Controller', () => {
         });
     });
 
+    it('should render case search page if url is provided as search input', () => {
+        caseNumberStub.withArgs('').returns(null);
+
+        const response = {
+            render: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.user = { userId: '1' };
+        request.body = { 'search-input': 'http://localhost' };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('case-reference-number-search');
+
+        return caseReferenceNumberSearchController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
     it('should redirect to case search results page with input as query if case number is valid', () => {
         const response = {
             redirect: function () {
