@@ -68,7 +68,7 @@ def build_advisory(data):
                   id=data['id'])
 
 
-def read_in_json_yarn_v3(audit, cmd):
+def read_in_json_yarn_v4(audit, cmd):
   output = getRawData(cmd)
   advisoryList = []
   empty_files = handle_empty_bodies(audit, output)
