@@ -1,28 +1,28 @@
 import sinon from 'sinon';
-import {LocationRequests} from '../../../main/resources/requests/LocationRequests';
-import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
-import {testArtefactMetadata, testLocationData} from '../common/testData';
-import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
+import { testArtefactMetadata, testLocationData } from '../common/testData';
+import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 
 const publicRoutes = [
-    {path: '/'},
-    {path: '/accessibility-statement'},
-    {path: '/account-request-submitted'},
-    {path: '/alphabetical-search'},
-    {path: '/cookie-policy'},
-    {path: '/create-media-account'},
-    {path: '/password-change-confirmation', parameter: '/false', postMethod: true},
-    {path: '/cancelled-password-reset', parameter: '/false'},
-    {path: '/admin-rejected-login'},
-    {path: '/media-rejected-login'},
-    {path: '/session-expired', parameter: '?reSignInUrl=CFT'},
-    {path: '/session-logged-out'},
-    {path: '/not-found'},
-    {path: '/unprocessed-request'},
-    {path: '/search'},
-    {path: '/sign-in'},
-    {path: '/view-option'},
-    {path: '/summary-of-publications', parameter: '?locationId=123'},
+    { path: '/' },
+    { path: '/accessibility-statement' },
+    { path: '/account-request-submitted' },
+    { path: '/alphabetical-search' },
+    { path: '/cookie-policy' },
+    { path: '/create-media-account' },
+    { path: '/password-change-confirmation', parameter: '/false', postMethod: true },
+    { path: '/cancelled-password-reset', parameter: '/false' },
+    { path: '/admin-rejected-login' },
+    { path: '/media-rejected-login' },
+    { path: '/session-expired', parameter: '?reSignInUrl=CFT' },
+    { path: '/session-logged-out' },
+    { path: '/not-found' },
+    { path: '/unprocessed-request' },
+    { path: '/search' },
+    { path: '/sign-in' },
+    { path: '/view-option' },
+    { path: '/summary-of-publications', parameter: '?locationId=123' },
 ];
 
 const locationData = testLocationData();
@@ -42,17 +42,16 @@ describe('Accessibility - Public Routes', () => {
 
     describe('Page with Errors', () => {
         describe('A-Z Search Page', () => {
-
             describe('with no input data', () => {
                 const url = '/search';
-                testAccessibility(url, '', true, {'search-input': ''});
+                testAccessibility(url, '', true, { 'search-input': '' });
             });
         });
 
         describe('Sign-in Page', () => {
             describe('with no input data', () => {
                 const url = '/sign-in';
-                testAccessibility(url, '', true, {'input-autocomplete': ''});
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
             });
         });
 
@@ -60,7 +59,7 @@ describe('Accessibility - Public Routes', () => {
             const url = '/view-option';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'input-autocomplete': ''});
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
             });
         });
     });
