@@ -90,7 +90,7 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/create-admin-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'input-autocomplete': ''});
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
             });
         });
 
@@ -118,7 +118,7 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/remove-list-search';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'search-input': ''});
+                testAccessibility(url, '', true, { 'search-input': '' });
             });
         });
     });
