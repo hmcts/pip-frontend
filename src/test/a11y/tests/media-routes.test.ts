@@ -127,23 +127,33 @@ describe('Accessibility - Media User Routes', () => {
             const url = '/bulk-unsubscribe-confirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'bulk-unsubscribe-choice': true});
+                testAccessibility(url, '', true, {'input-autocomplete': ''});
             });
         });
 
         describe('Pending Subscriptions Page', () => {
             const url = '/pending-subscriptions';
 
+            beforeEach(() => {
+                sinon.restore();
+                sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(null);
+                sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(null);
+            });
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, {'search-input': ''});
+            });
+
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, {subscriptionType: 'cases'});
+                testAccessibility(url, '', true, {'search-input': 'Invalid case number'});
             });
         });
 
         describe('Subscription Add Page', () => {
             const url = '/subscription-add';
 
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, {'subscription-choice': 'court-or-tribunal'});
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, {'input-autocomplete': ''});
             });
         });
     });

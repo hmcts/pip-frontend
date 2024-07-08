@@ -8,6 +8,7 @@ import {testArtefactMetadata, testLocationData, testMediaApplicationData, testUs
 import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
 import {v4 as uuidv4} from 'uuid';
 
+
 const userId = uuidv4();
 const name = 'Test';
 const emailAddress = 'test@test.com';
@@ -90,7 +91,7 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/create-admin-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'user-role': ''});
+                testAccessibility(url, '', true, {});
             });
         });
 
@@ -105,8 +106,13 @@ describe('Accessibility - Admin Routes', () => {
         describe('Manual Upload Page', () => {
             const url = '/manual-upload';
 
+
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {});
+                testAccessibility(url, '', true, {'input-autocomplete': ''});
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, {'listType': 'EMPTY'});
             });
         });
 
@@ -114,7 +120,7 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/remove-list-search';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'delete-court-reference-data': ''});
+                testAccessibility(url, '', true, {});
             });
         });
     });
