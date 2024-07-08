@@ -91,8 +91,12 @@ describe('Home page', () => {
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
-                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Hearings in the Immigration and Asylum Chamber of the First-tier Tribunal',
                 'Could not find second bullet'
+            );
+            expect(bullets[2].innerHTML).contains(
+                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Could not find third bullet'
             );
         });
 
@@ -205,8 +209,13 @@ describe('Home page', () => {
             );
 
             expect(bullets[1].innerHTML).contains(
-                'Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru',
+                'Gwrandawiadau yn Siambr Mewnfudo a Lloches y Tribiwnlys Haen Gyntaf',
                 'Could not find second bullet'
+            );
+
+            expect(bullets[2].innerHTML).contains(
+                'Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru',
+                'Could not find third bullet'
             );
         });
 
