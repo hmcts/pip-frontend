@@ -72,7 +72,9 @@ generatesFilesStub.withArgs(sjpNewCasesResource['artefactIdWithNoFiles']).resolv
 
 const filter = { sjpCases: ['1', '2'], filterOptions: {} };
 sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
-sinon.stub(FilterService.prototype, 'generateFilterKeyValues').returns('TestValue');
+
+const generateKeyValuesStub = sinon.stub(FilterService.prototype, 'generateFilterKeyValues');
+generateKeyValuesStub.withArgs({}).returns(['TestValue']);
 
 describe('SJP Public List Type Controller', () => {
     const response = {
@@ -217,6 +219,7 @@ describe('SJP Public List Type Controller', () => {
 
         it('should redirect to configure list page with correct filters', () => {
             request.query = { artefactId: artefactId };
+            request.body = {};
 
             const responseMock = sinon.mock(response);
             responseMock
@@ -229,8 +232,26 @@ describe('SJP Public List Type Controller', () => {
             });
         });
 
+        it('should redirect to configure list page with a concatenated string when multiple filters selected', () => {
+            request.body = { value1: 'value1', value2: 'value2' };
+            generateKeyValuesStub.withArgs(request.body).returns(['value1', 'value2']);
+
+            request.query = { artefactId: artefactId };
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('redirect')
+                .once()
+                .withArgs(`sjp-public-list?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
+
+            return sjpPublicListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
         it('should render error page when invalid artefact ID provided', () => {
             request.query = { artefactId: 'abcd' };
+            request.body = {};
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs(`error`);
