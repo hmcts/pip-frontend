@@ -9418,7 +9418,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>":
+"fsevents@patch:fsevents@2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
   dependencies:
@@ -14055,15 +14055,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.44.0":
-  version: 1.44.0
-  resolution: "playwright-core@npm:1.44.0"
-  bin:
-    playwright-core: cli.js
-  checksum: 7bee257c830153578753a6dfb34b8216f8c552d750e24a0be6d3ba10baff013fb1320a1c3d487fbb0df9d1ce5d1f027ccf6e990d4514989da63691f177141ba4
-  languageName: node
-  linkType: hard
-
 "playwright-core@npm:1.45.1":
   version: 1.45.1
   resolution: "playwright-core@npm:1.45.1"
@@ -14073,18 +14064,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.44.0":
-  version: 1.44.0
-  resolution: "playwright@npm:1.44.0"
+"playwright@npm:^1.45.1":
+  version: 1.45.1
+  resolution: "playwright@npm:1.45.1"
   dependencies:
-    fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.44.0"
+    fsevents: 2.3.2
+    playwright-core: 1.45.1
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 22653ded652f436c1a837842009a175e8acb91ab340bb3deee87dbdb7205b439bd174f5f20591eb67f0171728c9f8f4bdfa3668a517da6bc7b45a4a79eabdbd5
+  checksum: 34c589b3e7ef4d54782336167f8f3d1b456178b04b98eb8c944eaf21fd66cf5480e5f0c0ec8b846a69659b6fc31764283598aac5bb9307f7413f8fca81d40751
   languageName: node
   linkType: hard
 
@@ -14577,7 +14568,7 @@ __metadata:
     pa11y: 8.0.0
     passport-azure-ad: 4.3.5
     passport-custom: ^1.1.1
-    playwright: ^1.44.0
+    playwright: ^1.45.1
     postcss: ^8.4.39
     prettier: ^3.3.2
     pretty-print-json: ^2.1.2
