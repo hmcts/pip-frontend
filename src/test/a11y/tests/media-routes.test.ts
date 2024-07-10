@@ -130,7 +130,7 @@ describe('Accessibility - Media User Routes', () => {
             const url = '/pending-subscriptions';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'userId': ''});
+                testAccessibility(url, '', true, {userId: ''});
             });
         });
 
