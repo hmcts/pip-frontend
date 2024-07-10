@@ -1,16 +1,16 @@
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 import sinon from 'sinon';
-import {LocationRequests} from '../../../main/resources/requests/LocationRequests';
-import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
-import {PublicationService} from '../../../main/service/PublicationService';
-import {ListDownloadService} from '../../../main/service/ListDownloadService';
-import {PendingSubscriptionsFromCache} from '../../../main/service/PendingSubscriptionsFromCache';
-import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
-import {testArtefactMetadata, testLocationData, testSubscriptionData, testUserData} from '../common/testData';
-import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
+import { PublicationService } from '../../../main/service/PublicationService';
+import { ListDownloadService } from '../../../main/service/ListDownloadService';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
+import { testArtefactMetadata, testLocationData, testSubscriptionData, testUserData } from '../common/testData';
+import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 import fs from 'fs';
 import path from 'path';
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const userId = '1';
 const caseSubscriptionId = '952899d6-2b05-43ec-86e0-a438d3854fa8';
@@ -18,27 +18,27 @@ const locationSubscriptionId = 'f038b7ea-2972-4be4-a5ff-70abb4f78686';
 const subscriptionIds = [caseSubscriptionId, locationSubscriptionId].join(',').toString();
 
 const mediaRoutes = [
-    {path: '/account-home', parameter: '?verified=true'},
-    {path: '/bulk-unsubscribe'},
-    {path: '/bulk-unsubscribe-confirmation', postMethod: true, postBody: {subscriptions: subscriptionIds}},
-    {path: '/bulk-unsubscribe-confirmed'},
-    {path: '/case-name-search'},
-    {path: '/case-name-search-results', parameter: '?search=myCase'},
-    {path: '/case-reference-number-search'},
-    {path: '/case-reference-number-search-results', parameter: '?search-input=123&search-type=case-number'},
-    {path: '/delete-subscription', parameter: '?subscription=123'},
-    {path: '/list-download-disclaimer', parameter: '?artefactId=' + uuidv4()},
-    {path: '/list-download-files', parameter: '?artefactId=abc'},
-    {path: '/location-name-search'},
-    {path: '/pending-subscriptions'},
-    {path: '/remove-subscription'},
-    {path: '/subscription-add'},
-    {path: '/subscription-confirmed'},
-    {path: '/subscription-management'},
-    {path: '/subscription-configure-list'},
-    {path: '/subscription-configure-list-confirmed'},
-    {path: '/unsubscribe-confirmation'},
-    {path: '/session-expiring', parameter: '?currentPath=/view-option'},
+    { path: '/account-home', parameter: '?verified=true' },
+    { path: '/bulk-unsubscribe' },
+    { path: '/bulk-unsubscribe-confirmation', postMethod: true, postBody: { subscriptions: subscriptionIds } },
+    { path: '/bulk-unsubscribe-confirmed' },
+    { path: '/case-name-search' },
+    { path: '/case-name-search-results', parameter: '?search=myCase' },
+    { path: '/case-reference-number-search' },
+    { path: '/case-reference-number-search-results', parameter: '?search-input=123&search-type=case-number' },
+    { path: '/delete-subscription', parameter: '?subscription=123' },
+    { path: '/list-download-disclaimer', parameter: '?artefactId=' + uuidv4() },
+    { path: '/list-download-files', parameter: '?artefactId=abc' },
+    { path: '/location-name-search' },
+    { path: '/pending-subscriptions' },
+    { path: '/remove-subscription' },
+    { path: '/subscription-add' },
+    { path: '/subscription-confirmed' },
+    { path: '/subscription-management' },
+    { path: '/subscription-configure-list' },
+    { path: '/subscription-configure-list-confirmed' },
+    { path: '/unsubscribe-confirmation' },
+    { path: '/session-expiring', parameter: '?currentPath=/view-option' },
 ];
 
 const locationData = testLocationData();
@@ -97,11 +97,11 @@ describe('Accessibility - Media User Routes', () => {
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'case-name': ''});
+                testAccessibility(url, '', true, { 'case-name': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, {'case-name': 'Invalid case name'});
+                testAccessibility(url, '', true, { 'case-name': 'Invalid case name' });
             });
         });
 
@@ -114,7 +114,7 @@ describe('Accessibility - Media User Routes', () => {
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'case-number': ''});
+                testAccessibility(url, '', true, { 'case-number': '' });
             });
         });
 
@@ -122,7 +122,7 @@ describe('Accessibility - Media User Routes', () => {
             const url = '/bulk-unsubscribe-confirmation';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'bulk-unsubscribe-choice': ''});
+                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
             });
         });
 
@@ -130,7 +130,7 @@ describe('Accessibility - Media User Routes', () => {
             const url = '/pending-subscriptions';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {userId: ''});
+                testAccessibility(url, '', true, { userId: '' });
             });
         });
 
@@ -138,7 +138,7 @@ describe('Accessibility - Media User Routes', () => {
             const url = '/subscription-add';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'subscription-choice': ''});
+                testAccessibility(url, '', true, { 'subscription-choice': '' });
             });
         });
     });

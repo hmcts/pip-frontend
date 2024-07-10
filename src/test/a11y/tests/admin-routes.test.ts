@@ -1,12 +1,12 @@
-import {app} from '../../../main/app';
+import { app } from '../../../main/app';
 import sinon from 'sinon';
-import {LocationRequests} from '../../../main/resources/requests/LocationRequests';
-import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
-import {AccountManagementRequests} from '../../../main/resources/requests/AccountManagementRequests';
-import {randomUUID} from 'crypto';
-import {testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData} from '../common/testData';
-import {filterRoutes, testAccessibility} from '../common/pa11yHelper';
-import {v4 as uuidv4} from 'uuid';
+import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
+import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
+import { randomUUID } from 'crypto';
+import { testArtefactMetadata, testLocationData, testMediaApplicationData, testUserData } from '../common/testData';
+import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
+import { v4 as uuidv4 } from 'uuid';
 
 const userId = uuidv4();
 const name = 'Test';
@@ -17,28 +17,28 @@ const uuid = randomUUID();
 const rejectionReasons = 'Details provided do not match.';
 
 const adminRoutes = [
-    {path: '/admin-dashboard'},
-    {path: '/create-admin-account'},
-    {path: '/create-admin-account-summary'},
-    {path: '/manual-upload'},
-    {path: '/manual-upload-summary'},
-    {path: '/manual-upload-confirmation'},
-    {path: '/media-applications'},
-    {path: '/media-account-review', parameter: '?applicantId=' + uuidv4()},
-    {path: '/media-account-approval', parameter: '?applicantId=' + uuidv4()},
-    {path: '/media-account-rejection', parameter: '?applicantId=' + uuidv4()},
-    {path: '/media-account-approval-confirmation', parameter: '?applicantId=' + uuidv4()},
-    {path: '/media-account-rejection-reasons', parameter: `?applicantId=${uuid}`},
-    {path: '/media-account-rejection-confirmation'},
-    {path: '/remove-list-confirmation', parameter: '?artefact=123'},
-    {path: '/remove-list-search'},
-    {path: '/remove-list-search-results', parameter: '?locationId=123'},
-    {path: '/remove-list-success'},
-    {path: '/admin-management'},
-    {path: '/manage-user'},
-    {path: '/update-user', parameter: `?id=${userId}`},
-    {path: '/delete-user', parameter: `?id=${userId}`},
-    {path: '/delete-user-confirmation', postMethod: true, postBody: {'delete-user-confirm': 'yes', user: uuidv4()}},
+    { path: '/admin-dashboard' },
+    { path: '/create-admin-account' },
+    { path: '/create-admin-account-summary' },
+    { path: '/manual-upload' },
+    { path: '/manual-upload-summary' },
+    { path: '/manual-upload-confirmation' },
+    { path: '/media-applications' },
+    { path: '/media-account-review', parameter: '?applicantId=' + uuidv4() },
+    { path: '/media-account-approval', parameter: '?applicantId=' + uuidv4() },
+    { path: '/media-account-rejection', parameter: '?applicantId=' + uuidv4() },
+    { path: '/media-account-approval-confirmation', parameter: '?applicantId=' + uuidv4() },
+    { path: '/media-account-rejection-reasons', parameter: `?applicantId=${uuid}` },
+    { path: '/media-account-rejection-confirmation' },
+    { path: '/remove-list-confirmation', parameter: '?artefact=123' },
+    { path: '/remove-list-search' },
+    { path: '/remove-list-search-results', parameter: '?locationId=123' },
+    { path: '/remove-list-success' },
+    { path: '/admin-management' },
+    { path: '/manage-user' },
+    { path: '/update-user', parameter: `?id=${userId}` },
+    { path: '/delete-user', parameter: `?id=${userId}` },
+    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
 ];
 
 const locationData = testLocationData();
@@ -58,7 +58,7 @@ sinon.stub(AccountManagementRequests.prototype, 'deleteUser').resolves('Success'
 
 describe('Accessibility - Admin Routes', () => {
     app.request['cookies'] = {
-        formCookie: JSON.stringify({listType: 'CIVIL_DAILY_CAUSE_LIST'}),
+        formCookie: JSON.stringify({ listType: 'CIVIL_DAILY_CAUSE_LIST' }),
         createAdminAccount: JSON.stringify({
             firstName: name,
             lastName: name,
@@ -90,7 +90,7 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/create-admin-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'user-role': ''});
+                testAccessibility(url, '', true, { 'user-role': '' });
             });
         });
 
@@ -98,7 +98,7 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/admin-management';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'search-input': ''});
+                testAccessibility(url, '', true, { 'search-input': '' });
             });
         });
 
@@ -106,11 +106,11 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/manual-upload';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'input-autocomplete': ''});
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
             });
 
             describe('with invalid input data', () => {
-                testAccessibility(url, '', true, {listType: 'EMPTY'});
+                testAccessibility(url, '', true, { listType: 'EMPTY' });
             });
         });
 
@@ -118,7 +118,7 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/remove-list-search';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'search-input': ''});
+                testAccessibility(url, '', true, { 'search-input': '' });
             });
         });
     });
