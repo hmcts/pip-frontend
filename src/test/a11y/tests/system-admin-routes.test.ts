@@ -131,15 +131,7 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/create-system-admin-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { firstName: null });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { lastName: null });
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { emailAddress: null });
+                testAccessibility(url, '', true, { firstName: null, lastName: null, emailAddress: null });
             });
         });
 
