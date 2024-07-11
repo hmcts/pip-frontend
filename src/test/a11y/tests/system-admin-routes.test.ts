@@ -131,7 +131,7 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/create-system-admin-account';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {'create-system-admin-account': ''});
+                testAccessibility(url, '', true, {'user-role': null});
             });
         });
 
@@ -139,14 +139,14 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/reference-data-upload';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {});
+                testAccessibility(url, '', true);
             });
         });
 
         describe('Delete Court Reference Data Confirmation Page', () => {
             const url = '/delete-court-reference-data-confirmation';
 
-            describe('with invalid input data', () => {
+            describe('with no input data', () => {
                 testAccessibility(url, '', true, {'delete-choice': null});
             });
         });
@@ -155,7 +155,7 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/bulk-create-media-accounts';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, {});
+                testAccessibility(url, '', true);
             });
         });
     });

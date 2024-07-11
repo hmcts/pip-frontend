@@ -111,10 +111,15 @@ describe('Accessibility - Media User Routes', () => {
             beforeEach(() => {
                 sinon.restore();
                 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(null);
+                sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(null)
             });
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'case-number': '' });
+                testAccessibility(url, '', true, { 'search-input': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { 'search-input': 'Invalid case number' });
             });
         });
 
@@ -130,7 +135,7 @@ describe('Accessibility - Media User Routes', () => {
             const url = '/pending-subscriptions';
 
             describe('with no input data', () => {
-                testAccessibility(url, '', true, { userId: '' });
+                testAccessibility(url, '', true);
             });
         });
 
