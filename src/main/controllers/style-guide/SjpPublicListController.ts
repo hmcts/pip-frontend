@@ -59,7 +59,7 @@ export default class SjpPublicListController {
                 ...cloneDeep(languageResource),
                 sjpData: sjpModel.getFilteredCasesForPage(),
                 paginationData,
-                length: sjpModel.getTotalNumberOfCases(),
+                length: sjpModel.getCountOfFilteredCases(),
                 publishedDateTime: publishedDate,
                 publishedTime: publishedTime,
                 artefactId: artefactId,

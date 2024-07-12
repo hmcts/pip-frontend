@@ -98,7 +98,6 @@ describe('SJP Public List Type Controller', () => {
             ...i18n['style-guide'][sjpResource.resourceName],
             ...i18n['style-guide']['sjp-common'],
             ...i18n['list-template'],
-            length: 2,
             publishedDateTime: '01 September 2023',
             publishedTime: '11am',
             paginationData: paginationData,
@@ -109,6 +108,7 @@ describe('SJP Public List Type Controller', () => {
             request.query = { artefactId: sjpResource.artefactId, filterValues: 'AA' };
             const localExpectedData = {
                 ...expectedData,
+                length: 1,
                 user: request.user,
                 artefactId: sjpResource.artefactId,
                 showFilters: true,
@@ -161,6 +161,7 @@ describe('SJP Public List Type Controller', () => {
             request.query = { artefactId: sjpResource.artefactId };
             const localExpectedData = {
                 ...expectedData,
+                length: 2,
                 user: request.user,
                 artefactId: sjpResource.artefactId,
                 showFilters: false,
@@ -219,6 +220,7 @@ describe('SJP Public List Type Controller', () => {
             request.query = { artefactId: sjpResource.artefactId, clear: 'all' };
             const localExpectedData = {
                 ...expectedData,
+                length: 2,
                 user: request.user,
                 artefactId: sjpResource.artefactId,
                 showFilters: true,
@@ -277,6 +279,7 @@ describe('SJP Public List Type Controller', () => {
             request.query = { artefactId: sjpResource.artefactIdWithNoFiles };
             const localExpectedData = {
                 ...expectedData,
+                length: 2,
                 user: request.user,
                 artefactId: sjpResource.artefactIdWithNoFiles,
                 showFilters: false,
