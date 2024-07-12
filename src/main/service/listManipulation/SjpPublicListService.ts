@@ -34,7 +34,6 @@ export class SjpPublicListService {
         }
     }
 
-
     /**
      * Builds the cases for each of the hearings in the list.
      * @param hearing The hearing object in the data.
@@ -64,15 +63,21 @@ export class SjpPublicListService {
             rows.push(row);
 
             if (!hasFilterValues) {
-                this.addFilteredCase(row, sjpModel)
+                this.addFilteredCase(row, sjpModel);
             }
         }
     }
 
     private buildFilteredCases(rows, sjpModel) {
         rows.forEach(row => {
-            if (sjpFilterService.filterSjpCase(row, sjpModel.getCurrentPostcodeFilterValues(), sjpModel.getCurrentProsecutorFilterValues())) {
-                this.addFilteredCase(row, sjpModel)
+            if (
+                sjpFilterService.filterSjpCase(
+                    row,
+                    sjpModel.getCurrentPostcodeFilterValues(),
+                    sjpModel.getCurrentProsecutorFilterValues()
+                )
+            ) {
+                this.addFilteredCase(row, sjpModel);
             }
         });
     }

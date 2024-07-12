@@ -26,12 +26,16 @@ export class SjpFilterService {
         // When both postcode and prosecutor filters are selected, the SJP case needs to match both filters
         // to be accepted
         if (postcodeFilterValues.length > 0 && prosecutorFilterValues.length > 0) {
-            return prosecutorFilterValues.includes(formattedProsecutor) &&
+            return (
+                prosecutorFilterValues.includes(formattedProsecutor) &&
                 (postcodeFilterValues.includes(formattedPostcode) ||
-                    this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode));
+                    this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode))
+            );
         } else if (postcodeFilterValues.length > 0) {
-            return postcodeFilterValues.includes(formattedPostcode) ||
-                this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode);
+            return (
+                postcodeFilterValues.includes(formattedPostcode) ||
+                this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode)
+            );
         }
         return prosecutorFilterValues.length > 0 && prosecutorFilterValues.includes(formattedProsecutor);
     }
@@ -123,6 +127,6 @@ export class SjpFilterService {
     }
 
     private londonPostcodeFiltered(filterValues: string[], postalAreaCode: string) {
-        return londonPostalAreaCodes.includes(postalAreaCode) && filterValues.includes(londonArea)
+        return londonPostalAreaCodes.includes(postalAreaCode) && filterValues.includes(londonArea);
     }
 }

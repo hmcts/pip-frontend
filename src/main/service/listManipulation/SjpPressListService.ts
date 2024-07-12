@@ -64,15 +64,21 @@ export class SjpPressListService {
             rows.push(row);
 
             if (!hasFilterValues) {
-                this.addFilteredCase(row, sjpModel)
+                this.addFilteredCase(row, sjpModel);
             }
         }
     }
 
     private buildFilteredCases(rows, sjpModel) {
         rows.forEach(row => {
-            if (sjpFilterService.filterSjpCase(row, sjpModel.getCurrentPostcodeFilterValues(), sjpModel.getCurrentProsecutorFilterValues())) {
-                this.addFilteredCase(row, sjpModel)
+            if (
+                sjpFilterService.filterSjpCase(
+                    row,
+                    sjpModel.getCurrentPostcodeFilterValues(),
+                    sjpModel.getCurrentProsecutorFilterValues()
+                )
+            ) {
+                this.addFilteredCase(row, sjpModel);
             }
         });
     }

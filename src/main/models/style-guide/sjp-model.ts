@@ -144,7 +144,7 @@ export class SjpModel {
         const prosecutorFilters: object[] = [];
         this.sortProsecutors().forEach(prosecutor => {
             const formattedProsecutor = prosecutor.replace(replaceRegex, '');
-            const prosecutorFiltered = this.currentFilterValues.includes(formattedProsecutor)
+            const prosecutorFiltered = this.currentFilterValues.includes(formattedProsecutor);
             prosecutorFilters.push({
                 value: formattedProsecutor,
                 text: prosecutor,

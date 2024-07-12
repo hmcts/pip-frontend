@@ -152,7 +152,7 @@ describe('SJP Model Test', () => {
         sjpModel.addProsecutor('This is a prosecutor 2');
         sjpModel.addProsecutor('This is a prosecutor 3');
         sjpModel.setCurrentFilterValues(['Thisisaprosecutor4']);
-        sjpModel.generateProsecutorFilters()
+        sjpModel.generateProsecutorFilters();
 
         expect(sjpModel.getProsecutorFilters()).toEqual([
             {
