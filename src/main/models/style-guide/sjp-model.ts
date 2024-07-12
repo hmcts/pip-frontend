@@ -7,6 +7,10 @@ export class SjpModel {
     private prosecutors = new Set<string>();
     private hasLondonPostcodeArea: boolean = false;
     private currentFilterValues: string[] = [];
+    private currentPostcodeFilterValues: string[] = [];
+    private currentProsecutorFilterValues: string[] = [];
+    private postcodeFilters: object;
+    private prosecutorFilters: object;
     private filteredCasesForPage: object[] = [];
 
     ///This value includes filtered cases outside the current page, and is used to work out the total page count.
@@ -67,6 +71,14 @@ export class SjpModel {
         return this.currentFilterValues;
     }
 
+    getCurrentPostcodeFilterValues(): string[] {
+        return this.currentPostcodeFilterValues;
+    }
+
+    getCurrentProsecutorFilterValues(): string[] {
+        return this.currentProsecutorFilterValues;
+    }
+
     addFilteredCaseForPage(row: object): void {
         this.filteredCasesForPage.push(row);
     }
@@ -94,38 +106,59 @@ export class SjpModel {
         return this.countOfFilteredCases > minPageLimit && this.countOfFilteredCases <= maxPageLimit;
     }
 
-    generatePostcodeFilters(): object[] {
-        const postCodeFilters: object[] = [];
+    generatePostcodeFilters() {
+        const postcodeFilters: object[] = [];
+
         this.sortPostcodes().forEach(formattedPostcode => {
-            postCodeFilters.push({
+            const postcodeFiltered = this.currentFilterValues.includes(formattedPostcode);
+            postcodeFilters.push({
                 value: formattedPostcode,
                 text: formattedPostcode,
-                checked: this.currentFilterValues.includes(formattedPostcode),
+                checked: postcodeFiltered,
             });
-        });
 
+            if (postcodeFiltered) {
+                this.currentPostcodeFilterValues.push(formattedPostcode);
+            }
+        });
         if (this.hasLondonPostcodeArea) {
-            postCodeFilters.push({
+            const londonPostcodeFiltered = this.currentFilterValues.includes(londonArea);
+            postcodeFilters.push({
                 value: londonArea,
                 text: londonArea,
-                checked: this.currentFilterValues.includes(londonArea),
+                checked: londonPostcodeFiltered,
             });
-        }
 
-        return postCodeFilters;
+            if (londonPostcodeFiltered) {
+                this.currentPostcodeFilterValues.push(londonArea);
+            }
+        }
+        this.postcodeFilters = postcodeFilters;
     }
 
-    generateProsecutorFilters(): object[] {
+    getPostcodeFilters(): object {
+        return this.postcodeFilters;
+    }
+
+    generateProsecutorFilters() {
         const prosecutorFilters: object[] = [];
         this.sortProsecutors().forEach(prosecutor => {
             const formattedProsecutor = prosecutor.replace(replaceRegex, '');
-
+            const prosecutorFiltered = this.currentFilterValues.includes(formattedProsecutor)
             prosecutorFilters.push({
                 value: formattedProsecutor,
                 text: prosecutor,
-                checked: this.currentFilterValues.includes(formattedProsecutor),
+                checked: prosecutorFiltered,
             });
+
+            if (prosecutorFiltered) {
+                this.currentProsecutorFilterValues.push(formattedProsecutor);
+            }
         });
-        return prosecutorFilters;
+        this.prosecutorFilters = prosecutorFilters;
+    }
+
+    getProsecutorFilters(): object {
+        return this.prosecutorFilters;
     }
 }

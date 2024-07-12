@@ -13,28 +13,39 @@ export class SjpPressListService {
      * @param sjpModel The model to store the formatted data, and metadata while processing
      */
     public formatSJPPressList(sjpPressListJson: JSON, sjpModel: SjpModel): void {
+        const rows = [];
         const hasFilterValues: boolean = sjpModel.getCurrentFilterValues().length > 0;
+
         sjpPressListJson['courtLists'].forEach(courtList => {
             courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
                 courtRoom['session'].forEach(session => {
                     session['sittings'].forEach(sitting => {
                         sitting['hearing'].forEach(hearing => {
-                            this.buildCases(hearing, sjpModel, hasFilterValues);
+                            this.buildCases(hearing, sjpModel, rows, hasFilterValues);
                         });
                     });
                 });
             });
         });
+
+        // The filter list are generated and the filter values are split by types after all postcodes and prosecutors
+        // have been added to the SJP model. This is required to be done first before filtering the SJP cases.
+        sjpModel.generatePostcodeFilters();
+        sjpModel.generateProsecutorFilters();
+        if (hasFilterValues) {
+            this.buildFilteredCases(rows, sjpModel);
+        }
     }
 
     /**
      * Builds the cases for each of the hearings in the list.
      * @param hearing The hearing object in the data.
      * @param sjpModel The SJP model to update with the metadata.
+     * @param rows The accumulative list of SJP cases.
      * @param hasFilterValues whether there are filter values associated with the request.
      * @private
      */
-    private buildCases(hearing: any, sjpModel: SjpModel, hasFilterValues: boolean): void {
+    private buildCases(hearing: any, sjpModel: SjpModel, rows: object[], hasFilterValues: boolean): void {
         if (hearing.party) {
             sjpModel.addTotalCaseNumber();
 
@@ -50,13 +61,26 @@ export class SjpPressListService {
             if (row.prosecutorName) {
                 sjpModel.addProsecutor(row.prosecutorName);
             }
+            rows.push(row);
 
-            if (!hasFilterValues || sjpFilterService.filterSjpCase(row, sjpModel.getCurrentFilterValues())) {
-                sjpModel.incrementCountOfFilteredCases();
-                if (sjpModel.isRowWithinPage()) {
-                    sjpModel.addFilteredCaseForPage(row);
-                }
+            if (!hasFilterValues) {
+                this.addFilteredCase(row, sjpModel)
             }
+        }
+    }
+
+    private buildFilteredCases(rows, sjpModel) {
+        rows.forEach(row => {
+            if (sjpFilterService.filterSjpCase(row, sjpModel.getCurrentPostcodeFilterValues(), sjpModel.getCurrentProsecutorFilterValues())) {
+                this.addFilteredCase(row, sjpModel)
+            }
+        });
+    }
+
+    private addFilteredCase(row, sjpModel) {
+        sjpModel.incrementCountOfFilteredCases();
+        if (sjpModel.isRowWithinPage()) {
+            sjpModel.addFilteredCaseForPage(row);
         }
     }
 

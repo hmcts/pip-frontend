@@ -32,45 +32,75 @@ describe('SJP filter service', () => {
     });
 
     it('should include case when postcode is matching', async () => {
-        const filterValues = ['A1', 'B1', 'C1', 'D1'];
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = [];
         const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
 
-        expect(filterService.filterSjpCase(testCase, filterValues)).toBeTruthy();
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
     });
 
     it('should include case when prosecutor is matching', async () => {
-        const filterValues = ['Prosecutor1'];
+        const postcodeFilterValues = [];
+        const prosecutorFilterValues = ['Prosecutor1'];
         const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
 
-        expect(filterService.filterSjpCase(testCase, filterValues)).toBeTruthy();
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
     });
 
     it('should not include case when postcode is not matching', async () => {
-        const filterValues = ['A1', 'B1', 'C1', 'D1'];
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = [];
         const testCase = { postcode: 'Z1', prosecutorName: 'Prosecutor 1' };
 
-        expect(filterService.filterSjpCase(testCase, filterValues)).toBeFalsy();
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
     it('should not include case when prosecutor is not matching', async () => {
-        const filterValues = ['Prosecutor2'];
+        const postcodeFilterValues = [];
+        const prosecutorFilterValues = ['Prosecutor2'];
         const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
 
-        expect(filterService.filterSjpCase(testCase, filterValues)).toBeFalsy();
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
+    });
+
+    it('should include case when postcode and prosecutor both matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = ['Prosecutor1'];
+        const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
+
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
+    });
+
+    it('should not include case when postcode only is matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = ['Prosecutor1'];
+        const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 2' };
+
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
+    });
+
+    it('should not include case when prosecutor only is matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = ['Prosecutor1'];
+        const testCase = { postcode: 'E1', prosecutorName: 'Prosecutor 1' };
+
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
     it('should include case when London Postcode area matches postcode', async () => {
-        const filterValues = ['London Postcodes'];
+        const postcodeFilterValues = ['London Postcodes'];
+        const prosecutorFilterValues = [];
         const testCase = { postcode: 'E1', prosecutorName: 'Prosecutor 1' };
 
-        expect(filterService.filterSjpCase(testCase, filterValues)).toBeTruthy();
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
     });
 
     it('should not include case when London Postcode does not match postcode', async () => {
-        const filterValues = ['London Postcodes'];
+        const postcodeFilterValues = ['London Postcodes'];
+        const prosecutorFilterValues = [];
         const testCase = { postcode: 'AA1', prosecutorName: 'Prosecutor 1' };
 
-        expect(filterService.filterSjpCase(testCase, filterValues)).toBeFalsy();
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
     it('test that previous button is included if page > 1', async () => {

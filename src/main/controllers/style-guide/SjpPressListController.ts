@@ -73,8 +73,8 @@ export default class SjpPressListController {
                 artefactId: artefactId,
                 user: req.user,
                 filterOptions: {
-                    postcodes: sjpModel.generatePostcodeFilters(),
-                    prosecutor: sjpModel.generateProsecutorFilters(),
+                    postcodes: sjpModel.getPostcodeFilters(),
+                    prosecutor: sjpModel.getProsecutorFilters(),
                 },
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,

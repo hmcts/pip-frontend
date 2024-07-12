@@ -72,6 +72,20 @@ describe('formatSjpPublicList', () => {
         expect(sjpModel.getFilteredCasesForPage().length).to.equal(1);
     });
 
+    it('should remove filtered out cases matching both types of filters when both postcode and prosecutor filters present', async () => {
+        const sjpModel = new SjpModel();
+        sjpModel.setCurrentFilterValues(['AA', 'Thisisaprosecutororganisation']);
+        sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
+        expect(sjpModel.getFilteredCasesForPage().length).to.equal(1);
+    });
+
+    it('should not filter out cases if not matching both types of filters when both postcode and prosecutor filters present', async () => {
+        const sjpModel = new SjpModel();
+        sjpModel.setCurrentFilterValues(['A9', 'Thisisaprosecutororganisation']);
+        sjpPublicListService.formatSjpPublicList(JSON.parse(rawSJPData), sjpModel);
+        expect(sjpModel.getFilteredCasesForPage()).to.be.empty;
+    });
+
     it('should only include correct number of cases', async () => {
         const sjpModel = new SjpModel();
 

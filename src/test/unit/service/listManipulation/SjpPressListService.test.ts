@@ -141,6 +141,20 @@ describe('formatSJPPressList', () => {
         expect(sjpModel.getFilteredCasesForPage().length).to.equal(1);
     });
 
+    it('should remove filtered out cases matching both types of filters when both postcode and prosecutor filters present', async () => {
+        const sjpModel = new SjpModel();
+        sjpModel.setCurrentFilterValues(['AA1', 'OrganisationName2']);
+        sjpPressListService.formatSJPPressList(JSON.parse(rawSJPData), sjpModel);
+        expect(sjpModel.getFilteredCasesForPage().length).to.equal(1);
+    });
+
+    it('should not filter out cases if not matching both types of filters when both postcode and prosecutor filters present', async () => {
+        const sjpModel = new SjpModel();
+        sjpModel.setCurrentFilterValues(['AA1', 'OrganisationName5']);
+        sjpPressListService.formatSJPPressList(JSON.parse(rawSJPData), sjpModel);
+        expect(sjpModel.getFilteredCasesForPage()).to.be.empty;
+    });
+
     it('should only include correct number of cases', async () => {
         const sjpModel = new SjpModel();
 
@@ -169,8 +183,9 @@ describe('formatSJPPressList', () => {
         const sjpModel = new SjpModel();
         sjpModel.setCurrentFilterValues(['OrganisationName5']);
         sjpPressListService.formatSJPPressList(JSON.parse(rawSJPData), sjpModel);
-        expect(sjpModel.getProsecutors().size).to.equal(2);
+        expect(sjpModel.getProsecutors().size).to.equal(3);
         expect(sjpModel.getProsecutors()).contains('Organisation Name');
+        expect(sjpModel.getProsecutors()).contains('Organisation Name 2');
         expect(sjpModel.getProsecutors()).contains('Organisation Name 5');
     });
 });

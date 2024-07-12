@@ -119,8 +119,9 @@ describe('SJP Model Test', () => {
         sjpModel.addPostcode('AA1');
         sjpModel.addPostcode('E1');
         sjpModel.setCurrentFilterValues(['AA1']);
+        sjpModel.generatePostcodeFilters();
 
-        expect(sjpModel.generatePostcodeFilters()).toEqual([
+        expect(sjpModel.getPostcodeFilters()).toEqual([
             {
                 value: 'AA1',
                 text: 'AA1',
@@ -151,8 +152,9 @@ describe('SJP Model Test', () => {
         sjpModel.addProsecutor('This is a prosecutor 2');
         sjpModel.addProsecutor('This is a prosecutor 3');
         sjpModel.setCurrentFilterValues(['Thisisaprosecutor4']);
+        sjpModel.generateProsecutorFilters()
 
-        expect(sjpModel.generateProsecutorFilters()).toEqual([
+        expect(sjpModel.getProsecutorFilters()).toEqual([
             {
                 value: 'Thisisaprosecutor2',
                 text: 'This is a prosecutor 2',
@@ -169,5 +171,23 @@ describe('SJP Model Test', () => {
                 checked: true,
             },
         ]);
+    });
+
+    it('test get current postcode and prosecutor filter values', () => {
+        const sjpModel = new SjpModel();
+
+        sjpModel.addPostcode('AA1');
+        sjpModel.addPostcode('AA2');
+        sjpModel.addPostcode('EC1A');
+        sjpModel.addProsecutor('This is a prosecutor');
+        sjpModel.addProsecutor('This is a prosecutor 2');
+        sjpModel.addProsecutor('This is a prosecutor 3');
+
+        sjpModel.setCurrentFilterValues(['AA1', 'London Postcodes', 'Thisisaprosecutor', 'Thisisaprosecutor3']);
+        sjpModel.generatePostcodeFilters();
+        sjpModel.generateProsecutorFilters();
+
+        expect(sjpModel.getCurrentPostcodeFilterValues()).toEqual(['AA1', 'London Postcodes']);
+        expect(sjpModel.getCurrentProsecutorFilterValues()).toEqual(['Thisisaprosecutor', 'Thisisaprosecutor3']);
     });
 });

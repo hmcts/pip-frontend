@@ -18,16 +18,22 @@ export class SjpFilterService {
         return filterValues;
     }
 
-    public filterSjpCase(sjpCase: any, filterOptions: string[]): boolean {
+    public filterSjpCase(sjpCase: any, postcodeFilterValues: string[], prosecutorFilterValues: string[]): boolean {
         const formattedPostcode = sjpCase.postcode.split(' ', 2)[0];
         const postalAreaCode = sjpCase.postcode.split(/\d/)[0];
         const formattedProsecutor = sjpCase.prosecutorName.replace(replaceRegex, '');
 
-        return (
-            filterOptions.includes(formattedPostcode) ||
-            filterOptions.includes(formattedProsecutor) ||
-            (londonPostalAreaCodes.includes(postalAreaCode) && filterOptions.includes(londonArea))
-        );
+        // When both postcode and prosecutor filters are selected, the SJP case needs to match both filters
+        // to be accepted
+        if (postcodeFilterValues.length > 0 && prosecutorFilterValues.length > 0) {
+            return prosecutorFilterValues.includes(formattedProsecutor) &&
+                (postcodeFilterValues.includes(formattedPostcode) ||
+                    this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode));
+        } else if (postcodeFilterValues.length > 0) {
+            return postcodeFilterValues.includes(formattedPostcode) ||
+                this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode);
+        }
+        return prosecutorFilterValues.length > 0 && prosecutorFilterValues.includes(formattedProsecutor);
     }
 
     public generatePaginationData(
@@ -114,5 +120,9 @@ export class SjpFilterService {
             current: isCurrent,
             href: href,
         };
+    }
+
+    private londonPostcodeFiltered(filterValues: string[], postalAreaCode: string) {
+        return londonPostalAreaCodes.includes(postalAreaCode) && filterValues.includes(londonArea)
     }
 }
