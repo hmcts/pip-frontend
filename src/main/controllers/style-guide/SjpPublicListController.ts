@@ -87,16 +87,16 @@ export default class SjpPublicListController {
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         if (validate(req.query?.artefactId as string)) {
-            const metaData = await publicationService.getIndividualPublicationMetadata(
+            const sjpPublicMetaData = await publicationService.getIndividualPublicationMetadata(
                 req.query.artefactId,
                 req.user?.['userId']
             );
-            const listUrl = publicationService.getListTypes().get(metaData.listType).url;
+            const sjpPublicUrl = publicationService.getListTypes().get(sjpPublicMetaData.listType).url;
             const filterValues = filterService.generateFilterKeyValues(req.body);
 
             res.redirect(
                 url.format({
-                    pathname: listUrl,
+                    pathname: sjpPublicUrl,
                     query: { artefactId: req.query.artefactId as string, filterValues: filterValues.toString() },
                 })
             );
