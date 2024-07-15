@@ -111,13 +111,8 @@
                           {% endif %}
                           {% set timeSortValue = sitting['time'] | timeToSortValue %}
                           {% set durationSortValue = sitting['durationSortValue'] %}
-                          {% if partyAtHearingLevel %}
-                            {% set defendant = hearing['defendant'] %}
-                            {% set prosecutor = hearing['prosecutingAuthority'] %}
-                          {% else %}
-                            {% set defendant = case['defendant'] %}
-                            {% set prosecutor = case['prosecutingAuthority'] %}
-                          {% endif %}
+                          {% set defendant = case['defendant'] %}
+                          {% set prosecutor = case['prosecutingAuthority'] %}
                           <tr class="govuk-table__row">
                             <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
                             <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseNumber'] }}</td>
