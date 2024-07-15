@@ -1,0 +1,14 @@
+{
+    "title": "Create System Admin Account",
+    "header": "Create system admin account",
+    "fNameLabel": "First name",
+    "lNameLabel": "Last name",
+    "emailLabel": "Email address",
+    "errorTitle": "There is a problem",
+    "firstnameError": "Enter first name",
+    "surnameError": "Enter last name",
+    "emailErrors": {
+        "invalidEmailAddress": "There is a problem - Enter an email address in the correct format, like name@example.com",
+        "blank": "Enter email address"
+    }
+}

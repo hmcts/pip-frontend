@@ -1,0 +1,120 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "../macros/common-components.njk" import goBack, submitButton %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack() }}
+{% endblock %}
+{% block content %}
+  <div>
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    {% if displayAzureError %}
+      {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+          {
+            text: error.azureMessage,
+            href: "#"
+          }
+        ]
+      }) }}
+    {% elseif displayRadioError %}
+      {{ govukErrorSummary({
+        titleText: error.title,
+        errorList: [
+          {
+            text: error.radioMessage,
+            href: "#"
+          }
+        ]
+      }) }}
+    {% endif %}
+    <h2 class="govuk-heading-m">{{ tableCaption }}</h2>
+    <dl class="govuk-summary-list">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          {{ name }}
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ applicantData.fullName }}
+        </dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          {{ email }}
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ applicantData.email }}
+        </dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          {{ employer }}
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ applicantData.employer }}
+        </dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          {{ dateApplied }}
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ applicantData.requestDate }}
+        </dd>
+        <dd class="govuk-summary-list__actions"></dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key">
+          {{ proofOfId }}
+        </dt>
+        <dd class="govuk-summary-list__value">
+          {{ applicantData.imageName }} ({{opensInWindowText}})
+        </dd>
+        <dd class="govuk-summary-list__actions">
+          <a class="govuk-link" href="/media-account-review/image?imageId={{ applicantData.image }}&applicantId={{ applicantData.id }}" target="_blank">
+            {{ viewText }}
+          </a>
+        </dd>
+      </div>
+    </dl>
+    <form method="post">
+      <input type="hidden" id="applicantId" name="applicantId" value="{{ applicantData.id }}" }}>
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "approved",
+        name: "approved",
+        items: [
+          {
+            id: 'yes',
+            value: radioAnswers[0],
+            text: radioAnswers[0]
+          },
+          {
+            id: 'no',
+            value: radioAnswers[1],
+            text: radioAnswers[1]
+          }
+        ]
+      }) }}
+      {{ submitButton() }}
+    </form>
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+  </script>
+  {{ super() }}
+{% endblock %}
