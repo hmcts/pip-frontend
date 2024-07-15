@@ -379,10 +379,7 @@ describe('SJP Public List Type Controller', () => {
             request.body = {};
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('redirect')
-                .once()
-                .withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
+            responseMock.expects('redirect').once().withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPublicListController.filterValues(request, response).then(() => {
                 responseMock.verify();

@@ -449,10 +449,7 @@ describe('SJP Press List Controller', () => {
             request.body = {};
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('redirect')
-                .once()
-                .withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
+            responseMock.expects('redirect').once().withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();
