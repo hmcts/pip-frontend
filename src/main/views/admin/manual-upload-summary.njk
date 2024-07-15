@@ -1,0 +1,175 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack() }}
+{% endblock %}
+{% block content %}
+
+    {% if displaySensitivityMismatch %}
+      <div class="govuk-callout" tabindex="0">
+        <h1 class="govuk-heading-m">{{ warning }}</h1>
+          {{ govukWarningText({
+            text: sensitivityMismatch
+          }) }}
+        </h1>
+      </div>
+    {% endif %}
+
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-upload-summary">
+        {{ govukSummaryList({
+            rows: [
+                {
+                    key: {
+                    text: courtNameKey
+                },
+                    value: {
+                    text: fileUploadData.court.courtName
+                },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload#search-input",
+                            text: actionName,
+                            visuallyHiddenText: courtNameKey
+                        }
+                    ]
+                }
+                },
+                {
+                    key: {
+                    text: fileKey
+                },
+                    value: {
+                    text: fileUploadData.fileName
+                },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload#manual-file-upload",
+                            text: actionName,
+                            visuallyHiddenText: fileKey
+                        }
+                    ]
+                }
+                },
+                {
+                    key: {
+                    text: listTypeKey
+                },
+                    value: {
+                        text: fileUploadData.listTypeName
+                    },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload#listType",
+                            text: actionName,
+                            visuallyHiddenText: listTypeKey
+                        }
+                    ]
+                }
+                },
+                {
+                    key: {
+                    text: hearingDatesKey
+                },
+                    value: {
+                    text: fileUploadData['content-date-from']
+                },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload#content-date-from-day",
+                            text: actionName,
+                            visuallyHiddenText: hearingDatesKey
+                        }
+                    ]
+                }
+                },
+                {
+                    key: {
+                    text: sensitivityKey
+                },
+                    value: {
+                    text: fileUploadData.classificationName
+                },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload#classification",
+                            text: actionName,
+                            visuallyHiddenText: sensitivityKey
+                        }
+                    ]
+                }
+                },
+                {
+                    key: {
+                    text: languageKey
+                },
+                    value: {
+                    text: fileUploadData.languageName
+                },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload#language",
+                            text: actionName,
+                            visuallyHiddenText: languageKey
+                        }
+                    ]
+                }
+                },
+                {
+                    key: {
+                    text: displayFileDatesKey
+                },
+                    value: {
+                    html: "<p class='govuk-body'>" + fileUploadData['display-from'] + " to " + fileUploadData['display-to'] + "</p>"
+                },
+                    actions: {
+                    items: [
+                        {
+                            href: "manual-upload#display-date-from-day",
+                            text: actionName,
+                            visuallyHiddenText: displayFileDatesKey
+                        }
+                    ]
+                }
+                }
+            ]
+        }) }}
+        {{ submitButton(confirmButton) }}
+    </form>
+  {{ super() }}
+  </div>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    <script>
+      if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+      }
+    </script>
+{% endblock %}
