@@ -29,7 +29,7 @@ describe('List helper', () => {
     describe('hearing has party', () => {
         it('Hearing should have party', () => {
             const rawData = fs.readFileSync(
-                path.resolve(__dirname, '../mocks/hearingparty/crownDailyList.json'),
+                path.resolve(__dirname, '../mocks/hearingparty/civilAndFamilyDailyCauseList.json'),
                 'utf-8'
             );
             expect(hearingHasParty(JSON.parse(rawData))).toBeTruthy();

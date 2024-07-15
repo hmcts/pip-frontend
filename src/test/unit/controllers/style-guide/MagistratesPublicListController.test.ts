@@ -78,7 +78,6 @@ describe('Magistrates Public List Controller', () => {
             provenance: 'prov1',
             version: '',
             venueAddress: 'THE LAW COURTS\nMain Road\nPR1 2LL',
-            partyAtHearingLevel: false,
         };
 
         responseMock.expects('render').once().withArgs(listPath, expectedData);
