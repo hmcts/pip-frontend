@@ -6,13 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    hearingHasParty,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -30,23 +24,11 @@ export default class MagistratesPublicListController {
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listType)) {
-            let manipulatedData;
-            let partyAtHearingLevel = false;
-
-            if (hearingHasParty(searchResults)) {
-                manipulatedData = crimeListsService.manipulateCrimeListDataV1(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
-                partyAtHearingLevel = true;
-            } else {
-                manipulatedData = crimeListsService.manipulateCrimeListData(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
-            }
+            const manipulatedData = crimeListsService.manipulateCrimeListData(
+                JSON.stringify(searchResults),
+                req.lng,
+                listPath
+            );
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -67,7 +49,6 @@ export default class MagistratesPublicListController {
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 venueAddress: venueAddress,
-                partyAtHearingLevel,
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||
