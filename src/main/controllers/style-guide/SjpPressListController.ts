@@ -47,7 +47,7 @@ export default class SjpPressListController {
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
 
             const showDownloadButton = await listDownloadService.showDownloadButton(artefactId, req.user);
-            const url = publicationService.getListTypes().get(metaData.listType).url;
+            const listUrl = publicationService.getListTypes().get(metaData.listType).url;
             const languageResource = SjpPressListController.getLanguageResources(req, metaData.listType);
 
             const paginationData = sjpFilterService.generatePaginationData(
@@ -78,7 +78,7 @@ export default class SjpPressListController {
                 },
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
-                url,
+                listUrl,
             });
         } else if (
             sjpData === HttpStatusCode.NotFound ||
@@ -94,10 +94,13 @@ export default class SjpPressListController {
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         if (validate(req.query?.artefactId as string)) {
+            const metaData = await publicationService.getIndividualPublicationMetadata(req.query.artefactId, req.user?.['userId']);
+            const listUrl = publicationService.getListTypes().get(metaData.listType).url;
             const filterValues = filterService.generateFilterKeyValues(req.body);
+
             res.redirect(
                 url.format({
-                    pathname: 'sjp-press-list',
+                    pathname: listUrl,
                     query: {
                         artefactId: req.query.artefactId as string,
                         filterValues: filterValues.toString(),

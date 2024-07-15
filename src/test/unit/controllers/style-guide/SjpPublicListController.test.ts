@@ -28,8 +28,8 @@ const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const sjpFullListName = 'single-justice-procedure';
 const sjpNewCasesName = 'single-justice-procedure-new-cases';
-const sjpFullListUrl = '/sjp-public-list';
-const sjpNewCasesUrl = '/sjp-public-list-new-cases';
+const sjpFullListUrl = 'sjp-public-list';
+const sjpNewCasesUrl = 'sjp-public-list-new-cases';
 
 const sjpResourceMap = new Map<string, any>([
     [sjpFullListUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpFullListName }],
@@ -101,6 +101,7 @@ describe('SJP Public List Type Controller', () => {
             publishedDateTime: '01 September 2023',
             publishedTime: '11am',
             paginationData: paginationData,
+            listUrl: url,
         };
 
         it('should render the SJP public list page when filter string is provided', async () => {
@@ -381,7 +382,7 @@ describe('SJP Public List Type Controller', () => {
             responseMock
                 .expects('redirect')
                 .once()
-                .withArgs(`sjp-public-list?artefactId=${artefactId}&filterValues=TestValue`);
+                .withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPublicListController.filterValues(request, response).then(() => {
                 responseMock.verify();
@@ -398,7 +399,7 @@ describe('SJP Public List Type Controller', () => {
             responseMock
                 .expects('redirect')
                 .once()
-                .withArgs(`sjp-public-list?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
+                .withArgs(`${url}?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
 
             return sjpPublicListController.filterValues(request, response).then(() => {
                 responseMock.verify();

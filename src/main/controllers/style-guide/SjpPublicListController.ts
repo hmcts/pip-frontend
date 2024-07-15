@@ -45,6 +45,7 @@ export default class SjpPublicListController {
             const publishedTime = helperService.publicationTimeInUkTime(publicationDate);
             const publishedDate = helperService.publicationDateInUkTime(publicationDate, req.lng);
             const showDownloadButton = await listDownloadService.showDownloadButton(artefactId, req.user);
+            const listUrl = publicationService.getListTypes().get(metaData.listType).url;
             const languageResource = SjpPublicListController.getLanguageResources(req, metaData.listType);
 
             const paginationData = sjpFilterService.generatePaginationData(
@@ -70,6 +71,7 @@ export default class SjpPublicListController {
                 },
                 showFilters: !!(!!req.query?.filterValues || req.query?.clear),
                 showDownloadButton,
+                listUrl,
             });
         } else if (
             fileData === HttpStatusCode.NotFound ||
@@ -85,10 +87,13 @@ export default class SjpPublicListController {
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
         if (validate(req.query?.artefactId as string)) {
+            const metaData = await publicationService.getIndividualPublicationMetadata(req.query.artefactId, req.user?.['userId']);
+            const listUrl = publicationService.getListTypes().get(metaData.listType).url;
             const filterValues = filterService.generateFilterKeyValues(req.body);
+
             res.redirect(
                 url.format({
-                    pathname: 'sjp-public-list',
+                    pathname: listUrl,
                     query: { artefactId: req.query.artefactId as string, filterValues: filterValues.toString() },
                 })
             );

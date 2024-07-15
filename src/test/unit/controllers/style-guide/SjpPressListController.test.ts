@@ -29,8 +29,8 @@ const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownlo
 
 const sjpPressFullListName = 'single-justice-procedure-press';
 const sjpPressNewCasesName = 'single-justice-procedure-press-new-cases';
-const sjpPressFullListUrl = '/sjp-press-list';
-const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
+const sjpPressFullListUrl = 'sjp-press-list';
+const sjpPressNewCasesUrl = 'sjp-press-list-new-cases';
 
 const sjpResourceMap = new Map<string, object>([
     [
@@ -111,7 +111,7 @@ describe('SJP Press List Controller', () => {
             publishedTime: '12:30am',
             contactDate: DateTime.fromISO(contentDate, { zone: 'utc' }).toFormat('d MMMM yyyy'),
             showDownloadButton: false,
-            url: url.substring(1),
+            listUrl: url,
         };
 
         it('should render the SJP press list page when filter string is provided', async () => {
@@ -452,7 +452,7 @@ describe('SJP Press List Controller', () => {
             responseMock
                 .expects('redirect')
                 .once()
-                .withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=TestValue`);
+                .withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();
@@ -470,7 +470,7 @@ describe('SJP Press List Controller', () => {
             responseMock
                 .expects('redirect')
                 .once()
-                .withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
+                .withArgs(`${url}?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();
