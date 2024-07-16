@@ -27,5 +27,11 @@
             "message": "for courts and tribunals in Northern Ireland",
             "link": "https://www.justice-ni.gov.uk/topics/courts-and-tribunals"
         }
-    ]
+    ],
+    "findACourtOrTribunalMessage": " Find a court or tribunal",
+    "findACourtOrTribunalLink": {
+        "linkMessage": "Find contact details and other information about courts and tribunals",
+        "message": "in England and Wales, and some non-devolved tribunals in Scotland.",
+        "link": "https://www.gov.uk/find-court-tribunal"
+    }
 }
