@@ -26,5 +26,11 @@
             "message": "ar gyfer llysoedd a thribiwnlysoedd yng Ngogledd Iwerddon",
             "link": "https://www.justice-ni.gov.uk/topics/courts-and-tribunals"
         }
-    ]
+    ],
+    "findACourtOrTribunalMessage": " Dod o hyd i lys neu dribiwnlys",
+    "findACourtOrTribunalLink": {
+        "linkMessage": "Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd",
+        "message": "yng Nghymru a Lloegr, a rhai tribiwnlysoedd heb eu datganoli yn yr Alban.",
+        "link": "https://www.gov.uk/chwilio-am-lys-neu-dribiwnlys"
+    }
 }

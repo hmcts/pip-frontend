@@ -41,14 +41,19 @@
     href: '/view-option',
     isStartButton: true
   }) }}
-  <h2 class="govuk-heading-m">{{ beforeMessage }}</h2>
-  <p class="govuk-body govuk-!-font-weight-bold">{{ scoAndNI }}</p>
-  <p class="govuk-body">{{ contactMessage }}</p>
-  <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">
+    <h2 class="govuk-heading-m">{{ findACourtOrTribunalMessage }}</h2>
+    <p class="govuk-body">
+        <a class="govuk-link" href="{{ findACourtOrTribunalLink.link }}">{{ findACourtOrTribunalLink.linkMessage }}</a>
+        {{ findACourtOrTribunalLink.message }}
+    </p>
+    <h2 class="govuk-heading-m">{{ beforeMessage }}</h2>
+    <p class="govuk-body govuk-!-font-weight-bold">{{ scoAndNI }}</p>
+    <p class="govuk-body">{{ contactMessage }}</p>
+    <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">
     {% for option in bulletOptions %}
       <li><a class="govuk-link" href="{{ option.link }}">{{ option.linkMessage }}</a> {{ option.message }}</li>
     {% endfor %}
-  </ul>
+    </ul>
   {{ super() }}
 </div>
 {% endblock %}
