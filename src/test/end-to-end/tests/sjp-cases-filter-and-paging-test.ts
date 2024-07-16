@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { uploadPublication } from '../shared/testingSupportApi';
+import Assert from "assert";
 
 Feature('Sjp List Filter And Paging');
 
@@ -32,6 +33,24 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
     I.fillField('#search-filters','A1')
     I.see('A1');
     I.click('Apply filters');
+
+    const rowsLocator = locate('#main-content > div > div.parent-box.overflow-table > div > table > tbody > tr');
+    const allRows = await I.grabNumberOfVisibleElements(rowsLocator);
+    for (let i = 1; i <= allRows; i++) {
+     const postCode=  await I.grabTextFrom('#main-content > div > div.parent-box.overflow-table > div > table > tbody > tr:nth-child('+i+') > td:nth-child(2)')
+        Assert.equal(postCode,'A1');
+    }
+
+    I.click('#prosecutor-525')
+    I.click('Apply filters');
+
+    const filteredRows = await I.grabNumberOfVisibleElements(rowsLocator);
+    for (let i = 1; i <= filteredRows; i++) {
+        const postCode=  await I.grabTextFrom('#main-content > div > div.parent-box.overflow-table > div > table > tbody > tr:nth-child('+i+') > td:nth-child(2)')
+        const prosecutor =  await I.grabTextFrom('#main-content > div > div.parent-box.overflow-table > div > table > tbody > tr:nth-child('+i+') > td:nth-child(4)')
+        Assert.equal(postCode,'A1');
+        Assert.equal(prosecutor,'NEBULEAN');
+    }
 
     I.deletePublicationByArtefactId(artefactId);
 });
