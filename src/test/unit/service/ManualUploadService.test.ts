@@ -63,7 +63,7 @@ const expectedRemoveList = [
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
-const languageFile = 'manual-upload';
+const languageFile = 'admin/manual-upload';
 
 const jsonUploadArtefactId = '123';
 const fileUploadArtefactId = '456';
