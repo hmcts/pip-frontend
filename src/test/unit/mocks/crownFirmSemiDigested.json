@@ -59,8 +59,8 @@
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Bates",
-                                                                    "individualForenames": "Patrick"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             },
                                                             {
@@ -131,8 +131,8 @@
                                                     {
                                                         "partyRole": "DEFENDANT",
                                                         "individualDetails": {
-                                                            "individualSurname": "Cora",
-                                                            "individualForenames": "Mckinley"
+                                                            "individualSurname": "Test Surname",
+                                                            "individualForenames": "Test forename"
                                                         }
                                                     }
                                                 ],
@@ -164,14 +164,14 @@
                                                             {
                                                                 "partyRole": "PROSECUTING_AUTHORITY",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Peel"
+                                                                    "individualSurname": "Test Surname"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Star",
-                                                                    "individualForenames": "Stephanie"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             },
                                                             {
@@ -242,14 +242,14 @@
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Star",
-                                                                    "individualForenames": "Stephanie"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "DEFENDANT_REPRESENTATIVE",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Daniel Forrester"
+                                                                    "organisationName": "Test forename Test Surname"
                                                                 }
                                                             }
                                                         ]
@@ -316,8 +316,8 @@
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Rolf",
-                                                                    "individualForenames": "Stephen"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             }
                                                         ]
@@ -350,8 +350,8 @@
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Austin",
-                                                                    "individualForenames": "Peter"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             },
                                                             {
@@ -404,8 +404,8 @@
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Renegade",
-                                                                    "individualForenames": "Tom"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             }
                                                         ]
@@ -432,14 +432,14 @@
                                                             {
                                                                 "partyRole": "PROSECUTING_AUTHORITY",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "HMCTS"
+                                                                    "organisationName": "ABCD"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Cornish",
-                                                                    "individualForenames": "Andrew"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             },
                                                             {
@@ -508,8 +508,8 @@
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Cora",
-                                                                    "individualForenames": "Mckinley"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             }
                                                         ]
@@ -542,14 +542,14 @@
                                                             {
                                                                 "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualSurname": "Mitchell",
-                                                                    "individualForenames": "Janine"
+                                                                    "individualSurname": "Test Surname",
+                                                                    "individualForenames": "Test forename"
                                                                 }
                                                             },
                                                             {
                                                                 "partyRole": "DEFENDANT_REPRESENTATIVE",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Forrester Daniel"
+                                                                    "organisationName": "ABCD"
                                                                 }
                                                             }
                                                         ]
