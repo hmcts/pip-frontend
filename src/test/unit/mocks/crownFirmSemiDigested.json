@@ -236,7 +236,7 @@
                                                             {
                                                                 "partyRole": "PROSECUTING_AUTHORITY",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Peels"
+                                                                    "organisationName": "Test Name"
                                                                 }
                                                             },
                                                             {
@@ -445,7 +445,7 @@
                                                             {
                                                                 "partyRole": "DEFENDANT_REPRESENTATIVE",
                                                                 "organisationDetails": {
-                                                                    "organisationName": "Blackship"
+                                                                    "organisationName": "Test Name"
                                                                 }
                                                             }
                                                         ]
