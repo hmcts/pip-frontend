@@ -13,7 +13,7 @@ import {
     isOneOfValidListTypes,
     isValidList,
     isValidMetaData,
-    missingListType
+    missingListType,
 } from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
 import * as url from 'url';
@@ -123,7 +123,7 @@ export default class SjpPressListController {
             }
         }
 
-        if(!listFiltered) {
+        if (!listFiltered) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }

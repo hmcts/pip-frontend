@@ -4,12 +4,12 @@ import { PublicationService } from '../service/PublicationService';
 const publicationService = new PublicationService();
 
 export const isValidList = (listData: any, metaData: any): boolean => {
-    return listData && listData !== HttpStatusCode.NotFound && isValidMetaData((metaData));
+    return listData && listData !== HttpStatusCode.NotFound && isValidMetaData(metaData);
 };
 
 export const isValidMetaData = (metaData: any): boolean => {
     return metaData && metaData !== HttpStatusCode.NotFound;
-}
+};
 
 export const formatMetaDataListType = (metaData: any): string => {
     return metaData?.listType ? metaData.listType.toLowerCase().replaceAll('_', '-') : '';

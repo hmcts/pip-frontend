@@ -12,7 +12,7 @@ import {
     isOneOfValidListTypes,
     isValidList,
     isValidMetaData,
-    missingListType
+    missingListType,
 } from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
 import * as url from 'url';
@@ -107,13 +107,13 @@ export default class SjpPublicListController {
                 res.redirect(
                     url.format({
                         pathname: sjpPublicUrl,
-                        query: {artefactId: req.query.artefactId as string, filterValues: filterValues.toString()},
+                        query: { artefactId: req.query.artefactId as string, filterValues: filterValues.toString() },
                     })
                 );
             }
         }
 
-        if(!listFiltered) {
+        if (!listFiltered) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }

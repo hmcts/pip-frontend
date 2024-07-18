@@ -11,7 +11,7 @@ import { SjpFilterService } from '../../../../main/service/SjpFilterService';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
 import { v4 as uuidv4 } from 'uuid';
-import {HttpStatusCode} from "axios";
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/minimalSjpPressList.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);

@@ -6,7 +6,8 @@ import {
     isValidList,
     isValidListType,
     missingListType,
-    addListDetailsToArray, isValidMetaData
+    addListDetailsToArray,
+    isValidMetaData,
 } from '../../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import fs from 'fs';
@@ -20,7 +21,7 @@ const mockArtefact = {
     locationId: '5',
     artefactId: 'valid-artefact',
     dateRange: 'Invalid DateTime to Invalid DateTime',
-    contDate: '24 Mar 2022'
+    contDate: '24 Mar 2022',
 };
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
@@ -157,7 +158,7 @@ describe('List helper', () => {
                     locationId: '5',
                     artefactId: 'valid-artefact',
                     dateRange: 'Invalid DateTime to Invalid DateTime',
-                    contDate: '24 Mar 2022'
+                    contDate: '24 Mar 2022',
                 },
             ];
             const list = [];
