@@ -99,7 +99,6 @@ export default class SjpPressListController {
     }
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
-        let listFiltered = false;
         if (validate(req.query?.artefactId as string)) {
             const sjpPressMetaData = await publicationService.getIndividualPublicationMetadata(
                 req.query.artefactId,
@@ -107,11 +106,10 @@ export default class SjpPressListController {
             );
 
             if (isValidMetaData(sjpPressMetaData)) {
-                listFiltered = true;
                 const sjpPressUrl = publicationService.getListTypes().get(sjpPressMetaData.listType).url;
                 const filterValues = filterService.generateFilterKeyValues(req.body);
 
-                res.redirect(
+                return res.redirect(
                     url.format({
                         pathname: sjpPressUrl,
                         query: {
@@ -122,10 +120,7 @@ export default class SjpPressListController {
                 );
             }
         }
-
-        if (!listFiltered) {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        }
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
 
     private static getLanguageResources(req, listType) {
