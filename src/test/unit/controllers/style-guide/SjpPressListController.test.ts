@@ -11,6 +11,7 @@ import { SjpFilterService } from '../../../../main/service/SjpFilterService';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
 import { v4 as uuidv4 } from 'uuid';
+import {HttpStatusCode} from "axios";
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/minimalSjpPressList.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -43,6 +44,7 @@ const sjpResourceMap = new Map<string, object>([
     ],
 ]);
 const artefactIdListNotFound = uuidv4();
+const artefactIdMetaDataNotFound = uuidv4();
 const contentDate = metaDataSjpPressFullList['contentDate'];
 
 const sjpPressFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
@@ -60,6 +62,7 @@ sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactId']).resolv
 sjpPressListMetaDataStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressFullList);
 sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressNewCases);
 sjpPressListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
+sjpPressListMetaDataStub.withArgs(artefactIdMetaDataNotFound).resolves(HttpStatusCode.NotFound);
 sjpPressListMetaDataStub.withArgs('').resolves([]);
 
 generatesFilesStub.withArgs(sjpPressFullListResource['artefactId']).resolves(true);
@@ -487,6 +490,17 @@ describe('SJP Press List Controller', () => {
         });
 
         it('should redirect to error page if no artefact ID provided', () => {
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs(`error`);
+
+            return sjpPressListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render error page when metaData not found', () => {
+            request.query = { artefactId: artefactIdMetaDataNotFound };
+
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs(`error`);
 

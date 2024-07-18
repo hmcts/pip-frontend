@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 const sjpPublicListController = new SjpPublicListController();
 
 const artefactIdListNotFound = uuidv4();
+const artefactIdMetaDataNotFound = uuidv4();
 
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/minimalSjpPublicList.json'), 'utf-8');
 const data = JSON.parse(mockSJPPublic);
@@ -62,6 +63,7 @@ metadataStub.withArgs(sjpNewCasesResource['artefactId']).resolves(metaDataSjpNew
 metadataStub.withArgs(sjpFullListResource['artefactIdWithNoFiles']).resolves(metaDataSjpFullList);
 metadataStub.withArgs(sjpNewCasesResource['artefactIdWithNoFiles']).resolves(metaDataSjpNewCases);
 metadataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
+metadataStub.withArgs(artefactIdMetaDataNotFound).resolves(HttpStatusCode.NotFound);
 metadataStub.withArgs('').resolves([]);
 
 const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
@@ -416,6 +418,17 @@ describe('SJP Public List Type Controller', () => {
         });
 
         it('should render error page when no artefact ID provided', () => {
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs(`error`);
+
+            return sjpPublicListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render error page when metaData not found', () => {
+            request.query = { artefactId: artefactIdMetaDataNotFound };
+
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs(`error`);
 

@@ -8,7 +8,13 @@ import { SjpPressListService } from '../../service/listManipulation/SjpPressList
 import { FilterService } from '../../service/FilterService';
 import { SjpFilterService } from '../../service/SjpFilterService';
 import { HttpStatusCode } from 'axios';
-import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType } from '../../helpers/listHelper';
+import {
+    formatMetaDataListType,
+    isOneOfValidListTypes,
+    isValidList,
+    isValidMetaData,
+    missingListType
+} from '../../helpers/listHelper';
 import { ListDownloadService } from '../../service/ListDownloadService';
 import * as url from 'url';
 import { validate } from 'uuid';
@@ -93,24 +99,31 @@ export default class SjpPressListController {
     }
 
     public async filterValues(req: PipRequest, res: Response): Promise<void> {
+        let listFiltered = false;
         if (validate(req.query?.artefactId as string)) {
             const sjpPressMetaData = await publicationService.getIndividualPublicationMetadata(
                 req.query.artefactId,
                 req.user?.['userId']
             );
-            const sjpPressUrl = publicationService.getListTypes().get(sjpPressMetaData.listType).url;
-            const filterValues = filterService.generateFilterKeyValues(req.body);
 
-            res.redirect(
-                url.format({
-                    pathname: sjpPressUrl,
-                    query: {
-                        artefactId: req.query.artefactId as string,
-                        filterValues: filterValues.toString(),
-                    },
-                })
-            );
-        } else {
+            if (isValidMetaData(sjpPressMetaData)) {
+                listFiltered = true;
+                const sjpPressUrl = publicationService.getListTypes().get(sjpPressMetaData.listType).url;
+                const filterValues = filterService.generateFilterKeyValues(req.body);
+
+                res.redirect(
+                    url.format({
+                        pathname: sjpPressUrl,
+                        query: {
+                            artefactId: req.query.artefactId as string,
+                            filterValues: filterValues.toString(),
+                        },
+                    })
+                );
+            }
+        }
+
+        if(!listFiltered) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }

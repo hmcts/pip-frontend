@@ -6,7 +6,7 @@ import {
     isValidList,
     isValidListType,
     missingListType,
-    addListDetailsToArray
+    addListDetailsToArray, isValidMetaData
 } from '../../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import fs from 'fs';
@@ -75,6 +75,26 @@ describe('List helper', () => {
             const metaData = HttpStatusCode.NotFound;
 
             expect(isValidList(listData, metaData)).toBeFalsy();
+        });
+    });
+
+    describe('is valid metadata', () => {
+        it('should return true if metadata is valid', () => {
+            const metaData = 'Test data';
+
+            expect(isValidMetaData(metaData)).toBeTruthy();
+        });
+
+        it('should return false if metadata is missing', () => {
+            const metaData = null;
+
+            expect(isValidMetaData(metaData)).toBeFalsy();
+        });
+
+        it('should return false if metadata status code is 404', () => {
+            const metaData = HttpStatusCode.NotFound;
+
+            expect(isValidMetaData(metaData)).toBeFalsy();
         });
     });
 
