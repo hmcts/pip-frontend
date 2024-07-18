@@ -111,6 +111,6 @@ describe('Crown firm List page', () => {
 
     it('should display Prosecuting Authority', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[6].innerHTML).contains('XYZT');
+        expect(cell[6].innerHTML).contains('XYZTY');
     });
 });
