@@ -61,7 +61,7 @@ export default class SjpPressListController {
                 currentPage,
                 artefactId,
                 sjpModel.getCurrentFilterValues().toString(),
-                'sjp-press-list'
+                listUrl
             );
 
             res.render(`style-guide/${sjpPressAll}`, {

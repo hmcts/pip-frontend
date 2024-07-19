@@ -59,7 +59,7 @@ export default class SjpPublicListController {
                 currentPage,
                 artefactId,
                 sjpModel.getCurrentFilterValues().toString(),
-                'sjp-public-list'
+                listUrl
             );
 
             res.render(`style-guide/${sjpAlStyleGuide}`, {
