@@ -41,19 +41,19 @@ describe('Publication file requests', () => {
     describe('Get stored file', () => {
         it('should return publication', async () => {
             expect(
-                await publicationFileRequests.getStoredFile('abc', { 'x-user-id': userId, 'x-file-type': 'PDF' })
+                await publicationFileRequests.getStoredFile('abc', 'PDF', { 'x-user-id': userId })
             ).toEqual(dummyData);
         });
 
         it('should return null if get fails', async () => {
             expect(
-                await publicationFileRequests.getStoredFile('abc1', { 'x-user-id': userId, 'x-file-type': 'PDF' })
+                await publicationFileRequests.getStoredFile('abc1', 'PDF', { 'x-user-id': userId })
             ).toBeNull();
         });
 
         it('should return null if request fails', async () => {
             expect(
-                await publicationFileRequests.getStoredFile('abc2', { 'x-user-id': userId, 'x-file-type': 'EXCEL' })
+                await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-user-id': userId })
             ).toBeNull();
         });
     });

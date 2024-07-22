@@ -15,9 +15,9 @@ export class ListDownloadService {
 
     public async getFile(artefactId, userId, fileExtension): Promise<string> {
         if (artefactId) {
-            return await publicationFileRequests.getStoredFile(artefactId, {
+            const fileType = Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)];
+            return await publicationFileRequests.getStoredFile(artefactId, fileType, {
                 'x-user-id': userId,
-                'x-file-type': Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)],
             });
         }
         return null;
