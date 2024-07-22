@@ -1,17 +1,17 @@
-import { channelManagementApi } from './utils/axiosConfig';
+import { dataManagementApi } from './utils/axiosConfig';
 import { LogHelper } from '../logging/logHelper';
 import { PublicationFileSizes } from '../../models/PublicationFileSizes';
 
 const logHelper = new LogHelper();
 
-export class ChannelManagementRequests {
+export class PublicationFileRequests {
     /**
-     * Request to channel management to retrieve the stored PDF or Excel file from Azure blob storage.
+     * Request to data management to retrieve the stored PDF or Excel file from Azure blob storage.
      * @param artefactId the artefact ID of the PDF or Excel file in Azure blob storage.
      */
     public async getStoredFile(artefactId, headers: object): Promise<string | null> {
         try {
-            const response = await channelManagementApi.get(`/publication/v2/${artefactId}`, { headers });
+            const response = await dataManagementApi.get(`/publication/file/${artefactId}`, { headers });
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(
@@ -23,12 +23,12 @@ export class ChannelManagementRequests {
     }
 
     /**
-     * Request to channel management to check if any publication file exists.
+     * Request to data management to check if any publication file exists.
      * @param artefactId the artefact ID of the publication files in Azure blob storage.
      */
     public async fileExists(artefactId: string): Promise<boolean> {
         try {
-            const response = await channelManagementApi.get(`/publication/${artefactId}/exists`);
+            const response = await dataManagementApi.get(`/publication/${artefactId}/exists`);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(
@@ -40,12 +40,12 @@ export class ChannelManagementRequests {
     }
 
     /**
-     * Request to channel management to retrieve the sizes of all publication files
+     * Request to data management to retrieve the sizes of all publication files
      * @param artefactId the artefact ID of the publication files in Azure blob storage.
      */
     public async getFileSizes(artefactId: string): Promise<PublicationFileSizes> {
         try {
-            const response = await channelManagementApi.get(`/publication/${artefactId}/sizes`);
+            const response = await dataManagementApi.get(`/publication/${artefactId}/sizes`);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(

@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { ChannelManagementRequests } from '../../../main/resources/requests/ChannelManagementRequests';
+import { PublicationFileRequests } from '../../../main/resources/requests/PublicationFileRequests';
 import { ListDownloadService } from '../../../main/service/ListDownloadService';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
@@ -17,16 +17,16 @@ const isAuthorisedStub = sinon.stub(AccountManagementRequests.prototype, 'isAuth
 isAuthorisedStub.withArgs('1').resolves(true);
 isAuthorisedStub.withArgs('2').resolves(false);
 
-const fileExistsStub = sinon.stub(ChannelManagementRequests.prototype, 'fileExists');
+const fileExistsStub = sinon.stub(PublicationFileRequests.prototype, 'fileExists');
 fileExistsStub.withArgs('123').resolves(true);
 fileExistsStub.withArgs('124').resolves(false);
 
-const downloadFilesStub = sinon.stub(ChannelManagementRequests.prototype, 'getStoredFile');
+const downloadFilesStub = sinon.stub(PublicationFileRequests.prototype, 'getStoredFile');
 downloadFilesStub.withArgs('123', { 'x-user-id': '1234', 'x-file-type': 'PDF' }).resolves(expectedPdfData);
 downloadFilesStub.withArgs('123', { 'x-user-id': '1234', 'x-file-type': 'EXCEL' }).resolves(expectedExcelData);
 downloadFilesStub.withArgs('124', { 'x-user-id': '1234', 'x-file-type': 'PDF' }).resolves(null);
 
-const getFileSizeStub = sinon.stub(ChannelManagementRequests.prototype, 'getFileSizes');
+const getFileSizeStub = sinon.stub(PublicationFileRequests.prototype, 'getFileSizes');
 getFileSizeStub.withArgs('123').resolves({
     primaryPdf: 1024,
     additionalPdf: null,
@@ -96,7 +96,7 @@ describe('List Download Service', () => {
             expect(response).to.equal(expectedExcelData);
         });
 
-        it('should return null if channel management does not return any file', async () => {
+        it('should return null if data management does not return any file', async () => {
             const response = await listDownloadService.getFile('124', userId, 'pdf');
             expect(response).to.be.null;
         });
