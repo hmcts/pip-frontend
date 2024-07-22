@@ -31,26 +31,6 @@ export class CrimeListsService {
         return crownDailyListData;
     }
 
-    // TODO: To be removed once all lists have party field on the case level.
-    public manipulateCrimeListDataV1(crimeListData: string, language: string, languageFile: string): object {
-        const crownDailyListData = JSON.parse(crimeListData);
-        crownDailyListData['courtLists'].forEach(courtList => {
-            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-                courtRoom['session'].forEach(session => {
-                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
-                    session['sittings'].forEach(sitting => {
-                        this.calculateDuration(sitting, language, languageFile);
-                        sitting['hearing'].forEach(hearing => {
-                            this.manipulateParty(hearing);
-                            this.findLinkedCasesInformation(hearing);
-                        });
-                    });
-                });
-            });
-        });
-        return crownDailyListData;
-    }
-
     public calculateDuration(sitting, language, languageFile) {
         helperService.calculateDuration(sitting);
         sitting['formattedDuration'] = formatDuration(

@@ -4,6 +4,7 @@
     "betaHeading": "Mae hwn yn wasanaeth newydd – bydd eich <a id=\"betalink\" class=\"govuk-link\" href=\"https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=/\">adborth</a> yn ein helpu i’w wella",
     "bullets": [
         "Gwrandawiadau mewn Llysoedd Sifil a Theulu yn  Milton Keynes, Oxford, Reading, High Wycombe ac Slough",
+        "Gwrandawiadau yn Siambr Mewnfudo a Lloches y Tribiwnlys Haen Gyntaf",
         "Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru"
     ],
     "moreMessage": "Bydd mwy o lysoedd a thribiwnlysoedd ar gael ymhen amser.",
@@ -26,5 +27,11 @@
             "message": "ar gyfer llysoedd a thribiwnlysoedd yng Ngogledd Iwerddon",
             "link": "https://www.justice-ni.gov.uk/topics/courts-and-tribunals"
         }
-    ]
+    ],
+    "findACourtOrTribunalMessage": " Dod o hyd i lys neu dribiwnlys",
+    "findACourtOrTribunalLink": {
+        "linkMessage": "Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd",
+        "message": "yng Nghymru a Lloegr, a rhai tribiwnlysoedd heb eu datganoli yn yr Alban.",
+        "link": "https://www.gov.uk/chwilio-am-lys-neu-dribiwnlys"
+    }
 }
