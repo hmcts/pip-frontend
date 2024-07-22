@@ -1,0 +1,51 @@
+{% from "../macros/common-components.njk" import goBack %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+{% endblock %}
+{% block content %}
+  {{ govukPanel({
+    titleText: panelTitle
+  }) }}
+  <dl class="govuk-summary-list">
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        {{ name }}
+      </dt>
+      <dd class="govuk-summary-list__value">
+        {{ applicantData.fullName }}
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        {{ email }}
+      </dt>
+      <dd class="govuk-summary-list__value">
+        {{ applicantData.email }}
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        {{ employer }}
+      </dt>
+      <dd class="govuk-summary-list__value">
+        {{ applicantData.employer }}
+      </dd>
+    </div>
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        {{ dateApplied }}
+      </dt>
+      <dd class="govuk-summary-list__value">
+        {{ applicantData.requestDate }}
+      </dd>
+    </div>
+  </dl>
+  <h2 class="govuk-heading-m">{{ bottomHeader }}</h2>
+  <p class="govuk-body">{{ bottomSummary }}</p>
+{% endblock %}
