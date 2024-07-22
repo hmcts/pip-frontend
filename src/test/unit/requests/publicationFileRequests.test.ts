@@ -40,21 +40,17 @@ getStub.withArgs('/publication/abc2/sizes').rejects(errorMessage);
 describe('Publication file requests', () => {
     describe('Get stored file', () => {
         it('should return publication', async () => {
-            expect(
-                await publicationFileRequests.getStoredFile('abc', 'PDF', { 'x-user-id': userId })
-            ).toEqual(dummyData);
+            expect(await publicationFileRequests.getStoredFile('abc', 'PDF', { 'x-user-id': userId })).toEqual(
+                dummyData
+            );
         });
 
         it('should return null if get fails', async () => {
-            expect(
-                await publicationFileRequests.getStoredFile('abc1', 'PDF', { 'x-user-id': userId })
-            ).toBeNull();
+            expect(await publicationFileRequests.getStoredFile('abc1', 'PDF', { 'x-user-id': userId })).toBeNull();
         });
 
         it('should return null if request fails', async () => {
-            expect(
-                await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-user-id': userId })
-            ).toBeNull();
+            expect(await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-user-id': userId })).toBeNull();
         });
     });
 
