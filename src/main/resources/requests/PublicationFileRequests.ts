@@ -11,7 +11,7 @@ export class PublicationFileRequests {
      */
     public async getStoredFile(artefactId, fileType, headers: object): Promise<string | null> {
         try {
-            const response = await dataManagementApi.get(`/publication/file/${artefactId}/${fileType}`, { headers });
+            const response = await dataManagementApi.get(`/publication/${artefactId}/${fileType}`, { headers });
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(

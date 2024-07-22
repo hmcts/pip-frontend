@@ -25,9 +25,9 @@ const publicationFileRequests = new PublicationFileRequests();
 
 const getStub = sinon.stub(dataManagementApi, 'get');
 
-getStub.withArgs('/publication/file/abc').resolves({ data: dummyData });
-getStub.withArgs('/publication/file/abc1').rejects(errorResponse);
-getStub.withArgs('/publication/file/abc2').rejects(errorMessage);
+getStub.withArgs('/publication/abc/PDF').resolves({ data: dummyData });
+getStub.withArgs('/publication/abc1/PDF').rejects(errorResponse);
+getStub.withArgs('/publication/abc2/EXCEL').rejects(errorMessage);
 
 getStub.withArgs('/publication/abc/exists').resolves({ data: true });
 getStub.withArgs('/publication/abc1/exists').rejects(errorResponse);
