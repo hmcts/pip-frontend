@@ -387,6 +387,64 @@ describe('Single Justice Procedure List page', () => {
         });
     });
 
+    describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("Request with both postcode and Prosecutor filters value with path '%s'", url => {
+        const sjpResource = sjpResourceMap.get(url);
+        const pageUrl = url + '?artefactId=' + sjpResource['artefactId'];
+
+        beforeAll(async () => {
+            app.request['user'] = {};
+
+            await request(app)
+                .get(pageUrl + '&filterValues=AA1%2COrganisation')
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+        });
+        it('should display the hide filters button', () => {
+            const buttons = htmlRes.getElementsByClassName(buttonClass);
+            expect(buttons[0].innerHTML).contains('Hide Filters', 'Could not find the hide filters button');
+        });
+
+        it('should display the filter title', () => {
+            const title = htmlRes.getElementsByClassName(filterTitleClass);
+            expect(title[0].innerHTML).contains('Filter', 'Could not find the filter title');
+        });
+
+        it('should display the selected filters heading', () => {
+            const heading = htmlRes.getElementsByClassName(selectedFiltersHeadingClass);
+            expect(heading[0].innerHTML).contains('Filter', 'Could not find the selected filters heading');
+        });
+
+        it('should display the clear filters link', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[2].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
+        });
+
+        it('should display the apply filters button', () => {
+            const buttons = htmlRes.getElementsByClassName(buttonClass);
+            expect(buttons[1].innerHTML).contains('Apply filters', 'Could not find the apply filters button');
+        });
+
+        it('should display the search filters box', () => {
+            const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
+            expect(searchInput[0].innerHTML).contains(
+                'Search filters',
+                'Could not find the search filters search box title'
+            );
+        });
+
+        it('should display the postcode section', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[3].innerHTML).contains('Postcode', 'Could not find the postcode section');
+        });
+
+        it('should display the prosecutor section', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[4].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
+        });
+    });
+
     describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])('user with Welsh list', url => {
         const sjpResource = sjpResourceMap.get(url);
 

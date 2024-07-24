@@ -117,23 +117,32 @@
 
             filters.forEach(function(filter, index) {
                 let checkboxId = filter.firstElementChild.id;
+                let searchFilters = document.getElementById('search-filters');
                 if (isPostcodeFilter(filter)) {
+                    let currentQueryArray = window.location.search.split('&');
+                    let currentFilterValues = getCurrentFilterValues(currentQueryArray);
                     if (searchFilters.value.length > 0) {
                         postalArea = extractPostalArea(filter);
                         if ((districtMatch(postalArea, searchFilters, filter)) || (areaMatch(postalArea, searchFilters))) {
                             showFilterOption(filter);
-                            selectCheckbox(checkboxId);
+                            if (currentFilterValues && currentFilterValues.includes(filter.innerText)) {
+                                selectCheckbox(checkboxId);
+                            }
                             postcodeMatches = postcodeMatches+1;
                         } else if (postcodeMatches === 0 && londonAreaMatch(postalArea, searchFilters)) {
                             showFilterOption(filter);
                             selectCheckbox(checkboxId);
                         } else {
                             hideFilterOption(filter);
-                            deselectCheckbox(checkboxId);
+                            if (!currentFilterValues && currentFilterValues.includes(filter.innerText)) {
+                                deselectCheckbox(checkboxId);
+                            }
                         }
                    } else {
                         showFilterOption(filter);
-                        deselectCheckbox(checkboxId);
+                        if (!currentFilterValues && currentFilterValues.includes(filter.innerText)) {
+                            deselectCheckbox(checkboxId);
+                        }
                    }
                 } else if (filterIncludesSearchTerm(filter, searchFilters)) {
                     showFilterOption(filter);
@@ -156,7 +165,7 @@
         }
 
         function districtMatch(postalArea, searchFilters, filter) {
-            return searchFilters.value.length > postalArea.length && filterIncludesSearchTerm(filter, searchFilters);
+            return searchFilters.value.length >= 1 && filterIncludesSearchTerm(filter, searchFilters);
         }
 
         function londonAreaMatch(postalArea, searchFilters) {
@@ -234,6 +243,21 @@
 
             let href = currentFilterValues ? currentFilterValues.replace(deleteVal, '') + elementQueryString.replace('?', '&') : elementQueryString;
             return href.replace(',,', ',');
+        }
+
+        function getCurrentFilterValues(currentQueryArray) {
+            let currentFilterValues = currentQueryArray.find(
+                item => item.startsWith('filterValues') || item.startsWith('?filterValues')
+            );
+            if (currentFilterValues) {
+                currentFilterValues = currentFilterValues.startsWith('?')
+                    ? currentFilterValues.substring(1)
+                    : currentFilterValues;
+                if (currentFilterValues.startsWith('filterValues=')) {
+                    return currentFilterValues.substring('filterValues='.length);
+                }
+            }
+            return '';
         }
 
         document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
