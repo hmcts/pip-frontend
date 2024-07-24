@@ -126,8 +126,10 @@ describe('Home page', () => {
 
         it('should display Find a court or Tribunal message under continue button', () => {
             const message = htmlRes.getElementsByClassName('govuk-heading-m');
-            expect(message[0].innerHTML).contains('Find a court or tribunal',
-                'Could not Find a court or tribunal message');
+            expect(message[0].innerHTML).contains(
+                'Find a court or tribunal',
+                'Could not Find a court or tribunal message'
+            );
         });
 
         it('should display link to FaCT', () => {
