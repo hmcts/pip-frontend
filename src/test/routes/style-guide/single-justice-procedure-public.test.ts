@@ -6,13 +6,12 @@ import { PublicationService } from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 import { SjpPublicListService } from '../../../main/service/listManipulation/SjpPublicListService';
-import { SjpFilterService } from '../../../main/service/SjpFilterService';
 import { v4 as uuidv4 } from 'uuid';
 
 const sjpFullListUrl = '/sjp-public-list';
 const sjpNewCasesUrl = '/sjp-public-list-new-cases';
 
-const mockSJPPublic = fs.readFileSync(path.resolve('src/test/unit/mocks/sjp-public-list.json'), 'utf-8');
+const mockSJPPublic = fs.readFileSync(path.resolve('src/test/unit/mocks/sjp/minimalSjpPublicList.json'), 'utf-8');
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 
 const metaDataSjpFullList = JSON.parse(rawMetaData)[0];
@@ -27,9 +26,6 @@ metadataStub.withArgs(sjpNewCasesUrl).resolves(metaDataSjpNewCases);
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(JSON.parse(mockSJPPublic));
 sinon.stub(SjpPublicListService.prototype, 'formatSjpPublicList').resolves([]);
-
-const filter = { sjpCases: ['1', '2'], filterOptions: {} };
-sinon.stub(SjpFilterService.prototype, 'generateFilters').returns(filter);
 
 describe.each([sjpFullListUrl, sjpNewCasesUrl])("Single Justice Procedure Public page with path '%s'", url => {
     describe('on GET', () => {
