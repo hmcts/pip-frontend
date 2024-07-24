@@ -1,523 +1,288 @@
 import { SjpFilterService } from '../../../main/service/SjpFilterService';
-import { expect } from 'chai';
 
 const filterService = new SjpFilterService();
 
-const allCases = [
-    {
-        name: 'Test name 1',
-        postcode: 'SW1 1AA',
-        prosecutorName: 'Org name 1',
-    },
-    {
-        name: 'Test name 2',
-        postcode: 'SW1H 9AJ',
-        prosecutorName: 'Org name,3',
-    },
-    {
-        name: 'Test name 3',
-        postcode: 'SW1H 9AA',
-        prosecutorName: 'Org name,3',
-    },
-    {
-        name: 'Test name 4',
-        postcode: 'SW1H 9AJ',
-        prosecutorName: 'Org name 2',
-    },
-    {
-        name: 'Test name 5',
-        postcode: 'SW11 2AA',
-        prosecutorName: 'Org name 2',
-    },
-    {
-        name: 'Test name 6',
-        postcode: 'NW99 8LO',
-        prosecutorName: 'Org name 4',
-    },
-    {
-        name: 'Test name 7',
-        postcode: 'EC99 7LO',
-        prosecutorName: 'Org name 4',
-    },
-    {
-        name: 'Test name 8',
-        postcode: 'NP99 9NL',
-        prosecutorName: 'Org name 4',
-    },
-    {
-        name: 'Test name 9',
-        postcode: 'WA78 0NL',
-        prosecutorName: 'Org name 5',
-    },
-    {
-        name: 'Test name 10',
-        postcode: '',
-        prosecutorName: 'Org name 5',
-    },
-];
-
 describe('SJP filter service', () => {
-    it('should return all SJP cases when no filtering', async () => {
-        const result = filterService.generateFilters(allCases, null, null);
-        expect(result.sjpCases).to.have.length(10);
+    it('should return all filters when not cleared', async () => {
+        const filterValues = 'A1,B1,C1,D1';
+        const filterClear = '';
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.generateFilterValues(filterValues, filterClear)).toEqual(['A1', 'B1', 'C1', 'D1']);
     });
 
-    it('should return all SJP cases when clearing all filters', async () => {
-        const result = filterService.generateFilters(allCases, undefined, 'all');
-        expect(result.sjpCases).to.have.length(10);
+    it('should return all filters when filter values is an array', async () => {
+        const filterValues = ['A1', 'B1', 'C1', 'D1'];
+        const filterClear = '';
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.generateFilterValues(filterValues, filterClear)).toEqual(['A1', 'B1', 'C1', 'D1']);
     });
 
-    it('should return filtered SJP cases when clearing a postcode filter', async () => {
-        const result = filterService.generateFilters(allCases, ',Orgname2', 'SW1H');
-        expect(result.sjpCases).to.have.length(2);
+    it('should return no filters when clear all is set', async () => {
+        const filterValues = ['A1', 'B1', 'C1', 'D1'];
+        const filterClear = 'all';
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: true });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.generateFilterValues(filterValues, filterClear)).toEqual([]);
     });
 
-    it('should return filtered SJP cases when clearing a prosecutor filter', async () => {
-        const result = filterService.generateFilters(allCases, 'WA78', 'Orgname3');
-        expect(result.sjpCases).to.have.length(1);
+    it('should not return the cleared value', async () => {
+        const filterValues = ['A1', 'B1', 'C1', 'D1'];
+        const filterClear = 'C1';
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: true });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.generateFilterValues(filterValues, filterClear)).toEqual(['A1', 'B1', 'D1']);
     });
 
-    it('should return filtered SJP cases when applying a single postcode filter', async () => {
-        const result = filterService.generateFilters(allCases, 'SW1H', undefined);
-        expect(result.sjpCases).to.have.length(3);
+    it('should include case when postcode is matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = [];
+        const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: true });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
     });
 
-    it('should return filtered SJP cases using only pre space postcode values when applying a postcode filter', async () => {
-        const result = filterService.generateFilters(allCases, 'SW11', undefined);
-        expect(result.sjpCases).to.have.length(1);
+    it('should include case when prosecutor is matching', async () => {
+        const postcodeFilterValues = [];
+        const prosecutorFilterValues = ['Prosecutor1'];
+        const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: true });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
     });
 
-    it('should return filtered SJP cases which exactly match the pre space postcode values', async () => {
-        const result = filterService.generateFilters(allCases, 'SW1', undefined);
-        expect(result.sjpCases).to.have.length(1);
+    it('should not include case when postcode is not matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = [];
+        const testCase = { postcode: 'Z1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: true });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
-    it('should return all SJP cases when applying all postcode filters', async () => {
-        const result = filterService.generateFilters(
-            allCases,
-            'SW1,SW1H,SW11,NW99,EC99,NP99,WA78,London Postcodes',
-            undefined
-        );
-        expect(result.sjpCases).to.have.length(9);
+    it('should not include case when prosecutor is not matching', async () => {
+        const postcodeFilterValues = [];
+        const prosecutorFilterValues = ['Prosecutor2'];
+        const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: true });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: true });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: true });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: true });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: true });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: true });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: true });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: true });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
-    it('should return filtered SJP cases when applying overlapped postcode filters', async () => {
-        const result = filterService.generateFilters(allCases, 'NW99,EC99,London Postcodes', undefined);
-        expect(result.sjpCases).to.have.length(7);
+    it('should include case when postcode and prosecutor both matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = ['Prosecutor1'];
+        const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: true });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: true });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: true });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
     });
 
-    it('should return all SJP cases when applying all postcode filters except London Postcodes', async () => {
-        const result = filterService.generateFilters(allCases, 'SW1,SW1H,SW11,NW99,EC99,NP99,WA78', undefined);
-        expect(result.sjpCases).to.have.length(9);
+    it('should not include case when postcode only is matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = ['Prosecutor1'];
+        const testCase = { postcode: 'A1', prosecutorName: 'Prosecutor 2' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: true });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: true });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: true });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: true });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: true });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: true });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: true });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
-    it('should return all SJP cases when applying all non London postcode filters and London Postcodes', async () => {
-        const result = filterService.generateFilters(allCases, 'NP99,WA78,London Postcodes', undefined);
-        expect(result.sjpCases).to.have.length(9);
+    it('should not include case when prosecutor only is matching', async () => {
+        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+        const prosecutorFilterValues = ['Prosecutor1'];
+        const testCase = { postcode: 'E1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: true });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: true });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: true });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
-    it('should return filtered SJP cases when applying a single prosecutor filter', async () => {
-        const result = filterService.generateFilters(allCases, 'Orgname1', undefined);
-        expect(result.sjpCases).to.have.length(1);
+    it('should include case when London Postcode area matches postcode', async () => {
+        const postcodeFilterValues = ['London Postcodes'];
+        const prosecutorFilterValues = [];
+        const testCase = { postcode: 'E1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: true });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeTruthy();
     });
 
-    it('should return filtered SJP cases when applying multiple prosecutor filter', async () => {
-        const result = filterService.generateFilters(allCases, 'Orgname1,Orgname2', undefined);
-        expect(result.sjpCases).to.have.length(3);
+    it('should not include case when London Postcode does not match postcode', async () => {
+        const postcodeFilterValues = ['London Postcodes'];
+        const prosecutorFilterValues = [];
+        const testCase = { postcode: 'AA1', prosecutorName: 'Prosecutor 1' };
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: true });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: true });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
-    it('should return all SJP cases when applying all prosecutor filters', async () => {
-        const result = filterService.generateFilters(
-            allCases,
-            'Orgname1,Orgname2,Orgname3,Orgname4,Orgname5',
-            undefined
-        );
-        expect(result.sjpCases).to.have.length(10);
+    it('test that previous button is included if page > 1', async () => {
+        const paginationData = filterService.generatePaginationData(4500, 2, '1234', 'A1', 'sjp-public-list');
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: true });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: true });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: true });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: true });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: true });
+        expect(paginationData['previous']).toBeDefined();
+        expect(paginationData['previous']).toEqual({ href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=1' });
     });
 
-    it('should return filtered SJP cases when applying overlapped postcode and prosecutor filters', async () => {
-        const result = filterService.generateFilters(allCases, 'SW1H,Orgname3', undefined);
-        expect(result.sjpCases).to.have.length(2);
+    it('test that previous button is not included if page == 1', async () => {
+        const paginationData = filterService.generatePaginationData(4500, 1, '1234', 'A1', 'sjp-public-list');
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: true });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: true });
+        expect(paginationData['previous']).not.toBeDefined();
     });
 
-    it('should return no SJP cases when applying non-overlapped postcode and prosecutor filters', async () => {
-        const result = filterService.generateFilters(allCases, 'SW1H,Orgname1', undefined);
-        expect(result.sjpCases).to.be.empty;
+    it('test that next button is included if page < total pages', async () => {
+        const paginationData = filterService.generatePaginationData(4500, 2, '1234', 'A1', 'sjp-public-list');
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: true });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: false });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: true });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(paginationData['next']).toBeDefined();
+        expect(paginationData['next']).toEqual({ href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=3' });
     });
 
-    it('should return filtered SJP cases where the postal code prefix belongs to London Postcodes', async () => {
-        const result = filterService.generateFilters(allCases, 'London Postcodes', undefined);
-        expect(result.sjpCases).to.have.length(7);
+    it('test that next button is not included if page >= to limit', async () => {
+        const paginationData = filterService.generatePaginationData(4500, 5, '1234', 'A1', 'sjp-public-list');
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: true });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(paginationData['next']).not.toBeDefined();
     });
 
-    it('should return filtered SJP cases when applying overlapped postcode and prosecutor filters and the postal code prefix belongs to London Postcodes', async () => {
-        const result = filterService.generateFilters(allCases, 'London Postcodes,Orgname4', undefined);
-        expect(result.sjpCases).to.have.length(2);
+    it('test that page 1 is always defined', async () => {
+        const paginationData = filterService.generatePaginationData(15000, 8, '1234', 'A1', 'sjp-public-list');
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: true });
-
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: true });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: false });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+        expect(paginationData['items']).toBeDefined();
+        expect(paginationData['items']).toContainEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=1',
+            number: 1,
+        });
     });
 
-    it('should return no SJP cases when applying non-overlapped postcode and prosecutor filters and the postal code prefix belongs to London Postcodes', async () => {
-        const result = filterService.generateFilters(allCases, 'London Postcodes,Orgname5', undefined);
-        expect(result.sjpCases).to.be.empty;
+    it('test that the final page is always defined', async () => {
+        const paginationData = filterService.generatePaginationData(15500, 14, '1234', 'A1', 'sjp-public-list');
 
-        const postcodes = result.filterOptions.postcodes;
-        expect(postcodes).to.have.length(8);
-        expect(postcodes[0]).to.contain({ value: 'EC99', text: 'EC99', checked: false });
-        expect(postcodes[1]).to.contain({ value: 'NP99', text: 'NP99', checked: false });
-        expect(postcodes[2]).to.contain({ value: 'NW99', text: 'NW99', checked: false });
-        expect(postcodes[3]).to.contain({ value: 'SW1', text: 'SW1', checked: false });
-        expect(postcodes[4]).to.contain({ value: 'SW1H', text: 'SW1H', checked: false });
-        expect(postcodes[5]).to.contain({ value: 'SW11', text: 'SW11', checked: false });
-        expect(postcodes[6]).to.contain({ value: 'WA78', text: 'WA78', checked: false });
-        expect(postcodes[7]).to.contain({ value: 'London Postcodes', text: 'London Postcodes', checked: true });
+        expect(paginationData['items']).toBeDefined();
+        expect(paginationData['items']).toContainEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=16',
+            number: 16,
+        });
+    });
 
-        const prosecutors = result.filterOptions.prosecutors;
-        expect(prosecutors).to.have.length(5);
-        expect(prosecutors[0]).to.contain({ value: 'Orgname1', text: 'Org name 1', checked: false });
-        expect(prosecutors[1]).to.contain({ value: 'Orgname2', text: 'Org name 2', checked: false });
-        expect(prosecutors[2]).to.contain({ value: 'Orgname4', text: 'Org name 4', checked: false });
-        expect(prosecutors[3]).to.contain({ value: 'Orgname5', text: 'Org name 5', checked: true });
-        expect(prosecutors[4]).to.contain({ value: 'Orgname3', text: 'Org name,3', checked: false });
+    it('test that only one ellipsis is shown when on pages within 3 of start', async () => {
+        const paginationData = filterService.generatePaginationData(15500, 2, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect(
+            (paginationData['items'] as any[]).filter(
+                item => JSON.stringify(item) === JSON.stringify({ ellipsis: true })
+            ).length
+        ).toEqual(1);
+    });
+
+    it('test that only one ellipsis is shown when on pages within 3 to the end', async () => {
+        const paginationData = filterService.generatePaginationData(15500, 15, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect(
+            (paginationData['items'] as any[]).filter(
+                item => JSON.stringify(item) === JSON.stringify({ ellipsis: true })
+            ).length
+        ).toEqual(1);
+    });
+
+    it('test that two ellipsis are shown when on a page in the middle', async () => {
+        const paginationData = filterService.generatePaginationData(15500, 10, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect(
+            (paginationData['items'] as any[]).filter(
+                item => JSON.stringify(item) === JSON.stringify({ ellipsis: true })
+            ).length
+        ).toEqual(2);
+    });
+
+    it('test when number of pages is < 10, then no ellipsis are shown', async () => {
+        const paginationData = filterService.generatePaginationData(7500, 4, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect(
+            (paginationData['items'] as any[]).filter(
+                item => JSON.stringify(item) === JSON.stringify({ ellipsis: true })
+            ).length
+        ).toEqual(0);
+    });
+
+    it('test all pages are shown when number of pages is < 10', async () => {
+        const paginationData = filterService.generatePaginationData(7500, 4, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect((paginationData['items'] as any[]).length).toEqual(8);
+    });
+
+    it('test when on page 1, then pages 1, 2 and 3 are shown', async () => {
+        const paginationData = filterService.generatePaginationData(21500, 1, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect((paginationData['items'] as any[])[0]).toEqual({
+            current: true,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=1',
+            number: 1,
+        });
+        expect((paginationData['items'] as any[])[1]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=2',
+            number: 2,
+        });
+        expect((paginationData['items'] as any[])[2]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=3',
+            number: 3,
+        });
+    });
+
+    it('test when on page 2, then pages 1, 2 and 3 are shown', async () => {
+        const paginationData = filterService.generatePaginationData(21500, 2, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect((paginationData['items'] as any[])[0]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=1',
+            number: 1,
+        });
+        expect((paginationData['items'] as any[])[1]).toEqual({
+            current: true,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=2',
+            number: 2,
+        });
+        expect((paginationData['items'] as any[])[2]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=3',
+            number: 3,
+        });
+    });
+
+    it('test when on last page, then the three last pages are shown', async () => {
+        const paginationData = filterService.generatePaginationData(21500, 22, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect((paginationData['items'] as any[])[4]).toEqual({
+            current: true,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=22',
+            number: 22,
+        });
+        expect((paginationData['items'] as any[])[3]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=21',
+            number: 21,
+        });
+        expect((paginationData['items'] as any[])[2]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=20',
+            number: 20,
+        });
+    });
+
+    it('test when on second to last page, then the three last pages are shown', async () => {
+        const paginationData = filterService.generatePaginationData(21500, 21, '1234', 'A1', 'sjp-public-list');
+
+        expect(paginationData['items']).toBeDefined();
+        expect((paginationData['items'] as any[])[4]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=22',
+            number: 22,
+        });
+        expect((paginationData['items'] as any[])[3]).toEqual({
+            current: true,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=21',
+            number: 21,
+        });
+        expect((paginationData['items'] as any[])[2]).toEqual({
+            current: false,
+            href: 'sjp-public-list?artefactId=1234&filterValues=A1&page=20',
+            number: 20,
+        });
     });
 });

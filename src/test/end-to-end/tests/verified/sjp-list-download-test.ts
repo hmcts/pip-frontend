@@ -1,6 +1,5 @@
 import { DateTime } from 'luxon';
 import { uploadPublication } from '../../shared/testingSupportApi';
-import Assert from 'assert';
 
 Feature('SJP list download');
 
@@ -30,12 +29,6 @@ Scenario('I as a verified user should be able to search and download sjp public 
     I.see(sjpListToDownload);
     I.click(locate('//a').withText(sjpListToDownload));
     I.waitForText('Single Justice Procedure cases that are ready for hearing (Full list)');
-
-    I.see('Search Cases');
-    I.click('#search-input');
-    I.type('sur');
-    const highlightedText = (await I.grabTextFrom(locate('//mark'))).trim();
-    Assert.equal(highlightedText, 'sur');
 
     I.see('Download a copy');
     I.click('Download a copy');
