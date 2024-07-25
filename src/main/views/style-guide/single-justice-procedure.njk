@@ -4,7 +4,6 @@
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
 
 {% extends "template.njk" %}
-{% set url = "sjp-public-list" %}
 
 {% block pageTitle %}
   {{ title }}
@@ -28,7 +27,7 @@
   </button>
 
   <div class="govuk-grid-row">
-    {{ filterForm(url = url, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
+    {{ filterForm(url = listUrl, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
     <div class="parent-box overflow-table">
       {{ govukPagination(paginationData) }}
       <div class="overflow-table govuk-body">
@@ -101,5 +100,5 @@
     </script>
     {{ mojAll() }}
     {{ super() }}
-    {{ filterManipulation(url = url, artefactId = artefactId, filter = filter) }}
+    {{ filterManipulation(url = listUrl, artefactId = artefactId, filter = filter) }}
 {% endblock %}

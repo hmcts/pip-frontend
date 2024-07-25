@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 const sjpPublicListController = new SjpPublicListController();
 
 const artefactIdListNotFound = uuidv4();
+const artefactIdMetaDataNotFound = uuidv4();
 
 const mockSJPPublic = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/minimalSjpPublicList.json'), 'utf-8');
 const data = JSON.parse(mockSJPPublic);
@@ -28,8 +29,8 @@ const metaDataListNotFound = JSON.parse(rawMetaData)[0];
 
 const sjpFullListName = 'single-justice-procedure';
 const sjpNewCasesName = 'single-justice-procedure-new-cases';
-const sjpFullListUrl = '/sjp-public-list';
-const sjpNewCasesUrl = '/sjp-public-list-new-cases';
+const sjpFullListUrl = 'sjp-public-list';
+const sjpNewCasesUrl = 'sjp-public-list-new-cases';
 
 const sjpResourceMap = new Map<string, any>([
     [sjpFullListUrl, { artefactId: uuidv4(), artefactIdWithNoFiles: uuidv4(), resourceName: sjpFullListName }],
@@ -62,6 +63,7 @@ metadataStub.withArgs(sjpNewCasesResource['artefactId']).resolves(metaDataSjpNew
 metadataStub.withArgs(sjpFullListResource['artefactIdWithNoFiles']).resolves(metaDataSjpFullList);
 metadataStub.withArgs(sjpNewCasesResource['artefactIdWithNoFiles']).resolves(metaDataSjpNewCases);
 metadataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
+metadataStub.withArgs(artefactIdMetaDataNotFound).resolves(HttpStatusCode.NotFound);
 metadataStub.withArgs('').resolves([]);
 
 const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownloadButton');
@@ -101,6 +103,7 @@ describe('SJP Public List Type Controller', () => {
             publishedDateTime: '01 September 2023',
             publishedTime: '11am',
             paginationData: paginationData,
+            listUrl: url,
         };
 
         it('should render the SJP public list page when filter string is provided', async () => {
@@ -378,10 +381,7 @@ describe('SJP Public List Type Controller', () => {
             request.body = {};
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('redirect')
-                .once()
-                .withArgs(`sjp-public-list?artefactId=${artefactId}&filterValues=TestValue`);
+            responseMock.expects('redirect').once().withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPublicListController.filterValues(request, response).then(() => {
                 responseMock.verify();
@@ -398,7 +398,7 @@ describe('SJP Public List Type Controller', () => {
             responseMock
                 .expects('redirect')
                 .once()
-                .withArgs(`sjp-public-list?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
+                .withArgs(`${url}?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
 
             return sjpPublicListController.filterValues(request, response).then(() => {
                 responseMock.verify();
@@ -418,6 +418,17 @@ describe('SJP Public List Type Controller', () => {
         });
 
         it('should render error page when no artefact ID provided', () => {
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs(`error`);
+
+            return sjpPublicListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render error page when metaData not found', () => {
+            request.query = { artefactId: artefactIdMetaDataNotFound };
+
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs(`error`);
 
