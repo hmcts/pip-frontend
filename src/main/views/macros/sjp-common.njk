@@ -122,8 +122,8 @@
                     let currentQueryArray = window.location.search.split('&');
                     let currentFilterValues = getCurrentFilterValues(currentQueryArray);
                     if (searchFilters.value.length > 0) {
-                        postalArea = extractPostalArea(filter);
-                        if ((districtMatch(postalArea, searchFilters, filter)) || (areaMatch(postalArea, searchFilters))) {
+                        let postalArea = extractPostalArea(filter);
+                        if ((filterIncludesSearchTerm(filter))) {
                             showFilterOption(filter);
                             if (currentFilterValues && currentFilterValues.includes(filter.innerText)) {
                                 selectCheckbox(checkboxId);
@@ -144,7 +144,7 @@
                             deselectCheckbox(checkboxId);
                         }
                    }
-                } else if (filterIncludesSearchTerm(filter, searchFilters)) {
+                } else if (filterIncludesSearchTerm(filter)) {
                     showFilterOption(filter);
                 } else {
                     hideFilterOption(filter);
@@ -160,19 +160,11 @@
             return filter.innerHTML.includes('postcodes')
         }
 
-        function areaMatch(postalArea, searchFilters) {
-            return (postalArea === searchFilters.value.toLowerCase());
-        }
-
-        function districtMatch(postalArea, searchFilters, filter) {
-            return searchFilters.value.length >= 1 && filterIncludesSearchTerm(filter, searchFilters);
-        }
-
         function londonAreaMatch(postalArea, searchFilters) {
             return (postalArea === 'london postcodes' && postalArea.includes(searchFilters.value.toLowerCase()));
         }
 
-        function filterIncludesSearchTerm(filter, searchFilter) {
+        function filterIncludesSearchTerm(filter) {
             return filter.innerText.toLowerCase().includes(searchFilters.value.toLowerCase());
         }
 
