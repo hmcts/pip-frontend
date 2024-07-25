@@ -11,6 +11,7 @@ import { SjpFilterService } from '../../../../main/service/SjpFilterService';
 import { ListDownloadService } from '../../../../main/service/ListDownloadService';
 import { describe } from '@jest/globals';
 import { v4 as uuidv4 } from 'uuid';
+import { HttpStatusCode } from 'axios';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sjp/minimalSjpPressList.json'), 'utf-8');
 const sjpData = JSON.parse(rawData);
@@ -29,8 +30,8 @@ const generatesFilesStub = sinon.stub(ListDownloadService.prototype, 'showDownlo
 
 const sjpPressFullListName = 'single-justice-procedure-press';
 const sjpPressNewCasesName = 'single-justice-procedure-press-new-cases';
-const sjpPressFullListUrl = '/sjp-press-list';
-const sjpPressNewCasesUrl = '/sjp-press-list-new-cases';
+const sjpPressFullListUrl = 'sjp-press-list';
+const sjpPressNewCasesUrl = 'sjp-press-list-new-cases';
 
 const sjpResourceMap = new Map<string, object>([
     [
@@ -43,6 +44,7 @@ const sjpResourceMap = new Map<string, object>([
     ],
 ]);
 const artefactIdListNotFound = uuidv4();
+const artefactIdMetaDataNotFound = uuidv4();
 const contentDate = metaDataSjpPressFullList['contentDate'];
 
 const sjpPressFullListResource = sjpResourceMap.get(sjpPressFullListUrl);
@@ -60,6 +62,7 @@ sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactId']).resolv
 sjpPressListMetaDataStub.withArgs(sjpPressFullListResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressFullList);
 sjpPressListMetaDataStub.withArgs(sjpPressNewCasesResource['artefactIdWithNoFiles']).resolves(metaDataSjpPressNewCases);
 sjpPressListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNotFound);
+sjpPressListMetaDataStub.withArgs(artefactIdMetaDataNotFound).resolves(HttpStatusCode.NotFound);
 sjpPressListMetaDataStub.withArgs('').resolves([]);
 
 generatesFilesStub.withArgs(sjpPressFullListResource['artefactId']).resolves(true);
@@ -111,7 +114,7 @@ describe('SJP Press List Controller', () => {
             publishedTime: '12:30am',
             contactDate: DateTime.fromISO(contentDate, { zone: 'utc' }).toFormat('d MMMM yyyy'),
             showDownloadButton: false,
-            url: url.substring(1),
+            listUrl: url,
         };
 
         it('should render the SJP press list page when filter string is provided', async () => {
@@ -449,10 +452,7 @@ describe('SJP Press List Controller', () => {
             request.body = {};
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('redirect')
-                .once()
-                .withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=TestValue`);
+            responseMock.expects('redirect').once().withArgs(`${url}?artefactId=${artefactId}&filterValues=TestValue`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();
@@ -470,7 +470,7 @@ describe('SJP Press List Controller', () => {
             responseMock
                 .expects('redirect')
                 .once()
-                .withArgs(`sjp-press-list?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
+                .withArgs(`${url}?artefactId=${artefactId}&filterValues=value1%2Cvalue2`);
 
             return sjpPressListController.filterValues(request, response).then(() => {
                 responseMock.verify();
@@ -490,6 +490,17 @@ describe('SJP Press List Controller', () => {
         });
 
         it('should redirect to error page if no artefact ID provided', () => {
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs(`error`);
+
+            return sjpPressListController.filterValues(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render error page when metaData not found', () => {
+            request.query = { artefactId: artefactIdMetaDataNotFound };
+
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs(`error`);
 
