@@ -1,5 +1,5 @@
 import { PublicationService } from './PublicationService';
-import {UserManagementService} from "./UserManagementService";
+import { UserManagementService } from './UserManagementService';
 
 const publicationService = new PublicationService();
 const userManagementService = new UserManagementService();

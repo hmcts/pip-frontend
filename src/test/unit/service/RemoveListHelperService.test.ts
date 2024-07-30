@@ -22,11 +22,10 @@ removePublicationStub.withArgs(invalidArtefactId).resolves(false);
 
 const removeListHelperService = new RemoveListHelperService();
 describe('Remove List Helper Service ', () => {
-
     beforeEach(() => {
         userManagementServiceStub.restore();
         userManagementServiceStub = sinon.stub(UserManagementService.prototype, 'auditAction');
-    })
+    });
 
     it('should remove an array of lists', async () => {
         const data = await removeListHelperService.removeLists(validArtefactsArray, user);
@@ -51,8 +50,12 @@ describe('Remove List Helper Service ', () => {
     it('should log to audit if single publication deletion is successful', async () => {
         await removeListHelperService.removeLists(validArtefactId, user);
         sinon.assert.calledOnce(userManagementServiceStub);
-        sinon.assert.calledWith(userManagementServiceStub, user,
-            'DELETE_PUBLICATION', `Publication with artefact id ${validArtefactId} successfully deleted`);
+        sinon.assert.calledWith(
+            userManagementServiceStub,
+            user,
+            'DELETE_PUBLICATION',
+            `Publication with artefact id ${validArtefactId} successfully deleted`
+        );
     });
 
     it('should log to audit if single publication deletion is unsuccessful', async () => {
@@ -63,21 +66,36 @@ describe('Remove List Helper Service ', () => {
     it('should log to audit if array publication deletion is successful', async () => {
         await removeListHelperService.removeLists(validArtefactsArray, user);
         sinon.assert.calledThrice(userManagementServiceStub);
-        sinon.assert.calledWith(userManagementServiceStub, user,
-            'DELETE_PUBLICATION', `Publication with artefact id ${validArtefactId} successfully deleted`);
-        sinon.assert.calledWith(userManagementServiceStub, user,
-            'DELETE_PUBLICATION', `Publication with artefact id ${validArtefactIdSecond} successfully deleted`);
-        sinon.assert.calledWith(userManagementServiceStub, user,
-            'DELETE_PUBLICATION', `Publication with artefact id ${validArtefactIdThird} successfully deleted`);
+        sinon.assert.calledWith(
+            userManagementServiceStub,
+            user,
+            'DELETE_PUBLICATION',
+            `Publication with artefact id ${validArtefactId} successfully deleted`
+        );
+        sinon.assert.calledWith(
+            userManagementServiceStub,
+            user,
+            'DELETE_PUBLICATION',
+            `Publication with artefact id ${validArtefactIdSecond} successfully deleted`
+        );
+        sinon.assert.calledWith(
+            userManagementServiceStub,
+            user,
+            'DELETE_PUBLICATION',
+            `Publication with artefact id ${validArtefactIdThird} successfully deleted`
+        );
     });
 
     it('should log to audit if array publication deletion is unsuccessful', async () => {
         await removeListHelperService.removeLists(invalidArtefactsArray, user);
         sinon.assert.calledOnce(userManagementServiceStub);
-        sinon.assert.calledWith(userManagementServiceStub, user,
-            'DELETE_PUBLICATION', `Publication with artefact id ${validArtefactId} successfully deleted`);
+        sinon.assert.calledWith(
+            userManagementServiceStub,
+            user,
+            'DELETE_PUBLICATION',
+            `Publication with artefact id ${validArtefactId} successfully deleted`
+        );
     });
-
 
     it('should return an array of lists from form data when multiple lists are selected', async () => {
         const formData = {
