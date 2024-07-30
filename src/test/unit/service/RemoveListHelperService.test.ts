@@ -88,12 +88,18 @@ describe('Remove List Helper Service ', () => {
 
     it('should log to audit if array publication deletion is unsuccessful', async () => {
         await removeListHelperService.removeLists(invalidArtefactsArray, user);
-        sinon.assert.calledOnce(userManagementServiceStub);
+        sinon.assert.calledTwice(userManagementServiceStub);
         sinon.assert.calledWith(
             userManagementServiceStub,
             user,
             'DELETE_PUBLICATION',
             `Publication with artefact id ${validArtefactId} successfully deleted`
+        );
+        sinon.assert.calledWith(
+            userManagementServiceStub,
+            user,
+            'DELETE_PUBLICATION',
+            `Publication with artefact id ${validArtefactIdSecond} successfully deleted`
         );
     });
 

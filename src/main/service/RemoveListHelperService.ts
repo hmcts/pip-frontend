@@ -9,9 +9,9 @@ export class RemoveListHelperService {
         let response = true;
         if (Array.isArray(artefactIds)) {
             for (const artefactId of artefactIds) {
-                response = await this.removeList(artefactId, user);
-                if (!response) {
-                    return false;
+                let individualResponse = await this.removeList(artefactId, user);
+                if (!individualResponse) {
+                    response = false;
                 }
             }
         } else {
