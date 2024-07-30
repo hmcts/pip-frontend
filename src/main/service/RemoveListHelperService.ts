@@ -9,7 +9,7 @@ export class RemoveListHelperService {
         let response = true;
         if (Array.isArray(artefactIds)) {
             for (const artefactId of artefactIds) {
-                let individualResponse = await this.removeList(artefactId, user);
+                const individualResponse = await this.removeList(artefactId, user);
                 if (!individualResponse) {
                     response = false;
                 }
