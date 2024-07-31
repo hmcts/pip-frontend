@@ -28,11 +28,7 @@
                 {% set checkedFilterItems = [] %}
                 {% set items = [] %}
                 {% for item in options %}
-                    {% set _ = items.push({
-                        value: item.value,
-                        text: item.text,
-                        checked: item.checked
-                    }) %}
+                    {% set _ = items.push(item) %}
                     {% if item.checked %}
                         {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
                     {% endif %}

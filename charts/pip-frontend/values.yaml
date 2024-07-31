@@ -10,7 +10,8 @@ nodejs:
         ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return
         ENABLE_CFT: false
         SESSION_COOKIE_SAME_SITE: 'lax'
-    memoryLimits: 1024Mi
+    memoryLimits: 2048Mi
+    memoryRequests: 1024Mi
     cpuRequests: 300m
     keyVaults:
         pip-ss-kv:

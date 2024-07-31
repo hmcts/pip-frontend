@@ -17,7 +17,7 @@ const artefactIdMap = new Map<string, string>([
     [sjpPressNewCasesUrl, sjpPressNewCasesUuid],
 ]);
 
-const jsonData = testArtefactJsonData('sjp-press-list.json');
+const jsonData = testArtefactJsonData('/sjp/minimalSjpPressList.json');
 const metaDataSjpFullList = testArtefactMetadata()[0];
 metaDataSjpFullList.listType = 'SJP_PRESS_LIST';
 const metaDataSjpNewCases = testArtefactMetadata()[0];

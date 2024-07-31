@@ -8,10 +8,10 @@ const rawCrownFirmData = fs.readFileSync(path.resolve(__dirname, '../../mocks/cr
 const row = JSON.parse(`{"caseNumber": "I4Y416QE", "caseSeparator": "7 of 9",
 "courtName": "Glasgow Social Security and Child Support",
 "courtRoom": "to be allocated [Glasgow Social Security and Child Support]",
-"defendant": "Sausage, Nigel", "defendantRepresentative": "Daniel Forrester", "durationAsHours": 2,
+"defendant": "Test Surname, Test forename", "defendantRepresentative": "Test forename Test Surname", "durationAsHours": 2,
 "durationAsMinutes": 23, "formattedDuration": "2 hours 23 mins", "durationSortValue": 143, "hearingNotes": "",
 "hearingPlatform": "Teams, Attended", "hearingType": "Deposition", "joh": "",
-"linkedCases": "YRYCTRR3, YRYCTRR4, YRYCTRR5", "prosecutingAuthority": "The Queen",
+"linkedCases": "YRYCTRR3, YRYCTRR4, YRYCTRR5", "prosecutingAuthority": "Test Name",
 "sittingDate": "Saturday 15 April 2023", "sittingTime": "2:41pm"}
 `);
 const lng = 'en';
