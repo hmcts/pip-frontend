@@ -609,3 +609,23 @@ ol.json-lines > li:hover {
 .filter-colour {
     color: #1d70b8 !important;
 }
+
+.hide {
+    display: none;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: white;
+    z-index: 1000;
+}
+
+.search-area {
+    position: relative;
+}
+
+.current-row {
+    scroll-margin-top: 100px;
+}
