@@ -39,6 +39,7 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
     I.click('#search-filters');
     I.fillField('#search-filters', 'A1');
     I.see('A1');
+    I.click('#postcodes-1');
     I.click('Apply filters');
 
     const rowsLocator = locate('#main-content > div > div.parent-box.overflow-table > div > table > tbody > tr');
