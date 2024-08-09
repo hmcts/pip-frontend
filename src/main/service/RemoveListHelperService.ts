@@ -1,28 +1,35 @@
 import { PublicationService } from './PublicationService';
+import { UserManagementService } from './UserManagementService';
 
 const publicationService = new PublicationService();
+const userManagementService = new UserManagementService();
+
 export class RemoveListHelperService {
-    public async removeLists(artefactIds: any, userId: string) {
+    public async removeLists(artefactIds: any, user: object) {
         let response = true;
         if (Array.isArray(artefactIds)) {
             for (const artefactId of artefactIds) {
-                response = await publicationService.removePublication(artefactId, userId);
-                if (!response) {
-                    return false;
+                const individualResponse = await this.removeList(artefactId, user);
+                if (!individualResponse) {
+                    response = false;
                 }
             }
         } else {
-            response = await publicationService.removePublication(artefactIds, userId);
+            response = await this.removeList(artefactIds, user);
         }
         return response;
     }
 
-    public formatArtefactIdsForAudit(artefactIds: any) {
-        if (Array.isArray(artefactIds)) {
-            return `Publications with artefact ids ${artefactIds.join(', ')} successfully deleted`;
-        } else {
-            return `Publication with artefact id ${artefactIds.toString()} successfully deleted`;
+    private async removeList(artefactId: string, user: object) {
+        const response = await publicationService.removePublication(artefactId, user?.['userId']);
+        if (response) {
+            await userManagementService.auditAction(
+                user,
+                'DELETE_PUBLICATION',
+                `Publication with artefact id ${artefactId} successfully deleted`
+            );
         }
+        return response;
     }
 
     public getSelectedLists(formData: { courtLists: any }): string[] {
