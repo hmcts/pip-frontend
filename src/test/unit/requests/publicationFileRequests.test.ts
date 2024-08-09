@@ -1,5 +1,5 @@
-import { channelManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
-import { ChannelManagementRequests } from '../../../main/resources/requests/ChannelManagementRequests';
+import { dataManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
+import { PublicationFileRequests } from '../../../main/resources/requests/PublicationFileRequests';
 import sinon from 'sinon';
 
 const dummyData = '123';
@@ -21,13 +21,13 @@ const fileSizeData = {
     excel: 123,
 };
 
-const channelManagementRequests = new ChannelManagementRequests();
+const publicationFileRequests = new PublicationFileRequests();
 
-const getStub = sinon.stub(channelManagementApi, 'get');
+const getStub = sinon.stub(dataManagementApi, 'get');
 
-getStub.withArgs('/publication/v2/abc').resolves({ data: dummyData });
-getStub.withArgs('/publication/v2/abc1').rejects(errorResponse);
-getStub.withArgs('/publication/v2/abc2').rejects(errorMessage);
+getStub.withArgs('/publication/abc/PDF').resolves({ data: dummyData });
+getStub.withArgs('/publication/abc1/PDF').rejects(errorResponse);
+getStub.withArgs('/publication/abc2/EXCEL').rejects(errorMessage);
 
 getStub.withArgs('/publication/abc/exists').resolves({ data: true });
 getStub.withArgs('/publication/abc1/exists').rejects(errorResponse);
@@ -37,52 +37,48 @@ getStub.withArgs('/publication/abc/sizes').resolves({ data: fileSizeData });
 getStub.withArgs('/publication/abc1/sizes').rejects(errorResponse);
 getStub.withArgs('/publication/abc2/sizes').rejects(errorMessage);
 
-describe('Channel Management requests', () => {
+describe('Publication file requests', () => {
     describe('Get stored file', () => {
         it('should return publication', async () => {
-            expect(
-                await channelManagementRequests.getStoredFile('abc', { 'x-user-id': userId, 'x-file-type': 'PDF' })
-            ).toEqual(dummyData);
+            expect(await publicationFileRequests.getStoredFile('abc', 'PDF', { 'x-user-id': userId })).toEqual(
+                dummyData
+            );
         });
 
         it('should return null if get fails', async () => {
-            expect(
-                await channelManagementRequests.getStoredFile('abc1', { 'x-user-id': userId, 'x-file-type': 'PDF' })
-            ).toBeNull();
+            expect(await publicationFileRequests.getStoredFile('abc1', 'PDF', { 'x-user-id': userId })).toBeNull();
         });
 
         it('should return null if request fails', async () => {
-            expect(
-                await channelManagementRequests.getStoredFile('abc2', { 'x-user-id': userId, 'x-file-type': 'EXCEL' })
-            ).toBeNull();
+            expect(await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-user-id': userId })).toBeNull();
         });
     });
 
     describe('File exists', () => {
         it('should return true if file exists', async () => {
-            expect(await channelManagementRequests.fileExists('abc')).toEqual(true);
+            expect(await publicationFileRequests.fileExists('abc')).toEqual(true);
         });
 
         it('should return false and an error response if get fails', async () => {
-            expect(await channelManagementRequests.fileExists('abc1')).toEqual(false);
+            expect(await publicationFileRequests.fileExists('abc1')).toEqual(false);
         });
 
         it('should return false and an error response if request fails', async () => {
-            expect(await channelManagementRequests.fileExists('abc2')).toEqual(false);
+            expect(await publicationFileRequests.fileExists('abc2')).toEqual(false);
         });
     });
 
     describe('Get file sizes', () => {
         it('should return true if file exists', async () => {
-            expect(await channelManagementRequests.getFileSizes('abc')).toEqual(fileSizeData);
+            expect(await publicationFileRequests.getFileSizes('abc')).toEqual(fileSizeData);
         });
 
         it('should return false and an error response if get fails', async () => {
-            expect(await channelManagementRequests.getFileSizes('abc1')).toBeNull();
+            expect(await publicationFileRequests.getFileSizes('abc1')).toBeNull();
         });
 
         it('should return false and an error response if request fails', async () => {
-            expect(await channelManagementRequests.getFileSizes('abc2')).toBeNull();
+            expect(await publicationFileRequests.getFileSizes('abc2')).toBeNull();
         });
     });
 });

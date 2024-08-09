@@ -27,10 +27,6 @@ const accountManagementUrl = process.env.ACCOUNT_MANAGEMENT_AZ_API
     ? process.env.ACCOUNT_MANAGEMENT_AZ_API
     : config.get('secrets.pip-ss-kv.ACCOUNT_MANAGEMENT_AZ_API');
 
-const channelManagementUrl = process.env.CHANNEL_MANAGEMENT_AZ_API
-    ? process.env.CHANNEL_MANAGEMENT_AZ_API
-    : config.get('secrets.pip-ss-kv.CHANNEL_MANAGEMENT_AZ_API');
-
 export const accountManagementApiUrl =
     process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net';
 export const dataManagementApi = axios.create({
@@ -44,10 +40,6 @@ export const subscriptionManagementApi = axios.create({
 });
 export const accountManagementApi = axios.create({
     baseURL: accountManagementApiUrl,
-    timeout: 10000,
-});
-export const channelManagementApi = axios.create({
-    baseURL: process.env.CHANNEL_MANAGEMENT_URL || 'https://pip-channel-management.staging.platform.hmcts.net',
     timeout: 10000,
 });
 export const cftIdamTokenApi = axios.create({
@@ -67,7 +59,6 @@ function createCredentials(url): (scope: any) => any {
 export const getDataManagementCredentials = createCredentials(dataManagementUrl);
 export const getSubscriptionManagementCredentials = createCredentials(subscriptionManagementUrl);
 export const getAccountManagementCredentials = createCredentials(accountManagementUrl);
-export const getChannelManagementCredentials = createCredentials(channelManagementUrl);
 
 const getBearerToken = (tokenCache, config) => {
     const bearer = tokenProvider({
@@ -88,7 +79,6 @@ const subscriptionManagementCacheToken = tokenProvider.tokenCache(
     getMaxAgeOfCache
 );
 const accountManagementCacheToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
-const channelManagementCacheToken = tokenProvider.tokenCache(getChannelManagementCredentials as any, getMaxAgeOfCache);
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
@@ -101,9 +91,5 @@ if (!process.env.INSECURE) {
 
     accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
         return getBearerToken(accountManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
-    });
-
-    channelManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        return getBearerToken(channelManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 }
