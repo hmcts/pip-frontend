@@ -7,14 +7,130 @@
       window.history.replaceState( null, null, window.location.href );
     }
   </script>
-  <script src="assets/js/mark.min.js"></script>
-  <script>
-    var instance = new Mark(document.getElementsByClassName("search-area")[0]);
-    const input = document.getElementById("search-input");
-    input.addEventListener("keyup", () => {
-      instance.unmark();
-      instance.mark(input.value, {"separateWordSearch": false});
+    <script type="text/javascript" src="/assets/js/jquery.js"></script>
+
+    <script src="assets/js/mark.min.js"></script>
+    <script>
+    // var instance = new Mark(document.getElementsByClassName("search-area")[0]);
+    // const input = document.getElementById("search-input");
+    // input.addEventListener("keyup", () => {
+    //   instance.unmark();
+    //   instance.mark(input.value, {"separateWordSearch": false});
+    // });
+
+        // // OPTION 1 - still need to figure out ReportingRestriction row
+        var input = document.querySelector("input[name='search-input']"),
+            context = document.querySelector("govuk-table__row"),
+            instance = new Mark(document.getElementsByClassName("search-area")[0]);
+
+        input.addEventListener("keyup", () => {
+            var term = input.value;
+            instance.unmark();
+            const rows = document.querySelectorAll('.search-filter-row');
+            rows.forEach(row => {
+                const text = [];
+                var hide;
+                for (const cell of row.children) {
+                    if (cell.innerHTML) {
+                        text.push(cell.innerHTML);
+                    }
+                }
+                if (text.join(' ').toLowerCase().includes(term.toLowerCase())) {
+                    hide = false;
+                } else {
+                    hide = true;
+                }
+                hide ? row.classList.add('hide') : row.classList.remove('hide');
+            });
+            instance.mark(term, {"separateWordSearch": false});
+        });
+
+
+  //       OPTION 2
+        var instance = new Mark(document.getElementsByClassName("search-area")[0]),
+         $input = $("input[id='search-cases-input']"),
+        searchVal,
+        highlightedRows = [],
+        $prevBtn = $("button[data-search='prev']"),
+        $nextBtn = $("button[data-search='next']"),
+        $content = $(".search-area"),
+        currentIndex = 0,
+        searchbar = document.getElementById("cases-search-bar"),
+        sticky = searchbar.offsetTop;
+
+    function findHighlightedRows() {
+        highlightedRows = [];
+        const allRows = document.querySelectorAll('.search-filter-row');
+        allRows.forEach(row => {
+            const text = []
+            for (const cell of row.children) {
+                if (cell.innerHTML) {
+                    text.push(cell.innerHTML);
+                }
+            }
+            if (text.join(' ').toLowerCase().includes(searchVal.toLowerCase())) {
+                highlightedRows.push(row);
+            }
+        });
+    };
+
+    function jumpTo() {
+        if (highlightedRows.length) {
+            var $current = highlightedRows[currentIndex];
+            for (let row of highlightedRows) {
+                row.classList.remove("current-row")
+            }
+            if ($current) {
+                $current.classList.add("current-row");
+                $current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+
+        function stickySearchBar() {
+            if (window.scrollY >= sticky) {
+                searchbar.classList.add("sticky")
+            } else {
+                searchbar.classList.remove("sticky");
+            }
+        }
+
+        window.onscroll = function() {
+            stickySearchBar();
+        };
+    }
+
+    $input.on("input", function() {
+        searchVal = this.value;
+        instance.unmark({
+            done: function() {
+                findHighlightedRows();
+                instance.mark(searchVal, {
+                    separateWordSearch: false,
+                    done: function() {
+                        currentIndex = 0;
+                        jumpTo();
+                    }
+                });
+            }
+        });
     });
+
+    $nextBtn.add($prevBtn).on("click", function() {
+        if (highlightedRows.length) {
+            currentIndex += $(this).is($prevBtn) ? -1 : 1;
+            if (currentIndex < 0) {
+                currentIndex = highlightedRows.length - 1;
+            }
+            if (currentIndex > highlightedRows.length - 1) {
+                currentIndex = 0;
+            }
+            jumpTo();
+        }
+    });
+
   </script>
   {{ mojAll() }}
   {{ super() }}
