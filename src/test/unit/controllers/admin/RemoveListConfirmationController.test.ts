@@ -5,6 +5,7 @@ import RemoveListConfirmationController from '../../../../main/controllers/admin
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { LocationService } from '../../../../main/service/LocationService';
 import { ManualUploadService } from '../../../../main/service/ManualUploadService';
+import { RemoveListHelperService } from '../../../../main/service/RemoveListHelperService';
 
 const validArtefactId = '1';
 const validArtefactId2 = '2';
@@ -60,7 +61,7 @@ metadataStub.withArgs(validArtefactId).resolves(metadata);
 metadataStub.withArgs(validArtefactId2).resolves(metadata2);
 metadataStub.withArgs(validArtefactId3).resolves(metadata3);
 
-const removePublicationStub = sinon.stub(PublicationService.prototype, 'removePublication');
+const removePublicationStub = sinon.stub(RemoveListHelperService.prototype, 'removeLists');
 removePublicationStub.withArgs(validArtefactId).resolves(true);
 removePublicationStub.withArgs(invalidArtefactId).resolves(false);
 

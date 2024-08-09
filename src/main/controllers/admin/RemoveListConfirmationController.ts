@@ -3,7 +3,6 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../../service/LocationService';
 import { ManualUploadService } from '../../service/ManualUploadService';
-import { UserManagementService } from '../../service/UserManagementService';
 import { addListDetailsToArray } from '../../helpers/listHelper';
 import { RemoveListHelperService } from '../../service/RemoveListHelperService';
 import * as url from 'url';
@@ -11,7 +10,7 @@ import { checkIfUrl } from '../../helpers/urlHelper';
 
 const courtService = new LocationService();
 const manualUploadService = new ManualUploadService();
-const userManagementService = new UserManagementService();
+
 const removeListHelperService = new RemoveListHelperService();
 
 export default class RemoveListConfirmationController {
@@ -43,13 +42,8 @@ export default class RemoveListConfirmationController {
         if (listsToDelete && locationId && !checkIfUrl(locationId)) {
             switch (formData['remove-choice']) {
                 case 'yes': {
-                    const response = await removeListHelperService.removeLists(listsToDelete, req.user?.['userId']);
+                    const response = await removeListHelperService.removeLists(listsToDelete, req.user);
                     if (response) {
-                        await userManagementService.auditAction(
-                            req.user,
-                            'DELETE_PUBLICATION',
-                            removeListHelperService.formatArtefactIdsForAudit(listsToDelete)
-                        );
                         res.redirect('/remove-list-success');
                     } else {
                         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
