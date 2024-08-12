@@ -62,7 +62,7 @@ describe('Sign In option Page', () => {
 
         it('Crime IDAM radio button should be disabled', () => {
             const radioButtons = htmlRes.getElementsByClassName(radioClass)[1];
-            expect(radioButtons.innerHTML).includes('disabled');
+            expect(radioButtons.innerHTML).not.includes('disabled');
         });
 
         it('P&I IDAM radio button should be enabled', () => {
@@ -78,11 +78,6 @@ describe('Sign In option Page', () => {
                     'Could not find the radio button with label ' + expectedRadioLabel[i]
                 );
             }
-        });
-
-        it('should display hint for Common Platform', () => {
-            const message = htmlRes.getElementsByClassName('govuk-radios__hint');
-            expect(message[0].innerHTML).contains('This option will be available as part of a future update.');
         });
 
         it('should display request account message', () => {

@@ -12,6 +12,7 @@ import {
     processMediaAccountSignIn,
     processAdminAccountSignIn,
     processCftIdamSignIn,
+    processCrimeIdamSignIn,
     isPermittedSystemAdmin,
     checkPasswordReset,
     mapAzureLanguage,
@@ -445,6 +446,19 @@ describe('process cft sign in', () => {
         const res = { redirect: mockRedirectFunction };
 
         await processCftIdamSignIn(req, res);
+
+        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
+    });
+});
+
+describe('process crime sign in', () => {
+    it('should redirect to account home when signing in via crime idam', async () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        const req = { user: { roles: 'VERIFIED', userProvenance: 'CRIME_IDAM', provenanceUserId: '12345' } };
+        const res = { redirect: mockRedirectFunction };
+
+        await processCrimeIdamSignIn(req, res);
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
         expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');

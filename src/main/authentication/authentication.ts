@@ -4,6 +4,7 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 import passportCustom from 'passport-custom';
 import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
+import { crimeIdamAuthentication } from './crimeIdamAuthentication';
 
 const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 const passport = require('passport');
@@ -42,6 +43,24 @@ async function serializeUser(foundUser, done) {
             await accountManagementRequests.createPIAccount(piAccount, '');
         }
         done(null, { uid: foundUser.uid, flow: 'CFT' });
+    } else if (foundUser['flow'] === 'Crime') {
+        const user = await accountManagementRequests.getPiUserByCrimeID(foundUser['subname']);
+
+        if (!user) {
+            const piAccount = [
+                {
+                    userProvenance: 'CRIME_IDAM',
+                    email: foundUser['email'],
+                    roles: 'VERIFIED',
+                    provenanceUserId: foundUser['subname'],
+                    forenames: foundUser['given_name'],
+                    surname: foundUser['family_name'],
+                },
+            ];
+
+            await accountManagementRequests.createPIAccount(piAccount, '');
+        }
+        done(null, { uid: foundUser['subname'], flow: 'Crime' });
     } else {
         done(null, { oid: foundUser.oid, flow: 'AAD' });
     }
@@ -51,6 +70,8 @@ async function deserializeUser(userDetails, done) {
     let user;
     if (userDetails['flow'] === 'CFT') {
         user = await accountManagementRequests.getPiUserByCftID(userDetails['uid']);
+    } else if (userDetails['flow'] === 'Crime') {
+        user = await accountManagementRequests.getPiUserByCrimeID(userDetails['uid']);
     } else {
         user = await accountManagementRequests.getPiUserByAzureOid(userDetails['oid']);
     }
@@ -154,6 +175,7 @@ function oidcSetup(): void {
     );
 
     passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
+    passport.use('crime-idam', new CustomStrategy(crimeIdamAuthentication));
 }
 
 /**

@@ -18,6 +18,7 @@ import {
     mapAzureLanguage,
     keepSessionLanguage,
     regenerateSession,
+    processCrimeIdamSignIn,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
@@ -704,6 +705,26 @@ export default function (app: Application): void {
             processCftIdamSignIn
         );
         app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+    }
+
+    //CRIME IDAM Routes
+    if (process.env.ENABLE_CRIME === 'true') {
+        app.get(
+            '/crime-login',
+            regenerateSession,
+            keepSessionLanguage,
+            app.locals.container.cradle.crimeLoginController.get
+        );
+
+        app.get(
+            '/crime-login/return',
+            passport.authenticate('crime-idam', {
+                failureRedirect: '/crime-rejected-login',
+            }),
+            keepSessionLanguage,
+            processCrimeIdamSignIn
+        );
+        app.get('/crime-rejected-login', app.locals.container.cradle.crimeRejectedLoginController.get);
     }
 
     app.get('/info', getInfo());

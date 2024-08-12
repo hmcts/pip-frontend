@@ -9,6 +9,7 @@ nodejs:
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return
         ENABLE_CFT: false
+        ENABLE_CRIME: true
         SESSION_COOKIE_SAME_SITE: 'lax'
     memoryLimits: 2048Mi
     memoryRequests: 1024Mi
@@ -57,5 +58,9 @@ nodejs:
                   alias: B2C_URL
                 - name: cft-idam-client-secret
                   alias: CFT_IDAM_CLIENT_SECRET
+                - name: crime-idam-client-id
+                  alias: CRIME_IDAM_CLIENT_ID
+                - name: crime-idam-client-secret
+                  alias: CRIME_IDAM_CLIENT_SECRET
     autoscaling:
         enabled: false #To be enabled as part of PUB-1692

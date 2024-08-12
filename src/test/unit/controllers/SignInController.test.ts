@@ -5,7 +5,7 @@ import SignInController from '../../../main/controllers/SignInController';
 
 const signInController = new SignInController();
 const CFTAccountUrl = '/cft-login';
-const CrimeAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+const CrimeAccountUrl = '/crime-login';
 const piUrl = '/login?p=B2C_1_SignInUserFlow';
 
 describe('Sign In Option Controller', () => {
@@ -21,6 +21,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
         const options = {
             enableCft: 'true',
+            enableCrime: 'true',
             ...i18n['sign-in'],
             displayError: false,
         };
@@ -41,6 +42,7 @@ describe('Sign In Option Controller', () => {
         request.query = { error: 'true' };
         const options = {
             enableCft: 'true',
+            enableCrime: 'true',
             ...i18n['sign-in'],
             displayError: true,
         };
