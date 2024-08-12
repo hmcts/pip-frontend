@@ -21,7 +21,8 @@ if (process.env.CRIME_IDAM_CLIENT_SECRET) {
 }
 
 /**
- * This function authenticates with Crime IDAM, and returns the user in a decoded JWT token, that can then be parsed
+ * This function authenticates with Crime IDAM, and returns the access token, using access token,
+ * we will call we will call UserInfo endpoint which will return UserInfo that can then be parsed
  * by passport serialise / deserialise methods
  *
  * @param req The inbound request from the IDAM.
