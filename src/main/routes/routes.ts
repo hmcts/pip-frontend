@@ -708,24 +708,21 @@ export default function (app: Application): void {
     }
 
     //CRIME IDAM Routes
-    if (process.env.ENABLE_CRIME === 'true') {
-        app.get(
-            '/crime-login',
-            regenerateSession,
-            keepSessionLanguage,
-            app.locals.container.cradle.crimeLoginController.get
-        );
-
-        app.get(
-            '/crime-login/return',
-            passport.authenticate('crime-idam', {
-                failureRedirect: '/crime-rejected-login',
-            }),
-            keepSessionLanguage,
-            processCrimeIdamSignIn
-        );
-        app.get('/crime-rejected-login', app.locals.container.cradle.crimeRejectedLoginController.get);
-    }
+    app.get(
+        '/crime-login',
+        regenerateSession,
+        keepSessionLanguage,
+        app.locals.container.cradle.crimeLoginController.get
+    );
+    app.get(
+        '/crime-login/return',
+        passport.authenticate('crime-idam', {
+            failureRedirect: '/crime-rejected-login',
+        }),
+        keepSessionLanguage,
+        processCrimeIdamSignIn
+    );
+    app.get('/crime-rejected-login', app.locals.container.cradle.crimeRejectedLoginController.get);
 
     app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {

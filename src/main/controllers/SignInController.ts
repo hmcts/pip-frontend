@@ -8,13 +8,11 @@ export default class SignInController {
         req.query?.error === 'true'
             ? res.render('sign-in', {
                   enableCft: process.env.ENABLE_CFT,
-                  enableCrime: process.env.ENABLE_CRIME,
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']),
                   displayError: true,
               })
             : res.render('sign-in', {
                   enableCft: process.env.ENABLE_CFT,
-                  enableCrime: process.env.ENABLE_CRIME,
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']),
                   displayError: false,
               });

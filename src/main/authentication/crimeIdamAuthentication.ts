@@ -45,7 +45,7 @@ export function crimeIdamAuthentication(req, callback) {
         })
         .then(async response => {
             const data = response.data;
-            let userInfo = await getCrimeIdamUserInfo(data.access_token);
+            const userInfo = await getCrimeIdamUserInfo(data.access_token);
             userInfo['flow'] = 'Crime';
             callback(null, userInfo);
         })
@@ -67,7 +67,7 @@ export async function getCrimeIdamUserInfo(access_token): Promise<any> {
         .then(response => {
             userInfo = response.data;
         })
-        .catch((err: Error) => {
+        .catch(() => {
             userInfo = null;
         });
     return userInfo;

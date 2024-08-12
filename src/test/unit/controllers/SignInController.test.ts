@@ -21,7 +21,6 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
         const options = {
             enableCft: 'true',
-            enableCrime: 'true',
             ...i18n['sign-in'],
             displayError: false,
         };
@@ -42,7 +41,6 @@ describe('Sign In Option Controller', () => {
         request.query = { error: 'true' };
         const options = {
             enableCft: 'true',
-            enableCrime: 'true',
             ...i18n['sign-in'],
             displayError: true,
         };

@@ -9,7 +9,6 @@ nodejs:
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return
         ENABLE_CFT: false
-        ENABLE_CRIME: true
         SESSION_COOKIE_SAME_SITE: 'lax'
     memoryLimits: 2048Mi
     memoryRequests: 1024Mi
