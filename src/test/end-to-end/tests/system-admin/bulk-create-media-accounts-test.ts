@@ -1,8 +1,31 @@
+import fs from "fs";
+import {stringify} from "csv";
+import {randomData} from "../../shared/random-data";
+
 Feature('Bulk create media accounts');
 
 Scenario('I as a system admin should be able to bulk create media accounts', async ({ I }) => {
-    const validUser1 = 'testMediaUser1@justice.gov.uk';
-    const validUser2 = 'testMediaUser2@justice.gov.uk';
+    const validUser1 = randomData.getRandomEmailAddress();
+    const validUser2 = randomData.getRandomEmailAddress();
+    const fileName = 'src/test/end-to-end/shared/mocks/bulkCreateUser.csv';
+
+    const columns = {
+        email:'email',
+        firstName: 'firstName',
+        surname:'surname'
+    };
+
+    const data = [
+        { email: validUser1, firstName: 'John', surname: '11' },
+        { email: validUser2, firstName: 'John', surname: '22' }
+    ];
+
+    stringify(data, { header: true, columns: columns }, (err, output) => {
+        if (err) throw err;
+        fs.writeFile(fileName, output, (err) => {
+            if (err) throw err;
+        });
+    });
 
     I.loginAsSystemAdmin();
     I.click('#card-bulk-create-media-accounts');
@@ -13,7 +36,8 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.see(
         'Note the upload process has a maximum of 30 accounts created per run. Please ensure the file uploaded for processing has no more than 30 cases.'
     );
-    I.attachFile('#bulk-account-upload', './shared/mocks/bulkCreateUserValid.csv');
+    I.wait(10);
+    I.attachFile('#bulk-account-upload', './shared/mocks/bulkCreateUser.csv');
     I.click('Continue');
     I.waitForText('Create media accounts confirmation');
     I.see(validUser1);
@@ -30,6 +54,7 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.click('Home');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
+    I.wait(20);
     I.fillField('#email', validUser1);
     I.click('Apply filters');
     I.click(locate('//tr').withText(validUser1).find('a').withText('Manage'));
@@ -90,3 +115,5 @@ Scenario(
         I.click('Sign out');
     }
 ).tag('@Nightly');
+
+
