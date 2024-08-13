@@ -24,7 +24,7 @@
                                 "caseSequenceIndicator": "2 of 3",
                                 "party": [
                                     {
-                                        "partyRole": "CLAIMANT_PETITIONER",
+                                        "partyRole": "APPLICANT_PETITIONER",
                                         "OrganisationDetails": {
                                             "OrganisationName": "Test Organisation"
                                         }
@@ -81,7 +81,7 @@
                                     "caseUrn": "18472381412",
                                     "party": [
                                         {
-                                            "partyRole": "CLAIMANT_PETITIONER",
+                                            "partyRole": "APPLICANT_PETITIONER",
                                             "individualDetails": {
                                                 "title": "Ms",
                                                 "individualForenames": "Test Forename",
@@ -111,7 +111,7 @@
                                         "caseNumber": "Case URN",
                                         "party": [
                                             {
-                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                "partyRole": "APPLICANT_PETITIONER",
                                                 "individualDetails": {
                                                     "title": "Ms",
                                                     "individualForenames": "Test forename",
@@ -147,7 +147,7 @@
                                         "caseSequenceIndicator": "2 of 3",
                                         "party": [
                                             {
-                                                "partyRole": "CLAIMANT_PETITIONER",
+                                                "partyRole": "APPLICANT_PETITIONER",
                                                 "individualDetails": {
                                                     "title": "Ms",
                                                     "individualForenames": "Test forename",
@@ -179,7 +179,7 @@
                                             "caseUrn": "99999999",
                                             "party": [
                                                 {
-                                                    "partyRole": "CLAIMANT_PETITIONER",
+                                                    "partyRole": "APPLICANT_PETITIONER",
                                                     "individualDetails": {
                                                         "title": "Ms",
                                                         "individualForenames": "Party Forename",
