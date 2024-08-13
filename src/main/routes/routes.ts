@@ -717,12 +717,12 @@ export default function (app: Application): void {
     app.get(
         '/crime-login/return',
         passport.authenticate('crime-idam', {
-            failureRedirect: '/crime-rejected-login',
+            failureRedirect: '/error',
         }),
         keepSessionLanguage,
         processCrimeIdamSignIn
     );
-    app.get('/crime-rejected-login', app.locals.container.cradle.crimeRejectedLoginController.get);
+    app.get('/error', app.locals.container.cradle.errorController.get);
 
     app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {

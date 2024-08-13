@@ -10,6 +10,7 @@ export default class CrimeLoginController {
             redirect_uri: FRONTEND_URL + '/crime-login/return',
             scope: 'openid profile email',
         });
+
         res.redirect(CRIME_IDAM_URL + '/idp/oauth2/authorize?' + params.toString());
     }
 }

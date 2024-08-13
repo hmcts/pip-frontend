@@ -50,8 +50,7 @@ export function crimeIdamAuthentication(req, callback) {
             userInfo['flow'] = 'Crime';
             callback(null, userInfo);
         })
-        .catch(error => {
-            console.log(error);
+        .catch(() => {
             callback(null, null);
         });
 }

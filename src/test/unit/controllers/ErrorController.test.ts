@@ -2,32 +2,32 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
 
-import CrimeRejectedLoginController from '../../../main/controllers/CrimeRejectedLoginController';
+import ErrorController from '../../../main/controllers/ErrorController';
 
-const crimeRejectedLoginController = new CrimeRejectedLoginController();
+const errorController = new ErrorController();
 
-describe('Crime rejected login controller', () => {
+describe('Error controller', () => {
     const response = {
         render: () => {
             return '';
         },
     } as unknown as Response;
-    const request = mockRequest({ 'crime-rejected-login': {} });
+    const request = mockRequest({ error: {} });
 
-    it('should render crime-rejected-login', async () => {
+    it('should render error', async () => {
         const responseMock = sinon.mock(response);
 
         const i18n = {
-            'crime-rejected-login': {},
+            error: {},
         };
 
         const expectedData = {
-            ...i18n['crime-rejected-login'],
+            ...i18n['error'],
         };
 
-        responseMock.expects('render').once().withArgs('crime-rejected-login', expectedData);
+        responseMock.expects('render').once().withArgs('error', expectedData);
 
-        await crimeRejectedLoginController.get(request, response);
+        await errorController.get(request, response);
         await responseMock.verify();
     });
 });

@@ -2,11 +2,11 @@ import request from 'supertest';
 import { app } from '../../main/app';
 import { expect } from 'chai';
 
-describe('Crime rejected login page', () => {
+describe('Error page', () => {
     describe('on GET', () => {
-        test('should return crime-rejected-login page', async () => {
+        test('should return error page', async () => {
             await request(app)
-                .get('/crime-rejected-login')
+                .get('/error')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
