@@ -57,14 +57,6 @@ describe('Testing environment variables', () => {
         expect(configSpy.neverCalledWith('secrets.pip-ss-kv.ACCOUNT_MANAGEMENT_AZ_API')).toBeTruthy();
     });
 
-    it('Test that channel management URL is set from environment variable', async () => {
-        process.env.CHANNEL_MANAGEMENT_AZ_API = '1234';
-
-        await import('../../../../../main/resources/requests/utils/axiosConfig');
-
-        expect(configSpy.neverCalledWith('secrets.pip-ss-kv.CHANNEL_MANAGEMENT_AZ_API')).toBeTruthy();
-    });
-
     afterAll(() => {
         delete process.env.ALLOW_CONFIG_MUTATIONS;
         delete process.env.TENANT_ID;
@@ -73,6 +65,5 @@ describe('Testing environment variables', () => {
         delete process.env.DATA_MANAGEMENT_AZ_API;
         delete process.env.SUBSCRIPTION_MANAGEMENT_AZ_API;
         delete process.env.ACCOUNT_MANAGEMENT_AZ_API;
-        delete process.env.CHANNEL_MANAGEMENT_AZ_API;
     });
 });
