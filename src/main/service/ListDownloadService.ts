@@ -1,23 +1,23 @@
-import { ChannelManagementRequests } from '../resources/requests/ChannelManagementRequests';
+import { PublicationFileRequests } from '../resources/requests/PublicationFileRequests';
 import { FileType } from '../helpers/consts';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import stream from 'stream';
 
-const channelManagementRequests = new ChannelManagementRequests();
+const publicationFileRequests = new PublicationFileRequests();
 const accountManagementRequests = new AccountManagementRequests();
 
 const numberOfBytes = 1024;
 
 export class ListDownloadService {
     public async showDownloadButton(artefactId, user): Promise<boolean> {
-        return user && user['roles'] === 'VERIFIED' ? await channelManagementRequests.fileExists(artefactId) : false;
+        return user && user['roles'] === 'VERIFIED' ? await publicationFileRequests.fileExists(artefactId) : false;
     }
 
     public async getFile(artefactId, userId, fileExtension): Promise<string> {
         if (artefactId) {
-            return await channelManagementRequests.getStoredFile(artefactId, {
+            const fileType = Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)];
+            return await publicationFileRequests.getStoredFile(artefactId, fileType, {
                 'x-user-id': userId,
-                'x-file-type': Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)],
             });
         }
         return null;
@@ -25,7 +25,7 @@ export class ListDownloadService {
 
     public async getFileSize(artefactId, fileExtension): Promise<string> {
         const byteUnits = ['KB', 'MB'];
-        const fileSizes = await channelManagementRequests.getFileSizes(artefactId);
+        const fileSizes = await publicationFileRequests.getFileSizes(artefactId);
 
         if (fileSizes) {
             let fileSize;
