@@ -1,6 +1,6 @@
-import fs from "fs";
-import {stringify} from "csv";
-import {randomData} from "../../shared/random-data";
+import fs from 'fs';
+import { stringify } from 'csv';
+import { randomData } from '../../shared/random-data';
 
 Feature('Bulk create media accounts');
 
@@ -10,19 +10,19 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     const fileName = 'src/test/end-to-end/shared/mocks/bulkCreateUser.csv';
 
     const columns = {
-        email:'email',
+        email: 'email',
         firstName: 'firstName',
-        surname:'surname'
+        surname: 'surname',
     };
 
     const data = [
         { email: validUser1, firstName: 'John', surname: '11' },
-        { email: validUser2, firstName: 'John', surname: '22' }
+        { email: validUser2, firstName: 'John', surname: '22' },
     ];
 
     stringify(data, { header: true, columns: columns }, (err, output) => {
         if (err) throw err;
-        fs.writeFile(fileName, output, (err) => {
+        fs.writeFile(fileName, output, err => {
             if (err) throw err;
         });
     });
@@ -113,5 +113,3 @@ Scenario(
         I.click('Sign out');
     }
 ).tag('@Nightly');
-
-
