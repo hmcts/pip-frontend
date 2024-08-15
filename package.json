@@ -55,7 +55,7 @@
         "@types/serve-favicon": "^2.5.7",
         "applicationinsights": "2.9.5",
         "awilix": "^10.0.2",
-        "axios": "^1.7.3",
+        "axios": "^1.7.4",
         "axios-oauth-client": "^2.2.0",
         "axios-token-interceptor": "^0.2.0",
         "codeceptjs": "3.6.5",
