@@ -22,6 +22,12 @@ import {
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
+import {
+    rateLimiterWithUserId,
+    slowDownLimiter,
+    standardRateLimiter,
+    strictRateLimiter,
+} from '../helpers/rateLimitHelper';
 
 const passport = require('passport');
 const healthcheck = require('@hmcts/nodejs-healthcheck');
@@ -61,6 +67,11 @@ export default function (app: Application): void {
             ? res.render(urlPath(req.url), req.i18n.getDataByLanguage(req.lng)[urlPath(req.url)])
             : res.redirect('/not-found');
     }
+
+    app.use(standardRateLimiter);
+    app.use('/manual-upload', strictRateLimiter);
+    app.use('/remove-list-search', rateLimiterWithUserId);
+    app.use('/admin-dashboard', slowDownLimiter);
 
     // Public paths
     app.get('/*', globalAuthGiver);
