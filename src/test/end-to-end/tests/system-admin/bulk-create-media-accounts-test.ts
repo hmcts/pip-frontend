@@ -36,7 +36,6 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.see(
         'Note the upload process has a maximum of 30 accounts created per run. Please ensure the file uploaded for processing has no more than 30 cases.'
     );
-    I.wait(10);
     I.attachFile('#bulk-account-upload', './shared/mocks/bulkCreateUser.csv');
     I.click('Continue');
     I.waitForText('Create media accounts confirmation');
@@ -54,7 +53,6 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.click('Home');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
-    I.wait(20);
     I.fillField('#email', validUser1);
     I.click('Apply filters');
     I.click(locate('//tr').withText(validUser1).find('a').withText('Manage'));
