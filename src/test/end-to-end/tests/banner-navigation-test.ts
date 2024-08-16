@@ -54,7 +54,7 @@ Scenario('Crime user - all banner navigation links should take user to the corre
     I.click(locate('//li').withText('Home'));
     I.waitForText('Your account');
     I.logout();
-}).tag('@CrossBrowser');
+});
 
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsAdmin();
