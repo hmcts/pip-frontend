@@ -18,6 +18,8 @@ export const config = {
     CFT_PASSWORD: process.env.CFT_VALID_PASSWORD,
     CFT_INVALID_USERNAME: process.env.CFT_INVALID_USERNAME,
     CFT_INVALID_PASSWORD: process.env.CFT_INVALID_PASSWORD,
+    CRIME_VALID_USERNAME: process.env.CRIME_VALID_USERNAME,
+    CRIME_VALID_PASSWORD: process.env.CRIME_VALID_PASSWORD,
     SYSTEM_ADMIN_PROVENANCE_ID: process.env.SYSTEM_ADMIN_PROVENANCE_ID,
     SYSTEM_ADMIN_USER_ID: process.env.SYSTEM_ADMIN_USER_ID,
     VERIFIED_USER_ID: process.env.VERIFIED_USER_ID,
@@ -58,7 +60,8 @@ export const config = {
 config.helpers = {
     Playwright: {
         url: config.TEST_URL,
-        show: !config.TestHeadlessBrowser,
+        // show: !config.TestHeadlessBrowser,
+        show: true,
         browser: 'chromium',
         waitForTimeout: config.WaitForTimeout,
         waitForAction: 1000,
