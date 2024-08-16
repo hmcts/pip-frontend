@@ -7669,6 +7669,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csv-generate@npm:^4.4.1":
+  version: 4.4.1
+  resolution: "csv-generate@npm:4.4.1"
+  checksum: 9a0ddd963836f7a6c011a57ba188753ed5cf57083f3d9a2c811392b5a3b6be21e265f653365cbb66641567cda5f37bdb3618117de8db51fbc6f574c7a693e334
+  languageName: node
+  linkType: hard
+
+"csv-parse@npm:^5.5.6":
+  version: 5.5.6
+  resolution: "csv-parse@npm:5.5.6"
+  checksum: ee06f97f674487dc1d001b360de8ea510a41b9d971abf43bcf9c3be22c83a3634df0d3ebfbe52fd49d145077066be7ff9f25de3fc6b71aefb973099b04147a25
+  languageName: node
+  linkType: hard
+
+"csv-stringify@npm:^6.5.1":
+  version: 6.5.1
+  resolution: "csv-stringify@npm:6.5.1"
+  checksum: 5eb8167ee944f5328c53c733d8c4b1eea88fb9e510abec430e2fcb4be6c4ce008b92e90da7825d424fe74d22c85405add7f89b9dcf82ffe2bf0a1cf31536057a
+  languageName: node
+  linkType: hard
+
+"csv@npm:^6.3.10":
+  version: 6.3.10
+  resolution: "csv@npm:6.3.10"
+  dependencies:
+    csv-generate: ^4.4.1
+    csv-parse: ^5.5.6
+    csv-stringify: ^6.5.1
+    stream-transform: ^3.3.2
+  checksum: 409ccdd31025e8b758e66c7fff35c2d0c38fd2f07f687150b8c2a930d1fbec2964fb6295a07c04c4d564978906c34d744e6cbd6c7ac828029d8d9d6d17eacfe3
+  languageName: node
+  linkType: hard
+
 "cycle@npm:1.0.x":
   version: 1.0.3
   resolution: "cycle@npm:1.0.3"
@@ -14555,6 +14588,7 @@ __metadata:
     core-js: 3.37.1
     cors: ^2.8.5
     css-loader: ^7.1.2
+    csv: ^6.3.10
     depcheck: ^1.4.7
     eslint: ^9.6.0
     eslint-config-prettier: 9.1.0
@@ -16014,6 +16048,13 @@ __metadata:
   dependencies:
     stream-chain: "npm:^2.2.5"
   checksum: c17ac72228815850fc5226d8c0a80afd6c2ffbfa71c572ad99ad2eac145dc836a3fc6f62a298b3df716f1726cc1ed8a448892ed9fb6123f46abf2f89c908749f
+  languageName: node
+  linkType: hard
+
+"stream-transform@npm:^3.3.2":
+  version: 3.3.2
+  resolution: "stream-transform@npm:3.3.2"
+  checksum: 5aa088f8ed92de8c396cb6f942a1ae01321c6675ba4a103a5025bb397364161475bc50e90cbf858625ecf2bb694078ea79cd1282e5e2f87164c19fa4aaeeefd0
   languageName: node
   linkType: hard
 
