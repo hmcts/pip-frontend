@@ -1,5 +1,5 @@
 {% extends "../template.njk" %}
-{% from "../macros/common-components.njk" import goBack, submitButton %}
+{% from "../macros/common-components.njk" import goBack, submitButton, autoCompleteFilteredResults %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% block pageTitle %}
@@ -62,15 +62,16 @@
   <script>
     const element = document.querySelector('#search-input-container');
     const source = {{ optionList | dump |safe }}
-      accessibleAutocomplete({
-        element: element,
-        id: 'search-input',
-        source: source,
-        displayMenu: 'overlay'
-      });
+    const autocompleteParam = {
+      element: element,
+      id: 'search-input',
+      displayMenu: 'overlay',
+    };
+
     if (window.history.replaceState) {
       window.history.replaceState( null, null, window.location.href );
     }
   </script>
+  {{ autoCompleteFilteredResults(autocompleteParam) }}
   {{ super() }}
 {% endblock %}
