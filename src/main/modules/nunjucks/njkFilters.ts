@@ -1,8 +1,8 @@
-import {DateTime} from 'luxon';
-import {PublicationService} from '../../service/PublicationService';
-import {printableDuration} from './printableDuration';
-import {calculateDurationSortValue} from '../../helpers/dateTimeHelper';
-import {runtime} from 'nunjucks';
+import { DateTime } from 'luxon';
+import { PublicationService } from '../../service/PublicationService';
+import { printableDuration } from './printableDuration';
+import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
+import { runtime } from 'nunjucks';
 
 const publicationService = new PublicationService();
 
@@ -60,9 +60,9 @@ function createFilters(env) {
     // for calculating date ranges
     env.addFilter('dateRange', function (x) {
         return (
-            DateTime.fromISO(x.displayFrom, {zone: 'Europe/London'}).toFormat('dd MMM yyyy') +
+            DateTime.fromISO(x.displayFrom, { zone: 'Europe/London' }).toFormat('dd MMM yyyy') +
             ' to ' +
-            DateTime.fromISO(x.displayTo, {zone: 'Europe/London'}).toFormat('dd MMM yyyy')
+            DateTime.fromISO(x.displayTo, { zone: 'Europe/London' }).toFormat('dd MMM yyyy')
         );
     });
 

@@ -1,4 +1,4 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import * as nunjucks from 'nunjucks';
 
 const env = new nunjucks.Environment();
