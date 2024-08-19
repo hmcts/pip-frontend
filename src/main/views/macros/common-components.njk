@@ -72,6 +72,20 @@
   </script>
 {% endmacro %}
 
+{% macro autoCompleteFilteredResults(autocompleteParam) %}
+  <script>
+    function suggest (query, populateResults) {
+        let queryLC = query.toLowerCase()
+        let filteredPrimaryResults = source.filter(s => s.toLowerCase().indexOf(queryLC) === 0)
+        filteredPrimaryResults.sort((a, b) => a.localeCompare(b))
+        let filteredSecondaryResults = source.filter(s => s.toLowerCase().indexOf(queryLC) !== -1 && s.toLowerCase().indexOf(queryLC) !== 0)
+        filteredSecondaryResults.sort((a, b) => a.localeCompare(b))
+        populateResults(filteredPrimaryResults.concat(filteredSecondaryResults))
+    }
+    accessibleAutocomplete({ ...autocompleteParam, source: suggest});
+  </script>
+{% endmacro %}
+
 {% macro mojAll() %}
   <script type="text/javascript" src="/assets/js/jquery.js"></script>
   <script type="text/javascript" src="/assets/js/mojAll.js"></script>
