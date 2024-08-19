@@ -1,8 +1,8 @@
-import { DateTime } from 'luxon';
-import { PublicationService } from '../../service/PublicationService';
-import { printableDuration } from './printableDuration';
-import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
-import { runtime } from 'nunjucks';
+import {DateTime} from 'luxon';
+import {PublicationService} from '../../service/PublicationService';
+import {printableDuration} from './printableDuration';
+import {calculateDurationSortValue} from '../../helpers/dateTimeHelper';
+import {runtime} from 'nunjucks';
 
 const publicationService = new PublicationService();
 
@@ -60,20 +60,10 @@ function createFilters(env) {
     // for calculating date ranges
     env.addFilter('dateRange', function (x) {
         return (
-            DateTime.fromISO(x.displayFrom, { zone: 'Europe/London' }).toFormat('dd MMM yyyy') +
+            DateTime.fromISO(x.displayFrom, {zone: 'Europe/London'}).toFormat('dd MMM yyyy') +
             ' to ' +
-            DateTime.fromISO(x.displayTo, { zone: 'Europe/London' }).toFormat('dd MMM yyyy')
+            DateTime.fromISO(x.displayTo, {zone: 'Europe/London'}).toFormat('dd MMM yyyy')
         );
-    });
-
-    // for emails to appear as govuk links
-    env.addFilter('emailLink', function (x) {
-        return this.env('<a class=govuk-link href="mailto:' + x + '">' + x + '</a>');
-    });
-
-    // for phone numbers to display as links
-    env.addFilter('phoneLink', function (x) {
-        return this.env('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');
     });
 
     // to transform duration in hours/mins into a multilingual single value.
