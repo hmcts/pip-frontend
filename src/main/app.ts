@@ -53,7 +53,7 @@ const redisStore = new RedisStore({
     client: redisClient,
 });
 
-const sessionSecrets :string[] = [
+const sessionSecrets: string[] = [
     config.get('secrets.pip-ss-kv.SESSION_SECRET_V2'),
     config.get('secrets.pip-ss-kv.SESSION_SECRET'),
 ];
