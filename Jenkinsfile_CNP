@@ -36,9 +36,7 @@ def setupTestSecrets() {
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL'),
             secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD'),
             secret('crime-valid-test-account', 'CRIME_VALID_USERNAME'),
-            secret('crime-valid-test-account-password', 'CRIME_VALID_PASSWORD'),
-            secret('crime-invalid-test-account', 'CRIME_INVALID_USERNAME'),
-            secret('crime-invalid-test-account-password', 'CRIME_INVALID_PASSWORD')
+            secret('crime-valid-test-account-password', 'CRIME_VALID_PASSWORD')
         ]) {
         env.B2C_USERNAME = "${B2C_USERNAME}"
         env.B2C_PASSWORD = "${B2C_PASSWORD}"
@@ -62,8 +60,6 @@ def setupTestSecrets() {
         env.TEST_USER_PASSWORD = "${TEST_USER_PASSWORD}"
         env.CRIME_VALID_USERNAME = "${CRIME_VALID_USERNAME}"
         env.CRIME_VALID_PASSWORD = "${CRIME_VALID_PASSWORD}"
-        env.CRIME_INVALID_USERNAME = "${CRIME_INVALID_USERNAME}"
-        env.CRIME_INVALID_PASSWORD = "${CRIME_INVALID_PASSWORD}"
     }
 }
 
