@@ -1,4 +1,4 @@
-{% from "../macros/common-components.njk" import goBack, submitButton %}
+{% from "../macros/common-components.njk" import goBack, submitButton, autoCompleteFilteredResults %}
 {% extends "../template.njk" %}
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
@@ -303,14 +303,14 @@
     const defaultVal = {{ defaultValue | dump | safe }}
 
     const element = document.querySelector('#search-input-container');
-    const source = {{ optionList | dump |safe }}
-      accessibleAutocomplete({
-        element: element,
-        id: 'search-input',
-        source: source,
-        displayMenu: 'overlay',
-        defaultValue: defaultVal,
-      });
+    const source = {{ optionList | dump |safe }};
+    const autocompleteParam = {
+      element: element,
+      id: 'search-input',
+      displayMenu: 'overlay',
+      defaultValue: defaultVal,
+    };
+
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
@@ -319,7 +319,6 @@
       let listType = document.getElementById('listType').value;
       let listTypeClassifications = {{ listTypeClassifications | dump | safe }}
       document.getElementById('classification').value = listTypeClassifications[listType];
-
     }
 
     document.getElementById('listType').addEventListener("change", onListTypeChange)
@@ -328,5 +327,6 @@
     // Block is required on this page so the help section goes underneath the form on mobile devices
     document.querySelectorAll(".govuk-grid-row")[0].style.display = 'block';
   </script>
+  {{ autoCompleteFilteredResults(autocompleteParam) }}
   {{ super() }}
 {% endblock %}
