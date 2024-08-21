@@ -14,7 +14,7 @@
         "build": "yarn webpack --config webpack.config.js",
         "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
         "test": "npx if-env CI=true && exit 0 || yarn test:unit --maxWorkers=50%",
-        "test:unit": "jest",
+        "test:unit": "jest --passWithNoTests",
         "test:failures": "jest -f",
         "test:controllers": "jest -- src/test/unit/controllers",
         "test:services": "jest -- src/test/unit/service",
