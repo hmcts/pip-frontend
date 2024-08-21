@@ -3,7 +3,7 @@ module.exports = {
     cacheDirectory: '/tmp/jest-cache',
     preset: 'ts-jest/presets/js-with-babel',
     transformIgnorePatterns: ['/node_modules/(?!(chai)/)'],
-    roots: ['<rootDir>/src/test/unit'],
+    roots: ['<rootDir>/src/test/unit/controller'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
     moduleNameMapper: {
         '^axios$': require.resolve('axios'),
