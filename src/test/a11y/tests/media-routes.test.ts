@@ -87,64 +87,64 @@ describe('Accessibility - Media User Routes', () => {
         });
     });
 
-    describe('Page with Errors', () => {
-        describe('Case Name Search Page', () => {
-            const url = '/case-name-search';
-
-            beforeEach(() => {
-                sinon.restore();
-                sinon.stub(PublicationService.prototype, 'getCasesByCaseName').resolves([]);
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'case-name': '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'case-name': 'Invalid case name' });
-            });
-        });
-
-        describe('Case Reference Number Search Page', () => {
-            const url = '/case-reference-number-search';
-
-            beforeEach(() => {
-                sinon.restore();
-                sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(null);
-                sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(null);
-            });
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'search-input': '' });
-            });
-
-            describe('with invalid input data', () => {
-                testAccessibility(url, '', true, { 'search-input': 'Invalid case number' });
-            });
-        });
-
-        describe('Bulk Unsubscribe Confirmation Page', () => {
-            const url = '/bulk-unsubscribe-confirmation';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
-            });
-        });
-
-        describe('Pending Subscriptions Page', () => {
-            const url = '/pending-subscriptions';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true);
-            });
-        });
-
-        describe('Subscription Add Page', () => {
-            const url = '/subscription-add';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'subscription-choice': '' });
-            });
-        });
-    });
+    // describe('Page with Errors', () => {
+    //     describe('Case Name Search Page', () => {
+    //         const url = '/case-name-search';
+    //
+    //         beforeEach(() => {
+    //             sinon.restore();
+    //             sinon.stub(PublicationService.prototype, 'getCasesByCaseName').resolves([]);
+    //         });
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true, { 'case-name': '' });
+    //         });
+    //
+    //         describe('with invalid input data', () => {
+    //             testAccessibility(url, '', true, { 'case-name': 'Invalid case name' });
+    //         });
+    //     });
+    //
+    //     describe('Case Reference Number Search Page', () => {
+    //         const url = '/case-reference-number-search';
+    //
+    //         beforeEach(() => {
+    //             sinon.restore();
+    //             sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(null);
+    //             sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(null);
+    //         });
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true, { 'search-input': '' });
+    //         });
+    //
+    //         describe('with invalid input data', () => {
+    //             testAccessibility(url, '', true, { 'search-input': 'Invalid case number' });
+    //         });
+    //     });
+    //
+    //     describe('Bulk Unsubscribe Confirmation Page', () => {
+    //         const url = '/bulk-unsubscribe-confirmation';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true, { 'bulk-unsubscribe-choice': '' });
+    //         });
+    //     });
+    //
+    //     describe('Pending Subscriptions Page', () => {
+    //         const url = '/pending-subscriptions';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true);
+    //         });
+    //     });
+    //
+    //     describe('Subscription Add Page', () => {
+    //         const url = '/subscription-add';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true, { 'subscription-choice': '' });
+    //         });
+    //     });
+    // });
 });

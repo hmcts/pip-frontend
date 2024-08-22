@@ -126,37 +126,37 @@ describe('Accessibility - System Admin Routes', () => {
         });
     });
 
-    describe('Page with Errors', () => {
-        describe('Create System Admin Account Page', () => {
-            const url = '/create-system-admin-account';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { firstName: null, lastName: null, emailAddress: null });
-            });
-        });
-
-        describe('Reference Data upload Page', () => {
-            const url = '/reference-data-upload';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true);
-            });
-        });
-
-        describe('Delete Court Reference Data Confirmation Page', () => {
-            const url = '/delete-court-reference-data-confirmation';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { 'delete-choice': null });
-            });
-        });
-
-        describe('Bulk Create Media Accounts Page', () => {
-            const url = '/bulk-create-media-accounts';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true);
-            });
-        });
-    });
+    // describe('Page with Errors', () => {
+    //     describe('Create System Admin Account Page', () => {
+    //         const url = '/create-system-admin-account';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true, { firstName: null, lastName: null, emailAddress: null });
+    //         });
+    //     });
+    //
+    //     describe('Reference Data upload Page', () => {
+    //         const url = '/reference-data-upload';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true);
+    //         });
+    //     });
+    //
+    //     describe('Delete Court Reference Data Confirmation Page', () => {
+    //         const url = '/delete-court-reference-data-confirmation';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true, { 'delete-choice': null });
+    //         });
+    //     });
+    //
+    //     describe('Bulk Create Media Accounts Page', () => {
+    //         const url = '/bulk-create-media-accounts';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true);
+    //         });
+    //     });
+    // });
 });

@@ -5,11 +5,12 @@ import { PipRequest } from '../models/request/PipRequest';
 
 const { redisClient } = require('../cacheManager');
 
-const redisStore = process.env.REDIS_MOCK ? null
+const redisStore = process.env.REDIS_MOCK
+    ? null
     : new RedisStore({
-        prefix: 'RateLimit',
-        sendCommand: async (...args: string[]) => redisClient.call(args),
-    });
+          prefix: 'RateLimit',
+          sendCommand: async (...args: string[]) => redisClient.call(args),
+      });
 
 export const standardRateLimiter = rateLimit({
     windowMs: 60 * 1000,
