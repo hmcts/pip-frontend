@@ -68,6 +68,9 @@ export default function (app: Application): void {
             : res.redirect('/not-found');
     }
 
+    app.get('/ip', (request, response) => response.send(request.ip))
+    app.get('/x-forwarded-for', (request, response) => response.send(request.headers['x-forwarded-for']))
+
     app.use(standardRateLimiter);
     app.use('/manual-upload', strictRateLimiter);
     app.use('/remove-list-search', rateLimiterWithUserId);
