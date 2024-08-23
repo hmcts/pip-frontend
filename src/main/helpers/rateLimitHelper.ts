@@ -7,7 +7,7 @@ const { redisClient } = require('../cacheManager');
 
 export const standardRateLimiter = rateLimit({
     windowMs: 60 * 1000,
-    limit: 50,
+    limit: 20,
     message: 'Too many requests from this IP address, please try again later.',
     store: process.env.REDIS_MOCK
         ? null
@@ -24,7 +24,7 @@ export const strictRateLimiter = rateLimit({
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
-              prefix: 'RateLimit',
+              prefix: 'RateLimit2',
               sendCommand: async (...args: string[]) => redisClient.call(...args),
           }),
 });
@@ -36,7 +36,7 @@ export const rateLimiterWithUserId = rateLimit({
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
-              prefix: 'RateLimit',
+              prefix: 'RateLimit3',
               sendCommand: async (...args: string[]) => redisClient.call(...args),
           }),
     keyGenerator: function (req: PipRequest) {
@@ -51,7 +51,7 @@ export const slowDownLimiter = slowDown({
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
-              prefix: 'RateLimit',
+              prefix: 'RateLimit4',
               sendCommand: async (...args: string[]) => redisClient.call(...args),
           }),
 });
