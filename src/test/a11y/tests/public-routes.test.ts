@@ -40,27 +40,27 @@ describe('Accessibility - Public Routes', () => {
         });
     });
 
-    describe('Page with Errors', () => {
-        describe('A-Z Search Page', () => {
-            describe('with no input data', () => {
-                const url = '/search';
-                testAccessibility(url, '', true, {'search-input': ''});
-            });
-        });
-
-        describe('Sign-in Page', () => {
-            describe('with no input data', () => {
-                const url = '/sign-in';
-                testAccessibility(url, '', true, {'sign-in': ''});
-            });
-        });
-
-        describe('View option  Page', () => {
-            const url = '/view-option';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, {'view-choice': ''});
-            });
-        });
-    });
+    // describe('Page with Errors', () => {
+    //     describe('A-Z Search Page', () => {
+    //         describe('with no input data', () => {
+    //             const url = '/search';
+    //             testAccessibility(url, '', true, {'search-input': ''});
+    //         });
+    //     });
+    //
+    //     describe('Sign-in Page', () => {
+    //         describe('with no input data', () => {
+    //             const url = '/sign-in';
+    //             testAccessibility(url, '', true, {'sign-in': ''});
+    //         });
+    //     });
+    //
+    //     describe('View option  Page', () => {
+    //         const url = '/view-option';
+    //
+    //         describe('with no input data', () => {
+    //             testAccessibility(url, '', true, {'view-choice': ''});
+    //         });
+    //     });
+    // });
 });

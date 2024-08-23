@@ -7,7 +7,7 @@ const { redisClient } = require('../cacheManager');
 
 export const standardRateLimiter = rateLimit({
     windowMs: 60 * 1000,
-    limit: 20,
+    limit: 30,
     message: 'Too many requests from this IP address, please try again later.',
     store: process.env.REDIS_MOCK
         ? null
