@@ -687,12 +687,7 @@ export default function (app: Application): void {
     app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
 
     //CFT Routes
-    app.get(
-        '/cft-login',
-        regenerateSession,
-        keepSessionLanguage,
-        app.locals.container.cradle.cftLoginController.get
-    );
+    app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);
     app.get(
         '/cft-login/return',
         passport.authenticate('cft-idam', {
