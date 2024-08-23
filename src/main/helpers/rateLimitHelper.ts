@@ -12,9 +12,9 @@ export const standardRateLimiter = rateLimit({
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
-            prefix: 'RateLimit',
-            sendCommand: async (...args: string[]) => redisClient.call(...args),
-        }),
+              prefix: 'RateLimit',
+              sendCommand: async (...args: string[]) => redisClient.call(...args),
+          }),
 });
 
 export const strictRateLimiter = rateLimit({
@@ -24,9 +24,9 @@ export const strictRateLimiter = rateLimit({
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
-            prefix: 'RateLimit',
-            sendCommand: async (...args: string[]) => redisClient.call(...args),
-        }),
+              prefix: 'RateLimit',
+              sendCommand: async (...args: string[]) => redisClient.call(...args),
+          }),
 });
 
 export const rateLimiterWithUserId = rateLimit({
@@ -34,11 +34,11 @@ export const rateLimiterWithUserId = rateLimit({
     limit: 10,
     message: 'Too many requests from this IP address, please try again later.',
     store: process.env.REDIS_MOCK
-    ? null
-    : new RedisStore({
-        prefix: 'RateLimit',
-        sendCommand: async (...args: string[]) => redisClient.call(...args),
-    }),
+        ? null
+        : new RedisStore({
+              prefix: 'RateLimit',
+              sendCommand: async (...args: string[]) => redisClient.call(...args),
+          }),
     keyGenerator: function (req: PipRequest) {
         return req.user['userId'];
     },
@@ -51,7 +51,7 @@ export const slowDownLimiter = slowDown({
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
-            prefix: 'RateLimit',
-            sendCommand: async (...args: string[]) => redisClient.call(...args),
-        }),
+              prefix: 'RateLimit',
+              sendCommand: async (...args: string[]) => redisClient.call(...args),
+          }),
 });
