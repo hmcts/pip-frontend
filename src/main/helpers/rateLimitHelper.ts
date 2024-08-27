@@ -15,6 +15,7 @@ export const standardRateLimiter = rateLimit({
               prefix: 'RateLimit',
               sendCommand: async (...args: string[]) => redisClient.call(...args),
           }),
+    keyGenerator: ipKeyGenerator,
 });
 
 export const strictRateLimiter = rateLimit({
@@ -27,6 +28,7 @@ export const strictRateLimiter = rateLimit({
               prefix: 'RateLimit2',
               sendCommand: async (...args: string[]) => redisClient.call(...args),
           }),
+    keyGenerator: ipKeyGenerator,
 });
 
 export const rateLimiterWithUserId = rateLimit({
@@ -54,4 +56,20 @@ export const slowDownLimiter = slowDown({
               prefix: 'RateLimit4',
               sendCommand: async (...args: string[]) => redisClient.call(...args),
           }),
+    keyGenerator: ipKeyGenerator,
 });
+
+function ipKeyGenerator(req: PipRequest) {
+    const ip = req.headers['x-forwarded-for'];
+    let key;
+    if (!ip) {
+        key = req.socket.remoteAddress
+    } else if (Array.isArray(ip)) {
+        key = ip[0];
+    } else {
+        key = ip.split(',')[0].trim();
+    }
+
+    console.log("***IP address is: " + key);
+    return key;
+}
