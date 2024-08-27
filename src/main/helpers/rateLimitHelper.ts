@@ -4,11 +4,12 @@ import { RedisStore } from 'rate-limit-redis';
 import { PipRequest } from '../models/request/PipRequest';
 
 const { redisClient } = require('../cacheManager');
+const tooManyRequestMessage = 'Too many requests from this IP address, please try again later.';
 
 export const standardRateLimiter = rateLimit({
     windowMs: 60 * 1000,
     limit: 30,
-    message: 'Too many requests from this IP address, please try again later.',
+    message: tooManyRequestMessage,
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
@@ -21,7 +22,7 @@ export const standardRateLimiter = rateLimit({
 export const strictRateLimiter = rateLimit({
     windowMs: 60 * 1000,
     limit: 5,
-    message: 'Too many requests from this IP address, please try again later.',
+    message: tooManyRequestMessage,
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
@@ -34,7 +35,7 @@ export const strictRateLimiter = rateLimit({
 export const rateLimiterWithUserId = rateLimit({
     windowMs: 60 * 1000,
     limit: 10,
-    message: 'Too many requests from this IP address, please try again later.',
+    message: tooManyRequestMessage,
     store: process.env.REDIS_MOCK
         ? null
         : new RedisStore({
@@ -63,13 +64,13 @@ function ipKeyGenerator(req: PipRequest) {
     const ip = req.headers['x-forwarded-for'];
     let key;
     if (!ip) {
-        key = req.socket.remoteAddress
+        key = req.socket.remoteAddress;
     } else if (Array.isArray(ip)) {
         key = ip[0];
     } else {
         key = ip.split(',')[0].trim();
     }
 
-    console.log("***IP address is: " + key);
+    console.log('***IP address is: ' + key);
     return key;
 }
