@@ -52,7 +52,7 @@ describe('Search Page', () => {
     });
 
     it('should use accessible autocomplete in script', () => {
-        const script = htmlRes.getElementsByTagName('script')[6];
+        const script = htmlRes.getElementsByTagName('script')[7];
         expect(script.innerHTML).contains('accessibleAutocomplete');
     });
 

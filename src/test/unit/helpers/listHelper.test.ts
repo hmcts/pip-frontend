@@ -6,7 +6,8 @@ import {
     isValidList,
     isValidListType,
     missingListType,
-    addListDetailsToArray
+    addListDetailsToArray,
+    isValidMetaData,
 } from '../../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import fs from 'fs';
@@ -20,7 +21,7 @@ const mockArtefact = {
     locationId: '5',
     artefactId: 'valid-artefact',
     dateRange: 'Invalid DateTime to Invalid DateTime',
-    contDate: '24 Mar 2022'
+    contDate: '24 Mar 2022',
 };
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
@@ -75,6 +76,26 @@ describe('List helper', () => {
             const metaData = HttpStatusCode.NotFound;
 
             expect(isValidList(listData, metaData)).toBeFalsy();
+        });
+    });
+
+    describe('is valid metadata', () => {
+        it('should return true if metadata is valid', () => {
+            const metaData = 'Test data';
+
+            expect(isValidMetaData(metaData)).toBeTruthy();
+        });
+
+        it('should return false if metadata is missing', () => {
+            const metaData = null;
+
+            expect(isValidMetaData(metaData)).toBeFalsy();
+        });
+
+        it('should return false if metadata status code is 404', () => {
+            const metaData = HttpStatusCode.NotFound;
+
+            expect(isValidMetaData(metaData)).toBeFalsy();
         });
     });
 
@@ -137,7 +158,7 @@ describe('List helper', () => {
                     locationId: '5',
                     artefactId: 'valid-artefact',
                     dateRange: 'Invalid DateTime to Invalid DateTime',
-                    contDate: '24 Mar 2022'
+                    contDate: '24 Mar 2022',
                 },
             ];
             const list = [];

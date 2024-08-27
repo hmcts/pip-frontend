@@ -429,10 +429,10 @@ export default function (app: Application): void {
         app.locals.container.cradle.removeListConfirmationController.post
     );
     app.get('/remove-list-search', isPermittedManualUpload, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.get(req, res, 'remove-list-search')
+        app.locals.container.cradle.removeListSearchController.get(req, res)
     );
     app.post('/remove-list-search', isPermittedManualUpload, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.post(req, res, 'remove-list-search')
+        app.locals.container.cradle.removeListSearchController.post(req, res)
     );
     app.get(
         '/remove-list-search-results',
@@ -621,10 +621,10 @@ export default function (app: Application): void {
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
 
     app.get('/delete-court-reference-data', isPermittedSystemAdmin, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.get(req, res, 'delete-court-reference-data')
+        app.locals.container.cradle.deleteCourtReferenceDataController.get(req, res)
     );
     app.post('/delete-court-reference-data', isPermittedSystemAdmin, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.post(req, res, 'delete-court-reference-data')
+        app.locals.container.cradle.deleteCourtReferenceDataController.post(req, res)
     );
     app.get('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get(

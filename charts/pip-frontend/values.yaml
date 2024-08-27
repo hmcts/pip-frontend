@@ -11,7 +11,8 @@ nodejs:
         ENABLE_CFT: false
         ENABLE_SSO: false
         SESSION_COOKIE_SAME_SITE: 'lax'
-    memoryLimits: 1024Mi
+    memoryLimits: 2048Mi
+    memoryRequests: 1024Mi
     cpuRequests: 300m
     keyVaults:
         pip-ss-kv:
@@ -49,8 +50,6 @@ nodejs:
                   alias: SUBSCRIPTION_MANAGEMENT_AZ_API
                 - name: app-pip-account-management-scope
                   alias: ACCOUNT_MANAGEMENT_AZ_API
-                - name: app-pip-channel-management-scope
-                  alias: CHANNEL_MANAGEMENT_AZ_API
                 - name: app-insights-nodejs-instrumentation-key
                   alias: INSTRUMENTATION_KEY
                 - name: b2c-url
