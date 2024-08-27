@@ -94,7 +94,7 @@ describe('Et Daily List Controller', () => {
             contentDate: '14 Chwefror 2022',
             publishedDate: '13 Chwefror 2022',
             publishedTime: '9:30am',
-            courtName: "Llys Ynadon y Fenni",
+            courtName: 'Llys Ynadon y Fenni',
             provenance: 'prov1',
         };
 
