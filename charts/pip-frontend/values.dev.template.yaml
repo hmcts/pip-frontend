@@ -13,6 +13,5 @@ nodejs:
         ADMIN_AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/admin/return
         FRONTEND_URL: https://${SERVICE_FQDN}
         EXCLUDE_E2E: true
-        ENABLE_CFT: true
         CFT_IDAM_URL: https://idam-web-public.aat.platform.hmcts.net
         SESSION_COOKIE_SAME_SITE: ''
