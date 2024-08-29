@@ -20,7 +20,6 @@ describe('Sign In Option Controller', () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
         const options = {
-            enableCft: 'true',
             ...i18n['sign-in'],
             displayError: false,
         };
@@ -40,7 +39,6 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
         request.query = { error: 'true' };
         const options = {
-            enableCft: 'true',
             ...i18n['sign-in'],
             displayError: true,
         };
