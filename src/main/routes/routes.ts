@@ -1,5 +1,4 @@
 import { Application } from 'express';
-import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
     isPermittedAnyRole,
@@ -688,23 +687,16 @@ export default function (app: Application): void {
     app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
 
     //CFT Routes
-    if (process.env.ENABLE_CFT === 'true') {
-        app.get(
-            '/cft-login',
-            regenerateSession,
-            keepSessionLanguage,
-            app.locals.container.cradle.cftLoginController.get
-        );
-        app.get(
-            '/cft-login/return',
-            passport.authenticate('cft-idam', {
-                failureRedirect: '/cft-rejected-login',
-            }),
-            keepSessionLanguage,
-            processCftIdamSignIn
-        );
-        app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
-    }
+    app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);
+    app.get(
+        '/cft-login/return',
+        passport.authenticate('cft-idam', {
+            failureRedirect: '/cft-rejected-login',
+        }),
+        keepSessionLanguage,
+        processCftIdamSignIn
+    );
+    app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
 
     app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {
