@@ -35,7 +35,7 @@
         <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone']) }}</p>
         <p>{{ importantInformationP3 }}</p>
         <p>{{ importantInformationP4 }}</p>
-        <p>{{ importantInformationP5 }} {<a href="https://www.gov.uk/government/consultations/open-justice-the-way-forward">Link to Open Justice The Way Forward</a>}.</p>
+        <p>{{ importantInformationP5 }} <a href="{{ openJusticeGuidance }}">{{ openJusticeGuidance }}</a>.</p>
       </div>
     </details>
     {{ searchInput(text = searchCases) }}
