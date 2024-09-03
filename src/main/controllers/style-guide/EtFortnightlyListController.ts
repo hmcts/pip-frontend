@@ -37,6 +37,7 @@ export default class EtFortnightlyListController {
                 venueTelephone: fileData['venue']['venueContact']['venueTelephone'],
             };
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
+            const courtRegion = req.lng === 'cy' ? returnedCourt.welshRegion : returnedCourt.region;
             const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
 
             res.render(listPath, {
@@ -46,7 +47,7 @@ export default class EtFortnightlyListController {
                 tableData,
                 courtName,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
-                region: returnedCourt.region,
+                region: courtRegion,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
