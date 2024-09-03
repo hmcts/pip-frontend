@@ -56,9 +56,10 @@ describe('Et Daily List Controller', () => {
     const request = mockRequest(i18n);
     request.path = '/et-daily-list';
 
-    it('should render the ET daily cause list page', async () => {
+    it('should render the ET daily cause list page in English', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
+        request.lng = 'en';
 
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -70,6 +71,30 @@ describe('Et Daily List Controller', () => {
             publishedDate: '13 February 2022',
             publishedTime: '9:30am',
             courtName: "Abergavenny Magistrates' Court",
+            provenance: 'prov1',
+        };
+
+        responseMock.expects('render').once().withArgs(listPath, expectedData);
+
+        await etDailyListController.get(request, response);
+        return responseMock.verify();
+    });
+
+    it('should render the ET daily cause list page in Welsh', async () => {
+        request.query = { artefactId: artefactId };
+        request.user = { userId: '1' };
+        request.lng = 'cy';
+
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['style-guide'][listType],
+            ...i18n['list-template'],
+            listData,
+            region: ['Bedford Welsh'],
+            contentDate: '14 Chwefror 2022',
+            publishedDate: '13 Chwefror 2022',
+            publishedTime: '9:30am',
+            courtName: 'Llys Ynadon y Fenni',
             provenance: 'prov1',
         };
 
