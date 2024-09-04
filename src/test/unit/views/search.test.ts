@@ -86,10 +86,7 @@ describe('Search Page', () => {
 
     it('anchor element should link to alphabetical search page', () => {
         const anchorElement = htmlRes.getElementsByClassName('govuk-link');
-        expect(anchorElement[2].getAttribute('href')).eq(
-            '/alphabetical-search',
-            'Could not find the anchor element'
-        );
+        expect(anchorElement[2].getAttribute('href')).eq('/alphabetical-search', 'Could not find the anchor element');
     });
 });
 
