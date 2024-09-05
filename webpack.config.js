@@ -40,7 +40,8 @@ module.exports = {
     },
     resolve: {
         alias: {
-            node_modules: path.resolve(__dirname, './node_modules/'), //Required for MOJ Frontend due to relative paths
+            //Required for MOJ Frontend due to relative paths
+            "node_modules/govuk-frontend" : path.resolve(__dirname, './node_modules/govuk-frontend/'),
         },
         extensions: ['.ts', '.js', '.json'],
     },
