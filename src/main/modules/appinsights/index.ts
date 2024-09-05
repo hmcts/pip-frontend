@@ -1,19 +1,19 @@
 import config from 'config';
 import process from 'process';
 
-const appInsights = require('applicationinsights');
+const appInsights= require('applicationinsights');
 
 export class AppInsights {
     enable(): void {
-        let appInsightsKey;
-        if (process.env.INSTRUMENTATION_KEY) {
-            appInsightsKey = process.env.INSTRUMENTATION_KEY;
-        } else if (config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY')) {
-            appInsightsKey = config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY');
+        let appInsightsConnectionString;
+        if (process.env.APP_INSIGHTS_CONNECTION_STRING) {
+            appInsightsConnectionString = process.env.APP_INSIGHTS_CONNECTION_STRING;
+        } else if (config.has('secrets.pip-ss-kv.APP_INSIGHTS_CONNECTION_STRING')) {
+            appInsightsConnectionString = config.get('secrets.pip-ss-kv.APP_INSIGHTS_CONNECTION_STRING');
         }
 
-        if (appInsightsKey) {
-            appInsights.setup(appInsightsKey).setSendLiveMetrics(true).start();
+        if (appInsightsConnectionString) {
+            appInsights.setup(appInsightsConnectionString).setSendLiveMetrics(true).start();
 
             appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'pip-frontend';
             appInsights.defaultClient.trackTrace({

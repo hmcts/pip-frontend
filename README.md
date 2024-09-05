@@ -145,7 +145,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | ACCOUNT_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service                             | No        |
 | SUBSCRIPTION_MANAGEMENT_AZ_API     | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service                        | No        |
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
-| INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         | No        |
+| APP_INSIGHTS_CONNECTION_STRING     | This is the connection string used to connect to Application Insights                                                                                                                   | No        |
 | SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie. This is only used in the clusters, and not required locally.                                                                                   | No        |
 
 ##### Additional test secrets
