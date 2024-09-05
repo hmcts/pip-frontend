@@ -39,6 +39,9 @@ module.exports = {
         ],
     },
     resolve: {
+        alias: {
+            node_modules: path.resolve(__dirname, './node_modules/'), //Required for MOJ Frontend due to relative paths
+        },
         extensions: ['.ts', '.js', '.json'],
     },
     output: {
