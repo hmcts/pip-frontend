@@ -76,12 +76,17 @@ describe('Search Page', () => {
         expect(inputError.length).equal(0, 'Input should not have error classes');
     });
 
-    it('should display a h2 element for the Want to see all courts and tribunals section', () => {
-        const h2Element = htmlRes.getElementsByTagName('h2');
-        expect(h2Element[0].innerHTML).contains(
-            'Want to see all courts and tribunals?',
-            'Could not find the h2 element'
+    it('should display an anchor element for navigating to the alphabetical search page', () => {
+        const anchorElement = htmlRes.getElementsByClassName('govuk-link');
+        expect(anchorElement[2].innerHTML).contains(
+            'Select from an A-Z list of courts and tribunals',
+            'Could not find the anchor element'
         );
+    });
+
+    it('anchor element should link to alphabetical search page', () => {
+        const anchorElement = htmlRes.getElementsByClassName('govuk-link');
+        expect(anchorElement[2].getAttribute('href')).eq('/alphabetical-search', 'Could not find the anchor element');
     });
 });
 
