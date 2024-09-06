@@ -14,7 +14,7 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
     I.amOnPage('/search');
-    I.waitForText('Want to see all courts and tribunals?');
+    I.waitForText('Select from an A-Z list of courts and tribunals');
     I.click('Select from an A-Z list of courts and tribunals');
     I.waitForText('Find a court or tribunal');
     I.see('Selected filter');
