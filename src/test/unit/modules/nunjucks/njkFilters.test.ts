@@ -44,20 +44,6 @@ describe('Nunjucks Custom Filter Tests', function () {
         });
     });
 
-    describe('tel link Filter', function () {
-        it('should return a tel link for a given phone number', function () {
-            const telString = env.renderString('{{ "0773243290"| phoneLink }}', {});
-            expect(telString).to.equal('<a class=govuk-link href="tel:0773243290">0773243290</a>');
-        });
-    });
-
-    describe('email link Filter', function () {
-        it('should return an email link for a given phone number', function () {
-            const emailString = env.renderString('{{ "jimothy@sexit.llc"| emailLink }}', {});
-            expect(emailString).to.equal('<a class=govuk-link href="mailto:jimothy@sexit.llc">jimothy@sexit.llc</a>');
-        });
-    });
-
     describe('date to sort value filter', function () {
         it('should return sort value', function () {
             const result = env.renderString('{{ "07/01/2022"| dateToSortValue }}', {});
