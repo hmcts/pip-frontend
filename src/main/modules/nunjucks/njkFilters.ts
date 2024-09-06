@@ -66,16 +66,6 @@ function createFilters(env) {
         );
     });
 
-    // for emails to appear as govuk links
-    env.addFilter('emailLink', function (x) {
-        return this.env.filters.safe('<a class=govuk-link href="mailto:' + x + '">' + x + '</a>');
-    });
-
-    // for phone numbers to display as links
-    env.addFilter('phoneLink', function (x) {
-        return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');
-    });
-
     // to transform duration in hours/mins into a multilingual single value.
     env.addFilter('getDuration', function (hours, mins, language) {
         return [printableDuration(hours, 'hour', language), printableDuration(mins, 'min', language)].join(' ').trim();
