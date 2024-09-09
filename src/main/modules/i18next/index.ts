@@ -28,7 +28,6 @@ export class I18next {
     public enableFor(app: express.Express): void {
         app.use(i18nextMiddleware.handle(i18next));
 
-        // @ts-ignore - Required due to the way we structure our i18n files.
         app.use((req: PipRequest, res: Response, next: NextFunction) => {
             Object.assign(res.locals, req, req.i18n.getDataByLanguage(req.lng).template);
             next();

@@ -20,9 +20,7 @@ uploadStub.withArgs({ ...mockData, file: '', userId: '1' }).resolves(false);
 
 describe('Reference manual manual upload summary controller', () => {
     const i18n = {
-        'system-admin': {
-            'reference-data-upload-summary': {},
-        },
+        'reference-data-upload-summary': {},
     };
     const request = mockRequest(i18n);
     const response = {
@@ -37,7 +35,7 @@ describe('Reference manual manual upload summary controller', () => {
             request.user = { id: '1' };
             const options = {
                 ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
+                    request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']
                 ),
                 fileUploadData: mockData,
                 displayError: false,
@@ -54,7 +52,7 @@ describe('Reference manual manual upload summary controller', () => {
             request.user = { id: '1' };
             const options = {
                 ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
+                    request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']
                 ),
                 fileUploadData: mockData,
                 displayError: true,
@@ -72,7 +70,7 @@ describe('Reference manual manual upload summary controller', () => {
             request.user = { emails: ['1'], oid: '1234' };
             const options = {
                 ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
+                    request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']
                 ),
                 fileUploadData: mockData,
                 displayError: true,
@@ -88,7 +86,7 @@ describe('Reference manual manual upload summary controller', () => {
             request.query = { check: 'true' };
             const options = {
                 ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
+                    request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']
                 ),
                 fileUploadData: mockData,
                 displayError: false,

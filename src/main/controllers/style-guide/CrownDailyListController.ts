@@ -27,7 +27,7 @@ export default class CrownDailyListController {
             let outputData = crimeListsService.manipulateCrimeListData(
                 JSON.stringify(searchResults),
                 req.lng,
-                listPath
+                listUrl
             );
 
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
@@ -40,7 +40,7 @@ export default class CrownDailyListController {
             const location = await locationService.getLocationById(metaData['locationId']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: outputData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

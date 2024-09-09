@@ -27,7 +27,7 @@ export default class MagistratesPublicListController {
             const manipulatedData = crimeListsService.manipulateCrimeListData(
                 JSON.stringify(searchResults),
                 req.lng,
-                listPath
+                listType
             );
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
@@ -39,7 +39,7 @@ export default class MagistratesPublicListController {
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

@@ -24,7 +24,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
 
                 res.render('system-admin/manage-third-party-users-subscriptions', {
                     ...cloneDeep(
-                        req.i18n.getDataByLanguage(req.lng)['system-admin']['manage-third-party-users-subscriptions']
+                        req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions']
                     ),
                     listTypes: thirdPartyService.generateListTypes(listTypes, subscriptions),
                     userId: req.query['userId'],
@@ -61,7 +61,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
 
             res.render(
                 'system-admin/manage-third-party-users-subscriptions-confirm',
-                req.i18n.getDataByLanguage(req.lng)['system-admin']['manage-third-party-users-subscriptions-confirm']
+                req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions-confirm']
             );
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

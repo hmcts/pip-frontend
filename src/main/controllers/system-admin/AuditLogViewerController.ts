@@ -11,7 +11,7 @@ export default class AuditLogViewerController {
             req.user['userId']
         );
         res.render('system-admin/audit-log-viewer', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['audit-log-viewer']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['audit-log-viewer']),
             header: auditLogService.getTableHeaders(),
             auditLogData: pageData['auditLogData'],
             paginationData: pageData['paginationData'],

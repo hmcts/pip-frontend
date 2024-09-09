@@ -7,9 +7,7 @@ import { AuditLogService } from '../../../../main/service/AuditLogService';
 const auditLogViewerController = new AuditLogViewerController();
 
 const i18n = {
-    'system-admin': {
-        'audit-log-viewer': {},
-    },
+    'audit-log-viewer': {},
 };
 
 sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns({
@@ -32,7 +30,7 @@ describe('Audit log viewer controller', () => {
         request.query = { page: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['audit-log-viewer'],
+            ...i18n['audit-log-viewer'],
             header: 'testHeader',
             auditLogData: 'test',
             paginationData: 'test2',

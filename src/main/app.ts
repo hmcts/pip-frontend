@@ -79,14 +79,12 @@ routes(app);
 setupDev(app, developmentMode);
 
 // returning "not found" page for requests with paths not resolved by the router
-// @ts-ignore - Required due to the way we structure our i18n files.
 app.use((req: PipRequest, res) => {
     res.status(404);
     res.render('not-found', req.i18n.getDataByLanguage(req.lng)['not-found']);
 });
 
 // error handler
-// @ts-ignore - Required due to the way we structure our i18n files.
 app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
     logger.error(`${err.stack || err}`);
 

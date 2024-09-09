@@ -14,7 +14,7 @@ export default class CreateSystemAdminAccountSummaryController {
             formData,
             accountCreated: false,
             displayError: false,
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account-summary']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']),
         });
     }
 
@@ -35,7 +35,7 @@ export default class CreateSystemAdminAccountSummaryController {
                     formData,
                     displayError: true,
                     ...cloneDeep(
-                        req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account-summary']
+                        req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-summary']
                     ),
                 });
             } else {
@@ -51,7 +51,7 @@ export default class CreateSystemAdminAccountSummaryController {
                     isDuplicateError: response['duplicate'],
                     isAboveMaxError: response['aboveMaxSystemAdmin'],
                     ...cloneDeep(
-                        req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account-confirm']
+                        req.i18n.getDataByLanguage(req.lng)['create-system-admin-account-confirm']
                     ),
                 });
             }

@@ -8,9 +8,7 @@ import { UserSearchCriteria } from '../../../../main/models/UserSearchCriteria';
 const userManagementController = new UserManagementController();
 
 const i18n = {
-    'system-admin': {
-        'user-management': {},
-    },
+    'user-management': {},
 };
 
 const userId = '1234';
@@ -73,7 +71,7 @@ describe('User management controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['user-management'],
+            ...i18n['user-management'],
             header: 'testHeader',
             userData: 'test',
             paginationData: 'test2',
@@ -106,7 +104,7 @@ describe('User management controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['user-management'],
+            ...i18n['user-management'],
             header: 'testHeader',
             userData: 'otherData',
             paginationData: 'test2',

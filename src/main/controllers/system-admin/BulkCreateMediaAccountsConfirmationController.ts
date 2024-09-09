@@ -26,7 +26,7 @@ export default class BulkCreateMediaAccountsConfirmationController {
 
         res.render(bulkCreateAccountsConfirmationUrl, {
             ...cloneDeep(
-                req.i18n.getDataByLanguage(req.lng)['system-admin']['bulk-create-media-accounts-confirmation']
+                req.i18n.getDataByLanguage(req.lng)['bulk-create-media-accounts-confirmation']
             ),
             accountsToCreate,
         });
@@ -48,7 +48,7 @@ export default class BulkCreateMediaAccountsConfirmationController {
         if (!confirmed) {
             return res.render(bulkCreateAccountsConfirmationUrl, {
                 ...cloneDeep(
-                    req.i18n.getDataByLanguage(req.lng)['system-admin']['bulk-create-media-accounts-confirmation']
+                    req.i18n.getDataByLanguage(req.lng)['bulk-create-media-accounts-confirmation']
                 ),
                 accountsToCreate,
                 displayNoOptionError: true,
@@ -68,7 +68,7 @@ export default class BulkCreateMediaAccountsConfirmationController {
             } else {
                 return res.render(bulkCreateAccountsConfirmationUrl, {
                     ...cloneDeep(
-                        req.i18n.getDataByLanguage(req.lng)['system-admin']['bulk-create-media-accounts-confirmation']
+                        req.i18n.getDataByLanguage(req.lng)['bulk-create-media-accounts-confirmation']
                     ),
                     accountsToCreate,
                     displayAccountCreationError: true,

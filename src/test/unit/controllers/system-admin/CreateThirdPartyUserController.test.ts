@@ -8,10 +8,8 @@ const generalThirdPartyFormData = { thirdPartyName: 'name', thirdPartyRole: 'GEN
 const verifiedThirdPartyFormData = { thirdPartyName: 'name', thirdPartyRole: 'VERIFIED_THIRD_PARTY_ALL' };
 
 const i18n = {
-    'system-admin': {
-        'create-third-party-user': {
-            title: 'Create third party user',
-        },
+    'create-third-party-user': {
+        title: 'Create third party user',
     },
 };
 
@@ -68,7 +66,7 @@ describe('Create third party user controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
-                ...i18n['system-admin']['create-third-party-user'],
+                ...i18n['create-third-party-user'],
                 userRoleList: userRoleList,
                 formData: generalThirdPartyFormData,
             };
@@ -86,7 +84,7 @@ describe('Create third party user controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
-                ...i18n['system-admin']['create-third-party-user'],
+                ...i18n['create-third-party-user'],
                 userRoleList: userRoleList,
                 formData: generalThirdPartyFormData,
                 formErrors: formErrors,

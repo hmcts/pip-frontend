@@ -10,9 +10,9 @@ import {
     manualUploadRoles,
     mediaAccountCreationRoles,
     checkRoles,
-} from '../authentication/authenticationHelper';
+} from './authenticationHelper';
 
-import * as authenticationConfig from '../authentication/authentication-config.json';
+import authenticationConfig from '../authentication/authentication-config.json';
 
 const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
 

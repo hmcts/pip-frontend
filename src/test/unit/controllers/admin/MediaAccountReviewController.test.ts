@@ -7,9 +7,7 @@ import { cloneDeep } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
 const i18n = {
-    admin: {
-        'media-account-review': {},
-    },
+    'media-account-review': {},
     error: {},
 };
 
@@ -99,7 +97,7 @@ describe('Media Account Review Controller Test', () => {
             .expects('render')
             .once()
             .withArgs('admin/media-account-review', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['media-account-review']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-review']),
                 applicantData: dummyApplication,
             });
 
@@ -120,7 +118,7 @@ describe('Media Account Review Controller Test', () => {
             .expects('render')
             .once()
             .withArgs('admin/media-account-review', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['media-account-review']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-review']),
                 applicantData: dummyApplicationAllCapsFileType,
             });
 
@@ -141,7 +139,7 @@ describe('Media Account Review Controller Test', () => {
             .expects('render')
             .once()
             .withArgs('admin/media-account-review', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['media-account-review']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-review']),
                 applicantData: dummyApplicationMixedCapsFileType,
             });
 

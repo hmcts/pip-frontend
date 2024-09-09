@@ -60,7 +60,6 @@ describe('Sign In Option Controller', () => {
 
         responseMock.expects('redirect').once().withArgs(CFTAccountUrl);
 
-        // @ts-ignore - Required due to the use of i18n middleware, and our mock PipRequest object
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -76,7 +75,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(CrimeAccountUrl);
-        // @ts-ignore - Required due to the use of i18n middleware, and our mock PipRequest object
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -92,7 +91,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(piUrl);
-        // @ts-ignore - Required due to the use of i18n middleware, and our mock PipRequest object
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -108,7 +107,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/sign-in?error=true');
-        // @ts-ignore - Required due to the use of i18n middleware, and our mock PipRequest object
+
         signInController.post(request, response);
         responseMock.verify();
     });

@@ -28,7 +28,7 @@ export default class UserManagementController {
             );
 
             res.render('system-admin/user-management', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['user-management']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['user-management']),
                 header: userManagementService.getTableHeaders(),
                 userData: pageData['userData'],
                 paginationData: pageData['paginationData'],

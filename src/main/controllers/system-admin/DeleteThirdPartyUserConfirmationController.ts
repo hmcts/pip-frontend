@@ -13,7 +13,7 @@ export default class DeleteThirdPartyUserConfirmationController {
         const userId = req.query.userId as string;
         const thirdPartyUser = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
         res.render('system-admin/delete-third-party-user-confirmation', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-third-party-user-confirmation']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']),
             thirdPartyUser,
             userId,
             noOptionError: false,
@@ -36,7 +36,7 @@ export default class DeleteThirdPartyUserConfirmationController {
             } else {
                 res.render('system-admin/delete-third-party-user-confirmation', {
                     ...cloneDeep(
-                        req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-third-party-user-confirmation']
+                        req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']
                     ),
                     thirdPartyUser,
                     userId,
@@ -54,7 +54,7 @@ export default class DeleteThirdPartyUserConfirmationController {
         } else {
             res.render('system-admin/delete-third-party-user-confirmation', {
                 ...cloneDeep(
-                    req.i18n.getDataByLanguage(req.lng)['system-admin']['delete-third-party-user-confirmation']
+                    req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']
                 ),
                 thirdPartyUser,
                 userId,

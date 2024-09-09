@@ -8,9 +8,7 @@ sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplica
 const mediaApplications = new MediaApplicationsController();
 describe('Media application assessment controller', () => {
     const i18n = {
-        admin: {
-            'media-applications': {},
-        },
+        'media-applications': {}
     };
     const response = {
         render: () => {
@@ -21,7 +19,7 @@ describe('Media application assessment controller', () => {
 
     it('should render with media applications', async () => {
         const expectedData = {
-            ...i18n['admin']['media-applications'],
+            ...i18n['media-applications'],
             mediaApplications: [],
         };
         const responseMock = sinon.mock(response);

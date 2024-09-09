@@ -31,9 +31,7 @@ const mockArtefactsArray = [metadata, metadata2, metadata3];
 
 const mockCourt = { locationId: '5', name: 'Mock Court' };
 const i18n = {
-    admin: {
-        'remove-list-confirmation': {},
-    },
+    'remove-list-confirmation': {},
     error: {},
 };
 const removeListConfirmationController = new RemoveListConfirmationController();
@@ -81,7 +79,7 @@ describe('Remove List Confirmation Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedOptions = {
-            ...i18n['admin']['remove-list-confirmation'],
+            ...i18n['remove-list-confirmation'],
             removalList: mockArtefactsArray,
             locationId: '5',
             court: mockCourt,
@@ -150,7 +148,7 @@ describe('Remove List Confirmation Controller', () => {
             locationId: '5',
         };
         const expectedOptions = {
-            ...i18n['admin']['remove-list-confirmation'],
+            ...i18n['remove-list-confirmation'],
             court: mockCourt,
             removalList: mockArtefactsArray,
             displayError: true,

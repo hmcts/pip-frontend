@@ -37,7 +37,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
             }
             if (response === null) {
                 res.render(`system-admin/${page}`, {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin'][page]),
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
                     court: locationService.formatCourtValue(court),
                     apiError: true,
                     errorMessage:
@@ -60,7 +60,7 @@ export default class DeleteCourtSubscriptionConfirmationController {
             res.redirect('/delete-court-reference-data');
         } else {
             res.render(`system-admin/${page}`, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin'][page]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
                 court: locationService.formatCourtValue(court),
                 apiError: false,
                 displayError: true,
