@@ -1,6 +1,6 @@
 import config from 'config';
 import process from 'process';
-import appInsights from 'applicationinsights';
+import { setup, defaultClient } from 'applicationinsights';
 
 export class AppInsights {
     enable(): void {
@@ -12,10 +12,10 @@ export class AppInsights {
         }
 
         if (appInsightsKey) {
-            appInsights.setup(appInsightsKey).setSendLiveMetrics(true).start();
+            setup(appInsightsKey).setSendLiveMetrics(true).start();
 
-            appInsights.defaultClient.context.tags[appInsights.defaultClient.context.keys.cloudRole] = 'pip-frontend';
-            appInsights.defaultClient.trackTrace({
+            defaultClient.context.tags[defaultClient.context.keys.cloudRole] = 'pip-frontend';
+            defaultClient.trackTrace({
                 message: 'App insights activated',
             });
         }
