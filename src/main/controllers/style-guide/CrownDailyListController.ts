@@ -24,11 +24,7 @@ export default class CrownDailyListController {
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listUrl)) {
-            let outputData = crimeListsService.manipulateCrimeListData(
-                JSON.stringify(searchResults),
-                req.lng,
-                listUrl
-            );
+            let outputData = crimeListsService.manipulateCrimeListData(JSON.stringify(searchResults), req.lng, listUrl);
 
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);

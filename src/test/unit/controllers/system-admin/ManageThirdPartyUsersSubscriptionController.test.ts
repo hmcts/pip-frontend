@@ -41,9 +41,7 @@ describe('Manage third party users subscription controller', () => {
             generateAvailableChannelsStub.withArgs(['CHANNEL_A'], { listTypeSubscriptions: [] }).returns({});
 
             const options = {
-                ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['manage-third-party-users-subscriptions']
-                ),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-users-subscriptions']),
                 listTypes: {},
                 userId: userId,
                 channelItems: {},
@@ -114,9 +112,7 @@ describe('Manage third party users subscription controller', () => {
                 .once()
                 .withArgs(
                     'system-admin/manage-third-party-users-subscriptions-confirm',
-                    request.i18n.getDataByLanguage(request.lng)[
-                        'manage-third-party-users-subscriptions-confirm'
-                    ]
+                    request.i18n.getDataByLanguage(request.lng)['manage-third-party-users-subscriptions-confirm']
                 );
 
             await manageThirdPartyUsersSubscriptionsController.post(request, response);

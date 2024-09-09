@@ -8,7 +8,7 @@ sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplica
 const mediaApplications = new MediaApplicationsController();
 describe('Media application assessment controller', () => {
     const i18n = {
-        'media-applications': {}
+        'media-applications': {},
     };
     const response = {
         render: () => {

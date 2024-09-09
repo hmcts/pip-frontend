@@ -23,9 +23,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
                 subscriptionChannels = subscriptionChannels.filter(channel => channel !== 'EMAIL');
 
                 res.render('system-admin/manage-third-party-users-subscriptions', {
-                    ...cloneDeep(
-                        req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions']
-                    ),
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions']),
                     listTypes: thirdPartyService.generateListTypes(listTypes, subscriptions),
                     userId: req.query['userId'],
                     channelItems: thirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions),
