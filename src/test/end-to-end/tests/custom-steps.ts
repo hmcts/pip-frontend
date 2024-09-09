@@ -172,4 +172,4 @@ export = function () {
             this.waitForText('User Deleted');
         },
     });
-}
+};
