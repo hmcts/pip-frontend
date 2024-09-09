@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 import * as TestingSupportAPI from '../testingSupportApi';
-import Helper from '@codeceptjs/helper';
+const Helper = require('@codeceptjs/helper');
 
 type TestingSupportAPI = typeof TestingSupportAPI;
 
-export default class TestingSupportApi extends Helper implements TestingSupportAPI {
+class TestingSupportApi extends Helper implements TestingSupportAPI {
     createLocation = TestingSupportAPI.createLocation;
     createSubscription = TestingSupportAPI.createSubscription;
     uploadPublication = TestingSupportAPI.uploadPublication;
@@ -15,3 +17,5 @@ export default class TestingSupportApi extends Helper implements TestingSupportA
     createThirdPartyUserAccount = TestingSupportAPI.createThirdPartyUserAccount;
     deleteThirdPartyUserAccount = TestingSupportAPI.deleteThirdPartyUserAccount;
 }
+
+export = TestingSupportApi;

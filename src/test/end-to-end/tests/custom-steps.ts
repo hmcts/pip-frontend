@@ -1,6 +1,6 @@
 import { config as testConfig } from '../../config';
 
-export default function () {
+export = function () {
     return actor({
         loginAsSystemAdmin: function (
             username = testConfig.SYSTEM_ADMIN_USERNAME,
