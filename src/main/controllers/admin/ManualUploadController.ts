@@ -16,7 +16,7 @@ export default class ManualUploadController {
         const formData = formCookie ? JSON.parse(formCookie) : null;
 
         const formValues = {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload'] as object),
             formData: formData,
             listItems,
             listTypeClassifications: manualUploadService.getSensitivityMappings(),

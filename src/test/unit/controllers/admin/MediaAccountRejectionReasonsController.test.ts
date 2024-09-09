@@ -7,6 +7,7 @@ import { cloneDeep } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
 const mediaAccountRejectionReasonsController = new MediaAccountRejectionReasonsController();
+import rejectReasons from '../../../../main/resources/media-account-rejection-reasons-lookup.json';
 
 describe('Media Account Rejection Reasons Controller', () => {
     const applicantId = uuidv4();
@@ -16,8 +17,6 @@ describe('Media Account Rejection Reasons Controller', () => {
         },
         error: {},
     };
-
-    const rejectReasons = require('../../../../main/resources/media-account-rejection-reasons-lookup.json');
 
     const applicantData = {
         fullName: 'test user',

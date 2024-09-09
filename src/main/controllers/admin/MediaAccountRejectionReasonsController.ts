@@ -5,7 +5,7 @@ import validator from 'validator';
 import { MediaAccountApplicationService } from '../../service/MediaAccountApplicationService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
-const rejectReasons = require('../../resources/media-account-rejection-reasons-lookup.json');
+import rejectReasons from '../../resources/media-account-rejection-reasons-lookup.json';
 
 export default class MediaAccountRejectionReasonsController {
     public async get(req: PipRequest, res: Response): Promise<void> {

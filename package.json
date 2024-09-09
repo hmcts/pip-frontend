@@ -12,7 +12,7 @@
         "lint": "stylelint **/*.scss && eslint .",
         "lint:fix": "prettier --write . && eslint --fix .",
         "build": "yarn webpack --config webpack.config.js",
-        "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
+        "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.cjs",
         "test": "npx if-env CI=true && exit 0 || yarn test:unit --maxWorkers=50%",
         "test:unit": "jest",
         "test:failures": "jest -f",
@@ -99,7 +99,7 @@
         "ts-node": "^10.9.2",
         "tsconfig-paths": "^4.2.0",
         "typescript": "5.5.4",
-        "typescript-eslint": "^7.15.0",
+        "typescript-eslint": "^8.4.0",
         "uuid": "^10.0.0",
         "validator": "^13.12.0"
     },

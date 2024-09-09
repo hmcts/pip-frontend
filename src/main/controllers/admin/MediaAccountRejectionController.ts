@@ -5,10 +5,10 @@ import { cloneDeep } from 'lodash';
 import { UserManagementService } from '../../service/UserManagementService';
 import * as url from 'url';
 import { validate } from 'uuid';
+import rejectReasons from '../../resources/media-account-rejection-reasons-lookup.json';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
-const rejectReasons = require('../../resources/media-account-rejection-reasons-lookup.json');
 
 export default class MediaAccountRejectionController {
     public async get(req: PipRequest, res: Response): Promise<void> {

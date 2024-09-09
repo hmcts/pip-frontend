@@ -1,6 +1,6 @@
 import { config as testConfig } from '../../config';
 
-export = function () {
+export default function () {
     return actor({
         loginAsSystemAdmin: function (
             username = testConfig.SYSTEM_ADMIN_USERNAME,
@@ -172,4 +172,4 @@ export = function () {
             this.waitForText('User Deleted');
         },
     });
-};
+}

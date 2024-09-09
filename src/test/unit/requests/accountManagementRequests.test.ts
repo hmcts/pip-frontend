@@ -4,6 +4,7 @@ import { AccountManagementRequests } from '../../../main/resources/requests/Acco
 import fs from 'fs';
 import path from 'path';
 import { DateTime } from 'luxon';
+import superagent from 'superagent';
 
 const accountManagementRequests = new AccountManagementRequests();
 const errorResponse = {
@@ -58,7 +59,6 @@ let postStub = sinon.stub(accountManagementApi, 'post');
 let putStub = sinon.stub(accountManagementApi, 'put');
 let getStub = sinon.stub(accountManagementApi, 'get');
 let deleteStub = sinon.stub(accountManagementApi, 'delete');
-const superagent = require('superagent');
 
 describe('Account Management Requests', () => {
     describe('Create Azure Account', () => {
@@ -102,9 +102,9 @@ describe('Account Management Requests', () => {
     });
 
     describe('Create Media Account', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             sinon.restore();
-            const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+            const axiosConfig = await import('../../../main/resources/requests/utils/axiosConfig');
             sinon.stub(axiosConfig, 'getAccountManagementCredentials').returns(() => {
                 return '';
             });
@@ -187,9 +187,9 @@ describe('Account Management Requests', () => {
         const fileName = 'fileName';
         const requester = '123';
 
-        beforeEach(() => {
+        beforeEach(async () => {
             sinon.restore();
-            const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+            const axiosConfig = await import('../../../main/resources/requests/utils/axiosConfig');
             sinon.stub(axiosConfig, 'getAccountManagementCredentials').returns(() => {
                 return '';
             });

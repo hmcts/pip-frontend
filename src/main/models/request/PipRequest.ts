@@ -1,5 +1,6 @@
 import { Request } from 'express';
 
+// @ts-ignore - Required due to the way we structure our i18n files.
 export interface PipRequest extends Request {
     i18n?: {
         getDataByLanguage: (lng: string) => {

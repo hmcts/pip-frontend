@@ -12,7 +12,7 @@ import {
     checkRoles,
 } from '../authentication/authenticationHelper';
 
-const authenticationConfig = require('../authentication/authentication-config.json');
+import * as authenticationConfig from '../authentication/authentication-config.json';
 
 const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
 

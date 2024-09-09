@@ -1,9 +1,9 @@
 import * as TestingSupportAPI from '../testingSupportApi';
+import Helper from '@codeceptjs/helper';
 
-const Helper = require('@codeceptjs/helper');
 type TestingSupportAPI = typeof TestingSupportAPI;
 
-class TestingSupportApi extends Helper implements TestingSupportAPI {
+export default class TestingSupportApi extends Helper implements TestingSupportAPI {
     createLocation = TestingSupportAPI.createLocation;
     createSubscription = TestingSupportAPI.createSubscription;
     uploadPublication = TestingSupportAPI.uploadPublication;
@@ -15,5 +15,3 @@ class TestingSupportApi extends Helper implements TestingSupportAPI {
     createThirdPartyUserAccount = TestingSupportAPI.createThirdPartyUserAccount;
     deleteThirdPartyUserAccount = TestingSupportAPI.deleteThirdPartyUserAccount;
 }
-
-export = TestingSupportApi;
