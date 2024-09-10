@@ -20,7 +20,7 @@ export const ssoOidcConfig = {
     clientID: ssoClientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
     responseMode: authenticationConfig.RESPONSE_MODE,
-    redirectUrl: FRONTEND_URL + '/sso',
+    redirectUrl: FRONTEND_URL + '/sso/return',
     allowHttpForRedirectUrl: true,
     clientSecret: ssoClientSecret,
     scope: 'openid profile email',
@@ -29,8 +29,7 @@ export const ssoOidcConfig = {
 const accountManagementRequests = new AccountManagementRequests();
 
 export class SsoAuthentication {
-    public async determineUserRole(oid: string, accessToken: string): Promise<string> {
-        const userGroupsObject = await getSsoUserGroups(oid, accessToken);
+    public async determineUserRole(oid: string, userGroups: string[], accessToken: string): Promise<string> {
         const securityGroupMap = new Map<string, string>([
             [process.env.SSO_SG_SYSTEM_ADMIN, 'SYSTEM_ADMIN'],
             [process.env.SSO_SG_SUPER_ADMIN_CTSC, 'INTERNAL_SUPER_ADMIN_CTSC'],
@@ -39,9 +38,15 @@ export class SsoAuthentication {
             [process.env.SSO_SG_ADMIN_LOCAL, 'INTERNAL_ADMIN_LOCAL'],
         ]);
 
-        if (userGroupsObject?.value.length > 0) {
+        if (!userGroups?.length) {
+            // If user groups not present in JWT, retrieve them using Microsoft Graph API
+            const userGroupsObject = await getSsoUserGroups(oid, accessToken);
+            userGroups = userGroupsObject?.value;
+        }
+
+        if (userGroups?.length) {
             const matchedSecurityGroup = Array.from(securityGroupMap.keys()).find(key =>
-                userGroupsObject.value.includes(key)
+                userGroups.includes(key)
             );
 
             if (matchedSecurityGroup) {

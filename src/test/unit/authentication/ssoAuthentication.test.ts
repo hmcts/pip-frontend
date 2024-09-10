@@ -43,22 +43,22 @@ describe('SSO Authentication', () => {
     process.env.SSO_SG_ADMIN_CTSC = adminSecurityGroup;
 
     it('should return system admin user role', async () => {
-        const response = await ssoAuthentication.determineUserRole('1', accessToken);
+        const response = await ssoAuthentication.determineUserRole('1', [], accessToken);
         expect(response).toEqual('SYSTEM_ADMIN');
     });
 
     it('should return super admin user role', async () => {
-        const response = await ssoAuthentication.determineUserRole('2', accessToken);
+        const response = await ssoAuthentication.determineUserRole('2', [], accessToken);
         expect(response).toEqual('INTERNAL_SUPER_ADMIN_CTSC');
     });
 
     it('should return admin user role', async () => {
-        const response = await ssoAuthentication.determineUserRole('3', accessToken);
+        const response = await ssoAuthentication.determineUserRole('3', [], accessToken);
         expect(response).toEqual('INTERNAL_ADMIN_CTSC');
     });
 
     it('should return no user role', async () => {
-        const response = await ssoAuthentication.determineUserRole('4', accessToken);
+        const response = await ssoAuthentication.determineUserRole('4', [], accessToken);
         expect(response).toBeNull();
     });
 

@@ -26,7 +26,9 @@ async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken,
 }
 
 async function ssoVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-    const userRole = await ssoAuthentication.determineUserRole(profile.oid, accessToken);
+    const userGroups = profile._json['groups'] ?? [];
+    const userRole = await ssoAuthentication.determineUserRole(profile.oid, userGroups, accessToken);
+
     if (userRole) {
         profile['roles'] = userRole;
         profile['email'] = profile._json['preferred_username'];

@@ -714,7 +714,7 @@ export default function (app: Application): void {
         );
 
         app.post(
-            '/sso',
+            '/sso/return',
             (req, res, next) => passport.authenticate('sso', { failureRedirect: '/' })(req, res, next),
             keepSessionLanguage,
             processSsoSignIn
