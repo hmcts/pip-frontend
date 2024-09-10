@@ -81,9 +81,3 @@ redisClient.on('close', () => {
         logger.info('connection closed');
     }
 });
-
-module.exports = {
-    redisClient,
-    setRedisCredentials,
-    intervalFunction,
-};

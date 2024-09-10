@@ -14,5 +14,3 @@ export const setupDev = (app: express.Express, developmentMode: boolean): void =
         );
     }
 };
-
-module.exports = { setupDev };
