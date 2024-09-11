@@ -159,7 +159,8 @@
         "jsdom": "^25.0.0",
         "geckodriver/unzipper": "0.12.3",
         "pactum": "3.7.1",
-        "puppeteer-core/ws": "8.18.0"
+        "puppeteer-core/ws": "8.18.0",
+        "send": "0.19.0"
     },
     "packageManager": "yarn@4.4.0"
 }
