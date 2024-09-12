@@ -62,7 +62,7 @@
         "core-js": "3.38.0",
         "cors": "^2.8.5",
         "depcheck": "^1.4.7",
-        "express": "^4.19.2",
+        "express": "^4.21.0",
         "express-session": "^1.18.0",
         "govuk-frontend": "5.5.0",
         "helmet": "^7.1.0",
@@ -153,14 +153,10 @@
     "resolutions": {
         "allure-js-commons/uuid": "10.0.0",
         "tempfile/uuid": "10.0.0",
-        "nise/path-to-regexp": "8.1.0",
         "react-native": "0.75.2",
         "jscodeshift": "17.0.0",
         "jsdom": "^25.0.0",
-        "geckodriver/unzipper": "0.12.3",
-        "pactum": "3.7.1",
         "puppeteer-core/ws": "8.18.0",
-        "send": "0.19.0",
         "codeceptjs/axios": "1.7.4"
     },
     "packageManager": "yarn@4.4.0"
