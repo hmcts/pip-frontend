@@ -9189,15 +9189,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< PUB-2548-Updated-Typescript-Eslint
-"express@npm:^4.19.2":
-  version: 4.20.0
-  resolution: "express@npm:4.20.0"
-=======
 "express@npm:^4.19.2, express@npm:^4.21.0":
   version: 4.21.0
   resolution: "express@npm:4.21.0"
->>>>>>> master
   dependencies:
     accepts: ~1.3.8
     array-flatten: 1.1.1
@@ -9211,11 +9205,7 @@ __metadata:
     encodeurl: ~2.0.0
     escape-html: ~1.0.3
     etag: ~1.8.1
-<<<<<<< PUB-2548-Updated-Typescript-Eslint
-    finalhandler: 1.2.0
-=======
     finalhandler: 1.3.1
->>>>>>> master
     fresh: 0.5.2
     http-errors: 2.0.0
     merge-descriptors: 1.0.3
@@ -9224,29 +9214,17 @@ __metadata:
     parseurl: ~1.3.3
     path-to-regexp: 0.1.10
     proxy-addr: ~2.0.7
-<<<<<<< PUB-2548-Updated-Typescript-Eslint
-    qs: 6.11.0
-    range-parser: ~1.2.1
-    safe-buffer: 5.2.1
-    send: 0.19.0
-    serve-static: 1.16.0
-=======
     qs: 6.13.0
     range-parser: ~1.2.1
     safe-buffer: 5.2.1
     send: 0.19.0
     serve-static: 1.16.2
->>>>>>> master
     setprototypeof: 1.2.0
     statuses: 2.0.1
     type-is: ~1.6.18
     utils-merge: 1.0.1
     vary: ~1.1.2
-<<<<<<< PUB-2548-Updated-Typescript-Eslint
-  checksum: faa11bffa16be97b26d9f38187e569378c01cad0b92fbd02094fb4e35a224dc5177cc9cc6849141702da80d2d8cbe857c60a7e622e8106695405dc27e38fb3ee
-=======
   checksum: 1c5212993f665809c249bf00ab550b989d1365a5b9171cdfaa26d93ee2ef10cd8add520861ec8d5da74b3194d8374e1d9d53e85ef69b89fd9c4196b87045a5d4
->>>>>>> master
   languageName: node
   linkType: hard
 
@@ -15120,15 +15098,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.13.0":
-  version: 6.13.0
-  resolution: "qs@npm:6.13.0"
-  dependencies:
-    side-channel: ^1.0.6
-  checksum: e9404dc0fc2849245107108ce9ec2766cde3be1b271de0bf1021d049dc5b98d1a2901e67b431ac5509f865420a7ed80b7acb3980099fe1c118a1c5d2e1432ad8
-  languageName: node
-  linkType: hard
-
 "qs@npm:^6.11.0":
   version: 6.11.2
   resolution: "qs@npm:6.11.2"
@@ -15970,27 +15939,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"send@npm:0.19.0":
-  version: 0.19.0
-  resolution: "send@npm:0.19.0"
-  dependencies:
-    debug: 2.6.9
-    depd: 2.0.0
-    destroy: 1.2.0
-    encodeurl: ~1.0.2
-    escape-html: ~1.0.3
-    etag: ~1.8.1
-    fresh: 0.5.2
-    http-errors: 2.0.0
-    mime: 1.6.0
-    ms: 2.1.3
-    on-finished: 2.4.1
-    range-parser: ~1.2.1
-    statuses: 2.0.1
-  checksum: 5ae11bd900c1c2575525e2aa622e856804e2f96a09281ec1e39610d089f53aa69e13fd8db84b52f001d0318cf4bb0b3b904ad532fc4c0014eb90d32db0cff55f
-  languageName: node
-  linkType: hard
-
 "serialize-error@npm:^2.1.0":
   version: 2.1.0
   resolution: "serialize-error@npm:2.1.0"
@@ -16038,27 +15986,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-<<<<<<< PUB-2548-Updated-Typescript-Eslint
-"serve-static@npm:1.16.0":
-  version: 1.16.0
-  resolution: "serve-static@npm:1.16.0"
-  dependencies:
-    encodeurl: ~1.0.2
-    escape-html: ~1.0.3
-    parseurl: ~1.3.3
-    send: 0.18.0
-  checksum: a479dfe7e9fa7e8cb3ceccb0d944a3c72bb8f88d78472e30989f58fe15a92cfc909ab05a5c7cda2d1a6aa2663ab503ad1e2f40653740346e53e72b3ba41b6951
-  languageName: node
-  linkType: hard
-
-"serve-static@npm:^1.13.1":
-  version: 1.15.0
-  resolution: "serve-static@npm:1.15.0"
-=======
 "serve-static@npm:1.16.2, serve-static@npm:^1.13.1":
   version: 1.16.2
   resolution: "serve-static@npm:1.16.2"
->>>>>>> master
   dependencies:
     encodeurl: ~2.0.0
     escape-html: ~1.0.3
