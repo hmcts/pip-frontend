@@ -31,12 +31,14 @@ describe('Test logout', () => {
     const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const cftIdamLogoutUrl = '/session-logged-out?lng=en';
+    const crimeIdamLogoutUrl = '/session-logged-out?lng=en';
     const welshCftIdamLogoutUrl = '/session-logged-out?lng=cy';
     const adminLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const adminWelshLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DAAD`;
     const adminSessionExpiredUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DADMIN`;
     const cftIdamSessionExpiredUrl = `/session-expired?lng=en&reSignInUrl=CFT`;
+    const crimeIdamSessionExpiredUrl = `/session-expired?lng=en&reSignInUrl=Crime`;
     const adminRejectedLoginUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}admin-rejected-login%3Flng%3Den`;
     const mediaRejectedLoginUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}media-rejected-login%3Flng%3Den`;
 
@@ -126,6 +128,36 @@ describe('Test logout', () => {
         responseMock.verify();
     });
 
+    it('should redirect to session logged out if session is expired for crime, no user set, and no query', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(crimeIdamLogoutUrl);
+
+        const req = { session: {}, lng: 'en' };
+        sessionManagementService.logOut(req, res, false, true);
+
+        responseMock.verify();
+    });
+
+    it('should redirect to session logged out if session is expired for crime, no user set, and no query redirect type', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(crimeIdamLogoutUrl);
+
+        const req = { session: {}, lng: 'en', query: {} };
+        sessionManagementService.logOut(req, res, false, true);
+
+        responseMock.verify();
+    });
+
+    it('should redirect to session logged out if not session expired for crime', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(crimeIdamLogoutUrl);
+
+        const req = { session: {}, lng: 'en', query: { redirectType: 'AAD' } };
+        sessionManagementService.logOut(req, res, false, false);
+
+        responseMock.verify();
+    });
+
     it('should redirect for media user', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(mediaLogOutUrl);
@@ -174,6 +206,20 @@ describe('Test logout', () => {
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
             lng: 'cy',
+            session: { ...mockSession },
+        };
+        sessionManagementService.logOut(req, res, false, false);
+        expect(req.session['user']).to.be.null;
+        responseMock.verify();
+    });
+
+    it('should redirect for Crime IDAM User', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(crimeIdamLogoutUrl);
+
+        const req = {
+            user: { roles: 'VERIFIED', userProvenance: 'CRIME_IDAM' },
+            lng: 'en',
             session: { ...mockSession },
         };
         sessionManagementService.logOut(req, res, false, false);
@@ -243,6 +289,20 @@ describe('Test logout', () => {
 
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
+            lng: 'en',
+            session: { ...mockSession },
+        };
+        sessionManagementService.logOut(req, res, false, true);
+        expect(req.session['user']).to.be.null;
+        responseMock.verify();
+    });
+
+    it('should redirect for Crime IDAM user when session expired', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(crimeIdamSessionExpiredUrl);
+
+        const req = {
+            user: { roles: 'VERIFIED', userProvenance: 'CRIME_IDAM' },
             lng: 'en',
             session: { ...mockSession },
         };
@@ -429,6 +489,61 @@ describe('Test logout', () => {
 
             const req = {
                 user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
+                session: { ...mockSession },
+                lng: 'en',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+            responseMock.verify();
+        });
+
+        it('check returns false when no user details', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').never();
+            const req = {
+                session: { ...{ sessionExpires: new Date(now - 10000) }, ...mockSession },
+                lng: 'en',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+            responseMock.verify();
+        });
+    });
+
+    describe('Test CRIME IDAM user session expiry', () => {
+        const now = Date.now();
+
+        it('check returns true when session expired', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').once().withArgs(crimeIdamLogoutUrl);
+
+            const req = {
+                user: { roles: 'VERIFIED', userProvenance: 'CRIME_IDAM' },
+                session: { ...{ sessionExpires: new Date(now - 10000) }, ...mockSession },
+                lng: 'en',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+            expect(req.session['user']).to.be.null;
+            responseMock.verify();
+        });
+
+        it('check returns false when session is not expired', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').never();
+
+            const req = {
+                user: { roles: 'VERIFIED', userProvenance: 'CRIME_IDAM' },
+                session: { ...{ sessionExpires: new Date(now + 100000) }, ...mockSession },
+                lng: 'en',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+            responseMock.verify();
+        });
+
+        it('check returns false when the session expires value is missing', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').never();
+
+            const req = {
+                user: { roles: 'VERIFIED', userProvenance: 'CRIME_IDAM' },
                 session: { ...mockSession },
                 lng: 'en',
             };

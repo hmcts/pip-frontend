@@ -12,6 +12,7 @@ export const MEDIA_VERIFICATION_RETURN_URL =
     process.env.MEDIA_VERIFICATION_RETURN_URL ||
     'https://pip-frontend.staging.platform.hmcts.net/media-verification/return';
 export const CFT_IDAM_URL = process.env.CFT_IDAM_URL || 'https://idam-web-public.aat.platform.hmcts.net';
+export const CRIME_IDAM_URL = process.env.CRIME_IDAM_URL || 'https://login.sit.cjscp.org.uk';
 
 export const urlPath = url => {
     return url.substring(0, url.includes('?') ? url.indexOf('?') : url.length).replace(/^\//, '');
