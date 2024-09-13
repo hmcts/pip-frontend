@@ -22,6 +22,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@axe-core/playwright@npm:^4.10.0":
+  version: 4.10.0
+  resolution: "@axe-core/playwright@npm:4.10.0"
+  dependencies:
+    axe-core: ~4.10.0
+  peerDependencies:
+    playwright-core: ">= 1.0.0"
+  checksum: cba9b7f625c8ed510e661d8d014f7e924fb85175b918b818cb808eec848c3e8a2cbbe2960ccf8dd4b9f84a4a4ea33eeeace48de2560a4a5777dd0ee6281d0c81
+  languageName: node
+  linkType: hard
+
 "@azure/abort-controller@npm:^1.0.0, @azure/abort-controller@npm:^1.0.4":
   version: 1.1.0
   resolution: "@azure/abort-controller@npm:1.1.0"
@@ -2925,7 +2936,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codeceptjs/helper@npm:2.0.4":
+"@codeceptjs/helper@npm:2.0.4, @codeceptjs/helper@npm:^2.0.1":
   version: 2.0.4
   resolution: "@codeceptjs/helper@npm:2.0.4"
   dependencies:
@@ -3782,30 +3793,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/browser-chromium@npm:1.46.0":
-  version: 1.46.0
-  resolution: "@playwright/browser-chromium@npm:1.46.0"
+"@playwright/browser-chromium@npm:1.47.0":
+  version: 1.47.0
+  resolution: "@playwright/browser-chromium@npm:1.47.0"
   dependencies:
-    playwright-core: 1.46.0
-  checksum: 53043545797be78ce2aaee1079431e4268fe32237a5dc88cfe2bbfe0286e288b2ab9705d18979d3fabacd6e1d2b51b1af9873985e24bbf117dda16529b5be536
+    playwright-core: 1.47.0
+  checksum: e379321ffb1e1202465a772bf656291ea106eacea4a590d5449a630730571194151c82e1989ea65f155dbf2208f44edfe14d0eedc760a7cf075d3a31e1957f10
   languageName: node
   linkType: hard
 
-"@playwright/browser-firefox@npm:1.46.0":
-  version: 1.46.0
-  resolution: "@playwright/browser-firefox@npm:1.46.0"
+"@playwright/browser-firefox@npm:1.47.0":
+  version: 1.47.0
+  resolution: "@playwright/browser-firefox@npm:1.47.0"
   dependencies:
-    playwright-core: 1.46.0
-  checksum: d5f97433bcb5adaef7fce7afb5204fa3e228b3b61276ee34466313bdacb06cd68598d81b3569c4f1f3bdc5a5a0f7d3f280b475325337011e2f0549e80360b094
+    playwright-core: 1.47.0
+  checksum: 95506ca7b114419a175c08741c864b8f9a91a17ee2db9d6d17ac5f15d71e28a960d435b21166617cc8a8779c423c1ef901d3bac0f94c5a0e4a6b34b2704d548a
   languageName: node
   linkType: hard
 
-"@playwright/browser-webkit@npm:1.46.0":
-  version: 1.46.0
-  resolution: "@playwright/browser-webkit@npm:1.46.0"
+"@playwright/browser-webkit@npm:1.47.0":
+  version: 1.47.0
+  resolution: "@playwright/browser-webkit@npm:1.47.0"
   dependencies:
-    playwright-core: 1.46.0
-  checksum: 9f7fba3ce5ee492c7b0a62a365d2e70f39e7df33eef5b43a694ca9894cdaab3cd1d8fc823f610835ae00e0f4f8940225d828b86e4bafc2e27f347b5c055ca368
+    playwright-core: 1.47.0
+  checksum: 1f59e43e100450d3f180741d2dcd8c2782883b192d1bb1f10f0b91b7088bd43ddeed03e797eb387626a77477d28ec36b1dcb88fafa8defedaa2fda290dbfe608
   languageName: node
   linkType: hard
 
@@ -4612,6 +4623,13 @@ __metadata:
   version: 7.0.14
   resolution: "@types/json-schema@npm:7.0.14"
   checksum: 4b3dd99616c7c808201c56f6c7f6552eb67b5c0c753ab3fa03a6cb549aae950da537e9558e53fa65fba23d1be624a1e4e8d20c15027efbe41e03ca56f2b04fb0
+  languageName: node
+  linkType: hard
+
+"@types/junit-report-builder@npm:^3.0.0":
+  version: 3.0.2
+  resolution: "@types/junit-report-builder@npm:3.0.2"
+  checksum: 7fead0b771f95cd8e607223ace2f43cc881b3e7944db405f903590b56379d14132032b7d89c9afa7dff266b95f516a476a39ad40f9200bfb61fc8ed7f6b1bff6
   languageName: node
   linkType: hard
 
@@ -5992,10 +6010,57 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axe-core@npm:^4.5.1, axe-core@npm:~4.10.0":
+  version: 4.10.0
+  resolution: "axe-core@npm:4.10.0"
+  checksum: 7eca827fd8d98d7e4b561df65437be608155c613d8f262ae9e4a6ade02c156c7362dcbc3f71b4b526edce686f7c686280236bcff1d6725e2ef8327def72a8c41
+  languageName: node
+  linkType: hard
+
 "axe-core@npm:~4.8.4":
   version: 4.8.4
   resolution: "axe-core@npm:4.8.4"
   checksum: 644da2fec17bcf6f834edaab1baa5a75a9a3ee370c323215c73da6d7e45fac11d01470d92d0a3d5f26695e15c1d9b781733dfbe1fe09d505076c58f09ed74e02
+  languageName: node
+  linkType: hard
+
+"axe-html-reporter@npm:2.2.3":
+  version: 2.2.3
+  resolution: "axe-html-reporter@npm:2.2.3"
+  dependencies:
+    mustache: ^4.0.1
+    rimraf: ^3.0.2
+  peerDependencies:
+    axe-core: ">=3"
+  checksum: 758e358d1a8e4b1e5a8b54521cac928966ad797e9d8aa27964a923a13fc43ddcfe01b9238d98565e30d79b28361f93de64da5ebd2f5df051b469f46b6a1fd445
+  languageName: node
+  linkType: hard
+
+"axe-playwright@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "axe-playwright@npm:1.2.3"
+  dependencies:
+    axe-core: ^4.5.1
+    axe-html-reporter: 2.2.3
+    picocolors: ^1.0.0
+  peerDependencies:
+    playwright: ">1.0.0"
+  checksum: f538d8e36eb7266825f0b82b9e169b937d5bc753ca5911f89c07328b739f1c1a3101bc276fcebfe75cbd15306e67c1ce78da1e32b87b4d65366ac91bc917aef9
+  languageName: node
+  linkType: hard
+
+"axe-playwright@npm:^2.0.1":
+  version: 2.0.2
+  resolution: "axe-playwright@npm:2.0.2"
+  dependencies:
+    "@types/junit-report-builder": ^3.0.0
+    axe-core: ^4.5.1
+    axe-html-reporter: 2.2.3
+    junit-report-builder: ^3.0.1
+    picocolors: ^1.0.0
+  peerDependencies:
+    playwright: ">1.0.0"
+  checksum: 4a20e323b331c0cd01d65b07d262c5892db77191f154b91f7b71db83780b3c010ee38291f60207f56a7ba912dc5458d3b9c02ea5bec7aba8cb1e0361cdb6ee7e
   languageName: node
   linkType: hard
 
@@ -7263,6 +7328,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"codeceptjs-a11y-helper@npm:^1.5.3":
+  version: 1.5.3
+  resolution: "codeceptjs-a11y-helper@npm:1.5.3"
+  dependencies:
+    "@codeceptjs/helper": ^2.0.1
+    axe-playwright: ^1.2.3
+  checksum: 5355afe71fa681e7c82787ab495239ce800e37a381087e1e5ad919d163cb82922fc4f1deded4806a495d5f1cdfe3e2b6f61e8c0a787a93fc36c5e61fec7cb2cd
+  languageName: node
+  linkType: hard
+
 "codeceptjs@npm:3.6.5":
   version: 3.6.5
   resolution: "codeceptjs@npm:3.6.5"
@@ -8002,6 +8077,13 @@ __metadata:
     whatwg-mimetype: "npm:^3.0.0"
     whatwg-url: "npm:^11.0.0"
   checksum: 033fc3dd0fba6d24bc9a024ddcf9923691dd24f90a3d26f6545d6a2f71ec6956f93462f2cdf2183cc46f10dc01ed3bcb36731a8208456eb1a08147e571fe2a76
+  languageName: node
+  linkType: hard
+
+"date-format@npm:4.0.3":
+  version: 4.0.3
+  resolution: "date-format@npm:4.0.3"
+  checksum: 8ae4d9de3532010169a89bc7b079342051ba3ec88552636aa677bfb53e8eb15113af8394679aea7d41367dc8bb6e9865da17f21ac2802202180b09d6e3f2339e
   languageName: node
   linkType: hard
 
@@ -11995,6 +12077,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"junit-report-builder@npm:^3.0.1":
+  version: 3.2.1
+  resolution: "junit-report-builder@npm:3.2.1"
+  dependencies:
+    date-format: 4.0.3
+    lodash: ^4.17.21
+    make-dir: ^3.1.0
+    xmlbuilder: ^15.1.1
+  checksum: 6d9432630494a388a69a380c86aa527b12de3bca9e5ec4c97fd84166b9a55a4255cebcabe391d897259dacbdfd985f62af807d99164ea488110b30ecac0bb8de
+  languageName: node
+  linkType: hard
+
 "just-extend@npm:^6.2.0":
   version: 6.2.0
   resolution: "just-extend@npm:6.2.0"
@@ -12540,6 +12634,15 @@ __metadata:
     pify: "npm:^4.0.1"
     semver: "npm:^5.6.0"
   checksum: 043548886bfaf1820323c6a2997e6d2fa51ccc2586ac14e6f14634f7458b4db2daf15f8c310e2a0abd3e0cddc64df1890d8fc7263033602c47bb12cbfcf86aab
+  languageName: node
+  linkType: hard
+
+"make-dir@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "make-dir@npm:3.1.0"
+  dependencies:
+    semver: ^6.0.0
+  checksum: 484200020ab5a1fdf12f393fe5f385fc8e4378824c940fba1729dcd198ae4ff24867bc7a5646331e50cead8abff5d9270c456314386e629acec6dff4b8016b78
   languageName: node
   linkType: hard
 
@@ -13339,7 +13442,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mustache@npm:~4.2.0":
+"mustache@npm:^4.0.1, mustache@npm:~4.2.0":
   version: 4.2.0
   resolution: "mustache@npm:4.2.0"
   bin:
@@ -14477,27 +14580,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.46.0":
-  version: 1.46.0
-  resolution: "playwright-core@npm:1.46.0"
+"playwright-core@npm:1.47.0":
+  version: 1.47.0
+  resolution: "playwright-core@npm:1.47.0"
   bin:
     playwright-core: cli.js
-  checksum: 0af0bf8afdd2182d377137c19da870d13e0f849b12b147dce7d5273db9f3d08a6ea35ef229eeb1816b3a9eca61504596fc1171e041e666e6ebb4118e71fe83ba
+  checksum: 64c6adae3ba76cd9f05e6569b1350a6e6990fd8236bb17d1f241b49bea68592a4f4390adb38863d2ee8ef5124e9cb77ff50b9076f8ef3a0890b2a37f87fb842a
   languageName: node
   linkType: hard
 
-"playwright@npm:^1.46.0":
-  version: 1.46.0
-  resolution: "playwright@npm:1.46.0"
+"playwright@npm:^1.47.0":
+  version: 1.47.0
+  resolution: "playwright@npm:1.47.0"
   dependencies:
     fsevents: 2.3.2
-    playwright-core: 1.46.0
+    playwright-core: 1.47.0
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 013d7cd81c4016556245f98bd0b407c95f7dbc6d11d174d33d2e6aeeac1a4c63f646909adf3a926df09e1f0638e408018af3799e2c8e437dd2362f78091182e4
+  checksum: e055fee751035f306a636267d0e080f08d4a523a6c1e3ebb01c91c18838c29bb9165ec3e63eb706798886fa2715f272dec908a7e2e1abcd7a55984688dbac2db
   languageName: node
   linkType: hard
 
@@ -14906,10 +15009,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "publishing-information-project@workspace:."
   dependencies:
+    "@axe-core/playwright": ^4.10.0
     "@babel/core": ^7.25.2
     "@babel/eslint-parser": 7.25.1
     "@babel/preset-env": ^7.25.3
     "@codeceptjs/allure-legacy": ^1.0.2
+    "@codeceptjs/helper": ^2.0.1
     "@eslint/js": ^9.9.0
     "@evilmartians/lefthook": ^1.7.12
     "@hmcts/cookie-manager": ^1.0.0
@@ -14918,9 +15023,9 @@ __metadata:
     "@hmcts/nodejs-logging": ^4.0.4
     "@hmcts/properties-volume": ^1.1.0
     "@ministryofjustice/frontend": ^2.2.0
-    "@playwright/browser-chromium": 1.46.0
-    "@playwright/browser-firefox": 1.46.0
-    "@playwright/browser-webkit": 1.46.0
+    "@playwright/browser-chromium": 1.47.0
+    "@playwright/browser-firefox": 1.47.0
+    "@playwright/browser-webkit": 1.47.0
     "@types/axios-token-interceptor": ^0.2.8
     "@types/chai-as-promised": ^7.1.8
     "@types/config": ^3.3.4
@@ -14939,6 +15044,7 @@ __metadata:
     allure-commandline: ^2.30.0
     applicationinsights: 2.9.5
     awilix: ^10.0.2
+    axe-playwright: ^2.0.1
     axios: ^1.7.4
     axios-oauth-client: ^2.2.0
     axios-token-interceptor: ^0.2.0
@@ -14946,6 +15052,7 @@ __metadata:
     chai: ^5.1.1
     chai-as-promised: ^8.0.0
     codeceptjs: 3.6.5
+    codeceptjs-a11y-helper: ^1.5.3
     config: ^3.3.12
     connect-redis: 7.1.1
     cookie-parser: 1.4.6
@@ -14987,7 +15094,7 @@ __metadata:
     pa11y: 8.0.0
     passport-azure-ad: 4.3.5
     passport-custom: ^1.1.1
-    playwright: ^1.46.0
+    playwright: ^1.47.0
     postcss: ^8.4.41
     prettier: ^3.3.3
     pretty-print-json: ^2.1.2
@@ -15900,7 +16007,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^6.3.0, semver@npm:^6.3.1":
+"semver@npm:^6.0.0, semver@npm:^6.3.0, semver@npm:^6.3.1":
   version: 6.3.1
   resolution: "semver@npm:6.3.1"
   bin:
@@ -18286,6 +18393,13 @@ __metadata:
   version: 4.0.0
   resolution: "xml-name-validator@npm:4.0.0"
   checksum: af100b79c29804f05fa35aa3683e29a321db9b9685d5e5febda3fa1e40f13f85abc40f45a6b2bf7bee33f68a1dc5e8eaef4cec100a304a9db565e6061d4cb5ad
+  languageName: node
+  linkType: hard
+
+"xmlbuilder@npm:^15.1.1":
+  version: 15.1.1
+  resolution: "xmlbuilder@npm:15.1.1"
+  checksum: 14f7302402e28d1f32823583d121594a9dca36408d40320b33f598bd589ca5163a352d076489c9c64d2dc1da19a790926a07bf4191275330d4de2b0d85bb1843
   languageName: node
   linkType: hard
 

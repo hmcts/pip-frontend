@@ -104,4 +104,24 @@ withPipeline(type, product, component) {
             reportName           : "Functional Test Report"
         ]
     }
+
+    afterAlways('functionalTest') {
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : "functional-output/functional/allure",
+            reportFiles          : "index.html",
+            reportName           : "Functional Test Report"
+        ]
+
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : "functional-output/accessibility",
+            reportFiles          : "all_results.html",
+            reportName           : "Accessibility Test Report"
+        ]
+    }
 }
