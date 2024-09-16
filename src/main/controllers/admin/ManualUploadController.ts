@@ -16,7 +16,7 @@ export default class ManualUploadController {
         const formData = formCookie ? JSON.parse(formCookie) : null;
 
         const formValues = {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
             formData: formData,
             listItems,
             listTypeClassifications: manualUploadService.getSensitivityMappings(),
@@ -29,18 +29,13 @@ export default class ManualUploadController {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const errors = {
-                fileErrors: fileHandlingService.validateFileUpload(
-                    req.file,
-                    req.lng,
-                    'admin/manual-upload',
-                    uploadType.FILE
-                ),
-                formErrors: await manualUploadService.validateFormFields(req.body, req.lng, 'admin/manual-upload'),
+                fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng, 'manual-upload', uploadType.FILE),
+                formErrors: await manualUploadService.validateFormFields(req.body, req.lng, 'manual-upload'),
             };
 
             const listItems = await manualUploadService.buildFormData(req.lng);
             const formValues = {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
                 listItems,
                 errors,
                 formData: req.body,

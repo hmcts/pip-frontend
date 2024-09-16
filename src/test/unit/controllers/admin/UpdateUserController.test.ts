@@ -11,9 +11,7 @@ const updateUserController = new UpdateUserController();
 const userId = uuidv4();
 
 const i18n = {
-    admin: {
-        'update-user': {},
-    },
+    'update-user': {},
 };
 
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
@@ -47,7 +45,7 @@ describe('Update user controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['admin']['update-user'],
+            ...i18n['update-user'],
             selectBoxData: 'test',
             userId: userId,
             email: 'test@email.com',
@@ -72,7 +70,7 @@ describe('Update user controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['admin']['update-user'],
+            ...i18n['update-user'],
             selectBoxData: 'test',
             userId: userId,
             email: 'test@email.com',
@@ -116,9 +114,7 @@ describe('Update User Confirmation Controller', () => {
     });
 
     const i18n = {
-        admin: {
-            'update-user-confirmation': {},
-        },
+        'update-user-confirmation': {},
         error: {},
     };
     const response = {
@@ -140,7 +136,7 @@ describe('Update User Confirmation Controller', () => {
             .expects('render')
             .once()
             .withArgs('admin/update-user-confirmation', {
-                ...i18n['admin']['update-user-confirmation'],
+                ...i18n['update-user-confirmation'],
                 updatedRole: 'System Admin',
                 isSystemAdmin: false,
             });

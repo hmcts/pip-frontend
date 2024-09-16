@@ -22,7 +22,7 @@ export default class UpdateUserController {
         );
 
         res.render('admin/update-user', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['update-user']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user']),
             selectBoxData,
             userId,
             email: userData.email,
@@ -67,7 +67,7 @@ export default class UpdateUserController {
                     'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
                 );
                 res.render('admin/update-user-confirmation', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['update-user-confirmation']),
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user-confirmation']),
                     updatedRole: formattedRoles[req.body.updatedRole],
                     isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
                 });

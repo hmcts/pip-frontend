@@ -56,14 +56,14 @@ export default class IacDailyListController {
 
     private static getLanguageResources(req, metadataListType) {
         let languageResource = {
-            ...req.i18n.getDataByLanguage(req.lng)['style-guide'][listType],
+            ...req.i18n.getDataByLanguage(req.lng)[listType],
             ...req.i18n.getDataByLanguage(req.lng)['list-template'],
         };
 
         if (metadataListType === 'IAC_DAILY_LIST_ADDITIONAL_CASES') {
             languageResource = {
                 ...cloneDeep(languageResource),
-                ...req.i18n.getDataByLanguage(req.lng)['style-guide'][additionalCasesListType],
+                ...req.i18n.getDataByLanguage(req.lng)[additionalCasesListType],
             };
         }
         return languageResource;

@@ -5,10 +5,10 @@ import { cloneDeep } from 'lodash';
 import { UserManagementService } from '../../service/UserManagementService';
 import * as url from 'url';
 import { validate } from 'uuid';
+import rejectReasons from '../../resources/media-account-rejection-reasons-lookup.json';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
-const rejectReasons = require('../../resources/media-account-rejection-reasons-lookup.json');
 
 export default class MediaAccountRejectionController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -18,7 +18,7 @@ export default class MediaAccountRejectionController {
 
         if (applicantData) {
             res.render('admin/media-account-rejection', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-rejection']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
                 applicantData: applicantData,
                 reasons: reasons,
             });
@@ -62,7 +62,7 @@ export default class MediaAccountRejectionController {
     private static applicationFoundFlow(req, res, rejected, applicantId, reasons, applicantData): Promise<void> {
         if (!rejected) {
             return res.render('admin/media-account-rejection', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-rejection']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
                 applicantData,
                 reasons,
                 displayRadioError: true,
@@ -112,7 +112,7 @@ export default class MediaAccountRejectionController {
                 `Media application with id ${applicantId} rejected`
             );
             return res.render('admin/media-account-rejection-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-rejection-confirmation']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-confirmation']),
                 applicantData,
                 reasons: reasons,
             });

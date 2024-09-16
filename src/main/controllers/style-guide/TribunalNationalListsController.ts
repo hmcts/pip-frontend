@@ -26,7 +26,7 @@ export default class TribunalNationalListsController {
             const manipulatedData = tribunalNationalListsService.manipulateData(
                 JSON.stringify(searchResults),
                 req.lng,
-                listPath
+                page
             );
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
@@ -36,13 +36,13 @@ export default class TribunalNationalListsController {
             );
 
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, page);
 
             res.render(listPath, {
                 // The 'open-justice-statement' resource needs to come before the list type resource so it can be
                 // overwritten by the statement in list types with specific open justice statement.
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][page]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 listData: manipulatedData,

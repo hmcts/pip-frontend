@@ -11,7 +11,7 @@ export default class MediaAccountRejectionConfirmationController {
             const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
             const reasons = req.body.reasons;
             return res.render('admin/media-account-rejection-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-rejection-confirmation']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-confirmation']),
                 applicantData: applicantData,
                 reasons: reasons,
             });

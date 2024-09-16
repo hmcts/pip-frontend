@@ -8,9 +8,7 @@ import ReferenceDataUploadController from '../../../../main/controllers/system-a
 const referenceDataUploadController = new ReferenceDataUploadController();
 describe('Reference Data Manual Upload Controller', () => {
     const i18n = {
-        'system-admin': {
-            'reference-data-upload': {},
-        },
+        'reference-data-upload': {},
         error: {},
     };
     const request = mockRequest(i18n);
@@ -26,7 +24,7 @@ describe('Reference Data Manual Upload Controller', () => {
         it('should render the reference-data-upload page', async () => {
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n['system-admin']['reference-data-upload'],
+                ...i18n['reference-data-upload'],
             };
 
             responseMock.expects('render').once().withArgs('system-admin/reference-data-upload', expectedData);
@@ -71,7 +69,7 @@ describe('Reference Data Manual Upload Controller', () => {
             } as unknown as Response;
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n['system-admin']['reference-data-upload'],
+                ...i18n['reference-data-upload'],
                 errors: { fileErrors: 'error' },
                 formData: request.body,
             };

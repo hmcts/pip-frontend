@@ -57,10 +57,8 @@ sscsDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataList
 const sscsListType = 'sscs-daily-list';
 const sscsListPath = `style-guide/${sscsListType}`;
 const i18n = {
-    'style-guide': {
-        sscsListType: { warning: 'warning1' },
-        'sscs-daily-list-additional-hearings': { warning: 'warning2' },
-    },
+    sscsListType: { warning: 'warning1' },
+    'sscs-daily-list-additional-hearings': { warning: 'warning2' },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -82,7 +80,7 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
 
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n['style-guide'][url.substring(1)],
+                ...i18n[url.substring(1)],
                 ...i18n['list-template'],
                 ...i18n['open-justice-statement'],
                 listData,

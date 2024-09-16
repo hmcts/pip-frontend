@@ -1,8 +1,8 @@
 import { allowedFileTypes, allowedImageTypes, allowedCsvFileTypes, uploadType } from '../helpers/consts';
 import fs from 'fs';
 import { LanguageFileParser } from '../helpers/languageFileParser';
+import { redisClient } from '../cacheManager';
 
-const { redisClient } = require('../cacheManager');
 const languageFileParser = new LanguageFileParser();
 
 export class FileHandlingService {
@@ -163,7 +163,7 @@ export class FileHandlingService {
         const filePath = `./manualUpload/tmp/${file}`;
         try {
             fs.unlinkSync(filePath);
-        } catch (err) {
+        } catch {
             console.error(`Error while deleting ${file}.`);
         }
     }

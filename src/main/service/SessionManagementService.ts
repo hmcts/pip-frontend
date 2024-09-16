@@ -3,8 +3,8 @@ import { allAdminRoles, checkRoles } from '../authentication/authenticationHelpe
 import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
 import { reSignInUrls } from '../helpers/consts';
 import * as url from 'url';
+import authenticationConfig from '../authentication/authentication-config.json';
 
-const authenticationConfig = require('../authentication/authentication-config.json');
 const defaultSessionExpiry = 60 * 60 * 1000;
 const reSignInUrlKeys = Object.keys(reSignInUrls);
 

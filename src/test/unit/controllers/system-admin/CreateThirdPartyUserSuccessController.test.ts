@@ -8,10 +8,8 @@ const formData = {
     thirdPartyRoleObject: { name: 'General third party' },
 };
 const i18n = {
-    'system-admin': {
-        'create-third-party-user-success': {
-            title: 'Create third party user success',
-        },
+    'create-third-party-user-success': {
+        title: 'Create third party user success',
     },
 };
 
@@ -36,7 +34,7 @@ describe('Create third party user success controller', () => {
     it('should render the create third party user success page', async () => {
         const responseMock = sinon.mock(response);
         const expectedOptions = {
-            ...i18n['system-admin']['create-third-party-user-success'],
+            ...i18n['create-third-party-user-success'],
             formData: formData,
         };
 

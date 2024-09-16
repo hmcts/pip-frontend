@@ -10,7 +10,7 @@ export default class MediaAccountApprovalConfirmationController {
         if (req.query?.applicantId) {
             const applicantData = await mediaAccountApplicationService.getApplicationById(req.query.applicantId);
             return res.render('admin/media-account-approval-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-approval-confirmation']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval-confirmation']),
                 applicantData: applicantData,
             });
         }

@@ -34,7 +34,7 @@ export default class OpaResultsController {
             const listData = opaResultsService.manipulateData(JSON.stringify(jsonData), req.lng);
 
             res.render(`style-guide/${listType}`, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),

@@ -31,9 +31,7 @@ createAccountStub.withArgs(mockData, validUserId).resolves(true);
 
 describe('Create Admin Account Summary Controller', () => {
     const i18n = {
-        admin: {
-            'create-admin-account-summary': {},
-        },
+        'create-admin-account-summary': {},
     };
     const response = {
         render: () => {
@@ -53,7 +51,7 @@ describe('Create Admin Account Summary Controller', () => {
                 formData: mockData,
                 accountCreated: false,
                 displayError: false,
-                ...i18n['admin']['create-admin-account-summary'],
+                ...i18n['create-admin-account-summary'],
             };
 
             responseMock.expects('render').once().withArgs('admin/create-admin-account-summary', expectedOptions);
@@ -71,7 +69,7 @@ describe('Create Admin Account Summary Controller', () => {
                 formData: mockData,
                 accountCreated: true,
                 displayError: false,
-                ...i18n['admin']['create-admin-account-summary'],
+                ...i18n['create-admin-account-summary'],
             };
 
             responseMock.expects('render').once().withArgs('admin/create-admin-account-summary', expectedOptions);
@@ -90,7 +88,7 @@ describe('Create Admin Account Summary Controller', () => {
                 formData: invalidMockData,
                 accountCreated: false,
                 displayError: true,
-                ...i18n['admin']['create-admin-account-summary'],
+                ...i18n['create-admin-account-summary'],
             };
 
             responseMock.expects('render').once().withArgs('admin/create-admin-account-summary', expectedOptions);

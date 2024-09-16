@@ -10,7 +10,7 @@ export default class CreateThirdPartyUserController {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
 
         res.render('system-admin/create-third-party-user', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-third-party-user']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-third-party-user']),
             userRoleList: thirdPartyService.buildThirdPartyRoleList(formData.thirdPartyRole),
             formData,
         });
@@ -22,7 +22,7 @@ export default class CreateThirdPartyUserController {
 
         if (formErrors) {
             res.render('system-admin/create-third-party-user', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-third-party-user']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-third-party-user']),
                 userRoleList: thirdPartyService.buildThirdPartyRoleList(formData.thirdPartyRole),
                 formData,
                 formErrors,

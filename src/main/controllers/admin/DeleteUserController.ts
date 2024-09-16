@@ -18,7 +18,7 @@ export default class DeleteUserController {
             'Delete user page requested containing user: ' + userId
         );
         res.render('admin/delete-user', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['delete-user']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-user']),
             userData,
             userId,
         });

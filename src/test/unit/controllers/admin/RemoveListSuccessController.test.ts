@@ -4,9 +4,7 @@ import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 
 const i18n = {
-    admin: {
-        'remove-list-success': {},
-    },
+    'remove-list-success': {},
 };
 const removeListSuccessController = new RemoveListSuccessController();
 
@@ -29,7 +27,7 @@ describe('Remove List Success Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('admin/remove-list-success', { ...i18n['admin']['remove-list-success'] });
+            .withArgs('admin/remove-list-success', { ...i18n['remove-list-success'] });
         removeListSuccessController.get(request, response);
         responseMock.verify();
     });

@@ -37,7 +37,7 @@ describe('MediaAccountRejectionController', () => {
                     applicantId: applicantId,
                 },
                 i18n: {
-                    getDataByLanguage: sinon.stub().returns({ admin: { 'media-account-rejection': {} } }),
+                    getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
                 },
                 lng: 'en',
             };
@@ -138,7 +138,7 @@ describe('MediaAccountRejectionController', () => {
                     reasons: 'Some reasons',
                 },
                 i18n: {
-                    getDataByLanguage: sinon.stub().returns({ admin: { 'media-account-rejection': {} } }),
+                    getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
                 },
                 lng: 'en',
             };
@@ -165,9 +165,7 @@ describe('MediaAccountRejectionController', () => {
                     reasons: 'noMatch,expired',
                 },
                 i18n: {
-                    getDataByLanguage: sinon
-                        .stub()
-                        .returns({ admin: { admin: { 'media-account-rejection-confirmation': {} } } }),
+                    getDataByLanguage: sinon.stub().returns({ 'media-account-rejection-confirmation': {} }),
                 },
                 lng: 'en',
                 user: {

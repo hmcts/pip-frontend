@@ -5,9 +5,9 @@ describe('CFT IDAM Authentication', () => {
     let postStub;
     let cftIdamAuthenticationInstance;
 
-    beforeEach(() => {
-        sinon = require('sinon');
-        const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+    beforeEach(async () => {
+        sinon = await import('sinon');
+        const axiosConfig = await import('../../../main/resources/requests/utils/axiosConfig');
         postStub = sinon.stub(axiosConfig.cftIdamTokenApi, 'post');
     });
 
@@ -19,7 +19,7 @@ describe('CFT IDAM Authentication', () => {
         jest.mock('jwt-decode', () => ({
             jwtDecode: () => ({ roles: ['IDAM_ADMIN_USER'] }),
         }));
-        const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
+        const cftIdamAuthentication = await import('../../../main/authentication/cftIdamAuthentication');
         cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
 
         const mockFunction = jest.fn();
@@ -56,49 +56,56 @@ describe('CFT IDAM Authentication', () => {
 
     it('Should call the callback with null when throwing an error', done => {
         jest.mock('jwt-decode', () => () => ({ roles: 'INTERNAL_ADMIN' }));
-        const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
-        cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
+        const cftIdamAuthentication = import('../../../main/authentication/cftIdamAuthentication');
 
-        const mockFunction = jest.fn().mockImplementation((a, b) => {
-            expect(a).toBe(null);
-            expect(b).toBe(null);
-            done();
+        cftIdamAuthentication.then(cftIdamAuthentication => {
+            cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
+
+            const mockFunction = jest.fn().mockImplementation((a, b) => {
+                expect(a).toBe(null);
+                expect(b).toBe(null);
+                done();
+            });
+            const request = { query: { code: '1234' } };
+            postStub.returns(Promise.reject('CFT IDAM Callback Error'));
+
+            cftIdamAuthenticationInstance(request, mockFunction);
         });
-        const request = { query: { code: '1234' } };
-        postStub.returns(Promise.reject('CFT IDAM Callback Error'));
-
-        cftIdamAuthenticationInstance(request, mockFunction);
     });
 
     it('Should call the callback with null when role does not match expected citizen role', done => {
         jest.mock('jwt-decode', () => () => ({ roles: ['citizen'] }));
-        const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
-        cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
-        postStub.resolves({ data: {} });
+        const cftIdamAuthentication = import('../../../main/authentication/cftIdamAuthentication');
+        cftIdamAuthentication.then(cftIdamAuthentication => {
+            cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
+            postStub.resolves({ data: {} });
 
-        const mockFunction = jest.fn().mockImplementation((a, b) => {
-            expect(a).toBe(null);
-            expect(b).toBe(null);
-            done();
+            const mockFunction = jest.fn().mockImplementation((a, b) => {
+                expect(a).toBe(null);
+                expect(b).toBe(null);
+                done();
+            });
+            const request = { query: { code: '1234' } };
+
+            cftIdamAuthenticationInstance(request, mockFunction);
         });
-        const request = { query: { code: '1234' } };
-
-        cftIdamAuthenticationInstance(request, mockFunction);
     });
 
     it('Should call the callback with null when role does not match expected letter-holder role', done => {
         jest.mock('jwt-decode', () => () => ({ roles: ['letter-holder'] }));
-        const cftIdamAuthentication = require('../../../main/authentication/cftIdamAuthentication');
-        cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
-        postStub.resolves({ data: {} });
+        const cftIdamAuthentication = import('../../../main/authentication/cftIdamAuthentication');
+        cftIdamAuthentication.then(cftIdamAuthentication => {
+            cftIdamAuthenticationInstance = cftIdamAuthentication.cftIdamAuthentication;
+            postStub.resolves({ data: {} });
 
-        const mockFunction = jest.fn().mockImplementation((a, b) => {
-            expect(a).toBe(null);
-            expect(b).toBe(null);
-            done();
+            const mockFunction = jest.fn().mockImplementation((a, b) => {
+                expect(a).toBe(null);
+                expect(b).toBe(null);
+                done();
+            });
+            const request = { query: { code: '1234' } };
+
+            cftIdamAuthenticationInstance(request, mockFunction);
         });
-        const request = { query: { code: '1234' } };
-
-        cftIdamAuthenticationInstance(request, mockFunction);
     });
 });

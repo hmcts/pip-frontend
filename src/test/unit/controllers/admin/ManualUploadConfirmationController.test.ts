@@ -8,9 +8,7 @@ const manualUploadConfirmationController = new ManualUploadConfirmationControlle
 describe('Manual Upload Confirmation Controller', () => {
     it('should render confirmation page', async () => {
         const i18n = {
-            admin: {
-                'manual-upload-confirmation': {},
-            },
+            'manual-upload-confirmation': {},
         };
         const response = {
             render: () => {
@@ -23,7 +21,7 @@ describe('Manual Upload Confirmation Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('admin/manual-upload-confirmation', { ...i18n['admin']['manual-upload-confirmation'] });
+            .withArgs('admin/manual-upload-confirmation', { ...i18n['manual-upload-confirmation'] });
 
         await manualUploadConfirmationController.get(request, response);
         responseMock.verify();
