@@ -16,7 +16,7 @@ export default class ManageThirdPartyUsersController {
         );
 
         res.render('system-admin/manage-third-party-users', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['manage-third-party-users']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users']),
             thirdPartyAccounts: await thirdPartyService.getThirdPartyAccounts(req.user['userId']),
         });
     }

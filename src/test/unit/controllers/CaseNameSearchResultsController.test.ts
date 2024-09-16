@@ -51,7 +51,7 @@ describe('Case name search results controller', () => {
 
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)?.error);
         await caseNameSearchResultsController.get(request, response);
         return responseMock.verify();
     });

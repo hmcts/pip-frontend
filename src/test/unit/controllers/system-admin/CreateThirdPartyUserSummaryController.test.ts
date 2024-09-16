@@ -10,10 +10,8 @@ const formData = {
 };
 
 const i18n = {
-    'system-admin': {
-        'create-third-party-user-summary': {
-            title: 'Create third party user summary',
-        },
+    'create-third-party-user-summary': {
+        title: 'Create third party user summary',
     },
 };
 
@@ -45,7 +43,7 @@ describe('Create third party user summary controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
-                ...i18n['system-admin']['create-third-party-user-summary'],
+                ...i18n['create-third-party-user-summary'],
                 formData: formData,
                 displayError: false,
             };
@@ -66,7 +64,7 @@ describe('Create third party user summary controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
-                ...i18n['system-admin']['create-third-party-user-summary'],
+                ...i18n['create-third-party-user-summary'],
                 formData: formData,
                 displayError: true,
             };

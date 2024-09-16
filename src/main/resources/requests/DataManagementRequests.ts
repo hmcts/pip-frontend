@@ -1,7 +1,7 @@
 import { dataManagementApi, getDataManagementCredentials } from './utils/axiosConfig';
 import { LogHelper } from '../logging/logHelper';
+import superagent from 'superagent';
 
-const superagent = require('superagent');
 const logHelper = new LogHelper();
 
 export class DataManagementRequests {

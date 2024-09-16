@@ -14,12 +14,12 @@ export default class ReferenceDataUploadSummaryController {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         req.query?.error === 'true'
             ? res.render('system-admin/reference-data-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['reference-data-upload-summary']),
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                   displayError: true,
                   fileUploadData: formData,
               })
             : res.render('system-admin/reference-data-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['reference-data-upload-summary']),
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                   displayError: false,
                   fileUploadData: formData,
               });
@@ -32,7 +32,7 @@ export default class ReferenceDataUploadSummaryController {
 
         if (req.query?.check === 'true') {
             res.render('system-admin/reference-data-upload-summary', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['reference-data-upload-summary']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                 displayError: false,
                 fileUploadData: formData,
             });
@@ -59,7 +59,7 @@ export default class ReferenceDataUploadSummaryController {
                 res.redirect('reference-data-upload-confirmation');
             } else {
                 res.render('system-admin/reference-data-upload-summary', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['reference-data-upload-summary']),
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                     fileUploadData: formData,
                     displayError: true,
                 });

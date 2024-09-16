@@ -44,9 +44,7 @@ crownDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataLis
 const listType = 'crown-daily-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
-    'style-guide': {
-        listType: { value: '123' },
-    },
+    listType: { value: '123' },
     'list-template': {},
 };
 
@@ -66,7 +64,7 @@ describe('Crown Daily List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             listData,
             contentDate: DateTime.fromISO(metaData['contentDate'], {

@@ -8,9 +8,7 @@ import ManageUserController from '../../../../main/controllers/admin/ManageUserC
 const manageUserController = new ManageUserController();
 
 const i18n = {
-    admin: {
-        'manage-user': {},
-    },
+    'manage-user': {},
 };
 
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
@@ -35,7 +33,7 @@ describe('Manage user controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['admin']['manage-user'],
+            ...i18n['manage-user'],
             email: 'test@email.com',
             formattedData: 'test',
             hrefDeletion: '/delete-user?id=1234',

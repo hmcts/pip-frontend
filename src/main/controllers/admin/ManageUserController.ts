@@ -21,7 +21,7 @@ export default class ManageUserController {
         const hrefDeletion = '/delete-user?id=' + userData['userId'];
 
         res.render('admin/manage-user', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manage-user']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-user']),
             email: userData['email'],
             formattedData,
             hrefDeletion,

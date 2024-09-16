@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { app } from '../../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-const Blob = require('node-blob');
+import Blob from 'node-blob';
 import { LocationRequests } from '../../../main/resources/requests/LocationRequests';
 
 const mockCsv = new Blob(['testCsv']);

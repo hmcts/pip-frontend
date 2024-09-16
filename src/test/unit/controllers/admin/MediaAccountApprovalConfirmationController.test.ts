@@ -9,9 +9,7 @@ const mediaAccountApprovalConfirmationController = new MediaAccountApprovalConfi
 describe('Media Account Approval Confirmation Controller', () => {
     describe('GET request', () => {
         const i18n = {
-            admin: {
-                'media-account-approval-confirmation': {},
-            },
+            'media-account-approval-confirmation': {},
             error: {},
         };
 
@@ -37,7 +35,7 @@ describe('Media Account Approval Confirmation Controller', () => {
             request.query = { applicantId: applicantId };
 
             const expectedData = {
-                ...i18n['admin']['media-account-approval-confirmation'],
+                ...i18n['media-account-approval-confirmation'],
                 applicantData: applicantData,
             };
 
