@@ -8,7 +8,7 @@ const fileHandlingService = new FileHandlingService();
 export default class ReferenceDataUploadController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const formValues = {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['reference-data-upload']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload']),
         };
         res.render('system-admin/reference-data-upload', formValues);
     }
@@ -21,13 +21,13 @@ export default class ReferenceDataUploadController {
                 fileErrors: fileHandlingService.validateFileUpload(
                     req.file,
                     req.lng,
-                    'system-admin/reference-data-upload',
+                    'reference-data-upload',
                     uploadType.CSV
                 ),
             };
 
             const formValues = {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['reference-data-upload']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload']),
                 errors,
                 formData: req.body,
             };

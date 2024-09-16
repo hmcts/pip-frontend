@@ -3,8 +3,7 @@ import { SubscriptionRequests } from '../resources/requests/SubscriptionRequests
 import { DateTime } from 'luxon';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { Logger } from '@hmcts/nodejs-logging';
-
-const thirdPartyRoles = require('../resources/thirdPartyRoles.json');
+import thirdPartyRoles from '../resources/thirdPartyRoles.json';
 
 /**
  * This service class handles support methods for dealing with third parties

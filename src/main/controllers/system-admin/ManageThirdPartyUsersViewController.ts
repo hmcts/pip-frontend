@@ -23,7 +23,7 @@ export default class ManageThirdPartyUsersViewController {
                 );
 
                 res.render('system-admin/manage-third-party-users-view', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['manage-third-party-users-view']),
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-view']),
                     userDetails: user,
                     numberOfSubscriptions: subscriptions.listTypeSubscriptions.length,
                     subscriptionsChannel:

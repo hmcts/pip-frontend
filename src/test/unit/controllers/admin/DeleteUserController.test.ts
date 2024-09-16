@@ -7,9 +7,7 @@ import DeleteUserController from '../../../../main/controllers/admin/DeleteUserC
 const deleteUserController = new DeleteUserController();
 
 const i18n = {
-    admin: {
-        'delete-user': {},
-    },
+    'delete-user': {},
 };
 
 const userData = {
@@ -33,7 +31,7 @@ describe('Delete user controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['admin']['delete-user'],
+            ...i18n['delete-user'],
             userData,
             userId: '1234',
         };

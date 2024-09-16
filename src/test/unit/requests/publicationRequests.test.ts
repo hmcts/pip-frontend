@@ -4,7 +4,7 @@ import path from 'path';
 import sinon from 'sinon';
 import { dataManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 
-const Blob = require('node-blob');
+import Blob from 'node-blob';
 const rawDataPubs = fs.readFileSync(
     path.resolve(__dirname, '../../../test/unit/mocks/summaryOfPublications.json'),
     'utf-8'

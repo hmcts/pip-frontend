@@ -8,9 +8,7 @@ import { HttpStatusCode } from 'axios';
 
 const blobViewController = new BlobViewJsonController();
 const i18n = {
-    'system-admin': {
-        'blob-view-json': {},
-    },
+    'blob-view-json': {},
 };
 const artefactJson = '{"Test":true}';
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
@@ -42,7 +40,7 @@ describe('Get publication json', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['system-admin']['blob-view-json'],
+            ...i18n['blob-view-json'],
             data: artefactJson,
             courtName: 'Single Justice Procedure',
             artefactId: '1234',
@@ -79,7 +77,7 @@ describe('Get publication json', () => {
         } as unknown as Response;
 
         const expectedData = {
-            ...i18n['system-admin']['blob-view-json'],
+            ...i18n['blob-view-json'],
             data: artefactJson,
             courtName: 'No match artefacts',
             artefactId: '1234',

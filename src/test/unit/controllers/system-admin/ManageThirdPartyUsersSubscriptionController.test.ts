@@ -21,9 +21,7 @@ describe('Manage third party users subscription controller', () => {
 
     describe('get third party subscription controller', () => {
         const i18n = {
-            'system-admin': {
-                'manage-third-party-users-subscriptions': {},
-            },
+            'manage-third-party-users-subscriptions': {},
         };
         const request = mockRequest(i18n);
 
@@ -43,11 +41,7 @@ describe('Manage third party users subscription controller', () => {
             generateAvailableChannelsStub.withArgs(['CHANNEL_A'], { listTypeSubscriptions: [] }).returns({});
 
             const options = {
-                ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin'][
-                        'manage-third-party-users-subscriptions'
-                    ]
-                ),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-users-subscriptions']),
                 listTypes: {},
                 userId: userId,
                 channelItems: {},
@@ -96,9 +90,7 @@ describe('Manage third party users subscription controller', () => {
 
     describe('post third party subscription controller', () => {
         const i18n = {
-            'system-admin': {
-                'manage-third-party-users-confirm': {},
-            },
+            'manage-third-party-users-confirm': {},
         };
         const request = mockRequest(i18n);
 
@@ -120,9 +112,7 @@ describe('Manage third party users subscription controller', () => {
                 .once()
                 .withArgs(
                     'system-admin/manage-third-party-users-subscriptions-confirm',
-                    request.i18n.getDataByLanguage(request.lng)['system-admin'][
-                        'manage-third-party-users-subscriptions-confirm'
-                    ]
+                    request.i18n.getDataByLanguage(request.lng)['manage-third-party-users-subscriptions-confirm']
                 );
 
             await manageThirdPartyUsersSubscriptionsController.post(request, response);

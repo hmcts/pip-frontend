@@ -9,9 +9,7 @@ import path from 'path';
 
 const blobViewController = new BlobViewPublicationsController();
 const i18n = {
-    'system-admin': {
-        'blob-view-publications': {},
-    },
+    'blob-view-publications': {},
 };
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
@@ -37,7 +35,7 @@ describe('Get publications', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['system-admin']['blob-view-publications'],
+            ...i18n['blob-view-publications'],
             locationName: 'Missing Court',
             list_of_pubs: [],
             noMatchArtefact: false,
@@ -61,7 +59,7 @@ describe('Get publications', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['blob-view-publications'],
+            ...i18n['blob-view-publications'],
             locationName: 'No match artefacts',
             listOfPublications: sjpCases,
             noMatchArtefact: true,
