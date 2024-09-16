@@ -1,5 +1,5 @@
 import { config as testConfig } from '../../config';
-import {checkA11y, injectAxe} from "axe-playwright";
+import { checkA11y, injectAxe } from 'axe-playwright';
 
 export = function () {
     return actor({

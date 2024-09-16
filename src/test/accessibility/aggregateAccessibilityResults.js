@@ -3,7 +3,6 @@ const path = require('path');
 const htmlFilesDir = 'functional-output/accessibility';
 const outputFile = 'functional-output/accessibility/all_results.html';
 
-
 function aggregateAccessibilityResults() {
     fs.readdir(htmlFilesDir, (err, files) => {
         if (err) {
@@ -20,7 +19,7 @@ function aggregateAccessibilityResults() {
             htmlContent += content;
         });
 
-        fs.writeFile(outputFile, htmlContent, (err) => {
+        fs.writeFile(outputFile, htmlContent, err => {
             if (err) {
                 console.error('Error writing output file - ', err);
                 return;
