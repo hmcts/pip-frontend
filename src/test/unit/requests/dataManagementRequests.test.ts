@@ -1,6 +1,7 @@
 import { DataManagementRequests } from '../../../main/resources/requests/DataManagementRequests';
 import { dataManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 import sinon from 'sinon';
+import superagent from 'superagent';
 
 const errorResponse = {
     response: {
@@ -12,16 +13,15 @@ const errorMessage = {
     message: 'test',
 };
 
-const superagent = require('superagent');
 const mockUploadFileBody = { file: '', fileName: '' };
 const mockUploadFileHeaders = { foo: 'bar' };
 const fileUploadAPI = new DataManagementRequests();
 
 describe('Data Management requests', () => {
     describe('upload publication', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             sinon.restore();
-            const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+            const axiosConfig = await import('../../../main/resources/requests/utils/axiosConfig');
             sinon.stub(axiosConfig, 'getDataManagementCredentials').returns(() => {
                 return '';
             });
@@ -103,9 +103,9 @@ describe('Data Management requests', () => {
     });
 
     describe('upload reference data', () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             sinon.restore();
-            const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+            const axiosConfig = await import('../../../main/resources/requests/utils/axiosConfig');
             sinon.stub(axiosConfig, 'getDataManagementCredentials').returns(() => {
                 return '';
             });

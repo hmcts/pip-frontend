@@ -7,17 +7,14 @@ import { cloneDeep } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
 const mediaAccountRejectionReasonsController = new MediaAccountRejectionReasonsController();
+import rejectReasons from '../../../../main/resources/media-account-rejection-reasons-lookup.json';
 
 describe('Media Account Rejection Reasons Controller', () => {
     const applicantId = uuidv4();
     const i18n = {
-        admin: {
-            'media-account-rejection-reasons': {},
-        },
+        'media-account-rejection-reasons': {},
         error: {},
     };
-
-    const rejectReasons = require('../../../../main/resources/media-account-rejection-reasons-lookup.json');
 
     const applicantData = {
         fullName: 'test user',
@@ -41,7 +38,7 @@ describe('Media Account Rejection Reasons Controller', () => {
 
             const { getDataByLanguage } = request.i18n;
             const expectedData = {
-                ...cloneDeep(getDataByLanguage(request.lng)['admin']['media-account-rejection-reasons']),
+                ...cloneDeep(getDataByLanguage(request.lng)['media-account-rejection-reasons']),
                 applicantId: applicantId,
                 rejectReasons,
                 showError: false,
@@ -108,7 +105,7 @@ describe('Media Account Rejection Reasons Controller', () => {
             } as unknown as Response;
             const { getDataByLanguage } = request.i18n;
             const expectedData = {
-                ...cloneDeep(getDataByLanguage(request.lng)['admin']['media-account-rejection-reasons']),
+                ...cloneDeep(getDataByLanguage(request.lng)['media-account-rejection-reasons']),
                 applicantId: undefined,
                 rejectReasons,
                 showError: true,
@@ -134,7 +131,7 @@ describe('Media Account Rejection Reasons Controller', () => {
             };
             const { getDataByLanguage } = request.i18n;
             const expectedData = {
-                ...cloneDeep(getDataByLanguage(request.lng)['admin']['media-account-rejection-reasons']),
+                ...cloneDeep(getDataByLanguage(request.lng)['media-account-rejection-reasons']),
                 applicantId: applicantId,
                 rejectReasons,
                 showError: true,

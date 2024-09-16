@@ -13,8 +13,8 @@ const expectedEnvValues = {
 describe('cache manager', () => {
     let redisConfig;
 
-    beforeAll(() => {
-        redisConfig = require('../../../main/cacheManager');
+    beforeAll(async () => {
+        redisConfig = await import('../../../main/cacheManager');
     });
 
     afterEach(() => {
@@ -61,19 +61,19 @@ describe('Test interval', () => {
 
     it('should call setInterval', async () => {
         const setInterval = jest.spyOn(global, 'setInterval');
-        await require('../../../main/cacheManager');
+        await import('../../../main/cacheManager');
         expect(setInterval).toHaveBeenCalledWith(expect.anything(), 300000);
     });
 
     it('should call ping when ready', async () => {
-        const redisConfig = await require('../../../main/cacheManager');
+        const redisConfig = await import('../../../main/cacheManager');
         mockRedis.status = 'ready';
         redisConfig.intervalFunction(mockRedis);
         expect(pingFunction).toHaveBeenCalledTimes(1);
     });
 
     it('should not call ping when not ready', async () => {
-        const redisConfig = await require('../../../main/cacheManager');
+        const redisConfig = await import('../../../main/cacheManager');
         mockRedis.status = 'connecting';
         redisConfig.intervalFunction(mockRedis);
         expect(pingFunction).toHaveBeenCalledTimes(0);
@@ -91,10 +91,10 @@ describe('Cache Manager creation', () => {
         process.env.REDIS_MOCK = '';
         process.env.REDIS_PASSWORD = 'TEST_PASSWORD';
 
-        const ioRedis = require('ioredis');
+        const ioRedis = await import('ioredis');
         jest.mock('ioredis');
 
-        await require('../../../main/cacheManager');
+        await import('../../../main/cacheManager');
         expect(ioRedis).toHaveBeenCalledTimes(1);
         expect(ioRedis).toHaveBeenCalledWith('rediss://:TEST_PASSWORD@127.0.0.1:6379', { connectTimeout: 10000 });
     });
@@ -104,7 +104,7 @@ describe('Cache Manager creation', () => {
         process.env.REDIS_MOCK = '';
 
         const importCache = async () => {
-            await require('../../../main/cacheManager');
+            await import('../../../main/cacheManager');
         };
         await expect(importCache()).rejects.toThrow('A password must be set for non local / mock environments');
     });
@@ -113,10 +113,10 @@ describe('Cache Manager creation', () => {
         process.env.REDIS_LOCAL = 'true';
         process.env.REDIS_MOCK = '';
 
-        const ioRedis = require('ioredis');
+        const ioRedis = await import('ioredis');
         jest.mock('ioredis');
 
-        await require('../../../main/cacheManager');
+        await import('../../../main/cacheManager');
         expect(ioRedis).toHaveBeenCalledTimes(1);
         expect(ioRedis).toHaveBeenCalledWith('redis://:@127.0.0.1:6379', { connectTimeout: 10000 });
     });
@@ -125,7 +125,7 @@ describe('Cache Manager creation', () => {
         process.env.REDIS_LOCAL = '';
         process.env.REDIS_MOCK = 'true';
 
-        const cacheManager = await require('../../../main/cacheManager');
+        const cacheManager = await import('../../../main/cacheManager');
 
         expect(cacheManager.redisClient).toHaveProperty('_redisMock');
     });

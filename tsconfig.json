@@ -9,6 +9,7 @@
         "noImplicitAny": false,
         "moduleResolution": "node",
         "noUnusedLocals": true,
+        "resolveJsonModule": true,
         "experimentalDecorators": true,
         "skipLibCheck": true,
         "lib": ["es6", "es2017.object", "dom"],

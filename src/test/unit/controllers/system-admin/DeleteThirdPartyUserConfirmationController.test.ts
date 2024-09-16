@@ -5,10 +5,8 @@ import DeleteThirdPartyUserConfirmationController from '../../../../main/control
 import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
 
 const i18n = {
-    'system-admin': {
-        'delete-third-party-user-confirmation': {
-            title: 'Delete third party user confirmation',
-        },
+    'delete-third-party-user-confirmation': {
+        title: 'Delete third party user confirmation',
     },
 };
 
@@ -54,7 +52,7 @@ describe('Delete third party user confirmation controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
-                ...i18n['system-admin']['delete-third-party-user-confirmation'],
+                ...i18n['delete-third-party-user-confirmation'],
                 thirdPartyUser,
                 userId,
                 noOptionError: false,
@@ -77,7 +75,7 @@ describe('Delete third party user confirmation controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
-                ...i18n['system-admin']['delete-third-party-user-confirmation'],
+                ...i18n['delete-third-party-user-confirmation'],
                 thirdPartyUser,
                 userId,
                 noOptionError: true,
@@ -108,7 +106,7 @@ describe('Delete third party user confirmation controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
-                ...i18n['system-admin']['delete-third-party-user-confirmation'],
+                ...i18n['delete-third-party-user-confirmation'],
                 thirdPartyUser,
                 userId: userIdWithFailedRequest,
                 noOptionError: false,

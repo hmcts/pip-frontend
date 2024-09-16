@@ -31,9 +31,7 @@ sinon.stub(ManualUploadService.prototype, 'isSensitivityMismatch').withArgs('SJP
 
 describe('Manual upload summary controller', () => {
     const i18n = {
-        admin: {
-            'manual-upload-summary': {},
-        },
+        'manual-upload-summary': {},
     };
     const request = mockRequest(i18n);
     const response = {
@@ -47,7 +45,7 @@ describe('Manual upload summary controller', () => {
         it('should render manual upload summary page', async () => {
             request.user = { id: '1' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['manual-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
                 displaySensitivityMismatch: true,
@@ -63,7 +61,7 @@ describe('Manual upload summary controller', () => {
             request.query = { error: 'true' };
             request.user = { id: '1' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['manual-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
                 displaySensitivityMismatch: true,
@@ -80,7 +78,7 @@ describe('Manual upload summary controller', () => {
         it('should render manual upload summary page with error', async () => {
             request.user = { email: '1', userId: '1234' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['manual-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
                 displaySensitivityMismatch: true,
@@ -97,7 +95,7 @@ describe('Manual upload summary controller', () => {
         it('should render manual upload summary page with query params', async () => {
             request.query = { check: 'true' };
             const options = {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['manual-upload-summary']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
                 displaySensitivityMismatch: true,

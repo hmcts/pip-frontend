@@ -7,7 +7,7 @@ const accountManagementRequests = new AccountManagementRequests();
 export default class AdminManagementController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         res.render('admin/admin-management', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['admin-management']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-management']),
             noResultsError: req.query['error'] === 'true',
         });
     }
