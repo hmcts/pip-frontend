@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';

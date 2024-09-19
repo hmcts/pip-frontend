@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
 import { Application } from 'express';
 import path from 'path';
