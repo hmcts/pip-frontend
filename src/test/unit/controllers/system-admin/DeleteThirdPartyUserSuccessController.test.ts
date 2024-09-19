@@ -4,10 +4,8 @@ import sinon from 'sinon';
 import DeleteThirdPartyUserSuccessController from '../../../../main/controllers/system-admin/DeleteThirdPartyUserSuccessController';
 
 const i18n = {
-    'system-admin': {
-        'delete-third-party-user-success': {
-            title: 'Delete third party user success',
-        },
+    'delete-third-party-user-success': {
+        title: 'Delete third party user success',
     },
 };
 
@@ -27,10 +25,7 @@ describe('Delete third party user success controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs(
-                'system-admin/delete-third-party-user-success',
-                i18n['system-admin']['delete-third-party-user-success']
-            );
+            .withArgs('system-admin/delete-third-party-user-success', i18n['delete-third-party-user-success']);
 
         await deleteThirdPartyUserSuccessController.get(request, response);
         responseMock.verify();

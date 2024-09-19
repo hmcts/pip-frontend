@@ -12,7 +12,7 @@ export default class CreateSystemAdminAccountController {
         const formData = formCookie ? JSON.parse(formCookie) : null;
         res.render('system-admin/create-system-admin-account', {
             formData,
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account']),
         });
     }
 
@@ -21,7 +21,7 @@ export default class CreateSystemAdminAccountController {
         const formValidation = createAccountService.validateAdminFormFields(
             formData,
             req.lng,
-            'system-admin/create-system-admin-account'
+            'create-system-admin-account'
         );
         const isValidForm = Object.values(formValidation).every(o => o.message === null);
         if (isValidForm) {
@@ -30,7 +30,7 @@ export default class CreateSystemAdminAccountController {
         } else {
             res.render('system-admin/create-system-admin-account', {
                 formData,
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-system-admin-account']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-system-admin-account']),
                 formErrors: formValidation,
             });
         }

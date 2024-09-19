@@ -8,9 +8,7 @@ sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplica
 const adminDashboardController = new AdminDashboardController();
 describe('Admin Dashboard controller', () => {
     const i18n = {
-        admin: {
-            'admin-dashboard': {},
-        },
+        'admin-dashboard': {},
     };
     const response = {
         render: () => {
@@ -22,7 +20,7 @@ describe('Admin Dashboard controller', () => {
     it('should render admin dashboard page', async () => {
         request['user'] = { email: 'a@b.com' };
         const expectedData = {
-            ...i18n['admin']['admin-dashboard'],
+            ...i18n['admin-dashboard'],
             mediaApplicationsCount: 0,
             user: request['user'],
         };

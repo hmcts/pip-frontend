@@ -9,9 +9,7 @@ import { UserManagementService } from '../../../../main/service/UserManagementSe
 const bulkCreateMediaAccountsConfirmationController = new BulkCreateMediaAccountsConfirmationController();
 
 const i18n = {
-    'system-admin': {
-        'bulk-create-media-accounts-confirmation': {},
-    },
+    'bulk-create-media-accounts-confirmation': {},
 };
 
 const response = {
@@ -49,7 +47,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedData = {
-                ...i18n['system-admin']['bulk-create-media-accounts-confirmation'],
+                ...i18n['bulk-create-media-accounts-confirmation'],
                 accountsToCreate: mockAccounts,
             };
             responseMock
@@ -83,7 +81,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedData = {
-                ...i18n['system-admin']['bulk-create-media-accounts-confirmation'],
+                ...i18n['bulk-create-media-accounts-confirmation'],
                 accountsToCreate: mockAccounts,
                 displayNoOptionError: true,
             };
@@ -116,7 +114,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
             request.user = { userId: '2' };
 
             const expectedData = {
-                ...i18n['system-admin']['bulk-create-media-accounts-confirmation'],
+                ...i18n['bulk-create-media-accounts-confirmation'],
                 accountsToCreate: mockAccounts,
                 displayAccountCreationError: true,
             };

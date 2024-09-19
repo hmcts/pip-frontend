@@ -2,14 +2,12 @@ import * as process from 'process';
 import { I18next } from './modules/i18next';
 import RedisStore from 'connect-redis';
 import cookieParser from 'cookie-parser';
-
 import { AppInsights } from './modules/appinsights';
-
 import * as propertiesVolume from '@hmcts/properties-volume';
-import config = require('config');
+import config from 'config';
 propertiesVolume.addTo(config);
 
-const { Logger } = require('@hmcts/nodejs-logging');
+import { Logger } from '@hmcts/nodejs-logging';
 import * as bodyParser from 'body-parser';
 import session from 'express-session';
 import express from 'express';
@@ -18,12 +16,12 @@ import * as path from 'path';
 import favicon from 'serve-favicon';
 import { HTTPError } from 'HttpError';
 import { Nunjucks } from './modules/nunjucks';
+import passport from 'passport';
+import { setupDev } from './development';
 
-const passport = require('passport');
-const { setupDev } = require('./development');
 import { Container } from './modules/awilix';
 import { PipRequest } from './models/request/PipRequest';
-const { redisClient } = require('./cacheManager');
+import { redisClient } from './cacheManager';
 
 const env = process.env.NODE_ENV || 'development';
 const developmentMode = env === 'development';
@@ -84,6 +82,7 @@ new I18next().enableFor(app);
 routes(app);
 
 setupDev(app, developmentMode);
+
 // returning "not found" page for requests with paths not resolved by the router
 app.use((req: PipRequest, res) => {
     res.status(404);

@@ -23,9 +23,7 @@ pubDeleteStub.withArgs('2').resolves(null);
 const pageName = 'delete-court-subscription-confirmation';
 const pagePublicationName = 'delete-court-publication-confirmation';
 const i18n = {
-    'system-admin': {
-        'delete-court-subscription-confirmation': {},
-    },
+    'delete-court-subscription-confirmation': {},
 };
 
 describe('Delete Court Subscription Controller', () => {
@@ -39,7 +37,7 @@ describe('Delete Court Subscription Controller', () => {
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-subscription-confirmation'],
+            ...i18n['delete-court-subscription-confirmation'],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete all the subscriptions for the court',
@@ -64,7 +62,7 @@ describe('Delete Court Subscription Controller', () => {
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-publication-confirmation'],
+            ...i18n['delete-court-publication-confirmation'],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete all the artefacts for the court',

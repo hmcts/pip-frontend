@@ -11,7 +11,7 @@ export default class CreateThirdPartyUserSummaryController {
     public get(req: PipRequest, res: Response): void {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         res.render('system-admin/create-third-party-user-summary', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-third-party-user-summary']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-third-party-user-summary']),
             formData,
             displayError: false,
         });
@@ -30,7 +30,7 @@ export default class CreateThirdPartyUserSummaryController {
             res.redirect('/create-third-party-user-success');
         } else {
             res.render('system-admin/create-third-party-user-summary', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['create-third-party-user-summary']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-third-party-user-summary']),
                 formData,
                 displayError: true,
             });

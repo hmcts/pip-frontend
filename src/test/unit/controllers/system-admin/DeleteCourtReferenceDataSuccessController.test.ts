@@ -6,9 +6,7 @@ import DeleteCourtReferenceDataSuccessController from '../../../../main/controll
 const deleteCourtReferenceDataSuccessController = new DeleteCourtReferenceDataSuccessController();
 
 const i18n = {
-    'system-admin': {
-        'delete-court-reference-data-success': {},
-    },
+    'delete-court-reference-data-success': {},
 };
 
 describe('Delete Court Reference Data Controller', () => {
@@ -21,7 +19,7 @@ describe('Delete Court Reference Data Controller', () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data-success'],
+            ...i18n['delete-court-reference-data-success'],
         };
 
         responseMock

@@ -77,11 +77,9 @@ const paginationData = { previous: { href: 'abcd' } };
 sinon.stub(SjpFilterService.prototype, 'generatePaginationData').returns(paginationData);
 
 const i18n = {
-    'style-guide': {
-        sjpPressFullListName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
-        sjpPressNewCasesName: { header: 'Single Justice Procedure cases - Press view (New cases)' },
-        'sjp-common': { downloadButtonLabel: 'Download a copy' },
-    },
+    sjpPressFullListName: { header: 'Single Justice Procedure cases - Press view (Full list)' },
+    sjpPressNewCasesName: { header: 'Single Justice Procedure cases - Press view (New cases)' },
+    'sjp-common': { downloadButtonLabel: 'Download a copy' },
     'list-template': {},
 };
 
@@ -106,8 +104,8 @@ describe('SJP Press List Controller', () => {
     describe.each([sjpPressFullListUrl, sjpPressNewCasesUrl])("get with path '%s'", url => {
         const sjpPressResource = sjpResourceMap.get(url);
         const expectedData = {
-            ...i18n['style-guide'][sjpPressResource['resourceName']],
-            ...i18n['style-guide']['sjp-common'],
+            ...i18n[sjpPressResource['resourceName']],
+            ...i18n['sjp-common'],
             ...i18n['list-template'],
             paginationData: paginationData,
             publishedDateTime: '14 September 2016',

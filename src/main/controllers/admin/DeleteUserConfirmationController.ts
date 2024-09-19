@@ -24,7 +24,7 @@ export default class DeleteUserConfirmationController {
                 );
                 deleteUserResponse
                     ? res.render('admin/delete-user-confirmation', {
-                          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['delete-user-confirmation']),
+                          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-user-confirmation']),
                           isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
                       })
                     : res.render('error', req.i18n.getDataByLanguage(req.lng).error);

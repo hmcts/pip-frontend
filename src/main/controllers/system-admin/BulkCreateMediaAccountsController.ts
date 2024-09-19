@@ -8,19 +8,20 @@ import { CreateAccountService } from '../../service/CreateAccountService';
 const fileHandlingService = new FileHandlingService();
 const createAccountService = new CreateAccountService();
 
+const listType = 'bulk-create-media-accounts';
 const bulkCreateAccountsUrl = 'system-admin/bulk-create-media-accounts';
 
 export default class BulkCreateMediaAccountsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         res.render(bulkCreateAccountsUrl, {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['bulk-create-media-accounts']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
             displayError: false,
         });
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const formData = req.body;
-        let error = fileHandlingService.validateFileUpload(req.file, req.lng, bulkCreateAccountsUrl, uploadType.CSV);
+        let error = fileHandlingService.validateFileUpload(req.file, req.lng, listType, uploadType.CSV);
         if (error === null) {
             const file = fileHandlingService.readFile(req.file['originalname']);
             error = createAccountService.validateCsvFileContent(
@@ -28,7 +29,7 @@ export default class BulkCreateMediaAccountsController {
                 3,
                 ['email', 'firstName', 'surname'],
                 req.lng,
-                'system-admin/bulk-create-media-accounts'
+                listType
             );
         }
 
@@ -42,7 +43,7 @@ export default class BulkCreateMediaAccountsController {
             res.redirect('bulk-create-media-accounts-confirmation');
         } else {
             res.render(bulkCreateAccountsUrl, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['bulk-create-media-accounts']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['bulk-create-media-accounts']),
                 displayError: true,
                 error,
             });

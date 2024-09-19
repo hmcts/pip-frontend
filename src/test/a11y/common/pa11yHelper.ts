@@ -1,6 +1,6 @@
 import { app } from '../../../main/app';
 import * as supertest from 'supertest';
-const pa11y = require('pa11y');
+import pa11y from 'pa11y';
 import { fail } from 'assert';
 import { PallyIssue } from './PallyIssue';
 import { Pa11yResult } from './Pa11yResult';

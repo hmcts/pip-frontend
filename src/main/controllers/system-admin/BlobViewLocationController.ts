@@ -17,7 +17,7 @@ export default class BlobViewLocationController {
             }
             dictionaryOfLocations.set('No match artefacts', ['noMatch', counts.get(String('noMatch'))]);
             res.render('system-admin/blob-view-locations', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['blob-view-locations']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-locations']),
                 dictionaryOfLocations: dictionaryOfLocations,
             });
         } else {

@@ -38,10 +38,10 @@ export default class EtFortnightlyListController {
             };
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
             const courtRegion = req.lng === 'cy' ? returnedCourt.welshRegion : returnedCourt.region;
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listUrl);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...venue,
                 tableData,
