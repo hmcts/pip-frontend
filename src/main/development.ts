@@ -1,4 +1,3 @@
- 
 import * as express from 'express';
 
 export const setupDev = (app: express.Express, developmentMode: boolean): void => {

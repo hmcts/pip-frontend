@@ -1,5 +1,3 @@
- 
-
 import * as TestingSupportAPI from '../testingSupportApi';
 const Helper = require('@codeceptjs/helper');
 

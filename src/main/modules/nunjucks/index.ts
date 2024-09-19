@@ -29,7 +29,7 @@ export class Nunjucks {
                 express: app,
             }
         );
-         
+
         const njkFilters = require('./njkFilters');
         njkFilters.createFilters(env);
         const gitBranchName = () => {
