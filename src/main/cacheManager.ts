@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+ 
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 
