@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SubscriptionAddListController from '../../../main/controllers/SubscriptionAddListController';
-import {SubscriptionService} from "../../../main/service/SubscriptionService";
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const userId = '1';
 const userProvenance = 'PI_AAD';

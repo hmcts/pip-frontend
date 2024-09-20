@@ -1,15 +1,17 @@
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
-import {SubscriptionService} from "../service/SubscriptionService";
+import { SubscriptionService } from '../service/SubscriptionService';
 
 const subscriptionService = new SubscriptionService();
 
 export default class SubscriptionAddListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const listTypes = await subscriptionService.generateListTypeForCourts(req.user['userProvenance'],
+        const listTypes = await subscriptionService.generateListTypeForCourts(
+            req.user['userProvenance'],
             req.lng,
-            req.user['userId']);
+            req.user['userId']
+        );
 
         if (req.query.error === 'true') {
             res.render('subscription-add-list', {

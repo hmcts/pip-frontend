@@ -8,8 +8,7 @@ export class PendingSubscriptionsFromCache {
             //listTypes again. We need to store the updated values in cache. ListTypes is different
             //from court subscription.
             redisClient.del(`pending-${subscriptionType}-subscriptions-${userId}`);
-            if (subscriptionType === 'listTypes'
-                || subscriptionType === 'listLanguage') {
+            if (subscriptionType === 'listTypes' || subscriptionType === 'listLanguage') {
                 redisClient.del(`pending-${subscriptionType}-subscriptions-${userId}`);
             }
             const rawData = await redisClient.get(`pending-${subscriptionType}-subscriptions-${userId}`);
@@ -77,10 +76,10 @@ export class PendingSubscriptionsFromCache {
     private addToSubscriptionSet(subscription, filter, subscriptionsSet) {
         if (filter === 'listType' && !subscriptionsSet.includes(subscription)) {
             subscriptionsSet.push(subscription);
-        }
-        else if (
+        } else if (
             !subscriptionsSet.some(
-                cached => cached[filter] === subscription[filter] && cached['urnSearch'] === subscription['urnSearch'])
+                cached => cached[filter] === subscription[filter] && cached['urnSearch'] === subscription['urnSearch']
+            )
         ) {
             subscriptionsSet.push(subscription);
         }

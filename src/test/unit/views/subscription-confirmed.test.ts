@@ -16,7 +16,7 @@ const validBody = { 'list-language': 'english' };
 
 describe('Subscriptions Confirmed Page', () => {
     beforeAll(async () => {
-        app.request['user'] = { userId: '1', roles: 'VERIFIED'};
+        app.request['user'] = { userId: '1', roles: 'VERIFIED' };
         await request(app)
             .post(PAGE_URL)
             .send(validBody)

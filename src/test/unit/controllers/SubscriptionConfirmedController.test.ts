@@ -38,7 +38,7 @@ describe('Subscriptions Confirmed Controller', () => {
     it('should render confirmed page if subscribed successfully', () => {
         const request = mockRequest(i18n);
         request.user = { userId: '1' };
-        request.body = {'list-language': 'test'};
+        request.body = { 'list-language': 'test' };
         const responseMock = sinon.mock(response);
 
         responseMock
@@ -56,7 +56,7 @@ describe('Subscriptions Confirmed Controller', () => {
     it('should render error page if subscription failed', () => {
         const request = mockRequest(i18n);
         request.user = { userId: '2' };
-        request.body = {'list-language': 'test'};
+        request.body = { 'list-language': 'test' };
         const responseMock = sinon.mock(response);
 
         responseMock
@@ -71,7 +71,7 @@ describe('Subscriptions Confirmed Controller', () => {
     it('should redirect to pending subscriptions if there are no cached subscriptions', () => {
         const request = mockRequest(i18n);
         request.user = { userId: '3' };
-        request.body = {'list-language': 'test'};
+        request.body = { 'list-language': 'test' };
         const response = {
             render: () => {
                 return '';
@@ -94,10 +94,7 @@ describe('Subscriptions Confirmed Controller', () => {
         request.user = { userId: '2' };
         const responseMock = sinon.mock(response);
 
-        responseMock
-            .expects('redirect')
-            .once()
-            .withArgs('/subscription-add-list-language?error=true');
+        responseMock.expects('redirect').once().withArgs('/subscription-add-list-language?error=true');
         subscriptionConfirmedController.post(request, response).then(() => {
             responseMock.verify();
         });

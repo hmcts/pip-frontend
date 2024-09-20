@@ -150,8 +150,8 @@ export class SubscriptionService {
         for (const selectionName of selectionList) {
             let hearingIdsList = [];
             let locationIdsList = [];
-            let listTypesList = [];
-            let listLanguageList = [];
+            const listTypesList = [];
+            const listLanguageList = [];
             let caseDetailsList: object[];
             let courtDetailsList: object[];
             switch (selectionName) {
@@ -343,13 +343,11 @@ export class SubscriptionService {
     }
 
     public async configureListTypeForLocationSubscriptions(userId, listType, listLanguage): Promise<boolean> {
-        return await subscriptionRequests.configureListTypeForLocationSubscriptions(
+        return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId, {
+            listType: listType,
+            listLanguage: listLanguage,
             userId,
-            {
-                listType: listType,
-                listLanguage: listLanguage,
-                userId,
-            });
+        });
     }
 
     public createListTypeSubscriptionPayload(listType): object {
@@ -396,8 +394,6 @@ export class SubscriptionService {
             filterOptions: this.buildFilterValueOptions(applicableListTypes, filterValues, language),
         };
     }
-
-
 
     private generateAlphabetisedListTypes(filterValues, applicableListTypes, language) {
         const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
@@ -461,7 +457,7 @@ export class SubscriptionService {
         return this.generateAlphabetisedListTypes([], applicableListTypes, language);
     }
 
-    private findApplicableListTypeForCourts(courtJurisdictions, selectedListTypes, userRole) : Map<string, ListType> {
+    private findApplicableListTypeForCourts(courtJurisdictions, selectedListTypes, userRole): Map<string, ListType> {
         const listTypes = publicationService.getListTypes();
         const sortedListTypes = new Map(
             [...listTypes].sort((a, b) => a[1]['friendlyName'].localeCompare(b[1]['friendlyName']))
@@ -488,7 +484,6 @@ export class SubscriptionService {
 
         return applicableListTypes;
     }
-
 
     /**
      * Generates the appropriate list types for a location

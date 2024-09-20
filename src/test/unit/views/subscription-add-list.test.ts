@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
-import {SubscriptionService} from "../../../main/service/SubscriptionService";
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const PAGE_URL = '/subscription-add-list';
 const pageHeader = 'govuk-heading-l';
@@ -13,14 +13,13 @@ let htmlRes: Document;
 
 const stubGetSubscriptions = sinon.stub(SubscriptionService.prototype, 'generateListTypeForCourts');
 
-describe('Subscription Add List Type to court subscription', () => {;
-
+describe('Subscription Add List Type to court subscription', () => {
     describe('in English', () => {
         const listTypeData = fs.readFileSync(
             path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypes.json'),
             'utf-8'
         );
-        const listTypes = JSON.parse(listTypeData)
+        const listTypes = JSON.parse(listTypeData);
         stubGetSubscriptions.withArgs('PI_AAD', 'en', '1').returns(listTypes);
         beforeAll(async () => {
             app.request['user'] = {
@@ -127,7 +126,7 @@ describe('Subscription Add List Type to court subscription', () => {;
             path.resolve(__dirname, '../../../test/unit/mocks/listTypeSubscriptions/listTypes.json'),
             'utf-8'
         );
-        const listTypes = JSON.parse(listTypeData)
+        const listTypes = JSON.parse(listTypeData);
         stubGetSubscriptions.withArgs('PI_AAD', 'cy', '1').returns(listTypes);
         beforeAll(async () => {
             app.request['user'] = {

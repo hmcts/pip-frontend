@@ -91,7 +91,6 @@ describe('Subscriptions add list language Page initial load', () => {
 
 describe('Subscriptions add list language page no selection entered', () => {
     beforeAll(async () => {
-
         await request(app)
             .get(PAGE_URL + '?error=true')
             .then(res => {

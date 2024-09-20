@@ -22,7 +22,7 @@ const mockCourt = {
     jurisdiction: 'Tribunal',
     location: 'Scotland',
     listType: ['SJP_PUBLIC_LIST'],
-    listLanguage: ['ENGLISH']
+    listLanguage: ['ENGLISH'],
 };
 const mockCourt2 = {
     locationId: 2,
@@ -97,31 +97,29 @@ const courtSubscriptionPayload = {
     locationName: 'Aberdeen Tribunal Hearing Centre',
     userId: userIdWithSubscriptions,
     listType: ['SJP_PUBLIC_LIST'],
-    listLanguage: ['ENGLISH']
+    listLanguage: ['ENGLISH'],
 };
-const courtSubscriptionWithSingleListTypePayload =
-    {
-        listType: ['CIVIL_DAILY_CAUSE_LIST'],
-        listLanguage: ['ENGLISH'],
-        userId: userIdWithSubscriptions
-    };
-const courtSubscriptionWithMultipleListTypePayload =
-    {
-        listType: ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
-        listLanguage: ['ENGLISH'],
-        userId: userIdWithSubscriptions
-    };
+const courtSubscriptionWithSingleListTypePayload = {
+    listType: ['CIVIL_DAILY_CAUSE_LIST'],
+    listLanguage: ['ENGLISH'],
+    userId: userIdWithSubscriptions,
+};
+const courtSubscriptionWithMultipleListTypePayload = {
+    listType: ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
+    listLanguage: ['ENGLISH'],
+    userId: userIdWithSubscriptions,
+};
 
 const courtSubscriptionWithEmptyListTypePayload = {
     listType: [],
     listLanguage: [],
-    userId: userIdWithSubscriptions
+    userId: userIdWithSubscriptions,
 };
 
 const courtSubscriptionWithEmptyListTypeAndNoUserPayload = {
     listType: [],
     listLanguage: [],
-    userId: null
+    userId: null,
 };
 
 const caseSubscriptionPayload = {
@@ -645,7 +643,7 @@ describe('subscribe function', () => {
         jurisdiction: 'Tribunal',
         location: 'Scotland',
         listType: ['SJP_PUBLIC_LIST'],
-        listLanguage: ['ENGLISH']
+        listLanguage: ['ENGLISH'],
     };
 
     const caseUrnSubscriptionPayload = {
@@ -784,15 +782,17 @@ describe('configureListTypeForLocationSubscriptions', () => {
         const result = await subscriptionService.configureListTypeForLocationSubscriptions(
             userIdWithSubscriptions,
             ['CIVIL_DAILY_CAUSE_LIST'],
-                    ['ENGLISH']
+            ['ENGLISH']
         );
         expect(result).toEqual(true);
     });
 
     it('should return a message if multiple list type subscription is updated', async () => {
-        const result = await subscriptionService.configureListTypeForLocationSubscriptions('1',
+        const result = await subscriptionService.configureListTypeForLocationSubscriptions(
+            '1',
             ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
-            ['ENGLISH']);
+            ['ENGLISH']
+        );
         expect(result).toEqual(true);
     });
 

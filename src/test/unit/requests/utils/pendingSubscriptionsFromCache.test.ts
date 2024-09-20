@@ -39,12 +39,8 @@ const mockCaseWithUrnOnly2 = [
         urnSearch: true,
     },
 ];
-const mockListType = [
-        'listType1'
-];
-const mockListLanguage = [
-    'language1'
-];
+const mockListType = ['listType1'];
+const mockListLanguage = ['language1'];
 
 const combinedMockCaseWithUrnOnly = [mockCaseWithUrnOnly[0], mockCaseWithUrnOnly2[0]];
 
@@ -118,7 +114,10 @@ describe('pendingSubscription from Cache', () => {
         });
 
         it('should get list language from the cache', async () => {
-            const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(mockUser.id, 'listLanguage');
+            const cachedResult = await pendingSubscriptionsFromCache.getPendingSubscriptions(
+                mockUser.id,
+                'listLanguage'
+            );
             expect(cachedResult).toStrictEqual(mockListLanguage);
         });
     });
