@@ -15,7 +15,7 @@ export default class CreateAdminAccountSummaryController {
             formData,
             accountCreated: false,
             displayError: false,
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['create-admin-account-summary']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account-summary']),
         });
     }
 
@@ -38,7 +38,7 @@ export default class CreateAdminAccountSummaryController {
             formData,
             accountCreated: response,
             displayError: !response,
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['create-admin-account-summary']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account-summary']),
         });
     }
 }

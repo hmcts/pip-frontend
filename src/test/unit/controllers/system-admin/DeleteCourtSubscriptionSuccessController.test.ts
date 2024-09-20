@@ -14,9 +14,7 @@ courtStub.withArgs('1').resolves(court);
 describe('Delete Court Subscription Data Controller', () => {
     it('should render the court subscription list page', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-subscription-success': {},
-            },
+            'delete-court-subscription-success': {},
         };
         const response = {
             render: () => {
@@ -27,7 +25,7 @@ describe('Delete Court Subscription Data Controller', () => {
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-subscription-success'],
+            ...i18n['delete-court-subscription-success'],
             court: court,
         };
 
@@ -41,9 +39,7 @@ describe('Delete Court Subscription Data Controller', () => {
 
     it('should render the court publication list page', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-publication-success': {},
-            },
+            'delete-court-publication-success': {},
         };
         const response = {
             render: () => {
@@ -54,7 +50,7 @@ describe('Delete Court Subscription Data Controller', () => {
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-publication-success'],
+            ...i18n['delete-court-publication-success'],
             court: court,
         };
 

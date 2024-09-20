@@ -28,7 +28,7 @@ export default class CrownFirmListController {
         const metaDataListType = formatMetaDataListType(metaData);
 
         if (isValidList(jsonData, metaData) && isValidListType(metaDataListType, listType)) {
-            const outputData = firmListService.splitOutFirmListData(JSON.stringify(jsonData), req.lng, listPath);
+            const outputData = firmListService.splitOutFirmListData(JSON.stringify(jsonData), req.lng, listType);
 
             const publishedTime = helperService.publicationTimeInUkTime(jsonData['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -42,7 +42,7 @@ export default class CrownFirmListController {
             const venueAddress = crimeListsService.formatAddress(jsonData['venue']['venueAddress']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 startDate,
                 endDate,

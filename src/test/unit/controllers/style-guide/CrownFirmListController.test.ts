@@ -57,9 +57,7 @@ crownFirmListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataList
 const listType = 'crown-firm-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
-    'style-guide': {
-        listType: { value: '123' },
-    },
+    listType: { value: '123' },
     'list-template': {},
 };
 
@@ -79,7 +77,7 @@ describe('Crown Firm List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             startDate: '12 April 2023',
             endDate: '15 April 2023',

@@ -21,7 +21,7 @@ export default class ManualUploadSummaryController {
 
         req.query?.error === 'true'
             ? res.render('admin/manual-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload-summary']),
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                   fileUploadData: {
                       ...manualUploadService.formatPublicationDates(formData, false),
                   },
@@ -29,7 +29,7 @@ export default class ManualUploadSummaryController {
                   displayError: true,
               })
             : res.render('admin/manual-upload-summary', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload-summary']),
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                   displaySensitivityMismatch: sensitivityMismatch,
                   displayError: false,
                   fileUploadData: {
@@ -53,7 +53,7 @@ export default class ManualUploadSummaryController {
 
         if (req.query?.check === 'true') {
             res.render('admin/manual-upload-summary', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload-summary']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                 displaySensitivityMismatch: sensitivityMismatch,
                 displayError: false,
                 fileUploadData: {
@@ -75,7 +75,7 @@ export default class ManualUploadSummaryController {
                 res.redirect('manual-upload-confirmation');
             } else {
                 res.render('admin/manual-upload-summary', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['manual-upload-summary']),
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
                     fileUploadData: {
                         ...manualUploadService.formatPublicationDates(formData, false),
                     },
