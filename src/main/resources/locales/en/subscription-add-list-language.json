@@ -1,0 +1,12 @@
+{
+    "title": "What version of the list do you want to received?",
+    "radio1": "English",
+    "radio2": "Welsh",
+    "radio3": "English and Welsh",
+    "buttonText": "Confirm Subscriptions",
+    "backButton": "Back",
+    "error": {
+        "noSelection": "Please select version of the list type to continue",
+        "title": "There is a problem"
+    }
+}

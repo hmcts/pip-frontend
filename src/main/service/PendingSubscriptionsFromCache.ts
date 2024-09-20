@@ -4,6 +4,14 @@ export class PendingSubscriptionsFromCache {
     public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {
         if (redisClient.status === 'ready') {
             let subscriptionsSet = [];
+            //We need to clear the cache for only listTypes because user can click back and select
+            //listTypes again. We need to store the updated values in cache. ListTypes is different
+            //from court subscription.
+            redisClient.del(`pending-${subscriptionType}-subscriptions-${userId}`);
+            if (subscriptionType === 'listTypes'
+                || subscriptionType === 'listLanguage') {
+                redisClient.del(`pending-${subscriptionType}-subscriptions-${userId}`);
+            }
             const rawData = await redisClient.get(`pending-${subscriptionType}-subscriptions-${userId}`);
             const cachedResults = JSON.parse(rawData);
             if (cachedResults?.length) {
@@ -12,6 +20,10 @@ export class PendingSubscriptionsFromCache {
             subscriptions.forEach(subscription => {
                 if (subscriptionType === 'courts') {
                     this.addToSubscriptionSet(subscription, 'locationId', subscriptionsSet);
+                } else if (subscriptionType === 'listTypes') {
+                    this.addToSubscriptionSet(subscription, 'listType', subscriptionsSet);
+                } else if (subscriptionType === 'listLanguage') {
+                    this.addToSubscriptionSet(subscription, 'listLanguage', subscriptionsSet);
                 } else if (subscription.urnSearch) {
                     this.addToSubscriptionSet(subscription, 'caseUrn', subscriptionsSet);
                 } else {
@@ -63,10 +75,12 @@ export class PendingSubscriptionsFromCache {
     }
 
     private addToSubscriptionSet(subscription, filter, subscriptionsSet) {
-        if (
+        if (filter === 'listType' && !subscriptionsSet.includes(subscription)) {
+            subscriptionsSet.push(subscription);
+        }
+        else if (
             !subscriptionsSet.some(
-                cached => cached[filter] === subscription[filter] && cached['urnSearch'] === subscription['urnSearch']
-            )
+                cached => cached[filter] === subscription[filter] && cached['urnSearch'] === subscription['urnSearch'])
         ) {
             subscriptionsSet.push(subscription);
         }

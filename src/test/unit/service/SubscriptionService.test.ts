@@ -22,6 +22,7 @@ const mockCourt = {
     jurisdiction: 'Tribunal',
     location: 'Scotland',
     listType: ['SJP_PUBLIC_LIST'],
+    listLanguage: ['ENGLISH']
 };
 const mockCourt2 = {
     locationId: 2,
@@ -96,10 +97,32 @@ const courtSubscriptionPayload = {
     locationName: 'Aberdeen Tribunal Hearing Centre',
     userId: userIdWithSubscriptions,
     listType: ['SJP_PUBLIC_LIST'],
+    listLanguage: ['ENGLISH']
 };
-const courtSubscriptionWithSingleListTypePayload = ['CIVIL_DAILY_CAUSE_LIST'];
-const courtSubscriptionWithMultipleListTypePayload = ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'];
-const courtSubscriptionWithEmptyListTypePayload = [];
+const courtSubscriptionWithSingleListTypePayload =
+    {
+        listType: ['CIVIL_DAILY_CAUSE_LIST'],
+        listLanguage: ['ENGLISH'],
+        userId: userIdWithSubscriptions
+    };
+const courtSubscriptionWithMultipleListTypePayload =
+    {
+        listType: ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
+        listLanguage: ['ENGLISH'],
+        userId: userIdWithSubscriptions
+    };
+
+const courtSubscriptionWithEmptyListTypePayload = {
+    listType: [],
+    listLanguage: [],
+    userId: userIdWithSubscriptions
+};
+
+const courtSubscriptionWithEmptyListTypeAndNoUserPayload = {
+    listType: [],
+    listLanguage: [],
+    userId: null
+};
 
 const caseSubscriptionPayload = {
     caseName: 'CASENAME1234',
@@ -118,7 +141,8 @@ const blankPayload = {
     searchValue: '',
     userId: '5',
 };
-
+const mockListType = ['SJP_PUBLIC_LIST'];
+const mockLanguage = ['ENGLISH'];
 const user = {};
 const requester = 'Test';
 
@@ -161,8 +185,12 @@ cacheSetStub.withArgs([], 'cases', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([], 'courts', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([mockCourt], 'courts', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([mockCase], 'cases', userIdWithSubscriptions).resolves();
+cacheSetStub.withArgs('[listType1]', 'listTypes', userIdWithSubscriptions).resolves();
+cacheSetStub.withArgs('[LISTLANGUAGE1]', 'listLanguage', userIdWithSubscriptions).resolves();
 cacheGetStub.withArgs(userIdWithSubscriptions, 'cases').resolves([mockCase]);
 cacheGetStub.withArgs(userIdWithSubscriptions, 'courts').resolves([mockCourt]);
+cacheGetStub.withArgs(userIdWithSubscriptions, 'listTypes').resolves(mockListType);
+cacheGetStub.withArgs(userIdWithSubscriptions, 'listLanguage').resolves(mockLanguage);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
 cacheGetStub
@@ -181,7 +209,7 @@ updateListTypeSubscriptionStub
 updateListTypeSubscriptionStub
     .withArgs(userIdWithSubscriptions, courtSubscriptionWithEmptyListTypePayload)
     .resolves(true);
-updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
+updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypeAndNoUserPayload).resolves(false);
 deleteStubLocation.withArgs(1, requester).returns('success');
 deleteStubLocation.withArgs(2, requester).returns(null);
 
@@ -471,6 +499,22 @@ describe('handleNewSubscription function', () => {
         sinon.assert.calledWith(cacheSetStub, [mockCourt, mockCourt], 'courts', user['userId']);
     });
 
+    it('should add list type to cache for court subscription', async () => {
+        const pendingSubscription = { 'list-selections[]': 'listType1' };
+
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+
+        sinon.assert.calledWith(cacheSetStub, ['listType1'], 'listTypes', user['userId']);
+    });
+
+    it('should add list language to cache for court subscription', async () => {
+        const pendingSubscription = { 'list-language': 'listLanguage1' };
+
+        await subscriptionService.handleNewSubscription(pendingSubscription, user);
+
+        sinon.assert.calledWith(cacheSetStub, ['LISTLANGUAGE1'], 'listLanguage', user['userId']);
+    });
+
     it('should not do anything for blank data provided', async () => {
         await subscriptionService.handleNewSubscription({}, { userID: 12345 });
 
@@ -601,6 +645,7 @@ describe('subscribe function', () => {
         jurisdiction: 'Tribunal',
         location: 'Scotland',
         listType: ['SJP_PUBLIC_LIST'],
+        listLanguage: ['ENGLISH']
     };
 
     const caseUrnSubscriptionPayload = {
@@ -619,6 +664,8 @@ describe('subscribe function', () => {
     cacheGetStub.withArgs(userIdWithCaseSubscription, 'courts').resolves([]);
     cacheGetStub.withArgs(userIdWithCourtSubscription, 'cases').resolves([]);
     cacheGetStub.withArgs(userIdWithCourtSubscription, 'courts').resolves([subscribeMockCourt]);
+    cacheGetStub.withArgs(userIdWithCourtSubscription, 'listTypes').resolves(mockListType);
+    cacheGetStub.withArgs(userIdWithCourtSubscription, 'listLanguage').resolves(mockLanguage);
     subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', userIdWithSubscriptions).resolves(true);
     subscriptionStub.withArgs(caseUrnSubscriptionPayload, 'cases', userIdWithUrnSubscription).resolves(true);
     subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', userIdWithSubscriptions).resolves(true);
@@ -649,7 +696,8 @@ describe('subscribe function', () => {
             searchType: 'LOCATION_ID',
             searchValue: subscribeMockCourt.locationId,
             locationName: subscribeMockCourt.name,
-            listType: [],
+            listType: mockListType,
+            listLanguage: mockLanguage,
             userId: userIdWithCourtSubscription,
         };
 
@@ -734,25 +782,27 @@ describe('createSubscriptionPayload function', () => {
 describe('configureListTypeForLocationSubscriptions', () => {
     it('should return a message if list type subscription is updated', async () => {
         const result = await subscriptionService.configureListTypeForLocationSubscriptions(
-            '1',
-            'CIVIL_DAILY_CAUSE_LIST'
+            userIdWithSubscriptions,
+            ['CIVIL_DAILY_CAUSE_LIST'],
+                    ['ENGLISH']
         );
         expect(result).toEqual(true);
     });
 
     it('should return a message if multiple list type subscription is updated', async () => {
-        const listTypeArray = 'CIVIL_DAILY_CAUSE_LIST,FAMILY_DAILY_CAUSE_LIST'.split(',');
-        const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', listTypeArray);
+        const result = await subscriptionService.configureListTypeForLocationSubscriptions('1',
+            ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
+            ['ENGLISH']);
         expect(result).toEqual(true);
     });
 
     it('should return a message if empty list type subscription is updated', async () => {
-        const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', null);
+        const result = await subscriptionService.configureListTypeForLocationSubscriptions('1', [], []);
         expect(result).toEqual(true);
     });
 
     it('should return false if user id is not given', async () => {
-        const result = await subscriptionService.configureListTypeForLocationSubscriptions(null, null);
+        const result = await subscriptionService.configureListTypeForLocationSubscriptions(null, [], []);
         expect(result).toEqual(false);
     });
 });

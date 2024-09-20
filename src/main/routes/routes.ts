@@ -283,6 +283,21 @@ export default function (app: Application): void {
         app.locals.container.cradle.subscriptionManagementController.get
     );
     app.get(
+        '/subscription-add-list',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListController.get
+    );
+    app.get(
+        '/subscription-add-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListLanguageController.get
+    );
+    app.post(
+        '/subscription-add-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListLanguageController.post
+    );
+    app.get(
         '/subscription-configure-list',
         isPermittedMedia,
         app.locals.container.cradle.subscriptionConfigureListController.get

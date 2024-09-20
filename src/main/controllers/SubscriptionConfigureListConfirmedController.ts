@@ -9,7 +9,8 @@ export default class SubscriptionConfigureListConfirmedController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const result = await subscriptionService.configureListTypeForLocationSubscriptions(
             req.user['userId'],
-            req.body['list-selections[]']
+            req.body['list-selections[]'],
+            []
         );
 
         if (result) {

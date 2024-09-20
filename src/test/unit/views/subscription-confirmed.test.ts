@@ -12,11 +12,14 @@ const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendin
 cacheStub.withArgs('1', 'cases').resolves(['case']);
 cacheStub.withArgs('1', 'courts').resolves(['court']);
 
+const validBody = { 'list-language': 'english' };
+
 describe('Subscriptions Confirmed Page', () => {
     beforeAll(async () => {
-        app.request['user'] = { userId: '1', roles: 'VERIFIED' };
+        app.request['user'] = { userId: '1', roles: 'VERIFIED'};
         await request(app)
             .post(PAGE_URL)
+            .send(validBody)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
@@ -48,7 +51,7 @@ describe('Subscriptions Confirmed Page', () => {
 
     it('should display an unordered list with three elements', () => {
         const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
-        expect(listElements.length).to.equal(3);
+        expect(listElements.length).to.equal(4);
     });
 
     it('should display unordered list with add a new email subscription', () => {
@@ -67,10 +70,17 @@ describe('Subscriptions Confirmed Page', () => {
         expect(anchor.innerHTML).to.equal('manage your current email subscriptions');
     });
 
-    it('should display unordered list with find a court or tribunal', () => {
+    it('should display list with find a court or tribunal', () => {
         const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
         const anchor = listElements[2].getElementsByTagName('a')[0];
         expect(anchor.getAttribute('href')).to.equal('/search');
         expect(anchor.innerHTML).to.equal('find a court or tribunal');
+    });
+
+    it('should display unordered list with which list type to receive', () => {
+        const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
+        const anchor = listElements[3].getElementsByTagName('a')[0];
+        expect(anchor.getAttribute('href')).to.equal('/subscription-configure-list');
+        expect(anchor.innerHTML).to.equal('select which list type to receive');
     });
 });

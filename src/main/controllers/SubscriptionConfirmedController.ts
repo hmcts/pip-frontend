@@ -11,8 +11,18 @@ export default class SubscriptionConfirmedController {
         const cacheService = new PendingSubscriptionsFromCache();
         const cachedCourts = await cacheService.getPendingSubscriptions(userId, 'courts');
         const cachedCases = await cacheService.getPendingSubscriptions(userId, 'cases');
+        if (cachedCourts?.length) {
+            if (req.body['list-language'] === undefined) {
+                res.redirect('/subscription-add-list-language?error=true');
+                return;
+            } else {
+                await subscriptionService.handleNewSubscription(req.body, req.user);
+            }
+        }
 
-        if (cachedCases?.length || cachedCourts?.length) {
+        const cachedListTypes = await cacheService.getPendingSubscriptions(userId, 'listTypes');
+
+        if (cachedCases?.length || (cachedCourts?.length && cachedListTypes?.length)) {
             const subscribed = await subscriptionService.subscribe(userId);
             subscribed
                 ? res.render('subscription-confirmed', req.i18n.getDataByLanguage(req.lng)['subscription-confirmed'])
