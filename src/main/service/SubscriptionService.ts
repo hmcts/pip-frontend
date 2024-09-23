@@ -151,7 +151,7 @@ export class SubscriptionService {
             let hearingIdsList = [];
             let locationIdsList = [];
             let listTypesList = [];
-            let listLanguageList = [];
+            const listLanguageList = [];
             let caseDetailsList: object[];
             let courtDetailsList: object[];
             switch (selectionName) {
