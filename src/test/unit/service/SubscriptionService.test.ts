@@ -498,7 +498,7 @@ describe('handleNewSubscription function', () => {
     });
 
     it('should add list type to cache for court subscription', async () => {
-        const pendingSubscription = { 'list-selections[]': 'listType1' };
+        const pendingSubscription = { 'list-selections[]': ['listType1'] };
 
         await subscriptionService.handleNewSubscription(pendingSubscription, user);
 

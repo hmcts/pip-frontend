@@ -150,8 +150,8 @@ export class SubscriptionService {
         for (const selectionName of selectionList) {
             let hearingIdsList = [];
             let locationIdsList = [];
-            const listTypesList = [];
-            const listLanguageList = [];
+            let listTypesList = [];
+            let listLanguageList = [];
             let caseDetailsList: object[];
             let courtDetailsList: object[];
             switch (selectionName) {
@@ -187,7 +187,7 @@ export class SubscriptionService {
                     await this.setPendingSubscriptions(courtDetailsList, 'courts', user.userId);
                     break;
                 case 'list-selections[]':
-                    listTypesList.push(pendingSubscription[`${selectionName}`]);
+                    listTypesList = pendingSubscription[`${selectionName}`];
 
                     await this.setPendingSubscriptions(listTypesList, 'listTypes', user.userId);
                     break;
