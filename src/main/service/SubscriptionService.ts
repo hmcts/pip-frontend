@@ -187,8 +187,11 @@ export class SubscriptionService {
                     await this.setPendingSubscriptions(courtDetailsList, 'courts', user.userId);
                     break;
                 case 'list-selections[]':
-                    listTypesList = pendingSubscription[`${selectionName}`];
-
+                    if (Array.isArray(pendingSubscription[`${selectionName}`])) {
+                        listTypesList = pendingSubscription[`${selectionName}`];
+                    } else {
+                        listTypesList.push(pendingSubscription[`${selectionName}`]);
+                    }
                     await this.setPendingSubscriptions(listTypesList, 'listTypes', user.userId);
                     break;
                 case 'list-language':
@@ -312,7 +315,7 @@ export class SubscriptionService {
                     searchValue: pendingSubscription.locationId,
                     locationName: pendingSubscription.name,
                     listType: pendingSubscription.listType,
-                    listLanguage: pendingSubscription.listLanguage,
+                    listLanguage: pendingSubscription.listLanguage[0].split(','),
                     userId,
                 };
                 break;

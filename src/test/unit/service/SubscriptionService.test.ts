@@ -191,6 +191,8 @@ cacheGetStub.withArgs(userIdWithSubscriptions, 'listTypes').resolves(mockListTyp
 cacheGetStub.withArgs(userIdWithSubscriptions, 'listLanguage').resolves(mockLanguage);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
 cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
+cacheGetStub.withArgs(userIdWithoutSubscriptions, 'listTypes').resolves([]);
+cacheGetStub.withArgs(userIdWithoutSubscriptions, 'listLanguage').resolves([]);
 cacheGetStub
     .withArgs(userIdForSortedSubscriptions, 'cases')
     .resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
@@ -591,6 +593,26 @@ describe('setPendingSubscriptions function', () => {
         await subscriptionService.setPendingSubscriptions([mockCourt], 'courts', userIdWithSubscriptions);
         sinon.assert.called(cacheSetStub);
     });
+
+    it('should call list type cache set without list types provided', async () => {
+        await subscriptionService.setPendingSubscriptions([], 'listTypes', userIdWithSubscriptions);
+        sinon.assert.called(cacheSetStub);
+    });
+
+    it('should call list type cache set with list types', async () => {
+        await subscriptionService.setPendingSubscriptions([mockListType], 'listTypes', userIdWithSubscriptions);
+        sinon.assert.called(cacheSetStub);
+    });
+
+    it('should call list language cache set without list language provided', async () => {
+        await subscriptionService.setPendingSubscriptions([], 'listLanguage', userIdWithSubscriptions);
+        sinon.assert.called(cacheSetStub);
+    });
+
+    it('should call list language cache set with list language', async () => {
+        await subscriptionService.setPendingSubscriptions([mockLanguage], 'listLanguage', userIdWithSubscriptions);
+        sinon.assert.called(cacheSetStub);
+    });
 });
 
 describe('getPendingSubscriptions function', () => {
@@ -612,6 +634,26 @@ describe('getPendingSubscriptions function', () => {
     it('should return empty list of cases from the cache', async () => {
         const cachedCases = await subscriptionService.getPendingSubscriptions(userIdWithoutSubscriptions, 'cases');
         expect(cachedCases).toEqual([]);
+    });
+
+    it('should return empty court list type from the cache', async () => {
+        const cachedCourtListTypes = await subscriptionService.getPendingSubscriptions(userIdWithoutSubscriptions, 'listTypes');
+        expect(cachedCourtListTypes).toEqual([]);
+    });
+
+    it('should return court list type from the cache', async () => {
+        const cachedCourtListTypes = await subscriptionService.getPendingSubscriptions(userIdWithSubscriptions, 'listTypes');
+        expect(cachedCourtListTypes).toStrictEqual(mockListType);
+    });
+
+    it('should return empty list language from the cache', async () => {
+        const cachedListLanguage = await subscriptionService.getPendingSubscriptions(userIdWithoutSubscriptions, 'listLanguage');
+        expect(cachedListLanguage).toEqual([]);
+    });
+
+    it('should return list language from the cache', async () => {
+        const cachedListLanguage = await subscriptionService.getPendingSubscriptions(userIdWithSubscriptions, 'listLanguage');
+        expect(cachedListLanguage).toStrictEqual(mockLanguage);
     });
 });
 
