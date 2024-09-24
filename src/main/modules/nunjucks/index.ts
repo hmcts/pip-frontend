@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
@@ -29,7 +30,7 @@ export class Nunjucks {
                 express: app,
             }
         );
-        /* eslint-disable-next-line @typescript-eslint/no-require-imports */
+
         const njkFilters = require('./njkFilters');
         njkFilters.createFilters(env);
         const gitBranchName = () => {
