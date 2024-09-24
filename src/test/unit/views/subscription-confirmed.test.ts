@@ -70,7 +70,7 @@ describe('Subscriptions Confirmed Page', () => {
         expect(anchor.innerHTML).to.equal('manage your current email subscriptions');
     });
 
-    it('should display list with find a court or tribunal', () => {
+    it('should display unordered list with find a court or tribunal', () => {
         const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
         const anchor = listElements[2].getElementsByTagName('a')[0];
         expect(anchor.getAttribute('href')).to.equal('/search');
