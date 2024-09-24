@@ -637,22 +637,34 @@ describe('getPendingSubscriptions function', () => {
     });
 
     it('should return empty court list type from the cache', async () => {
-        const cachedCourtListTypes = await subscriptionService.getPendingSubscriptions(userIdWithoutSubscriptions, 'listTypes');
+        const cachedCourtListTypes = await subscriptionService.getPendingSubscriptions(
+            userIdWithoutSubscriptions,
+            'listTypes'
+        );
         expect(cachedCourtListTypes).toEqual([]);
     });
 
     it('should return court list type from the cache', async () => {
-        const cachedCourtListTypes = await subscriptionService.getPendingSubscriptions(userIdWithSubscriptions, 'listTypes');
+        const cachedCourtListTypes = await subscriptionService.getPendingSubscriptions(
+            userIdWithSubscriptions,
+            'listTypes'
+        );
         expect(cachedCourtListTypes).toStrictEqual(mockListType);
     });
 
     it('should return empty list language from the cache', async () => {
-        const cachedListLanguage = await subscriptionService.getPendingSubscriptions(userIdWithoutSubscriptions, 'listLanguage');
+        const cachedListLanguage = await subscriptionService.getPendingSubscriptions(
+            userIdWithoutSubscriptions,
+            'listLanguage'
+        );
         expect(cachedListLanguage).toEqual([]);
     });
 
     it('should return list language from the cache', async () => {
-        const cachedListLanguage = await subscriptionService.getPendingSubscriptions(userIdWithSubscriptions, 'listLanguage');
+        const cachedListLanguage = await subscriptionService.getPendingSubscriptions(
+            userIdWithSubscriptions,
+            'listLanguage'
+        );
         expect(cachedListLanguage).toStrictEqual(mockLanguage);
     });
 });
