@@ -16,7 +16,7 @@ export default class MediaAccountApprovalController {
 
         if (applicantData) {
             res.render('admin/media-account-approval', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-approval']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
                 applicantData: applicantData,
             });
             return;
@@ -57,7 +57,7 @@ export default class MediaAccountApprovalController {
     private static applicationFoundFlow(req, res, approved, applicantId, applicantData): Promise<void> {
         if (!approved) {
             return res.render('admin/media-account-approval', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-approval']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
                 applicantData: applicantData,
                 displayRadioError: true,
             });
@@ -93,7 +93,7 @@ export default class MediaAccountApprovalController {
             );
         } else {
             return res.render('admin/media-account-approval', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-approval']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval']),
                 applicantData: applicantData,
                 displayAzureError: true,
             });

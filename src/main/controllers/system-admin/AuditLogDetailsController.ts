@@ -10,7 +10,7 @@ export default class AuditLogDetailsController {
         const formattedData = await auditLogService.buildAuditLogDetailsSummaryList(req.query.id as string);
 
         res.render('system-admin/audit-log-details', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['audit-log-details']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['audit-log-details']),
             timestamp: req.query.timestamp,
             formattedData,
         });

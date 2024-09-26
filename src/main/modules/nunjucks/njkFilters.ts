@@ -3,13 +3,13 @@ import { PublicationService } from '../../service/PublicationService';
 import { printableDuration } from './printableDuration';
 import { calculateDurationSortValue } from '../../helpers/dateTimeHelper';
 import { runtime } from 'nunjucks';
+import rejectReasonLookupFile from '../../resources/media-account-rejection-reasons-lookup.json';
+import languageLookupFile from './languageLookup.json';
+import dateFilter from 'nunjucks-date-filter';
 
 const publicationService = new PublicationService();
 
-function createFilters(env) {
-    const rejectReasonLookupFile = require('../../resources/media-account-rejection-reasons-lookup.json');
-    const languageLookupFile = require('./languageLookup.json');
-    const dateFilter = require('nunjucks-date-filter');
+export function createFilters(env) {
     env.addFilter('date', dateFilter);
     const listTypes = publicationService.getListTypes();
     const languageLookup = languageLookupFile;
@@ -64,16 +64,6 @@ function createFilters(env) {
             ' to ' +
             DateTime.fromISO(x.displayTo, { zone: 'Europe/London' }).toFormat('dd MMM yyyy')
         );
-    });
-
-    // for emails to appear as govuk links
-    env.addFilter('emailLink', function (x) {
-        return this.env.filters.safe('<a class=govuk-link href="mailto:' + x + '">' + x + '</a>');
-    });
-
-    // for phone numbers to display as links
-    env.addFilter('phoneLink', function (x) {
-        return this.env.filters.safe('<a class=govuk-link href="tel:' + x + '">' + x + '</a>');
     });
 
     // to transform duration in hours/mins into a multilingual single value.
@@ -162,5 +152,3 @@ function createFilters(env) {
         }
     });
 }
-
-module.exports = createFilters;

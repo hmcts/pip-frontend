@@ -1,18 +1,17 @@
 import { Request, Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
-const authenticationConfig = require('../authentication/authentication-config.json');
+import authenticationConfig from '../authentication/authentication-config.json';
+
 import { cloneDeep } from 'lodash';
 
 export default class SignInController {
     public get(req: PipRequest, res: Response): void {
         req.query?.error === 'true'
             ? res.render('sign-in', {
-                  enableCft: process.env.ENABLE_CFT,
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']),
                   displayError: true,
               })
             : res.render('sign-in', {
-                  enableCft: process.env.ENABLE_CFT,
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['sign-in']),
                   displayError: false,
               });

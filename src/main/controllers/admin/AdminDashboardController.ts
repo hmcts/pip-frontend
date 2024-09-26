@@ -10,7 +10,7 @@ export default class AdminDashboardController {
         const mediaApplications = await mediaApplicationService.getDateOrderedMediaApplications();
         const mediaApplicationsCount = mediaApplications.length;
         res.render('admin/admin-dashboard', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['admin-dashboard']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-dashboard']),
             mediaApplicationsCount,
             user: req.user,
         });

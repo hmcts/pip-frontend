@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import * as path from 'path';
 import * as express from 'express';
 import * as nunjucks from 'nunjucks';
@@ -29,15 +30,16 @@ export class Nunjucks {
                 express: app,
             }
         );
-        const addFilters = require('./njkFilters');
-        addFilters(env);
+
+        const njkFilters = require('./njkFilters');
+        njkFilters.createFilters(env);
         const gitBranchName = () => {
             try {
                 const headFilePath = path.join(__dirname, '../../../../', '.git', 'HEAD');
                 const headContents = fs.readFileSync(headFilePath, { encoding: 'utf8' });
                 const refPath = headContents.trim().replace('ref: ', '');
                 return path.basename(refPath);
-            } catch (e) {
+            } catch {
                 return '';
             }
         };

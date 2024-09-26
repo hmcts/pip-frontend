@@ -13,7 +13,7 @@ export default class CreateAdminAccountController {
         res.render('admin/create-admin-account', {
             formData,
             radios: createAccountService.buildRadiosList(formData?.['user-role']),
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['create-admin-account']),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account']),
         });
     }
 
@@ -22,7 +22,7 @@ export default class CreateAdminAccountController {
         const formValidation = createAccountService.validateAdminFormFieldsWithRole(
             formData,
             req.lng,
-            'admin/create-admin-account'
+            'create-admin-account'
         );
         const isValidForm = Object.values(formValidation).every(o => o.message === null);
         if (isValidForm) {
@@ -33,7 +33,7 @@ export default class CreateAdminAccountController {
             res.render('admin/create-admin-account', {
                 formData,
                 radios: createAccountService.buildRadiosList(formData?.['user-role']),
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['create-admin-account']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-admin-account']),
                 formErrors: formValidation,
             });
         }

@@ -18,9 +18,7 @@ validationStub.withArgs({}).returns(validationErrors);
 
 describe('Create System Admin Account Controller', () => {
     const i18n = {
-        'system-admin': {
-            'create-system-admin-account': {},
-        },
+        'create-system-admin-account': {},
     };
     const response = {
         render: () => {
@@ -34,7 +32,7 @@ describe('Create System Admin Account Controller', () => {
         it('should render create system admin account page with set cookie', async () => {
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['system-admin']['create-admin-account'],
+                ...i18n['create-admin-account'],
                 formData: JSON.parse(request['cookies'].createAdminAccount),
             };
 
@@ -47,7 +45,7 @@ describe('Create System Admin Account Controller', () => {
             request['cookies'] = {};
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['system-admin']['create-system-admin-account'],
+                ...i18n['create-system-admin-account'],
                 formData: null,
             };
 
@@ -62,7 +60,7 @@ describe('Create System Admin Account Controller', () => {
             const responseMock = sinon.mock(response);
             request.body = {};
             const expectedOptions = {
-                ...i18n['system-admin']['create-system-admin-account'],
+                ...i18n['create-system-admin-account'],
                 formErrors: validationErrors,
                 formData: {},
             };

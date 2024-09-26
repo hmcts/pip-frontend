@@ -20,9 +20,7 @@ uploadStub.withArgs({ ...mockData, file: '', userId: '1' }).resolves(false);
 
 describe('Reference manual manual upload summary controller', () => {
     const i18n = {
-        'system-admin': {
-            'reference-data-upload-summary': {},
-        },
+        'reference-data-upload-summary': {},
     };
     const request = mockRequest(i18n);
     const response = {
@@ -36,9 +34,7 @@ describe('Reference manual manual upload summary controller', () => {
         it('should render reference manual data upload summary page', async () => {
             request.user = { id: '1' };
             const options = {
-                ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
-                ),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
             };
@@ -53,9 +49,7 @@ describe('Reference manual manual upload summary controller', () => {
             request.query = { error: 'true' };
             request.user = { id: '1' };
             const options = {
-                ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
-                ),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
             };
@@ -71,9 +65,7 @@ describe('Reference manual manual upload summary controller', () => {
         it('should render reference data manual upload summary page with error', async () => {
             request.user = { emails: ['1'], oid: '1234' };
             const options = {
-                ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
-                ),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
             };
@@ -87,9 +79,7 @@ describe('Reference manual manual upload summary controller', () => {
         it('should render reference data manual upload summary page with query params', async () => {
             request.query = { check: 'true' };
             const options = {
-                ...cloneDeep(
-                    request.i18n.getDataByLanguage(request.lng)['system-admin']['reference-data-upload-summary']
-                ),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['reference-data-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
             };

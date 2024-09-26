@@ -31,15 +31,16 @@ export default class EtDailyListController {
                 req.lng
             );
             const returnedCourt = await locationService.getLocationById(metaData['locationId']);
-            const courtName = locationService.findCourtName(returnedCourt, req.lng, listPath);
+            const courtName = locationService.findCourtName(returnedCourt, req.lng, listType);
+            const etCourtRegion = req.lng === 'cy' ? returnedCourt.welshRegion : returnedCourt.region;
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData,
                 courtName,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
-                region: returnedCourt.region,
+                region: etCourtRegion,
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,

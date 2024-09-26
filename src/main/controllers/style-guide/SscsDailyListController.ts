@@ -37,11 +37,11 @@ export default class SscsDailyListController {
             );
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-            const courtName = courtService.findCourtName(returnedCourt, req.lng, sscsPath);
+            const courtName = courtService.findCourtName(returnedCourt, req.lng, sscsUrl);
             const url = publicationService.getListTypes().get(metaData.listType).url;
 
             let languageResource = {
-                ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sscsUrl],
+                ...req.i18n.getDataByLanguage(req.lng)[sscsUrl],
                 ...req.i18n.getDataByLanguage(req.lng)['list-template'],
                 ...req.i18n.getDataByLanguage(req.lng)['open-justice-statement'],
             };
@@ -49,7 +49,7 @@ export default class SscsDailyListController {
             if (url === sscsAdditonalHearingsUrl) {
                 languageResource = {
                     ...cloneDeep(languageResource),
-                    ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sscsAdditonalHearingsUrl],
+                    ...req.i18n.getDataByLanguage(req.lng)[sscsAdditonalHearingsUrl],
                 };
             }
 

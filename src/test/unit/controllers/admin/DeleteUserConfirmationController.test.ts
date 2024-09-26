@@ -24,9 +24,7 @@ describe('Delete User Confirmation Controller', () => {
     });
 
     const i18n = {
-        admin: {
-            'delete-user-confirmation': {},
-        },
+        'delete-user-confirmation': {},
         error: {},
     };
     const response = {
@@ -47,7 +45,7 @@ describe('Delete User Confirmation Controller', () => {
             .expects('render')
             .once()
             .withArgs('admin/delete-user-confirmation', {
-                ...i18n['admin']['delete-user-confirmation'],
+                ...i18n['delete-user-confirmation'],
                 isSystemAdmin: false,
             });
 

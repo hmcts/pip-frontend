@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
 
@@ -21,7 +22,7 @@ export function setRedisCredentials(): any {
 
 const logger = Logger.getLogger('app');
 
-let redisClient;
+export let redisClient;
 if (process.env.REDIS_MOCK) {
     const redis = require('redis-mock');
     redisClient = redis.createClient();
@@ -80,9 +81,3 @@ redisClient.on('close', () => {
         logger.info('connection closed');
     }
 });
-
-module.exports = {
-    redisClient,
-    setRedisCredentials,
-    intervalFunction,
-};

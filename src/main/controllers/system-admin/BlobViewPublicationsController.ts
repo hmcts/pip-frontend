@@ -30,7 +30,7 @@ export default class BlobViewPublicationsController {
             }
 
             res.render('system-admin/blob-view-publications', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['blob-view-publications']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publications']),
                 listOfPublications: listOfPublications,
                 locationName,
                 noMatchArtefact,

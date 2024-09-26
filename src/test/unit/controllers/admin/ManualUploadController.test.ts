@@ -14,9 +14,7 @@ const mockSensitivityMappings = {
 
 describe('Manual Upload Controller', () => {
     const i18n = {
-        admin: {
-            'manual-upload': {},
-        },
+        'manual-upload': {},
         error: {},
     };
     const request = mockRequest(i18n);
@@ -34,7 +32,7 @@ describe('Manual Upload Controller', () => {
         it('should render the manual-upload page', async () => {
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n['admin']['manual-upload'],
+                ...i18n['manual-upload'],
                 listItems: {},
                 formData: {},
                 listTypeClassifications: mockSensitivityMappings,
@@ -85,7 +83,7 @@ describe('Manual Upload Controller', () => {
             } as unknown as Response;
             const responseMock = sinon.mock(response);
             const expectedData = {
-                ...i18n['admin']['manual-upload'],
+                ...i18n['manual-upload'],
                 listItems: {},
                 errors: { fileErrors: 'error', formErrors: 'error' },
                 formData: request.body,

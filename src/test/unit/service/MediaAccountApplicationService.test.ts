@@ -1,53 +1,65 @@
 import sinon from 'sinon';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import { MediaAccountApplicationService } from '../../../main/service/MediaAccountApplicationService';
-import { CreateAccountService } from '../../../main/service/CreateAccountService';
+import fs from 'fs';
+import path from 'path';
 import { dummyApplication } from '../../helpers/testConsts';
+import { CreateAccountService } from '../../../main/service/CreateAccountService';
 
-describe('Summary Of Publications Service', () => {
+let mediaApplicationUpdateStatusStub = sinon.stub(AccountManagementRequests.prototype, 'updateMediaApplicationStatus');
+
+describe('Media Account Application Service', () => {
     const applicationId = '1234';
     const imageId = '12345';
     const adminEmail = 'a@b.com';
     const accountApplicationService = new MediaAccountApplicationService();
 
     const dummyAccount = {
-        emailAddress: 'a@b.com',
-        fullName: 'Test Name',
-    };
-
-    const approvedApplication = {
-        id: '1234',
-        fullName: 'Test Name',
-        email: 'a@b.com',
-        employer: 'Employer',
-        image: '12345',
-        imageName: 'ImageName.jpg',
-        requestDate: '2022-05-09T00:00:01',
-        status: 'APPROVED',
-        statusDate: '2022-05-09T00:00:01',
+        emailAddress: 'pip-test-1@justice.gov.uk',
+        fullName: 'Test Name 1',
     };
 
     const formattedApplication = {
         id: '1234',
-        fullName: 'Test Name',
-        email: 'a@b.com',
-        employer: 'Employer',
-        image: '12345',
-        imageName: 'ImageName.jpg',
+        fullName: 'Test Name 1',
+        email: 'pip-test-1@justice.gov.uk',
+        employer: 'Test Employer 1',
+        image: 'TestImage1',
+        imageName: 'TestImage1.jpg',
         requestDate: '09 May 2022',
         status: 'PENDING',
         statusDate: '2022-05-09T00:00:01',
     };
 
+    const approvedApplication = {
+        id: '1234',
+        fullName: 'Test Name 1',
+        email: 'pip-test-1@justice.gov.uk',
+        employer: 'Test Employer 1',
+        image: '12345',
+        imageName: 'TestImage1.jpg',
+        requestDate: '2022-05-09T00:00:01',
+        status: 'APPROVED',
+        statusDate: '2022-05-09T00:00:01',
+    };
+
     const dummyImage = new Blob(['testJPEG']);
+
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
+    const mediaApplications = JSON.parse(rawData);
+
+    sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
 
     const mediaApplicationByIdStub = sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById');
     const mediaApplicationByImageStub = sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationImageById');
-    const mediaApplicationUpdateStatusStub = sinon.stub(
-        AccountManagementRequests.prototype,
-        'updateMediaApplicationStatus'
-    );
     const createAccountServiceStub = sinon.stub(CreateAccountService.prototype, 'createMediaAccount');
+
+    it('should return media applications ordered by date', async () => {
+        const results = await accountApplicationService.getDateOrderedMediaApplications();
+        expect(results[0].fullName).toEqual('Test Name 2');
+        expect(results[0].requestDate).toEqual('05 Mar 2022');
+        expect(new Date(results[0].requestDate) < new Date(results[1].requestDate)).toBeTruthy();
+    });
 
     it('should return the expected application by id', async () => {
         mediaApplicationByIdStub.withArgs(applicationId).resolves(dummyApplication);
@@ -97,6 +109,7 @@ describe('Summary Of Publications Service', () => {
 
     it('should return null image ID', async () => {
         mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
+
         const applicationImage = await accountApplicationService.getImageById(null);
         expect(applicationImage).toBe(null);
     });
@@ -126,5 +139,42 @@ describe('Summary Of Publications Service', () => {
         const application = await accountApplicationService.createAccountFromApplication(applicationId, adminEmail);
         expect(application).toBe(null);
         sinon.assert.calledWith(createAccountServiceStub, dummyAccount, adminEmail);
+    });
+});
+
+describe('rejectApplication', () => {
+    const service = new MediaAccountApplicationService();
+    beforeEach(() => {
+        mediaApplicationUpdateStatusStub.restore();
+        mediaApplicationUpdateStatusStub = sinon.stub(
+            AccountManagementRequests.prototype,
+            'updateMediaApplicationStatus'
+        );
+    });
+
+    it('should reject application and return updated status', async () => {
+        const applicationId = 1;
+        const adminId = 123;
+        const reasons = ['Reason 1', 'Reason 2'];
+
+        mediaApplicationUpdateStatusStub.resolves({ status: 'REJECTED' });
+
+        await service.rejectApplication(applicationId, adminId, reasons);
+
+        expect(mediaApplicationUpdateStatusStub.calledOnceWith(applicationId, 'REJECTED', reasons)).toBeTruthy;
+    });
+
+    it('should return null if any of the operations fail', async () => {
+        const applicationId = 1;
+        const adminId = 123;
+        const reasons = ['Reason 1', 'Reason 2'];
+
+        mediaApplicationUpdateStatusStub.resolves(null); // Simulating a failure
+
+        const service = new MediaAccountApplicationService();
+        const result = await service.rejectApplication(applicationId, adminId, reasons);
+
+        expect(mediaApplicationUpdateStatusStub.calledOnceWith(applicationId, 'REJECTED', reasons)).toBeTruthy;
+        expect(result).toBeNull;
     });
 });

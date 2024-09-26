@@ -63,9 +63,7 @@ crownWarnedListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataLi
 const listType = 'crown-warned-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
-    'style-guide': {
-        listType: { value: '123' },
-    },
+    listType: { value: '123' },
     'list-template': {},
 };
 
@@ -85,7 +83,7 @@ describe('Crown Warned List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             listData: listData,
             venue: rawDataObj['venue'],

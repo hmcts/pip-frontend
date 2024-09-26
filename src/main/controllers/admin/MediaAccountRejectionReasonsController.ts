@@ -5,7 +5,7 @@ import validator from 'validator';
 import { MediaAccountApplicationService } from '../../service/MediaAccountApplicationService';
 
 const mediaAccountApplicationService = new MediaAccountApplicationService();
-const rejectReasons = require('../../resources/media-account-rejection-reasons-lookup.json');
+import rejectReasons from '../../resources/media-account-rejection-reasons-lookup.json';
 
 export default class MediaAccountRejectionReasonsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -13,7 +13,7 @@ export default class MediaAccountRejectionReasonsController {
             const applicantId = req.query.applicantId;
 
             return res.render('admin/media-account-rejection-reasons', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-rejection-reasons']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-reasons']),
                 applicantId,
                 rejectReasons,
                 showError: false,
@@ -32,14 +32,14 @@ export default class MediaAccountRejectionReasonsController {
                 'PENDING'
             );
             res.render('admin/media-account-rejection', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-rejection']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
                 applicantData,
                 applicantId,
                 reasons,
             });
         } else {
             return res.render('admin/media-account-rejection-reasons', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-rejection-reasons']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection-reasons']),
                 applicantId,
                 rejectReasons,
                 showError: true,

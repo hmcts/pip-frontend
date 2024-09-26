@@ -17,7 +17,7 @@ describe('Authentication', () => {
         const authenticationImport = await import('../../../main/authentication/authentication');
         authentication = authenticationImport.default;
 
-        passport = require('passport');
+        passport = await import('passport');
 
         const chaiImport = await import('chai');
         expect = chaiImport.expect;
