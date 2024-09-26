@@ -2,8 +2,8 @@ import process from 'process';
 import { getSsoUserGroups } from '../helpers/graphApiHelper';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { FRONTEND_URL } from '../helpers/envUrls';
-import config = require('config');
-const authenticationConfig = require('./authentication-config.json');
+import config from 'config';
+import authenticationConfig from './authentication-config.json';
 
 const ssoClientId = process.env.SSO_CLIENT_ID
     ? process.env.SSO_CLIENT_ID
