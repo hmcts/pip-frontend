@@ -212,10 +212,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/msal-common@npm:14.15.0":
+  version: 14.15.0
+  resolution: "@azure/msal-common@npm:14.15.0"
+  checksum: 072e4ca58856997df2e82935c818801a69a85df16d7dccdfed02c1b8f8a772751594efe1b918433c760202348a99aa6ec9d99cc0f018ab2f1659186ad2a8b88e
+  languageName: node
+  linkType: hard
+
 "@azure/msal-common@npm:14.4.0":
   version: 14.4.0
   resolution: "@azure/msal-common@npm:14.4.0"
   checksum: 63c63fac0915b4dbd026add260e2527138a02ba6f9ccd8d92d2641fc3e2b5d59c6943415d470e40af2f34c55e77ccfc2d3f90e8a2befc1eeae3a9896ec65ade8
+  languageName: node
+  linkType: hard
+
+"@azure/msal-node@npm:^2.13.0":
+  version: 2.14.0
+  resolution: "@azure/msal-node@npm:2.14.0"
+  dependencies:
+    "@azure/msal-common": 14.15.0
+    jsonwebtoken: ^9.0.0
+    uuid: ^8.3.0
+  checksum: 79cddfa4cee9a18e4778db3b4e6e714a0216baaaee60eb364fbfbd9156ed7f10471a91944043f7c5506756a0a305cee535a70b78d587481851cd155ad4709d95
   languageName: node
   linkType: hard
 
@@ -14904,6 +14922,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "publishing-information-project@workspace:."
   dependencies:
+    "@azure/msal-node": ^2.13.0
     "@babel/core": ^7.25.2
     "@babel/eslint-parser": 7.25.1
     "@babel/preset-env": ^7.25.3

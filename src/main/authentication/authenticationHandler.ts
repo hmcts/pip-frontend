@@ -139,6 +139,21 @@ export async function processCftIdamSignIn(req, res): Promise<any> {
     res.redirect('/account-home');
 }
 
+export async function processSsoSignIn(req, res): Promise<any> {
+    if (req.user['created'] && checkRoles(req, allAdminRoles)) {
+        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('SSO', req.user['oid']);
+        if (checkRoles(req, systemAdminRoles)) {
+            res.redirect('/system-admin-dashboard');
+        } else {
+            res.redirect('/admin-dashboard');
+        }
+    } else {
+        // TODO: If the user has signed in to CaTH via SSO but failed to create the PI user account, we should display
+        //  an appropriate rejected login page. Use the error page for now.
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+}
+
 //This is now needed due to passport by default removing session data on successful login. Alternatively
 //keepSessionData could have been used, however this is the more secure approach as it is explicit in what we
 //want to keep in the session.
