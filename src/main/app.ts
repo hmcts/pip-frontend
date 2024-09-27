@@ -51,16 +51,11 @@ const redisStore = new RedisStore({
     client: redisClient,
 });
 
-const sessionSecrets: string[] = [
-    config.get('secrets.pip-ss-kv.SESSION_SECRET_V2'),
-    config.get('secrets.pip-ss-kv.SESSION_SECRET'),
-];
-
 app.set('trust proxy', 1);
 app.use(
     session({
         store: redisStore,
-        secret: sessionSecrets,
+        secret: config.get('secrets.pip-ss-kv.SESSION_SECRET'),
         resave: false,
         saveUninitialized: false,
         cookie: { secure: true, sameSite: process.env.SESSION_COOKIE_SAME_SITE },
@@ -75,7 +70,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cookieParser(sessionSecrets));
+app.use(cookieParser(config.get('secrets.pip-ss-kv.SESSION_SECRET')));
 new I18next().enableFor(app);
 
 //main routes

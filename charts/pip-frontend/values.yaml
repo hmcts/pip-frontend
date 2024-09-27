@@ -18,8 +18,6 @@ nodejs:
             secrets:
                 - name: session-key
                   alias: SESSION_SECRET
-                - name: session-key-v2
-                  alias: SESSION_SECRET_V2
                 - name: auto-pip-<ENV>-pip-frontend-<ENV>-id
                   alias: CLIENT_ID
                 - name: auto-pip-<ENV>-pip-frontend-<ENV>-pwd
