@@ -7,9 +7,7 @@ import AuditLogDetailsController from '../../../../main/controllers/system-admin
 const auditLogDetailsController = new AuditLogDetailsController();
 
 const i18n = {
-    'system-admin': {
-        'audit-log-details': {},
-    },
+    'audit-log-details': {},
 };
 
 const response = {
@@ -31,7 +29,7 @@ describe('Audit log details controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['system-admin']['audit-log-details'],
+            ...i18n['audit-log-details'],
             timestamp: request.query.timestamp,
             formattedData: testData,
         };

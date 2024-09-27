@@ -3,7 +3,7 @@ import fs from 'fs';
 import { multerFile } from '../mocks/multerFile';
 import { FileHandlingService } from '../../../main/service/FileHandlingService';
 import { uploadType } from '../../../main/helpers/consts';
-const { redisClient } = require('../../../main/cacheManager');
+import { redisClient } from '../../../main/cacheManager';
 
 const fileHandlingService = new FileHandlingService();
 const validFileCase = multerFile('testFile.HtMl', 1000);
@@ -21,7 +21,7 @@ const jsonContent = '{"TestContent": "TestValue"}';
 const stub = sinon.stub(fs, 'unlinkSync');
 const englishLanguage = 'en';
 const createMediaAccountLanguageFile = 'create-media-account';
-const manualUploadLanguageFile = 'admin/manual-upload';
+const manualUploadLanguageFile = 'manual-upload';
 
 describe('File handling service', () => {
     describe('validateImage', () => {

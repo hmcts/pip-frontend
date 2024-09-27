@@ -8,10 +8,8 @@ import { dummyApplication } from '../../../helpers/testConsts';
 import { v4 as uuidv4 } from 'uuid';
 
 const i18n = {
-    admin: {
-        'media-account-approval': {},
-        'media-account-approval-confirmation': {},
-    },
+    'media-account-approval': {},
+    'media-account-approval-confirmation': {},
     error: {},
 };
 const mediaAccountApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
@@ -51,7 +49,7 @@ describe('Media Account Approval Controller', () => {
             .expects('render')
             .once()
             .withArgs('admin/media-account-approval', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['media-account-approval']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval']),
                 applicantData: dummyApplication,
             });
 
@@ -124,7 +122,7 @@ describe('Media Account Approval Controller', () => {
             .expects('render')
             .once()
             .withArgs('admin/media-account-approval', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['media-account-approval']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval']),
                 applicantData: dummyApplication,
                 displayRadioError: true,
             });
@@ -167,7 +165,7 @@ describe('Media Account Approval Controller', () => {
             .expects('render')
             .once()
             .withArgs('admin/media-account-approval', {
-                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['admin']['media-account-approval']),
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['media-account-approval']),
                 applicantData: dummyApplication,
                 displayAzureError: true,
             });

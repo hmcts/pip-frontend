@@ -7,9 +7,7 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 
 const blobViewController = new BlobViewLocationController();
 const i18n = {
-    'system-admin': {
-        'blob-view-controller': {},
-    },
+    'blob-view-controller': {},
 };
 
 const map = new Map<string, number>([
@@ -39,7 +37,7 @@ describe('Get publications', () => {
         expectedDictionary.set('Single Justice Procedure', [9, 1]);
         expectedDictionary.set('No match artefacts', ['noMatch', 4]);
         const expectedData = {
-            ...i18n['system-admin']['blob-view-locations'],
+            ...i18n['blob-view-locations'],
             dictionaryOfLocations: expectedDictionary,
         };
 

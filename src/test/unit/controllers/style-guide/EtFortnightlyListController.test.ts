@@ -44,9 +44,7 @@ etDailyListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataListNo
 const listType = 'et-fortnightly-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
-    'style-guide': {
-        listType: { value: '123' },
-    },
+    listType: { value: '123' },
     'list-template': {},
 };
 
@@ -66,7 +64,7 @@ describe('Et Fortnightly List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             tableData,
             venueName: 'Regional Venue South',
@@ -93,7 +91,7 @@ describe('Et Fortnightly List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             tableData,
             venueName: 'Regional Venue South',

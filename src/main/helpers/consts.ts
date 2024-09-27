@@ -1,4 +1,4 @@
-const authenticationConfig = require('../authentication/authentication-config.json');
+import authenticationConfig from '../authentication/authentication-config.json';
 
 export const allowedFileTypes = ['pdf', 'json', 'csv', 'doc', 'docx', 'htm', 'html', 'xlsx'];
 

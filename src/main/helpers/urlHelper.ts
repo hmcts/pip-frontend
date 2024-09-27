@@ -6,7 +6,7 @@ export const checkIfUrl = (text: string) => {
     try {
         new URL(text);
         return true;
-    } catch (error) {
+    } catch {
         return false;
     }
 };

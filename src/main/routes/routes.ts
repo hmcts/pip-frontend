@@ -21,10 +21,10 @@ import {
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
+import passport from 'passport';
+import healthcheck from '@hmcts/nodejs-healthcheck';
+import multer from 'multer';
 
-const passport = require('passport');
-const healthcheck = require('@hmcts/nodejs-healthcheck');
-const multer = require('multer');
 const sessionManagement = new SessionManagementService();
 
 export default function (app: Application): void {

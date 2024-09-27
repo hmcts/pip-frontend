@@ -23,7 +23,7 @@ export default class RemoveListConfirmationController {
                 await addListDetailsToArray(list, req.user?.['userId'], listData);
             }
             res.render('admin/remove-list-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['remove-list-confirmation']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
                 removalList: manualUploadService.formatListRemovalValues(listData),
                 locationId: formData.locationId,
                 court: await courtService.getLocationById(formData.locationId),
@@ -69,7 +69,7 @@ export default class RemoveListConfirmationController {
                         await addListDetailsToArray(listsToDelete, req.user?.['userId'], listData);
                     }
                     res.render('admin/remove-list-confirmation', {
-                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['remove-list-confirmation']),
+                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-confirmation']),
                         court: await courtService.getLocationById(locationId),
                         removalList: manualUploadService.formatListRemovalValues(listData),
                         displayError: true,

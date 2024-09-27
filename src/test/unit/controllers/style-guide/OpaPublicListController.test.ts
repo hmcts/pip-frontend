@@ -48,9 +48,7 @@ opaPublicListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaDataList
 const listType = 'opa-public-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
-    'style-guide': {
-        listType: { value: '123' },
-    },
+    listType: { value: '123' },
     'list-template': {},
 };
 
@@ -70,7 +68,7 @@ describe('OPA Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             listData: listData,
             length: listData.length,
@@ -95,7 +93,7 @@ describe('OPA Public List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             listData: listData,
             length: listData.length,

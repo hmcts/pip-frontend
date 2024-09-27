@@ -125,15 +125,15 @@ export default class SjpPressListController {
 
     private static getLanguageResources(req, listType) {
         let languageResource = {
-            ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressAll],
-            ...req.i18n.getDataByLanguage(req.lng)['style-guide']['sjp-common'],
+            ...req.i18n.getDataByLanguage(req.lng)[sjpPressAll],
+            ...req.i18n.getDataByLanguage(req.lng)['sjp-common'],
             ...req.i18n.getDataByLanguage(req.lng)['list-template'],
         };
 
         if (listType === 'SJP_DELTA_PRESS_LIST') {
             languageResource = {
                 ...cloneDeep(languageResource),
-                ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpPressDelta],
+                ...req.i18n.getDataByLanguage(req.lng)[sjpPressDelta],
             };
         }
         return languageResource;

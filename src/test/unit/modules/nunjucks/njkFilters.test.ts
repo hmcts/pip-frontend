@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import * as nunjucks from 'nunjucks';
+import { createFilters } from '../../../../main/modules/nunjucks/njkFilters';
 
 const env = new nunjucks.Environment();
-const addFilters = require('../../../../main/modules/nunjucks/njkFilters');
-addFilters(env);
+createFilters(env);
 describe('Nunjucks Custom Filter Tests', function () {
     describe('getDuration Filter', function () {
         it('should render duration correctly', function () {

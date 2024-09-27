@@ -115,15 +115,15 @@ export default class SjpPublicListController {
 
     private static getLanguageResources(req, listType) {
         let languageResource = {
-            ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpAlStyleGuide],
-            ...req.i18n.getDataByLanguage(req.lng)['style-guide']['sjp-common'],
+            ...req.i18n.getDataByLanguage(req.lng)[sjpAlStyleGuide],
+            ...req.i18n.getDataByLanguage(req.lng)['sjp-common'],
             ...req.i18n.getDataByLanguage(req.lng)['list-template'],
         };
 
         if (listType === 'SJP_DELTA_PUBLIC_LIST') {
             languageResource = {
                 ...cloneDeep(languageResource),
-                ...req.i18n.getDataByLanguage(req.lng)['style-guide'][sjpNewCasesStyleGuide],
+                ...req.i18n.getDataByLanguage(req.lng)[sjpNewCasesStyleGuide],
             };
         }
         return languageResource;

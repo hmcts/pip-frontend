@@ -7,9 +7,7 @@ import { CreateAccountService } from '../../../../main/service/CreateAccountServ
 
 const bulkCreateMediaAccountsController = new BulkCreateMediaAccountsController();
 const i18n = {
-    'system-admin': {
-        'bulk-create-media-accounts': {},
-    },
+    'bulk-create-media-accounts': {},
 };
 
 const response = {
@@ -42,7 +40,7 @@ describe('Bulk Create Media Accounts Controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedData = {
-                ...i18n['system-admin']['bulk-create-media-accounts'],
+                ...i18n['bulk-create-media-accounts'],
                 displayError: false,
             };
             responseMock.expects('render').once().withArgs('system-admin/bulk-create-media-accounts', expectedData);
@@ -74,7 +72,7 @@ describe('Bulk Create Media Accounts Controller', () => {
             validateFileContentStub.returns(null);
 
             const expectedData = {
-                ...i18n['system-admin']['bulk-create-media-accounts'],
+                ...i18n['bulk-create-media-accounts'],
                 displayError: true,
                 error,
             };
@@ -92,7 +90,7 @@ describe('Bulk Create Media Accounts Controller', () => {
             validateFileContentStub.returns(error);
 
             const expectedData = {
-                ...i18n['system-admin']['bulk-create-media-accounts'],
+                ...i18n['bulk-create-media-accounts'],
                 displayError: true,
                 error,
             };

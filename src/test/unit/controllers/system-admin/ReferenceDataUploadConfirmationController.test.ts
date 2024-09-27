@@ -8,9 +8,7 @@ const referenceDataUploadConfirmationController = new ReferenceDataUploadConfirm
 describe('Reference data file upload Confirmation Controller', () => {
     it('should render confirmation page', async () => {
         const i18n = {
-            'system-admin': {
-                'reference-data-upload-confirmation': {},
-            },
+            'reference-data-upload-confirmation': {},
         };
         const response = {
             render: () => {
@@ -24,7 +22,7 @@ describe('Reference data file upload Confirmation Controller', () => {
             .expects('render')
             .once()
             .withArgs('system-admin/reference-data-upload-confirmation', {
-                ...i18n['system-admin']['reference-data-upload-confirmation'],
+                ...i18n['reference-data-upload-confirmation'],
             });
 
         await referenceDataUploadConfirmationController.get(request, response);

@@ -17,7 +17,7 @@ export default class RemoveListSearchResultsController {
         const noOptionSelectedError = req.query?.error;
         locationId
             ? res.render('admin/remove-list-search-results', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['remove-list-search-results']),
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search-results']),
                   court: await courtService.getLocationById(locationId),
                   removalList: manualUploadService.formatListRemovalValues(
                       await summaryOfPublicationsService.getPublications(locationId, req.user?.['userId'], true)

@@ -18,9 +18,7 @@ courtStub.withArgs('Mut').resolves(null);
 courtStub.withArgs('Valid Location').resolves(court);
 
 const i18n = {
-    'system-admin': {
-        'delete-court-reference-data': {},
-    },
+    'delete-court-reference-data': {},
 };
 
 describe('Delete Court Search Controller', () => {
@@ -33,7 +31,7 @@ describe('Delete Court Search Controller', () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data'],
+            ...i18n['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: false,
@@ -55,7 +53,7 @@ describe('Delete Court Search Controller', () => {
         request.body = { 'input-autocomplete': 'aa' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data'],
+            ...i18n['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: true,
             noResultsError: false,
@@ -77,7 +75,7 @@ describe('Delete Court Search Controller', () => {
         request.body = { 'input-autocomplete': 'test' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data'],
+            ...i18n['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: true,
@@ -99,7 +97,7 @@ describe('Delete Court Search Controller', () => {
         request.body = { 'input-autocomplete': 'Mut' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data'],
+            ...i18n['delete-court-reference-data'],
             autocompleteList: courtList,
             invalidInputError: false,
             noResultsError: true,

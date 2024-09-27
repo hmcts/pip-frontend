@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { asClass, asValue, createContainer, InjectionMode } from 'awilix';
 import { Application } from 'express';
 import path from 'path';
 import * as fs from 'fs';
+import { Logger } from '@hmcts/nodejs-logging';
 
-const { Logger } = require('@hmcts/nodejs-logging');
 const logger = Logger.getLogger('app');
 
 const jsonObject = {};
@@ -12,7 +13,7 @@ const controllerBasePath = '../../controllers';
 export class Container {
     public enableFor(app: Application): void {
         const files = fs.readdirSync(path.join(__dirname, controllerBasePath));
-        files.forEach(file => {
+        for (const file of files) {
             if (path.extname(file)) {
                 this.registerClass(file, controllerBasePath);
             } else {
@@ -20,7 +21,7 @@ export class Container {
                 const subDirFiles = fs.readdirSync(path.join(__dirname, filePath));
                 subDirFiles.forEach(subDirFile => this.registerClass(subDirFile, filePath));
             }
-        });
+        }
         jsonObject['logger'] = asValue(logger);
         app.locals.container = createContainer({
             injectionMode: InjectionMode.CLASSIC,
