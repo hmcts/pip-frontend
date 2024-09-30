@@ -37,7 +37,6 @@ module.exports = tslint.config(
                 Feature: 'readonly',
                 Scenario: 'readonly',
                 locate: 'readonly',
-                secret: 'readonly',
                 actor: 'readonly',
                 DataTable: 'readonly',
                 Data: 'readonly',
