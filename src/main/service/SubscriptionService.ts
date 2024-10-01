@@ -260,7 +260,10 @@ export class SubscriptionService {
             courtSubscribed = await this.subscribeByCourt(userId, cachedCourtSubs);
 
             const cachedListTypes = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'listTypes');
-            const cachedListLanguage = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'listLanguage');
+            const cachedListLanguage = await pendingSubscriptionsFromCache.getPendingSubscriptions(
+                userId,
+                'listLanguage'
+            );
             courtSubscribed = await this.subscribeByListTypeAndLanguage(userId, cachedListTypes, cachedListLanguage);
         }
 
@@ -305,13 +308,13 @@ export class SubscriptionService {
     }
 
     private async subscribeByListTypeAndLanguage(userId, cachedListType, cachedLanguageType) {
-        let userListTypeSubscription = await this.getUserSubscriptionListType(userId);
+        const userListTypeSubscription = await this.getUserSubscriptionListType(userId);
 
         if (userListTypeSubscription != null) {
-            cachedListType = [...new Set([...cachedListType, ...userListTypeSubscription])]
+            cachedListType = [...new Set([...cachedListType, ...userListTypeSubscription])];
         }
 
-        let payload = {
+        const payload = {
             listType: cachedListType,
             listLanguage: cachedLanguageType[0].split(','),
             userId,
@@ -461,7 +464,7 @@ export class SubscriptionService {
     private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
 
-        let selectedListTypes = await this.getUserSubscriptionListType(userId);
+        const selectedListTypes = await this.getUserSubscriptionListType(userId);
         const courtJurisdictions = [];
         for (const subscription of userSubscriptions['locationSubscriptions']) {
             if ('locationId' in subscription) {

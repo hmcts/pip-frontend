@@ -135,30 +135,20 @@ const blankPayload = {
 };
 const mockListType = ['SJP_PUBLIC_LIST'];
 const mockLanguage = ['ENGLISH'];
-const mockListTypes = ['CIVIL_DAILY_CAUSE_LIST','FAMILY_DAILY_CAUSE_LIST'];
+const mockListTypes = ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'];
 const mockLanguages = ['ENGLISH,WELSH'];
 
 const mockSingleListTypePayload = {
-    listType: [
-        "SJP_PUBLIC_LIST"
-    ],
-    listLanguage: [
-        "ENGLISH"
-    ],
-    userId: "1",
-}
+    listType: ['SJP_PUBLIC_LIST'],
+    listLanguage: ['ENGLISH'],
+    userId: '1',
+};
 
 const mockMultiListTypePayload = {
-    listType: [
-        "CIVIL_DAILY_CAUSE_LIST",
-        "FAMILY_DAILY_CAUSE_LIST"
-    ],
-    listLanguage: [
-        "ENGLISH"
-    ],
-    userId: "1",
-}
-
+    listType: ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
+    listLanguage: ['ENGLISH'],
+    userId: '1',
+};
 
 const user = {};
 const requester = 'Test';
@@ -176,10 +166,7 @@ const getByCaseNumberStub = sinon.stub(PublicationService.prototype, 'getCaseByC
 const getCaseByUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
-const addListTypeSubscriptionStub = sinon.stub(
-    SubscriptionRequests.prototype,
-    'addListTypeForLocationSubscriptions'
-);
+const addListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'addListTypeForLocationSubscriptions');
 const updateListTypeSubscriptionStub = sinon.stub(
     SubscriptionRequests.prototype,
     'configureListTypeForLocationSubscriptions'
@@ -222,12 +209,8 @@ cacheGetStub
 cacheGetStub
     .withArgs(userIdForSortedSubscriptions, 'courts')
     .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
-addListTypeSubscriptionStub
-    .withArgs(userIdWithSubscriptions, mockSingleListTypePayload)
-    .resolves(true);
-addListTypeSubscriptionStub
-    .withArgs(userIdWithCourtMultiListTypeSubscription, mockMultiListTypePayload)
-    .resolves(true);
+addListTypeSubscriptionStub.withArgs(userIdWithSubscriptions, mockSingleListTypePayload).resolves(true);
+addListTypeSubscriptionStub.withArgs(userIdWithCourtMultiListTypeSubscription, mockMultiListTypePayload).resolves(true);
 updateListTypeSubscriptionStub
     .withArgs(userIdWithSubscriptions, courtSubscriptionWithSingleListTypePayload)
     .resolves(true);
@@ -781,19 +764,13 @@ describe('subscribe function', () => {
         };
 
         const listTypePayload = {
-            listType: [
-                "SJP_PUBLIC_LIST"
-            ],
-            listLanguage: [
-                "ENGLISH"
-            ],
+            listType: ['SJP_PUBLIC_LIST'],
+            listLanguage: ['ENGLISH'],
             userId: userIdWithCourtSubscription,
-        }
+        };
 
         subscriptionStub.withArgs(courtSubscription, userIdWithCourtSubscription).resolves(true);
-        addListTypeSubscriptionStub
-            .withArgs(userIdWithCourtSubscription, listTypePayload)
-            .resolves(true);
+        addListTypeSubscriptionStub.withArgs(userIdWithCourtSubscription, listTypePayload).resolves(true);
 
         const subscriptionRes = await subscriptionService.subscribe(userIdWithCourtSubscription);
         expect(subscriptionRes).toBe(true);
@@ -809,21 +786,13 @@ describe('subscribe function', () => {
         };
 
         const listTypePayload = {
-            listType: [
-                "CIVIL_DAILY_CAUSE_LIST",
-                "FAMILY_DAILY_CAUSE_LIST"
-            ],
-            listLanguage: [
-                "ENGLISH",
-                "WELSH",
-            ],
+            listType: ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
+            listLanguage: ['ENGLISH', 'WELSH'],
             userId: userIdWithCourtMultiListTypeSubscription,
-        }
+        };
 
         subscriptionStub.withArgs(courtSubscription, userIdWithCourtMultiListTypeSubscription).resolves(true);
-        addListTypeSubscriptionStub
-            .withArgs(userIdWithCourtMultiListTypeSubscription, listTypePayload)
-            .resolves(true);
+        addListTypeSubscriptionStub.withArgs(userIdWithCourtMultiListTypeSubscription, listTypePayload).resolves(true);
 
         const subscriptionRes = await subscriptionService.subscribe(userIdWithCourtMultiListTypeSubscription);
         expect(subscriptionRes).toBe(true);
