@@ -362,7 +362,7 @@ export class SubscriptionService {
 
     public async configureListTypeForLocationSubscriptions(userId, listType, listLanguage): Promise<boolean> {
         return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId, {
-            listType: listType,
+            listType: this.createListTypeSubscriptionPayload(listType),
             listLanguage: listLanguage,
             userId,
         });
