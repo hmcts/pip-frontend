@@ -13,13 +13,4 @@ describe('Subscriptions Add List Language', () => {
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
-
-    describe('on POST', () => {
-        test('should return subscription add list language page', async () => {
-            await request(app)
-                .post('/subscription-add-list-language')
-                .send({ 'list-selections[]': 'test' })
-                .expect(res => expect(res.status).to.equal(200));
-        });
-    });
 });

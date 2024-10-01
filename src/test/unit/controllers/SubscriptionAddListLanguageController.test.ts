@@ -56,39 +56,4 @@ describe('Add List Language Subscriptions Controller', () => {
             });
         });
     });
-
-    describe('POST view', () => {
-        it('should redirect subscription Add List if validation is failed', () => {
-            const request = mockRequest(i18n);
-            request.user = { userId: userId };
-            request.lng = language;
-            request.body = { 'list-selections[]': '' };
-
-            const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once().withArgs('/subscription-add-list?error=true');
-
-            return subscriptionAddListLanguageController.post(request, response).then(() => {
-                responseMock.verify();
-            });
-        });
-
-        it('should render subscription Add List if post data is provided', () => {
-            const request = mockRequest(i18n);
-            request.user = { userId: userId };
-            request.lng = language;
-            request.body = { 'list-selections[]': 'test' };
-
-            const expectedData = {
-                ...i18n['subscription-add-list-language'],
-                noSelectionError: false,
-            };
-
-            const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('subscription-add-list-language', expectedData);
-
-            return subscriptionAddListLanguageController.post(request, response).then(() => {
-                responseMock.verify();
-            });
-        });
-    });
 });

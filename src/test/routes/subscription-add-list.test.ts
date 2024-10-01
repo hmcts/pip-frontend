@@ -21,4 +21,13 @@ describe('Subscriptions Add List Type', () => {
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
+
+    describe('on POST', () => {
+        test('should return subscription add list type page', async () => {
+            await request(app)
+                .post('/subscription-add-list')
+                .send({ 'list-selections[]': 'test' })
+                .expect(res => expect(res.status).to.equal(302));
+        });
+    });
 });

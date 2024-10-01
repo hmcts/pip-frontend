@@ -66,4 +66,38 @@ describe('Add Location List Subscriptions Controller', () => {
             });
         });
     });
+
+    describe('POST view', () => {
+        it('should render subscription Add List if post data is provided', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId, userProvenance: userProvenance };
+            request.lng = language;
+            request.body = {'list-selections[]': 'test'};
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('redirect').once().withArgs('subscription-add-list-language');
+
+            return subscriptionAddListController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render subscription Add List with error if post data is provided and no selection was select', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId, userProvenance: userProvenance };
+            request.lng = language;
+            request.body = {'list-selections[]': ''};
+            const expectedData = {
+                ...i18n['subscription-add-list'],
+                listTypes: [],
+                noSelectionError: true,
+            };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('subscription-add-list', expectedData);
+
+            return subscriptionAddListController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+    });
 });
