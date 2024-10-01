@@ -322,10 +322,6 @@ export class SubscriptionService {
         return await subscriptionRequests.addListTypeForLocationSubscriptions(userId, payload);
     }
 
-    /*private async subscribeByListType(userId, cachedListType, cachedListLanguage): Promise<boolean> {
-        return await this.configureListTypeForLocationSubscriptions(userId, cachedListType, cachedListLanguage);
-    }*/
-
     createSubscriptionPayload(pendingSubscription, subscriptionType, userId): object {
         let payload;
         switch (subscriptionType) {
@@ -512,21 +508,6 @@ export class SubscriptionService {
 
         return applicableListTypes;
     }
-
-    /**
-     * Generates the appropriate list types for a location
-     * @param location The location to get the list types for
-     * @param userRole The role of the user.
-     * @private
-     */
-    /*private async generateListTypesForNewSubscription(userId): Promise<Array<string>> {
-        const userSubscriptions = await this.getSubscriptionsByUser(userId);
-        if (userSubscriptions.locationSubscriptions != null && userSubscriptions.locationSubscriptions.length > 0) {
-            return userSubscriptions.locationSubscriptions[0].listTypes;
-        } else {
-            return [];
-        }
-    }*/
 
     private buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[], language): object {
         const filterValueOptions = {};
