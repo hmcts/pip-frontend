@@ -72,7 +72,7 @@ describe('Add Location List Subscriptions Controller', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userId, userProvenance: userProvenance };
             request.lng = language;
-            request.body = {'list-selections[]': 'test'};
+            request.body = { 'list-selections[]': 'test' };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('redirect').once().withArgs('subscription-add-list-language');
@@ -86,7 +86,7 @@ describe('Add Location List Subscriptions Controller', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userId, userProvenance: userProvenance };
             request.lng = language;
-            request.body = {'list-selections[]': ''};
+            request.body = { 'list-selections[]': '' };
             const expectedData = {
                 ...i18n['subscription-add-list'],
                 listTypes: [],
