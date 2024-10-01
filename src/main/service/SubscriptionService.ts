@@ -255,7 +255,14 @@ export class SubscriptionService {
         const caseSubscribed = cachedCaseSubs ? await this.subscribeByCase(userId, cachedCaseSubs) : true;
 
         const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'courts');
-        const courtSubscribed = cachedCourtSubs ? await this.subscribeByCourt(userId, cachedCourtSubs) : true;
+        let courtSubscribed = true;
+        if (cachedCourtSubs.length > 0) {
+            courtSubscribed = await this.subscribeByCourt(userId, cachedCourtSubs);
+
+            const cachedListTypes = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'listTypes');
+            const cachedListLanguage = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'listLanguage');
+            courtSubscribed = await this.subscribeByListTypeAndLanguage(userId, cachedListTypes, cachedListLanguage);
+        }
 
         return caseSubscribed && courtSubscribed;
     }
@@ -282,11 +289,7 @@ export class SubscriptionService {
 
     private async subscribeByCourt(userId, cachedCourtSubs) {
         let subscribed = true;
-        const cachedListTypes = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'listTypes');
-        const cachedListLanguage = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'listLanguage');
         for (const cachedCourt of cachedCourtSubs) {
-            cachedCourt['listType'] = cachedListTypes;
-            cachedCourt['listLanguage'] = cachedListLanguage;
             const response = await subscriptionRequests.subscribe(
                 this.createSubscriptionPayload(cachedCourt, 'courts', userId),
                 userId
@@ -299,6 +302,21 @@ export class SubscriptionService {
             }
         }
         return subscribed;
+    }
+
+    private async subscribeByListTypeAndLanguage(userId, cachedListType, cachedLanguageType) {
+        let userListTypeSubscription = await this.getUserSubscriptionListType(userId);
+
+        if (userListTypeSubscription != null) {
+            cachedListType = [...new Set([...cachedListType, ...userListTypeSubscription])]
+        }
+
+        let payload = {
+            listType: cachedListType,
+            listLanguage: cachedLanguageType[0].split(','),
+            userId,
+        };
+        return await subscriptionRequests.addListTypeForLocationSubscriptions(userId, payload);
     }
 
     /*private async subscribeByListType(userId, cachedListType, cachedListLanguage): Promise<boolean> {
@@ -314,8 +332,6 @@ export class SubscriptionService {
                     searchType: 'LOCATION_ID',
                     searchValue: pendingSubscription.locationId,
                     locationName: pendingSubscription.name,
-                    listType: pendingSubscription.listType,
-                    listLanguage: pendingSubscription.listLanguage[0].split(','),
                     userId,
                 };
                 break;
@@ -432,14 +448,20 @@ export class SubscriptionService {
         return language === 'en' ? listType.friendlyName : `${listType.friendlyName}\n${listType.welshFriendlyName}`;
     }
 
-    private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
+    private async getUserSubscriptionListType(userId): Promise<any[]> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
 
         let selectedListTypes = [];
         if (userSubscriptions['locationSubscriptions'].length > 0) {
             selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listType'];
         }
+        return selectedListTypes;
+    }
 
+    private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
+        const userSubscriptions = await this.getSubscriptionsByUser(userId);
+
+        let selectedListTypes = await this.getUserSubscriptionListType(userId);
         const courtJurisdictions = [];
         for (const subscription of userSubscriptions['locationSubscriptions']) {
             if ('locationId' in subscription) {

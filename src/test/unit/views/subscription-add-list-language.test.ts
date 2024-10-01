@@ -36,7 +36,7 @@ describe('Subscriptions add list language Page initial load', () => {
     it('should display a back button with the correct value', () => {
         const backLink = htmlRes.getElementsByClassName(backButtonClass);
         expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-        expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+        expect(backLink[0].getAttribute('href')).equal('/subscription-add-list', 'Back value does not contain correct link');
     });
 
     it('should not display the error summary on loading', () => {
