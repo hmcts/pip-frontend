@@ -33,6 +33,8 @@ const mediaRoutes = [
     { path: '/pending-subscriptions' },
     { path: '/remove-subscription' },
     { path: '/subscription-add' },
+    { path: '/subscription-add-list' },
+    { path: '/subscription-add-list-language' },
     { path: '/subscription-confirmed' },
     { path: '/subscription-management' },
     { path: '/subscription-configure-list' },
