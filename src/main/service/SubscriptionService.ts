@@ -478,7 +478,11 @@ export class SubscriptionService {
         const courtsJurisdictions = await locationService.findCourtsJurisdiction(cachedCourts);
 
         const selectedListTypes = await this.getUserSubscriptionListType(userId);
-        const applicableListTypes = this.findApplicableListTypeForCourts(courtsJurisdictions, selectedListTypes, userRole);
+        const applicableListTypes = this.findApplicableListTypeForCourts(
+            courtsJurisdictions,
+            selectedListTypes,
+            userRole
+        );
         return this.generateAlphabetisedListTypes([], applicableListTypes, language);
     }
 
@@ -494,10 +498,7 @@ export class SubscriptionService {
                 listType.jurisdictions.some(jurisdiction => courtJurisdictions.includes(jurisdiction)) &&
                 (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
             ) {
-                if (
-                    selectedListTypes != null &&
-                    selectedListTypes.includes(listName)
-                ) {
+                if (selectedListTypes != null && selectedListTypes.includes(listName)) {
                     listType.checked = true;
                 } else {
                     listType.checked = false;
