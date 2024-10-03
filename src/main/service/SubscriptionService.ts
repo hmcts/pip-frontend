@@ -477,7 +477,8 @@ export class SubscriptionService {
         const cachedCourts = await cacheService.getPendingSubscriptions(userId, 'courts');
         const courtsJurisdictions = await locationService.findCourtsJurisdiction(cachedCourts);
 
-        const applicableListTypes = this.findApplicableListTypeForCourts(courtsJurisdictions, null, userRole);
+        const selectedListTypes = await this.getUserSubscriptionListType(userId);
+        const applicableListTypes = this.findApplicableListTypeForCourts(courtsJurisdictions, selectedListTypes, userRole);
         return this.generateAlphabetisedListTypes([], applicableListTypes, language);
     }
 
@@ -494,8 +495,7 @@ export class SubscriptionService {
                 (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
             ) {
                 if (
-                    selectedListTypes == null ||
-                    selectedListTypes.length == 0 ||
+                    selectedListTypes != null &&
                     selectedListTypes.includes(listName)
                 ) {
                     listType.checked = true;
