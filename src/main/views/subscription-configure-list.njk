@@ -14,78 +14,8 @@
 {% block content %}
     <h1 class="govuk-heading-l">{{ title }}</h1>
     <p class="govuk-body">{{ descriptionText }}</p>
-    <p class="govuk-body">{{ explanationText }}</p>
 
     <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
-      <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
-        {% set checkedFilters = [] %}
-        {% set toBeCreated = true %}
-        {% set filterOptionsHtml %}
-          {% for key, option in filterOptions %}
-            {% set checkedFilterItems = [] %}
-            {% set items = [] %}
-            {% for value, item in option %}
-              {% set _ = items.push({
-                value: item.value,
-                text: item.text,
-                checked: item.checked
-              }) %}
-              {% if item.checked %}
-                {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
-              {% endif %}
-            {% endfor %}
-            {% if checkedFilterItems| length > 0 %}
-              {% set _ = checkedFilters.push({heading: {text: filterHeader}, items: checkedFilterItems}) %}
-            {% endif %}
-            {% if toBeCreated %}
-              <div class="moj-button-menu filters__innerButton" id="innerButton">
-                <div class="moj-button-menu__wrapper">
-                  <a href="#" role="button" draggable="false"
-                     class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
-                     onclick="toggleFilters()">
-                    {{ hide }}
-                  </a>
-                </div>
-              </div>
-              {% set toBeCreated = false %}
-            {% endif %}
-            {{ govukCheckboxes({
-              idPrefix: key,
-              name: key,
-              classes: "govuk-checkboxes--small",
-              fieldset: {
-                legend: {
-                  text: filterHeader,
-                  classes: 'govuk-fieldset__legend--m'
-                }
-              },
-              items: items
-            }) }}
-          {% endfor %}
-        {% endset %}
-        <form method="post" action="subscription-configure-list" class="moj-filter-layout__filter layout-width-four-fifths"
-              autocomplete="off">
-          {{ mojFilter({
-            submit: {
-              text: applyFiltersButton
-            },
-            heading: {
-              text: filter
-            },
-            selectedFilters: {
-              heading: {
-                text: filterSelected
-              },
-              clearLink: {
-                text: filterClear,
-                href: '?clear=all'
-              },
-              categories: checkedFilters
-            },
-            optionsHtml: filterOptionsHtml
-          }) }}
-        </form>
-      </div>
       <div class="layout-width-three-fifths" id="content">
         <form class="moj-action-bar" action="subscription-configure-list-confirmed" method="post" autocomplete="off">
           <h2 class="govuk-heading-m">{{ userSelections }}</h2>
@@ -176,7 +106,6 @@
         </form>
         {{ super() }}
       </div>
-    </div>
     </div>
 {% endblock %}
 
