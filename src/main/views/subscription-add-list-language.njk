@@ -1,6 +1,5 @@
 {% extends "template.njk" %}
-{% from "macros/common-components.njk" import submitButton %}
-{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
@@ -9,13 +8,12 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
-        text: backButton,
-        href: "/subscription-add-list",
-        attributes: {
-            onClick: "history.back();"
-        }
-    }) }}
+    {{ super() }}
+    {{ goBack(
+        path= '/subscription-add-list',
+        text = backButton,
+        clickEvent = "history.back();")
+    }}
 {% endblock %}
 
 {% block content %}
