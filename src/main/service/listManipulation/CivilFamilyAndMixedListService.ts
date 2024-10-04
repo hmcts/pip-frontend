@@ -33,35 +33,6 @@ export class CivilFamilyAndMixedListService {
         return outputData;
     }
 
-    // TODO: To be removed once all lists have party field on the case level.
-    public sculptedListDataPartyAtHearingLevel(list: string, isFamilyMixedList = false): object {
-        const outputData = JSON.parse(list);
-        outputData['courtLists'].forEach(courtList => {
-            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-                courtRoom['session'].forEach(session => {
-                    session['formattedJudiciaries'] = helperService.findAndManipulateJudiciary(session);
-                    session['sittings'].forEach(sitting => {
-                        helperService.calculateDuration(sitting);
-                        helperService.findAndConcatenateHearingPlatform(sitting, session);
-                        if (isFamilyMixedList) {
-                            sitting['hearing'].forEach(hearing => {
-                                if (hearing['case'] && hearing['case'].length == 1) {
-                                    this.handleFamilyMixedListParties(hearing);
-                                }
-                                hearing['case'].forEach(hearingCase => {
-                                    hearingCase['formattedReportingRestriction'] =
-                                        ListParseHelperService.formatReportingRestrictionDetail(hearingCase);
-                                });
-                            });
-                        }
-                    });
-                });
-            });
-        });
-
-        return outputData;
-    }
-
     private handleFamilyMixedListParties(node: any): void {
         let applicant = '';
         let respondent = '';
