@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { randomData } from '../end-to-end/shared/random-data';
 import { config } from '../config';
-import {clearTestData, createLocation, uploadPublication} from '../end-to-end/shared/testingSupportApi';
+import { clearTestData, createLocation, uploadPublication } from '../end-to-end/shared/testingSupportApi';
 
 Feature('accessibility_tests');
 
