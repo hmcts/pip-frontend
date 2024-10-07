@@ -25,6 +25,11 @@ Scenario('Unverified User Journey - sign-in-page', async ({ I }) => {
     I.checkA11y('sign-in-a11y-audit.html');
 });
 
+Scenario('Unverified User Journey- search-page', async ({ I }) => {
+    I.amOnPage('/search');
+    I.checkA11y('search-a11y-audit.html');
+});
+
 Scenario('Unverified User Journey - view-option-page', async ({ I }) => {
     I.amOnPage('/view-option');
     I.checkA11y('view-option-a11y-audit.html');
@@ -43,6 +48,16 @@ Scenario('Unverified User Journey - list-display-page', async ({ I }) => {
 Scenario('Unverified User Journey- alphabetical-search-page', async ({ I }) => {
     I.amOnPage('/alphabetical-search');
     I.checkA11y('alphabetical-search-a11y-audit.html');
+});
+
+Scenario('Unverified User Journey- accessibility-statement-page', async ({ I }) => {
+    I.amOnPage('/accessibility-statement');
+    I.checkA11y('accessibility-statement-a11y-audit.html');
+});
+
+Scenario('Unverified User Journey- cookie-policy-page', async ({ I }) => {
+    I.amOnPage('/cookie-policy');
+    I.checkA11y('cookie-policy-a11y-audit.html');
 });
 
 AfterSuite(async ({ I }) => {
