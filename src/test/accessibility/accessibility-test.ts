@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { randomData } from '../end-to-end/shared/random-data';
 import { config } from '../config';
-import { uploadPublication } from '../end-to-end/shared/testingSupportApi';
+import {clearTestData, createLocation, uploadPublication} from '../end-to-end/shared/testingSupportApi';
 
 Feature('accessibility_tests');
 
@@ -11,8 +11,8 @@ const locationId = randomData.getRandomLocationId();
 const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 let artefactId;
 
-BeforeSuite(async ({ I }) => {
-    I.createLocation(locationId, locationName);
+BeforeSuite(async () => {
+    await createLocation(locationId, locationName);
     artefactId = await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 });
 
@@ -60,6 +60,6 @@ Scenario('Unverified User Journey- cookie-policy-page', async ({ I }) => {
     I.checkA11y('cookie-policy-a11y-audit.html');
 });
 
-AfterSuite(async ({ I }) => {
-    I.clearTestData();
+AfterSuite(async () => {
+    await clearTestData();
 });
