@@ -13,7 +13,6 @@
         "lint:fix": "prettier --write . && eslint --fix .",
         "build": "yarn webpack --config webpack.config.js",
         "build:prod": "NODE_ENV=production yarn webpack --mode production --config webpack.config.js",
-        "playwright:install": "playwright install",
         "test": "npx if-env CI=true && exit 0 || yarn test:unit --maxWorkers=50%",
         "test:unit": "jest",
         "test:failures": "jest -f",
