@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SubscriptionConfigureListConfirmedController from '../../../main/controllers/SubscriptionConfigureListConfirmedController';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
-import {PendingSubscriptionsFromCache} from "../../../main/service/PendingSubscriptionsFromCache";
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 
 const subscriptionConfigureListConfirmedController = new SubscriptionConfigureListConfirmedController();
 

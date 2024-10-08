@@ -1,9 +1,8 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
-import SubscriptionConfigListLanguageController
-    from '../../../main/controllers/SubscriptionConfigListLanguageController';
-import {SubscriptionService} from "../../../main/service/SubscriptionService";
+import SubscriptionConfigListLanguageController from '../../../main/controllers/SubscriptionConfigListLanguageController';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const userId = '1';
 const language = 'en';

@@ -10,10 +10,12 @@ const userId = '1';
 const userProvenance = 'PI_AAD';
 const language = 'en';
 
-const generateListTypeStub = sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts')
+const generateListTypeStub = sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts');
 const createListTypeStub = sinon.stub(SubscriptionService.prototype, 'createListTypeSubscriptionPayload');
 
-generateListTypeStub.withArgs(userId, userProvenance, null, null, 'en').resolves({ listOptions: { A: {} }, filterOptions: { AB: {} } });
+generateListTypeStub
+    .withArgs(userId, userProvenance, null, null, 'en')
+    .resolves({ listOptions: { A: {} }, filterOptions: { AB: {} } });
 createListTypeStub.withArgs('').resolves([]);
 createListTypeStub.withArgs('test').resolves(['test']);
 

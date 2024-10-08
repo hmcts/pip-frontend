@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import request from 'supertest';
 import sinon from 'sinon';
-import {PendingSubscriptionsFromCache} from "../../../main/service/PendingSubscriptionsFromCache";
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 
 const PAGE_URL = '/subscription-configure-list-confirmed';
 let htmlRes: Document;

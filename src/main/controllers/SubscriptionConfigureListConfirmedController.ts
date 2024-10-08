@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { SubscriptionService } from '../service/SubscriptionService';
 import { cloneDeep } from 'lodash';
-import {PendingSubscriptionsFromCache} from '../service/PendingSubscriptionsFromCache';
+import { PendingSubscriptionsFromCache } from '../service/PendingSubscriptionsFromCache';
 
 const subscriptionService = new SubscriptionService();
 
@@ -22,7 +22,9 @@ export default class SubscriptionConfigureListConfirmedController {
 
         let success;
         if (cachedListTypes?.length) {
-            const listLanguage = req.body['list-language'].split(',').map(function(x){ return x.toUpperCase(); });
+            const listLanguage = req.body['list-language'].split(',').map(function (x) {
+                return x.toUpperCase();
+            });
             success = await subscriptionService.configureListTypeForLocationSubscriptions(
                 req.user['userId'],
                 cachedListTypes,

@@ -3,7 +3,7 @@ import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../main/app';
 import { SubscriptionService } from '../../main/service/SubscriptionService';
-import {PendingSubscriptionsFromCache} from "../../main/service/PendingSubscriptionsFromCache";
+import { PendingSubscriptionsFromCache } from '../../main/service/PendingSubscriptionsFromCache';
 
 const PAGE_URL = '/subscription-configure-list-confirmed';
 const subscribeStub = sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions');
