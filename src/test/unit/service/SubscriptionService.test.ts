@@ -900,6 +900,17 @@ describe('configureListTypeForLocationSubscriptions', () => {
     });
 });
 
+describe('getUserSubscriptionListLanguage', () => {
+    it('should return a language if user has location subscription', async () => {
+        const result = await subscriptionService.getUserSubscriptionListLanguage(userIdWithSubscriptions);
+        expect(result).toEqual('ENGLISH');
+    });
+
+    it('should return empty if user has no location subscription', async () => {
+        const result = await subscriptionService.getUserSubscriptionListLanguage(userIdWithoutSubscriptions);
+        expect(result).toEqual('');
+    });
+});
 describe('unsubscribing', () => {
     const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 

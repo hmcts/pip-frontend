@@ -31,32 +31,11 @@ describe('Add Location List Subscriptions Controller', () => {
         it('should render the Add Location List subscription page without error', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userId, userProvenance: userProvenance };
-            request.query = { error: 'false' };
             request.lng = language;
 
             const expectedData = {
                 ...i18n['subscription-add-list'],
                 listTypes: [],
-                noSelectionError: false,
-            };
-            const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('subscription-add-list', expectedData);
-
-            return subscriptionAddListController.get(request, response).then(() => {
-                responseMock.verify();
-            });
-        });
-
-        it('should render the Add Location List subscription page with error', () => {
-            const request = mockRequest(i18n);
-            request.user = { userId: userId, userProvenance: userProvenance };
-            request.query = { error: 'true' };
-            request.lng = language;
-
-            const expectedData = {
-                ...i18n['subscription-add-list'],
-                listTypes: [],
-                noSelectionError: true,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('subscription-add-list', expectedData);

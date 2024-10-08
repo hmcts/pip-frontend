@@ -363,7 +363,7 @@ export class SubscriptionService {
     public async configureListTypeForLocationSubscriptions(userId, listType, listLanguage): Promise<boolean> {
         return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId, {
             listType: this.createListTypeSubscriptionPayload(listType),
-            listLanguage: listLanguage,
+            listLanguage: this.createListTypeSubscriptionPayload(listLanguage),
             userId,
         });
     }
@@ -453,6 +453,16 @@ export class SubscriptionService {
         let selectedListTypes = [];
         if (userSubscriptions['locationSubscriptions'].length > 0) {
             selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listType'];
+        }
+        return selectedListTypes;
+    }
+
+    public async getUserSubscriptionListLanguage(userId): Promise<string> {
+        const userSubscriptions = await this.getSubscriptionsByUser(userId);
+
+        let selectedListTypes = '';
+        if (userSubscriptions['locationSubscriptions']?.length > 0) {
+            selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listLanguage'].toString();
         }
         return selectedListTypes;
     }

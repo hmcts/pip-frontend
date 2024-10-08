@@ -75,7 +75,7 @@ describe('Subscription Configure List', () => {
 
         it('should contain continue button', () => {
             const continueButton = htmlRes.getElementsByClassName('govuk-button');
-            expect(continueButton[1].innerHTML).contains('Continue', 'Continue button does not exist');
+            expect(continueButton[0].innerHTML).contains('Continue', 'Continue button does not exist');
         });
 
         it('should contain your selections component', () => {

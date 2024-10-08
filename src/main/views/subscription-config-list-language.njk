@@ -1,0 +1,83 @@
+{% extends "template.njk" %}
+{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(
+        path= '/subscription-configure-list',
+        text = backButton,
+        clickEvent = "history.back();")
+    }}
+{% endblock %}
+
+{% block content %}
+    <div class="parent-box">
+        {% if noSelectionError %}
+            {{ govukErrorSummary({
+                titleText: error.title,
+                errorList: [
+                    {
+                        text: error.noSelection,
+                        href: "#english"
+                    }
+                ]
+            }) }}
+        {% endif %}
+        <form action="subscription-configure-list-confirmed" method="post">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" id="language-selector">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            {{ title }}
+                        </h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="english" name="list-language" type="radio"
+                                   value="{{ radio1 }}"
+                                    {% if radio1 | upper === listTypeLanguageSubscriptions %}
+                                        checked
+                                    {% endif %}
+                            >
+                            <label class="govuk-label govuk-radios__label" for="english">
+                                {{ radio1 }}
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="welsh" name="list-language" type="radio"
+                                   value="{{ radio2 }}"
+                                    {% if radio2 | upper === listTypeLanguageSubscriptions %}
+                                        checked
+                                    {% endif %}
+                            >
+                            <label class="govuk-label govuk-radios__label" for="welsh">
+                                {{ radio2 }}
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="englishandwelsh" name="list-language" type="radio"
+                                   value="english,welsh"
+                                {% if 'ENGLISH,WELSH' === listTypeLanguageSubscriptions %}
+                                    checked
+                                {% endif %}
+                            >
+                            <label class="govuk-label govuk-radios__label" for="englishandwelsh">
+                                {{ radio3 }}
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            {{ submitButton(continueButton) }}
+        </form>
+    </div>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+{% endblock %}

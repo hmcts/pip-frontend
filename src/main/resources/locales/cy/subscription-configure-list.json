@@ -3,16 +3,9 @@
     "descriptionText": "Dewiswch y rhestrau y byddwch yn eu derbyn ar gyfer y llysoedd a'r tribiwnlysoedd a ddewiswyd gennych. Ni fydd hyn yn effeithio ar unrhyw achosion penodol yr ydych efallai wedi tanysgrifio iddynt. Hefyd, peidiwch ag anghofio dychwelyd yn rheolaidd i weld mathau newydd o restri wrth i ni ychwanegu mwy.",
     "userSelections": "Cyfanswm a ddewiswyd",
     "selected": "Wedi’i ddewis",
-    "filter": "Ffiltro",
-    "filterSelected": "Ffiltyr a ddewiswyd",
-    "filterClear": "Clirio’r ffiltrau",
-    "hide": "Cuddio’r ffiltrau",
-    "show": "Dangos y ffiltrau",
-    "filterHeader": "Math o lys neu dribiwnlys",
-    "applyFiltersButton": "Cadarnhau hidlwyr",
-    "ariaLabelNav": "No list types are available for the letter",
-    "aria": {
-        "filterLabel": "Filter by list type"
-    },
-    "backButton": "Yn ôl"
+    "backButton": "Yn ôl",
+    "error": {
+        "noSelection": "Dewiswch fersiwn math o restr i barhau",
+        "title": "Mae yna broblem"
+    }
 }

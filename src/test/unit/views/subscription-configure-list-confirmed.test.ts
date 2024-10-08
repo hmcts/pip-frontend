@@ -3,16 +3,22 @@ import { expect } from 'chai';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import request from 'supertest';
 import sinon from 'sinon';
+import {PendingSubscriptionsFromCache} from "../../../main/service/PendingSubscriptionsFromCache";
 
 const PAGE_URL = '/subscription-configure-list-confirmed';
 let htmlRes: Document;
 sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions').resolves(true);
+const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
+cacheStub.withArgs('1', 'listTypes').resolves(['list type']);
+
+const validBody = { 'list-language': 'english' };
 
 describe('Subscriptions List Type Confirmed Page', () => {
     beforeAll(async () => {
         app.request['user'] = { userId: '1', roles: 'VERIFIED' };
         await request(app)
             .post(PAGE_URL)
+            .send(validBody)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
@@ -68,5 +74,12 @@ describe('Subscriptions List Type Confirmed Page', () => {
         const anchor = listElements[2].getElementsByTagName('a')[0];
         expect(anchor.getAttribute('href')).to.equal('/search');
         expect(anchor.innerHTML).to.equal('find a court or tribunal');
+    });
+
+    it('should display unordered list with edit list types', () => {
+        const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
+        const anchor = listElements[3].getElementsByTagName('a')[0];
+        expect(anchor.getAttribute('href')).to.equal('/subscription-configure-list');
+        expect(anchor.innerHTML).to.equal('edit list types');
     });
 });

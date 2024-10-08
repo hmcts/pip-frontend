@@ -301,7 +301,12 @@ export default function (app: Application): void {
     app.post(
         '/subscription-configure-list',
         isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfigureListController.filterValues
+        app.locals.container.cradle.subscriptionConfigureListController.post
+    );
+    app.get(
+        '/subscription-config-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigListLanguageController.get
     );
     app.get('/subscription-configure-list-confirmed', isPermittedMedia, reRenderView);
     app.post(

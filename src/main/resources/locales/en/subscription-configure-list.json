@@ -3,16 +3,9 @@
     "descriptionText": "Choose the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
     "userSelections": "Total selected",
     "selected": "selected",
-    "filter": "Filter",
-    "filterSelected": "Selected filter",
-    "filterClear": "Clear filters",
-    "hide": "Hide Filters",
-    "show": "Show Filters",
-    "filterHeader": "Type of court or tribunal",
-    "applyFiltersButton": "Apply filters",
-    "ariaLabelNav": "No list types are available for the letter",
-    "aria": {
-        "filterLabel": "Filter by list type"
-    },
-    "backButton": "Back"
+    "backButton": "Back",
+    "error": {
+        "nothingSelected": "Please select a list type to continue",
+        "title": "There is a problem"
+    }
 }

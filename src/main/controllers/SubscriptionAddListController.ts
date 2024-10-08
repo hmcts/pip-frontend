@@ -13,19 +13,10 @@ export default class SubscriptionAddListController {
             req.user['userId']
         );
 
-        if (req.query.error === 'true') {
-            res.render('subscription-add-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-add-list']),
-                listTypes: listTypes,
-                noSelectionError: true,
-            });
-        } else {
-            res.render('subscription-add-list', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-add-list']),
-                listTypes: listTypes,
-                noSelectionError: false,
-            });
-        }
+        res.render('subscription-add-list', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-add-list']),
+            listTypes: listTypes,
+        });
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
