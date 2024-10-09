@@ -498,12 +498,8 @@ export class SubscriptionService {
                 listType.jurisdictions.some(jurisdiction => courtJurisdictions.includes(jurisdiction)) &&
                 (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
             ) {
-                if (selectedListTypes != null && selectedListTypes.includes(listName)) {
-                    listType.checked = true;
-                } else {
-                    listType.checked = false;
-                }
-                applicableListTypes.set(listName, listType);
+              listType.checked = selectedListTypes?.length && selectedListTypes.includes(listName);
+              applicableListTypes.set(listName, listType);
             }
         }
 
