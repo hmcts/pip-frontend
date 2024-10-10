@@ -65,7 +65,6 @@ describe('Add Location List Subscriptions Controller', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userId, userProvenance: userProvenance };
             request.lng = language;
-            request.body = { 'list-selections[]': '' };
             const expectedData = {
                 ...i18n['subscription-add-list'],
                 listTypes: [],

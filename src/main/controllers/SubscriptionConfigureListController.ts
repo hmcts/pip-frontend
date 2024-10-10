@@ -24,7 +24,7 @@ export default class SubscriptionConfigureListController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const result = subscriptionService.createListTypeSubscriptionPayload(req.body['list-selections[]']);
 
-        if (result?.length == 0) {
+        if (result === undefined || result?.length == 0) {
             const listTypes = await subscriptionService.generateListTypesForCourts(
                 req.user['userId'],
                 req.user['userProvenance'],
