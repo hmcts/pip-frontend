@@ -9,11 +9,7 @@
 
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack(
-        path= '/subscription-add-list',
-        text = backButton,
-        clickEvent = "history.back();")
-    }}
+    {{ goBack(text = backButton) }}
 {% endblock %}
 
 {% block content %}
@@ -65,5 +61,10 @@
 </div>
 {% endblock %}
 {% block bodyEnd %}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
     {{ super() }}
 {% endblock %}

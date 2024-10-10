@@ -90,6 +90,10 @@
 {% block bodyEnd %}
     {{ super() }}
     <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+
         function calculateChecked() {
             const checkedBoxes = document.querySelectorAll('input[name="list-selections[]"]:checked').length;
             document.getElementById('selectionCount').innerText = checkedBoxes.toString();
