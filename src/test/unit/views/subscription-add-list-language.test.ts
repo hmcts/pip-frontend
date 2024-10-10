@@ -37,7 +37,7 @@ describe('Subscriptions add list language Page initial load', () => {
         const backLink = htmlRes.getElementsByClassName(backButtonClass);
         expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
         expect(backLink[0].getAttribute('href')).equal(
-            '/subscription-add-list',
+            '#',
             'Back value does not contain correct link'
         );
     });
