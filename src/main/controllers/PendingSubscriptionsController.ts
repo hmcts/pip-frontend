@@ -3,7 +3,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { SubscriptionService } from '../service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import { pendingCaseSubscriptionSorter, pendingLocationSubscriptionSorter } from '../helpers/sortHelper';
-import {PendingSubscriptionsFromCache} from '../service/PendingSubscriptionsFromCache';
+import { PendingSubscriptionsFromCache } from '../service/PendingSubscriptionsFromCache';
 
 const subscriptionService = new SubscriptionService();
 

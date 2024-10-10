@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { PipRequest } from '../models/request/PipRequest';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../service/PublicationService';
-import {SubscriptionService} from "../service/SubscriptionService";
+import { SubscriptionService } from '../service/SubscriptionService';
 
 const publicationService = new PublicationService();
 const subscriptionService = new SubscriptionService();

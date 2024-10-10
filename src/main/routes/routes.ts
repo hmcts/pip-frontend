@@ -271,7 +271,8 @@ export default function (app: Application): void {
     app.post(
         '/location-subscriptions-confirmation',
         isPermittedMedia,
-        app.locals.container.cradle.alphabeticalSearchController.locationSubscriptionsConfirmation);
+        app.locals.container.cradle.alphabeticalSearchController.locationSubscriptionsConfirmation
+    );
     app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
     app.post(
         '/pending-subscriptions',
@@ -306,9 +307,7 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.subscriptionAddListLanguageController.post
     );
-    app.get('/subscription-confirmed',
-        isPermittedMedia,
-        reRenderView);
+    app.get('/subscription-confirmed', isPermittedMedia, reRenderView);
     app.get(
         '/subscription-configure-list',
         isPermittedMedia,

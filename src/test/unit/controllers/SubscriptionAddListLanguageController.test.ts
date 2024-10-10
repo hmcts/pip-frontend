@@ -2,8 +2,8 @@ import sinon from 'sinon';
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import SubscriptionAddListLanguageController from '../../../main/controllers/SubscriptionAddListLanguageController';
-import {SubscriptionService} from "../../../main/service/SubscriptionService";
-import {PendingSubscriptionsFromCache} from "../../../main/service/PendingSubscriptionsFromCache";
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 
 const userId = '1';
 const language = 'en';
@@ -27,8 +27,7 @@ cacheStub.withArgs('3', 'listTypes').resolves([]);
 const i18n = {
     'subscription-add-list-language': {},
     error: {},
-}
-;
+};
 const response = {
     render: () => {
         return '';

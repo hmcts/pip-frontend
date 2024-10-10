@@ -2,8 +2,8 @@ import { expect } from 'chai';
 import { app } from '../../main/app';
 import sinon from 'sinon';
 import request from 'supertest';
-import {SubscriptionService} from "../../main/service/SubscriptionService";
-import {PendingSubscriptionsFromCache} from "../../main/service/PendingSubscriptionsFromCache";
+import { SubscriptionService } from '../../main/service/SubscriptionService';
+import { PendingSubscriptionsFromCache } from '../../main/service/PendingSubscriptionsFromCache';
 
 const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions');
 const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');

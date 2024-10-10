@@ -122,7 +122,8 @@ describe('Case Reference Number Search Result Controller', () => {
         it('should render pending subscription page once case reference/urn subscription is confirmed', () => {
             const response = {
                 redirect: () => {
-                    return '';},
+                    return '';
+                },
             } as unknown as Response;
             const request = mockRequest(i18n);
             const responseMock = sinon.mock(response);

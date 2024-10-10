@@ -3,7 +3,7 @@ import { Response } from 'express';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { mockRequest } from '../mocks/mockRequest';
 import PendingSubscriptionsController from '../../../main/controllers/PendingSubscriptionsController';
-import {PendingSubscriptionsFromCache} from "../../../main/service/PendingSubscriptionsFromCache";
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 
 const mockCase = {
     hearingId: 1,
@@ -93,7 +93,6 @@ const response = {
         return '';
     },
 } as unknown as Response;
-
 
 describe('Pending Subscriptions Controller', () => {
     describe('GET view', () => {

@@ -2,7 +2,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { SubscriptionService } from '../service/SubscriptionService';
-import {PendingSubscriptionsFromCache} from "../service/PendingSubscriptionsFromCache";
+import { PendingSubscriptionsFromCache } from '../service/PendingSubscriptionsFromCache';
 
 const subscriptionService = new SubscriptionService();
 

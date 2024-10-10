@@ -62,7 +62,8 @@ describe('Case name search results controller', () => {
         it('should render pending subscription page once case name subscription is confirmed', () => {
             const response = {
                 redirect: () => {
-                    return '';},
+                    return '';
+                },
             } as unknown as Response;
             const request = mockRequest(i18n);
             const responseMock = sinon.mock(response);
