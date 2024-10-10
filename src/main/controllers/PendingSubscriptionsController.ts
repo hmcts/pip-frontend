@@ -3,6 +3,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { SubscriptionService } from '../service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import { pendingCaseSubscriptionSorter, pendingLocationSubscriptionSorter } from '../helpers/sortHelper';
+import {PendingSubscriptionsFromCache} from '../service/PendingSubscriptionsFromCache';
 
 const subscriptionService = new SubscriptionService();
 
@@ -35,24 +36,18 @@ export default class PendingSubscriptionsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        await subscriptionService.handleNewSubscription(req.body, req.user);
-        const pendingSubscriptions = {
-            cases: await subscriptionService.getSortedPendingSubscriptions(
-                req.user['userId'],
-                'cases',
-                pendingCaseSubscriptionSorter
-            ),
-            courts: await subscriptionService.getSortedPendingSubscriptions(
-                req.user['userId'],
-                'courts',
-                pendingLocationSubscriptionSorter
-            ),
-        };
+        const userId = req.user['userId'];
+        const cacheService = new PendingSubscriptionsFromCache();
+        const cachedCases = await cacheService.getPendingSubscriptions(userId, 'cases');
 
-        res.render('pending-subscriptions', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['pending-subscriptions']),
-            pendingSubscriptions,
-        });
+        if (cachedCases?.length) {
+            const subscribed = await subscriptionService.subscribe(userId);
+            subscribed
+                ? res.redirect('/subscription-confirmed')
+                : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else {
+            res.redirect('pending-subscriptions?no-subscriptions=true');
+        }
     }
 
     public async removeSubscription(req: PipRequest, res: Response): Promise<void> {

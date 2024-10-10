@@ -273,4 +273,22 @@ describe('Location Name Search Controller', () => {
             });
         });
     });
+
+    describe('On POST request for location selection confirmation', () => {
+        it('should render pending subscription page once location is selected', () => {
+            const response = {
+                redirect: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+            const responseMock = sinon.mock(response);
+            responseMock.expects('redirect').once().withArgs('/pending-subscriptions');
+
+            return alphabeticalSearchController.locationSubscriptionsConfirmation(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+    });
 });

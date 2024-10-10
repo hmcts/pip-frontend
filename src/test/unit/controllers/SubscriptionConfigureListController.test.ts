@@ -66,7 +66,7 @@ describe('Subscriptions Configure List Controller', () => {
             request.body = { 'list-selections[]': 'test' };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once().withArgs('subscription-config-list-language');
+            responseMock.expects('redirect').once().withArgs('subscription-configure-list-language');
 
             return subscriptionConfigureListController.post(request, response).then(() => {
                 responseMock.verify();

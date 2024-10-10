@@ -1,24 +1,15 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import request from 'supertest';
-import sinon from 'sinon';
-import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 
 const PAGE_URL = '/subscription-configure-list-confirmed';
 let htmlRes: Document;
-sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions').resolves(true);
-const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
-cacheStub.withArgs('1', 'listTypes').resolves(['list type']);
-
-const validBody = { 'list-language': 'english' };
 
 describe('Subscriptions List Type Confirmed Page', () => {
     beforeAll(async () => {
         app.request['user'] = { userId: '1', roles: 'VERIFIED' };
         await request(app)
-            .post(PAGE_URL)
-            .send(validBody)
+            .get(PAGE_URL)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();

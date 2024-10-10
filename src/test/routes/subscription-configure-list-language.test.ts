@@ -6,41 +6,41 @@ import {SubscriptionService} from "../../main/service/SubscriptionService";
 import {PendingSubscriptionsFromCache} from "../../main/service/PendingSubscriptionsFromCache";
 
 const PAGE_URL = '/subscription-add-list-language';
-const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');
+const subscribeStub = sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions');
 const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
-cacheStub.withArgs('1', 'cases').resolves(['cached case subscription']);
-cacheStub.withArgs('1', 'courts').resolves([]);
-cacheStub.withArgs('2', 'cases').resolves([]);
-cacheStub.withArgs('2', 'courts').resolves([]);
-subscribeStub.withArgs('1').resolves(true);
-subscribeStub.withArgs('2').resolves(false);
+cacheStub.withArgs('1', 'listTypes').resolves(['list type']);
 
-describe('Subscriptions Add List Language', () => {
+subscribeStub.withArgs('1', 'listTypes', 'ENGLISH').resolves(true);
+
+describe('Subscriptions Config List Language', () => {
     describe('on GET', () => {
-        test('should return subscription add list language page', async () => {
+        test('should return subscription config list language page', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
-                .get('/subscription-add-list-language')
+                .get(PAGE_URL)
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
 
     describe('on POST', () => {
-        test('should return subscription confirmation page', async () => {
+        test('should show subscription list type confirmation page', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
-            await request(app)
-                .post(PAGE_URL)
-                .expect(res => expect(res.status).to.equal(200));
-        });
+            app.request['body'] = { 'list-language': 'ENGLISH' };
 
-        test('should redirect to pending subscriptions page', async () => {
-            app.request['user'] = { userId: '2', roles: 'VERIFIED' };
             await request(app)
                 .post(PAGE_URL)
-                .send({ 'list-language': 'test' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('pending-subscriptions?no-subscriptions=true');
+                });
+        });
+
+        test('should render the sign in page due to being unauthorised to post to confirmation page', async () => {
+            app.request['user'] = {};
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(302);
+                    expect(res.headers['location']).to.equal('/sign-in');
                 });
         });
     });

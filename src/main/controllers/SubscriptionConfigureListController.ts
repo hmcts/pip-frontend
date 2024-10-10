@@ -40,7 +40,7 @@ export default class SubscriptionConfigureListController {
             });
         } else {
             await subscriptionService.handleNewSubscription(req.body, req.user);
-            res.redirect('subscription-config-list-language');
+            res.redirect('subscription-configure-list-language');
         }
     }
 }

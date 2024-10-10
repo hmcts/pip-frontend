@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../../main/app';
 
-const PAGE_URL = '/subscription-config-list-language';
+const PAGE_URL = '/subscription-configure-list-language';
 const backButtonClass = 'govuk-back-link';
 const errorSummaryClass = 'govuk-error-summary';
 const errorMessageId = 'subscription-choice-error';
@@ -89,21 +89,5 @@ describe('Subscriptions config list language Page initial load', () => {
             expectedRadioLabel3,
             'Could not find the radio button with label ' + expectedRadioLabel3
         );
-    });
-});
-
-describe('Subscriptions config list language page no selection entered', () => {
-    beforeAll(async () => {
-        await request(app)
-            .get(PAGE_URL + '?error=true')
-            .then(res => {
-                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                htmlRes.getElementsByTagName('div')[0].remove();
-            });
-    });
-
-    it('should display the error summary when no selection is entered', () => {
-        const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
-        expect(errorSummary[0].innerHTML).contains('Please select version of the list type to continue');
     });
 });

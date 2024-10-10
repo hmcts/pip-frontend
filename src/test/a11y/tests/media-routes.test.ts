@@ -38,7 +38,7 @@ const mediaRoutes = [
     { path: '/subscription-confirmed' },
     { path: '/subscription-management' },
     { path: '/subscription-configure-list' },
-    { path: '/subscription-config-list-language' },
+    { path: '/subscription-configure-list-language' },
     { path: '/subscription-configure-list-confirmed' },
     { path: '/unsubscribe-confirmation' },
     { path: '/session-expiring', parameter: '?currentPath=/view-option' },

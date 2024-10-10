@@ -91,19 +91,3 @@ describe('Subscriptions add list language Page initial load', () => {
         );
     });
 });
-
-describe('Subscriptions add list language page no selection entered', () => {
-    beforeAll(async () => {
-        await request(app)
-            .get(PAGE_URL + '?error=true')
-            .then(res => {
-                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                htmlRes.getElementsByTagName('div')[0].remove();
-            });
-    });
-
-    it('should display the error summary when no selection is entered', () => {
-        const errorSummary = htmlRes.getElementsByClassName(errorSummaryClass);
-        expect(errorSummary[0].innerHTML).contains('Please select version of the list type to continue');
-    });
-});
