@@ -37,41 +37,34 @@
                             {{ title }}
                         </h1>
                     </legend>
-                    <div class="govuk-radios" data-module="govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="english" name="list-language" type="radio"
-                                   value="{{ radio1 }}"
-                                    {% if radio1 | upper === listTypeLanguageSubscriptions %}
-                                        checked
-                                    {% endif %}
-                            >
-                            <label class="govuk-label govuk-radios__label" for="english">
-                                {{ radio1 }}
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="welsh" name="list-language" type="radio"
-                                   value="{{ radio2 }}"
-                                    {% if radio2 | upper === listTypeLanguageSubscriptions %}
-                                        checked
-                                    {% endif %}
-                            >
-                            <label class="govuk-label govuk-radios__label" for="welsh">
-                                {{ radio2 }}
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="englishandwelsh" name="list-language" type="radio"
-                                   value="english,welsh"
-                                {% if 'ENGLISH,WELSH' === listTypeLanguageSubscriptions %}
-                                    checked
-                                {% endif %}
-                            >
-                            <label class="govuk-label govuk-radios__label" for="englishandwelsh">
-                                {{ radio3 }}
-                            </label>
-                        </div>
-                    </div>
+                    {{ govukRadios({
+                        idPrefix: "list-language",
+                        name: "list-language",
+                        items: [
+                            {
+                                id: "english",
+                                value: radio1,
+                                text: radio1,
+                                checked:
+                                    true if radio1 | upper === listTypeLanguageSubscriptions else false
+
+                            },
+                            {
+                                id: "welsh",
+                                value: radio2,
+                                text: radio2,
+                                checked:
+                                true if radio2 | upper === listTypeLanguageSubscriptions else false
+                            },
+                            {
+                                id: "both",
+                                value: "english,welsh",
+                                text: radio3,
+                                checked:
+                                true if 'ENGLISH,WELSH' | upper === listTypeLanguageSubscriptions else false
+                            }
+                        ]
+                    }) }}
                 </fieldset>
             </div>
             {{ submitButton(continueButton) }}
