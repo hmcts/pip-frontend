@@ -1,4 +1,5 @@
 import { config as testConfig } from '../../config';
+import { checkA11y, injectAxe } from 'axe-playwright';
 
 export = function () {
     return actor({
@@ -170,6 +171,13 @@ export = function () {
             this.click('#delete-user-confirm');
             this.click('Continue');
             this.waitForText('User Deleted');
+        },
+        checkA11y(fileName: string) {
+            this.runA11yCheck({ reportFileName: fileName });
+            this.usePlaywrightTo('Run accessibility tests', async ({ page }) => {
+                await injectAxe(page);
+                await checkA11y(page, undefined, undefined, true);
+            });
         },
     });
 };
