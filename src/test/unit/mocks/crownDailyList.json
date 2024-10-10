@@ -34,7 +34,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": [
                                     "VIDEO HEARING"
                                 ],
@@ -177,7 +176,6 @@
                         "courtRoomName": "to be allocated",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": [
                                     "VIDEO HEARING"
                                 ],
@@ -316,7 +314,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
@@ -368,7 +365,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": [
                                     "VIDEO HEARING"
                                 ],
@@ -422,7 +418,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": [
                                     "VIDEO HEARING"
                                 ],
