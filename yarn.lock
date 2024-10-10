@@ -22,6 +22,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@axe-core/playwright@npm:^4.10.0":
+  version: 4.10.0
+  resolution: "@axe-core/playwright@npm:4.10.0"
+  dependencies:
+    axe-core: "npm:~4.10.0"
+  peerDependencies:
+    playwright-core: ">= 1.0.0"
+  checksum: 10/a394b07181f313491567cb25fe097ba6f5fe463befb403c29e4a39eb32d27b42e84b250d239d32a1091364ec65aed88c5ade38c1b231344dcbae8ce1130cacd9
+  languageName: node
+  linkType: hard
+
 "@azure/abort-controller@npm:^1.0.0, @azure/abort-controller@npm:^1.0.4":
   version: 1.1.0
   resolution: "@azure/abort-controller@npm:1.1.0"
@@ -2725,7 +2736,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codeceptjs/helper@npm:2.0.4":
+"@codeceptjs/helper@npm:2.0.4, @codeceptjs/helper@npm:^2.0.1":
   version: 2.0.4
   resolution: "@codeceptjs/helper@npm:2.0.4"
   dependencies:
@@ -4483,6 +4494,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/junit-report-builder@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@types/junit-report-builder@npm:3.0.2"
+  checksum: 10/7fead0b771f95cd8e607223ace2f43cc881b3e7944db405f903590b56379d14132032b7d89c9afa7dff266b95f516a476a39ad40f9200bfb61fc8ed7f6b1bff6
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.17.10":
   version: 4.17.10
   resolution: "@types/lodash@npm:4.17.10"
@@ -5844,10 +5862,68 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axe-core@npm:^4.10.0, axe-core@npm:^4.5.1, axe-core@npm:~4.10.0":
+  version: 4.10.0
+  resolution: "axe-core@npm:4.10.0"
+  checksum: 10/6158489a7a704edc98bd30ed56243b8280c5203c60e095a2feb5bff95d9bf2ef10becfe359b1cbc8601338418999c26cf4eee704181dedbcb487f4d63a06d8d5
+  languageName: node
+  linkType: hard
+
 "axe-core@npm:~4.8.4":
   version: 4.8.4
   resolution: "axe-core@npm:4.8.4"
   checksum: 10/c8b3972b17afac33b9e151556fa500b9218086ca763866942de30e7f51ac50582902ad03ec16381796c95afaacfa8c33efb2d02ab4f09b6c09d6be58b95da978
+  languageName: node
+  linkType: hard
+
+"axe-html-reporter@npm:2.2.11":
+  version: 2.2.11
+  resolution: "axe-html-reporter@npm:2.2.11"
+  dependencies:
+    mustache: "npm:^4.0.1"
+  peerDependencies:
+    axe-core: ">=3"
+  checksum: 10/489a904c62fe5c74db9490773a624e8573906b54a9c8264b831ee50b648f623ba292a011598d257bd6b8dc35eede21998fc25c799bd99eb9ca8ecf2d05ef92a1
+  languageName: node
+  linkType: hard
+
+"axe-html-reporter@npm:2.2.3":
+  version: 2.2.3
+  resolution: "axe-html-reporter@npm:2.2.3"
+  dependencies:
+    mustache: "npm:^4.0.1"
+    rimraf: "npm:^3.0.2"
+  peerDependencies:
+    axe-core: ">=3"
+  checksum: 10/10a7e4b0ecc663e004a93a1f0bfb434583eb30abd5fa3ec608d8b7d027445ec83d401b77c650184af33cafa884b107d19070bd18850e030f729773167a09e787
+  languageName: node
+  linkType: hard
+
+"axe-playwright@npm:^1.2.3":
+  version: 1.2.3
+  resolution: "axe-playwright@npm:1.2.3"
+  dependencies:
+    axe-core: "npm:^4.5.1"
+    axe-html-reporter: "npm:2.2.3"
+    picocolors: "npm:^1.0.0"
+  peerDependencies:
+    playwright: ">1.0.0"
+  checksum: 10/071a3e7a51d801283f6999c89d3339197402ec06a7d8554929a63389646e32a0c6ecbf690e5d8b359757da317afdda08f0ca5d5c96cd80b54937773421484cef
+  languageName: node
+  linkType: hard
+
+"axe-playwright@npm:^2.0.1":
+  version: 2.0.3
+  resolution: "axe-playwright@npm:2.0.3"
+  dependencies:
+    "@types/junit-report-builder": "npm:^3.0.2"
+    axe-core: "npm:^4.10.0"
+    axe-html-reporter: "npm:2.2.11"
+    junit-report-builder: "npm:^5.1.1"
+    picocolors: "npm:^1.1.0"
+  peerDependencies:
+    playwright: ">1.0.0"
+  checksum: 10/c50c1879624be3a4c77faf236d77a8dd7be2d24e01e95f2b90e33ab43a0aabc74c2a1e07d74e8c349ef2742a98fdb34c1438f103ff6cca5a538af91f246603dd
   languageName: node
   linkType: hard
 
@@ -7070,6 +7146,16 @@ __metadata:
   version: 4.6.0
   resolution: "co@npm:4.6.0"
   checksum: 10/a5d9f37091c70398a269e625cedff5622f200ed0aa0cff22ee7b55ed74a123834b58711776eb0f1dc58eb6ebbc1185aa7567b57bd5979a948c6e4f85073e2c05
+  languageName: node
+  linkType: hard
+
+"codeceptjs-a11y-helper@npm:^1.5.3":
+  version: 1.5.3
+  resolution: "codeceptjs-a11y-helper@npm:1.5.3"
+  dependencies:
+    "@codeceptjs/helper": "npm:^2.0.1"
+    axe-playwright: "npm:^1.2.3"
+  checksum: 10/d90803064f322b69b46fb37d495c766f469d6234547675fdac12f97cdd33478288f9cde4c408a3c812519790da82d7b22282045ee7ad9b010bfa5a40193b3b22
   languageName: node
   linkType: hard
 
@@ -11721,6 +11807,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"junit-report-builder@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "junit-report-builder@npm:5.1.1"
+  dependencies:
+    lodash: "npm:^4.17.21"
+    make-dir: "npm:^3.1.0"
+    xmlbuilder: "npm:^15.1.1"
+  checksum: 10/273678301654c22265a8ccd5a605f498747e2530e801b332f1033fa3e35b3fc3538e10b335674cca41bbc1f4c9476350254820e1f5f0cf4101ac8dd4c1402bf8
+  languageName: node
+  linkType: hard
+
 "just-extend@npm:^6.2.0":
   version: 6.2.0
   resolution: "just-extend@npm:6.2.0"
@@ -12259,6 +12356,15 @@ __metadata:
     pify: "npm:^4.0.1"
     semver: "npm:^5.6.0"
   checksum: 10/043548886bfaf1820323c6a2997e6d2fa51ccc2586ac14e6f14634f7458b4db2daf15f8c310e2a0abd3e0cddc64df1890d8fc7263033602c47bb12cbfcf86aab
+  languageName: node
+  linkType: hard
+
+"make-dir@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "make-dir@npm:3.1.0"
+  dependencies:
+    semver: "npm:^6.0.0"
+  checksum: 10/484200020ab5a1fdf12f393fe5f385fc8e4378824c940fba1729dcd198ae4ff24867bc7a5646331e50cead8abff5d9270c456314386e629acec6dff4b8016b78
   languageName: node
   linkType: hard
 
@@ -13039,7 +13145,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mustache@npm:~4.2.0":
+"mustache@npm:^4.0.1, mustache@npm:~4.2.0":
   version: 4.2.0
   resolution: "mustache@npm:4.2.0"
   bin:
@@ -14590,10 +14696,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "publishing-information-project@workspace:."
   dependencies:
+    "@axe-core/playwright": "npm:^4.10.0"
     "@babel/core": "npm:^7.25.7"
     "@babel/eslint-parser": "npm:7.25.7"
     "@babel/preset-env": "npm:^7.25.7"
     "@codeceptjs/allure-legacy": "npm:^1.0.2"
+    "@codeceptjs/helper": "npm:^2.0.1"
     "@eslint/js": "npm:^9.12.0"
     "@evilmartians/lefthook": "npm:^1.7.18"
     "@hmcts/cookie-manager": "npm:^1.0.0"
@@ -14622,6 +14730,7 @@ __metadata:
     allure-commandline: "npm:^2.30.0"
     applicationinsights: "npm:2.9.6"
     awilix: "npm:^12.0.2"
+    axe-playwright: "npm:^2.0.1"
     axios: "npm:^1.7.7"
     axios-oauth-client: "npm:^2.2.0"
     axios-token-interceptor: "npm:^0.2.0"
@@ -14629,6 +14738,7 @@ __metadata:
     chai: "npm:^5.1.1"
     chai-as-promised: "npm:^8.0.0"
     codeceptjs: "npm:3.6.6"
+    codeceptjs-a11y-helper: "npm:^1.5.3"
     config: "npm:^3.3.12"
     connect-redis: "npm:7.1.1"
     cookie-parser: "npm:1.4.7"
@@ -15615,7 +15725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^6.3.0, semver@npm:^6.3.1":
+"semver@npm:^6.0.0, semver@npm:^6.3.0, semver@npm:^6.3.1":
   version: 6.3.1
   resolution: "semver@npm:6.3.1"
   bin:
@@ -17936,6 +18046,13 @@ __metadata:
   version: 5.0.0
   resolution: "xml-name-validator@npm:5.0.0"
   checksum: 10/43f30f3f6786e406dd665acf08cd742d5f8a46486bd72517edb04b27d1bcd1599664c2a4a99fc3f1e56a3194bff588b12f178b7972bc45c8047bdc4c3ac8d4a1
+  languageName: node
+  linkType: hard
+
+"xmlbuilder@npm:^15.1.1":
+  version: 15.1.1
+  resolution: "xmlbuilder@npm:15.1.1"
+  checksum: 10/e6f4bab2504afdd5f80491bda948894d2146756532521dbe7db33ae0931cd3000e3b4da19b3f5b3f51bedbd9ee06582144d28136d68bd1df96579ecf4d4404a2
   languageName: node
   linkType: hard
 
