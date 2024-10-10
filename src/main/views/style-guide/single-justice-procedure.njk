@@ -28,66 +28,73 @@
 
   <div class="govuk-grid-row">
     {{ filterForm(url = listUrl, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
-    <div class="parent-box overflow-table">
-      {{ govukPagination(paginationData) }}
-      <div class="overflow-table govuk-body">
-      {% set sjpCases = [] %}
-      {% for sjpCase in sjpData %}
-        {% set _ = sjpCases.push([
-          {
-            text: sjpCase.name,
-            classes: "search-area"
-          },
-          {
-            text: sjpCase.postcode,
-            classes: "search-area"
-          },
-          {
-            text: sjpCase.offence,
-            classes: "search-area"
-          },
-          {
-            text: sjpCase.prosecutorName,
-            classes: "search-area"
-          }
-        ]) %}
-      {% endfor %}
+    {% if showFilters %}
+      {% set gridColumnWidth = "layout-width-three-fifths" %}
+    {% else %}
+      {% set gridColumnWidth = "govuk-grid-column-full" %}
+    {% endif %}
+    <div class="{{ gridColumnWidth }}" id="contents">
+      <div class="parent-box overflow-table">
+        {{ govukPagination(paginationData) }}
+        <div class="overflow-table govuk-body">
+          {% set sjpCases = [] %}
+          {% for sjpCase in sjpData %}
+            {% set _ = sjpCases.push([
+              {
+                text: sjpCase.name,
+                classes: "search-area"
+              },
+              {
+                text: sjpCase.postcode,
+                classes: "search-area"
+              },
+              {
+                text: sjpCase.offence,
+                classes: "search-area"
+              },
+              {
+                text: sjpCase.prosecutorName,
+                classes: "search-area"
+              }
+            ]) %}
+          {% endfor %}
 
-      {{ govukTable({
-        firstCellIsHeader: false,
-        attributes: {
-          "data-module": "moj-sortable-table"
-        },
-        head: [
-          {
-            text: column1,
+          {{ govukTable({
+            firstCellIsHeader: false,
             attributes: {
-              "aria-sort": "none"
-            }
-          },
-          {
-            text: column2,
-            attributes: {
-              "aria-sort": "none"
-            }
-          },
-          {
-            text: column3,
-            attributes: {
-              "aria-sort": "none"
-            }
-          },
-          {
-            text: column4,
-            attributes: {
-              "aria-sort": "none"
-            }
-          }
-        ],
-        rows: sjpCases
-      }) }}
+              "data-module": "moj-sortable-table"
+            },
+            head: [
+              {
+                text: column1,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              },
+              {
+                text: column2,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              },
+              {
+                text: column3,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              },
+              {
+                text: column4,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              }
+            ],
+            rows: sjpCases
+          }) }}
+        </div>
+        {{ super() }}
       </div>
-      {{ super() }}
     </div>
   </div>
 {% endblock %}
