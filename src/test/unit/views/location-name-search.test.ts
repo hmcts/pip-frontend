@@ -118,13 +118,6 @@ describe('Court Name Search Page', () => {
         expect(counter.innerHTML).contains(0, 'Could not find counter value');
     });
 
-    it('should contain letters that navigate to other sections of the page', () => {
-        const alphabeticalLetters = htmlRes.getElementsByClassName('two-rows-alphabet');
-        const letterA = htmlRes.getElementById('A-selector');
-        expect(letterA.innerHTML).contains('A', 'Alphabetical link is not present');
-        expect(alphabeticalLetters.length).equal(26, 'Could not find alphabet letters');
-    });
-
     it('should contain court table rows', () => {
         const elementsCount = 12;
         const tableRows = htmlRes

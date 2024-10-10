@@ -10,5 +10,8 @@
     "jurisdiction": "Math o lys neu dribiwnlys",
     "region": "Rhanbarth",
     "applyFiltersButton": "Cadarnhau hidlwyr",
+    "aria": {
+        "filterLabel": "Hidlo yn ôl awdurdodaeth neu ranbarth"
+    },
     "backButton": "Yn ôl"
 }

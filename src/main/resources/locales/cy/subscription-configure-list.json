@@ -11,7 +11,6 @@
     "show": "Dangos y ffiltrau",
     "filterHeader": "Math o lys neu dribiwnlys",
     "applyFiltersButton": "Cadarnhau hidlwyr",
-    "ariaLabelNav": "No list types are available for the letter",
     "aria": {
         "filterLabel": "Filter by list type"
     },
