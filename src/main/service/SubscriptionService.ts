@@ -368,7 +368,7 @@ export class SubscriptionService {
         });
     }
 
-    public createListTypeSubscriptionPayload(listType): object {
+    public createListTypeSubscriptionPayload(listType): string[] {
         let listTypeArray;
         if (listType) {
             if (!Array.isArray(listType)) {
@@ -504,15 +504,10 @@ export class SubscriptionService {
 
         const applicableListTypes = new Map();
         for (const [listName, listType] of sortedListTypes) {
-            if (
-                listType.jurisdictions.some(jurisdiction => courtJurisdictions.includes(jurisdiction)) &&
-                (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
-            ) {
-                if (selectedListTypes != null && selectedListTypes.includes(listName)) {
-                    listType.checked = true;
-                } else {
-                    listType.checked = false;
-                }
+            if (listType.jurisdictions.some(jurisdiction => courtJurisdictions.includes(jurisdiction)) &&
+                (listType.restrictedProvenances.length === 0 ||
+                    listType.restrictedProvenances.includes(userRole))) {
+                listType.checked = selectedListTypes != null && selectedListTypes.includes(listName);
                 applicableListTypes.set(listName, listType);
             }
         }

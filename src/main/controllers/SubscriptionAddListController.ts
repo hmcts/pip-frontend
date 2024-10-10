@@ -20,9 +20,9 @@ export default class SubscriptionAddListController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const result = await subscriptionService.createListTypeSubscriptionPayload(req.body['list-selections[]']);
+        const result = subscriptionService.createListTypeSubscriptionPayload(req.body['list-selections[]']);
 
-        if (Object.values(result).length == 0) {
+        if (result?.length == 0) {
             const listTypes = await subscriptionService.generateListTypeForCourts(
                 req.user['userProvenance'],
                 req.lng,
