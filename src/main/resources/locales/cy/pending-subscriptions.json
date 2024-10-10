@@ -1,5 +1,6 @@
 {
     "title": "Cadarnhewch eich tanysgrifiadau e-bost",
+    "title_court_subscription": "Eich tanysgrifiadau e-bost",
     "removeText": "Dileu",
     "table": {
         "header1": "Enw'r achos",
@@ -7,6 +8,7 @@
         "header3": "Cyfeirnod",
         "header4": "Camau gweithredu"
     },
+    "buttonText_court_subscription": "Parhau",
     "buttonText": "Cadarnhau tanysgrifiadau",
     "addOther_link": "/subscription-add",
     "addOther_text": "Ychwanegu tanysgrifiad e-bost arall",
