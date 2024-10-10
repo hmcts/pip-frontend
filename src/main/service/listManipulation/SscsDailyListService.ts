@@ -25,8 +25,8 @@ export class SscsDailyListService {
                         delete sitting['channel'];
                         sitting['hearing'].forEach(hearing => {
                             hearing['case'].forEach(hearingCase => {
-                                this.formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase);
-                                hearingCase['formattedRespondent'] = this.getPartyRespondent(hearing, hearingCase);
+                                helperService.findAndManipulatePartyInformation(hearingCase);
+                                hearingCase['formattedRespondent'] = this.getPartyRespondent(hearingCase);
                             });
                         });
                     });
@@ -37,7 +37,7 @@ export class SscsDailyListService {
         return sscsDailyListData;
     }
 
-    private getPartyRespondent(hearing, hearingCase): string {
+    private getPartyRespondent(hearingCase): string {
         const respondents = [];
         hearingCase.party?.forEach(party => {
             if (party.partyRole === 'RESPONDENT') {
@@ -47,24 +47,6 @@ export class SscsDailyListService {
                 }
             }
         });
-        if (respondents.length === 0) {
-            hearing.party?.forEach(party => {
-                if (party.partyRole === 'RESPONDENT') {
-                    const respondent = party.organisationDetails?.organisationName;
-                    if (respondent && respondent.length > 0) {
-                        respondents.push(respondent);
-                    }
-                }
-            });
-        }
         return respondents.join(', ');
-    }
-
-    public formatPartyInformationAtCaseOrHearingLevel(hearing, hearingCase) {
-        if (hearingCase['party']) {
-            helperService.findAndManipulatePartyInformation(hearingCase);
-        } else {
-            helperService.findAndManipulatePartyInformation(hearing);
-        }
     }
 }

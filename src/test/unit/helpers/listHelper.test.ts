@@ -1,7 +1,6 @@
 import sinon from 'sinon';
 import {
     formatMetaDataListType,
-    hearingHasParty,
     isOneOfValidListTypes,
     isValidList,
     isValidListType,
@@ -10,8 +9,6 @@ import {
     isValidMetaData,
 } from '../../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
-import fs from 'fs';
-import path from 'path';
 import { PublicationService } from '../../../main/service/PublicationService';
 
 const mockArtefact = {
@@ -27,21 +24,6 @@ const mockArtefact = {
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 
 describe('List helper', () => {
-    describe('hearing has party', () => {
-        it('Hearing should have party', () => {
-            const rawData = fs.readFileSync(
-                path.resolve(__dirname, '../mocks/hearingparty/civilAndFamilyDailyCauseList.json'),
-                'utf-8'
-            );
-            expect(hearingHasParty(JSON.parse(rawData))).toBeTruthy();
-        });
-
-        it('Hearing should have no party', () => {
-            const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
-            expect(hearingHasParty(JSON.parse(rawData))).toBeFalsy();
-        });
-    });
-
     describe('is valid list', () => {
         it('should return true if the list data and metadata are valid', () => {
             const listData = 'Test data';
