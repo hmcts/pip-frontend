@@ -29,7 +29,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
@@ -120,7 +119,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
@@ -167,7 +165,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
@@ -214,7 +211,6 @@
                         "courtRoomName": "1",
                         "session": [
                             {
-                                "sessionStartTime": "",
                                 "sessionChannel": ["VIDEO HEARING"],
                                 "judiciary": [
                                     {
