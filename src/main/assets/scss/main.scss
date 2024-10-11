@@ -132,9 +132,8 @@ $callout-bg: #f0f4f5;
     position: relative;
 
     .floating-back-to-top--fixed {
-        background-color: govuk-colour('light-grey');
         padding: 5px;
-        position: fixed;
+        position: absolute;
         top: calc(100% - 30px);
         width: 100%;
         left: 0;
