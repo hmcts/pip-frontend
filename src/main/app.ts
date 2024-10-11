@@ -65,7 +65,7 @@ if (process.env.SESSION_SECRET_V2) {
     sessionSecretv2 = config.get('secrets.pip-ss-kv.SESSION_SECRET_V2');
 }
 
-const sessionSecrets = [sessionSecret, sessionSecretv2];
+const sessionSecrets = [sessionSecretv2, sessionSecret];
 
 app.set('trust proxy', 1);
 app.use(
