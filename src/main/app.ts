@@ -58,20 +58,11 @@ if (process.env.SESSION_SECRET) {
     sessionSecret = config.get('secrets.pip-ss-kv.SESSION_SECRET');
 }
 
-let sessionSecretv2;
-if (process.env.SESSION_SECRET_V2) {
-    sessionSecretv2 = process.env.SESSION_SECRET_V2;
-} else {
-    sessionSecretv2 = config.get('secrets.pip-ss-kv.SESSION_SECRET_V2');
-}
-
-const sessionSecrets = [sessionSecretv2, sessionSecret];
-
 app.set('trust proxy', 1);
 app.use(
     session({
         store: redisStore,
-        secret: sessionSecrets,
+        secret: sessionSecret,
         resave: false,
         saveUninitialized: false,
         cookie: { secure: true, sameSite: process.env.SESSION_COOKIE_SAME_SITE },
@@ -86,7 +77,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use(cookieParser(sessionSecrets));
+app.use(cookieParser(sessionSecret));
 new I18next().enableFor(app);
 
 //main routes
