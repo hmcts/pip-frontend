@@ -90,7 +90,6 @@
         "passport-azure-ad": "4.3.5",
         "passport-custom": "^1.1.1",
         "postcss": "^8.4.41",
-        "pretty-print-json": "^2.1.2",
         "require-directory": "^2.1.1",
         "serve-favicon": "^2.5.0",
         "stylelint": "^16.8.1",

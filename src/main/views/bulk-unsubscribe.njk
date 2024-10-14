@@ -69,7 +69,7 @@
                     <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ caseTable.date }}</th>
                     <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
                       <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
-                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-cases" onclick="toggleCheckboxes(this, 'case')">
+                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-cases">
                         <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-cases" > </label>
                       </div>
                     </th>
@@ -86,7 +86,7 @@
                       <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="caseSubscription" id="caseSubscription-{{ caseCount }}" onclick="untickSelectAllCases()" value={{ row.subscriptionId }}>
+                          <input type="checkbox" class="govuk-checkboxes__input caseCheckbox" name="caseSubscription" id="caseSubscription-{{ caseCount }}" value={{ row.subscriptionId }}>
                           <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="caseSubscription-{{ caseCount }}"> </label>
                         </div>
                       </td>
@@ -104,7 +104,7 @@
                     <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ courtTable.date }}</th>
                     <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
                       <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
-                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-locations" onclick="toggleCheckboxes(this, 'location')">
+                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-locations">
                         <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-locations"> </label>
                       </div>
                     </th>
@@ -119,7 +119,7 @@
                       <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
-                          <input type="checkbox" class="govuk-checkboxes__input" name="courtSubscription" id="courtSubscription-{{ locationCount }}" onclick="untickSelectAllLocations()" value={{ row.subscriptionId }}>
+                          <input type="checkbox" class="govuk-checkboxes__input locationCheckbox" name="courtSubscription" id="courtSubscription-{{ locationCount }}" value={{ row.subscriptionId }}>
                           <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="courtSubscription-{{ locationCount }}"> </label>
                         </div>
                       </td>
@@ -155,6 +155,11 @@
         });
       });
     };
+
+    document.querySelectorAll('.caseCheckbox').forEach(item => item.addEventListener('click', untickSelectAllCases));
+    document.querySelectorAll('.locationCheckbox').forEach(item => item.addEventListener('click', untickSelectAllLocations));
+    document.querySelectorAll('#select-all-cases').forEach(item => item.addEventListener('click', () => toggleCheckboxes(item, 'case')));
+    document.querySelectorAll('#select-all-locations').forEach(item => item.addEventListener('click', () => toggleCheckboxes(item, 'location')));
 
     function toggleCheckboxes(source, type) {
       switch(type) {

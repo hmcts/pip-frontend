@@ -9,7 +9,6 @@ export interface HelmetConfig {
 const self = "'self'";
 const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
 const dynatraceDomain = 'https://*.dynatrace.com';
-const jsdelivrDomain = '*.jsdelivr.net';
 
 /**
  * Module that enables helmet in the application
@@ -34,13 +33,12 @@ export class Helmet {
                     fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
-                    scriptSrcAttr: [self, "'unsafe-inline'"],
+                    scriptSrcAttr: [self],
                     manifestSrc: [self, process.env.FRONTEND_URL],
                     scriptSrc: [
                         self,
                         ...googleAnalyticsDomains,
                         dynatraceDomain,
-                        jsdelivrDomain,
                         "'unsafe-eval'",
                         "'unsafe-inline'",
                     ],

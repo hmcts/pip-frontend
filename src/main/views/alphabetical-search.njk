@@ -41,8 +41,8 @@
               <div class="moj-button-menu filters__innerButton" id="innerButton">
                 <div class="moj-button-menu__wrapper">
                   <a href="#" role="button" draggable="false"
-                     class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
-                     onclick="toggleFilters()">
+                     class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+                     data-module="govuk-button">
                     {{ hide }}
                   </a>
                 </div>
@@ -93,8 +93,9 @@
 
       <div class="moj-button-menu">
         <div class="moj-button-menu__wrapper">
-          <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
-             data-module="govuk-button" onclick="toggleFilters()">
+          <a href="#" role="button" draggable="false"
+             class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+             data-module="govuk-button">
             {{ show }}
           </a>
         </div>
@@ -155,6 +156,8 @@
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
+
+    document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
 
     // The following function is hiding content and navigation due to screen readers to read behind the visible panel
     function toggleFilters() {

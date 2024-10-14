@@ -25,8 +25,6 @@ const summaryListRowValueClass = 'govuk-summary-list__value';
 const linkClass = 'govuk-link';
 const detailsSummaryTextClass = 'govuk-details__summary-text';
 const jsonContainerClass = 'json-container';
-const jsonLinesClass = 'json-lines';
-const listTag = 'li';
 
 let htmlRes: Document;
 
@@ -188,15 +186,13 @@ describe('Blob Explorer Page', () => {
 
     it('should have the correct data in the json container', () => {
         const jsonContainer = htmlRes.getElementsByClassName(jsonContainerClass)[0];
-        const jsonLines = jsonContainer.getElementsByClassName(jsonLinesClass)[0];
-        const individualJsonLines = jsonLines.getElementsByTagName(listTag);
 
-        expect(individualJsonLines[0].innerHTML).contains('{', 'Could not find correct json output on the line');
-        expect(individualJsonLines[4].innerHTML).contains(
+        expect(jsonContainer.innerHTML).contains('{', 'Could not find correct json output on the line');
+        expect(jsonContainer.innerHTML).contains(
             'publicationDate',
             'Could not find correct json output on the line'
         );
-        expect(individualJsonLines[3].innerHTML).contains(
+        expect(jsonContainer.innerHTML).contains(
             'documentName',
             'Could not find correct json output on the line'
         );

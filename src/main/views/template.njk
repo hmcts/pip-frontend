@@ -40,13 +40,6 @@
   }) }}
 {% endblock %}
 {% block beforeContent %}
-  <script>
-    function changeLang(lng){
-      const searchParams = new URLSearchParams(window.location.search);
-      searchParams.set('lng', lng)
-      window.location.search = searchParams.toString();
-
-  }</script>
     {% if env != 'production' %}
         <div id= "branch-bar" class="govuk-phase-banner">
             <p class="govuk-phase-banner__content">
@@ -305,6 +298,17 @@
           document.addEventListener(evt, resetIdleTimeout, true)
         );
       })();
+    </script>
+    <script>
+        document.querySelectorAll(".languageHeader").forEach(item => {
+            item.addEventListener('click', changeLang);
+        })
+
+        function changeLang() {
+            const searchParams = new URLSearchParams(window.location.search);
+            searchParams.set('lng', ("{{ lng }}" === 'en' ? 'cy' : 'en'));
+            window.location.search = searchParams.toString();
+        }
     </script>
   {% endif %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}

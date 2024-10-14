@@ -41,8 +41,8 @@
               <div class="moj-button-menu filters__innerButton" id="innerButton">
                 <div class="moj-button-menu__wrapper">
                   <a href="#" role="button" draggable="false"
-                     class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
-                     onclick="toggleFilters()">
+                     class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+                     data-module="govuk-button">
                     {{ hide }}
                   </a>
                 </div>
@@ -91,8 +91,9 @@
           <h2 class="govuk-heading-m">{{ userSelections }}</h2>
           <div class="moj-button-menu">
             <div class="moj-button-menu__wrapper">
-              <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
-                 data-module="govuk-button" onclick="toggleFilters()">
+              <a href="#" role="button" draggable="false"
+                 class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+                 data-module="govuk-button">
                 {{ show }}
               </a>
             </div>
@@ -131,13 +132,12 @@
               {% if value | length > 0 %}
                 {% for listName, listConfig in value %}
                   {% if listConfig.hidden %}
-                    <input hidden type="checkbox" class="govuk-checkboxes__input"
+                    <input hidden type="checkbox" class="govuk-checkboxes__input list-item"
                            id="{{ listName }}"
                            value="{{ listName}}" name="list-selections[]"
                       {% if listConfig.checked %}
                         checked
-                      {% endif %}
-                      onclick="calculateChecked()">
+                      {% endif %}>
                   {% else %}
                     <tr class="govuk-table__row">
                       {% if first != key %}
@@ -151,13 +151,12 @@
                       {% endif %}
                       <td class="govuk-table__cell">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small">
-                          <input type="checkbox" class="govuk-checkboxes__input"
+                          <input type="checkbox" class="govuk-checkboxes__input list-item"
                                  id="{{ listName }}"
                                  value="{{ listName}}" name="list-selections[]"
                                  {% if listConfig.checked %}
                                   checked
-                                 {% endif %}
-                                 onclick="calculateChecked()">
+                                 {% endif %}>
                           <label class="govuk-label govuk-checkboxes__label no_padding"
                                  for="{{ listName }}">
                             <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>
@@ -183,12 +182,18 @@
 {% block bodyEnd %}
   {{ super() }}
   <script>
+    document.querySelectorAll('.list-item').forEach(item => {
+      item.addEventListener('click', calculateChecked);
+    });
+
     function calculateChecked() {
       const checkedBoxes = document.querySelectorAll('input[name="list-selections[]"]:checked').length;
       document.getElementById('selectionCount').innerText = checkedBoxes.toString();
     }
 
     calculateChecked();
+
+    document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
 
     function toggleFilters() {
       var element = document.getElementById("filters");

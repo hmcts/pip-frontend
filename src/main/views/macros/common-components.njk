@@ -17,11 +17,14 @@
 {% macro goBack(path = '#', text = 'Back', id = '', ariaLabel = 'Back Button') %}
   {{ govukBackLink({
     text: text,
-    href: path,
-    attributes: {
-      onClick: "history.back(); event.preventDefault();"
-    }
+    href: path
   }) }}
+  <script>
+      document.getElementsByClassName("govuk-back-link").item(0).addEventListener("click", function() {
+          history.back();
+          event.preventDefault();
+      });
+  </script>
 {% endmacro %}
 
 {% macro searchInput(text = 'Search Cases') %}
