@@ -6,9 +6,9 @@ describe('Crime IDAM Authentication', () => {
     let getSub;
     let crimeIdamAuthenticationInstance;
 
-    beforeEach(() => {
-        sinon = require('sinon');
-        const axiosConfig = require('../../../main/resources/requests/utils/axiosConfig');
+    beforeEach(async () => {
+        sinon = await import('sinon');
+        const axiosConfig = await import('../../../main/resources/requests/utils/axiosConfig');
         postStub = sinon.stub(axiosConfig.crimeIdamTokenApi, 'post');
         getSub = sinon.stub(axiosConfig.crimeIdamTokenApi, 'get');
     });
@@ -18,7 +18,7 @@ describe('Crime IDAM Authentication', () => {
     });
 
     it('should call the callback when successful', async () => {
-        const crimeIdamAuthentication = require('../../../main/authentication/crimeIdamAuthentication');
+        const crimeIdamAuthentication = await import('../../../main/authentication/crimeIdamAuthentication');
 
         crimeIdamAuthenticationInstance = crimeIdamAuthentication.crimeIdamAuthentication;
 
@@ -57,7 +57,7 @@ describe('Crime IDAM Authentication', () => {
     });
 
     it('should return Crime Idam user information when successful', async () => {
-        const crimeIdamAuthentication = require('../../../main/authentication/crimeIdamAuthentication');
+        const crimeIdamAuthentication = await import('../../../main/authentication/crimeIdamAuthentication');
 
         getSub.resolves({ data: { email: 'test@test.com' } });
 

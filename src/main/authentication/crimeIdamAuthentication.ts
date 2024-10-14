@@ -1,9 +1,8 @@
 import { FRONTEND_URL } from '../helpers/envUrls';
-import config = require('config');
+import config from 'config';
 import process from 'process';
 import { crimeIdamTokenApi } from '../resources/requests/utils/axiosConfig';
-
-const querystring = require('querystring');
+import querystring from 'querystring';
 
 let crimeIdamClientId;
 let crimeIdamClientSecret;
