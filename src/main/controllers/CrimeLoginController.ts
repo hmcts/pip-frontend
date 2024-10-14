@@ -1,8 +1,8 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { CRIME_IDAM_URL, FRONTEND_URL } from '../helpers/envUrls';
-import process from "process";
-import config from "config";
+import process from 'process';
+import config from 'config';
 
 let crimeIdamClientId;
 
@@ -21,7 +21,6 @@ const params = new URLSearchParams({
 
 export default class CrimeLoginController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-
         res.redirect(CRIME_IDAM_URL + '/idp/oauth2/authorize?' + params.toString());
     }
 }
