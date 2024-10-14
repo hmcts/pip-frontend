@@ -44,7 +44,7 @@ export default class BlobViewJsonController {
                 artefactId,
                 metadata,
                 listUrl,
-                noMatchArtefact
+                noMatchArtefact,
             });
         } else if (data === HttpStatusCode.NotFound || metadata === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

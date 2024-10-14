@@ -188,13 +188,7 @@ describe('Blob Explorer Page', () => {
         const jsonContainer = htmlRes.getElementsByClassName(jsonContainerClass)[0];
 
         expect(jsonContainer.innerHTML).contains('{', 'Could not find correct json output on the line');
-        expect(jsonContainer.innerHTML).contains(
-            'publicationDate',
-            'Could not find correct json output on the line'
-        );
-        expect(jsonContainer.innerHTML).contains(
-            'documentName',
-            'Could not find correct json output on the line'
-        );
+        expect(jsonContainer.innerHTML).contains('publicationDate', 'Could not find correct json output on the line');
+        expect(jsonContainer.innerHTML).contains('documentName', 'Could not find correct json output on the line');
     });
 });
