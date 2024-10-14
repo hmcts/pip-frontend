@@ -57,7 +57,7 @@ export default class DailyCauseListController {
             const location = await locationService.getLocationById(metaData['locationId']);
 
             res.render(`style-guide/${list}`, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][list]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[list]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,

@@ -47,9 +47,7 @@ createAccountStub
 
 describe('Create System Admin Account Summary Controller', () => {
     const i18n = {
-        'system-admin': {
-            'create-system-admin-account-summary': {},
-        },
+        'create-system-admin-account-summary': {},
     };
     const response = {
         render: () => {
@@ -69,7 +67,7 @@ describe('Create System Admin Account Summary Controller', () => {
                 formData: mockData,
                 accountCreated: false,
                 displayError: false,
-                ...i18n['system-admin']['create-system-admin-account-summary'],
+                ...i18n['create-system-admin-account-summary'],
             };
 
             responseMock
@@ -91,7 +89,7 @@ describe('Create System Admin Account Summary Controller', () => {
                 accountCreated: true,
                 isDuplicateError: undefined,
                 isAboveMaxError: undefined,
-                ...i18n['system-admin']['create-system-admin-account-confirm'],
+                ...i18n['create-system-admin-account-confirm'],
             };
 
             responseMock
@@ -112,7 +110,7 @@ describe('Create System Admin Account Summary Controller', () => {
             const expectedOptions = {
                 formData: invalidMockData,
                 displayError: true,
-                ...i18n['system-admin']['create-system-admin-account-summary'],
+                ...i18n['create-system-admin-account-summary'],
             };
 
             responseMock
@@ -134,7 +132,7 @@ describe('Create System Admin Account Summary Controller', () => {
                 accountCreated: false,
                 isDuplicateError: true,
                 isAboveMaxError: false,
-                ...i18n['system-admin']['create-system-admin-account-confirm'],
+                ...i18n['create-system-admin-account-confirm'],
             };
 
             responseMock
@@ -156,7 +154,7 @@ describe('Create System Admin Account Summary Controller', () => {
                 accountCreated: false,
                 isDuplicateError: false,
                 isAboveMaxError: true,
-                ...i18n['system-admin']['create-system-admin-account-confirm'],
+                ...i18n['create-system-admin-account-confirm'],
             };
 
             responseMock

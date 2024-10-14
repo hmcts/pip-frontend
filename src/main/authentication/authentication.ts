@@ -1,14 +1,14 @@
 import process from 'process';
-import config = require('config');
+import config from 'config';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import passportCustom from 'passport-custom';
 import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
 import { crimeIdamAuthentication } from './crimeIdamAuthentication';
+import { OIDCStrategy as AzureOIDCStrategy } from 'passport-azure-ad';
+import passport from 'passport';
+import authenticationConfig from './authentication-config.json';
 
-const AzureOIDCStrategy = require('passport-azure-ad').OIDCStrategy;
-const passport = require('passport');
-const authenticationConfig = require('./authentication-config.json');
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
 

@@ -57,9 +57,7 @@ validationStub.withArgs({}).returns(validationErrors);
 
 describe('Create Admin Account Controller', () => {
     const i18n = {
-        admin: {
-            'create-admin-account': {},
-        },
+        'create-admin-account': {},
     };
     const response = {
         render: () => {
@@ -73,7 +71,7 @@ describe('Create Admin Account Controller', () => {
         it('should render create admin account page with set cookie', async () => {
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['admin']['create-admin-account'],
+                ...i18n['create-admin-account'],
                 formData: JSON.parse(request['cookies'].createAdminAccount),
                 radios,
             };
@@ -89,7 +87,7 @@ describe('Create Admin Account Controller', () => {
             request['cookies'] = {};
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['admin']['create-admin-account'],
+                ...i18n['create-admin-account'],
                 formData: null,
                 radios: uncheckedRadios,
             };
@@ -107,7 +105,7 @@ describe('Create Admin Account Controller', () => {
             uncheckedRadios[2].checked = false;
             request.body = {};
             const expectedOptions = {
-                ...i18n['admin']['create-admin-account'],
+                ...i18n['create-admin-account'],
                 radios: uncheckedRadios,
                 formErrors: validationErrors,
                 formData: {},

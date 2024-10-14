@@ -21,7 +21,6 @@ suppressions = "cat yarn-audit-known-issues"
 
 @dataclass
 class advisory:
-  cves: list
   severity: str
   vulnerable_versions: str
   module_name: str
@@ -29,7 +28,6 @@ class advisory:
 
   def pretty_print(self, prepend=colors[0]):
     print(prepend, f"Module: {self.module_name}",
-          f"{colors[1]}CVE(s): {self.cves}",
           f"{colors[2]}Severity: {self.severity}",
           f"{colors[3]}Vulnerable versions: {self.vulnerable_versions}",
           f"{colors[4]}id: {self.id}", "",
@@ -37,7 +35,6 @@ class advisory:
 
   def ugly_print(self, prepend=colors[5]):
     print(prepend, f"Module: {self.module_name}",
-          f"CVE(s): {self.cves}",
           f"Severity: {self.severity}",
           f"Vulnerable versions: {self.vulnerable_versions}",
           f"id: {self.id}", "",
@@ -61,29 +58,30 @@ def getRawData(cmd):
 
 
 def build_advisory(data):
-  return advisory(module_name=data['module_name'],
-                  severity=data['severity'].title(),
-                  vulnerable_versions=data['vulnerable_versions'],
-                  cves=data['cves'],
-                  id=data['id'])
+  return advisory(module_name=data['value'],
+                  severity=data['children']['Severity'],
+                  vulnerable_versions=data['children']['Vulnerable Versions'],
+                  id=data['children']['ID'])
 
-
-def read_in_json_yarn_v3(audit, cmd):
+def read_in_json_yarn_v4(audit, cmd):
   output = getRawData(cmd)
   advisoryList = []
   empty_files = handle_empty_bodies(audit, output)
   if empty_files:
     return advisoryList
-  current_advisory = json.loads(output.decode('utf-8'))['advisories']
-  for i in current_advisory.keys():
-    data = current_advisory[i]
-    advisoryList.append(build_advisory(data))
+
+  advisories = []
+  for line in output.splitlines():
+    advisories.append(json.loads(line))
+
+  for advisory in advisories:
+    advisoryList.append(build_advisory(advisory))
   return advisoryList
 
 
 def run_audit_and_suppression_checks():
-  audit_results = read_in_json_yarn_v3(True, audit)
-  suppression_results = read_in_json_yarn_v3(False, suppressions)
+  audit_results = read_in_json_yarn_v4(True, audit)
+  suppression_results = read_in_json_yarn_v4(False, suppressions)
 
   unsuppressed = [i for i in audit_results if i not in suppression_results]
   unused = [i for i in suppression_results if i not in audit_results]

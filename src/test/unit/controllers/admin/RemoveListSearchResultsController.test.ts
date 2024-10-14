@@ -8,9 +8,7 @@ import RemoveListSearchResultsController from '../../../../main/controllers/admi
 import { PublicationService } from '../../../../main/service/PublicationService';
 
 const i18n = {
-    admin: {
-        'remove-list-search-results': {},
-    },
+    'remove-list-search-results': {},
     error: {},
 };
 const response = {
@@ -75,7 +73,7 @@ describe('Remove List Summary Controller', () => {
             const request = mockRequest(i18n);
             request.query = { locationId: '5' };
             const expectedOptions = {
-                ...i18n['admin']['remove-list-search-results'],
+                ...i18n['remove-list-search-results'],
                 court: mockCourt,
                 removalList: mockArtefactsArray,
                 noOptionSelectedError: undefined,

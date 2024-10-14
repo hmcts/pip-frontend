@@ -42,11 +42,9 @@ const sjpNewCasesResource = sjpResourceMap.get(sjpNewCasesUrl);
 const sjpFullListPath = 'style-guide/single-justice-procedure';
 
 const i18n = {
-    'style-guide': {
-        sjpFullListName: { header: 'Single Justice Procedure cases that are ready for hearing (Full list)' },
-        sjpNewCasesName: { header: 'Single Justice Procedure cases that are ready for hearing (New cases)' },
-        'sjp-common': { downloadButtonLabel: 'Download a copy' },
-    },
+    sjpFullListName: { header: 'Single Justice Procedure cases that are ready for hearing (Full list)' },
+    sjpNewCasesName: { header: 'Single Justice Procedure cases that are ready for hearing (New cases)' },
+    'sjp-common': { downloadButtonLabel: 'Download a copy' },
     'list-template': {},
 };
 
@@ -97,8 +95,8 @@ describe('SJP Public List Type Controller', () => {
     describe.each([sjpFullListUrl, sjpNewCasesUrl])("get with path '%s'", url => {
         const sjpResource = sjpResourceMap.get(url);
         const expectedData = {
-            ...i18n['style-guide'][sjpResource.resourceName],
-            ...i18n['style-guide']['sjp-common'],
+            ...i18n[sjpResource.resourceName],
+            ...i18n['sjp-common'],
             ...i18n['list-template'],
             publishedDateTime: '01 September 2023',
             publishedTime: '11am',

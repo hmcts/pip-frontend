@@ -14,7 +14,7 @@ export default class MediaAccountReviewController {
         const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
         if (applicantData) {
             return res.render('admin/media-account-review', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin']['media-account-review']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-review']),
                 applicantData: applicantData,
             });
         }

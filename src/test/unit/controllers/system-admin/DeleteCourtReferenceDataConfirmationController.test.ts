@@ -19,9 +19,7 @@ deleteStub.withArgs('3').resolves({ exists: false, errorMessage: '' });
 describe('Delete Court Reference Data Controller', () => {
     it('should render the court reference data page', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-reference-data-confirmation': {},
-            },
+            'delete-court-reference-data-confirmation': {},
         };
         const response = {
             render: () => {
@@ -49,9 +47,7 @@ describe('Delete Court Reference Data Controller', () => {
 
     it('should render the court subscription data page', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-subscription-confirmation': {},
-            },
+            'delete-court-subscription-confirmation': {},
         };
         const response = {
             render: () => {
@@ -62,7 +58,7 @@ describe('Delete Court Reference Data Controller', () => {
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-subscription-confirmation'],
+            ...i18n['delete-court-subscription-confirmation'],
             court: court,
             displayError: false,
         };
@@ -79,9 +75,7 @@ describe('Delete Court Reference Data Controller', () => {
 
     it('should render the court publication data page', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-publication-confirmation': {},
-            },
+            'delete-court-publication-confirmation': {},
         };
         const response = {
             render: () => {
@@ -92,7 +86,7 @@ describe('Delete Court Reference Data Controller', () => {
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-publication-confirmation'],
+            ...i18n['delete-court-publication-confirmation'],
             court: court,
             displayError: false,
         };
@@ -109,9 +103,7 @@ describe('Delete Court Reference Data Controller', () => {
 
     it('should render the court subscription deletion data page', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-subscription-confirmation': {},
-            },
+            'delete-court-subscription-confirmation': {},
         };
         const response = {
             render: () => {
@@ -122,7 +114,7 @@ describe('Delete Court Reference Data Controller', () => {
         request.query = { locationId: '1' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-subscription-confirmation'],
+            ...i18n['delete-court-subscription-confirmation'],
             court: court,
             displayError: false,
         };
@@ -140,9 +132,7 @@ describe('Delete Court Reference Data Controller', () => {
 
     it('should render confirmation page if active artefact or subscription is available', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-reference-data-confirmation': {},
-            },
+            'delete-court-reference-data-confirmation': {},
         };
         const response = {
             render: () => {
@@ -153,7 +143,7 @@ describe('Delete Court Reference Data Controller', () => {
         request.body = { locationId: '1', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data-confirmation'],
+            ...i18n['delete-court-reference-data-confirmation'],
             court: court,
             apiError: true,
             errorMessage: 'test',
@@ -170,9 +160,7 @@ describe('Delete Court Reference Data Controller', () => {
 
     it('should render confirmation page if unexpected error occurred', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-reference-data-confirmation': {},
-            },
+            'delete-court-reference-data-confirmation': {},
         };
         const response = {
             render: () => {
@@ -183,7 +171,7 @@ describe('Delete Court Reference Data Controller', () => {
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data-confirmation'],
+            ...i18n['delete-court-reference-data-confirmation'],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete the court from reference data',
@@ -200,9 +188,7 @@ describe('Delete Court Reference Data Controller', () => {
 
     it('should render redirect to success page if court is deleted', () => {
         const i18n = {
-            'system-admin': {
-                'delete-court-reference-data-confirmation': {},
-            },
+            'delete-court-reference-data-confirmation': {},
         };
         const response = {
             render: () => {
@@ -213,7 +199,7 @@ describe('Delete Court Reference Data Controller', () => {
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['system-admin']['delete-court-reference-data-confirmation'],
+            ...i18n['delete-court-reference-data-confirmation'],
             court: court,
             apiError: true,
             errorMessage: 'Unknown error when attempting to delete the court from reference data',

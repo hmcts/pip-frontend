@@ -39,7 +39,7 @@ export default class BlobViewJsonController {
                 process.env.FRONTEND_URL + '/' + listTypes.get(metadata.listType)?.url + '?artefactId=' + artefactId;
 
             res.render('system-admin/blob-view-json', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin']['blob-view-json']),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-json']),
                 data,
                 courtName,
                 artefactId,

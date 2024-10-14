@@ -33,11 +33,11 @@ export default class CopDailyCauseListController {
             );
 
             const returnedCourt = await courtService.getLocationById(metaData['locationId']);
-            const courtName = courtService.findCourtName(returnedCourt, req.lng, listPath);
+            const courtName = courtService.findCourtName(returnedCourt, req.lng, listType);
             const regionalJoh = helperService.getRegionalJohFromLocationDetails(searchResults['locationDetails']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,

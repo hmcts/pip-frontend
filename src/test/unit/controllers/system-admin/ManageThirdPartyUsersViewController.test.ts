@@ -10,9 +10,7 @@ const manageThirdPartyUsersViewController = new ManageThirdPartyUsersViewControl
 
 describe('Manage third party users view Controller', () => {
     const i18n = {
-        'system-admin': {
-            'manage-third-party-users': {},
-        },
+        'manage-third-party-users': {},
         error: {},
     };
     const request = mockRequest(i18n);
@@ -36,7 +34,7 @@ describe('Manage third party users view Controller', () => {
         getSubscriptionsByUserStub.withArgs(userId).resolves(mockSubscriptions);
 
         const options = {
-            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['system-admin']['manage-third-party-users-view']),
+            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-users-view']),
             userDetails: mockUser,
             numberOfSubscriptions: 0,
             subscriptionsChannel: '',
@@ -60,7 +58,7 @@ describe('Manage third party users view Controller', () => {
         getSubscriptionsByUserStub.withArgs(userId).resolves(mockSubscriptions);
 
         const options = {
-            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['system-admin']['manage-third-party-users-view']),
+            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-users-view']),
             userDetails: mockUser,
             numberOfSubscriptions: 1,
             subscriptionsChannel: 'API',

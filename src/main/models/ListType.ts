@@ -6,6 +6,7 @@ export interface ListType {
     jurisdictions: Array<string>;
     welshJurisdictions: Array<string>;
     restrictedProvenances: Array<string>;
-    contDate: string;
-    checked: boolean;
+    defaultSensitivity: string;
+    contDate?: string;
+    checked?: boolean;
 }

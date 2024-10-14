@@ -9,9 +9,7 @@ const manageThirdPartyUsersController = new ManageThirdPartyUsersController();
 
 describe('Manage third party users Controller', () => {
     const i18n = {
-        'system-admin': {
-            'manage-third-party-users': {},
-        },
+        'manage-third-party-users': {},
     };
     const request = mockRequest(i18n);
     const response = {
@@ -33,7 +31,7 @@ describe('Manage third party users Controller', () => {
         getThirdPartyAccountsStub.resolves(thirdPartyData);
 
         const options = {
-            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['system-admin']['manage-third-party-users']),
+            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-users']),
             thirdPartyAccounts: thirdPartyData,
         };
 

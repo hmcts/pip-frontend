@@ -9,9 +9,7 @@ const mediaAccountRejectionConfirmationController = new MediaAccountRejectionCon
 describe('Media Account Rejection Confirmation Controller', () => {
     describe('GET request', () => {
         const i18n = {
-            admin: {
-                'media-account-rejection-confirmation': {},
-            },
+            'media-account-rejection-confirmation': {},
             error: {},
         };
 
@@ -37,7 +35,7 @@ describe('Media Account Rejection Confirmation Controller', () => {
             request.body = { applicantId: applicantId };
 
             const expectedData = {
-                ...i18n['admin']['media-account-rejection-confirmation'],
+                ...i18n['media-account-rejection-confirmation'],
                 applicantData: applicantData,
                 reasons: undefined,
             };

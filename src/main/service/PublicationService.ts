@@ -5,8 +5,8 @@ import { SearchObject } from '../models/SearchObject';
 import { HttpStatusCode } from 'axios';
 import { SearchParty } from '../models/SearchParty';
 import { SearchCase } from '../models/SearchCase';
+import listData from '../resources/listLookup.json';
 
-const listData = require('../resources/listLookup.json');
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {

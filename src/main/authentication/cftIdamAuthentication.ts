@@ -1,10 +1,9 @@
 import { FRONTEND_URL } from '../helpers/envUrls';
 import { jwtDecode } from 'jwt-decode';
-import config = require('config');
+import config from 'config';
 import process from 'process';
 import { cftIdamTokenApi } from '../resources/requests/utils/axiosConfig';
-
-const querystring = require('querystring');
+import querystring from 'querystring';
 
 const rejectedRolesRegex = process.env.REJECTED_ROLES_REGEX
     ? process.env.CFT_REJECTED_ROLES_REGEX

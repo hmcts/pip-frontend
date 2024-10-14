@@ -8,9 +8,7 @@ const systemAdminDashboardController = new SystemAdminDashboardController();
 describe('System Admin Dashboard controller', () => {
     it('should render system admin dashboard page', () => {
         const i18n = {
-            'system-admin': {
-                'system-admin-dashboard': {},
-            },
+            'system-admin-dashboard': {},
         };
 
         const response = {
@@ -23,7 +21,7 @@ describe('System Admin Dashboard controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['system-admin']['system-admin-dashboard'],
+            ...i18n['system-admin-dashboard'],
             user: request['user'],
         };
 

@@ -59,6 +59,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(CFTAccountUrl);
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -74,6 +75,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(CrimeAccountUrl);
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -89,6 +91,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(piUrl);
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -104,6 +107,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/sign-in?error=true');
+
         signInController.post(request, response);
         responseMock.verify();
     });

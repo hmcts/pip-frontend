@@ -1,13 +1,13 @@
-import i18next from 'i18next';
-const i18nextMiddleware = require('i18next-http-middleware');
-import express = require('express');
+import i18next, { Resource } from 'i18next';
+import i18nextMiddleware from 'i18next-http-middleware';
+import express from 'express';
 import { NextFunction, Response } from 'express';
 import { PipRequest } from '../../models/request/PipRequest';
+import requireDir from 'require-directory';
 
-const requireDir = require('require-directory');
 const resources = requireDir(module, '../../resources', {
     include: /locales/,
-}).locales;
+}).locales as Resource;
 
 export class I18next {
     constructor() {
@@ -27,6 +27,7 @@ export class I18next {
 
     public enableFor(app: express.Express): void {
         app.use(i18nextMiddleware.handle(i18next));
+
         app.use((req: PipRequest, res: Response, next: NextFunction) => {
             Object.assign(res.locals, req, req.i18n.getDataByLanguage(req.lng).template);
             next();

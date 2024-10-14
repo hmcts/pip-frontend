@@ -1,6 +1,5 @@
 import { Logger } from '@hmcts/nodejs-logging';
-
-const sinon = require('sinon');
+import sinon from 'sinon';
 
 const mockLogger = {
     info: () => {},
@@ -19,7 +18,7 @@ describe('Write expected log statement', () => {
     it('should write expected log statement', async () => {
         const spy = sinon.spy(mockLogger, 'info');
 
-        const LogHelper = require('../../../../main/resources/logging/logHelper');
+        const LogHelper = await import('../../../../main/resources/logging/logHelper');
         const logHelper = new LogHelper.LogHelper();
         logHelper.writeLog('a@b.com', 'APPROVED_ACTION', '1234');
 
@@ -36,7 +35,7 @@ describe('Write expected log statement', () => {
             },
         };
 
-        const LogHelper = require('../../../../main/resources/logging/logHelper');
+        const LogHelper = await import('../../../../main/resources/logging/logHelper');
         const logHelper = new LogHelper.LogHelper();
         logHelper.logErrorResponse(error, 'perform request 1');
 
@@ -51,7 +50,7 @@ describe('Write expected log statement', () => {
             message: 'Error with message',
         };
 
-        const LogHelper = require('../../../../main/resources/logging/logHelper');
+        const LogHelper = await import('../../../../main/resources/logging/logHelper');
         const logHelper = new LogHelper.LogHelper();
         logHelper.logErrorResponse(error, 'perform request 2');
 

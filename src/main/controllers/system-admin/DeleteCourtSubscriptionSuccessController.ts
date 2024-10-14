@@ -10,7 +10,7 @@ export default class DeleteCourtSubscriptionSuccessController {
         const locationId = req.query.locationId as unknown as number;
         const court = await locationService.getLocationById(locationId);
         res.render(`system-admin/${page}`, {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin'][page]),
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
             court: locationService.formatCourtValue(court),
         });
     }

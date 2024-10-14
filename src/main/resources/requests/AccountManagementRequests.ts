@@ -4,8 +4,8 @@ import { MediaAccountApplication } from '../../models/MediaAccountApplication';
 import { DateTime } from 'luxon';
 import { StatusCodes } from 'http-status-codes';
 import { LogHelper } from '../logging/logHelper';
+import superagent from 'superagent';
 
-const superagent = require('superagent');
 const logger = Logger.getLogger('requests');
 const logHelper = new LogHelper();
 

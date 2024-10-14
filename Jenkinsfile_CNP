@@ -98,6 +98,7 @@ withPipeline(type, product, component) {
     onIthc {
         env.ENV = 'ithc'
     }
+
     afterAlways('functionalTest') {
         publishHTML target: [
             allowMissing         : true,
@@ -106,6 +107,15 @@ withPipeline(type, product, component) {
             reportDir            : "functional-output/functional/allure",
             reportFiles          : "index.html",
             reportName           : "Functional Test Report"
+        ]
+
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : "functional-output/accessibility",
+            reportFiles          : "all_results.html",
+            reportName           : "Accessibility Test Report"
         ]
     }
 }

@@ -7,9 +7,7 @@ import { AccountManagementRequests } from '../../../../main/resources/requests/A
 const adminManagementController = new AdminManagementController();
 const stub = sinon.stub(AccountManagementRequests.prototype, 'getAdminUserByEmailAndProvenance');
 const i18n = {
-    admin: {
-        'admin-management': {},
-    },
+    'admin-management': {},
 };
 
 describe('Admin Management Controller', () => {
@@ -29,7 +27,7 @@ describe('Admin Management Controller', () => {
             .expects('render')
             .once()
             .withArgs('admin/admin-management', {
-                ...i18n['admin']['admin-management'],
+                ...i18n['admin-management'],
                 noResultsError: false,
             });
 
@@ -46,7 +44,7 @@ describe('Admin Management Controller', () => {
             .expects('render')
             .once()
             .withArgs('admin/admin-management', {
-                ...i18n['admin']['admin-management'],
+                ...i18n['admin-management'],
                 noResultsError: true,
             });
 
