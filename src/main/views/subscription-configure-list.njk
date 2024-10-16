@@ -9,7 +9,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
     <h1 class="govuk-heading-l">{{ title }}</h1>
@@ -181,7 +181,7 @@
 
 {% block bodyEnd %}
   {{ super() }}
-  <script>
+  <script nonce="{{ cspNonce }}">
     document.querySelectorAll('.list-item').forEach(item => {
       item.addEventListener('click', calculateChecked);
     });

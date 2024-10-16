@@ -8,7 +8,7 @@
 
 {% block head %}
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
+  <script nonce="{{ cspNonce }}">(function (w, d, s, l, i) {
       w[l] = w[l] || [];
       w[l].push({
         'gtm.start':
@@ -55,7 +55,7 @@
     {% set betaDisplay = betaHeading %}
   {% endif %}
 
-  {{ betaLink(betaDisplay) }}
+  {{ betaLink(betaDisplay, cspNonce) }}
 
   {% if user.roles in ['SYSTEM_ADMIN'] %}
     {% set listItems = [
@@ -258,7 +258,7 @@
 {% endblock %}
 
 {% block content %}
-  {{ backToTopButton(backToTop) }}
+  {{ backToTopButton(text = backToTop, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block bodyEnd %}
@@ -268,7 +268,7 @@
     {% else %}
       {% set idleDurationInSeconds = 40 * 60 %}
     {% endif %}
-    <script>
+    <script nonce="{{ cspNonce }}">
       (function() {
         let idleTimeout
 
@@ -299,7 +299,7 @@
         );
       })();
     </script>
-    <script>
+    <script nonce="{{ cspNonce }}">
         document.querySelectorAll(".languageHeader").forEach(item => {
             item.addEventListener('click', changeLang);
         })

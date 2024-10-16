@@ -1,5 +1,5 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
-{% from "./macros/common-components.njk" import goBack, backToTopButton %}
+{% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {%- from "moj/components/filter/macro.njk" import mojFilter -%}
 {%- from "moj/components/button-menu/macro.njk" import mojButtonMenu -%}
@@ -10,7 +10,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   <h1 id='page-heading' class="govuk-heading-l">{{ heading }}</h1>
@@ -146,7 +146,7 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  <script>
+  <script nonce="{{ cspNonce }}">
 
     //Used to ensure that page focus is set to top when the filters reload the page
     window.onload = function() {

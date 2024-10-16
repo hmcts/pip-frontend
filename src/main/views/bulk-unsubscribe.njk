@@ -11,7 +11,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -141,9 +141,9 @@
 
 {% block bodyEnd %}
   {{ super() }}
-  {{ mojAll() }}
+  {{ mojAll(cspNonce) }}
 
-  <script>
+  <script nonce="{{ cspNonce }}">
     window.onload = function() {
       let nav = document.getElementsByClassName("moj-sub-navigation")[1].getElementsByTagName("ul")[0];
       let hideAllSection = nav.querySelectorAll('li[class="moj-sub-navigation__item"]');

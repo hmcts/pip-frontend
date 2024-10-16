@@ -104,8 +104,8 @@
 </div>
 {% endmacro %}
 
-{% macro filterManipulation(url, artefactId, filter) %}
-    <script>
+{% macro filterManipulation(url, artefactId, filter, cspNonce) %}
+    <script nonce="{{ cspNonce }}">
         var searchFilters = document.getElementById('search-filters');
         searchFilters.addEventListener('keyup', searchFilterItems);
 

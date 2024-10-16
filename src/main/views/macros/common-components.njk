@@ -14,12 +14,12 @@
     })}}
 {% endmacro %}
 
-{% macro goBack(path = '#', text = 'Back', id = '', ariaLabel = 'Back Button') %}
+{% macro goBack(path = '#', text = 'Back', id = '', ariaLabel = 'Back Button', cspNonce) %}
   {{ govukBackLink({
     text: text,
     href: path
   }) }}
-  <script>
+  <script nonce="{{ cspNonce }}">
       document.getElementsByClassName("govuk-back-link").item(0).addEventListener("click", function() {
           history.back();
           event.preventDefault();
@@ -44,14 +44,14 @@
     }) }}
 {% endmacro %}
 
-{% macro backToTopButton(text = 'Back to top') %}
+{% macro backToTopButton(text = 'Back to top', cspNonce) %}
   <a id="back-to-top-button" class="floating-back-to-top--fixed govuk-link govuk-link--no-underline govuk-!-font-size-19 with-background" href="#">
     <svg focusable="false" class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17"
          viewBox="0 0 13 17">
       <path fill="currentColor" d="M6.5 0 L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
     </svg>{{ text }}
   </a>
-  <script>
+  <script nonce="{{ cspNonce }}">
     //Get the button:
     mybutton = document.getElementById("back-to-top-button");
 
@@ -75,8 +75,8 @@
   </script>
 {% endmacro %}
 
-{% macro autoCompleteFilteredResults(autocompleteParam) %}
-  <script>
+{% macro autoCompleteFilteredResults(autocompleteParam, cspNonce) %}
+  <script nonce={{cspNonce}}>
     function suggest (query, populateResults) {
         let queryLC = query.toLowerCase()
         let filteredPrimaryResults = source.filter(s => s.toLowerCase().indexOf(queryLC) === 0)
@@ -89,24 +89,32 @@
   </script>
 {% endmacro %}
 
-{% macro mojAll() %}
+{% macro mojAll(cspNonce) %}
   <script type="text/javascript" src="/assets/js/jquery.js"></script>
   <script type="text/javascript" src="/assets/js/mojAll.js"></script>
-  <script>
+  <script nonce="{{ cspNonce }}">
     window.MOJFrontend.initAll()
   </script>
 {% endmacro %}
 
-{% macro betaLink(betaText) %}
+{% macro betaLink(betaText, cspNonce) %}
     {{ govukPhaseBanner({
         tag: {
             text: "beta"
         },
         html: betaText
     }) }}
-    <script>
+    <script nonce="{{ cspNonce }}">
         var link = document.getElementById("betalink")
         link.href = link.href + window.location.pathname.substring(1)
+    </script>
+{% endmacro %}
+
+{% macro backButtonHistory(cspNonce) %}
+    <script nonce="{{cspNonce }}">
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
     </script>
 {% endmacro %}
 

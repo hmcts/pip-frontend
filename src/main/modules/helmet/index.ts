@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as helmet from 'helmet';
 import { B2C_ADMIN_URL, B2C_URL, CFT_IDAM_URL } from '../../helpers/envUrls';
+import { randomBytes } from 'crypto';
 
 export interface HelmetConfig {
     referrerPolicy: string;
@@ -9,6 +10,8 @@ export interface HelmetConfig {
 const self = "'self'";
 const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
 const dynatraceDomain = 'https://*.dynatrace.com';
+
+
 
 /**
  * Module that enables helmet in the application
@@ -25,6 +28,11 @@ export class Helmet {
     }
 
     private setContentSecurityPolicy(app: express.Express): void {
+        app.use((req, res, next) => {
+            res.locals.cspNonce = randomBytes(32).toString("hex");
+            next();
+        });
+
         app.use(
             helmet.contentSecurityPolicy({
                 directives: {
@@ -35,7 +43,9 @@ export class Helmet {
                     objectSrc: [self],
                     scriptSrcAttr: [self],
                     manifestSrc: [self, process.env.FRONTEND_URL],
-                    scriptSrc: [self, ...googleAnalyticsDomains, dynatraceDomain, "'unsafe-eval'", "'unsafe-inline'"],
+                    scriptSrc: [self, ...googleAnalyticsDomains, dynatraceDomain,
+                        "'unsafe-eval'",
+                        (req, res) => `'nonce-${res['locals'].cspNonce}'`],
                     styleSrc: [self, process.env.FRONTEND_URL],
                     formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL],
                 },
