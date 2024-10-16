@@ -57,9 +57,9 @@ export class Helmet {
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
                     scriptSrcAttr: [self],
-                    manifestSrc: [self, process.env.FRONTEND_URL],
+                    manifestSrc: [self],
                     scriptSrc,
-                    styleSrc: [self, process.env.FRONTEND_URL],
+                    styleSrc: [self],
                     formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL],
                 },
             })

@@ -26,7 +26,7 @@ jsonStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
 
 describe('Get publication json', () => {
     it('should correctly render if location is passed and ref data exists', async () => {
-        let jsonData = JSON.parse('{"name":"Single Justice Procedure"}');
+        const jsonData = JSON.parse('{"name":"Single Justice Procedure"}');
         CourtStub.withArgs(1).resolves(jsonData);
         jsonStub.withArgs('1234').resolves(artefactJson);
         metaStub.withArgs('1234', 10).resolves(meta);
