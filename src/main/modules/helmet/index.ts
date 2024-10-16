@@ -16,7 +16,10 @@ const dynatraceDomain = 'https://*.dynatrace.com';
  */
 export class Helmet {
     private readonly developmentMode: boolean;
-    constructor(public config: HelmetConfig, developmentMode) {
+    constructor(
+        public config: HelmetConfig,
+        developmentMode
+    ) {
         this.developmentMode = developmentMode;
     }
 
@@ -34,7 +37,7 @@ export class Helmet {
             next();
         });
 
-        let scriptSrc = [
+        const scriptSrc = [
             self,
             ...googleAnalyticsDomains,
             dynatraceDomain,
