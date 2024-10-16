@@ -47,12 +47,7 @@
 
   <div class="govuk-grid-row">
     {{ filterForm(url = listUrl, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
-    {% if showFilters %}
-      {% set gridColumnWidth = "layout-width-three-fifths" %}
-    {% else %}
-      {% set gridColumnWidth = "govuk-grid-column-full" %}
-    {% endif %}
-    <div class="{{ gridColumnWidth }}" id="contents">
+    <div id="contents">
       <div class="parent-box overflow-table">
         {{ govukPagination(paginationData) }}
         <div class="overflow-table govuk-body">

@@ -197,8 +197,10 @@
 
             if (element.classList.toggle("always-hide")) {
                 document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ filter.show }}';
+                document.getElementById('contents').className = 'govuk-grid-column-full';
             } else {
                 document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ filter.hide }}';
+                document.getElementById('contents').className = 'layout-width-three-fifths';
 
                 //This ensures that focus works correctly for screen readers in the filter box.
                 var elements = document.getElementsByClassName('govuk-heading-m');
