@@ -9,11 +9,7 @@
 
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack(
-        path= '/subscription-add-list',
-        text = backButton,
-        clickEvent = "history.back();")
-    }}
+    {{ goBack(text = backButton) }}
 {% endblock %}
 
 {% block content %}
@@ -29,7 +25,7 @@
             ]
         }) }}
     {% endif %}
-    <form action="subscription-confirmed" method="post">
+    <form action="subscription-add-list-language" method="post">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset" id="language-selector">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -65,5 +61,10 @@
 </div>
 {% endblock %}
 {% block bodyEnd %}
+    <script>
+        if ( window.history.replaceState ) {
+            window.history.replaceState( null, null, window.location.href );
+        }
+    </script>
     {{ super() }}
 {% endblock %}

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import { app } from '../../../main/app';
 
-const PAGE_URL = '/subscription-add-list-language';
+const PAGE_URL = '/subscription-configure-list-language';
 const backButtonClass = 'govuk-back-link';
 const errorSummaryClass = 'govuk-error-summary';
 const errorMessageId = 'subscription-choice-error';
@@ -18,7 +18,7 @@ const expectedRadioLabel3 = 'English and Welsh';
 app.request['user'] = { roles: 'VERIFIED' };
 
 let htmlRes: Document;
-describe('Subscriptions add list language Page initial load', () => {
+describe('Subscriptions config list language Page initial load', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -36,7 +36,10 @@ describe('Subscriptions add list language Page initial load', () => {
     it('should display a back button with the correct value', () => {
         const backLink = htmlRes.getElementsByClassName(backButtonClass);
         expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-        expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+        expect(backLink[0].getAttribute('href')).equal(
+            '/subscription-configure-list',
+            'Back value does not contain correct link'
+        );
     });
 
     it('should not display the error summary on loading', () => {

@@ -363,12 +363,12 @@ export class SubscriptionService {
     public async configureListTypeForLocationSubscriptions(userId, listType, listLanguage): Promise<boolean> {
         return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId, {
             listType: this.createListTypeSubscriptionPayload(listType),
-            listLanguage: listLanguage,
+            listLanguage: this.createListTypeSubscriptionPayload(listLanguage),
             userId,
         });
     }
 
-    public createListTypeSubscriptionPayload(listType): object {
+    public createListTypeSubscriptionPayload(listType): string[] {
         let listTypeArray;
         if (listType) {
             if (!Array.isArray(listType)) {
@@ -457,6 +457,16 @@ export class SubscriptionService {
         return selectedListTypes;
     }
 
+    public async getUserSubscriptionListLanguage(userId): Promise<string> {
+        const userSubscriptions = await this.getSubscriptionsByUser(userId);
+
+        let selectedListTypes = '';
+        if (userSubscriptions['locationSubscriptions']?.length > 0) {
+            selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listLanguage'].toString();
+        }
+        return selectedListTypes;
+    }
+
     private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
 
@@ -477,7 +487,12 @@ export class SubscriptionService {
         const cachedCourts = await cacheService.getPendingSubscriptions(userId, 'courts');
         const courtsJurisdictions = await locationService.findCourtsJurisdiction(cachedCourts);
 
-        const applicableListTypes = this.findApplicableListTypeForCourts(courtsJurisdictions, null, userRole);
+        const selectedListTypes = await this.getUserSubscriptionListType(userId);
+        const applicableListTypes = this.findApplicableListTypeForCourts(
+            courtsJurisdictions,
+            selectedListTypes,
+            userRole
+        );
         return this.generateAlphabetisedListTypes([], applicableListTypes, language);
     }
 
@@ -493,15 +508,7 @@ export class SubscriptionService {
                 listType.jurisdictions.some(jurisdiction => courtJurisdictions.includes(jurisdiction)) &&
                 (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
             ) {
-                if (
-                    selectedListTypes == null ||
-                    selectedListTypes.length == 0 ||
-                    selectedListTypes.includes(listName)
-                ) {
-                    listType.checked = true;
-                } else {
-                    listType.checked = false;
-                }
+                listType.checked = selectedListTypes != null && selectedListTypes.includes(listName);
                 applicableListTypes.set(listName, listType);
             }
         }
