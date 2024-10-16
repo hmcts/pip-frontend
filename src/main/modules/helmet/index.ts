@@ -11,13 +11,14 @@ const self = "'self'";
 const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
 const dynatraceDomain = 'https://*.dynatrace.com';
 
-
-
 /**
  * Module that enables helmet in the application
  */
 export class Helmet {
-    constructor(public config: HelmetConfig) {}
+    private readonly developmentMode: boolean;
+    constructor(public config: HelmetConfig, developmentMode) {
+        this.developmentMode = developmentMode;
+    }
 
     public enableFor(app: express.Express): void {
         // include default helmet functions
@@ -29,9 +30,20 @@ export class Helmet {
 
     private setContentSecurityPolicy(app: express.Express): void {
         app.use((req, res, next) => {
-            res.locals.cspNonce = randomBytes(32).toString("hex");
+            res.locals.cspNonce = randomBytes(32).toString('hex');
             next();
         });
+
+        let scriptSrc = [
+            self,
+            ...googleAnalyticsDomains,
+            dynatraceDomain,
+            (req, res) => `'nonce-${res['locals'].cspNonce}'`,
+        ];
+
+        if (this.developmentMode) {
+            scriptSrc.push("'unsafe-eval'");
+        }
 
         app.use(
             helmet.contentSecurityPolicy({
@@ -43,9 +55,7 @@ export class Helmet {
                     objectSrc: [self],
                     scriptSrcAttr: [self],
                     manifestSrc: [self, process.env.FRONTEND_URL],
-                    scriptSrc: [self, ...googleAnalyticsDomains, dynatraceDomain,
-                        "'unsafe-eval'",
-                        (req, res) => `'nonce-${res['locals'].cspNonce}'`],
+                    scriptSrc,
                     styleSrc: [self, process.env.FRONTEND_URL],
                     formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL],
                 },
