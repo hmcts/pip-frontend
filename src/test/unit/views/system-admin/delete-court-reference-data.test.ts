@@ -38,7 +38,7 @@ describe('Delete Court List Search Page', () => {
     });
 
     it('should use accessible autocomplete in the script block', () => {
-        const script = htmlRes.getElementsByTagName('script')[7];
+        const script = htmlRes.getElementsByTagName('script')[8];
         expect(script.innerHTML).contains('accessibleAutocomplete');
     });
 

@@ -10,7 +10,8 @@ const blobViewController = new BlobViewJsonController();
 const i18n = {
     'blob-view-json': {},
 };
-const artefactJson = '{"Test":true}';
+const artefactJson = JSON.parse('{"Test":true}');
+const artefactJsonString = JSON.stringify(artefactJson);
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const metaStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 const CourtStub = sinon.stub(LocationService.prototype, 'getLocationById');
@@ -25,7 +26,8 @@ jsonStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
 
 describe('Get publication json', () => {
     it('should correctly render if location is passed and ref data exists', async () => {
-        CourtStub.withArgs(1).resolves(JSON.parse('{"name":"Single Justice Procedure"}'));
+        let jsonData = JSON.parse('{"name":"Single Justice Procedure"}');
+        CourtStub.withArgs(1).resolves(jsonData);
         jsonStub.withArgs('1234').resolves(artefactJson);
         metaStub.withArgs('1234', 10).resolves(meta);
         const response = {
@@ -41,14 +43,10 @@ describe('Get publication json', () => {
 
         const expectedData = {
             ...i18n['blob-view-json'],
-            data: artefactJson,
+            data: artefactJsonString,
             courtName: 'Single Justice Procedure',
             artefactId: '1234',
             metadata: meta,
-            jsonData:
-                '<ol class=json-lines>\n' +
-                '   <li><span class=json-string>"{&bsol;&quot;Test&bsol;&quot;:true}"</span></li>\n' +
-                '</ol>',
             listUrl: 'https://localhost:8080/sjp-public-list?artefactId=1234',
             noMatchArtefact: false,
         };
@@ -78,14 +76,10 @@ describe('Get publication json', () => {
 
         const expectedData = {
             ...i18n['blob-view-json'],
-            data: artefactJson,
+            data: artefactJsonString,
             courtName: 'No match artefacts',
             artefactId: '1234',
             metadata: metaWithNoMatch,
-            jsonData:
-                '<ol class=json-lines>\n' +
-                '   <li><span class=json-string>"{&bsol;&quot;Test&bsol;&quot;:true}"</span></li>\n' +
-                '</ol>',
             listUrl: 'https://localhost:8080/sjp-public-list?artefactId=1234',
             noMatchArtefact: true,
         };
