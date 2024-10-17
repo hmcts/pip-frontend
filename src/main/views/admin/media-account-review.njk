@@ -1,5 +1,5 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
-{% from "../macros/common-components.njk" import goBack %}
+{% from "../macros/common-components.njk" import goBack, backButtonHistory %}
 
 {% extends "../template.njk" %}
 {% block pageTitle %}
@@ -7,7 +7,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
 <div>
@@ -81,10 +81,6 @@
 </div>
 {% endblock %}
 {% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+  {{ backButtonHistory(cspNonce) }}
   {{ super() }}
 {% endblock %}
