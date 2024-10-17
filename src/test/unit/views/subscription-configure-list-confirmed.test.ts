@@ -44,7 +44,7 @@ describe('Subscriptions List Type Confirmed Page', () => {
 
     it('should display an unordered list with four elements', () => {
         const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
-        expect(listElements.length).to.equal(3);
+        expect(listElements.length).to.equal(4);
     });
 
     it('should display unordered list with add a new email subscription', () => {
