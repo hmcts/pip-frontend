@@ -112,6 +112,7 @@
           {% endif %}
         {% endfor %}
       </nav>
+        <div>
       <table class="govuk-table">
         <tbody class="govuk-table__body">
         {% for key, value in locationList %}
@@ -139,8 +140,11 @@
         {% endfor %}
         </tbody>
       </table>
-      {{ super() }}
+        </div>
     </div>
+  </div>
+  <div id="grid-row" class="govuk-grid-row parent-box">
+      {{ super() }}
   </div>
 {% endblock %}
 {% block bodyEnd %}
