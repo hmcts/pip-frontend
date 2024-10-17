@@ -97,7 +97,7 @@
   </script>
 {% endmacro %}
 
-{% macro betaLink(betaText, cspNonce) %}
+{% macro betaLink(betaText, cspNonce, lng) %}
     {{ govukPhaseBanner({
         tag: {
             text: "beta"
@@ -107,6 +107,18 @@
     <script nonce="{{ cspNonce }}">
         var link = document.getElementById("betalink")
         link.href = link.href + window.location.pathname.substring(1)
+    </script>
+
+    <script nonce="{{ cspNonce }}">
+        document.querySelectorAll(".languageHeader").forEach(item => {
+            item.addEventListener('click', changeLang);
+        })
+
+        function changeLang() {
+            const searchParams = new URLSearchParams(window.location.search);
+            searchParams.set('lng', ("{{ lng }}" === 'en' ? 'cy' : 'en'));
+            window.location.search = searchParams.toString();
+        }
     </script>
 {% endmacro %}
 

@@ -38,12 +38,12 @@ describe('Delete Court List Search Page', () => {
     });
 
     it('should use accessible autocomplete in the script block', () => {
-        const script = htmlRes.getElementsByTagName('script')[8];
+        const script = htmlRes.getElementsByTagName('script')[9];
         expect(script.innerHTML).contains('accessibleAutocomplete');
     });
 
     it('should autocomplete source with court names', () => {
-        const script = htmlRes.getElementsByTagName('script')[6];
+        const script = htmlRes.getElementsByTagName('script')[7];
         expect(script.innerHTML).contains("Abergavenny Magistrates' Court", 'Could not find input field');
     });
 

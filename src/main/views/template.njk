@@ -55,7 +55,7 @@
     {% set betaDisplay = betaHeading %}
   {% endif %}
 
-  {{ betaLink(betaDisplay, cspNonce) }}
+  {{ betaLink(betaDisplay, cspNonce, lng) }}
 
   {% if user.roles in ['SYSTEM_ADMIN'] %}
     {% set listItems = [
@@ -298,17 +298,6 @@
           document.addEventListener(evt, resetIdleTimeout, true)
         );
       })();
-    </script>
-    <script nonce="{{ cspNonce }}">
-        document.querySelectorAll(".languageHeader").forEach(item => {
-            item.addEventListener('click', changeLang);
-        })
-
-        function changeLang() {
-            const searchParams = new URLSearchParams(window.location.search);
-            searchParams.set('lng', ("{{ lng }}" === 'en' ? 'cy' : 'en'));
-            window.location.search = searchParams.toString();
-        }
     </script>
   {% endif %}
   {# Run JavaScript at end of the <body>, to avoid blocking the initial render. #}
