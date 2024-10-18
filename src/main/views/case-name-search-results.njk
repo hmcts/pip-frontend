@@ -1,6 +1,6 @@
 {% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "./macros/common-components.njk" import goBack, submitButton, mojAll %}
+{% from "./macros/common-components.njk" import goBack, submitButton, mojAll, backButtonHistory %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack(text = backButton) }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   <div class="parent-box alphabetical-box">
@@ -58,10 +58,6 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  {{ mojAll() }}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+  {{ mojAll(cspNonce) }}
+  {{ backButtonHistory(cspNonce) }}
 {% endblock %}

@@ -1,4 +1,4 @@
-{% from "./macros/common-components.njk" import goBack, submitButton, backToTopButton, mojAll %}
+{% from "./macros/common-components.njk" import goBack, submitButton, mojAll %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
@@ -10,7 +10,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
@@ -41,8 +41,8 @@
             <div class="moj-button-menu filters__innerButton" id="innerButton">
               <div class="moj-button-menu__wrapper">
                 <a href="#" role="button" draggable="false"
-                   class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
-                   onclick="toggleFilters()">
+                   class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+                   data-module="govuk-button">
                   {{ hide }}
                 </a>
               </div>
@@ -91,8 +91,9 @@
       <form class="moj-action-bar" action="pending-subscriptions" method="post" autocomplete="off">
         <div class="moj-button-menu">
           <div class="moj-button-menu__wrapper">
-            <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
-               data-module="govuk-button" onclick="toggleFilters()">
+            <a href="#" role="button" draggable="false"
+               class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+               data-module="govuk-button">
               {{ show }}
             </a>
           </div>
@@ -117,10 +118,9 @@
                     {% endif %}
                     <td class="govuk-table__cell">
                       <div class="govuk-checkboxes__item govuk-checkboxes--small">
-                        <input type="checkbox" class="govuk-checkboxes__input"
+                        <input type="checkbox" class="govuk-checkboxes__input court-item"
                                id="{{ courtDetails.id }}"
-                               value="{{ courtDetails.id }}" name="court-selections[]"
-                               onclick="calculateChecked()">
+                               value="{{ courtDetails.id }}" name="court-selections[]">
                         <label class="govuk-label govuk-checkboxes__label no_padding"
                                for="{{ courtDetails.id }}">
                           <span class="govuk-visually-hidden">Select {{ courtName }}</span>
@@ -150,22 +150,26 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  {{ mojAll() }}
-  <script>
+  {{ mojAll(cspNonce) }}
+  <script nonce="{{ cspNonce }}">
 
     //Used to ensure that page focus is set to top when the filters reload the page
     window.onload = function() {
       window.scrollTo(0,0);
     };
 
-    function calculateChecked() {
-      const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;
-      document.getElementById('selectionCount').innerText = checkedBoxes.toString();
-    }
+    document.querySelectorAll('.court-item').forEach(item => {
+      item.addEventListener('click', function() {
+          const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;
+          document.getElementById('selectionCount').innerText = checkedBoxes.toString();
+      });
+    });
 
     if (window.history.replaceState) {
       window.history.replaceState(null, null, window.location.href);
     }
+
+    document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
 
     function toggleFilters() {
       var element = document.getElementById("filters");
