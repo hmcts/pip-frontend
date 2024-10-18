@@ -56,9 +56,11 @@ Scenario(
         I.see(locationName);
         I.click('Continue');
         I.waitForText('Select List Types');
-        I.see('Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-            'specific cases you may have subscribed to. Also don\'t forget to come' +
-            ' back regularly to see new list types as we add more.');
+        I.see(
+            'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
+                "specific cases you may have subscribed to. Also don't forget to come" +
+                ' back regularly to see new list types as we add more.'
+        );
         I.checkOption('#ET_DAILY_LIST');
         I.click('Continue');
         I.waitForText('What version of the list do you want to receive?');
@@ -208,9 +210,11 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.see(locationName);
     I.click('Continue');
     I.waitForText('Select List Types');
-    I.see('Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-        'specific cases you may have subscribed to. Also don\'t forget to come' +
-        ' back regularly to see new list types as we add more.');
+    I.see(
+        'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
+            "specific cases you may have subscribed to. Also don't forget to come" +
+            ' back regularly to see new list types as we add more.'
+    );
     I.checkOption('#ET_DAILY_LIST');
     I.click('Continue');
     I.waitForText('What version of the list do you want to receive?');
@@ -422,9 +426,11 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see(locationName);
     I.click('Continue');
     I.waitForText('Select List Types');
-    I.see('Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-        'specific cases you may have subscribed to. Also don\'t forget to come' +
-        ' back regularly to see new list types as we add more.');
+    I.see(
+        'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
+            "specific cases you may have subscribed to. Also don't forget to come" +
+            ' back regularly to see new list types as we add more.'
+    );
     I.checkOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
     I.waitForText('What version of the list do you want to receive?');
