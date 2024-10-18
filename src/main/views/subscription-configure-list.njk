@@ -88,7 +88,6 @@
       </div>
       <div class="layout-width-three-fifths" id="content">
         <form class="moj-action-bar" action="subscription-configure-list-confirmed" method="post" autocomplete="off">
-          <h2 class="govuk-heading-m">{{ userSelections }}</h2>
           <div class="moj-button-menu">
             <div class="moj-button-menu__wrapper">
               <a href="#" role="button" draggable="false" class="govuk-button moj-button-menu__item govuk-button--secondary"
@@ -96,34 +95,6 @@
                 {{ show }}
               </a>
             </div>
-          </div>
-          <div
-            class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
-            <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
-          </div>
-          {{ submitButton(continueButton) }}
-          <hr/>
-          <div class="govuk-!-margin-bottom-6 govuk-!-margin-top-6">
-            <nav aria-label="Alphabetical links to courts and tribunals">
-              <div class="govuk-grid-row">
-                {% for key, value in listTypes %}
-                {% if key == 'N' %}
-              </div>
-              <div class="govuk-grid-row">
-                {% endif %}
-                {% if value | length == 0 %}
-                  <div class="govuk-grid-column two-rows-alphabet govuk-!-font-size-19">
-                    <a id='{{ key }}-selector' class="govuk-link govuk-link--no-underline" aria-label="{{ ariaLabelNav}} {{ key }}">{{ key }}</a>
-                  </div>
-                {% else %}
-                  <div class="govuk-grid-column two-rows-alphabet govuk-!-font-size-19">
-                    <a id='{{ key }}-selector' href='#{{ key }}'
-                       class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
-                  </div>
-                {% endif %}
-                {% endfor %}
-              </div>
-            </nav>
           </div>
           <table class="govuk-table">
             <tbody class="govuk-table__body">
@@ -173,6 +144,12 @@
             {% endfor %}
             </tbody>
           </table>
+          <h2 class="govuk-heading-m">{{ userSelections }}</h2>
+          <div
+            class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
+            <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
+          </div>
+          {{ submitButton(continueButton) }}
         </form>
         {{ super() }}
       </div>
