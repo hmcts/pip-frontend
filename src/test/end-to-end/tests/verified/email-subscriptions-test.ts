@@ -47,11 +47,23 @@ Scenario(
         I.click('Add email subscription');
         I.waitForText('How do you want to add an email subscription?');
         I.see('You can only search for information that is currently published.');
+
         I.click('#subscription-choice-1');
         I.click('Continue');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
-        I.click('Confirm Subscriptions');
+        I.waitForText('Your email subscriptions');
+        I.see(locationName);
+        I.click('Continue');
+        I.waitForText('Select List Types');
+        I.see('Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
+            'specific cases you may have subscribed to. Also don\'t forget to come' +
+            ' back regularly to see new list types as we add more.');
+        I.checkOption('#ET_DAILY_LIST');
+        I.click('Continue');
+        I.waitForText('What version of the list do you want to receive?');
+        I.click('#english');
+        I.click('Continue');
         I.waitForText('Email subscriptions updated');
 
         I.click('Email subscriptions');
@@ -192,7 +204,18 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('Continue');
     I.checkOption('//*[@id="' + locationId + '"]');
     I.click('Continue');
-    I.click('Confirm Subscriptions');
+    I.waitForText('Your email subscriptions');
+    I.see(locationName);
+    I.click('Continue');
+    I.waitForText('Select List Types');
+    I.see('Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
+        'specific cases you may have subscribed to. Also don\'t forget to come' +
+        ' back regularly to see new list types as we add more.');
+    I.checkOption('#ET_DAILY_LIST');
+    I.click('Continue');
+    I.waitForText('What version of the list do you want to receive?');
+    I.click('#english');
+    I.click('Continue');
     I.waitForText('Email subscriptions updated');
 
     I.click('Email subscriptions');
@@ -307,7 +330,19 @@ Scenario(
         I.click('Continue');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
-        I.waitForText('Confirm your email subscriptions');
+        I.waitForText('Your email subscriptions');
+        I.see(locationName);
+        I.click('Continue');
+        I.waitForText('Select List Types');
+        I.click('Continue');
+        I.waitForText('There is a problem');
+        I.see('Please select a list type to continue');
+        I.checkOption('#ET_DAILY_LIST');
+        I.click('Continue');
+        I.waitForText('What version of the list do you want to receive?');
+        I.click('Continue');
+        I.waitForText('There is a problem');
+        I.see('Please select version of the list type to continue');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -336,7 +371,15 @@ Scenario(
         I.click('Apply filters');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
-        I.click('Confirm Subscriptions');
+        I.waitForText('Your email subscriptions');
+        I.see(locationName);
+        I.click('Continue');
+        I.waitForText('Select List Types');
+        I.checkOption('#ET_DAILY_LIST');
+        I.click('Continue');
+        I.waitForText('What version of the list do you want to receive?');
+        I.click('#english');
+        I.click('Continue');
         I.waitForText('Email subscriptions updated');
         I.click('Email subscriptions');
 
@@ -375,18 +418,33 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Continue');
     I.checkOption('//*[@id="' + locationId + '"]');
     I.click('Continue');
-    I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
-    I.click('Email subscriptions');
-    I.click('Select which list types to receive');
+    I.waitForText('Your email subscriptions');
+    I.see(locationName);
+    I.click('Continue');
     I.waitForText('Select List Types');
-    I.click(locate('//input').withAttr({ value: 'Civil' }));
-    I.click('Apply filters');
+    I.see('Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
+        'specific cases you may have subscribed to. Also don\'t forget to come' +
+        ' back regularly to see new list types as we add more.');
+    I.checkOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
+    I.click('Continue');
+    I.waitForText('What version of the list do you want to receive?');
+    I.click('#english');
+    I.click('Continue');
+    I.waitForText('Email subscriptions updated');
+
+    I.click('Email subscriptions');
+    I.click('Edit list types');
+    I.waitForText('Select List Types');
     I.uncheckOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
+    I.checkOption('#CIVIL_DAILY_CAUSE_LIST');
+    I.click('Continue');
+    I.waitForText('What version of the list do you want to receive?');
+    I.click('#english');
     I.click('Continue');
     I.waitForText('List types updated');
+
     I.click('manage your current email subscriptions');
-    I.click('Select which list types to receive');
+    I.click('Edit list types');
     I.waitForText('Select List Types');
     I.dontSeeCheckboxIsChecked('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Email subscriptions');
