@@ -1,25 +1,15 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { SubscriptionService } from '../../../main/service/SubscriptionService';
-import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 import request from 'supertest';
-import sinon from 'sinon';
 
 const PAGE_URL = '/subscription-confirmed';
 let htmlRes: Document;
-sinon.stub(SubscriptionService.prototype, 'subscribe').resolves(true);
-const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
-cacheStub.withArgs('1', 'cases').resolves(['case']);
-cacheStub.withArgs('1', 'courts').resolves(['court']);
-
-const validBody = { 'list-language': 'english' };
 
 describe('Subscriptions Confirmed Page', () => {
     beforeAll(async () => {
         app.request['user'] = { userId: '1', roles: 'VERIFIED' };
         await request(app)
-            .post(PAGE_URL)
-            .send(validBody)
+            .get(PAGE_URL)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();

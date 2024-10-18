@@ -1,5 +1,4 @@
 import { SubscriptionService } from '../../main/service/SubscriptionService';
-import { FilterService } from '../../main/service/FilterService';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../main/app';
@@ -17,22 +16,12 @@ const listOptions = {
     },
 };
 
-const filterOptions = {
-    Jurisdiction: {
-        Civil: {
-            value: 'Civil',
-            text: 'Civil',
-            checked: true,
-        },
-    },
-};
-
 describe('Subscriptions Configure List', () => {
     describe('on GET', () => {
         test('should return subscription configure list page', async () => {
             sinon
                 .stub(SubscriptionService.prototype, 'generateListTypesForCourts')
-                .resolves({ listTypes: listOptions, filterOptions: filterOptions });
+                .resolves({ listTypes: listOptions, filterOptions: null });
 
             await request(app)
                 .get('/subscription-configure-list')
@@ -41,26 +30,22 @@ describe('Subscriptions Configure List', () => {
     });
 
     describe('on POST', () => {
-        test('should redirect to the subscription configure page', async () => {
-            sinon
-                .stub(FilterService.prototype, 'generateFilterKeyValues')
-                .withArgs({ Jurisdiction: 'Civil' })
-                .resolves('FilterOption');
-
+        test('should show error on subscription config list page', async () => {
             await request(app)
                 .post('/subscription-configure-list')
-                .send({ Jurisdiction: 'Civil' })
+                .send({ 'list-selections[]': '' })
                 .expect(res => {
-                    expect(res.status).to.equal(302);
-                    expect(res.text).to.contain('Redirecting to subscription-configure-list');
+                    expect(res.status).to.equal(200);
                 });
         });
 
-        //TODO: To be expanded on once submissions screens implemented
-        test('should submit the selections to the submission', async () => {
+        test('should redirect to the subscription list language page', async () => {
             await request(app)
                 .post('/subscription-configure-list')
-                .send({ 'list-selections[]': 'CIVIL_DAILY_CAUSE_LIST' });
+                .send({ 'list-selections[]': 'test' })
+                .expect(res => {
+                    expect(res.status).to.equal(302);
+                });
         });
     });
 });

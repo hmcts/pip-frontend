@@ -3,8 +3,10 @@ import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { PublicationService } from '../service/PublicationService';
 import { pendingCaseSubscriptionSorter } from '../helpers/sortHelper';
+import { SubscriptionService } from '../service/SubscriptionService';
 
 const publicationService = new PublicationService();
+const subscriptionService = new SubscriptionService();
 
 export default class CaseNameSearchResultsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -23,5 +25,10 @@ export default class CaseNameSearchResultsController {
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+    }
+
+    public async post(req: PipRequest, res: Response): Promise<void> {
+        await subscriptionService.handleNewSubscription(req.body, req.user);
+        res.redirect('/pending-subscriptions');
     }
 }
