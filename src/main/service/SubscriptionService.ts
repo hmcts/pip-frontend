@@ -475,7 +475,9 @@ export class SubscriptionService {
         for (const subscription of userSubscriptions['locationSubscriptions']) {
             if ('locationId' in subscription) {
                 const returnedLocation = await locationService.getLocationById(subscription['locationId']);
-                returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+                if (returnedLocation != null) {
+                    returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+                }
             }
         }
 
