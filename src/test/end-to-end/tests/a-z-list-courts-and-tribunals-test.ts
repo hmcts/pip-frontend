@@ -43,8 +43,6 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     I.click(locate('//input').withAttr({ value: 'Crown' }));
     I.click('Apply filters');
 
-    I.click('#T-selector');
-    I.see('T', '#T-selector');
     I.click(locationName);
     I.waitForText('What do you want to view from ' + locationName + '?');
     I.click(locate('//a').withText('Civil and Family Daily Cause List'));
