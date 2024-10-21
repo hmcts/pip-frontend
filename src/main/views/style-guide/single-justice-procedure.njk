@@ -26,7 +26,7 @@
     {% if showFilters %} {{ filter.hide }} {% else %} {{ filter.show }} {% endif %}
   </button>
 
-  <div class="govuk-grid-row">
+  <div class="govuk-grid-row sjp-layout">
     {{ filterForm(url = listUrl, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
     <div id="contents">
       <div class="parent-box overflow-table">

@@ -166,7 +166,7 @@ $callout-bg: #f0f4f5;
     display: none;
 }
 
-.alphabetical-box {
+.alphabetical-box,.sjp-layout {
     .layout-width-three-fifths {
         width: 100%;
     }
@@ -202,7 +202,7 @@ $callout-bg: #f0f4f5;
         }
     }
 
-    .alphabetical-box {
+    .alphabetical-box,.sjp-layout{
         .layout-width-two-fifths {
             width: 0;
         }
