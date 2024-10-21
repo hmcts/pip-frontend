@@ -5,7 +5,7 @@
     "selected": "Wedi’i ddewis",
     "backButton": "Yn ôl",
     "error": {
-        "noSelection": "Dewiswch fersiwn math o restr i barhau",
+        "nothingSelected": "Dewiswch fersiwn math o restr i barhau",
         "title": "Mae yna broblem"
     }
 }
