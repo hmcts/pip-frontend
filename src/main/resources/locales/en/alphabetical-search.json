@@ -11,8 +11,6 @@
     "region": "Region",
     "applyFiltersButton": "Apply filters",
     "aria": {
-        "labelNav": "No courts/tribunals are available for the letter",
-        "labelNavHeader": "Alphabetical links to courts and tribunals",
         "filterLabel": "Filter by Jurisdiction or region"
     },
     "backButton": "Back"

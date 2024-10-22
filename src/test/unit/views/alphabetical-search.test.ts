@@ -40,20 +40,6 @@ describe('Alphabetical Search page', () => {
         expect(pageHeading[0].innerHTML).contains('Find a court or tribunal', 'Page heading does not exist');
     });
 
-    it('should contain letters that navigate to other sections of the page', () => {
-        const alphabeticalLetters = htmlRes.getElementById('A-selector');
-
-        expect(alphabeticalLetters.innerHTML).contains('A', 'Alphabetical link is not present');
-        expect(alphabeticalLetters.getAttribute('href')).equal('#A');
-    });
-
-    it('should contain no link if letter has no hearings', () => {
-        const alphabeticalLetters = htmlRes.getElementById('B-selector');
-
-        expect(alphabeticalLetters.innerHTML).contains('B', 'Alphabetical link is not present');
-        expect(alphabeticalLetters.getAttribute('href')).not.exist;
-    });
-
     it('should contain the letter names in rows are present', () => {
         const lettersUsed = ['A', 'T', 'W'];
         lettersUsed.forEach(letter => {
