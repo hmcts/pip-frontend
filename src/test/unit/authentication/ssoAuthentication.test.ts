@@ -2,12 +2,17 @@ import { graphApi } from '../../../main/resources/requests/utils/axiosConfig';
 import sinon from 'sinon';
 import process from 'process';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
-import { SsoAuthentication } from '../../../main/authentication/ssoAuthentication';
 
 const systemAdminSecurityGroup = '1111';
 const superAdminSecurityGroup = '1112';
 const adminSecurityGroup = '1113';
 const accessToken = '123';
+
+process.env.SSO_SG_SYSTEM_ADMIN = systemAdminSecurityGroup;
+process.env.SSO_SG_SUPER_ADMIN_CTSC = superAdminSecurityGroup;
+process.env.SSO_SG_ADMIN_CTSC = adminSecurityGroup;
+
+import { SsoAuthentication } from '../../../main/authentication/ssoAuthentication';
 
 const ssoAuthentication = new SsoAuthentication();
 
@@ -38,9 +43,6 @@ sinon
     .resolves({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
 
 describe('SSO Authentication', () => {
-    process.env.SSO_SG_SYSTEM_ADMIN = systemAdminSecurityGroup;
-    process.env.SSO_SG_SUPER_ADMIN_CTSC = superAdminSecurityGroup;
-    process.env.SSO_SG_ADMIN_CTSC = adminSecurityGroup;
 
     it('should return system admin user role', async () => {
         const response = await ssoAuthentication.determineUserRole('1', [], accessToken);
