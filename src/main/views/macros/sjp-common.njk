@@ -12,7 +12,7 @@
 {% endmacro %}
 
 {% macro filterForm(url, filterOptions, showFilters, artefactId, filter) %}
-    <div class="govuk-grid-column-one-third govuk-!-padding-left-0 govuk-!-padding-right-4 {% if not showFilters %} always-hide {% endif %}", id="filters">
+    <div class="layout-width-two-fifths govuk-!-display-inline-block {% if not showFilters %} always-hide {% endif %}", id="filters">
     <div class="filter-form">
         {% set checkedFilters = [] %}
         {% set toBeCreated = true %}
@@ -205,8 +205,10 @@
 
             if (element.classList.toggle("always-hide")) {
                 document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ filter.show }}';
+                document.getElementById('contents').className = 'govuk-grid-column-full';
             } else {
                 document.getElementsByClassName('hide-show-button')[0].innerHTML = '{{ filter.hide }}';
+                document.getElementById('contents').className = 'layout-width-three-fifths';
 
                 //This ensures that focus works correctly for screen readers in the filter box.
                 var elements = document.getElementsByClassName('govuk-heading-m');
