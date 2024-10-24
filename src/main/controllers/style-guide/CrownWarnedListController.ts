@@ -5,13 +5,7 @@ import { PublicationService } from '../../service/PublicationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrownWarnedListService } from '../../service/listManipulation/CrownWarnedListService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    hearingHasParty,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 
 const publicationService = new PublicationService();
@@ -36,9 +30,8 @@ export default class CrownWarnedListController {
                 searchResults['document']['publicationDate'],
                 req.lng
             );
-            const listData = hearingHasParty(searchResults)
-                ? crownWarnedListService.manipulateDataV1(JSON.stringify(searchResults), req.lng)
-                : crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
+
+            const listData = crownWarnedListService.manipulateData(JSON.stringify(searchResults), req.lng);
 
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
@@ -55,7 +48,7 @@ export default class CrownWarnedListController {
             );
 
             res.render(`style-guide/${listUrl}`, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: sortedListData,
                 venue: searchResults['venue'],

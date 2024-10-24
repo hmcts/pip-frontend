@@ -91,8 +91,12 @@ describe('Home page', () => {
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
-                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Hearings in the Immigration and Asylum Chamber of the First-tier Tribunal',
                 'Could not find second bullet'
+            );
+            expect(bullets[2].innerHTML).contains(
+                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Could not find third bullet'
             );
         });
 
@@ -120,14 +124,34 @@ describe('Home page', () => {
             );
         });
 
-        it('should display message under continue button', () => {
+        it('should display Find a court or Tribunal message under continue button', () => {
             const message = htmlRes.getElementsByClassName('govuk-heading-m');
-            expect(message[0].innerHTML).contains('Before you start', 'Could not find before you start message');
+            expect(message[0].innerHTML).contains(
+                'Find a court or tribunal',
+                'Could not Find a court or tribunal message'
+            );
+        });
+
+        it('should display link to FaCT', () => {
+            const text = htmlRes.getElementsByClassName('govuk-body')[5].getElementsByTagName('a');
+            expect(text[0].innerHTML).contains(
+                'Find contact details and other information about courts and tribunals',
+                'Could not find link to FaCT'
+            );
+            expect(text[0].getAttribute('href').valueOf()).contains(
+                'https://www.gov.uk/find-court-tribunal',
+                'Could not find Href for link to FaCT'
+            );
+        });
+
+        it('should display Before you start message', () => {
+            const message = htmlRes.getElementsByClassName('govuk-heading-m');
+            expect(message[1].innerHTML).contains('Before you start', 'Could not find before you start message');
         });
 
         it('should display Scotland and NI message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[5].innerHTML).contains(
+            expect(message[6].innerHTML).contains(
                 "If you're in Scotland or Northern Ireland",
                 'Could not find Sco and NI message'
             );
@@ -135,11 +159,11 @@ describe('Home page', () => {
 
         it('should display contact message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[6].innerHTML).contains('Contact the:', 'Could not find contact message');
+            expect(message[7].innerHTML).contains('Contact the:', 'Could not find contact message');
         });
 
         it('should display contact bullets', () => {
-            const bullets = htmlRes.getElementsByClassName('govuk-body')[7].getElementsByTagName('li');
+            const bullets = htmlRes.getElementsByClassName('govuk-body')[8].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
                 'for courts and some tribunals in Scotland',
                 'Could not find first bullet'
@@ -205,8 +229,13 @@ describe('Home page', () => {
             );
 
             expect(bullets[1].innerHTML).contains(
-                'Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru',
+                'Gwrandawiadau yn Siambr Mewnfudo a Lloches y Tribiwnlys Haen Gyntaf',
                 'Could not find second bullet'
+            );
+
+            expect(bullets[2].innerHTML).contains(
+                'Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru',
+                'Could not find third bullet'
             );
         });
 
@@ -223,8 +252,20 @@ describe('Home page', () => {
             );
         });
 
+        it('should display link to FaCT in Welsh', () => {
+            const text = htmlRes.getElementsByClassName('govuk-body')[5].getElementsByTagName('a');
+            expect(text[0].innerHTML).contains(
+                'Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd',
+                'Could not find link to FaCT'
+            );
+            expect(text[0].getAttribute('href').valueOf()).contains(
+                'https://www.gov.uk/chwilio-am-lys-neu-dribiwnlys',
+                'Could not find Href for link to FaCT'
+            );
+        });
+
         it('should display correct contact bullet in welsh', () => {
-            const bullets = htmlRes.getElementsByClassName('govuk-body')[7].getElementsByTagName('li');
+            const bullets = htmlRes.getElementsByClassName('govuk-body')[8].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
                 'ar gyfer rhai Llysoedd a Thribiwnlysoedd yn Yr Alban',
                 'Could not find first bullet in welsh'

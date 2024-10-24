@@ -7,7 +7,7 @@ import * as path from 'path';
 //If application insights is imported after logging, then no logs will be sent to application insights.
 import { app } from './app';
 
-const { Logger } = require('@hmcts/nodejs-logging');
+import { Logger } from '@hmcts/nodejs-logging';
 const logger = Logger.getLogger('server');
 
 // TODO: set the right port for your application

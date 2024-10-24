@@ -6,13 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CivilFamilyAndMixedListService } from '../../service/listManipulation/CivilFamilyAndMixedListService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    hearingHasParty,
-    isOneOfValidListTypes,
-    isValidList,
-    missingListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isOneOfValidListTypes, isValidList, missingListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -32,22 +26,10 @@ export default class DailyCauseListController {
 
         if (isValidList(searchResults, metaData) && isOneOfValidListTypes(metaDataListType, list, civilListType)) {
             const url = publicationService.getListTypes().get(metaData.listType).url;
-            let manipulatedData;
-            let partyAtHearingLevel = false;
-
-            if (url === familyDailyListUrl || url === mixedDailyListUrl) {
-                if (hearingHasParty(searchResults)) {
-                    manipulatedData = civilFamMixedListService.sculptedListDataPartyAtHearingLevel(
-                        JSON.stringify(searchResults),
-                        true
-                    );
-                    partyAtHearingLevel = true;
-                } else {
-                    manipulatedData = civilFamMixedListService.sculptedListData(JSON.stringify(searchResults), true);
-                }
-            } else {
-                manipulatedData = civilFamMixedListService.sculptedListData(JSON.stringify(searchResults));
-            }
+            const manipulatedData =
+                url === familyDailyListUrl || url === mixedDailyListUrl
+                    ? civilFamMixedListService.sculptedListData(JSON.stringify(searchResults), true)
+                    : civilFamMixedListService.sculptedListData(JSON.stringify(searchResults));
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -57,7 +39,7 @@ export default class DailyCauseListController {
             const location = await locationService.getLocationById(metaData['locationId']);
 
             res.render(`style-guide/${list}`, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][list]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[list]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['open-justice-statement']),
                 listData: manipulatedData,
@@ -66,7 +48,6 @@ export default class DailyCauseListController {
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
                 courtName: location.name,
-                partyAtHearingLevel,
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||

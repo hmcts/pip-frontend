@@ -4,7 +4,7 @@
 // This font size is due to be removed in version 6. Need to consider which font size to move to.
 $govuk-suppressed-warnings: 'govuk-typography-scale-14';
 
-@import 'node_modules/@ministryofjustice/frontend/moj/all';
+@import '@ministryofjustice/frontend/moj/all';
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
@@ -156,7 +156,7 @@ $callout-bg: #f0f4f5;
     margin-right: 10px;
 }
 
-@media (min-width: 770px) {
+@media (min-width: 768px) {
     .hide {
         display: block;
     }
@@ -166,7 +166,7 @@ $callout-bg: #f0f4f5;
     display: none;
 }
 
-.alphabetical-box {
+.alphabetical-box,.sjp-layout {
     .layout-width-three-fifths {
         width: 100%;
     }
@@ -177,7 +177,7 @@ $callout-bg: #f0f4f5;
     visibility: hidden;
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
     .hide {
         display: none !important; // sass-lint:disable-line no-important
         visibility: hidden;
@@ -202,7 +202,7 @@ $callout-bg: #f0f4f5;
         }
     }
 
-    .alphabetical-box {
+    .alphabetical-box,.sjp-layout{
         .layout-width-two-fifths {
             width: 0;
         }
@@ -608,4 +608,8 @@ ol.json-lines > li:hover {
 
 .filter-colour {
     color: #1d70b8 !important;
+}
+
+.hide-show-button {
+    display: block;
 }

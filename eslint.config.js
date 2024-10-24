@@ -37,7 +37,6 @@ module.exports = tslint.config(
                 Feature: 'readonly',
                 Scenario: 'readonly',
                 locate: 'readonly',
-                secret: 'readonly',
                 actor: 'readonly',
                 DataTable: 'readonly',
                 Data: 'readonly',
@@ -54,6 +53,7 @@ module.exports = tslint.config(
             'linebreak-style': ['error', 'unix'],
             '@typescript-eslint/no-var-requires': 0,
             '@typescript-eslint/no-explicit-any': 0,
+            '@typescript-eslint/no-unused-expressions': ['error', { allowTernary: true }],
         },
     },
     {
@@ -79,6 +79,12 @@ module.exports = tslint.config(
             'linebreak-style': ['error', 'unix'],
             semi: ['error', 'always'],
             'no-multiple-empty-lines': ['error', { max: 1 }],
+        },
+    },
+    {
+        files: ['**/*.test.ts'],
+        rules: {
+            '@typescript-eslint/no-unused-expressions': 'off',
         },
     }
 );

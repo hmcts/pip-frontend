@@ -20,7 +20,6 @@ describe('Sign In Option Controller', () => {
         const request = mockRequest(i18n);
         const responseMock = sinon.mock(response);
         const options = {
-            enableCft: 'true',
             ...i18n['sign-in'],
             displayError: false,
         };
@@ -40,7 +39,6 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
         request.query = { error: 'true' };
         const options = {
-            enableCft: 'true',
             ...i18n['sign-in'],
             displayError: true,
         };
@@ -61,6 +59,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(CFTAccountUrl);
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -76,6 +75,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(CrimeAccountUrl);
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -91,6 +91,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs(piUrl);
+
         signInController.post(request, response);
         responseMock.verify();
     });
@@ -106,6 +107,7 @@ describe('Sign In Option Controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('redirect').once().withArgs('/sign-in?error=true');
+
         signInController.post(request, response);
         responseMock.verify();
     });

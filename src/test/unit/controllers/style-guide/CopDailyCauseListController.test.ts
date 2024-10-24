@@ -42,9 +42,7 @@ copDailyCauseListMetaDataStub.withArgs(artefactIdListNotFound).resolves(metaData
 const listType = 'cop-daily-cause-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
-    'style-guide': {
-        listType: { value: '123' },
-    },
+    listType: { value: '123' },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -64,7 +62,7 @@ describe('Cop Daily Cause List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,

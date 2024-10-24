@@ -4,7 +4,11 @@ import { PublicationService } from '../service/PublicationService';
 const publicationService = new PublicationService();
 
 export const isValidList = (listData: any, metaData: any): boolean => {
-    return listData && metaData && listData !== HttpStatusCode.NotFound && metaData !== HttpStatusCode.NotFound;
+    return listData && listData !== HttpStatusCode.NotFound && isValidMetaData(metaData);
+};
+
+export const isValidMetaData = (metaData: any): boolean => {
+    return metaData && metaData !== HttpStatusCode.NotFound;
 };
 
 export const formatMetaDataListType = (metaData: any): string => {
@@ -29,23 +33,4 @@ export const isUnexpectedListType = (metaDataListType: string, listType: string)
 
 export const addListDetailsToArray = async (artefactId: string, userId: any, lists: any[]) => {
     lists.push(await publicationService.getIndividualPublicationMetadata(artefactId, userId, true));
-};
-
-// TODO: To be removed once all lists have party field on the case level.
-export const hearingHasParty = (jsonData): boolean => {
-    let hearingHasParty = false;
-    jsonData.courtLists.forEach(courtList => {
-        courtList.courtHouse.courtRoom.forEach(courtRoom => {
-            courtRoom.session.forEach(session => {
-                session.sittings.forEach(sitting => {
-                    sitting.hearing.forEach(hearing => {
-                        if (hearing.party) {
-                            hearingHasParty = true;
-                        }
-                    });
-                });
-            });
-        });
-    });
-    return hearingHasParty;
 };

@@ -44,10 +44,8 @@ const careStandardsListPath = `style-guide/${careStandardsListType}`;
 const primaryHealthListPath = `style-guide/${primaryHealthListType}`;
 
 const i18n = {
-    'style-guide': {
-        careStandardsListType: { value: '123' },
-        primaryHealthListType: { value: '124' },
-    },
+    careStandardsListType: { value: '123' },
+    primaryHealthListType: { value: '124' },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -83,7 +81,7 @@ describe('Tribunal National List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedPrimaryHealthListData = {
-            ...i18n['style-guide'][primaryHealthListType],
+            ...i18n[primaryHealthListType],
             ...expectedData,
         };
 
@@ -101,7 +99,7 @@ describe('Tribunal National List Controller', () => {
 
         const responseMock = sinon.mock(response);
         const expectedCareStandardsListData = {
-            ...i18n['style-guide'][careStandardsListType],
+            ...i18n[careStandardsListType],
             ...expectedData,
         };
 

@@ -50,8 +50,6 @@ It is connected to several other microservices in production (all written in Jav
 |-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation                                       |
 | pip-subscription-management (`port:4550`) | Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.                                                                                                                                |
-| pip-channel-management(`port:8181`)       | Handles operations related to retrieving subscription channels, and the generation of alternative publishing formats used throughout the subscription process (such as PDFs).                                                                               |
-| pip-publication-services(`port:8081`)     | Handles operations related to sending of notification emails to verified users, admin users and publication subscribers using [GOV.UK Notify](https://www.notifications.service.gov.uk/), as well as forwarding of publications to third-party publishers.  |
 | pip-account-management(`port:6969`)       | Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                                                                                     |
 
 Most of the communication with this service benefits from using secure authentication. While possible to stand up locally in insecure mode, to simulate a production environment it is better to use secure mode.
@@ -59,7 +57,7 @@ Most of the communication with this service benefits from using secure authentic
 ### Features and functionality
 
 -   Viewable by users directly in either HTTP or HTTPS mode (default port: 8080)
--   Uploading of publication files using a web interface within the [manual upload](./src/main/views/manual-upload.njk) view.
+-   Uploading of publication files using a web interface within the [manual upload](src/main/views/admin/manual-upload.njk) view.
 -   Account setup, sign-in and user management functionality. Sign-in and password management is managed using Azure B2C user flows for AAD users. We also allow sign in via CFT IDAM for certain user roles.
 -   View publications directly in the browser restricted to the user's account privileges.
 -   Processes to manage creation of a new media account for a user with administrator oversight (approve/reject).
@@ -129,7 +127,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | ACCOUNT_MANAGEMENT_URL             | URL used for connecting to the pip-account-management service. Defaults to staging if not provided.                                                                                     | No        |
 | DATA_MANAGEMENT_URL                | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        | No        |
 | SUBSCRIPTION_MANAGEMENT_URL        | URL used for connecting to the pip-subscription-management service. Defaults to staging if not provided.                                                                                | No        |
-| CHANNEL_MANAGEMENT_URL             | URL used for connecting to the pip-channel-management service. Defaults to staging if not provided.                                                                                     | No        |
 | AUTH_RETURN_URL                    | URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.                                                                      | No        |
 | ADMIN_AUTH_RETURN_URL              | Same as above, but for admin sign in.                                                                                                                                                   | No        |
 | MEDIA_VERIFICATION_RETURN_URL      | Same as above, but for after a media user verifies their account using the OTP process                                                                                                  | No        |
@@ -147,8 +144,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | DATA_MANAGEMENT_AZ_API             | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service                                | No        |
 | ACCOUNT_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service                             | No        |
 | SUBSCRIPTION_MANAGEMENT_AZ_API     | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service                        | No        |
-| CHANNEL_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-channel-management service                             | No        |
-| ENABLE_CFT                         | Boolean determining whether CFT IDAM login is possible (defaults to false for local)                                                                                                    | No        |
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
 | INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         | No        |
 | SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie. This is only used in the clusters, and not required locally.                                                                                   | No        |

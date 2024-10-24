@@ -1,9 +1,9 @@
 import { expect } from 'chai';
 import * as nunjucks from 'nunjucks';
+import { createFilters } from '../../../../main/modules/nunjucks/njkFilters';
 
 const env = new nunjucks.Environment();
-const addFilters = require('../../../../main/modules/nunjucks/njkFilters');
-addFilters(env);
+createFilters(env);
 describe('Nunjucks Custom Filter Tests', function () {
     describe('getDuration Filter', function () {
         it('should render duration correctly', function () {
@@ -41,20 +41,6 @@ describe('Nunjucks Custom Filter Tests', function () {
         it('should return the pretty version of language - welsh', function () {
             const languageString = env.renderString('{{ "WELSH"|language }}', {});
             expect(languageString).to.equal('Welsh (Cymraeg)');
-        });
-    });
-
-    describe('tel link Filter', function () {
-        it('should return a tel link for a given phone number', function () {
-            const telString = env.renderString('{{ "0773243290"| phoneLink }}', {});
-            expect(telString).to.equal('<a class=govuk-link href="tel:0773243290">0773243290</a>');
-        });
-    });
-
-    describe('email link Filter', function () {
-        it('should return an email link for a given phone number', function () {
-            const emailString = env.renderString('{{ "jimothy@sexit.llc"| emailLink }}', {});
-            expect(emailString).to.equal('<a class=govuk-link href="mailto:jimothy@sexit.llc">jimothy@sexit.llc</a>');
         });
     });
 

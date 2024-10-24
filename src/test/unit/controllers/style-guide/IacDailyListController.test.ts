@@ -58,10 +58,8 @@ const iacAdditionalCasesListUrl = '/iac-daily-list-additional-cases';
 const listType = 'iac-daily-list';
 const listPath = `style-guide/${listType}`;
 const i18n = {
-    'style-guide': {
-        'iac-daily-list': { value: '123' },
-        'iac-daily-list-additional-cases': { value: '12345' },
-    },
+    'iac-daily-list': { value: '123' },
+    'iac-daily-list-additional-cases': { value: '12345' },
     'list-template': {},
 };
 
@@ -84,7 +82,7 @@ describe('IAC Daily List Controller', () => {
 
             const responseMock = sinon.mock(response);
             let expectedData = {
-                ...i18n['style-guide']['iac-daily-list'],
+                ...i18n['iac-daily-list'],
                 ...i18n['list-template'],
                 listData,
                 contentDate: DateTime.fromISO(metaData['contentDate'], {
@@ -98,7 +96,7 @@ describe('IAC Daily List Controller', () => {
             if (url === iacAdditionalCasesListUrl) {
                 expectedData = {
                     ...expectedData,
-                    ...i18n['style-guide']['iac-daily-list-additional-cases'],
+                    ...i18n['iac-daily-list-additional-cases'],
                 };
             }
 

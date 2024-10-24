@@ -53,10 +53,8 @@ const civilListPath = `style-guide/${civilListType}`;
 const familyListPath = `style-guide/${familyListType}`;
 
 const i18n = {
-    'style-guide': {
-        civilListType: { value: '123' },
-        familyListType: { value: '124' },
-    },
+    civilListType: { value: '123' },
+    familyListType: { value: '124' },
     'list-template': { testListTemplate: 'test' },
     'open-justice-statement': { testStatement: 'test' },
 };
@@ -76,7 +74,7 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][familyListType],
+            ...i18n[familyListType],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,
@@ -87,7 +85,6 @@ describe('Daily Cause List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             courtName: "Abergavenny Magistrates' Court",
-            partyAtHearingLevel: false,
         };
 
         responseMock.expects('render').once().withArgs(familyListPath, expectedData);
@@ -103,7 +100,7 @@ describe('Daily Cause List Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][civilListType],
+            ...i18n[civilListType],
             ...i18n['list-template'],
             ...i18n['open-justice-statement'],
             listData,
@@ -114,7 +111,6 @@ describe('Daily Cause List Controller', () => {
             publishedTime: '12:30am',
             provenance: 'prov1',
             courtName: "Abergavenny Magistrates' Court",
-            partyAtHearingLevel: false,
         };
 
         responseMock.expects('render').once().withArgs(civilListPath, expectedData);

@@ -1,16 +1,14 @@
 import sinon from 'sinon';
 import {
     formatMetaDataListType,
-    hearingHasParty,
     isOneOfValidListTypes,
     isValidList,
     isValidListType,
     missingListType,
-    addListDetailsToArray
+    addListDetailsToArray,
+    isValidMetaData,
 } from '../../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
-import fs from 'fs';
-import path from 'path';
 import { PublicationService } from '../../../main/service/PublicationService';
 
 const mockArtefact = {
@@ -20,27 +18,12 @@ const mockArtefact = {
     locationId: '5',
     artefactId: 'valid-artefact',
     dateRange: 'Invalid DateTime to Invalid DateTime',
-    contDate: '24 Mar 2022'
+    contDate: '24 Mar 2022',
 };
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefact);
 
 describe('List helper', () => {
-    describe('hearing has party', () => {
-        it('Hearing should have party', () => {
-            const rawData = fs.readFileSync(
-                path.resolve(__dirname, '../mocks/hearingparty/crownDailyList.json'),
-                'utf-8'
-            );
-            expect(hearingHasParty(JSON.parse(rawData))).toBeTruthy();
-        });
-
-        it('Hearing should have no party', () => {
-            const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/crownDailyList.json'), 'utf-8');
-            expect(hearingHasParty(JSON.parse(rawData))).toBeFalsy();
-        });
-    });
-
     describe('is valid list', () => {
         it('should return true if the list data and metadata are valid', () => {
             const listData = 'Test data';
@@ -75,6 +58,26 @@ describe('List helper', () => {
             const metaData = HttpStatusCode.NotFound;
 
             expect(isValidList(listData, metaData)).toBeFalsy();
+        });
+    });
+
+    describe('is valid metadata', () => {
+        it('should return true if metadata is valid', () => {
+            const metaData = 'Test data';
+
+            expect(isValidMetaData(metaData)).toBeTruthy();
+        });
+
+        it('should return false if metadata is missing', () => {
+            const metaData = null;
+
+            expect(isValidMetaData(metaData)).toBeFalsy();
+        });
+
+        it('should return false if metadata status code is 404', () => {
+            const metaData = HttpStatusCode.NotFound;
+
+            expect(isValidMetaData(metaData)).toBeFalsy();
         });
     });
 
@@ -137,7 +140,7 @@ describe('List helper', () => {
                     locationId: '5',
                     artefactId: 'valid-artefact',
                     dateRange: 'Invalid DateTime to Invalid DateTime',
-                    contDate: '24 Mar 2022'
+                    contDate: '24 Mar 2022',
                 },
             ];
             const list = [];

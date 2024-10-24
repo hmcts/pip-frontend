@@ -6,13 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    hearingHasParty,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -30,22 +24,7 @@ export default class CrownDailyListController {
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listUrl)) {
-            let outputData;
-            let partyAtHearingLevel = false;
-            if (hearingHasParty(searchResults)) {
-                outputData = crimeListsService.manipulateCrimeListDataV1(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
-                partyAtHearingLevel = true;
-            } else {
-                outputData = crimeListsService.manipulateCrimeListData(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
-            }
+            let outputData = crimeListsService.manipulateCrimeListData(JSON.stringify(searchResults), req.lng, listUrl);
 
             outputData = crimeListsService.findUnallocatedCasesInCrownDailyListData(JSON.stringify(outputData));
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
@@ -57,7 +36,7 @@ export default class CrownDailyListController {
             const location = await locationService.getLocationById(metaData['locationId']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listUrl]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listUrl]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: outputData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
@@ -67,7 +46,6 @@ export default class CrownDailyListController {
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 venueAddress: venueAddress,
-                partyAtHearingLevel,
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||

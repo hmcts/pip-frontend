@@ -1,165 +1,132 @@
 import { FilterService } from './FilterService';
+import url from 'url';
 
 const filterService = new FilterService();
 
-const replaceRegex = /[\s,]/g;
-const londonArea = 'London Postcodes';
-const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
+export const replaceRegex = /[\s,]/g;
+export const londonArea = 'London Postcodes';
+export const londonPostalAreaCodes = ['N', 'NW', 'E', 'EC', 'SE', 'SW', 'W', 'WC'];
 
 export class SjpFilterService {
-    /**
-     * This method generates the filter options, and filters the cases based on the selected options.
-     * @param allCases The cases to filter.
-     * @param filterValuesQuery The user selected filters.
-     * @param clearQuery Any filters the user has cleared.
-     */
-    public generateFilters(allCases, filterValuesQuery, clearQuery): any {
+    public generateFilterValues(filterValuesQuery: string | string[], clearQuery: string): string[] {
         let filterValues = filterService.stripFilters(filterValuesQuery);
+
         if (clearQuery) {
             filterValues = filterService.handleFilterClear(filterValues, clearQuery);
         }
 
-        const filterOptions = this.buildFilterOptions(allCases, filterValues);
-
-        const caseList = filterValues.length == 0 ? allCases : this.filterCases(allCases, filterOptions);
-
-        return {
-            sjpCases: caseList,
-            filterOptions: filterOptions,
-        };
+        return filterValues;
     }
 
-    /**
-     * This method builds the filter options to display on the page.
-     * @param data The data to create the filter options from.
-     * @param filterValues The set of filter values.
-     * @private
-     */
-    private buildFilterOptions(data, filterValues): any {
-        const postcodes = new Set<string>();
-        const prosecutors = new Set<string>();
+    public filterSjpCase(sjpCase: any, postcodeFilterValues: string[], prosecutorFilterValues: string[]): boolean {
+        const formattedPostcode = sjpCase.postcode.split(' ', 2)[0];
+        const postalAreaCode = sjpCase.postcode.split(/\d/)[0];
+        const formattedProsecutor = sjpCase.prosecutorName.replace(replaceRegex, '');
 
-        data.forEach(item => {
-            if (item.postcode) {
-                postcodes.add(item.postcode);
-            }
-            if (item.prosecutorName) {
-                prosecutors.add(item.prosecutorName);
-            }
-        });
+        // When both postcode and prosecutor filters are selected, the SJP case needs to match both filters
+        // to be accepted
+        if (postcodeFilterValues.length > 0 && prosecutorFilterValues.length > 0) {
+            return (
+                prosecutorFilterValues.includes(formattedProsecutor) &&
+                (postcodeFilterValues.includes(formattedPostcode) ||
+                    this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode))
+            );
+        } else if (postcodeFilterValues.length > 0) {
+            return (
+                postcodeFilterValues.includes(formattedPostcode) ||
+                this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode)
+            );
+        }
+        return prosecutorFilterValues.length > 0 && prosecutorFilterValues.includes(formattedProsecutor);
+    }
 
-        const formattedPostcodes = new Set<string>();
-        const postalAreaCodes = new Set<string>();
+    public generatePaginationData(
+        totalNumberOfCases: number,
+        currentPage: number,
+        artefactId: string,
+        filterValues: string,
+        styleGuideUrl: string
+    ) {
+        const numberOfPages = Math.ceil(totalNumberOfCases / 1000);
 
-        postcodes.forEach(postcode => {
-            formattedPostcodes.add(postcode.split(' ', 2)[0]);
-            postalAreaCodes.add(postcode.split(/\d/)[0]);
-        });
-
-        const sortedPostcodes = Array.from(formattedPostcodes).sort((a, b) =>
-            a.localeCompare(b, 'en', { numeric: true })
-        );
-        const sortedProsecutors = Array.from(prosecutors).sort((a, b) => a.localeCompare(b));
-
-        const filterStructure = {
-            postcodes: [],
-            prosecutors: [],
-        };
-
-        sortedPostcodes.forEach(formattedPostcode => {
-            filterStructure.postcodes.push({
-                value: formattedPostcode,
-                text: formattedPostcode,
-                checked: filterValues.includes(formattedPostcode),
-            });
-        });
-
-        const hasLondonPostalAreaCode = this.checkForLondonPostalAreaCodes(postalAreaCodes);
-
-        if (hasLondonPostalAreaCode) {
-            filterStructure.postcodes.push({
-                value: londonArea,
-                text: londonArea,
-                checked: filterValues.includes(londonArea),
-            });
+        const query = { artefactId: artefactId };
+        if (filterValues && filterValues.length > 0) {
+            query['filterValues'] = filterValues;
         }
 
-        sortedProsecutors.forEach(prosecutor => {
-            const formattedProsecutor = prosecutor.replace(replaceRegex, '');
-
-            filterStructure.prosecutors.push({
-                value: formattedProsecutor,
-                text: prosecutor,
-                checked: filterValues.includes(formattedProsecutor),
-            });
+        const baseUrl = url.format({
+            pathname: styleGuideUrl,
+            query: query,
         });
 
-        return filterStructure;
+        const paginationData = {};
+
+        if (currentPage > 1) {
+            paginationData['previous'] = { href: baseUrl + '&page=' + (currentPage - 1) };
+        }
+
+        if (currentPage != numberOfPages) {
+            paginationData['next'] = { href: baseUrl + '&page=' + (currentPage + 1) };
+        }
+
+        if (numberOfPages <= 10) {
+            paginationData['items'] = this.generatePageOptionsWithoutElipsis(currentPage, numberOfPages, baseUrl);
+        } else {
+            paginationData['items'] = this.generatePageOptionsWithElipsis(currentPage, numberOfPages, baseUrl);
+        }
+
+        return paginationData;
     }
 
-    /**
-     * This method filters the cases for the SJP list based on the user selected options
-     * @param allCases The cases to filter.
-     * @param filterOptions The options that have been selected
-     * @private
-     */
-    private filterCases(allCases, filterOptions) {
-        return this.doFiltering(
-            allCases,
-            this.getActiveFilters(filterOptions.postcodes),
-            this.getActiveFilters(filterOptions.prosecutors)
+    private generatePageOptionsWithoutElipsis(currentPage: number, numberOfPages: number, baseUrl: string): any[] {
+        const items = [];
+        for (let i = 1; i <= numberOfPages; i++) {
+            items.push(this.generatePageOption(i, i === currentPage, baseUrl + '&page=' + i));
+        }
+        return items;
+    }
+
+    private generatePageOptionsWithElipsis(currentPage: number, numberOfPages: number, baseUrl: string): any[] {
+        const items = [];
+        items.push(this.generatePageOption(1, 1 === currentPage, baseUrl + '&page=1'));
+
+        if (currentPage > 3) {
+            items.push({ ellipsis: true });
+        }
+
+        let pageRange = [];
+        if (currentPage == 1 || currentPage == 2) {
+            pageRange = [2, 3];
+        } else if (currentPage == numberOfPages || currentPage == numberOfPages - 1) {
+            pageRange = [numberOfPages - 2, numberOfPages - 1];
+        } else {
+            pageRange = [currentPage - 1, currentPage, currentPage + 1];
+        }
+
+        pageRange.forEach(page => {
+            items.push(this.generatePageOption(page, page === currentPage, baseUrl + '&page=' + page));
+        });
+
+        if (currentPage < numberOfPages - 2) {
+            items.push({ ellipsis: true });
+        }
+
+        items.push(
+            this.generatePageOption(numberOfPages, numberOfPages === currentPage, baseUrl + '&page=' + numberOfPages)
         );
+
+        return items;
     }
 
-    private getActiveFilters(filterOptions): any {
-        const activeFilters = [];
-
-        filterOptions
-            .filter(item => item.checked)
-            .forEach(item => {
-                activeFilters.push(item.value);
-            });
-        return activeFilters;
+    private generatePageOption(numberOfPages: number, isCurrent: boolean, href: string) {
+        return {
+            number: numberOfPages,
+            current: isCurrent,
+            href: href,
+        };
     }
 
-    private doFiltering(allCases, postcodeFilters, prosecutorFilters) {
-        const filteredCases = [];
-        allCases.forEach(item => {
-            const formattedPostcode = item.postcode.split(' ', 2)[0];
-            const postalAreaCode = item.postcode.split(/\d/)[0];
-            const formattedProsecutor = item.prosecutorName.replace(replaceRegex, '');
-
-            if (postcodeFilters.length > 0 && prosecutorFilters.length > 0) {
-                if (
-                    (postcodeFilters.includes(formattedPostcode) && prosecutorFilters.includes(formattedProsecutor)) ||
-                    (postcodeFilters.includes(londonArea) &&
-                        londonPostalAreaCodes.includes(postalAreaCode) &&
-                        prosecutorFilters.includes(formattedProsecutor))
-                ) {
-                    filteredCases.push(item);
-                }
-            } else if (postcodeFilters.length > 0) {
-                if (
-                    postcodeFilters.includes(formattedPostcode) ||
-                    (postcodeFilters.includes(londonArea) && londonPostalAreaCodes.includes(postalAreaCode))
-                ) {
-                    filteredCases.push(item);
-                }
-            } else if (prosecutorFilters.length > 0 && prosecutorFilters.includes(formattedProsecutor)) {
-                filteredCases.push(item);
-            }
-        });
-
-        return filteredCases;
-    }
-
-    /**
-     * This method checks whether any of the cases have a postal code prefix that belongs to London.
-     * @param postalAreaCodes The list of postal code prefixes from the cases.
-     * @private
-     */
-    private checkForLondonPostalAreaCodes(postalAreaCodes) {
-        const postalAreaInLondon = new Set([...londonPostalAreaCodes].filter(element => postalAreaCodes.has(element)));
-        return postalAreaInLondon.size > 0;
+    private londonPostcodeFiltered(filterValues: string[], postalAreaCode: string) {
+        return londonPostalAreaCodes.includes(postalAreaCode) && filterValues.includes(londonArea);
     }
 }

@@ -1,5 +1,4 @@
 import { Application } from 'express';
-import process from 'process';
 import fileErrorHandlerMiddleware from '../middlewares/fileErrorHandler.middleware';
 import {
     isPermittedAnyRole,
@@ -22,10 +21,10 @@ import {
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
+import passport from 'passport';
+import healthcheck from '@hmcts/nodejs-healthcheck';
+import multer from 'multer';
 
-const passport = require('passport');
-const healthcheck = require('@hmcts/nodejs-healthcheck');
-const multer = require('multer');
 const sessionManagement = new SessionManagementService();
 
 export default function (app: Application): void {
@@ -427,10 +426,10 @@ export default function (app: Application): void {
         app.locals.container.cradle.removeListConfirmationController.post
     );
     app.get('/remove-list-search', isPermittedManualUpload, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.get(req, res, 'remove-list-search')
+        app.locals.container.cradle.removeListSearchController.get(req, res)
     );
     app.post('/remove-list-search', isPermittedManualUpload, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.post(req, res, 'remove-list-search')
+        app.locals.container.cradle.removeListSearchController.post(req, res)
     );
     app.get(
         '/remove-list-search-results',
@@ -619,10 +618,10 @@ export default function (app: Application): void {
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
 
     app.get('/delete-court-reference-data', isPermittedSystemAdmin, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.get(req, res, 'delete-court-reference-data')
+        app.locals.container.cradle.deleteCourtReferenceDataController.get(req, res)
     );
     app.post('/delete-court-reference-data', isPermittedSystemAdmin, (req, res) =>
-        app.locals.container.cradle.removeListSearchController.post(req, res, 'delete-court-reference-data')
+        app.locals.container.cradle.deleteCourtReferenceDataController.post(req, res)
     );
     app.get('/delete-court-reference-data-confirmation', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteCourtReferenceDataConfirmationController.get(
@@ -687,23 +686,16 @@ export default function (app: Application): void {
     app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
 
     //CFT Routes
-    if (process.env.ENABLE_CFT === 'true') {
-        app.get(
-            '/cft-login',
-            regenerateSession,
-            keepSessionLanguage,
-            app.locals.container.cradle.cftLoginController.get
-        );
-        app.get(
-            '/cft-login/return',
-            passport.authenticate('cft-idam', {
-                failureRedirect: '/cft-rejected-login',
-            }),
-            keepSessionLanguage,
-            processCftIdamSignIn
-        );
-        app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
-    }
+    app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);
+    app.get(
+        '/cft-login/return',
+        passport.authenticate('cft-idam', {
+            failureRedirect: '/cft-rejected-login',
+        }),
+        keepSessionLanguage,
+        processCftIdamSignIn
+    );
+    app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
 
     app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {

@@ -56,9 +56,7 @@ metadataStub.withArgs(notFoundArtefactId).resolves(metaDataListNotFound);
 
 describe('OPA Results controller', () => {
     const i18n = {
-        'style-guide': {
-            listType: { value: '123' },
-        },
+        listType: { value: '123' },
         'list-template': {},
     };
 
@@ -77,7 +75,7 @@ describe('OPA Results controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             listData: listData,
             contentDate: contentDate,
@@ -101,7 +99,7 @@ describe('OPA Results controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['style-guide'][listType],
+            ...i18n[listType],
             ...i18n['list-template'],
             listData: listData,
             contentDate: '14 Chwefror 2022',

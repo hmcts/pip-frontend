@@ -6,13 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { CrimeListsService } from '../../service/listManipulation/CrimeListsService';
 import { HttpStatusCode } from 'axios';
-import {
-    formatMetaDataListType,
-    hearingHasParty,
-    isUnexpectedListType,
-    isValidList,
-    isValidListType,
-} from '../../helpers/listHelper';
+import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -30,23 +24,11 @@ export default class MagistratesPublicListController {
         const metadataListType = formatMetaDataListType(metaData);
 
         if (isValidList(searchResults, metaData) && isValidListType(metadataListType, listType)) {
-            let manipulatedData;
-            let partyAtHearingLevel = false;
-
-            if (hearingHasParty(searchResults)) {
-                manipulatedData = crimeListsService.manipulateCrimeListDataV1(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
-                partyAtHearingLevel = true;
-            } else {
-                manipulatedData = crimeListsService.manipulateCrimeListData(
-                    JSON.stringify(searchResults),
-                    req.lng,
-                    listPath
-                );
-            }
+            const manipulatedData = crimeListsService.manipulateCrimeListData(
+                JSON.stringify(searchResults),
+                req.lng,
+                listType
+            );
 
             const publishedTime = helperService.publicationTimeInUkTime(searchResults['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
@@ -57,7 +39,7 @@ export default class MagistratesPublicListController {
             const venueAddress = crimeListsService.formatAddress(searchResults['venue']['venueAddress']);
 
             res.render(listPath, {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['style-guide'][listType]),
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: manipulatedData,
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
@@ -67,7 +49,6 @@ export default class MagistratesPublicListController {
                 version: searchResults['document']['version'],
                 courtName: location.name,
                 venueAddress: venueAddress,
-                partyAtHearingLevel,
             });
         } else if (
             searchResults === HttpStatusCode.NotFound ||

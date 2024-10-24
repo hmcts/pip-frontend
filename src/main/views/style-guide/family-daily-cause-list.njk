@@ -36,7 +36,7 @@
       <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone']) }}</p>
       <p>{{ importantInformationP3 }}</p>
       <p>{{ importantInformationP4 }}</p>
-      <p>{{ importantInformationP5 }} {{ openJusticeGuidance | urlize | safe }}.</p>
+      <p>{{ importantInformationP5 }} <a href="{{ openJusticeGuidance }}">{{ openJusticeGuidance }}</a>.</p>
     </div>
   </details>
   {{ searchInput(text = searchCases) }}
@@ -115,28 +115,15 @@
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                               <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ duration }} </td>
-                              {% if partyAtHearingLevel %}
-                                {% if hearing['applicant'] or hearing['applicantRepresentative'] %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['applicant'] | addRepresentativeToParty(hearing['applicantRepresentative'], legalAdvisor) }}</td>
-                                {% else %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}" />
-                                {% endif %}
-                                {% if hearing['respondent'] or hearing['respondentRepresentative'] %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['respondent'] | addRepresentativeToParty(hearing['respondentRepresentative'], legalAdvisor) }}</td>
-                                {% else %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}" />
-                                {% endif %}
+                              {% if case['applicant'] or case['applicantRepresentative'] %}
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['applicant'] | addRepresentativeToParty(case['applicantRepresentative'], legalAdvisor) }}</td>
                               {% else %}
-                                {% if case['applicant'] or case['applicantRepresentative'] %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['applicant'] | addRepresentativeToParty(case['applicantRepresentative'], legalAdvisor) }}</td>
-                                {% else %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}" />
-                                {% endif %}
-                                {% if case['respondent'] or case['respondentRepresentative'] %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['respondent'] | addRepresentativeToParty(case['respondentRepresentative'], legalAdvisor) }}</td>
-                                {% else %}
-                                  <td class="govuk-table__cell no-wrap {{ noBorder }}" />
-                                {% endif %}
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}" />
+                              {% endif %}
+                              {% if case['respondent'] or case['respondentRepresentative'] %}
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['respondent'] | addRepresentativeToParty(case['respondentRepresentative'], legalAdvisor) }}</td>
+                              {% else %}
+                                <td class="govuk-table__cell no-wrap {{ noBorder }}" />
                               {% endif %}
                             </tr>
                             {% if case['formattedReportingRestriction'] | length %}

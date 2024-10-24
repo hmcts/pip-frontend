@@ -32,7 +32,7 @@
       <p>{{ importantInformationP2 | replace("NAME", courtName) | replace("EMAIL", listData['venue']["venueContact"]["venueEmail"]) | replace("TELNO", listData['venue']['venueContact']['venueTelephone']) }}</p>
       <p>{{ importantInformationP3 }}</p>
       <p>{{ importantInformationP4 }}</p>
-      <p>{{ importantInformationP5 }} {{ openJusticeGuidance | urlize | safe }}.</p>
+      <p>{{ importantInformationP5 }} <a href="{{ openJusticeGuidance }}">{{ openJusticeGuidance }}</a>.</p>
     </div>
   </details>
   {{ searchInput(text = searchCases) }}
@@ -77,11 +77,7 @@
                           <td class="govuk-table__cell" data-sort-value="{{ sitting['sittingStartFormatted'] | timeToSortValue }}">{{ sitting['sittingStartFormatted'] }}</td>
                           <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
                           <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
-                          {% if case['applicant'] | length %}
-                            <td class="govuk-table__cell">{{ case['applicant'] | addRepresentativeToParty(case['applicantRepresentative'], legalAdvisor) }}</td>
-                          {% else %}
-                            <td class="govuk-table__cell">{{ hearing['applicant'] | addRepresentativeToParty(hearing['applicantRepresentative'], legalAdvisor) }}</td>
-                          {% endif %}
+                          <td class="govuk-table__cell">{{ case['applicant'] | addRepresentativeToParty(case['applicantRepresentative'], legalAdvisor) }}</td>
                           <td class="govuk-table__cell">{{ case['formattedRespondent'] }}</td>
                           <td class="govuk-table__cell">{{ session['formattedJudiciary'] }}</td>
                         </tr>
