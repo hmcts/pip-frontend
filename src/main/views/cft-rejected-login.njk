@@ -7,7 +7,7 @@
     <li class="moj-sub-navigation__item">
       <a class="moj-sub-navigation__link govuk-!-font-size-16t" href="/">{{ home }}</a>
   </ul>
-  {{ goBack() }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block pageTitle %}
   {{ header }}

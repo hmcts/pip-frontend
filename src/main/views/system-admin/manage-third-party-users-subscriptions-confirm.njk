@@ -1,4 +1,4 @@
-{% from "../macros/common-components.njk" import goBack, successPanel %}
+{% from "../macros/common-components.njk" import goBack, successPanel, backButtonHistory %}
 
 {% extends "../template.njk" %}
 {% block pageTitle %}
@@ -6,17 +6,13 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   {{ successPanel(header, subHeader) }}
   <p class="govuk-body">{{ p1 }}<a href="/manage-third-party-users">{{ linkText }}</a></p>
 {% endblock %}
 {% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+  {{ backButtonHistory(cspNonce) }}
   {{ super() }}
 {% endblock %}

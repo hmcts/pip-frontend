@@ -6,7 +6,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   <div class="parent-box">
@@ -248,7 +248,7 @@
 
 {% block bodyEnd %}
   <script src="/assets/js/accessible-autocomplete.min.js"></script>
-  <script>
+  <script nonce="{{ cspNonce}}">
     // removed whilst 1 list type is available, kept in as request to be able to switch back when needed
     // const block = document.getElementById('artefactType');
     // const listQuestion = document.getElementById('list-question');
@@ -327,6 +327,6 @@
     // Block is required on this page so the help section goes underneath the form on mobile devices
     document.querySelectorAll(".govuk-grid-row")[0].style.display = 'block';
   </script>
-  {{ autoCompleteFilteredResults(autocompleteParam) }}
+  {{ autoCompleteFilteredResults(autocompleteParam, cspNonce) }}
   {{ super() }}
 {% endblock %}
