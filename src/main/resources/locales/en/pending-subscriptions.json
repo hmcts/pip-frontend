@@ -1,5 +1,6 @@
 {
     "title": "Confirm your email subscriptions",
+    "title_court_subscription": "Your email subscriptions",
     "removeText": "Remove",
     "table": {
         "header1": "Case name",
@@ -7,6 +8,7 @@
         "header3": "Reference number",
         "header4": "Actions"
     },
+    "buttonText_court_subscription": "Continue",
     "buttonText": "Confirm Subscriptions",
     "addOther_link": "/subscription-add",
     "addOther_text": "Add another email Subscription",
