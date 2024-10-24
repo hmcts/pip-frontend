@@ -7,7 +7,6 @@ export class PendingSubscriptionsFromCache {
             //We need to clear the cache for only listTypes because user can click back and select
             //listTypes again. We need to store the updated values in cache. ListTypes is different
             //from court subscription.
-            redisClient.del(`pending-${subscriptionType}-subscriptions-${userId}`);
             if (subscriptionType === 'listTypes' || subscriptionType === 'listLanguage') {
                 redisClient.del(`pending-${subscriptionType}-subscriptions-${userId}`);
             }

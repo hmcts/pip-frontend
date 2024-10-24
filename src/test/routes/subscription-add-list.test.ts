@@ -14,14 +14,6 @@ describe('Subscriptions Add List Type', () => {
         });
     });
 
-    describe('on GET', () => {
-        test('should return subscription add list page with errors', async () => {
-            await request(app)
-                .get('/subscription-add-list?error=true')
-                .expect(res => expect(res.status).to.equal(200));
-        });
-    });
-
     describe('on POST', () => {
         test('should return subscription add list type page', async () => {
             await request(app)

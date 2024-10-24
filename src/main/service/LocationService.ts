@@ -104,7 +104,9 @@ export class LocationService {
         const courtJurisdictions = [];
         for (const location of locations) {
             const returnedLocation = await this.getLocationById(location['locationId']);
-            returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+            if (returnedLocation != null) {
+                returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+            }
         }
 
         return courtJurisdictions;
