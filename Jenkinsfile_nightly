@@ -70,7 +70,7 @@ def setupTestSecrets() {
         env.CLIENT_SECRET_INTERNAL = "${CLIENT_SECRET_INTERNAL}"
         env.TEST_URL = "https://pip-frontend.staging.platform.hmcts.net"
         env.TEST_USER_PASSWORD = "${TEST_USER_PASSWORD}"
-        env.SSO_TEST_ADMIN_CTSC_USER = "$SSO_TEST_ADMIN_CTSC_USER}"
+        env.SSO_TEST_ADMIN_CTSC_USER = "${SSO_TEST_ADMIN_CTSC_USER}"
         env.SSO_TEST_ADMIN_CTSC_PWD = "${SSO_TEST_ADMIN_CTSC_PWD}"
         env.SSO_TEST_ADMIN_LOCAL_USER = "${SSO_TEST_ADMIN_LOCAL_USER}"
         env.SSO_TEST_ADMIN_LOCAL_PWD = "${SSO_TEST_ADMIN_LOCAL_PWD}"
