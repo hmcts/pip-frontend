@@ -25,43 +25,44 @@
         }) }}
     {% endif %}
     <form action="sign-in" method="post">
-      {{ govukRadios({
-        idPrefix: "sign-in",
-        name: "sign-in",
-        fieldset: {
-          legend: {
-            text: header,
-            isPageHeading: true,
-            classes: "govuk-fieldset__legend--l"
-          }
-        },
-        items: [
-          {
-            value: "hmcts",
-            text: radio1
-          },
-          {
-            value: "common",
-            text: radio2,
-            disabled: true,
-            hint: {
-            text: radio2Hint
-            }
-          },
-          {
-            value: "pi",
-            text: radio3
-          }
-        ]
-      }) }}
-        {{ submitButton(continueButton) }}
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading">
+                        {{ header }}
+                    </h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sign-in" name="sign-in" type="radio" value="hmcts">
+                        <label class="govuk-label govuk-radios__label" for="sign-in">
+                            {{ radio1 }}
+                        </label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" disabled id="sign-in-2" name="sign-in" type="radio" value="common">
+                        <label class="govuk-label govuk-radios__label" for="sign-in-2">
+                            <div>{{ radio2 }}</div>
+                            <div id="radio-2-hint">{{ radio2Hint }}</div>
+                        </label>
 
-      <div class="govuk-grid-row govuk-!-margin-bottom-2">
-        <div class="no_padding govuk-grid-column-full">
-          <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ accountInfo }}</p>
-          <a class="govuk-link" href="{{ accountInfo_link }}">{{ accountInfo_link_text }}</a>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="sign-in-3" name="sign-in" type="radio" value="pi">
+                        <label class="govuk-label govuk-radios__label" for="sign-in-3">
+                            {{ radio3 }}
+                        </label>
+                    </div>
+                </div>
+            </fieldset>
         </div>
-      </div>
+        {{ submitButton(continueButton) }}
+        <div class="govuk-grid-row govuk-!-margin-bottom-2">
+          <div class="no_padding govuk-grid-column-full">
+            <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ accountInfo }}</p>
+            <a class="govuk-link" href="{{ accountInfo_link }}">{{ accountInfo_link_text }}</a>
+          </div>
+        </div>
     </form>
 {% endblock %}
 {% block bodyEnd %}
