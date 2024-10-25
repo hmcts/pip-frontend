@@ -73,6 +73,26 @@ describe('Session Expired Controller', () => {
         responseMock.verify();
     });
 
+    it('should render session expired page for SSO user', () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const responseMock = sinon.mock(response);
+        const request = mockRequest(i18n);
+        request.query = { reSignInUrl: 'SSO' };
+
+        const expectedOptions = {
+            ...i18n['session-expired'],
+            signInUrl: reSignInUrls.SSO,
+        };
+
+        responseMock.expects('render').once().withArgs('session-expired', expectedOptions);
+        sessionExpiredController.get(request, response);
+        responseMock.verify();
+    });
+
     it('should render error page when no re-direct url provided', () => {
         const response = {
             render: () => {

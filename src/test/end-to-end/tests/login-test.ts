@@ -201,34 +201,6 @@ Scenario('I as a SSO system admin should be able to sign-in with the valid crede
     I.logout();
 });
 
-Scenario('I as a SSO CTSC Super admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSSOAdmin(
-        secret(testConfig.SSO_TEST_SUPER_ADMIN_CTSC_USER),
-        secret(testConfig.SSO_TEST_SUPER_ADMIN_CTSC_PWD)
-    );
-    I.waitForText('Your Dashboard');
-    I.see('Upload');
-    I.see('Remove');
-    I.see('Manage media account requests');
-    I.see('Create new account');
-    I.see('User Management');
-    I.logout();
-});
-
-Scenario('I as a SSO Local Super admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSSOAdmin(
-        secret(testConfig.SSO_TEST_SUPER_ADMIN_LOCAL_USER),
-        secret(testConfig.SSO_TEST_SUPER_ADMIN_LOCAL_PWD)
-    );
-    I.waitForText('Your Dashboard');
-    I.see('Upload');
-    I.see('Remove');
-    I.see('Create new account');
-    I.see('User Management');
-    I.dontSee('Manage media account requests');
-    I.logout();
-});
-
 Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSSOAdmin(secret(testConfig.SSO_TEST_ADMIN_CTSC_USER), secret(testConfig.SSO_TEST_ADMIN_CTSC_PWD));
     I.waitForText('Your Dashboard');

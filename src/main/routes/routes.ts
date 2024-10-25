@@ -19,6 +19,7 @@ import {
     regenerateSession,
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
+import authenticationConfig from '../authentication/authentication-config.json';
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
@@ -110,6 +111,7 @@ export default function (app: Application): void {
             next
         )
     );
+    app.get('/b2c-admin-login', (_req, res) =>res.redirect(`/admin-login?p=${authenticationConfig.ADMIN_POLICY}`));
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.post(
         '/login/return',
@@ -700,18 +702,21 @@ export default function (app: Application): void {
     app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
 
     // SSO Routes
-    if (process.env.ENABLE_SSO === 'true') {
-        app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
-            passport.authenticate('sso', { failureRedirect: '/' })(req, res, next)
-        );
+    app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
+        passport.authenticate('sso', { failureRedirect: '/' })(req, res, next)
+    );
 
-        app.post(
-            '/sso/return',
-            (req, res, next) => passport.authenticate('sso', { failureRedirect: '/' })(req, res, next),
-            keepSessionLanguage,
-            processSsoSignIn
-        );
-    }
+    app.post(
+        '/sso/return',
+        (req, res, next) => passport.authenticate('sso', { failureRedirect: '/' })(req, res, next),
+        keepSessionLanguage,
+        processSsoSignIn
+    );
+
+    // B2C admin sign-in
+    app.get('/b2c-admin-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
+        passport.authenticate('sso', { failureRedirect: '/' })(req, res, next)
+    );
 
     app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {

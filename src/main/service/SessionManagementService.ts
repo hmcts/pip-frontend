@@ -47,7 +47,10 @@ export class SessionManagementService {
                         res.redirect(
                             this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng)
                         );
-                    } else {
+                    } else if (req.user['userProvenance'] == 'SSO') {
+                        res.redirect(this.ssoLogoutUrl(isSessionExpired, req.lng));
+                    }
+                    else {
                         res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
                     }
                 });
@@ -106,6 +109,12 @@ export class SessionManagementService {
         } else {
             return '/session-logged-out?lng=' + language;
         }
+    }
+
+    private ssoLogoutUrl(isSessionExpired: boolean, language: string): string {
+            return isSessionExpired
+                ? '/session-expired?lng=' + language + '&reSignInUrl=SSO'
+                : '/session-logged-out?lng=' + language;
     }
 
     private logOutRedirectUrl(
