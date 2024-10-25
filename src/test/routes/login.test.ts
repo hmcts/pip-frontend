@@ -62,7 +62,6 @@ describe('Login', () => {
             .expect(res => expect(res.headers['location']).toContain('https://login.microsoftonline.com'));
     });
 
-
     test('should redirect to the Media Verification login in English', async () => {
         app.request['lng'] = 'en';
 

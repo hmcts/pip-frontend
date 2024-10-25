@@ -111,7 +111,7 @@ export default function (app: Application): void {
             next
         )
     );
-    app.get('/b2c-admin-login', (_req, res) =>res.redirect(`/admin-login?p=${authenticationConfig.ADMIN_POLICY}`));
+    app.get('/b2c-admin-login', (_req, res) => res.redirect(`/admin-login?p=${authenticationConfig.ADMIN_POLICY}`));
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.post(
         '/login/return',

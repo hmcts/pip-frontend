@@ -43,7 +43,6 @@ sinon
     .resolves({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
 
 describe('SSO Authentication', () => {
-
     it('should return system admin user role', async () => {
         const response = await ssoAuthentication.determineUserRole('1', [], accessToken);
         expect(response).toEqual('SYSTEM_ADMIN');
