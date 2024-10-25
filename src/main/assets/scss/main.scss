@@ -155,7 +155,7 @@ $callout-bg: #f0f4f5;
     margin-right: 10px;
 }
 
-@media (min-width: 770px) {
+@media (min-width: 768px) {
     .hide {
         display: block;
     }
@@ -165,7 +165,7 @@ $callout-bg: #f0f4f5;
     display: none;
 }
 
-.alphabetical-box {
+.alphabetical-box,.sjp-layout {
     .layout-width-three-fifths {
         width: 100%;
     }
@@ -176,7 +176,7 @@ $callout-bg: #f0f4f5;
     visibility: hidden;
 }
 
-@media (max-width: 770px) {
+@media (max-width: 768px) {
     .hide {
         display: none !important; // sass-lint:disable-line no-important
         visibility: hidden;
@@ -201,7 +201,7 @@ $callout-bg: #f0f4f5;
         }
     }
 
-    .alphabetical-box {
+    .alphabetical-box,.sjp-layout{
         .layout-width-two-fifths {
             width: 0;
         }

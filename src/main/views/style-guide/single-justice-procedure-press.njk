@@ -45,62 +45,63 @@
     {% if showFilters %} {{ filter.hide }} {% else %} {{ filter.show }} {% endif %}
   </button>
 
-  <div class="govuk-grid-row">
+  <div class="govuk-grid-row sjp-layout">
     {{ filterForm(url = listUrl, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
-    <div class="parent-box overflow-table">
-      {{ govukPagination(paginationData) }}
-      <div class="overflow-table govuk-body">
-        {% set hearingCount = 0 %}
-        {% for sjpCase in sjpData %}
-          {% set hearingCount = hearingCount + 1 %}
-          <dl class="govuk-summary-list--no-border">
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ name }}
-              </dt>
-              <dd class="govuk-summary-list__value search-area">
-                {{ sjpCase.name }}
-              </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ dateOfBirth }}
-              </dt>
-              <dd class="govuk-summary-list__value search-area">
-                {% if sjpCase.age > 0 %}
-                  {{ sjpCase.dob }} ({{ sjpCase.age }})
-                {% else %}
-                  {{ sjpCase.dob }}
-                {% endif %}
-              </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ reference }}
-              </dt>
-              <dd class="govuk-summary-list__value search-area">
-                {{ sjpCase.caseUrn }}
-              </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ address }}
-              </dt>
-              <dd class="govuk-summary-list__value search-area">
-                {{ sjpCase.address }}
-              </dd>
-            </div>
-            <div class="govuk-summary-list__row">
-              <dt class="govuk-summary-list__key">
-                {{ prosecutor }}
-              </dt>
-              <dd class="govuk-summary-list__value search-area">
-                {{ sjpCase.prosecutorName }}
-              </dd>
-            </div>
+    <div id="contents">
+      <div class="parent-box overflow-table">
+        {{ govukPagination(paginationData) }}
+        <div class="overflow-table govuk-body">
+          {% set hearingCount = 0 %}
+          {% for sjpCase in sjpData %}
+            {% set hearingCount = hearingCount + 1 %}
+            <dl class="govuk-summary-list--no-border">
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  {{ name }}
+                </dt>
+                <dd class="govuk-summary-list__value search-area">
+                  {{ sjpCase.name }}
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  {{ dateOfBirth }}
+                </dt>
+                <dd class="govuk-summary-list__value search-area">
+                  {% if sjpCase.age > 0 %}
+                    {{ sjpCase.dob }} ({{ sjpCase.age }})
+                  {% else %}
+                    {{ sjpCase.dob }}
+                  {% endif %}
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  {{ reference }}
+                </dt>
+                <dd class="govuk-summary-list__value search-area">
+                  {{ sjpCase.caseUrn }}
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  {{ address }}
+                </dt>
+                <dd class="govuk-summary-list__value search-area">
+                  {{ sjpCase.address }}
+                </dd>
+              </div>
+              <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                  {{ prosecutor }}
+                </dt>
+                <dd class="govuk-summary-list__value search-area">
+                  {{ sjpCase.prosecutorName }}
+                </dd>
+              </div>
 
-            {% for offence in sjpCase.offences %}
-              <p class="govuk-body">
+              {% for offence in sjpCase.offences %}
+                <p class="govuk-body">
                   <span class="search-area">{{ reportingRestriction }} - {{ offence.reportingRestrictionFlag }}</span>
                   <br/>
                   {% if offence.offenceWording | length > 0 %}
@@ -108,13 +109,15 @@
                   {% else %}
                     <span class="search-area">{{ offence.offenceTitle }}</span>
                   {% endif %}
-              </p>
-            {% endfor %}
-            {% if totalHearings !== hearingCount %}
-              <hr>
-            {% endif %}
-          </dl>
-        {% endfor %}
+                </p>
+              {% endfor %}
+              {% if totalHearings !== hearingCount %}
+                <hr>
+              {% endif %}
+            </dl>
+          {% endfor %}
+        </div>
+        {{ super() }}
       </div>
     </div>
   </div>
