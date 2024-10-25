@@ -32,6 +32,8 @@ export const config = {
     SSO_TEST_SUPER_ADMIN_LOCAL_PWD: process.env.SSO_TEST_SUPER_ADMIN_LOCAL_PWD,
     SSO_TEST_SYSTEM_ADMIN_USER: process.env.SSO_TEST_SYSTEM_ADMIN_USER,
     SSO_TEST_SYSTEM_ADMIN_PWD: process.env.SSO_TEST_SYSTEM_ADMIN_PWD,
+    SSO_TEST_NO_ROLES_USER: process.env.SSO_TEST_NO_ROLES_USER,
+    SSO_TEST_NO_ROLES_PWD: process.env.SSO_TEST_NO_ROLES_PWD,
     DATA_MANAGEMENT_BASE_URL:
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net',
     SUBSCRIPTION_MANAGEMENT_BASE_URL:

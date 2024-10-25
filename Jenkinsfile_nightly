@@ -48,6 +48,8 @@ def setupTestSecrets() {
             secret('sso-test-super-admin-local-account-pwd', 'SSO_TEST_SUPER_ADMIN_LOCAL_PWD'),
             secret('sso-test-system-admin-account-user','SSO_TEST_SYSTEM_ADMIN_USER'),
             secret('sso-test-system-admin-account-pwd', 'SSO_TEST_SYSTEM_ADMIN_PWD'),
+            secret('sso-test-no-roles-account-user','SSO_TEST_NO_ROLES_USER'),
+            secret('sso-test-no-roles-account-pwd', 'SSO_TEST_NO_ROLES_PWD'),
         ]) {
         env.B2C_USERNAME = "${B2C_USERNAME}"
         env.B2C_PASSWORD = "${B2C_PASSWORD}"
@@ -80,6 +82,8 @@ def setupTestSecrets() {
         env.SSO_TEST_SUPER_ADMIN_LOCAL_PWD = "${SSO_TEST_SUPER_ADMIN_LOCAL_PWD}"
         env.SSO_TEST_SYSTEM_ADMIN_USER = "${SSO_TEST_SYSTEM_ADMIN_USER}"
         env.SSO_TEST_SYSTEM_ADMIN_PWD = "${SSO_TEST_SYSTEM_ADMIN_PWD}"
+        env.SSO_TEST_NO_ROLES_USER = "${SSO_TEST_NO_ROLES_USER}"
+        env.SSO_TEST_NO_ROLES_PWD = "${SSO_TEST_NO_ROLES_PWD}"
     }
 }
 
