@@ -1,4 +1,4 @@
-{% from "../macros/common-components.njk" import goBack, submitButton %}
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack() }}
+    {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
     {% if displayError %}
@@ -67,9 +67,5 @@
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}
-    <script>
-        if (window.history.replaceState) {
-            window.history.replaceState(null, null, window.location.href);
-        }
-    </script>
+    {{ backButtonHistory(cspNonce) }}
 {% endblock %}
