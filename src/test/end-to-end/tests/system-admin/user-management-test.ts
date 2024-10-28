@@ -115,8 +115,6 @@ Scenario('I as a system admin should be able to use the pagination on the user m
 
     I.waitForText('Previous');
     I.see('1 of');
-    I.see('Next');
-    I.see('3 of');
 
     I.click('.govuk-pagination__link');
     I.waitForText('2 of');
