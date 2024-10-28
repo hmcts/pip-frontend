@@ -17,7 +17,7 @@ Data(flatFileName)
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         await createLocation(locationId, locationName);
 
-        I.loginAsAdmin();
+        I.loginAsB2CAdmin();
         I.click('#card-manual-upload');
         I.waitForText('Manual upload');
         I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');

@@ -12,7 +12,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
     const emailInternalAdminCTSC = randomData.getRandomEmailAddress();
     const emailInternalAdminLocal = randomData.getRandomEmailAddress();
 
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.see('Create accounts for: CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.');
     I.click('#card-create-admin-account');
     I.waitForText('Create admin account');
@@ -95,7 +95,7 @@ Scenario('I as an admin user should be able to create new account', async ({ I }
 Scenario('I as an admin user should be able to see all error messages related to create new account', async ({ I }) => {
     const testEmail = randomData.getRandomEmailAddress();
 
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.see('Create accounts for: CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.');
     I.click('#card-create-admin-account');
     I.waitForText('Create admin account');

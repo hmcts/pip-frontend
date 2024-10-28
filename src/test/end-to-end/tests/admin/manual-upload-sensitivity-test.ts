@@ -10,7 +10,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const sensitivityPrivate = 'PRIVATE';
     const [date, dayAfter] = getDateNowAndFuture();
 
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.click('#card-manual-upload');
     I.selectOption(listTypeId, 'SJP Press List (Full list)');
 

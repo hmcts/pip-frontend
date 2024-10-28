@@ -10,7 +10,7 @@ const testEmailAddress = 'pip-e2e-test-admin-management-' + randomData.getRandom
 const systemAdminUsername = testConfig.SYSTEM_ADMIN_USERNAME as string;
 
 Scenario('I as a system admin should be able to update a users role and delete a user', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.click('Admin Dashboard');
     I.createAdminAccount(testFirstName, testLastName, testEmailAddress, 'Internal - Administrator - Local');
     I.click('Home');
@@ -55,7 +55,7 @@ Scenario('I as a system admin should be able to update a users role and delete a
 });
 
 Scenario('I as a system admin should be able to filter users correctly on the User Management page', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
 
@@ -105,7 +105,7 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
 });
 
 Scenario('I as a system admin should be able to use the pagination on the user management page', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
 
@@ -124,7 +124,7 @@ Scenario('I as a system admin should be able to use the pagination on the user m
 });
 
 Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
     I.fillField('#email', systemAdminUsername);

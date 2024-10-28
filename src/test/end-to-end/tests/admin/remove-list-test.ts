@@ -24,7 +24,7 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
         'etDailyList.json',
         'ET_DAILY_LIST'
     );
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.click('#card-remove-list-search');
     I.waitForText('Find content to remove');
     I.see('Search by court or tribunal name');
@@ -61,7 +61,7 @@ Scenario('I as an admin user should be able to see proper error messages related
     await createLocation(locationId, locationName);
     await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.click('#card-remove-list-search');
     I.waitForText('Find content to remove');
     I.click('Continue');

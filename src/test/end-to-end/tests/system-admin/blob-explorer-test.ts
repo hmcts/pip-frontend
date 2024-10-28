@@ -15,7 +15,7 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     await createLocation(locationId, locationName);
     const artefactId = await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.click('#card-blob-view-locations');
     I.waitForText('Blob Explorer - Locations');
     I.see('Choose a location to see all publications associated with it.');

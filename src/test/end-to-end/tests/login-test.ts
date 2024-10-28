@@ -3,14 +3,14 @@ import { config as testConfig } from '../../config';
 Feature('Login');
 
 Scenario('I as a system admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.logout();
 }).tag('@CrossBrowser');
 
 Scenario(
     'I as a system admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginTestSystemAdmin('', '');
+        I.loginTestB2CSystemAdmin('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -19,7 +19,7 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginTestSystemAdmin('email@justice.gov.uk', 'password');
+        I.loginTestB2CSystemAdmin('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -27,20 +27,20 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginTestSystemAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestB2CSystemAdmin('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
 
 Scenario('I as a admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.logout();
 }).tag('@CrossBrowser');
 
 Scenario(
     'I as a admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginTestAdmin('', '');
+        I.loginTestB2CAdmin('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -49,7 +49,7 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginTestAdmin('email@justice.gov.uk', 'password');
+        I.loginTestB2CAdmin('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -57,7 +57,7 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginTestAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestB2CAdmin('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
@@ -174,7 +174,7 @@ Scenario(
 Scenario(
     'I as a media user should see the media rejected login screen when logging in via the admin flow',
     async ({ I }) => {
-        I.loginTestAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
+        I.loginTestB2CAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'

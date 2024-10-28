@@ -11,7 +11,7 @@ Scenario(
     async ({ I }) => {
         const email = randomData.getRandomEmailAddress();
 
-        I.loginAsSystemAdmin();
+        I.loginAsB2CSystemAdmin();
         I.createNewSystemAdminAndContinue(TEST_FIRST_NAME, TEST_SURNAME, email);
         I.waitForText('Check account details');
         I.see(TEST_FIRST_NAME);
@@ -54,7 +54,7 @@ Scenario(
 );
 
 Scenario('I as a system admin should be able to see error messages when input fields are incorrect', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.see('System Admin Dashboard');
     I.click('Create System Admin');
     I.waitForText('Create system admin account');

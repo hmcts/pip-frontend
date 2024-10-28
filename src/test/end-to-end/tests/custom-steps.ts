@@ -3,11 +3,11 @@ import { checkA11y, injectAxe } from 'axe-playwright';
 
 export = function () {
     return actor({
-        loginAsSystemAdmin: function (
+        loginAsB2CSystemAdmin: function (
             username = testConfig.SYSTEM_ADMIN_USERNAME,
             password = testConfig.SYSTEM_ADMIN_PASSWORD
         ) {
-            this.amOnPage('/system-admin-dashboard');
+            this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
@@ -15,19 +15,19 @@ export = function () {
             this.waitForText('System Admin Dashboard');
         },
 
-        loginTestSystemAdmin: function (
+        loginTestB2CSystemAdmin: function (
             username = testConfig.SYSTEM_ADMIN_USERNAME,
             password = testConfig.SYSTEM_ADMIN_PASSWORD
         ) {
-            this.amOnPage('/system-admin-dashboard');
+            this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
             this.click('Sign in');
         },
 
-        loginAsAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
-            this.amOnPage('/admin-dashboard');
+        loginAsB2CAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
+            this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));
@@ -35,8 +35,8 @@ export = function () {
             this.waitForText('Your Dashboard');
         },
 
-        loginTestAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
-            this.amOnPage('/admin-dashboard');
+        loginTestB2CAdmin: function (username = testConfig.ADMIN_USERNAME, password = testConfig.ADMIN_PASSWORD) {
+            this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
             this.fillField('#email', secret(username));
             this.fillField('#password', secret(password));

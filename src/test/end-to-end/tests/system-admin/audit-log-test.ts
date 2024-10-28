@@ -8,7 +8,7 @@ Feature('System admin audit log');
 Scenario(
     'I as a system admin should be able to view audit log for system admin view third-party users action',
     async ({ I }) => {
-        I.loginAsSystemAdmin();
+        I.loginAsB2CSystemAdmin();
         I.click('#card-manage-third-party-users');
         I.click('Back');
         I.waitForText('System Admin Dashboard');
@@ -58,7 +58,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     await createLocation(locationId, locationName);
 
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.click('Admin Dashboard');
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');

@@ -28,7 +28,7 @@ Scenario(
             I.waitForText('There is a problem');
         }
 
-        I.loginAsSystemAdmin();
+        I.loginAsB2CSystemAdmin();
         I.click('Delete Court');
 
         await tryToDeleteCourt();
@@ -82,7 +82,7 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper information texts and error messages related to delete court',
     async ({ I }) => {
-        I.loginAsSystemAdmin();
+        I.loginAsB2CSystemAdmin();
         I.see('Delete Court');
         I.click('Delete Court');
         I.see('Find the court to remove');

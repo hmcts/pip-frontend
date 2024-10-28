@@ -13,7 +13,7 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
     const testEmail = randomData.getRandomEmailAddress();
     await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
 
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.click('Home');
     I.see('Update and delete users.');
     I.click('#card-admin-management');
@@ -55,7 +55,7 @@ Scenario('I as an admin user should be able to modify a user account', async ({ 
 }).tag('@CrossBrowser');
 
 Scenario('I as an admin user should be able to see all errors related to modify a user account', async ({ I }) => {
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
 
     I.click('Home');
     I.see('Update and delete users.');

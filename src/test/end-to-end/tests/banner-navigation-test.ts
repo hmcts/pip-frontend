@@ -43,7 +43,7 @@ Scenario('Cft user - all banner navigation links should take user to the correct
 }).tag('@CrossBrowser');
 
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.click(locate('//li').withText('Upload'));
     I.waitForText('Manual upload');
     I.click(locate('//li').withText('Review apps'));
@@ -56,7 +56,7 @@ Scenario('Admin user - all banner navigation links should take user to the corre
 }).tag('@CrossBrowser');
 
 Scenario('System admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.click(locate('//li').withText('Admin Dashboard'));
     I.waitForText('Your Dashboard');
     I.click(locate('//li').withText('Upload'));

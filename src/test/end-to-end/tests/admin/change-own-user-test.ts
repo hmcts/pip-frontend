@@ -3,7 +3,7 @@ import { config as testConfig } from '../../../config';
 Feature('Admin change own user role');
 
 Scenario('I as an admin should be able to see an error message if I try to change my own user', async ({ I }) => {
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.click('#card-admin-management');
     I.fillField('#search-input', secret(testConfig.ADMIN_USERNAME as string));
     I.click('Continue');
