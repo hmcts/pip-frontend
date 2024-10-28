@@ -705,17 +705,11 @@ export default function (app: Application): void {
     app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
         passport.authenticate('sso', { failureRedirect: '/' })(req, res, next)
     );
-
     app.post(
         '/sso/return',
         (req, res, next) => passport.authenticate('sso', { failureRedirect: '/' })(req, res, next),
         keepSessionLanguage,
         processSsoSignIn
-    );
-
-    // B2C admin sign-in
-    app.get('/b2c-admin-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
-        passport.authenticate('sso', { failureRedirect: '/' })(req, res, next)
     );
 
     app.get('/info', getInfo());
