@@ -77,7 +77,7 @@ export = function () {
             this.click('No');
         },
 
-        loginAsSsoLocalAdmin: function(
+        loginAsSsoLocalAdmin: function (
             username = testConfig.SSO_TEST_ADMIN_LOCAL_USER,
             password = testConfig.SSO_TEST_ADMIN_LOCAL_PWD
         ) {
