@@ -63,7 +63,7 @@ Scenario(
 ).tag('@Nightly');
 
 Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
-    I.amOnPage('/admin-dashboard');
+    I.amOnPage('/b2c-admin-login');
     I.waitForText('Sign in with your email address');
     I.seeBetaFeedbackOnPage('b2c/login');
     I.executeScript('window.history.back();');
@@ -196,13 +196,13 @@ Scenario(
 );
 
 Scenario('I as a SSO system admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSSOAdmin(secret(testConfig.SSO_TEST_SYSTEM_ADMIN_USER), secret(testConfig.SSO_TEST_SYSTEM_ADMIN_PWD));
+    I.loginAsSsoSystemAdmin();
     I.waitForText('System Admin Dashboard');
     I.logout();
 });
 
 Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSSOAdmin(secret(testConfig.SSO_TEST_ADMIN_CTSC_USER), secret(testConfig.SSO_TEST_ADMIN_CTSC_PWD));
+    I.loginAsSsoCtscAdmin();
     I.waitForText('Your Dashboard');
     I.see('Upload');
     I.see('Remove');
@@ -213,7 +213,7 @@ Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credent
 });
 
 Scenario('I as a SSO Local admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSSOAdmin(secret(testConfig.SSO_TEST_ADMIN_LOCAL_USER), secret(testConfig.SSO_TEST_ADMIN_LOCAL_PWD));
+    I.loginAsSsoLocalAdmin();
     I.waitForText('Your Dashboard');
     I.see('Upload');
     I.see('Remove');

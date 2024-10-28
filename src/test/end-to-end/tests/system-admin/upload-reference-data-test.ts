@@ -6,7 +6,7 @@ const INVALID_FILE_PATH = './shared/mocks/reference-data-invalid.csv';
 Scenario('I as a system admin should be able to upload reference data manually', async ({ I }) => {
     const LOCATION_ID = '50001';
 
-    I.loginAsB2CSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.see('Upload Reference Data');
     I.click('#card-reference-data-upload');
     I.see(
@@ -40,7 +40,7 @@ Scenario('I as a system admin should be able to upload reference data manually',
 Scenario(
     'I as a system admin should be able to see proper error messages related to upload reference data',
     async ({ I }) => {
-        I.loginAsB2CSystemAdmin();
+        I.loginAsSsoSystemAdmin();
         I.see('Upload Reference Data');
         I.click('#card-reference-data-upload');
         I.click('Continue');

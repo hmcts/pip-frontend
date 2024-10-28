@@ -8,7 +8,7 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
     const testProvenanceUserId = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
     const userId = await createThirdPartyUserAccount(testProvenanceUserId);
 
-    I.loginAsB2CSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.waitForText('View, create, update and remove third-party users and subscriptions');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
@@ -35,7 +35,7 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
 Scenario('I as a system admin should be able to create and delete third party users', async ({ I }) => {
     const testName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    I.loginAsB2CSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.click('#create-user');
@@ -82,7 +82,7 @@ Scenario('I as a system admin should be able to create and delete third party us
 Scenario('Third party user management show proper error messages', async ({ I }) => {
     const testName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    I.loginAsB2CSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.click('#create-user');

@@ -43,9 +43,46 @@ export = function () {
             this.click('Sign in');
         },
 
-        loginAsSSOAdmin: function (username, password) {
+        loginAsSsoSystemAdmin: function (
+            username = testConfig.SSO_TEST_SYSTEM_ADMIN_USER,
+            password = testConfig.SSO_TEST_SYSTEM_ADMIN_PWD
+        ) {
             this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sso-login');
+                page.goto(testConfig.TEST_URL + '/admin-dashboard');
+            });
+            this.waitForText('Sign in');
+            this.fillField('loginfmt', username);
+            this.click('Next');
+            this.waitForText('Enter password');
+            this.fillField('passwd', password);
+            this.click('Sign in');
+            this.waitForText('Stay signed in?');
+            this.click('No');
+        },
+
+        loginAsSsoCtscAdmin: function (
+            username = testConfig.SSO_TEST_ADMIN_CTSC_USER,
+            password = testConfig.SSO_TEST_ADMIN_CTSC_PWD
+        ) {
+            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/admin-dashboard');
+            });
+            this.waitForText('Sign in');
+            this.fillField('loginfmt', username);
+            this.click('Next');
+            this.waitForText('Enter password');
+            this.fillField('passwd', password);
+            this.click('Sign in');
+            this.waitForText('Stay signed in?');
+            this.click('No');
+        },
+
+        loginAsSsoLocalAdmin: function(
+            username = testConfig.SSO_TEST_ADMIN_LOCAL_USER,
+            password = testConfig.SSO_TEST_ADMIN_LOCAL_PWD
+        ) {
+            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/admin-dashboard');
             });
             this.waitForText('Sign in');
             this.fillField('loginfmt', username);

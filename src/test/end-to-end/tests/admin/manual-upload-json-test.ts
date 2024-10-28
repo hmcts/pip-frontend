@@ -14,7 +14,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
 
     await createLocation(locationId, locationName);
 
-    I.loginAsB2CAdmin();
+    I.loginAsSsoLocalAdmin();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
     I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
@@ -63,7 +63,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
 
     await createLocation(locationId, locationName);
 
-    I.loginAsB2CAdmin();
+    I.loginAsSsoLocalAdmin();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
     I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
@@ -209,7 +209,7 @@ Scenario('I as a admin user should be able to change the data before confirming 
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
 
-    I.loginAsB2CAdmin();
+    I.loginAsSsoLocalAdmin();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
     I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');

@@ -11,7 +11,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
 
     I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 
-    I.loginAsB2CAdmin();
+    I.loginAsSsoCtscAdmin();
     I.see('CTSC assess new media account applications.');
     I.click('#card-media-applications');
     I.waitForText('Select application to assess');
@@ -44,7 +44,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     );
     I.logout();
 
-    I.loginAsB2CSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
     I.fillField('#email', emailTestMediaAccount);
@@ -70,7 +70,7 @@ Scenario(
 
         I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 
-        I.loginAsB2CAdmin();
+        I.loginAsSsoCtscAdmin();
         I.see('CTSC assess new media account applications.');
         I.click('#card-media-applications');
         I.waitForText('Select application to assess');

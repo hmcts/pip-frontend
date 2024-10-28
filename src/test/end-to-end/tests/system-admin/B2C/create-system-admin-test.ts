@@ -1,5 +1,5 @@
-import { randomData } from '../../shared/random-data';
-import { config as testConfig } from '../../../config';
+import { randomData } from '../../../shared/random-data';
+import { config as testConfig } from '../../../../config';
 
 Feature('Create system admin');
 
