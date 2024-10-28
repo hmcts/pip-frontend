@@ -37,7 +37,7 @@ import routes from './routes/routes';
 
 new AppInsights().enable();
 new Nunjucks(developmentMode).enableFor(app);
-new Helmet(config.get('security')).enableFor(app);
+new Helmet(config.get('security'), developmentMode).enableFor(app);
 new Container().enableFor(app);
 
 logger.info('environment', env);
