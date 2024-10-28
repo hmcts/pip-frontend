@@ -1,4 +1,4 @@
-{% from "./macros/common-components.njk" import goBack, backToTopButton %}
+{% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% extends "template.njk" %}
@@ -7,7 +7,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
 <div class="parent-box">

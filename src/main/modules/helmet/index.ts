@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as helmet from 'helmet';
 import { B2C_ADMIN_URL, B2C_URL, CFT_IDAM_URL } from '../../helpers/envUrls';
+import { randomBytes } from 'crypto';
 
 export interface HelmetConfig {
     referrerPolicy: string;
@@ -9,13 +10,18 @@ export interface HelmetConfig {
 const self = "'self'";
 const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
 const dynatraceDomain = 'https://*.dynatrace.com';
-const jsdelivrDomain = '*.jsdelivr.net';
 
 /**
  * Module that enables helmet in the application
  */
 export class Helmet {
-    constructor(public config: HelmetConfig) {}
+    private readonly developmentMode: boolean;
+    constructor(
+        public config: HelmetConfig,
+        developmentMode
+    ) {
+        this.developmentMode = developmentMode;
+    }
 
     public enableFor(app: express.Express): void {
         // include default helmet functions
@@ -26,6 +32,22 @@ export class Helmet {
     }
 
     private setContentSecurityPolicy(app: express.Express): void {
+        app.use((req, res, next) => {
+            res.locals.cspNonce = randomBytes(32).toString('hex');
+            next();
+        });
+
+        const scriptSrc = [
+            self,
+            ...googleAnalyticsDomains,
+            dynatraceDomain,
+            (req, res) => `'nonce-${res['locals'].cspNonce}'`,
+        ];
+
+        if (this.developmentMode) {
+            scriptSrc.push("'unsafe-eval'");
+        }
+
         app.use(
             helmet.contentSecurityPolicy({
                 directives: {
@@ -34,17 +56,10 @@ export class Helmet {
                     fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     objectSrc: [self],
-                    scriptSrcAttr: [self, "'unsafe-inline'"],
-                    manifestSrc: [self, process.env.FRONTEND_URL],
-                    scriptSrc: [
-                        self,
-                        ...googleAnalyticsDomains,
-                        dynatraceDomain,
-                        jsdelivrDomain,
-                        "'unsafe-eval'",
-                        "'unsafe-inline'",
-                    ],
-                    styleSrc: [self, process.env.FRONTEND_URL],
+                    scriptSrcAttr: [self],
+                    manifestSrc: [self],
+                    scriptSrc,
+                    styleSrc: [self],
                     formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL],
                 },
             })

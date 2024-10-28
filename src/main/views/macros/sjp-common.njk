@@ -43,8 +43,8 @@
                     <div class="moj-button-menu filters__innerButton" id="innerButton">
                         <div class="moj-button-menu__wrapper">
                             <a href="#" role="button" draggable="false"
-                               class="govuk-button moj-button-menu__item govuk-button--secondary" data-module="govuk-button"
-                               onclick="toggleFilters()">
+                               class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+                               data-module="govuk-button">
                                 {{ filter.hide }}
                             </a>
                         </div>
@@ -55,7 +55,7 @@
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                             <h1 class="govuk-fieldset__heading">
-                                <a href="javascript:;" class="govuk-link govuk-!-font-size-19" onclick="hideFilterSection('{{ key }}')">{{ filterHeader }}
+                                <a href="javascript:;" class="govuk-link govuk-!-font-size-19" id="{{ key }}-anchor">{{ filterHeader }}
                                 </a>
                                 <span class="govuk-body govuk-!-font-size-19 filter-colour" id="{{ key }}-link">&#9660</span>
                             </h1>
@@ -104,8 +104,8 @@
 </div>
 {% endmacro %}
 
-{% macro filterManipulation(url, artefactId, filter) %}
-    <script>
+{% macro filterManipulation(url, artefactId, filter, cspNonce) %}
+    <script nonce="{{ cspNonce }}">
         var searchFilters = document.getElementById('search-filters');
         searchFilters.addEventListener('keyup', searchFilterItems);
 
@@ -184,6 +184,14 @@
             document.getElementById(checkboxId).checked = false;
         }
 
+        document.querySelectorAll("#postcodes-anchor").forEach(item => item.addEventListener("click", function() {
+            hideFilterSection('postcodes');
+        }));
+
+        document.querySelectorAll("#prosecutor-anchor").forEach(item => item.addEventListener("click", function() {
+            hideFilterSection('prosecutor');
+        }));
+
         function hideFilterSection(key) {
             const section = document.getElementById(key + '-checkbox');
             const link = document.getElementById(key + '-link');
@@ -255,5 +263,6 @@
         }
 
         document.getElementsByClassName('hide-show-button')[0].addEventListener("click", toggleFilters);
+        document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
     </script>
 {% endmacro %}
