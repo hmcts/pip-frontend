@@ -39,7 +39,7 @@ Scenario(
 
         I.click(locate('//tr').withText('USER_MANAGEMENT_VIEW').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
-        I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
+        I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
         I.see('System Admin');
         I.see('B2C');
         I.see('USER_MANAGEMENT_VIEW');

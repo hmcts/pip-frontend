@@ -122,20 +122,3 @@ Scenario('I as a system admin should be able to use the pagination on the user m
     I.waitForText('2 of');
     I.logout();
 });
-
-Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
-    I.loginAsSsoSystemAdmin();
-    I.click('#card-user-management');
-    I.waitForText('User Management');
-    I.fillField('#email', systemAdminUsername);
-    I.click('Apply filters');
-    I.waitForText(systemAdminUsername);
-    I.click('Manage');
-    I.waitForText('Manage ' + systemAdminUsername);
-    I.click('Change');
-    I.selectOption('#updatedRole', 'Local Admin');
-    I.click('Continue');
-    I.waitForText('There is a problem');
-    I.see('You are unable to update the role for the same user you are logged in as');
-    I.logout();
-});

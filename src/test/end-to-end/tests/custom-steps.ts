@@ -94,6 +94,20 @@ export = function () {
             this.click('No');
         },
 
+        loginAsTestSsoAdmin: function (username, password) {
+            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/admin-dashboard');
+            });
+            this.waitForText('Sign in');
+            this.fillField('loginfmt', username);
+            this.click('Next');
+            this.waitForText('Enter password');
+            this.fillField('passwd', password);
+            this.click('Sign in');
+            this.waitForText('Stay signed in?');
+            this.click('No');
+        },
+
         loginAsMediaUser: function (
             username = testConfig.MEDIA_USER_USERNAME,
             password = testConfig.MEDIA_USER_PASSWORD
