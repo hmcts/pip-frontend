@@ -74,7 +74,7 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.click('Continue');
     I.waitForText('User Deleted');
 
-    I.logoutSsoSystemAdmin()
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario(
@@ -110,6 +110,6 @@ Scenario(
         I.click('Continue');
         I.waitForText('Bulk create media accounts');
 
-        I.logoutSsoSystemAdmin()
+        I.logoutSsoSystemAdmin();
     }
 ).tag('@Nightly');
