@@ -1,6 +1,6 @@
 import { randomData } from '../end-to-end/shared/random-data';
 import { config as testConfig, config } from '../config';
-import { clearTestData, createLocation} from '../end-to-end/shared/testingSupportApi';
+import { clearTestData, createLocation } from '../end-to-end/shared/testingSupportApi';
 import { getDateNowAndFuture, padFormatted } from '../end-to-end/shared/shared-functions';
 
 Feature('accessibility_admin_tests');
