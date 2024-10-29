@@ -7,7 +7,7 @@ const testFirstName = 'System Admin Test First Name';
 const testLastName = 'System Admin Test Surname';
 
 const testEmailAddress = 'pip-e2e-test-admin-management-' + randomData.getRandomNumber(1, 10000) + '@hmcts.net';
-const systemAdminUsername = testConfig.SYSTEM_ADMIN_USERNAME as string;
+const systemAdminUsername = testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string;
 
 Scenario('I as a system admin should be able to update a users role and delete a user', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
