@@ -46,8 +46,8 @@ describe('System Admin Dashboard page', () => {
 
     it('blob Explorer card should have correct content and links', () => {
         const cards = htmlRes.getElementsByClassName('account-card');
-        const link = cards[5].getElementsByTagName('a')[0];
-        const description = cards[5].getElementsByTagName('p')[1];
+        const link = cards[4].getElementsByTagName('a')[0];
+        const description = cards[4].getElementsByTagName('p')[1];
         expect(link.innerHTML).contains('Blob Explorer');
         expect(link.getAttribute('href')).contains('blob-view-locations');
         expect(description.innerHTML).contains('Discover content uploaded to all locations.');
