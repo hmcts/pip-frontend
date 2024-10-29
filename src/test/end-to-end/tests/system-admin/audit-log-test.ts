@@ -28,7 +28,7 @@ Scenario(
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
         I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
         I.see('System Admin');
-        I.see('B2C');
+        I.see('SSO');
         I.see('VIEW_THIRD_PARTY_USERS');
         I.see('User requested to view all third party users');
 
@@ -41,7 +41,7 @@ Scenario(
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
         I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
         I.see('System Admin');
-        I.see('B2C');
+        I.see('SSO');
         I.see('USER_MANAGEMENT_VIEW');
         I.see('All user data requested by this admin');
 
