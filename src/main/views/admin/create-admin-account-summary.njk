@@ -1,5 +1,5 @@
 {% extends "../template.njk" %}
-{% from "../macros/common-components.njk" import goBack, submitButton, successPanel %}
+{% from "../macros/common-components.njk" import goBack, submitButton, successPanel, backButtonHistory %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
@@ -8,7 +8,7 @@
 {% endblock %}
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack() }}
+    {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
     {% if displayError %}
@@ -111,16 +111,13 @@
 {% endblock %}
 {% block bodyEnd %}
     {{ super() }}
-    <script>
+    <script nonce="{{ cspNonce }}">
       if ({{ accountCreated }}) {
         const actions = document.getElementsByClassName('govuk-summary-list__actions');
         for(let i = 0; i < actions.length; i++) {
           actions[i].style.display = 'none';
         }
       }
-
-      if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-      }
     </script>
+    {{ backButtonHistory(cspNonce) }}
 {% endblock %}

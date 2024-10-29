@@ -1,4 +1,4 @@
-{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -11,7 +11,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -99,7 +99,7 @@
 
 {% block bodyEnd %}
   {{ super() }}
-  <script>
+  <script nonce="{{ cspNonce }}">
     const button = document.getElementsByClassName('govuk-button')[0];
     button.addEventListener('click', (e) => {
       const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
@@ -107,8 +107,6 @@
         e.preventDefault();
       }
     });
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
   </script>
+  {{ backButtonHistory(cspNonce) }}
 {% endblock %}

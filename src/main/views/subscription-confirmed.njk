@@ -1,5 +1,5 @@
 {% extends "template.njk" %}
-{% from "./macros/common-components.njk" import successPanel %}
+{% from "./macros/common-components.njk" import successPanel, backButtonHistory %}
 
 {% block pageTitle %}
   {{ title }}
@@ -21,10 +21,6 @@
   </div>
 {% endblock %}
 {% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+  {{ backButtonHistory(cspNonce) }}
   {{ super() }}
 {% endblock %}
