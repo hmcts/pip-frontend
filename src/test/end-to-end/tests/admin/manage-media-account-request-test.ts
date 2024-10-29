@@ -45,6 +45,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.logoutSsoAdminCtsc();
 
     I.reloginAsTestSsoAdmin(testConfig.SSO_TEST_SYSTEM_ADMIN_USER, testConfig.SSO_TEST_SYSTEM_ADMIN_PWD);
+    I.waitForText('Search, update and delete users')
     I.click('#card-user-management');
     I.waitForText('User Management');
     I.fillField('#email', emailTestMediaAccount);
@@ -57,11 +58,10 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.click('Yes');
     I.click('Continue');
     I.waitForText('User Deleted');
-
     I.logoutSsoSystemAdmin();
 });
 
-Scenario.skip(
+Scenario(
     'I as an admin user should be able to reject applications and see proper error ' +
         'messages related to media account request',
     async ({ I }) => {

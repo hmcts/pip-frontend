@@ -120,8 +120,6 @@ export = function () {
             this.waitForText('Enter password');
             this.fillField('passwd', password);
             this.click('Sign in');
-            this.waitForText('Stay signed in?');
-            this.click('No');
         },
 
         loginAsMediaUser: function (
