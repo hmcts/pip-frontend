@@ -41,5 +41,5 @@ Scenario('I as a system admin should be able to discover content uploaded to all
 
     I.click('Link to rendered template');
     I.waitForText('Civil and Family Daily Cause List for ' + locationName);
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });

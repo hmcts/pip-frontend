@@ -198,29 +198,29 @@ Scenario(
 Scenario('I as a SSO system admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
     I.waitForText('System Admin Dashboard');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSsoCtscAdmin();
+    I.loginAsSsoAdminCtsc();
     I.waitForText('Your Dashboard');
     I.see('Upload');
     I.see('Remove');
     I.see('Manage media account requests');
     I.dontSee('Create new account');
     I.dontSee('User Management');
-    I.logout();
+    I.logoutSsoAdminCtsc();
 });
 
 Scenario('I as a SSO Local admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSsoLocalAdmin();
+    I.loginAsSsoAdminLocal();
     I.waitForText('Your Dashboard');
     I.see('Upload');
     I.see('Remove');
     I.dontSee('Manage media account requests');
     I.dontSee('Create new account');
     I.dontSee('User Management');
-    I.logout();
+    I.logoutSsoAdminLocal();
 });
 
 //TODO: This test will need to be updated when a specific page for this scenario is created.

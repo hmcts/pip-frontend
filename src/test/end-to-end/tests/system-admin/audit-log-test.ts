@@ -45,7 +45,7 @@ Scenario(
         I.see('USER_MANAGEMENT_VIEW');
         I.see('All user data requested by this admin');
 
-        I.logout();
+        I.logoutSsoSystemAdmin();
     }
 );
 
@@ -135,5 +135,5 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     }
 
     I.waitForText('View audit log for ');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });

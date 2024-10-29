@@ -18,7 +18,7 @@ Data(flatFileName).Scenario(
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         await createLocation(locationId, locationName);
 
-        I.loginAsSsoLocalAdmin();
+        I.loginAsSsoAdminLocal();
         I.click('#card-manual-upload');
         I.waitForText('Manual upload');
         I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
@@ -53,6 +53,6 @@ Data(flatFileName).Scenario(
         I.click('Continue');
         I.waitForText('What do you want to view from ' + locationName);
         I.see('Civil and Family Daily Cause List');
-        I.logout();
+        I.logoutSsoAdminLocal();
     }
 );

@@ -111,12 +111,14 @@ export class SessionManagementService {
     }
 
     private ssoLogoutUrl(isSessionExpired: boolean, language: string): string {
-        const redirectPath = isSessionExpired
-            ? '/session-expired?lng=' + language + '&reSignInUrl=SSO'
-            : '/session-logged-out?lng=' + language;
-
-        const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
-        return `${MICROSOFT_LOGIN_URL}/common/oauth2/v2.0/logout?post_logout_redirect_uri=${redirectUrl}`;
+        if (isSessionExpired) {
+            // Do not log out of SSO session after session expired due to inactivity
+            return '/session-expired?lng=' + language + '&reSignInUrl=SSO';
+        } else {
+            const redirectPath = '/session-logged-out?lng=' + language;
+            const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
+            return `${MICROSOFT_LOGIN_URL}/common/oauth2/v2.0/logout?post_logout_redirect_uri=${redirectUrl}`;
+        }
     }
 
     private logOutRedirectUrl(

@@ -30,6 +30,7 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
     I.waitForText('Third Party Subscriptions Updated');
     I.see('Third party subscriptions for the user have been successfully updated');
     I.deleteThirdPartyUserAccount(userId);
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a system admin should be able to create and delete third party users', async ({ I }) => {
@@ -77,6 +78,7 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.click('Manage another third party user');
     I.waitForText('Manage third party users');
     I.dontSee(testName);
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('Third party user management show proper error messages', async ({ I }) => {
@@ -130,4 +132,5 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.click('#delete-user-confirm');
     I.click('Continue');
     I.waitForText('Success');
+    I.logoutSsoSystemAdmin();
 }).tag('@Nightly');

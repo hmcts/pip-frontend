@@ -75,7 +75,7 @@ Scenario(
         I.click('Continue', null, { noWaitAfter: true });
         I.waitForText('Success');
         I.see('Court has been deleted');
-        I.logout();
+        I.logoutSsoSystemAdmin();
     }
 );
 
@@ -101,6 +101,6 @@ Scenario(
         I.click('Continue');
         I.see('Find the court to remove');
         I.see('Search by court or tribunal name');
-        I.logout();
+        I.logoutSsoSystemAdmin();
     }
 ).tag('@Nightly');

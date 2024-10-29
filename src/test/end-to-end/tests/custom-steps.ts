@@ -60,7 +60,7 @@ export = function () {
             this.click('No');
         },
 
-        loginAsSsoCtscAdmin: function (
+        loginAsSsoAdminCtsc: function (
             username = testConfig.SSO_TEST_ADMIN_CTSC_USER,
             password = testConfig.SSO_TEST_ADMIN_CTSC_PWD
         ) {
@@ -77,7 +77,7 @@ export = function () {
             this.click('No');
         },
 
-        loginAsSsoLocalAdmin: function (
+        loginAsSsoAdminLocal: function (
             username = testConfig.SSO_TEST_ADMIN_LOCAL_USER,
             password = testConfig.SSO_TEST_ADMIN_LOCAL_PWD
         ) {
@@ -175,6 +175,27 @@ export = function () {
 
         logout: function () {
             this.click('Sign out');
+            this.waitForText('You have been signed out');
+        },
+
+        logoutSsoSystemAdmin: function (username = testConfig.SSO_TEST_SYSTEM_ADMIN_USER) {
+            this.click('Sign out');
+            this.waitForText('Pick an account');
+            this.click(locate('//div').withText(username));
+            this.waitForText('You have been signed out');
+        },
+
+        logoutSsoAdminCtsc: function (username = testConfig.SSO_TEST_ADMIN_CTSC_USER) {
+            this.click('Sign out');
+            this.waitForText('Pick an account');
+            this.click(locate('//div').withText(username));
+            this.waitForText('You have been signed out');
+        },
+
+        logoutSsoAdminLocal: function (username = testConfig.SSO_TEST_ADMIN_LOCAL_USER) {
+            this.click('Sign out');
+            this.waitForText('Pick an account');
+            this.click(locate('//div').withText(username));
             this.waitForText('You have been signed out');
         },
 
