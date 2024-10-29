@@ -32,14 +32,14 @@ describe('Test logout', () => {
     const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const cftIdamLogoutUrl = '/session-logged-out?lng=en';
     const welshCftIdamLogoutUrl = '/session-logged-out?lng=cy';
-    const ssoLogoutUrl = '/session-logged-out?lng=en';
-    const ssoWelshLogoutUrl = '/session-logged-out?lng=cy';
+    const ssoLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
+    const ssoWelshLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const adminLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const adminWelshLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DAAD`;
     const adminSessionExpiredUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DADMIN`;
     const cftIdamSessionExpiredUrl = `/session-expired?lng=en&reSignInUrl=CFT`;
-    const ssoSessionExpiredUrl = `/session-expired?lng=en&reSignInUrl=SSO`;
+    const ssoSessionExpiredUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DSSO`;
     const adminRejectedLoginUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}admin-rejected-login%3Flng%3Den`;
     const mediaRejectedLoginUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}media-rejected-login%3Flng%3Den`;
 

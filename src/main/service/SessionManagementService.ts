@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
-import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL, MICROSOFT_OAUTH2_URL } from '../helpers/envUrls';
+import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
 import { reSignInUrls } from '../helpers/consts';
 import * as url from 'url';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -115,9 +115,8 @@ export class SessionManagementService {
             ? '/session-expired?lng=' + language + '&reSignInUrl=SSO'
             : '/session-logged-out?lng=' + language;
 
-        const redirectUrl = new URL(`${FRONTEND_URL}${redirectPath}`).toString();
-        const encodedRedirectUrl = encodeURIComponent(redirectUrl);
-        return `${MICROSOFT_OAUTH2_URL}/logout?post_logout_redirect_uri=${encodedRedirectUrl}`;
+        const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
+        return `${MICROSOFT_LOGIN_URL}/common/oauth2/v2.0/logout?post_logout_redirect_uri=${redirectUrl}`;
     }
 
     private logOutRedirectUrl(

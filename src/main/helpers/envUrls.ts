@@ -1,5 +1,4 @@
 import process from 'process';
-import config from 'config';
 
 export const FRONTEND_URL = process.env.FRONTEND_URL || 'https://pip-frontend.staging.platform.hmcts.net';
 export const B2C_URL = process.env.B2C_URL || 'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com';
@@ -12,10 +11,9 @@ export const ADMIN_AUTH_RETURN_URL =
 export const MEDIA_VERIFICATION_RETURN_URL =
     process.env.MEDIA_VERIFICATION_RETURN_URL ||
     'https://pip-frontend.staging.platform.hmcts.net/media-verification/return';
-export const CFT_IDAM_URL = process.env.CFT_IDAM_URL || 'https://idam-web-public.aat.platform.hmcts.net';
 
-const tenantId = process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID');
-export const MICROSOFT_OAUTH2_URL = 'https://login.microsoftonline.com/' + tenantId + '/oauth2/v2.0';
+export const CFT_IDAM_URL = process.env.CFT_IDAM_URL || 'https://idam-web-public.aat.platform.hmcts.net';
+export const MICROSOFT_LOGIN_URL = 'https://login.microsoftonline.com';
 export const MICROSOFT_GRAPH_API_URL = 'https://graph.microsoft.com/v1.0';
 
 export const urlPath = url => {
