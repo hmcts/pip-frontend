@@ -19,7 +19,7 @@ import { UserManagementService } from '../../../main/service/UserManagementServi
 import { AuditLogService } from '../../../main/service/AuditLogService';
 import fs from 'fs';
 import path from 'path';
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 
 const userId = '1';
 const name = 'Test';
@@ -59,7 +59,7 @@ const systemAdminRoutes = [
     { path: '/manage-user' },
     { path: '/update-user', parameter: `?id=${userId}` },
     { path: '/delete-user', parameter: `?id=${userId}` },
-    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } }
+    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');

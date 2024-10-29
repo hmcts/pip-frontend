@@ -22,7 +22,7 @@ const cards = [
         title: 'Manage media account request',
         description: 'CTSC assess new media account applications.',
         link: 'media-applications',
-    }
+    },
 ];
 
 let htmlRes: Document;
