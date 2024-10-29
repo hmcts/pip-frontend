@@ -3,7 +3,7 @@ import { Response } from 'express';
 import sinon from 'sinon';
 import { UserManagementService } from '../../../../main/service/UserManagementService';
 import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
-import ManageUserController from '../../../../main/controllers/admin/ManageUserController';
+import ManageUserController from '../../../../main/controllers/system-admin/ManageUserController';
 
 const manageUserController = new ManageUserController();
 
@@ -39,7 +39,7 @@ describe('Manage user controller', () => {
             hrefDeletion: '/delete-user?id=1234',
         };
 
-        responseMock.expects('render').once().withArgs('admin/manage-user', expectedData);
+        responseMock.expects('render').once().withArgs('system-admin/manage-user', expectedData);
 
         await manageUserController.get(request, response);
         return responseMock.verify();

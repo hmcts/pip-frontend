@@ -5,7 +5,6 @@ import {
     checkAuthenticatedAdmin,
     isPermittedMedia,
     isPermittedAdmin,
-    isPermittedAccountCreation,
     isPermittedManualUpload,
     isPermittedMediaAccount,
     mediaVerificationHandling,
@@ -198,26 +197,6 @@ describe('Test IsPermittedAdmin', () => {
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
         expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
-    });
-});
-
-describe('Test IsPermittedAccountCreation', () => {
-    it('check returns next function if permitted', () => {
-        const mockRedirectFunction = jest.fn(() => 4);
-        const req = { user: { roles: 'INTERNAL_SUPER_ADMIN_CTSC' } };
-
-        expect(isPermittedAccountCreation(req, {}, mockRedirectFunction)).to.equal(4);
-    });
-
-    it('check redirect to admin-dashboard is called if not matched', () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'INTERNAL_ADMIN_LOCAL' } };
-        const res = { redirect: mockRedirectFunction };
-
-        isPermittedAccountCreation(req, res, mockRedirectFunction);
-
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
     });
 });
 

@@ -19,6 +19,7 @@ import { UserManagementService } from '../../../main/service/UserManagementServi
 import { AuditLogService } from '../../../main/service/AuditLogService';
 import fs from 'fs';
 import path from 'path';
+import {v4 as uuidv4} from "uuid";
 
 const userId = '1';
 const name = 'Test';
@@ -28,8 +29,6 @@ const fileName = 'test.csv';
 
 const systemAdminRoutes = [
     { path: '/system-admin-dashboard' },
-    { path: '/create-system-admin-account' },
-    { path: '/create-system-admin-account-summary' },
     { path: '/blob-view-locations' },
     { path: '/blob-view-publications', parameter: '?locationId=123' },
     { path: '/blob-view-json', parameter: '?artefactId=abc' },
@@ -57,6 +56,10 @@ const systemAdminRoutes = [
     { path: '/create-third-party-user-success' },
     { path: '/delete-third-party-user-confirmation' },
     { path: '/delete-third-party-user-success' },
+    { path: '/manage-user' },
+    { path: '/update-user', parameter: `?id=${userId}` },
+    { path: '/delete-user', parameter: `?id=${userId}` },
+    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } }
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');
@@ -127,14 +130,6 @@ describe('Accessibility - System Admin Routes', () => {
     });
 
     describe('Page with Errors', () => {
-        describe('Create System Admin Account Page', () => {
-            const url = '/create-system-admin-account';
-
-            describe('with no input data', () => {
-                testAccessibility(url, '', true, { firstName: null, lastName: null, emailAddress: null });
-            });
-        });
-
         describe('Reference Data upload Page', () => {
             const url = '/reference-data-upload';
 

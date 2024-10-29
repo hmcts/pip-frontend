@@ -23,7 +23,7 @@ export default class DeleteUserConfirmationController {
                     'User has been deleted, id: ' + req.body.user
                 );
                 deleteUserResponse
-                    ? res.render('admin/delete-user-confirmation', {
+                    ? res.render('system-admin/delete-user-confirmation', {
                           ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-user-confirmation']),
                           isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',
                       })

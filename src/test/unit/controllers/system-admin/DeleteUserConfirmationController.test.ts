@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
-import DeleteUserConfirmationController from '../../../../main/controllers/admin/DeleteUserConfirmationController';
+import DeleteUserConfirmationController from '../../../../main/controllers/system-admin/DeleteUserConfirmationController';
 import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -44,7 +44,7 @@ describe('Delete User Confirmation Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('admin/delete-user-confirmation', {
+            .withArgs('system-admin/delete-user-confirmation', {
                 ...i18n['delete-user-confirmation'],
                 isSystemAdmin: false,
             });

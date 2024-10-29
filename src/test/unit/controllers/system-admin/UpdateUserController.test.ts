@@ -1,7 +1,7 @@
 import { mockRequest } from '../../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import UpdateUserController from '../../../../main/controllers/admin/UpdateUserController';
+import UpdateUserController from '../../../../main/controllers/system-admin/UpdateUserController';
 import { UserManagementService } from '../../../../main/service/UserManagementService';
 import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
 import { v4 as uuidv4 } from 'uuid';
@@ -53,7 +53,7 @@ describe('Update user controller', () => {
             error: false,
         };
 
-        responseMock.expects('render').once().withArgs('admin/update-user', expectedData);
+        responseMock.expects('render').once().withArgs('system-admin/update-user', expectedData);
 
         await updateUserController.get(request, response);
         sinon.assert.calledWith(
@@ -78,7 +78,7 @@ describe('Update user controller', () => {
             error: true,
         };
 
-        responseMock.expects('render').once().withArgs('admin/update-user', expectedData);
+        responseMock.expects('render').once().withArgs('system-admin/update-user', expectedData);
 
         await updateUserController.get(request, response);
         sinon.assert.calledWith(
@@ -135,7 +135,7 @@ describe('Update User Confirmation Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('admin/update-user-confirmation', {
+            .withArgs('system-admin/update-user-confirmation', {
                 ...i18n['update-user-confirmation'],
                 updatedRole: 'System Admin',
                 isSystemAdmin: false,

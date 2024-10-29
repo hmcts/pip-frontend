@@ -22,17 +22,7 @@ const cards = [
         title: 'Manage media account request',
         description: 'CTSC assess new media account applications.',
         link: 'media-applications',
-    },
-    {
-        title: 'Create new account',
-        description: 'Create accounts for: CTSC Super Admin, Local Super Admin, CTSC Admin, Local Admin.',
-        link: 'create-admin-account',
-    },
-    {
-        title: 'User Management',
-        description: 'Update and delete users.',
-        link: 'admin-management',
-    },
+    }
 ];
 
 let htmlRes: Document;
@@ -60,18 +50,15 @@ describe('Admin Dashboard page all cards', () => {
             expect(header[0].innerHTML).contains('Your Dashboard', 'Could not find correct value in header');
         });
 
-        it('should display 5 links in banner', () => {
+        it('should display 2 links in banner', () => {
             const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-            expect(bannerComponents.length).equal(5);
+            expect(bannerComponents.length).equal(2);
 
             expect(bannerComponents[0].innerHTML).equal('Home');
-            expect(bannerComponents[1].innerHTML).equal('Upload');
-            expect(bannerComponents[2].innerHTML).equal('Review apps');
-            expect(bannerComponents[3].innerHTML).equal('Remove');
-            expect(bannerComponents[4].innerHTML).equal('Sign out');
+            expect(bannerComponents[1].innerHTML).equal('Sign out');
         });
 
-        it('should display 5 card options', () => {
+        it('should display 3 card options', () => {
             const cardComponents = htmlRes.getElementsByClassName('account-card');
             expect(cardComponents.length).equal(cards.length);
         });
@@ -111,10 +98,6 @@ describe('Admin Dashboard page all cards', () => {
         it('should contain notification banner', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings[0].innerHTML).contains('There are 2 outstanding media requests.');
-
-            const bannerLink = htmlRes.getElementById('banner-media-applications');
-            expect(bannerLink.innerHTML).contains('Manage media account requests');
-            expect(bannerLink.getAttribute('href')).contains('media-applications');
         });
     });
 
@@ -147,19 +130,17 @@ describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
             });
     });
 
-    it('should display 4 links in banner', () => {
+    it('should display 2 links in banner', () => {
         const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(4);
+        expect(bannerComponents.length).equal(2);
 
         expect(bannerComponents[0].innerHTML).equal('Home');
-        expect(bannerComponents[1].innerHTML).equal('Upload');
-        expect(bannerComponents[2].innerHTML).equal('Remove');
-        expect(bannerComponents[3].innerHTML).equal('Sign out');
+        expect(bannerComponents[1].innerHTML).equal('Sign out');
     });
 
-    it('should display 4 card options', () => {
+    it('should display 2 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(4);
+        expect(cardComponents.length).equal(2);
     });
 
     it('should not contain notification banner', () => {
@@ -180,15 +161,12 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
                 });
         });
 
-        it('should display 5 links in banner', () => {
+        it('should display 2 links in banner', () => {
             const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-            expect(bannerComponents.length).equal(5);
+            expect(bannerComponents.length).equal(2);
 
             expect(bannerComponents[0].innerHTML).equal('Home');
-            expect(bannerComponents[1].innerHTML).equal('Upload');
-            expect(bannerComponents[2].innerHTML).equal('Review apps');
-            expect(bannerComponents[3].innerHTML).equal('Remove');
-            expect(bannerComponents[4].innerHTML).equal('Sign out');
+            expect(bannerComponents[1].innerHTML).equal('Sign out');
         });
 
         it('should display 3 card options', () => {
@@ -199,10 +177,6 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
         it('should contain notification banner', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings[0].innerHTML).contains('There is 1 outstanding media request.');
-
-            const bannerLink = htmlRes.getElementById('banner-media-applications');
-            expect(bannerLink.innerHTML).contains('Manage media account requests');
-            expect(bannerLink.getAttribute('href')).contains('media-applications');
         });
     });
 
@@ -256,14 +230,12 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
             });
     });
 
-    it('should display 4 links in banner', () => {
+    it('should display 2 links in banner', () => {
         const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(4);
+        expect(bannerComponents.length).equal(2);
 
         expect(bannerComponents[0].innerHTML).equal('Home');
-        expect(bannerComponents[1].innerHTML).equal('Upload');
-        expect(bannerComponents[2].innerHTML).equal('Remove');
-        expect(bannerComponents[3].innerHTML).equal('Sign out');
+        expect(bannerComponents[1].innerHTML).equal('Sign out');
     });
 
     it('should display 2 card options', () => {
@@ -288,20 +260,18 @@ describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
             });
     });
 
-    it('should display 5 links in banner', () => {
+    it('should display 3 links in banner', () => {
         const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(5);
+        expect(bannerComponents.length).equal(3);
 
         expect(bannerComponents[0].innerHTML).equal('Home');
         expect(bannerComponents[1].innerHTML).equal('Admin Dashboard');
-        expect(bannerComponents[2].innerHTML).equal('Upload');
-        expect(bannerComponents[3].innerHTML).equal('Remove');
-        expect(bannerComponents[4].innerHTML).equal('Sign out');
+        expect(bannerComponents[2].innerHTML).equal('Sign out');
     });
 
-    it('should display 4 card options', () => {
+    it('should display 2 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(4);
+        expect(cardComponents.length).equal(2);
     });
 
     it('should not contain notification banner', () => {

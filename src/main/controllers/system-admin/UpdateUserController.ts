@@ -21,7 +21,7 @@ export default class UpdateUserController {
             'Update user page requested containing user: ' + userId
         );
 
-        res.render('admin/update-user', {
+        res.render('system-admin/update-user', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user']),
             selectBoxData,
             userId,
@@ -66,7 +66,7 @@ export default class UpdateUserController {
                     'UPDATE_USER',
                     'User with id: ' + req.body.userId + ' has been updated to a: ' + req.body.updatedRole
                 );
-                res.render('admin/update-user-confirmation', {
+                res.render('system-admin/update-user-confirmation', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['update-user-confirmation']),
                     updatedRole: formattedRoles[req.body.updatedRole],
                     isSystemAdmin: req.user['roles'] === 'SYSTEM_ADMIN',

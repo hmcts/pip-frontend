@@ -210,8 +210,6 @@ Scenario('I as a SSO CTSC Super admin should be able to sign-in with the valid c
     I.see('Upload');
     I.see('Remove');
     I.see('Manage media account requests');
-    I.see('Create new account');
-    I.see('User Management');
     I.logout();
 });
 
@@ -223,8 +221,6 @@ Scenario('I as a SSO Local Super admin should be able to sign-in with the valid 
     I.waitForText('Your Dashboard');
     I.see('Upload');
     I.see('Remove');
-    I.see('Create new account');
-    I.see('User Management');
     I.dontSee('Manage media account requests');
     I.logout();
 });
@@ -235,8 +231,6 @@ Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credent
     I.see('Upload');
     I.see('Remove');
     I.see('Manage media account requests');
-    I.dontSee('Create new account');
-    I.dontSee('User Management');
     I.logout();
 });
 
@@ -246,8 +240,6 @@ Scenario('I as a SSO Local admin should be able to sign-in with the valid creden
     I.see('Upload');
     I.see('Remove');
     I.dontSee('Manage media account requests');
-    I.dontSee('Create new account');
-    I.dontSee('User Management');
     I.logout();
 });
 
