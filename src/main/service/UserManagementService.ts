@@ -321,7 +321,7 @@ export class UserManagementService {
      * Build the row item for the manage user summary list.
      */
     private buildRowItem(headingText: string, rowValue: string) {
-        return  {
+        return {
             key: {
                 text: headingText,
             },
