@@ -120,7 +120,7 @@ describe('Accessibility - System Admin Routes', () => {
         }),
     };
 
-    app.request['user'] = testUserData('PI_AAD', systemAdminRole);
+    app.request['user'] = testUserData('SSO', systemAdminRole);
 
     filterRoutes(systemAdminRoutes).forEach(route => {
         describe(`Page ${route.path}`, () => {

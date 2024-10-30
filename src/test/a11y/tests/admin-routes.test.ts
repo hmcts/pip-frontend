@@ -10,8 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 const name = 'Test';
 const emailAddress = 'test@test.com';
-const superAdminCtscRole = 'INTERNAL_SUPER_ADMIN_CTSC';
-const userProvenance = 'PI_AAD';
+const superAdminCtscRole = 'INTERNAL_ADMIN_CTSC';
+const userProvenance = 'SSO';
 const uuid = randomUUID();
 const rejectionReasons = 'Details provided do not match.';
 
