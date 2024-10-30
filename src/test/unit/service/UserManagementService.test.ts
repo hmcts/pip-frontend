@@ -16,10 +16,10 @@ const testReqBody = {
 
 const testManageUserSummaryAdmin = {
     userId: 'c4201452-2c4d-4389-a104-b1f078647349',
-    userProvenance: 'PI_AAD',
+    userProvenance: 'SSO',
     provenanceUserId: '4dcea424-03ed-43d6-88b8-a99ce8159da2',
     email: 'test@email.com',
-    roles: 'INTERNAL_SUPER_ADMIN_CTSC',
+    roles: 'INTERNAL_ADMIN_CTSC',
     createdDate: '2022-11-05T18:45:37.720216',
     lastSignedInDate: '2022-11-07T18:45:37.720216',
 };
@@ -48,7 +48,7 @@ const testApiResponseData = {
         },
         {
             userId: '309b7fbe-65be-45d3-8aee-5e3b59f2da6g',
-            userProvenance: 'PI_AAD',
+            userProvenance: 'SSO',
             provenanceUserId: '768633fb-8f5f-4a6b-9d72-0d5ed4622bbo',
             email: 'test2@email.com',
             roles: 'INTERNAL_ADMIN_LOCAL',
@@ -58,7 +58,7 @@ const testApiResponseData = {
         },
         {
             userId: '240cd401-5829-4383-95e9-912feb0a3cf0',
-            userProvenance: 'PI_AAD',
+            userProvenance: 'SSO',
             provenanceUserId: '83daa9bf-3e96-47bd-8c31-46a3e9801450',
             email: 'test3@email.com',
             roles: 'SYSTEM_ADMIN',
@@ -147,12 +147,12 @@ describe('User management service', () => {
         expect(response['rows'][1]['key']['text']).to.contain('Email');
         expect(response['rows'][1]['value']['text']).to.contain(testManageUserSummaryAdmin.email);
         expect(response['rows'][2]['key']['text']).to.contain('Role');
-        expect(response['rows'][2]['value']['text']).to.contain('CTSC Super Admin');
+        expect(response['rows'][2]['value']['text']).to.contain('CTSC Admin');
         expect(response['rows'][2]['actions']['items'][0]['href']).to.contain(
             '/update-user?id=' + testManageUserSummaryAdmin.userId
         );
         expect(response['rows'][3]['key']['text']).to.contain('Provenance');
-        expect(response['rows'][3]['value']['text']).to.contain('B2C');
+        expect(response['rows'][3]['value']['text']).to.contain('SSO');
         expect(response['rows'][4]['key']['text']).to.contain('Provenance ID');
         expect(response['rows'][4]['value']['text']).to.contain(testManageUserSummaryAdmin.provenanceUserId);
         expect(response['rows'][5]['key']['text']).to.contain('Creation Date');
