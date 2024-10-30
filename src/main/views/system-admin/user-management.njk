@@ -12,7 +12,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l govuk-!-margin-bottom-1 govuk-!-padding-left-3">{{ heading }}</h1>

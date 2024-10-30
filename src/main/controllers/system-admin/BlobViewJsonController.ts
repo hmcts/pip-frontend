@@ -2,7 +2,6 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/PublicationService';
-import { prettyPrintJson, FormatOptions } from 'pretty-print-json';
 import { LocationService } from '../../service/LocationService';
 import { UserManagementService } from '../../service/UserManagementService';
 import { HttpStatusCode } from 'axios';
@@ -19,8 +18,6 @@ export default class BlobViewJsonController {
 
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
-            const options: FormatOptions = { indent: 3, lineNumbers: true, trailingCommas: false };
-            const jsonData: string = prettyPrintJson.toHtml(data, options);
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
             let courtName = '';
             if (!noMatchArtefact) {
@@ -40,11 +37,10 @@ export default class BlobViewJsonController {
 
             res.render('system-admin/blob-view-json', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-json']),
-                data,
+                data: JSON.stringify(data),
                 courtName,
                 artefactId,
                 metadata,
-                jsonData,
                 listUrl,
                 noMatchArtefact,
             });

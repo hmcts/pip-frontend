@@ -8,7 +8,7 @@
 
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack() }}
+    {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -59,7 +59,7 @@
     {% endfor %}
 
     <script src="/assets/js/accessible-autocomplete.min.js"></script>
-    <script>
+    <script nonce="{{ cspNonce }}">
       const element = document.querySelector('#search-input-container');
       const source = {{ optionList | dump |safe }};
       const autocompleteParam = {
@@ -72,6 +72,6 @@
         window.history.replaceState( null, null, window.location.href );
       }
     </script>
-    {{ autoCompleteFilteredResults(autocompleteParam) }}
+    {{ autoCompleteFilteredResults(autocompleteParam, cspNonce) }}
     {{ super() }}
 {% endblock %}

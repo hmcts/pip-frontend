@@ -1,5 +1,5 @@
 {% extends "../template.njk" %}
-{% from "../macros/common-components.njk" import goBack, successPanel %}
+{% from "../macros/common-components.njk" import goBack, successPanel, backButtonHistory %}
 
 {% block pageTitle %}
   {{ title }}
@@ -7,7 +7,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -18,10 +18,6 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+  {{ backButtonHistory(cspNonce) }}
   {{ super() }}
 {% endblock %}
