@@ -428,8 +428,6 @@ export default function (app: Application): void {
         app.locals.container.cradle.removeListSuccessController.get
     );
     app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
-    app.get('/update-user', isPermittedSystemAdmin, app.locals.container.cradle.updateUserController.get);
-    app.post('/update-user', isPermittedSystemAdmin, app.locals.container.cradle.updateUserController.post);
     app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
     app.post(
         '/delete-user-confirmation',

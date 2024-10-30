@@ -25,19 +25,7 @@ Scenario('I as a system admin should be able to update a users role and delete a
     I.waitForText(testEmail);
     I.click('#manage-link');
     I.waitForText('Manage ' + testEmail);
-    I.click('Change');
-    I.selectOption('#updatedRole', 'CTSC Admin');
-    I.click('Continue');
-    I.waitForText('User Updated');
-    I.waitForText('This user has been updated to a CTSC Admin');
-
-    I.click('Home');
-    I.click('#card-user-management');
-    I.fillField('#email', testEmail);
-    I.click('Apply filters');
-    I.waitForText('CTSC Admin');
-    I.click('#manage-link');
-    I.waitForText('CTSC Admin');
+    I.waitForText('Local Admin');
 
     I.click('Delete user');
     I.waitForText('Are you sure you want to delete ' + testEmail + '?');
@@ -121,22 +109,5 @@ Scenario('I as a system admin should be able to use the pagination on the user m
 
     I.click('.govuk-pagination__link');
     I.waitForText('2 of');
-    I.logout();
-});
-
-Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
-    I.loginAsSystemAdmin();
-    I.click('#card-user-management');
-    I.waitForText('User Management');
-    I.fillField('#email', systemAdminUsername);
-    I.click('Apply filters');
-    I.waitForText(systemAdminUsername);
-    I.click('Manage');
-    I.waitForText('Manage ' + systemAdminUsername);
-    I.click('Change');
-    I.selectOption('#updatedRole', 'Local Admin');
-    I.click('Continue');
-    I.waitForText('There is a problem');
-    I.see('You are unable to update the role for the same user you are logged in as');
     I.logout();
 });

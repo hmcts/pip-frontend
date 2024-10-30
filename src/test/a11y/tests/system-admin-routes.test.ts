@@ -57,7 +57,6 @@ const systemAdminRoutes = [
     { path: '/delete-third-party-user-confirmation' },
     { path: '/delete-third-party-user-success' },
     { path: '/manage-user' },
-    { path: '/update-user', parameter: `?id=${userId}` },
     { path: '/delete-user', parameter: `?id=${userId}` },
     { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
 ];
