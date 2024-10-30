@@ -1,4 +1,4 @@
-{% from "../macros/common-components.njk" import goBack, submitButton %}
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
@@ -9,7 +9,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
@@ -127,10 +127,6 @@
   </form>
 {% endblock %}
 {% block bodyEnd %}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+  {{ backButtonHistory(cspNonce) }}
   {{ super() }}
 {% endblock %}
