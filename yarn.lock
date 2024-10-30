@@ -14708,6 +14708,7 @@ __metadata:
   resolution: "publishing-information-project@workspace:."
   dependencies:
     "@axe-core/playwright": "npm:^4.10.0"
+    "@azure/msal-node": "npm:^2.13.0"
     "@babel/core": "npm:^7.25.7"
     "@babel/eslint-parser": "npm:7.25.7"
     "@babel/preset-env": "npm:^7.25.7"
