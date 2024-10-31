@@ -9,7 +9,7 @@ import { OIDCStrategy as AzureOIDCStrategy } from 'passport-azure-ad';
 import passport from 'passport';
 
 import authenticationConfig from './authentication-config.json';
-import {ssoNotAuthorised} from "../helpers/consts";
+import { ssoNotAuthorised } from '../helpers/consts';
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
 const ssoAuthentication = new SsoAuthentication();

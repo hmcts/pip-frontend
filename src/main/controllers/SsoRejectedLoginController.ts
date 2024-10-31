@@ -1,6 +1,6 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
-import {ssoNotAuthorised} from "../helpers/consts";
+import { ssoNotAuthorised } from '../helpers/consts';
 
 /**
  * Controller for handling SSO Rejected logins
@@ -13,6 +13,5 @@ export default class SsoRejectedLoginController {
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
-
     }
 }

@@ -1,8 +1,8 @@
 import { Response } from 'express';
 import { mockRequest } from '../mocks/mockRequest';
 import sinon from 'sinon';
-import SsoRejectedLoginController from "../../../main/controllers/SsoRejectedLoginController";
-import {ssoNotAuthorised} from "../../../main/helpers/consts";
+import SsoRejectedLoginController from '../../../main/controllers/SsoRejectedLoginController';
+import { ssoNotAuthorised } from '../../../main/helpers/consts';
 
 const ssoRejectedLoginController = new SsoRejectedLoginController();
 
@@ -15,7 +15,7 @@ describe('SSO rejected login controller', () => {
 
     it('should render sso-rejected-login page if message is NOT_AUTHORISED', async () => {
         const request = mockRequest({ 'sso-rejected-login': {} });
-        request['session'] = {messages: [ssoNotAuthorised]};
+        request['session'] = { messages: [ssoNotAuthorised] };
         const responseMock = sinon.mock(response);
 
         const i18n = {
@@ -33,9 +33,8 @@ describe('SSO rejected login controller', () => {
     });
 
     describe('should render error page', () => {
-
         const i18n = {
-            'error': {},
+            error: {},
         };
 
         const expectedData = {
@@ -43,7 +42,7 @@ describe('SSO rejected login controller', () => {
         };
 
         it('if messages not defined', async () => {
-            const request = mockRequest({ 'error': {} });
+            const request = mockRequest({ error: {} });
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('error', expectedData);
@@ -53,8 +52,8 @@ describe('SSO rejected login controller', () => {
         });
 
         it('if messages is not an array', async () => {
-            const request = mockRequest({ 'error': {} });
-            request['session'] = {messages: 'Not an array'};
+            const request = mockRequest({ error: {} });
+            request['session'] = { messages: 'Not an array' };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('error', expectedData);
@@ -64,8 +63,8 @@ describe('SSO rejected login controller', () => {
         });
 
         it('if messages is an empty array', async () => {
-            const request = mockRequest({ 'error': {} });
-            request['session'] = {messages: []};
+            const request = mockRequest({ error: {} });
+            request['session'] = { messages: [] };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('error', expectedData);
@@ -75,8 +74,8 @@ describe('SSO rejected login controller', () => {
         });
 
         it('if messages is not NOT_AUTHORISED', async () => {
-            const request = mockRequest({ 'error': {} });
-            request['session'] = {messages: ["UNKNOWN_ERROR"]};
+            const request = mockRequest({ error: {} });
+            request['session'] = { messages: ['UNKNOWN_ERROR'] };
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('error', expectedData);
@@ -84,5 +83,5 @@ describe('SSO rejected login controller', () => {
             await ssoRejectedLoginController.get(request, response);
             await responseMock.verify();
         });
-    })
+    });
 });

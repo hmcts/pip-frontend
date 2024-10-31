@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { app } from '../../main/app';
 import { expect } from 'chai';
-import {request as expressRequest} from "express";
-import {ssoNotAuthorised} from "../../main/helpers/consts";
+import { request as expressRequest } from 'express';
+import { ssoNotAuthorised } from '../../main/helpers/consts';
 
 describe('SSO rejected login page', () => {
     describe('on GET', () => {

@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import {request as expressRequest} from "express";
-import {ssoNotAuthorised} from "../../../main/helpers/consts";
+import { request as expressRequest } from 'express';
+import { ssoNotAuthorised } from '../../../main/helpers/consts';
 
 let htmlRes: Document;
 
@@ -28,14 +28,8 @@ describe('SSO rejected login page', () => {
 
     it('should display the link', () => {
         const link = htmlRes.getElementsByClassName('govuk-link');
-        expect(link[3].textContent).contains(
-            'ServiceNow',
-            'Could not find link'
-        );
+        expect(link[3].textContent).contains('ServiceNow', 'Could not find link');
         //TODO - To be updated when link has been set up
-        expect(link[3].getAttribute("href")).eq(
-            '',
-            'Could not find href in link'
-        );
+        expect(link[3].getAttribute('href')).eq('', 'Could not find href in link');
     });
 });
