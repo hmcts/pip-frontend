@@ -10,7 +10,7 @@ Scenario('I as a system admin should be able to sign-in with the valid credentia
 Scenario(
     'I as a system admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginTestB2CSystemAdmin('', '');
+        I.loginTestB2CUser('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -19,7 +19,7 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginTestB2CSystemAdmin('email@justice.gov.uk', 'password');
+        I.loginTestB2CUser('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -27,7 +27,7 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginTestB2CSystemAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestB2CUser('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
@@ -40,7 +40,7 @@ Scenario('I as a admin should be able to sign-in with the valid credentials', as
 Scenario(
     'I as a admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginTestB2CAdmin('', '');
+        I.loginTestB2CUser('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -49,7 +49,7 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginTestB2CAdmin('email@justice.gov.uk', 'password');
+        I.loginTestB2CUser('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -57,7 +57,7 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginTestB2CAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestB2CUser('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
@@ -174,7 +174,7 @@ Scenario(
 Scenario(
     'I as a media user should see the media rejected login screen when logging in via the admin flow',
     async ({ I }) => {
-        I.loginTestB2CAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
+        I.loginTestB2CUser(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'
@@ -225,6 +225,6 @@ Scenario('I as a SSO Local admin should be able to sign-in with the valid creden
 
 //TODO: This test will need to be updated when a specific page for this scenario is created.
 Scenario('I as a SSO user with no admin roles should not be able to sign in', async ({ I }) => {
-    I.loginAsTestSsoAdmin(secret(testConfig.SSO_TEST_NO_ROLES_USER), secret(testConfig.SSO_TEST_NO_ROLES_PWD));
+    I.loginAsNoRoleSsoUser();
     I.waitForText('You can use this service to get information about');
 });
