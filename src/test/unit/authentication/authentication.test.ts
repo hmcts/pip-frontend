@@ -1,4 +1,5 @@
 import process from 'process';
+import {ssoNotAuthorised} from "../../../main/helpers/consts";
 
 const userId = { userId: '1234', userProvenance: 'PI_AAD', roles: 'VERIFIED' };
 const ssoUserProfile = {
@@ -227,6 +228,7 @@ describe('Authentication', () => {
         expect(mockCallback.mock.calls.length).to.eql(1);
         expect(mockCallback.mock.calls[0][0]).to.eql(null);
         expect(mockCallback.mock.calls[0][1]).to.eql(null);
+        expect(mockCallback.mock.calls[0][2]).to.eql({message: ssoNotAuthorised});
     });
 
     it('Test that serialising a user for Azure AAD returns their oid and flow', async () => {

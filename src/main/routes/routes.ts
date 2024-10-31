@@ -702,16 +702,23 @@ export default function (app: Application): void {
     // SSO Routes
     if (process.env.ENABLE_SSO === 'true') {
         app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
-            passport.authenticate('sso', { failureRedirect: '/' })(req, res, next)
+            passport.authenticate('sso', { failureRedirect: '/sso-rejected-login', failureMessage: true })(req, res, next)
         );
 
         app.post(
             '/sso/return',
-            (req, res, next) => passport.authenticate('sso', { failureRedirect: '/' })(req, res, next),
+            (req, res, next) =>
+                passport.authenticate('sso', {
+                    failureRedirect: '/sso-rejected-login',
+                    failureMessage: true
+                })
+            (req, res, next),
             keepSessionLanguage,
             processSsoSignIn
         );
     }
+
+    app.get('/sso-rejected-login', app.locals.container.cradle.ssoRejectedLoginController.get);
 
     app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {
