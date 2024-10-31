@@ -631,8 +631,6 @@ export default function (app: Application): void {
     app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
     app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
     app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
-    app.get('/update-user', isPermittedSystemAdmin, app.locals.container.cradle.updateUserController.get);
-    app.post('/update-user', isPermittedSystemAdmin, app.locals.container.cradle.updateUserController.post);
     app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
     app.post(
         '/delete-user-confirmation',
