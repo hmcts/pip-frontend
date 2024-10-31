@@ -10,7 +10,7 @@ const TEST_ROLE = 'INTERNAL_ADMIN_LOCAL';
 
 const systemAdminUsername = testConfig.SYSTEM_ADMIN_USERNAME as string;
 
-Scenario('I as a system admin should be able to update a users role and delete a user', async ({ I }) => {
+Scenario('I as a system admin should be able to delete a user', async ({ I }) => {
     const testEmail = randomData.getRandomEmailAddress();
     await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
 
