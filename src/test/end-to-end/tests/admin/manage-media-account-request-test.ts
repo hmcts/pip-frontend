@@ -45,7 +45,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.logoutSsoAdminCtsc();
 
     I.reloginAsSsoSystemAdmin();
-    I.waitForText('Search, update and delete users')
+    I.waitForText('Search, update and delete users');
     I.click('#card-user-management');
     I.waitForText('User Management');
     I.fillField('#email', emailTestMediaAccount);
