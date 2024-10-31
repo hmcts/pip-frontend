@@ -21,11 +21,11 @@ export = function () {
             this.waitForText('Your Dashboard');
         },
 
-        loginTestB2CUser: function (username, password) {
+        loginTestB2CAdminUser: function (username, password) {
             this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
-            this.fillField('#email', secret(username));
-            this.fillField('#password', secret(password));
+            this.fillField('#email', username);
+            this.fillField('#password', password);
             this.click('Sign in');
         },
 
@@ -115,8 +115,8 @@ export = function () {
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.see('Sign in with your email address');
-            this.fillField('#email', secret(username));
-            this.fillField('#password', secret(password));
+            this.fillField('#email', username);
+            this.fillField('#password', password);
             this.click('Sign in');
         },
 
@@ -136,19 +136,19 @@ export = function () {
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.see('Sign in');
-            this.fillField('#username', secret(username));
-            this.fillField('#password', secret(password));
+            this.fillField('#username', username);
+            this.fillField('#password', password);
             this.click('Sign in');
         },
 
-        loginAsCftUserInWelsh: function (username = testConfig.CFT_USERNAME, password = testConfig.CFT_PASSWORD) {
+        loginAsCftUserInWelsh: function (username, password) {
             this.amOnPage('/sign-in');
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
             this.see('Mewngofnodi');
-            this.fillField('#username', secret(username));
-            this.fillField('#password', secret(password));
+            this.fillField('#username', username);
+            this.fillField('#password', password);
             this.click('Mewngofnodi');
         },
 
