@@ -29,8 +29,6 @@
             "INSTRUMENTATION_KEY": "",
             "SSO_SG_ADMIN_CTSC": "1234",
             "SSO_SG_ADMIN_LOCAL": "12345",
-            "SSO_SG_SUPER_ADMIN_CTSC": "123456",
-            "SSO_SG_SUPER_ADMIN_LOCAL": "1234567",
             "SSO_SG_SYSTEM_ADMIN": "12345678"
         }
     }

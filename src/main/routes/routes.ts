@@ -5,7 +5,6 @@ import {
     isPermittedAdmin,
     isPermittedMedia,
     isPermittedMediaAccount,
-    isPermittedAccountCreation,
     isPermittedManualUpload,
     isPermittedSystemAdmin,
     forgotPasswordRedirect,
@@ -19,6 +18,7 @@ import {
     regenerateSession,
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
+import authenticationConfig from '../authentication/authentication-config.json';
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
@@ -110,6 +110,7 @@ export default function (app: Application): void {
             next
         )
     );
+    app.get('/b2c-admin-login', (_req, res) => res.redirect(`/admin-login?p=${authenticationConfig.ADMIN_POLICY}`));
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.post(
         '/login/return',
@@ -308,26 +309,6 @@ export default function (app: Application): void {
 
     // restricted admin paths
     app.get('/admin-dashboard', isPermittedAdmin, app.locals.container.cradle.adminDashboardController.get);
-    app.get(
-        '/create-admin-account',
-        isPermittedAccountCreation,
-        app.locals.container.cradle.createAdminAccountController.get
-    );
-    app.post(
-        '/create-admin-account',
-        isPermittedAccountCreation,
-        app.locals.container.cradle.createAdminAccountController.post
-    );
-    app.get(
-        '/create-admin-account-summary',
-        isPermittedAccountCreation,
-        app.locals.container.cradle.createAdminAccountSummaryController.get
-    );
-    app.post(
-        '/create-admin-account-summary',
-        isPermittedAccountCreation,
-        app.locals.container.cradle.createAdminAccountSummaryController.post
-    );
     app.get('/manual-upload', isPermittedManualUpload, app.locals.container.cradle.manualUploadController.get);
     app.post(
         '/manual-upload',
@@ -448,47 +429,12 @@ export default function (app: Application): void {
         isPermittedManualUpload,
         app.locals.container.cradle.removeListSuccessController.get
     );
-    app.get('/admin-management', isPermittedAccountCreation, app.locals.container.cradle.adminManagementController.get);
-    app.post(
-        '/admin-management',
-        isPermittedAccountCreation,
-        app.locals.container.cradle.adminManagementController.post
-    );
-    app.get('/manage-user', isPermittedAccountCreation, app.locals.container.cradle.manageUserController.get);
-    app.get('/update-user', isPermittedAccountCreation, app.locals.container.cradle.updateUserController.get);
-    app.post('/update-user', isPermittedAccountCreation, app.locals.container.cradle.updateUserController.post);
-    app.get('/delete-user', isPermittedAccountCreation, app.locals.container.cradle.deleteUserController.get);
-    app.post(
-        '/delete-user-confirmation',
-        isPermittedAccountCreation,
-        app.locals.container.cradle.deleteUserConfirmationController.post
-    );
 
     //system-admin-restricted-paths
     app.get(
         '/system-admin-dashboard',
         isPermittedSystemAdmin,
         app.locals.container.cradle.systemAdminDashboardController.get
-    );
-    app.get(
-        '/create-system-admin-account',
-        isPermittedSystemAdmin,
-        app.locals.container.cradle.createSystemAdminAccountController.get
-    );
-    app.post(
-        '/create-system-admin-account',
-        isPermittedSystemAdmin,
-        app.locals.container.cradle.createSystemAdminAccountController.post
-    );
-    app.get(
-        '/create-system-admin-account-summary',
-        isPermittedSystemAdmin,
-        app.locals.container.cradle.createSystemAdminAccountSummaryController.get
-    );
-    app.post(
-        '/create-system-admin-account-summary',
-        isPermittedSystemAdmin,
-        app.locals.container.cradle.createSystemAdminAccountSummaryController.post
     );
     app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationController.get);
     app.get(
@@ -686,6 +632,13 @@ export default function (app: Application): void {
     );
     app.get('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.get);
     app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
+    app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
+    app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
+    app.post(
+        '/delete-user-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteUserConfirmationController.post
+    );
 
     //CFT Routes
     app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);
@@ -700,26 +653,25 @@ export default function (app: Application): void {
     app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
 
     // SSO Routes
-    if (process.env.ENABLE_SSO === 'true') {
-        app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
+    app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
+        passport.authenticate('sso', { failureRedirect: '/sso-rejected-login', failureMessage: true })(
+            req,
+            res,
+            next
+        )
+    );
+
+    app.post(
+        '/sso/return',
+        (req, res, next) =>
             passport.authenticate('sso', { failureRedirect: '/sso-rejected-login', failureMessage: true })(
                 req,
                 res,
                 next
-            )
-        );
-
-        app.post(
-            '/sso/return',
-            (req, res, next) =>
-                passport.authenticate('sso', {
-                    failureRedirect: '/sso-rejected-login',
-                    failureMessage: true,
-                })(req, res, next),
-            keepSessionLanguage,
-            processSsoSignIn
-        );
-    }
+            ),
+        keepSessionLanguage,
+        processSsoSignIn
+    );
 
     app.get('/sso-rejected-login', app.locals.container.cradle.ssoRejectedLoginController.get);
 

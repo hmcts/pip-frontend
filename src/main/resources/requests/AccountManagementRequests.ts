@@ -261,43 +261,6 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async getAdminUserByEmailAndProvenance(
-        email: string,
-        provenance: string,
-        adminUserId: string
-    ): Promise<any> {
-        try {
-            logger.info('Admin with ID: ' + adminUserId + 'requested user by email.');
-            const response = await accountManagementApi.get(`/account/admin/${email}/${provenance}`);
-            return response.data;
-        } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve account for admin user by email and provenance');
-        }
-        return null;
-    }
-
-    /**
-     * Request method that attempts to create a B2C system admin account.
-     * @param systemAdminAccount The System Admin account to create.
-     * @param adminUserId The System Admin who is creating the account.
-     */
-    public async createSystemAdminUserB2C(systemAdminAccount, adminUserId: string): Promise<object> {
-        try {
-            logger.info('A system admin user is being created with ID: ' + adminUserId);
-            const response = await accountManagementApi.post('/account/add/system-admin', systemAdminAccount, {
-                headers: { 'x-issuer-id': adminUserId },
-            });
-            return response.data;
-        } catch (error) {
-            logHelper.logErrorResponse(error, 'create system admin account');
-            if (error.response?.status === StatusCodes.BAD_REQUEST) {
-                error.response.data['error'] = true;
-                return error.response.data;
-            }
-        }
-        return null;
-    }
-
     /**
      * Request method that attempts to create an SSO system admin account.
      * @param systemAdminAccount The System Admin account to create.

@@ -8,7 +8,6 @@ nodejs:
         AUTH_RETURN_URL: https://127.0.0.1/login/return
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         ADMIN_AUTH_RETURN_URL: https://127.0.0.1/login/admin/return
-        ENABLE_SSO: false
         SESSION_COOKIE_SAME_SITE: 'lax'
     memoryLimits: 2048Mi
     memoryRequests: 1024Mi
@@ -65,10 +64,6 @@ nodejs:
                   alias: SSO_SG_ADMIN_CTSC
                 - name: sso-sg-admin-local
                   alias: SSO_SG_ADMIN_LOCAL
-                - name: sso-sg-super-admin-ctsc
-                  alias: SSO_SG_SUPER_ADMIN_CTSC
-                - name: sso-sg-super-admin-local
-                  alias: SSO_SG_SUPER_ADMIN_LOCAL
                 - name: sso-sg-system-admin
                   alias: SSO_SG_SYSTEM_ADMIN
     autoscaling:

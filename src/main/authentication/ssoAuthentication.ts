@@ -16,19 +16,13 @@ const ssoMetadata = process.env.SSO_CONFIG_ENDPOINT
     : config.get('secrets.pip-ss-kv.SSO_CONFIG_ENDPOINT');
 const ssoSgSystemAdmin = process.env.SSO_SG_SYSTEM_ADMIN
     ? process.env.SSO_SG_SYSTEM_ADMIN
-    : config.get('secrets.pip-ss-kv.SSO_SG_SYSTEM_ADMIN') as string;
-const ssoSgSuperAdminCtsc = process.env.SSO_SG_SUPER_ADMIN_CTSC
-    ? process.env.SSO_SG_SUPER_ADMIN_CTSC
-    : config.get('secrets.pip-ss-kv.SSO_SG_SUPER_ADMIN_CTSC') as string;
-const ssoSgSuperAdminLocal = process.env.SSO_SG_SUPER_ADMIN_LOCAL
-    ? process.env.SSO_SG_SUPER_ADMIN_LOCAL
-    : config.get('secrets.pip-ss-kv.SSO_SG_SUPER_ADMIN_LOCAL') as string;
+    : (config.get('secrets.pip-ss-kv.SSO_SG_SYSTEM_ADMIN') as string);
 const ssoSgAdminCtsc = process.env.SSO_SG_ADMIN_CTSC
     ? process.env.SSO_SG_ADMIN_CTSC
-    : config.get('secrets.pip-ss-kv.SSO_SG_ADMIN_CTSC') as string;
+    : (config.get('secrets.pip-ss-kv.SSO_SG_ADMIN_CTSC') as string);
 const ssoSgAdminLocal = process.env.SSO_SG_ADMIN_LOCAL
     ? process.env.SSO_SG_ADMIN_LOCAL
-    : config.get('secrets.pip-ss-kv.SSO_SG_ADMIN_LOCAL') as string;
+    : (config.get('secrets.pip-ss-kv.SSO_SG_ADMIN_LOCAL') as string);
 
 export const ssoOidcConfig = {
     identityMetadata: ssoMetadata,
@@ -47,8 +41,6 @@ export class SsoAuthentication {
     public async determineUserRole(oid: string, userGroups: string[], accessToken: string): Promise<string> {
         const securityGroupMap = new Map<string, string>([
             [ssoSgSystemAdmin, 'SYSTEM_ADMIN'],
-            [ssoSgSuperAdminCtsc, 'INTERNAL_SUPER_ADMIN_CTSC'],
-            [ssoSgSuperAdminLocal, 'INTERNAL_SUPER_ADMIN_LOCAL'],
             [ssoSgAdminCtsc, 'INTERNAL_ADMIN_CTSC'],
             [ssoSgAdminLocal, 'INTERNAL_ADMIN_LOCAL'],
         ]);

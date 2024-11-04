@@ -6,7 +6,6 @@ import {
     verifiedRoles,
     systemAdminRoles,
     allAdminRoles,
-    adminAccountCreationRoles,
     manualUploadRoles,
     mediaAccountCreationRoles,
     checkRoles,
@@ -40,10 +39,6 @@ export function isPermittedAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, allAdminRoles);
 }
 
-export function isPermittedAccountCreation(req: any, res, next) {
-    return checkAuthenticatedAdmin(req, res, next, adminAccountCreationRoles);
-}
-
 export function isPermittedManualUpload(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, manualUploadRoles);
 }
@@ -62,7 +57,7 @@ export function checkAuthenticatedAdmin(req: any, res, next, roles: string[]): b
         req.user.isAdmin = false;
         res.redirect('/account-home');
     } else {
-        res.redirect('/admin-login?p=' + authenticationConfig.ADMIN_POLICY);
+        res.redirect('/sso-login');
     }
 }
 

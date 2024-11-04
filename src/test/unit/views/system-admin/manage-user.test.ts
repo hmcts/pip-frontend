@@ -10,7 +10,6 @@ const warningTextClass = 'govuk-warning-text__text';
 const summaryTextListKeyClass = 'govuk-summary-list__key';
 const summaryTextListValueClass = 'govuk-summary-list__value';
 const buttonClass = 'govuk-button';
-const linkClass = 'govuk-link';
 let htmlRes: Document;
 
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
@@ -75,11 +74,6 @@ describe('Manage User Page', () => {
     it('should display summary text value - Role', () => {
         const summaryTextValue = htmlRes.getElementsByClassName(summaryTextListValueClass);
         expect(summaryTextValue[2].innerHTML).contains('CTSC Super Admin', 'Could not find summary text value');
-    });
-
-    it('should display summary text change link - Role', () => {
-        const link = htmlRes.getElementsByClassName(linkClass);
-        expect(link[5].innerHTML).contains('Change', 'Could not find summary text change link');
     });
 
     it('should display summary text key - Provenance', () => {
