@@ -186,7 +186,7 @@ Scenario(
 Scenario(
     'I as a admin user should see the admin rejected login screen when logging in via the media flow',
     async ({ I }) => {
-        I.I.loginTestMediaUser(secret(testConfig.ADMIN_USERNAME), secret(testConfig.ADMIN_PASSWORD));
+        I.loginTestMediaUser(secret(testConfig.ADMIN_USERNAME), secret(testConfig.ADMIN_PASSWORD));
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user'
