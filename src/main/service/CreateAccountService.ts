@@ -4,32 +4,6 @@ import { FileHandlingService } from './FileHandlingService';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 
 const languageFileParser = new LanguageFileParser();
-const adminRolesList = [
-    {
-        key: 'super-admin-ctsc',
-        text: 'Internal - Super Administrator - CTSC',
-        mapping: 'INTERNAL_SUPER_ADMIN_CTSC',
-        hint: 'Upload, Remove, Create new accounts, Assess new media requests, User management',
-    },
-    {
-        key: 'super-admin-local',
-        text: 'Internal - Super Administrator - Local',
-        mapping: 'INTERNAL_SUPER_ADMIN_LOCAL',
-        hint: 'Upload, Remove, Create new account, User management',
-    },
-    {
-        key: 'admin-ctsc',
-        text: 'Internal - Administrator - CTSC',
-        mapping: 'INTERNAL_ADMIN_CTSC',
-        hint: 'Upload, Remove, Assess new media request',
-    },
-    {
-        key: 'admin-local',
-        text: 'Internal - Administrator - Local',
-        mapping: 'INTERNAL_ADMIN_LOCAL',
-        hint: 'Upload, Remove',
-    },
-];
 const accountManagementRequests = new AccountManagementRequests();
 const fileHandlingService = new FileHandlingService();
 
@@ -61,71 +35,6 @@ export class CreateAccountService {
                 value: formValues['tcbox'] !== undefined,
             },
         };
-    }
-
-    /**
-     * This validates the form fields when submitting an admin request, but without a role.
-     * @param formValues The values to validate.
-     * @param language The language to use.
-     * @param languageFile The language file to use.
-     */
-    public validateAdminFormFields(formValues: object, language: string, languageFile: string): object {
-        const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
-        return {
-            firstNameError: {
-                message: this.isNotBlank(formValues['firstName'])
-                    ? null
-                    : languageFileParser.getText(fileJson, null, 'firstnameError'),
-                href: '#firstName',
-            },
-            lastNameError: {
-                message: this.isNotBlank(formValues['lastName'])
-                    ? null
-                    : languageFileParser.getText(fileJson, null, 'surnameError'),
-                href: '#lastName',
-            },
-            emailError: {
-                message: this.validateEmail(formValues['emailAddress'], language, languageFile),
-                href: '#emailAddress',
-            },
-        };
-    }
-
-    /**
-     * This validates the form fields including the role.
-     * @param formValues The values to validate.
-     * @param language The language to use.
-     * @param languageFile The language file to use.
-     */
-    public validateAdminFormFieldsWithRole(formValues: object, language: string, languageFile: string): object {
-        const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
-        const stateReturn = this.validateAdminFormFields(formValues, language, languageFile);
-
-        stateReturn['radioError'] = {
-            message: formValues['user-role'] ? null : languageFileParser.getText(fileJson, null, 'roleError'),
-            href: '#user-role',
-        };
-
-        return stateReturn;
-    }
-
-    public getRoleByKey(key: string): object {
-        return adminRolesList.find(item => item.key === key);
-    }
-
-    public buildRadiosList(checkedRadio = ''): any[] {
-        const radios = [];
-        adminRolesList.forEach(role => {
-            radios.push({
-                value: role.key,
-                text: role.text,
-                checked: checkedRadio === role.key,
-                hint: {
-                    text: role.hint,
-                },
-            });
-        });
-        return radios;
     }
 
     isNotBlank(input): boolean {
@@ -225,25 +134,6 @@ export class CreateAccountService {
         return null;
     }
 
-    formatCreateAdminAccountPayload(accountObject): any[] {
-        return [
-            {
-                email: accountObject.emailAddress,
-                firstName: accountObject.firstName,
-                surname: accountObject.lastName,
-                role: accountObject.userRoleObject.mapping,
-            },
-        ];
-    }
-
-    formatCreateSystemAdminAccountPayload(accountObject): any {
-        return {
-            email: accountObject.emailAddress,
-            firstName: accountObject.firstName,
-            surname: accountObject.lastName,
-        };
-    }
-
     formatCreateMediaAccountPayload(accountObject): any[] {
         return [
             {
@@ -276,37 +166,6 @@ export class CreateAccountService {
                 name: file.originalname,
             },
         };
-    }
-
-    public async createAdminAccount(payload: object, requester: string): Promise<boolean> {
-        const azureResponse = await accountManagementRequests.createAzureAccount(
-            this.formatCreateAdminAccountPayload(payload),
-            requester
-        );
-        if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
-            const response = await accountManagementRequests.createPIAccount(
-                this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
-                requester
-            );
-            return response ? true : false;
-        }
-        return false;
-    }
-
-    /**
-     * This method takes in a system admin account request, formats it and passes it onto the request service to create.
-     * @param payload The system admin account to create.
-     * @param requester The ID of the system admin who requested the account.
-     */
-    public async createSystemAdminAccount(payload: object, requester: string): Promise<any> {
-        const creationResponse = accountManagementRequests.createSystemAdminUserB2C(
-            this.formatCreateSystemAdminAccountPayload(payload),
-            requester
-        );
-        if (await creationResponse) {
-            return creationResponse;
-        }
-        return null;
     }
 
     public async createMediaAccount(payload: object, requester: string): Promise<boolean> {

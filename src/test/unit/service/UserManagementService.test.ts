@@ -148,9 +148,6 @@ describe('User management service', () => {
         expect(response['rows'][1]['value']['text']).to.contain(testManageUserSummaryAdmin.email);
         expect(response['rows'][2]['key']['text']).to.contain('Role');
         expect(response['rows'][2]['value']['text']).to.contain('CTSC Admin');
-        expect(response['rows'][2]['actions']['items'][0]['href']).to.contain(
-            '/update-user?id=' + testManageUserSummaryAdmin.userId
-        );
         expect(response['rows'][3]['key']['text']).to.contain('Provenance');
         expect(response['rows'][3]['value']['text']).to.contain('SSO');
         expect(response['rows'][4]['key']['text']).to.contain('Provenance ID');

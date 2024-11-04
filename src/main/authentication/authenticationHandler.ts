@@ -6,7 +6,6 @@ import {
     verifiedRoles,
     systemAdminRoles,
     allAdminRoles,
-    adminAccountCreationRoles,
     manualUploadRoles,
     mediaAccountCreationRoles,
     checkRoles,
@@ -38,10 +37,6 @@ export function isPermittedAnyRole(req: any, res, next) {
 
 export function isPermittedAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, allAdminRoles);
-}
-
-export function isPermittedAccountCreation(req: any, res, next) {
-    return checkAuthenticatedAdmin(req, res, next, adminAccountCreationRoles);
 }
 
 export function isPermittedManualUpload(req: any, res, next) {

@@ -1,46 +1,37 @@
 import { config as testConfig } from '../../../config';
 import { randomData } from '../../shared/random-data';
+import { createTestUserAccount } from '../../shared/testingSupportApi';
 
 Feature('System admin User Management');
 
-const testFirstName = 'System Admin Test First Name';
-const testLastName = 'System Admin Test Surname';
+const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
+const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
+const TEST_ROLE = 'INTERNAL_ADMIN_LOCAL';
 
-const testEmailAddress = 'pip-e2e-test-admin-management-' + randomData.getRandomNumber(1, 10000) + '@hmcts.net';
 const systemAdminUsername = testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string;
 
-Scenario('I as a system admin should be able to update a users role and delete a user', async ({ I }) => {
+Scenario('I as a system admin should be able to delete a user', async ({ I }) => {
+    const testEmail = randomData.getRandomEmailAddress();
+    await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
+
     I.loginAsSsoSystemAdmin();
     I.click('Admin Dashboard');
-    I.createAdminAccount(testFirstName, testLastName, testEmailAddress, 'Internal - Administrator - Local');
     I.click('Home');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
     I.waitForText('User Management');
-    I.fillField('#email', testEmailAddress);
+    I.fillField('#email', testEmail);
     I.click('Apply filters');
-    I.waitForText(testEmailAddress);
+    I.waitForText(testEmail);
     I.click('#manage-link');
-    I.waitForText('Manage ' + testEmailAddress);
-    I.click('Change');
-    I.selectOption('#updatedRole', 'CTSC Admin');
-    I.click('Continue');
-    I.waitForText('User Updated');
-    I.waitForText('This user has been updated to a CTSC Admin');
-
-    I.click('Home');
-    I.click('#card-user-management');
-    I.fillField('#email', testEmailAddress);
-    I.click('Apply filters');
-    I.waitForText('CTSC Admin');
-    I.click('#manage-link');
-    I.waitForText('CTSC Admin');
+    I.waitForText('Manage ' + testEmail);
+    I.waitForText('Local Admin');
 
     I.click('Delete user');
-    I.waitForText('Are you sure you want to delete ' + testEmailAddress + '?');
+    I.waitForText('Are you sure you want to delete ' + testEmail + '?');
     I.click('No');
     I.click('Continue');
-    I.waitForText('Manage ' + testEmailAddress);
+    I.waitForText('Manage ' + testEmail);
     I.click('Delete user');
     I.click('Yes');
     I.click('Continue');
@@ -48,7 +39,7 @@ Scenario('I as a system admin should be able to update a users role and delete a
 
     I.click('Home');
     I.click('#card-user-management');
-    I.fillField('#email', testEmailAddress);
+    I.fillField('#email', testEmail);
     I.click('Apply filters');
     I.waitForText('There is a problem');
     I.logoutSsoSystemAdmin();

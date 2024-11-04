@@ -2,7 +2,7 @@ import { mockRequest } from '../../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
 import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
-import DeleteUserController from '../../../../main/controllers/admin/DeleteUserController';
+import DeleteUserController from '../../../../main/controllers/system-admin/DeleteUserController';
 
 const deleteUserController = new DeleteUserController();
 
@@ -36,7 +36,7 @@ describe('Delete user controller', () => {
             userId: '1234',
         };
 
-        responseMock.expects('render').once().withArgs('admin/delete-user', expectedData);
+        responseMock.expects('render').once().withArgs('system-admin/delete-user', expectedData);
 
         await deleteUserController.get(request, response);
         return responseMock.verify();

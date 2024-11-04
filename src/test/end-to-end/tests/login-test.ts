@@ -207,8 +207,6 @@ Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credent
     I.see('Upload');
     I.see('Remove');
     I.see('Manage media account requests');
-    I.dontSee('Create new account');
-    I.dontSee('User Management');
     I.logoutSsoAdminCtsc();
 });
 
@@ -218,8 +216,6 @@ Scenario('I as a SSO Local admin should be able to sign-in with the valid creden
     I.see('Upload');
     I.see('Remove');
     I.dontSee('Manage media account requests');
-    I.dontSee('Create new account');
-    I.dontSee('User Management');
     I.logoutSsoAdminLocal();
 });
 

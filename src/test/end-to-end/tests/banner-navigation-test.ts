@@ -44,12 +44,6 @@ Scenario('Cft user - all banner navigation links should take user to the correct
 
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsB2CAdmin();
-    I.click(locate('//li').withText('Upload'));
-    I.waitForText('Manual upload');
-    I.click(locate('//li').withText('Review apps'));
-    I.waitForText('Select application to assess');
-    I.click(locate('//li').withText('Remove'));
-    I.waitForText('Find content to remove');
     I.click(locate('//li').withText('Home'));
     I.waitForText('Your Dashboard');
     I.logout();
@@ -59,10 +53,6 @@ Scenario('System admin user - all banner navigation links should take user to th
     I.loginAsB2CSystemAdmin();
     I.click(locate('//li').withText('Admin Dashboard'));
     I.waitForText('Your Dashboard');
-    I.click(locate('//li').withText('Upload'));
-    I.waitForText('Manual upload');
-    I.click(locate('//li').withText('Remove'));
-    I.waitForText('Find content to remove');
     I.click(locate('//li').withText('Home'));
     I.waitForText('System Admin Dashboard');
     I.logout();

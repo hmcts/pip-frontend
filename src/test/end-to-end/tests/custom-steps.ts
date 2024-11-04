@@ -189,29 +189,6 @@ export = function () {
             this.waitForText('Rydych wedi cael eich allgofnodi');
         },
 
-        createAdminAccount: function (firstName, lastName, email, role) {
-            this.amOnPage('/admin-dashboard');
-            this.see('Your Dashboard');
-            this.click('#card-create-admin-account');
-            this.fillField('#firstName', firstName);
-            this.fillField('#lastName', lastName);
-            this.fillField('#emailAddress', email);
-            this.click(role);
-            this.click('Continue');
-            this.see('Check account details');
-            this.click('Confirm');
-            this.see('Account has been created');
-        },
-
-        createNewSystemAdminAndContinue: function (firstName, surname, email) {
-            this.click('Create System Admin');
-            this.waitForText('Create system admin account');
-            this.fillField('#firstName', firstName);
-            this.fillField('#lastName', surname);
-            this.fillField('#emailAddress', email);
-            this.click('Continue');
-        },
-
         requestMediaAccount: function (fullName, email, emplyerName) {
             this.amOnPage('/');
             this.waitForText('Court and tribunal hearings');
@@ -229,20 +206,6 @@ export = function () {
             this.waitForText('Details submitted');
         },
 
-        deleteAdminAccount: function (email) {
-            this.amOnPage('/admin-dashboard');
-            this.waitForText('Your Dashboard');
-            this.click('#card-admin-management');
-            this.waitForText('What is the users email address?');
-            this.fillField('#search-input', email);
-            this.click('Continue');
-            this.waitForText('Manage ' + email);
-            this.click('Delete user');
-            this.waitForText('Are you sure you want to delete ' + email);
-            this.click('#delete-user-confirm');
-            this.click('Continue');
-            this.waitForText('User Deleted');
-        },
         checkA11y(fileName: string) {
             this.runA11yCheck({ reportFileName: fileName });
             this.usePlaywrightTo('Run accessibility tests', async ({ page }) => {
