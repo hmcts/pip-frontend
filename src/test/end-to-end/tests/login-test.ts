@@ -174,7 +174,7 @@ Scenario(
 Scenario(
     'I as a media user should see the media rejected login screen when logging in via the admin flow',
     async ({ I }) => {
-        I.loginAsMediaUser();
+        I.loginTestB2CAdminUser(secret(testConfig.MEDIA_USER_USERNAME), secret(testConfig.MEDIA_USER_PASSWORD));
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'
@@ -186,7 +186,7 @@ Scenario(
 Scenario(
     'I as a admin user should see the admin rejected login screen when logging in via the media flow',
     async ({ I }) => {
-        I.loginAsB2CAdmin();
+        I.I.loginTestMediaUser(secret(testConfig.ADMIN_USERNAME), secret(testConfig.ADMIN_PASSWORD));
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user'
