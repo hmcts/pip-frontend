@@ -653,15 +653,8 @@ export default function (app: Application): void {
     app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
 
     // SSO Routes
-    app.get('/sso-login',
-        regenerateSession,
-        keepSessionLanguage,
-        (req, res, next) =>
-            passport.authenticate('sso', { failureRedirect: '/sso-rejected-login', failureMessage: true })(
-                req,
-                res,
-                next
-            )
+    app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
+        passport.authenticate('sso', { failureRedirect: '/sso-rejected-login', failureMessage: true })(req, res, next)
     );
 
     app.post(
