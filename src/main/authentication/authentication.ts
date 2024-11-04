@@ -9,6 +9,7 @@ import { OIDCStrategy as AzureOIDCStrategy } from 'passport-azure-ad';
 import passport from 'passport';
 
 import authenticationConfig from './authentication-config.json';
+import { ssoNotAuthorised } from '../helpers/consts';
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
 const ssoAuthentication = new SsoAuthentication();
@@ -37,7 +38,7 @@ async function ssoVerifyFunction(iss, sub, profile, accessToken, refreshToken, d
         profile['created'] = response && !response['error'];
         return done(null, profile);
     } else {
-        return done(null, null);
+        return done(null, null, { message: ssoNotAuthorised });
     }
 }
 

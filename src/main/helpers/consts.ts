@@ -57,3 +57,5 @@ export const reSignInUrls = {
     ADMIN: `/admin-login?p=${authenticationConfig.ADMIN_POLICY}`,
     SSO: '/sso-login',
 };
+
+export const ssoNotAuthorised = 'NOT_AUTHORISED';

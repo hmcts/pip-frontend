@@ -219,8 +219,9 @@ Scenario('I as a SSO Local admin should be able to sign-in with the valid creden
     I.logoutSsoAdminLocal();
 });
 
-//TODO: This test will need to be updated when a specific page for this scenario is created.
 Scenario('I as a SSO user with no admin roles should not be able to sign in', async ({ I }) => {
     I.loginAsNoRoleSsoUser();
-    I.waitForText('You can use this service to get information about');
+    I.waitForText(
+        'Unfortunately, you do not have an account for the Court and tribunal hearings service admin dashboard.'
+    );
 });
