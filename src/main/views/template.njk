@@ -64,64 +64,25 @@
         href: '/system-admin-dashboard'
       },
       {
-        text: navLinks.link10,
-        href: '/admin-dashboard'
-      },
-      {
         text: navLinks.link7,
-        href: '/manual-upload'
-      },
-      {
-        text: navLinks.link9,
-        href: '/remove-list-search'
+        href: '/admin-dashboard'
       },
       {
         text: navLinks.link3,
         href: '/logout'
       }
     ] %}
-  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL'] %}
+  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
         href: '/admin-dashboard'
-      },
-      {
-        text: navLinks.link7,
-        href: '/manual-upload'
-      },
-      {
-        text: navLinks.link9,
-        href: '/remove-list-search'
       },
       {
         text: navLinks.link3,
         href: '/logout'
       }
     ] %}
-  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
-    {% set listItems = [
-      {
-        text: navLinks.link1,
-        href: '/admin-dashboard'
-      },
-      {
-        text: navLinks.link7,
-        href: '/manual-upload'
-      },
-      {
-        text: navLinks.link8,
-        href: '/media-applications'
-      },
-      {
-        text: navLinks.link9,
-        href: '/remove-list-search'
-      },
-      {
-        text: navLinks.link3,
-        href: '/logout'
-      }
-    ]%}
   {% elif user.roles == 'VERIFIED' %}
     {% set listItems = [
       {

@@ -20,7 +20,7 @@ export default class ManageUserController {
         const formattedData = userManagementService.buildManageUserSummaryList(userData);
         const hrefDeletion = '/delete-user?id=' + userData['userId'];
 
-        res.render('admin/manage-user', {
+        res.render('system-admin/manage-user', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-user']),
             email: userData['email'],
             formattedData,

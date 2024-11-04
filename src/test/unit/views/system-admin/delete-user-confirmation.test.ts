@@ -66,7 +66,7 @@ describe('Delete User Confirmation Page', () => {
 
     describe('delete user failed', () => {
         beforeAll(async () => {
-            expressRequest['user'] = { roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
+            expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
             await request(app)
                 .post(PAGE_URL)
