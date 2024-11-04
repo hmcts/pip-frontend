@@ -43,19 +43,19 @@ Scenario('Cft user - all banner navigation links should take user to the correct
 }).tag('@CrossBrowser');
 
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
-    I.loginAsB2CAdmin();
+    I.loginAsSsoAdminLocal();
     I.click(locate('//li').withText('Home'));
     I.waitForText('Your Dashboard');
-    I.logout();
+    I.logoutSsoAdminLocal();
 }).tag('@CrossBrowser');
 
 Scenario('System admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
-    I.loginAsB2CSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click(locate('//li').withText('Admin Dashboard'));
     I.waitForText('Your Dashboard');
     I.click(locate('//li').withText('Home'));
     I.waitForText('System Admin Dashboard');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 }).tag('@CrossBrowser');
 
 Scenario('Home page links should take user to the correct pages', async ({ I }) => {

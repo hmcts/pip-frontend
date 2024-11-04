@@ -24,7 +24,7 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
         'etDailyList.json',
         'ET_DAILY_LIST'
     );
-    I.loginAsB2CAdmin();
+    I.loginAsSsoAdminLocal();
     I.click('#card-remove-list-search');
     I.waitForText('Find content to remove');
     I.see('Search by court or tribunal name');
@@ -52,7 +52,7 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('Showing 0 result(s)');
-    I.logout();
+    I.logoutSsoAdminLocal();
 }).tag('@CrossBrowser');
 
 Scenario('I as an admin user should be able to see proper error messages related to remove list', async ({ I }) => {
@@ -61,7 +61,7 @@ Scenario('I as an admin user should be able to see proper error messages related
     await createLocation(locationId, locationName);
     await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
-    I.loginAsB2CAdmin();
+    I.loginAsSsoAdminLocal();
     I.click('#card-remove-list-search');
     I.waitForText('Find content to remove');
     I.click('Continue');
@@ -89,5 +89,5 @@ Scenario('I as an admin user should be able to see proper error messages related
     I.click('#remove-choice-2');
     I.click('Continue');
     I.waitForText('Select content to remove');
-    I.logout();
+    I.logoutSsoAdminLocal();
 }).tag('@Nightly');
