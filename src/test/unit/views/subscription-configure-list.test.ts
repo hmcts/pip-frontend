@@ -131,7 +131,7 @@ describe('Subscription Configure List', () => {
         });
 
         it('should contain list type rows', () => {
-            const elementsCount = 11;
+            const elementsCount = 8;
             const tableRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -148,21 +148,21 @@ describe('Subscription Configure List', () => {
 
         it('should display expected subscription list type checkboxes', () => {
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
-            expect(checkboxes.length).equal(11, 'Could not find all row checkboxes');
+            expect(checkboxes.length).equal(8, 'Could not find all row checkboxes');
             expect(checkboxes[0]['value']).contains(
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'Could not find mixed list checkbox'
             );
             expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
             expect(checkboxes[2]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
-            expect(checkboxes[6]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[7]['value']).contains(
+            expect(checkboxes[3]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
+            expect(checkboxes[4]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
                 'Could not find SJP delta press list checkbox'
             );
-            expect(checkboxes[8]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
-            expect(checkboxes[9]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[10]['value']).contains(
+            expect(checkboxes[5]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
+            expect(checkboxes[6]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
+            expect(checkboxes[7]['value']).contains(
                 'SJP_DELTA_PUBLIC_LIST',
                 'Could not find SJP delta public list checkbox'
             );
@@ -194,7 +194,7 @@ describe('Subscription Configure List', () => {
         });
 
         it('should contain list type rows', () => {
-            const elementsCount = 11;
+            const elementsCount = 8;
             const tableRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -226,21 +226,21 @@ describe('Subscription Configure List', () => {
 
         it('should display expected subscription list type checkboxes', () => {
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
-            expect(checkboxes.length).equal(11, 'Could not find all row checkboxes');
+            expect(checkboxes.length).equal(8, 'Could not find all row checkboxes');
             expect(checkboxes[0]['value']).contains(
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'Could not find mixed list checkbox'
             );
             expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
             expect(checkboxes[2]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
-            expect(checkboxes[6]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[7]['value']).contains(
+            expect(checkboxes[3]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
+            expect(checkboxes[4]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
                 'Could not find SJP delta press list checkbox'
             );
-            expect(checkboxes[8]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
-            expect(checkboxes[9]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[10]['value']).contains(
+            expect(checkboxes[5]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
+            expect(checkboxes[6]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
+            expect(checkboxes[7]['value']).contains(
                 'SJP_DELTA_PUBLIC_LIST',
                 'Could not find SJP delta public list checkbox'
             );
