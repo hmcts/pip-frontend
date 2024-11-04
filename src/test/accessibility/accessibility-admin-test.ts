@@ -19,7 +19,6 @@ BeforeSuite(async () => {
 });
 
 Before(({ I }) => {
-    // or Background
     I.loginAsAdmin();
 });
 
