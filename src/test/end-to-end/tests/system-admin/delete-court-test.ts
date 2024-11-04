@@ -28,7 +28,7 @@ Scenario(
             I.waitForText('There is a problem');
         }
 
-        I.loginAsSystemAdmin();
+        I.loginAsSsoSystemAdmin();
         I.click('Delete Court');
 
         await tryToDeleteCourt();
@@ -75,14 +75,14 @@ Scenario(
         I.click('Continue', null, { noWaitAfter: true });
         I.waitForText('Success');
         I.see('Court has been deleted');
-        I.logout();
+        I.logoutSsoSystemAdmin();
     }
 );
 
 Scenario(
     'I as a system admin should be able to see proper information texts and error messages related to delete court',
     async ({ I }) => {
-        I.loginAsSystemAdmin();
+        I.loginAsSsoSystemAdmin();
         I.see('Delete Court');
         I.click('Delete Court');
         I.see('Find the court to remove');
@@ -101,6 +101,6 @@ Scenario(
         I.click('Continue');
         I.see('Find the court to remove');
         I.see('Search by court or tribunal name');
-        I.logout();
+        I.logoutSsoSystemAdmin();
     }
 ).tag('@Nightly');

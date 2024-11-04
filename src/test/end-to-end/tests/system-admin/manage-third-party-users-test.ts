@@ -8,7 +8,7 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
     const testProvenanceUserId = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
     const userId = await createThirdPartyUserAccount(testProvenanceUserId);
 
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.waitForText('View, create, update and remove third-party users and subscriptions');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
@@ -30,12 +30,13 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
     I.waitForText('Third Party Subscriptions Updated');
     I.see('Third party subscriptions for the user have been successfully updated');
     I.deleteThirdPartyUserAccount(userId);
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a system admin should be able to create and delete third party users', async ({ I }) => {
     const testName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.click('#create-user');
@@ -77,12 +78,13 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.click('Manage another third party user');
     I.waitForText('Manage third party users');
     I.dontSee(testName);
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('Third party user management show proper error messages', async ({ I }) => {
     const testName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
 
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.click('#create-user');
@@ -130,4 +132,5 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.click('#delete-user-confirm');
     I.click('Continue');
     I.waitForText('Success');
+    I.logoutSsoSystemAdmin();
 }).tag('@Nightly');

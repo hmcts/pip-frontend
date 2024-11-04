@@ -13,7 +13,6 @@ nodejs:
         ADMIN_AUTH_RETURN_URL: https://${SERVICE_FQDN}/login/admin/return
         FRONTEND_URL: https://${SERVICE_FQDN}
         EXCLUDE_E2E: true
-        ENABLE_SSO: true
         CFT_IDAM_URL: https://idam-web-public.aat.platform.hmcts.net
         SESSION_COOKIE_SAME_SITE: ''
     keyVaults:
@@ -68,9 +67,5 @@ nodejs:
                     alias: SSO_SG_ADMIN_CTSC
                 -   name: sso-sg-admin-local-dev
                     alias: SSO_SG_ADMIN_LOCAL
-                -   name: sso-sg-super-admin-ctsc-dev
-                    alias: SSO_SG_SUPER_ADMIN_CTSC
-                -   name: sso-sg-super-admin-local-dev
-                    alias: SSO_SG_SUPER_ADMIN_LOCAL
                 -   name: sso-sg-system-admin-dev
                     alias: SSO_SG_SYSTEM_ADMIN

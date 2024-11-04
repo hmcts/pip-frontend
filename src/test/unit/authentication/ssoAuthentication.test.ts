@@ -4,13 +4,13 @@ import process from 'process';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const systemAdminSecurityGroup = '1111';
-const superAdminSecurityGroup = '1112';
-const adminSecurityGroup = '1113';
+const adminLocalSecurityGroup = '1112';
+const adminCtscSecurityGroup = '1113';
 const accessToken = '123';
 
 process.env.SSO_SG_SYSTEM_ADMIN = systemAdminSecurityGroup;
-process.env.SSO_SG_SUPER_ADMIN_CTSC = superAdminSecurityGroup;
-process.env.SSO_SG_ADMIN_CTSC = adminSecurityGroup;
+process.env.SSO_SG_ADMIN_CTSC = adminCtscSecurityGroup;
+process.env.SSO_SG_ADMIN_LOCAL = adminLocalSecurityGroup;
 
 import { SsoAuthentication } from '../../../main/authentication/ssoAuthentication';
 
@@ -18,8 +18,8 @@ const ssoAuthentication = new SsoAuthentication();
 
 const graphApiStub = sinon.stub(graphApi, 'post');
 graphApiStub.withArgs('/users/1/getMemberObjects').resolves({ data: { value: [systemAdminSecurityGroup] } });
-graphApiStub.withArgs('/users/2/getMemberObjects').resolves({ data: { value: [superAdminSecurityGroup] } });
-graphApiStub.withArgs('/users/3/getMemberObjects').resolves({ data: { value: [adminSecurityGroup] } });
+graphApiStub.withArgs('/users/2/getMemberObjects').resolves({ data: { value: [adminCtscSecurityGroup] } });
+graphApiStub.withArgs('/users/3/getMemberObjects').resolves({ data: { value: [adminLocalSecurityGroup] } });
 graphApiStub.withArgs('/users/4/getMemberObjects').resolves({ data: { value: [] } });
 
 const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getPiUserByAzureOid');
@@ -43,20 +43,19 @@ sinon
     .resolves({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
 
 describe('SSO Authentication', () => {
-
     it('should return system admin user role', async () => {
         const response = await ssoAuthentication.determineUserRole('1', [], accessToken);
         expect(response).toEqual('SYSTEM_ADMIN');
     });
 
-    it('should return super admin user role', async () => {
+    it('should return admin CTSC user role', async () => {
         const response = await ssoAuthentication.determineUserRole('2', [], accessToken);
-        expect(response).toEqual('INTERNAL_SUPER_ADMIN_CTSC');
+        expect(response).toEqual('INTERNAL_ADMIN_CTSC');
     });
 
-    it('should return admin user role', async () => {
+    it('should return admin local user role', async () => {
         const response = await ssoAuthentication.determineUserRole('3', [], accessToken);
-        expect(response).toEqual('INTERNAL_ADMIN_CTSC');
+        expect(response).toEqual('INTERNAL_ADMIN_LOCAL');
     });
 
     it('should return no user role', async () => {
@@ -96,7 +95,7 @@ describe('SSO Authentication', () => {
 
     afterAll(() => {
         delete process.env.SSO_SG_SYSTEM_ADMIN;
-        delete process.env.SSO_SG_SUPER_ADMIN_CTSC;
         delete process.env.SSO_SG_ADMIN_CTSC;
+        delete process.env.SSO_SG_ADMIN_LOCAL;
     });
 });

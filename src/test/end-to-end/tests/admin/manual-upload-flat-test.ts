@@ -9,15 +9,16 @@ const flatFileName = new DataTable(['flatFileName']);
 flatFileName.add(['testFlatFile.pdf']);
 flatFileName.add(['testFlatFile.docx']);
 
-Data(flatFileName)
-    .Scenario('I as a admin user should be able to upload flat file successfully', async ({ I, current }) => {
+Data(flatFileName).Scenario(
+    'I as a admin user should be able to upload flat file successfully',
+    async ({ I, current }) => {
         const listType = 'Civil And Family Daily Cause List';
         const [date, dayAfter] = getDateNowAndFuture();
         const locationId = randomData.getRandomLocationId();
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         await createLocation(locationId, locationName);
 
-        I.loginAsAdmin();
+        I.loginAsSsoAdminLocal();
         I.click('#card-manual-upload');
         I.waitForText('Manual upload');
         I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
@@ -52,5 +53,6 @@ Data(flatFileName)
         I.click('Continue');
         I.waitForText('What do you want to view from ' + locationName);
         I.see('Civil and Family Daily Cause List');
-        I.logout();
-    });
+        I.logoutSsoAdminLocal();
+    }
+);

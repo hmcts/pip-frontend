@@ -78,7 +78,7 @@ describe('Test Authenticated Admin', () => {
         checkAuthenticatedAdmin(req, res, mockRedirectFunction, mediaAccountCreationRoles);
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.contains('/admin-login?p=');
+        expect(mockRedirectFunction.mock.calls[0][0]).to.contains('/sso-login');
     });
 });
 

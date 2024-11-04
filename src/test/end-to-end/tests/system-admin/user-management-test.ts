@@ -8,13 +8,13 @@ const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
 const TEST_ROLE = 'INTERNAL_ADMIN_LOCAL';
 
-const systemAdminUsername = testConfig.SYSTEM_ADMIN_USERNAME as string;
+const systemAdminUsername = testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string;
 
 Scenario('I as a system admin should be able to delete a user', async ({ I }) => {
     const testEmail = randomData.getRandomEmailAddress();
     await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
 
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('Admin Dashboard');
     I.click('Home');
     I.waitForText('System Admin Dashboard');
@@ -42,11 +42,11 @@ Scenario('I as a system admin should be able to delete a user', async ({ I }) =>
     I.fillField('#email', testEmail);
     I.click('Apply filters');
     I.waitForText('There is a problem');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a system admin should be able to filter users correctly on the User Management page', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
 
@@ -92,11 +92,11 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
     I.fillField('#userId', userId);
     I.click('Apply filters');
     I.waitForText(systemAdminUsername);
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a system admin should be able to use the pagination on the user management page', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
 
@@ -109,5 +109,5 @@ Scenario('I as a system admin should be able to use the pagination on the user m
 
     I.click('.govuk-pagination__link');
     I.waitForText('2 of');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });

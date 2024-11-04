@@ -11,7 +11,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
 
     I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 
-    I.loginAsAdmin();
+    I.loginAsSsoAdminCtsc();
     I.see('CTSC assess new media account applications.');
     I.click('#card-media-applications');
     I.waitForText('Select application to assess');
@@ -42,9 +42,10 @@ Scenario('I as an admin user should be able to accept valid media account reques
         'This account has been created and the applicant will be notified to confirm their details. If an account' +
             ' already exists the applicant will be asked to sign in, or choose forgot password.'
     );
-    I.logout();
+    I.logoutSsoAdminCtsc();
 
-    I.loginAsSystemAdmin();
+    I.reloginAsSsoSystemAdmin();
+    I.waitForText('Search, update and delete users');
     I.click('#card-user-management');
     I.waitForText('User Management');
     I.fillField('#email', emailTestMediaAccount);
@@ -57,8 +58,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.click('Yes');
     I.click('Continue');
     I.waitForText('User Deleted');
-
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario(
@@ -70,7 +70,7 @@ Scenario(
 
         I.requestMediaAccount(testFullName, emailTestMediaAccount, TEST_EMPLOYER);
 
-        I.loginAsAdmin();
+        I.loginAsSsoAdminCtsc();
         I.see('CTSC assess new media account applications.');
         I.click('#card-media-applications');
         I.waitForText('Select application to assess');
@@ -146,6 +146,6 @@ Scenario(
                 'cannot be progressed and invited to reapply once the issue(s) are rectified.'
         );
 
-        I.logout();
+        I.logoutSsoAdminCtsc();
     }
 );
