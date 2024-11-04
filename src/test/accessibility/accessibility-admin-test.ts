@@ -48,7 +48,6 @@ Scenario('Admin User Journey - manual-upload-summary-page', async ({ I }) => {
     I.fillField('#search-input', locationName);
     I.selectOption('#listType', listType);
 
-    // Set a specific content date of 12/31/2020 so the request to Courtel can be identified.
     const contentDate = new Date(2020, 11, 31);
     I.fillField('#content-date-from-day', padFormatted(contentDate.getDate()));
     I.fillField('#content-date-from-month', padFormatted(contentDate.getMonth() + 1));
@@ -72,7 +71,6 @@ Scenario('Admin User Journey - manual-upload-confirmation-page', async ({ I }) =
     I.fillField('#search-input', locationName);
     I.selectOption('#listType', listType);
 
-    // Set a specific content date of 12/31/2020 so the request to Courtel can be identified.
     const contentDate = new Date(2020, 11, 31);
     I.fillField('#content-date-from-day', padFormatted(contentDate.getDate()));
     I.fillField('#content-date-from-month', padFormatted(contentDate.getMonth() + 1));
