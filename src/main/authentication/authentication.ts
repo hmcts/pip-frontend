@@ -14,6 +14,9 @@ const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
 const ssoAuthentication = new SsoAuthentication();
 
+import { Logger } from '@hmcts/nodejs-logging';
+const logger = Logger.getLogger('SSO');
+
 async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
     const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
 
@@ -28,13 +31,17 @@ async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken,
 
 async function ssoVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
     const userGroups = profile._json['groups'] ?? [];
+    logger.info('SSO user group is ' + userGroups);
+
     const userRole = await ssoAuthentication.determineUserRole(profile.oid, userGroups, accessToken);
+    logger.info('SSO user role is ' + userRole);
 
     if (userRole) {
         profile['roles'] = userRole;
         profile['email'] = profile._json['preferred_username'];
         profile['flow'] = 'SSO';
         const response = await ssoAuthentication.handleSsoUser(profile);
+        logger.info('SSO user created');
         profile['created'] = response && !response['error'];
         return done(null, profile);
     } else {
