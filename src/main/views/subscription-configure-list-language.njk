@@ -1,5 +1,5 @@
 {% extends "template.njk" %}
-{% from "macros/common-components.njk" import goBack, submitButton %}
+{% from "macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 
@@ -9,11 +9,7 @@
 
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack(
-        path= '/subscription-configure-list',
-        text = backButton,
-        clickEvent = "history.back();")
-    }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -72,5 +68,6 @@
     </div>
 {% endblock %}
 {% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
     {{ super() }}
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "template.njk" %}
-{% from "./macros/common-components.njk" import goBack, submitButton %}
+{% from "./macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
 {%- from "govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "govuk/components/input/macro.njk" import govukInput -%}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
@@ -9,7 +9,7 @@
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
 <div id="grid-row" class="parent-box">
@@ -39,7 +39,7 @@
               {% if value | length > 0 %}
                 {% for listName, listConfig in value %}
                   {% if listConfig.hidden %}
-                    <input hidden type="checkbox" class="govuk-checkboxes__input"
+                    <input hidden type="checkbox" class="govuk-checkboxes__input list-item"
                            id="{{ listName }}"
                            value="{{ listName}}" name="list-selections[]"
                       {% if listConfig.checked and noSelectionError !== true %}
@@ -59,7 +59,7 @@
                       {% endif %}
                       <td class="govuk-table__cell">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small">
-                          <input type="checkbox" class="govuk-checkboxes__input"
+                          <input type="checkbox" class="govuk-checkboxes__input list-item"
                                  id="{{ listName }}"
                                  value="{{ listName}}" name="list-selections[]"
                                  {% if listConfig.checked and noSelectionError !== true %}
@@ -96,13 +96,18 @@
 
 {% block bodyEnd %}
   {{ super() }}
-  <script>
-    function calculateChecked() {
-      const checkedBoxes = document.querySelectorAll('input[name="list-selections[]"]:checked').length;
-      document.getElementById('selectionCount').innerText = checkedBoxes.toString();
-    }
+  {{ backButtonHistory(cspNonce) }}
+  <script nonce="{{ cspNonce }}">
+      document.querySelectorAll('.list-item').forEach(item => {
+          item.addEventListener('click', calculateChecked);
+      });
 
-    calculateChecked();
+      function calculateChecked() {
+        const checkedBoxes = document.querySelectorAll('input[name="list-selections[]"]:checked').length;
+        document.getElementById('selectionCount').innerText = checkedBoxes.toString();
+      }
+
+      calculateChecked();
 
   </script>
 {% endblock %}
