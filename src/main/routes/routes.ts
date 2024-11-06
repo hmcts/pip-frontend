@@ -656,7 +656,7 @@ export default function (app: Application): void {
         passport.authenticate('sso', { failureRedirect: '/sso-rejected-login', failureMessage: true })(req, res, next)
     );
 
-    app.post(
+    app.get(
         '/sso/return',
         (req, res, next) =>
             passport.authenticate('sso', { failureRedirect: '/sso-rejected-login', failureMessage: true })(
