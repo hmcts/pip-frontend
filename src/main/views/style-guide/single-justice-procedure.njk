@@ -1,4 +1,4 @@
-{% from "../macros/common-components.njk" import goBack, searchInput, mojAll %}
+{% from "../macros/common-components.njk" import goBack, searchInput, mojAll, backButtonHistory %}
 {% from "../macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
@@ -11,7 +11,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -26,79 +26,79 @@
     {% if showFilters %} {{ filter.hide }} {% else %} {{ filter.show }} {% endif %}
   </button>
 
-  <div class="govuk-grid-row">
+  <div class="govuk-grid-row sjp-layout">
     {{ filterForm(url = listUrl, filterOptions = filterOptions, showFilters = showFilters, artefactId = artefactId, filter = filter) }}
-    <div class="parent-box overflow-table">
-      {{ govukPagination(paginationData) }}
-      <div class="overflow-table govuk-body">
-      {% set sjpCases = [] %}
-      {% for sjpCase in sjpData %}
-        {% set _ = sjpCases.push([
-          {
-            text: sjpCase.name,
-            classes: "search-area"
-          },
-          {
-            text: sjpCase.postcode,
-            classes: "search-area"
-          },
-          {
-            text: sjpCase.offence,
-            classes: "search-area"
-          },
-          {
-            text: sjpCase.prosecutorName,
-            classes: "search-area"
-          }
-        ]) %}
-      {% endfor %}
+    <div id="contents">
+      <div class="parent-box overflow-table">
+        {{ govukPagination(paginationData) }}
+        <div class="overflow-table govuk-body">
+          {% set sjpCases = [] %}
+          {% for sjpCase in sjpData %}
+            {% set _ = sjpCases.push([
+              {
+                text: sjpCase.name,
+                classes: "search-area"
+              },
+              {
+                text: sjpCase.postcode,
+                classes: "search-area"
+              },
+              {
+                text: sjpCase.offence,
+                classes: "search-area"
+              },
+              {
+                text: sjpCase.prosecutorName,
+                classes: "search-area"
+              }
+            ]) %}
+          {% endfor %}
 
-      {{ govukTable({
-        firstCellIsHeader: false,
-        attributes: {
-          "data-module": "moj-sortable-table"
-        },
-        head: [
-          {
-            text: column1,
+          {{ govukTable({
+            firstCellIsHeader: false,
             attributes: {
-              "aria-sort": "none"
-            }
-          },
-          {
-            text: column2,
-            attributes: {
-              "aria-sort": "none"
-            }
-          },
-          {
-            text: column3,
-            attributes: {
-              "aria-sort": "none"
-            }
-          },
-          {
-            text: column4,
-            attributes: {
-              "aria-sort": "none"
-            }
-          }
-        ],
-        rows: sjpCases
-      }) }}
+              "data-module": "moj-sortable-table"
+            },
+            head: [
+              {
+                text: column1,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              },
+              {
+                text: column2,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              },
+              {
+                text: column3,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              },
+              {
+                text: column4,
+                attributes: {
+                  "aria-sort": "none"
+                }
+              }
+            ],
+            rows: sjpCases
+          }) }}
+        </div>
       </div>
-      {{ super() }}
     </div>
+  </div>
+  <div class="govuk-grid-row">
+     {{ super() }}
   </div>
 {% endblock %}
 
 {% block bodyEnd %}
-    <script>
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-        }
-    </script>
-    {{ mojAll() }}
+    {{ backButtonHistory(cspNonce) }}
+    {{ mojAll(cspNonce) }}
     {{ super() }}
-    {{ filterManipulation(url = listUrl, artefactId = artefactId, filter = filter) }}
+    {{ filterManipulation(url = listUrl, artefactId = artefactId, filter = filter, cspNonce = cspNonce) }}
 {% endblock %}

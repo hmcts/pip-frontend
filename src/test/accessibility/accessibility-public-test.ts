@@ -3,7 +3,7 @@ import { randomData } from '../end-to-end/shared/random-data';
 import { config } from '../config';
 import { clearTestData, createLocation, uploadPublication } from '../end-to-end/shared/testingSupportApi';
 
-Feature('accessibility_tests');
+Feature('accessibility_public_tests');
 
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
