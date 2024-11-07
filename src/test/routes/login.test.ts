@@ -146,7 +146,7 @@ describe('Login', () => {
 
     test('should redirect to the SSO login page on return', async () => {
         await request(app)
-            .post('/sso/return')
+            .get('/sso/return')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('https://login.microsoftonline.com'));
     });

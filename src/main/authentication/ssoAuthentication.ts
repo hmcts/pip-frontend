@@ -28,7 +28,7 @@ export const ssoOidcConfig = {
     identityMetadata: ssoMetadata,
     clientID: ssoClientId,
     responseType: authenticationConfig.RESPONSE_TYPE,
-    responseMode: authenticationConfig.RESPONSE_MODE,
+    responseMode: authenticationConfig.RESPONSE_MODE_QUERY,
     redirectUrl: FRONTEND_URL + '/sso/return',
     allowHttpForRedirectUrl: true,
     clientSecret: ssoClientSecret,
