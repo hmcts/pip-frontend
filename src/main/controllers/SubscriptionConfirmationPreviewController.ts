@@ -8,19 +8,22 @@ const subscriptionService = new SubscriptionService();
 
 export default class SubscriptionConfirmationPreviewController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const pendingSubscriptions = await subscriptionService.getAllUserSubscriptionsFromCache(req.user['userId'], req.lng);
+        const pendingSubscriptions = await subscriptionService.getAllUserSubscriptionsFromCache(
+            req.user['userId'],
+            req.lng
+        );
 
         req.query?.['error']
             ? res.render('subscription-confirmation-preview', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-confirmation-preview']),
-                pendingSubscriptions,
-                displayError: true,
-            })
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-confirmation-preview']),
+                  pendingSubscriptions,
+                  displayError: true,
+              })
             : res.render('subscription-confirmation-preview', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-confirmation-preview']),
-                pendingSubscriptions,
-                displayError: false,
-            });
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-confirmation-preview']),
+                  pendingSubscriptions,
+                  displayError: false,
+              });
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
@@ -31,8 +34,10 @@ export default class SubscriptionConfirmationPreviewController {
         const cachedCases = await cacheService.getPendingSubscriptions(userId, 'cases');
         const cachedListTypes = await cacheService.getPendingSubscriptions(userId, 'listTypes');
 
-        if ((cachedCases?.length === 0 && cachedCourts?.length === 0)
-            || (cachedCourts?.length > 0 && cachedListTypes?.length === 0)) {
+        if (
+            (cachedCases?.length === 0 && cachedCourts?.length === 0) ||
+            (cachedCourts?.length > 0 && cachedListTypes?.length === 0)
+        ) {
             res.redirect('subscription-confirmation-preview?error=true');
         } else {
             if (cachedCourts?.length === 0) {
@@ -51,9 +56,7 @@ export default class SubscriptionConfirmationPreviewController {
         await subscriptionService.removeFromCache(req.query, req.user['userId']);
         //If user removes the court, we need to remove relevant list types from the cache as well.
         if (req.query.court) {
-            await subscriptionService.removeListTypeForCourt (req.user['userProvenance'],
-                req.lng,
-                req.user['userId']);
+            await subscriptionService.removeListTypeForCourt(req.user['userProvenance'], req.lng, req.user['userId']);
         }
 
         const cacheService = new PendingSubscriptionsFromCache();

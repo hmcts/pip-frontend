@@ -192,16 +192,12 @@ describe('Sort Helper', () => {
 
     describe('List Type subscription sorter', () => {
         it('should sort by list types', () => {
-            const listTypes = [
-                "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
-                "SJP_PUBLIC_LIST",
-                "FAMILY_DAILY_CAUSE_LIST"
-            ];
+            const listTypes = ['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST', 'SJP_PUBLIC_LIST', 'FAMILY_DAILY_CAUSE_LIST'];
 
             expect(listTypes.sort(pendingListTypeSubscriptionSorter)).toStrictEqual([
-                "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
-                "FAMILY_DAILY_CAUSE_LIST",
-                "SJP_PUBLIC_LIST"
+                'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+                'FAMILY_DAILY_CAUSE_LIST',
+                'SJP_PUBLIC_LIST',
             ]);
         });
     });

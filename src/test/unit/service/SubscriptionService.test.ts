@@ -9,7 +9,7 @@ import { PublicationService } from '../../../main/service/PublicationService';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
-    pendingListTypeSubscriptionSorter
+    pendingListTypeSubscriptionSorter,
 } from '../../../main/helpers/sortHelper';
 
 const userIdWithSubscriptions = '1';
@@ -213,9 +213,7 @@ cacheGetStub
 cacheGetStub
     .withArgs(userIdForSortedSubscriptions, 'courts')
     .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
-cacheGetStub
-    .withArgs(userIdForSortedSubscriptions, 'listTypes')
-    .resolves(mockListTypes);
+cacheGetStub.withArgs(userIdForSortedSubscriptions, 'listTypes').resolves(mockListTypes);
 addListTypeSubscriptionStub.withArgs(userIdWithSubscriptions, mockSingleListTypePayload).resolves(true);
 addListTypeSubscriptionStub.withArgs(userIdWithCourtMultiListTypeSubscription, mockMultiListTypePayload).resolves(true);
 updateListTypeSubscriptionStub
@@ -1486,7 +1484,7 @@ describe('generateListTypeForCourts', () => {
     it('Test sorting of lists in english', async () => {
         locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
 
-        const result = await subscriptionService.generateListTypeForCourts('PI_AAD',  'en', userId);
+        const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'en', userId);
 
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
@@ -1499,16 +1497,13 @@ describe('generateListTypeForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toEqual([
-            'MAGISTRATES_PUBLIC_LIST',
-            'MAGISTRATES_STANDARD_LIST'
-        ]);
+        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
     });
 
     it('Test only sorting of lists in welsh', async () => {
         locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
 
-        const result = await subscriptionService.generateListTypeForCourts('PI_AAD',  'cy', userId);
+        const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'cy', userId);
 
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
@@ -1521,38 +1516,39 @@ describe('generateListTypeForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toEqual([
-            'MAGISTRATES_PUBLIC_LIST',
-            'MAGISTRATES_STANDARD_LIST'
-        ]);
+        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
     });
 
     it('Test lists types conversion to welsh language', async () => {
         locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
 
-        const result = await subscriptionService.generateListTypeForCourts('PI_AAD',  'cy', userId);
+        const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'cy', userId);
 
         expect(result['C']['CIVIL_DAILY_CAUSE_LIST'].listFriendlyName).toEqual(
-            'Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil');
+            'Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil'
+        );
 
         expect(result['M']['MAGISTRATES_PUBLIC_LIST'].listFriendlyName).toEqual(
-            'Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon');
+            'Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon'
+        );
     });
 });
 
 describe('populateListTypesFriendlyName', () => {
-    const listName = [
-        "SSCS_DAILY_LIST_ADDITIONAL_HEARINGS"
-    ];
+    const listName = ['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS'];
 
     it('Get List Type Display name in english', async () => {
-        const result = await subscriptionService.populateListTypesFriendlyName(listName,  'en');
-        expect(result[0]['text']).toEqual('Social Security and Child Support Tribunal Daily List - Additional Hearings');
+        const result = await subscriptionService.populateListTypesFriendlyName(listName, 'en');
+        expect(result[0]['text']).toEqual(
+            'Social Security and Child Support Tribunal Daily List - Additional Hearings'
+        );
     });
 
     it('Get List Type Display name in welsh', async () => {
-        const result = await subscriptionService.populateListTypesFriendlyName(listName,  'cy');
-        expect(result[0]['text']).toEqual('Social Security and Child Support Tribunal Daily List - Additional Hearings\nRhestr Ddyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant - Gwrandawiadau Ychwanegol');
+        const result = await subscriptionService.populateListTypesFriendlyName(listName, 'cy');
+        expect(result[0]['text']).toEqual(
+            'Social Security and Child Support Tribunal Daily List - Additional Hearings\nRhestr Ddyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant - Gwrandawiadau Ychwanegol'
+        );
     });
 });
 
@@ -1561,14 +1557,16 @@ describe('removeListTypeForCourt', () => {
 
     locationStub.withArgs(10).resolves({ jurisdiction: ['Social Security and Child Support'] });
     cacheGetStub.withArgs(userId, 'courts').resolves([mockCourt]);
-    cacheGetStub.withArgs(userId, 'listTypes').resolves(['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS', 'CIVIL_DAILY_CAUSE_LIST']);
+    cacheGetStub
+        .withArgs(userId, 'listTypes')
+        .resolves(['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS', 'CIVIL_DAILY_CAUSE_LIST']);
     const setListTypeSubscriptionStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setListTypeSubscription');
     setListTypeSubscriptionStub.resolves({});
 
     it('Remove List type not linked with court', async () => {
         locationStub.withArgs(1).resolves({ jurisdiction: ['Social Security and Child Support'] });
 
-        await subscriptionService.removeListTypeForCourt('PI_AAD',  'en', userId);
+        await subscriptionService.removeListTypeForCourt('PI_AAD', 'en', userId);
         expect(setListTypeSubscriptionStub.calledWith(userId, ['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS']));
     });
 });

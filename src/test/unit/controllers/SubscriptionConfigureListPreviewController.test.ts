@@ -3,15 +3,14 @@ import { Response } from 'express';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { mockRequest } from '../mocks/mockRequest';
 import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
-import SubscriptionConfigureListPreviewController
-    from "../../../main/controllers/SubscriptionConfigureListPreviewController";
+import SubscriptionConfigureListPreviewController from '../../../main/controllers/SubscriptionConfigureListPreviewController';
 
 const mockListTypeValue = 'listType1';
 const mockListTypeText = 'List Type1';
 
 const mockListType = {
     value: mockListTypeValue,
-    text: mockListTypeText
+    text: mockListTypeText,
 };
 const mockListLanguage = 'ENGLISH';
 
@@ -19,7 +18,7 @@ const mockListTypeValue2 = 'listType2';
 const mockListTypeText2 = 'List Type2';
 const mockListType2 = {
     value: mockListTypeValue2,
-    text: mockListTypeText2
+    text: mockListTypeText2,
 };
 
 const postData = { 'hearing-selections[]': 'T485913' };
@@ -70,7 +69,6 @@ cacheStub.withArgs(userRemoveListTypeSubscription, 'courts').resolves([]);
 cacheStub.withArgs(userRemoveListTypeSubscription, 'listTypes').resolves([mockListTypeValue]);
 cacheStub.withArgs(userRemoveListTypeSubscription, 'listLanguage').resolves([mockListLanguage]);
 
-
 subscriptionStub.withArgs(userEmptyListTypeSubscription, 'cases').resolves([]);
 subscriptionStub.withArgs(userEmptyListTypeSubscription, 'courts').resolves([]);
 subscriptionStub.withArgs(userEmptyListTypeSubscription, 'listTypes').resolves([]);
@@ -81,18 +79,10 @@ cacheStub.withArgs(userEmptyListTypeSubscription, 'courts').resolves([]);
 cacheStub.withArgs(userEmptyListTypeSubscription, 'listTypes').resolves([]);
 cacheStub.withArgs(userEmptyListTypeSubscription, 'listLanguage').resolves([]);
 
-subscriptionStub
-    .withArgs(userWithMultipleSubscriptions, 'cases')
-    .resolves([]);
-subscriptionStub
-    .withArgs(userWithMultipleSubscriptions, 'courts')
-    .resolves([]);
-subscriptionStub
-    .withArgs(userWithMultipleSubscriptions, 'listTypes')
-    .resolves([mockListTypeValue, mockListTypeValue2]);
-subscriptionStub
-    .withArgs(userWithMultipleSubscriptions, 'listLanguage')
-    .resolves([mockListLanguage]);
+subscriptionStub.withArgs(userWithMultipleSubscriptions, 'cases').resolves([]);
+subscriptionStub.withArgs(userWithMultipleSubscriptions, 'courts').resolves([]);
+subscriptionStub.withArgs(userWithMultipleSubscriptions, 'listTypes').resolves([mockListTypeValue, mockListTypeValue2]);
+subscriptionStub.withArgs(userWithMultipleSubscriptions, 'listLanguage').resolves([mockListLanguage]);
 
 handleSubStub.withArgs(postData, userWithSubscriptions).resolves(true);
 
@@ -202,7 +192,7 @@ describe('Subscription Configure List Preview Controller', () => {
     describe('removeConfigureList view', () => {
         it('should render Subscription Configure List Preview page on removeConfigureList call', () => {
             const request = mockRequest(i18n);
-            request.user = { userId: userRemoveListTypeSubscription, 'userProvenance': 'PI_AAD' };
+            request.user = { userId: userRemoveListTypeSubscription, userProvenance: 'PI_AAD' };
             request.lng = 'en';
             request.query = queryParams;
             const expectedData = {
@@ -212,7 +202,7 @@ describe('Subscription Configure List Preview Controller', () => {
                     courts: [],
                     listTypes: [mockListType],
                     listLanguage: [mockListLanguage],
-                }
+                },
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('subscription-configure-list-preview', expectedData);
@@ -224,12 +214,15 @@ describe('Subscription Configure List Preview Controller', () => {
 
         it('should render Subscription Configure List Preview page with error', () => {
             const request = mockRequest(i18n);
-            request.user = { userId: userEmptyListTypeSubscription, 'userProvenance': 'PI_AAD' };
+            request.user = { userId: userEmptyListTypeSubscription, userProvenance: 'PI_AAD' };
             request.lng = 'en';
             request.query = queryParams;
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once().withArgs('subscription-configure-list-preview?no-list-configure=true');
+            responseMock
+                .expects('redirect')
+                .once()
+                .withArgs('subscription-configure-list-preview?no-list-configure=true');
 
             return subscriptionConfigureListPreviewController.removeConfigureList(request, response).then(() => {
                 responseMock.verify();

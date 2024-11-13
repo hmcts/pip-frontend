@@ -104,9 +104,7 @@ describe('Subscriptions Configure List Preview Page', () => {
             expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
             expect(cells[0].innerHTML).contains(mockListLanguageText, 'First cell does not contain correct value');
             expect(cells[1].innerHTML).contains('Change', 'Second cell does not contain correct value');
-            expect(cells[1].querySelector('a').getAttribute('href')).contains(
-                `/subscription-configure-list-language`
-            );
+            expect(cells[1].querySelector('a').getAttribute('href')).contains(`/subscription-configure-list-language`);
         });
 
         it('should contain confirm subscriptions button', () => {

@@ -9,20 +9,22 @@ const cacheService = new PendingSubscriptionsFromCache();
 
 export default class SubscriptionConfigureListPreviewController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const pendingSubscriptions = await subscriptionService.getAllUserSubscriptionsFromCache(req.user['userId'], req.lng);
-
+        const pendingSubscriptions = await subscriptionService.getAllUserSubscriptionsFromCache(
+            req.user['userId'],
+            req.lng
+        );
 
         req.query?.['no-list-configure']
             ? res.render('subscription-configure-list-preview', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list-preview']),
-                pendingSubscriptions,
-                displayError: true,
-            })
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list-preview']),
+                  pendingSubscriptions,
+                  displayError: true,
+              })
             : res.render('subscription-configure-list-preview', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list-preview']),
-                pendingSubscriptions,
-                displayError: false,
-            });
+                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list-preview']),
+                  pendingSubscriptions,
+                  displayError: false,
+              });
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
@@ -62,7 +64,10 @@ export default class SubscriptionConfigureListPreviewController {
         if (cachedListTypes?.length === 0) {
             res.redirect('subscription-configure-list-preview?no-list-configure=true');
         } else {
-            const pendingSubscriptions = await subscriptionService.getAllUserSubscriptionsFromCache(req.user['userId'], req.lng);
+            const pendingSubscriptions = await subscriptionService.getAllUserSubscriptionsFromCache(
+                req.user['userId'],
+                req.lng
+            );
 
             res.render('subscription-configure-list-preview', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list-preview']),

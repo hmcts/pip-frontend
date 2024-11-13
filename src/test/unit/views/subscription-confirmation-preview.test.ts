@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 import request from 'supertest';
 import sinon from 'sinon';
-import {SubscriptionService} from "../../../main/service/SubscriptionService";
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const mockCase = {
     hearingId: 1,
@@ -213,9 +213,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
             expect(rows.length).equal(1, 'List Language table did not contain expected number of rows');
             expect(cells[0].innerHTML).contains(mockListLanguageText, 'First cell does not contain correct value');
             expect(cells[1].innerHTML).contains('Change', 'Fourth cell does not contain correct value');
-            expect(cells[1].querySelector('a').getAttribute('href')).equal(
-                `/subscription-add-list-language`
-            );
+            expect(cells[1].querySelector('a').getAttribute('href')).equal(`/subscription-add-list-language`);
         });
 
         it('should contain confirm subscriptions button', () => {
@@ -321,9 +319,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
             expect(rows.length).equal(1, 'List Language table did not contain expected number of rows');
             expect(cells[0].innerHTML).contains(mockListLanguageText, 'First cell does not contain correct value');
             expect(cells[1].innerHTML).contains('Change', 'Fourth cell does not contain correct value');
-            expect(cells[1].querySelector('a').getAttribute('href')).equal(
-                `/subscription-add-list-language`
-            );
+            expect(cells[1].querySelector('a').getAttribute('href')).equal(`/subscription-add-list-language`);
         });
 
         it('should contain confirm subscriptions button', () => {

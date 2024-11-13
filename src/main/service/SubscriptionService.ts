@@ -11,8 +11,9 @@ import { AToZHelper } from '../helpers/aToZHelper';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
-    pendingCaseSubscriptionSorter, pendingListTypeSubscriptionSorter,
-    pendingLocationSubscriptionSorter
+    pendingCaseSubscriptionSorter,
+    pendingListTypeSubscriptionSorter,
+    pendingLocationSubscriptionSorter,
 } from '../helpers/sortHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
@@ -388,7 +389,7 @@ export class SubscriptionService {
             success = false;
         }
 
-        return  success;
+        return success;
     }
 
     public createListTypeSubscriptionPayload(listType): string[] {
@@ -508,7 +509,7 @@ export class SubscriptionService {
     }
 
     public async generateListTypeForCourts(userRole, language, userId): Promise<object> {
-        const applicableListTypes = await this.getListTypesForCachedCourts(userRole, userId );
+        const applicableListTypes = await this.getListTypesForCachedCourts(userRole, userId);
         return this.generateAlphabetisedListTypes([], applicableListTypes, language);
     }
 
@@ -518,11 +519,7 @@ export class SubscriptionService {
         const courtsJurisdictions = await locationService.findCourtsJurisdiction(cachedCourts);
 
         const selectedListTypes = await this.getUserSubscriptionListType(userId);
-        return this.findApplicableListTypeForCourts(
-            courtsJurisdictions,
-            selectedListTypes,
-            userRole
-        );
+        return this.findApplicableListTypeForCourts(courtsJurisdictions, selectedListTypes, userRole);
     }
 
     private findApplicableListTypeForCourts(courtJurisdictions, selectedListTypes, userRole): Map<string, ListType> {
@@ -589,7 +586,8 @@ export class SubscriptionService {
         for (const index in selectedListTypes) {
             applicableListTypes.push({
                 value: selectedListTypes[index],
-                text: await this.findListTypeFriendlyName(selectedListTypes[index], language) });
+                text: await this.findListTypeFriendlyName(selectedListTypes[index], language),
+            });
         }
 
         return applicableListTypes;
@@ -606,31 +604,21 @@ export class SubscriptionService {
 
     public async getAllUserSubscriptionsFromCache(userId, language): Promise<any> {
         return {
-            cases: await this.getSortedPendingSubscriptions(
-                userId,
-                'cases',
-                pendingCaseSubscriptionSorter
+            cases: await this.getSortedPendingSubscriptions(userId, 'cases', pendingCaseSubscriptionSorter),
+            courts: await this.getSortedPendingSubscriptions(userId, 'courts', pendingLocationSubscriptionSorter),
+            listTypes: await this.populateListTypesFriendlyName(
+                await this.getSortedPendingSubscriptions(userId, 'listTypes', pendingListTypeSubscriptionSorter),
+                language
             ),
-            courts: await this.getSortedPendingSubscriptions(
-                userId,
-                'courts',
-                pendingLocationSubscriptionSorter
-            ),
-            listTypes: await this.populateListTypesFriendlyName(await this.getSortedPendingSubscriptions(
-                userId,
-                'listTypes',
-                pendingListTypeSubscriptionSorter
-            ), language),
-            listLanguage: await this.getPendingSubscriptions(userId,
-                'listLanguage'),
+            listLanguage: await this.getPendingSubscriptions(userId, 'listLanguage'),
         };
     }
 
     public async removeListTypeForCourt(userRole, language, userId) {
         const courtListTypes = await this.getListTypesForCachedCourts(userRole, userId);
         const cachedListTypes = await this.getPendingSubscriptions(userId, 'listTypes');
-        let selectedListTypes = [];
-        cachedListTypes.forEach(function(value) {
+        const selectedListTypes = [];
+        cachedListTypes.forEach(function (value) {
             for (const [listName] of courtListTypes) {
                 if (value === listName) {
                     selectedListTypes.push(listName);

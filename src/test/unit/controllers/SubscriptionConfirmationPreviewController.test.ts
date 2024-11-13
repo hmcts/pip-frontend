@@ -57,7 +57,7 @@ const mockListTypeText = 'List Type1';
 
 const mockListType = {
     value: mockListTypeValue,
-    text: mockListTypeText
+    text: mockListTypeText,
 };
 const mockListLanguage = 'ENGLISH';
 
@@ -65,7 +65,7 @@ const mockListTypeValue2 = 'listType2';
 const mockListTypeText2 = 'List Type2';
 const mockListType2 = {
     value: mockListTypeValue2,
-    text: mockListTypeText2
+    text: mockListTypeText2,
 };
 
 const postData = { 'hearing-selections[]': 'T485913' };
@@ -123,12 +123,8 @@ subscriptionStub
 subscriptionStub
     .withArgs(userWithMultipleSubscriptions, 'courts')
     .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
-subscriptionStub
-    .withArgs(userWithMultipleSubscriptions, 'listTypes')
-    .resolves([mockListTypeValue, mockListTypeValue2]);
-subscriptionStub
-    .withArgs(userWithMultipleSubscriptions, 'listLanguage')
-    .resolves([mockListLanguage]);
+subscriptionStub.withArgs(userWithMultipleSubscriptions, 'listTypes').resolves([mockListTypeValue, mockListTypeValue2]);
+subscriptionStub.withArgs(userWithMultipleSubscriptions, 'listLanguage').resolves([mockListLanguage]);
 
 handleSubStub.withArgs(postData, userWithSubscriptions).resolves(true);
 
@@ -183,7 +179,7 @@ describe('Subscription Confirmation Preview Controller', () => {
         it('should render subscription confirmation preview page with error summary', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userWithoutSubscriptions };
-            request.query = { 'error': 'true' };
+            request.query = { error: 'true' };
             const expectedData = {
                 ...i18n['subscription-confirmation-preview'],
                 pendingSubscriptions: {
@@ -262,7 +258,7 @@ describe('Subscription Confirmation Preview Controller', () => {
     describe('removePendingSubscription view', () => {
         it('should render Subscription Confirmation Preview page on removePendingSubscription call', () => {
             const request = mockRequest(i18n);
-            request.user = { userId: userRemoveCourtSubscription, 'userProvenance': 'PI_AAD' };
+            request.user = { userId: userRemoveCourtSubscription, userProvenance: 'PI_AAD' };
             request.lng = 'en';
             request.query = queryParams;
             const expectedData = {

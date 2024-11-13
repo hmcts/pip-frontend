@@ -283,7 +283,11 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.pendingSubscriptionsController.removeSubscription
     );
-    app.get('/subscription-confirmation-preview', isPermittedMedia, app.locals.container.cradle.subscriptionConfirmationPreviewController.get);
+    app.get(
+        '/subscription-confirmation-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfirmationPreviewController.get
+    );
     app.post(
         '/subscription-confirmation-preview',
         isPermittedMedia,
@@ -338,9 +342,11 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.subscriptionConfigureListLanguageController.post
     );
-    app.get('/subscription-configure-list-preview',
+    app.get(
+        '/subscription-configure-list-preview',
         isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfigureListPreviewController.get);
+        app.locals.container.cradle.subscriptionConfigureListPreviewController.get
+    );
     app.post(
         '/subscription-configure-list-preview',
         isPermittedMedia,

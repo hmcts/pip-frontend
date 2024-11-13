@@ -3,7 +3,7 @@ import { app } from '../../main/app';
 import sinon from 'sinon';
 import request from 'supertest';
 import { SubscriptionService } from '../../main/service/SubscriptionService';
-import {PendingSubscriptionsFromCache} from "../../main/service/PendingSubscriptionsFromCache";
+import { PendingSubscriptionsFromCache } from '../../main/service/PendingSubscriptionsFromCache';
 
 const handleSubStub = sinon.stub(SubscriptionService.prototype, 'handleNewSubscription');
 const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions');
