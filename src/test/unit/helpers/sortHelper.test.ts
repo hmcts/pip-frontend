@@ -3,6 +3,7 @@ import {
     locationSubscriptionSorter,
     pendingCaseSubscriptionSorter,
     pendingLocationSubscriptionSorter,
+    pendingListTypeSubscriptionSorter,
 } from '../../../main/helpers/sortHelper';
 
 describe('Sort Helper', () => {
@@ -185,6 +186,22 @@ describe('Sort Helper', () => {
                 { caseName: 'Case A', caseNumber: '124', caseUrn: '' },
                 { caseName: 'Case A', caseNumber: '', caseUrn: '125' },
                 { caseName: 'Case B', caseNumber: '123', caseUrn: '' },
+            ]);
+        });
+    });
+
+    describe('List Type subscription sorter', () => {
+        it('should sort by list types', () => {
+            const listTypes = [
+                "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
+                "SJP_PUBLIC_LIST",
+                "FAMILY_DAILY_CAUSE_LIST"
+            ];
+
+            expect(listTypes.sort(pendingListTypeSubscriptionSorter)).toStrictEqual([
+                "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST",
+                "FAMILY_DAILY_CAUSE_LIST",
+                "SJP_PUBLIC_LIST"
             ]);
         });
     });

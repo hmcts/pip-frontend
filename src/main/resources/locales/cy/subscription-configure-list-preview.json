@@ -1,0 +1,20 @@
+{
+    "title": "Cadarnhewch eich tanysgrifiadau e-bost",
+    "removeText": "Dileu",
+    "buttonText": "Cadarnhau tanysgrifiadau",
+    "english": "Saesneg",
+    "welsh": "Cymraeg",
+    "bothVersionSelected": "Cymraeg a Saesneg",
+    "backButton": "Yn ôl",
+    "courtTribunalName": "Enw’r llys neu’r tribiwnlys",
+    "listType": "List type",
+    "version": "Fersiwn",
+    "buttonText_change": "Change",
+    "actions": "Camau gweithredu",
+    "error": {
+        "title": "Mae yna broblem",
+        "message": "Dewiswch fath o restr i barhau"
+    },
+    "selectListType_text": "Dewis Mathau o Restri",
+    "selectListType_link": "/subscription-add-list"
+}

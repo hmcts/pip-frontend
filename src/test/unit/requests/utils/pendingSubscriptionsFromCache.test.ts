@@ -63,6 +63,7 @@ getStub.withArgs('pending-listLanguage-subscriptions-1').resolves(mockListLangua
 redisClient['status'] = 'ready';
 
 const set = sinon.stub(redisClient, 'set');
+const del = sinon.stub(redisClient, 'del');
 
 describe('pendingSubscription from Cache', () => {
     describe('setPendingSubscriptions with valid user', () => {
@@ -139,6 +140,27 @@ describe('pendingSubscription from Cache', () => {
             await pendingSubscriptionsFromCache.removeFromCache({ 'case-urn': 'CASEURN1234' }, '2');
             sinon.assert.calledWith(set, 'pending-cases-subscriptions-2', '[]');
             sinon.assert.called(getStub);
+        });
+
+        it('should remove a list type from the cache', async () => {
+            await pendingSubscriptionsFromCache.removeFromCache({ 'list-type': 'listType1' }, '1');
+            sinon.assert.calledWith(set, 'pending-listTypes-subscriptions-1', '[]');
+            sinon.assert.called(getStub);
+        });
+    });
+
+    describe('removeLocationSubscriptionCache', () => {
+        it('should remove a list type and language from the cache', async () => {
+            await pendingSubscriptionsFromCache.removeLocationSubscriptionCache('1');
+            sinon.assert.calledWith(del, 'pending-listTypes-subscriptions-1');
+            sinon.assert.calledWith(del, 'pending-listLanguage-subscriptions-1');
+        });
+    });
+
+    describe('setListTypeSubscription', () => {
+        it('should remove a list type from the cache', async () => {
+            await pendingSubscriptionsFromCache.setListTypeSubscription(mockUser.id, mockListType);
+            sinon.assert.calledWith(set, 'pending-listTypes-subscriptions-1', mockListTypeJson);
         });
     });
 });

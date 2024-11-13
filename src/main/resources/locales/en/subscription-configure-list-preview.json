@@ -1,0 +1,21 @@
+{
+    "title": "Confirm your email subscriptions",
+    "removeText": "Remove",
+    "buttonText": "Confirm Subscriptions",
+    "english": "English",
+    "welsh": "Welsh",
+    "bothVersionSelected": "English and Welsh",
+    "backButton": "Back",
+    "courtTribunalName": "Court or tribunal name",
+    "listType": "List type",
+    "version": "Version",
+    "actions": "Actions",
+    "buttonText_change": "Change",
+    "error": {
+        "title": "There is a problem",
+        "message": "Please select a list type to continue"
+    },
+    "noListTypeSelected_error": "Please select a list type to continue",
+    "selectListType_text": "Select List Types",
+    "selectListType_link": "/subscription-configure-list"
+}

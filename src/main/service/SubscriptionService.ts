@@ -8,7 +8,12 @@ import { FilterService } from './FilterService';
 import { Location } from '../models/Location';
 import { ListType } from '../models/ListType';
 import { AToZHelper } from '../helpers/aToZHelper';
-import { caseSubscriptionSorter, locationSubscriptionSorter } from '../helpers/sortHelper';
+import {
+    caseSubscriptionSorter,
+    locationSubscriptionSorter,
+    pendingCaseSubscriptionSorter, pendingListTypeSubscriptionSorter,
+    pendingLocationSubscriptionSorter
+} from '../helpers/sortHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
@@ -319,7 +324,16 @@ export class SubscriptionService {
             listLanguage: cachedLanguageType[0].split(','),
             userId,
         };
-        return await subscriptionRequests.addListTypeForLocationSubscriptions(userId, payload);
+        let subscribed = true;
+        const response = await subscriptionRequests.addListTypeForLocationSubscriptions(userId, payload);
+
+        if (response) {
+            pendingSubscriptionsFromCache.removeLocationSubscriptionCache(userId);
+        } else {
+            subscribed = false;
+        }
+
+        return subscribed;
     }
 
     createSubscriptionPayload(pendingSubscription, subscriptionType, userId): object {
@@ -361,11 +375,20 @@ export class SubscriptionService {
     }
 
     public async configureListTypeForLocationSubscriptions(userId, listType, listLanguage): Promise<boolean> {
-        return await subscriptionRequests.configureListTypeForLocationSubscriptions(userId, {
+        let success = true;
+        const response = await subscriptionRequests.configureListTypeForLocationSubscriptions(userId, {
             listType: this.createListTypeSubscriptionPayload(listType),
             listLanguage: this.createListTypeSubscriptionPayload(listLanguage),
             userId,
         });
+
+        if (response) {
+            pendingSubscriptionsFromCache.removeLocationSubscriptionCache(userId);
+        } else {
+            success = false;
+        }
+
+        return  success;
     }
 
     public createListTypeSubscriptionPayload(listType): string[] {
@@ -485,17 +508,21 @@ export class SubscriptionService {
     }
 
     public async generateListTypeForCourts(userRole, language, userId): Promise<object> {
+        const applicableListTypes = await this.getListTypesForCachedCourts(userRole, userId );
+        return this.generateAlphabetisedListTypes([], applicableListTypes, language);
+    }
+
+    private async getListTypesForCachedCourts(userRole, userId) {
         const cacheService = new PendingSubscriptionsFromCache();
         const cachedCourts = await cacheService.getPendingSubscriptions(userId, 'courts');
         const courtsJurisdictions = await locationService.findCourtsJurisdiction(cachedCourts);
 
         const selectedListTypes = await this.getUserSubscriptionListType(userId);
-        const applicableListTypes = this.findApplicableListTypeForCourts(
+        return this.findApplicableListTypeForCourts(
             courtsJurisdictions,
             selectedListTypes,
             userRole
         );
-        return this.generateAlphabetisedListTypes([], applicableListTypes, language);
     }
 
     private findApplicableListTypeForCourts(courtJurisdictions, selectedListTypes, userRole): Map<string, ListType> {
@@ -555,5 +582,61 @@ export class SubscriptionService {
 
     public async deleteLocationSubscription(locationId: number, requester: string): Promise<object> {
         return await subscriptionRequests.deleteLocationSubscription(locationId, requester);
+    }
+
+    public async populateListTypesFriendlyName(selectedListTypes, language): Promise<Array<object>> {
+        const applicableListTypes = [] as Array<object>;
+        for (const index in selectedListTypes) {
+            applicableListTypes.push({
+                value: selectedListTypes[index],
+                text: await this.findListTypeFriendlyName(selectedListTypes[index], language) });
+        }
+
+        return applicableListTypes;
+    }
+
+    private async findListTypeFriendlyName(listTypeName, language): Promise<string> {
+        const listTypes = publicationService.getListTypes();
+        for (const [listName, listType] of listTypes) {
+            if (listTypeName === listName) {
+                return this.getListLocalisedName(listType, language);
+            }
+        }
+    }
+
+    public async getAllUserSubscriptionsFromCache(userId, language): Promise<any> {
+        return {
+            cases: await this.getSortedPendingSubscriptions(
+                userId,
+                'cases',
+                pendingCaseSubscriptionSorter
+            ),
+            courts: await this.getSortedPendingSubscriptions(
+                userId,
+                'courts',
+                pendingLocationSubscriptionSorter
+            ),
+            listTypes: await this.populateListTypesFriendlyName(await this.getSortedPendingSubscriptions(
+                userId,
+                'listTypes',
+                pendingListTypeSubscriptionSorter
+            ), language),
+            listLanguage: await this.getPendingSubscriptions(userId,
+                'listLanguage'),
+        };
+    }
+
+    public async removeListTypeForCourt(userRole, language, userId) {
+        const courtListTypes = await this.getListTypesForCachedCourts(userRole, userId);
+        const cachedListTypes = await this.getPendingSubscriptions(userId, 'listTypes');
+        let selectedListTypes = [];
+        cachedListTypes.forEach(function(value) {
+            for (const [listName] of courtListTypes) {
+                if (value === listName) {
+                    selectedListTypes.push(listName);
+                }
+            }
+        });
+        pendingSubscriptionsFromCache.setListTypeSubscription(userId, [...new Set(selectedListTypes)]);
     }
 }

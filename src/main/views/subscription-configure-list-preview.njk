@@ -1,0 +1,89 @@
+{% extends "template.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "./macros/common-components.njk" import submitButton, goBack, backButtonHistory %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+  {% if pendingSubscriptions.listLanguage | length != 0 %}
+      {% if pendingSubscriptions.listLanguage[0] == 'ENGLISH' %}
+          {% set languageType = english %}
+      {% elseif pendingSubscriptions.listLanguage[0] == 'WELSH' %}
+          {% set languageType = welsh %}
+      {% else %}
+          {% set languageType = bothVersionSelected %}
+      {% endif %}
+  {% endif %}
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% if displayError %}
+    <div class="govuk-grid-row">
+        <div class="no_padding govuk-grid-column-two-thirds">
+            {{ govukErrorSummary({
+                titleText: error.title,
+                errorList: [
+                    {
+                        text: error.message,
+                        href: "#addListTypeLink"
+                    }
+                ]
+            }) }}
+        </div>
+    </div>
+  {% endif %}
+    <form action="subscription-configure-list-preview" method="POST">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">{{ listType }}</th>
+                <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ actions }}</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            {% for listType in pendingSubscriptions.listTypes %}
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">{{ listType.text }}</td>
+                    <td class="govuk-table__cell govuk-!-text-align-right">
+                        <a href="/remove-configure-list?list-type={{ listType.value }}">{{ removeText }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">{{ version }}</th>
+                <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ actions }}</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ languageType }}</td>
+                <td class="govuk-table__cell govuk-!-text-align-right">
+                    <a href="/subscription-configure-list-language">{{ buttonText_change }}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+      {% if displayError %}
+          <p class="govuk-body"><a id="addListTypeLink" class="govuk-link" href="{{ selectListType_link }}">{{ selectListType_text }}</a></p>
+      {% endif %}
+      {{ submitButton(label=buttonText) }}
+    </form>
+  {{ super() }}
+  </div>
+
+{% endblock %}
+{% block bodyEnd %}
+  {{ backButtonHistory(cspNonce) }}
+  {{ super() }}
+{% endblock %}

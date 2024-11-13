@@ -1,0 +1,29 @@
+{
+    "title": "Confirm your email subscriptions",
+    "removeText": "Remove",
+    "table": {
+        "header1": "Case name",
+        "header2": "Party name(s)",
+        "header3": "Reference number",
+        "header4": "Actions"
+    },
+    "buttonText": "Confirm Subscriptions",
+    "addOther_link": "/subscription-add",
+    "addOther_text": "Add another email Subscription",
+    "buttonAddText": "Add Subscriptions",
+    "error": {
+        "title": "There is a problem",
+        "message": "At least 1 subscription is needed."
+    },
+    "english": "English",
+    "welsh": "Welsh",
+    "bothVersionSelected": "English and Welsh",
+    "backButton": "Back",
+    "courtTribunalName": "Court or tribunal name",
+    "listType": "List type",
+    "version": "Version",
+    "buttonText_change": "Change",
+    "noListTypeSelected_error": "Please select a list type to continue",
+    "selectListType_text": "Select List Types",
+    "selectListType_link": "/subscription-add-list"
+}
