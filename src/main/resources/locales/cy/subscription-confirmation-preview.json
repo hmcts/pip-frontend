@@ -20,11 +20,11 @@
     "bothVersionSelected": "Cymraeg a Saesneg",
     "backButton": "Yn ôl",
     "courtTribunalName": "Enw’r llys neu’r tribiwnlys",
-    "listType": "List type",
+    "listType": "Math o restr",
     "version": "Fersiwn",
-    "buttonText_change": "Change",
+    "buttonText_change": "Newid",
     "noListTypeSelected_error": "Dewiswch fath o restr i barhau",
     "selectListType_text": "Dewis Mathau o Restri",
     "selectListType_link": "/subscription-add-list",
-    "listVersion_information": "This version change will affect the previously selected language for all existing subscriptions."
+    "listVersion_information": "Bydd y newid fersiwn hwn yn effeithio ar yr iaith a ddewiswyd yn flaenorol ar gyfer yr holl tanysgrifiadau presennol."
 }
