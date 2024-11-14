@@ -9,12 +9,13 @@
     "courtTribunalName": "Enw’r llys neu’r tribiwnlys",
     "listType": "List type",
     "version": "Fersiwn",
-    "buttonText_change": "Change",
     "actions": "Camau gweithredu",
+    "buttonText_change": "Change",
     "error": {
         "title": "Mae yna broblem",
         "message": "Dewiswch fath o restr i barhau"
     },
     "selectListType_text": "Dewis Mathau o Restri",
-    "selectListType_link": "/subscription-add-list"
+    "selectListType_link": "/subscription-configure-list",
+    "listVersion_information": "This version change will affect the previously selected language for all existing subscriptions."
 }

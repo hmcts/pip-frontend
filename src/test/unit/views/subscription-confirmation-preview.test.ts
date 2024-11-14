@@ -77,6 +77,11 @@ getSubscriptionsStub.withArgs('4', 'courts').resolves([mockCourt]);
 getSubscriptionsStub.withArgs('4', 'listTypes').resolves([mockListTypeValue]);
 getSubscriptionsStub.withArgs('4', 'listLanguage').resolves([mockListLanguage]);
 
+getSubscriptionsStub.withArgs('5', 'cases').resolves([]);
+getSubscriptionsStub.withArgs('5', 'courts').resolves([mockCourt]);
+getSubscriptionsStub.withArgs('5', 'listTypes').resolves([]);
+getSubscriptionsStub.withArgs('5', 'listLanguage').resolves([mockListLanguage]);
+
 friendlyNameStub.withArgs(mockListTypeValue).resolves(mockListTypeText);
 
 describe('Subscriptions Confirmation Preview Page', () => {
@@ -137,6 +142,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
                 .getElementsByClassName('govuk-table')[3]
                 .getElementsByClassName('govuk-table__header');
             expect(tableHeaders[0].innerHTML).contains('Version', 'Could not find text in first header');
+            expect(tableHeaders[0].innerHTML).contains('This version change will affect the previously selected language for all existing subscriptions.', 'Could not find information text in first header');
             expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
         });
 
@@ -340,6 +346,100 @@ describe('Subscriptions Confirmation Preview Page', () => {
             );
         });
     });
+
+    describe('user with court subscription but without case and list type subscriptions', () => {
+        beforeAll(async () => {
+            app.request['user'] = { userId: '5', roles: 'VERIFIED' };
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+        });
+
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+        });
+
+        it('should display back button', () => {
+            const backButton = htmlRes.getElementsByClassName(backLinkClass);
+            expect(backButton[0].innerHTML).contains('Back');
+        });
+
+        it('should display title', () => {
+            const title = htmlRes.getElementsByClassName('govuk-heading-l');
+            expect(title[0].innerHTML).contains(pageHeaderWithCourtSub);
+        });
+
+        it('should display correct court table headers', () => {
+            const tableHeaders = htmlRes
+                .getElementsByClassName('govuk-table')[0]
+                .getElementsByClassName('govuk-table__header');
+            expect(tableHeaders[0].innerHTML).contains('Court or tribunal name', 'Could not find text in first header');
+            expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
+        });
+
+        it('should contain 1 row in the court table with correct values', () => {
+            const rows = htmlRes
+                .getElementsByClassName('govuk-table__body')[0]
+                .getElementsByClassName('govuk-table__row');
+            const cells = rows[0].getElementsByClassName('govuk-table__cell');
+            expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
+            expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[1].querySelector('a').getAttribute('href')).equal(
+                `/remove-pending-subscription?court=${mockCourt.locationId}`
+            );
+        });
+
+        it('should display correct list type table headers', () => {
+            const tableHeaders = htmlRes
+                .getElementsByClassName('govuk-table')[1]
+                .getElementsByClassName('govuk-table__header');
+            expect(tableHeaders[0].innerHTML).contains('List type', 'Could not find text in first header');
+            expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
+        });
+
+        it('should display correct list language table headers', () => {
+            const tableHeaders = htmlRes
+                .getElementsByClassName('govuk-table')[2]
+                .getElementsByClassName('govuk-table__header');
+            expect(tableHeaders[0].innerHTML).contains('Version', 'Could not find text in first header');
+            expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
+        });
+
+        it('should contain 1 row in the list language table with correct values', () => {
+            const rows = htmlRes
+                .getElementsByClassName('govuk-table__body')[2]
+                .getElementsByClassName('govuk-table__row');
+            const cells = rows[0].getElementsByClassName('govuk-table__cell');
+            expect(rows.length).equal(1, 'List Language table did not contain expected number of rows');
+            expect(cells[0].innerHTML).contains(mockListLanguageText, 'First cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Change', 'Fourth cell does not contain correct value');
+            expect(cells[1].querySelector('a').getAttribute('href')).equal(`/subscription-add-list-language`);
+        });
+
+        it('should contain confirm subscriptions button', () => {
+            const button = htmlRes.getElementsByClassName('govuk-button')[0];
+            expect(button.innerHTML).contains(btnConfirmSubscription, 'Could not find submit button');
+        });
+
+        it('should display add another email subscription link', () => {
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[14];
+            expect(addAnotherLink.innerHTML).contains(
+                'Select List Types',
+                'Could not find add another email subscription link'
+            );
+
+            expect(addAnotherLink.getAttribute('href')).equal(
+                '/subscription-add-list',
+                'Add another link does not contain href'
+            );
+        });
+    });
+
 
     describe('user with case subscription but without court subscriptions', () => {
         beforeAll(async () => {

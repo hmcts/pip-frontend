@@ -31,16 +31,16 @@ subscribeStub.withArgs('2').resolves(false);
 
 friendlyNameStub.withArgs(mockListTypeValue).resolves('List Type1');
 
-describe('subscription Configure Preview', () => {
+describe('subscription Configure List Preview', () => {
     describe('on GET', () => {
-        test('should return subscription configure Preview page', async () => {
+        test('should return subscription configure list preview page', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .get('/subscription-configure-list-preview')
                 .expect(res => expect(res.status).to.equal(200));
         });
 
-        test('should return subscriptions configure preview page with error query param', async () => {
+        test('should return subscription configure list preview with error query param', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .get('/subscription-configure-list-preview?no-list-configure=true')
@@ -49,7 +49,7 @@ describe('subscription Configure Preview', () => {
     });
 
     describe('on POST', () => {
-        test('should redirect to subscription configure preview page', async () => {
+        test('should redirect to subscription configure list preview', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .post('/subscription-configure-list-preview')

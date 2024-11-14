@@ -28,7 +28,7 @@ friendlyNameStub.withArgs(mockListTypeValue).resolves('List Type1');
 
 describe('subscription Confirmation Preview', () => {
     describe('on GET', () => {
-        test('should return subscription confirmation Preview page', async () => {
+        test('should return subscription confirmation preview page', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .get('/subscription-confirmation-preview')

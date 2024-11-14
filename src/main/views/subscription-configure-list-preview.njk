@@ -61,7 +61,16 @@
         <table class="govuk-table">
             <thead class="govuk-table__head">
             <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">{{ version }}</th>
+                <th scope="col" class="govuk-table__header">
+                    <div class="govuk-grid-row">
+                        <div class="govuk-!-padding-right-1">
+                            {{ version }}
+                        </div>
+                        <div>
+                            <img src="{{ assetPath | default("/assets", true) }}/images/icon-information.png" title="{{ listVersion_information }}" />
+                        </div>
+                    </div>
+                </th>
                 <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ actions }}</th>
             </tr>
             </thead>
