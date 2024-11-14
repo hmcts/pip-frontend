@@ -142,7 +142,10 @@ describe('Subscriptions Confirmation Preview Page', () => {
                 .getElementsByClassName('govuk-table')[3]
                 .getElementsByClassName('govuk-table__header');
             expect(tableHeaders[0].innerHTML).contains('Version', 'Could not find text in first header');
-            expect(tableHeaders[0].innerHTML).contains('This version change will affect the previously selected language for all existing subscriptions.', 'Could not find information text in first header');
+            expect(tableHeaders[0].innerHTML).contains(
+                'This version change will affect the previously selected language for all existing subscriptions.',
+                'Could not find information text in first header'
+            );
             expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
         });
 
@@ -439,7 +442,6 @@ describe('Subscriptions Confirmation Preview Page', () => {
             );
         });
     });
-
 
     describe('user with case subscription but without court subscriptions', () => {
         beforeAll(async () => {
