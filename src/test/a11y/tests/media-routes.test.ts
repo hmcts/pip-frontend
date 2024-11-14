@@ -11,7 +11,7 @@ import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import {SubscriptionService} from "../../../main/service/SubscriptionService";
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const userId = '1';
 const caseSubscriptionId = '952899d6-2b05-43ec-86e0-a438d3854fa8';
@@ -82,7 +82,10 @@ sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').resolves(subs
 
 const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions');
 const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');
-const subscribeListTypeConfigureStub = sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions');
+const subscribeListTypeConfigureStub = sinon.stub(
+    SubscriptionService.prototype,
+    'configureListTypeForLocationSubscriptions'
+);
 const friendlyNameStub = sinon.stub(SubscriptionService.prototype, 'findListTypeFriendlyName');
 
 const pendingSubscriptionStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
@@ -97,7 +100,7 @@ subscriptionStub.withArgs(userId, 'listTypes').resolves(['ListType1']);
 subscriptionStub.withArgs(userId, 'listLanguage').resolves(['ENGLISH']);
 
 subscribeStub.withArgs(userId).resolves(true);
-subscribeListTypeConfigureStub.withArgs(userId).resolves(true)
+subscribeListTypeConfigureStub.withArgs(userId).resolves(true);
 
 friendlyNameStub.withArgs('ListType1').resolves('List Type1');
 
