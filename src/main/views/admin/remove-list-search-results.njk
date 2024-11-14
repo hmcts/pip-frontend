@@ -36,8 +36,8 @@
                         <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[2] }}</th>
                         <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[3] }}</th>
                         <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[4] }}</th>
-                      <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[5] }}</th>
-                        <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ tableHeaders[6] }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="descending">{{ tableHeaders[5] }}</th>
+                        <th id="select-header" scope="col" class="govuk-table__header govuk-table__header--numeric">{{ tableHeaders[6] }}</th>
                     </tr>
                     </thead>
                     <tbody class="govuk-table__body">
@@ -53,8 +53,8 @@
                             <td class="govuk-table__cell">{{ item.sensitivity | titleCase }}</td>
                             <td class="govuk-table__cell govuk-table__cell--numeric">
                                 <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-list-removal-checkboxes">
-                                    <input type="checkbox" class="govuk-checkboxes__input" name="courtLists" id="courtLists-{{ listCount }}" value={{ item.artefactId }}>
-                                    <label class="govuk-label govuk-checkboxes__label bulk-list-removal-label" for="courtLists-{{ listCount }}"> </label>
+                                    <input type="checkbox" class="govuk-checkboxes__input" name="courtLists" id="courtLists-{{ listCount }}" aria-labelledby="select-header" value={{ item.artefactId }}>
+                                    <label class="govuk-label govuk-checkboxes__label" for="courtLists-{{ listCount }}"> </label>
                                 </div>
                             </td>
                         </tr>
