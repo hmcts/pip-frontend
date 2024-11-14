@@ -7,7 +7,7 @@ import { PendingSubscriptionsFromCache } from '../../main/service/PendingSubscri
 
 const handleSubStub = sinon.stub(SubscriptionService.prototype, 'handleNewSubscription');
 const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions');
-const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');
+const subscribeStub = sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions');
 const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const friendlyNameStub = sinon.stub(SubscriptionService.prototype, 'findListTypeFriendlyName');
 
