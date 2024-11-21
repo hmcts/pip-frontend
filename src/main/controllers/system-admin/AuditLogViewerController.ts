@@ -2,7 +2,7 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { AuditLogService } from '../../service/AuditLogService';
-import {AuditLogSearchCriteria} from "../../models/AuditLogSearchCriteria";
+import { AuditLogSearchCriteria } from '../../models/AuditLogSearchCriteria';
 
 const auditLogService = new AuditLogService();
 export default class AuditLogViewerController {
@@ -34,7 +34,7 @@ export default class AuditLogViewerController {
                 actionsFieldData: pageData['actionsFieldData'],
                 filterDateFieldData: pageData['filterDateFieldData'],
                 categories: pageData['categories'],
-                displayError: filterDate === null
+                displayError: filterDate === null,
             });
         }
     }

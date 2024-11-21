@@ -3,7 +3,7 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 const accountManagementRequests = new AccountManagementRequests();
 import { DateTime } from 'luxon';
 import { formattedProvenances, formattedRoles } from '../helpers/consts';
-import {AuditLogSearchCriteria} from "../models/AuditLogSearchCriteria";
+import { AuditLogSearchCriteria } from '../models/AuditLogSearchCriteria';
 import auditActions from '../resources/auditActions.json';
 
 export class AuditLogService {
@@ -20,10 +20,7 @@ export class AuditLogService {
     }
 
     public async getFormattedAuditData(query: AuditLogSearchCriteria, queryUrl: string, adminUserId: string) {
-        const rawData = await accountManagementRequests.getAllAuditLogs(
-            this.buildRequestParams(query),
-            adminUserId
-        );
+        const rawData = await accountManagementRequests.getAllAuditLogs(this.buildRequestParams(query), adminUserId);
 
         return {
             paginationData: this.formatPaginationData(
@@ -35,10 +32,14 @@ export class AuditLogService {
             auditLogData: this.formatPageData(rawData?.content),
             emailFieldData: this.buildInputFieldObject('email', 'Email', query.email, true),
             userIdFieldData: this.buildInputFieldObject('userId', 'User ID', query.userId, true),
-            actionsFieldData: this.buildCheckboxesFieldObject('actions', 'Actions', [...new Set(rawData?.content.map(item => item.action))], query.actions),
-            filterDateFieldData: this.buildDateInputFieldObject('filterDate', 'Filter Date',
-                query.filterDate, true),
-            categories: this.getCategories(query, queryUrl, rawData?.content),
+            actionsFieldData: this.buildCheckboxesFieldObject(
+                'actions',
+                'Actions',
+                [...new Set(rawData?.content.map(item => item.action))],
+                query.actions
+            ),
+            filterDateFieldData: this.buildDateInputFieldObject('filterDate', 'Filter Date', query.filterDate, true),
+            categories: this.getCategories(query, queryUrl),
         };
     }
 
@@ -119,25 +120,25 @@ export class AuditLogService {
                 legend: {
                     text: fieldText,
                     classes: 'govuk-fieldset__legend--m',
-                }
+                },
             },
             items: [
                 {
-                    name: "day",
-                    classes: "govuk-input--width-2",
-                    value: date?.length === 3 ? date[2] : ''
+                    name: 'day',
+                    classes: 'govuk-input--width-2',
+                    value: date?.length === 3 ? date[2] : '',
                 },
                 {
-                    name: "month",
-                    classes: "govuk-input--width-2",
-                    value: date?.length === 3 ? date[1] : ''
+                    name: 'month',
+                    classes: 'govuk-input--width-2',
+                    value: date?.length === 3 ? date[1] : '',
                 },
                 {
-                    name: "year",
-                    classes: "govuk-input--width-2",
-                    value: date?.length === 3 ? date[0] : ''
-                }
-            ]
+                    name: 'year',
+                    classes: 'govuk-input--width-2',
+                    value: date?.length === 3 ? date[0] : '',
+                },
+            ],
         };
 
         if (hint) {
@@ -239,13 +240,12 @@ export class AuditLogService {
     /**
      * Builds the category array with category objects.
      */
-    private getCategories(query: AuditLogSearchCriteria, queryUrl: string, rawData: any) {
+    private getCategories(query: AuditLogSearchCriteria, queryUrl: string) {
         const categoriesArray = [];
 
         categoriesArray.push(this.buildCategoryObject('Email', query.email, queryUrl, 'email=', false));
         categoriesArray.push(this.buildCategoryObject('User ID', query.userId, queryUrl, 'userId=', false));
-        categoriesArray.push(this.buildCategoryObject('Actions', query.actions, queryUrl, 'actions=', true,
-            [...new Set(rawData.map(item => item.action))]));
+        categoriesArray.push(this.buildCategoryObject('Actions', query.actions, queryUrl, 'actions=', true));
         categoriesArray.push(this.buildCategoryObject('Filter Date', query.filterDate, queryUrl, 'filterDate=', false));
 
         return categoriesArray;
@@ -259,8 +259,7 @@ export class AuditLogService {
         itemValues: string,
         queryUrl: string,
         urlParam: string,
-        checkboxes: boolean,
-        constValue: any = ''
+        checkboxes: boolean
     ) {
         let categoryObject = {};
         if (itemValues.length) {
@@ -308,10 +307,12 @@ export class AuditLogService {
     }
 
     public validateDate(query: object, fieldsetPrefix: string): string {
-
-        if (query[`${fieldsetPrefix}-day`] === undefined && query[`${fieldsetPrefix}-month`] === undefined
-            && query[`${fieldsetPrefix}-year`] === undefined) {
-            return ""
+        if (
+            query[`${fieldsetPrefix}-day`] === undefined &&
+            query[`${fieldsetPrefix}-month`] === undefined &&
+            query[`${fieldsetPrefix}-year`] === undefined
+        ) {
+            return '';
         }
 
         const date = this.buildDate(query, fieldsetPrefix);
@@ -327,9 +328,13 @@ export class AuditLogService {
     private buildDate(body: object, fieldsetPrefix: string): string {
         return body[`${fieldsetPrefix}-year`]?.concat(
             '-',
-            body[`${fieldsetPrefix}-month`]?.length === 1 ? '0' + body[`${fieldsetPrefix}-month`] : body[`${fieldsetPrefix}-month`],
+            body[`${fieldsetPrefix}-month`]?.length === 1
+                ? '0' + body[`${fieldsetPrefix}-month`]
+                : body[`${fieldsetPrefix}-month`],
             '-',
-            body[`${fieldsetPrefix}-day`]?.length === 1 ? '0' + body[`${fieldsetPrefix}-day`] : body[`${fieldsetPrefix}-day`]
+            body[`${fieldsetPrefix}-day`]?.length === 1
+                ? '0' + body[`${fieldsetPrefix}-day`]
+                : body[`${fieldsetPrefix}-day`]
         );
     }
 
