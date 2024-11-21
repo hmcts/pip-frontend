@@ -58,7 +58,7 @@ describe('Audit log service', () => {
     });
 
     it('should return formatted data from the getFormattedAuditData function', async () => {
-        const response = await auditLogService.getFormattedAuditData(1, '1234');
+        const response = await auditLogService.getFormattedAuditData(1, '1234', '');
 
         // Pagination data
         expect(response['paginationData']['previous'].labelText).to.equal('1 of 10');

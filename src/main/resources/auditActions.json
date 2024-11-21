@@ -1,0 +1,98 @@
+[
+    {
+        "key": "ATTEMPT_SYSTEM_ADMIN_CREATION",
+        "name": "Attempt to Create System Admin"
+    },
+    {
+        "key": "ADMIN_CREATION",
+        "name": "Create Admin User"
+    },
+    {
+        "key": "SYSTEM_ADMIN_CREATION",
+        "name": "Create System Admin User"
+    },
+    {
+        "key": "REFERENCE_DATA_UPLOAD",
+        "name": "Upload Reference Data"
+    },
+    {
+        "key": "REFERENCE_DATA_DOWNLOAD",
+        "name": "Download Reference Data"
+    },
+    {
+        "key": "VIEW_THIRD_PARTY_USERS",
+        "name": "View Third Party Users"
+    },
+    {
+        "key": "MANAGE_THIRD_PARTY_USER_VIEW",
+        "name": "View Third Party User"
+    },
+    {
+        "key": "MANAGE_THIRD_PARTY_USER_SUBSCRIPTIONS",
+        "name": "Manage Third Party User Subscriptions"
+    },
+    {
+        "key": "THIRD_PARTY_USER_CREATION",
+        "name": "Create Third Party User"
+    },
+    {
+        "key": "DELETE_THIRD_PARTY_USER",
+        "name": "Delete Third Party User"
+    },
+    {
+        "key": "USER_MANAGEMENT_VIEW",
+        "name": "View User Management"
+    },
+    {
+        "key": "MANAGE_USER",
+        "name": "Manage User"
+    },
+    {
+        "key": "UPDATE_USER",
+        "name": "Update User"
+    },
+    {
+        "key": "DELETE_USER",
+        "name": "Delete User"
+    },
+    {
+        "key": "VIEW_BLOB_EXPLORER",
+        "name": "View Blob Explorer"
+    },
+    {
+        "key": "BULK_MEDIA_UPLOAD",
+        "name": "Upload Bulk Media Users"
+    },
+    {
+        "key": "DELETE_LOCATION_ATTEMPT",
+        "name": "Attempt to Delete Location"
+    },
+    {
+        "key": "DELETE_LOCATION_SUCCESS",
+        "name": "Delete Location Successfully"
+    },
+    {
+        "key": "DELETE_LOCATION_SUBSCRIPTION_SUCCESS",
+        "name": "Delete Location Subscription Successfully"
+    },
+    {
+        "key": "DELETE_LOCATION_PUBLICATION_SUCCESS",
+        "name": "Delete Location Publication Successfully"
+    },
+    {
+        "key": "PUBLICATION_UPLOAD",
+        "name": "Upload Publication"
+    },
+    {
+        "key": "DELETE_PUBLICATION",
+        "name": "Delete Publication"
+    },
+    {
+        "key": "APPROVE_MEDIA_APPLICATION",
+        "name": "Approve Media Application"
+    },
+    {
+        "key": "REJECT_MEDIA_APPLICATION",
+        "name": "Reject Media Application"
+    }
+]

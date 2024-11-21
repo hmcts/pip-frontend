@@ -1,3 +1,11 @@
 {
-    "title": "System admin audit log"
+    "title": "System admin audit log",
+    "filter": "Filter",
+    "clearFilters": "Clear filters",
+    "clearHref": "?clear=all",
+    "selectedFilters": "Selected filters",
+    "error": {
+        "invalidDate": "Please enter valid filter date",
+        "title": "There is a problem"
+    }
 }
