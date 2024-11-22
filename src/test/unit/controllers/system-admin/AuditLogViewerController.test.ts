@@ -63,7 +63,7 @@ describe('Audit log view controller', () => {
     const request = mockRequest(i18n);
     request.path = '/audit-log-viewer';
 
-    it('should render the audit log view page', async () => {
+    it('should render the audit log viewer page', async () => {
         request.url = '/audit-log-viewer';
 
         const responseMock = sinon.mock(response);
@@ -86,7 +86,7 @@ describe('Audit log view controller', () => {
         return responseMock.verify();
     });
 
-    it('should render the audit log view page when query is provided', async () => {
+    it('should render the audit log viewer page when query is provided', async () => {
         request.query = {
             clear: undefined,
             page: testPage,
@@ -118,7 +118,7 @@ describe('Audit log view controller', () => {
         return responseMock.verify();
     });
 
-    it('should redirect to the audit log view page on clear', async () => {
+    it('should redirect to the audit log viewer page on clear', async () => {
         const mockFilter = 'ThisIsAFilter=Filter';
 
         sinon.stub(AuditLogService.prototype, 'handleFilterClearing').returns('success');
@@ -136,7 +136,7 @@ describe('Audit log view controller', () => {
         return responseMock.verify();
     });
 
-    it('should redirect to the audit log view page on post', async () => {
+    it('should redirect to the audit log viewer page on post', async () => {
         const mockFilter = 'ThisIsAFilter=Filter';
 
         request.url = '/audit-log-viewer';

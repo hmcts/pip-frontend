@@ -67,7 +67,7 @@ const testApiResponseData = {
 
 sinon.stub(AccountManagementRequests.prototype, 'getAllAuditLogs').resolves(testApiResponseData);
 
-describe('Audit Log Service management service', () => {
+describe('Audit Log Service', () => {
     it('should return the correct table headers', () => {
         const response = auditLogService.getTableHeaders();
 
