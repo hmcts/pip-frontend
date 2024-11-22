@@ -158,7 +158,7 @@ export class AuditLogService {
             rows.push(this.buildSummaryListItem('Email', auditLog.userEmail));
             rows.push(this.buildSummaryListItem('Role', formattedRoles[auditLog.roles]));
             rows.push(this.buildSummaryListItem('Provenance', formattedProvenances[auditLog.userProvenance]));
-            rows.push(this.buildSummaryListItem('Action', auditLog.action));
+            rows.push(this.buildSummaryListItem('Action', this.getAuditActionByKey(auditLog.action).name));
             rows.push(this.buildSummaryListItem('Details', auditLog.details));
         }
 
@@ -206,12 +206,35 @@ export class AuditLogService {
                 auditLogData.push({
                     id: auditLog.id,
                     email: auditLog.userEmail,
-                    action: auditLog.action,
+                    action: this.getAuditActionByKey(auditLog.action),
                     timestamp: this.formatDate(auditLog.timestamp),
                 });
             });
         }
         return auditLogData;
+    }
+
+    private getAuditActionByKey(key: string): any {
+        return auditActions.find(item => item.key === key);
+    }
+
+    private getAllAuditActionByKey(keys: string): string {
+        let auditActionNames = '';
+        let auditKeysArray = keys.split(',');
+        if (auditKeysArray.length > 0) {
+            for (let index in auditKeysArray) {
+                auditActionNames =
+                    auditActionNames.concat(',', this.getAuditActionByKey(auditKeysArray[index]).name);
+            }
+        } else {
+            auditActionNames = keys;
+        }
+
+        if (auditActionNames.indexOf(',') === 0) {
+            return auditActionNames.substring(1);
+        }
+
+        return auditActionNames;
     }
 
     /**
@@ -245,7 +268,7 @@ export class AuditLogService {
 
         categoriesArray.push(this.buildCategoryObject('Email', query.email, queryUrl, 'email=', false));
         categoriesArray.push(this.buildCategoryObject('User ID', query.userId, queryUrl, 'userId=', false));
-        categoriesArray.push(this.buildCategoryObject('Actions', query.actions, queryUrl, 'actions=', true));
+        categoriesArray.push(this.buildCategoryObject('Actions', query?.actions.length > 0 ? this.getAllAuditActionByKey(query.actions) : '', queryUrl, 'actions=', true));
         categoriesArray.push(this.buildCategoryObject('Filter Date', query.filterDate, queryUrl, 'filterDate=', false));
 
         return categoriesArray;
@@ -354,7 +377,7 @@ export class AuditLogService {
                     delete body.userId;
                     break;
                 case 'actions':
-                    body.actions = body.actions.split(',').filter(f => f !== clearBody[1]);
+                    body.actions = this.removeAuditActionsFromBody(body.actions, clearBody[1]);
                     break;
                 case 'filterDate':
                     delete body[`filterDate-day`];
@@ -366,5 +389,17 @@ export class AuditLogService {
             delete body.page;
         }
         return body;
+    }
+
+    private removeAuditActionsFromBody(actions: string, deletedAction: string): string[] {
+        let bodyAuditActions = [];
+        const actionsArray = actions.split(',');
+        for (const index in actionsArray) {
+            if (this.getAuditActionByKey(actionsArray[index]).name != deletedAction) {
+                bodyAuditActions.push(actionsArray[index]);
+            }
+        }
+
+        return bodyAuditActions;
     }
 }
