@@ -220,11 +220,10 @@ export class AuditLogService {
 
     private getAllAuditActionByKey(keys: string): string {
         let auditActionNames = '';
-        let auditKeysArray = keys.split(',');
+        const auditKeysArray = keys.split(',');
         if (auditKeysArray.length > 0) {
-            for (let index in auditKeysArray) {
-                auditActionNames =
-                    auditActionNames.concat(',', this.getAuditActionByKey(auditKeysArray[index]).name);
+            for (const index in auditKeysArray) {
+                auditActionNames = auditActionNames.concat(',', this.getAuditActionByKey(auditKeysArray[index]).name);
             }
         } else {
             auditActionNames = keys;
@@ -268,7 +267,15 @@ export class AuditLogService {
 
         categoriesArray.push(this.buildCategoryObject('Email', query.email, queryUrl, 'email=', false));
         categoriesArray.push(this.buildCategoryObject('User ID', query.userId, queryUrl, 'userId=', false));
-        categoriesArray.push(this.buildCategoryObject('Actions', query?.actions.length > 0 ? this.getAllAuditActionByKey(query.actions) : '', queryUrl, 'actions=', true));
+        categoriesArray.push(
+            this.buildCategoryObject(
+                'Actions',
+                query?.actions.length > 0 ? this.getAllAuditActionByKey(query.actions) : '',
+                queryUrl,
+                'actions=',
+                true
+            )
+        );
         categoriesArray.push(this.buildCategoryObject('Filter Date', query.filterDate, queryUrl, 'filterDate=', false));
 
         return categoriesArray;
@@ -392,7 +399,7 @@ export class AuditLogService {
     }
 
     private removeAuditActionsFromBody(actions: string, deletedAction: string): string[] {
-        let bodyAuditActions = [];
+        const bodyAuditActions = [];
         const actionsArray = actions.split(',');
         for (const index in actionsArray) {
             if (this.getAuditActionByKey(actionsArray[index]).name != deletedAction) {
