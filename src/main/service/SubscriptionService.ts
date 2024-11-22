@@ -299,15 +299,19 @@ export class SubscriptionService {
     private async subscribeByCourt(userId, cachedCourtSubs) {
         let subscribed = true;
         for (const cachedCourt of cachedCourtSubs) {
-            const response = await subscriptionRequests.subscribe(
-                this.createSubscriptionPayload(cachedCourt, 'courts', userId),
-                userId
-            );
+            const returnedLocation = await locationService.getLocationById(cachedCourt.locationId);
+            if (returnedLocation != null) {
+                //IF COURT DOES NOT EXIST IN DATABASE BUT IN CACHE, DO NOT CREATE SUBSCRIPTION FOR IT.
+                const response = await subscriptionRequests.subscribe(
+                    this.createSubscriptionPayload(cachedCourt, 'courts', userId),
+                    userId
+                );
 
-            if (response) {
-                await this.removeFromCache({ court: cachedCourt.locationId }, userId);
-            } else {
-                subscribed = false;
+                if (response) {
+                    await this.removeFromCache({ court: cachedCourt.locationId }, userId);
+                } else {
+                    subscribed = false;
+                }
             }
         }
         return subscribed;
