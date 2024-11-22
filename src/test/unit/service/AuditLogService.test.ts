@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import { AuditLogService } from '../../../main/service/AuditLogService';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
-import {AuditLogSearchCriteria} from "../../../main/models/AuditLogSearchCriteria";
+import { AuditLogSearchCriteria } from '../../../main/models/AuditLogSearchCriteria';
 
 const auditLogService = new AuditLogService();
 
@@ -191,7 +191,7 @@ describe('Audit Log Service management service', () => {
     });
 
     it('should return empty if nothing is provided', () => {
-        const testDate = { };
+        const testDate = {};
 
         const response = auditLogService.validateDate(testDate, 'filterDate');
         expect(response).is.empty;

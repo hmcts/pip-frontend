@@ -23,11 +23,10 @@ const testPath = '';
 const formattedDataStub = sinon.stub(AuditLogService.prototype, 'getFormattedAuditData');
 
 formattedDataStub
-    .withArgs(
-        new AuditLogSearchCriteria(testPage, testEmail, testUserId, testActions, testFilterDate),
-        testPath,
-        { userId: userId, email: email }
-    )
+    .withArgs(new AuditLogSearchCriteria(testPage, testEmail, testUserId, testActions, testFilterDate), testPath, {
+        userId: userId,
+        email: email,
+    })
     .returns({
         auditLogData: 'otherData',
         paginationData: 'test2',
