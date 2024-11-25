@@ -87,10 +87,12 @@
                 rows: tableRows
               }) }}
               {{ govukPagination(paginationData) }}
-              {{ super() }}
             </div>
         </div>
     </main>
+    <div class="govuk-grid-row parent-box">
+        {{ super() }}
+    </div>
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
