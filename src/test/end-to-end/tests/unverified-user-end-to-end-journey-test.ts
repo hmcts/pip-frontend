@@ -52,6 +52,6 @@ Scenario('I as a unverified user should be able to make end-to-end journey', asy
     I.waitForText('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
-    I.click(locate('//a').withText('Single Justice Procedure cases'));
+    I.click('Find a Single Justice Procedure case');
     I.waitForText('What do you want to view from Single Justice Procedure?');
 });

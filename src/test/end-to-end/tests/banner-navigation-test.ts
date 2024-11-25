@@ -18,10 +18,6 @@ Scenario('Unverified user - all banner navigation links should take user to the 
 
 Scenario('Verified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsMediaUser();
-    I.click(locate('//li').withText('Find a court or tribunal'));
-    I.waitForText('What court or tribunal are you interested in?');
-    I.click(locate('//li').withText('Single Justice Procedure cases'));
-    I.waitForText('What do you want to view from Single Justice Procedure?');
     I.click(locate('//li').withText('Email subscriptions'));
     I.waitForText('Your email subscriptions');
     I.click(locate('//li').withText('Dashboard'));
@@ -31,10 +27,6 @@ Scenario('Verified user - all banner navigation links should take user to the co
 
 Scenario('Cft user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsCftUser();
-    I.click(locate('//li').withText('Find a court or tribunal'));
-    I.waitForText('What court or tribunal are you interested in?');
-    I.click(locate('//li').withText('Single Justice Procedure cases'));
-    I.waitForText('What do you want to view from Single Justice Procedure?');
     I.click(locate('//li').withText('Email subscriptions'));
     I.waitForText('Your email subscriptions');
     I.click(locate('//li').withText('Dashboard'));
