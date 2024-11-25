@@ -376,7 +376,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.dontSee(caseId);
 
     I.logout();
-});
+}).tag('@Nightly');
 
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
