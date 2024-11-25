@@ -24,7 +24,7 @@ Scenario(
         I.see('Email');
         I.see('Action');
 
-        I.click(locate('//tr').withText('VIEW_THIRD_PARTY_USERS').find('a').withText('View'));
+        I.click(locate('//tr').withText('View Third Party Users').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
         I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
         I.see('System Admin');
@@ -120,7 +120,10 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
 
-    const deleteLocator = locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View');
+    const deleteLocator = locate('//tr')
+        .withText('Delete Location Publication Successfully')
+        .find('a')
+        .withText('View');
 
     for (let i = 0; i <= 3; i++) {
         const numberOfDeleteElements = await I.grabNumberOfVisibleElements(deleteLocator);
