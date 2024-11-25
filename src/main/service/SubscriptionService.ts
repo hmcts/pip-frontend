@@ -312,6 +312,9 @@ export class SubscriptionService {
                 } else {
                     subscribed = false;
                 }
+            } else {
+                //IF COURT DOES NOT EXIST IN DATABASE BUT IN CACHE, REMOVE FROM CACHE AS WELL.
+                await this.removeFromCache({ court: cachedCourt.locationId }, userId);
             }
         }
         return subscribed;
