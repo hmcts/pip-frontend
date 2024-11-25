@@ -1,7 +1,7 @@
-import { DateTime } from 'luxon';
-import { createLocation, createTestUserAccount, uploadPublication } from '../../shared/testingSupportApi';
-import { randomData } from '../../shared/random-data';
-import { config as testConfig, config } from '../../../config';
+import {DateTime} from 'luxon';
+import {createLocation, createTestUserAccount, uploadPublication} from '../../shared/testingSupportApi';
+import {randomData} from '../../shared/random-data';
+import {config as testConfig, config} from '../../../config';
 
 Feature('Verified user email subscriptions');
 
@@ -17,13 +17,13 @@ const caseNamePartyFullName = 'Test Forename Test Surname';
 const caseNamePartyOrganisationName = 'Test Organisation Name';
 const caseNamePartyRepSurname = 'Test Rep Surname';
 
-const displayFrom = DateTime.now().toISO({ includeOffset: false });
-const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
+const displayFrom = DateTime.now().toISO({includeOffset: false});
+const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
 
 Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
-        'should be able to remove subscription and bulk unsubscribe',
-    async ({ I }) => {
+    'should be able to remove subscription and bulk unsubscribe',
+    async ({I}) => {
         const locationId = randomData.getRandomLocationId();
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         const testUserEmail = randomData.getRandomEmailAddress();
@@ -58,8 +58,8 @@ Scenario(
         I.waitForText('Select List Types');
         I.see(
             'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-                "specific cases you may have subscribed to. Also don't forget to come" +
-                ' back regularly to see new list types as we add more.'
+            "specific cases you may have subscribed to. Also don't forget to come" +
+            ' back regularly to see new list types as we add more.'
         );
         I.checkOption('#ET_DAILY_LIST');
         I.click('Continue');
@@ -170,10 +170,10 @@ Scenario(
         I.click('Email subscriptions');
         I.click('#bulk-unsubscribe-button');
 
-        I.click(locate('//tr').withText(caseName).find('input').withAttr({ name: 'caseSubscription' }));
-        I.click(locate('//tr').withText(locationName).find('input').withAttr({ name: 'courtSubscription' }));
-        I.click(locate('//tr').withText(caseId).find('input').withAttr({ name: 'caseSubscription' }));
-        I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({ name: 'caseSubscription' }));
+        I.click(locate('//tr').withText(caseName).find('input').withAttr({name: 'caseSubscription'}));
+        I.click(locate('//tr').withText(locationName).find('input').withAttr({name: 'courtSubscription'}));
+        I.click(locate('//tr').withText(caseId).find('input').withAttr({name: 'caseSubscription'}));
+        I.click(locate('//tr').withText(caseNameUrn).find('input').withAttr({name: 'caseSubscription'}));
 
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
@@ -186,7 +186,7 @@ Scenario(
 
 Scenario(
     'I as a verified user should be able remove subscriptions or add new subscription while subscribing by location',
-    async ({ I }) => {
+    async ({I}) => {
         const locationId1 = randomData.getRandomLocationId();
         const locationName1 = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         const locationId2 = randomData.getRandomLocationId();
@@ -266,7 +266,7 @@ Scenario(
     }
 );
 
-Scenario('I as a verified user should be able to select all subscriptions when bulk unsubscribing', async ({ I }) => {
+Scenario('I as a verified user should be able to select all subscriptions when bulk unsubscribing', async ({I}) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     const testUserEmail = randomData.getRandomEmailAddress();
@@ -299,8 +299,8 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.waitForText('Select List Types');
     I.see(
         'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-            "specific cases you may have subscribed to. Also don't forget to come" +
-            ' back regularly to see new list types as we add more.'
+        "specific cases you may have subscribed to. Also don't forget to come" +
+        ' back regularly to see new list types as we add more.'
     );
     I.checkOption('#ET_DAILY_LIST');
     I.click('Continue');
@@ -380,9 +380,9 @@ Scenario('I as a verified user should be able to select all subscriptions when b
 
 Scenario(
     'I as a verified user should be able to see proper error messages related to email subscriptions',
-    async ({ I }) => {
-        const displayFrom = DateTime.now().toISO({ includeOffset: false });
-        const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
+    async ({I}) => {
+        const displayFrom = DateTime.now().toISO({includeOffset: false});
+        const displayTo = DateTime.now().plus({days: 1}).toISO({includeOffset: false});
         const locationId = randomData.getRandomLocationId();
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
         const testUserEmail = randomData.getRandomEmailAddress();
@@ -455,8 +455,8 @@ Scenario(
 
         I.click('#subscription-choice-1');
         I.click('Continue');
-        I.click(locate('//input').withAttr({ value: 'Civil' }));
-        I.click(locate('//input').withAttr({ value: 'South East' }));
+        I.click(locate('//input').withAttr({value: 'Civil'}));
+        I.click(locate('//input').withAttr({value: 'South East'}));
         I.click('Apply filters');
         I.checkOption('//*[@id="' + locationId + '"]');
         I.click('Continue');
@@ -472,15 +472,30 @@ Scenario(
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
         I.waitForText('Email subscriptions updated');
-        I.click('Email subscriptions');
 
+        I.click('Email subscriptions');
+        I.click('Edit list types');
+        I.waitForText('Select List Types');
+        I.click('Continue');
+        I.waitForText('What version of the list do you want to receive?');
+        I.click('#english');
+        I.click('Continue');
+        I.waitForText('Confirm your email subscriptions');
+        I.see('Employment Tribunals Daily List');
+        I.click(locate('//tr').withText('Employment Tribunals Daily List').find('a').withText('Remove'));
+        I.waitForText('There is a problem');
+        I.see('Please select a list type to continue');
+        I.click('Select List Types');
+        I.waitForText('Select List Types');
+
+        I.click('Email subscriptions');
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Bulk unsubscribe');
         I.click('#bulk-unsubscribe-button');
         I.waitForText('There is a problem');
         I.see('At least one subscription must be selected');
 
-        I.click(locate('//tr').withText(locationName).find('input').withAttr({ name: 'courtSubscription' }));
+        I.click(locate('//tr').withText(locationName).find('input').withAttr({name: 'courtSubscription'}));
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
         I.click('#bulk-unsubscribe-choice');
@@ -490,7 +505,7 @@ Scenario(
     }
 ).tag('@Nightly');
 
-Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
+Scenario('I as a verified user should be able to filter and select which list type to receive', async ({I}) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
@@ -515,8 +530,8 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.waitForText('Select List Types');
     I.see(
         'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-            "specific cases you may have subscribed to. Also don't forget to come" +
-            ' back regularly to see new list types as we add more.'
+        "specific cases you may have subscribed to. Also don't forget to come" +
+        ' back regularly to see new list types as we add more.'
     );
     I.checkOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
