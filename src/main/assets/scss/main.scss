@@ -87,7 +87,7 @@ $callout-bg: #f0f4f5;
     }
 }
 
-.moj-sub-navigation__item > a {
+.moj-sub-navigation__item, .govuk-service-navigation__item  > a {
     font-weight: bold;
 }
 
@@ -412,8 +412,17 @@ div {
     background-color: govuk-colour('white');
 }
 
+.govuk-service-navigation {
+    border-bottom: none;
+    line-height: 16px;
+}
+
+.govuk-service-navigation__service-name {
+    padding-bottom: 0;
+}
+
 .pub-navigation {
-    .moj-sub-navigation__link {
+    .moj-sub-navigation__link, .govuk-service-navigation__item {
         font-size: 16px;
     }
 
@@ -421,6 +430,12 @@ div {
         .moj-sub-navigation__item {
             &:last-child {
                 float: right;
+            }
+        }
+
+        .govuk-service-navigation__item {
+            &:last-child {
+                margin-left: auto;
             }
         }
     }

@@ -5,6 +5,7 @@
 {% from "./macros/common-components.njk" import backToTopButton, betaLink %}
 {% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% block head %}
   <!-- Google Tag Manager -->
@@ -31,14 +32,83 @@
   {% include "webpack/css.njk" %}
 {% endblock %}
 
-
 {% block header %}
   {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
-    serviceName: serviceNameText,
-    serviceUrl: "/"
+    classes: "govuk-header--full-width-border"
   }) }}
+
+    {% if user.roles in ['SYSTEM_ADMIN'] %}
+        {% set listItems = [
+            {
+                text: navLinks.link1,
+                href: '/system-admin-dashboard'
+            },
+            {
+                text: navLinks.link5,
+                href: '/admin-dashboard'
+            },
+            {
+                text: navLinks.link3,
+                href: '/logout'
+            }
+        ] %}
+        {% elif user.roles in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
+        {% set listItems = [
+            {
+                text: navLinks.link1,
+                href: '/admin-dashboard'
+            },
+            {
+                text: navLinks.link3,
+                href: '/logout'
+            }
+        ] %}
+        {% elif user.roles == 'VERIFIED' %}
+        {% set listItems = [
+            {
+                text: navLinks.link1,
+                href: '/account-home'
+            },
+            {
+                text: navLinks.link4,
+                href: '/subscription-management'
+            },
+            {
+                text: navLinks.link3,
+                href: '/logout'
+            }
+        ] %}
+    {% else %}
+        {% set listItems =
+            [
+                {
+                    text: navLinks.link2,
+                    href: '/sign-in'
+                }
+            ] %}
+    {% endif %}
+
+    {% if listItems|length == 1 %}
+        {{ govukServiceNavigation({
+            navigationClasses: 'pub-navigation',
+            serviceName: serviceNameText,
+            serviceUrl: '/',
+            navigation: listItems
+        }) }}
+    {% else %}
+        {{ govukServiceNavigation({
+            serviceName: serviceNameText,
+            serviceUrl: '/'
+        }) }}
+        {{ govukServiceNavigation({
+            navigationClasses: 'pub-navigation',
+            navigation: listItems
+        }) }}
+
+    {% endif %}
 {% endblock %}
+
 {% block beforeContent %}
     {% if env != 'production' %}
         <div id= "branch-bar" class="govuk-phase-banner">
@@ -49,89 +119,14 @@
             </p>
         </div>
     {% endif %}
-  {% if user.roles and 'ADMIN' in user.roles %}
-    {% set betaDisplay = betaHeadingAdmin %}
-  {% else %}
-    {% set betaDisplay = betaHeading %}
-  {% endif %}
 
-  {{ betaLink(betaDisplay, cspNonce, lng) }}
+    {% if user.roles and 'ADMIN' in user.roles %}
+        {% set betaDisplay = betaHeadingAdmin %}
+    {% else %}
+        {% set betaDisplay = betaHeading %}
+    {% endif %}
 
-  {% if user.roles in ['SYSTEM_ADMIN'] %}
-    {% set listItems = [
-      {
-        text: navLinks.link1,
-        href: '/system-admin-dashboard'
-      },
-      {
-        text: navLinks.link7,
-        href: '/admin-dashboard'
-      },
-      {
-        text: navLinks.link3,
-        href: '/logout'
-      }
-    ] %}
-  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
-    {% set listItems = [
-      {
-        text: navLinks.link1,
-        href: '/admin-dashboard'
-      },
-      {
-        text: navLinks.link3,
-        href: '/logout'
-      }
-    ] %}
-  {% elif user.roles == 'VERIFIED' %}
-    {% set listItems = [
-      {
-        text: navLinks.link1,
-        href: '/account-home'
-      },
-      {
-        text: navLinks.link5,
-        href: '/search'
-      },
-      {
-        text: navLinks.link6,
-        href: '/summary-of-publications?locationId=9'
-      },
-      {
-        text: navLinks.link4,
-        href: '/subscription-management'
-      },
-      {
-        text: navLinks.link3,
-        href: '/logout'
-      }
-    ] %}
-  {% else %}
-    {% set listItems =
-      [
-        {
-          text: navLinks.link1,
-          href: '/'
-        },
-        {
-          text: navLinks.link5,
-          href: '/search'
-        },
-        {
-          text: navLinks.link6,
-          href: '/summary-of-publications?locationId=9'
-        },
-        {
-          text: navLinks.link2,
-          href: '/sign-in'
-        }
-      ] %}
-  {% endif %}
-  {{ mojSubNavigation({
-    label: 'Primary navigation',
-    classes: 'pub-navigation govuk-!-margin-bottom-0',
-    items: listItems
-  }) }}
+    {{ betaLink(betaDisplay, cspNonce, lng) }}
 {% endblock %}
 
 {% block bodyStart %}
@@ -215,7 +210,6 @@
       }
     ]
   }) }}
-
 {% endblock %}
 
 {% block content %}

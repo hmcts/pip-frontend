@@ -2,8 +2,8 @@ Feature('Banner navigation and links');
 
 Scenario('Unverified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.amOnPage('/view-option');
-    I.waitForText('Court and tribunal hearings');
-    I.click(locate('//li').withText('Home'));
+    I.waitForText('What do you want to do?');
+    I.click(locate('//li').withText('Court and tribunal hearings'));
     I.waitForText('Court and tribunal hearings');
     I.click('Continue');
     I.click(locate('//li').withText('Find a court or tribunal'));
@@ -24,7 +24,7 @@ Scenario('Verified user - all banner navigation links should take user to the co
     I.waitForText('What do you want to view from Single Justice Procedure?');
     I.click(locate('//li').withText('Email subscriptions'));
     I.waitForText('Your email subscriptions');
-    I.click(locate('//li').withText('Home'));
+    I.click(locate('//li').withText('Dashboard'));
     I.waitForText('Your account');
     I.logout();
 }).tag('@CrossBrowser');
@@ -37,14 +37,14 @@ Scenario('Cft user - all banner navigation links should take user to the correct
     I.waitForText('What do you want to view from Single Justice Procedure?');
     I.click(locate('//li').withText('Email subscriptions'));
     I.waitForText('Your email subscriptions');
-    I.click(locate('//li').withText('Home'));
+    I.click(locate('//li').withText('Dashboard'));
     I.waitForText('Your account');
     I.logout();
 }).tag('@CrossBrowser');
 
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsSsoAdminLocal();
-    I.click(locate('//li').withText('Home'));
+    I.click(locate('//li').withText('Dashboard'));
     I.waitForText('Your Dashboard');
     I.logoutSsoAdminLocal();
 }).tag('@CrossBrowser');
@@ -53,7 +53,7 @@ Scenario('System admin user - all banner navigation links should take user to th
     I.loginAsSsoSystemAdmin();
     I.click(locate('//li').withText('Admin Dashboard'));
     I.waitForText('Your Dashboard');
-    I.click(locate('//li').withText('Home'));
+    I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
     I.logoutSsoSystemAdmin();
 }).tag('@CrossBrowser');
