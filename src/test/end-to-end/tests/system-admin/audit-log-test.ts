@@ -29,7 +29,7 @@ Scenario(
         I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
         I.see('System Admin');
         I.see('B2C');
-        I.see('VIEW_THIRD_PARTY_USERS');
+        I.see('View Third Party Users');
         I.see('User requested to view all third party users');
 
         I.click('Home');
