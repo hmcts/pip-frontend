@@ -414,15 +414,20 @@ div {
 
 .govuk-service-navigation {
     border-bottom: none;
+}
+
+.govuk-service-navigation__item {
+    font-size: 16px;
     line-height: 16px;
 }
 
 .govuk-service-navigation__service-name {
     padding-bottom: 0;
+    line-height: 16px;
 }
 
 .pub-navigation {
-    .moj-sub-navigation__link, .govuk-service-navigation__item {
+    .moj-sub-navigation__link {
         font-size: 16px;
     }
 
