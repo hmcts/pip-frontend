@@ -201,7 +201,7 @@ export class AuditLogService {
      */
     private formatPageData(rawData: any) {
         const auditLogData = [];
-        if (rawData.length > 0) {
+        if (rawData?.length > 0) {
             rawData.forEach(auditLog => {
                 auditLogData.push({
                     id: auditLog.id,
@@ -254,9 +254,21 @@ export class AuditLogService {
                 email: query.email,
                 userId: query.userId,
                 actions: query.actions,
-                filterDate: query.filterDate,
+                filterStartDate: this.convertToDateParams(query.filterDate, false),
+                filterEndDate: this.convertToDateParams(query.filterDate, true),
             },
         };
+    }
+
+    private convertToDateParams(filterDate: string, endDate: boolean): string {
+        const dateTimeFormat = 'yyyy-MM-dd HH:mm:ss';
+        if (filterDate?.length > 0) {
+            filterDate = endDate ? filterDate + ' 23:59:59' : filterDate + ' 00:00:00';
+            return DateTime.fromFormat(filterDate, dateTimeFormat).toISO();
+        }
+
+        filterDate = endDate ? '2100-01-01 00:00:00' : '2020-01-01 00:00:00';
+        return DateTime.fromFormat(filterDate, dateTimeFormat).toISO();
     }
 
     /**

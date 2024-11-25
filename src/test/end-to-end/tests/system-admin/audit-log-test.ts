@@ -37,12 +37,12 @@ Scenario(
         I.click('#card-audit-log-viewer');
         I.waitForText('System admin audit log');
 
-        I.click(locate('//tr').withText('USER_MANAGEMENT_VIEW').find('a').withText('View'));
+        I.click(locate('//tr').withText('View User Management').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
         I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
         I.see('System Admin');
         I.see('B2C');
-        I.see('USER_MANAGEMENT_VIEW');
+        I.see('View User Management');
         I.see('All user data requested by this admin');
 
         I.logout();
@@ -87,7 +87,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.see('Email');
     I.see('Action');
 
-    const publicationLocator = locate('//tr').withText('PUBLICATION_UPLOAD').find('a').withText('View');
+    const publicationLocator = locate('//tr').withText('Upload Publication').find('a').withText('View');
 
     for (let i = 0; i <= 3; i++) {
         const numberOfUploadElements = await I.grabNumberOfVisibleElements(publicationLocator);
