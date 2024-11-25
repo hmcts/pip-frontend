@@ -10,7 +10,7 @@ const NON_SIGNED_IN_LINKS = {
 };
 const SIGNED_IN_LINKS = {
     'Court and tribunal hearings': '/',
-    'Dashboard': 'account-home',
+    Dashboard: 'account-home',
     'Email subscriptions': 'subscription-management',
     'Sign out': 'logout',
 };
