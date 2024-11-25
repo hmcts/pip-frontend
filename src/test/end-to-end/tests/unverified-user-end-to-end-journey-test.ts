@@ -53,5 +53,6 @@ Scenario('I as a unverified user should be able to make end-to-end journey', asy
     I.click('Continue');
     I.waitForText('What do you want to do?');
     I.click('Find a Single Justice Procedure case');
+    I.click('Continue');
     I.waitForText('What do you want to view from Single Justice Procedure?');
 });

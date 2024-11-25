@@ -3,7 +3,7 @@ Feature('Banner navigation and links');
 Scenario('Unverified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.amOnPage('/view-option');
     I.waitForText('What do you want to do?');
-    I.click(locate('//li').withText('Court and tribunal hearings'));
+    I.click(locate('//a').withText('Court and tribunal hearings'));
     I.waitForText('Court and tribunal hearings');
     I.click('Continue');
     I.click(locate('//li').withText('Find a court or tribunal'));

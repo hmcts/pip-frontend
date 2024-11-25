@@ -25,6 +25,7 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
     I.click('Continue');
     I.waitForText('What do you want to do?');
     I.click('Find a Single Justice Procedure case');
+    I.click('Continue');
     I.waitForText('What do you want to view from Single Justice Procedure?');
     I.click(locate('//a').withText(sjpList));
     I.waitForText('Single Justice Procedure cases that are ready for hearing (Full list)');
