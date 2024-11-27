@@ -30,7 +30,7 @@ export class AuditLogService {
                 rawData?.last
             ),
             auditLogData: this.formatPageData(rawData?.content),
-            emailFieldData: this.buildInputFieldObject('email', 'Email', query.email, true),
+            emailFieldData: this.buildInputFieldObject('email', 'Email', query.email, false),
             userIdFieldData: this.buildInputFieldObject('userId', 'User ID', query.userId, true),
             actionsFieldData: this.buildCheckboxesFieldObject(
                 'actions',
