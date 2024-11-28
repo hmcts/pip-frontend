@@ -21,18 +21,6 @@ const invalidBody = {
     employer: '',
     tcbox: null,
 };
-const validAdminBody = {
-    emailAddress: 'bar@mail.com',
-    lastName: 'bar',
-    firstName: 'foo',
-    'user-role': 'admin-ctsc',
-};
-const invalidAdminBody = {
-    emailAddress: '',
-    firstName: '',
-    lastName: '',
-    'user-role': 'admin-ctsc',
-};
 
 const responseErrors = {
     nameError: {
@@ -86,58 +74,6 @@ const responseNoErrors = {
         value: true,
     },
 };
-const adminResponseNoErrors = {
-    firstNameError: {
-        message: null,
-        href: '#firstName',
-    },
-    emailError: {
-        message: null,
-        href: '#emailAddress',
-    },
-    lastNameError: {
-        message: null,
-        href: '#lastName',
-    },
-    radioError: {
-        message: null,
-        href: '#user-role',
-    },
-};
-const adminResponseErrors = {
-    firstNameError: {
-        message: 'Enter first name',
-        href: '#firstName',
-    },
-    emailError: {
-        message: 'Enter email address',
-        href: '#emailAddress',
-    },
-    lastNameError: {
-        message: 'Enter last name',
-        href: '#lastName',
-    },
-    radioError: {
-        message: null,
-        href: '#user-role',
-    },
-};
-
-const validAdminPayload = {
-    emailAddress: 'emailAddress',
-    firstName: 'firstName',
-    lastName: 'lastName',
-    userRoleObject: { mapping: 'userRoleObject' },
-};
-
-const validAdminConvertedPayload = [
-    {
-        email: 'emailAddress',
-        firstName: 'firstName',
-        surname: 'lastName',
-        role: 'userRoleObject',
-    },
-];
 
 const validMediaPayload = {
     emailAddress: 'a@b.com',
@@ -169,7 +105,6 @@ const bulkCreateAccountsStub = sinon.stub(AccountManagementRequests.prototype, '
 
 const englishLanguage = 'en';
 const createMediaAccountLanguageFile = 'create-media-account';
-const createAdminAccountLanguageFile = 'create-admin-account';
 const bulkCreateMediaAccountsLanguageFile = 'bulk-create-media-accounts';
 
 describe('Create Account Service', () => {
@@ -350,78 +285,6 @@ describe('Create Account Service', () => {
         });
     });
 
-    describe('validateAdminFormFieldsWithRole', () => {
-        it('should return valid response if all data is provided', () => {
-            expect(
-                createAccountService.validateAdminFormFieldsWithRole(
-                    validAdminBody,
-                    englishLanguage,
-                    createAdminAccountLanguageFile
-                )
-            ).toStrictEqual(adminResponseNoErrors);
-        });
-
-        it('should return response with errors if invalid data is provided', () => {
-            expect(
-                createAccountService.validateAdminFormFieldsWithRole(
-                    invalidAdminBody,
-                    englishLanguage,
-                    createAdminAccountLanguageFile
-                )
-            ).toStrictEqual(adminResponseErrors);
-        });
-    });
-
-    describe('validateAdminFormFields', () => {
-        it('should return valid response if all data is provided', () => {
-            const adminResponseNoErrorsNoRole = {
-                firstNameError: {
-                    message: null,
-                    href: '#firstName',
-                },
-                emailError: {
-                    message: null,
-                    href: '#emailAddress',
-                },
-                lastNameError: {
-                    message: null,
-                    href: '#lastName',
-                },
-            };
-            expect(
-                createAccountService.validateAdminFormFields(
-                    validAdminBody,
-                    englishLanguage,
-                    createAdminAccountLanguageFile
-                )
-            ).toStrictEqual(adminResponseNoErrorsNoRole);
-        });
-
-        it('should return response with errors if invalid data is provided', () => {
-            const adminResponseErrorsNoRole = {
-                firstNameError: {
-                    message: 'Enter first name',
-                    href: '#firstName',
-                },
-                emailError: {
-                    message: 'Enter email address',
-                    href: '#emailAddress',
-                },
-                lastNameError: {
-                    message: 'Enter last name',
-                    href: '#lastName',
-                },
-            };
-            expect(
-                createAccountService.validateAdminFormFields(
-                    invalidAdminBody,
-                    englishLanguage,
-                    createAdminAccountLanguageFile
-                )
-            ).toStrictEqual(adminResponseErrorsNoRole);
-        });
-    });
-
     describe('validateCsvFileContent', () => {
         const file = fs.readFileSync('./manualUpload/tmp/bulkMediaUploadValidationFile.csv', 'utf-8');
 
@@ -494,26 +357,6 @@ describe('Create Account Service', () => {
         });
     });
 
-    describe('createAdminAccount', () => {
-        it('should return true if valid data is provided', async () => {
-            createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(azureResponse);
-            createPIAccStub.resolves(true);
-            const res = await createAccountService.createAdminAccount(validAdminPayload, validEmail);
-            expect(res).toEqual(true);
-        });
-
-        it('should return false if create azure account request fails', async () => {
-            createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(null);
-            expect(await createAccountService.createAdminAccount(validAdminPayload, validEmail)).toEqual(false);
-        });
-
-        it('should return false if create P&I account request fails', async () => {
-            createAzureAccountStub.withArgs(validAdminConvertedPayload, validEmail).resolves(azureResponse);
-            createPIAccStub.resolves(false);
-            expect(await createAccountService.createAdminAccount(validAdminPayload, validEmail)).toEqual(false);
-        });
-    });
-
     describe('createMediaAccount', () => {
         it('should return true if valid data is provided', async () => {
             createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(azureResponse);
@@ -545,62 +388,6 @@ describe('Create Account Service', () => {
             createMediaAccStub.resolves(false);
             const res = await createAccountService.createMediaApplication(invalidBody, validImage);
             expect(res).toEqual(false);
-        });
-    });
-
-    describe('createSystemAdminAccount', () => {
-        const createSystemAccStub = sinon.stub(AccountManagementRequests.prototype, 'createSystemAdminUser');
-
-        const response = {
-            userId: '1234-1234',
-        };
-
-        it('should response response when created user', async () => {
-            createSystemAccStub
-                .withArgs(
-                    {
-                        email: validEmail,
-                        firstName: 'firstName',
-                        surname: 'surname',
-                    },
-                    '2345-2345'
-                )
-                .resolves(response);
-
-            const returnedResponse = await createAccountService.createSystemAdminAccount(
-                {
-                    emailAddress: validEmail,
-                    firstName: 'firstName',
-                    lastName: 'surname',
-                },
-                '2345-2345'
-            );
-
-            expect(returnedResponse).toStrictEqual(response);
-        });
-
-        it('should response null when failed to create user', async () => {
-            createSystemAccStub
-                .withArgs(
-                    {
-                        email: validEmail,
-                        firstName: 'invalidUser',
-                        surname: 'surname',
-                    },
-                    '2345-2345'
-                )
-                .resolves(null);
-
-            const returnedResponse = await createAccountService.createSystemAdminAccount(
-                {
-                    emailAddress: validEmail,
-                    firstName: 'invalidUser',
-                    lastName: 'surname',
-                },
-                '2345-2345'
-            );
-
-            expect(returnedResponse).toBe(null);
         });
     });
 

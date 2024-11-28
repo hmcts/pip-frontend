@@ -10,7 +10,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const sensitivityPrivate = 'PRIVATE';
     const [date, dayAfter] = getDateNowAndFuture();
 
-    I.loginAsAdmin();
+    I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload');
     I.selectOption(listTypeId, 'SJP Press List (Full list)');
 
@@ -60,5 +60,5 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.see(
         'Please ensure you have checked the sensitivity of the list you are about to publish, the data contained within it and the consequences if this is published incorrectly.'
     );
-    I.logout();
+    I.logoutSsoAdminLocal();
 }).tag('@CrossBrowser');
