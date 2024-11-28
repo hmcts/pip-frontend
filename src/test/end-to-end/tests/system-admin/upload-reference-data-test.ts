@@ -6,7 +6,7 @@ const INVALID_FILE_PATH = './shared/mocks/reference-data-invalid.csv';
 Scenario('I as a system admin should be able to upload reference data manually', async ({ I }) => {
     const LOCATION_ID = '50001';
 
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.see('Upload Reference Data');
     I.click('#card-reference-data-upload');
     I.see(
@@ -34,13 +34,13 @@ Scenario('I as a system admin should be able to upload reference data manually',
     I.amInPath('../../../functional-output/functional/reports');
     I.seeFile('downloadedReferenceData.csv');
     I.seeInThisFile(LOCATION_ID);
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario(
     'I as a system admin should be able to see proper error messages related to upload reference data',
     async ({ I }) => {
-        I.loginAsSystemAdmin();
+        I.loginAsSsoSystemAdmin();
         I.see('Upload Reference Data');
         I.click('#card-reference-data-upload');
         I.click('Continue');
@@ -50,6 +50,6 @@ Scenario(
         I.click('Confirm');
         I.waitForText('There is a problem');
         I.waitForText('Unable to upload reference data file, please verify that provided fields are correct');
-        I.logout();
+        I.logoutSsoSystemAdmin();
     }
 ).tag('@Nightly');

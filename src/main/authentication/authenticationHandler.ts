@@ -6,7 +6,6 @@ import {
     verifiedRoles,
     systemAdminRoles,
     allAdminRoles,
-    adminAccountCreationRoles,
     manualUploadRoles,
     mediaAccountCreationRoles,
     checkRoles,
@@ -40,10 +39,6 @@ export function isPermittedAdmin(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, allAdminRoles);
 }
 
-export function isPermittedAccountCreation(req: any, res, next) {
-    return checkAuthenticatedAdmin(req, res, next, adminAccountCreationRoles);
-}
-
 export function isPermittedManualUpload(req: any, res, next) {
     return checkAuthenticatedAdmin(req, res, next, manualUploadRoles);
 }
@@ -62,7 +57,7 @@ export function checkAuthenticatedAdmin(req: any, res, next, roles: string[]): b
         req.user.isAdmin = false;
         res.redirect('/account-home');
     } else {
-        res.redirect('/admin-login?p=' + authenticationConfig.ADMIN_POLICY);
+        res.redirect('/sso-login');
     }
 }
 
@@ -137,6 +132,21 @@ export async function processMediaAccountSignIn(req, res): Promise<any> {
 export async function processCftIdamSignIn(req, res): Promise<any> {
     await AccountManagementRequests.prototype.updateAccountLastSignedInDate('CFT_IDAM', req.user['uid']);
     res.redirect('/account-home');
+}
+
+export async function processSsoSignIn(req, res): Promise<any> {
+    if (req.user['created'] && checkRoles(req, allAdminRoles)) {
+        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('SSO', req.user['oid']);
+        if (checkRoles(req, systemAdminRoles)) {
+            res.redirect('/system-admin-dashboard');
+        } else {
+            res.redirect('/admin-dashboard');
+        }
+    } else {
+        // TODO: If the user has signed in to CaTH via SSO but failed to create the PI user account, we should display
+        //  an appropriate rejected login page. Use the error page for now.
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
 }
 
 //This is now needed due to passport by default removing session data on successful login. Alternatively
