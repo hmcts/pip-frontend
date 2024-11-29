@@ -90,18 +90,19 @@
 
     {% if listItems|length == 1 %}
         {{ govukServiceNavigation({
+            classes: 'pub-navigation',
             serviceName: serviceNameText,
-            navigationClasses: 'pub-navigation',
             serviceUrl: '/',
             navigation: listItems
         }) }}
     {% else %}
         {{ govukServiceNavigation({
+            classes: 'pub-navigation',
             serviceName: serviceNameText,
             serviceUrl: '/'
         }) }}
         {{ govukServiceNavigation({
-            navigationClasses: 'pub-navigation',
+            classes: 'pub-navigation',
             navigation: listItems
         }) }}
 

@@ -3,9 +3,22 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
 
 {% block pageTitle %}
   {{ title }}
+{% endblock %}
+
+{% block header %}
+    {{ govukHeader({
+        homepageUrl: "https://www.gov.uk/",
+        classes: "govuk-header--full-width-border"
+    }) }}
+    {{ govukServiceNavigation({
+        serviceName: title,
+        serviceUrl: '/'
+    }) }}
 {% endblock %}
 
 {% block beforeContent %}
