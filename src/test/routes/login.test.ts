@@ -48,6 +48,20 @@ describe('Login', () => {
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
     });
 
+    test('should redirect to the Admin login page', async () => {
+        await request(app)
+            .get('/b2c-admin-login')
+            .expect(res => expect(res.redirect).toBeTruthy)
+            .expect(res => expect(res.headers['location']).toContain('/admin-login?p=B2C_1_SignInAdminUserFlow'));
+    });
+
+    test('should redirect to the SSO login page', async () => {
+        await request(app)
+            .get('/sso-login')
+            .expect(res => expect(res.redirect).toBeTruthy)
+            .expect(res => expect(res.headers['location']).toContain('https://login.microsoftonline.com'));
+    });
+
     test('should redirect to the Media Verification login in English', async () => {
         app.request['lng'] = 'en';
 
@@ -128,6 +142,13 @@ describe('Login', () => {
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinadminuserflow'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
+    });
+
+    test('should redirect to the SSO login page on return', async () => {
+        await request(app)
+            .get('/sso/return')
+            .expect(res => expect(res.redirect).toBeTruthy())
+            .expect(res => expect(res.headers['location']).toContain('https://login.microsoftonline.com'));
     });
 
     test('should redirect to the password reset page in english on return', async () => {

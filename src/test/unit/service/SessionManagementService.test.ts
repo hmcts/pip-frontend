@@ -32,11 +32,14 @@ describe('Test logout', () => {
     const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const cftIdamLogoutUrl = '/session-logged-out?lng=en';
     const welshCftIdamLogoutUrl = '/session-logged-out?lng=cy';
+    const ssoLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
+    const ssoWelshLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const adminLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const adminWelshLogOutUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DAAD`;
     const adminSessionExpiredUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DADMIN`;
-    const cftIdamSessionExpiredUrl = `/session-expired?lng=en&reSignInUrl=CFT`;
+    const cftIdamSessionExpiredUrl = '/session-expired?lng=en&reSignInUrl=CFT';
+    const ssoSessionExpiredUrl = '/session-expired?lng=en&reSignInUrl=SSO';
     const adminRejectedLoginUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}admin-rejected-login%3Flng%3Den`;
     const mediaRejectedLoginUrl = `${adminLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}media-rejected-login%3Flng%3Den`;
 
@@ -181,6 +184,34 @@ describe('Test logout', () => {
         responseMock.verify();
     });
 
+    it('should redirect for SSO User', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(ssoLogoutUrl);
+
+        const req = {
+            user: { roles: 'INTERNAL_ADMIN_CTSC', userProvenance: 'SSO' },
+            lng: 'en',
+            session: { ...mockSession },
+        };
+        sessionManagementService.logOut(req, res, false, false);
+        expect(req.session['user']).to.be.null;
+        responseMock.verify();
+    });
+
+    it('should redirect for SSO User in Welsh', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(ssoWelshLogoutUrl);
+
+        const req = {
+            user: { roles: 'INTERNAL_ADMIN_CTSC', userProvenance: 'SSO' },
+            lng: 'cy',
+            session: { ...mockSession },
+        };
+        sessionManagementService.logOut(req, res, false, false);
+        expect(req.session['user']).to.be.null;
+        responseMock.verify();
+    });
+
     it('should redirect for admin user', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(adminLogOutUrl);
@@ -243,6 +274,20 @@ describe('Test logout', () => {
 
         const req = {
             user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
+            lng: 'en',
+            session: { ...mockSession },
+        };
+        sessionManagementService.logOut(req, res, false, true);
+        expect(req.session['user']).to.be.null;
+        responseMock.verify();
+    });
+
+    it('should redirect for SSO user when session expired', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(ssoSessionExpiredUrl);
+
+        const req = {
+            user: { roles: 'INTERNAL_ADMIN_CTSC', userProvenance: 'SSO' },
             lng: 'en',
             session: { ...mockSession },
         };
@@ -441,6 +486,64 @@ describe('Test logout', () => {
             responseMock.expects('redirect').never();
             const req = {
                 session: { ...{ sessionExpires: new Date(now - 10000) }, ...mockSession },
+                lng: 'en',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+            responseMock.verify();
+        });
+    });
+
+    describe('Test SSO user session expiry', () => {
+        const now = Date.now();
+
+        it('check returns true when session expired', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').once().withArgs(ssoLogoutUrl);
+
+            const req = {
+                user: { roles: 'SYSTEM_ADMIN', userProvenance: 'SSO' },
+                session: { ...{ sessionExpires: new Date(now - 10000) }, ...mockSession },
+                lng: 'en',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+            expect(req.session['user']).to.be.null;
+            responseMock.verify();
+        });
+
+        it('check returns true when session expired in welsh', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').once().withArgs(ssoWelshLogoutUrl);
+
+            const req = {
+                user: { roles: 'SYSTEM_ADMIN', userProvenance: 'SSO' },
+                session: { ...{ sessionExpires: new Date(now - 10000) }, ...mockSession },
+                lng: 'cy',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.true;
+            expect(req.session['user']).to.be.null;
+            responseMock.verify();
+        });
+
+        it('check returns false when session is not expired', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').never();
+
+            const req = {
+                user: { roles: 'SYSTEM_ADMIN', userProvenance: 'SSO' },
+                session: { ...{ sessionExpires: new Date(now + 100000) }, ...mockSession },
+                lng: 'en',
+            };
+            expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;
+            responseMock.verify();
+        });
+
+        it('check returns false when the session expires value is missing', () => {
+            const responseMock = sinon.mock(res);
+            responseMock.expects('redirect').never();
+
+            const req = {
+                user: { roles: 'SYSTEM_ADMIN', userProvenance: 'SSO' },
+                session: { ...mockSession },
                 lng: 'en',
             };
             expect(sessionManagementService.handleSessionExpiry(req, res)).to.be.false;

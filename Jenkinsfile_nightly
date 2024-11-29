@@ -37,7 +37,15 @@ def setupTestSecrets() {
             secret('app-tenant', 'TENANT_ID'),
             secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL'),
-            secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD')
+            secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD'),
+            secret('sso-test-admin-account-ctsc-user', 'SSO_TEST_ADMIN_CTSC_USER'),
+            secret('sso-test-admin-account-ctsc-pwd', 'SSO_TEST_ADMIN_CTSC_PWD'),
+            secret('sso-test-admin-local-account-user', 'SSO_TEST_ADMIN_LOCAL_USER'),
+            secret('sso-test-admin-local-account-pwd','SSO_TEST_ADMIN_LOCAL_PWD'),
+            secret('sso-test-system-admin-account-user','SSO_TEST_SYSTEM_ADMIN_USER'),
+            secret('sso-test-system-admin-account-pwd', 'SSO_TEST_SYSTEM_ADMIN_PWD'),
+            secret('sso-test-no-roles-account-user','SSO_TEST_NO_ROLES_USER'),
+            secret('sso-test-no-roles-account-pwd', 'SSO_TEST_NO_ROLES_PWD'),
         ]) {
         env.B2C_USERNAME = "${B2C_USERNAME}"
         env.B2C_PASSWORD = "${B2C_PASSWORD}"
@@ -60,6 +68,14 @@ def setupTestSecrets() {
         env.CLIENT_SECRET_INTERNAL = "${CLIENT_SECRET_INTERNAL}"
         env.TEST_URL = "https://pip-frontend.staging.platform.hmcts.net"
         env.TEST_USER_PASSWORD = "${TEST_USER_PASSWORD}"
+        env.SSO_TEST_ADMIN_CTSC_USER = "${SSO_TEST_ADMIN_CTSC_USER}"
+        env.SSO_TEST_ADMIN_CTSC_PWD = "${SSO_TEST_ADMIN_CTSC_PWD}"
+        env.SSO_TEST_ADMIN_LOCAL_USER = "${SSO_TEST_ADMIN_LOCAL_USER}"
+        env.SSO_TEST_ADMIN_LOCAL_PWD = "${SSO_TEST_ADMIN_LOCAL_PWD}"
+        env.SSO_TEST_SYSTEM_ADMIN_USER = "${SSO_TEST_SYSTEM_ADMIN_USER}"
+        env.SSO_TEST_SYSTEM_ADMIN_PWD = "${SSO_TEST_SYSTEM_ADMIN_PWD}"
+        env.SSO_TEST_NO_ROLES_USER = "${SSO_TEST_NO_ROLES_USER}"
+        env.SSO_TEST_NO_ROLES_PWD = "${SSO_TEST_NO_ROLES_PWD}"
     }
 }
 
