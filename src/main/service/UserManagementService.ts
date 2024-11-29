@@ -303,7 +303,7 @@ export class UserManagementService {
         const rows = [];
         rows.push(this.buildRowItem('User ID', rawData.userId));
         rows.push(this.buildRowItem('Email', rawData.email));
-        rows.push(this.buildRowItem('Role', formattedRoles[rawData.roles], '/update-user?id=' + rawData.userId));
+        rows.push(this.buildRowItem('Role', formattedRoles[rawData.roles]));
         rows.push(this.buildRowItem('Provenance', formattedProvenances[rawData.userProvenance]));
         rows.push(this.buildRowItem('Provenance ID', rawData.provenanceUserId));
         rows.push(this.buildRowItem('Creation Date', this.formatDate(rawData.createdDate)));
@@ -320,8 +320,8 @@ export class UserManagementService {
     /**
      * Build the row item for the manage user summary list.
      */
-    private buildRowItem(headingText: string, rowValue: string, actions: any = false) {
-        const rowObject = {
+    private buildRowItem(headingText: string, rowValue: string) {
+        return {
             key: {
                 text: headingText,
             },
@@ -329,16 +329,6 @@ export class UserManagementService {
                 text: rowValue,
             },
         };
-
-        if (actions && rowValue != 'Media') {
-            const items = [];
-            items.push({
-                href: actions,
-                text: 'Change',
-            });
-            rowObject['actions'] = { items };
-        }
-        return rowObject;
     }
 
     /**

@@ -30,35 +30,24 @@ describe('System Admin Dashboard page', () => {
         expect(header[0].innerHTML).contains('System Admin Dashboard', 'Could not find correct value in header');
     });
 
-    it('should display 5 links in banner', () => {
+    it('should display 3 links in banner', () => {
         const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(5);
+        expect(bannerComponents.length).equal(3);
 
         expect(bannerComponents[0].innerHTML).equal('Home');
         expect(bannerComponents[1].innerHTML).equal('Admin Dashboard');
-        expect(bannerComponents[2].innerHTML).equal('Upload');
-        expect(bannerComponents[3].innerHTML).equal('Remove');
-        expect(bannerComponents[4].innerHTML).equal('Sign out');
+        expect(bannerComponents[2].innerHTML).equal('Sign out');
     });
 
-    it('should display 8 card options', () => {
+    it('should display 7 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(8);
-    });
-
-    it('create system admin account card should have correct content and links', () => {
-        const adminCards = htmlRes.getElementsByClassName('account-card');
-        const link = adminCards[0].getElementsByTagName('a')[0];
-        const description = adminCards[0].getElementsByTagName('p')[1];
-        expect(link.innerHTML).contains('Create System Admin');
-        expect(link.getAttribute('href')).contains('create-system-admin-account');
-        expect(description.innerHTML).contains('Create a new system admin user');
+        expect(cardComponents.length).equal(7);
     });
 
     it('blob Explorer card should have correct content and links', () => {
         const cards = htmlRes.getElementsByClassName('account-card');
-        const link = cards[5].getElementsByTagName('a')[0];
-        const description = cards[5].getElementsByTagName('p')[1];
+        const link = cards[4].getElementsByTagName('a')[0];
+        const description = cards[4].getElementsByTagName('p')[1];
         expect(link.innerHTML).contains('Blob Explorer');
         expect(link.getAttribute('href')).contains('blob-view-locations');
         expect(description.innerHTML).contains('Discover content uploaded to all locations.');

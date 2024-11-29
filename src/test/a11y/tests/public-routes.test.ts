@@ -3,6 +3,8 @@ import { LocationRequests } from '../../../main/resources/requests/LocationReque
 import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 import { testArtefactMetadata, testLocationData } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
+import { app } from '../../../main/app';
+import { ssoNotAuthorised } from '../../../main/helpers/consts';
 
 const publicRoutes = [
     { path: '/' },
@@ -22,6 +24,7 @@ const publicRoutes = [
     { path: '/sign-in' },
     { path: '/view-option' },
     { path: '/summary-of-publications', parameter: '?locationId=123' },
+    { path: '/sso-rejected-login' },
 ];
 
 const locationData = testLocationData();
@@ -33,6 +36,8 @@ sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData)
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata[0]);
 
 describe('Accessibility - Public Routes', () => {
+    app.request['session'] = { messages: [ssoNotAuthorised] };
+
     filterRoutes(publicRoutes).forEach(route => {
         describe(`Page ${route.path}`, () => {
             testAccessibility(route.path, route.parameter, route.postMethod);

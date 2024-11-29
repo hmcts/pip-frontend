@@ -27,7 +27,7 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
         });
     });
 
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-bulk-create-media-accounts');
     I.waitForText('Bulk create media accounts');
     I.see('Upload a csv file containing a list of media accounts to be created.');
@@ -74,13 +74,13 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.click('Continue');
     I.waitForText('User Deleted');
 
-    I.click('Sign out');
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario(
     'I as a system admin should be able to see proper error messages related to bulk create media accounts ',
     async ({ I }) => {
-        I.loginAsSystemAdmin();
+        I.loginAsSsoSystemAdmin();
         I.click('#card-bulk-create-media-accounts');
         I.waitForText('Bulk create media accounts');
         I.click('Continue');
@@ -110,6 +110,6 @@ Scenario(
         I.click('Continue');
         I.waitForText('Bulk create media accounts');
 
-        I.click('Sign out');
+        I.logoutSsoSystemAdmin();
     }
 ).tag('@Nightly');
