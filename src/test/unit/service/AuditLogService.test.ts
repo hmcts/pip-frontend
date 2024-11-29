@@ -11,7 +11,7 @@ const testReqBody = {
     userId: '',
     actions: ['USER_MANAGEMENT_VIEW'],
     filterDate: '2024-10-21',
-}
+};
 
 const testApiResponseData = {
     content: [
