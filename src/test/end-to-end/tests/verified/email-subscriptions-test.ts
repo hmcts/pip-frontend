@@ -197,7 +197,7 @@ Scenario(
         await createLocation(locationId1, locationName1);
         await createLocation(locationId2, locationName2);
 
-        I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
+        I.loginTestMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
         I.click('Add email subscription');
