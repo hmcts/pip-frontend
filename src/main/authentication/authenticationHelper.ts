@@ -1,7 +1,6 @@
 //This class is required, to remove circular dependencies between SessionManagementService and AuthenticationHandler
 //Shared config / functions, used across both classes should be placed in here
 
-export const adminAccountCreationRoles = ['SYSTEM_ADMIN', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_SUPER_ADMIN_LOCAL'];
 export const manualUploadRoles = [
     'SYSTEM_ADMIN',
     'INTERNAL_SUPER_ADMIN_CTSC',

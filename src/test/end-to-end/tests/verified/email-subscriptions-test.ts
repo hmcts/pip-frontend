@@ -41,7 +41,7 @@ Scenario(
             'ET_DAILY_LIST'
         );
 
-        I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
+        I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
         I.click('Add email subscription');
@@ -284,7 +284,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
         'ET_DAILY_LIST'
     );
 
-    I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
+    I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
     I.click('#card-subscription-management');
     I.waitForText('Your email subscriptions');
     I.click('Add email subscription');
@@ -401,7 +401,7 @@ Scenario(
             'ET_DAILY_LIST'
         );
 
-        I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
+        I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
         I.click('#card-subscription-management');
         I.waitForText('Your email subscriptions');
         I.click('Add email subscription');
@@ -514,7 +514,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     await createLocation(locationId, locationName);
     const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
 
-    I.loginAsMediaUser(testUser['email'], testConfig.TEST_USER_PASSWORD);
+    I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
     I.click('#card-subscription-management');
     I.waitForText('Your email subscriptions');
     I.click('Add email subscription');

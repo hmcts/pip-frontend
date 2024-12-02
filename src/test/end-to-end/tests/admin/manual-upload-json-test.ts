@@ -14,7 +14,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
 
     await createLocation(locationId, locationName);
 
-    I.loginAsAdmin();
+    I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
     I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
@@ -51,7 +51,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
     I.see('Civil and Family Daily Cause List');
-    I.logout();
+    I.logoutSsoAdminLocal();
 });
 
 Scenario('I as a admin user should see proper error messages related to manual upload', async ({ I }) => {
@@ -63,7 +63,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
 
     await createLocation(locationId, locationName);
 
-    I.loginAsAdmin();
+    I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
     I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
@@ -198,7 +198,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.click('Confirm');
     I.waitForText('There is a problem');
     I.see('Unable to upload publication, please verify that provided fields are correct');
-    I.logout();
+    I.logoutSsoAdminLocal();
 }).tag('@Nightly');
 
 Scenario('I as a admin user should be able to change the data before confirming upload', async ({ I }) => {
@@ -209,7 +209,7 @@ Scenario('I as a admin user should be able to change the data before confirming 
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
 
-    I.loginAsAdmin();
+    I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
     I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
@@ -275,5 +275,5 @@ Scenario('I as a admin user should be able to change the data before confirming 
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.click('Continue');
     I.waitForText('Check upload details');
-    I.logout();
+    I.logoutSsoAdminLocal();
 }).tag('@Nightly');

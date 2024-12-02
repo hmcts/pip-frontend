@@ -1,10 +1,9 @@
 @use 'govuk-frontend';
 @use 'accessible-autocomplete.min';
-
-// This font size is due to be removed in version 6. Need to consider which font size to move to.
-$govuk-suppressed-warnings: 'govuk-typography-scale-14';
-
-@import '@ministryofjustice/frontend/moj/all';
+@use '@ministryofjustice/frontend/moj/all' as * with (
+    // This font size is due to be removed in version 6. Need to consider which font size to move to.
+    $govuk-suppressed-warnings: 'govuk-typography-scale-14'
+);
 
 $line-colour: #1d70b8;
 $text-disabled: #505a5f;
