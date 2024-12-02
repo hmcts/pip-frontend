@@ -158,7 +158,7 @@ describe('Pending Subscriptions Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[14];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'
@@ -224,7 +224,7 @@ describe('Pending Subscriptions Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[10];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'
@@ -325,7 +325,7 @@ describe('Pending Subscriptions Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[13];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[11];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'

@@ -16,7 +16,7 @@ Scenario('I as a system admin should be able to delete a user', async ({ I }) =>
 
     I.loginAsSsoSystemAdmin();
     I.click('Admin Dashboard');
-    I.click('Home');
+    I.click('Dashboard');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
     I.waitForText('User Management');
@@ -37,7 +37,7 @@ Scenario('I as a system admin should be able to delete a user', async ({ I }) =>
     I.click('Continue');
     I.waitForText('User Deleted');
 
-    I.click('Home');
+    I.click('Dashboard');
     I.click('#card-user-management');
     I.fillField('#email', testEmail);
     I.click('Apply filters');

@@ -13,6 +13,7 @@ export default class AdminDashboardController {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-dashboard']),
             mediaApplicationsCount,
             user: req.user,
+            activeAdminDashboard: true,
         });
     }
 }

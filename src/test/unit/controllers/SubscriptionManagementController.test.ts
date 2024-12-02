@@ -46,6 +46,7 @@ describe('Subscriptions Management Controller', () => {
             activeAllTab: true,
             activeCaseTab: false,
             activeCourtTab: false,
+            activeSubscriptionPage: true,
         };
 
         responseMock.expects('render').once().withArgs('subscription-management', expectedData);
@@ -64,6 +65,7 @@ describe('Subscriptions Management Controller', () => {
             activeAllTab: true,
             activeCaseTab: false,
             activeCourtTab: false,
+            activeSubscriptionPage: true,
         };
 
         responseMock.expects('render').once().withArgs('subscription-management', expectedData);
@@ -82,6 +84,7 @@ describe('Subscriptions Management Controller', () => {
             activeAllTab: false,
             activeCaseTab: true,
             activeCourtTab: false,
+            activeSubscriptionPage: true,
         };
 
         responseMock.expects('render').once().withArgs('subscription-management', expectedData);
@@ -100,6 +103,7 @@ describe('Subscriptions Management Controller', () => {
             activeAllTab: false,
             activeCaseTab: false,
             activeCourtTab: true,
+            activeSubscriptionPage: true,
         };
 
         responseMock.expects('render').once().withArgs('subscription-management', expectedData);

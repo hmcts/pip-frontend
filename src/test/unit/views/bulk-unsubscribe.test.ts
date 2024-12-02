@@ -117,7 +117,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display all subscriptions tab with proper link', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[0].innerHTML).contains(
                 'All subscriptions (9)',
@@ -128,7 +128,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display case subscriptions tab with proper link', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[1].innerHTML).contains(
                 'Subscriptions by case (6)',
@@ -139,7 +139,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display court subscriptions tab with proper link', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[2].innerHTML).contains(
                 'Subscriptions by court or tribunal (3)',
@@ -150,7 +150,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display first tab as active', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
                 'page',
@@ -346,7 +346,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display all subscriptions tab with proper link', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[0].innerHTML).contains(
                 'All subscriptions (1)',
@@ -357,7 +357,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display case subscriptions tab with proper link', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[1].innerHTML).contains(
                 'Subscriptions by case (1)',
@@ -368,7 +368,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display first tab as active', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
                 'page',
@@ -430,7 +430,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display all subscriptions tab with proper link', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[0].innerHTML).contains(
                 'All subscriptions (1)',
@@ -441,7 +441,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display court subscriptions tab with proper link', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[2].innerHTML).contains(
                 'Subscriptions by court or tribunal (1)',
@@ -452,7 +452,7 @@ describe('Bulk Unsubscribe Page', () => {
 
         it('should display first tab as active', () => {
             const subscriptionsTabs = htmlRes
-                .getElementsByClassName(subNavigationClass)[1]
+                .getElementsByClassName(subNavigationClass)[0]
                 .getElementsByClassName(tabsClass);
             expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
                 'page',

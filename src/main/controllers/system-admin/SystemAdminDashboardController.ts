@@ -7,6 +7,7 @@ export default class SystemAdminDashboardController {
         res.render('system-admin/system-admin-dashboard', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['system-admin-dashboard']),
             user: req.user,
+            activeSystemAdminDashboard: true,
         });
     }
 }

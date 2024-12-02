@@ -30,13 +30,14 @@ describe('System Admin Dashboard page', () => {
         expect(header[0].innerHTML).contains('System Admin Dashboard', 'Could not find correct value in header');
     });
 
-    it('should display 3 links in banner', () => {
-        const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(3);
+    it('should display 4 links in banner', () => {
+        const bannerComponents = htmlRes.getElementsByClassName('govuk-service-navigation__link');
+        expect(bannerComponents.length).equal(4);
 
-        expect(bannerComponents[0].innerHTML).equal('Home');
-        expect(bannerComponents[1].innerHTML).equal('Admin Dashboard');
-        expect(bannerComponents[2].innerHTML).equal('Sign out');
+        expect(bannerComponents[0].innerHTML).contains('Court and tribunal hearings');
+        expect(bannerComponents[1].innerHTML).contains('Dashboard');
+        expect(bannerComponents[2].innerHTML).contains('Admin Dashboard');
+        expect(bannerComponents[3].innerHTML).contains('Sign out');
     });
 
     it('should display 7 card options', () => {

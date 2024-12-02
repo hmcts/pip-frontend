@@ -48,9 +48,9 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.see('The file has been uploaded successfully and all accounts have been created');
     I.see('What do you want to do next?');
     I.see('Upload another file');
-    I.see('Home');
+    I.see('Dashboard');
 
-    I.click('Home');
+    I.click('Dashboard');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
     I.fillField('#email', validUser1);
@@ -62,7 +62,7 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.click('Continue');
     I.waitForText('User Deleted');
 
-    I.click('Home');
+    I.click('Dashboard');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
     I.fillField('#email', validUser2);

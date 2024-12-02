@@ -129,12 +129,12 @@ describe('Media Account Review Test', () => {
 
         it('should display approve button', () => {
             const button = htmlRes.getElementsByTagName(buttonTag);
-            expect(button[0].innerHTML).contains(approveButtonText, 'Could not find the approve button text');
+            expect(button[1].innerHTML).contains(approveButtonText, 'Could not find the approve button text');
         });
 
         it('should display reject button', () => {
             const button = htmlRes.getElementsByTagName(buttonTag);
-            expect(button[1].innerHTML).contains(rejectButtonText, 'Could not find the reject button text');
+            expect(button[2].innerHTML).contains(rejectButtonText, 'Could not find the reject button text');
         });
     });
 });
