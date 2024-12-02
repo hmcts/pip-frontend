@@ -413,10 +413,6 @@ div {
 }
 
 .pub-navigation {
-    .govuk-service-navigation__service-name {
-        padding-bottom: 0;
-    }
-
     @media (min-width: 641px) {
         .moj-sub-navigation__item {
             &:last-child {
