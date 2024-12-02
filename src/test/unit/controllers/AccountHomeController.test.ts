@@ -24,6 +24,7 @@ describe('Account home controller', () => {
         const expectedData = {
             ...i18n['account-home'],
             showVerifiedBanner: 'false',
+            activeVerifiedDashboard: true,
         };
 
         responseMock.expects('render').once().withArgs('account-home', expectedData);
