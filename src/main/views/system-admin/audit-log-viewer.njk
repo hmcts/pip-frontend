@@ -72,10 +72,10 @@
                     text: row.timestamp
                   },
                   {
-                    text: row.email
+                    html: "<span class='word-break'>" + row.email + "</span>"
                   },
                   {
-                    html: "<span class='word-break'>" + row.action.name + "</span>"
+                    text: row.action.name
                   },
                   {
                     html: "<a class='govuk-link' id='" + linkId + "' href='audit-log-details?id=" + row.id + "&timestamp=" + row.timestamp + "'>View</a>"
