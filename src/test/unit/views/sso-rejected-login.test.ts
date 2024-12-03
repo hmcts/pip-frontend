@@ -29,7 +29,9 @@ describe('SSO rejected login page', () => {
     it('should display the link', () => {
         const link = htmlRes.getElementsByClassName('govuk-link');
         expect(link[3].textContent).contains('ServiceNow', 'Could not find link');
-        //TODO - To be updated when link has been set up
-        expect(link[3].getAttribute('href')).eq('', 'Could not find href in link');
+        expect(link[3].getAttribute('href'))
+            .eq('https://mojprod.service-now.com/moj_sp?id=sc_cat_item&table'
+                + '=sc_cat_item&sys_id=735b28071bf5921025dc6351f54bcb93',
+                'Could not find href in link');
     });
 });
