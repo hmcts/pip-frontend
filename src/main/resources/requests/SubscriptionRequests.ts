@@ -72,7 +72,11 @@ export class SubscriptionRequests {
         return [];
     }
 
-    public async deleteLocationSubscription(locationId: number, provenanceUserId: string, userId: string): Promise<object> {
+    public async deleteLocationSubscription(
+        locationId: number,
+        provenanceUserId: string,
+        userId: string
+    ): Promise<object> {
         try {
             const header = { headers: { 'x-provenance-user-id': provenanceUserId, 'x-user-id': userId } };
 
