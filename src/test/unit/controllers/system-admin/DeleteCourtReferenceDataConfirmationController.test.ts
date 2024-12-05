@@ -10,11 +10,15 @@ const deleteStub = sinon.stub(LocationService.prototype, 'deleteLocationById');
 const deleteCourtReferenceDataConfirmationController = new DeleteCourtReferenceDataConfirmationController();
 
 const court = { locationId: 1, jurisdiction: 'test', region: 'test' };
+const userId = '1234';
+const provenanceUserId = '12345';
+const user = { userId: userId, provenanceUserId: provenanceUserId };
+
 sinon.stub(LocationService.prototype, 'formatCourtValue').returns(court);
 courtStub.withArgs('1').resolves(court);
-deleteStub.withArgs('1').resolves({ exists: true, errorMessage: 'test' });
-deleteStub.withArgs('2').resolves(null);
-deleteStub.withArgs('3').resolves({ exists: false, errorMessage: '' });
+deleteStub.withArgs('1', provenanceUserId, userId).resolves({ exists: true, errorMessage: 'test' });
+deleteStub.withArgs('2', provenanceUserId, userId).resolves(null);
+deleteStub.withArgs('3', provenanceUserId, userId).resolves({ exists: false, errorMessage: '' });
 
 describe('Delete Court Reference Data Controller', () => {
     it('should render the court reference data page', () => {
@@ -140,6 +144,7 @@ describe('Delete Court Reference Data Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request['user'] = user;
         request.body = { locationId: '1', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -168,6 +173,7 @@ describe('Delete Court Reference Data Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request['user'] = user;
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -187,40 +193,13 @@ describe('Delete Court Reference Data Controller', () => {
     });
 
     it('should render redirect to success page if court is deleted', () => {
-        const i18n = {
-            'delete-court-reference-data-confirmation': {},
-        };
-        const response = {
-            render: () => {
-                return '';
-            },
-        } as unknown as Response;
-        const request = mockRequest(i18n);
-        request.body = { locationId: '2', 'delete-choice': 'yes' };
-        const responseMock = sinon.mock(response);
-        const expectedData = {
-            ...i18n['delete-court-reference-data-confirmation'],
-            court: court,
-            apiError: true,
-            errorMessage: 'Unknown error when attempting to delete the court from reference data',
-        };
-
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('system-admin/delete-court-reference-data-confirmation', expectedData);
-        return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
-            responseMock.verify();
-        });
-    });
-
-    it('should redirect to confirmation page if no option is selected', () => {
         const response = {
             redirect: () => {
                 return '';
             },
         } as unknown as Response;
         const request = mockRequest({});
+        request['user'] = user;
         request.body = { locationId: '3', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
 
@@ -237,6 +216,7 @@ describe('Delete Court Reference Data Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest({});
+        request['user'] = user;
         request.body = { locationId: '1', 'delete-choice': 'no' };
         const responseMock = sinon.mock(response);
 

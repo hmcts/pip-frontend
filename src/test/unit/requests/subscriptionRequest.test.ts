@@ -31,7 +31,8 @@ const unsubscribeInvalidData = {
     subscriptionId: 'foo',
 };
 const deletionResponse = 'success';
-const adminUserId = 'Test';
+const adminUserId = '1234';
+const adminProvenanceUserId = '12345';
 const errorBodyData = { baz: 'qux' };
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
@@ -209,33 +210,35 @@ describe('delete location subscription', () => {
     beforeEach(() => {
         deleteStub
             .withArgs('/subscription/location/1', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-provenance-user-id': adminProvenanceUserId, 'x-user-id': adminUserId },
             })
             .resolves({ data: 'success' });
         deleteStub
             .withArgs('/subscription/location/2', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-provenance-user-id': adminProvenanceUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorResponse);
         deleteStub
             .withArgs('/subscription/location/4', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-provenance-user-id': adminProvenanceUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorMessage);
     });
     it('should delete the court subscription', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(1, adminUserId)).toStrictEqual(deletionResponse);
+        expect(
+            await subscriptionActions.deleteLocationSubscription(1, adminProvenanceUserId, adminUserId)
+        ).toStrictEqual(deletionResponse);
     });
 
     it('should return null if response fails', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(2, adminUserId)).toBe(null);
+        expect(await subscriptionActions.deleteLocationSubscription(2, adminProvenanceUserId, adminUserId)).toBe(null);
     });
 
     it('should return null if request fails', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(3, adminUserId)).toBe(null);
+        expect(await subscriptionActions.deleteLocationSubscription(3, adminProvenanceUserId, adminUserId)).toBe(null);
     });
 
     it('should return null if request fails', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(4, adminUserId)).toBe(null);
+        expect(await subscriptionActions.deleteLocationSubscription(4, adminProvenanceUserId, adminUserId)).toBe(null);
     });
 });

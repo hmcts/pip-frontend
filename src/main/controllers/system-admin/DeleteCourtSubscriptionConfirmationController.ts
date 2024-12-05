@@ -23,14 +23,16 @@ export default class DeleteCourtSubscriptionConfirmationController {
             if (page == 'delete-court-subscription-confirmation') {
                 response = await subscriptionsService.deleteLocationSubscription(
                     formData.locationId,
-                    req.user?.['provenanceUserId']
+                    req.user?.['provenanceUserId'],
+                    req.user?.['userId']
                 );
                 action = 'DELETE_LOCATION_SUBSCRIPTION_SUCCESS';
                 successPage = '/delete-court-subscription-success';
             } else {
                 response = await publicationService.deleteLocationPublication(
                     formData.locationId,
-                    req.user?.['provenanceUserId']
+                    req.user?.['provenanceUserId'],
+                    req.user?.['userId']
                 );
                 action = 'DELETE_LOCATION_PUBLICATION_SUCCESS';
                 successPage = '/delete-court-publication-success';
