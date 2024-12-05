@@ -113,10 +113,7 @@ export class PublicationRequests {
         return false;
     }
 
-    public async deleteLocationPublication(
-        locationId: number,
-        userId: string
-    ): Promise<object> {
+    public async deleteLocationPublication(locationId: number, userId: string): Promise<object> {
         try {
             const header = { headers: { 'x-user-id': userId } };
 

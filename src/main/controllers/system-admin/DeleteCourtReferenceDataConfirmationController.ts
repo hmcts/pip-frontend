@@ -27,10 +27,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
         const court = await locationService.getLocationById(formData.locationId as unknown as number);
         switch (formData['delete-choice']) {
             case 'yes': {
-                const response = await locationService.deleteLocationById(
-                    formData.locationId,
-                    req.user?.['userId']
-                );
+                const response = await locationService.deleteLocationById(formData.locationId, req.user?.['userId']);
 
                 if (response?.['exists']) {
                     await userManagementService.auditAction(
