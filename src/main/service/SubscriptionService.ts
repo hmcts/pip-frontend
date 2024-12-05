@@ -503,9 +503,8 @@ export class SubscriptionService {
 
     public async deleteLocationSubscription(
         locationId: number,
-        provenanceUserId: string,
         userId: string
     ): Promise<object> {
-        return await subscriptionRequests.deleteLocationSubscription(locationId, provenanceUserId, userId);
+        return await subscriptionRequests.deleteLocationSubscription(locationId, userId);
     }
 }

@@ -184,9 +184,8 @@ export class PublicationService {
 
     public async deleteLocationPublication(
         locationId: number,
-        provenanceUserId: string,
         userId: string
     ): Promise<object> {
-        return await publicationRequests.deleteLocationPublication(locationId, provenanceUserId, userId);
+        return await publicationRequests.deleteLocationPublication(locationId, userId);
     }
 }

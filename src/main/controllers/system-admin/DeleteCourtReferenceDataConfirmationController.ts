@@ -29,7 +29,6 @@ export default class DeleteCourtReferenceDataConfirmationController {
             case 'yes': {
                 const response = await locationService.deleteLocationById(
                     formData.locationId,
-                    req.user?.['provenanceUserId'],
                     req.user?.['userId']
                 );
 
