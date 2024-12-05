@@ -386,7 +386,9 @@ export class SubscriptionService {
         let success = true;
         const response = await subscriptionRequests.configureListTypeForLocationSubscriptions(userId, {
             listType: this.createListTypeSubscriptionPayload(listType),
-            listLanguage: this.createListTypeSubscriptionPayload(listLanguage),
+            listLanguage: this.createListTypeSubscriptionPayload(
+                Array.isArray(listLanguage) && listLanguage?.length ? listLanguage[0].split(',') : listLanguage
+            ),
             userId,
         });
 
