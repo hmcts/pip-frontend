@@ -501,11 +501,7 @@ export class SubscriptionService {
         return await subscriptionRequests.retrieveSubscriptionChannels();
     }
 
-    public async deleteLocationSubscription(
-        locationId: number,
-        provenanceUserId: string,
-        userId: string
-    ): Promise<object> {
-        return await subscriptionRequests.deleteLocationSubscription(locationId, provenanceUserId, userId);
+    public async deleteLocationSubscription(locationId: number, userId: string): Promise<object> {
+        return await subscriptionRequests.deleteLocationSubscription(locationId, userId);
     }
 }

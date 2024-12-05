@@ -116,10 +116,9 @@ const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
 
 const adminUserId = '1234';
-const adminProvenanceUserId = '12345';
 const stubPublicationDeletion = sinon.stub(PublicationRequests.prototype, 'deleteLocationPublication');
-stubPublicationDeletion.withArgs(1, adminProvenanceUserId, adminUserId).returns('success');
-stubPublicationDeletion.withArgs(2, adminProvenanceUserId, adminUserId).returns(null);
+stubPublicationDeletion.withArgs(1, adminUserId).returns('success');
+stubPublicationDeletion.withArgs(2, adminUserId).returns(null);
 
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
@@ -246,12 +245,12 @@ describe('Publication service', () => {
 
     describe('delete location publication', () => {
         it('should return a message if location publication is deleted', async () => {
-            const payload = await publicationService.deleteLocationPublication(1, adminProvenanceUserId, adminUserId);
+            const payload = await publicationService.deleteLocationPublication(1, adminUserId);
             expect(payload).to.deep.equal('success');
         });
 
         it('should return null if publication delete failed', async () => {
-            const payload = await publicationService.deleteLocationPublication(2, adminProvenanceUserId, adminUserId);
+            const payload = await publicationService.deleteLocationPublication(2, adminUserId);
             expect(payload).to.deep.equal(null);
         });
     });
