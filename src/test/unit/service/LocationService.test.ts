@@ -192,5 +192,4 @@ describe('Court Service', () => {
             expect(payload).to.deep.equal(null);
         });
     });
-
 });

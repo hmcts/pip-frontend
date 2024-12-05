@@ -306,7 +306,9 @@ describe('delete location publication', () => {
             .rejects(errorMessage);
     });
     it('should delete the court publication', async () => {
-        expect(await publicationRequests.deleteLocationPublication(1, adminProvenanceUserId, adminUserId)).toStrictEqual(deletionResponse);
+        expect(
+            await publicationRequests.deleteLocationPublication(1, adminProvenanceUserId, adminUserId)
+        ).toStrictEqual(deletionResponse);
     });
 
     it('should return null if response fails', async () => {
