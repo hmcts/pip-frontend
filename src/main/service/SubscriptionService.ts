@@ -493,11 +493,12 @@ export class SubscriptionService {
     public async getUserSubscriptionListLanguage(userId): Promise<string> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
 
-        let selectedListTypes = '';
+        let selectedListLanguage = '';
         if (userSubscriptions['locationSubscriptions']?.length > 0) {
-            selectedListTypes = userSubscriptions['locationSubscriptions'][0]['listLanguage'].toString();
+            selectedListLanguage = userSubscriptions['locationSubscriptions'][0]['listLanguage'] != null ?
+                userSubscriptions['locationSubscriptions'][0]['listLanguage'].toString() : '';
         }
-        return selectedListTypes;
+        return selectedListLanguage;
     }
 
     private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
