@@ -24,12 +24,12 @@ Scenario(
         I.see('Email');
         I.see('Action');
 
-        I.click(locate('//tr').withText('VIEW_THIRD_PARTY_USERS').find('a').withText('View'));
+        I.click(locate('//tr').withText('View Third Party Users').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
         I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
         I.see('System Admin');
         I.see('SSO');
-        I.see('VIEW_THIRD_PARTY_USERS');
+        I.see('View Third Party Users');
         I.see('User requested to view all third party users');
 
         I.click('Home');
@@ -37,12 +37,12 @@ Scenario(
         I.click('#card-audit-log-viewer');
         I.waitForText('System admin audit log');
 
-        I.click(locate('//tr').withText('USER_MANAGEMENT_VIEW').find('a').withText('View'));
+        I.click(locate('//tr').withText('View User Management').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
         I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
         I.see('System Admin');
         I.see('SSO');
-        I.see('USER_MANAGEMENT_VIEW');
+        I.see('View User Management');
         I.see('All user data requested by this admin');
 
         I.logoutSsoSystemAdmin();
@@ -87,7 +87,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.see('Email');
     I.see('Action');
 
-    const publicationLocator = locate('//tr').withText('PUBLICATION_UPLOAD').find('a').withText('View');
+    const publicationLocator = locate('//tr').withText('Upload Publication').find('a').withText('View');
 
     for (let i = 0; i <= 3; i++) {
         const numberOfUploadElements = await I.grabNumberOfVisibleElements(publicationLocator);
@@ -120,7 +120,10 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
 
-    const deleteLocator = locate('//tr').withText('DELETE_PUBLICATION').find('a').withText('View');
+    const deleteLocator = locate('//tr')
+        .withText('Delete Location Publication Successfully')
+        .find('a')
+        .withText('View');
 
     for (let i = 0; i <= 3; i++) {
         const numberOfDeleteElements = await I.grabNumberOfVisibleElements(deleteLocator);
