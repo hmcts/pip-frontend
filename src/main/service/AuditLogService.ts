@@ -27,7 +27,8 @@ export class AuditLogService {
                 rawData?.number,
                 rawData?.totalPages,
                 rawData?.first,
-                rawData?.last
+                rawData?.last,
+                queryUrl
             ),
             auditLogData: this.formatPageData(rawData?.content),
             emailFieldData: this.buildInputFieldObject('email', 'Email', query.email, false),
@@ -175,22 +176,31 @@ export class AuditLogService {
     /**
      * Formats the object required for the pagination component in the frontend.
      */
-    private formatPaginationData(currentPage: number, finalPage: number, first: boolean, last: boolean) {
+    private formatPaginationData(
+        currentPage: number,
+        finalPage: number,
+        first: boolean,
+        last: boolean,
+        queryUrl: string
+    ) {
+        const queryParams = new URLSearchParams(queryUrl);
         const paginationObject = {
             previous: null,
             next: null,
         };
         if (!first) {
+            queryParams.set('page', String(currentPage));
             paginationObject.previous = {
                 labelText: currentPage + ' of ' + finalPage,
-                href: '?page=' + currentPage,
+                href: '?' + queryParams.toString(),
             };
         }
 
         if (!last) {
+            queryParams.set('page', String(currentPage + 2));
             paginationObject.next = {
                 labelText: currentPage + 2 + ' of ' + finalPage,
-                href: '?page=' + (currentPage + 2),
+                href: '?' + queryParams.toString(),
             };
         }
         return paginationObject;
