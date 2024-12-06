@@ -1,0 +1,182 @@
+{% extends "template.njk" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "./macros/common-components.njk" import submitButton, goBack, backButtonHistory %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
+  {% if pendingSubscriptions.cases | length == 0 and pendingSubscriptions.courts | length == 0 %}
+      {% set displayError = true %}
+  {% elseif pendingSubscriptions.courts | length > 0 and pendingSubscriptions.listTypes | length == 0 %}
+      {% set displayListTypeError = true %}
+      {% set displayError = false %}
+  {% else %}
+      {% set displayListTypeError = false %}
+  {% endif %}
+
+  {% if pendingSubscriptions.listLanguage | length != 0 %}
+      {% if pendingSubscriptions.listLanguage[0] == 'ENGLISH' %}
+          {% set languageType = english %}
+      {% elseif pendingSubscriptions.listLanguage[0] == 'WELSH' %}
+          {% set languageType = welsh %}
+      {% else %}
+          {% set languageType = bothVersionSelected %}
+      {% endif %}
+  {% endif %}
+
+  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% if displayError %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-two-thirds">
+        {{ govukErrorSummary({
+          titleText: error.title,
+          errorList: [
+            {
+              text: error.message,
+              href: "#"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+    <form action="subscription-add"  method="get">
+      <div class="govuk-!-text-align-left">
+        {{ submitButton(label=buttonAddText) }}
+      </div>
+    </form>
+  {% else %}
+    {% if displayListTypeError %}
+        <div class="govuk-grid-row">
+            <div class="no_padding govuk-grid-column-two-thirds">
+                {{ govukErrorSummary({
+                    titleText: error.title,
+                    errorList: [
+                        {
+                            text: noListTypeSelected_error,
+                            href: "#addListTypeLink"
+                        }
+                    ]
+                }) }}
+            </div>
+        </div>
+    {% endif %}
+    <form action="subscription-confirmation-preview"  method="POST">
+      {% if pendingSubscriptions.cases | length != 0 %}
+        <table class="govuk-table govuk-!-width-one">
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">{{ table.header1 }}</th>
+            <th scope="col" class="govuk-table__header">{{ table.header2 }}</th>
+            <th scope="col" class="govuk-table__header">{{ table.header3 }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
+          </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+          {% for case in pendingSubscriptions.cases %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">{{ case.caseName }}</td>
+              <td class="govuk-table__cell">{{ case.partyNames | striptags(true) | escape | nl2br }}</td>
+              <td class="govuk-table__cell">{{ case.caseUrn if case.urnSearch else case.caseNumber }}</td>
+              <td class="govuk-table__cell govuk-!-text-align-right"><a href="/remove-pending-subscription?case-{{ 'urn=' + case.caseUrn if case.urnSearch else 'number=' + case.caseNumber }}">{{ removeText }}</a></td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if pendingSubscriptions.courts | length != 0 %}
+        <table class="govuk-table">
+          <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">{{ courtTribunalName }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
+          </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+          {% for court in pendingSubscriptions.courts %}
+            <tr class="govuk-table__row">
+              <td class="govuk-table__cell">{{ court.name }}</td>
+              <td class="govuk-table__cell govuk-!-text-align-right">
+                <a href="/remove-pending-subscription?court={{ court.locationId }}">{{ removeText }}</a>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+
+      {% if pendingSubscriptions.courts | length != 0 %}
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">{{ listType }}</th>
+                <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            {% for listType in pendingSubscriptions.listTypes %}
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">{{ listType.text }}</td>
+                    <td class="govuk-table__cell govuk-!-text-align-right">
+                        <a href="/remove-pending-subscription?list-type={{ listType.value }}">{{ removeText }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">
+                    <div class="govuk-grid-row">
+                        <div class="govuk-!-padding-right-1">
+                            {{ version }}
+                        </div>
+                        <div class="moj-banner moj-banner--information ignore-spaces" role="region" aria-label="information">
+                            <svg class="moj-banner__icon" fill="currentColor" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25">
+                                <path d="M13.7,18.5h-2.4v-2.4h2.4V18.5z M12.5,13.7c-0.7,0-1.2-0.5-1.2-1.2V7.7c0-0.7,0.5-1.2,1.2-1.2s1.2,0.5,1.2,1.2v4.8
+	C13.7,13.2,13.2,13.7,12.5,13.7z M12.5,0.5c-6.6,0-12,5.4-12,12s5.4,12,12,12s12-5.4,12-12S19.1,0.5,12.5,0.5z" />
+                                <title>{{ listVersion_information }}</title>
+                            </svg>
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="govuk-table__header govuk-!-text-align-right">{{ table.header4 }}</th>
+            </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ languageType }}</td>
+                <td class="govuk-table__cell govuk-!-text-align-right">
+                    <a href="/subscription-add-list-language">{{ buttonText_change }}</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+      {% endif %}
+
+      {% if displayListTypeError %}
+        <p class="govuk-body"><a id="addListTypeLink" class="govuk-link" href="{{ selectListType_link }}">{{ selectListType_text }}</a></p>
+      {% else%}
+          <p class="govuk-body"><a class="govuk-link" href="{{ addOther_link }}">{{ addOther_text }}</a></p>
+      {% endif %}
+      {{ submitButton(label=buttonText) }}
+    </form>
+  {% endif %}
+  {{ super() }}
+  </div>
+
+{% endblock %}
+{% block bodyEnd %}
+  {{ backButtonHistory(cspNonce) }}
+  {{ super() }}
+{% endblock %}

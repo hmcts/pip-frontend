@@ -3,6 +3,7 @@ import { Response } from 'express';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { mockRequest } from '../mocks/mockRequest';
 import PendingSubscriptionsController from '../../../main/controllers/PendingSubscriptionsController';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 
 const mockCase = {
     hearingId: 1,
@@ -58,6 +59,9 @@ const userWithMultipleSubscriptions = '4';
 const pendingSubscriptionController = new PendingSubscriptionsController();
 const handleSubStub = sinon.stub(SubscriptionService.prototype, 'handleNewSubscription');
 const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions');
+const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
+const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');
+
 sinon.stub(SubscriptionService.prototype, 'removeFromCache').withArgs(queryParams, '3').resolves(true);
 subscriptionStub.withArgs(userWithoutSubscriptions, 'courts').resolves([]);
 subscriptionStub.withArgs(userWithoutSubscriptions, 'cases').resolves([]);
@@ -73,9 +77,19 @@ subscriptionStub
     .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
 handleSubStub.withArgs(postData, userWithSubscriptions).resolves(true);
 
-const i18n = { 'pending-subscriptions': {} };
+cacheStub.withArgs(userWithSubscriptions, 'cases').resolves([mockCase]);
+subscribeStub.withArgs(userWithSubscriptions).resolves(true);
+subscribeStub.withArgs('3').resolves(false);
+
+const i18n = {
+    'pending-subscriptions': {},
+    error: {},
+};
 const response = {
     render: () => {
+        return '';
+    },
+    redirect: () => {
         return '';
     },
 } as unknown as Response;
@@ -161,19 +175,12 @@ describe('Pending Subscriptions Controller', () => {
     });
 
     describe('POST view', () => {
-        it('should render pending subscriptions page if post data is provided', () => {
+        it('should redirect to confirmed page if subscribed successfully', () => {
             const request = mockRequest(i18n);
-            request.user = { userId: '3' };
-            request.body = postData;
-            const expectedData = {
-                ...i18n['pending-subscriptions'],
-                pendingSubscriptions: {
-                    cases: [mockCase],
-                    courts: [],
-                },
-            };
+            request.user = { userId: userWithSubscriptions };
+
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('pending-subscriptions', expectedData);
+            responseMock.expects('redirect').once().withArgs('/subscription-confirmed');
 
             return pendingSubscriptionController.post(request, response).then(() => {
                 responseMock.verify();

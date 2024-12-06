@@ -1,0 +1,105 @@
+{% extends "template.njk" %}
+{% from "./macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+<div id="grid-row" class="parent-box">
+    {% if noSelectionError %}
+        <div class="govuk-grid-row">
+            <div class="no_padding govuk-grid-column-full">
+                {{ govukErrorSummary({
+                    titleText: error.title,
+                    errorList: [
+                        {
+                            text: error.nothingSelected,
+                            href: "#list-types-table"
+                        }
+                    ]
+                }) }}
+            </div>
+        </div>
+    {% endif %}
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <p class="govuk-body">{{ descriptionText }}</p>
+    <div class="govuk-grid-row" id="content">
+        <div class="no_padding govuk-grid-column-full location-list-type">
+            <form class="moj-action-bar" action="subscription-add-list" method="post" autocomplete="off">
+                <table class="govuk-table" id="list-types-table">
+                    <tbody class="govuk-table__body">
+                    {% for key, value in listTypes %}
+                        {% if value | length > 0 %}
+                            {% for listName, listConfig in value %}
+                                {% if listConfig.hidden %}
+                                    <input hidden type="checkbox" class="govuk-checkboxes__input list-item"
+                                           id="{{ listName }}"
+                                           value="{{ listName}}" name="list-selections[]"
+                                           onclick="calculateChecked()">
+                                {% else %}
+                                    <tr class="govuk-table__row">
+                                        {% if first != key %}
+                                            {% set first = key %}
+                                            <th scope="row" class="govuk-table__header">
+                                                <div id="{{ key }}" class="govuk-!-font-size-27">{{ key }}</div>
+                                            </th>
+                                        {% else %}
+                                            <th scope="row" aria-hidden="true" class="govuk-table__header">
+                                            </th>
+                                        {% endif %}
+                                        <td class="govuk-table__cell">
+                                            <div class="govuk-checkboxes__item govuk-checkboxes--small">
+                                                <input type="checkbox" class="govuk-checkboxes__input list-item"
+                                                       id="{{ listName }}"
+                                                       value="{{ listName}}" name="list-selections[]"
+                                                       onclick="calculateChecked()">
+                                                <label class="govuk-label govuk-checkboxes__label no_padding"
+                                                       for="{{ listName }}">
+                                                    <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ listConfig.listFriendlyName | striptags(true) | escape | nl2br }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            {% set first = '' %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <h2 class="govuk-heading-m">{{ userSelections }}</h2>
+                <div
+                    class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
+                    <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
+                </div>
+                {{ submitButton(continueButton) }}
+                <hr/>
+            </form>
+            {{ super() }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+    <script nonce="{{ cspNonce }}">
+        document.querySelectorAll('.list-item').forEach(item => {
+            item.addEventListener('click', calculateChecked);
+        });
+
+        function calculateChecked() {
+            const checkedBoxes = document.querySelectorAll('input[name="list-selections[]"]:checked').length;
+            document.getElementById('selectionCount').innerText = checkedBoxes.toString();
+        }
+
+        calculateChecked();
+    </script>
+{% endblock %}

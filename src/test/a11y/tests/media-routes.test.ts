@@ -11,6 +11,7 @@ import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const userId = '1';
 const caseSubscriptionId = '952899d6-2b05-43ec-86e0-a438d3854fa8';
@@ -33,9 +34,14 @@ const mediaRoutes = [
     { path: '/pending-subscriptions' },
     { path: '/remove-subscription' },
     { path: '/subscription-add' },
+    { path: '/subscription-add-list' },
+    { path: '/subscription-add-list-language' },
+    { path: '/subscription-confirmation-preview' },
     { path: '/subscription-confirmed' },
     { path: '/subscription-management' },
     { path: '/subscription-configure-list' },
+    { path: '/subscription-configure-list-language' },
+    { path: '/subscription-configure-list-preview' },
     { path: '/subscription-configure-list-confirmed' },
     { path: '/unsubscribe-confirmation' },
     { path: '/session-expiring', parameter: '?currentPath=/view-option' },
@@ -74,9 +80,29 @@ sinon.stub(ListDownloadService.prototype, 'checkUserIsAuthorised').resolves(true
 sinon.stub(ListDownloadService.prototype, 'getFileSize').returns('1 MB');
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').resolves(subscriptionsData);
 
+const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions');
+const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');
+const subscribeListTypeConfigureStub = sinon.stub(
+    SubscriptionService.prototype,
+    'configureListTypeForLocationSubscriptions'
+);
+const friendlyNameStub = sinon.stub(SubscriptionService.prototype, 'findListTypeFriendlyName');
+
 const pendingSubscriptionStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 pendingSubscriptionStub.withArgs(userId, 'courts').resolves(courtSubscriptionData);
 pendingSubscriptionStub.withArgs(userId, 'cases').resolves(caseSubscriptionData);
+pendingSubscriptionStub.withArgs(userId, 'listTypes').resolves(['ListType1']);
+pendingSubscriptionStub.withArgs(userId, 'listLanguage').resolves(['ENGLISH']);
+
+subscriptionStub.withArgs(userId, 'cases').resolves(['test case']);
+subscriptionStub.withArgs(userId, 'courts').resolves(['test location']);
+subscriptionStub.withArgs(userId, 'listTypes').resolves(['ListType1']);
+subscriptionStub.withArgs(userId, 'listLanguage').resolves(['ENGLISH']);
+
+subscribeStub.withArgs(userId).resolves(true);
+subscribeListTypeConfigureStub.withArgs(userId).resolves(true);
+
+friendlyNameStub.withArgs('ListType1').resolves('List Type1');
 
 describe('Accessibility - Media User Routes', () => {
     app.request['user'] = testUserData();

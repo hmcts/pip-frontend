@@ -52,6 +52,16 @@ export class SubscriptionRequests {
         return null;
     }
 
+    public async addListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
+        try {
+            await subscriptionManagementApi.post(`/subscription/add-list-types/${userId}`, payload);
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `add subscription's list type for user with ID ${userId}`);
+        }
+        return false;
+    }
+
     public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
             await subscriptionManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);
