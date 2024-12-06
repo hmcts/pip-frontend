@@ -495,8 +495,10 @@ export class SubscriptionService {
 
         let selectedListLanguage = '';
         if (userSubscriptions['locationSubscriptions']?.length > 0) {
-            selectedListLanguage = userSubscriptions['locationSubscriptions'][0]['listLanguage'] != null ?
-                userSubscriptions['locationSubscriptions'][0]['listLanguage'].toString() : '';
+            selectedListLanguage =
+                userSubscriptions['locationSubscriptions'][0]['listLanguage'] != null
+                    ? userSubscriptions['locationSubscriptions'][0]['listLanguage'].toString()
+                    : '';
         }
         return selectedListLanguage;
     }
