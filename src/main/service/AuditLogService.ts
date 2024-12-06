@@ -261,7 +261,7 @@ export class AuditLogService {
             params: {
                 pageSize: 25,
                 pageNumber: query.page - 1,
-                email: query.email,
+                email: query.email.trim(),
                 userId: query.userId,
                 actions: query.actions,
                 filterDate: query.filterDate,
