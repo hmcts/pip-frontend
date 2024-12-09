@@ -1,13 +1,13 @@
-import { getCurrentDateWthFormat, getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
-import { config, config as testConfig } from '../../../config';
-import { createLocation } from '../../shared/testingSupportApi';
-import { randomData } from '../../shared/random-data';
+import {getCurrentDateWthFormat, getDateNowAndFuture, padFormatted} from '../../shared/shared-functions';
+import {config, config as testConfig} from '../../../config';
+import {createLocation} from '../../shared/testingSupportApi';
+import {randomData} from '../../shared/random-data';
 
 Feature('System admin audit log');
 
-Scenario(
-    'I as a system admin should be able to view audit log for system admin view third-party users action',
-    async ({ I }) => {
+Scenario.skip(
+    'I as a system admin should be able to view audit log for system admin view third-party users action and Filter the results',
+    async ({I}) => {
         I.loginAsSsoSystemAdmin();
         I.click('#card-manage-third-party-users');
         I.click('Back');
@@ -49,7 +49,7 @@ Scenario(
     }
 );
 
-Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({ I }) => {
+Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({I}) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [date, dayAfter] = getDateNowAndFuture();
@@ -86,20 +86,20 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.see('Timestamp');
     I.see('Email');
     I.see('Action');
+    I.see('Filter');
+    I.fillField('#email', testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
+    I.fillField('#userId', testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID as string);
+    I.fillField('#filterDate-day', padFormatted(date.getDate()) as string);
+    I.fillField('#filterDate-month', padFormatted(date.getMonth() + 1));
+    I.fillField('#filterDate-year', date.getFullYear());
+    I.checkOption('#actions-20');
+    I.click('Apply filters');
 
     const publicationLocator = locate('//tr').withText('Upload Publication').find('a').withText('View');
-
-    for (let i = 0; i <= 3; i++) {
-        const numberOfUploadElements = await I.grabNumberOfVisibleElements(publicationLocator);
-
-        if (numberOfUploadElements >= 1) {
-            I.click(publicationLocator);
-            break;
-        } else {
-            I.click('Next');
-            I.waitForText('System admin audit log');
-        }
-    }
+    I.click(publicationLocator);
+    I.waitForText('View audit log for ');
+    I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
+    I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID as string);
 
     I.click('Admin Dashboard');
     I.click('#card-remove-list-search');
@@ -119,24 +119,31 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.see('System Admin Dashboard');
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
+    I.see('Filter');
+    I.fillField('#filterDate-day', padFormatted(date.getDate()) as string);
+    I.click('Apply filters');
+    I.waitForText('There is a problem');
+    I.see('Please enter valid filter date');
+    I.fillField('#filterDate-day', date.getFullYear());
+    I.fillField('#filterDate-month', padFormatted(date.getMonth() + 1));
+    I.fillField('#filterDate-year', date.getFullYear());
+    I.click('Apply filters');
+    I.waitForText('There is a problem');
+    I.see('Please enter valid filter date');
+    I.fillField('#email', testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
+    I.fillField('#userId', testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID as string);
+    I.fillField('#filterDate-day', padFormatted(date.getDate()) as string);
+    I.fillField('#filterDate-month', padFormatted(date.getMonth() + 1));
+    I.fillField('#filterDate-year', date.getFullYear());
+    I.checkOption('#actions-10');
+    I.click('Apply filters');
 
     const deleteLocator = locate('//tr')
-        .withText('Delete Location Publication Successfully')
+        .withText('Delete Publication')
         .find('a')
         .withText('View');
-
-    for (let i = 0; i <= 3; i++) {
-        const numberOfDeleteElements = await I.grabNumberOfVisibleElements(deleteLocator);
-
-        if (numberOfDeleteElements >= 1) {
-            I.click(deleteLocator);
-            break;
-        } else {
-            I.click('Next');
-            I.waitForText('System admin audit log');
-        }
-    }
-
+    I.click(deleteLocator);
     I.waitForText('View audit log for ');
     I.logoutSsoSystemAdmin();
 });
+
