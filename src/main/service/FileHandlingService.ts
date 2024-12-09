@@ -1,7 +1,13 @@
-import { allowedFileTypes, allowedImageTypes, allowedCsvFileTypes, uploadType } from '../helpers/consts';
+import {
+    allowedCsvFileTypes,
+    allowedFileTypes,
+    allowedImageTypes,
+    allowedNonStrategicFileTypes,
+    uploadType
+} from '../helpers/consts';
 import fs from 'fs';
-import { LanguageFileParser } from '../helpers/languageFileParser';
-import { redisClient } from '../cacheManager';
+import {LanguageFileParser} from '../helpers/languageFileParser';
+import {redisClient} from '../cacheManager';
 
 const languageFileParser = new LanguageFileParser();
 
@@ -149,6 +155,9 @@ export class FileHandlingService {
             }
             case uploadType.CSV: {
                 return allowedCsvFileTypes.includes(fileType);
+            }
+            case uploadType.NON_STRATEGIC_FILE: {
+                return allowedNonStrategicFileTypes.includes(fileType);
             }
             default:
                 return false;

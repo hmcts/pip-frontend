@@ -14,6 +14,11 @@ export default class ManualUploadSummaryController {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
+        let nonStrategicUpload = false;
+        if (req.query['non-strategic'] === 'true') {
+            nonStrategicUpload = true;
+        }
+
         const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
             formData.listType,
             formData.classification
@@ -27,6 +32,7 @@ export default class ManualUploadSummaryController {
                   },
                   displaySensitivityMismatch: sensitivityMismatch,
                   displayError: true,
+                  nonStrategicUpload,
               })
             : res.render('admin/manual-upload-summary', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
@@ -35,6 +41,7 @@ export default class ManualUploadSummaryController {
                   fileUploadData: {
                       ...manualUploadService.formatPublicationDates(formData, false),
                   },
+                  nonStrategicUpload,
               });
     }
 
@@ -51,6 +58,11 @@ export default class ManualUploadSummaryController {
             formData.classification
         );
 
+        let nonStrategicUpload = false;
+        if (req.query['non-strategic'] === 'true') {
+            nonStrategicUpload = true;
+        }
+
         if (req.query?.check === 'true') {
             res.render('admin/manual-upload-summary', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
@@ -61,7 +73,7 @@ export default class ManualUploadSummaryController {
                 },
             });
         } else {
-            const artefactId = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true);
+            const artefactId = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true, nonStrategicUpload);
 
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 

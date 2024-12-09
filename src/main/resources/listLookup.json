@@ -248,5 +248,25 @@
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
+    },
+    "PRIMARY_HEALTH_WEEKLY_HEARING_LIST": {
+        "friendlyName": "Primary Health Tribunal Weekly Hearing List",
+        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Iechyd Sylfaenol",
+        "shortenedFriendlyName": "PHT Weekly Hearing list",
+        "url": "primary-health-weekly-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
+    },
+    "CARE_STANDARDS_WEEKLY_HEARING_LIST": {
+        "friendlyName": "Care Standards Tribunal Weekly Hearing List",
+        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Safonau Gofal",
+        "shortenedFriendlyName": "CST weekly Hearing list",
+        "url": "care-standards-weekly-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
     }
 }
