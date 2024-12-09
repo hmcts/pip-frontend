@@ -23,6 +23,7 @@ describe('Admin Dashboard controller', () => {
             ...i18n['admin-dashboard'],
             mediaApplicationsCount: 0,
             user: request['user'],
+            activeAdminDashboard: true,
         };
         const responseMock = sinon.mock(response);
         responseMock.expects('render').once().withArgs('admin/admin-dashboard', expectedData);

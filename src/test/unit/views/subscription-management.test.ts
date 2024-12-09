@@ -192,7 +192,7 @@ describe('Subscriptions Management Page', () => {
 
     it('should display all subscriptions tab with proper link', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[0].innerHTML).contains(expectedAllSubsTitle, 'Could not find all subscriptions tab');
         expect(subscriptionsTabs[0].getAttribute('href')).equal('?all', 'Tab does not contain proper link');
@@ -200,7 +200,7 @@ describe('Subscriptions Management Page', () => {
 
     it('should display case subscriptions tab with proper link', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[1].innerHTML).contains(expectedCaseSubsTitle, 'Could not find case subscriptions tab');
         expect(subscriptionsTabs[1].getAttribute('href')).equal('?case', 'Tab does not contain proper link');
@@ -208,7 +208,7 @@ describe('Subscriptions Management Page', () => {
 
     it('should display court subscriptions tab with proper link', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[2].innerHTML).contains(
             expectedCourtSubsTitle,
@@ -219,7 +219,7 @@ describe('Subscriptions Management Page', () => {
 
     it('should display first tab as active', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
             'page',
@@ -371,7 +371,7 @@ describe('Subscriptions Management Page with case subscription but without locat
 
     it('should display all subscriptions tab with proper link', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[0].innerHTML).contains(
             expectedAllSubsTitleWithSingleSubs,
@@ -382,7 +382,7 @@ describe('Subscriptions Management Page with case subscription but without locat
 
     it('should display case subscriptions tab with proper link', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[1].innerHTML).contains(
             expectedCaseSubsTitleWithNoLocationSubs,
@@ -393,7 +393,7 @@ describe('Subscriptions Management Page with case subscription but without locat
 
     it('should display first tab as active', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
             'page',
@@ -492,7 +492,7 @@ describe('Subscriptions Management Page with location subscription but without c
 
     it('should display all subscriptions tab with proper link', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[0].innerHTML).contains(
             expectedAllSubsTitleWithSingleSubs,
@@ -503,7 +503,7 @@ describe('Subscriptions Management Page with location subscription but without c
 
     it('should display court subscriptions tab with proper link', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[2].innerHTML).contains(
             expectedCaseSubsTitleWithNoCaseSubs,
@@ -514,7 +514,7 @@ describe('Subscriptions Management Page with location subscription but without c
 
     it('should display first tab as active', () => {
         const subscriptionsTabs = htmlRes
-            .getElementsByClassName('moj-sub-navigation')[1]
+            .getElementsByClassName('moj-sub-navigation')[0]
             .getElementsByClassName(tabsClass);
         expect(subscriptionsTabs[0].getAttribute('aria-current')).equal(
             'page',

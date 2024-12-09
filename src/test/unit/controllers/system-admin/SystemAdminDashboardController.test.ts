@@ -23,6 +23,7 @@ describe('System Admin Dashboard controller', () => {
         const expectedData = {
             ...i18n['system-admin-dashboard'],
             user: request['user'],
+            activeSystemAdminDashboard: true,
         };
 
         responseMock.expects('render').once().withArgs('system-admin/system-admin-dashboard', expectedData);
