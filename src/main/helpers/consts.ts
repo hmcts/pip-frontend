@@ -4,6 +4,8 @@ export const allowedFileTypes = ['pdf', 'json', 'csv', 'doc', 'docx', 'htm', 'ht
 
 export const allowedImageTypes = ['jpg', 'jpeg', 'png', 'pdf'];
 
+export const allowedNonStrategicFileTypes = ['xls', 'xlsx'];
+
 export const fileTypeMappings = {
     jpg: 'image/jpeg',
     jpeg: 'image/jpeg',
@@ -28,6 +30,7 @@ export enum uploadType {
     IMAGE,
     FILE,
     CSV,
+    NON_STRATEGIC_FILE
 }
 
 export enum FileType {

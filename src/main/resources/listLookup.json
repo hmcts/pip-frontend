@@ -249,111 +249,24 @@
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
-    "PHT_WEEKLY_HEARING_LIST": {
+    "PRIMARY_HEALTH_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Iechyd Sylfaenol",
+        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Iechyd Sylfaenol",
         "shortenedFriendlyName": "PHT Weekly Hearing list",
-        "url": "pht-weekly-hearing-list",
+        "url": "primary-health-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "parentPage": "cst-and-pht-weekly-hearing-list"
+        "defaultSensitivity": ""
     },
-    "CST_WEEKLY_HEARING_LIST": {
+    "CARE_STANDARDS_WEEKLY_HEARING_LIST": {
         "friendlyName": "Care Standards Tribunal Weekly Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal",
-        "shortenedFriendlyName": "CST Weekly Hearing list",
-        "url": "cst-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "parentPage": "cst-and-pht-weekly-hearing-list"
-    },
-    "SIAC_WEEKLY_HEARING_LIST": {
-        "friendlyName": "Special Immigration Appeals Commission Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mewnfudo Arbennig",
-        "shortenedFriendlyName": "SIAC Daily Weekly Hearing List",
-        "url": "siac-weekly-hearing-list",
+        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Safonau Gofal",
+        "shortenedFriendlyName": "CST weekly Hearing list",
+        "url": "care-standards-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
-    },
-    "FFT_TAX_WEEKLY_HEARING_LIST": {
-        "friendlyName": "First-tier Tribunal (Tax Chamber) Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol Tribiwnlys Haen Gyntaf (Siambr Treth)",
-        "shortenedFriendlyName": "FFT Tax Weekly Hearing List",
-        "url": "fft-tax-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": ""
-    },
-    "FFT_LR_WEEKLY_HEARING_LIST": {
-        "friendlyName": "First-tier Tribunal (Lands Registration Tribunal) Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol Tribiwnlys Haen Gyntaf (Tribiwnlys Cofrestru Tir)",
-        "shortenedFriendlyName": "FFT (LR) Weekly Hearing List",
-        "url": "fft-lr-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": ""
-    },
-    "RPT_EASTERN_WEEKLY_HEARING_LIST": {
-        "friendlyName": "Residential Property Tribunal: Eastern region Weekly Hearing List",
-        "welshFriendlyName": "Tribiwnlys Eiddo Preswyl: Rhestr o Wrandawiadau Wythnosol rhanbarth Dwyrain Lloegr",
-        "shortenedFriendlyName": "RPT Eastern Weekly Hearing List",
-        "url": "rpt-eastern-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
-    },
-    "RPT_LONDON_WEEKLY_HEARING_LIST": {
-        "friendlyName": "Residential Property Tribunal: London region Weekly Hearing List",
-        "welshFriendlyName": "Tribiwnlys Eiddo Preswyl: Rhestr o Wrandawiadau Wythnosol rhanbarth Llundain",
-        "shortenedFriendlyName": "RPT London Weekly Hearing List",
-        "url": "rpt-london-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
-    },
-    "RPT_MIDLANDS_WEEKLY_HEARING_LIST": {
-        "friendlyName": "Residential Property Tribunal: Midlands region Weekly Hearing List",
-        "welshFriendlyName": "Tribiwnlys Eiddo Preswyl: Rhestr o Wrandawiadau Wythnosol rhanbarth Canolbarth Lloegr",
-        "shortenedFriendlyName": "RPT Midlands Weekly Hearing List",
-        "url": "rpt-midlands-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
-    },
-    "RPT_NORTHERN_WEEKLY_HEARING_LIST": {
-        "friendlyName": "Residential Property Tribunal: Northern region Weekly Hearing List",
-        "welshFriendlyName": "Tribiwnlys Eiddo Preswyl: Rhestr o Wrandawiadau Wythnosol rhanbarth Gogledd Lloegr",
-        "shortenedFriendlyName": "RPT Northern Weekly Hearing List",
-        "url": "rpt-northern-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
-    },
-    "RPT_SOUTHERN_WEEKLY_HEARING_LIST": {
-        "friendlyName": "Residential Property Tribunal: Southern region Weekly Hearing List",
-        "welshFriendlyName": "Tribiwnlys Eiddo Preswyl: Rhestr o Wrandawiadau Wythnosol rhanbarth De Lloegr",
-        "shortenedFriendlyName": "RPT Southern Weekly Hearing List",
-        "url": "rpt-southern-weekly-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
     }
 }
