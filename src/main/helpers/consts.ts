@@ -30,7 +30,7 @@ export enum uploadType {
     IMAGE,
     FILE,
     CSV,
-    NON_STRATEGIC_FILE
+    NON_STRATEGIC_FILE,
 }
 
 export enum FileType {

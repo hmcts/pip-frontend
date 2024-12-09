@@ -3,11 +3,11 @@ import {
     allowedFileTypes,
     allowedImageTypes,
     allowedNonStrategicFileTypes,
-    uploadType
+    uploadType,
 } from '../helpers/consts';
 import fs from 'fs';
-import {LanguageFileParser} from '../helpers/languageFileParser';
-import {redisClient} from '../cacheManager';
+import { LanguageFileParser } from '../helpers/languageFileParser';
+import { redisClient } from '../cacheManager';
 
 const languageFileParser = new LanguageFileParser();
 

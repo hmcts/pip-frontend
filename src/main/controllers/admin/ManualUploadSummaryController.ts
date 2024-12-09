@@ -73,7 +73,11 @@ export default class ManualUploadSummaryController {
                 },
             });
         } else {
-            const artefactId = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true, nonStrategicUpload);
+            const artefactId = await manualUploadService.uploadPublication(
+                { ...formData, userEmail: userEmail },
+                true,
+                nonStrategicUpload
+            );
 
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
