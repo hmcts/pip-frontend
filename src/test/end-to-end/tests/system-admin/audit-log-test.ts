@@ -1,13 +1,13 @@
-import {getCurrentDateWthFormat, getDateNowAndFuture, padFormatted} from '../../shared/shared-functions';
-import {config, config as testConfig} from '../../../config';
-import {createLocation} from '../../shared/testingSupportApi';
-import {randomData} from '../../shared/random-data';
+import { getCurrentDateWthFormat, getDateNowAndFuture, padFormatted } from '../../shared/shared-functions';
+import { config, config as testConfig } from '../../../config';
+import { createLocation } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
 
 Feature('System admin audit log');
 
 Scenario.skip(
     'I as a system admin should be able to view audit log for system admin view third-party users action and Filter the results',
-    async ({I}) => {
+    async ({ I }) => {
         I.loginAsSsoSystemAdmin();
         I.click('#card-manage-third-party-users');
         I.click('Back');
@@ -49,7 +49,7 @@ Scenario.skip(
     }
 );
 
-Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({I}) => {
+Scenario('I as a system admin should be able to view audit log for admin delete publication action', async ({ I }) => {
     const listType = 'Civil And Family Daily Cause List';
     const fileName = 'civilAndFamilyDailyCauseList.json';
     const [date, dayAfter] = getDateNowAndFuture();
@@ -138,12 +138,8 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.checkOption('#actions-10');
     I.click('Apply filters');
 
-    const deleteLocator = locate('//tr')
-        .withText('Delete Publication')
-        .find('a')
-        .withText('View');
+    const deleteLocator = locate('//tr').withText('Delete Publication').find('a').withText('View');
     I.click(deleteLocator);
     I.waitForText('View audit log for ');
     I.logoutSsoSystemAdmin();
 });
-
