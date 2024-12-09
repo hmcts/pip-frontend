@@ -1,9 +1,9 @@
-import {PipRequest} from '../../models/request/PipRequest';
-import {Response} from 'express';
-import {ManualUploadService} from '../../service/ManualUploadService';
-import {cloneDeep} from 'lodash';
-import {FileHandlingService} from '../../service/FileHandlingService';
-import {uploadType} from '../../helpers/consts';
+import { PipRequest } from '../../models/request/PipRequest';
+import { Response } from 'express';
+import { ManualUploadService } from '../../service/ManualUploadService';
+import { cloneDeep } from 'lodash';
+import { FileHandlingService } from '../../service/FileHandlingService';
+import { uploadType } from '../../helpers/consts';
 
 const manualUploadService = new ManualUploadService();
 const fileHandlingService = new FileHandlingService();
@@ -34,15 +34,18 @@ export default class ManualUploadController {
         if (req.query?.showerror === 'true') {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
-
             let nonStrategicUpload = false;
             if (req.query['non-strategic'] === 'true') {
                 nonStrategicUpload = true;
             }
 
             const errors = {
-                fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng, 'manual-upload',
-                    nonStrategicUpload ? uploadType.NON_STRATEGIC_FILE : uploadType.FILE),
+                fileErrors: fileHandlingService.validateFileUpload(
+                    req.file,
+                    req.lng,
+                    'manual-upload',
+                    nonStrategicUpload ? uploadType.NON_STRATEGIC_FILE : uploadType.FILE
+                ),
                 formErrors: await manualUploadService.validateFormFields(req.body, req.lng, 'manual-upload'),
             };
 
