@@ -38,7 +38,8 @@ const indivPubJsonObject = { data: mockPDF };
 const valid = 'valid';
 const invalid = 'invalid';
 const deletionResponse = 'success';
-const adminUserId = 'Test';
+const adminUserId = '1234';
+const adminProvenanceUserId = '12345';
 
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
 const dataManagementArchiveStub = sinon.stub(dataManagementApi, 'put');
@@ -290,33 +291,35 @@ describe('delete location publication', () => {
     beforeEach(() => {
         dataManagementDeleteStub
             .withArgs('/publication/1/deleteArtefacts', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-provenance-user-id': adminProvenanceUserId, 'x-user-id': adminUserId },
             })
             .resolves({ data: 'success' });
         dataManagementDeleteStub
             .withArgs('/publication/2/deleteArtefacts', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-provenance-user-id': adminProvenanceUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorResponse);
         dataManagementDeleteStub
             .withArgs('/publication/4/deleteArtefacts', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-provenance-user-id': adminProvenanceUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorMessage);
     });
     it('should delete the court publication', async () => {
-        expect(await publicationRequests.deleteLocationPublication(1, adminUserId)).toStrictEqual(deletionResponse);
+        expect(
+            await publicationRequests.deleteLocationPublication(1, adminProvenanceUserId, adminUserId)
+        ).toStrictEqual(deletionResponse);
     });
 
     it('should return null if response fails', async () => {
-        expect(await publicationRequests.deleteLocationPublication(2, adminUserId)).toBe(null);
+        expect(await publicationRequests.deleteLocationPublication(2, adminProvenanceUserId, adminUserId)).toBe(null);
     });
 
     it('should return null if request fails', async () => {
-        expect(await publicationRequests.deleteLocationPublication(3, adminUserId)).toBe(null);
+        expect(await publicationRequests.deleteLocationPublication(3, adminProvenanceUserId, adminUserId)).toBe(null);
     });
 
     it('should return null if request fails', async () => {
-        expect(await publicationRequests.deleteLocationPublication(4, adminUserId)).toBe(null);
+        expect(await publicationRequests.deleteLocationPublication(4, adminProvenanceUserId, adminUserId)).toBe(null);
     });
 });
