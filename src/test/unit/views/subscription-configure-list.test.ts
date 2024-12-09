@@ -62,49 +62,9 @@ describe('Subscription Configure List', () => {
         it('should contain body text', () => {
             const pageBodyText = htmlRes.getElementsByClassName('govuk-body');
             expect(pageBodyText[0].innerHTML).contains(
-                "Configure the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
+                "Choose the lists you will receive for your selected courts and tribunals. This will not affect any specific cases you may have subscribed to. Also don't forget to come back regularly to see new list types as we add more.",
                 'Page first description text does not exist'
             );
-            expect(pageBodyText[1].innerHTML).contains(
-                'If you un-select all hearing lists on this screen we will revert your subscriptions to default and you will receive all list types. If you want to stop receiving all lists or stop receiving lists from a particular court/tribunal please remove the subscriptions on the previous screen.',
-                'Page second description text does not exist'
-            );
-        });
-
-        it('should contain filter component', () => {
-            const filterTitle = htmlRes.getElementsByClassName('govuk-heading-m');
-            expect(filterTitle[0].innerHTML).contains('Filter', 'Filter title does not exist');
-        });
-
-        it('should contain selected filter component', () => {
-            const filterTitle = htmlRes.getElementsByClassName('govuk-heading-m');
-            expect(filterTitle[1].innerHTML).contains('Selected filter', 'Selected filter title does not exist');
-        });
-
-        it('should contain apply filters button', () => {
-            const applyFiltersButton = htmlRes.getElementsByClassName('govuk-button');
-            expect(applyFiltersButton[0].innerHTML).contains('Apply filters', 'Apply filters button does not exist');
-        });
-
-        it('should contain clear filters button', () => {
-            const applyFiltersButton = htmlRes.querySelector('.moj-filter__heading-action .govuk-link');
-            expect(applyFiltersButton.innerHTML).contains('Clear filters', 'Clear filters button does not exist');
-        });
-
-        it('should contain jurisdiction filter', () => {
-            const jurisdictionLegend = htmlRes.getElementsByTagName('legend');
-            expect(jurisdictionLegend[0].innerHTML).contains(
-                'Type of court or tribunal',
-                "Type of court or tribunal filter doesn't exist"
-            );
-        });
-
-        it('should contain expected jurisdiction checkboxes', () => {
-            const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-            expect(checkboxes.length).equal(3, 'Could not find jurisdiction checkboxes');
-            expect(checkboxes[0]['value']).contains('Civil', 'Could not find civil checkbox');
-            expect(checkboxes[1]['value']).contains('Family', 'Could not find Family checkbox');
-            expect(checkboxes[2]['value']).contains('Magistrates', 'Could not find Magistrates checkbox');
         });
 
         it('should contain a back to top link, that links back up to the top', () => {
@@ -115,18 +75,18 @@ describe('Subscription Configure List', () => {
 
         it('should contain continue button', () => {
             const continueButton = htmlRes.getElementsByClassName('govuk-button');
-            expect(continueButton[3].innerHTML).contains('Continue', 'Continue button does not exist');
+            expect(continueButton[0].innerHTML).contains('Continue', 'Continue button does not exist');
         });
 
         it('should contain your selections component', () => {
             const selectionsTitle = htmlRes.getElementsByClassName('govuk-heading-m');
-            expect(selectionsTitle[2].innerHTML).contains('Total selected', 'Your selections title does not exist');
+            expect(selectionsTitle[0].innerHTML).contains('Total selected', 'Your selections title does not exist');
         });
 
         it('should contain selections counter', () => {
             const selectionText = htmlRes.getElementsByClassName('govuk-body');
             const counter = htmlRes.getElementById('selectionCount');
-            expect(selectionText[2].innerHTML).contains('selected', 'Selection text does not exist');
+            expect(selectionText[1].innerHTML).contains('selected', 'Selection text does not exist');
             expect(counter.innerHTML).contains(0, 'Could not find counter value');
         });
 
@@ -189,14 +149,6 @@ describe('Subscription Configure List', () => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
                 });
-        });
-
-        it('should contain expected jurisdiction checkboxes', () => {
-            const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-            expect(checkboxes.length).equal(3, 'Could not find jurisdiction checkboxes');
-            expect(checkboxes[0]['value']).contains('Llys Sifil', 'Could not find civil checkbox');
-            expect(checkboxes[1]['value']).contains('Llys Teulu', 'Could not find Family checkbox');
-            expect(checkboxes[2]['value']).contains('Llys Ynadon', 'Could not find Magistrates checkbox');
         });
 
         it('should contain list type rows', () => {
