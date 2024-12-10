@@ -49,7 +49,7 @@ const systemAdminRoutes = [
     { path: '/delete-court-subscription-success', parameter: '?locationId=123' },
     { path: '/delete-court-publication-confirmation', parameter: '?locationId=123' },
     { path: '/delete-court-publication-success', parameter: '?locationId=123' },
-    { path: '/audit-log-viewer', parameter: '?locationId=123' },
+    { path: '/audit-log-viewer' },
     { path: '/audit-log-details', parameter: '?id=123&timestamp=10/01/2024' },
     { path: '/create-third-party-user' },
     { path: '/create-third-party-user-summary' },
