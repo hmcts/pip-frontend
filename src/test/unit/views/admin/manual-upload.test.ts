@@ -205,7 +205,10 @@ describe('Manual upload page', () => {
 
         it('should contain file upload question inset', () => {
             const insetFileUpload = htmlRes.getElementsByClassName(insetTextClass);
-            expect(insetFileUpload[0].innerHTML).contains(expectedNonStrategicFileQuestion, 'Could not find file upload');
+            expect(insetFileUpload[0].innerHTML).contains(
+                expectedNonStrategicFileQuestion,
+                'Could not find file upload'
+            );
             expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(
                 expectedFileInputType,
                 'Could not find file upload type'
@@ -232,7 +235,7 @@ describe('Manual upload page', () => {
             expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
             expect(warningText.innerHTML).contains(
                 'Prior to upload you must ensure the file is suitable for publication ' +
-                'e.g. redaction of personal data has been done during the production of this file.',
+                    'e.g. redaction of personal data has been done during the production of this file.',
                 'Could not find warning text'
             );
         });
