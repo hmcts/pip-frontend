@@ -16,7 +16,7 @@ export default class ManualUploadController {
         const formData = formCookie ? JSON.parse(formCookie) : null;
 
         let nonStrategicUpload = false;
-        if (req.query['non-strategic'] === 'true') {
+        if (req.query?.['non-strategic'] === 'true') {
             nonStrategicUpload = true;
         }
 
@@ -35,7 +35,7 @@ export default class ManualUploadController {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             let nonStrategicUpload = false;
-            if (req.query['non-strategic'] === 'true') {
+            if (req.query?.['non-strategic'] === 'true') {
                 nonStrategicUpload = true;
             }
 

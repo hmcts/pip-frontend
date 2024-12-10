@@ -41,7 +41,7 @@ describe('Data Management requests', () => {
                 };
             });
 
-            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders)).toBe('123');
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, false)).toBe('123');
         });
 
         it('should return error response', async () => {
@@ -56,7 +56,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders)).toBe(
+            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders, false)).toBe(
                 null
             );
         });
@@ -73,7 +73,68 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders)).toBe(
+            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders, false)).toBe(
+                null
+            );
+        });
+    });
+
+    describe('upload non-strategic publication', () => {
+        beforeEach(async () => {
+            sinon.restore();
+            const axiosConfig = await import('../../../main/resources/requests/utils/axiosConfig');
+            sinon.stub(axiosConfig, 'getDataManagementCredentials').returns(() => {
+                return '';
+            });
+        });
+
+        it('should return true on success', async () => {
+            // chain call for superagent post.set.set.attach
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().returns({ status: 200, body: { artefactId: '123' } }) };
+                            },
+                        };
+                    },
+                };
+            });
+
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true)).toBe('123');
+        });
+
+        it('should return error response', async () => {
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponse) };
+                            },
+                        };
+                    },
+                };
+            });
+            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders, true)).toBe(
+                null
+            );
+        });
+
+        it('should return error message', async () => {
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorMessage) };
+                            },
+                        };
+                    },
+                };
+            });
+            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders, true)).toBe(
                 null
             );
         });
