@@ -33,7 +33,7 @@ describe('Manual upload', () => {
                 .post('/manual-upload')
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('/manual-upload-summary?check=true');
+                    expect(res.header['location']).to.equal('/manual-upload-summary?check=true&non-strategic=false');
                 });
         });
     });
