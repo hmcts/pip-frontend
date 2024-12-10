@@ -11,14 +11,13 @@ const deleteCourtReferenceDataConfirmationController = new DeleteCourtReferenceD
 
 const court = { locationId: 1, jurisdiction: 'test', region: 'test' };
 const userId = '1234';
-const provenanceUserId = '12345';
-const user = { userId: userId, provenanceUserId: provenanceUserId };
+const user = { userId: userId };
 
 sinon.stub(LocationService.prototype, 'formatCourtValue').returns(court);
 courtStub.withArgs('1').resolves(court);
-deleteStub.withArgs('1', provenanceUserId, userId).resolves({ exists: true, errorMessage: 'test' });
-deleteStub.withArgs('2', provenanceUserId, userId).resolves(null);
-deleteStub.withArgs('3', provenanceUserId, userId).resolves({ exists: false, errorMessage: '' });
+deleteStub.withArgs('1', userId).resolves({ exists: true, errorMessage: 'test' });
+deleteStub.withArgs('2', userId).resolves(null);
+deleteStub.withArgs('3', userId).resolves({ exists: false, errorMessage: '' });
 
 describe('Delete Court Reference Data Controller', () => {
     it('should render the court reference data page', () => {
