@@ -9,6 +9,7 @@ const fileHandlingService = new FileHandlingService();
 const validFileCase = multerFile('testFile.HtMl', 1000);
 const largeFile = multerFile('testFile.docx', 3000000);
 const validFile = multerFile('testFile.pdf', 1000);
+const validExcelFile = multerFile('testFile.xlsx', 1000);
 const validImage = multerFile('testImage.png', 1000);
 const largeImage = multerFile('testFile.png', 3000000);
 const dotSeparatedFile = multerFile('t.e.s.t.f.i.l.e.png', 1000);
@@ -68,6 +69,17 @@ describe('File handling service', () => {
             ).toBe(null);
         });
 
+        it('should return null when checking a valid file for non-strategic publication', () => {
+            expect(
+                fileHandlingService.validateFileUpload(
+                    validExcelFile,
+                    englishLanguage,
+                    manualUploadLanguageFile,
+                    uploadType.NON_STRATEGIC_FILE
+                )
+            ).toBe(null);
+        });
+
         it('should return null when checking file type in different case sensitivity', () => {
             expect(
                 fileHandlingService.validateFileUpload(
@@ -97,6 +109,17 @@ describe('File handling service', () => {
                     englishLanguage,
                     manualUploadLanguageFile,
                     uploadType.FILE
+                )
+            ).toEqual('Please upload a valid file format');
+        });
+
+        it('should return error message if invalid file type for non-strategic file', () => {
+            expect(
+                fileHandlingService.validateFileUpload(
+                    invalidFileType,
+                    englishLanguage,
+                    manualUploadLanguageFile,
+                    uploadType.NON_STRATEGIC_FILE
                 )
             ).toEqual('Please upload a valid file format');
         });
