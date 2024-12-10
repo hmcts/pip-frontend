@@ -13,6 +13,11 @@ const cards = [
         link: 'manual-upload',
     },
     {
+        title: 'Upload Non Strategic Publication',
+        description: 'Upload a file to be published on the external facing Court and tribunal hearings service.',
+        link: 'manual-upload?non-strategic=true',
+    },
+    {
         title: 'Remove',
         description:
             'Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.',
@@ -59,7 +64,7 @@ describe('Admin Dashboard page all cards', () => {
             expect(bannerComponents[2].innerHTML).contains('Sign out');
         });
 
-        it('should display 3 card options', () => {
+        it('should display 4 card options', () => {
             const cardComponents = htmlRes.getElementsByClassName('account-card');
             expect(cardComponents.length).equal(cards.length);
         });
@@ -140,9 +145,9 @@ describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
         expect(bannerComponents[2].innerHTML).contains('Sign out');
     });
 
-    it('should display 2 card options', () => {
+    it('should display 3 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(2);
+        expect(cardComponents.length).equal(3);
     });
 
     it('should not contain notification banner', () => {
@@ -172,9 +177,9 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
             expect(bannerComponents[2].innerHTML).contains('Sign out');
         });
 
-        it('should display 3 card options', () => {
+        it('should display 4 card options', () => {
             const cardComponents = htmlRes.getElementsByClassName('account-card');
-            expect(cardComponents.length).equal(3);
+            expect(cardComponents.length).equal(4);
         });
 
         it('should contain notification banner', () => {
@@ -242,9 +247,9 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
         expect(bannerComponents[2].innerHTML).contains('Sign out');
     });
 
-    it('should display 2 card options', () => {
+    it('should display 3 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(2);
+        expect(cardComponents.length).equal(3);
     });
 
     it('should not contain notification banner', () => {
@@ -274,9 +279,9 @@ describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
         expect(bannerComponents[3].innerHTML).contains('Sign out');
     });
 
-    it('should display 2 card options', () => {
+    it('should display 3 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(2);
+        expect(cardComponents.length).equal(3);
     });
 
     it('should not contain notification banner', () => {

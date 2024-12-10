@@ -15,7 +15,7 @@ export default class ManualUploadSummaryController {
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
         let nonStrategicUpload = false;
-        if (req.query['non-strategic'] === 'true') {
+        if (req.query?.['non-strategic'] === 'true') {
             nonStrategicUpload = true;
         }
 
@@ -59,7 +59,7 @@ export default class ManualUploadSummaryController {
         );
 
         let nonStrategicUpload = false;
-        if (req.query['non-strategic'] === 'true') {
+        if (req.query?.['non-strategic'] === 'true') {
             nonStrategicUpload = true;
         }
 
@@ -71,6 +71,7 @@ export default class ManualUploadSummaryController {
                 fileUploadData: {
                     ...manualUploadService.formatPublicationDates(formData, false),
                 },
+                nonStrategicUpload,
             });
         } else {
             const artefactId = await manualUploadService.uploadPublication(
@@ -97,6 +98,7 @@ export default class ManualUploadSummaryController {
                     },
                     displaySensitivityMismatch: sensitivityMismatch,
                     displayError: true,
+                    nonStrategicUpload,
                 });
             }
         }

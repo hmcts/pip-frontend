@@ -317,7 +317,12 @@ describe('Manual upload service', () => {
     });
 
     it('should upload a publication', async () => {
-        const fileUpload = await manualUploadService.uploadPublication(headers, true);
+        const fileUpload = await manualUploadService.uploadPublication(headers, true, false);
+        expect(fileUpload).to.equal(fileUploadArtefactId);
+    });
+
+    it('should upload a non-strategic publication', async () => {
+        const fileUpload = await manualUploadService.uploadPublication(headers, true, true);
         expect(fileUpload).to.equal(fileUploadArtefactId);
     });
 
@@ -329,7 +334,7 @@ describe('Manual upload service', () => {
     it('should upload a json publication', async () => {
         const data = headers;
         data.fileName = 'test.json';
-        const fileUpload = await manualUploadService.uploadPublication(data, true);
+        const fileUpload = await manualUploadService.uploadPublication(data, true, false);
         expect(fileUpload).to.equal(jsonUploadArtefactId);
     });
 
