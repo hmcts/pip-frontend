@@ -56,9 +56,9 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders, false)).toBe(
-                null
-            );
+            expect(
+                await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders, false)
+            ).toBe(null);
         });
 
         it('should return error message', async () => {
@@ -73,9 +73,9 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders, false)).toBe(
-                null
-            );
+            expect(
+                await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders, false)
+            ).toBe(null);
         });
     });
 
@@ -117,9 +117,9 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders, true)).toBe(
-                null
-            );
+            expect(
+                await fileUploadAPI.uploadPublication({ file: '', fileName: 'foo' }, mockUploadFileHeaders, true)
+            ).toBe(null);
         });
 
         it('should return error message', async () => {
@@ -134,9 +134,9 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders, true)).toBe(
-                null
-            );
+            expect(
+                await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders, true)
+            ).toBe(null);
         });
     });
 

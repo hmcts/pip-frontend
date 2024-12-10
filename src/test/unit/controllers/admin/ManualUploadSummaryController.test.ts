@@ -118,8 +118,6 @@ describe('Manual upload summary controller', () => {
             await manualUploadSummaryController.get(request, response);
             responseMock.verify();
         });
-
-
     });
 
     describe('POST view', () => {
