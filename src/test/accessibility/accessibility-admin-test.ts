@@ -19,7 +19,7 @@ BeforeSuite(async () => {
 });
 
 Before(({ I }) => {
-    I.loginAsAdmin();
+    I.loginAsSsoAdminCtsc();
 });
 
 Scenario('Admin User Journey - admin-dashboard-page', async ({ I }) => {
