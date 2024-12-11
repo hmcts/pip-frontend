@@ -249,7 +249,7 @@
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
-    "PRIMARY_HEALTH_WEEKLY_HEARING_LIST": {
+    "PHT_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Iechyd Sylfaenol",
         "shortenedFriendlyName": "PHT Weekly Hearing list",
@@ -259,7 +259,7 @@
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
-    "CARE_STANDARDS_WEEKLY_HEARING_LIST": {
+    "CST_WEEKLY_HEARING_LIST": {
         "friendlyName": "Care Standards Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal",
         "shortenedFriendlyName": "CST weekly Hearing list",
