@@ -3,14 +3,14 @@ import { config as testConfig } from '../../config';
 Feature('Login');
 
 Scenario('I as a system admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsB2CSystemAdmin();
     I.logout();
 }).tag('@CrossBrowser');
 
 Scenario(
     'I as a system admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginTestSystemAdmin('', '');
+        I.loginTestB2CAdminUser('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -19,7 +19,7 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginTestSystemAdmin('email@justice.gov.uk', 'password');
+        I.loginTestB2CAdminUser('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -27,20 +27,20 @@ Scenario(
 Scenario(
     'I as a system admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginTestSystemAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestB2CAdminUser('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
 
 Scenario('I as a admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsAdmin();
+    I.loginAsB2CAdmin();
     I.logout();
 }).tag('@CrossBrowser');
 
 Scenario(
     'I as a admin should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginTestAdmin('', '');
+        I.loginTestB2CAdminUser('', '');
         I.waitForText('Please enter your Email Address');
         I.see('Please enter your password');
     }
@@ -49,7 +49,7 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginTestAdmin('email@justice.gov.uk', 'password');
+        I.loginTestB2CAdminUser('email@justice.gov.uk', 'password');
         I.waitForText('Invalid username or password.');
     }
 ).tag('@Nightly');
@@ -57,13 +57,13 @@ Scenario(
 Scenario(
     'I as a admin should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginTestAdmin('email..@justice.gov.uk', 'password');
+        I.loginTestB2CAdminUser('email..@justice.gov.uk', 'password');
         I.waitForText('Please enter a valid email address.');
     }
 ).tag('@Nightly');
 
 Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
-    I.amOnPage('/admin-dashboard');
+    I.amOnPage('/b2c-admin-login');
     I.waitForText('Sign in with your email address');
     I.seeBetaFeedbackOnPage('b2c/login');
     I.executeScript('window.history.back();');
@@ -120,7 +120,7 @@ Scenario('I as a CFT user should be able to sign-in with the valid credentials i
 }).tag('@CrossBrowser');
 
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
-    I.loginAsCftUserInWelsh();
+    I.loginAsCftUserInWelsh(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));
     I.waitForText('Eich cyfrif');
     I.logoutWelsh();
 }).tag('@CrossBrowser');
@@ -196,7 +196,7 @@ Scenario(
 Scenario(
     'I as a media user should see the media rejected login screen when logging in via the admin flow',
     async ({ I }) => {
-        I.loginTestAdmin(testConfig.MEDIA_USER_USERNAME, testConfig.MEDIA_USER_PASSWORD);
+        I.loginTestB2CAdminUser(secret(testConfig.MEDIA_USER_USERNAME), secret(testConfig.MEDIA_USER_PASSWORD));
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'
@@ -208,7 +208,7 @@ Scenario(
 Scenario(
     'I as a admin user should see the admin rejected login screen when logging in via the media flow',
     async ({ I }) => {
-        I.loginTestMediaUser(testConfig.ADMIN_USERNAME, testConfig.ADMIN_PASSWORD);
+        I.loginTestMediaUser(secret(testConfig.ADMIN_USERNAME), secret(testConfig.ADMIN_PASSWORD));
         I.waitForText('Sign in failed');
         I.see(
             'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user'
@@ -216,3 +216,34 @@ Scenario(
         I.see('/admin-dashboard');
     }
 );
+
+Scenario('I as a SSO system admin should be able to sign-in with the valid credentials', async ({ I }) => {
+    I.loginAsSsoSystemAdmin();
+    I.waitForText('System Admin Dashboard');
+    I.logoutSsoSystemAdmin();
+});
+
+Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credentials', async ({ I }) => {
+    I.loginAsSsoAdminCtsc();
+    I.waitForText('Your Dashboard');
+    I.see('Upload');
+    I.see('Remove');
+    I.see('Manage media account requests');
+    I.logoutSsoAdminCtsc();
+});
+
+Scenario('I as a SSO Local admin should be able to sign-in with the valid credentials', async ({ I }) => {
+    I.loginAsSsoAdminLocal();
+    I.waitForText('Your Dashboard');
+    I.see('Upload');
+    I.see('Remove');
+    I.dontSee('Manage media account requests');
+    I.logoutSsoAdminLocal();
+});
+
+Scenario('I as a SSO user with no admin roles should not be able to sign in', async ({ I }) => {
+    I.loginAsNoRoleSsoUser();
+    I.waitForText(
+        'Unfortunately, you do not have an account for the Court and tribunal hearings service admin dashboard.'
+    );
+});

@@ -45,6 +45,7 @@ const piEndpoint = '/account/add/pi';
 const applicationGetEndpoint = '/application/';
 const imageGetEndpoint = '/application/image/';
 const piAadUserEndpoint = '/account/provenance/PI_AAD/';
+const ssoUserEndpoint = '/account/provenance/SSO/';
 const cftIdamUserEndpoint = '/account/provenance/CFT_IDAM/';
 const crimeIdamUserEndpoint = '/account/provenance/CRIME_IDAM/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
@@ -52,7 +53,6 @@ const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
 const deleteUserByUserIdEndpoint = '/account/v2/';
 const updateUserByUserIdEndpoint = '/account/update/';
-const getAdminUserByEmailAndProvenanceEndpoint = '/account/admin/';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
@@ -432,6 +432,39 @@ describe('Account Management Requests', () => {
         });
     });
 
+    describe('Get SSO user by oid', () => {
+        const idtoUse = '123';
+
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        it('should return pi user on success', async () => {
+            getStub.withArgs(`${ssoUserEndpoint}${idtoUse}`).resolves({
+                status: 200,
+                data: { userId: '321', userProvenance: 'SSO' },
+            });
+            const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse, 'SSO');
+            expect(response).toStrictEqual({
+                userId: '321',
+                userProvenance: 'SSO',
+            });
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs(`${ssoUserEndpoint}${idtoUse}`).rejects(errorResponse);
+            const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse, 'SSO');
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs(`${ssoUserEndpoint}${idtoUse}`).rejects(errorMessage);
+            const response = await accountManagementRequests.getPiUserByAzureOid(idtoUse, 'SSO');
+            expect(response).toBe(null);
+        });
+    });
+
     describe('Get CFT IDAM user by uid', () => {
         const idtoUse = '123';
 
@@ -762,119 +795,55 @@ describe('Account Management Requests', () => {
         });
     });
 
-    describe('Get admin by email and provenance', () => {
-        const email = 'test@email.com';
-        const provenance = 'PI_AAD';
-
-        beforeEach(() => {
-            sinon.restore();
-            getStub = sinon.stub(accountManagementApi, 'get');
-        });
-
-        it('should return pi user on success', async () => {
-            getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).resolves({
-                status: 200,
-                data: { userId: '321', userProvenance: 'userProvenance' },
-            });
-            const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
-                email,
-                provenance,
-                '1234'
-            );
-            expect(response).toStrictEqual({
-                userId: '321',
-                userProvenance: 'userProvenance',
-            });
-        });
-
-        it('should return null on error response', async () => {
-            getStub
-                .withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`)
-                .rejects(errorResponse);
-            const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
-                email,
-                provenance,
-                '1234'
-            );
-            expect(response).toBe(null);
-        });
-
-        it('should return null on error message', async () => {
-            getStub.withArgs(`${getAdminUserByEmailAndProvenanceEndpoint}${email}/${provenance}`).rejects(errorMessage);
-            const response = await accountManagementRequests.getAdminUserByEmailAndProvenance(
-                email,
-                provenance,
-                '1234'
-            );
-            expect(response).toBe(null);
-        });
-    });
-
-    describe('Create System Admin user', () => {
+    describe('Create SSO System Admin user', () => {
         beforeEach(() => {
             sinon.restore();
             postStub = sinon.stub(accountManagementApi, 'post');
         });
 
+        const userId = '123';
         const systemAdminAccount = {
-            firstName: 'First Name',
-            surname: 'Surname',
             email: 'test-email',
+            provenanceUserId: '456',
         };
 
         const mockResponseData = {
             data: {
-                userId: '2345-2345',
+                userId: userId,
             },
         };
 
-        const issuerId = '1234-1234';
-
         it('should return system admin account', async () => {
-            postStub
-                .withArgs('/account/add/system-admin', systemAdminAccount, {
-                    headers: { 'x-issuer-id': issuerId },
-                })
-                .resolves(mockResponseData);
+            postStub.withArgs('/account/system-admin', systemAdminAccount).resolves(mockResponseData);
 
-            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
-            expect(response).toStrictEqual({
-                userId: '2345-2345',
-            });
+            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount);
+            expect(response).toStrictEqual({ userId: userId });
         });
 
-        it('should return errored system admin account if response is 400', async () => {
+        it('should return errored system admin account if response is bad request', async () => {
             postStub
-                .withArgs('/account/add/system-admin', systemAdminAccount, {
-                    headers: { 'x-issuer-id': issuerId },
-                })
-                .rejects({ response: { status: 400, data: { userId: '2345-2345' } } });
+                .withArgs('/account/system-admin', systemAdminAccount)
+                .rejects({ response: { status: 400, data: { userId: userId } } });
 
-            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount);
             expect(response).toStrictEqual({
-                userId: '2345-2345',
+                userId: userId,
                 error: true,
             });
         });
 
         it('should return null if errored response is not 400', async () => {
             postStub
-                .withArgs('/account/add/system-admin', systemAdminAccount, {
-                    headers: { 'x-issuer-id': issuerId },
-                })
-                .rejects({ response: { status: 402, data: { userId: '2345-2345' } } });
+                .withArgs('/account/system-admin', systemAdminAccount)
+                .rejects({ response: { status: 402, data: { userId: userId } } });
 
-            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount);
             expect(response).toBe(null);
         });
 
         it('should return false on error message', async () => {
-            postStub
-                .withArgs('/account/add/system-admin', systemAdminAccount, {
-                    headers: { 'x-issuer-id': issuerId },
-                })
-                .rejects(errorMessage);
-            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount, issuerId);
+            postStub.withArgs('/account/system-admin', systemAdminAccount).rejects(errorMessage);
+            const response = await accountManagementRequests.createSystemAdminUser(systemAdminAccount);
             expect(response).toBe(null);
         });
     });

@@ -10,7 +10,7 @@
 
 {% block beforeContent %}
     {{ super() }}
-    {{ goBack(text = backButton) }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}

@@ -10,6 +10,8 @@ export default class SessionExpiringController {
             redirectPage = checkRoles(req, allAdminRoles) ? 'ADMIN' : 'AAD';
         } else if (req.user['userProvenance'] === 'CRIME_IDAM') {
             redirectPage = 'CRIME';
+        } else if (req.user['userProvenance'] === 'SSO') {
+            redirectPage = 'SSO';
         } else {
             redirectPage = 'CFT';
         }

@@ -1,46 +1,37 @@
 import { config as testConfig } from '../../../config';
 import { randomData } from '../../shared/random-data';
+import { createTestUserAccount } from '../../shared/testingSupportApi';
 
 Feature('System admin User Management');
 
-const testFirstName = 'System Admin Test First Name';
-const testLastName = 'System Admin Test Surname';
+const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
+const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
+const TEST_ROLE = 'INTERNAL_ADMIN_LOCAL';
 
-const testEmailAddress = 'pip-e2e-test-admin-management-' + randomData.getRandomNumber(1, 10000) + '@hmcts.net';
-const systemAdminUsername = testConfig.SYSTEM_ADMIN_USERNAME as string;
+const systemAdminUsername = testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string;
 
-Scenario('I as a system admin should be able to update a users role and delete a user', async ({ I }) => {
-    I.loginAsSystemAdmin();
+Scenario('I as a system admin should be able to delete a user', async ({ I }) => {
+    const testEmail = randomData.getRandomEmailAddress();
+    await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
+
+    I.loginAsSsoSystemAdmin();
     I.click('Admin Dashboard');
-    I.createAdminAccount(testFirstName, testLastName, testEmailAddress, 'Internal - Administrator - Local');
     I.click('Home');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
     I.waitForText('User Management');
-    I.fillField('#email', testEmailAddress);
+    I.fillField('#email', testEmail);
     I.click('Apply filters');
-    I.waitForText(testEmailAddress);
+    I.waitForText(testEmail);
     I.click('#manage-link');
-    I.waitForText('Manage ' + testEmailAddress);
-    I.click('Change');
-    I.selectOption('#updatedRole', 'CTSC Admin');
-    I.click('Continue');
-    I.waitForText('User Updated');
-    I.waitForText('This user has been updated to a CTSC Admin');
-
-    I.click('Home');
-    I.click('#card-user-management');
-    I.fillField('#email', testEmailAddress);
-    I.click('Apply filters');
-    I.waitForText('CTSC Admin');
-    I.click('#manage-link');
-    I.waitForText('CTSC Admin');
+    I.waitForText('Manage ' + testEmail);
+    I.waitForText('Local Admin');
 
     I.click('Delete user');
-    I.waitForText('Are you sure you want to delete ' + testEmailAddress + '?');
+    I.waitForText('Are you sure you want to delete ' + testEmail + '?');
     I.click('No');
     I.click('Continue');
-    I.waitForText('Manage ' + testEmailAddress);
+    I.waitForText('Manage ' + testEmail);
     I.click('Delete user');
     I.click('Yes');
     I.click('Continue');
@@ -48,14 +39,14 @@ Scenario('I as a system admin should be able to update a users role and delete a
 
     I.click('Home');
     I.click('#card-user-management');
-    I.fillField('#email', testEmailAddress);
+    I.fillField('#email', testEmail);
     I.click('Apply filters');
     I.waitForText('There is a problem');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a system admin should be able to filter users correctly on the User Management page', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
 
@@ -101,11 +92,11 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
     I.fillField('#userId', userId);
     I.click('Apply filters');
     I.waitForText(systemAdminUsername);
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a system admin should be able to use the pagination on the user management page', async ({ I }) => {
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('#card-user-management');
     I.waitForText('User Management');
 
@@ -115,27 +106,8 @@ Scenario('I as a system admin should be able to use the pagination on the user m
 
     I.waitForText('Previous');
     I.see('1 of');
-    I.see('Next');
-    I.see('3 of');
 
     I.click('.govuk-pagination__link');
     I.waitForText('2 of');
-    I.logout();
-});
-
-Scenario('I as a system admin should not be able to change my own role', async ({ I }) => {
-    I.loginAsSystemAdmin();
-    I.click('#card-user-management');
-    I.waitForText('User Management');
-    I.fillField('#email', systemAdminUsername);
-    I.click('Apply filters');
-    I.waitForText(systemAdminUsername);
-    I.click('Manage');
-    I.waitForText('Manage ' + systemAdminUsername);
-    I.click('Change');
-    I.selectOption('#updatedRole', 'Local Admin');
-    I.click('Continue');
-    I.waitForText('There is a problem');
-    I.see('You are unable to update the role for the same user you are logged in as');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });

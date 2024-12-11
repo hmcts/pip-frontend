@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
-import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
+import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
 import { reSignInUrls } from '../helpers/consts';
 import * as url from 'url';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -49,6 +49,8 @@ export class SessionManagementService {
                         );
                     } else if (req.user['userProvenance'] == 'CRIME_IDAM') {
                         res.redirect(this.crimeLogOutUrl(isSessionExpired, req.lng));
+                    } else if (req.user['userProvenance'] == 'SSO') {
+                        res.redirect(this.ssoLogoutUrl(isSessionExpired, req.lng));
                     } else {
                         res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
                     }
@@ -110,11 +112,23 @@ export class SessionManagementService {
         }
     }
 
+
     private crimeLogOutUrl(isSessionExpired: boolean, language: string): string {
         if (isSessionExpired) {
             return '/session-expired?lng=' + language + '&reSignInUrl=CRIME';
         } else {
             return '/session-logged-out?lng=' + language;
+        }
+    }
+
+    private ssoLogoutUrl(isSessionExpired: boolean, language: string): string {
+        if (isSessionExpired) {
+            // Do not log out of SSO session after session expired due to inactivity
+            return '/session-expired?lng=' + language + '&reSignInUrl=SSO';
+        } else {
+            const redirectPath = '/session-logged-out?lng=' + language;
+            const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
+            return `${MICROSOFT_LOGIN_URL}/common/oauth2/v2.0/logout?post_logout_redirect_uri=${redirectUrl}`;
         }
     }
 

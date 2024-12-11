@@ -5,7 +5,6 @@ import {
     checkAuthenticatedAdmin,
     isPermittedMedia,
     isPermittedAdmin,
-    isPermittedAccountCreation,
     isPermittedManualUpload,
     isPermittedMediaAccount,
     mediaVerificationHandling,
@@ -20,6 +19,7 @@ import {
     forgotPasswordRedirect,
     keepSessionLanguage,
     regenerateSession,
+    processSsoSignIn,
 } from '../../../main/authentication/authenticationHandler';
 
 import {
@@ -79,7 +79,7 @@ describe('Test Authenticated Admin', () => {
         checkAuthenticatedAdmin(req, res, mockRedirectFunction, mediaAccountCreationRoles);
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.contains('/admin-login?p=');
+        expect(mockRedirectFunction.mock.calls[0][0]).to.contains('/sso-login');
     });
 });
 
@@ -198,26 +198,6 @@ describe('Test IsPermittedAdmin', () => {
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
         expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
-    });
-});
-
-describe('Test IsPermittedAccountCreation', () => {
-    it('check returns next function if permitted', () => {
-        const mockRedirectFunction = jest.fn(() => 4);
-        const req = { user: { roles: 'INTERNAL_SUPER_ADMIN_CTSC' } };
-
-        expect(isPermittedAccountCreation(req, {}, mockRedirectFunction)).to.equal(4);
-    });
-
-    it('check redirect to admin-dashboard is called if not matched', () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'INTERNAL_ADMIN_LOCAL' } };
-        const res = { redirect: mockRedirectFunction };
-
-        isPermittedAccountCreation(req, res, mockRedirectFunction);
-
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
     });
 });
 
@@ -462,6 +442,102 @@ describe('process crime sign in', () => {
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
         expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
+    });
+});
+
+describe('process SSO sign in', () => {
+    const provenanceUserId = '123';
+    const req = {
+        lng: 'en',
+        i18n: {
+            getDataByLanguage: lng => {
+                return { error: lng };
+            },
+        },
+    };
+
+    it('should redirect to admin dashboard for admin user when signing in via SSO', async () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        req['user'] = {
+            roles: 'INTERNAL_ADMIN_CTSC',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
+        const res = { redirect: mockRedirectFunction };
+
+        await processSsoSignIn(req, res);
+
+        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
+    });
+
+    it('should redirect to admin dashboard for super admin user when signing in via SSO', async () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        req['user'] = {
+            roles: 'INTERNAL_SUPER_ADMIN_LOCAL',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
+        const res = { redirect: mockRedirectFunction };
+
+        await processSsoSignIn(req, res);
+
+        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
+    });
+
+    it('should redirect to system admin dashboard for system admin user when signing in via SSO', async () => {
+        const mockRedirectFunction = jest.fn(argument => argument);
+        req['user'] = {
+            roles: 'SYSTEM_ADMIN',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
+        const res = { redirect: mockRedirectFunction };
+
+        await processSsoSignIn(req, res);
+
+        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
+        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/system-admin-dashboard');
+    });
+
+    it('should render the error page for non-admin user when signing in via SSO', async () => {
+        const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
+
+        req['user'] = {
+            roles: 'VERIFIED',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: true,
+        };
+        const res = { render: mockRenderFunction };
+
+        processSsoSignIn(req, res);
+
+        expect(mockRenderFunction.mock.calls.length).to.equal(1);
+        expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
+        expect(mockRenderFunction.mock.calls[0][1]).to.equal('en');
+    });
+
+    it('should render the error page when PiUser not created when signing in via SSO', async () => {
+        const mockRenderFunction = jest.fn((argument, argument2) => argument + argument2);
+
+        req['user'] = {
+            roles: 'SYSTEM_ADMIN',
+            userProvenance: 'SSO',
+            provenanceUserId: provenanceUserId,
+            created: false,
+        };
+        const res = { render: mockRenderFunction };
+
+        processSsoSignIn(req, res);
+
+        expect(mockRenderFunction.mock.calls.length).to.equal(1);
+        expect(mockRenderFunction.mock.calls[0][0]).to.equal('error');
+        expect(mockRenderFunction.mock.calls[0][1]).to.equal('en');
     });
 });
 

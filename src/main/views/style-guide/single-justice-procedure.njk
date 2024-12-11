@@ -1,4 +1,4 @@
-{% from "../macros/common-components.njk" import goBack, searchInput, mojAll %}
+{% from "../macros/common-components.njk" import goBack, searchInput, mojAll, backButtonHistory %}
 {% from "../macros/sjp-common.njk" import downloadButton, filterForm, filterManipulation %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/pagination/macro.njk" import govukPagination %}
@@ -11,7 +11,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -88,19 +88,17 @@
             rows: sjpCases
           }) }}
         </div>
-        {{ super() }}
       </div>
     </div>
+  </div>
+  <div class="govuk-grid-row">
+     {{ super() }}
   </div>
 {% endblock %}
 
 {% block bodyEnd %}
-    <script>
-        if ( window.history.replaceState ) {
-            window.history.replaceState( null, null, window.location.href );
-        }
-    </script>
-    {{ mojAll() }}
+    {{ backButtonHistory(cspNonce) }}
+    {{ mojAll(cspNonce) }}
     {{ super() }}
-    {{ filterManipulation(url = listUrl, artefactId = artefactId, filter = filter) }}
+    {{ filterManipulation(url = listUrl, artefactId = artefactId, filter = filter, cspNonce = cspNonce) }}
 {% endblock %}

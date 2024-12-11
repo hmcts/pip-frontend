@@ -139,12 +139,12 @@ export class AccountManagementRequests {
         return [];
     }
 
-    public async getPiUserByAzureOid(oid: string): Promise<any> {
+    public async getPiUserByAzureOid(oid: string, userProvenance = 'PI_AAD'): Promise<any> {
         try {
-            const response = await accountManagementApi.get(`/account/provenance/PI_AAD/${oid}`);
+            const response = await accountManagementApi.get(`/account/provenance/${userProvenance}/${oid}`);
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve P&I user account by Azure B2C object ID');
+            logHelper.logErrorResponse(error, 'retrieve P&I user account by Azure object ID');
         }
         return null;
     }
@@ -235,11 +235,12 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async deleteUser(userId: string, adminUserId: string): Promise<object> {
+    public async deleteUser(userId: string, adminUserId = null): Promise<object> {
         try {
             logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
+            const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
             const response = await accountManagementApi.delete(`/account/v2/${userId}`, {
-                headers: { 'x-admin-id': adminUserId },
+                headers: headers,
             });
             return response.data;
         } catch (error) {
@@ -248,7 +249,7 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async updateUser(userId: string, role: string, adminUserId: string): Promise<object | string> {
+    public async updateUser(userId: string, role: string, adminUserId = null): Promise<object | string> {
         try {
             logger.info(
                 'User with ID: ' +
@@ -258,10 +259,9 @@ export class AccountManagementRequests {
                     ' by Admin with ID: ' +
                     adminUserId
             );
+            const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
             const response = await accountManagementApi.put(`/account/update/${userId}/${role}`, null, {
-                headers: {
-                    'x-admin-id': adminUserId,
-                },
+                headers: headers,
             });
             return response.data;
         } catch (error) {
@@ -275,32 +275,13 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async getAdminUserByEmailAndProvenance(
-        email: string,
-        provenance: string,
-        adminUserId: string
-    ): Promise<any> {
-        try {
-            logger.info('Admin with ID: ' + adminUserId + 'requested user by email.');
-            const response = await accountManagementApi.get(`/account/admin/${email}/${provenance}`);
-            return response.data;
-        } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve account for admin user by email and provenance');
-        }
-        return null;
-    }
-
     /**
-     * Request method that attempts to create a system admin account.
+     * Request method that attempts to create an SSO system admin account.
      * @param systemAdminAccount The System Admin account to create.
-     * @param adminUserId The System Admin who is creating the account.
      */
-    public async createSystemAdminUser(systemAdminAccount, adminUserId: string): Promise<object> {
+    public async createSystemAdminUser(systemAdminAccount): Promise<object> {
         try {
-            logger.info('A system admin user is being created with ID: ' + adminUserId);
-            const response = await accountManagementApi.post('/account/add/system-admin', systemAdminAccount, {
-                headers: { 'x-issuer-id': adminUserId },
-            });
+            const response = await accountManagementApi.post('/account/system-admin', systemAdminAccount);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'create system admin account');

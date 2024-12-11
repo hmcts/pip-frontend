@@ -79,7 +79,6 @@ describe('Sign In option Page', () => {
                 );
             }
         });
-
         it('should display request account message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body-s');
             expect(message[0].innerHTML).contains("Don't have an account?", 'Could not find request account message');

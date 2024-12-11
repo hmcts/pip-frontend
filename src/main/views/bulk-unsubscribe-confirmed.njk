@@ -1,4 +1,4 @@
-{% from "macros/common-components.njk" import goBack, successPanel %}
+{% from "macros/common-components.njk" import goBack, successPanel, backButtonHistory %}
 
 {% extends "template.njk" %}
 
@@ -8,7 +8,7 @@
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack(text = backButton) }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -29,9 +29,5 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  <script>
-    if ( window.history.replaceState ) {
-      window.history.replaceState( null, null, window.location.href );
-    }
-  </script>
+  {{ backButtonHistory(cspNonce) }}
 {% endblock %}

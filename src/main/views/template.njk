@@ -8,7 +8,7 @@
 
 {% block head %}
   <!-- Google Tag Manager -->
-  <script>(function (w, d, s, l, i) {
+  <script nonce="{{ cspNonce }}">(function (w, d, s, l, i) {
       w[l] = w[l] || [];
       w[l].push({
         'gtm.start':
@@ -40,13 +40,6 @@
   }) }}
 {% endblock %}
 {% block beforeContent %}
-  <script>
-    function changeLang(lng){
-      const searchParams = new URLSearchParams(window.location.search);
-      searchParams.set('lng', lng)
-      window.location.search = searchParams.toString();
-
-  }</script>
     {% if env != 'production' %}
         <div id= "branch-bar" class="govuk-phase-banner">
             <p class="govuk-phase-banner__content">
@@ -62,7 +55,7 @@
     {% set betaDisplay = betaHeading %}
   {% endif %}
 
-  {{ betaLink(betaDisplay) }}
+  {{ betaLink(betaDisplay, cspNonce, lng) }}
 
   {% if user.roles in ['SYSTEM_ADMIN'] %}
     {% set listItems = [
@@ -71,64 +64,25 @@
         href: '/system-admin-dashboard'
       },
       {
-        text: navLinks.link10,
-        href: '/admin-dashboard'
-      },
-      {
         text: navLinks.link7,
-        href: '/manual-upload'
-      },
-      {
-        text: navLinks.link9,
-        href: '/remove-list-search'
+        href: '/admin-dashboard'
       },
       {
         text: navLinks.link3,
         href: '/logout'
       }
     ] %}
-  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL'] %}
+  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_LOCAL', 'INTERNAL_ADMIN_LOCAL', 'INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
     {% set listItems = [
       {
         text: navLinks.link1,
         href: '/admin-dashboard'
-      },
-      {
-        text: navLinks.link7,
-        href: '/manual-upload'
-      },
-      {
-        text: navLinks.link9,
-        href: '/remove-list-search'
       },
       {
         text: navLinks.link3,
         href: '/logout'
       }
     ] %}
-  {% elif user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] %}
-    {% set listItems = [
-      {
-        text: navLinks.link1,
-        href: '/admin-dashboard'
-      },
-      {
-        text: navLinks.link7,
-        href: '/manual-upload'
-      },
-      {
-        text: navLinks.link8,
-        href: '/media-applications'
-      },
-      {
-        text: navLinks.link9,
-        href: '/remove-list-search'
-      },
-      {
-        text: navLinks.link3,
-        href: '/logout'
-      }
-    ]%}
   {% elif user.roles == 'VERIFIED' %}
     {% set listItems = [
       {
@@ -265,7 +219,7 @@
 {% endblock %}
 
 {% block content %}
-  {{ backToTopButton(backToTop) }}
+  {{ backToTopButton(text = backToTop, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block bodyEnd %}
@@ -275,7 +229,7 @@
     {% else %}
       {% set idleDurationInSeconds = 40 * 60 %}
     {% endif %}
-    <script>
+    <script nonce="{{ cspNonce }}">
       (function() {
         let idleTimeout
 

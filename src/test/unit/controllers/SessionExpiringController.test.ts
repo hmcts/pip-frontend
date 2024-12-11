@@ -76,7 +76,7 @@ describe('Session Expiring Controller', () => {
         responseMock.verify();
     });
 
-    it('should render session expiring page when user is Crime', () => {
+    it('should render session expiring page for SSO user', () => {
         const response = {
             render: () => {
                 return '';
@@ -84,13 +84,13 @@ describe('Session Expiring Controller', () => {
         } as unknown as Response;
         const responseMock = sinon.mock(response);
         const request = mockRequest(i18n);
-        request['user'] = { userProvenance: 'CRIME_IDAM', roles: 'VERIFIED' };
+        request['user'] = { userProvenance: 'SSO', roles: 'SYSTEM_ADMIN' };
         request.query = { currentPath: expectedPath };
 
         const expectedOptions = {
             ...i18n['session-expiring'],
             gotoPage: expectedPath,
-            redirectPage: 'Crime',
+            redirectPage: 'SSO',
         };
 
         responseMock.expects('render').once().withArgs('session-expiring', expectedOptions);

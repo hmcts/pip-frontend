@@ -8,7 +8,7 @@ Feature('System admin audit log');
 Scenario(
     'I as a system admin should be able to view audit log for system admin view third-party users action',
     async ({ I }) => {
-        I.loginAsSystemAdmin();
+        I.loginAsSsoSystemAdmin();
         I.click('#card-manage-third-party-users');
         I.click('Back');
         I.waitForText('System Admin Dashboard');
@@ -26,9 +26,9 @@ Scenario(
 
         I.click(locate('//tr').withText('VIEW_THIRD_PARTY_USERS').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
-        I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
+        I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
         I.see('System Admin');
-        I.see('B2C');
+        I.see('SSO');
         I.see('VIEW_THIRD_PARTY_USERS');
         I.see('User requested to view all third party users');
 
@@ -39,13 +39,13 @@ Scenario(
 
         I.click(locate('//tr').withText('USER_MANAGEMENT_VIEW').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
-        I.see(testConfig.SYSTEM_ADMIN_USERNAME as string);
+        I.see(testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string);
         I.see('System Admin');
-        I.see('B2C');
+        I.see('SSO');
         I.see('USER_MANAGEMENT_VIEW');
         I.see('All user data requested by this admin');
 
-        I.logout();
+        I.logoutSsoSystemAdmin();
     }
 );
 
@@ -58,7 +58,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     await createLocation(locationId, locationName);
 
-    I.loginAsSystemAdmin();
+    I.loginAsSsoSystemAdmin();
     I.click('Admin Dashboard');
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
@@ -135,5 +135,5 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     }
 
     I.waitForText('View audit log for ');
-    I.logout();
+    I.logoutSsoSystemAdmin();
 });

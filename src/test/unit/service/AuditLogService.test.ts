@@ -14,8 +14,8 @@ const testAuditLogContent = {
     timestamp: '2023-01-26T09:33:34.560132',
     userId: testUserId,
     userEmail: testUserEmail,
-    roles: 'INTERNAL_SUPER_ADMIN_CTSC',
-    userProvenance: 'PI_AAD',
+    roles: 'INTERNAL_ADMIN_CTSC',
+    userProvenance: 'SSO',
     action: 'USER_MANAGEMENT',
     details: 'details test text here',
 };
@@ -83,9 +83,9 @@ describe('Audit log service', () => {
         expect(rows[1].key.text).to.equal('Email');
         expect(rows[1].value.text).to.equal(testUserEmail);
         expect(rows[2].key.text).to.equal('Role');
-        expect(rows[2].value.text).to.equal('CTSC Super Admin');
+        expect(rows[2].value.text).to.equal('CTSC Admin');
         expect(rows[3].key.text).to.equal('Provenance');
-        expect(rows[3].value.text).to.equal('B2C');
+        expect(rows[3].value.text).to.equal('SSO');
         expect(rows[4].key.text).to.equal('Action');
         expect(rows[4].value.text).to.equal('USER_MANAGEMENT');
         expect(rows[5].key.text).to.equal('Details');

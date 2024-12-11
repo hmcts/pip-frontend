@@ -1,11 +1,11 @@
-{% from "../macros/common-components.njk" import goBack, submitButton %}
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
 {% extends "../template.njk" %}
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block beforeContent %}
   {{ super() }}
-  {{ goBack() }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
   <div class="parent-box">
@@ -44,9 +44,5 @@
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
-  <script>
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
-  </script>
+  {{ backButtonHistory(cspNonce) }}
 {% endblock %}
