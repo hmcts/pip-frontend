@@ -36,7 +36,7 @@ def setupTestSecrets() {
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL'),
             secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD'),
             secret('crime-valid-test-account', 'CRIME_VALID_USERNAME'),
-            secret('crime-valid-test-account-password', 'CRIME_VALID_PASSWORD')
+            secret('crime-valid-test-account-password', 'CRIME_VALID_PASSWORD'),
             secret('sso-test-admin-account-ctsc-user', 'SSO_TEST_ADMIN_CTSC_USER'),
             secret('sso-test-admin-account-ctsc-pwd', 'SSO_TEST_ADMIN_CTSC_PWD'),
             secret('sso-test-admin-local-account-user', 'SSO_TEST_ADMIN_LOCAL_USER'),
