@@ -112,7 +112,6 @@ export class SessionManagementService {
         }
     }
 
-
     private crimeLogOutUrl(isSessionExpired: boolean, language: string): string {
         if (isSessionExpired) {
             return '/session-expired?lng=' + language + '&reSignInUrl=CRIME';
