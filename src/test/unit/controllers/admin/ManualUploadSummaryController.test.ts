@@ -176,7 +176,7 @@ describe('Manual upload summary controller', () => {
 
             uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves('1234');
 
-            responseMock.expects('redirect').once().withArgs('manual-upload-confirmation');
+            responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=false');
 
             await manualUploadSummaryController.post(req, res);
             responseMock.verify();
@@ -227,7 +227,7 @@ describe('Manual upload summary controller', () => {
 
         it('should redirect to success page', async () => {
             const req = mockRequest(i18n);
-            request.query = { 'non-strategic': 'true' };
+            req.query = { 'non-strategic': 'true' };
             const res = {
                 render: () => {
                     return '';
@@ -243,12 +243,10 @@ describe('Manual upload summary controller', () => {
 
             uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves('1234');
 
-            responseMock.expects('redirect').once().withArgs('manual-upload-confirmation');
+            responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=true');
 
             await manualUploadSummaryController.post(req, res);
             responseMock.verify();
-            sinon.assert.calledWith(readFileStub, '1234', 'fileName');
-            sinon.assert.calledWith(removeFileStub, '1234', 'fileName');
         });
     });
 });

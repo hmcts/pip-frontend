@@ -89,7 +89,7 @@ export default class ManualUploadSummaryController {
                     `Publication with artefact id ${artefactId} successfully uploaded`
                 );
                 res.clearCookie('formCookie');
-                res.redirect('manual-upload-confirmation');
+                res.redirect('manual-upload-confirmation?non-strategic=' + nonStrategicUpload);
             } else {
                 res.render('admin/manual-upload-summary', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
