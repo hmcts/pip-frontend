@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import ManualUploadConfirmationController from '../../../../main/controllers/admin/ManualUploadConfirmationController';
-import {cloneDeep} from "lodash";
+import { cloneDeep } from 'lodash';
 
 const manualUploadConfirmationController = new ManualUploadConfirmationController();
 
