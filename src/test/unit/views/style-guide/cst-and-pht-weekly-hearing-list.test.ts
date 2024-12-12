@@ -165,7 +165,7 @@ describe('CST and PHT Weekly Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[5].innerHTML).contains(
                 'Please contact the Primary Health Lists at primaryhealthlists@justice.gov.uk for ' +
-                'details of how to access video hearings.'
+                    'details of how to access video hearings.'
             );
         });
     });

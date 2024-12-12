@@ -10,7 +10,6 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolve
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 describe('Accessibility - CST Weekly Hearing List', () => {
-
     const metadata = testArtefactMetadata()[0];
     metadata.listType = 'CST_WEEKLY_HEARING_LIST';
 
@@ -21,7 +20,6 @@ describe('Accessibility - CST Weekly Hearing List', () => {
 });
 
 describe('Accessibility - PHT Weekly Hearing List', () => {
-
     const metadata = testArtefactMetadata()[0];
     metadata.listType = 'PHT_WEEKLY_HEARING_LIST';
 
