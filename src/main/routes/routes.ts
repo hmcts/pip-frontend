@@ -200,6 +200,13 @@ export default function (app: Application): void {
     app.get('/opa-public-list', app.locals.container.cradle.opaPublicListController.get);
     app.get('/opa-results', app.locals.container.cradle.opaResultsController.get);
 
+    //Non-Strategic Paths
+    app.get('/cst-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cst-weekly-hearing-list'));
+    app.get('/pht-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'pht-weekly-hearing-list'));
+
+
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
     app.get('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.get);
