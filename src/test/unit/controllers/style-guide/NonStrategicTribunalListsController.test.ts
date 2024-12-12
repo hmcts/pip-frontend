@@ -134,7 +134,7 @@ describe('Non Strategic Tribunal Lists Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('style-guide/non-strategic/civil-daily-cause-list', expectedData);
+            .withArgs('style-guide/civil-daily-cause-list', expectedData);
 
         await nonStrategicTribunalListsController.get(request, response, 'civil-daily-cause-list');
         return responseMock.verify();
@@ -166,7 +166,7 @@ describe('Non Strategic Tribunal Lists Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('style-guide/non-strategic/cst-and-pht-weekly-hearing-list', expectedData);
+            .withArgs('style-guide/cst-and-pht-weekly-hearing-list', expectedData);
 
         await nonStrategicTribunalListsController.get(request, response, 'cst-weekly-hearing-list');
         return responseMock.verify();

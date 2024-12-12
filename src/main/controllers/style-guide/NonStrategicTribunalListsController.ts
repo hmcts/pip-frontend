@@ -40,7 +40,7 @@ export default class NonStrategicTribunalListsController {
                     Object.assign(languageOptions, cloneDeep(req.i18n.getDataByLanguage(req.lng)[parentPage]));
                 }
 
-                res.render(`style-guide/non-strategic/${styleGuidePage}`, {
+                res.render(`style-guide/${styleGuidePage}`, {
                     ...languageOptions,
                     listData: searchResults,
                     provenance: metaData.provenance,

@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import request from 'supertest';
-import { app } from '../../../../../main/app';
+import { app } from '../../../../main/app';
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../../main/service/PublicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
@@ -13,8 +13,8 @@ const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
 describe('CST and PHT Weekly Hearing List Page', () => {
-    const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/returnedArtefacts.json'), 'utf-8');
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../../mocks/cstAndPhtWeeklyHearingList.json'), 'utf-8');
+    const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/cstAndPhtWeeklyHearingList.json'), 'utf-8');
     const jsonData = JSON.parse(rawData);
 
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
@@ -67,7 +67,7 @@ describe('CST and PHT Weekly Hearing List Page', () => {
 
         it('should display observation link', () => {
             const text = htmlRes.getElementsByClassName(govukLinkClass);
-            expect(text[4].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+            expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
         });
 
         it('should display Date header', () => {
@@ -133,6 +133,40 @@ describe('CST and PHT Weekly Hearing List Page', () => {
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains('Data Source: prov1');
+        });
+    });
+
+    describe('CST Weekly Hearing List', () => {
+        let htmlRes: Document;
+        const PAGE_URL = '/pht-weekly-hearing-list?artefactId=def';
+
+        const metaData = JSON.parse(rawMetaData)[0];
+        metaData.listType = 'PHT_WEEKLY_HEARING_LIST';
+
+        metadataStub.withArgs('def').returns(metaData);
+
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName(headingClass);
+            expect(header[0].innerHTML).contains(
+                'Primary Health Tribunal Weekly Hearing List',
+                'Could not find the header'
+            );
+        });
+
+        it('should display contact information text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[5].innerHTML).contains(
+                'Please contact the Primary Health Lists at primaryhealthlists@justice.gov.uk for ' +
+                'details of how to access video hearings.'
+            );
         });
     });
 });
