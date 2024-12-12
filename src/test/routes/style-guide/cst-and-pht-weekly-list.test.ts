@@ -8,12 +8,12 @@ import fs from 'fs';
 import path from 'path';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../../unit/mocks/cstAndPhtWeeklyHearingList.json'),
+    path.resolve(__dirname, '../../unit/mocks/cstAndPhtWeeklyHearingList.json'),
     'utf-8'
 );
 const rawJson = JSON.parse(rawData);
 
-const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../../unit/mocks/returnedArtefacts.json'), 'utf-8');
+const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(rawJson);
 
