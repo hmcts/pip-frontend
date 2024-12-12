@@ -7,7 +7,6 @@ import rejectReasonLookupFile from '../../resources/media-account-rejection-reas
 import languageLookupFile from './languageLookup.json';
 import dateFilter from 'nunjucks-date-filter';
 
-
 const publicationService = new PublicationService();
 
 export function createFilters(env) {
@@ -153,7 +152,7 @@ export function createFilters(env) {
         }
     });
 
-    env.addFilter('dateFormatter', function(date, language) {
+    env.addFilter('dateFormatter', function (date, language) {
         return DateTime.fromFormat(date, 'dd/M/yyyy', { zone: 'utc' }).setLocale(language).toFormat('d MMMM yyyy');
-    })
+    });
 }

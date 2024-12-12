@@ -1,9 +1,9 @@
 import sinon from 'sinon';
-import {mockRequest} from "../../mocks/mockRequest";
-import {Response} from "express";
+import { mockRequest } from '../../mocks/mockRequest';
+import { Response } from 'express';
 import NonStrategicTribunalListsController from '../../../../main/controllers/style-guide/NonStrategicTribunalListsController';
-import {HttpStatusCode} from "axios";
-import {PublicationService} from "../../../../main/service/PublicationService";
+import { HttpStatusCode } from 'axios';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const nonStrategicTribunalListsController = new NonStrategicTribunalListsController();
 
@@ -17,7 +17,6 @@ const i18n = {
 };
 
 describe('Non Strategic Tribunal Lists Controller', () => {
-
     const response = {
         render: () => {
             return '';
@@ -25,7 +24,6 @@ describe('Non Strategic Tribunal Lists Controller', () => {
     } as unknown as Response;
 
     it('should render error page if query param is empty', async () => {
-
         const request = mockRequest(i18n);
         request.query = {};
         request.user = { userId: '123' };
@@ -78,7 +76,7 @@ describe('Non Strategic Tribunal Lists Controller', () => {
 
     it('should render list not found page if list type is unexpected', async () => {
         getPublicationJsonStub.withArgs('123456').resolves({});
-        getMetadataStub.withArgs('123456').resolves({"listType": "CIVIL_DAILY_CAUSE_LIST"});
+        getMetadataStub.withArgs('123456').resolves({ listType: 'CIVIL_DAILY_CAUSE_LIST' });
 
         const request = mockRequest(i18n);
         request.query = { artefactId: '123456' };
@@ -105,21 +103,19 @@ describe('Non Strategic Tribunal Lists Controller', () => {
 
         const responseMock = sinon.mock(response);
 
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
         await nonStrategicTribunalListsController.get(request, response, 'cst-weekly-hearing-list');
         return responseMock.verify();
     });
 
     it('should render without parent page when not present', async () => {
-        getPublicationJsonStub.withArgs('12345678').resolves({"Hello": "World"});
+        getPublicationJsonStub.withArgs('12345678').resolves({ Hello: 'World' });
         getMetadataStub.withArgs('12345678').resolves({
             listType: 'CIVIL_DAILY_CAUSE_LIST',
-            provenance: "MANUAL_UPLOAD",
-            contentDate: "2024-12-12T00:00:00Z"});
+            provenance: 'MANUAL_UPLOAD',
+            contentDate: '2024-12-12T00:00:00Z',
+        });
 
         const request = mockRequest(i18n);
         request.query = { artefactId: '12345678' };
@@ -130,23 +126,27 @@ describe('Non Strategic Tribunal Lists Controller', () => {
         const expectedData = {
             ...i18n['civil-daily-cause-list'],
             ...i18n['list-template'],
-            listData: {"Hello": "World"},
-            provenance: "MANUAL_UPLOAD",
-            contentDate: "12 December 2024"
-        }
+            listData: { Hello: 'World' },
+            provenance: 'MANUAL_UPLOAD',
+            contentDate: '12 December 2024',
+        };
 
-        responseMock.expects('render').once().withArgs('style-guide/non-strategic/civil-daily-cause-list', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('style-guide/non-strategic/civil-daily-cause-list', expectedData);
 
         await nonStrategicTribunalListsController.get(request, response, 'civil-daily-cause-list');
         return responseMock.verify();
     });
 
     it('should render when parent page is present', async () => {
-        getPublicationJsonStub.withArgs('123456789').resolves({"Hello": "World"});
+        getPublicationJsonStub.withArgs('123456789').resolves({ Hello: 'World' });
         getMetadataStub.withArgs('123456789').resolves({
             listType: 'CST_WEEKLY_HEARING_LIST',
-            provenance: "MANUAL_UPLOAD",
-            contentDate: "2024-12-12T00:00:00Z"});
+            provenance: 'MANUAL_UPLOAD',
+            contentDate: '2024-12-12T00:00:00Z',
+        });
 
         const request = mockRequest(i18n);
         request.query = { artefactId: '123456789' };
@@ -158,15 +158,17 @@ describe('Non Strategic Tribunal Lists Controller', () => {
             ...i18n['cst-weekly-hearing-list'],
             ...i18n['list-template'],
             ...i18n['cst-and-pht-weekly-hearing-list'],
-            listData: {"Hello": "World"},
-            provenance: "MANUAL_UPLOAD",
-            contentDate: "12 December 2024"
-        }
+            listData: { Hello: 'World' },
+            provenance: 'MANUAL_UPLOAD',
+            contentDate: '12 December 2024',
+        };
 
-        responseMock.expects('render').once().withArgs('style-guide/non-strategic/cst-and-pht-weekly-hearing-list', expectedData);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('style-guide/non-strategic/cst-and-pht-weekly-hearing-list', expectedData);
 
         await nonStrategicTribunalListsController.get(request, response, 'cst-weekly-hearing-list');
         return responseMock.verify();
     });
-
 });

@@ -2,13 +2,13 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../../../main/app';
 import { expect } from 'chai';
-import fs from "fs";
-import path from "path";
-import {PublicationService} from "../../../../../main/service/PublicationService";
+import fs from 'fs';
+import path from 'path';
+import { PublicationService } from '../../../../../main/service/PublicationService';
 
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
-const govukLinkClass = "govuk-link";
+const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
@@ -18,7 +18,7 @@ describe('CST and PHT Weekly Hearing List Page', () => {
     const jsonData = JSON.parse(rawData);
 
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
-    const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata')
+    const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
     describe('CST Weekly Hearing List', () => {
         let htmlRes: Document;
@@ -39,7 +39,10 @@ describe('CST and PHT Weekly Hearing List Page', () => {
 
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
-            expect(header[0].innerHTML).contains('Care Standards Tribunal Weekly Hearing List', 'Could not find the header');
+            expect(header[0].innerHTML).contains(
+                'Care Standards Tribunal Weekly Hearing List',
+                'Could not find the header'
+            );
         });
 
         it('should display list for text', () => {
@@ -49,19 +52,22 @@ describe('CST and PHT Weekly Hearing List Page', () => {
 
         it('should display contact information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[5].innerHTML).contains('Please contact the Care Standards Office at cst@justice.gov.uk' +
-                ' for details of how to access video hearings.');
+            expect(text[5].innerHTML).contains(
+                'Please contact the Care Standards Office at cst@justice.gov.uk' +
+                    ' for details of how to access video hearings.'
+            );
         });
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains('Observe a court or tribunal hearing as a journalist, ' +
-                'researcher or member of the public');
+            expect(text[6].innerHTML).contains(
+                'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
+            );
         });
 
         it('should display observation link', () => {
             const text = htmlRes.getElementsByClassName(govukLinkClass);
-            expect(text[4].getAttribute("href")).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+            expect(text[4].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
         });
 
         it('should display Date header', () => {
@@ -93,7 +99,6 @@ describe('CST and PHT Weekly Hearing List Page', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
             expect(headerCell[5].innerHTML).contains('Additional Information');
         });
-
 
         it('should display Date cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
@@ -129,5 +134,5 @@ describe('CST and PHT Weekly Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains('Data Source: prov1');
         });
-    })
+    });
 });
