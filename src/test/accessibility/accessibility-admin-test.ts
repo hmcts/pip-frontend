@@ -19,7 +19,7 @@ BeforeSuite(async () => {
 });
 
 Before(({ I }) => {
-    I.loginAsAdmin();
+    I.loginAsSsoAdminCtsc();
 });
 
 Scenario('Admin User Journey - admin-dashboard-page', async ({ I }) => {
@@ -170,7 +170,7 @@ Scenario('Admin User Journey - remove-list-confirmation-page', async ({ I }) => 
 });
 
 Scenario('Admin User Journey - media-applications-page', async ({ I }) => {
-    I.logout();
+    I.logoutSsoAdminCtsc();
     I.amOnPage('/');
     I.waitForText('Court and tribunal hearings');
     I.click('Continue');
@@ -185,7 +185,19 @@ Scenario('Admin User Journey - media-applications-page', async ({ I }) => {
     I.click('#tcbox');
     I.click('Continue');
     I.waitForText('Details submitted');
-    I.loginAsAdmin();
+    I.usePlaywrightTo('Go to SSO login', async ({ page }) => {
+        page.goto(testConfig.TEST_URL + '/admin-dashboard');
+    });
+    I.waitForText('Pick an account');
+    I.click('Use another account');
+    I.waitForText('Sign in');
+    I.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_CTSC_USER));
+    I.click('Next');
+    I.waitForText('Enter password');
+    I.fillField('passwd', secret(testConfig.SSO_TEST_ADMIN_CTSC_PWD));
+    I.click('Sign in');
+    I.waitForText('Stay signed in?');
+    I.click('No');
     I.amOnPage('/media-applications');
     I.checkA11y('media-applications-a11y-audit.html');
 });
