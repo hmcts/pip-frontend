@@ -16,7 +16,7 @@ const dateInputClass = 'govuk-date-input';
 
 const expectedHeader = 'Manual upload';
 const expectedFileQuestion = 'Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB';
-const expectedNonStrategicFileQuestion = 'Manually upload a excel file (.xsl or .xlsx), max size 2MB';
+const expectedNonStrategicFileQuestion = 'Manually upload a excel file (.xlsx), max size 2MB';
 const expectedFileInputType = 'file';
 const expectedCourtNameQuestion = 'Court name';
 const expectedCourtNameContainer = 'search-input-container';
