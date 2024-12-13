@@ -97,7 +97,7 @@ describe('CST and PHT Weekly Hearing List Page', () => {
 
         it('should display Additional Information header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[5].innerHTML).contains('Additional Information');
+            expect(headerCell[5].innerHTML).contains('Additional information');
         });
 
         it('should display Date cell data', () => {
