@@ -14,10 +14,7 @@ export default class ManualUploadSummaryController {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
-        let nonStrategicUpload = false;
-        if (req.query?.['non-strategic'] === 'true') {
-            nonStrategicUpload = true;
-        }
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true'
 
         const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
             formData.listType,
@@ -58,10 +55,7 @@ export default class ManualUploadSummaryController {
             formData.classification
         );
 
-        let nonStrategicUpload = false;
-        if (req.query?.['non-strategic'] === 'true') {
-            nonStrategicUpload = true;
-        }
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true'
 
         if (req.query?.check === 'true') {
             res.render('admin/manual-upload-summary', {
