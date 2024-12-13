@@ -4,7 +4,7 @@ export const allowedFileTypes = ['pdf', 'json', 'csv', 'doc', 'docx', 'htm', 'ht
 
 export const allowedImageTypes = ['jpg', 'jpeg', 'png', 'pdf'];
 
-export const allowedNonStrategicFileTypes = ['xls', 'xlsx'];
+export const allowedNonStrategicFileTypes = ['xlsx'];
 
 export const fileTypeMappings = {
     jpg: 'image/jpeg',
