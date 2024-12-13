@@ -15,7 +15,7 @@ export default class ManualUploadController {
         formCookie = req.cookies['formCookie'];
         const formData = formCookie ? JSON.parse(formCookie) : null;
 
-        const nonStrategicUpload = req.query?.['non-strategic'] === 'true'
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
 
         const formValues = {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
@@ -31,7 +31,7 @@ export default class ManualUploadController {
         if (req.query?.showerror === 'true') {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
-            const nonStrategicUpload = req.query?.['non-strategic'] === 'true'
+            const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
 
             const errors = {
                 fileErrors: fileHandlingService.validateFileUpload(
