@@ -13,7 +13,7 @@ const cards = [
         link: 'manual-upload',
     },
     {
-        title: 'Upload Non Strategic Publication',
+        title: 'Upload Excel File',
         description: 'Upload a file to be published on the external facing Court and tribunal hearings service.',
         link: 'manual-upload?non-strategic=true',
     },
