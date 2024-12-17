@@ -7,6 +7,7 @@ export default class AccountHomeController {
         res.render('account-home', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['account-home']),
             showVerifiedBanner: req.query.verified as string,
+            activeVerifiedDashboard: true,
         });
     }
 }
