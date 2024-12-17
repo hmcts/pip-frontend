@@ -58,7 +58,7 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.click('Confirm');
     I.waitForText('Third party user has been created');
 
-    I.click(locate('//li').withText('Home'));
+    I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
@@ -101,7 +101,7 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.click('Confirm');
     I.waitForText('Third party user has been created');
 
-    I.click(locate('//li').withText('Home'));
+    I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
@@ -115,7 +115,7 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.waitForText('There is a problem');
     I.see('Failed to create third party user. It is possible that the user already exists.');
 
-    I.click(locate('//li').withText('Home'));
+    I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
