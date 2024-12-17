@@ -151,4 +151,8 @@ export function createFilters(env) {
             return data;
         }
     });
+
+    env.addFilter('dateFormatter', function (date, language) {
+        return DateTime.fromFormat(date, 'dd/M/yyyy', { zone: 'utc' }).setLocale(language).toFormat('d MMMM yyyy');
+    });
 }
