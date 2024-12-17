@@ -39,7 +39,7 @@ describe('Media Account Rejection Reasons Page', () => {
     });
     it('should display service name', () => {
         const expectedServiceName = 'Court and tribunal hearings';
-        const tableCaptionClass = 'govuk-header__service-name';
+        const tableCaptionClass = 'govuk-service-navigation__service-name';
         const header = htmlRes.getElementsByClassName(tableCaptionClass);
         expect(header[0].innerHTML).contains(expectedServiceName, 'Could not find the table caption');
     });
