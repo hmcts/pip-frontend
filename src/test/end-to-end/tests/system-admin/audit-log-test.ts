@@ -32,7 +32,7 @@ Scenario(
         I.see('VIEW_THIRD_PARTY_USERS');
         I.see('User requested to view all third party users');
 
-        I.click('Home');
+        I.click('Dashboard');
         I.waitForText('System Admin Dashboard');
         I.click('#card-audit-log-viewer');
         I.waitForText('System admin audit log');
@@ -80,7 +80,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.click('Confirm');
     I.waitForText('Success');
 
-    I.click('Home');
+    I.click('Dashboard');
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');
     I.see('Timestamp');
@@ -115,7 +115,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.click('Continue');
     I.waitForText('Success');
 
-    I.click('Home');
+    I.click('Dashboard');
     I.see('System Admin Dashboard');
     I.click('#card-audit-log-viewer');
     I.waitForText('System admin audit log');

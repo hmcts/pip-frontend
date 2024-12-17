@@ -33,7 +33,7 @@ Scenario('I as a unverified user should be able to make end-to-end journey', asy
     I.seeElement('#sign-in-2');
     I.seeElement('#sign-in-3');
 
-    I.click(locate('//a').withText('Home'));
+    I.click(locate('//a').withText('Court and tribunal hearings'));
     I.waitForText('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
@@ -48,10 +48,11 @@ Scenario('I as a unverified user should be able to make end-to-end journey', asy
     I.see('12345678');
     I.see('A1 Vs B1');
 
-    I.click(locate('//a').withText('Home'));
+    I.click(locate('//a').withText('Court and tribunal hearings'));
     I.waitForText('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
-    I.click(locate('//a').withText('Single Justice Procedure cases'));
+    I.click('Find a Single Justice Procedure case');
+    I.click('Continue');
     I.waitForText('What do you want to view from Single Justice Procedure?');
 });
