@@ -139,7 +139,7 @@ describe('Create Media Account page', () => {
         });
 
         it('should display continue button', () => {
-            const button = htmlRes.getElementsByTagName('button')[0];
+            const button = htmlRes.getElementsByTagName('button')[1];
             expect(button.innerHTML).contains('Continue', 'Could not find continue button');
         });
     });

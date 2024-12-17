@@ -16,6 +16,7 @@ export default class SubscriptionManagementController {
             res.render('subscription-management', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-management']),
                 ...subscriptionData,
+                activeSubscriptionPage: true,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

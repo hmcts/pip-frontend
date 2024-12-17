@@ -55,12 +55,13 @@ describe('Admin Dashboard page all cards', () => {
             expect(header[0].innerHTML).contains('Your Dashboard', 'Could not find correct value in header');
         });
 
-        it('should display 2 links in banner', () => {
-            const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-            expect(bannerComponents.length).equal(2);
+        it('should display 3 links in banner', () => {
+            const bannerComponents = htmlRes.getElementsByClassName('govuk-service-navigation__link');
+            expect(bannerComponents.length).equal(3);
 
-            expect(bannerComponents[0].innerHTML).equal('Home');
-            expect(bannerComponents[1].innerHTML).equal('Sign out');
+            expect(bannerComponents[0].innerHTML).contains('Court and tribunal hearings');
+            expect(bannerComponents[1].innerHTML).contains('Dashboard');
+            expect(bannerComponents[2].innerHTML).contains('Sign out');
         });
 
         it('should display 4 card options', () => {
@@ -135,12 +136,13 @@ describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
             });
     });
 
-    it('should display 2 links in banner', () => {
-        const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(2);
+    it('should display 3 links in banner', () => {
+        const bannerComponents = htmlRes.getElementsByClassName('govuk-service-navigation__link');
+        expect(bannerComponents.length).equal(3);
 
-        expect(bannerComponents[0].innerHTML).equal('Home');
-        expect(bannerComponents[1].innerHTML).equal('Sign out');
+        expect(bannerComponents[0].innerHTML).contains('Court and tribunal hearings');
+        expect(bannerComponents[1].innerHTML).contains('Dashboard');
+        expect(bannerComponents[2].innerHTML).contains('Sign out');
     });
 
     it('should display 3 card options', () => {
@@ -166,12 +168,13 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
                 });
         });
 
-        it('should display 2 links in banner', () => {
-            const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-            expect(bannerComponents.length).equal(2);
+        it('should display 3 links in banner', () => {
+            const bannerComponents = htmlRes.getElementsByClassName('govuk-service-navigation__link');
+            expect(bannerComponents.length).equal(3);
 
-            expect(bannerComponents[0].innerHTML).equal('Home');
-            expect(bannerComponents[1].innerHTML).equal('Sign out');
+            expect(bannerComponents[0].innerHTML).contains('Court and tribunal hearings');
+            expect(bannerComponents[1].innerHTML).contains('Dashboard');
+            expect(bannerComponents[2].innerHTML).contains('Sign out');
         });
 
         it('should display 4 card options', () => {
@@ -235,12 +238,13 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
             });
     });
 
-    it('should display 2 links in banner', () => {
-        const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(2);
+    it('should display 3 links in banner', () => {
+        const bannerComponents = htmlRes.getElementsByClassName('govuk-service-navigation__link');
+        expect(bannerComponents.length).equal(3);
 
-        expect(bannerComponents[0].innerHTML).equal('Home');
-        expect(bannerComponents[1].innerHTML).equal('Sign out');
+        expect(bannerComponents[0].innerHTML).contains('Court and tribunal hearings');
+        expect(bannerComponents[1].innerHTML).contains('Dashboard');
+        expect(bannerComponents[2].innerHTML).contains('Sign out');
     });
 
     it('should display 3 card options', () => {
@@ -265,13 +269,14 @@ describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
             });
     });
 
-    it('should display 3 links in banner', () => {
-        const bannerComponents = htmlRes.getElementsByClassName('moj-sub-navigation__link');
-        expect(bannerComponents.length).equal(3);
+    it('should display 4 links in banner', () => {
+        const bannerComponents = htmlRes.getElementsByClassName('govuk-service-navigation__link');
+        expect(bannerComponents.length).equal(4);
 
-        expect(bannerComponents[0].innerHTML).equal('Home');
-        expect(bannerComponents[1].innerHTML).equal('Admin Dashboard');
-        expect(bannerComponents[2].innerHTML).equal('Sign out');
+        expect(bannerComponents[0].innerHTML).contains('Court and tribunal hearings');
+        expect(bannerComponents[1].innerHTML).contains('Dashboard');
+        expect(bannerComponents[2].innerHTML).contains('Admin Dashboard');
+        expect(bannerComponents[3].innerHTML).contains('Sign out');
     });
 
     it('should display 3 card options', () => {

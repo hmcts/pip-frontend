@@ -46,7 +46,7 @@ Scenario('I as an admin user should be able to remove list from the court', asyn
     I.see('Your content has been removed');
     I.seeElement(locate('//a').withText('Remove another file'));
     I.seeElement(locate('//a').withText('Upload a file'));
-    I.seeElement(locate('//a').withText('Home'));
+    I.seeElement(locate('//a').withText('Dashboard'));
     I.click('Remove another file');
     I.waitForText('Find content to remove');
     I.fillField('#search-input', locationName);
