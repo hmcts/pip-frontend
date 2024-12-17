@@ -9,13 +9,9 @@
 {% endblock %}
 
 {% block beforeContent %}
-  {{ govukPhaseBanner({
-    tag: {
-      text: "beta"
-    },
-    html: betaHeading
-  }) }}
+    {{ super() }}
 {% endblock %}
+
 {% block content %}
 <div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }}</h1>

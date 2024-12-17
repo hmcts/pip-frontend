@@ -21,7 +21,7 @@ Scenario('I as a verified user should be able to view all the single procedure c
     I.see('12345678');
     I.see('A1 Vs B1');
 
-    I.click('Home');
+    I.click('Dashboard');
     I.click('#card-search');
     I.see('What court or tribunal are you interested in?');
     I.fillField('#search-input', 'Single Justice Procedure');
