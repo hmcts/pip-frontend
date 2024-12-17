@@ -17,42 +17,60 @@ publicationServiceStub
     .withArgs('urnAndNumberResults')
     .returns([caseSubscription, caseSubscription2, caseSubscription3, caseSubscription4]);
 
+const i18n = {
+    'case-name-search-results': {},
+};
+const response = {
+    render: () => {
+        return '';
+    },
+} as unknown as Response;
+
 describe('Case name search results controller', () => {
-    const i18n = {
-        'case-name-search-results': {},
-    };
-    const response = {
-        render: () => {
-            return '';
-        },
-    } as unknown as Response;
+    describe('GET requests', () => {
+        it('should render case name search results page if query param is valid', async () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: '1' };
+            request.query = { search: 'urnAndNumberResults' };
+            const expectedData = {
+                ...i18n['case-name-search'],
+                searchResults: [caseSubscription4, caseSubscription, caseSubscription3, caseSubscription2],
+            };
 
-    it('should render case name search results page if query param is valid', async () => {
-        const request = mockRequest(i18n);
-        request.user = { userId: '1' };
-        request.query = { search: 'urnAndNumberResults' };
-        const expectedData = {
-            ...i18n['case-name-search'],
-            searchResults: [caseSubscription4, caseSubscription, caseSubscription3, caseSubscription2],
-        };
+            const responseMock = sinon.mock(response);
 
-        const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('case-name-search-results', expectedData);
+            return caseNameSearchResultsController.get(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
 
-        responseMock.expects('render').once().withArgs('case-name-search-results', expectedData);
-        return caseNameSearchResultsController.get(request, response).then(() => {
-            responseMock.verify();
+        it('should render error page is query param is invalid', async () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: '1' };
+            request.query = {};
+
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)?.error);
+            await caseNameSearchResultsController.get(request, response);
+            return responseMock.verify();
         });
     });
 
-    it('should render error page is query param is invalid', async () => {
-        const request = mockRequest(i18n);
-        request.user = { userId: '1' };
-        request.query = {};
-
-        const responseMock = sinon.mock(response);
-
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)?.error);
-        await caseNameSearchResultsController.get(request, response);
-        return responseMock.verify();
+    describe('POST requests', () => {
+        it('should render pending subscription page once case name subscription is confirmed', () => {
+            const response = {
+                redirect: () => {
+                    return '';
+                },
+            } as unknown as Response;
+            const request = mockRequest(i18n);
+            const responseMock = sinon.mock(response);
+            responseMock.expects('redirect').once().withArgs('/pending-subscriptions');
+            return caseNameSearchResultsController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });

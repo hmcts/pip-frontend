@@ -1,22 +1,15 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { SubscriptionService } from '../../../main/service/SubscriptionService';
-import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
 import request from 'supertest';
-import sinon from 'sinon';
 
 const PAGE_URL = '/subscription-confirmed';
 let htmlRes: Document;
-sinon.stub(SubscriptionService.prototype, 'subscribe').resolves(true);
-const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
-cacheStub.withArgs('1', 'cases').resolves(['case']);
-cacheStub.withArgs('1', 'courts').resolves(['court']);
 
 describe('Subscriptions Confirmed Page', () => {
     beforeAll(async () => {
         app.request['user'] = { userId: '1', roles: 'VERIFIED' };
         await request(app)
-            .post(PAGE_URL)
+            .get(PAGE_URL)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
@@ -48,7 +41,7 @@ describe('Subscriptions Confirmed Page', () => {
 
     it('should display an unordered list with three elements', () => {
         const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
-        expect(listElements.length).to.equal(3);
+        expect(listElements.length).to.equal(4);
     });
 
     it('should display unordered list with add a new email subscription', () => {
@@ -72,5 +65,12 @@ describe('Subscriptions Confirmed Page', () => {
         const anchor = listElements[2].getElementsByTagName('a')[0];
         expect(anchor.getAttribute('href')).to.equal('/search');
         expect(anchor.innerHTML).to.equal('find a court or tribunal');
+    });
+
+    it('should display unordered list with which list type to receive', () => {
+        const listElements = htmlRes.getElementsByClassName('govuk-list--bullet')[0].getElementsByTagName('li');
+        const anchor = listElements[3].getElementsByTagName('a')[0];
+        expect(anchor.getAttribute('href')).to.equal('/subscription-configure-list');
+        expect(anchor.innerHTML).to.equal('select which list type to receive');
     });
 });

@@ -43,6 +43,9 @@ const PAGE_URL = '/pending-subscriptions';
 const backLinkClass = 'govuk-back-link';
 const tableHeaderClass = 'govuk-table__header';
 const pageHeader = 'Confirm your email subscriptions';
+const pageHeaderWithCourtSub = 'Your email subscriptions';
+const btnConfirmSubscription = 'Confirm Subscriptions';
+const btnWithCourtSubscription = 'Continue';
 let htmlRes: Document;
 
 const getSubscriptionsStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
@@ -81,7 +84,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should display title', () => {
             const title = htmlRes.getElementsByClassName('govuk-heading-l');
-            expect(title[0].innerHTML).contains(pageHeader);
+            expect(title[0].innerHTML).contains(pageHeaderWithCourtSub);
         });
 
         it('should display correct case table headers', () => {
@@ -154,7 +157,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should contain confirm subscriptions button', () => {
             const button = htmlRes.getElementsByClassName('govuk-button')[0];
-            expect(button.innerHTML).contains('Confirm Subscriptions', 'Could not find submit button');
+            expect(button.innerHTML).contains(btnWithCourtSubscription, 'Could not find submit button');
         });
 
         it('should display add another email subscription link', () => {
@@ -194,7 +197,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should display title', () => {
             const title = htmlRes.getElementsByClassName('govuk-heading-l');
-            expect(title[0].innerHTML).contains(pageHeader);
+            expect(title[0].innerHTML).contains(pageHeaderWithCourtSub);
         });
 
         it('should display correct court table headers', () => {
@@ -220,7 +223,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should contain confirm subscriptions button', () => {
             const button = htmlRes.getElementsByClassName('govuk-button')[0];
-            expect(button.innerHTML).contains('Confirm Subscriptions', 'Could not find submit button');
+            expect(button.innerHTML).contains(btnWithCourtSubscription, 'Could not find submit button');
         });
 
         it('should display add another email subscription link', () => {
@@ -321,7 +324,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should contain confirm subscriptions button', () => {
             const button = htmlRes.getElementsByClassName('govuk-button')[0];
-            expect(button.innerHTML).contains('Confirm Subscriptions', 'Could not find submit button');
+            expect(button.innerHTML).contains(btnConfirmSubscription, 'Could not find submit button');
         });
 
         it('should display add another email subscription link', () => {
