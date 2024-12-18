@@ -8,12 +8,16 @@ export class DataManagementRequests {
     public dataManagementAPI =
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net';
 
-    public async uploadPublication(body: any, headers: object): Promise<string> {
+    public async uploadPublication(body: any, headers: object, nonStrategicUpload: boolean): Promise<string> {
         const token = await getDataManagementCredentials('');
 
+        let uploadEndpoint = 'publication';
+        if (nonStrategicUpload) {
+            uploadEndpoint = uploadEndpoint + '/non-strategic';
+        }
         try {
             const response = await superagent
-                .post(`${this.dataManagementAPI}/publication`)
+                .post(`${this.dataManagementAPI}/${uploadEndpoint}`)
                 .set('enctype', 'multipart/form-data')
                 .set({ ...headers, Authorization: 'Bearer ' + token.access_token })
                 .attach('file', body.file, body.fileName);

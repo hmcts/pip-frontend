@@ -14,6 +14,8 @@ export default class ManualUploadSummaryController {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+
         const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
             formData.listType,
             formData.classification
@@ -27,6 +29,7 @@ export default class ManualUploadSummaryController {
                   },
                   displaySensitivityMismatch: sensitivityMismatch,
                   displayError: true,
+                  nonStrategicUpload,
               })
             : res.render('admin/manual-upload-summary', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
@@ -35,6 +38,7 @@ export default class ManualUploadSummaryController {
                   fileUploadData: {
                       ...manualUploadService.formatPublicationDates(formData, false),
                   },
+                  nonStrategicUpload,
               });
     }
 
@@ -51,6 +55,8 @@ export default class ManualUploadSummaryController {
             formData.classification
         );
 
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+
         if (req.query?.check === 'true') {
             res.render('admin/manual-upload-summary', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
@@ -59,17 +65,14 @@ export default class ManualUploadSummaryController {
                 fileUploadData: {
                     ...manualUploadService.formatPublicationDates(formData, false),
                 },
+                nonStrategicUpload,
             });
         } else {
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
-            const XLSX = require('xlsx');
-            const workbook = XLSX.read(formData.file, { cellDates: true });
-            const sheet_name_list = workbook.SheetNames;
-
-            const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
-            console.log(data);
-
-            const artefactId = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true);
+            const artefactId = await manualUploadService.uploadPublication(
+                { ...formData, userEmail: userEmail },
+                true,
+                nonStrategicUpload
+            );
 
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
@@ -80,7 +83,7 @@ export default class ManualUploadSummaryController {
                     `Publication with artefact id ${artefactId} successfully uploaded`
                 );
                 res.clearCookie('formCookie');
-                res.redirect('manual-upload-confirmation');
+                res.redirect('manual-upload-confirmation?non-strategic=' + nonStrategicUpload);
             } else {
                 res.render('admin/manual-upload-summary', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
@@ -89,6 +92,7 @@ export default class ManualUploadSummaryController {
                     },
                     displaySensitivityMismatch: sensitivityMismatch,
                     displayError: true,
+                    nonStrategicUpload,
                 });
             }
         }

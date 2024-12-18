@@ -38,7 +38,7 @@ const indivPubJsonObject = { data: mockPDF };
 const valid = 'valid';
 const invalid = 'invalid';
 const deletionResponse = 'success';
-const adminUserId = 'Test';
+const adminUserId = '1234';
 
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
 const dataManagementArchiveStub = sinon.stub(dataManagementApi, 'put');
@@ -290,17 +290,17 @@ describe('delete location publication', () => {
     beforeEach(() => {
         dataManagementDeleteStub
             .withArgs('/publication/1/deleteArtefacts', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .resolves({ data: 'success' });
         dataManagementDeleteStub
             .withArgs('/publication/2/deleteArtefacts', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .rejects(errorResponse);
         dataManagementDeleteStub
             .withArgs('/publication/4/deleteArtefacts', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .rejects(errorMessage);
     });
