@@ -3,10 +3,6 @@
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% block beforeContent %}
-  <ul class="moj-sub-navigation__list">
-    <li class="moj-sub-navigation__item">
-      <a class="moj-sub-navigation__link govuk-!-font-size-16t" href="/">{{ home }}</a>
-  </ul>
   {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block pageTitle %}
@@ -15,6 +11,9 @@
 {% block content %}
   <p class="govuk-body">{{ paragraph1 }}</p>
   <p>
-    <a href="{{ link }}" class="govuk-link govuk-body">{{ linkText }}</a>
+    <a href="https://mojprod.service-now.com/moj_sp?id=sc_cat_item&table=sc_cat_item&sys_id=735b28071bf5921025dc6351f54bcb93"
+       class="govuk-link govuk-body">
+        {{ linkText }}
+    </a>
   </p>
 {% endblock %}

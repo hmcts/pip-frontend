@@ -224,7 +224,9 @@ describe('delete location subscription', () => {
             .rejects(errorMessage);
     });
     it('should delete the court subscription', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(1, adminUserId)).toStrictEqual(deletionResponse);
+        expect(
+            await subscriptionActions.deleteLocationSubscription(1, adminUserId)
+        ).toStrictEqual(deletionResponse);
     });
 
     it('should return null if response fails', async () => {

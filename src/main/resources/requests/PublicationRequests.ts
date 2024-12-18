@@ -116,7 +116,6 @@ export class PublicationRequests {
     public async deleteLocationPublication(locationId: number, userId: string): Promise<object> {
         try {
             const header = { headers: { 'x-user-id': userId } };
-
             const response = await dataManagementApi.delete(`/publication/${locationId}/deleteArtefacts`, header);
             return response.data;
         } catch (error) {
