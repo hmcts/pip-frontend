@@ -43,6 +43,7 @@ def setupTestSecrets() {
             secret('sso-test-admin-local-account-pwd','SSO_TEST_ADMIN_LOCAL_PWD'),
             secret('sso-test-system-admin-account-user','SSO_TEST_SYSTEM_ADMIN_USER'),
             secret('sso-test-system-admin-account-pwd', 'SSO_TEST_SYSTEM_ADMIN_PWD'),
+            secret('sso-test-system-admin-user-id', 'SSO_SYSTEM_ADMIN_USER_ID'),
             secret('sso-test-no-roles-account-user','SSO_TEST_NO_ROLES_USER'),
             secret('sso-test-no-roles-account-pwd', 'SSO_TEST_NO_ROLES_PWD'),
         ]) {
@@ -74,6 +75,7 @@ def setupTestSecrets() {
         env.SSO_TEST_ADMIN_LOCAL_PWD = "${SSO_TEST_ADMIN_LOCAL_PWD}"
         env.SSO_TEST_SYSTEM_ADMIN_USER = "${SSO_TEST_SYSTEM_ADMIN_USER}"
         env.SSO_TEST_SYSTEM_ADMIN_PWD = "${SSO_TEST_SYSTEM_ADMIN_PWD}"
+        env.SSO_SYSTEM_ADMIN_USER_ID = "${SSO_SYSTEM_ADMIN_USER_ID}"
         env.SSO_TEST_NO_ROLES_USER = "${SSO_TEST_NO_ROLES_USER}"
         env.SSO_TEST_NO_ROLES_PWD = "${SSO_TEST_NO_ROLES_PWD}"
     }
