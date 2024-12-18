@@ -14,15 +14,14 @@ const deleteCourtSubscriptionConfirmationController = new DeleteCourtSubscriptio
 
 const court = { locationId: 1, jurisdiction: 'test', region: 'test' };
 const userId = '1234';
-const provenanceUserId = '12345';
-const user = { userId: userId, provenanceUserId: provenanceUserId };
+const user = { userId: userId };
 
 sinon.stub(LocationService.prototype, 'formatCourtValue').returns(court);
 courtStub.withArgs('1').resolves(court);
-subDeleteStub.withArgs('1', provenanceUserId, userId).resolves('success');
-subDeleteStub.withArgs('2', provenanceUserId, userId).resolves(null);
-pubDeleteStub.withArgs('1', provenanceUserId, userId).resolves('success');
-pubDeleteStub.withArgs('2', provenanceUserId, userId).resolves(null);
+subDeleteStub.withArgs('1', userId).resolves('success');
+subDeleteStub.withArgs('2', userId).resolves(null);
+pubDeleteStub.withArgs('1', userId).resolves('success');
+pubDeleteStub.withArgs('2', userId).resolves(null);
 
 const pageName = 'delete-court-subscription-confirmation';
 const pagePublicationName = 'delete-court-publication-confirmation';

@@ -54,7 +54,6 @@ const welshLanguage = 'cy';
 const englishLanguageFile = 'sscs-daily-list';
 const deletionResponse = { exists: true, errorMessage: 'test' };
 const adminUserId = '1234';
-const adminProvenanceUserId = '12345';
 
 const crown = 'Crown';
 const magistrates = 'Magistrates';
@@ -64,8 +63,8 @@ stubCourtsFilter.withArgs('', magistrates, englishLanguage).returns([]);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
-stubCourtDeletion.withArgs(1, adminProvenanceUserId, adminUserId).returns(deletionResponse);
-stubCourtDeletion.withArgs(2, adminProvenanceUserId, adminUserId).returns(null);
+stubCourtDeletion.withArgs(1, adminUserId).returns(deletionResponse);
+stubCourtDeletion.withArgs(2, adminUserId).returns(null);
 
 describe('Court Service', () => {
     it('should return all courts', async () => {
@@ -183,12 +182,12 @@ describe('Court Service', () => {
 
     describe('delete location', () => {
         it('should return a message if location is deleted', async () => {
-            const payload = await courtService.deleteLocationById(1, adminProvenanceUserId, adminUserId);
+            const payload = await courtService.deleteLocationById(1, adminUserId);
             expect(payload).to.deep.equal(deletionResponse);
         });
 
         it('should return null if location delete failed', async () => {
-            const payload = await courtService.deleteLocationById(2, adminProvenanceUserId, adminUserId);
+            const payload = await courtService.deleteLocationById(2, adminUserId);
             expect(payload).to.deep.equal(null);
         });
     });

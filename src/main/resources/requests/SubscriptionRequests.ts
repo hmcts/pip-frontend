@@ -72,14 +72,9 @@ export class SubscriptionRequests {
         return [];
     }
 
-    public async deleteLocationSubscription(
-        locationId: number,
-        provenanceUserId: string,
-        userId: string
-    ): Promise<object> {
+    public async deleteLocationSubscription(locationId: number, userId: string): Promise<object> {
         try {
-            const header = { headers: { 'x-provenance-user-id': provenanceUserId, 'x-user-id': userId } };
-
+            const header = { headers: { 'x-user-id': userId } };
             const response = await subscriptionManagementApi.delete(`/subscription/location/${locationId}`, header);
             return response.data;
         } catch (error) {
