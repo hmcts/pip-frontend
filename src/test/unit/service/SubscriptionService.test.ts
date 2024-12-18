@@ -121,7 +121,6 @@ const blankPayload = {
 
 const user = {};
 const adminUserId = '1234';
-const adminProvenanceUserId = '12345';
 
 const subscriptionService = new SubscriptionService();
 const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
@@ -183,8 +182,8 @@ updateListTypeSubscriptionStub
     .withArgs(userIdWithSubscriptions, courtSubscriptionWithEmptyListTypePayload)
     .resolves(true);
 updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
-deleteStubLocation.withArgs(1, adminProvenanceUserId, adminUserId).returns('success');
-deleteStubLocation.withArgs(2, adminProvenanceUserId, adminUserId).returns(null);
+deleteStubLocation.withArgs(1, adminUserId).returns('success');
+deleteStubLocation.withArgs(2, adminUserId).returns(null);
 
 describe('getSubscriptionDataForView function', () => {
     locationStub.withArgs(1).resolves(mockCourt);
@@ -1291,12 +1290,12 @@ describe('generate location table rows', () => {
 
 describe('delete location subscription', () => {
     it('should return a message if location subscription is deleted', async () => {
-        const payload = await subscriptionService.deleteLocationSubscription(1, adminProvenanceUserId, adminUserId);
+        const payload = await subscriptionService.deleteLocationSubscription(1, adminUserId);
         expect(payload).toEqual('success');
     });
 
     it('should return null if subscription delete failed', async () => {
-        const payload = await subscriptionService.deleteLocationSubscription(2, adminProvenanceUserId, adminUserId);
+        const payload = await subscriptionService.deleteLocationSubscription(2, adminUserId);
         expect(payload).toEqual(null);
     });
 });
