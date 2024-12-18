@@ -36,7 +36,7 @@ const welshLanguage = 'cy';
 const dummyFile = new Blob(['testCsv']);
 
 const deletionResponse = { exists: true, errorMessage: 'test' };
-const adminUserId = 'Test';
+const adminUserId = '1234';
 
 describe('Location get requests', () => {
     beforeEach(() => {
@@ -105,24 +105,24 @@ describe('Location get requests', () => {
 
         courtDeleteStub
             .withArgs('/locations/1', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .resolves({ data: { exists: true, errorMessage: 'test' } });
         courtDeleteStub
             .withArgs('/locations/2', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .rejects(errorResponse);
 
         courtDeleteStub
             .withArgs('/locations/4', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .rejects(errorMessage);
 
         courtDeleteStub
             .withArgs('/locations/5', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .resolves({ data: { exists: false, errorMessage: '' } });
     });

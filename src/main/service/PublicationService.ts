@@ -182,7 +182,7 @@ export class PublicationService {
         return '';
     }
 
-    public async deleteLocationPublication(locationId: number, requester: string): Promise<object> {
-        return await publicationRequests.deleteLocationPublication(locationId, requester);
+    public async deleteLocationPublication(locationId: number, userId: string): Promise<object> {
+        return await publicationRequests.deleteLocationPublication(locationId, userId);
     }
 }

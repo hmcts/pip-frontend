@@ -31,7 +31,7 @@ const unsubscribeInvalidData = {
     subscriptionId: 'foo',
 };
 const deletionResponse = 'success';
-const adminUserId = 'Test';
+const adminUserId = '1234';
 const errorBodyData = { baz: 'qux' };
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
@@ -209,17 +209,17 @@ describe('delete location subscription', () => {
     beforeEach(() => {
         deleteStub
             .withArgs('/subscription/location/1', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .resolves({ data: 'success' });
         deleteStub
             .withArgs('/subscription/location/2', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .rejects(errorResponse);
         deleteStub
             .withArgs('/subscription/location/4', {
-                headers: { 'x-provenance-user-id': adminUserId },
+                headers: { 'x-user-id': adminUserId },
             })
             .rejects(errorMessage);
     });

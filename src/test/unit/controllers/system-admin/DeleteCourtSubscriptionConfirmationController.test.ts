@@ -13,12 +13,15 @@ const pubDeleteStub = sinon.stub(PublicationService.prototype, 'deleteLocationPu
 const deleteCourtSubscriptionConfirmationController = new DeleteCourtSubscriptionConfirmationController();
 
 const court = { locationId: 1, jurisdiction: 'test', region: 'test' };
+const userId = '1234';
+const user = { userId: userId };
+
 sinon.stub(LocationService.prototype, 'formatCourtValue').returns(court);
 courtStub.withArgs('1').resolves(court);
-subDeleteStub.withArgs('1').resolves('success');
-subDeleteStub.withArgs('2').resolves(null);
-pubDeleteStub.withArgs('1').resolves('success');
-pubDeleteStub.withArgs('2').resolves(null);
+subDeleteStub.withArgs('1', userId).resolves('success');
+subDeleteStub.withArgs('2', userId).resolves(null);
+pubDeleteStub.withArgs('1', userId).resolves('success');
+pubDeleteStub.withArgs('2', userId).resolves(null);
 
 const pageName = 'delete-court-subscription-confirmation';
 const pagePublicationName = 'delete-court-publication-confirmation';
@@ -34,6 +37,7 @@ describe('Delete Court Subscription Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request['user'] = user;
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -59,6 +63,7 @@ describe('Delete Court Subscription Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request['user'] = user;
         request.body = { locationId: '2', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
         const expectedData = {
@@ -84,6 +89,7 @@ describe('Delete Court Subscription Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request['user'] = user;
         request.body = { locationId: '1', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
 
@@ -100,6 +106,7 @@ describe('Delete Court Subscription Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request['user'] = user;
         request.body = { locationId: '1', 'delete-choice': 'yes' };
         const responseMock = sinon.mock(response);
 
@@ -116,6 +123,7 @@ describe('Delete Court Subscription Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request['user'] = user;
         request.body = { locationId: '1', 'delete-choice': 'no' };
         const responseMock = sinon.mock(response);
 
