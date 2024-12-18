@@ -10,5 +10,83 @@
             "action": "USER_MANAGEMENT_VIEW",
             "timestamp": "26/01/2024 16:50:47"
         }
-    ]
+    ],
+    "emailFieldData": {
+        "id": "email",
+        "name": "email",
+        "label": {
+            "text": "Email",
+            "classes": "govuk-label--m"
+        },
+        "value": "",
+        "hint": {
+            "text": "Must be an exact match"
+        }
+    },
+    "userIdFieldData": {
+        "id": "userId",
+        "name": "userId",
+        "label": {
+            "text": "User ID",
+            "classes": "govuk-label--m"
+        },
+        "value": "",
+        "hint": {
+            "text": "Must be an exact match"
+        }
+    },
+    "actionsFieldData": {
+        "idPrefix": "actions",
+        "name": "actions",
+        "classes": "govuk-checkboxes--small",
+        "fieldset": {
+            "legend": {
+                "text": "Actions",
+                "classes": "govuk-label--m"
+            }
+        },
+        "items": [
+            {
+                "value": "APPROVE_MEDIA_APPLICATION",
+                "text": "Approve Media Application",
+                "checked": false
+            },
+            {
+                "value": "ATTEMPT_SYSTEM_ADMIN_CREATION",
+                "text": "Attempt to Create System Admin",
+                "checked": false
+            }
+        ]
+    },
+    "filterDateFieldData": {
+        "id": "filterDate",
+        "namePrefix": "filterDate",
+        "fieldset": {
+            "legend": {
+                "text": "Filter Date",
+                "classes": "govuk-fieldset__legend--m"
+            }
+        },
+        "items": [
+            {
+                "name": "day",
+                "classes": "govuk-input--width-2",
+                "value": ""
+            },
+            {
+                "name": "month",
+                "classes": "govuk-input--width-2",
+                "value": ""
+            },
+            {
+                "name": "year",
+                "classes": "govuk-input--width-2",
+                "value": ""
+            }
+        ],
+        "hint": {
+            "text": "For example, 27 3 2007"
+        }
+    },
+    "categories": ""
 }
