@@ -61,17 +61,15 @@ export default class ManualUploadSummaryController {
                 },
             });
         } else {
-
             // eslint-disable-next-line @typescript-eslint/no-require-imports
-            const XLSX = require("xlsx");
-            const workbook = XLSX.read(formData.file, {cellDates:true})
+            const XLSX = require('xlsx');
+            const workbook = XLSX.read(formData.file, { cellDates: true });
             const sheet_name_list = workbook.SheetNames;
 
-            const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]])
+            const data = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
             console.log(data);
 
             const artefactId = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true);
-
 
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
