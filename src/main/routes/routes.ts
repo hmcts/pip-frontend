@@ -207,6 +207,18 @@ export default function (app: Application): void {
     app.get('/pht-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'pht-weekly-hearing-list')
     );
+    app.get('/grc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'grc-weekly-hearing-list')
+    );
+    app.get('/wpafcc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'wpafcc-weekly-hearing-list')
+    );
+    app.get('/ut_iac-judicial-review-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut_iac-judicial-review-daily-hearing-list')
+    );
+    app.get('/ut_iac-statutory-appeals-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut_iac-statutory-appeals-daily-hearing-list')
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
