@@ -294,10 +294,10 @@
         "parentPage": ""
     },
     "UT_IAC_JUDICIAL_REVIEW_DAILY_HEARING_LIST": {
-        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily hearing List",
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily Hearing List",
         "welshFriendlyName": "",
-        "shortenedFriendlyName": "UT_IAC Judical Review Daily Hearing List",
-        "url": "ut_iac-judicial-review-daily-hearing-list",
+        "shortenedFriendlyName": "UT IAC Judicial Review Daily Hearing List",
+        "url": "ut-iac-judicial-review-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
@@ -307,8 +307,8 @@
     "UT_IAC_STATUTORY_APPEALS_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Statutory Daily Hearing List",
         "welshFriendlyName": "",
-        "shortenedFriendlyName": "UT_IAC Statutory Appeals Daily Hearing List",
-        "url": "ut_iac-statutory-appeals-daily-hearing-list",
+        "shortenedFriendlyName": "UT IAC Statutory Appeals Daily Hearing List",
+        "url": "ut-iac-statutory-appeals-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],

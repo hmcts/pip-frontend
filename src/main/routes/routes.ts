@@ -213,18 +213,18 @@ export default function (app: Application): void {
     app.get('/wpafcc-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'wpafcc-weekly-hearing-list')
     );
-    app.get('/ut_iac-judicial-review-daily-hearing-list', (req, res) =>
+    app.get('/ut-iac-judicial-review-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'ut_iac-judicial-review-daily-hearing-list'
+            'ut-iac-judicial-review-daily-hearing-list'
         )
     );
-    app.get('/ut_iac-statutory-appeals-daily-hearing-list', (req, res) =>
+    app.get('/ut-iac-statutory-appeals-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'ut_iac-statutory-appeals-daily-hearing-list'
+            'ut-iac-statutory-appeals-daily-hearing-list'
         )
     );
 
