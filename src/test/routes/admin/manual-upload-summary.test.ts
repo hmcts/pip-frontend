@@ -67,7 +67,7 @@ describe('Manual upload summary', () => {
                 .send({ data: 'valid' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('manual-upload-confirmation');
+                    expect(res.header['location']).to.equal('manual-upload-confirmation?non-strategic=false');
                 });
         });
     });

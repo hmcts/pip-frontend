@@ -20,6 +20,9 @@ const adminRoutes = [
     { path: '/manual-upload' },
     { path: '/manual-upload-summary' },
     { path: '/manual-upload-confirmation' },
+    { path: '/manual-upload?non-strategic=true' },
+    { path: '/manual-upload-summary?non-strategic=true' },
+    { path: '/manual-upload-confirmation?non-strategic=true' },
     { path: '/media-applications' },
     { path: '/media-account-review', parameter: '?applicantId=' + uuidv4() },
     { path: '/media-account-approval', parameter: '?applicantId=' + uuidv4() },
@@ -80,6 +83,18 @@ describe('Accessibility - Admin Routes', () => {
     describe('Page with Errors', () => {
         describe('Manual Upload Page', () => {
             const url = '/manual-upload';
+
+            describe('with no input data', () => {
+                testAccessibility(url, '', true, { 'input-autocomplete': '' });
+            });
+
+            describe('with invalid input data', () => {
+                testAccessibility(url, '', true, { listType: 'EMPTY' });
+            });
+        });
+
+        describe('Manual Upload Page for non strategic upload', () => {
+            const url = '/manual-upload?non-strategic=true';
 
             describe('with no input data', () => {
                 testAccessibility(url, '', true, { 'input-autocomplete': '' });

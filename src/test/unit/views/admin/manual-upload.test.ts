@@ -16,6 +16,7 @@ const dateInputClass = 'govuk-date-input';
 
 const expectedHeader = 'Manual upload';
 const expectedFileQuestion = 'Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB';
+const expectedNonStrategicFileQuestion = 'Manually upload a excel file (.xlsx), max size 2MB';
 const expectedFileInputType = 'file';
 const expectedCourtNameQuestion = 'Court name';
 const expectedCourtNameContainer = 'search-input-container';
@@ -168,6 +169,61 @@ describe('Manual upload page', () => {
         it('should display the display to heading', () => {
             const heading = htmlRes.getElementsByTagName('h3')[6];
             expect(heading.innerHTML).contains('Display to', 'Could not find display to heading');
+        });
+
+        it('should display the warning banner', () => {
+            const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
+            const warningHeader = htmlRes.getElementsByTagName('h1')[0];
+            const warningText = htmlRes.getElementsByTagName('p')[1];
+
+            expect(banner).to.exist;
+            expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
+            expect(warningText.innerHTML).contains(
+                'Prior to upload you must ensure the file is suitable for publication ' +
+                    'e.g. redaction of personal data has been done during the production of this file.',
+                'Could not find warning text'
+            );
+        });
+    });
+
+    describe('on GET for non-strategic publication', () => {
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL + '?non-strategic=true')
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                    htmlRes.getElementById('branch-bar').remove();
+                    formElements = htmlRes.getElementById('form-wrapper');
+                });
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName(headingClass);
+            expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+        });
+
+        it('should contain file upload question inset', () => {
+            const insetFileUpload = htmlRes.getElementsByClassName(insetTextClass);
+            expect(insetFileUpload[0].innerHTML).contains(
+                expectedNonStrategicFileQuestion,
+                'Could not find file upload'
+            );
+            expect(insetFileUpload[0].getElementsByTagName('input')[0].getAttribute('type')).equal(
+                expectedFileInputType,
+                'Could not find file upload type'
+            );
+        });
+
+        it('should display court name input', () => {
+            const courtName = formElements.getElementsByClassName(formGroupClass)[0];
+            expect(courtName.innerHTML).contains(expectedCourtNameQuestion, 'Could not find court name');
+            expect(courtName.innerHTML).contains(expectedCourtNameContainer, 'Could not find court name container');
+        });
+
+        it('should display sub list type question', () => {
+            const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
+            expect(listType.innerHTML).contains(expectedListType, 'Could not find inset list type');
         });
 
         it('should display the warning banner', () => {

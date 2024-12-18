@@ -10,7 +10,11 @@
 {% block content %}
     {{ successPanel(panelTitle, panelBodyMessage) }}
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-top-6">{{ nextMessage }}</p>
-    <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link " href="manual-upload">{{ uploadFile }}</a></p>
+    {% if nonStrategicUpload %}
+        <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link " href="manual-upload?non-strategic=true">{{ uploadFile }}</a></p>
+    {% else %}
+        <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link " href="manual-upload">{{ uploadFile }}</a></p>
+    {% endif %}
     <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="remove-list-search">{{ removeFile }}</a></p>
     <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="admin-dashboard">{{ homeLinkName }}</a></p>
 {% endblock %}

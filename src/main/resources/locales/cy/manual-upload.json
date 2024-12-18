@@ -1,6 +1,7 @@
 {
     "title": "Manual upload",
     "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB",
+    "nonStrategicCardFileUploadText": "Manually upload a excel file (.xlsx), max size 2MB",
     "form": {
         "court": "Court name or Tribunal name",
         "listType": "List type",
