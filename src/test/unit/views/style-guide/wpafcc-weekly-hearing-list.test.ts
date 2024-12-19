@@ -55,7 +55,7 @@ describe('WPAFCC Weekly Hearing List page', () => {
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[6].innerHTML).contains(
-            'Observe a court or tribunal hearing as a journalist, researcher or member of the public.'
+            'Observe a court or tribunal hearing as a journalist, researcher or member of the public'
         );
     });
 

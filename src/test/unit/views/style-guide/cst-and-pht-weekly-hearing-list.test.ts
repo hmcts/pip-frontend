@@ -61,7 +61,7 @@ describe('CST and PHT Weekly Hearing List Page', () => {
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[6].innerHTML).contains(
-                'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
+                'Observe a court or tribunal hearing as a journalist, researcher or member of the public'
             );
         });
 
