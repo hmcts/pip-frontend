@@ -17,7 +17,6 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolve
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 
 describe('GRC Weekly Hearing List Page', () => {
-
     describe('on GET', () => {
         test('should return GRC weekly hearing list page', async () => {
             await request(app)

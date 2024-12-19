@@ -12,7 +12,10 @@ const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/utIacJudicialReviewDailyHearingList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/utIacJudicialReviewDailyHearingList.json'),
+    'utf-8'
+);
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -47,9 +50,7 @@ describe('UT IAC Judicial Review Daily Hearing List page', () => {
 
     it('should display list update message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).contains(
-            'The following list is subject to change until 4:30pm.'
-        );
+        expect(text[5].innerHTML).contains('The following list is subject to change until 4:30pm.');
     });
 
     it('should display observe hearing link text', () => {
@@ -63,7 +64,6 @@ describe('UT IAC Judicial Review Daily Hearing List page', () => {
         const text = htmlRes.getElementsByClassName(govukLinkClass);
         expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
     });
-
 
     it('should display Hearing Time header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);

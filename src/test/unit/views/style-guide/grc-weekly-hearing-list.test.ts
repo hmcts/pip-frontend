@@ -52,16 +52,15 @@ describe('GRC Weekly Hearing List page', () => {
 
     it('should display join hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).contains(
-            'What to expect when joining a telephone or video hearing.'
-        );
+        expect(text[7].innerHTML).contains('What to expect when joining a telephone or video hearing.');
     });
 
     it('should display join hearing link', () => {
         const text = htmlRes.getElementsByClassName(govukLinkClass);
-        expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/what-to-expect-when-joining-a-telephone-or-video-hearing');
+        expect(text[5].getAttribute('href')).eq(
+            'https://www.gov.uk/guidance/what-to-expect-when-joining-a-telephone-or-video-hearing'
+        );
     });
-
 
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
