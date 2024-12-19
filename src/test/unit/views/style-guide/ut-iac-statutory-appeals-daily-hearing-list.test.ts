@@ -97,9 +97,9 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
         expect(headerCell[4].innerHTML).equals('Judge(s)');
     });
 
-    it('should display Type of Hearing header', () => {
+    it('should display Hearing Type header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[5].innerHTML).equals('Type of hearing');
+        expect(headerCell[5].innerHTML).equals('Hearing type');
     });
 
     it('should display Location header', () => {
@@ -137,7 +137,7 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
         expect(cellText[4].innerHTML).equals('Judge A');
     });
 
-    it('should display Type of Hearing cell data', () => {
+    it('should display Hearing Type cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
         expect(cellText[5].innerHTML).equals('Substantive');
     });
