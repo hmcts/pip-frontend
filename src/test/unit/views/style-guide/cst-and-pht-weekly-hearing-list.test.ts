@@ -136,7 +136,7 @@ describe('CST and PHT Weekly Hearing List Page', () => {
         });
     });
 
-    describe('CST Weekly Hearing List', () => {
+    describe('PHT Weekly Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/pht-weekly-hearing-list?artefactId=def';
 
