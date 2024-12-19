@@ -30,6 +30,7 @@ export class I18next {
 
         app.use((req: PipRequest, res: Response, next: NextFunction) => {
             Object.assign(res.locals, req, req.i18n.getDataByLanguage(req.lng).template);
+            res.locals.htmlLang = req.lng; //This is used by the Gov UK Template to set the HTML Lang attribute
             next();
         });
     }

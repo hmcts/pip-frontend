@@ -52,6 +52,11 @@ describe('Home page', () => {
                 });
         });
 
+        it('should have correct page html language', () => {
+            const htmlElement = htmlRes.getElementsByTagName('html')[0];
+            expect(htmlElement.getAttribute('lang')).eq('en', 'HTML Lang element does not match');
+        });
+
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(pageHeader, 'Page title does not match header');
@@ -210,6 +215,11 @@ describe('Home page', () => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
                 });
+        });
+
+        it('should have correct page html language', () => {
+            const htmlElement = htmlRes.getElementsByTagName('html')[0];
+            expect(htmlElement.getAttribute('lang')).eq('cy', 'HTML Lang element does not match');
         });
 
         it('should display header', () => {
