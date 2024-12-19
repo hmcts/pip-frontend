@@ -34,6 +34,7 @@ export default class NonStrategicTribunalListsController {
                 const styleGuidePage = parentPage ? parentPage : page;
                 const languageOptions = {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['non-strategic-common']),
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 };
                 if (parentPage) {
