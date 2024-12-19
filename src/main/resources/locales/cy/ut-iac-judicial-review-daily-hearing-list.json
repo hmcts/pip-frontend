@@ -1,15 +1,15 @@
 {
-    "title": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily Hearing List",
-    "heading": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily Hearing List",
-    "listUpdateMessage": "The following list is subject to change until 4:30pm. Any alterations after this time will be telephoned or emailed direct to the parties or their legal representatives.",
+    "title": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol - Field House",
+    "heading": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol - Field House",
+    "listUpdateMessage": "Gall y rhestr ganlynol newid tan 4:30pm. Bydd unrhyw newidiadau ar ôl yr amser hwn yn cael eu cyfathrebu dros y ffôn neu drwy e-bost yn uniongyrchol at y partïon neu eu cynrychiolwyr cyfreithiol.",
     "tableHeaders": [
-        "Hearing time",
-        "Applicant",
-        "Representative",
-        "Case reference number",
+        "Amser y Gwrandawiad",
+        "Ymgeisydd",
+        "Cynrychiolir gan",
+        "Cyfeirnod yr Achos",
         "Judge(s)",
-        "Type of hearing",
-        "Location",
-        "Additional information"
+        "Math o wrandawiad",
+        "Lleoliad",
+        "Gwybodaeth ychwanegol"
     ]
 }
