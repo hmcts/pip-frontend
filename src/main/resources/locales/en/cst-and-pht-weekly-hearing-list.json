@@ -4,9 +4,5 @@
     "hearingLength": "Hearing length",
     "hearingType": "Hearing type",
     "venue": "Venue",
-    "additionalInformation": "Additional information",
-    "dataSource": "Data Source",
-    "backButton": "Back",
-    "listDate": "List for",
-    "observationText": "Observe a court or tribunal hearing as a journalist, researcher or member of the public"
+    "additionalInformation": "Additional information"
 }
