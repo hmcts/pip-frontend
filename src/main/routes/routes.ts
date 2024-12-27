@@ -223,13 +223,25 @@ export default function (app: Application): void {
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-london-weekly-hearing-list')
     );
     app.get('/rpt-midlands-weekly-hearing-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-midlands-weekly-hearing-list')
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-midlands-weekly-hearing-list'
+        )
     );
     app.get('/rpt-northern-weekly-hearing-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-northern-weekly-hearing-list')
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-northern-weekly-hearing-list'
+        )
     );
     app.get('/rpt-southern-weekly-hearing-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-southern-weekly-hearing-list')
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-southern-weekly-hearing-list'
+        )
     );
 
     // Restricted paths
