@@ -1,6 +1,6 @@
 {% from "../macros/common-components.njk" import goBack, searchInput %}
 
-{% extends "../../../list-template.njk" %}
+{% extends "../list-template.njk" %}
 {% block pageTitle %}
     {{ title }}
 {% endblock %}
@@ -33,7 +33,7 @@
                     <th scope="col" class="govuk-table__header" aria-sort="none">{{ caseReferenceNumber }}</th>
                     <th scope="col" class="govuk-table__header" aria-sort="none">{{ judges }}</th>
                     <th scope="col" class="govuk-table__header" aria-sort="none">{{ members }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ venue/platform }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ venuePlatform }}</th>
                 </tr>
                 </thead>
                 <tbody class="govuk-table__body">

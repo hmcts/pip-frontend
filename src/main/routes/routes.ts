@@ -207,6 +207,30 @@ export default function (app: Application): void {
     app.get('/pht-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'pht-weekly-hearing-list')
     );
+    app.get('/siac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'siac-weekly-hearing-list')
+    );
+    app.get('/fft-tax-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'fft-tax-weekly-hearing-list')
+    );
+    app.get('/fft-lr-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'fft-lr-weekly-hearing-list')
+    );
+    app.get('/rpt-eastern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-eastern-weekly-hearing-list')
+    );
+    app.get('/rpt-london-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-london-weekly-hearing-list')
+    );
+    app.get('/rpt-midlands-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-midlands-weekly-hearing-list')
+    );
+    app.get('/rpt-northern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-northern-weekly-hearing-list')
+    );
+    app.get('/rpt-southern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-southern-weekly-hearing-list')
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
