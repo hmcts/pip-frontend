@@ -243,6 +243,15 @@ export default function (app: Application): void {
             'rpt-southern-weekly-hearing-list'
         )
     );
+    app.get('/ut-t-and-cc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-t-and-cc-weekly-hearing-list')
+    );
+    app.get('/ut-lc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-lc-weekly-hearing-list')
+    );
+    app.get('/ut-aac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-aac-weekly-hearing-list')
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

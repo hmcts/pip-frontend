@@ -1,0 +1,17 @@
+{
+    "title": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",
+    "heading": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",
+    "contactMessage": "If a representative of the media or a member of the public wishes to attend a Cloud Video Platform (CVP) hearing they should contact the Lands Chamber listing section Lands@justice.gov.uk who will provide further information.",
+    "time": "Time",
+    "caseName": "Case reference number",
+    "caseReferenceNumber": "Case name",
+    "judges": "Judge(s)",
+    "members": "Member(s)",
+    "hearingType": "Hearing type",
+    "venue": "Venue",
+    "additionalInformation": "Additional information",
+    "dataSource": "Data Source",
+    "backButton": "Back",
+    "listDate": "List for",
+    "observationText": "Observe a court or tribunal hearing as a journalist, researcher or member of the public"
+}
