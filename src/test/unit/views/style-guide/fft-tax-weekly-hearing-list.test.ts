@@ -40,7 +40,7 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'First-tier Tribunal (Tax Chamber) Weekly Hearing list',
+                'First-tier Tribunal (Tax Chamber) Weekly Hearing List',
                 'Could not find the header'
             );
         });
