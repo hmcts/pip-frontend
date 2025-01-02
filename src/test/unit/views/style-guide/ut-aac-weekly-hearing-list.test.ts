@@ -54,39 +54,33 @@ describe('Upper Tribunal (Administrative Appeals Chamber)  Weekly Hearing List P
 
         it('should display contact information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[5].innerHTML).contains(
-                'Details'
-            );
+            expect(text[5].innerHTML).contains('Details');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[6].innerHTML).contains(
                 'Lists are subject to change until 4:30pm. Any alterations after this time will be ' +
-                'telephoned or emailed direct to the parties or their legal representatives.'
+                    'telephoned or emailed direct to the parties or their legal representatives.'
             );
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
-                'England and Wales'
-            );
+            expect(text[7].innerHTML).contains('England and Wales');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains(
-                'Remote hearings via CVP and BT Meet Me'
-            );
+            expect(text[8].innerHTML).contains('Remote hearings via CVP and BT Meet Me');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[9].innerHTML).contains(
                 'Hearings will be available to representatives of the media or any other member of the public, on their ' +
-                'request, and therefore will be a hearing conducted in ' +
-                'public in accordance with Rule 37 of the Tribunal Procedure (Upper Tribunal) Rules 2008.'
+                    'request, and therefore will be a hearing conducted in ' +
+                    'public in accordance with Rule 37 of the Tribunal Procedure (Upper Tribunal) Rules 2008.'
             );
         });
 
@@ -94,44 +88,37 @@ describe('Upper Tribunal (Administrative Appeals Chamber)  Weekly Hearing List P
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[10].innerHTML).contains(
                 'Any media representative or any other member of the public wishing to witness the hearing ' +
-                'will need to do so over the internet and provide an email address at which to be sent ' +
-                'an appropriate link for access.'
+                    'will need to do so over the internet and provide an email address at which to be sent ' +
+                    'an appropriate link for access.'
             );
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[11].innerHTML).contains(
-                'Please contact adminappeals@justice.gov.uk.'
-            );
+            expect(text[11].innerHTML).contains('Please contact adminappeals@justice.gov.uk.');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[12].innerHTML).contains(
-                'Scotland'
-            );
+            expect(text[12].innerHTML).contains('Scotland');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[13].innerHTML).contains(
-                'Remote hearings'
-            );
+            expect(text[13].innerHTML).contains('Remote hearings');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[14].innerHTML).contains(
                 'When hearings are listed for Scotland the hearing will be available to representatives ' +
-                'of the media or any other member of the public, on their request, and therefore will ' +
-                'be a hearing conducted in public in accordance with Rule 37 of the Tribunal Procedure (Upper Tribunal) ' +
-                'Rules 2008. It will be organised and conducted using Cloud Video Platform (CVP). Any media representative ' +
-                'or any other member of the public wishing to witness the hearing will need to do so over the internet and ' +
-                'provide an email address at which to be sent an appropriate link for access. Please contact UTAACMailbox@justice.gov.uk.'
+                    'of the media or any other member of the public, on their request, and therefore will ' +
+                    'be a hearing conducted in public in accordance with Rule 37 of the Tribunal Procedure (Upper Tribunal) ' +
+                    'Rules 2008. It will be organised and conducted using Cloud Video Platform (CVP). Any media representative ' +
+                    'or any other member of the public wishing to witness the hearing will need to do so over the internet and ' +
+                    'provide an email address at which to be sent an appropriate link for access. Please contact UTAACMailbox@justice.gov.uk.'
             );
         });
-
 
         it('should display Time header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);

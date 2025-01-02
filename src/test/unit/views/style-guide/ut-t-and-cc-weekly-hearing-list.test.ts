@@ -57,8 +57,8 @@ describe('Upper Tribunal Tax and Chancery Chamber Weekly Hearing List Page', () 
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[5].innerHTML).contains(
                 'If a representative of the media or a member of the public wishes to attend a ' +
-                'Cloud Video Platform (CVP) hearing they should contact the Lands Chamber ' +
-                'listing section Lands@justice.gov.uk who will provide further information.'
+                    'Cloud Video Platform (CVP) hearing they should contact the Lands Chamber ' +
+                    'listing section Lands@justice.gov.uk who will provide further information.'
             );
         });
 
