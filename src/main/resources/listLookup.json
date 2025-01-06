@@ -184,8 +184,8 @@
         "welshFriendlyName": "Rhestr Ddyddiol y Siambr Mewnfudo a Lloches",
         "shortenedFriendlyName": "IAC Daily List",
         "url": "iac-daily-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
+        "jurisdictions": ["Immigration and Asylum Chamber"],
+        "welshJurisdictions": ["Siambr Mewnfudo a Lloches"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
@@ -194,8 +194,8 @@
         "welshFriendlyName": "Rhestr Dyddiol y Siambr Mewnfudo a Lloches  – Achosion Ychwanegol",
         "shortenedFriendlyName": "IAC Daily List – Additional Cases",
         "url": "iac-daily-list-additional-cases",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
+        "jurisdictions": ["Immigration and Asylum Chamber"],
+        "welshJurisdictions": ["Siambr Mewnfudo a Lloches"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
@@ -249,6 +249,16 @@
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
+    "CIC_DAILY_HEARING_LIST": {
+        "friendlyName": "Criminal Injuries Compensation Daily Hearing List",
+        "welshFriendlyName": "Rhestr Gwrandawiadau Dyddiol y Digolledu am Anafiadau Troseddol",
+        "shortenedFriendlyName": "CIC Daily Hearing List",
+        "url": "",
+        "jurisdictions": ["Criminal Injuries Compensation Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys Digolledu am Anafiadau Troseddol"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
+    },
     "PHT_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Iechyd Sylfaenol",
@@ -270,6 +280,50 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "parentPage": "cst-and-pht-weekly-hearing-list"
+    },
+    "GRC_WEEKLY_HEARING_LIST": {
+        "friendlyName": "General Regulatory Chamber Weekly Hearing List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "GRC Weekly Hearing List",
+        "url": "grc-weekly-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": ""
+    },
+    "WPAFCC_WEEKLY_HEARING_LIST": {
+        "friendlyName": "First-tier Tribunal (War Pensions and Armed Forces Compensation) Weekly Hearing List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "WPAFCC Weekly Hearing List",
+        "url": "wpafcc-weekly-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": ""
+    },
+    "UT_IAC_JUDICIAL_REVIEW_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily Hearing List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "UT IAC Judicial Review Daily Hearing List",
+        "url": "ut-iac-judicial-review-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": ""
+    },
+    "UT_IAC_STATUTORY_APPEALS_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Statutory Daily Hearing List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "UT IAC Statutory Appeals Daily Hearing List",
+        "url": "ut-iac-statutory-appeals-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": ""
     },
     "SIAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Special Immigration Appeals Commission Weekly Hearing List",
