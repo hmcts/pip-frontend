@@ -11,9 +11,10 @@ const getPublicationJsonStub = sinon.stub(PublicationService.prototype, 'getIndi
 const getMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 const i18n = {
-    'civil-daily-cause-list': { value: '123' },
-    'list-template': { value2: '12345' },
-    'cst-and-pht-weekly-hearing-list': { value3: '1234' },
+    'list-template': { value: '12345' },
+    'cst-and-pht-weekly-hearing-list': { value2: '1234' },
+    'non-strategic-common': { value3: '1235' },
+    'grc-weekly-hearing-list': { value4: '1236' },
 };
 
 describe('Non Strategic Tribunal Lists Controller', () => {
@@ -112,7 +113,7 @@ describe('Non Strategic Tribunal Lists Controller', () => {
     it('should render without parent page when not present', async () => {
         getPublicationJsonStub.withArgs('12345678').resolves({ Hello: 'World' });
         getMetadataStub.withArgs('12345678').resolves({
-            listType: 'CIVIL_DAILY_CAUSE_LIST',
+            listType: 'GRC_WEEKLY_HEARING_LIST',
             provenance: 'MANUAL_UPLOAD',
             contentDate: '2024-12-12T00:00:00Z',
         });
@@ -124,16 +125,17 @@ describe('Non Strategic Tribunal Lists Controller', () => {
         const responseMock = sinon.mock(response);
 
         const expectedData = {
-            ...i18n['civil-daily-cause-list'],
+            ...i18n['grc-weekly-hearing-list'],
             ...i18n['list-template'],
+            ...i18n['non-strategic-common'],
             listData: { Hello: 'World' },
             provenance: 'MANUAL_UPLOAD',
             contentDate: '12 December 2024',
         };
 
-        responseMock.expects('render').once().withArgs('style-guide/civil-daily-cause-list', expectedData);
+        responseMock.expects('render').once().withArgs('style-guide/grc-weekly-hearing-list', expectedData);
 
-        await nonStrategicTribunalListsController.get(request, response, 'civil-daily-cause-list');
+        await nonStrategicTribunalListsController.get(request, response, 'grc-weekly-hearing-list');
         return responseMock.verify();
     });
 
@@ -155,6 +157,7 @@ describe('Non Strategic Tribunal Lists Controller', () => {
             ...i18n['cst-weekly-hearing-list'],
             ...i18n['list-template'],
             ...i18n['cst-and-pht-weekly-hearing-list'],
+            ...i18n['non-strategic-common'],
             listData: { Hello: 'World' },
             provenance: 'MANUAL_UPLOAD',
             contentDate: '12 December 2024',

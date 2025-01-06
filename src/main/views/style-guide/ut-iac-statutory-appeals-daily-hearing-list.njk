@@ -1,0 +1,52 @@
+{% from "../macros/common-components.njk" import goBack, searchInput %}
+
+{% extends "../list-template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    <div class="parent-box">
+        <h2 id="page-heading" class="govuk-heading-l">
+            {{ heading }}
+        </h2>
+
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-5">{{ listDate }} {{ contentDate }}</p>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ listUpdateMessage }}</p>
+        <p class="govuk-body govuk-!-margin-bottom-2">{{ attendHearingMessage }}</p>
+        <p class="govuk-body govuk-!-padding-bottom-5">
+            <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationText }}</a>
+        </p>
+
+        <div class="parent-box overflow-table govuk-!-margin-top-5 govuk-!-margin-bottom-5 search-area">
+            <table class="govuk-table overflow-table">
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    {% for header in tableHeaders %}
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                {% for case in listData %}
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">{{ case['hearingTime'] }}</td>
+                        <td class="govuk-table__cell">{{ case['appellant'] }}</td>
+                        <td class="govuk-table__cell">{{ case['representative'] }}</td>
+                        <td class="govuk-table__cell">{{ case['appealReferenceNumber'] }}</td>
+                        <td class="govuk-table__cell">{{ case['judges'] }}</td>
+                        <td class="govuk-table__cell">{{ case['hearingType'] }}</td>
+                        <td class="govuk-table__cell">{{ case['location'] }} </td>
+                        <td class="govuk-table__cell">{{ case['additionalInformation'] }} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | maskLegacyDataSource }}</p>
+        {{ super() }}
+    </div>
+{% endblock %}
