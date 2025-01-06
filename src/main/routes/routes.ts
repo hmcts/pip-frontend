@@ -240,7 +240,8 @@ export default function (app: Application): void {
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'rpt-southern-weekly-hearing-list')
+            'rpt-southern-weekly-hearing-list'
+        )
     );
     app.get('/grc-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'grc-weekly-hearing-list')
