@@ -38,14 +38,12 @@
               {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
             {% endif %}
             {% if toBeCreated %}
-              <div class="moj-button-menu filters__innerButton" id="innerButton">
-                <div class="moj-button-menu__wrapper">
+              <div class="moj-button-menu filters__innerButton govuk-!-margin-bottom-4" id="innerButton">
                   <a href="#" role="button" draggable="false"
-                     class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
+                     class="govuk-button govuk-button--secondary toggle-filters"
                      data-module="govuk-button">
                     {{ hide }}
                   </a>
-                </div>
               </div>
               {% set toBeCreated = false %}
             {% endif %}
@@ -91,16 +89,14 @@
     </div>
     <div class="layout-width-three-fifths" id="content">
 
-      <div class="moj-button-menu">
-        <div class="moj-button-menu__wrapper">
-          <a href="#" role="button" draggable="false"
-             class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
-             data-module="govuk-button">
+      <div class="moj-button-menu govuk-!-margin-bottom-4">
+        <a href="#" role="button" draggable="false"
+           class="govuk-button govuk-button--secondary toggle-filters"
+           data-module="govuk-button">
             {{ show }}
-          </a>
-        </div>
+        </a>
       </div>
-      <nav class="govuk-grid-row govuk-!-margin-bottom-8" aria-label="{{ aria.labelNavHeader }}">
+      <nav class="govuk-grid-row govuk-!-margin-bottom-4" aria-label="{{ aria.labelNavHeader }}">
         {% for key, value in locationList %}
           {% if value| length == 0 %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
@@ -182,9 +178,9 @@
       backLink[0].classList.toggle("hide");
       footer[0].classList.toggle("hide");
       if (element.className.indexOf('hide') > 0) {
-        document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ show }}";
+        document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ show }}";
       } else {
-        document.getElementsByClassName('govuk-button moj-button-menu__item govuk-button--secondary')[0].text = "{{ hide }}";
+        document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ hide }}";
 
         //This ensures that focus works correctly for screen readers in the filter box.
         var elements = document.getElementsByClassName('govuk-heading-m');
