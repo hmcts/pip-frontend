@@ -333,7 +333,30 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "parentPage": "siac-poac-paac-weekly-hearing-list"
+    },
+    "POAC_WEEKLY_HEARING_LIST": {
+        "friendlyName": "Proscribed Organisations Appeal Commission Weekly Hearing List",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Sefydliadau Gwaharddedig",
+        "shortenedFriendlyName": "POAC Daily Weekly Hearing List ",
+        "url": "poac-weekly-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "siac-poac-paac-weekly-hearing-list"
+    },
+    "PAAC_WEEKLY_HEARING_LIST": {
+        "friendlyName": "Pathogens Access Appeal Commission Weekly Hearing List",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mynediad Pathogenau",
+        "shortenedFriendlyName": "PAAC Daily Weekly Hearing List ",
+        "url": "paac-weekly-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "siac-poac-paac-weekly-hearing-list"
     },
     "FFT_TAX_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Tax Chamber) Weekly Hearing List",

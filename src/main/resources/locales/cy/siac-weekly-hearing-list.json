@@ -1,17 +1,4 @@
 {
     "title": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mewnfudo Arbennig",
-    "heading": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mewnfudo Arbennig",
-    "contactMessage1": "Weithiau bydd y tribiwnlys yn defnyddio cyfeirnodau neu flaenlythrennau i sicrhau bod y rhai sy’n ymwneud â’r apêl yn aros yn ddienw.",
-    "contactMessage2": "Cynhelir pob gwrandawiad yn Field House, 15-25 Bream’s Buildings, Llundain EC4A 1DZ.",
-    "date": "Dyddiad",
-    "time": "Amser",
-    "appellant": "Apelydd",
-    "caseReferenceNumber": "Cyfeirnod yr achos",
-    "hearingType": "Math o wrandawiad",
-    "courtroom": "Ystafell llys",
-    "additionalInformation": "Gwybodaeth ychwanegol",
-    "dataSource": "Ffynhonnell Data",
-    "backButton": "Yn ôl",
-    "listDate": "Rhestr ar gyfer",
-    "observationText": "Arsylwi gwrandawiad llys neu dribiwnlys fel newyddiadurwr, ymchwilydd neu aelod o'r cyhoedd"
+    "heading": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mewnfudo Arbennig"
 }

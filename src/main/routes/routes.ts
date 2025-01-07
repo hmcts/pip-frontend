@@ -210,6 +210,12 @@ export default function (app: Application): void {
     app.get('/siac-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'siac-weekly-hearing-list')
     );
+    app.get('/poac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'poac-weekly-hearing-list')
+    );
+    app.get('/paac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'paac-weekly-hearing-list')
+    );
     app.get('/fft-tax-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'fft-tax-weekly-hearing-list')
     );

@@ -12,7 +12,7 @@ const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-describe('SIAC Weekly Hearing List Page', () => {
+describe('SIAC, POAC and PAAC Weekly Hearing List Page', () => {
     const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
     const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/siacWeeklyHearingList.json'), 'utf-8');
     const jsonData = JSON.parse(rawData);
@@ -149,6 +149,58 @@ describe('SIAC Weekly Hearing List Page', () => {
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[8].innerHTML).contains('Data Source: prov1');
+        });
+    });
+
+    describe('Proscribed Organisations Appeal Commission Weekly Hearing List', () => {
+        let htmlRes: Document;
+        const PAGE_URL = '/poac-weekly-hearing-list?artefactId=xyz';
+
+        const metaData = JSON.parse(rawMetaData)[0];
+        metaData.listType = 'POAC_WEEKLY_HEARING_LIST';
+
+        metadataStub.withArgs('xyz').returns(metaData);
+
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName(headingClass);
+            expect(header[0].innerHTML).contains(
+                'Proscribed Organisations Appeal Commission Weekly Hearing List',
+                'Could not find the header'
+            );
+        });
+    });
+
+    describe('Pathogens Access Appeal Commission Weekly Hearing List', () => {
+        let htmlRes: Document;
+        const PAGE_URL = '/paac-weekly-hearing-list?artefactId=def';
+
+        const metaData = JSON.parse(rawMetaData)[0];
+        metaData.listType = 'PAAC_WEEKLY_HEARING_LIST';
+
+        metadataStub.withArgs('def').returns(metaData);
+
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName(headingClass);
+            expect(header[0].innerHTML).contains(
+                'Pathogens Access Appeal Commission Weekly Hearing List',
+                'Could not find the header'
+            );
         });
     });
 });
