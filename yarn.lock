@@ -5888,12 +5888,12 @@ __metadata:
   linkType: hard
 
 "awilix@npm:^12.0.3":
-  version: 12.0.3
-  resolution: "awilix@npm:12.0.3"
+  version: 12.0.4
+  resolution: "awilix@npm:12.0.4"
   dependencies:
     camel-case: "npm:^4.1.2"
     fast-glob: "npm:^3.3.2"
-  checksum: 10/064b30852f9f9d3d3978b4fd5dc7c5d68228f670d2d389722ce525c0dc5afced8409d0d806c008f6f5867a21985e3595f51808d79b44e219ca3ccb7487f80b01
+  checksum: 10/ff319629c7f18ba4247a2cf35a13be3fe4e2462fe0f784c6c45f8af7338c294ce6bf4297eca891c8da884fd5b976a37098e17f9d685f7154cfa4d16160981478
   languageName: node
   linkType: hard
 
