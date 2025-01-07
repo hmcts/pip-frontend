@@ -103,6 +103,40 @@ describe('Remove List Summary Page', () => {
             expect(rowCells[4].innerHTML).contains(languageRowValues[i], 'Could not find valid language');
             expect(rowCells[5].innerHTML).contains(sensitivityValues[i], 'Could not find valid sensitivity');
             expect(rowCells[6].innerHTML).contains(checkboxType);
+
+            expect(rowCells[6].getElementsByTagName('div')[0].getAttribute('aria-label'))
+                .eq(mockPublications[i].listTypeName + " for " + mockPublications[i].contDate + " in " + languageRowValues[i],
+                    "Could not find valid aria attribute")
         }
+    });
+});
+
+describe('Remove List Summary Page When Error', () => {
+    beforeAll(async () => {
+        await request(app)
+            .get(PAGE_URL + '&error=true')
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                htmlRes.getElementsByTagName('div')[0].remove();
+            });
+    });
+
+    it('should display error summary', () => {
+        const errorSummary = htmlRes.getElementsByClassName('govuk-error-summary');
+        expect(errorSummary[0].innerHTML).contains('At least one publication must be selected', 'Could not find the error summary');
+    });
+
+    it('error summary href should link to table', () => {
+        const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
+        const errorSummaryAnchorTag = errorSummaryList.getElementsByTagName('a')[0];
+        expect(errorSummaryAnchorTag.getAttribute('href')).eq('#results-table', 'Href does not link to table');
+    });
+
+    it('should highlight table as error', () => {
+        const formGroup = htmlRes.getElementsByTagName('form')[0];
+        const containerDiv = formGroup.getElementsByTagName('div')[0];
+
+        expect(containerDiv.getAttribute('class')).contains('govuk-form-group--error',
+            'Table is not highlighted as error')
     });
 });
