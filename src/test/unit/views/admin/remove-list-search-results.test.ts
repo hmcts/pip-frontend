@@ -137,7 +137,7 @@ describe('Remove List Summary Page When Error', () => {
     it('error summary href should link to table', () => {
         const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
         const errorSummaryAnchorTag = errorSummaryList.getElementsByTagName('a')[0];
-        expect(errorSummaryAnchorTag.getAttribute('href')).eq('#results-table', 'Href does not link to table');
+        expect(errorSummaryAnchorTag.getAttribute('href')).eq('#courtLists-1', 'Href does not link to table');
     });
 
     it('should highlight table as error', () => {
