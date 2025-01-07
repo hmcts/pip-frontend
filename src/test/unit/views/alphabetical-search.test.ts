@@ -45,7 +45,7 @@ describe('Alphabetical Search page', () => {
         expect(selector.innerHTML).contains('A');
 
         const hiddenElements = selector.getElementsByClassName('govuk-visually-hidden');
-        expect(hiddenElements[0].innerHTML).contains("Courts and tribunals beginning with this letter");
+        expect(hiddenElements[0].innerHTML).contains('Courts and tribunals beginning with this letter');
     });
 
     it('should contain letter without visually hidden text when court starts with the letter does not exist', () => {
