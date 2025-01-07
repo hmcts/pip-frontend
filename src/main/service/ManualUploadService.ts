@@ -38,13 +38,16 @@ export class ManualUploadService {
                 zone: timeZone,
             }).toFormat('d MMM yyyy');
             formattedList.push(listItem);
-        })
+        });
 
         return formattedList.sort((a, b) => {
-            return DateTime.fromISO(b.contentDate, {zone: timeZone}) - DateTime.fromISO(a.contentDate, {zone: timeZone})
-                || b['language'].localeCompare(a['language'])
-                || b['sensitivity'].localeCompare(a['sensitivity'])
-        })
+            return (
+                DateTime.fromISO(b.contentDate, { zone: timeZone }) -
+                    DateTime.fromISO(a.contentDate, { zone: timeZone }) ||
+                b['language'].localeCompare(a['language']) ||
+                b['sensitivity'].localeCompare(a['sensitivity'])
+            );
+        });
     }
 
     private getListSubtypes(): Array<object> {
