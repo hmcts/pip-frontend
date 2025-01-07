@@ -102,9 +102,8 @@ describe('Accessibility - Admin Routes', () => {
             const url = '/remove-list-search-results';
 
             describe('with no checkbox selected', () => {
-                testAccessibility(url, '', true, {'locationId': '123'});
+                testAccessibility(url, '', true, { locationId: '123' });
             });
         });
-
     });
 });
