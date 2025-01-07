@@ -184,8 +184,8 @@
         "welshFriendlyName": "Rhestr Ddyddiol y Siambr Mewnfudo a Lloches",
         "shortenedFriendlyName": "IAC Daily List",
         "url": "iac-daily-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
+        "jurisdictions": ["Immigration and Asylum Chamber"],
+        "welshJurisdictions": ["Siambr Mewnfudo a Lloches"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
@@ -194,8 +194,8 @@
         "welshFriendlyName": "Rhestr Dyddiol y Siambr Mewnfudo a Lloches  – Achosion Ychwanegol",
         "shortenedFriendlyName": "IAC Daily List – Additional Cases",
         "url": "iac-daily-list-additional-cases",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
+        "jurisdictions": ["Immigration and Asylum Chamber"],
+        "welshJurisdictions": ["Siambr Mewnfudo a Lloches"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
@@ -246,6 +246,16 @@
         "url": "opa-results",
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": ""
+    },
+    "CIC_DAILY_HEARING_LIST": {
+        "friendlyName": "Criminal Injuries Compensation Daily Hearing List",
+        "welshFriendlyName": "Rhestr Gwrandawiadau Dyddiol y Digolledu am Anafiadau Troseddol",
+        "shortenedFriendlyName": "CIC Daily Hearing List",
+        "url": "",
+        "jurisdictions": ["Criminal Injuries Compensation Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys Digolledu am Anafiadau Troseddol"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     }
