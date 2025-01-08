@@ -64,16 +64,16 @@ describe('SIAC, POAC and PAAC Weekly Hearing List Page', () => {
             );
         });
 
-        it('should display observation text', () => {
+        it('should display expect coming to a court or tribunal text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
-                'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
-            );
+            expect(text[7].innerHTML).contains('Find out what to expect coming to a court or tribunal');
         });
 
-        it('should display observation link', () => {
+        it('should display expect coming to a court or tribunal link', () => {
             const text = htmlRes.getElementsByClassName(govukLinkClass);
-            expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+            expect(text[5].getAttribute('href')).eq(
+                'https://www.gov.uk/guidance/what-to-expect-coming-to-a-court-or-tribunal'
+            );
         });
 
         it('should display Date header', () => {
