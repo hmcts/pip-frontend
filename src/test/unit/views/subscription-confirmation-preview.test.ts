@@ -231,7 +231,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[16];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[14];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'
@@ -337,7 +337,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[14];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'
@@ -430,7 +430,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[14];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
             expect(addAnotherLink.innerHTML).contains(
                 'Select List Types',
                 'Could not find add another email subscription link'
@@ -531,7 +531,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[13];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[11];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'
