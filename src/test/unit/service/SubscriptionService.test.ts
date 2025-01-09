@@ -231,7 +231,6 @@ updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListType
 deleteStubLocation.withArgs(1, adminUserId).returns('success');
 deleteStubLocation.withArgs(2, adminUserId).returns(null);
 
-
 describe('getSubscriptionDataForView function', () => {
     locationStub.withArgs(1).resolves(mockCourt);
 
