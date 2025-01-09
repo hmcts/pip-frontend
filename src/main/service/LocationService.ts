@@ -96,8 +96,8 @@ export class LocationService {
         return courtItem;
     }
 
-    public async deleteLocationById(locationId: number, requester: string): Promise<object> {
-        return await locationRequest.deleteCourt(locationId, requester);
+    public async deleteLocationById(locationId: number, userId: string): Promise<object> {
+        return await locationRequest.deleteCourt(locationId, userId);
     }
 
     public async findCourtsJurisdiction(locations): Promise<string[]> {
