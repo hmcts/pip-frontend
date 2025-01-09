@@ -111,7 +111,7 @@ describe('Upper Tribunal (Lands Chamber) Weekly Hearing List Page', () => {
 
         it('should display Mode of Hearing header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[7].innerHTML).contains('Mode of Hearing');
+            expect(headerCell[7].innerHTML).contains('Mode of hearing');
         });
 
         it('should display Additional Information header', () => {
