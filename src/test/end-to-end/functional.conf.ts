@@ -15,6 +15,7 @@ export const config: CodeceptJS.MainConfig = {
     async teardownAll() {
         await clearTestData();
     },
+    maskSensitiveData: true,
     helpers: testConfig.helpers,
     mocha: {},
     plugins: {
