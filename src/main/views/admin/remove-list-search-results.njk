@@ -53,9 +53,9 @@
                                 <td class="govuk-table__cell">{{ item.language | titleCase }}</td>
                                 <td class="govuk-table__cell">{{ item.sensitivity | titleCase }}</td>
                                 <td class="govuk-table__cell govuk-table__cell--numeric">
-                                    <div aria-label="{{ item.listTypeName }} for {{ item.contDate }} in {{ item.language | titleCase }}" class="govuk-checkboxes__item govuk-checkboxes--small bulk-list-removal-checkboxes">
-                                        <input type="checkbox" class="govuk-checkboxes__input" name="courtLists" id="courtLists-{{ listCount }}" aria-labelledby="select-header" value={{ item.artefactId }}>
-                                        <label class="govuk-label govuk-checkboxes__label" for="courtLists-{{ listCount }}"></label>
+                                    <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-list-removal-checkboxes">
+                                        <input type="checkbox" class="govuk-checkboxes__input" name="courtLists-{{ listCount }}" id="courtLists-{{ listCount }}" value={{ item.artefactId }}>
+                                        <label aria-label="{{ item.listTypeName }} for {{ item.contDate }} in {{ item.language | titleCase }}" class="govuk-label govuk-checkboxes__label" for="courtLists-{{ listCount }}"></label>
                                     </div>
                                 </td>
                             </tr>

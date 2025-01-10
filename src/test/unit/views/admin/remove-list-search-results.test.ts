@@ -104,7 +104,7 @@ describe('Remove List Summary Page', () => {
             expect(rowCells[5].innerHTML).contains(sensitivityValues[i], 'Could not find valid sensitivity');
             expect(rowCells[6].innerHTML).contains(checkboxType);
 
-            expect(rowCells[6].getElementsByTagName('div')[0].getAttribute('aria-label')).eq(
+            expect(rowCells[6].getElementsByTagName('label')[0].getAttribute('aria-label')).eq(
                 mockPublications[i].listTypeName +
                     ' for ' +
                     mockPublications[i].contDate +
