@@ -1,6 +1,6 @@
 import * as process from 'process';
 import { I18next } from './modules/i18next';
-import RedisStore from 'connect-redis';
+import { RedisStore } from 'connect-redis';
 import cookieParser from 'cookie-parser';
 import { AppInsights } from './modules/appinsights';
 import * as propertiesVolume from '@hmcts/properties-volume';
