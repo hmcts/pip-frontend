@@ -104,7 +104,7 @@
             </div>
           {% else %}
             <div class="govuk-grid-column width-column govuk-!-font-size-19">
-              <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}</a>
+              <a id='{{ key }}-selector' href='#{{ key }}' class="govuk-link govuk-link--no-visited-state">{{ key }}<span class="govuk-visually-hidden">: {{ letterText }}</span></a>
             </div>
           {% endif %}
         {% endfor %}

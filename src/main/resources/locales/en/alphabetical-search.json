@@ -13,5 +13,6 @@
     "aria": {
         "filterLabel": "Filter by Jurisdiction or region"
     },
+    "letterText": "Courts and tribunals beginning with this letter",
     "backButton": "Back"
 }
