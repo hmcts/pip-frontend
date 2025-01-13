@@ -14,8 +14,8 @@
 {% block content %}
 
     {% if displaySensitivityMismatch %}
-      <div class="govuk-callout" tabindex="0">
-        <h1 class="govuk-heading-m">{{ warning }}</h1>
+      <div class="govuk-callout">
+        <h2 class="govuk-heading-m">{{ warning }}</h2>
           {{ govukWarningText({
             text: sensitivityMismatch
           }) }}
