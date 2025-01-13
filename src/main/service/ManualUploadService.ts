@@ -144,11 +144,11 @@ export class ManualUploadService {
         );
 
         if (fieldsetPrefix === 'display-date-to') {
-            return concatenatedDate.concat(' 23:59:59');
+            return concatenatedDate?.concat(' 23:59:59');
         } else if (fieldsetPrefix === 'display-date-from') {
-            return concatenatedDate.concat(' 00:00:01');
+            return concatenatedDate?.concat(' 00:00:01');
         } else {
-            return concatenatedDate.concat(' 00:00:00');
+            return concatenatedDate?.concat(' 00:00:00');
         }
     }
 
