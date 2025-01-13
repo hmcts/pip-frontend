@@ -17,6 +17,16 @@
         {% set checkedFilters = [] %}
         {% set toBeCreated = true %}
         {% set filterOptionsHtml %}
+            {% if toBeCreated %}
+                <div class="moj-button-menu filters__innerButton govuk-!-margin-bottom-4" id="innerButton">
+                    <a href="#" role="button" draggable="false"
+                       class="govuk-button govuk-button--secondary toggle-filters"
+                       data-module="govuk-button">
+                        {{ filter.hide }}
+                    </a>
+                </div>
+                {% set toBeCreated = false %}
+            {% endif %}
             {{ govukInput({
                 label: {
                     text: filter.searchFilters,
@@ -37,19 +47,6 @@
                 {% set filterHeader = filter.postcode if key == 'postcodes' else filter.prosecutor %}
                 {% if checkedFilterItems | length > 0 %}
                     {% set _ = checkedFilters.push({heading: {text: filterHeader}, items: checkedFilterItems}) %}
-                {% endif %}
-
-                {% if toBeCreated %}
-                    <div class="moj-button-menu filters__innerButton" id="innerButton">
-                        <div class="moj-button-menu__wrapper">
-                            <a href="#" role="button" draggable="false"
-                               class="govuk-button moj-button-menu__item govuk-button--secondary toggle-filters"
-                               data-module="govuk-button">
-                                {{ filter.hide }}
-                            </a>
-                        </div>
-                    </div>
-                    {% set toBeCreated = false %}
                 {% endif %}
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
