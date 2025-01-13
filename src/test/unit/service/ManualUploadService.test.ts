@@ -268,7 +268,7 @@ describe('Manual upload service', () => {
             expect(errors['displayDateError']['range']).to.equal("Please make sure 'to' date is after 'from' date");
         });
 
-        it('should not return invalid date range error if \'from\' date is invalid', async () => {
+        it("should not return invalid date range error if 'from' date is invalid", async () => {
             formValues['display-date-from-day'] = '02';
             formValues['display-date-from-month'] = '';
             formValues['display-date-from-year'] = '2022';
@@ -279,7 +279,7 @@ describe('Manual upload service', () => {
             expect(errors['displayDateError']['range']).to.be.null;
         });
 
-        it('should not return invalid date range error if \'to\' date is invalid', async () => {
+        it("should not return invalid date range error if 'to' date is invalid", async () => {
             formValues['display-date-from-day'] = '02';
             formValues['display-date-from-month'] = '01';
             formValues['display-date-from-year'] = '2022';

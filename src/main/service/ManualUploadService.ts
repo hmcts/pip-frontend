@@ -179,9 +179,7 @@ export class ManualUploadService {
         if (dateFrom != null && dateTo != null) {
             const firstDate = DateTime.fromFormat(dateFrom, 'dd/MM/yyyy HH:mm:ss');
             const secondDate = DateTime.fromFormat(dateTo, 'dd/MM/yyyy HH:mm:ss');
-            if (!firstDate.isValid
-                || !secondDate.isValid
-                || firstDate.startOf('day') <= secondDate.startOf('day')) {
+            if (!firstDate.isValid || !secondDate.isValid || firstDate.startOf('day') <= secondDate.startOf('day')) {
                 return null;
             }
         }
