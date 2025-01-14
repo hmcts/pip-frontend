@@ -36,7 +36,7 @@
     {% endif %}
   <div class="parent-box">
     <h1 class="govuk-heading-l">{{ header }}</h1>
-    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-upload-summary">
+    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-upload-summary?non-strategic={{ nonStrategicUpload }}">
         {{ govukSummaryList({
             rows: [
                 {

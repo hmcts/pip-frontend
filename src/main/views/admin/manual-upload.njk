@@ -69,15 +69,27 @@
         <form method="post" enctype="multipart/form-data">
           {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
           <div class="govuk-inset-text">
-            {{ govukFileUpload({
-              id: "manual-file-upload",
-              name: "manual-file-upload",
-              accept: ".json,.csv,.doc,.docx,.htm,.html",
-              label: {
-                text: fileUploadText
-              },
-              errorMessage: fileErrorMessage
-            }) }}
+              {% if nonStrategicUpload %}
+                    {{ govukFileUpload({
+                      id: "manual-file-upload",
+                      name: "manual-file-upload",
+                      accept: ".xslx",
+                      label: {
+                        text: nonStrategicCardFileUploadText
+                      },
+                      errorMessage: fileErrorMessage
+                    }) }}
+              {% else %}
+                  {{ govukFileUpload({
+                      id: "manual-file-upload",
+                      name: "manual-file-upload",
+                      accept: ".json,.csv,.doc,.docx,.htm,.html",
+                      label: {
+                          text: fileUploadText
+                      },
+                      errorMessage: fileErrorMessage
+                  }) }}
+              {% endif %}
           </div>
 
           {% set courtFormGroupError = 'govuk-form-group--error' if errors.formErrors.courtError else 'govuk-form-group' %}
