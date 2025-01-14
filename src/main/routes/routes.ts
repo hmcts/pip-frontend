@@ -201,6 +201,86 @@ export default function (app: Application): void {
     app.get('/opa-public-list', app.locals.container.cradle.opaPublicListController.get);
     app.get('/opa-results', app.locals.container.cradle.opaResultsController.get);
 
+    //Non-Strategic Paths
+    app.get('/cst-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cst-weekly-hearing-list')
+    );
+    app.get('/pht-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'pht-weekly-hearing-list')
+    );
+    app.get('/siac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'siac-weekly-hearing-list')
+    );
+    app.get('/poac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'poac-weekly-hearing-list')
+    );
+    app.get('/paac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'paac-weekly-hearing-list')
+    );
+    app.get('/fft-tax-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'fft-tax-weekly-hearing-list')
+    );
+    app.get('/fft-lr-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'fft-lr-weekly-hearing-list')
+    );
+    app.get('/rpt-eastern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-eastern-weekly-hearing-list')
+    );
+    app.get('/rpt-london-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-london-weekly-hearing-list')
+    );
+    app.get('/rpt-midlands-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-midlands-weekly-hearing-list'
+        )
+    );
+    app.get('/rpt-northern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-northern-weekly-hearing-list'
+        )
+    );
+    app.get('/rpt-southern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-southern-weekly-hearing-list'
+        )
+    );
+
+    app.get('/ut-t-and-cc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-t-and-cc-weekly-hearing-list')
+    );
+    app.get('/ut-lc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-lc-weekly-hearing-list')
+    );
+    app.get('/ut-aac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-aac-weekly-hearing-list')
+    );
+    app.get('/grc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'grc-weekly-hearing-list')
+    );
+    app.get('/wpafcc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'wpafcc-weekly-hearing-list')
+    );
+    app.get('/ut-iac-judicial-review-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-judicial-review-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-statutory-appeals-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-statutory-appeals-daily-hearing-list'
+        )
+    );
+
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
     app.get('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.get);

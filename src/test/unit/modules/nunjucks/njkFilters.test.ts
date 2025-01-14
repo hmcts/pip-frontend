@@ -190,4 +190,21 @@ describe('Nunjucks Custom Filter Tests', function () {
             expect(result).to.equal('[1 of 2]');
         });
     });
+
+    describe('should render date with formatter', function () {
+        it('should return date in correct format', function () {
+            const result = env.renderString('{{ "12/12/2024" | dateFormatter("en") }}', {});
+            expect(result).to.equal('12 December 2024');
+        });
+
+        it('should return date in correct format when welsh selected', function () {
+            const result = env.renderString('{{ "12/12/2024" | dateFormatter("cy") }}', {});
+            expect(result).to.equal('12 Rhagfyr 2024');
+        });
+
+        it('should return Invalid Date if incorrect format', function () {
+            const result = env.renderString('{{ "12-12-2024" | dateFormatter("cy") }}', {});
+            expect(result).to.equal('Invalid DateTime');
+        });
+    });
 });

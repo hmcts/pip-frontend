@@ -1,0 +1,17 @@
+{
+    "title": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",
+    "heading": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",
+    "contactMessage": "A representative of the media, or any other person, wishing to attend a remote hearing should contact uttc@justice.gov.uk and we will arrange for your attendance.",
+    "time": "Time",
+    "caseName": "Case reference number",
+    "caseReferenceNumber": "Case name",
+    "judges": "Judge(s)",
+    "members": "Member(s)",
+    "hearingType": "Hearing type",
+    "venue": "Venue",
+    "additionalInformation": "Additional information",
+    "dataSource": "Data Source",
+    "backButton": "Back",
+    "listDate": "List for",
+    "observationText": "Observe a court or tribunal hearing as a journalist, researcher or member of the public"
+}

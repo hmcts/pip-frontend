@@ -15,11 +15,14 @@ export default class ManualUploadController {
         formCookie = req.cookies['formCookie'];
         const formData = formCookie ? JSON.parse(formCookie) : null;
 
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+
         const formValues = {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
             formData: formData,
             listItems,
             listTypeClassifications: manualUploadService.getSensitivityMappings(),
+            nonStrategicUpload,
         };
         res.render('admin/manual-upload', formValues);
     }
@@ -28,8 +31,15 @@ export default class ManualUploadController {
         if (req.query?.showerror === 'true') {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
+            const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+
             const errors = {
-                fileErrors: fileHandlingService.validateFileUpload(req.file, req.lng, 'manual-upload', uploadType.FILE),
+                fileErrors: fileHandlingService.validateFileUpload(
+                    req.file,
+                    req.lng,
+                    'manual-upload',
+                    nonStrategicUpload ? uploadType.NON_STRATEGIC_FILE : uploadType.FILE
+                ),
                 formErrors: await manualUploadService.validateFormFields(req.body, req.lng, 'manual-upload'),
             };
 
@@ -40,6 +50,7 @@ export default class ManualUploadController {
                 errors,
                 formData: req.body,
                 listTypeClassifications: manualUploadService.getSensitivityMappings(),
+                nonStrategicUpload,
             };
 
             if (errors.fileErrors || errors.formErrors) {
@@ -68,7 +79,7 @@ export default class ManualUploadController {
                 await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
 
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
-                res.redirect('/manual-upload-summary?check=true');
+                res.redirect('/manual-upload-summary?check=true&non-strategic=' + nonStrategicUpload);
             }
         }
     }
