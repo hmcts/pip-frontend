@@ -19,5 +19,10 @@
     "mediaRequestNotificationBanner": {
         "singular": "There is COUNT outstanding media request.",
         "plural": "There are COUNT outstanding media requests."
+    },
+    "uploadNonStrategicCard": {
+        "title": "Upload Excel File",
+        "description": "Upload a file to be published on the external facing Court and tribunal hearings service.",
+        "link": "manual-upload?non-strategic=true"
     }
 }
