@@ -15,6 +15,10 @@ export const formatMetaDataListType = (metaData: any): string => {
     return metaData?.listType ? metaData.listType.toLowerCase().replaceAll('_', '-') : '';
 };
 
+export const getParentPage = (listType: string): string => {
+    return publicationService.getListTypes().get(listType)?.['parentPage'];
+};
+
 export const isValidListType = (metaDataListType: string, listType: string): boolean => {
     return metaDataListType === listType;
 };

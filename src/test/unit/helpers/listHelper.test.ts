@@ -7,6 +7,7 @@ import {
     missingListType,
     addListDetailsToArray,
     isValidMetaData,
+    getParentPage,
 } from '../../../main/helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { PublicationService } from '../../../main/service/PublicationService';
@@ -146,6 +147,20 @@ describe('List helper', () => {
             const list = [];
             await addListDetailsToArray('artfactId', 1, list);
             expect(list).toEqual(expectedResult);
+        });
+    });
+
+    describe('get parent page', () => {
+        it('should return parent page when present', () => {
+            const metaDataListType = 'CST_WEEKLY_HEARING_LIST';
+
+            expect(getParentPage(metaDataListType)).toBe('cst-and-pht-weekly-hearing-list');
+        });
+
+        it('should return empty when not present', () => {
+            const metaDataListType = 'CIVIL_DAILY_CAUSE_LIST';
+
+            expect(getParentPage(metaDataListType)).toBeUndefined();
         });
     });
 });

@@ -211,7 +211,7 @@ export class ManualUploadService {
         return { courtName: courtName, locationId: court?.locationId };
     }
 
-    public async uploadPublication(data: any, ISODateFormat: boolean): Promise<string> {
+    public async uploadPublication(data: any, ISODateFormat: boolean, nonStrategicUpload: boolean): Promise<string> {
         if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
             return await dataManagementRequests.uploadJSONPublication(
                 data,
@@ -220,7 +220,8 @@ export class ManualUploadService {
         } else {
             return await dataManagementRequests.uploadPublication(
                 data,
-                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat))
+                this.generatePublicationUploadHeaders(this.formatPublicationDates(data, ISODateFormat)),
+                nonStrategicUpload
             );
         }
     }
