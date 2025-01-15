@@ -158,10 +158,10 @@
     "resolutions": {
         "allure-js-commons/uuid": "10.0.0",
         "tempfile/uuid": "10.0.0",
-        "react-native": "0.75.2",
-        "jscodeshift": "17.0.0",
-        "jsdom": "^25.0.0",
+        "react-native": "0.76.6",
+        "jscodeshift": "17.1.2",
+        "jsdom": "^26.0.0",
         "puppeteer-core/ws": "8.18.0"
     },
-    "packageManager": "yarn@4.5.3"
+    "packageManager": "yarn@4.6.0"
 }
