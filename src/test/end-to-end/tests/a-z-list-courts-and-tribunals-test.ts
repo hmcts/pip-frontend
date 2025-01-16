@@ -36,11 +36,11 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     I.see(locationName);
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
-    I.click(locate('//input').withAttr({ value: 'Crown' }));
+    I.click(locate('//input').withAttr({ value: 'Immigration and Asylum Chamber' }));
     I.click('Apply filters');
     I.dontSee(locationName);
 
-    I.click(locate('//input').withAttr({ value: 'Crown' }));
+    I.click(locate('//input').withAttr({ value: 'Immigration and Asylum Chamber' }));
     I.click('Apply filters');
 
     I.click(locationName);
