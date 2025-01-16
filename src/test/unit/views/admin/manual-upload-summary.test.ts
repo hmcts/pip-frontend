@@ -63,14 +63,14 @@ describe('Manual Upload Summary Page', () => {
         expect(button.innerHTML).to.contain('Confirm', 'Unable to find confirm button');
     });
 
-    it('should display correct summary keys and actions', async () => {
+    it('should display correct summary keys and actions when non strategic is false', async () => {
         const keys = htmlRes.getElementsByClassName('govuk-summary-list__key');
         const actions = htmlRes.getElementsByClassName('govuk-summary-list__actions');
         for (let i = 0; i < summaryKeys.length; i++) {
             expect(keys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
             expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
             expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(
-                'manual-upload' + manualUploadLinks[i]
+                'manual-upload?non-strategic=false' + manualUploadLinks[i]
             );
         }
     });
@@ -132,4 +132,31 @@ describe('Manual Upload Summary when classification mismatch', () => {
                 'the data contained within it and the consequences if this is published incorrectly.'
         );
     });
+});
+
+describe('Manual Upload Summary Page', () => {
+    beforeAll(async () => {
+        app.request['user'] = {roles: 'SYSTEM_ADMIN'};
+        app.request['cookies'] = {formCookie: JSON.stringify(mockData)};
+
+        await request(app)
+            .get(PAGE_URL + "?non-strategic=true")
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                htmlRes.getElementsByTagName('div')[0].remove();
+            });
+    });
+
+    it('should display correct summary keys and actions when non-strategic is true', async () => {
+        const keys = htmlRes.getElementsByClassName('govuk-summary-list__key');
+        const actions = htmlRes.getElementsByClassName('govuk-summary-list__actions');
+        for (let i = 0; i < summaryKeys.length; i++) {
+            expect(keys[i].innerHTML).to.contain(summaryKeys[i], `Unable to find ${summaryKeys[i]} summary key`);
+            expect(actions[i].getElementsByClassName('govuk-link')[0].innerHTML).to.contain('Change');
+            expect(actions[i].getElementsByClassName('govuk-link')[0].getAttribute('href')).to.equal(
+                'manual-upload?non-strategic=true' + manualUploadLinks[i]
+            );
+        }
+    });
+
 });
