@@ -307,6 +307,11 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.caseNameSearchResultsController.get
     );
+    app.post(
+        '/case-name-search-results',
+        isPermittedMedia,
+        app.locals.container.cradle.caseNameSearchResultsController.post
+    );
     app.get(
         '/case-reference-number-search',
         isPermittedMedia,
@@ -321,6 +326,11 @@ export default function (app: Application): void {
         '/case-reference-number-search-results',
         isPermittedMedia,
         app.locals.container.cradle.caseReferenceNumberSearchResultController.get
+    );
+    app.post(
+        '/case-reference-number-search-results',
+        isPermittedMedia,
+        app.locals.container.cradle.caseReferenceNumberSearchResultController.post
     );
     app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
     app.get(
@@ -340,6 +350,11 @@ export default function (app: Application): void {
     app.post('/location-name-search', isPermittedMedia, (req, res) =>
         app.locals.container.cradle.alphabeticalSearchController.post(req, res, 'location-name-search')
     );
+    app.post(
+        '/location-subscriptions-confirmation',
+        isPermittedMedia,
+        app.locals.container.cradle.alphabeticalSearchController.locationSubscriptionsConfirmation
+    );
     app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
     app.post(
         '/pending-subscriptions',
@@ -351,19 +366,45 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.pendingSubscriptionsController.removeSubscription
     );
+    app.get(
+        '/subscription-confirmation-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfirmationPreviewController.get
+    );
+    app.post(
+        '/subscription-confirmation-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfirmationPreviewController.post
+    );
+    app.get(
+        '/remove-pending-subscription',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfirmationPreviewController.removePendingSubscription
+    );
     app.get('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.get);
     app.post('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.post);
-    app.get('/subscription-confirmed', isPermittedMedia, reRenderView);
-    app.post(
-        '/subscription-confirmed',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfirmedController.post
-    );
     app.get(
         '/subscription-management',
         isPermittedMedia,
         app.locals.container.cradle.subscriptionManagementController.get
     );
+    app.get('/subscription-add-list', isPermittedMedia, app.locals.container.cradle.subscriptionAddListController.get);
+    app.post(
+        '/subscription-add-list',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListController.post
+    );
+    app.get(
+        '/subscription-add-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListLanguageController.get
+    );
+    app.post(
+        '/subscription-add-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListLanguageController.post
+    );
+    app.get('/subscription-confirmed', isPermittedMedia, reRenderView);
     app.get(
         '/subscription-configure-list',
         isPermittedMedia,
@@ -372,14 +413,34 @@ export default function (app: Application): void {
     app.post(
         '/subscription-configure-list',
         isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfigureListController.filterValues
+        app.locals.container.cradle.subscriptionConfigureListController.post
+    );
+    app.get(
+        '/subscription-configure-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListLanguageController.get
+    );
+    app.post(
+        '/subscription-configure-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListLanguageController.post
+    );
+    app.get(
+        '/subscription-configure-list-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListPreviewController.get
+    );
+    app.post(
+        '/subscription-configure-list-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListPreviewController.post
+    );
+    app.get(
+        '/remove-configure-list',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListPreviewController.removeConfigureList
     );
     app.get('/subscription-configure-list-confirmed', isPermittedMedia, reRenderView);
-    app.post(
-        '/subscription-configure-list-confirmed',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfigureListConfirmedController.post
-    );
     app.get('/unsubscribe-confirmation', isPermittedMedia, reRenderView);
     app.post(
         '/unsubscribe-confirmation',

@@ -18,7 +18,18 @@
   {% else %}
     {% set displayError = false %}
   {% endif %}
-  <h1 class="govuk-heading-l">{{ title }}</h1>
+  {% if pendingSubscriptions.courts | length > 0 %}
+    {% set nextPage = 'subscription-add-list' %}
+    {% set pageTitle = title_court_subscription  %}
+    {% set buttonText = buttonText_court_subscription %}
+    {% set formAction = 'get' %}
+  {% else %}
+    {% set nextPage = 'pending-subscriptions' %}
+    {% set pageTitle = title %}
+    {% set buttonText = buttonText %}
+    {% set formAction = 'post' %}
+  {% endif %}
+  <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
   {% if displayError %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-two-thirds">
@@ -39,7 +50,7 @@
       </div>
     </form>
   {% else %}
-    <form action="subscription-confirmed"  method="post">
+    <form action="{{ nextPage }}"  method="{{ formAction }}">
       {% if pendingSubscriptions.cases | length != 0 %}
         <table class="govuk-table govuk-!-width-one">
           <thead class="govuk-table__head">
