@@ -136,11 +136,11 @@ describe('Manual Upload Summary when classification mismatch', () => {
 
 describe('Manual Upload Summary Page', () => {
     beforeAll(async () => {
-        app.request['user'] = {roles: 'SYSTEM_ADMIN'};
-        app.request['cookies'] = {formCookie: JSON.stringify(mockData)};
+        app.request['user'] = { roles: 'SYSTEM_ADMIN' };
+        app.request['cookies'] = { formCookie: JSON.stringify(mockData) };
 
         await request(app)
-            .get(PAGE_URL + "?non-strategic=true")
+            .get(PAGE_URL + '?non-strategic=true')
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
@@ -158,5 +158,4 @@ describe('Manual Upload Summary Page', () => {
             );
         }
     });
-
 });
