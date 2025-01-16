@@ -1,0 +1,72 @@
+{
+    "A": {},
+    "B": {},
+    "C": {
+        "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST": {
+            "listFriendlyName": "Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu",
+            "checked": true
+        }
+    },
+    "D": {},
+    "E": {},
+    "F": {
+        "FAMILY_DAILY_CAUSE_LIST": {
+            "listFriendlyName": "Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Teulu",
+            "checked": true
+        }
+    },
+    "G": {},
+    "H": {},
+    "I": {},
+    "J": {},
+    "K": {},
+    "L": {},
+    "M": {},
+    "N": {},
+    "O": {
+        "OPA_PRESS_LIST": {
+            "listFriendlyName": "Online Plea and Allocation Press List",
+            "checked": true
+        },
+        "OPA_PUBLIC_LIST": {
+            "listFriendlyName": "Online Plea and Allocation Public List",
+            "checked": true
+        },
+        "OPA_RESULTS": {
+            "listFriendlyName": "Online Plea and Allocation Results",
+            "checked": true
+        }
+    },
+    "P": {},
+    "Q": {},
+    "R": {},
+    "S": {
+        "SJP_PRESS_LIST": {
+            "listFriendlyName": "Single Justice Procedure Press List (Full List)",
+            "checked": true
+        },
+        "SJP_DELTA_PRESS_LIST": {
+            "listFriendlyName": "Single Justice Procedure Press List (New Cases)",
+            "checked": true
+        },
+        "SJP_PRESS_REGISTER": {
+            "listFriendlyName": "Single Justice Procedure Press Register",
+            "checked": true
+        },
+        "SJP_PUBLIC_LIST": {
+            "listFriendlyName": "Single Justice Procedure Public List (Full List)",
+            "checked": true
+        },
+        "SJP_DELTA_PUBLIC_LIST": {
+            "listFriendlyName": "Single Justice Procedure Public List (New Cases)",
+            "checked": true
+        }
+    },
+    "T": {},
+    "U": {},
+    "V": {},
+    "W": {},
+    "X": {},
+    "Y": {},
+    "Z": {}
+}

@@ -14,4 +14,14 @@ describe('Case name search', () => {
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
+
+    describe('on POST', () => {
+        test('should redirect to pending subscription page', async () => {
+            await request(app)
+                .post('/pending-subscriptions')
+                .expect(res => {
+                    expect(res.status).to.equal(302);
+                });
+        });
+    });
 });

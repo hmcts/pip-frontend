@@ -62,6 +62,7 @@
                 "locationName": "Manchester Crown Court",
                 "dateAdded": "2022-08-01T01:10:10.111111",
                 "listTypes": ["SJP_PUBLIC_LIST"],
+                "listLanguage": ["ENGLISH"],
                 "locationId": 2
             },
             {
@@ -69,6 +70,7 @@
                 "locationName": "Aberdeen Tribunal Hearing Centre",
                 "dateAdded": "2022-08-01T01:10:10.111111",
                 "listTypes": ["SJP_PUBLIC_LIST"],
+                "listLanguage": ["ENGLISH"],
                 "locationId": 1
             },
             {
@@ -76,6 +78,7 @@
                 "locationName": "Barkingside Magistrates' Court",
                 "dateAdded": "2022-08-01T01:10:10.111111",
                 "listTypes": ["SJP_PUBLIC_LIST"],
+                "listLanguage": ["ENGLISH"],
                 "locationId": 3
             }
         ],
