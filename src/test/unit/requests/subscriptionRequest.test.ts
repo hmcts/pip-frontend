@@ -165,6 +165,26 @@ describe('bulkDeleteSubscriptions', () => {
     });
 });
 
+describe('add list type Location subscriptions for a user', () => {
+    it('should return true if call is successful', async () => {
+        subscriptionManagementStub.withArgs('/subscription/add-list-types').resolves({});
+        const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions('1', {});
+        expect(subscriptionAdded).toBe(true);
+    });
+
+    it('should return false for failure', async () => {
+        subscriptionManagementStub.withArgs('/subscription/add-list-types/null').rejects(errorMessage);
+        const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
+        expect(subscriptionAdded).toBe(false);
+    });
+
+    it('should return false for error response', async () => {
+        subscriptionManagementStub.withArgs('/subscription/add-list-types/null').rejects(errorResponse);
+        const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
+        expect(subscriptionAdded).toBe(false);
+    });
+});
+
 describe('configure list type Location subscriptions for a user', () => {
     it('should return true if call is successful', async () => {
         subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').resolves({});

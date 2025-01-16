@@ -275,6 +275,10 @@ tbody {
     padding: 0;
 }
 
+.location-list-type {
+    margin-left: 4em;
+}
+
 .table-column-court-number {
     width: 12%;
 }
@@ -558,6 +562,12 @@ nav {
 
 #radio-2-hint {
     padding-top: 8px;
+}
+
+.ignore-spaces {
+    margin-bottom: 0;
+    padding: 0;
+    border: none;
 }
 
 .word-break {

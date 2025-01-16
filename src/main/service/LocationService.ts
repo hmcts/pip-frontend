@@ -99,4 +99,16 @@ export class LocationService {
     public async deleteLocationById(locationId: number, userId: string): Promise<object> {
         return await locationRequest.deleteCourt(locationId, userId);
     }
+
+    public async findCourtsJurisdiction(locations): Promise<string[]> {
+        const courtJurisdictions = [];
+        for (const location of locations) {
+            const returnedLocation = await this.getLocationById(location['locationId']);
+            if (returnedLocation != null) {
+                returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+            }
+        }
+
+        return courtJurisdictions;
+    }
 }
