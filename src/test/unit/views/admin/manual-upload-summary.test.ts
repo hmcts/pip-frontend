@@ -134,7 +134,7 @@ describe('Manual Upload Summary when classification mismatch', () => {
     });
 });
 
-describe('Manual Upload Summary Page', () => {
+describe('Manual Upload Summary Page - Non Strategic', () => {
     beforeAll(async () => {
         app.request['user'] = { roles: 'SYSTEM_ADMIN' };
         app.request['cookies'] = { formCookie: JSON.stringify(mockData) };
