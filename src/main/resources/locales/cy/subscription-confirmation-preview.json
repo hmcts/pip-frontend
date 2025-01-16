@@ -1,0 +1,30 @@
+{
+    "title": "Cadarnhewch eich tanysgrifiadau e-bost",
+    "removeText": "Dileu",
+    "table": {
+        "header1": "Enw'r achos",
+        "header2": "Enw’r parti (partïon)",
+        "header3": "Cyfeirnod",
+        "header4": "Camau gweithredu"
+    },
+    "buttonText": "Cadarnhau tanysgrifiadau",
+    "addOther_link": "/subscription-add",
+    "addOther_text": "Ychwanegu tanysgrifiad e-bost arall",
+    "buttonAddText": "Ychwanegu tanysgrifiadau",
+    "error": {
+        "title": "Mae yna broblem",
+        "message": "Mae angen o leiaf un tanysgrifiad."
+    },
+    "english": "Saesneg",
+    "welsh": "Cymraeg",
+    "bothVersionSelected": "Cymraeg a Saesneg",
+    "backButton": "Yn ôl",
+    "courtTribunalName": "Enw’r llys neu’r tribiwnlys",
+    "listType": "Math o restr",
+    "version": "Fersiwn",
+    "buttonText_change": "Newid",
+    "noListTypeSelected_error": "Dewiswch fath o restr i barhau",
+    "selectListType_text": "Dewis Mathau o Restri",
+    "selectListType_link": "/subscription-add-list",
+    "listVersion_information": "Bydd y newid fersiwn hwn yn effeithio ar yr iaith a ddewiswyd yn flaenorol ar gyfer yr holl tanysgrifiadau presennol."
+}
