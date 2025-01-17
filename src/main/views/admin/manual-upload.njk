@@ -198,12 +198,14 @@
             {% set displayToError = 'govuk-input--error' if errors.formErrors.displayDateError.to else '' %}
             {% set displayFormGroupError = 'govuk-form-group--error' if errors.formErrors.displayDateError else 'govuk-form-group' %}
             {% set displayErrorMessage = errors.formErrors.displayDateError.from or errors.formErrors.displayDateError.to or errors.formErrors.displayDateError.range%}
+            {% set displayFromErrorMessage = errors.formErrors.displayDateError.from or errors.formErrors.displayDateError.range%}
+            {% set displayToErrorMessage = errors.formErrors.displayDateError.to or errors.formErrors.displayDateError.range%}
 
-            <div class="{{ displayFormGroupError }}">
+              <div class="{{ displayFormGroupError }}">
               <fieldset class="govuk-fieldset" role="group" aria-describedby="display-date-from">
                 <legend class="govuk-fieldset__legend">{{ form.displayDateFrom }}</legend>
                 {% if errors.formErrors.displayDateError %}
-                  <span class="govuk-error-message">{{ displayErrorMessage }}</span>
+                  <span class="govuk-error-message">{{ displayFromErrorMessage }}</span>
                 {% endif %}
                 <div id="display-date-hint" class="govuk-hint">
                   {{ form.displayDateFromHint }}
@@ -235,7 +237,7 @@
               <fieldset class="govuk-fieldset govuk-!-margin-top-6" role="group" aria-describedby="display-date-to">
                 <legend class="govuk-fieldset__legend">{{ form.displayDateTo }}</legend>
                 {% if errors.formErrors.displayDateError %}
-                  <span class="govuk-error-message">{{ displayErrorMessage }}</span>
+                  <span class="govuk-error-message">{{ displayToErrorMessage }}</span>
                 {% endif %}
                 <div id="display-date-to-hint" class="govuk-hint">
                   {{ form.displayDateToHint }}
