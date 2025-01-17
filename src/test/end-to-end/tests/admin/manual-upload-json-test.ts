@@ -124,10 +124,10 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.clearField('#display-date-from-day');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid hearing start date');
+    I.waitForText('Please enter a valid display file from date');
     I.fillField('#display-date-from-day', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid hearing start date');
+    I.waitForText('Please enter a valid display file from date');
 
     I.fillField('#display-date-from-day', padFormatted(date.getDate()));
     I.clearField('#display-date-from-month');
@@ -151,7 +151,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.clearField('#display-date-to-day');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid display file from date');
+    I.waitForText('Please enter a valid display file to date');
     I.fillField('#display-date-to-day', '123456');
     I.click('Continue');
     I.waitForText('Please enter a valid display file to date');
