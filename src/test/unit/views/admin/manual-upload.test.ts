@@ -60,6 +60,7 @@ describe('Manual upload page', () => {
         beforeAll(async () => {
             await request(app)
                 .get(PAGE_URL)
+                .set('Cookie', ['formCookie={"listType":"SJP_PUBLIC_LIST"}'])
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
@@ -96,6 +97,11 @@ describe('Manual upload page', () => {
         it('sub list should contain a standard list type', () => {
             const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
             expect(listType.innerHTML).contains(standardListType, 'Could not find standard list type');
+        });
+
+        it('sub list should have list type selected', () => {
+            const optionElement = formElements.querySelector("option[value='SJP_PUBLIC_LIST']");
+            expect(optionElement.getAttribute('selected')).to.not.be.null;
         });
 
         it('should display content date question', () => {
@@ -196,6 +202,7 @@ describe('Manual upload page', () => {
         beforeAll(async () => {
             await request(app)
                 .get(PAGE_URL + '?non-strategic=true')
+                .set('Cookie', ['formCookie={"listType":"SJP_PUBLIC_LIST"}'])
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
@@ -230,6 +237,11 @@ describe('Manual upload page', () => {
         it('should display sub list type question', () => {
             const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
             expect(listType.innerHTML).contains(expectedListType, 'Could not find inset list type');
+        });
+
+        it('sub list should have empty selected', () => {
+            const optionElement = formElements.querySelector("option[value='EMPTY']");
+            expect(optionElement.getAttribute('selected')).to.not.be.null;
         });
 
         it('should display the warning banner', () => {
@@ -274,6 +286,11 @@ describe('Manual upload page', () => {
                 'File too large, please upload file smaller than 2MB',
                 'Could not find file error'
             );
+        });
+
+        it('sub list should have list type selected', () => {
+            const optionElement = formElements.querySelector("option[value='SJP_PUBLIC_LIST']");
+            expect(optionElement.getAttribute('selected')).to.not.be.null;
         });
 
         it('should display court error', () => {

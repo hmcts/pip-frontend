@@ -246,7 +246,6 @@
     {% endfor %}
 
     {% set defaultValue = formData['input-autocomplete'] if formData['input-autocomplete'] else '' %}
-    {% set populatedListType = formData['listType'] if formData['listType'] else 'EMPTY' %}
     {% set populatedContentDateFromDay = formData['content-date-from-day'] if formData['content-date-from-day'] else '' %}
     {% set populatedContentDateFromMonth = formData['content-date-from-month'] if formData['content-date-from-month'] else '' %}
     {% set populatedContentDateFromYear = formData['content-date-from-year'] if formData['content-date-from-year'] else '' %}
@@ -259,7 +258,6 @@
     {% set populatedDisplayDateToMonth = formData['display-date-to-month'] if formData['display-date-to-month'] else '' %}
     {% set populatedDisplayDateToYear = formData['display-date-to-year'] if formData['display-date-to-year'] else '' %}
 
-    document.getElementById('listType').value = {{ populatedListType | dump | safe }};
     document.getElementById('content-date-from-day').value = {{ populatedContentDateFromDay | dump | safe }};
     document.getElementById('content-date-from-month').value = {{ populatedContentDateFromMonth  | dump | safe }};
     document.getElementById('content-date-from-year').value = {{ populatedContentDateFromYear  | dump | safe }};

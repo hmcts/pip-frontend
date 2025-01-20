@@ -16,10 +16,14 @@ const publicationService = new PublicationService();
 const timeZone = 'Europe/London';
 
 export class ManualUploadService {
-    public async buildFormData(language: string, isNonStrategic: boolean): Promise<object> {
+    public async buildFormData(
+        language: string,
+        isNonStrategic: boolean,
+        selectedListType: string | undefined
+    ): Promise<object> {
         return {
             courtList: await courtService.fetchAllLocations(language),
-            listSubtypes: this.getListSubtypes(isNonStrategic),
+            listSubtypes: this.getListSubtypes(isNonStrategic, selectedListType),
         };
     }
 
@@ -41,14 +45,20 @@ export class ManualUploadService {
         return formattedList;
     }
 
-    private getListSubtypes(isNonStrategic: boolean): Array<object> {
+    private getListSubtypes(isNonStrategic: boolean, selectedListType: string | undefined): Array<object> {
         const jsonArray = [] as Array<object>;
+        let isEmptySelected = true;
         publicationService.getListTypes().forEach((value, key) => {
             if (value.isNonStrategic == isNonStrategic) {
-                jsonArray.push({ value: key, text: value.shortenedFriendlyName });
+                if (selectedListType === key) {
+                    isEmptySelected = false;
+                    jsonArray.push({ value: key, text: value.shortenedFriendlyName, selected: true });
+                } else {
+                    jsonArray.push({ value: key, text: value.shortenedFriendlyName, selected: false });
+                }
             }
         });
-        jsonArray.push({ value: 'EMPTY', text: '<Please choose a list type>' });
+        jsonArray.push({ value: 'EMPTY', text: '<Please choose a list type>', selected: isEmptySelected });
         jsonArray.sort((a, b) => (a['text'].toUpperCase() > b['text'].toUpperCase() ? 1 : -1));
 
         return jsonArray;
