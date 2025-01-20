@@ -27,6 +27,8 @@ const expectedDisplayDateTo = 'Display file to';
 const expectedClassification = 'Sensitivity';
 const expectedLanguage = 'Language';
 const buttonText = 'Continue';
+const standardListType = 'SJP_PUBLIC_LIST';
+const nonStrategicListType = 'WPAFCC_WEEKLY_HEARING_LIST';
 
 let htmlRes: Document;
 let formElements: HTMLElement;
@@ -36,7 +38,6 @@ const courtData = JSON.parse(rawData);
 const mockBodyData = {
     'input-autocomplete': '',
     listType: 'SJP_PUBLIC_LIST',
-    judgementType: 'SJP_MEDIA_REGISTER',
     'content-date-from-day': '',
     'content-date-from-month': '',
     'content-date-from-year': '',
@@ -89,7 +90,12 @@ describe('Manual upload page', () => {
 
         it('should display sub list type question', () => {
             const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
-            expect(listType.innerHTML).contains(expectedListType, 'Could not find inset list type');
+            expect(listType.innerHTML).contains(expectedListType, 'Could not find list type question');
+        });
+
+        it('sub list should contain a standard list type', () => {
+            const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
+            expect(listType.innerHTML).contains(standardListType, 'Could not find standard list type');
         });
 
         it('should display content date question', () => {
@@ -104,12 +110,12 @@ describe('Manual upload page', () => {
         });
 
         it('should display classification question', () => {
-            const classification = formElements.getElementsByClassName(formGroupClass)[8];
+            const classification = formElements.getElementsByClassName(formGroupClass)[7];
             expect(classification.innerHTML).contains(expectedClassification, 'Could not find classification question');
         });
 
         it('should display language question', () => {
-            const language = formElements.getElementsByClassName(formGroupClass)[9];
+            const language = formElements.getElementsByClassName(formGroupClass)[8];
             expect(language.innerHTML).contains(expectedLanguage, 'Could not find language question');
         });
 
@@ -238,6 +244,11 @@ describe('Manual upload page', () => {
                     'e.g. redaction of personal data has been done during the production of this file.',
                 'Could not find warning text'
             );
+        });
+
+        it('sub list should contain a non-strategic list type', () => {
+            const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
+            expect(listType.innerHTML).contains(nonStrategicListType, 'Could not find non-strategic list type');
         });
     });
 

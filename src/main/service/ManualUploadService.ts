@@ -16,11 +16,10 @@ const publicationService = new PublicationService();
 const timeZone = 'Europe/London';
 
 export class ManualUploadService {
-    public async buildFormData(language: string): Promise<object> {
+    public async buildFormData(language: string, isNonStrategic: boolean): Promise<object> {
         return {
             courtList: await courtService.fetchAllLocations(language),
-            listSubtypes: this.getListSubtypes(),
-            judgementsOutcomesSubtypes: this.getJudgementOutcomesSubtypes(),
+            listSubtypes: this.getListSubtypes(isNonStrategic),
         };
     }
 
@@ -42,10 +41,12 @@ export class ManualUploadService {
         return formattedList;
     }
 
-    private getListSubtypes(): Array<object> {
+    private getListSubtypes(isNonStrategic: boolean): Array<object> {
         const jsonArray = [] as Array<object>;
         publicationService.getListTypes().forEach((value, key) => {
-            jsonArray.push({ value: key, text: value.shortenedFriendlyName });
+            if (value.isNonStrategic == isNonStrategic) {
+                jsonArray.push({ value: key, text: value.shortenedFriendlyName });
+            }
         });
         jsonArray.push({ value: 'EMPTY', text: '<Please choose a list type>' });
         jsonArray.sort((a, b) => (a['text'].toUpperCase() > b['text'].toUpperCase() ? 1 : -1));
@@ -85,10 +86,6 @@ export class ManualUploadService {
         });
 
         return listTypeMapping;
-    }
-
-    private getJudgementOutcomesSubtypes(): Array<object> {
-        return [{ text: 'SJP Media Register', value: 'SJP_MEDIA_REGISTER' }];
     }
 
     public async validateFormFields(formValues: object, language: string, languageFile: string): Promise<object> {
