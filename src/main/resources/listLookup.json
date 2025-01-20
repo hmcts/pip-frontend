@@ -360,7 +360,7 @@
     "SIAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Special Immigration Appeals Commission Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mewnfudo Arbennig",
-        "shortenedFriendlyName": "SIAC Daily Hearing List",
+        "shortenedFriendlyName": "SIAC Weekly Hearing List",
         "url": "siac-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
@@ -372,7 +372,7 @@
     "POAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Proscribed Organisations Appeal Commission Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Sefydliadau Gwaharddedig",
-        "shortenedFriendlyName": "POAC Daily Hearing List ",
+        "shortenedFriendlyName": "POAC Weekly Hearing List ",
         "url": "poac-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
@@ -384,7 +384,7 @@
     "PAAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Pathogens Access Appeal Commission Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mynediad Pathogenau",
-        "shortenedFriendlyName": "PAAC Daily Hearing List ",
+        "shortenedFriendlyName": "PAAC Weekly Hearing List ",
         "url": "paac-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
