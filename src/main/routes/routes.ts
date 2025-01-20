@@ -250,14 +250,14 @@ export default function (app: Application): void {
         )
     );
 
-    app.get('/ut-t-and-cc-weekly-hearing-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-t-and-cc-weekly-hearing-list')
+    app.get('/ut-t-and-cc-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-t-and-cc-daily-hearing-list')
     );
-    app.get('/ut-lc-weekly-hearing-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-lc-weekly-hearing-list')
+    app.get('/ut-lc-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-lc-daily-hearing-list')
     );
-    app.get('/ut-aac-weekly-hearing-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-aac-weekly-hearing-list')
+    app.get('/ut-aac-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-aac-daily-hearing-list')
     );
     app.get('/grc-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'grc-weekly-hearing-list')

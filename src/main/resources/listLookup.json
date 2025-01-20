@@ -433,31 +433,31 @@
         "defaultSensitivity": "",
         "parentPage": "fft-rpt-weekly-hearing-list"
     },
-    "UT_T_AND_CC_WEEKLY_HEARING_LIST": {
+    "UT_T_AND_CC_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Uwch Dribiwnlys (Siambr Treth a Siawnsri)",
         "shortenedFriendlyName": "UT (T and CC) Daily Hearing List",
-        "url": "ut-t-and-cc-weekly-hearing-list",
+        "url": "ut-t-and-cc-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
-    "UT_LC_WEEKLY_HEARING_LIST": {
+    "UT_LC_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Lands Chamber) Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Uwch Dribiwnlys (Siambr Tiroedd)",
         "shortenedFriendlyName": "UT (LC) Daily Hearing List",
-        "url": "ut-lc-weekly-hearing-list",
+        "url": "ut-lc-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": ""
     },
-    "UT_AAC_WEEKLY_HEARING_LIST": {
+    "UT_AAC_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Uwch Dribiwnlys (Siambr Apeliadau Gweinyddol)",
         "shortenedFriendlyName": "UT (AAC) Daily Hearing List",
-        "url": "ut-aac-weekly-hearing-list",
+        "url": "ut-aac-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
