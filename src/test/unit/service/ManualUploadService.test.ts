@@ -93,10 +93,14 @@ describe('Manual upload service', () => {
                 value: 'EMPTY',
             });
 
-            expect(data['listSubtypes']).to.deep.include(
-                {'value': 'SJP_PUBLIC_LIST', 'text': 'SJP Public List (Full list)'});
-            expect(data['listSubtypes']).to.not.deep.include(
-                {"text": "CST Weekly Hearing list", "value": "CST_WEEKLY_HEARING_LIST"});
+            expect(data['listSubtypes']).to.deep.include({
+                value: 'SJP_PUBLIC_LIST',
+                text: 'SJP Public List (Full list)',
+            });
+            expect(data['listSubtypes']).to.not.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+            });
         });
 
         it('should build form data list subtypes when non-strategic', async () => {
@@ -107,11 +111,14 @@ describe('Manual upload service', () => {
                 value: 'EMPTY',
             });
 
-            expect(data['listSubtypes']).to.deep.include(
-                {"text": "CST Weekly Hearing list", "value": "CST_WEEKLY_HEARING_LIST"});
-            expect(data['listSubtypes']).to.not.deep.include(
-                {'value': 'SJP_PUBLIC_LIST', 'text': 'SJP Public List (Full list)'});
-
+            expect(data['listSubtypes']).to.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+            });
+            expect(data['listSubtypes']).to.not.deep.include({
+                value: 'SJP_PUBLIC_LIST',
+                text: 'SJP Public List (Full list)',
+            });
         });
     });
 

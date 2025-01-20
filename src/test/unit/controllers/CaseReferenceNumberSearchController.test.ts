@@ -11,8 +11,7 @@ const caseUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn')
 const validCaseNo = '56-181-2097';
 const validCaseUrn = '123456';
 
-const subscriptionCaseResult = { caseName: 'name', caseNumber: '1234',
-    caseUrn: "12345", partyNames: 'name1' };
+const subscriptionCaseResult = { caseName: 'name', caseNumber: '1234', caseUrn: '12345', partyNames: 'name1' };
 
 describe('Case Reference Number Search Controller', () => {
     let i18n = {};

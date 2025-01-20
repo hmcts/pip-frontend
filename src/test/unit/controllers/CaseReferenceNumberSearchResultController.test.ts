@@ -12,8 +12,7 @@ const caseUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn')
 const validCaseNo = '56-181-2097';
 const validCaseUrn = '123456';
 
-const subscriptionsCaseData = { caseName: 'name', caseNumber: '1234',
-    caseUrn: "12345", partyNames: 'name1' };
+const subscriptionsCaseData = { caseName: 'name', caseNumber: '1234', caseUrn: '12345', partyNames: 'name1' };
 
 caseNumberStub.withArgs(validCaseNo).returns(subscriptionsCaseData);
 caseUrnStub.withArgs(validCaseUrn).returns(subscriptionsCaseData);
