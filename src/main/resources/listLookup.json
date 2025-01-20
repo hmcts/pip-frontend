@@ -361,7 +361,7 @@
     "FTT_TAX_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Tax Chamber) Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol Tribiwnlys Haen Gyntaf (Siambr Treth)",
-        "shortenedFriendlyName": "FFT Tax Weekly Hearing List",
+        "shortenedFriendlyName": "FTT Tax Weekly Hearing List",
         "url": "ftt-tax-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
@@ -371,7 +371,7 @@
     "FTT_LR_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Lands Registration Tribunal) Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol Tribiwnlys Haen Gyntaf (Tribiwnlys Cofrestru Tir)",
-        "shortenedFriendlyName": "FFT (LR) Weekly Hearing List",
+        "shortenedFriendlyName": "FTT (LR) Weekly Hearing List",
         "url": "ftt-lr-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
