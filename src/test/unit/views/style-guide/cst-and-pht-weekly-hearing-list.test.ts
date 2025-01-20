@@ -47,7 +47,7 @@ describe('CST and PHT Weekly Hearing List Page', () => {
 
         it('should display list for text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[4].innerHTML).contains('List for 14 February 2022');
+            expect(text[4].innerHTML).contains('List for week commencing 14 February 2022');
         });
 
         it('should display contact information text', () => {

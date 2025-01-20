@@ -40,7 +40,7 @@ describe('GRC Weekly Hearing List page', () => {
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).contains('List for 14 February 2022');
+        expect(text[4].innerHTML).contains('List for week commencing 14 February 2022');
     });
 
     it('should display join hearing message', () => {
