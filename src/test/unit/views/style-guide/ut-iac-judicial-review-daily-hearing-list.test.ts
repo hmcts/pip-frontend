@@ -26,13 +26,12 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
 
     describe('UTIAC (JR) - London Daily Hearing List page', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/ut-iac-jr-london-daily-hearing-list?artefactId=abc'
+        const PAGE_URL = '/ut-iac-jr-london-daily-hearing-list?artefactId=abc';
 
         const metaData = JSON.parse(rawMetaData)[0];
         metaData.listType = 'UT_IAC_JR_LONDON_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('abc').returns(metaData);
-
 
         beforeAll(async () => {
             await request(app)
@@ -159,7 +158,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
 
     describe('UTIAC (JR) - Manchester Daily Hearing List page', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/ut-iac-jr-manchester-daily-hearing-list?artefactId=def'
+        const PAGE_URL = '/ut-iac-jr-manchester-daily-hearing-list?artefactId=def';
 
         const metaData = JSON.parse(rawMetaData)[0];
         metaData.listType = 'UT_IAC_JR_MANCHESTER_DAILY_HEARING_LIST';
@@ -185,7 +184,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
 
     describe('UTIAC (JR) - Birmingham Daily Hearing List page', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/ut-iac-jr-birmingham-daily-hearing-list?artefactId=ghi'
+        const PAGE_URL = '/ut-iac-jr-birmingham-daily-hearing-list?artefactId=ghi';
 
         const metaData = JSON.parse(rawMetaData)[0];
         metaData.listType = 'UT_IAC_JR_BIRMINGHAM_DAILY_HEARING_LIST';
@@ -211,7 +210,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
 
     describe('UTIAC (JR) - Cardiff Daily Hearing List page', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/ut-iac-jr-cardiff-daily-hearing-list?artefactId=mno'
+        const PAGE_URL = '/ut-iac-jr-cardiff-daily-hearing-list?artefactId=mno';
 
         const metaData = JSON.parse(rawMetaData)[0];
         metaData.listType = 'UT_IAC_JR_CARDIFF_DAILY_HEARING_LIST';
