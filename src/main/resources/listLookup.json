@@ -303,16 +303,49 @@
         "defaultSensitivity": "",
         "parentPage": ""
     },
-    "UT_IAC_JUDICIAL_REVIEW_DAILY_HEARING_LIST": {
-        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily Hearing List",
+    "UT_IAC_JR_LONDON_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily hearing List",
         "welshFriendlyName": "",
-        "shortenedFriendlyName": "UT IAC Judicial Review Daily Hearing List",
-        "url": "ut-iac-judicial-review-daily-hearing-list",
+        "shortenedFriendlyName": "UTIAC (JR) - London Daily Hearing List",
+        "url": "ut-iac-jr-london-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": ""
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list"
+    },
+    "UT_IAC_JR_MANCHESTER_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Manchester  Daily hearing List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "UTIAC (JR) - Manchester Daily Hearing List",
+        "url": "ut-iac-jr-manchester-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list"
+    },
+    "UT_IAC_JR_BIRMINGHAM_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Birmingham  Daily hearing List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "UTIAC (JR) - Birmingham Daily Hearing List",
+        "url": "ut-iac-jr-birmingham-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list"
+    },
+    "UT_IAC_JR_CARDIFF_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Cardiff  Daily hearing List",
+        "welshFriendlyName": "",
+        "shortenedFriendlyName": "UTIAC (JR) - Cardiff Daily Hearing List",
+        "url": "ut-iac-jr-cardiff-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list"
     },
     "UT_IAC_STATUTORY_APPEALS_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Statutory Daily Hearing List",
