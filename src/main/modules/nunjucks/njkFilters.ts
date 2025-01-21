@@ -41,14 +41,14 @@ export function createFilters(env) {
     env.addFilter('listType', function (listType, language) {
         const listLookupValue =  listTypes.get(listType);
         if (listLookupValue) {
-            if (language == 'en') {
-                return listLookupValue?.['isWeeklyList']
-                    ? listLookupValue.friendlyName + ' for week commencing'
-                    : listLookupValue.friendlyName;
-            } else {
+            if (language == 'cy') {
                 return listLookupValue?.['isWeeklyList']
                     ? listLookupValue.welshFriendlyName + ' ar gyfer yr wythnos yn dechrau ar'
                     : listLookupValue.welshFriendlyName;
+            } else {
+                return listLookupValue?.['isWeeklyList']
+                    ? listLookupValue.friendlyName + ' for week commencing'
+                    : listLookupValue.friendlyName;
             }
         }
         return '';
