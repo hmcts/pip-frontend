@@ -103,6 +103,7 @@ export class ManualUploadService {
         const fields = {
             courtError: await this.validateCourt(formValues['input-autocomplete'], language, languageFile),
             contentDateError: this.validateDate(
+                'contentDate',
                 this.buildDate(formValues, 'content-date-from'),
                 language,
                 languageFile
@@ -143,37 +144,26 @@ export class ManualUploadService {
     }
 
     public buildDate(body: object, fieldsetPrefix: string): string {
+        const concatenatedDate = body[`${fieldsetPrefix}-day`]?.concat(
+            '/',
+            body[`${fieldsetPrefix}-month`],
+            '/',
+            body[`${fieldsetPrefix}-year`]
+        );
+
         if (fieldsetPrefix === 'display-date-to') {
-            return body[`${fieldsetPrefix}-day`]?.concat(
-                '/',
-                body[`${fieldsetPrefix}-month`],
-                '/',
-                body[`${fieldsetPrefix}-year`],
-                ' 23:59:59'
-            );
+            return concatenatedDate?.concat(' 23:59:59');
         } else if (fieldsetPrefix === 'display-date-from') {
-            return body[`${fieldsetPrefix}-day`]?.concat(
-                '/',
-                body[`${fieldsetPrefix}-month`],
-                '/',
-                body[`${fieldsetPrefix}-year`],
-                ' 00:00:01'
-            );
+            return concatenatedDate?.concat(' 00:00:01');
         } else {
-            return body[`${fieldsetPrefix}-day`]?.concat(
-                '/',
-                body[`${fieldsetPrefix}-month`],
-                '/',
-                body[`${fieldsetPrefix}-year`],
-                ' 00:00:00'
-            );
+            return concatenatedDate?.concat(' 00:00:00');
         }
     }
 
     private validateDates(dateFrom: string, dateTo: string, language: string, languageFile: string): object {
         const dates = {
-            from: this.validateDate(dateFrom, language, languageFile),
-            to: this.validateDate(dateTo, language, languageFile),
+            from: this.validateDate('displayFrom', dateFrom, language, languageFile),
+            to: this.validateDate('displayTo', dateTo, language, languageFile),
             range: this.validateDateRange(dateFrom, dateTo, language, languageFile),
         };
         if (!dates.from && !dates.to && !dates.range) {
@@ -182,7 +172,7 @@ export class ManualUploadService {
         return dates;
     }
 
-    private validateDate(date: string, language: string, languageFile: string): string {
+    private validateDate(field, date: string, language: string, languageFile: string): string {
         if (date != null) {
             const dateformat = DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss');
             if (dateformat.isValid) {
@@ -190,14 +180,14 @@ export class ManualUploadService {
             }
         }
         const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
-        return languageFileParser.getText(fileJson, 'dateErrors', 'blank');
+        return languageFileParser.getText(fileJson['dateErrors'], 'blank', field);
     }
 
     private validateDateRange(dateFrom: string, dateTo: string, language: string, languageFile: string): string | null {
         if (dateFrom != null && dateTo != null) {
             const firstDate = DateTime.fromFormat(dateFrom, 'dd/MM/yyyy HH:mm:ss');
             const secondDate = DateTime.fromFormat(dateTo, 'dd/MM/yyyy HH:mm:ss');
-            if (firstDate.startOf('day') <= secondDate.startOf('day')) {
+            if (!firstDate.isValid || !secondDate.isValid || firstDate.startOf('day') <= secondDate.startOf('day')) {
                 return null;
             }
         }

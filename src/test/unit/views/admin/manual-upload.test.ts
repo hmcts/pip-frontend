@@ -132,7 +132,7 @@ describe('Manual upload page', () => {
         });
 
         it('should display page help heading', () => {
-            const heading = htmlRes.getElementsByTagName('h2')[0];
+            const heading = htmlRes.getElementsByTagName('h2')[1];
             expect(heading.innerHTML).contains('Page Help', 'Could not find page help heading');
         });
 
@@ -173,8 +173,8 @@ describe('Manual upload page', () => {
 
         it('should display the warning banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
-            const warningHeader = htmlRes.getElementsByTagName('h1')[0];
-            const warningText = htmlRes.getElementsByTagName('p')[1];
+            const warningHeader = htmlRes.getElementsByTagName('h2')[0];
+            const warningText = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
 
             expect(banner).to.exist;
             expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
@@ -228,8 +228,8 @@ describe('Manual upload page', () => {
 
         it('should display the warning banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
-            const warningHeader = htmlRes.getElementsByTagName('h1')[0];
-            const warningText = htmlRes.getElementsByTagName('p')[1];
+            const warningHeader = htmlRes.getElementsByTagName('h2')[0];
+            const warningText = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
 
             expect(banner).to.exist;
             expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
@@ -259,41 +259,81 @@ describe('Manual upload page', () => {
 
         it('should display file too large error', () => {
             const fileError = htmlRes.getElementById('manual-file-upload-error');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(fileError.innerHTML).contains(
                 'File too large, please upload file smaller than 2MB',
                 'Could not find file error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'File too large, please upload file smaller than 2MB',
+                'Error summary list does not match'
             );
         });
 
         it('should display court error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[1].innerHTML).contains(
                 'Court name must be three characters or more',
                 'Could not find court error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Court name must be three characters or more',
+                'Error summary list does not match'
             );
         });
 
         it('should display hearing date error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[2].innerHTML).contains(
-                'Please enter a valid date',
+                'Please enter a valid hearing start date',
                 'Could not find hearing date error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Please enter a valid hearing start date',
+                'Error summary list does not match'
             );
         });
 
         it('should display sensitivity error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[3].innerHTML).contains(
                 'Please select a sensitivity',
                 'Could not find sensitivity error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Please select a sensitivity',
+                'Error summary list does not match'
             );
         });
 
         it('should display file from date error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[4].innerHTML).contains(
-                'Please enter a valid date',
+                'Please enter a valid display file from date',
                 'Could not find display file date error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Please enter a valid display file from date',
+                'Error summary list does not match'
             );
         });
     });
