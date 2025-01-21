@@ -97,82 +97,82 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.clearField('#content-date-from-day');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid hearing start date');
     I.fillField('#content-date-from-day', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid hearing start date');
 
     I.fillField('#content-date-from-day', padFormatted(date.getDate()));
     I.clearField('#content-date-from-month');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid hearing start date');
     I.fillField('#content-date-from-month', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid hearing start date');
 
     I.fillField('#content-date-from-month', padFormatted(date.getMonth() + 1));
     I.clearField('#content-date-from-year');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid hearing start date');
     I.fillField('#content-date-from-year', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid hearing start date');
 
     I.fillField('#content-date-from-year', date.getFullYear());
     I.clearField('#display-date-from-day');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file from date');
     I.fillField('#display-date-from-day', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file from date');
 
     I.fillField('#display-date-from-day', padFormatted(date.getDate()));
     I.clearField('#display-date-from-month');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file from date');
     I.fillField('#display-date-from-month', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file from date');
 
     I.fillField('#display-date-from-month', padFormatted(date.getMonth() + 1));
     I.clearField('#display-date-from-year');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file from date');
     I.fillField('#display-date-from-year', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file from date');
 
     I.fillField('#display-date-from-year', date.getFullYear());
     I.clearField('#display-date-to-day');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file to date');
     I.fillField('#display-date-to-day', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file to date');
 
     I.fillField('#display-date-to-day', padFormatted(dayAfter.getDate()));
     I.clearField('#display-date-to-month');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file to date');
     I.fillField('#display-date-to-month', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file to date');
 
     I.fillField('#display-date-to-month', padFormatted(dayAfter.getMonth() + 1));
     I.clearField('#display-date-to-year');
     I.pressKey('Backspace');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file to date');
     I.fillField('#display-date-to-year', '123456');
     I.click('Continue');
-    I.waitForText('Please enter a valid date');
+    I.waitForText('Please enter a valid display file to date');
 
     I.fillField('#display-date-from-day', padFormatted(dayAfter.getDate()));
     I.fillField('#display-date-from-month', padFormatted(dayAfter.getMonth() + 1));
