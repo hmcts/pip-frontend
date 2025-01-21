@@ -228,8 +228,8 @@ describe('Manual upload page', () => {
 
         it('should display the warning banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
-            const warningHeader = htmlRes.getElementsByTagName('h1')[0];
-            const warningText = htmlRes.getElementsByTagName('p')[1];
+            const warningHeader = htmlRes.getElementsByTagName('h2')[0];
+            const warningText = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
 
             expect(banner).to.exist;
             expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
