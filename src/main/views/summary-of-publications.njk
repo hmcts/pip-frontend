@@ -31,11 +31,11 @@
         <li class="govuk-body govuk-!-font-size-16">
           {% if item.isFlatFile %}
             <a class=das-search-results__link target=”_blank” href="file-publication?artefactId={{ item.artefactId }}">
-              {{ item.listType | listType }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
+              {{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
             {{ newWindow }}
           {% else %}
             <a class=das-search-results__link
-               href="{{ item.listType | listUrl }}?artefactId={{ item.artefactId }}">{{ item.listType | listType }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
+               href="{{ item.listType | listUrl }}?artefactId={{ item.artefactId }}">{{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
           {% endif %}
         </li>
       {% endfor %}

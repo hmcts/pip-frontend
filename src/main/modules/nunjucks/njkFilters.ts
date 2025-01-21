@@ -38,8 +38,20 @@ export function createFilters(env) {
     }
 
     // to get the pretty list type name
-    env.addFilter('listType', function (x) {
-        return listTypes.get(x)?.friendlyName;
+    env.addFilter('listType', function (listType, language) {
+        const listLookupValue =  listTypes.get(listType);
+        if (listLookupValue) {
+            if (language == 'en') {
+                return listLookupValue?.['isWeeklyList']
+                    ? listLookupValue.friendlyName + ' for week commencing'
+                    : listLookupValue.friendlyName;
+            } else {
+                return listLookupValue?.['isWeeklyList']
+                    ? listLookupValue.welshFriendlyName + ' ar gyfer yr wythnos yn dechrau ar'
+                    : listLookupValue.welshFriendlyName;
+            }
+        }
+        return '';
     });
 
     // to get the list type url

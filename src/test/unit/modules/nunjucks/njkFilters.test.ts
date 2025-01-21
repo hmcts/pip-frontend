@@ -32,6 +32,36 @@ describe('Nunjucks Custom Filter Tests', function () {
         });
     });
 
+    describe('List type filter', function () {
+        it('should return daily list type friendly name in English', function () {
+            const languageString = env.renderString('{{ "CIVIL_DAILY_CAUSE_LIST" | listType(lng) }}', {
+                lng: 'en',
+            });
+            expect(languageString).to.equal('Civil Daily Cause List');
+        });
+
+        it('should return daily list type friendly name in Welsh', function () {
+            const languageString = env.renderString('{{ "CIVIL_DAILY_CAUSE_LIST" | listType(lng) }}', {
+                lng: 'cy',
+            });
+            expect(languageString).to.equal('Rhestr Achosion Dyddiol y Llys Sifil');
+        });
+
+        it('should return weekly list type friendly name in English', function () {
+            const languageString = env.renderString('{{ "CST_WEEKLY_HEARING_LIST" | listType(lng) }}', {
+                lng: 'en',
+            });
+            expect(languageString).to.equal('Care Standards Tribunal Weekly Hearing List for week commencing');
+        });
+
+        it('should return weekly list type friendly name in Welsh', function () {
+            const languageString = env.renderString('{{ "CST_WEEKLY_HEARING_LIST" | listType(lng) }}', {
+                lng: 'cy',
+            });
+            expect(languageString).to.equal('Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal ar gyfer yr wythnos yn dechrau ar');
+        });
+    });
+
     describe('Language Filter', function () {
         it('should return the pretty version of language - english', function () {
             const languageString = env.renderString('{{ "ENGLISH"|language }}', {});
