@@ -112,5 +112,13 @@ describe('Accessibility - Admin Routes', () => {
                 testAccessibility(url, '', true, { 'input-autocomplete': '' });
             });
         });
+
+        describe('Remove List Search Results Page', () => {
+            const url = '/remove-list-search-results';
+
+            describe('with no checkbox selected', () => {
+                testAccessibility(url, '', true, { locationId: '123' });
+            });
+        });
     });
 });
