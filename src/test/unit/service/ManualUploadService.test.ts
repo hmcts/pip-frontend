@@ -308,7 +308,7 @@ describe('Manual upload service', () => {
             formValues['content-date-from-month'] = '1';
             formValues['content-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
-            expect(errors['contentDateError']).to.equal('Please enter a valid date');
+            expect(errors['contentDateError']).to.equal('Please enter a valid hearing start date');
         });
 
         it('should return error when invalid content date from is passed for Welsh language', async () => {
@@ -316,7 +316,7 @@ describe('Manual upload service', () => {
             formValues['content-date-from-month'] = '1';
             formValues['content-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
-            expect(errors['contentDateError']).to.equal('Please enter a valid date');
+            expect(errors['contentDateError']).to.equal('Please enter a valid hearing start date');
         });
 
         it('should return error when invalid display date from is passed', async () => {
@@ -324,7 +324,7 @@ describe('Manual upload service', () => {
             formValues['display-date-from-month'] = '1';
             formValues['display-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
-            expect(errors['displayDateError']['from']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['from']).to.equal('Please enter a valid display file from date');
         });
 
         it('should return error when invalid display date from is passed for Welsh language', async () => {
@@ -332,7 +332,7 @@ describe('Manual upload service', () => {
             formValues['display-date-from-month'] = '1';
             formValues['display-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
-            expect(errors['displayDateError']['from']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['from']).to.equal('Please enter a valid display file from date');
         });
 
         it('should return error when invalid display date to is passed', async () => {
@@ -340,7 +340,7 @@ describe('Manual upload service', () => {
             formValues['display-date-to-month'] = '1';
             formValues['display-date-to-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
-            expect(errors['displayDateError']['to']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['to']).to.equal('Please enter a valid display file to date');
         });
 
         it('should return error when invalid display date to is passed for Welsh language', async () => {
@@ -348,7 +348,7 @@ describe('Manual upload service', () => {
             formValues['display-date-to-month'] = '1';
             formValues['display-date-to-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
-            expect(errors['displayDateError']['to']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['to']).to.equal('Please enter a valid display file to date');
         });
 
         it('should return error when invalid date range is passed', async () => {
@@ -371,6 +371,28 @@ describe('Manual upload service', () => {
             formValues['display-date-to-year'] = '2022';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
             expect(errors['displayDateError']['range']).to.equal("Please make sure 'to' date is after 'from' date");
+        });
+
+        it("should not return invalid date range error if 'from' date is invalid", async () => {
+            formValues['display-date-from-day'] = '02';
+            formValues['display-date-from-month'] = '';
+            formValues['display-date-from-year'] = '2022';
+            formValues['display-date-to-day'] = '01';
+            formValues['display-date-to-month'] = '01';
+            formValues['display-date-to-year'] = '2022';
+            const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
+            expect(errors['displayDateError']['range']).to.be.null;
+        });
+
+        it("should not return invalid date range error if 'to' date is invalid", async () => {
+            formValues['display-date-from-day'] = '02';
+            formValues['display-date-from-month'] = '01';
+            formValues['display-date-from-year'] = '2022';
+            formValues['display-date-to-day'] = '01';
+            formValues['display-date-to-month'] = '01';
+            formValues['display-date-to-year'] = '202';
+            const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
+            expect(errors['displayDateError']['range']).to.be.null;
         });
 
         it('should formatted date-from date correctly', async () => {

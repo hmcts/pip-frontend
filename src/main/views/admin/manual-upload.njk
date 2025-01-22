@@ -3,21 +3,65 @@
 {% from "govuk/components/file-upload/macro.njk" import govukFileUpload %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
 
 {% block beforeContent %}
   {{ super() }}
   {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
+
 {% block content %}
+    {% if errors.fileErrors
+        or errors.formErrors.courtError
+        or errors.formErrors.listTypeError
+        or errors.formErrors.contentDateError
+        or errors.formErrors.classificationError
+        or errors.formErrors.displayDateError.from
+        or errors.formErrors.displayDateError.to %}
+
+        {% set errorList = [] %}
+        {% if errors.fileErrors %}
+            {% set errorList = (errorList.push({ text: errors.fileErrors, href: "#manual-file-upload" }), errorList) %}
+        {% endif %}
+        {% if errors.formErrors.courtError %}
+            {% set errorList = (errorList.push({ text: errors.formErrors.courtError, href: "#search-input" }), errorList) %}
+        {% endif %}
+        {% if errors.formErrors.listTypeError %}
+            {% set errorList = (errorList.push({ text: listTypeError, href: "#listType" }), errorList) %}
+        {% endif %}
+        {% if errors.formErrors.contentDateError %}
+            {% set errorList = (errorList.push({ text: errors.formErrors.contentDateError, href: "#content-date-from" }), errorList) %}
+        {% endif %}
+        {% if errors.formErrors.classificationError %}
+            {% set errorList = (errorList.push({ text: classificationError, href: "#classification" }), errorList) %}
+        {% endif %}
+        {% if errors.formErrors.displayDateError.from %}
+            {% set errorList = (errorList.push({ text: errors.formErrors.displayDateError.from, href: "#display-date-from" }), errorList) %}
+        {% endif %}
+        {% if errors.formErrors.displayDateError.to %}
+            {% set errorList = (errorList.push({ text: errors.formErrors.displayDateError.to, href: "#display-date-to" }), errorList) %}
+        {% endif %}
+        {% if errors.formErrors.displayDateError.range %}
+            {% set errorList = (errorList.push({ text: errors.formErrors.displayDateError.range, href: "#display-date-from" }), errorList) %}
+        {% endif %}
+
+        {{ govukErrorSummary({
+            titleText: errorTitle,
+            errorList: errorList
+        }) }}
+    {% endif %}
+
   <div class="parent-box">
-      <div class="govuk-callout" tabindex="0">
-        <h1 class="govuk-heading-m">{{ warning }}</h1>
-        <div class="govuk-warning-text">
-          <span class="govuk-warning-text__icon govuk-!-margin-1" aria-hidden="true">!</span>
-          <p class="govuk-warning-text__text govuk-!-bold govuk-!-margin-0">
-            {{ warningText }}
-          </p>
-        </div>
+      <div class="govuk-callout">
+        <h2 class="govuk-heading-m">{{ warning }}</h2>
+        {{ govukWarningText({
+          text: warningText
+        }) }}
       </div>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
@@ -141,12 +185,14 @@
             {% set displayToError = 'govuk-input--error' if errors.formErrors.displayDateError.to else '' %}
             {% set displayFormGroupError = 'govuk-form-group--error' if errors.formErrors.displayDateError else 'govuk-form-group' %}
             {% set displayErrorMessage = errors.formErrors.displayDateError.from or errors.formErrors.displayDateError.to or errors.formErrors.displayDateError.range%}
+            {% set displayFromErrorMessage = errors.formErrors.displayDateError.from or errors.formErrors.displayDateError.range%}
+            {% set displayToErrorMessage = errors.formErrors.displayDateError.to or errors.formErrors.displayDateError.range%}
 
-            <div class="{{ displayFormGroupError }}">
+              <div class="{{ displayFormGroupError }}">
               <fieldset class="govuk-fieldset" role="group" aria-describedby="display-date-from">
                 <legend class="govuk-fieldset__legend">{{ form.displayDateFrom }}</legend>
                 {% if errors.formErrors.displayDateError %}
-                  <span class="govuk-error-message">{{ displayErrorMessage }}</span>
+                  <span class="govuk-error-message">{{ displayFromErrorMessage }}</span>
                 {% endif %}
                 <div id="display-date-hint" class="govuk-hint">
                   {{ form.displayDateFromHint }}
@@ -178,7 +224,7 @@
               <fieldset class="govuk-fieldset govuk-!-margin-top-6" role="group" aria-describedby="display-date-to">
                 <legend class="govuk-fieldset__legend">{{ form.displayDateTo }}</legend>
                 {% if errors.formErrors.displayDateError %}
-                  <span class="govuk-error-message">{{ displayErrorMessage }}</span>
+                  <span class="govuk-error-message">{{ displayToErrorMessage }}</span>
                 {% endif %}
                 <div id="display-date-to-hint" class="govuk-hint">
                   {{ form.displayDateToHint }}
