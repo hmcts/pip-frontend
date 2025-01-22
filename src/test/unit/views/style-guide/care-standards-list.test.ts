@@ -118,6 +118,6 @@ describe('Care standards list page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[6].innerHTML).contains('Data Source: prov1');
+        expect(text[6].innerHTML).contains('Data Source: Prov1');
     });
 });

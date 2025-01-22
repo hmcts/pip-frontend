@@ -179,13 +179,13 @@ describe('Nunjucks Custom Filter Tests', function () {
 
     describe('mask legacy data source name', function () {
         it('should return updated data source name', function () {
-            const result = env.renderString('{{ "SNL"| maskLegacyDataSource }}', {});
+            const result = env.renderString('{{ "SNL"| convertDataSourceName }}', {});
             expect(result).to.equal('ListAssist');
         });
 
         it('should return existing data source name', function () {
-            const result = env.renderString('{{ "MANUAL_UPLOAD"| maskLegacyDataSource }}', {});
-            expect(result).to.equal('MANUAL_UPLOAD');
+            const result = env.renderString('{{ "MANUAL_UPLOAD"| convertDataSourceName }}', {});
+            expect(result).to.equal('Manual Upload');
         });
     });
 

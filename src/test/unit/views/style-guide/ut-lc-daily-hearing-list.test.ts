@@ -53,9 +53,19 @@ describe('Upper Tribunal (Lands Chamber) Daily Hearing List Page', () => {
             expect(text[4].innerHTML).contains('List for 14 February 2022');
         });
 
+        it('should display list updated date text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+        });
+
+        it('should display important information heading', () => {
+            const text = htmlRes.getElementsByClassName('govuk-details__summary-text');
+            expect(text[0].innerHTML).contains('Important information');
+        });
+
         it('should display contact information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[5].innerHTML).contains(
+            expect(text[6].innerHTML).contains(
                 'If a representative of the media or a member of the public wishes to attend a ' +
                     'Cloud Video Platform (CVP) hearing they should contact the Lands Chamber ' +
                     'listing section Lands@justice.gov.uk who will provide further information.'
@@ -64,7 +74,7 @@ describe('Upper Tribunal (Lands Chamber) Daily Hearing List Page', () => {
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains(
+            expect(text[7].innerHTML).contains(
                 'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
             );
         });
@@ -166,7 +176,7 @@ describe('Upper Tribunal (Lands Chamber) Daily Hearing List Page', () => {
 
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains('Data Source: prov1');
+            expect(text[8].innerHTML).contains('Data Source: Prov1');
         });
     });
 });

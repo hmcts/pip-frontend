@@ -126,5 +126,5 @@
         {{ super() }}
     </div>
     </div>
-    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | maskLegacyDataSource }}</p>
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | convertDataSourceName }}</p>
 {% endblock %}

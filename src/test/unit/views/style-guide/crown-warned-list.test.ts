@@ -140,6 +140,6 @@ describe('Crown Warned List page', () => {
 
     it('should display data source', () => {
         const value = htmlRes.getElementsByClassName(dataSourceClass);
-        expect(value[0].innerHTML).to.equal('Data Source: prov1', 'Could not find data source');
+        expect(value[0].innerHTML).to.equal('Data Source: Prov1', 'Could not find data source');
     });
 });
