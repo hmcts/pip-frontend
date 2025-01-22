@@ -44,7 +44,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily hearing List'
+                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily Hearing List'
             );
         });
 
@@ -176,7 +176,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Manchester Daily hearing List',
+                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Manchester Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -202,7 +202,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Birmingham Daily hearing List',
+                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Birmingham Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -228,7 +228,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Cardiff Daily hearing List',
+                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Cardiff Daily Hearing List',
                 'Could not find the header'
             );
         });
