@@ -7,7 +7,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "SJP_DELTA_PUBLIC_LIST": {
         "friendlyName": "Single Justice Procedure Public List (New Cases)",
@@ -17,7 +18,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "SJP_PRESS_LIST": {
         "friendlyName": "Single Justice Procedure Press List (Full List)",
@@ -27,7 +29,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": ["PI_AAD"],
-        "defaultSensitivity": "CLASSIFIED"
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
     },
     "SJP_DELTA_PRESS_LIST": {
         "friendlyName": "Single Justice Procedure Press List (New Cases)",
@@ -37,7 +40,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": ["PI_AAD"],
-        "defaultSensitivity": "CLASSIFIED"
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
     },
     "SJP_PRESS_REGISTER": {
         "friendlyName": "Single Justice Procedure Press Register",
@@ -47,7 +51,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": ["PI_AAD"],
-        "defaultSensitivity": "CLASSIFIED"
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
     },
     "CROWN_DAILY_LIST": {
         "friendlyName": "Crown Daily List",
@@ -57,7 +62,8 @@
         "jurisdictions": ["Crown"],
         "welshJurisdictions": ["Llys y Goron"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "CROWN_WARNED_LIST": {
         "friendlyName": "Crown Warned List",
@@ -67,7 +73,8 @@
         "jurisdictions": ["Crown"],
         "welshJurisdictions": ["Llys y Goron"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE"
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
     },
     "CROWN_FIRM_LIST": {
         "friendlyName": "Crown Firm List",
@@ -77,7 +84,8 @@
         "jurisdictions": ["Crown"],
         "welshJurisdictions": ["Llys y Goron"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE"
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
     },
     "MAGISTRATES_PUBLIC_LIST": {
         "friendlyName": "Magistrates Public List",
@@ -87,7 +95,8 @@
         "jurisdictions": ["Crown"],
         "welshJurisdictions": ["Llys y Goron"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "MAGISTRATES_STANDARD_LIST": {
         "friendlyName": "Magistrates Standard List",
@@ -97,7 +106,8 @@
         "jurisdictions": ["Crown"],
         "welshJurisdictions": ["Llys y Goron"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE"
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
     },
     "CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "Civil Daily Cause List",
@@ -107,7 +117,8 @@
         "jurisdictions": ["Civil"],
         "welshJurisdictions": ["Llys Sifil"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "FAMILY_DAILY_CAUSE_LIST": {
         "friendlyName": "Family Daily Cause List",
@@ -117,7 +128,8 @@
         "jurisdictions": ["Family"],
         "welshJurisdictions": ["Llys Teulu"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "CIVIL_AND_FAMILY_DAILY_CAUSE_LIST": {
         "friendlyName": "Civil and Family Daily Cause List",
@@ -127,7 +139,8 @@
         "jurisdictions": ["Civil", "Family"],
         "welshJurisdictions": ["Llys Sifil", "Llys Teulu"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "SSCS_DAILY_LIST": {
         "friendlyName": "Social Security and Child Support Tribunal Daily List",
@@ -137,7 +150,8 @@
         "jurisdictions": ["Social Security and Child Support"],
         "welshJurisdictions": ["Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "SSCS_DAILY_LIST_ADDITIONAL_HEARINGS": {
         "friendlyName": "Social Security and Child Support Tribunal Daily List - Additional Hearings",
@@ -147,7 +161,8 @@
         "jurisdictions": ["Social Security and Child Support"],
         "welshJurisdictions": ["Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "COP_DAILY_CAUSE_LIST": {
         "friendlyName": "Court of Protection Daily Cause List",
@@ -157,7 +172,8 @@
         "jurisdictions": ["Civil"],
         "welshJurisdictions": ["Llys Sifil"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "ET_DAILY_LIST": {
         "friendlyName": "Employment Tribunals Daily List",
@@ -167,7 +183,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "ET_FORTNIGHTLY_PRESS_LIST": {
         "friendlyName": "Employment Tribunals Fortnightly Press List",
@@ -177,7 +194,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "IAC_DAILY_LIST": {
         "friendlyName": "Immigration and Asylum Chamber Daily List",
@@ -187,7 +205,8 @@
         "jurisdictions": ["Immigration and Asylum Chamber"],
         "welshJurisdictions": ["Siambr Mewnfudo a Lloches"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "IAC_DAILY_LIST_ADDITIONAL_CASES": {
         "friendlyName": "Immigration and Asylum Chamber Daily List - Additional Cases",
@@ -197,7 +216,8 @@
         "jurisdictions": ["Immigration and Asylum Chamber"],
         "welshJurisdictions": ["Siambr Mewnfudo a Lloches"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "PRIMARY_HEALTH_LIST": {
         "friendlyName": "Primary Health Tribunal Hearing List",
@@ -207,7 +227,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "CARE_STANDARDS_LIST": {
         "friendlyName": "Care Standards Tribunal Hearing List",
@@ -217,7 +238,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "OPA_PRESS_LIST": {
         "friendlyName": "Online Plea and Allocation Press List",
@@ -227,7 +249,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE"
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
     },
     "OPA_PUBLIC_LIST": {
         "friendlyName": "Online Plea and Allocation Public List",
@@ -237,7 +260,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "OPA_RESULTS": {
         "friendlyName": "Online Plea and Allocation Results",
@@ -247,7 +271,8 @@
         "jurisdictions": ["Magistrates"],
         "welshJurisdictions": ["Llys Ynadon"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "CIC_DAILY_HEARING_LIST": {
         "friendlyName": "Criminal Injuries Compensation Daily Hearing List",
@@ -257,7 +282,8 @@
         "jurisdictions": ["Criminal Injuries Compensation Tribunal"],
         "welshJurisdictions": ["Tribiwnlys Digolledu am Anafiadau Troseddol"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     },
     "PHT_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
@@ -268,7 +294,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "cst-and-pht-weekly-hearing-list"
+        "parentPage": "cst-and-pht-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "CST_WEEKLY_HEARING_LIST": {
         "friendlyName": "Care Standards Tribunal Weekly Hearing List",
@@ -279,7 +306,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "cst-and-pht-weekly-hearing-list"
+        "parentPage": "cst-and-pht-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "GRC_WEEKLY_HEARING_LIST": {
         "friendlyName": "General Regulatory Chamber Weekly Hearing List",
@@ -290,7 +318,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": ""
+        "parentPage": "",
+        "isNonStrategic": true
     },
     "WPAFCC_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (War Pensions and Armed Forces Compensation) Weekly Hearing List",
@@ -301,7 +330,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": ""
+        "parentPage": "",
+        "isNonStrategic": true
     },
     "UT_IAC_JUDICIAL_REVIEW_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily Hearing List",
@@ -312,7 +342,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": ""
+        "parentPage": "",
+        "isNonStrategic": true
     },
     "UT_IAC_STATUTORY_APPEALS_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Statutory Daily Hearing List",
@@ -323,40 +354,44 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": ""
+        "parentPage": "",
+        "isNonStrategic": true
     },
     "SIAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Special Immigration Appeals Commission Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mewnfudo Arbennig",
-        "shortenedFriendlyName": "SIAC Daily Weekly Hearing List",
+        "shortenedFriendlyName": "SIAC Weekly Hearing List",
         "url": "siac-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "siac-poac-paac-weekly-hearing-list"
+        "parentPage": "siac-poac-paac-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "POAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Proscribed Organisations Appeal Commission Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Sefydliadau Gwaharddedig",
-        "shortenedFriendlyName": "POAC Daily Weekly Hearing List ",
+        "shortenedFriendlyName": "POAC Weekly Hearing List ",
         "url": "poac-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "siac-poac-paac-weekly-hearing-list"
+        "parentPage": "siac-poac-paac-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "PAAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Pathogens Access Appeal Commission Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol y Comisiwn Apeliadau Mynediad Pathogenau",
-        "shortenedFriendlyName": "PAAC Daily Weekly Hearing List ",
+        "shortenedFriendlyName": "PAAC Weekly Hearing List ",
         "url": "paac-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "siac-poac-paac-weekly-hearing-list"
+        "parentPage": "siac-poac-paac-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "FFT_TAX_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Tax Chamber) Weekly Hearing List",
@@ -366,7 +401,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     },
     "FFT_LR_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Lands Registration Tribunal) Weekly Hearing List",
@@ -376,7 +412,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     },
     "RPT_EASTERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Eastern region Weekly Hearing List",
@@ -387,7 +424,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
+        "parentPage": "fft-rpt-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "RPT_LONDON_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: London region Weekly Hearing List",
@@ -398,7 +436,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
+        "parentPage": "fft-rpt-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "RPT_MIDLANDS_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Midlands region Weekly Hearing List",
@@ -409,7 +448,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
+        "parentPage": "fft-rpt-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "RPT_NORTHERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Northern region Weekly Hearing List",
@@ -420,7 +460,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
+        "parentPage": "fft-rpt-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "RPT_SOUTHERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Southern region Weekly Hearing List",
@@ -431,7 +472,8 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list"
+        "parentPage": "fft-rpt-weekly-hearing-list",
+        "isNonStrategic": true
     },
     "UT_T_AND_CC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",
@@ -441,7 +483,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     },
     "UT_LC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Lands Chamber) Daily Hearing List",
@@ -451,7 +494,8 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     },
     "UT_AAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List",
@@ -461,6 +505,7 @@
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
-        "defaultSensitivity": ""
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     }
 }

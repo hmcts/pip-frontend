@@ -1,19 +1,17 @@
 import sinon from 'sinon';
 import { Response } from 'express';
 import CaseReferenceNumberSearchController from '../../../main/controllers/CaseReferenceNumberSearchController';
-import fs from 'fs';
-import path from 'path';
 import { mockRequest } from '../mocks/mockRequest';
 import { PublicationService } from '../../../main/service/PublicationService';
 
 const caseReferenceNumberSearchController = new CaseReferenceNumberSearchController();
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
-const subscriptionCaseResult = JSON.parse(rawData)[0].hearingList[0];
 const caseNumberStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
 const caseUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 
 const validCaseNo = '56-181-2097';
 const validCaseUrn = '123456';
+
+const subscriptionCaseResult = { caseName: 'name', caseNumber: '1234', caseUrn: '12345', partyNames: 'name1' };
 
 describe('Case Reference Number Search Controller', () => {
     let i18n = {};
