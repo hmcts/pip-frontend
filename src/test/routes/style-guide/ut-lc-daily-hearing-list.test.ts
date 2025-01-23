@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../unit/mocks/utLandsChamberWeeklyHearingList.json'),
+    path.resolve(__dirname, '../../unit/mocks/utLandsChamberDailyHearingList.json'),
     'utf-8'
 );
 const rawJson = JSON.parse(rawData);
@@ -19,16 +19,16 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolve
 
 const getPublicationMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-describe('Upper Tribunal (Lands Chamber) Weekly Hearing List Page', () => {
+describe('Upper Tribunal (Lands Chamber) Daily Hearing List Page', () => {
     const metaData = JSON.parse(rawMetaData)[0];
-    metaData.listType = 'UT_LC_WEEKLY_HEARING_LIST';
+    metaData.listType = 'UT_LC_DAILY_HEARING_LIST';
 
     getPublicationMetadataStub.withArgs('abc').resolves(metaData);
 
     describe('on GET', () => {
-        test('should return Upper Tribunal (Lands Chamber) weekly hearing list page', async () => {
+        test('should return Upper Tribunal (Lands Chamber) daily hearing list page', async () => {
             await request(app)
-                .get('/ut-lc-weekly-hearing-list?artefactId=abc')
+                .get('/ut-lc-daily-hearing-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });

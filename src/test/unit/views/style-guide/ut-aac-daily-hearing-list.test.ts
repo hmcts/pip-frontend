@@ -11,10 +11,10 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-describe('Upper Tribunal (Administrative Appeals Chamber)  Weekly Hearing List Page', () => {
+describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Page', () => {
     const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
     const rawData = fs.readFileSync(
-        path.resolve(__dirname, '../../mocks/utAdministrativeAppealsChamberWeeklyHearingList.json'),
+        path.resolve(__dirname, '../../mocks/utAdministrativeAppealsChamberDailyHearingList.json'),
         'utf-8'
     );
     const jsonData = JSON.parse(rawData);
@@ -22,12 +22,12 @@ describe('Upper Tribunal (Administrative Appeals Chamber)  Weekly Hearing List P
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
     const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-    describe('Upper Tribunal (Administrative Appeals Chamber)  Weekly Hearing List', () => {
+    describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/ut-aac-weekly-hearing-list?artefactId=abc';
+        const PAGE_URL = '/ut-aac-daily-hearing-list?artefactId=abc';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'UT_AAC_WEEKLY_HEARING_LIST';
+        metaData.listType = 'UT_AAC_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('abc').returns(metaData);
 
