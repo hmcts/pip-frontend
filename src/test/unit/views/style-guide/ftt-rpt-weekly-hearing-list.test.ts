@@ -15,7 +15,7 @@ const tableHeader = 'govuk-table__header';
 describe('Residential Property Weekly Hearing List Page', () => {
     const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
     const rawData = fs.readFileSync(
-        path.resolve(__dirname, '../../mocks/fftResidentialPropertyTribunalWeeklyHearingList.json'),
+        path.resolve(__dirname, '../../mocks/fttResidentialPropertyTribunalWeeklyHearingList.json'),
         'utf-8'
     );
     const jsonData = JSON.parse(rawData);

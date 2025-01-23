@@ -137,30 +137,74 @@ sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true
 describe('Manual upload service', () => {
     describe('building form data', () => {
         it('should build form data court list', async () => {
-            const data = await manualUploadService.buildFormData(englishLanguage);
+            const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
             expect(data['courtList']).to.equal(courtData);
         });
 
         it('should build form data for Welsh court list', async () => {
-            const data = await manualUploadService.buildFormData(welshLanguage);
+            const data = await manualUploadService.buildFormData(welshLanguage, true, undefined);
             expect(data['courtList']).to.equal(courtData);
         });
 
-        it('should build form data list subtypes', async () => {
-            const data = await manualUploadService.buildFormData(englishLanguage);
-            expect(data['listSubtypes'].length).to.equal(49);
+        it('should build form data list subtypes when not non-strategic', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, false, undefined);
+            expect(data['listSubtypes'].length).to.equal(27);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',
+                selected: true,
+            });
+
+            expect(data['listSubtypes']).to.deep.include({
+                value: 'SJP_PUBLIC_LIST',
+                text: 'SJP Public List (Full list)',
+                selected: false,
+            });
+            expect(data['listSubtypes']).to.not.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+                selected: false,
             });
         });
 
-        it('should build form data judgements and outcomes subtypes', async () => {
-            const data = await manualUploadService.buildFormData(englishLanguage);
-            expect(data['judgementsOutcomesSubtypes'].length).to.equal(1);
-            expect(data['judgementsOutcomesSubtypes'][0]).to.deep.equal({
-                text: 'SJP Media Register',
-                value: 'SJP_MEDIA_REGISTER',
+        it('should build form data list subtypes when non-strategic', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
+            expect(data['listSubtypes'].length).to.equal(23);
+            expect(data['listSubtypes'][0]).to.deep.equal({
+                text: '<Please choose a list type>',
+                value: 'EMPTY',
+                selected: true,
+            });
+
+            expect(data['listSubtypes']).to.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+                selected: false,
+            });
+            expect(data['listSubtypes']).to.not.deep.include({
+                value: 'SJP_PUBLIC_LIST',
+                text: 'SJP Public List (Full list)',
+                selected: false,
+            });
+        });
+
+        it('should set empty as selected when list type does not match expected types', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, false, 'CST_WEEKLY_HEARING_LIST');
+
+            expect(data['listSubtypes'][0]).to.deep.equal({
+                text: '<Please choose a list type>',
+                value: 'EMPTY',
+                selected: true,
+            });
+        });
+
+        it('should set list type as selected when list type matches', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, true, 'CST_WEEKLY_HEARING_LIST');
+
+            expect(data['listSubtypes']).to.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+                selected: true,
             });
         });
     });
