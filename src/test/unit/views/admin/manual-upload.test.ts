@@ -27,6 +27,8 @@ const expectedDisplayDateTo = 'Display file to';
 const expectedClassification = 'Sensitivity';
 const expectedLanguage = 'Language';
 const buttonText = 'Continue';
+const standardListType = 'SJP_PUBLIC_LIST';
+const nonStrategicListType = 'WPAFCC_WEEKLY_HEARING_LIST';
 
 let htmlRes: Document;
 let formElements: HTMLElement;
@@ -36,7 +38,6 @@ const courtData = JSON.parse(rawData);
 const mockBodyData = {
     'input-autocomplete': '',
     listType: 'SJP_PUBLIC_LIST',
-    judgementType: 'SJP_MEDIA_REGISTER',
     'content-date-from-day': '',
     'content-date-from-month': '',
     'content-date-from-year': '',
@@ -59,6 +60,7 @@ describe('Manual upload page', () => {
         beforeAll(async () => {
             await request(app)
                 .get(PAGE_URL)
+                .set('Cookie', ['formCookie={"listType":"SJP_PUBLIC_LIST"}'])
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
@@ -89,7 +91,17 @@ describe('Manual upload page', () => {
 
         it('should display sub list type question', () => {
             const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
-            expect(listType.innerHTML).contains(expectedListType, 'Could not find inset list type');
+            expect(listType.innerHTML).contains(expectedListType, 'Could not find list type question');
+        });
+
+        it('sub list should contain a standard list type', () => {
+            const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
+            expect(listType.innerHTML).contains(standardListType, 'Could not find standard list type');
+        });
+
+        it('sub list should have list type selected', () => {
+            const optionElement = formElements.querySelector("option[value='SJP_PUBLIC_LIST']");
+            expect(optionElement.getAttribute('selected')).to.not.be.null;
         });
 
         it('should display content date question', () => {
@@ -104,12 +116,12 @@ describe('Manual upload page', () => {
         });
 
         it('should display classification question', () => {
-            const classification = formElements.getElementsByClassName(formGroupClass)[8];
+            const classification = formElements.getElementsByClassName(formGroupClass)[7];
             expect(classification.innerHTML).contains(expectedClassification, 'Could not find classification question');
         });
 
         it('should display language question', () => {
-            const language = formElements.getElementsByClassName(formGroupClass)[9];
+            const language = formElements.getElementsByClassName(formGroupClass)[8];
             expect(language.innerHTML).contains(expectedLanguage, 'Could not find language question');
         });
 
@@ -132,7 +144,7 @@ describe('Manual upload page', () => {
         });
 
         it('should display page help heading', () => {
-            const heading = htmlRes.getElementsByTagName('h2')[0];
+            const heading = htmlRes.getElementsByTagName('h2')[1];
             expect(heading.innerHTML).contains('Page Help', 'Could not find page help heading');
         });
 
@@ -173,8 +185,8 @@ describe('Manual upload page', () => {
 
         it('should display the warning banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
-            const warningHeader = htmlRes.getElementsByTagName('h1')[0];
-            const warningText = htmlRes.getElementsByTagName('p')[1];
+            const warningHeader = htmlRes.getElementsByTagName('h2')[0];
+            const warningText = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
 
             expect(banner).to.exist;
             expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
@@ -190,6 +202,7 @@ describe('Manual upload page', () => {
         beforeAll(async () => {
             await request(app)
                 .get(PAGE_URL + '?non-strategic=true')
+                .set('Cookie', ['formCookie={"listType":"SJP_PUBLIC_LIST"}'])
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
@@ -226,10 +239,15 @@ describe('Manual upload page', () => {
             expect(listType.innerHTML).contains(expectedListType, 'Could not find inset list type');
         });
 
+        it('sub list should have empty selected', () => {
+            const optionElement = formElements.querySelector("option[value='EMPTY']");
+            expect(optionElement.getAttribute('selected')).to.not.be.null;
+        });
+
         it('should display the warning banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-callout')[0];
-            const warningHeader = htmlRes.getElementsByTagName('h1')[0];
-            const warningText = htmlRes.getElementsByTagName('p')[1];
+            const warningHeader = htmlRes.getElementsByTagName('h2')[0];
+            const warningText = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
 
             expect(banner).to.exist;
             expect(warningHeader.innerHTML).contains('Warning', 'Could not find warning header');
@@ -238,6 +256,11 @@ describe('Manual upload page', () => {
                     'e.g. redaction of personal data has been done during the production of this file.',
                 'Could not find warning text'
             );
+        });
+
+        it('sub list should contain a non-strategic list type', () => {
+            const listType = formElements.getElementsByClassName(insetTextClass)[0].querySelector('#list-question');
+            expect(listType.innerHTML).contains(nonStrategicListType, 'Could not find non-strategic list type');
         });
     });
 
@@ -259,41 +282,86 @@ describe('Manual upload page', () => {
 
         it('should display file too large error', () => {
             const fileError = htmlRes.getElementById('manual-file-upload-error');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(fileError.innerHTML).contains(
                 'File too large, please upload file smaller than 2MB',
                 'Could not find file error'
             );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'File too large, please upload file smaller than 2MB',
+                'Error summary list does not match'
+            );
+        });
+
+        it('sub list should have list type selected', () => {
+            const optionElement = formElements.querySelector("option[value='SJP_PUBLIC_LIST']");
+            expect(optionElement.getAttribute('selected')).to.not.be.null;
         });
 
         it('should display court error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[1].innerHTML).contains(
                 'Court name must be three characters or more',
                 'Could not find court error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Court name must be three characters or more',
+                'Error summary list does not match'
             );
         });
 
         it('should display hearing date error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[2].innerHTML).contains(
-                'Please enter a valid date',
+                'Please enter a valid hearing start date',
                 'Could not find hearing date error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Please enter a valid hearing start date',
+                'Error summary list does not match'
             );
         });
 
         it('should display sensitivity error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[3].innerHTML).contains(
                 'Please select a sensitivity',
                 'Could not find sensitivity error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Please select a sensitivity',
+                'Error summary list does not match'
             );
         });
 
         it('should display file from date error', () => {
             const errorMessage = htmlRes.getElementsByClassName('govuk-error-message');
+            const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title');
+            const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
+
             expect(errorMessage[4].innerHTML).contains(
-                'Please enter a valid date',
+                'Please enter a valid display file from date',
                 'Could not find display file date error'
+            );
+            expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
+            expect(errorSummaryList[0].innerHTML).contains(
+                'Please enter a valid display file from date',
+                'Error summary list does not match'
             );
         });
     });

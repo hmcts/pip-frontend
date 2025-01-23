@@ -11,11 +11,11 @@ let formCookie;
 
 export default class ManualUploadController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const listItems = await manualUploadService.buildFormData(req.lng);
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+
         formCookie = req.cookies['formCookie'];
         const formData = formCookie ? JSON.parse(formCookie) : null;
-
-        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+        const listItems = await manualUploadService.buildFormData(req.lng, nonStrategicUpload, formData?.listType);
 
         const formValues = {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
@@ -43,7 +43,7 @@ export default class ManualUploadController {
                 formErrors: await manualUploadService.validateFormFields(req.body, req.lng, 'manual-upload'),
             };
 
-            const listItems = await manualUploadService.buildFormData(req.lng);
+            const listItems = await manualUploadService.buildFormData(req.lng, nonStrategicUpload, req.body?.listType);
             const formValues = {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload']),
                 listItems,
