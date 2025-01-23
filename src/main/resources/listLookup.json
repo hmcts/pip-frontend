@@ -296,7 +296,7 @@
         "defaultSensitivity": "",
         "parentPage": "cst-and-pht-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "CST_WEEKLY_HEARING_LIST": {
         "friendlyName": "Care Standards Tribunal Weekly Hearing List",
@@ -309,7 +309,7 @@
         "defaultSensitivity": "",
         "parentPage": "cst-and-pht-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "GRC_WEEKLY_HEARING_LIST": {
         "friendlyName": "General Regulatory Chamber Weekly Hearing List",
@@ -322,7 +322,7 @@
         "defaultSensitivity": "",
         "parentPage": "",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "WPAFCC_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (War Pensions and Armed Forces Compensation) Weekly Hearing List",
@@ -335,18 +335,54 @@
         "defaultSensitivity": "",
         "parentPage": "",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
-    "UT_IAC_JUDICIAL_REVIEW_DAILY_HEARING_LIST": {
-        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber Field House - Judicial Review Daily Hearing List",
-        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol - Field House",
-        "shortenedFriendlyName": "UT IAC Judicial Review Daily Hearing List",
-        "url": "ut-iac-judicial-review-daily-hearing-list",
+    "UT_IAC_JR_LONDON_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily Hearing List",
+        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Llundain",
+        "shortenedFriendlyName": "UTIAC (JR) - London Daily Hearing List",
+        "url": "ut-iac-jr-london-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list",
+        "isNonStrategic": true
+    },
+    "UT_IAC_JR_MANCHESTER_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Manchester Daily Hearing List",
+        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Manceinion",
+        "shortenedFriendlyName": "UTIAC (JR) - Manchester Daily Hearing List",
+        "url": "ut-iac-jr-manchester-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list",
+        "isNonStrategic": true
+    },
+    "UT_IAC_JR_BIRMINGHAM_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Birmingham Daily Hearing List",
+        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Birmingham",
+        "shortenedFriendlyName": "UTIAC (JR) - Birmingham Daily Hearing List",
+        "url": "ut-iac-jr-birmingham-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list",
+        "isNonStrategic": true
+    },
+    "UT_IAC_JR_CARDIFF_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Cardiff Daily Hearing List",
+        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Caerdydd",
+        "shortenedFriendlyName": "UTIAC (JR) - Cardiff Daily Hearing List",
+        "url": "ut-iac-jr-cardiff-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list",
         "isNonStrategic": true
     },
     "UT_IAC_STATUTORY_APPEALS_DAILY_HEARING_LIST": {
@@ -372,7 +408,7 @@
         "defaultSensitivity": "",
         "parentPage": "siac-poac-paac-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "POAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Proscribed Organisations Appeal Commission Weekly Hearing List",
@@ -385,7 +421,7 @@
         "defaultSensitivity": "",
         "parentPage": "siac-poac-paac-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "PAAC_WEEKLY_HEARING_LIST": {
         "friendlyName": "Pathogens Access Appeal Commission Weekly Hearing List",
@@ -398,7 +434,7 @@
         "defaultSensitivity": "",
         "parentPage": "siac-poac-paac-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "FTT_TAX_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Tax Chamber) Weekly Hearing List",
@@ -410,7 +446,7 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "FTT_LR_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Lands Registration Tribunal) Weekly Hearing List",
@@ -422,7 +458,7 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "RPT_EASTERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Eastern region Weekly Hearing List",
@@ -435,7 +471,7 @@
         "defaultSensitivity": "",
         "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "RPT_LONDON_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: London region Weekly Hearing List",
@@ -448,7 +484,7 @@
         "defaultSensitivity": "",
         "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "RPT_MIDLANDS_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Midlands region Weekly Hearing List",
@@ -461,7 +497,7 @@
         "defaultSensitivity": "",
         "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "RPT_NORTHERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Northern region Weekly Hearing List",
@@ -474,7 +510,7 @@
         "defaultSensitivity": "",
         "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "RPT_SOUTHERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "Residential Property Tribunal: Southern region Weekly Hearing List",
@@ -487,7 +523,7 @@
         "defaultSensitivity": "",
         "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true,
-        "isWeeklyList": "true"
+        "isWeeklyList": true
     },
     "UT_T_AND_CC_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",

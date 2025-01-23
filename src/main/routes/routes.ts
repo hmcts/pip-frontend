@@ -265,11 +265,32 @@ export default function (app: Application): void {
     app.get('/wpafcc-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'wpafcc-weekly-hearing-list')
     );
-    app.get('/ut-iac-judicial-review-daily-hearing-list', (req, res) =>
+    app.get('/ut-iac-jr-london-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'ut-iac-judicial-review-daily-hearing-list'
+            'ut-iac-jr-london-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-jr-manchester-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-manchester-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-jr-birmingham-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-birmingham-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-jr-cardiff-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-cardiff-daily-hearing-list'
         )
     );
     app.get('/ut-iac-statutory-appeals-daily-hearing-list', (req, res) =>
