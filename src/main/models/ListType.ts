@@ -9,4 +9,5 @@ export interface ListType {
     defaultSensitivity: string;
     contDate?: string;
     checked?: boolean;
+    isNonStrategic?: boolean;
 }
