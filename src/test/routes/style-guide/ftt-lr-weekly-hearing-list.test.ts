@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../unit/mocks/utTaxAndChanceryChamberWeeklyHearingList.json'),
+    path.resolve(__dirname, '../../unit/mocks/fttLandRegistryTribunalWeeklyHearingList.json'),
     'utf-8'
 );
 const rawJson = JSON.parse(rawData);
@@ -19,16 +19,16 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolve
 
 const getPublicationMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-describe('Upper Tribunal (Tax and Chancery Chamber) Weekly Hearing List Page', () => {
+describe('Land Registry Weekly Hearing List Page', () => {
     const metaData = JSON.parse(rawMetaData)[0];
-    metaData.listType = 'UT_T_AND_CC_WEEKLY_HEARING_LIST';
+    metaData.listType = 'FTT_LR_WEEKLY_HEARING_LIST';
 
     getPublicationMetadataStub.withArgs('abc').resolves(metaData);
 
     describe('on GET', () => {
-        test('should return Upper Tribunal (Tax and Chancery Chamber) weekly hearing list page', async () => {
+        test('should return land registry weekly hearing list page', async () => {
             await request(app)
-                .get('/ut-t-and-cc-weekly-hearing-list?artefactId=abc')
+                .get('/ftt-lr-weekly-hearing-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });

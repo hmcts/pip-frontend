@@ -3,7 +3,7 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
 
-const jsonData = testArtefactJsonData('fftResidentialPropertyTribunalWeeklyHearingList.json');
+const jsonData = testArtefactJsonData('fttResidentialPropertyTribunalWeeklyHearingList.json');
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 

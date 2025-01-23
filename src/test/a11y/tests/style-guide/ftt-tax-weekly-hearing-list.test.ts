@@ -3,17 +3,17 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
 
-const jsonData = testArtefactJsonData('fftLandRegistryTribunalWeeklyHearingList.json');
+const jsonData = testArtefactJsonData('fttTaxWeeklyHearingList.json');
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-describe('Accessibility - Land Registry Weekly Hearing List', () => {
+describe('Accessibility - Tax Chamber Weekly Hearing List', () => {
     const metadata = testArtefactMetadata()[0];
-    metadata.listType = 'FFT_LR_WEEKLY_HEARING_LIST';
+    metadata.listType = 'FTT_TAX_WEEKLY_HEARING_LIST';
 
-    const url = '/fft-lr-weekly-hearing-list?artefactId=abc';
+    const url = '/ftt-tax-weekly-hearing-list?artefactId=abc';
     metadataStub.withArgs('abc').resolves(metadata);
 
     testAccessibility(url);

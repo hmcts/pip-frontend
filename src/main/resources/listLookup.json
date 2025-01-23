@@ -393,22 +393,22 @@
         "parentPage": "siac-poac-paac-weekly-hearing-list",
         "isNonStrategic": true
     },
-    "FFT_TAX_WEEKLY_HEARING_LIST": {
+    "FTT_TAX_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Tax Chamber) Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol Tribiwnlys Haen Gyntaf (Siambr Treth)",
-        "shortenedFriendlyName": "FFT Tax Weekly Hearing List",
-        "url": "fft-tax-weekly-hearing-list",
+        "shortenedFriendlyName": "FTT Tax Weekly Hearing List",
+        "url": "ftt-tax-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "FFT_LR_WEEKLY_HEARING_LIST": {
+    "FTT_LR_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Lands Registration Tribunal) Weekly Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol Tribiwnlys Haen Gyntaf (Tribiwnlys Cofrestru Tir)",
-        "shortenedFriendlyName": "FFT (LR) Weekly Hearing List",
-        "url": "fft-lr-weekly-hearing-list",
+        "shortenedFriendlyName": "FTT (LR) Weekly Hearing List",
+        "url": "ftt-lr-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
@@ -424,7 +424,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list",
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_LONDON_WEEKLY_HEARING_LIST": {
@@ -436,7 +436,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list",
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_MIDLANDS_WEEKLY_HEARING_LIST": {
@@ -448,7 +448,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list",
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_NORTHERN_WEEKLY_HEARING_LIST": {
@@ -460,7 +460,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list",
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_SOUTHERN_WEEKLY_HEARING_LIST": {
@@ -472,36 +472,36 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "fft-rpt-weekly-hearing-list",
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
-    "UT_T_AND_CC_WEEKLY_HEARING_LIST": {
+    "UT_T_AND_CC_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal Tax and Chancery Chamber Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Uwch Dribiwnlys (Siambr Treth a Siawnsri)",
         "shortenedFriendlyName": "UT (T and CC) Daily Hearing List",
-        "url": "ut-t-and-cc-weekly-hearing-list",
+        "url": "ut-t-and-cc-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "UT_LC_WEEKLY_HEARING_LIST": {
+    "UT_LC_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Lands Chamber) Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Uwch Dribiwnlys (Siambr Tiroedd)",
         "shortenedFriendlyName": "UT (LC) Daily Hearing List",
-        "url": "ut-lc-weekly-hearing-list",
+        "url": "ut-lc-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "UT_AAC_WEEKLY_HEARING_LIST": {
+    "UT_AAC_DAILY_HEARING_LIST": {
         "friendlyName": "Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Uwch Dribiwnlys (Siambr Apeliadau Gweinyddol)",
         "shortenedFriendlyName": "UT (AAC) Daily Hearing List",
-        "url": "ut-aac-weekly-hearing-list",
+        "url": "ut-aac-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
