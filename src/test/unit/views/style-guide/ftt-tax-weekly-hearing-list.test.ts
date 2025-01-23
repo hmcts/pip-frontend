@@ -12,23 +12,20 @@ const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-describe('Land Registry Weekly Hearing List Page', () => {
+describe('Tax Chamber Weekly Hearing List Page', () => {
     const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
-    const rawData = fs.readFileSync(
-        path.resolve(__dirname, '../../mocks/fftLandRegistryTribunalWeeklyHearingList.json'),
-        'utf-8'
-    );
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/fttTaxWeeklyHearingList.json'), 'utf-8');
     const jsonData = JSON.parse(rawData);
 
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
     const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-    describe('Land Registry Weekly Hearing List', () => {
+    describe('Tax Chamber Weekly Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/fft-lr-weekly-hearing-list?artefactId=abc';
+        const PAGE_URL = '/ftt-tax-weekly-hearing-list?artefactId=abc';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'FFT_LR_WEEKLY_HEARING_LIST';
+        metaData.listType = 'FTT_TAX_WEEKLY_HEARING_LIST';
 
         metadataStub.withArgs('abc').returns(metaData);
 
@@ -43,7 +40,7 @@ describe('Land Registry Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'First-tier Tribunal (Lands Registration Tribunal) Weekly Hearing List',
+                'First-tier Tribunal (Tax Chamber) Weekly Hearing List',
                 'Could not find the header'
             );
         });
@@ -53,21 +50,41 @@ describe('Land Registry Weekly Hearing List Page', () => {
             expect(text[4].innerHTML).contains('List for 14 February 2022');
         });
 
-        it('should display contact information text', () => {
+        it('should display contact information 1 text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[5].innerHTML).contains(
-                'Members of the public wishing to observe a hearing or representatives of the media may, ' +
-                    'on their request, join any telephone or video hearing remotely while they are taking place by ' +
-                    'sending an email in advance to the tribunal at [insert office email] with the following ' +
-                    'details in the subject line “[OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date] ' +
-                    '(need to include any other infromation required by the tribunal)” and appropriate arrangements will ' +
-                    'be made to allow access where reasonably practicable'
+                'Open justice is a fundamental principle of our justice system. You can attend ' +
+                    'a public hearing in person, or you can apply for permission to observe remotely.'
+            );
+        });
+
+        it('should display contact information 2 text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[6].innerHTML).contains(
+                'Members of the public and the media can ask to join any telephone or video hearing remotely. ' +
+                    'Contact the Tribunal before the hearing to ask for permission to attend by emailing taxappeals@justice.gov.uk.'
+            );
+        });
+
+        it('should display contact information 3 text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[7].innerHTML).contains(
+                'The subject line for the email should contain the following wording: “HEARING ACCESS REQUEST – ' +
+                    '[Appellant’s name] v [Respondent’s name, for example HMRC] – [case reference] – [hearing date]”. ' +
+                    'You will be sent instructions on how to join the hearing.'
+            );
+        });
+        it('should display contact information 4 text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[8].innerHTML).contains(
+                'The judge may refuse a request and can also decide a hearing must be held in private, ' +
+                    'in such cases you will not be able to attend.'
             );
         });
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains(
+            expect(text[9].innerHTML).contains(
                 'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
             );
         });
@@ -102,9 +119,9 @@ describe('Land Registry Weekly Hearing List Page', () => {
             expect(headerCell[4].innerHTML).contains('Judge');
         });
 
-        it('should display Venue/Platform header', () => {
+        it('should display Member(s) header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[5].innerHTML).contains('Venue/Platform');
+            expect(headerCell[5].innerHTML).contains('Member(s)');
         });
 
         it('should display Date cell data', () => {
@@ -132,14 +149,14 @@ describe('Land Registry Weekly Hearing List Page', () => {
             expect(cellText[4].innerHTML).contains('Judge A');
         });
 
-        it('should display Venue/Platform cell data', () => {
+        it('should display Member(s) cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[5].innerHTML).contains('This is a venue name');
+            expect(cellText[5].innerHTML).contains('Member A');
         });
 
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains('Data Source: prov1');
+            expect(text[10].innerHTML).contains('Data Source: prov1');
         });
     });
 });

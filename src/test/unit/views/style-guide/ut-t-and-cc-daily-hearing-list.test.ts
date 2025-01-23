@@ -12,20 +12,23 @@ const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-describe('Tax Chamber Weekly Hearing List Page', () => {
+describe('Upper Tribunal Tax and Chancery Chamber Daily Hearing List Page', () => {
     const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
-    const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/fftTaxWeeklyHearingList.json'), 'utf-8');
+    const rawData = fs.readFileSync(
+        path.resolve(__dirname, '../../mocks/utTaxAndChanceryChamberDailyHearingList.json'),
+        'utf-8'
+    );
     const jsonData = JSON.parse(rawData);
 
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
     const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-    describe('Tax Chamber Weekly Hearing List', () => {
+    describe('Upper Tribunal Tax and Chancery Chamber Daily Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/fft-tax-weekly-hearing-list?artefactId=abc';
+        const PAGE_URL = '/ut-t-and-cc-daily-hearing-list?artefactId=abc';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'FFT_TAX_WEEKLY_HEARING_LIST';
+        metaData.listType = 'UT_T_AND_CC_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('abc').returns(metaData);
 
@@ -40,7 +43,7 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'First-tier Tribunal (Tax Chamber) Weekly Hearing List',
+                'Upper Tribunal Tax and Chancery Chamber Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -50,41 +53,16 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
             expect(text[4].innerHTML).contains('List for 14 February 2022');
         });
 
-        it('should display contact information 1 text', () => {
+        it('should display contact information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[5].innerHTML).contains(
-                'Open justice is a fundamental principle of our justice system. You can attend ' +
-                    'a public hearing in person, or you can apply for permission to observe remotely.'
-            );
-        });
-
-        it('should display contact information 2 text', () => {
-            const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains(
-                'Members of the public and the media can ask to join any telephone or video hearing remotely. ' +
-                    'Contact the Tribunal before the hearing to ask for permission to attend by emailing taxappeals@justice.gov.uk.'
-            );
-        });
-
-        it('should display contact information 3 text', () => {
-            const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
-                'The subject line for the email should contain the following wording: “HEARING ACCESS REQUEST – ' +
-                    '[Appellant’s name] v [Respondent’s name, for example HMRC] – [case reference] – [hearing date]”. ' +
-                    'You will be sent instructions on how to join the hearing.'
-            );
-        });
-        it('should display contact information 4 text', () => {
-            const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains(
-                'The judge may refuse a request and can also decide a hearing must be held in private, ' +
-                    'in such cases you will not be able to attend.'
+                'A representative of the media, or any other person, wishing to attend a remote hearing should contact uttc@justice.gov.uk and we will arrange for your attendance.'
             );
         });
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[9].innerHTML).contains(
+            expect(text[6].innerHTML).contains(
                 'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
             );
         });
@@ -94,14 +72,14 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
             expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
         });
 
-        it('should display Date header', () => {
+        it('should display Time header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[0].innerHTML).contains('Date');
+            expect(headerCell[0].innerHTML).contains('Time');
         });
 
-        it('should Hearing Time header', () => {
+        it('should Hearing Case Reference Number header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[1].innerHTML).contains('Hearing time');
+            expect(headerCell[1].innerHTML).contains('Case reference number');
         });
 
         it('should Case Name header', () => {
@@ -109,29 +87,39 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
             expect(headerCell[2].innerHTML).contains('Case name');
         });
 
-        it('should display Case Reference Number header', () => {
+        it('should display Judge(s) header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[3].innerHTML).contains('Case reference number');
-        });
-
-        it('should display Judge header', () => {
-            const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[4].innerHTML).contains('Judge');
+            expect(headerCell[3].innerHTML).contains('Judge(s)');
         });
 
         it('should display Member(s) header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[5].innerHTML).contains('Member(s)');
+            expect(headerCell[4].innerHTML).contains('Member(s)');
         });
 
-        it('should display Date cell data', () => {
-            const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[0].innerHTML).contains('16 December 2024');
+        it('should display Hearing Type header', () => {
+            const headerCell = htmlRes.getElementsByClassName(tableHeader);
+            expect(headerCell[5].innerHTML).contains('Hearing type');
         });
 
-        it('should display Hearing Time cell data', () => {
+        it('should display Venue header', () => {
+            const headerCell = htmlRes.getElementsByClassName(tableHeader);
+            expect(headerCell[6].innerHTML).contains('Venue');
+        });
+
+        it('should display Additional Information header', () => {
+            const headerCell = htmlRes.getElementsByClassName(tableHeader);
+            expect(headerCell[7].innerHTML).contains('Additional information');
+        });
+
+        it('should display Time cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[1].innerHTML).contains('10am');
+            expect(cellText[0].innerHTML).contains('10am');
+        });
+
+        it('should display Case Reference Number cell data', () => {
+            const cellText = htmlRes.getElementsByClassName(cell);
+            expect(cellText[1].innerHTML).contains('12345');
         });
 
         it('should display Case Name cell data', () => {
@@ -139,24 +127,34 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
             expect(cellText[2].innerHTML).contains('This is a case name');
         });
 
-        it('should display Case Reference Number cell data', () => {
-            const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[3].innerHTML).contains('1234');
-        });
-
         it('should display Judge data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[4].innerHTML).contains('Judge A');
+            expect(cellText[3].innerHTML).contains('Judge A');
         });
 
-        it('should display Member(s) cell data', () => {
+        it('should display Member cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[5].innerHTML).contains('Member A');
+            expect(cellText[4].innerHTML).contains('Member A');
+        });
+
+        it('should display Hearing Type cell data', () => {
+            const cellText = htmlRes.getElementsByClassName(cell);
+            expect(cellText[5].innerHTML).contains('Hearing type 1');
+        });
+
+        it('should display Venue cell data', () => {
+            const cellText = htmlRes.getElementsByClassName(cell);
+            expect(cellText[6].innerHTML).contains('Venue 1');
+        });
+
+        it('should display Additional information cell data', () => {
+            const cellText = htmlRes.getElementsByClassName(cell);
+            expect(cellText[7].innerHTML).contains('Additional information 1');
         });
 
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[10].innerHTML).contains('Data Source: prov1');
+            expect(text[7].innerHTML).contains('Data Source: prov1');
         });
     });
 });
