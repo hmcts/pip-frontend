@@ -424,7 +424,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "ftt-rpt-weekly-hearing-list"
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_LONDON_WEEKLY_HEARING_LIST": {
@@ -436,7 +436,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "ftt-rpt-weekly-hearing-list"
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_MIDLANDS_WEEKLY_HEARING_LIST": {
@@ -448,7 +448,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "ftt-rpt-weekly-hearing-list"
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_NORTHERN_WEEKLY_HEARING_LIST": {
@@ -460,7 +460,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "ftt-rpt-weekly-hearing-list"
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "RPT_SOUTHERN_WEEKLY_HEARING_LIST": {
@@ -472,7 +472,7 @@
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "ftt-rpt-weekly-hearing-list"
+        "parentPage": "ftt-rpt-weekly-hearing-list",
         "isNonStrategic": true
     },
     "UT_T_AND_CC_DAILY_HEARING_LIST": {
