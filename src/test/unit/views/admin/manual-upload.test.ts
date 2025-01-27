@@ -213,7 +213,7 @@ describe('Manual upload page', () => {
 
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
-            expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+            expect(header[0].innerHTML).contains("Excel File Upload", 'Could not find the header');
         });
 
         it('should contain file upload question inset', () => {
