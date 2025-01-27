@@ -19,8 +19,7 @@ const cards = [
     },
     {
         title: 'Remove',
-        description:
-            'Search by court or tribunal and remove a publication from the external facing service n GOV.UK.',
+        description: 'Search by court or tribunal and remove a publication from the external facing service n GOV.UK.',
         link: 'remove-list-search',
     },
     {
