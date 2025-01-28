@@ -56,10 +56,15 @@ export default class ManualUploadSummaryController {
         const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
 
         try {
-            formData.file =  await fileHandlingService.readFileFromRedis(req.user['userId'], formData.fileName);
+            formData.file = await fileHandlingService.readFileFromRedis(req.user['userId'], formData.fileName);
         } catch {
-            return ManualUploadSummaryController
-                .renderConfirmationError(req, res, formData, sensitivityMismatch, nonStrategicUpload);
+            return ManualUploadSummaryController.renderConfirmationError(
+                req,
+                res,
+                formData,
+                sensitivityMismatch,
+                nonStrategicUpload
+            );
         }
 
         if (req.query?.check === 'true') {
@@ -90,11 +95,15 @@ export default class ManualUploadSummaryController {
                 res.clearCookie('formCookie');
                 res.redirect('manual-upload-confirmation?non-strategic=' + nonStrategicUpload);
             } else {
-                ManualUploadSummaryController
-                    .renderConfirmationError(req, res, formData, sensitivityMismatch, nonStrategicUpload);
+                ManualUploadSummaryController.renderConfirmationError(
+                    req,
+                    res,
+                    formData,
+                    sensitivityMismatch,
+                    nonStrategicUpload
+                );
             }
         }
-
     }
 
     private static renderConfirmationError(req, res, formData, sensitivityMismatch, nonStrategicUpload) {

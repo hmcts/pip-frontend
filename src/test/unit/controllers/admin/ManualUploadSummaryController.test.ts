@@ -190,7 +190,7 @@ describe('Manual upload summary controller', () => {
             const res = {
                 render: () => {
                     return '';
-                }
+                },
             } as unknown as Response;
 
             req.user = { userId: '12345', email: '2' };
@@ -280,7 +280,7 @@ describe('Manual upload summary controller', () => {
             const res = {
                 render: () => {
                     return '';
-                }
+                },
             } as unknown as Response;
 
             req.query = { 'non-strategic': 'true' };
