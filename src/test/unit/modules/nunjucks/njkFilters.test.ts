@@ -178,14 +178,19 @@ describe('Nunjucks Custom Filter Tests', function () {
     });
 
     describe('mask legacy data source name', function () {
-        it('should return updated data source name', function () {
-            const result = env.renderString('{{ "SNL"| convertDataSourceName }}', {});
+        it('should return updated data source name for SNL', function () {
+            const result = env.renderString('{{ "SNL"| convertDataSourceName("en") }}', {});
             expect(result).to.equal('ListAssist');
         });
 
-        it('should return existing data source name', function () {
-            const result = env.renderString('{{ "MANUAL_UPLOAD"| convertDataSourceName }}', {});
+        it('should return updated data source name for MANUAL_UPLOAD in English', function () {
+            const result = env.renderString('{{ "MANUAL_UPLOAD"| convertDataSourceName("en") }}', {});
             expect(result).to.equal('Manual Upload');
+        });
+
+        it('should return updated data source name for MANUAL_UPLOAD in Welsh', function () {
+            const result = env.renderString('{{ "MANUAL_UPLOAD"| convertDataSourceName("cy") }}', {});
+            expect(result).to.equal('Lanlwytho â Llaw');
         });
     });
 
