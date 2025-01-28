@@ -116,6 +116,7 @@ describe('Non Strategic Tribunal Lists Controller', () => {
             listType: 'GRC_WEEKLY_HEARING_LIST',
             provenance: 'MANUAL_UPLOAD',
             contentDate: '2024-12-12T00:00:00Z',
+            lastReceivedDate: '2025-01-20T10:00:00Z',
         });
 
         const request = mockRequest(i18n);
@@ -131,6 +132,8 @@ describe('Non Strategic Tribunal Lists Controller', () => {
             listData: { Hello: 'World' },
             provenance: 'MANUAL_UPLOAD',
             contentDate: '12 December 2024',
+            lastUpdatedDate: '20 January 2025',
+            lastUpdatedTime: '10am',
         };
 
         responseMock.expects('render').once().withArgs('style-guide/grc-weekly-hearing-list', expectedData);
@@ -145,6 +148,7 @@ describe('Non Strategic Tribunal Lists Controller', () => {
             listType: 'CST_WEEKLY_HEARING_LIST',
             provenance: 'MANUAL_UPLOAD',
             contentDate: '2024-12-12T00:00:00Z',
+            lastReceivedDate: '2025-01-20T10:00:00Z',
         });
 
         const request = mockRequest(i18n);
@@ -161,6 +165,8 @@ describe('Non Strategic Tribunal Lists Controller', () => {
             listData: { Hello: 'World' },
             provenance: 'MANUAL_UPLOAD',
             contentDate: '12 December 2024',
+            lastUpdatedDate: '20 January 2025',
+            lastUpdatedTime: '10am',
         };
 
         responseMock.expects('render').once().withArgs('style-guide/cst-and-pht-weekly-hearing-list', expectedData);

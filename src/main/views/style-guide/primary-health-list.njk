@@ -56,7 +56,7 @@
         </tbody>
       </table>
     </div>
-    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | maskLegacyDataSource }}</p>
+    <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | convertDataSourceName(lng) }}</p>
     {{ super() }}
   </div>
 {% endblock %}

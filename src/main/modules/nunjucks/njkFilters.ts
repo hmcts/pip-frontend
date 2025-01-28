@@ -151,8 +151,14 @@ export function createFilters(env) {
         return result;
     });
 
-    env.addFilter('maskLegacyDataSource', function (provenance) {
-        return provenance == 'SNL' ? 'ListAssist' : provenance;
+    env.addFilter('convertDataSourceName', function (provenance, language) {
+        if (provenance == 'SNL') {
+            return 'ListAssist';
+        } else if (provenance == 'MANUAL_UPLOAD' && language == 'cy') {
+            return 'Lanlwytho â Llaw';
+        }
+        return provenance.replaceAll('_', ' ')
+            .replace(/\w\S*/g, function(word){return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();});
     });
 
     env.addFilter('appendCaseSequenceIndicator', function (data, caseSequenceIndicator) {

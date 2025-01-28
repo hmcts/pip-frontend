@@ -48,21 +48,31 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
         expect(text[4].innerHTML).contains('List for 14 February 2022');
     });
 
+    it('should display list updated date text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+    });
+
+    it('should display important information heading', () => {
+        const text = htmlRes.getElementsByClassName('govuk-details__summary-text');
+        expect(text[0].innerHTML).contains('Important information');
+    });
+
     it('should display list update message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).contains('We update this list by 5pm for the following day.');
+        expect(text[6].innerHTML).contains('We update this list by 5pm for the following day.');
     });
 
     it('should display attend hearing message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[6].innerHTML).contains(
+        expect(text[7].innerHTML).contains(
             'For details on attending a UTIAC remote hearing, please email uppertribunallistingteam@justice.gov.uk.'
         );
     });
 
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).contains(
+        expect(text[8].innerHTML).contains(
             'Observe a court or tribunal hearing as a journalist, researcher or member of the public'
         );
     });
@@ -154,6 +164,6 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).contains('Data Source: prov1');
+        expect(text[9].innerHTML).contains('Data Source: Prov1');
     });
 });

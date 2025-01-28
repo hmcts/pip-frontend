@@ -37,6 +37,9 @@ export default class NonStrategicTribunalListsController {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['non-strategic-common']),
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 };
+                const lastUpdatedDate = helperService.publicationDateInUkTime(metaData?.lastReceivedDate, req.lng);
+                const lastUpdatedTime = helperService.publicationTimeInUkTime(metaData?.lastReceivedDate);
+
                 if (parentPage) {
                     Object.assign(languageOptions, cloneDeep(req.i18n.getDataByLanguage(req.lng)[parentPage]));
                 }
@@ -46,6 +49,8 @@ export default class NonStrategicTribunalListsController {
                     listData: searchResults,
                     provenance: metaData.provenance,
                     contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
+                    lastUpdatedDate,
+                    lastUpdatedTime,
                 });
             } else if (
                 searchResults === HttpStatusCode.NotFound ||
