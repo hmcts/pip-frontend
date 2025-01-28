@@ -47,6 +47,32 @@ const validRemoveListInput = [
         displayFrom: '2022-02-08T12:26:42.908',
         displayTo: '2024-02-08T12:26:42.908',
         contentDate: '2022-02-08T00:00:00',
+        language: 'WELSH',
+        sensitivity: 'PUBLIC',
+    },
+    {
+        listType: 'SJP_PUBLIC_LIST',
+        displayFrom: '2022-02-08T12:26:42.908',
+        displayTo: '2024-02-08T12:26:42.908',
+        contentDate: '2022-02-08T00:00:00',
+        language: 'WELSH',
+        sensitivity: 'CLASSIFIED',
+    },
+    {
+        listType: 'SJP_PUBLIC_LIST',
+        displayFrom: '2022-02-08T12:26:42.908',
+        displayTo: '2024-02-08T12:26:42.908',
+        contentDate: '2022-02-08T00:00:00',
+        language: 'ENGLISH',
+        sensitivity: 'PUBLIC',
+    },
+    {
+        listType: 'SJP_PUBLIC_LIST',
+        displayFrom: '2022-02-08T12:26:42.908',
+        displayTo: '2024-02-08T12:26:42.908',
+        contentDate: '2022-01-08T00:00:00',
+        language: 'WELSH',
+        sensitivity: 'PUBLIC',
     },
 ];
 const expectedRemoveList = [
@@ -58,6 +84,41 @@ const expectedRemoveList = [
         displayTo: '2024-02-08T12:26:42.908',
         listTypeName: 'SJP Public List (Full list)',
         dateRange: '8 Feb 2022 to 8 Feb 2024',
+        language: 'WELSH',
+        sensitivity: 'PUBLIC',
+    },
+    {
+        listType: 'SJP_PUBLIC_LIST',
+        contentDate: '2022-02-08T00:00:00',
+        contDate: '8 Feb 2022',
+        displayFrom: '2022-02-08T12:26:42.908',
+        displayTo: '2024-02-08T12:26:42.908',
+        listTypeName: 'SJP Public List (Full list)',
+        dateRange: '8 Feb 2022 to 8 Feb 2024',
+        language: 'WELSH',
+        sensitivity: 'CLASSIFIED',
+    },
+    {
+        listType: 'SJP_PUBLIC_LIST',
+        contentDate: '2022-02-08T00:00:00',
+        contDate: '8 Feb 2022',
+        displayFrom: '2022-02-08T12:26:42.908',
+        displayTo: '2024-02-08T12:26:42.908',
+        listTypeName: 'SJP Public List (Full list)',
+        dateRange: '8 Feb 2022 to 8 Feb 2024',
+        language: 'ENGLISH',
+        sensitivity: 'PUBLIC',
+    },
+    {
+        listType: 'SJP_PUBLIC_LIST',
+        contentDate: '2022-01-08T00:00:00',
+        contDate: '8 Jan 2022',
+        displayFrom: '2022-02-08T12:26:42.908',
+        displayTo: '2024-02-08T12:26:42.908',
+        listTypeName: 'SJP Public List (Full list)',
+        dateRange: '8 Feb 2022 to 8 Feb 2024',
+        language: 'WELSH',
+        sensitivity: 'PUBLIC',
     },
 ];
 
@@ -76,30 +137,74 @@ sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true
 describe('Manual upload service', () => {
     describe('building form data', () => {
         it('should build form data court list', async () => {
-            const data = await manualUploadService.buildFormData(englishLanguage);
+            const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
             expect(data['courtList']).to.equal(courtData);
         });
 
         it('should build form data for Welsh court list', async () => {
-            const data = await manualUploadService.buildFormData(welshLanguage);
+            const data = await manualUploadService.buildFormData(welshLanguage, true, undefined);
             expect(data['courtList']).to.equal(courtData);
         });
 
-        it('should build form data list subtypes', async () => {
-            const data = await manualUploadService.buildFormData(englishLanguage);
-            expect(data['listSubtypes'].length).to.equal(46);
+        it('should build form data list subtypes when not non-strategic', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, false, undefined);
+            expect(data['listSubtypes'].length).to.equal(27);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',
+                selected: true,
+            });
+
+            expect(data['listSubtypes']).to.deep.include({
+                value: 'SJP_PUBLIC_LIST',
+                text: 'SJP Public List (Full list)',
+                selected: false,
+            });
+            expect(data['listSubtypes']).to.not.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+                selected: false,
             });
         });
 
-        it('should build form data judgements and outcomes subtypes', async () => {
-            const data = await manualUploadService.buildFormData(englishLanguage);
-            expect(data['judgementsOutcomesSubtypes'].length).to.equal(1);
-            expect(data['judgementsOutcomesSubtypes'][0]).to.deep.equal({
-                text: 'SJP Media Register',
-                value: 'SJP_MEDIA_REGISTER',
+        it('should build form data list subtypes when non-strategic', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
+            expect(data['listSubtypes'].length).to.equal(20);
+            expect(data['listSubtypes'][0]).to.deep.equal({
+                text: '<Please choose a list type>',
+                value: 'EMPTY',
+                selected: true,
+            });
+
+            expect(data['listSubtypes']).to.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+                selected: false,
+            });
+            expect(data['listSubtypes']).to.not.deep.include({
+                value: 'SJP_PUBLIC_LIST',
+                text: 'SJP Public List (Full list)',
+                selected: false,
+            });
+        });
+
+        it('should set empty as selected when list type does not match expected types', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, false, 'CST_WEEKLY_HEARING_LIST');
+
+            expect(data['listSubtypes'][0]).to.deep.equal({
+                text: '<Please choose a list type>',
+                value: 'EMPTY',
+                selected: true,
+            });
+        });
+
+        it('should set list type as selected when list type matches', async () => {
+            const data = await manualUploadService.buildFormData(englishLanguage, true, 'CST_WEEKLY_HEARING_LIST');
+
+            expect(data['listSubtypes']).to.deep.include({
+                text: 'CST Weekly Hearing list',
+                value: 'CST_WEEKLY_HEARING_LIST',
+                selected: true,
             });
         });
     });
@@ -203,7 +308,7 @@ describe('Manual upload service', () => {
             formValues['content-date-from-month'] = '1';
             formValues['content-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
-            expect(errors['contentDateError']).to.equal('Please enter a valid date');
+            expect(errors['contentDateError']).to.equal('Please enter a valid hearing start date');
         });
 
         it('should return error when invalid content date from is passed for Welsh language', async () => {
@@ -211,7 +316,7 @@ describe('Manual upload service', () => {
             formValues['content-date-from-month'] = '1';
             formValues['content-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
-            expect(errors['contentDateError']).to.equal('Please enter a valid date');
+            expect(errors['contentDateError']).to.equal('Please enter a valid hearing start date');
         });
 
         it('should return error when invalid display date from is passed', async () => {
@@ -219,7 +324,7 @@ describe('Manual upload service', () => {
             formValues['display-date-from-month'] = '1';
             formValues['display-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
-            expect(errors['displayDateError']['from']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['from']).to.equal('Please enter a valid display file from date');
         });
 
         it('should return error when invalid display date from is passed for Welsh language', async () => {
@@ -227,7 +332,7 @@ describe('Manual upload service', () => {
             formValues['display-date-from-month'] = '1';
             formValues['display-date-from-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
-            expect(errors['displayDateError']['from']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['from']).to.equal('Please enter a valid display file from date');
         });
 
         it('should return error when invalid display date to is passed', async () => {
@@ -235,7 +340,7 @@ describe('Manual upload service', () => {
             formValues['display-date-to-month'] = '1';
             formValues['display-date-to-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
-            expect(errors['displayDateError']['to']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['to']).to.equal('Please enter a valid display file to date');
         });
 
         it('should return error when invalid display date to is passed for Welsh language', async () => {
@@ -243,7 +348,7 @@ describe('Manual upload service', () => {
             formValues['display-date-to-month'] = '1';
             formValues['display-date-to-year'] = '1';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
-            expect(errors['displayDateError']['to']).to.equal('Please enter a valid date');
+            expect(errors['displayDateError']['to']).to.equal('Please enter a valid display file to date');
         });
 
         it('should return error when invalid date range is passed', async () => {
@@ -266,6 +371,28 @@ describe('Manual upload service', () => {
             formValues['display-date-to-year'] = '2022';
             const errors = await manualUploadService.validateFormFields(formValues, welshLanguage, languageFile);
             expect(errors['displayDateError']['range']).to.equal("Please make sure 'to' date is after 'from' date");
+        });
+
+        it("should not return invalid date range error if 'from' date is invalid", async () => {
+            formValues['display-date-from-day'] = '02';
+            formValues['display-date-from-month'] = '';
+            formValues['display-date-from-year'] = '2022';
+            formValues['display-date-to-day'] = '01';
+            formValues['display-date-to-month'] = '01';
+            formValues['display-date-to-year'] = '2022';
+            const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
+            expect(errors['displayDateError']['range']).to.be.null;
+        });
+
+        it("should not return invalid date range error if 'to' date is invalid", async () => {
+            formValues['display-date-from-day'] = '02';
+            formValues['display-date-from-month'] = '01';
+            formValues['display-date-from-year'] = '2022';
+            formValues['display-date-to-day'] = '01';
+            formValues['display-date-to-month'] = '01';
+            formValues['display-date-to-year'] = '202';
+            const errors = await manualUploadService.validateFormFields(formValues, englishLanguage, languageFile);
+            expect(errors['displayDateError']['range']).to.be.null;
         });
 
         it('should formatted date-from date correctly', async () => {
