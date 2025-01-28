@@ -48,6 +48,6 @@ Scenario('I as a admin user should be able to upload non strategic file successf
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
-    I.see('Primary Health Tribunal Weekly Hearing List');
+    I.see('Primary Health Tribunal Weekly Hearing List for week commencing');
     I.logoutSsoAdminLocal();
 });
