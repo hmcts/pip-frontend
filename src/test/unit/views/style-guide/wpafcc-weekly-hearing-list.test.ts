@@ -42,19 +42,29 @@ describe('WPAFCC Weekly Hearing List page', () => {
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).contains('List for 14 February 2022');
+        expect(text[4].innerHTML).contains('List for week commencing 14 February 2022');
+    });
+
+    it('should display list updated date text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+    });
+
+    it('should display important information heading', () => {
+        const text = htmlRes.getElementsByClassName('govuk-details__summary-text');
+        expect(text[0].innerHTML).contains('Important information');
     });
 
     it('should display join hearing message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).contains(
+        expect(text[6].innerHTML).contains(
             'Members of the public wishing to observe a hearing or representatives of the media may, on their request, join any telephone or video hearing remotely'
         );
     });
 
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[6].innerHTML).contains(
+        expect(text[7].innerHTML).contains(
             'Observe a court or tribunal hearing as a journalist, researcher or member of the public'
         );
     });
@@ -156,6 +166,6 @@ describe('WPAFCC Weekly Hearing List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).contains('Data Source: prov1');
+        expect(text[8].innerHTML).contains('Data Source: Prov1');
     });
 });
