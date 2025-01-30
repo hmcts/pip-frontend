@@ -47,12 +47,22 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
 
         it('should display list for text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[4].innerHTML).contains('List for 14 February 2022');
+            expect(text[4].innerHTML).contains('List for week commencing 14 February 2022');
+        });
+
+        it('should display list updated date text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+        });
+
+        it('should display important information heading', () => {
+            const text = htmlRes.getElementsByClassName('govuk-details__summary-text');
+            expect(text[0].innerHTML).contains('Important information');
         });
 
         it('should display contact information 1 text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[5].innerHTML).contains(
+            expect(text[6].innerHTML).contains(
                 'Open justice is a fundamental principle of our justice system. You can attend ' +
                     'a public hearing in person, or you can apply for permission to observe remotely.'
             );
@@ -60,7 +70,7 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
 
         it('should display contact information 2 text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains(
+            expect(text[7].innerHTML).contains(
                 'Members of the public and the media can ask to join any telephone or video hearing remotely. ' +
                     'Contact the Tribunal before the hearing to ask for permission to attend by emailing taxappeals@justice.gov.uk.'
             );
@@ -68,7 +78,7 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
 
         it('should display contact information 3 text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'The subject line for the email should contain the following wording: “HEARING ACCESS REQUEST – ' +
                     '[Appellant’s name] v [Respondent’s name, for example HMRC] – [case reference] – [hearing date]”. ' +
                     'You will be sent instructions on how to join the hearing.'
@@ -76,7 +86,7 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
         });
         it('should display contact information 4 text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains(
+            expect(text[9].innerHTML).contains(
                 'The judge may refuse a request and can also decide a hearing must be held in private, ' +
                     'in such cases you will not be able to attend.'
             );
@@ -84,7 +94,7 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[9].innerHTML).contains(
+            expect(text[10].innerHTML).contains(
                 'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
             );
         });
@@ -156,7 +166,7 @@ describe('Tax Chamber Weekly Hearing List Page', () => {
 
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[10].innerHTML).contains('Data Source: prov1');
+            expect(text[11].innerHTML).contains('Data Source: Prov1');
         });
     });
 });
