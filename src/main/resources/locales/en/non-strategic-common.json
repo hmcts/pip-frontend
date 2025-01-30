@@ -1,6 +1,9 @@
 {
     "backButton": "Back",
     "listDate": "List for",
+    "weeklyListDate": "List for week commencing",
+    "listUpdated": "Last updated DATE at",
+    "importantInformationHeading": "Important information",
     "observationText": "Observe a court or tribunal hearing as a journalist, researcher or member of the public",
     "dataSource": "Data Source"
 }
