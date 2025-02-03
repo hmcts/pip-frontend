@@ -3,12 +3,12 @@
     "heading": "Your Dashboard",
     "uploadCard": {
         "title": "Upload",
-        "description": "Upload a file to be published on the external facing Court and tribunal hearings service.",
+        "description": "Uwchlwytho ffeil i’w chyhoeddi ar y gwasanaeth allanol ar GOV.UK.",
         "link": "manual-upload"
     },
     "removeCard": {
         "title": "Remove",
-        "description": "Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.",
+        "description": "Chwilio fesul llys neu dribiwnlys a dileu cyhoeddiad o’r gwasanaeth allanol ar GOV.UK.",
         "link": "remove-list-search"
     },
     "mediaCard": {
@@ -22,7 +22,7 @@
     },
     "uploadNonStrategicCard": {
         "title": "Upload Excel File",
-        "description": "Upload a file to be published on the external facing Court and tribunal hearings service.",
+        "description": "Uwchlwytho ffeil Excel i’w throsi a’i harddangos ar y gwasanaeth allanol ar GOV.UK.",
         "link": "manual-upload?non-strategic=true"
     }
 }

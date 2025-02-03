@@ -9,18 +9,17 @@ const pageTitleValue = 'Staff dashboard';
 const cards = [
     {
         title: 'Upload',
-        description: 'Upload a file to be published on the external facing Court and tribunal hearings service.',
+        description: 'Upload a file to be published on the external facing service on GOV.UK.',
         link: 'manual-upload',
     },
     {
         title: 'Upload Excel File',
-        description: 'Upload a file to be published on the external facing Court and tribunal hearings service.',
+        description: 'Upload an excel file to be converted and displayed on the external facing service on GOV.UK.',
         link: 'manual-upload?non-strategic=true',
     },
     {
         title: 'Remove',
-        description:
-            'Search by court or tribunal and remove a publication from the external facing Court and tribunal hearings service.',
+        description: 'Search by court or tribunal and remove a publication from the external facing service on GOV.UK.',
         link: 'remove-list-search',
     },
     {
