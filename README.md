@@ -46,11 +46,10 @@ Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mos
 
 It is connected to several other microservices in production (all written in Java/Spring Boot):
 
-| Microservice                              | Summary                                                                                                                                                                                                                                                     |
-|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation                                       |
-| pip-subscription-management (`port:4550`) | Handles all operations related to subscriptions, including all CRUD operations and the triggering of the fulfilment process.                                                                                                                                |
-| pip-account-management(`port:6969`)       | Handles operations related to accounts, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                                                                                     |
+| Microservice                              | Summary                                                                                                                                                                                                               |
+|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation |
+| pip-account-management(`port:6969`)       | Handles operations related to accounts and account subscriptions, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                     |
 
 Most of the communication with this service benefits from using secure authentication. While possible to stand up locally in insecure mode, to simulate a production environment it is better to use secure mode.
 
@@ -131,7 +130,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | SSO_SG_ADMIN_LOCAL                 | The ID of SSO security group for local admin users.                                                                                                                                     | No        |
 | ACCOUNT_MANAGEMENT_URL             | URL used for connecting to the pip-account-management service. Defaults to staging if not provided.                                                                                     | No        |
 | DATA_MANAGEMENT_URL                | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        | No        |
-| SUBSCRIPTION_MANAGEMENT_URL        | URL used for connecting to the pip-subscription-management service. Defaults to staging if not provided.                                                                                | No        |
 | AUTH_RETURN_URL                    | URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.                                                                      | No        |
 | ADMIN_AUTH_RETURN_URL              | Same as above, but for admin sign in.                                                                                                                                                   | No        |
 | MEDIA_VERIFICATION_RETURN_URL      | Same as above, but for after a media user verifies their account using the OTP process                                                                                                  | No        |
@@ -149,7 +147,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | TENANT_ID                          | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                                           | No        |
 | DATA_MANAGEMENT_AZ_API             | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service                                | No        |
 | ACCOUNT_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service                             | No        |
-| SUBSCRIPTION_MANAGEMENT_AZ_API     | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service                        | No        |
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
 | INSTRUMENTATION_KEY                | This is the instrumentation key used by the app to talk to Application Insights                                                                                                         | No        |
 | SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie. This is only used in the clusters, and not required locally.                                                                                   | No        |
@@ -158,40 +155,39 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 
 Secrets required for getting tests to run correctly can be found in the below table. They are all accessible from the bootstrap keyvault.
 
-| Variable                        | Description                                                                                                                                                        |
-|---------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| B2C_USERNAME                    | User's username for B2C authentication                                                                                                                             |
-| B2C_PASSWORD                    | User's password for B2C authentication                                                                                                                             |
-| B2C_ADMIN_USERNAME              | B2C administrator's username                                                                                                                                       |
-| B2C_ADMIN_PASSWORD              | B2C administrator's password                                                                                                                                       |
-| CFT_INVALID_USERNAME            | Invalid username for CFT authentication                                                                                                                            |
-| CFT_VALID_USERNAME              | Valid username for CFT authentication                                                                                                                              |
-| CFT_VALID_PASSWORD              | Valid password for CFT authentication                                                                                                                              |
-| CFT_INVALID_PASSWORD            | Invalid password for CFT authentication                                                                                                                            |
-| B2C_SYSTEM_ADMIN_USERNAME       | B2C system administrator's username                                                                                                                                |
-| B2C_SYSTEM_ADMIN_PASSWORD       | B2C system administrator's password                                                                                                                                |
-| TEST_URL                        | The URL of the frontend service that the tests will run against                                                                                                    |
-| TEST_HEADLESS                   | Whether the E2E tests should run in headless mode. Default is true                                                                                                 |
-| TEST_A11Y_HEADLESS              | Whether the accessibility tests should run in headless mode. Default is true. Used for test debugging.                                                             |
-| DATA_MANAGEMENT_URL             | URL for data management that the codecept tests use when creating test data                                                                                        |
-| SUBSCRIPTION_MANAGEMENT_URL     | URL for data management that the codecept tests use when creating test data                                                                                        |
-| SYSTEM_ADMIN_PROVENANCE_ID      | Test system admin provenance ID, used during E2E tests                                                                                                             |
-| SYSTEM_ADMIN_USER_ID            | Test system admin user ID, used during E2E tests                                                                                                                   |
-| VERIFIED_USER_ID                | Test verified ID, used during E2E tests                                                                                                                            |
-| CLIENT_ID_INTERNAL              | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                          |
-| CLIENT_SECRET_INTERNAL          | Secret key for authentication requests during service to service communication.                                                                                    |
-| DATA_MANAGEMENT_AZ_API          | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service           |
-| SUBSCRIPTION_MANAGEMENT_AZ_API  | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-subscription-management service   |
-| ACCOUNT_MANAGEMENT_AZ_API       | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service        |
-| TENANT_ID                       | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                                      |
-| SSO_TEST_ADMIN_CTSC_USER        | SSO Username for CTSC Admin                                                                                                                                        |
-| SSO_TEST_ADMIN_CTSC_PWD         | SSO Password for CTSC Admin                                                                                                                                        |
-| SSO_TEST_ADMIN_LOCAL_USER       | SSO Username for Local Admin                                                                                                                                       |
-| SSO_TEST_ADMIN_LOCAL_PWD        | SSO Password for Local Password                                                                                                                                    |
-| SSO_TEST_SYSTEM_ADMIN_USER      | SSO Username for System Admin                                                                                                                                      |
-| SSO_TEST_SYSTEM_ADMIN_PWD       | SSO Password for System Admin                                                                                                                                      |
-| SSO_TEST_NO_ROLES_USER          | SSO Username for a user that has no admin roles                                                                                                                    |
-| SSO_TEST_NO_ROLES_PWD           | SSO Password for a user that has no admin roles                                                                                                                    |
+| Variable                   | Description                                                                                                                                                 |
+|----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| B2C_USERNAME               | User's username for B2C authentication                                                                                                                      |
+| B2C_PASSWORD               | User's password for B2C authentication                                                                                                                      |
+| B2C_ADMIN_USERNAME         | B2C administrator's username                                                                                                                                |
+| B2C_ADMIN_PASSWORD         | B2C administrator's password                                                                                                                                |
+| CFT_INVALID_USERNAME       | Invalid username for CFT authentication                                                                                                                     |
+| CFT_VALID_USERNAME         | Valid username for CFT authentication                                                                                                                       |
+| CFT_VALID_PASSWORD         | Valid password for CFT authentication                                                                                                                       |
+| CFT_INVALID_PASSWORD       | Invalid password for CFT authentication                                                                                                                     |
+| B2C_SYSTEM_ADMIN_USERNAME  | B2C system administrator's username                                                                                                                         |
+| B2C_SYSTEM_ADMIN_PASSWORD  | B2C system administrator's password                                                                                                                         |
+| TEST_URL                   | The URL of the frontend service that the tests will run against                                                                                             |
+| TEST_HEADLESS              | Whether the E2E tests should run in headless mode. Default is true                                                                                          |
+| TEST_A11Y_HEADLESS         | Whether the accessibility tests should run in headless mode. Default is true. Used for test debugging.                                                      |
+| DATA_MANAGEMENT_URL        | URL for data-management that the codecept tests use when creating test data                                                                                 |
+| ACCOUNT_MANAGEMENT_URL     | URL for account-management that the codecept tests use when creating test data                                                                              |
+| SYSTEM_ADMIN_PROVENANCE_ID | Test system admin provenance ID, used during E2E tests                                                                                                      |
+| SYSTEM_ADMIN_USER_ID       | Test system admin user ID, used during E2E tests                                                                                                            |
+| VERIFIED_USER_ID           | Test verified ID, used during E2E tests                                                                                                                     |
+| CLIENT_ID_INTERNAL         | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                   |
+| CLIENT_SECRET_INTERNAL     | Secret key for authentication requests during service to service communication.                                                                             |
+| DATA_MANAGEMENT_AZ_API     | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-data-management service    |
+| ACCOUNT_MANAGEMENT_AZ_API  | Used as part of the `scope` parameter when requesting a token from Azure. Used for service-to-service communication with the pip-account-management service |
+| TENANT_ID                  | Directory unique ID assigned to our Azure AD tenant. Represents the organisation that owns and manages the Azure AD instance.                               |
+| SSO_TEST_ADMIN_CTSC_USER   | SSO Username for CTSC Admin                                                                                                                                 |
+| SSO_TEST_ADMIN_CTSC_PWD    | SSO Password for CTSC Admin                                                                                                                                 |
+| SSO_TEST_ADMIN_LOCAL_USER  | SSO Username for Local Admin                                                                                                                                |
+| SSO_TEST_ADMIN_LOCAL_PWD   | SSO Password for Local Password                                                                                                                             |
+| SSO_TEST_SYSTEM_ADMIN_USER | SSO Username for System Admin                                                                                                                               |
+| SSO_TEST_SYSTEM_ADMIN_PWD  | SSO Password for System Admin                                                                                                                               |
+| SSO_TEST_NO_ROLES_USER     | SSO Username for a user that has no admin roles                                                                                                             |
+| SSO_TEST_NO_ROLES_PWD      | SSO Password for a user that has no admin roles                                                                                                             |
 
 
 ### Fortify
