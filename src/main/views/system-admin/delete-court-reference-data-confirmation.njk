@@ -50,10 +50,7 @@
           {{ deletePublicationText }} {{ court.name }}</a>
       </p>
     {% endif %}
-    {{ govukWarningText({
-      text: warning,
-      iconFallbackText: "Warning"
-    }) }}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
     {{ govukSummaryList({
       rows: [
         {
@@ -93,7 +90,6 @@
         }
       ]
     }) }}
-    <h2 class="govuk-heading-l">{{ header }}</h2>
     <form action="delete-court-reference-data-confirmation" method="post">
       {{ govukInput({
         id: "locationId",
