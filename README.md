@@ -67,7 +67,7 @@ Most of the communication with this service benefits from using secure authentic
 
 ### Architecture Diagram
 
-![Frontend Architecture](frontend-arch.png)
+![Frontend Architecture](service-diagram.png)
 
 ## Getting Started
 
