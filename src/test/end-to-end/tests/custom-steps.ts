@@ -4,7 +4,9 @@ import { checkA11y, injectAxe } from 'axe-playwright';
 export = function () {
     return actor({
         loginAsB2CSystemAdmin: function () {
-            this.amOnPage('/b2c-admin-login');
+            this.usePlaywrightTo('Go to b2c system admin login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
+            });
             this.see('Sign in with your email address');
             this.fillField('#email', secret(testConfig.SYSTEM_ADMIN_USERNAME));
             this.fillField('#password', secret(testConfig.SYSTEM_ADMIN_PASSWORD));
@@ -13,7 +15,9 @@ export = function () {
         },
 
         loginAsB2CAdmin: function () {
-            this.amOnPage('/b2c-admin-login');
+            this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
+            });
             this.see('Sign in with your email address');
             this.fillField('#email', secret(testConfig.ADMIN_USERNAME));
             this.fillField('#password', secret(testConfig.ADMIN_PASSWORD));
@@ -22,7 +26,9 @@ export = function () {
         },
 
         loginTestB2CAdminUser: function (username, password) {
-            this.amOnPage('/b2c-admin-login');
+            this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
+            });
             this.see('Sign in with your email address');
             this.fillField('#email', username);
             this.fillField('#password', password);
@@ -100,7 +106,9 @@ export = function () {
         },
 
         loginAsMediaUser: function () {
-            this.amOnPage('/sign-in');
+            this.usePlaywrightTo('Go to media login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/sign-in');
+            });
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.see('Sign in with your email address');
@@ -111,7 +119,9 @@ export = function () {
         },
 
         loginTestMediaUser: function (username, password) {
-            this.amOnPage('/sign-in');
+            this.usePlaywrightTo('Go to media login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/sign-in');
+            });
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.see('Sign in with your email address');
@@ -121,7 +131,9 @@ export = function () {
         },
 
         loginAsCftUser: function () {
-            this.amOnPage('/sign-in');
+            this.usePlaywrightTo('Go to cft login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/sign-in');
+            });
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.see('Sign in');
@@ -132,7 +144,9 @@ export = function () {
         },
 
         loginTestCftUser: function (username, password) {
-            this.amOnPage('/sign-in');
+            this.usePlaywrightTo('Go to cft login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/sign-in');
+            });
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.see('Sign in');
@@ -142,7 +156,9 @@ export = function () {
         },
 
         loginAsCftUserInWelsh: function (username, password) {
-            this.amOnPage('/sign-in');
+            this.usePlaywrightTo('Go to cft Welsh login', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/sign-in');
+            });
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
@@ -190,7 +206,9 @@ export = function () {
         },
 
         requestMediaAccount: function (fullName, email, emplyerName) {
-            this.amOnPage('/');
+            this.usePlaywrightTo('Go to home page', async ({ page }) => {
+                page.goto(testConfig.TEST_URL + '/');
+            });
             this.waitForText('Court and tribunal hearings');
             this.click('Continue');
             this.click('Sign in');
