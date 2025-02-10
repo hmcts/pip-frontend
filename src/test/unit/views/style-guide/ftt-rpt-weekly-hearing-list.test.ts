@@ -43,7 +43,7 @@ describe('Residential Property Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Residential Property Tribunal: Eastern region Weekly Hearing List',
+                'First-tier Tribunal (Residential Property Tribunal): Eastern region Weekly Hearing List',
                 'Could not find the header'
             );
         });
@@ -202,7 +202,7 @@ describe('Residential Property Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Residential Property Tribunal: London region Weekly Hearing List',
+                'First-tier Tribunal (Residential Property Tribunal): London region Weekly Hearing List',
                 'Could not find the header'
             );
         });
@@ -228,7 +228,7 @@ describe('Residential Property Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Residential Property Tribunal: Midlands region Weekly Hearing List',
+                'First-tier Tribunal (Residential Property Tribunal): Midlands region Weekly Hearing List',
                 'Could not find the header'
             );
         });
@@ -254,7 +254,7 @@ describe('Residential Property Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Residential Property Tribunal: Northern region Weekly Hearing List',
+                'First-tier Tribunal (Residential Property Tribunal): Northern region Weekly Hearing List',
                 'Could not find the header'
             );
         });
@@ -280,7 +280,7 @@ describe('Residential Property Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Residential Property Tribunal: Southern region Weekly Hearing List',
+                'First-tier Tribunal (Residential Property Tribunal): Southern region Weekly Hearing List',
                 'Could not find the header'
             );
         });
