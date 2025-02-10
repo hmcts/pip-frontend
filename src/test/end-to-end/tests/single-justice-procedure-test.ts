@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { uploadPublication } from '../shared/testingSupportApi';
+import {config as testConfig} from "../../config";
 
 Feature('Single Justice Procedure cases');
 
@@ -17,7 +18,9 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
         'PRIMARY_HEALTH_LIST'
     );
 
-    I.amOnPage('/');
+    I.usePlaywrightTo('Go to home page', async ({ page }) => {
+        page.goto(testConfig.TEST_URL + '/');
+    });
     I.see('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
