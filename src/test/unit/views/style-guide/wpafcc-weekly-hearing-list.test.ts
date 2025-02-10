@@ -94,29 +94,24 @@ describe('WPAFCC Weekly Hearing List page', () => {
         expect(headerCell[3].innerHTML).equals('Case name');
     });
 
-    it('should display Judges(s) header', () => {
+    it('should display Panel header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[4].innerHTML).equals('Judge(s)');
-    });
-
-    it('should display Member(s) header', () => {
-        const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[5].innerHTML).equals('Member(s)');
+        expect(headerCell[4].innerHTML).equals('Panel');
     });
 
     it('should display Mode of Hearing header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[6].innerHTML).equals('Mode of hearing');
+        expect(headerCell[5].innerHTML).equals('Mode of hearing');
     });
 
     it('should display Venue header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[7].innerHTML).equals('Venue');
+        expect(headerCell[6].innerHTML).equals('Venue');
     });
 
     it('should display Additional Information header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[8].innerHTML).equals('Additional information');
+        expect(headerCell[7].innerHTML).equals('Additional information');
     });
 
     it('should display Date cell data', () => {
@@ -139,29 +134,24 @@ describe('WPAFCC Weekly Hearing List page', () => {
         expect(cellText[3].innerHTML).equals('This is a case name');
     });
 
-    it('should display Judge(s) cell data', () => {
+    it('should display Panel cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
-        expect(cellText[4].innerHTML).equals('Judge A');
-    });
-
-    it('should display Member(s) cell data', () => {
-        const cellText = htmlRes.getElementsByClassName(cell);
-        expect(cellText[5].innerHTML).equals('Member A');
+        expect(cellText[4].innerHTML).equals('Judge A, Member A');
     });
 
     it('should display Mode of Hearing cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
-        expect(cellText[6].innerHTML).equals('Case Management Hearing');
+        expect(cellText[5].innerHTML).equals('Case Management Hearing');
     });
 
     it('should display Venue cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
-        expect(cellText[7].innerHTML).contains('This is a venue name');
+        expect(cellText[6].innerHTML).contains('This is a venue name');
     });
 
     it('should display Additional information cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
-        expect(cellText[8].innerHTML).contains('This is additional information');
+        expect(cellText[7].innerHTML).contains('This is additional information');
     });
 
     it('should display data source text', () => {
