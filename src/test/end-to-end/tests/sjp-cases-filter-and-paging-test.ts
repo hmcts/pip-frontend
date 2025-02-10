@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { uploadPublication } from '../shared/testingSupportApi';
 import Assert from 'assert';
+import {config as testConfig} from "../../config";
 
 Feature('Sjp List Filter And Paging');
 
@@ -20,7 +21,9 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
         'SJP_PUBLIC_LIST'
     );
 
-    I.amOnPage('/');
+    I.usePlaywrightTo('Go to home page', async ({ page }) => {
+        page.goto(testConfig.TEST_URL + '/');
+    });
     I.see('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
