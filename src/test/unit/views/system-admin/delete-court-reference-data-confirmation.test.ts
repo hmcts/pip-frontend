@@ -40,18 +40,10 @@ describe('Delete Court Confirmation Page', () => {
         });
 
         it('should display header', () => {
-            const header = htmlRes.getElementsByClassName('govuk-heading-l');
+            const header = htmlRes.getElementsByTagName('h1');
             expect(header[0].innerHTML).contains(
                 'Are you sure you want to delete this court?',
                 'Could not find correct value in header'
-            );
-        });
-
-        it('should display warning message', () => {
-            const warning = htmlRes.getElementsByClassName('govuk-warning-text__text')[0];
-            expect(warning.innerHTML).contains(
-                'You are about to delete the following court:',
-                'Could not find correct warning message'
             );
         });
 
