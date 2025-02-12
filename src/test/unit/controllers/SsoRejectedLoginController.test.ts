@@ -45,7 +45,7 @@ describe('SSO rejected login controller', () => {
             const request = mockRequest({ error: {} });
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('error', expectedData);
+            responseMock.expects('render').once().withArgs('not-found', expectedData);
 
             await ssoRejectedLoginController.get(request, response);
             await responseMock.verify();
