@@ -14,10 +14,7 @@ const tableHeader = 'govuk-table__header';
 
 describe('SSCS Daily Hearing List Page', () => {
     const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
-    const rawData = fs.readFileSync(
-        path.resolve(__dirname, '../../mocks/sscsDailyHearingList.json'),
-        'utf-8'
-    );
+    const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/sscsDailyHearingList.json'), 'utf-8');
     const jsonData = JSON.parse(rawData);
 
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
@@ -67,9 +64,9 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[6].innerHTML).contains(
                 'Open justice is a fundamental principle of our justice system. When considering the ' +
-                'use of telephone and video technology, the judiciary will have regard to ' +
-                'the principles of open justice. Judges may determine that a hearing should ' +
-                'be held in private if this is necessary to secure the proper administration of justice.'
+                    'use of telephone and video technology, the judiciary will have regard to ' +
+                    'the principles of open justice. Judges may determine that a hearing should ' +
+                    'be held in private if this is necessary to secure the proper administration of justice.'
             );
         });
 
@@ -77,12 +74,12 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
-                'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
-                'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
-                'direct, in advance of the hearing date, by emailing ascbirmingham@justice.gov.uk so that ' +
-                'arrangements can be made. The following details should be included in the subject line of ' +
-                'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
-                'be heard in private or is subject to a reporting restriction, this will be notified.'
+                    'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
+                    'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
+                    'direct, in advance of the hearing date, by emailing ascbirmingham@justice.gov.uk so that ' +
+                    'arrangements can be made. The following details should be included in the subject line of ' +
+                    'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
+                    'be heard in private or is subject to a reporting restriction, this will be notified.'
             );
         });
 
@@ -223,12 +220,12 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
-                'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
-                'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
-                'direct, in advance of the hearing date, by emailing sscs_bradford@justice.gov.uk so that ' +
-                'arrangements can be made. The following details should be included in the subject line of ' +
-                'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
-                'be heard in private or is subject to a reporting restriction, this will be notified.'
+                    'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
+                    'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
+                    'direct, in advance of the hearing date, by emailing sscs_bradford@justice.gov.uk so that ' +
+                    'arrangements can be made. The following details should be included in the subject line of ' +
+                    'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
+                    'be heard in private or is subject to a reporting restriction, this will be notified.'
             );
         });
     });
@@ -262,12 +259,12 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
-                'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
-                'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
-                'direct, in advance of the hearing date, by emailing sscsa-cardiff@justice.gov.uk so that ' +
-                'arrangements can be made. The following details should be included in the subject line of ' +
-                'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
-                'be heard in private or is subject to a reporting restriction, this will be notified.'
+                    'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
+                    'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
+                    'direct, in advance of the hearing date, by emailing sscsa-cardiff@justice.gov.uk so that ' +
+                    'arrangements can be made. The following details should be included in the subject line of ' +
+                    'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
+                    'be heard in private or is subject to a reporting restriction, this will be notified.'
             );
         });
     });
@@ -301,12 +298,12 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
-                'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
-                'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
-                'direct, in advance of the hearing date, by emailing sscsa-glasgow@justice.gov.uk so that ' +
-                'arrangements can be made. The following details should be included in the subject line of ' +
-                'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
-                'be heard in private or is subject to a reporting restriction, this will be notified.'
+                    'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
+                    'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
+                    'direct, in advance of the hearing date, by emailing sscsa-glasgow@justice.gov.uk so that ' +
+                    'arrangements can be made. The following details should be included in the subject line of ' +
+                    'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
+                    'be heard in private or is subject to a reporting restriction, this will be notified.'
             );
         });
     });
@@ -340,12 +337,12 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
-                'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
-                'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
-                'direct, in advance of the hearing date, by emailing sscsa-leeds@Justice.gov.uk so that ' +
-                'arrangements can be made. The following details should be included in the subject line of ' +
-                'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
-                'be heard in private or is subject to a reporting restriction, this will be notified.'
+                    'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
+                    'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
+                    'direct, in advance of the hearing date, by emailing sscsa-leeds@Justice.gov.uk so that ' +
+                    'arrangements can be made. The following details should be included in the subject line of ' +
+                    'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
+                    'be heard in private or is subject to a reporting restriction, this will be notified.'
             );
         });
     });
@@ -379,12 +376,12 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
-                'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
-                'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
-                'direct, in advance of the hearing date, by emailing sscsa-liverpool@justice.gov.uk so that ' +
-                'arrangements can be made. The following details should be included in the subject line of ' +
-                'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
-                'be heard in private or is subject to a reporting restriction, this will be notified.'
+                    'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
+                    'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
+                    'direct, in advance of the hearing date, by emailing sscsa-liverpool@justice.gov.uk so that ' +
+                    'arrangements can be made. The following details should be included in the subject line of ' +
+                    'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
+                    'be heard in private or is subject to a reporting restriction, this will be notified.'
             );
         });
     });
@@ -418,12 +415,12 @@ describe('SSCS Daily Hearing List Page', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
-                'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
-                'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
-                'direct, in advance of the hearing date, by emailing sscsa-sutton@justice.gov.uk so that ' +
-                'arrangements can be made. The following details should be included in the subject line of ' +
-                'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
-                'be heard in private or is subject to a reporting restriction, this will be notified.'
+                    'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
+                    'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
+                    'direct, in advance of the hearing date, by emailing sscsa-sutton@justice.gov.uk so that ' +
+                    'arrangements can be made. The following details should be included in the subject line of ' +
+                    'the email [OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]. If the case is to ' +
+                    'be heard in private or is subject to a reporting restriction, this will be notified.'
             );
         });
     });

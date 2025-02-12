@@ -304,43 +304,46 @@ export default function (app: Application): void {
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-midlands-daily-hearing-list')
+            'sscs-midlands-daily-hearing-list'
+        )
     );
     app.get('/sscs-southeast-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-southeast-daily-hearing-list')
+            'sscs-southeast-daily-hearing-list'
+        )
     );
     app.get('/sscs-wales-and-southeast-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-wales-and-southeast-daily-hearing-list')
+            'sscs-wales-and-southeast-daily-hearing-list'
+        )
     );
     app.get('/sscs-scotland-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-scotland-daily-hearing-list')
+            'sscs-scotland-daily-hearing-list'
+        )
     );
     app.get('/sscs-northeast-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-northeast-daily-hearing-list')
+            'sscs-northeast-daily-hearing-list'
+        )
     );
     app.get('/sscs-northwest-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-northwest-daily-hearing-list')
+            'sscs-northwest-daily-hearing-list'
+        )
     );
     app.get('/sscs-london-daily-hearing-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(
-            req,
-            res,
-            'sscs-london-daily-hearing-list')
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'sscs-london-daily-hearing-list')
     );
 
     // Restricted paths
