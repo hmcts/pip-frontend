@@ -82,7 +82,7 @@ describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Pag
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[9].innerHTML).contains('Remote hearings via CVP and BT Meet Me');
+            expect(text[9].innerHTML).contains('Remote hearings via CVP');
         });
 
         it('should display information text', () => {
