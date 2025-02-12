@@ -450,7 +450,7 @@
     },
     "FTT_LR_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Land Registration Tribunal) Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol Tribiwnlys Haen Gyntaf (Tribiwnlys Cofrestru Tir)",
+        "welshFriendlyName": "Tribiwnlys Haen Gyntaf (Tribiwnlys Cofrestru Tir)",
         "shortenedFriendlyName": "FTT (LR) Weekly Hearing List",
         "url": "ftt-lr-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
@@ -462,7 +462,7 @@
     },
     "RPT_EASTERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Residential Property Tribunal): Eastern region Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol FTT (RPT) Dwyrain Lloegr",
+        "welshFriendlyName": "Tribiwnlys Haen Gyntaf (Tribiwnlys Eiddo Preswyl): Rhestr o Wrandawiadau Wythnosol rhanbarth Dwyrain Lloegr",
         "shortenedFriendlyName": "FTT (RPT) Eastern Weekly Hearing List",
         "url": "rpt-eastern-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
@@ -475,7 +475,7 @@
     },
     "RPT_LONDON_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Residential Property Tribunal): London region Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol FTT (RPT) Llundain",
+        "welshFriendlyName": "Tribiwnlys Haen Gyntaf (Tribiwnlys Eiddo Preswyl): Rhestr o Wrandawiadau Wythnosol rhanbarth Llundain",
         "shortenedFriendlyName": "FTT (RPT) London Weekly Hearing List",
         "url": "rpt-london-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
@@ -488,7 +488,7 @@
     },
     "RPT_MIDLANDS_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Residential Property Tribunal): Midlands region Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol FTT (RPT) Canolbarth Lloegr",
+        "welshFriendlyName": "Tribiwnlys Haen Gyntaf (Tribiwnlys Eiddo Preswyl): Rhestr o Wrandawiadau Wythnosol rhanbarth Canolbarth Lloegr",
         "shortenedFriendlyName": "FTT (RPT) Midlands Weekly Hearing List",
         "url": "rpt-midlands-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
@@ -501,7 +501,7 @@
     },
     "RPT_NORTHERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Residential Property Tribunal): Northern region Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol FTT (RPT) Gogledd Lloegr",
+        "welshFriendlyName": "Tribiwnlys Haen Gyntaf (Tribiwnlys Eiddo Preswyl): Rhestr o Wrandawiadau Wythnosol rhanbarth Gogledd Lloegr",
         "shortenedFriendlyName": "FTT (RPT) Northern Weekly Hearing List",
         "url": "rpt-northern-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
@@ -514,7 +514,7 @@
     },
     "RPT_SOUTHERN_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Residential Property Tribunal): Southern region Weekly Hearing List",
-        "welshFriendlyName": "Rhestr o Wrandawiadau Wythnosol FTT (RPT) De Lloegr",
+        "welshFriendlyName": "Tribiwnlys Haen Gyntaf (Tribiwnlys Eiddo Preswyl): Rhestr o Wrandawiadau Wythnosol rhanbarth De Lloegr",
         "shortenedFriendlyName": "FTT (RPT) Southern Weekly Hearing List",
         "url": "rpt-southern-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
