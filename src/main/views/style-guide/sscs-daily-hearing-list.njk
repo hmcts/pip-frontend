@@ -21,7 +21,7 @@
             <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformationHeading }}</span></summary>
             <div class="govuk-details__text">
                 <p class="govuk-body govuk-!-margin-bottom-2">{{ openJusticeStatement }}</p>
-                <p class="govuk-body govuk-!-margin-bottom-2">{{ contactMessage }}</p>
+                <p class="govuk-body govuk-!-margin-bottom-2">{{ contactMessage | replace("EMAIL", emailAddress) }}</p>
                 <p class="govuk-body govuk-!-padding-bottom-5">
                     <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationText }}</a>
                 </p>
