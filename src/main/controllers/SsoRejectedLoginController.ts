@@ -10,6 +10,8 @@ export default class SsoRejectedLoginController {
         const sessionMessages = req['session']?.messages;
         if (sessionMessages && sessionMessages.includes(ssoNotAuthorised)) {
             res.render('sso-rejected-login', req.i18n.getDataByLanguage(req.lng)['sso-rejected-login']);
+        } else if (sessionMessages == undefined) {
+            res.render('not-found', req.i18n.getDataByLanguage(req.lng)['not-found']);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
