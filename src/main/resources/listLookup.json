@@ -573,7 +573,7 @@
     },
     "SSCS_SOUTHEAST_DAILY_HEARING_LIST": {
         "friendlyName": "South East First-tier Tribunal (Social Security and Child Support) Daily Hearing List",
-        "welshFriendlyName": "South East First-tier Tribunal (Social Security and Child Support) Daily Hearing List",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Tribiwnlys Haen Gyntaf De Ddwyrain Lloegr (Nawdd Cymdeithasol a Chynnal Plant)",
         "shortenedFriendlyName": "SSCS South East Daily Hearing List",
         "url": "sscs-southeast-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
