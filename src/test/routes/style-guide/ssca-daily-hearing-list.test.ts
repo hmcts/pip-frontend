@@ -33,14 +33,14 @@ describe('Midlands First-tier Tribunal (Social Security and Child Support) Daily
 
 describe('South East First-tier Tribunal (Social Security and Child Support) Daily Hearing List Page', () => {
     const metaData = JSON.parse(rawMetaData)[0];
-    metaData.listType = 'SSCS_SOUTHEAST_DAILY_HEARING_LIST';
+    metaData.listType = 'SSCS_SOUTH_EAST_DAILY_HEARING_LIST';
 
     getPublicationMetadataStub.withArgs('abce').resolves(metaData);
 
     describe('on GET', () => {
         test('should return South east first-tier tribunal (social security and child Support) daily hearing list page', async () => {
             await request(app)
-                .get('/sscs-southeast-daily-hearing-list?artefactId=abce')
+                .get('/sscs-south-east-daily-hearing-list?artefactId=abce')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
@@ -48,14 +48,14 @@ describe('South East First-tier Tribunal (Social Security and Child Support) Dai
 
 describe('Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List Page', () => {
     const metaData = JSON.parse(rawMetaData)[0];
-    metaData.listType = 'SSCS_WALES_AND_SOUTHEAST_DAILY_HEARING_LIST';
+    metaData.listType = 'SSCS_WALES_AND_SOUTH_EAST_DAILY_HEARING_LIST';
 
     getPublicationMetadataStub.withArgs('abce').resolves(metaData);
 
     describe('on GET', () => {
         test('should return wales and south west first-tier tribunal (social security and child support) daily hearing List page', async () => {
             await request(app)
-                .get('/sscs-wales-and-southeast-daily-hearing-list?artefactId=abce')
+                .get('/sscs-wales-and-south-east-daily-hearing-list?artefactId=abce')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
@@ -78,14 +78,14 @@ describe('Scotland First-tier Tribunal (Social Security and Child Support) Daily
 
 describe('North East First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
     const metaData = JSON.parse(rawMetaData)[0];
-    metaData.listType = 'SSCS_NORTHEAST_DAILY_HEARING_LIST';
+    metaData.listType = 'SSCS_NORTH_EAST_DAILY_HEARING_LIST';
 
     getPublicationMetadataStub.withArgs('xxyz').resolves(metaData);
 
     describe('on GET', () => {
         test('should return north east first-tier tribunal (social security and child support) daily hearing List page', async () => {
             await request(app)
-                .get('/sscs-northeast-daily-hearing-list?artefactId=xxyz')
+                .get('/sscs-north-east-daily-hearing-list?artefactId=xxyz')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
@@ -93,14 +93,14 @@ describe('North East First-tier Tribunal (Social Security and Child Support) Dai
 
 describe('North West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
     const metaData = JSON.parse(rawMetaData)[0];
-    metaData.listType = 'SSCS_NORTHWEST_DAILY_HEARING_LIST';
+    metaData.listType = 'SSCS_NORTH_WEST_DAILY_HEARING_LIST';
 
     getPublicationMetadataStub.withArgs('west').resolves(metaData);
 
     describe('on GET', () => {
         test('should return north west first-tier tribunal (social security and child support) daily hearing list page', async () => {
             await request(app)
-                .get('/sscs-northwest-daily-hearing-list?artefactId=west')
+                .get('/sscs-north-west-daily-hearing-list?artefactId=west')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });

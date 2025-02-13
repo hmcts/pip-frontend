@@ -193,10 +193,10 @@ describe('SSCS Daily Hearing List Page', () => {
 
     describe('South East First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/sscs-southeast-daily-hearing-list?artefactId=mno';
+        const PAGE_URL = '/sscs-south-east-daily-hearing-list?artefactId=mno';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'SSCS_SOUTHEAST_DAILY_HEARING_LIST';
+        metaData.listType = 'SSCS_SOUTH_EAST_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('mno').returns(metaData);
 
@@ -232,10 +232,10 @@ describe('SSCS Daily Hearing List Page', () => {
 
     describe('Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/sscs-wales-and-southeast-daily-hearing-list?artefactId=tuv';
+        const PAGE_URL = '/sscs-wales-and-south-east-daily-hearing-list?artefactId=tuv';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'SSCS_WALES_AND_SOUTHEAST_DAILY_HEARING_LIST';
+        metaData.listType = 'SSCS_WALES_AND_SOUTH_EAST_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('tuv').returns(metaData);
 
@@ -310,10 +310,10 @@ describe('SSCS Daily Hearing List Page', () => {
 
     describe('North East First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/sscs-northeast-daily-hearing-list?artefactId=def';
+        const PAGE_URL = '/sscs-north-east-daily-hearing-list?artefactId=def';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'SSCS_NORTHEAST_DAILY_HEARING_LIST';
+        metaData.listType = 'SSCS_NORTH_EAST_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('def').returns(metaData);
 
@@ -349,10 +349,10 @@ describe('SSCS Daily Hearing List Page', () => {
 
     describe('North West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/sscs-northwest-daily-hearing-list?artefactId=kju';
+        const PAGE_URL = '/sscs-north-west-daily-hearing-list?artefactId=kju';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'SSCS_NORTHWEST_DAILY_HEARING_LIST';
+        metaData.listType = 'SSCS_NORTH_WEST_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('kju').returns(metaData);
 

@@ -21,9 +21,9 @@ describe('Accessibility - Midlands First-tier Tribunal (Social Security and Chil
 
 describe('Accessibility - South East First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
     const metadata = testArtefactMetadata()[0];
-    metadata.listType = 'SSCS_SOUTHEAST_DAILY_HEARING_LIST';
+    metadata.listType = 'SSCS_SOUTH_EAST_DAILY_HEARING_LIST';
 
-    const url = '/sscs-southeast-daily-hearing-list?artefactId=abce';
+    const url = '/sscs-south-east-daily-hearing-list?artefactId=abce';
     metadataStub.withArgs('abce').resolves(metadata);
 
     testAccessibility(url);
@@ -31,9 +31,9 @@ describe('Accessibility - South East First-tier Tribunal (Social Security and Ch
 
 describe('Accessibility - Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
     const metadata = testArtefactMetadata()[0];
-    metadata.listType = 'SSCS_WALES_AND_SOUTHEAST_DAILY_HEARING_LIST';
+    metadata.listType = 'SSCS_WALES_AND_SOUTH_EAST_DAILY_HEARING_LIST';
 
-    const url = '/sscs-wales-and-southeast-daily-hearing-list?artefactId=xyz';
+    const url = '/sscs-wales-and-south-east-daily-hearing-list?artefactId=xyz';
     metadataStub.withArgs('xyz').resolves(metadata);
 
     testAccessibility(url);
@@ -51,9 +51,9 @@ describe('Accessibility - Scotland First-tier Tribunal (Social Security and Chil
 
 describe('Accessibility - North East First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
     const metadata = testArtefactMetadata()[0];
-    metadata.listType = 'SSCS_NORTHEAST_DAILY_HEARING_LIST';
+    metadata.listType = 'SSCS_NORTH_EAST_DAILY_HEARING_LIST';
 
-    const url = '/sscs-northeast-daily-hearing-list?artefactId=abcv';
+    const url = '/sscs-north-east-daily-hearing-list?artefactId=abcv';
     metadataStub.withArgs('abcv').resolves(metadata);
 
     testAccessibility(url);
@@ -61,9 +61,9 @@ describe('Accessibility - North East First-tier Tribunal (Social Security and Ch
 
 describe('Accessibility - North West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
     const metadata = testArtefactMetadata()[0];
-    metadata.listType = 'SSCS_NORTHWEST_DAILY_HEARING_LIST';
+    metadata.listType = 'SSCS_NORTH_WEST_DAILY_HEARING_LIST';
 
-    const url = '/sscs-northwest-daily-hearing-list?artefactId=west';
+    const url = '/sscs-north-west-daily-hearing-list?artefactId=west';
     metadataStub.withArgs('west').resolves(metadata);
 
     testAccessibility(url);

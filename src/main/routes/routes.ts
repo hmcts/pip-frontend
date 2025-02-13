@@ -307,18 +307,18 @@ export default function (app: Application): void {
             'sscs-midlands-daily-hearing-list'
         )
     );
-    app.get('/sscs-southeast-daily-hearing-list', (req, res) =>
+    app.get('/sscs-south-east-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-southeast-daily-hearing-list'
+            'sscs-south-east-daily-hearing-list'
         )
     );
-    app.get('/sscs-wales-and-southeast-daily-hearing-list', (req, res) =>
+    app.get('/sscs-wales-and-south-east-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-wales-and-southeast-daily-hearing-list'
+            'sscs-wales-and-south-east-daily-hearing-list'
         )
     );
     app.get('/sscs-scotland-daily-hearing-list', (req, res) =>
@@ -328,18 +328,18 @@ export default function (app: Application): void {
             'sscs-scotland-daily-hearing-list'
         )
     );
-    app.get('/sscs-northeast-daily-hearing-list', (req, res) =>
+    app.get('/sscs-north-east-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-northeast-daily-hearing-list'
+            'sscs-north-east-daily-hearing-list'
         )
     );
-    app.get('/sscs-northwest-daily-hearing-list', (req, res) =>
+    app.get('/sscs-north-west-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-northwest-daily-hearing-list'
+            'sscs-north-west-daily-hearing-list'
         )
     );
     app.get('/sscs-london-daily-hearing-list', (req, res) =>
