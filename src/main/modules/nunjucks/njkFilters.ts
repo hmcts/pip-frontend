@@ -175,6 +175,6 @@ export function createFilters(env) {
     });
 
     env.addFilter('timeFormatter', function (time) {
-        return time.replace('.', ':');
+        return time ? time.replace('.', ':') : null;
     });
 }
