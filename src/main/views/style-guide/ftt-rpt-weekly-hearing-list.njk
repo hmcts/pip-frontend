@@ -47,7 +47,7 @@
                 {% for case in listData %}
                     <tr class="govuk-table__row">
                         <td class="govuk-table__cell">{{ case['date'] | dateFormatter(lng) }}</td>
-                        <td class="govuk-table__cell">{{ case['time'] }}</td>
+                        <td class="govuk-table__cell">{{ case['time'] | timeFormatter }}</td>
                         <td class="govuk-table__cell">{{ case['venue'] }}</td>
                         <td class="govuk-table__cell">{{ case['caseType'] }}</td>
                         <td class="govuk-table__cell">{{ case['caseReferenceNumber'] }} </td>

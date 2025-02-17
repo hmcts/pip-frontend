@@ -128,7 +128,7 @@ describe('SIAC, POAC and PAAC Weekly Hearing List Page', () => {
 
         it('should display Time cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[1].innerHTML).contains('10am');
+            expect(cellText[1].innerHTML).contains('10:15am');
         });
 
         it('should display Appellant cell data', () => {
