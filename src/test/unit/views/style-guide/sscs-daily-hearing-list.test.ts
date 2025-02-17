@@ -102,12 +102,12 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should Appeal Reference Number header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[1].innerHTML).contains('Appeal Reference Number');
+            expect(headerCell[1].innerHTML).contains('Appeal reference number');
         });
 
         it('should Hearing Type header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[2].innerHTML).contains('Hearing Type');
+            expect(headerCell[2].innerHTML).contains('Hearing type');
         });
 
         it('should display Appellant header', () => {
@@ -122,7 +122,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display Hearing Time header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[5].innerHTML).contains('Hearing Time');
+            expect(headerCell[5].innerHTML).contains('Hearing time');
         });
 
         it('should display Panel header', () => {
@@ -232,10 +232,10 @@ describe('SSCS Daily Hearing List Page', () => {
 
     describe('Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/sscs-wales-and-south-east-daily-hearing-list?artefactId=tuv';
+        const PAGE_URL = '/sscs-wales-and-south-west-daily-hearing-list?artefactId=tuv';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'SSCS_WALES_AND_SOUTH_EAST_DAILY_HEARING_LIST';
+        metaData.listType = 'SSCS_WALES_AND_SOUTH_WEST_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('tuv').returns(metaData);
 

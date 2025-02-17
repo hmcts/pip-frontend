@@ -584,11 +584,11 @@
         "isNonStrategic": true,
         "isWeeklyList": true
     },
-    "SSCS_WALES_AND_SOUTH_EAST_DAILY_HEARING_LIST": {
+    "SSCS_WALES_AND_SOUTH_WEST_DAILY_HEARING_LIST": {
         "friendlyName": "Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Tribiwnlys Haen Gyntaf Cymru a De Orllewin Lloegr (Nawdd Cymdeithasol a Chynnal Plant)",
-        "shortenedFriendlyName": "SSCS Wales and South East Daily Hearing List",
-        "url": "sscs-wales-and-south-east-daily-hearing-list",
+        "shortenedFriendlyName": "SSCS Wales and South West Daily Hearing List",
+        "url": "sscs-wales-and-south-west-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],

@@ -314,11 +314,11 @@ export default function (app: Application): void {
             'sscs-south-east-daily-hearing-list'
         )
     );
-    app.get('/sscs-wales-and-south-east-daily-hearing-list', (req, res) =>
+    app.get('/sscs-wales-and-south-west-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'sscs-wales-and-south-east-daily-hearing-list'
+            'sscs-wales-and-south-west-daily-hearing-list'
         )
     );
     app.get('/sscs-scotland-daily-hearing-list', (req, res) =>

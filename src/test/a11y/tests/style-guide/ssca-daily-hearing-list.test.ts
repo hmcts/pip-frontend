@@ -31,9 +31,9 @@ describe('Accessibility - South East First-tier Tribunal (Social Security and Ch
 
 describe('Accessibility - Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
     const metadata = testArtefactMetadata()[0];
-    metadata.listType = 'SSCS_WALES_AND_SOUTH_EAST_DAILY_HEARING_LIST';
+    metadata.listType = 'SSCS_WALES_AND_SOUTH_WEST_DAILY_HEARING_LIST';
 
-    const url = '/sscs-wales-and-south-east-daily-hearing-list?artefactId=xyz';
+    const url = '/sscs-wales-and-south-west-daily-hearing-list?artefactId=xyz';
     metadataStub.withArgs('xyz').resolves(metadata);
 
     testAccessibility(url);

@@ -48,14 +48,14 @@ describe('South East First-tier Tribunal (Social Security and Child Support) Dai
 
 describe('Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List Page', () => {
     const metaData = JSON.parse(rawMetaData)[0];
-    metaData.listType = 'SSCS_WALES_AND_SOUTH_EAST_DAILY_HEARING_LIST';
+    metaData.listType = 'SSCS_WALES_AND_SOUTH_WEST_DAILY_HEARING_LIST';
 
     getPublicationMetadataStub.withArgs('abce').resolves(metaData);
 
     describe('on GET', () => {
         test('should return wales and south west first-tier tribunal (social security and child support) daily hearing List page', async () => {
             await request(app)
-                .get('/sscs-wales-and-south-east-daily-hearing-list?artefactId=abce')
+                .get('/sscs-wales-and-south-west-daily-hearing-list?artefactId=abce')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
