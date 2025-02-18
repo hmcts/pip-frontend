@@ -18,8 +18,8 @@ Scenario('I as a unverified user should be able to make end-to-end journey', asy
     });
     I.waitForText('Court and tribunal hearings');
     I.see('You can use this service to get information about:');
-    I.see('Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough');
-    I.see('Hearings in the Immigration and Asylum Chamber of the First-tier Tribunal');
+    I.see('Hearings in most Civil and Family Courts in the Southeast region');
+    I.see('Hearings in First Tier and Upper Tribunals (excluding SSCS, Asylum Support and Employment Tribunals)');
     I.see('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding');
     I.see('More courts and tribunals will become available over time.');
     I.see('Legal and media professionals can sign in.');
