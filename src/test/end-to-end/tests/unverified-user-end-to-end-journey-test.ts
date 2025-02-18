@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { randomData } from '../shared/random-data';
-import {config as testConfig, config} from '../../config';
+import { config as testConfig, config } from '../../config';
 import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 
 Feature('End to end journey test for unverified user');
