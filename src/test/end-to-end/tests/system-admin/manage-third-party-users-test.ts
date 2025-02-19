@@ -9,7 +9,7 @@ Scenario('I as a system admin should be able to manage Third-Party Users', async
     const userId = await createThirdPartyUserAccount(testProvenanceUserId);
 
     I.loginAsSsoSystemAdmin();
-    I.waitForText('View, create, update and remove third-party users and subscriptions');
+    I.see('View, create, update and remove third-party users and subscriptions');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.see('Name');
