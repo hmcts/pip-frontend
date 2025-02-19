@@ -7,11 +7,11 @@ import { PublicationService } from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/astDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/astDailyHearingList.json'), 'utf-8');
 const rawJson = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'AST_DAILY_LIST';
+metaData.listType = 'AST_DAILY_HEARING_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(rawJson);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
@@ -20,7 +20,7 @@ describe('AST Daily List Page', () => {
     describe('on GET', () => {
         test('should return AST Daily List page', async () => {
             await request(app)
-                .get('/ast-daily-list?artefactId=abc')
+                .get('/ast-daily-hearing-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });

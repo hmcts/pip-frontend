@@ -12,17 +12,17 @@ const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/astDailyList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/astDailyHearingList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'AST_DAILY_LIST';
+metaData.listType = 'AST_DAILY_HEARING_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 
 let htmlRes: Document;
-const PAGE_URL = '/ast-daily-list?artefactId=abc';
+const PAGE_URL = '/ast-daily-hearing-list?artefactId=abc';
 
 describe('AST Daily List page', () => {
     beforeAll(async () => {
