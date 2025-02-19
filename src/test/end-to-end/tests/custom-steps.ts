@@ -47,6 +47,7 @@ export = function () {
             this.click('Sign in');
             this.waitForText('Stay signed in?');
             this.click('No');
+            this.waitForText('System Admin Dashboard');
         },
 
         loginAsSsoAdminCtsc: function () {
@@ -61,6 +62,7 @@ export = function () {
             this.click('Sign in');
             this.waitForText('Stay signed in?');
             this.click('No');
+            this.waitForText('Your Dashboard');
         },
 
         loginAsSsoAdminLocal: function () {
@@ -75,6 +77,7 @@ export = function () {
             this.click('Sign in');
             this.waitForText('Stay signed in?');
             this.click('No');
+            this.waitForText('Your Dashboard');
         },
 
         loginAsNoRoleSsoUser: function () {
