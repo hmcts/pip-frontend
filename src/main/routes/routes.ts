@@ -300,6 +300,9 @@ export default function (app: Application): void {
             'ut-iac-statutory-appeals-daily-hearing-list'
         )
     );
+    app.get('/ast-daily-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ast-daily-list')
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

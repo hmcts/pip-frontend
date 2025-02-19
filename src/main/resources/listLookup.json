@@ -557,5 +557,16 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
+    },
+    "AST_DAILY_LIST": {
+        "friendlyName": "Asylum Support Tribunal Daily Hearing List",
+        "welshFriendlyName": "Rhestr ddyddiol y Tribiwnlys Cefnogi Ceiswyr Lloches",
+        "shortenedFriendlyName": "AST Daily Hearing list",
+        "url": "ast-daily-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     }
 }
