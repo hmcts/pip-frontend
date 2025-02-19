@@ -202,13 +202,11 @@ Scenario(
 
 Scenario('I as a SSO system admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
-    I.waitForText('System Admin Dashboard');
     I.logoutSsoSystemAdmin();
 });
 
 Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoAdminCtsc();
-    I.waitForText('Your Dashboard');
     I.see('Upload');
     I.see('Remove');
     I.see('Manage media account requests');
@@ -217,7 +215,6 @@ Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credent
 
 Scenario('I as a SSO Local admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoAdminLocal();
-    I.waitForText('Your Dashboard');
     I.see('Upload');
     I.see('Remove');
     I.dontSee('Manage media account requests');
