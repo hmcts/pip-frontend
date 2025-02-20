@@ -73,6 +73,7 @@ config.helpers = {
         waitForAction: 1000,
         waitForNavigation: 'domcontentloaded',
         ignoreHTTPSErrors: true,
+        bypassCSP: true,
     },
     A11yHelper: {
         require: 'codeceptjs-a11y-helper',
