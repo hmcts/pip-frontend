@@ -21,5 +21,13 @@ describe('SSO rejected login page', () => {
                 .expect(res => expect(res.status).to.equal(200))
                 .expect(res => expect(res.text).to.contain('Sorry, there is a problem with the service'));
         });
+
+        test('should not return sso-rejected-login page if accessed directly', async () => {
+            expressRequest['session'] = { messages: undefined };
+            await request(app)
+                .get('/sso-rejected-login')
+                .expect(res => expect(res.status).to.equal(200))
+                .expect(res => expect(res.text).to.contain('Page Not Found'));
+        });
     });
 });
