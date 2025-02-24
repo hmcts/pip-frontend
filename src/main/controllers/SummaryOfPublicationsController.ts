@@ -16,7 +16,6 @@ export default class SummaryOfPublicationsController {
             const additionalLocationInfo = courtService.getAdditionalLocationInfo(locationId);
 
             let noListMessageOverride = '';
-
             if (additionalLocationInfo) {
                 noListMessageOverride = req.lng === 'cy' ? additionalLocationInfo.welshNoListMessage
                     : additionalLocationInfo.noListMessage;
