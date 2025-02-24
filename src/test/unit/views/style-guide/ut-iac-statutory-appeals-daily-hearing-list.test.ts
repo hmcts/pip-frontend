@@ -39,7 +39,7 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains(
-            'Upper Tribunal (Immigration and Asylum) Chamber Statutory Appeals Daily Hearing List'
+            'Upper Tribunal (Immigration and Asylum) Chamber Statutory Appeal Daily Hearing List'
         );
     });
 
