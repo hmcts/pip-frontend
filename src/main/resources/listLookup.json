@@ -560,7 +560,7 @@
     },
     "AST_DAILY_HEARING_LIST": {
         "friendlyName": "Asylum Support Tribunal Daily Hearing List",
-        "welshFriendlyName": "Rhestr ddyddiol y Tribiwnlys Cefnogi Ceiswyr Lloches",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Tribiwnlys Cefnogi Ceiswyr Lloches",
         "shortenedFriendlyName": "AST Daily Hearing List",
         "url": "ast-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
