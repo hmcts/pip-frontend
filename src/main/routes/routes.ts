@@ -303,6 +303,51 @@ export default function (app: Application): void {
     app.get('/ast-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ast-daily-hearing-list')
     );
+    app.get('/sscs-midlands-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-midlands-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-south-east-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-south-east-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-wales-and-south-west-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-wales-and-south-west-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-scotland-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-scotland-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-north-east-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-north-east-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-north-west-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-north-west-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-london-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'sscs-london-daily-hearing-list')
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
