@@ -1,15 +1,21 @@
 import { DateTime } from 'luxon';
-import { uploadPublication } from '../shared/testingSupportApi';
-import {config as testConfig} from "../../config";
+import { createLocation, uploadPublication } from '../shared/testingSupportApi';
+import { config, config as testConfig } from '../../config';
+import { randomData } from '../shared/random-data';
 
 Feature('Single Justice Procedure cases');
 
 Scenario('I should be able to view all the single procedure cases', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    await createLocation(locationId, locationName);
+
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
+
     const artefactId = await uploadPublication(
         'PUBLIC',
-        '9',
+        locationId,
         displayFrom,
         displayFrom,
         displayTo,

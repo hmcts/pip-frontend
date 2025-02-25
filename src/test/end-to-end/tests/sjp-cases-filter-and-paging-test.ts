@@ -1,18 +1,24 @@
 import { DateTime } from 'luxon';
-import { uploadPublication } from '../shared/testingSupportApi';
+import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 import Assert from 'assert';
-import {config as testConfig} from "../../config";
+import { config, config as testConfig } from '../../config';
+import { randomData } from '../shared/random-data';
 
 Feature('Sjp List Filter And Paging');
 
 Scenario('I should be able to view all the single procedure cases', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    await createLocation(locationId, locationName);
+
     const contentDate = DateTime.now().plus({ months: 1 });
     const sjpList = 'Single Justice Procedure Public List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
+
     const artefactId = await uploadPublication(
         'PUBLIC',
-        '9',
+        locationId,
         contentDate.toISO({ includeOffset: false }),
         displayFrom,
         displayTo,
