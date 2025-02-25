@@ -1,4 +1,4 @@
-Feature('Verified user single Justice Procedure page navigation');
+Feature('Verified user Single Justice Procedure page navigation');
 
 Scenario('I as a verified user should be able to navigate to Single Justice Procedure page', async ({ I }) => {
     I.loginAsMediaUser();

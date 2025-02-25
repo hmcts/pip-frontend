@@ -4,7 +4,7 @@ import Assert from 'assert';
 import { config, config as testConfig } from '../../config';
 import { randomData } from '../shared/random-data';
 
-Feature('SJP List Filter And Paging');
+Feature('SJP list filtering and paging');
 
 Scenario('I should be able to view all the SJP cases', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
