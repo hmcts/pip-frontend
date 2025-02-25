@@ -1,15 +1,20 @@
 import { DateTime } from 'luxon';
-import { uploadPublication } from '../../shared/testingSupportApi';
+import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
+import { randomData } from '../../shared/random-data';
+import { config } from '../../../config';
 
 Feature('SJP list download');
 
 Scenario('I as a verified user should be able to search and download sjp public list', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    await createLocation(locationId, locationName);
+
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const contentDate = DateTime.now().plus({ months: 1 });
     const sjpListToDownload =
         'Single Justice Procedure Public List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
-    const locationId = '9';
 
     const artefactId = await uploadPublication(
         'PUBLIC',
@@ -23,9 +28,11 @@ Scenario('I as a verified user should be able to search and download sjp public 
     );
 
     I.loginAsMediaUser();
-    I.see('Single Justice Procedure cases');
-    I.click('#card-summary-of-publications\\?locationId\\=9');
-    I.waitForText('What do you want to view from Single Justice Procedure?');
+    I.click('#card-search');
+    I.see('What court or tribunal are you interested in?');
+    I.fillField('#search-input', locationName);
+    I.click('Continue');
+    I.waitForText('What do you want to view from ' + locationName);
     I.see(sjpListToDownload);
     I.click(locate('//a').withText(sjpListToDownload));
     I.waitForText('Single Justice Procedure cases that are ready for hearing (Full list)');
@@ -55,16 +62,17 @@ Scenario('I as a verified user should be able to search and download sjp public 
     I.click(locate('//a').withText('Download this Microsoft Excel spreadsheet'));
     I.amInPath('../../../functional-output/functional/reports');
     I.seeFile(artefactId + '.xlsx');
-
-    I.deletePublicationByArtefactId(artefactId.toString());
 });
 
 Scenario('I as a verified user should be able to download sjp press list', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    await createLocation(locationId, locationName);
+
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const contentDate = DateTime.now().plus({ months: 1 });
     const sjpListToDownload = 'Single Justice Procedure Press List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
-    const locationId = '9';
 
     const artefactId = await uploadPublication(
         'PUBLIC',
@@ -78,9 +86,11 @@ Scenario('I as a verified user should be able to download sjp press list', async
     );
 
     I.loginAsMediaUser();
-    I.see('Single Justice Procedure cases');
-    I.click('#card-summary-of-publications\\?locationId\\=9');
-    I.waitForText('What do you want to view from Single Justice Procedure?');
+    I.click('#card-search');
+    I.see('What court or tribunal are you interested in?');
+    I.fillField('#search-input', locationName);
+    I.click('Continue');
+    I.waitForText('What do you want to view from ' + locationName);
     I.see(sjpListToDownload);
     I.click(locate('//a').withText(sjpListToDownload));
     I.waitForText('Single Justice Procedure cases - Press view (Full list)');
@@ -109,5 +119,4 @@ Scenario('I as a verified user should be able to download sjp press list', async
     I.click(locate('//a').withText('Download this Microsoft Excel spreadsheet'));
     I.amInPath('../../../functional-output/functional/reports');
     I.seeFile(artefactId + '.xlsx');
-    I.deletePublicationByArtefactId(artefactId.toString());
 });

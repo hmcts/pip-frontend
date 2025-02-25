@@ -16,7 +16,7 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
-    const artefactId = await uploadPublication(
+    await uploadPublication(
         'PUBLIC',
         locationId,
         contentDate.toISO({ includeOffset: false }),
@@ -33,9 +33,12 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
     I.see('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
-    I.click('Find a Single Justice Procedure case');
+    I.click('#view-choice');
     I.click('Continue');
-    I.waitForText('What do you want to view from Single Justice Procedure?');
+    I.waitForText('What court or tribunal are you interested in?');
+    I.fillField('#search-input', locationName);
+    I.click('Continue');
+    I.waitForText('What do you want to view from ' + locationName);
     I.click(locate('//a').withText(sjpList));
     I.waitForText('Single Justice Procedure cases that are ready for hearing (Full list)');
     I.see('Next');
@@ -81,6 +84,4 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
         Assert.equal(postCode, 'A1');
         Assert.equal(prosecutor, 'NEBULEAN');
     }
-
-    I.deletePublicationByArtefactId(artefactId);
 });
