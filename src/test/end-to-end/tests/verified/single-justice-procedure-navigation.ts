@@ -1,6 +1,6 @@
-Feature('Verified user single Justice Procedure cases');
+Feature('Verified user single Justice Procedure page navigation');
 
-Scenario('I as a verified user should be able to view all the single procedure cases', async ({ I }) => {
+Scenario('I as a verified user should be able to navigate to Single Justice Procedure page', async ({ I }) => {
     I.loginAsMediaUser();
     I.see('Single Justice Procedure cases');
     I.see(

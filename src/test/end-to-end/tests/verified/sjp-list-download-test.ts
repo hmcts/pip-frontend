@@ -5,7 +5,7 @@ import { config } from '../../../config';
 
 Feature('SJP list download');
 
-Scenario('I as a verified user should be able to search and download sjp public list', async ({ I }) => {
+Scenario('I as a verified user should be able to search and download SJP public list', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
@@ -64,7 +64,7 @@ Scenario('I as a verified user should be able to search and download sjp public 
     I.seeFile(artefactId + '.xlsx');
 });
 
-Scenario('I as a verified user should be able to download sjp press list', async ({ I }) => {
+Scenario('I as a verified user should be able to download SJP press list', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);

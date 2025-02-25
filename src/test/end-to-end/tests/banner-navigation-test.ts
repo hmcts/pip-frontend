@@ -36,7 +36,7 @@ Scenario('Verified user - all banner navigation links should take user to the co
     I.logout();
 }).tag('@CrossBrowser');
 
-Scenario('Cft user - all banner navigation links should take user to the correct pages', async ({ I }) => {
+Scenario('CFT user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsCftUser();
     I.click(locate('//li').withText('Email subscriptions'));
     I.waitForText('Your email subscriptions');

@@ -4,9 +4,9 @@ import Assert from 'assert';
 import { config, config as testConfig } from '../../config';
 import { randomData } from '../shared/random-data';
 
-Feature('Sjp List Filter And Paging');
+Feature('SJP List Filter And Paging');
 
-Scenario('I should be able to view all the single procedure cases', async ({ I }) => {
+Scenario('I should be able to view all the SJP cases', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     await createLocation(locationId, locationName);
