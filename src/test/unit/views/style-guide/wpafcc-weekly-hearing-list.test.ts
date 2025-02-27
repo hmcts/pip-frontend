@@ -121,7 +121,7 @@ describe('WPAFCC Weekly Hearing List page', () => {
 
     it('should display Hearing Time cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
-        expect(cellText[1].innerHTML).equals('10am');
+        expect(cellText[1].innerHTML).equals('10:15am');
     });
 
     it('should display Case Reference Number cell data', () => {
