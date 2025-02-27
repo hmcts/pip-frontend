@@ -78,7 +78,7 @@ Scenario('I as a admin should be able to see the beta tag and feedback link when
 Scenario('I as a media user should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsMediaUser();
     I.logout();
-}).tag('@CrossBrowser');
+}).tag('@CrossBrowser').tag('@Smoke');
 
 Scenario(
     'I as a media user should be able to see proper error messages when username or password fields are empty',
@@ -122,7 +122,7 @@ Scenario('I as a media user should be able to see the beta tag and feedback link
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCftUser();
     I.logout();
-}).tag('@CrossBrowser');
+}).tag('@CrossBrowser').tag('@Smoke');
 
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
     I.loginAsCftUserInWelsh(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));
@@ -203,7 +203,7 @@ Scenario(
 Scenario('I as a SSO system admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
     I.logoutSsoSystemAdmin();
-});
+}).tag('@Smoke');
 
 Scenario('I as a SSO CTSC admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoAdminCtsc();
