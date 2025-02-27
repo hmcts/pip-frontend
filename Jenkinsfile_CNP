@@ -122,6 +122,8 @@ withPipeline(type, product, component) {
             reportFiles          : "index.html",
             reportName           : "Smoke Test Report"
         ]
+
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/smoke/reports/**/*'
     }
 
     afterAlways('functionalTest') {
@@ -142,5 +144,7 @@ withPipeline(type, product, component) {
             reportFiles          : "all_results.html",
             reportName           : "Accessibility Test Report"
         ]
+
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
     }
 }
