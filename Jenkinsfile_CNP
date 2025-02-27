@@ -122,8 +122,6 @@ withPipeline(type, product, component) {
             reportFiles          : "index.html",
             reportName           : "Smoke Test Report"
         ]
-
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/smoke/reports/**/*'
     }
 
     afterAlways('functionalTest') {
@@ -140,11 +138,9 @@ withPipeline(type, product, component) {
             allowMissing         : true,
             alwaysLinkToLastBuild: true,
             keepAll              : true,
-            reportDir            : "functional-output/accessibility/allure",
-            reportFiles          : "index.html",
+            reportDir            : "functional-output/accessibility",
+            reportFiles          : "all_results.html",
             reportName           : "Accessibility Test Report"
         ]
-
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
     }
 }
