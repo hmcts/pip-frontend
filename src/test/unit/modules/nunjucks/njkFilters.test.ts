@@ -242,4 +242,16 @@ describe('Nunjucks Custom Filter Tests', function () {
             expect(result).to.equal('Invalid DateTime');
         });
     });
+
+    describe('should render time with formatter', function () {
+        it('should return time in existing format', function () {
+            const result = env.renderString('{{ "10:30am" | timeFormatter }}', {});
+            expect(result).to.equal('10:30am');
+        });
+
+        it('should replace time if not in expected format', function () {
+            const result = env.renderString('{{ "10.30am" | timeFormatter}}', {});
+            expect(result).to.equal('10:30am');
+        });
+    });
 });
