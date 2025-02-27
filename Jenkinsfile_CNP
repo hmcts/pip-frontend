@@ -145,6 +145,6 @@ withPipeline(type, product, component) {
             reportName           : "Accessibility Test Report"
         ]
 
-        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/**'
+        steps.archiveArtifacts allowEmptyArchive: true, artifacts: 'functional-output/functional/reports/**/*'
     }
 }
