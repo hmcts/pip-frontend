@@ -27,7 +27,7 @@
         "sonar-scan": "sonar-scanner",
         "test:smoke": "npm-run-all -scl test:smoke:test test:smoke:report",
         "test:smoke:test": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run --grep '(?=.*@Smoke)' --config ./src/test/end-to-end/smoke.conf.js",
-        "test:smoke:report": "allure generate functional-output/smoke  -c -o functional-output/smoke/allure",
+        "test:smoke:report": "allure generate functional-output/smoke/reports/  -c -o functional-output/smoke/allure",
         "test:crossbrowser": "npm-run-all -scl test:crossbrowser:all test:crossbrowser:report",
         "test:crossbrowser:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-multiple --all --grep @CrossBrowser --config ./src/test/end-to-end/crossbrowser.conf.js",
         "test:crossbrowser:report": "allure generate functional-output/cross-browser/reports/**/* -c -o functional-output/cross-browser/allure",
