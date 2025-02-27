@@ -63,7 +63,6 @@ Scenario(
 ).tag('@Nightly');
 
 Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
-
     I.usePlaywrightTo('Go to home page', async ({ page }) => {
         page.goto(testConfig.TEST_URL + '/b2c-admin-login');
     });

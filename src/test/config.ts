@@ -44,7 +44,6 @@ export const config = {
     TestHeadlessBrowser: process.env.TEST_HEADLESS ? process.env.TEST_HEADLESS === 'true' : true,
     TestSlowMo: 250,
     TestFunctionalOutputPath: path.join(process.cwd(), 'functional-output'),
-    SmokeTestOutputPath: path.join(process.cwd(), 'smoke-output'),
     WaitForTimeout: 20000,
     helpers: {},
     plugins: {
