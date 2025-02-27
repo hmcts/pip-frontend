@@ -2,7 +2,7 @@ import { config as testConfig } from '../../../config';
 import { randomData } from '../../shared/random-data';
 import { createTestUserAccount } from '../../shared/testingSupportApi';
 
-Feature('System admin User Management');
+Feature('System admin user management');
 
 const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
