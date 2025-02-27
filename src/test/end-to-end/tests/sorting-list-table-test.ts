@@ -4,9 +4,9 @@ import { randomData } from '../shared/random-data';
 import {config as testConfig, config} from '../../config';
 import * as Assert from 'assert';
 
-Feature('Sort List Table');
+Feature('Style guide table sorting');
 
-Scenario('I should be able to view and sort the list table', async ({ I }) => {
+Scenario('I should be able to view and sort the table on style guide', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const locationId = randomData.getRandomLocationId();
