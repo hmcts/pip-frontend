@@ -16,6 +16,7 @@ Scenario('Unverified user - all banner navigation links should take user to the 
     I.waitForText('What court or tribunal are you interested in?');
     I.click(locate('//a').withText('Cymraeg'));
     I.waitForText('Ym mha lys neu dribiwnlys y mae gennych ddiddordeb?');
+
     I.click(locate('//a').withText('English'));
     I.click(locate('//a').withText('Court and tribunal hearings'));
     I.waitForText('Court and tribunal hearings');
@@ -24,7 +25,6 @@ Scenario('Unverified user - all banner navigation links should take user to the 
     I.click('Find a Single Justice Procedure case');
     I.click('Continue');
     I.waitForText('What do you want to view from Single Justice Procedure?');
-    I.click(locate('//a').withText('Court and tribunal hearings'));
 }).tag('@CrossBrowser');
 
 Scenario('Verified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
@@ -36,7 +36,7 @@ Scenario('Verified user - all banner navigation links should take user to the co
     I.logout();
 }).tag('@CrossBrowser');
 
-Scenario('Cft user - all banner navigation links should take user to the correct pages', async ({ I }) => {
+Scenario('CFT user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsCftUser();
     I.click(locate('//li').withText('Email subscriptions'));
     I.waitForText('Your email subscriptions');

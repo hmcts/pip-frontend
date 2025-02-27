@@ -173,4 +173,8 @@ export function createFilters(env) {
     env.addFilter('dateFormatter', function (date, language) {
         return DateTime.fromFormat(date, 'dd/M/yyyy', { zone: 'utc' }).setLocale(language).toFormat('d MMMM yyyy');
     });
+
+    env.addFilter('timeFormatter', function (time) {
+        return time ? time.replace('.', ':') : null;
+    });
 }

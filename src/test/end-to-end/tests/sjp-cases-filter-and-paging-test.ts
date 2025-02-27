@@ -1,18 +1,24 @@
 import { DateTime } from 'luxon';
-import { uploadPublication } from '../shared/testingSupportApi';
+import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 import Assert from 'assert';
-import {config as testConfig} from "../../config";
+import { config, config as testConfig } from '../../config';
+import { randomData } from '../shared/random-data';
 
-Feature('Sjp List Filter And Paging');
+Feature('SJP list filtering and paging');
 
-Scenario('I should be able to view all the single procedure cases', async ({ I }) => {
+Scenario('I should be able to view all the SJP cases', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    await createLocation(locationId, locationName);
+
     const contentDate = DateTime.now().plus({ months: 1 });
     const sjpList = 'Single Justice Procedure Public List (Full List) ' + contentDate.toFormat('dd MMMM yyyy');
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
-    const artefactId = await uploadPublication(
+
+    await uploadPublication(
         'PUBLIC',
-        '9',
+        locationId,
         contentDate.toISO({ includeOffset: false }),
         displayFrom,
         displayTo,
@@ -27,9 +33,12 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
     I.see('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
-    I.click('Find a Single Justice Procedure case');
+    I.click('#view-choice');
     I.click('Continue');
-    I.waitForText('What do you want to view from Single Justice Procedure?');
+    I.waitForText('What court or tribunal are you interested in?');
+    I.fillField('#search-input', locationName);
+    I.click('Continue');
+    I.waitForText('What do you want to view from ' + locationName);
     I.click(locate('//a').withText(sjpList));
     I.waitForText('Single Justice Procedure cases that are ready for hearing (Full list)');
     I.see('Next');
@@ -75,6 +84,4 @@ Scenario('I should be able to view all the single procedure cases', async ({ I }
         Assert.equal(postCode, 'A1');
         Assert.equal(prosecutor, 'NEBULEAN');
     }
-
-    I.deletePublicationByArtefactId(artefactId);
 });

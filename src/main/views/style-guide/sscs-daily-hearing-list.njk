@@ -1,0 +1,67 @@
+{% from "../macros/common-components.njk" import goBack, searchInput %}
+
+{% extends "../list-template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    <div class="parent-box">
+        <h2 id="page-heading" class="govuk-heading-l">
+            {{ heading }}
+        </h2>
+
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ weeklyListDate }} {{ contentDate }}</p>
+        <p class="govuk-body">{{ listUpdated | replace("DATE", lastUpdatedDate) }} {{ lastUpdatedTime }}</p>
+
+        <details class="govuk-details" data-module="govuk-details" open>
+            <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformationHeading }}</span></summary>
+            <div class="govuk-details__text">
+                <p class="govuk-body govuk-!-margin-bottom-2">{{ openJusticeStatement }}</p>
+                <p class="govuk-body govuk-!-margin-bottom-2">{{ contactMessage | replace("EMAIL", emailAddress) }}</p>
+                <p class="govuk-body govuk-!-padding-bottom-5">
+                    <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationText }}</a>
+                </p>
+            </div>
+        </details>
+
+        {{ searchInput(text = searchCases) }}
+        <div class="parent-box overflow-table govuk-!-margin-top-5 govuk-!-margin-bottom-5 search-area">
+            <table class="govuk-table overflow-table">
+                <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ venue }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ appealReferenceNumber }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingType }} </th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ appellant }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ courtroom }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingTime }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ panel }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ ftaRespondent }}</th>
+                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ additionalInformation }}</th>
+                </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                {% for case in listData %}
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">{{ case['venue'] }}</td>
+                        <td class="govuk-table__cell">{{ case['appealReferenceNumber'] }}</td>
+                        <td class="govuk-table__cell">{{ case['hearingType'] }}</td>
+                        <td class="govuk-table__cell">{{ case['appellant'] }}</td>
+                        <td class="govuk-table__cell">{{ case['courtroom'] }} </td>
+                        <td class="govuk-table__cell">{{ case['hearingTime'] | timeFormatter }} </td>
+                        <td class="govuk-table__cell">{{ case['panel'] }} </td>
+                        <td class="govuk-table__cell">{{ case['fta/respondent'] }} </td>
+                        <td class="govuk-table__cell">{{ case['additionalInformation'] }} </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <p class="govuk-body govuk-!-font-size-14">{{ dataSource }}: {{ provenance | convertDataSourceName(lng) }}</p>
+        {{ super() }}
+    </div>
+{% endblock %}

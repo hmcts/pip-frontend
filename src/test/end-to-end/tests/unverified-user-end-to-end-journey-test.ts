@@ -5,7 +5,7 @@ import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 
 Feature('End to end journey test for unverified user');
 
-Scenario('I as a unverified user should be able to make end-to-end journey', async ({ I }) => {
+Scenario('I as an unverified user should be able to make end-to-end journey', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const locationId = randomData.getRandomLocationId();
