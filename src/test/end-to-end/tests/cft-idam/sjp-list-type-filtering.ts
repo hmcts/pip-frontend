@@ -1,7 +1,7 @@
-Feature('Cft-idam user configure list - list type filtering');
+Feature('CFT IdAM user configure list - list type filtering');
 
 Scenario(
-    'I as a cft-idam user should be able to configure only sjp public list for single justice procedure',
+    'I as a CFT IdAM user should be able to configure only SJP public list for Single Justice Procedure',
     async ({ I }) => {
         I.loginAsCftUser();
         I.click('#card-subscription-management');
