@@ -167,7 +167,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display Hearing Time cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[5].innerHTML).contains('10am');
+            expect(cellText[5].innerHTML).contains('10:30am');
         });
 
         it('should display Panel cell data', () => {
