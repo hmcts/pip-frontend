@@ -1,5 +1,5 @@
 import * as Assert from 'assert';
-import {config as testConfig} from "../../config";
+import { config as testConfig } from '../../config';
 
 Feature('Search for court or tribunal');
 
