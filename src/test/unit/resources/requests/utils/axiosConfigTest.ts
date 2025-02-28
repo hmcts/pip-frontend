@@ -41,14 +41,6 @@ describe('Testing environment variables', () => {
         expect(configSpy.neverCalledWith('secrets.pip-ss-kv.DATA_MANAGEMENT_AZ_API')).toBeTruthy();
     });
 
-    it('Test that subscription management URL is set from environment variable', async () => {
-        process.env.SUBSCRIPTION_MANAGEMENT_AZ_API = '1234';
-
-        await import('../../../../../main/resources/requests/utils/axiosConfig');
-
-        expect(configSpy.neverCalledWith('secrets.pip-ss-kv.SUBSCRIPTION_MANAGEMENT_AZ_API')).toBeTruthy();
-    });
-
     it('Test that account management URL is set from environment variable', async () => {
         process.env.ACCOUNT_MANAGEMENT_AZ_API = '1234';
 
@@ -63,7 +55,6 @@ describe('Testing environment variables', () => {
         delete process.env.CLIENT_ID_INTERNAL;
         delete process.env.CLIENT_SECRET_INTERNAL;
         delete process.env.DATA_MANAGEMENT_AZ_API;
-        delete process.env.SUBSCRIPTION_MANAGEMENT_AZ_API;
         delete process.env.ACCOUNT_MANAGEMENT_AZ_API;
     });
 });
