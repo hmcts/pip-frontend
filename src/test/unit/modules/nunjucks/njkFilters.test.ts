@@ -58,7 +58,9 @@ describe('Nunjucks Custom Filter Tests', function () {
             const languageString = env.renderString('{{ "CST_WEEKLY_HEARING_LIST" | listType(lng) }}', {
                 lng: 'cy',
             });
-            expect(languageString).to.equal('Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal ar gyfer yr wythnos yn dechrau ar');
+            expect(languageString).to.equal(
+                'Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal ar gyfer yr wythnos yn dechrau ar'
+            );
         });
     });
 

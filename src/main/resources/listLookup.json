@@ -648,5 +648,16 @@
         "parentPage": "sscs-daily-hearing-list",
         "isNonStrategic": true,
         "isWeeklyList": true
+    },
+    "MENTAL_HEALTH_TRIBUNAL_HEARING_LIST": {
+        "friendlyName": "Mental Health Tribunal Daily Hearing List",
+        "welshFriendlyName": "Rhestr Wrandawiadau Dyddiol y Tribiwnlys Iechyd Meddwl",
+        "shortenedFriendlyName": "Mental Health Tribunal Daily Hearing List",
+        "url": "",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     }
 }

@@ -39,7 +39,7 @@ export function createFilters(env) {
 
     // to get the pretty list type name
     env.addFilter('listType', function (listType, language) {
-        const listLookupValue =  listTypes.get(listType);
+        const listLookupValue = listTypes.get(listType);
         if (listLookupValue) {
             if (language == 'cy') {
                 return listLookupValue?.['isWeeklyList']
@@ -157,8 +157,9 @@ export function createFilters(env) {
         } else if (provenance == 'MANUAL_UPLOAD' && language == 'cy') {
             return 'Lanlwytho â Llaw';
         }
-        return provenance.replaceAll('_', ' ')
-            .replace(/\w\S*/g, function(word){return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();});
+        return provenance.replaceAll('_', ' ').replace(/\w\S*/g, function (word) {
+            return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+        });
     });
 
     env.addFilter('appendCaseSequenceIndicator', function (data, caseSequenceIndicator) {

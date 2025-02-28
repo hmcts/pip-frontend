@@ -10,6 +10,7 @@ const locationIdForCourtWithTelephoneOnly = 11;
 const locationIdForCourtWithEmailOnly = 12;
 const locationIdForCourtWithoutContact = 13;
 const locationIdForCourtWithPublications = 14;
+const locationIdForCourtWithNoListMessageOverride = 15;
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub
@@ -23,6 +24,7 @@ courtStub
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com"}'));
 courtStub.withArgs(locationIdForCourtWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdForCourtWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
 const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications')
 publicationStub.withArgs(locationIdForCourtWithTelephoneAndEmail).resolves([])
@@ -33,6 +35,18 @@ publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
     { artefactId: "1", listType : "CIVIL_DAILY_CAUSE_LIST", contentDate: "2025-01-20T00:00:00Z", language: "ENGLISH" },
     { artefactId: "2", listType : "CST_WEEKLY_HEARING_LIST", contentDate: "2025-01-20T00:00:00Z", language: "ENGLISH"}
 ])
+publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([])
+
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
+additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneAndEmail.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneOnly.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride.toString()).returns({
+    noListMessage: 'English no list message',
+    welshNoListMessage: 'Welsh no list message'
+});
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
@@ -170,6 +184,38 @@ describe('Summary of publications page', () => {
                     'Sorry, no lists found for this court',
                     'Contact information is displayed'
                 );
+            });
+        });
+
+        describe('with no court message override in English', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display no court message in English', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('English no list message');
+            });
+        });
+
+        describe('with no court message override in Welsh', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}&lng=cy`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display no court message in Welsh', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('Welsh no list message');
             });
         });
 
