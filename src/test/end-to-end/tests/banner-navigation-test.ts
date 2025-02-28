@@ -1,4 +1,4 @@
-import {config as testConfig} from "../../config";
+import { config as testConfig } from '../../config';
 
 Feature('Banner navigation and links');
 
@@ -73,4 +73,4 @@ Scenario('Home page links should take user to the correct pages', async ({ I }) 
     I.waitForText('Gwrandawiadau llys a thribiwnlys');
     I.click(locate('//a').withText('Saesneg (English)'));
     I.waitForText('Court and tribunal hearings');
-}).tag('@CrossBrowser');
+}).tag('@CrossBrowser').tag('@Smoke');

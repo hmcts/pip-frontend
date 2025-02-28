@@ -1,5 +1,5 @@
 import * as Assert from 'assert';
-import {config as testConfig} from "../../config";
+import { config as testConfig } from '../../config';
 
 Feature('Search for court or tribunal');
 
@@ -46,4 +46,4 @@ Scenario(
         const firstListItem = (await I.grabTextFrom(locate('#search-input__option--0'))).trim();
         Assert.ok(firstListItem.startsWith('Mil'));
     }
-).tag('@Nightly');
+).tag('@Nightly').tag('@Smoke');
