@@ -43,7 +43,7 @@ describe('Land Registry Weekly Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'First-tier Tribunal (Lands Registration Tribunal) Weekly Hearing List',
+                'First-tier Tribunal (Land Registration Tribunal) Weekly Hearing List',
                 'Could not find the header'
             );
         });
