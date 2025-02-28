@@ -161,7 +161,7 @@ describe('Manual upload service', () => {
                 selected: false,
             });
             expect(data['listSubtypes']).to.not.deep.include({
-                text: 'CST Weekly Hearing list',
+                text: 'CST Weekly Hearing List',
                 value: 'CST_WEEKLY_HEARING_LIST',
                 selected: false,
             });
@@ -169,7 +169,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes when non-strategic', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
-            expect(data['listSubtypes'].length).to.equal(30);
+            expect(data['listSubtypes'].length).to.equal(31);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',
@@ -177,7 +177,7 @@ describe('Manual upload service', () => {
             });
 
             expect(data['listSubtypes']).to.deep.include({
-                text: 'CST Weekly Hearing list',
+                text: 'CST Weekly Hearing List',
                 value: 'CST_WEEKLY_HEARING_LIST',
                 selected: false,
             });
@@ -202,7 +202,7 @@ describe('Manual upload service', () => {
             const data = await manualUploadService.buildFormData(englishLanguage, true, 'CST_WEEKLY_HEARING_LIST');
 
             expect(data['listSubtypes']).to.deep.include({
-                text: 'CST Weekly Hearing list',
+                text: 'CST Weekly Hearing List',
                 value: 'CST_WEEKLY_HEARING_LIST',
                 selected: true,
             });
