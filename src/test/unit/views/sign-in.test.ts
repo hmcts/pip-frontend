@@ -60,9 +60,9 @@ describe('Sign In option Page', () => {
             expect(radioButtons.innerHTML).not.includes('disabled');
         });
 
-        it('Crime IDAM radio button should be disabled', () => {
+        it('Crime IDAM radio button should be enabled', () => {
             const radioButtons = htmlRes.getElementsByClassName(radioClass)[1];
-            expect(radioButtons.innerHTML).includes('disabled');
+            expect(radioButtons.innerHTML).not.includes('disabled');
         });
 
         it('P&I IDAM radio button should be enabled', () => {
@@ -79,12 +79,6 @@ describe('Sign In option Page', () => {
                 );
             }
         });
-
-        it('should display hint for Common Platform', () => {
-            const message = htmlRes.getElementById('radio-2-hint');
-            expect(message.innerHTML).contains('This option will be available as part of a future update.');
-        });
-
         it('should display request account message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body-s');
             expect(message[0].innerHTML).contains("Don't have an account?", 'Could not find request account message');

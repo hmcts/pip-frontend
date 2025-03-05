@@ -45,6 +45,21 @@ Scenario('CFT user - all banner navigation links should take user to the correct
     I.logout();
 }).tag('@CrossBrowser');
 
+/*
+Scenario('Crime user - all banner navigation links should take user to the correct pages', async ({ I }) => {
+    I.loginAsCrimeUser();
+    I.waitForText('Your account');
+    I.click(locate('//li').withText('Find a court or tribunal'));
+    I.waitForText('What court or tribunal are you interested in?');
+    I.click(locate('//li').withText('Single Justice Procedure cases'));
+    I.waitForText('What do you want to view from Single Justice Procedure?');
+    I.click(locate('//li').withText('Email subscriptions'));
+    I.waitForText('Your email subscriptions');
+    I.click(locate('//li').withText('Home'));
+    I.waitForText('Your account');
+    I.logout();
+});
+*/
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsSsoAdminLocal();
     I.click(locate('//li').withText('Dashboard'));
