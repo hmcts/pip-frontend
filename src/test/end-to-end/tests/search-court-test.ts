@@ -46,4 +46,4 @@ Scenario(
         const firstListItem = (await I.grabTextFrom(locate('#search-input__option--0'))).trim();
         Assert.ok(firstListItem.startsWith('Mil'));
     }
-).tag('@Nightly');
+).tag('@Nightly').tag('@Smoke');
