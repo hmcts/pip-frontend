@@ -12,7 +12,8 @@
     "sjpSubscription": "Single Justice Procedure cases",
     "hide": "Hide Filters",
     "show": "Show Filters",
-    "jurisdiction": "Type of court or tribunal",
+    "jurisdiction": "Jurisdiction",
+    "courtType": "Court or tribunal type",
     "region": "Region",
     "aria": {
         "filterLabel": "Filter by Jurisdiction or region"

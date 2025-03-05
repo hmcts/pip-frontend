@@ -33,7 +33,13 @@
               {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
             {% endif %}
           {% endfor %}
-          {% set filterKey = jurisdiction if key == 'Jurisdiction' else region %}
+          {% if key == 'Jurisdiction' %}
+            {% set filterKey = jurisdiction %}
+          {% elseif key == 'CourtType' %}
+            {% set filterKey = courtType %}
+          {% else %}
+            {% set filterKey = region %}
+          {% endif %}
           {% if checkedFilterItems| length > 0 %}
             {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
           {% endif %}
@@ -47,18 +53,28 @@
             </div>
             {% set toBeCreated = false %}
           {% endif %}
-          {{ govukCheckboxes({
-            idPrefix: key,
-            name: key,
-            classes: "govuk-checkboxes--small",
-            fieldset: {
-              legend: {
-                text: filterKey,
-                classes: 'govuk-fieldset__legend--m'
-              }
-            },
-            items: items
-          }) }}
+          <div class="govuk-form-group {% if key == 'CourtType' %} always-hide {% endif %}" id="{{ key }}-filter-group">
+            <fieldset class="govuk-fieldset">
+              <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                <h1 class="govuk-fieldset__heading">
+                  <a href="javascript:;" class="govuk-link govuk-!-font-size-19" id="{{ key }}-anchor">{{ filterKey }}</a>
+                  <span class="govuk-body govuk-!-font-size-19 filter-colour" id="{{ key }}-link">&#9660</span>
+                </h1>
+              </legend>
+              <div class="govuk-checkboxes govuk-checkboxes--small" id="{{ key }}-checkbox" data-module="govuk-checkboxes">
+                {% set checkboxCount = 0 %}
+                {% for item in items %}
+                  {% set checkboxCount = checkboxCount + 1 %}
+                  <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input {{ key }}-filter-item" id="{{ key }}-{{ checkboxCount }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
+                    <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ checkboxCount }}">
+                      {{ item.text }}
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+            </fieldset>
+          </div>
         {% endfor %}
       {% endset %}
 
@@ -220,5 +236,39 @@
     document.getElementsByClassName("moj-filter__header-title")[0]
       .getElementsByTagName("h2")[0]
       .setAttribute("aria-label", "{{ aria.filterLabel }}");
+
+    document.querySelectorAll('#Jurisdiction-anchor').forEach(item => item.addEventListener('click', function() {
+      showHideFilterSection('Jurisdiction');
+    }));
+
+    document.querySelectorAll('#CourtType-anchor').forEach(item => item.addEventListener('click', function() {
+      showHideFilterSection('CourtType');
+    }));
+
+    document.querySelectorAll('#Region-anchor').forEach(item => item.addEventListener('click', function() {
+      showHideFilterSection('Region');
+    }));
+
+    document.querySelectorAll('.Jurisdiction-filter-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const jurisdictionCheckedBoxes = document.querySelectorAll('input[name="Jurisdiction"]:checked').length;
+        const filterGroup = document.getElementById('CourtType-filter-group');
+        if (!(jurisdictionCheckedBoxes && !filterGroup.classList.contains('always-hide'))) {
+          filterGroup.classList.toggle("always-hide");
+          showHideFilters('CourtType')
+        }
+      });
+    });
+
+    function showHideFilterSection(key) {
+      document.getElementById(key + '-checkbox').classList.toggle("always-hide");
+      showHideFilters(key);
+    }
+
+    function showHideFilters(key) {
+      const section = document.getElementById(key + '-checkbox');
+      const link = document.getElementById(key + '-link');
+      link.innerHTML = section.classList.contains('always-hide') ? '&#9654;' : '&#9660;'
+    }
   </script>
 {% endblock %}
