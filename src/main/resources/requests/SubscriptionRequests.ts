@@ -1,4 +1,4 @@
-import { subscriptionManagementApi } from './utils/axiosConfig';
+import { accountManagementApi } from './utils/axiosConfig';
 import { UserSubscriptions } from '../../models/UserSubscriptions';
 import { LogHelper } from '../logging/logHelper';
 
@@ -7,7 +7,7 @@ const logHelper = new LogHelper();
 export class SubscriptionRequests {
     public async getUserSubscriptions(userId: string): Promise<UserSubscriptions> {
         try {
-            const response = await subscriptionManagementApi.get(`/subscription/user/${userId}`);
+            const response = await accountManagementApi.get(`/subscription/user/${userId}`);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, `retrieve subscriptions for user with ID ${userId}`);
@@ -17,7 +17,7 @@ export class SubscriptionRequests {
 
     public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
         try {
-            const response = await subscriptionManagementApi.delete(`/subscription/${subscriptionId}`, {
+            const response = await accountManagementApi.delete(`/subscription/${subscriptionId}`, {
                 headers: { 'x-user-id': userId },
             });
             return response.data;
@@ -29,7 +29,7 @@ export class SubscriptionRequests {
 
     public async subscribe(payload, userId: string): Promise<boolean> {
         try {
-            await subscriptionManagementApi.post('/subscription', payload, {
+            await accountManagementApi.post('/subscription', payload, {
                 headers: { 'x-user-id': userId },
             });
             return true;
@@ -41,7 +41,7 @@ export class SubscriptionRequests {
 
     public async bulkDeleteSubscriptions(subscriptionIds: string[], userId: string): Promise<object> {
         try {
-            const response = await subscriptionManagementApi.delete('/subscription/v2/bulk', {
+            const response = await accountManagementApi.delete('/subscription/bulk', {
                 headers: { 'x-user-id': userId },
                 data: subscriptionIds,
             });
@@ -54,7 +54,7 @@ export class SubscriptionRequests {
 
     public async addListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
-            await subscriptionManagementApi.post(`/subscription/add-list-types/${userId}`, payload);
+            await accountManagementApi.post(`/subscription/add-list-types/${userId}`, payload);
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `add subscription's list type for user with ID ${userId}`);
@@ -64,7 +64,7 @@ export class SubscriptionRequests {
 
     public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
-            await subscriptionManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);
+            await accountManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `configure subscription's list type for user with ID ${userId}`);
@@ -74,7 +74,7 @@ export class SubscriptionRequests {
 
     public async retrieveSubscriptionChannels(): Promise<string[]> {
         try {
-            const channelResponse = await subscriptionManagementApi.get('/meta/channels');
+            const channelResponse = await accountManagementApi.get('/subscription/channel');
             return channelResponse.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve the list of subscription channels');
@@ -85,7 +85,7 @@ export class SubscriptionRequests {
     public async deleteLocationSubscription(locationId: number, userId: string): Promise<object> {
         try {
             const header = { headers: { 'x-user-id': userId } };
-            const response = await subscriptionManagementApi.delete(`/subscription/location/${locationId}`, header);
+            const response = await accountManagementApi.delete(`/subscription/location/${locationId}`, header);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, `delete subscriptions for location with ID ${locationId}`);
