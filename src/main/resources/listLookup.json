@@ -288,7 +288,7 @@
     "PHT_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Iechyd Sylfaenol",
-        "shortenedFriendlyName": "PHT Weekly Hearing list",
+        "shortenedFriendlyName": "PHT Weekly Hearing List",
         "url": "pht-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
@@ -301,7 +301,7 @@
     "CST_WEEKLY_HEARING_LIST": {
         "friendlyName": "Care Standards Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal",
-        "shortenedFriendlyName": "CST Weekly Hearing list",
+        "shortenedFriendlyName": "CST Weekly Hearing List",
         "url": "cst-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
@@ -552,6 +552,17 @@
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Uwch Dribiwnlys (Siambr Apeliadau Gweinyddol)",
         "shortenedFriendlyName": "UT (AAC) Daily Hearing List",
         "url": "ut-aac-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "AST_DAILY_HEARING_LIST": {
+        "friendlyName": "Asylum Support Tribunal Daily Hearing List",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Tribiwnlys Cefnogi Ceiswyr Lloches",
+        "shortenedFriendlyName": "AST Daily Hearing List",
+        "url": "ast-daily-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
         "restrictedProvenances": [],
