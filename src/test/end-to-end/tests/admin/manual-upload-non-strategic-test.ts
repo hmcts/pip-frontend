@@ -35,6 +35,7 @@ Scenario('I as a admin user should be able to upload non strategic file successf
     I.click('Continue');
     I.waitForText('Check upload details');
     I.see(locationName);
+    I.see(listType);
     I.see(nonStrategicFileName);
     I.click('Confirm');
     I.waitForText('Success');
