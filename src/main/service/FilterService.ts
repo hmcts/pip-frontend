@@ -1,7 +1,7 @@
 import { Location } from '../models/Location';
 import { LocationService } from './LocationService';
 
-const filterNames = ['Jurisdiction', 'CourtType', 'Region'];
+const filterNames = ['Jurisdiction', 'LocationType', 'Region'];
 
 const locationService = new LocationService();
 
@@ -20,8 +20,13 @@ export class FilterService {
             let filteredValue;
             if (filter === 'Jurisdiction') {
                 filteredValue = ['Civil', 'Family', 'Crime', 'Tribunal'];
-            } else if (filter === 'CourtType') {
-                filteredValue = ['Immigration and Asylum Chamber', 'Criminal Injuries Compensation Tribunal', 'Care Standards Tribunal', 'Primary Health Tribunal'];
+            } else if (filter === 'LocationType') {
+                filteredValue = [
+                    'Immigration and Asylum Chamber',
+                    'Criminal Injuries Compensation Tribunal',
+                    'Care Standards Tribunal',
+                    'Primary Health Tribunal',
+                ];
             } else {
                 filteredValue = this.getFilterValueOptions(filter, list);
             }

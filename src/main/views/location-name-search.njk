@@ -35,8 +35,8 @@
           {% endfor %}
           {% if key == 'Jurisdiction' %}
             {% set filterKey = jurisdiction %}
-          {% elseif key == 'CourtType' %}
-            {% set filterKey = courtType %}
+          {% elseif key == 'LocationType' %}
+            {% set filterKey = LocationType %}
           {% else %}
             {% set filterKey = region %}
           {% endif %}
@@ -53,7 +53,7 @@
             </div>
             {% set toBeCreated = false %}
           {% endif %}
-          <div class="govuk-form-group {% if key == 'CourtType' %} always-hide {% endif %}" id="{{ key }}-filter-group">
+          <div class="govuk-form-group {% if key == 'LocationType' %} always-hide {% endif %}" id="{{ key }}-filter-group">
             <fieldset class="govuk-fieldset">
               <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
                 <h1 class="govuk-fieldset__heading">
@@ -241,8 +241,8 @@
       showHideFilterSection('Jurisdiction');
     }));
 
-    document.querySelectorAll('#CourtType-anchor').forEach(item => item.addEventListener('click', function() {
-      showHideFilterSection('CourtType');
+    document.querySelectorAll('#LocationType-anchor').forEach(item => item.addEventListener('click', function() {
+      showHideFilterSection('LocationType');
     }));
 
     document.querySelectorAll('#Region-anchor').forEach(item => item.addEventListener('click', function() {
@@ -252,10 +252,10 @@
     document.querySelectorAll('.Jurisdiction-filter-item').forEach(item => {
       item.addEventListener('click', function() {
         const jurisdictionCheckedBoxes = document.querySelectorAll('input[name="Jurisdiction"]:checked').length;
-        const filterGroup = document.getElementById('CourtType-filter-group');
+        const filterGroup = document.getElementById('LocationType-filter-group');
         if (!(jurisdictionCheckedBoxes && !filterGroup.classList.contains('always-hide'))) {
           filterGroup.classList.toggle("always-hide");
-          showHideFilters('CourtType')
+          showHideFilters('LocationType')
         }
       });
     });

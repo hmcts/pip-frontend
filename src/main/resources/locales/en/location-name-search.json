@@ -13,7 +13,7 @@
     "hide": "Hide Filters",
     "show": "Show Filters",
     "jurisdiction": "Jurisdiction",
-    "courtType": "Court or tribunal type",
+    "LocationType": "Court or tribunal type",
     "region": "Region",
     "aria": {
         "filterLabel": "Filter by Jurisdiction or region"
