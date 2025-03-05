@@ -203,7 +203,7 @@ describe('Court Service', () => {
     });
 
     it('should return additional location info if location exists', () => {
-        let additionalLocationInfo = courtService.getAdditionalLocationInfo('99');
+        let additionalLocationInfo = courtService.getAdditionalLocationInfo('100');
         expect(additionalLocationInfo).is.not.undefined;
         expect(additionalLocationInfo.noListMessage).is.not.empty;
         expect(additionalLocationInfo.welshNoListMessage).is.not.empty;
