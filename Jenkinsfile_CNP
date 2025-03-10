@@ -111,6 +111,17 @@ withPipeline(type, product, component) {
         env.ENV = 'ithc'
     }
 
+    afterAlways('smokeTest') {
+        publishHTML target: [
+            allowMissing         : true,
+            alwaysLinkToLastBuild: true,
+            keepAll              : true,
+            reportDir            : "functional-output/smoke/allure",
+            reportFiles          : "index.html",
+            reportName           : "Smoke Test Report"
+        ]
+    }
+
     afterAlways('functionalTest') {
         publishHTML target: [
             allowMissing         : true,
