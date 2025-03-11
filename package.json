@@ -124,7 +124,7 @@
         "babel-loader": "^9.2.1",
         "chai": "^5.1.2",
         "chai-as-promised": "^8.0.1",
-        "codeceptjs": "3.6.10",
+        "codeceptjs": "3.7.2",
         "codeceptjs-a11y-helper": "^1.5.3",
         "cookie-parser": "1.4.7",
         "copy-webpack-plugin": "^12.0.2",
