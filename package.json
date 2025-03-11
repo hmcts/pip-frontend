@@ -159,6 +159,7 @@
     },
     "resolutions": {
         "allure-js-commons/uuid": "10.0.0",
+        "codeceptjs/axios": "^1.7.9",
         "tempfile/uuid": "10.0.0",
         "react-native": "0.77.0",
         "jscodeshift": "17.1.2",
