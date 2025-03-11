@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { randomData } from '../shared/random-data';
-import { config as testConfig, config } from '../../config';
+import { config } from '../../config';
 import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 
 Feature('End to end journey test for unverified user');
@@ -13,9 +13,7 @@ Scenario('I as an unverified user should be able to make end-to-end journey', as
     await createLocation(locationId, locationName);
     await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/');
-    });
+    I.amOnPage('/');
     I.waitForText('Court and tribunal hearings');
     I.see('You can use this service to get information about:');
     I.see('Hearings in most Civil and Family Courts in the Southeast region');

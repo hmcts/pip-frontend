@@ -1,11 +1,7 @@
-import { config as testConfig } from '../../config';
-
 Feature('Banner navigation and links');
 
 Scenario('Unverified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
-    I.usePlaywrightTo('Go to search page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/view-option');
-    });
+    I.amOnPage('/view-option');
     I.waitForText('What do you want to do?');
     I.click(locate('//a').withText('Court and tribunal hearings'));
     I.waitForText('Court and tribunal hearings');
@@ -62,9 +58,7 @@ Scenario('System admin user - all banner navigation links should take user to th
 }).tag('@CrossBrowser');
 
 Scenario('Home page links should take user to the correct pages', async ({ I }) => {
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/');
-    });
+    I.amOnPage('/');
     I.waitForText('Court and tribunal hearings');
     I.click(locate('//a').withText('sign in'));
     I.waitForText('How do you want to sign in?');
@@ -73,4 +67,6 @@ Scenario('Home page links should take user to the correct pages', async ({ I }) 
     I.waitForText('Gwrandawiadau llys a thribiwnlys');
     I.click(locate('//a').withText('Saesneg (English)'));
     I.waitForText('Court and tribunal hearings');
-}).tag('@CrossBrowser').tag('@Smoke');
+})
+    .tag('@CrossBrowser')
+    .tag('@Smoke');

@@ -63,9 +63,7 @@ Scenario(
 ).tag('@Nightly');
 
 Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-    });
+    I.amOnPage('/b2c-admin-login');
     I.waitForText('Sign in with your email address');
     I.seeBetaFeedbackOnPage('b2c/login');
     I.executeScript('window.history.back();');
@@ -77,7 +75,9 @@ Scenario('I as a admin should be able to see the beta tag and feedback link when
 Scenario('I as a media user should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsMediaUser();
     I.logout();
-}).tag('@CrossBrowser').tag('@Smoke');
+})
+    .tag('@CrossBrowser')
+    .tag('@Smoke');
 
 Scenario(
     'I as a media user should be able to see proper error messages when username or password fields are empty',
@@ -105,9 +105,7 @@ Scenario(
 ).tag('@Nightly');
 
 Scenario('I as a media user should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/sign-in');
-    });
+    I.amOnPage('/sign-in');
     I.click('With a Court and tribunal hearings account');
     I.click('Continue');
     I.waitForText('Sign in with your email address');
@@ -121,7 +119,9 @@ Scenario('I as a media user should be able to see the beta tag and feedback link
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCftUser();
     I.logout();
-}).tag('@CrossBrowser').tag('@Smoke');
+})
+    .tag('@CrossBrowser')
+    .tag('@Smoke');
 
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
     I.loginAsCftUserInWelsh(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));

@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { randomData } from '../shared/random-data';
-import {config as testConfig, config} from '../../config';
+import { config } from '../../config';
 import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 
 Feature('A-Z list of courts and tribunals');
@@ -13,9 +13,7 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     await createLocation(locationId, locationName);
     await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
-    I.usePlaywrightTo('Go to search page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/search');
-    });
+    I.amOnPage('/search');
     I.waitForText('Select from an A-Z list of courts and tribunals');
     I.click('Select from an A-Z list of courts and tribunals');
     I.waitForText('Find a court or tribunal');

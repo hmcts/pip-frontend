@@ -185,9 +185,7 @@ Scenario('Admin User Journey - media-applications-page', async ({ I }) => {
     I.click('#tcbox');
     I.click('Continue');
     I.waitForText('Details submitted');
-    I.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/admin-dashboard');
-    });
+    I.amOnPage('/admin-dashboard');
     I.waitForText('Pick an account');
     I.click('Use another account');
     I.waitForText('Sign in');

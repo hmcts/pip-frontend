@@ -4,9 +4,7 @@ import { checkA11y, injectAxe } from 'axe-playwright';
 export = function () {
     return actor({
         loginAsB2CSystemAdmin: function () {
-            this.usePlaywrightTo('Go to b2c system admin login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-            });
+            this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
             this.fillField('#email', secret(testConfig.SYSTEM_ADMIN_USERNAME));
             this.fillField('#password', secret(testConfig.SYSTEM_ADMIN_PASSWORD));
@@ -15,9 +13,7 @@ export = function () {
         },
 
         loginAsB2CAdmin: function () {
-            this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-            });
+            this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
             this.fillField('#email', secret(testConfig.ADMIN_USERNAME));
             this.fillField('#password', secret(testConfig.ADMIN_PASSWORD));
@@ -26,9 +22,7 @@ export = function () {
         },
 
         loginTestB2CAdminUser: function (username, password) {
-            this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-            });
+            this.amOnPage('/b2c-admin-login');
             this.see('Sign in with your email address');
             this.fillField('#email', username);
             this.fillField('#password', password);
@@ -36,9 +30,7 @@ export = function () {
         },
 
         loginAsSsoSystemAdmin: function () {
-            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/admin-dashboard');
-            });
+            this.amOnPage('/admin-dashboard');
             this.waitForText('Sign in');
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_SYSTEM_ADMIN_USER));
             this.click('Next');
@@ -51,9 +43,7 @@ export = function () {
         },
 
         loginAsSsoAdminCtsc: function () {
-            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/admin-dashboard');
-            });
+            this.amOnPage('/admin-dashboard');
             this.waitForText('Sign in');
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_CTSC_USER));
             this.click('Next');
@@ -66,9 +56,7 @@ export = function () {
         },
 
         loginAsSsoAdminLocal: function () {
-            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/admin-dashboard');
-            });
+            this.amOnPage('/admin-dashboard');
             this.waitForText('Sign in');
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_LOCAL_USER));
             this.click('Next');
@@ -81,9 +69,7 @@ export = function () {
         },
 
         loginAsNoRoleSsoUser: function () {
-            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/admin-dashboard');
-            });
+            this.amOnPage('/admin-dashboard');
             this.waitForText('Sign in');
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_NO_ROLES_USER));
             this.click('Next');
@@ -95,9 +81,7 @@ export = function () {
         },
 
         reloginAsSsoSystemAdmin: function () {
-            this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/admin-dashboard');
-            });
+            this.amOnPage('/admin-dashboard');
             this.waitForText('Pick an account');
             this.click('Use another account');
             this.waitForText('Sign in');
@@ -109,9 +93,7 @@ export = function () {
         },
 
         loginAsMediaUser: function () {
-            this.usePlaywrightTo('Go to media login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
-            });
+            this.amOnPage('/sign-in');
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.see('Sign in with your email address');
@@ -122,9 +104,7 @@ export = function () {
         },
 
         loginTestMediaUser: function (username, password) {
-            this.usePlaywrightTo('Go to media login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
-            });
+            this.amOnPage('/sign-in');
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.see('Sign in with your email address');
@@ -134,9 +114,7 @@ export = function () {
         },
 
         loginAsCftUser: function () {
-            this.usePlaywrightTo('Go to cft login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
-            });
+            this.amOnPage('/sign-in');
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.see('Sign in');
@@ -147,9 +125,7 @@ export = function () {
         },
 
         loginTestCftUser: function (username, password) {
-            this.usePlaywrightTo('Go to cft login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
-            });
+            this.amOnPage('/sign-in');
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.see('Sign in');
@@ -159,9 +135,7 @@ export = function () {
         },
 
         loginAsCftUserInWelsh: function (username, password) {
-            this.usePlaywrightTo('Go to cft Welsh login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
-            });
+            this.amOnPage('/sign-in');
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
@@ -209,9 +183,7 @@ export = function () {
         },
 
         requestMediaAccount: function (fullName, email, emplyerName) {
-            this.usePlaywrightTo('Go to home page', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/');
-            });
+            this.amOnPage('/');
             this.waitForText('Court and tribunal hearings');
             this.click('Continue');
             this.click('Sign in');

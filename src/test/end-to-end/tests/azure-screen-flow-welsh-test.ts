@@ -1,11 +1,7 @@
-import {config as testConfig} from "../../config";
-
 Feature('Azure screen flow changes - Welsh');
 
 Scenario('Azure screen flow changes - Welsh', async ({ I }) => {
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/');
-    });
+    I.amOnPage('/');
     I.see('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');

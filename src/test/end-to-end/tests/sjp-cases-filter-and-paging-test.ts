@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 import Assert from 'assert';
-import { config, config as testConfig } from '../../config';
+import { config } from '../../config';
 import { randomData } from '../shared/random-data';
 
 Feature('SJP list filtering and paging');
@@ -27,9 +27,7 @@ Scenario('I should be able to view all the SJP cases', async ({ I }) => {
         'SJP_PUBLIC_LIST'
     );
 
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/');
-    });
+    I.amOnPage('/');
     I.see('Court and tribunal hearings');
     I.click('Continue');
     I.waitForText('What do you want to do?');
