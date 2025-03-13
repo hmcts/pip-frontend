@@ -9,6 +9,8 @@ const locationIdForCourtWithTelephoneAndEmail = 10;
 const locationIdForCourtWithTelephoneOnly = 11;
 const locationIdForCourtWithEmailOnly = 12;
 const locationIdForCourtWithoutContact = 13;
+const locationIdForCourtWithPublications = 14;
+const locationIdForCourtWithNoListMessageOverride = 15;
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub
@@ -21,8 +23,30 @@ courtStub
     .withArgs(locationIdForCourtWithEmailOnly)
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com"}'));
 courtStub.withArgs(locationIdForCourtWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdForCourtWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves([]);
+const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications')
+publicationStub.withArgs(locationIdForCourtWithTelephoneAndEmail).resolves([])
+publicationStub.withArgs(locationIdForCourtWithTelephoneOnly).resolves([])
+publicationStub.withArgs(locationIdForCourtWithEmailOnly).resolves([])
+publicationStub.withArgs(locationIdForCourtWithoutContact).resolves([])
+publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
+    { artefactId: "1", listType : "CIVIL_DAILY_CAUSE_LIST", contentDate: "2025-01-20T00:00:00Z", language: "ENGLISH" },
+    { artefactId: "2", listType : "CST_WEEKLY_HEARING_LIST", contentDate: "2025-01-20T00:00:00Z", language: "ENGLISH"}
+])
+publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([])
+
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
+additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneAndEmail.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneOnly.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride.toString()).returns({
+    noListMessage: 'English no list message',
+    welshNoListMessage: 'Welsh no list message'
+});
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
@@ -159,6 +183,67 @@ describe('Summary of publications page', () => {
                 expect(body[4].innerHTML).contains(
                     'Sorry, no lists found for this court',
                     'Contact information is displayed'
+                );
+            });
+        });
+
+        describe('with no court message override in English', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display no court message in English', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('English no list message');
+            });
+        });
+
+        describe('with no court message override in Welsh', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}&lng=cy`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display no court message in Welsh', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('Welsh no list message');
+            });
+        });
+
+        describe('with publications', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithPublications}`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display publications', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).contains(
+                    'Select the list you want to view from the link(s) below:',
+                    'Select list text does not match'
+                );
+
+                expect(body[5].innerHTML).contains(
+                    'Civil Daily Cause List 20 January 2025 - English (Saesneg)',
+                    'Daily list link text does not match'
+                );
+
+                expect(body[6].innerHTML).contains(
+                    'Care Standards Tribunal Weekly Hearing List for week commencing 20 January 2025 - English (Saesneg)',
+                    'Weekly list link text does not match'
                 );
             });
         });

@@ -197,6 +197,155 @@ export default function (app: Application): void {
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
 
+    //Non-Strategic Paths
+    app.get('/cst-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cst-weekly-hearing-list')
+    );
+    app.get('/pht-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'pht-weekly-hearing-list')
+    );
+    app.get('/siac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'siac-weekly-hearing-list')
+    );
+    app.get('/poac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'poac-weekly-hearing-list')
+    );
+    app.get('/paac-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'paac-weekly-hearing-list')
+    );
+    app.get('/ftt-tax-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ftt-tax-weekly-hearing-list')
+    );
+    app.get('/ftt-lr-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ftt-lr-weekly-hearing-list')
+    );
+    app.get('/rpt-eastern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-eastern-weekly-hearing-list')
+    );
+    app.get('/rpt-london-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-london-weekly-hearing-list')
+    );
+    app.get('/rpt-midlands-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-midlands-weekly-hearing-list'
+        )
+    );
+    app.get('/rpt-northern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-northern-weekly-hearing-list'
+        )
+    );
+    app.get('/rpt-southern-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'rpt-southern-weekly-hearing-list'
+        )
+    );
+
+    app.get('/ut-t-and-cc-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-t-and-cc-daily-hearing-list')
+    );
+    app.get('/ut-lc-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-lc-daily-hearing-list')
+    );
+    app.get('/ut-aac-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ut-aac-daily-hearing-list')
+    );
+    app.get('/grc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'grc-weekly-hearing-list')
+    );
+    app.get('/wpafcc-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'wpafcc-weekly-hearing-list')
+    );
+    app.get('/ut-iac-jr-london-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-london-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-jr-manchester-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-manchester-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-jr-birmingham-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-birmingham-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-jr-cardiff-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-cardiff-daily-hearing-list'
+        )
+    );
+    app.get('/ut-iac-statutory-appeals-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-statutory-appeals-daily-hearing-list'
+        )
+    );
+    app.get('/ast-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'ast-daily-hearing-list')
+    );
+    app.get('/sscs-midlands-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-midlands-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-south-east-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-south-east-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-wales-and-south-west-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-wales-and-south-west-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-scotland-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-scotland-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-north-east-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-north-east-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-north-west-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'sscs-north-west-daily-hearing-list'
+        )
+    );
+    app.get('/sscs-london-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'sscs-london-daily-hearing-list')
+    );
+
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
     app.get('/bulk-unsubscribe', isPermittedMedia, app.locals.container.cradle.bulkUnsubscribeController.get);
@@ -223,6 +372,11 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.caseNameSearchResultsController.get
     );
+    app.post(
+        '/case-name-search-results',
+        isPermittedMedia,
+        app.locals.container.cradle.caseNameSearchResultsController.post
+    );
     app.get(
         '/case-reference-number-search',
         isPermittedMedia,
@@ -237,6 +391,11 @@ export default function (app: Application): void {
         '/case-reference-number-search-results',
         isPermittedMedia,
         app.locals.container.cradle.caseReferenceNumberSearchResultController.get
+    );
+    app.post(
+        '/case-reference-number-search-results',
+        isPermittedMedia,
+        app.locals.container.cradle.caseReferenceNumberSearchResultController.post
     );
     app.get('/delete-subscription', isPermittedMedia, app.locals.container.cradle.deleteSubscriptionController.get);
     app.get(
@@ -256,6 +415,11 @@ export default function (app: Application): void {
     app.post('/location-name-search', isPermittedMedia, (req, res) =>
         app.locals.container.cradle.alphabeticalSearchController.post(req, res, 'location-name-search')
     );
+    app.post(
+        '/location-subscriptions-confirmation',
+        isPermittedMedia,
+        app.locals.container.cradle.alphabeticalSearchController.locationSubscriptionsConfirmation
+    );
     app.get('/pending-subscriptions', isPermittedMedia, app.locals.container.cradle.pendingSubscriptionsController.get);
     app.post(
         '/pending-subscriptions',
@@ -267,19 +431,45 @@ export default function (app: Application): void {
         isPermittedMedia,
         app.locals.container.cradle.pendingSubscriptionsController.removeSubscription
     );
+    app.get(
+        '/subscription-confirmation-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfirmationPreviewController.get
+    );
+    app.post(
+        '/subscription-confirmation-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfirmationPreviewController.post
+    );
+    app.get(
+        '/remove-pending-subscription',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfirmationPreviewController.removePendingSubscription
+    );
     app.get('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.get);
     app.post('/subscription-add', isPermittedMedia, app.locals.container.cradle.subscriptionAddController.post);
-    app.get('/subscription-confirmed', isPermittedMedia, reRenderView);
-    app.post(
-        '/subscription-confirmed',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfirmedController.post
-    );
     app.get(
         '/subscription-management',
         isPermittedMedia,
         app.locals.container.cradle.subscriptionManagementController.get
     );
+    app.get('/subscription-add-list', isPermittedMedia, app.locals.container.cradle.subscriptionAddListController.get);
+    app.post(
+        '/subscription-add-list',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListController.post
+    );
+    app.get(
+        '/subscription-add-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListLanguageController.get
+    );
+    app.post(
+        '/subscription-add-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionAddListLanguageController.post
+    );
+    app.get('/subscription-confirmed', isPermittedMedia, reRenderView);
     app.get(
         '/subscription-configure-list',
         isPermittedMedia,
@@ -288,14 +478,34 @@ export default function (app: Application): void {
     app.post(
         '/subscription-configure-list',
         isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfigureListController.filterValues
+        app.locals.container.cradle.subscriptionConfigureListController.post
+    );
+    app.get(
+        '/subscription-configure-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListLanguageController.get
+    );
+    app.post(
+        '/subscription-configure-list-language',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListLanguageController.post
+    );
+    app.get(
+        '/subscription-configure-list-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListPreviewController.get
+    );
+    app.post(
+        '/subscription-configure-list-preview',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListPreviewController.post
+    );
+    app.get(
+        '/remove-configure-list',
+        isPermittedMedia,
+        app.locals.container.cradle.subscriptionConfigureListPreviewController.removeConfigureList
     );
     app.get('/subscription-configure-list-confirmed', isPermittedMedia, reRenderView);
-    app.post(
-        '/subscription-configure-list-confirmed',
-        isPermittedMedia,
-        app.locals.container.cradle.subscriptionConfigureListConfirmedController.post
-    );
     app.get('/unsubscribe-confirmation', isPermittedMedia, reRenderView);
     app.post(
         '/unsubscribe-confirmation',

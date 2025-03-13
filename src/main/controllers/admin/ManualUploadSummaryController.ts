@@ -14,6 +14,8 @@ export default class ManualUploadSummaryController {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+
         const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
             formData.listType,
             formData.classification
@@ -27,6 +29,7 @@ export default class ManualUploadSummaryController {
                   },
                   displaySensitivityMismatch: sensitivityMismatch,
                   displayError: true,
+                  nonStrategicUpload,
               })
             : res.render('admin/manual-upload-summary', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
@@ -35,6 +38,7 @@ export default class ManualUploadSummaryController {
                   fileUploadData: {
                       ...manualUploadService.formatPublicationDates(formData, false),
                   },
+                  nonStrategicUpload,
               });
     }
 
@@ -42,14 +46,26 @@ export default class ManualUploadSummaryController {
         const userEmail = req.user['email'];
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
 
-        formData.file = await fileHandlingService.readFileFromRedis(req.user['userId'], formData.fileName);
-
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
 
         const sensitivityMismatch = manualUploadService.isSensitivityMismatch(
             formData.listType,
             formData.classification
         );
+
+        const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
+
+        try {
+            formData.file = await fileHandlingService.readFileFromRedis(req.user['userId'], formData.fileName);
+        } catch {
+            return ManualUploadSummaryController.renderConfirmationError(
+                req,
+                res,
+                formData,
+                sensitivityMismatch,
+                nonStrategicUpload
+            );
+        }
 
         if (req.query?.check === 'true') {
             res.render('admin/manual-upload-summary', {
@@ -59,9 +75,14 @@ export default class ManualUploadSummaryController {
                 fileUploadData: {
                     ...manualUploadService.formatPublicationDates(formData, false),
                 },
+                nonStrategicUpload,
             });
         } else {
-            const artefactId = await manualUploadService.uploadPublication({ ...formData, userEmail: userEmail }, true);
+            const artefactId = await manualUploadService.uploadPublication(
+                { ...formData, userEmail: userEmail },
+                true,
+                nonStrategicUpload
+            );
 
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
@@ -72,17 +93,28 @@ export default class ManualUploadSummaryController {
                     `Publication with artefact id ${artefactId} successfully uploaded`
                 );
                 res.clearCookie('formCookie');
-                res.redirect('manual-upload-confirmation');
+                res.redirect('manual-upload-confirmation?non-strategic=' + nonStrategicUpload);
             } else {
-                res.render('admin/manual-upload-summary', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
-                    fileUploadData: {
-                        ...manualUploadService.formatPublicationDates(formData, false),
-                    },
-                    displaySensitivityMismatch: sensitivityMismatch,
-                    displayError: true,
-                });
+                ManualUploadSummaryController.renderConfirmationError(
+                    req,
+                    res,
+                    formData,
+                    sensitivityMismatch,
+                    nonStrategicUpload
+                );
             }
         }
+    }
+
+    private static renderConfirmationError(req, res, formData, sensitivityMismatch, nonStrategicUpload) {
+        res.render('admin/manual-upload-summary', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
+            fileUploadData: {
+                ...manualUploadService.formatPublicationDates(formData, false),
+            },
+            displaySensitivityMismatch: sensitivityMismatch,
+            displayError: true,
+            nonStrategicUpload,
+        });
     }
 }

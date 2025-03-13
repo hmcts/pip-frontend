@@ -47,6 +47,11 @@ const alphabet = [
     'Y',
     'Z',
 ];
+const locations = [
+    {
+        locationId: 1,
+    },
+];
 const validCourt = "Abergavenny Magistrates' Court";
 const validWelshCourt = 'Llys Ynadon y Fenni';
 const englishLanguage = 'en';
@@ -180,6 +185,11 @@ describe('Court Service', () => {
         expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
     });
 
+    it('should return court jurisdictions for all', async () => {
+        const result = await courtService.findCourtsJurisdiction(locations);
+        expect(result[0]).contains(hearingsData[0]['jurisdiction']);
+    });
+
     describe('delete location', () => {
         it('should return a message if location is deleted', async () => {
             const payload = await courtService.deleteLocationById(1, adminUserId);
@@ -190,5 +200,15 @@ describe('Court Service', () => {
             const payload = await courtService.deleteLocationById(2, adminUserId);
             expect(payload).to.deep.equal(null);
         });
+    });
+
+    it('should return additional location info if location exists', () => {
+        let additionalLocationInfo = courtService.getAdditionalLocationInfo('100');
+        expect(additionalLocationInfo).is.not.undefined;
+        expect(additionalLocationInfo.noListMessage).is.not.empty;
+        expect(additionalLocationInfo.welshNoListMessage).is.not.empty;
+
+        additionalLocationInfo = courtService.getAdditionalLocationInfo('999');
+        expect(additionalLocationInfo).is.undefined;
     });
 });

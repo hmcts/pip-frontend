@@ -14,8 +14,8 @@
 {% block content %}
 
     {% if displaySensitivityMismatch %}
-      <div class="govuk-callout" tabindex="0">
-        <h1 class="govuk-heading-m">{{ warning }}</h1>
+      <div class="govuk-callout">
+        <h2 class="govuk-heading-m">{{ warning }}</h2>
           {{ govukWarningText({
             text: sensitivityMismatch
           }) }}
@@ -36,7 +36,8 @@
     {% endif %}
   <div class="parent-box">
     <h1 class="govuk-heading-l">{{ header }}</h1>
-    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-upload-summary">
+    <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-upload-summary?non-strategic={{ nonStrategicUpload }}">
+        {% set baseUploadPath = "manual-upload?non-strategic=" + nonStrategicUpload %}
         {{ govukSummaryList({
             rows: [
                 {
@@ -49,7 +50,7 @@
                     actions: {
                     items: [
                         {
-                            href: "manual-upload#search-input",
+                            href: baseUploadPath + "#search-input",
                             text: actionName,
                             visuallyHiddenText: courtNameKey
                         }
@@ -66,7 +67,7 @@
                     actions: {
                     items: [
                         {
-                            href: "manual-upload#manual-file-upload",
+                            href: baseUploadPath + "#manual-file-upload",
                             text: actionName,
                             visuallyHiddenText: fileKey
                         }
@@ -83,7 +84,7 @@
                     actions: {
                     items: [
                         {
-                            href: "manual-upload#listType",
+                            href: baseUploadPath + "#listType",
                             text: actionName,
                             visuallyHiddenText: listTypeKey
                         }
@@ -100,7 +101,7 @@
                     actions: {
                     items: [
                         {
-                            href: "manual-upload#content-date-from-day",
+                            href: baseUploadPath + "#content-date-from-day",
                             text: actionName,
                             visuallyHiddenText: hearingDatesKey
                         }
@@ -117,7 +118,7 @@
                     actions: {
                     items: [
                         {
-                            href: "manual-upload#classification",
+                            href: baseUploadPath + "#classification",
                             text: actionName,
                             visuallyHiddenText: sensitivityKey
                         }
@@ -134,7 +135,7 @@
                     actions: {
                     items: [
                         {
-                            href: "manual-upload#language",
+                            href: baseUploadPath + "#language",
                             text: actionName,
                             visuallyHiddenText: languageKey
                         }
@@ -151,7 +152,7 @@
                     actions: {
                     items: [
                         {
-                            href: "manual-upload#display-date-from-day",
+                            href: baseUploadPath + "#display-date-from-day",
                             text: actionName,
                             visuallyHiddenText: displayFileDatesKey
                         }

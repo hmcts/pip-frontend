@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon';
 import { createLocation, uploadPublication } from '../shared/testingSupportApi';
 import { randomData } from '../shared/random-data';
-import { config } from '../../config';
+import { config as testConfig, config } from '../../config';
 import * as Assert from 'assert';
 
-Feature('Sort List Table');
+Feature('Style guide table sorting');
 
-Scenario('I should be able to view and sort the list table', async ({ I }) => {
+Scenario('I should be able to view and sort the table on style guide', async ({ I }) => {
     const displayFrom = DateTime.now().toISO({ includeOffset: false });
     const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
     const locationId = randomData.getRandomLocationId();
@@ -31,7 +31,9 @@ Scenario('I should be able to view and sort the list table', async ({ I }) => {
         return 'tbody > tr.govuk-table__row:last-child > td:nth-child(' + columnNumber + ')';
     };
 
-    I.amOnPage('/search');
+    I.usePlaywrightTo('Go to search page', async ({ page }) => {
+        page.goto(testConfig.TEST_URL + '/search');
+    });
     I.see('What court or tribunal are you interested in?');
     I.fillField('#search-input', locationName);
     I.click('Continue');

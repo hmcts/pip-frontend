@@ -2,14 +2,14 @@ import { createThirdPartyUserAccount } from '../../shared/testingSupportApi';
 import { randomData } from '../../shared/random-data';
 import { config as testConfig } from '../../../config';
 
-Feature('System admin manage Third-Party Users');
+Feature('System admin manage third-party users');
 
 Scenario('I as a system admin should be able to manage Third-Party Users', async ({ I }) => {
     const testProvenanceUserId = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
     const userId = await createThirdPartyUserAccount(testProvenanceUserId);
 
     I.loginAsSsoSystemAdmin();
-    I.waitForText('View, create, update and remove third-party users and subscriptions');
+    I.see('View, create, update and remove third-party users and subscriptions');
     I.click('#card-manage-third-party-users');
     I.waitForText('Manage third party users');
     I.see('Name');

@@ -52,6 +52,11 @@ describe('Home page', () => {
                 });
         });
 
+        it('should have correct page html language', () => {
+            const htmlElement = htmlRes.getElementsByTagName('html')[0];
+            expect(htmlElement.getAttribute('lang')).eq('en', 'HTML Lang element does not match');
+        });
+
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(pageHeader, 'Page title does not match header');
@@ -87,11 +92,11 @@ describe('Home page', () => {
         it('should display bullets', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
-                'Hearings in Civil and Family Courts in Milton Keynes, Oxford, Reading, High Wycombe and Slough',
+                'Hearings in most Civil and Family Courts in the Southeast region',
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
-                'Hearings in the Immigration and Asylum Chamber of the First-tier Tribunal',
+                'Hearings in First Tier and Upper Tribunals (excluding SSCS, Asylum Support and Employment Tribunals)',
                 'Could not find second bullet'
             );
             expect(bullets[2].innerHTML).contains(
@@ -212,6 +217,11 @@ describe('Home page', () => {
                 });
         });
 
+        it('should have correct page html language', () => {
+            const htmlElement = htmlRes.getElementsByTagName('html')[0];
+            expect(htmlElement.getAttribute('lang')).eq('cy', 'HTML Lang element does not match');
+        });
+
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(
@@ -220,22 +230,38 @@ describe('Home page', () => {
             );
         });
 
+        it('should display a message', () => {
+            const message = htmlRes.getElementsByClassName('govuk-body');
+            expect(message[0].innerHTML).contains(
+                'Gallwch ddefnyddio’r gwasanaeth hwn i gael gwybodaeth am:',
+                'Could not find a message'
+            );
+        });
+
         it('should display bullets', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
 
             expect(bullets[0].innerHTML).contains(
-                'Gwrandawiadau mewn Llysoedd Sifil a Theulu yn  Milton Keynes, Oxford, Reading, High Wycombe ac Slough',
+                'Gwrandawiadau ym mwyafrif y Llysoedd Sifil a Theulu yn Ne-ddwyrain Lloegr',
                 'Could not find first bullet'
             );
 
             expect(bullets[1].innerHTML).contains(
-                'Gwrandawiadau yn Siambr Mewnfudo a Lloches y Tribiwnlys Haen Gyntaf',
+                'Gwrandawiadau yn y Tribiwnlys Haen Gyntaf a’r Tribiwnlysoedd Uwch (gan eithrio SSCS, Cymorth Lloches a’r Tribiwnlysoedd Cyflogaeth)',
                 'Could not find second bullet'
             );
 
             expect(bullets[2].innerHTML).contains(
-                'Achosion Gweithdrefn Un Ynad, gan gynnwys trwyddedu teledu a mân droseddau traffig megis goryrru',
+                'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
                 'Could not find third bullet'
+            );
+        });
+
+        it('should display more courts message', () => {
+            const message = htmlRes.getElementsByClassName('govuk-body');
+            expect(message[2].innerHTML).contains(
+                'Bydd mwy o lysoedd a thribiwnlysoedd ar gael gydag amser.',
+                'Could not find courts message'
             );
         });
 

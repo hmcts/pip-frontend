@@ -40,6 +40,22 @@ describe('Alphabetical Search page', () => {
         expect(pageHeading[0].innerHTML).contains('Find a court or tribunal', 'Page heading does not exist');
     });
 
+    it('should contain letter with visually hidden text when court starts with the letter exist', () => {
+        const selector = htmlRes.getElementById('A-selector');
+        expect(selector.innerHTML).contains('A');
+
+        const hiddenElements = selector.getElementsByClassName('govuk-visually-hidden');
+        expect(hiddenElements[0].innerHTML).contains('Courts and tribunals beginning with this letter');
+    });
+
+    it('should contain letter without visually hidden text when court starts with the letter does not exist', () => {
+        const selector = htmlRes.getElementById('B-selector');
+        expect(selector.innerHTML).contains('B');
+
+        const hiddenElements = selector.getElementsByClassName('govuk-visually-hidden');
+        expect(hiddenElements).to.be.empty;
+    });
+
     it('should contain the letter names in rows are present', () => {
         const lettersUsed = ['A', 'T', 'W'];
         lettersUsed.forEach(letter => {

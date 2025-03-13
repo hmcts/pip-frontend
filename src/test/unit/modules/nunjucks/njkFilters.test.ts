@@ -32,6 +32,38 @@ describe('Nunjucks Custom Filter Tests', function () {
         });
     });
 
+    describe('List type filter', function () {
+        it('should return daily list type friendly name in English', function () {
+            const languageString = env.renderString('{{ "CIVIL_DAILY_CAUSE_LIST" | listType(lng) }}', {
+                lng: 'en',
+            });
+            expect(languageString).to.equal('Civil Daily Cause List');
+        });
+
+        it('should return daily list type friendly name in Welsh', function () {
+            const languageString = env.renderString('{{ "CIVIL_DAILY_CAUSE_LIST" | listType(lng) }}', {
+                lng: 'cy',
+            });
+            expect(languageString).to.equal('Rhestr Achosion Dyddiol y Llys Sifil');
+        });
+
+        it('should return weekly list type friendly name in English', function () {
+            const languageString = env.renderString('{{ "CST_WEEKLY_HEARING_LIST" | listType(lng) }}', {
+                lng: 'en',
+            });
+            expect(languageString).to.equal('Care Standards Tribunal Weekly Hearing List for week commencing');
+        });
+
+        it('should return weekly list type friendly name in Welsh', function () {
+            const languageString = env.renderString('{{ "CST_WEEKLY_HEARING_LIST" | listType(lng) }}', {
+                lng: 'cy',
+            });
+            expect(languageString).to.equal(
+                'Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal ar gyfer yr wythnos yn dechrau ar'
+            );
+        });
+    });
+
     describe('Language Filter', function () {
         it('should return the pretty version of language - english', function () {
             const languageString = env.renderString('{{ "ENGLISH"|language }}', {});
@@ -148,14 +180,19 @@ describe('Nunjucks Custom Filter Tests', function () {
     });
 
     describe('mask legacy data source name', function () {
-        it('should return updated data source name', function () {
-            const result = env.renderString('{{ "SNL"| maskLegacyDataSource }}', {});
+        it('should return updated data source name for SNL', function () {
+            const result = env.renderString('{{ "SNL"| convertDataSourceName("en") }}', {});
             expect(result).to.equal('ListAssist');
         });
 
-        it('should return existing data source name', function () {
-            const result = env.renderString('{{ "MANUAL_UPLOAD"| maskLegacyDataSource }}', {});
-            expect(result).to.equal('MANUAL_UPLOAD');
+        it('should return updated data source name for MANUAL_UPLOAD in English', function () {
+            const result = env.renderString('{{ "MANUAL_UPLOAD"| convertDataSourceName("en") }}', {});
+            expect(result).to.equal('Manual Upload');
+        });
+
+        it('should return updated data source name for MANUAL_UPLOAD in Welsh', function () {
+            const result = env.renderString('{{ "MANUAL_UPLOAD"| convertDataSourceName("cy") }}', {});
+            expect(result).to.equal('Lanlwytho â Llaw');
         });
     });
 
@@ -188,6 +225,35 @@ describe('Nunjucks Custom Filter Tests', function () {
         it('should return case sequence indicator only if data is empty', function () {
             const result = env.renderString('{{ ""| appendCaseSequenceIndicator("1 of 2") }}', {});
             expect(result).to.equal('[1 of 2]');
+        });
+    });
+
+    describe('should render date with formatter', function () {
+        it('should return date in correct format', function () {
+            const result = env.renderString('{{ "12/12/2024" | dateFormatter("en") }}', {});
+            expect(result).to.equal('12 December 2024');
+        });
+
+        it('should return date in correct format when welsh selected', function () {
+            const result = env.renderString('{{ "12/12/2024" | dateFormatter("cy") }}', {});
+            expect(result).to.equal('12 Rhagfyr 2024');
+        });
+
+        it('should return Invalid Date if incorrect format', function () {
+            const result = env.renderString('{{ "12-12-2024" | dateFormatter("cy") }}', {});
+            expect(result).to.equal('Invalid DateTime');
+        });
+    });
+
+    describe('should render time with formatter', function () {
+        it('should return time in existing format', function () {
+            const result = env.renderString('{{ "10:30am" | timeFormatter }}', {});
+            expect(result).to.equal('10:30am');
+        });
+
+        it('should replace time if not in expected format', function () {
+            const result = env.renderString('{{ "10.30am" | timeFormatter}}', {});
+            expect(result).to.equal('10:30am');
         });
     });
 });

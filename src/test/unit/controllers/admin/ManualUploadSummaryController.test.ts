@@ -20,7 +20,8 @@ const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication'
 sinon.stub(ManualUploadService.prototype, 'formatPublicationDates').returns(mockData);
 
 const readFileStub = sinon.stub(FileHandlingService.prototype, 'readFileFromRedis');
-readFileStub.resolves('');
+readFileStub.withArgs('1234', 'fileName').resolves('');
+readFileStub.withArgs('12345', 'fileName').throws(new Error());
 
 const removeFileStub = sinon.stub(FileHandlingService.prototype, 'removeFileFromRedis').resolves('');
 removeFileStub.resolves('');
@@ -33,22 +34,25 @@ describe('Manual upload summary controller', () => {
     const i18n = {
         'manual-upload-summary': {},
     };
-    const request = mockRequest(i18n);
+
     const response = {
         render: () => {
             return '';
         },
     } as unknown as Response;
-    request['cookies'] = { formCookie: JSON.stringify(mockData) };
 
     describe('GET view', () => {
+        const request = mockRequest(i18n);
+        request['cookies'] = { formCookie: JSON.stringify(mockData) };
         it('should render manual upload summary page', async () => {
             request.user = { id: '1' };
+            const nonStrategicUpload = false;
             const options = {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
                 displaySensitivityMismatch: true,
+                nonStrategicUpload,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
@@ -60,11 +64,54 @@ describe('Manual upload summary controller', () => {
         it('should render manual upload summary page with error query param', async () => {
             request.query = { error: 'true' };
             request.user = { id: '1' };
+            const nonStrategicUpload = false;
             const options = {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
                 displaySensitivityMismatch: true,
+                nonStrategicUpload,
+            };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
+
+            await manualUploadSummaryController.get(request, response);
+            responseMock.verify();
+        });
+    });
+
+    describe('GET view for non-strategic publication', () => {
+        const request = mockRequest(i18n);
+        request['cookies'] = { formCookie: JSON.stringify(mockData) };
+
+        it('should render manual upload summary page for non-strategic publication', async () => {
+            request.user = { id: '1' };
+            request.query = { 'non-strategic': 'true' };
+            const nonStrategicUpload = true;
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
+                fileUploadData: mockData,
+                displayError: false,
+                displaySensitivityMismatch: true,
+                nonStrategicUpload,
+            };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
+
+            await manualUploadSummaryController.get(request, response);
+            responseMock.verify();
+        });
+
+        it('should render manual upload summary page with error query param for non-strategic publication', async () => {
+            request.query = { error: 'true', 'non-strategic': 'true' };
+            request.user = { id: '1' };
+            const nonStrategicUpload = true;
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
+                fileUploadData: mockData,
+                displayError: true,
+                displaySensitivityMismatch: true,
+                nonStrategicUpload,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
@@ -75,13 +122,17 @@ describe('Manual upload summary controller', () => {
     });
 
     describe('POST view', () => {
+        const request = mockRequest(i18n);
+        request['cookies'] = { formCookie: JSON.stringify(mockData) };
         it('should render manual upload summary page with error', async () => {
             request.user = { email: '1', userId: '1234' };
+            const nonStrategicUpload = false;
             const options = {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: true,
                 displaySensitivityMismatch: true,
+                nonStrategicUpload,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
@@ -94,11 +145,13 @@ describe('Manual upload summary controller', () => {
 
         it('should render manual upload summary page with query params', async () => {
             request.query = { check: 'true' };
+            const nonStrategicUpload = false;
             const options = {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
                 fileUploadData: mockData,
                 displayError: false,
                 displaySensitivityMismatch: true,
+                nonStrategicUpload,
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
@@ -118,18 +171,134 @@ describe('Manual upload summary controller', () => {
                     return '';
                 },
             } as unknown as Response;
-            req.user = { email: '2' };
+            req.user = { userId: '1234', email: '2' };
             req['cookies'] = { formCookie: JSON.stringify(mockData) };
             const responseMock = sinon.mock(res);
 
             uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves('1234');
 
-            responseMock.expects('redirect').once().withArgs('manual-upload-confirmation');
+            responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=false');
 
             await manualUploadSummaryController.post(req, res);
             responseMock.verify();
             sinon.assert.calledWith(readFileStub, '1234', 'fileName');
             sinon.assert.calledWith(removeFileStub, '1234', 'fileName');
+        });
+
+        it('should render manual upload summary page with error when retrieving file throws error', async () => {
+            const req = mockRequest(i18n);
+            const res = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            req.user = { userId: '12345', email: '2' };
+            req['cookies'] = { formCookie: JSON.stringify(mockData) };
+
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
+                fileUploadData: mockData,
+                displayError: true,
+                displaySensitivityMismatch: true,
+                nonStrategicUpload: false,
+            };
+            const responseMock = sinon.mock(res);
+            responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
+
+            await manualUploadSummaryController.post(req, res);
+            responseMock.verify();
+        });
+    });
+
+    describe('POST view for non-strategic publication', () => {
+        const request = mockRequest(i18n);
+        request['cookies'] = { formCookie: JSON.stringify(mockData) };
+        it('should render manual upload summary page with error', async () => {
+            request.query = { 'non-strategic': 'true' };
+            request.user = { email: '1', userId: '1234' };
+            const nonStrategicUpload = true;
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
+                fileUploadData: mockData,
+                displayError: true,
+                displaySensitivityMismatch: true,
+                nonStrategicUpload,
+            };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
+
+            await manualUploadSummaryController.post(request, response);
+            responseMock.verify();
+            sinon.assert.calledWith(readFileStub, '1234', 'fileName');
+            sinon.assert.calledWith(removeFileStub, '1234', 'fileName');
+        });
+
+        it('should render manual upload summary page with query params', async () => {
+            request.query = { check: 'true', 'non-strategic': 'true' };
+            const nonStrategicUpload = true;
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
+                fileUploadData: mockData,
+                displayError: false,
+                displaySensitivityMismatch: true,
+                nonStrategicUpload,
+            };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
+
+            await manualUploadSummaryController.post(request, response);
+            responseMock.verify();
+        });
+
+        it('should redirect to success page', async () => {
+            const req = mockRequest(i18n);
+            req.query = { 'non-strategic': 'true' };
+            const res = {
+                render: () => {
+                    return '';
+                },
+                redirect: () => '',
+                clearCookie: () => {
+                    return '';
+                },
+            } as unknown as Response;
+            req.user = { userId: '1234', email: '2' };
+            req['cookies'] = { formCookie: JSON.stringify(mockData) };
+            const responseMock = sinon.mock(res);
+
+            uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves('1234');
+
+            responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=true');
+
+            await manualUploadSummaryController.post(req, res);
+            responseMock.verify();
+        });
+
+        it('should render manual upload summary page with error when retrieving file throws error', async () => {
+            const req = mockRequest(i18n);
+            const res = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            req.query = { 'non-strategic': 'true' };
+            req.user = { userId: '12345', email: '2' };
+            req['cookies'] = { formCookie: JSON.stringify(mockData) };
+
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
+                fileUploadData: mockData,
+                displayError: true,
+                displaySensitivityMismatch: true,
+                nonStrategicUpload: true,
+            };
+            const responseMock = sinon.mock(res);
+            responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
+
+            await manualUploadSummaryController.post(req, res);
+            responseMock.verify();
         });
     });
 });

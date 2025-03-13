@@ -13,7 +13,9 @@
 <div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
   {% if publications.length === 0 %}
-    {% if court.email | length and court.contactNo | length %}
+    {% if noListMessageOverride | length %}
+        <p class="govuk-body govuk-!-font-size-16">{{ noListMessageOverride }}</p>
+    {% elseif court.email | length and court.contactNo | length %}
         <p class="govuk-body govuk-!-font-size-16">{{ noListsWithCourtTelephoneAndEmail | replace("COURTNAME", locationName) | replace("CONTACTNO", court.contactNo) | replace("EMAIL", court.email) }}</p>
     {% elseif court.contactNo | length %}
         <p class="govuk-body govuk-!-font-size-16">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.contactNo) }}</p>
@@ -31,11 +33,11 @@
         <li class="govuk-body govuk-!-font-size-16">
           {% if item.isFlatFile %}
             <a class=das-search-results__link target=”_blank” href="file-publication?artefactId={{ item.artefactId }}">
-              {{ item.listType | listType }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
+              {{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
             {{ newWindow }}
           {% else %}
             <a class=das-search-results__link
-               href="{{ item.listType | listUrl }}?artefactId={{ item.artefactId }}">{{ item.listType | listType }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
+               href="{{ item.listType | listUrl }}?artefactId={{ item.artefactId }}">{{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
           {% endif %}
         </li>
       {% endfor %}

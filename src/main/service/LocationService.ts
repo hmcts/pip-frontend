@@ -2,6 +2,8 @@ import { LocationRequests } from '../resources/requests/LocationRequests';
 import { Location } from '../models/Location';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';
+import locationInfo from '../resources/additionalLocationInfoLookup.json';
+import { AdditionalLocationInfo } from '../models/AdditionalLocationInfo';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
@@ -98,5 +100,22 @@ export class LocationService {
 
     public async deleteLocationById(locationId: number, userId: string): Promise<object> {
         return await locationRequest.deleteCourt(locationId, userId);
+    }
+
+    public async findCourtsJurisdiction(locations): Promise<string[]> {
+        const courtJurisdictions = [];
+        for (const location of locations) {
+            const returnedLocation = await this.getLocationById(location['locationId']);
+            if (returnedLocation != null) {
+                returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+            }
+        }
+
+        return courtJurisdictions;
+    }
+
+    public getAdditionalLocationInfo(locationId: string) {
+        const allLocationInfoMap: Map<string, AdditionalLocationInfo> = new Map(Object.entries(locationInfo))
+        return allLocationInfoMap.get(locationId);
     }
 }

@@ -38,8 +38,20 @@ export function createFilters(env) {
     }
 
     // to get the pretty list type name
-    env.addFilter('listType', function (x) {
-        return listTypes.get(x)?.friendlyName;
+    env.addFilter('listType', function (listType, language) {
+        const listLookupValue = listTypes.get(listType);
+        if (listLookupValue) {
+            if (language == 'cy') {
+                return listLookupValue?.['isWeeklyList']
+                    ? listLookupValue.welshFriendlyName + ' ar gyfer yr wythnos yn dechrau ar'
+                    : listLookupValue.welshFriendlyName;
+            } else {
+                return listLookupValue?.['isWeeklyList']
+                    ? listLookupValue.friendlyName + ' for week commencing'
+                    : listLookupValue.friendlyName;
+            }
+        }
+        return '';
     });
 
     // to get the list type url
@@ -139,8 +151,15 @@ export function createFilters(env) {
         return result;
     });
 
-    env.addFilter('maskLegacyDataSource', function (provenance) {
-        return provenance == 'SNL' ? 'ListAssist' : provenance;
+    env.addFilter('convertDataSourceName', function (provenance, language) {
+        if (provenance == 'SNL') {
+            return 'ListAssist';
+        } else if (provenance == 'MANUAL_UPLOAD' && language == 'cy') {
+            return 'Lanlwytho â Llaw';
+        }
+        return provenance.replaceAll('_', ' ').replace(/\w\S*/g, function (word) {
+            return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
+        });
     });
 
     env.addFilter('appendCaseSequenceIndicator', function (data, caseSequenceIndicator) {
@@ -150,5 +169,13 @@ export function createFilters(env) {
         } else {
             return data;
         }
+    });
+
+    env.addFilter('dateFormatter', function (date, language) {
+        return DateTime.fromFormat(date, 'dd/M/yyyy', { zone: 'utc' }).setLocale(language).toFormat('d MMMM yyyy');
+    });
+
+    env.addFilter('timeFormatter', function (time) {
+        return time ? time.replace('.', ':') : null;
     });
 }
