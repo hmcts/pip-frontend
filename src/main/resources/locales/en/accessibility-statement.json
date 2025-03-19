@@ -10,7 +10,7 @@
         "links": [
             {
                 "link": "https://www.court-tribunal-hearings.service.gov.uk",
-                "text": "www.court-tribunal-hearings.service.gov.uk."
+                "text": "www.court-tribunal-hearings.service.gov.uk"
             },
             { "link": "https://mcmw.abilitynet.org.uk/", "text": "AbilityNet (opens in a new window)" }
         ],
@@ -34,7 +34,7 @@
             "We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.",
             "Our courts and tribunals have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.",
             "Find out how to contact us by using the contact details below.",
-            "If you need information on this website in a different format like accessible PDF, large print, easy read or braille, please contact: "
+            "If you need information on this website in a different format like accessible PDF, large print, easy read or braille, please contact:"
         ],
         "text2": "We'll consider your request and get back to you within 10 working days."
     },
@@ -54,7 +54,7 @@
         "links": [
             {
                 "link": "https://www.equalityadvisoryservice.com/",
-                "text": "Equality Advisory and Support Service (EASS) (opens in a new window)."
+                "text": "Equality Advisory and Support Service (EASS) (opens in a new window)"
             }
         ]
     },
@@ -66,11 +66,11 @@
         "heading": "Compliance status",
         "heading2": "Non-accessible content",
         "text1": "This website is partially compliant with the ",
-        "text2": " due to the non-compliances listed below.",
+        "text2": ", due to the non-compliances listed below.",
         "links": [
             {
                 "link": "https://www.w3.org/TR/WCAG21/",
-                "text": " Web Content Accessibility Guidelines version 2.2 (opens in new window),"
+                "text": "Web Content Accessibility Guidelines version 2.2 (opens in a new window)"
             }
         ]
     },
@@ -93,7 +93,7 @@
     "section10": {
         "heading": "Preparation of this accessibility statement",
         "text": [
-            "This statement was prepared on 8 September 2023. It was last reviewed on 06 March 2025.",
+            "This statement was prepared on 8 September 2023. It was last reviewed on 6 March 2025.",
             "This website was last audited by the HMCTS accessibility testing team in the Testing Centre of Excellence on 18 November 2024 across a range of assistive technologies and automated tools."
         ]
     }
