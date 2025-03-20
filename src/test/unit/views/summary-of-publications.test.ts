@@ -26,16 +26,16 @@ courtStub.withArgs(locationIdForCourtWithoutContact).resolves(JSON.parse('{"name
 courtStub.withArgs(locationIdForCourtWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
-const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications')
-publicationStub.withArgs(locationIdForCourtWithTelephoneAndEmail).resolves([])
-publicationStub.withArgs(locationIdForCourtWithTelephoneOnly).resolves([])
-publicationStub.withArgs(locationIdForCourtWithEmailOnly).resolves([])
-publicationStub.withArgs(locationIdForCourtWithoutContact).resolves([])
+const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
+publicationStub.withArgs(locationIdForCourtWithTelephoneAndEmail).resolves([]);
+publicationStub.withArgs(locationIdForCourtWithTelephoneOnly).resolves([]);
+publicationStub.withArgs(locationIdForCourtWithEmailOnly).resolves([]);
+publicationStub.withArgs(locationIdForCourtWithoutContact).resolves([]);
 publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
-    { artefactId: "1", listType : "CIVIL_DAILY_CAUSE_LIST", contentDate: "2025-01-20T00:00:00Z", language: "ENGLISH" },
-    { artefactId: "2", listType : "CST_WEEKLY_HEARING_LIST", contentDate: "2025-01-20T00:00:00Z", language: "ENGLISH"}
-])
-publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([])
+    { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '2', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+]);
+publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([]);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
 additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneAndEmail.toString()).returns(null);
@@ -45,7 +45,7 @@ additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString())
 additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride.toString()).returns({
     noListMessage: 'English no list message',
-    welshNoListMessage: 'Welsh no list message'
+    welshNoListMessage: 'Welsh no list message',
 });
 
 describe('Summary of publications page', () => {
