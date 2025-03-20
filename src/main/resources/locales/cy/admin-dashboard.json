@@ -1,18 +1,18 @@
 {
-    "title": "Staff dashboard",
-    "heading": "Your Dashboard",
+    "title": "Dangosfwrdd staff",
+    "heading": "Yeich Dangosfwrdd",
     "uploadCard": {
-        "title": "Upload",
+        "title": "Llwytho",
         "description": "Uwchlwytho ffeil i’w chyhoeddi ar y gwasanaeth allanol ar GOV.UK.",
         "link": "manual-upload"
     },
     "removeCard": {
-        "title": "Remove",
+        "title": "Dileu",
         "description": "Chwilio fesul llys neu dribiwnlys a dileu cyhoeddiad o’r gwasanaeth allanol ar GOV.UK.",
         "link": "remove-list-search"
     },
     "mediaCard": {
-        "title": "Manage media account request",
+        "title": "Rheoli ceisiadau o gyfrifon y cyfryngau",
         "description": "CTSC assess new media account applications.",
         "link": "media-applications"
     },
@@ -21,7 +21,7 @@
         "plural": "There are COUNT outstanding media requests."
     },
     "uploadNonStrategicCard": {
-        "title": "Upload Excel File",
+        "title": "Lanlwytho ffeil excel",
         "description": "Uwchlwytho ffeil Excel i’w throsi a’i harddangos ar y gwasanaeth allanol ar GOV.UK.",
         "link": "manual-upload?non-strategic=true"
     }

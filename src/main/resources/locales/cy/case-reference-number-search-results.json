@@ -1,7 +1,8 @@
 {
     "title": "Canlyniad y chwilio",
+    "header": "Canlyniad y chwilio",
     "subheader": "Wedi canfod 1 o ganlyniadau ",
-"table": {
+    "table": {
         "header1": "Enw'r achos",
         "header2": "Enw’r parti (partïon)",
         "header3": "Cyfeirnod"

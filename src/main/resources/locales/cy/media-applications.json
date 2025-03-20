@@ -1,5 +1,6 @@
 {
-    "title": "Select application to assess",
+    "title": "Dewiswch gais i gael mynediad ato",
+    "header": "Dewiswch gais i gael mynediad ato",
     "view": "View",
     "table": {
         "header1": "Name",

@@ -74,7 +74,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+            expect(pageTitle).contains('Add email subscription - Your email subscription - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
         });
 
         it('should display back button', () => {
@@ -82,9 +82,9 @@ describe('Pending Subscriptions Page', () => {
             expect(backButton[0].innerHTML).contains('Back');
         });
 
-        it('should display title', () => {
-            const title = htmlRes.getElementsByClassName('govuk-heading-l');
-            expect(title[0].innerHTML).contains(pageHeaderWithCourtSub);
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName('govuk-heading-l');
+            expect(header[0].innerHTML).contains(pageHeaderWithCourtSub);
         });
 
         it('should display correct case table headers', () => {
@@ -187,7 +187,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+            expect(pageTitle).contains('Add email subscription - Your email subscription - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
         });
 
         it('should display back button', () => {
@@ -253,7 +253,7 @@ describe('Pending Subscriptions Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+            expect(pageTitle).contains('Add email subscription - Your email subscription - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
         });
 
         it('should display back button', () => {

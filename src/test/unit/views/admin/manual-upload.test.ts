@@ -69,6 +69,11 @@ describe('Manual upload page', () => {
                 });
         });
 
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains('Upload - Manual Upload - Court and Tribunal Hearings - GOV.UK', 'Could not find the header');
+        });
+
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
@@ -209,6 +214,11 @@ describe('Manual upload page', () => {
                     htmlRes.getElementById('branch-bar').remove();
                     formElements = htmlRes.getElementById('form-wrapper');
                 });
+        });
+
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains('Upload excel file - Excel file upload - Court and Tribunal Hearings - GOV.UK', 'Could not find the header');
         });
 
         it('should display header', () => {

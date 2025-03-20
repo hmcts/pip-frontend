@@ -1,6 +1,8 @@
 {
-    "title": "Manual upload",
+    "title": "Lanlwytho â llaw",
     "nonStrategicTitle": "Uwchlwytho Ffeil Excel",
+    "header": "Lanlwytho â llaw",
+    "nonStrategicHeader": "Uwchlwytho Ffeil Excel",
     "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB",
     "nonStrategicCardFileUploadText": "Manually upload a excel file (.xlsx), max size 2MB",
     "form": {

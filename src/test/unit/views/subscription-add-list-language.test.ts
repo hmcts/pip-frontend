@@ -30,7 +30,7 @@ describe('Subscriptions add list language Page initial load', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains(expectedHeader, 'Page title does not match header');
+        expect(pageTitle).contains('Add email subscription - What version of the list do you want to receive - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
     });
 
     it('should display a back button with the correct value', () => {
