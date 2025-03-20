@@ -255,7 +255,7 @@
     "PHT_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Iechyd Sylfaenol",
-        "shortenedFriendlyName": "PHT Weekly Hearing list",
+        "shortenedFriendlyName": "PHT Weekly Hearing List",
         "url": "pht-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
@@ -268,7 +268,7 @@
     "CST_WEEKLY_HEARING_LIST": {
         "friendlyName": "Care Standards Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Safonau Gofal",
-        "shortenedFriendlyName": "CST Weekly Hearing list",
+        "shortenedFriendlyName": "CST Weekly Hearing List",
         "url": "cst-weekly-hearing-list",
         "jurisdictions": ["Tribunal"],
         "welshJurisdictions": ["Tribiwnlys"],
@@ -525,6 +525,17 @@
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
+    "AST_DAILY_HEARING_LIST": {
+        "friendlyName": "Asylum Support Tribunal Daily Hearing List",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Tribiwnlys Cefnogi Ceiswyr Lloches",
+        "shortenedFriendlyName": "AST Daily Hearing List",
+        "url": "ast-daily-hearing-list",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
     "SSCS_MIDLANDS_DAILY_HEARING_LIST": {
         "friendlyName": "Midlands First-tier Tribunal (Social Security and Child Support) Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol Tribiwnlys Haen Gyntaf Canolbarth Lloegr (Nawdd Cymdeithasol a Chynnal Plant)",
@@ -615,5 +626,16 @@
         "parentPage": "sscs-daily-hearing-list",
         "isNonStrategic": true,
         "isWeeklyList": true
+    },
+    "MENTAL_HEALTH_TRIBUNAL_HEARING_LIST": {
+        "friendlyName": "Mental Health Tribunal Daily Hearing List",
+        "welshFriendlyName": "Rhestr Wrandawiadau Dyddiol y Tribiwnlys Iechyd Meddwl",
+        "shortenedFriendlyName": "Mental Health Tribunal Daily Hearing List",
+        "url": "",
+        "jurisdictions": ["Tribunal"],
+        "welshJurisdictions": ["Tribiwnlys"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     }
 }

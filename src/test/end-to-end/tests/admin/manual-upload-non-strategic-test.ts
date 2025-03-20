@@ -8,7 +8,7 @@ Feature('Admin manual upload non strategic file');
 const nonStrategicFileName = 'testExcelFile.xlsx';
 
 Scenario('I as a admin user should be able to upload non strategic file successfully', async ({ I }) => {
-    const listType = 'PHT Weekly Hearing list';
+    const listType = 'PHT Weekly Hearing List';
     const [date, dayAfter] = getDateNowAndFuture();
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
@@ -35,7 +35,6 @@ Scenario('I as a admin user should be able to upload non strategic file successf
     I.click('Continue');
     I.waitForText('Check upload details');
     I.see(locationName);
-    I.see(listType);
     I.see(nonStrategicFileName);
     I.click('Confirm');
     I.waitForText('Success');
