@@ -19,7 +19,10 @@ describe('Bulk Unsubscribe Confirmed Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Bulk unsubscribe - Email subscriptions updated - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
+        expect(pageTitle).contains(
+            'Bulk unsubscribe - Email subscriptions updated - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
     });
 
     it('should display confirmation panel component', () => {

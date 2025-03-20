@@ -174,7 +174,10 @@ describe('Subscriptions Management Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Email subscriptions - Your email subscriptions - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
+        expect(pageTitle).contains(
+            'Email subscriptions - Your email subscriptions - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
     });
 
     it('should display add subscription button', () => {
@@ -353,7 +356,10 @@ describe('Subscriptions Management Page with case subscription but without locat
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Email subscriptions - Your email subscriptions - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
+        expect(pageTitle).contains(
+            'Email subscriptions - Your email subscriptions - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
     });
 
     it('should display add subscription button', () => {
@@ -474,7 +480,10 @@ describe('Subscriptions Management Page with location subscription but without c
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Email subscriptions - Your email subscriptions - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
+        expect(pageTitle).contains(
+            'Email subscriptions - Your email subscriptions - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
     });
 
     it('should display add subscription button', () => {

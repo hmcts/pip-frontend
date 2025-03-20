@@ -33,7 +33,10 @@ describe('Media applications page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Manage media account requests - Select application to access - Court and Tribunal Hearings - GOV.UK', 'Could not find the header');
+        expect(pageTitle).contains(
+            'Manage media account requests - Select application to access - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the header'
+        );
     });
 
     it('should display header', () => {

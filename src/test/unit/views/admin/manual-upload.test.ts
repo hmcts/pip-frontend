@@ -71,7 +71,10 @@ describe('Manual upload page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains('Upload - Manual Upload - Court and Tribunal Hearings - GOV.UK', 'Could not find the header');
+            expect(pageTitle).contains(
+                'Upload - Manual Upload - Court and Tribunal Hearings - GOV.UK',
+                'Could not find the header'
+            );
         });
 
         it('should display header', () => {
@@ -218,7 +221,10 @@ describe('Manual upload page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains('Upload excel file - Excel file upload - Court and Tribunal Hearings - GOV.UK', 'Could not find the header');
+            expect(pageTitle).contains(
+                'Upload excel file - Excel file upload - Court and Tribunal Hearings - GOV.UK',
+                'Could not find the header'
+            );
         });
 
         it('should display header', () => {

@@ -29,7 +29,10 @@ describe('Remove List Search Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Remove - Find content to remove - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
+        expect(pageTitle).contains(
+            'Remove - Find content to remove - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
     });
 
     it('should display the header', () => {
