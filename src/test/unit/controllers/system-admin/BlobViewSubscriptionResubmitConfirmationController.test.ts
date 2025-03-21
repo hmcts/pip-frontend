@@ -5,6 +5,8 @@ import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { LocationService } from '../../../../main/service/LocationService';
 import { SubscriptionService } from '../../../../main/service/SubscriptionService';
+import fs from 'fs';
+import path from 'path';
 
 const blobViewSubscriptionResubmitConfirmationController = new BlobViewSubscriptionResubmitConfirmationController();
 const userId = '1';
@@ -12,18 +14,8 @@ const artefactId1 = '123';
 const artefactId2 = '124';
 const locationName = 'Location name';
 
-const metadata = {
-    locationId: 1,
-    type: 'LIST',
-    listType: 'CIVIL_DAILY_CAUSE_LIST',
-    provenance: 'MANUAL_UPLOAD',
-    language: 'ENGLISH',
-    sensitivity: 'PUBLIC',
-    contentDate: '2025-03-20T00:00:00Z',
-    displayFrom: '2025-03-20T00:00:00Z',
-    displayTo: '2025-03-21T00:00:00Z',
-};
-
+const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
+const metadata = JSON.parse(rawMetadata)[0];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: locationName });
 
