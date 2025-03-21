@@ -20,7 +20,6 @@ import { AuditLogService } from '../../../main/service/AuditLogService';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
-import { LocationService } from '../../../main/service/LocationService';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const userId = '1';
@@ -107,7 +106,6 @@ sinon.stub(FileHandlingService.prototype, 'readCsvToArray').returns([
 ]);
 sinon.stub(UserManagementService.prototype, 'getFormattedData').resolves(userPageData);
 sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns(auditLogPageData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'Location A' });
 sinon.stub(SubscriptionService.prototype, 'fulfillSubscriptions').resolves('success');
 
 describe('Accessibility - System Admin Routes', () => {
