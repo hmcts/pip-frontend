@@ -28,7 +28,9 @@ describe('Blob view JSON page', () => {
                 .post(PAGE_URL)
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('blob-view-subscription-resubmit-confirmation?artefactId=123');
+                    expect(res.header['location']).to.equal(
+                        'blob-view-subscription-resubmit-confirmation?artefactId=123'
+                    );
                 });
         });
     });

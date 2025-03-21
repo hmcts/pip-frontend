@@ -1,5 +1,4 @@
-import BlobViewSubscriptionResubmitConfirmationController
-    from '../../../../main/controllers/system-admin/BlobViewSubscriptionResubmitConfirmationController';
+import BlobViewSubscriptionResubmitConfirmationController from '../../../../main/controllers/system-admin/BlobViewSubscriptionResubmitConfirmationController';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
@@ -23,10 +22,10 @@ const metadata = {
     contentDate: '2025-03-20T00:00:00Z',
     displayFrom: '2025-03-20T00:00:00Z',
     displayTo: '2025-03-21T00:00:00Z',
-}
+};
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name : locationName});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: locationName });
 
 const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'fulfillSubscriptions');
 subscriptionStub.withArgs(artefactId1, userId).resolves('success');
@@ -36,7 +35,7 @@ const i18n = {
     'blob-view-subscription-resubmit-confirmation': {
         title: 'Confirm subscription re-submission',
     },
-    'error': {
+    error: {
         title: 'Error',
     },
 };
@@ -60,8 +59,10 @@ describe('Blob view subscription re-submit confirmation controller', () => {
             };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('system-admin/blob-view-subscription-resubmit-confirmation',
-                expectedData);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/blob-view-subscription-resubmit-confirmation', expectedData);
             blobViewSubscriptionResubmitConfirmationController.get(request, response);
             responseMock.verify;
         });

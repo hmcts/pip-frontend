@@ -107,7 +107,7 @@ sinon.stub(FileHandlingService.prototype, 'readCsvToArray').returns([
 ]);
 sinon.stub(UserManagementService.prototype, 'getFormattedData').resolves(userPageData);
 sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns(auditLogPageData);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name : 'Location A'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'Location A' });
 sinon.stub(SubscriptionService.prototype, 'fulfillSubscriptions').resolves('success');
 
 describe('Accessibility - System Admin Routes', () => {

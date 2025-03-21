@@ -654,9 +654,21 @@ export default function (app: Application): void {
     );
     app.get('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.get);
     app.post('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.post);
-    app.get('/blob-view-subscription-resubmit-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.blobViewSubscriptionResubmitConfirmationController.get);
-    app.post('/blob-view-subscription-resubmit-confirmation', isPermittedSystemAdmin, app.locals.container.cradle.blobViewSubscriptionResubmitConfirmationController.post);
-    app.get('/blob-view-subscription-resubmit-confirmed', isPermittedSystemAdmin, app.locals.container.cradle.blobViewSubscriptionResubmitConfirmedController.get);
+    app.get(
+        '/blob-view-subscription-resubmit-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewSubscriptionResubmitConfirmationController.get
+    );
+    app.post(
+        '/blob-view-subscription-resubmit-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewSubscriptionResubmitConfirmationController.post
+    );
+    app.get(
+        '/blob-view-subscription-resubmit-confirmed',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewSubscriptionResubmitConfirmedController.get
+    );
 
     app.get(
         '/bulk-create-media-accounts',

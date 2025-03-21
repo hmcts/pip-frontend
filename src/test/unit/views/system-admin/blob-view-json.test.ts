@@ -19,7 +19,7 @@ const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPubl
 metadataStub.withArgs('abc').resolves(metadata);
 
 const noMatchMetadata = JSON.parse(rawMetadata)[1];
-noMatchMetadata.locationId = 'NoMatch123'
+noMatchMetadata.locationId = 'NoMatch123';
 metadataStub.withArgs('def').resolves(noMatchMetadata);
 
 const headingClass = 'govuk-heading-l';
@@ -31,7 +31,7 @@ const summaryListRowValueClass = 'govuk-summary-list__value';
 const linkClass = 'govuk-link';
 const detailsSummaryTextClass = 'govuk-details__summary-text';
 const jsonContainerClass = 'json-container';
-const resubmitSubscriptionId= 'resubmit-subscription';
+const resubmitSubscriptionId = 'resubmit-subscription';
 
 let htmlRes: Document;
 
@@ -179,7 +179,10 @@ describe('Blob explorer publication page', () => {
 
         it('should have the correct href to the template', () => {
             const link = htmlRes.getElementsByClassName(linkClass)[5];
-            expect(link.outerHTML).contains('/sjp-public-list?artefactId=abc', 'Could not find the link to the template');
+            expect(link.outerHTML).contains(
+                '/sjp-public-list?artefactId=abc',
+                'Could not find the link to the template'
+            );
         });
 
         it('should have the details dropdown for viewing the json content', () => {
@@ -196,7 +199,10 @@ describe('Blob explorer publication page', () => {
             const jsonContainer = htmlRes.getElementsByClassName(jsonContainerClass)[0];
 
             expect(jsonContainer.innerHTML).contains('{', 'Could not find correct json output on the line');
-            expect(jsonContainer.innerHTML).contains('publicationDate', 'Could not find correct json output on the line');
+            expect(jsonContainer.innerHTML).contains(
+                'publicationDate',
+                'Could not find correct json output on the line'
+            );
             expect(jsonContainer.innerHTML).contains('documentName', 'Could not find correct json output on the line');
         });
 

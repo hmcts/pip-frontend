@@ -19,7 +19,7 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').res
     displayFrom: '2025-03-20T00:00:00Z',
     displayTo: '2025-03-21T00:00:00Z',
 });
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name : 'Location A'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'Location A' });
 sinon.stub(SubscriptionService.prototype, 'fulfillSubscriptions').resolves('success');
 
 describe('Blob view subscription re-submit confirmation page', () => {

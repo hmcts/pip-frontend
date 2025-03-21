@@ -142,7 +142,10 @@ describe('Blob view publication controller', () => {
             request.user = { userId: 10 };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('redirect').once().withArgs('blob-view-subscription-resubmit-confirmation?artefactId=1234');
+            responseMock
+                .expects('redirect')
+                .once()
+                .withArgs('blob-view-subscription-resubmit-confirmation?artefactId=1234');
             await blobViewController.post(request, response);
             responseMock.verify;
         });

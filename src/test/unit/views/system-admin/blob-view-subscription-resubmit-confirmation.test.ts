@@ -18,7 +18,7 @@ const summaryListRowValueClass = 'govuk-summary-list__value';
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[1];
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
-sinon.stub(LocationService.prototype, 'getLocationById').resolves({name : 'Test court'});
+sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'Test court' });
 
 describe('Blob explorer subscription re-submit confirmation page', () => {
     beforeAll(async () => {

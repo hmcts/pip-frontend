@@ -1,5 +1,4 @@
-import BlobViewSubscriptionResubmitConfirmedController
-    from '../../../../main/controllers/system-admin/BlobViewSubscriptionResubmitConfirmedController';
+import BlobViewSubscriptionResubmitConfirmedController from '../../../../main/controllers/system-admin/BlobViewSubscriptionResubmitConfirmedController';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
@@ -24,8 +23,10 @@ describe('Blob view subscription re-submit confirmed controller', () => {
         request.user = { userId: 10 };
 
         const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('system-admin/blob-view-subscription-resubmit-confirmed',
-            { title: 'Subscription re-submitted' });
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/blob-view-subscription-resubmit-confirmed', { title: 'Subscription re-submitted' });
         blobViewSubscriptionResubmitConfirmedController.get(request, response);
         responseMock.verify;
     });

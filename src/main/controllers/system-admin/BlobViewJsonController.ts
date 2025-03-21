@@ -19,7 +19,7 @@ export default class BlobViewJsonController {
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
-            const locationName =  await BlobViewJsonController.getLocationName(metadata.locationId);
+            const locationName = await BlobViewJsonController.getLocationName(metadata.locationId);
 
             await userManagementService.auditAction(
                 req.user,
@@ -48,7 +48,7 @@ export default class BlobViewJsonController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
-        res.redirect(`blob-view-subscription-resubmit-confirmation?artefactId=${artefactId}`)
+        res.redirect(`blob-view-subscription-resubmit-confirmation?artefactId=${artefactId}`);
     }
 
     private static async getLocationName(locationId): Promise<string> {

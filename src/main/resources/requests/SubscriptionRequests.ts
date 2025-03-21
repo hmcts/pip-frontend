@@ -97,7 +97,7 @@ export class SubscriptionRequests {
         try {
             const response = await subscriptionManagementApi.post('/subscription/artefact-recipients', artefact);
             return response.data;
-        } catch(error) {
+        } catch (error) {
             logHelper.logErrorResponse(error, `fulfill subscriptions for artefact with ID ${artefact.arterfactId}`);
         }
         return null;

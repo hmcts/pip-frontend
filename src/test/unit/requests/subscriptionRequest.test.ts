@@ -264,7 +264,7 @@ describe('fulfill subscriptions', () => {
     it('should return success message if call is successful', async () => {
         subscriptionManagementStub.withArgs('/subscription/artefact-recipients').resolves({ data: 'success' });
         const data = await subscriptionActions.fulfillSubscriptions({});
-        expect(data).toBe('success')
+        expect(data).toBe('success');
     });
 
     it('should return null for failure', async () => {
