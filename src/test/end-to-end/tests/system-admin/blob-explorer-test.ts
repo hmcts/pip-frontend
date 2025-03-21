@@ -26,7 +26,7 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     I.see('Choose a publication from the list.');
     I.click(artefactId);
     I.waitForText('Blob Explorer - JSON file');
-    I.see('Re-submit subscription')
+    I.see('Re-submit subscription');
     I.see('Metadata');
     I.see(locationId);
     I.see(locationName);
@@ -54,7 +54,7 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     I.see('Confirm');
     I.see('Cancel');
 
-    I.click('Cancel')
+    I.click('Cancel');
     I.waitForText('Blob Explorer - Locations');
     I.click(locationName);
     I.waitForText('Blob Explorer - Publications');
