@@ -89,4 +89,4 @@ Scenario('I as a system admin should be able to re-submit subscription for a pub
     I.waitForText('Choose a location to see all publications associated with it.');
 
     I.logoutSsoSystemAdmin();
-});
+}).tag('@Nightly');
