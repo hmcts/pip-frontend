@@ -259,3 +259,23 @@ describe('delete location subscription', () => {
         expect(await subscriptionActions.deleteLocationSubscription(4, adminUserId)).toBe(null);
     });
 });
+
+describe('fulfill subscriptions', () => {
+    it('should return success message if call is successful', async () => {
+        subscriptionManagementStub.withArgs('/subscription/artefact-recipients').resolves({ data: 'success' });
+        const data = await subscriptionActions.fulfillSubscriptions({});
+        expect(data).toBe('success')
+    });
+
+    it('should return null for failure', async () => {
+        subscriptionManagementStub.withArgs('/subscription/artefact-recipients').rejects(errorMessage);
+        const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
+        expect(subscriptionUpdated).toBe(null);
+    });
+
+    it('should return null for error response', async () => {
+        subscriptionManagementStub.withArgs('/subscription/artefact-recipients').rejects(errorResponse);
+        const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
+        expect(subscriptionUpdated).toBe(null);
+    });
+});

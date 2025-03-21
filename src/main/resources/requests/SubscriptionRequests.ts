@@ -92,4 +92,14 @@ export class SubscriptionRequests {
         }
         return null;
     }
+
+    public async fulfillSubscriptions(artefact): Promise<string> {
+        try {
+            const response = await subscriptionManagementApi.post('/subscription/artefact-recipients', artefact);
+            return response.data;
+        } catch(error) {
+            logHelper.logErrorResponse(error, `fulfill subscriptions for artefact with ID ${artefact.arterfactId}`);
+        }
+        return null;
+    }
 }

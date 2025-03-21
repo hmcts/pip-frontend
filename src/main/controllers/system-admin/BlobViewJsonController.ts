@@ -19,12 +19,7 @@ export default class BlobViewJsonController {
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
-            let courtName = '';
-            if (!noMatchArtefact) {
-                courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
-            } else {
-                courtName = 'No match artefacts';
-            }
+            const locationName =  await BlobViewJsonController.getLocationName(metadata.locationId);
 
             await userManagementService.auditAction(
                 req.user,
@@ -38,7 +33,7 @@ export default class BlobViewJsonController {
             res.render('system-admin/blob-view-json', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-json']),
                 data: JSON.stringify(data),
-                courtName,
+                locationName,
                 artefactId,
                 metadata,
                 listUrl,
@@ -49,5 +44,21 @@ export default class BlobViewJsonController {
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+    }
+
+    public async post(req: PipRequest, res: Response): Promise<void> {
+        const artefactId = req.query.artefactId as string;
+        res.redirect(`blob-view-subscription-resubmit-confirmation?artefactId=${artefactId}`)
+    }
+
+    private static async getLocationName(locationId): Promise<string> {
+        const noMatchArtefact = locationId.toString().includes('NoMatch');
+        let locationName = '';
+        if (!noMatchArtefact) {
+            locationName = (await locationService.getLocationById(parseInt(locationId.toString()))).name;
+        } else {
+            locationName = 'No match artefacts';
+        }
+        return locationName;
     }
 }
