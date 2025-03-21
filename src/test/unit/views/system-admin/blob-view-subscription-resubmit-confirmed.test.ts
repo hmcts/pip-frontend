@@ -34,7 +34,7 @@ describe('Blob explorer subscription re-submit confirmed page', () => {
 
     it('should contain the blob view locations link', () => {
         const link = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByClassName('govuk-link')[0];
-        expect(link.innerHTML).equals('Blob explorer - locations', 'Link text does not match');
+        expect(link.innerHTML).equals('Blob explorer - Locations', 'Link text does not match');
         expect(link.getAttribute('href')).equals('blob-view-locations', 'Link does not match');
     });
 });
