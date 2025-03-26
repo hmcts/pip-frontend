@@ -17,12 +17,12 @@ const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPC
 const sjpCases = JSON.parse(rawSJPData).results;
 const additionalLocationInfo = {
     noListMessage: 'English no list message',
-    welshNoListMessage: 'Welsh no list message'
-}
+    welshNoListMessage: 'Welsh no list message',
+};
 
-sinon.stub(LocationService.prototype, 'getLocationById').resolves(
-    JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}')
-);
+sinon
+    .stub(LocationService.prototype, 'getLocationById')
+    .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(sjpCases);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
@@ -84,7 +84,6 @@ describe('Get publications', () => {
         await publicationController.get(request, response);
         responseMock.verify();
     });
-
 
     it('should render the Summary of Publications page with no list message override in Welsh', async () => {
         const response = {

@@ -115,7 +115,7 @@ export class LocationService {
     }
 
     public getAdditionalLocationInfo(locationId: string) {
-        const allLocationInfoMap: Map<string, AdditionalLocationInfo> = new Map(Object.entries(locationInfo))
+        const allLocationInfoMap: Map<string, AdditionalLocationInfo> = new Map(Object.entries(locationInfo));
         return allLocationInfoMap.get(locationId);
     }
 }
