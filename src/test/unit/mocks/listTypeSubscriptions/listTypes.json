@@ -23,20 +23,7 @@
     "L": {},
     "M": {},
     "N": {},
-    "O": {
-        "OPA_PRESS_LIST": {
-            "listFriendlyName": "Online Plea and Allocation Press List",
-            "checked": true
-        },
-        "OPA_PUBLIC_LIST": {
-            "listFriendlyName": "Online Plea and Allocation Public List",
-            "checked": true
-        },
-        "OPA_RESULTS": {
-            "listFriendlyName": "Online Plea and Allocation Results",
-            "checked": true
-        }
-    },
+    "O": {},
     "P": {},
     "Q": {},
     "R": {},
