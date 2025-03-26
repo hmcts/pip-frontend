@@ -62,9 +62,7 @@ describe('AST Daily List page', () => {
 
     it('should display open justice message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
-            'Open justice is a fundamental principle of our justice system.'
-        );
+        expect(text[9].innerHTML).contains('Open justice is a fundamental principle of our justice system.');
     });
 
     it('should display join hearing message', () => {
@@ -76,14 +74,14 @@ describe('AST Daily List page', () => {
 
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('For more information, please visit https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+        expect(text[11].innerHTML).contains(
+            'For more information, please visit https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing'
+        );
     });
 
     it('should display observe hearing link', () => {
         const text = htmlRes.getElementsByClassName(govukLinkClass);
-        expect(text[5].getAttribute('href')).eq(
-            'https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing'
-        );
+        expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
     });
 
     it('should display Appellant header', () => {
@@ -118,7 +116,7 @@ describe('AST Daily List page', () => {
 
     it('should display Appellant cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
-        expect(cellText[0].innerHTML).equals("Appellant A");
+        expect(cellText[0].innerHTML).equals('Appellant A');
     });
 
     it('should display Appeal Reference Number cell data', () => {
