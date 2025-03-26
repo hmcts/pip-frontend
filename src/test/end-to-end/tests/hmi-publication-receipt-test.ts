@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import {config as testConfig} from "../../config";
+import { config as testConfig } from '../../config';
 
 Feature('HMI publication receipt');
 

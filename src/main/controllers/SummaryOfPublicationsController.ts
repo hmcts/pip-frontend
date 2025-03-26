@@ -17,8 +17,8 @@ export default class SummaryOfPublicationsController {
 
             let noListMessageOverride = '';
             if (additionalLocationInfo) {
-                noListMessageOverride = req.lng === 'cy' ? additionalLocationInfo.welshNoListMessage
-                    : additionalLocationInfo.noListMessage;
+                noListMessageOverride =
+                    req.lng === 'cy' ? additionalLocationInfo.welshNoListMessage : additionalLocationInfo.noListMessage;
             }
 
             const publications = await summaryOfPublicationsService.getPublications(
