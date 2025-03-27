@@ -4,6 +4,7 @@ import { request as expressRequest } from 'express';
 import request from 'supertest';
 
 const PAGE_URL = '/account-home';
+const pageTitle = 'Dashboard - Your account - Court and Tribunal Hearings - GOV.UK';
 const pageHeader = 'Your account';
 const expectedCards = 3;
 const cards = [
@@ -39,8 +40,7 @@ describe('Your Account page', () => {
         });
 
         it('should have correct page title', () => {
-            const pageTitle = htmlRes.title;
-            expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+            expect(pageTitle).contains(htmlRes.title, 'Page title does not match header');
         });
 
         it('should display header', () => {

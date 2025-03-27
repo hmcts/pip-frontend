@@ -27,6 +27,14 @@ describe('Remove List Search Page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Remove - Find content to remove - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
+    });
+
     it('should display the header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
         expect(header[0].innerHTML).contains('Find content to remove', 'Could not find the header');

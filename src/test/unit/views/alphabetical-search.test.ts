@@ -26,7 +26,10 @@ describe('Alphabetical Search page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Find a court or tribunal - alphabetical search', 'Page title does not match');
+        expect(pageTitle).contains(
+            'Find a court or tribunal - Select from an A-Z list of courts or tribunals - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match'
+        );
     });
 
     it('should display a back button with the correct value', () => {

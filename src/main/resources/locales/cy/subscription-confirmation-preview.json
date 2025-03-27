@@ -1,5 +1,6 @@
 {
-    "title": "Cadarnhewch eich tanysgrifiadau e-bost",
+    "title": "Cadarnhewch eich tanysgrifiadau e-bost - Mathau y rhestrau wedi’u diweddaru - Gwrandawiadau llys a thribiwnlys - GOV.UK",
+    "header": "Cadarnhewch eich tanysgrifiadau e-bost",
     "removeText": "Dileu",
     "table": {
         "header1": "Enw'r achos",
@@ -13,7 +14,8 @@
     "buttonAddText": "Ychwanegu tanysgrifiadau",
     "error": {
         "title": "Mae yna broblem",
-        "message": "Mae angen o leiaf un tanysgrifiad."
+        "message": "Mae angen o leiaf un tanysgrifiad.",
+        "pageTitle": "Cadarnhewch eich tanysgrifiadau e-bost - Mae angen o leiaf un tanysgrifiad - Gwrandawiadau llys a thribiwnlys - GOV.UK"
     },
     "english": "Saesneg",
     "welsh": "Cymraeg",

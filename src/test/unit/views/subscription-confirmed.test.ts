@@ -18,7 +18,10 @@ describe('Subscriptions Confirmed Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Subscription confirmation', 'Page title does not match');
+        expect(pageTitle).contains(
+            'Add email subscription - Subscription confirmation - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match'
+        );
     });
 
     it('should display confirmation panel with correct title and message', () => {

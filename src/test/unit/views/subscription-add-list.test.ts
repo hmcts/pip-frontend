@@ -39,7 +39,10 @@ describe('Subscription Add List Type to court subscription', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains('Select List Types', 'Page title does not match');
+            expect(pageTitle).contains(
+                'Add email subscription - Select list types - Court and Tribunal Hearings - GOV.UK',
+                'Page title does not match'
+            );
         });
 
         it('should display a back button with the correct value', () => {

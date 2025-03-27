@@ -3,16 +3,6 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "./macros/common-components.njk" import submitButton, goBack, backButtonHistory %}
 
-{% block pageTitle %}
-  {{ title }}
-{% endblock %}
-{% block beforeContent %}
-  {{ super() }}
-  {{ goBack(text = backButton, cspNonce = cspNonce) }}
-{% endblock %}
-
-{% block content %}
-  <div class="parent-box">
   {% if pendingSubscriptions.cases | length == 0 and pendingSubscriptions.courts | length == 0 %}
       {% set displayError = true %}
   {% elseif pendingSubscriptions.courts | length > 0 and pendingSubscriptions.listTypes | length == 0 %}
@@ -21,6 +11,21 @@
   {% else %}
       {% set displayListTypeError = false %}
   {% endif %}
+
+{% block pageTitle %}
+    {% if displayError %}
+        {{ error.pageTitle }}
+    {% else %}
+        {{ title }}
+    {% endif %}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+  <div class="parent-box">
 
   {% if pendingSubscriptions.listLanguage | length != 0 %}
       {% if pendingSubscriptions.listLanguage[0] == 'ENGLISH' %}
@@ -32,7 +37,7 @@
       {% endif %}
   {% endif %}
 
-  <h1 class="govuk-heading-l">{{ title }}</h1>
+  <h1 class="govuk-heading-l">{{ header }}</h1>
   {% if displayError %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-two-thirds">

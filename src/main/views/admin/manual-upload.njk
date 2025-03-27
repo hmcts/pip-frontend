@@ -8,8 +8,10 @@
 
 {% if nonStrategicUpload %}
     {% set pageTitle = nonStrategicTitle %}
+    {% set pageHeader = nonStrategicHeader %}
 {% else %}
     {% set pageTitle = title %}
+    {% set pageHeader = header %}
 {% endif %}
 
 {% block pageTitle %}
@@ -71,7 +73,7 @@
       </div>
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+        <h1 class="govuk-heading-xl">{{ pageHeader }}</h1>
         <form method="post" enctype="multipart/form-data">
           {% set fileErrorMessage = {text: errors.fileErrors} if errors.fileErrors else false %}
           <div class="govuk-inset-text">

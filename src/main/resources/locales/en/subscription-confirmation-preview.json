@@ -1,5 +1,6 @@
 {
-    "title": "Confirm your email subscriptions",
+    "title": "Confirm your email subscriptions - List types updated - Court and Tribunal Hearings - GOV.UK",
+    "header": "Confirm your email subscriptions",
     "removeText": "Remove",
     "table": {
         "header1": "Case name",
@@ -13,7 +14,8 @@
     "buttonAddText": "Add Subscriptions",
     "error": {
         "title": "There is a problem",
-        "message": "At least 1 subscription is needed."
+        "message": "At least 1 subscription is needed.",
+        "pageTitle": "Confirm your email subscriptions - At least 1 subscription is needed - Court and Tribunal Hearings - GOV.UK"
     },
     "english": "English",
     "welsh": "Welsh",
