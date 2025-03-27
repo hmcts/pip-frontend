@@ -6,113 +6,95 @@
         "text2": "The court and tribunal hearings service provides a publishing platform to enable information, such as hearing lists, provided by HM Courts and Tribunals Service (HMCTS) to be shared, displayed and updated as appropriate. It will enable information to be displayed to court users, consistent with jurisdictional procedures and business rules. The service supports HMCTS’ commitment to open justice and the provision of transparent and consistent court and tribunal information across jurisdictions.",
         "text3": "This website is run by HMCTS. We want as many people as possible to be able to use this website, so we have designed it to be accessible. For example, that means you should be able to:",
         "text4": "We’ve also made the website text as simple as possible to understand.",
-        "text5": "(opens in a new window) has advice on making your device easier to use if you have a disability.",
+        "text5": " has advice on making your device easier to use if you have a disability.",
         "links": [
             {
                 "link": "https://www.court-tribunal-hearings.service.gov.uk",
-                "text": "www.court-tribunal-hearings.service.gov.uk."
+                "text": "www.court-tribunal-hearings.service.gov.uk"
             },
-            { "link": "https://mcmw.abilitynet.org.uk/", "text": "AbilityNet " }
+            { "link": "https://mcmw.abilitynet.org.uk/", "text": "AbilityNet (opens in a new window)" }
         ],
         "list": [
-            "change colours, contrast levels and fonts",
-            "zoom in up to 300% without the text spilling off the screen for some of the website",
-            "navigate most of the website using just a keyboard",
-            "navigate most of the website using speech recognition software",
+            "change colours, contrast levels and fonts using browser or device settings",
+            "zoom in up to 400% without the text spilling off the screen",
+            "navigate most of the website using a keyboard or speech recognition software",
             "listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)"
         ]
     },
     "section2": {
         "heading": "How accessible this website is",
-        "upperText": "We know some parts of this website are not fully accessible, for example:",
         "text": [
-            "Many PDF documents published within this service are not fully accessible to screen reader software as the content is untagged, untitled and the tables are not marked up in a logical way to enable screen reader users to navigate and identify the information correctly."
+            "Whilst most hearing lists within the service are accessible, some hearing lists are only presented and viewable as a PDF or word document (flat files). These can be difficult for screen reader users to navigate as the content is untagged, untitled and the tables are not marked up to enable screen reader users to navigate and identify the information correctly.",
+            "The availability of these hearing lists in a flat file only format is under continuous review and in the future may be published as fully accessible lists. As a contingency lists may be published as a flat file should integrations from source systems fail."
         ]
     },
     "section3": {
         "heading": "Feedback and contact information",
-        "text1": "If you need information on this website in a different format like accessible PDF, large print, easy read or braille, please contact: ",
+        "text1": [
+            "We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.",
+            "Our courts and tribunals have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.",
+            "Find out how to contact us by using the contact details below.",
+            "If you need information on this website in a different format like accessible PDF, large print, easy read or braille, please contact:"
+        ],
         "text2": "We'll consider your request and get back to you within 10 working days."
     },
     "ctscData": {
         "heading": "Courts and Tribunals Service Centre ",
         "phone": "Telephone: 0300 303 0656",
-        "openingHours": "Monday to Friday 8am to 5pm"
+        "openingHours": "Monday to Friday 8am to 5pm",
+        "email": "Email: publicationsinformation@justice.gov.uk"
     },
     "section4": {
         "heading": "Reporting accessibility problems with this website",
-        "text1": "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact"
+        "text1": "We’re always looking to improve the accessibility of this website. If you find any problems not listed on this page or think we’re not meeting accessibility requirements, contact:"
     },
     "section5": {
         "heading": "Enforcement procedure",
-        "text1": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, contact the",
-        "text2": "(opens in a new window).",
+        "text1": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, contact the ",
         "links": [
             {
                 "link": "https://www.equalityadvisoryservice.com/",
-                "text": "Equality Advisory and Support Service (EASS)"
+                "text": "Equality Advisory and Support Service (EASS) (opens in a new window)"
             }
         ]
     },
     "section6": {
-        "heading": "Contacting us by phone or visiting us in person",
-        "text": [
-            "We provide a text relay service for people who are D/deaf, hearing impaired or have a speech impediment.",
-            "Our courts and tribunals have audio induction loops, or if you contact us before your visit we can arrange a British Sign Language (BSL) interpreter.",
-            "Find out how to contact us by using the contact details above."
-        ]
-    },
-    "section7": {
         "heading": "Technical information about this website’s accessibility",
         "text1": "HMCTS is committed to making its websites accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018."
     },
-    "section8": {
+    "section7": {
         "heading": "Compliance status",
         "heading2": "Non-accessible content",
-        "text1": "This website is partially compliant with the",
-        "text2": "AA standard, due to the non-compliances listed below.",
+        "text1": "This website is partially compliant with the ",
+        "text2": " due to the non-compliances listed below.",
         "links": [
             {
                 "link": "https://www.w3.org/TR/WCAG21/",
-                "text": " Web Content Accessibility Guidelines version 2.1 "
+                "text": "Web Content Accessibility Guidelines version 2.2 (opens in a new window)"
             }
         ]
     },
-    "section9": {
+    "section8": {
         "preamble": "The content listed below is non-accessible for the following reasons.",
         "subHeading": "Non-compliance with the accessibility regulations",
         "text": [
-            "Some hearing lists presented within the service are presented and viewable as a PDF or word document (flat files). These can be difficult for screen reader users to navigate as the content is untagged, untitled and the tables are not marked up to enable screen reader users to navigate and identify the information correctly.",
-            "This fails WCAG 2.1 A criterion 2.4.2 (page titled) and 1.3.1 (info and relationship).",
-            "Progress will be reviewed on an ongoing basis, with a full review planned for September 2024."
+            "Some hearing lists presented within the service are presented and viewable only as PDF or word document (flat files). This means that assistive technology users may struggle to review and understand the PDFs. This fails WCAG 2.2 success criterion 1.3.1 (info and relationships).",
+            "Page titles are not specific to the content on the screen and do not have enough information. This could be confusing for screen reader users as they wouldn’t be aware of what page they are on when they land on it. This fails WCAG 2.2 success criterion 2.4.2 (page titled). We plan to resolve this issue by the end of April 2025."
+        ]
+    },
+    "section9": {
+        "heading": "What we’re doing to improve accessibility",
+        "text": [
+            "We have actively engaged with jurisdictions across HMCTS to make sure that source systems produce accessible documents for publishing. We have asked services to review future enhancements when producing documents to make them fully accessible.",
+            "We will also continually run automated accessibility testing as part of our development practices.",
+            "Progress will be reviewed on an ongoing basis, with the continuation of internal and external audits."
         ]
     },
     "section10": {
-        "heading": "What we’re doing to improve accessibility",
-        "text": [
-            "We have actively engaged with HMCTS’ Reform Programme to make sure that source systems produce accessible documents for publishing. We have asked services to add work to future enhancements to update the way they produce documents to make them fully accessible.",
-            "We will continually run automated accessibility testing as part of our development practices."
-        ]
-    },
-    "section11": {
         "heading": "Preparation of this accessibility statement",
-        "smallHeading1": "Testing procedure:",
-        "smallHeading2": "User testing:",
-        "smallHeading3": "Technical auditing:",
-        "text1": "This statement was prepared on 8 September 2023. It was last reviewed on 8 September 2023.",
-        "text2": "This website was tested internally at all stages of its build and subjected to ",
-        "text3": " testing throughout April 2021 to March 2022.",
-        "text4": "This is an excerpt from the DAC report explaining their methodology:",
-        "text6": "This website was last tested by the Digital Accessibility Centre (DAC) on 1 March 2022 against WCAG 2.1 standards.",
-        "text8": "“The service is tested by a team of experienced auditors and analysts, many of who are disabled individuals and users of adaptive technology. The combination of subjective pan-disability user feedback and comprehensive technical auditing allows us to measure how the service performs technically and practically, thereby offering an essential added dimension to our test results that other methods of testing cannot provide.”",
-        "text9": "“Manual accessibility checking was conducted by a team of disabled individuals, using a range of adaptive technologies (hardware and software designed to facilitate the use of computers by people with disabilities).”",
-        "text10": "“Technical auditing involves the experienced application of a number of technical auditing and standards compliance assessment tools. This combined with an extensive knowledge of WCAG, its application and wider global practice provides the DAC website with further credibility and quality.”",
-        "links": [
-            { "link": "https://pa11y.org/", "text": "Pa11y" },
-            {
-                "link": "https://www.court-tribunal-hearings.service.gov.uk",
-                "text": "www.court-tribunal-hearings.service.gov.uk."
-            }
+        "text": [
+            "This statement was prepared on 8 September 2023. It was last reviewed on 6 March 2025.",
+            "This website was last audited by the HMCTS accessibility testing team in the Testing Centre of Excellence on 18 November 2024 across a range of assistive technologies and automated tools."
         ]
     }
 }
