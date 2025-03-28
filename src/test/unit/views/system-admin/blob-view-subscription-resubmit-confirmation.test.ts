@@ -7,7 +7,7 @@ import { LocationService } from '../../../../main/service/LocationService';
 import fs from 'fs';
 import path from 'path';
 
-const PAGE_URL = '/blob-view-subscription-resubmit-confirmation';
+const PAGE_URL = '/blob-view-subscription-resubmit-confirmation?artefactId=123';
 app.request['user'] = { userId: '1', roles: 'SYSTEM_ADMIN' };
 
 let htmlRes: Document;
