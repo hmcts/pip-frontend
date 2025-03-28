@@ -9,6 +9,7 @@ import { HttpStatusCode } from 'axios';
 const blobViewController = new BlobViewJsonController();
 const i18n = {
     'blob-view-json': {},
+    'error' : { title: 'Error' }
 };
 const artefactJson = JSON.parse('{"Test":true}');
 const artefactJsonString = JSON.stringify(artefactJson);
@@ -137,6 +138,7 @@ describe('Blob view publication controller', () => {
                     return '';
                 },
             } as unknown as Response;
+
             const request = mockRequest(i18n);
             request.query = { artefactId: '1234' };
             request.user = { userId: 10 };
@@ -146,6 +148,26 @@ describe('Blob view publication controller', () => {
                 .expects('redirect')
                 .once()
                 .withArgs('blob-view-subscription-resubmit-confirmation?artefactId=1234');
+            await blobViewController.post(request, response);
+            responseMock.verify;
+        });
+
+        it('should redirect to error page if no artefact ID', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+            request.query = {};
+            request.user = { userId: 10 };
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', { title: 'Error' });
             await blobViewController.post(request, response);
             responseMock.verify;
         });

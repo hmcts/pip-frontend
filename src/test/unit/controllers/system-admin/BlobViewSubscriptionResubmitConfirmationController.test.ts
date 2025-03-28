@@ -40,6 +40,7 @@ describe('Blob view subscription re-submit confirmation controller', () => {
                     return '';
                 },
             } as unknown as Response;
+
             const request = mockRequest(i18n);
             request.query = { artefactId: artefactId1 };
             request.user = { userId: userId };
@@ -58,19 +59,36 @@ describe('Blob view subscription re-submit confirmation controller', () => {
             blobViewSubscriptionResubmitConfirmationController.get(request, response);
             responseMock.verify;
         });
+
+        it('should render error page if no artefact ID', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+            request.query = {};
+            request.user = { userId: userId };
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', { title: 'Error'});
+            blobViewSubscriptionResubmitConfirmationController.get(request, response);
+            responseMock.verify;
+        });
     });
 
     describe('POST request', () => {
-        const response = {
-            render: () => {
-                return '';
-            },
-            redirect: () => {
-                return '';
-            },
-        } as unknown as Response;
-
         it('should redirect to blob view subscription resubmit confirmed page if subscriptions fulfilled', async () => {
+            const response = {
+                redirect: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
             const request = mockRequest(i18n);
             request.query = { artefactId: artefactId1 };
             request.user = { userId: userId };
@@ -81,9 +99,32 @@ describe('Blob view subscription re-submit confirmation controller', () => {
             responseMock.verify;
         });
 
-        it('should redirect to error page if subscriptions not fulfilled', async () => {
+        it('should render error page if subscriptions not fulfilled', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
             const request = mockRequest(i18n);
             request.query = { artefactId: artefactId2 };
+            request.user = { userId: userId };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', { title: 'Error' });
+            await blobViewSubscriptionResubmitConfirmationController.post(request, response);
+            responseMock.verify;
+        });
+
+        it('should render error page if no artefact ID', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+            request.query = {};
             request.user = { userId: userId };
 
             const responseMock = sinon.mock(response);

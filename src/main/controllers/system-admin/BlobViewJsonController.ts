@@ -12,7 +12,7 @@ const locationService = new LocationService();
 const userManagementService = new UserManagementService();
 export default class BlobViewJsonController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const artefactId = req.query.artefactId as string;
+        const artefactId = req.query.artefactId;
         const data = await publicationService.getIndividualPublicationJson(artefactId, req.user['userId']);
         const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId']);
 
@@ -47,8 +47,12 @@ export default class BlobViewJsonController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const artefactId = req.query.artefactId as string;
-        res.redirect(`blob-view-subscription-resubmit-confirmation?artefactId=${artefactId}`);
+        const artefactId = req.query.artefactId;
+        if (artefactId) {
+            res.redirect(`blob-view-subscription-resubmit-confirmation?artefactId=${artefactId}`);
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     }
 
     private static async getLocationName(locationId, noMatchArtefact): Promise<string> {
