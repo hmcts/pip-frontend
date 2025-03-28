@@ -132,7 +132,7 @@
         "csv": "^6.3.11",
         "eslint": "^9.23.0",
         "eslint-config-prettier": "10.1.1",
-        "globals": "^15.15.0",
+        "globals": "^16.0.0",
         "html-webpack-plugin": "^5.6.3",
         "jest": "^29.7.0",
         "jest-environment-jsdom": "^29.7.0",
