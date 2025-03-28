@@ -20,6 +20,7 @@ import { AuditLogService } from '../../../main/service/AuditLogService';
 import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 
 const userId = '1';
 const name = 'Test';
@@ -32,6 +33,8 @@ const systemAdminRoutes = [
     { path: '/blob-view-locations' },
     { path: '/blob-view-publications', parameter: '?locationId=123' },
     { path: '/blob-view-json', parameter: '?artefactId=abc' },
+    { path: '/blob-view-subscription-resubmit-confirmation', parameter: '?artefactId=abc' },
+    { path: '/blob-view-subscription-resubmit-confirmed' },
     { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
     { path: '/bulk-create-media-accounts-confirmation', parameter: '?artefactId=abc' },
     { path: '/bulk-create-media-accounts-confirmed' },
@@ -103,6 +106,7 @@ sinon.stub(FileHandlingService.prototype, 'readCsvToArray').returns([
 ]);
 sinon.stub(UserManagementService.prototype, 'getFormattedData').resolves(userPageData);
 sinon.stub(AuditLogService.prototype, 'getFormattedAuditData').returns(auditLogPageData);
+sinon.stub(SubscriptionService.prototype, 'fulfillSubscriptions').resolves('success');
 
 describe('Accessibility - System Admin Routes', () => {
     app.request['cookies'] = {

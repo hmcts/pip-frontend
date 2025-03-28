@@ -1,0 +1,38 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, submitButton %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+<div class="parent-box">
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <form method="post">
+        {{ govukSummaryList({
+            rows: [
+                {key: {text: "Location Name"}, value: { text: locationName } },
+                {key: {text: "Publication Type"}, value: { text: metadata.type | titleCase} },
+                {key: {text: "List Type"}, value: { text: metadata.listType | listType} },
+                {key: {text: "Provenance"}, value: { text: metadata.provenance} },
+                {key: {text: "Language"}, value: { text: metadata.language | titleCase} },
+                {key: {text: "Sensitivity"}, value: { text: metadata.sensitivity | titleCase} },
+                {key: {text: "Content Date"}, value: { text: metadata.contentDate | date('Do MMMM YYYY [at] hh:mm a')} },
+                {key: {text: "Display From"}, value: { text: metadata.displayFrom | date('Do MMMM YYYY [at] hh:mm a')} },
+                {key: {text: "Display To"}, value: { text: metadata.displayTo | date('Do MMMM YYYY [at] hh:mm a')} }
+            ]
+        }) }}
+        <div class="govuk-button-group">
+            {{ submitButton(label = confirmButton, id = 'confirm-resubmit-subscription') }}
+            <a class="govuk-link" id='cancel-resubmit-subscription' href='blob-view-locations'>{{ cancelButton }}</a>
+        </div>
+    </form>
+    {{ super() }}
+</div>
+{% endblock %}
