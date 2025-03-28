@@ -72,10 +72,7 @@ describe('Blob view subscription re-submit confirmation controller', () => {
             request.user = { userId: userId };
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('render')
-                .once()
-                .withArgs('error', { title: 'Error'});
+            responseMock.expects('render').once().withArgs('error', { title: 'Error' });
             blobViewSubscriptionResubmitConfirmationController.get(request, response);
             responseMock.verify;
         });

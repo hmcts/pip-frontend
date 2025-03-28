@@ -9,7 +9,7 @@ import { HttpStatusCode } from 'axios';
 const blobViewController = new BlobViewJsonController();
 const i18n = {
     'blob-view-json': {},
-    'error' : { title: 'Error' }
+    error: { title: 'Error' },
 };
 const artefactJson = JSON.parse('{"Test":true}');
 const artefactJsonString = JSON.stringify(artefactJson);
@@ -164,10 +164,7 @@ describe('Blob view publication controller', () => {
             request.user = { userId: 10 };
 
             const responseMock = sinon.mock(response);
-            responseMock
-                .expects('render')
-                .once()
-                .withArgs('error', { title: 'Error' });
+            responseMock.expects('render').once().withArgs('error', { title: 'Error' });
             await blobViewController.post(request, response);
             responseMock.verify;
         });
