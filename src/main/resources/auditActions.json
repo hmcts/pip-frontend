@@ -94,5 +94,9 @@
     {
         "key": "REJECT_MEDIA_APPLICATION",
         "name": "Reject Media Application"
+    },
+    {
+        "key": "RESUBMIT_SUBSCRIPTION",
+        "name": "Re-submit subscription"
     }
 ]

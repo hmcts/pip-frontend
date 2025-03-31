@@ -4,10 +4,12 @@ import { cloneDeep } from 'lodash';
 import { PublicationService } from '../../service/PublicationService';
 import { LocationService } from '../../service/LocationService';
 import { SubscriptionService } from '../../service/SubscriptionService';
+import { UserManagementService } from '../../service/UserManagementService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const subscriptionService = new SubscriptionService();
+const userManagementService = new UserManagementService();
 
 export default class BlobViewSubscriptionResubmitConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -30,6 +32,12 @@ export default class BlobViewSubscriptionResubmitConfirmationController {
         if (artefactId) {
             const response = await subscriptionService.fulfillSubscriptions(artefactId, req.user['userId']);
             if (response) {
+                await userManagementService.auditAction(
+                    req.user,
+                    'RESUBMIT_SUBSCRIPTION',
+                    `Subscriptions for publication with artefact id ${artefactId} re-submitted successfully`
+                );
+
                 res.redirect('blob-view-subscription-resubmit-confirmed');
             } else {
                 res.render('error', req.i18n.getDataByLanguage(req.lng).error);
