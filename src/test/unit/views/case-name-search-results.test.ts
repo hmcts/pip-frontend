@@ -5,7 +5,8 @@ import { expect } from 'chai';
 import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 
 const PAGE_URL = '/case-name-search-results?search=Meedo';
-const pageTitleValue = 'Search result';
+const pageTitleValue =
+    'Subscription by case name – Subscription case search results - Court and Tribunal Hearings - GOV.UK';
 let htmlRes: Document;
 
 const data = [

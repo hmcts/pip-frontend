@@ -3,8 +3,18 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "./macros/common-components.njk" import submitButton, goBack, backButtonHistory %}
 
+{% if pendingSubscriptions.cases | length == 0 and pendingSubscriptions.courts | length == 0 %}
+    {% set displayError = true %}
+{% else %}
+    {% set displayError = false %}
+{% endif %}
+
 {% block pageTitle %}
-  {{ title }}
+    {% if displayError %}
+        {{ error.pageTitle }}
+    {% else %}
+        {{ title }}
+    {% endif %}
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
@@ -13,23 +23,18 @@
 
 {% block content %}
   <div class="parent-box">
-  {% if pendingSubscriptions.cases | length == 0 and pendingSubscriptions.courts | length == 0 %}
-    {% set displayError = true %}
-  {% else %}
-    {% set displayError = false %}
-  {% endif %}
   {% if pendingSubscriptions.courts | length > 0 %}
     {% set nextPage = 'subscription-add-list' %}
-    {% set pageTitle = title_court_subscription  %}
+    {% set pageHeader = header_court_subscription  %}
     {% set buttonText = buttonText_court_subscription %}
     {% set formAction = 'get' %}
   {% else %}
     {% set nextPage = 'pending-subscriptions' %}
-    {% set pageTitle = title %}
+    {% set pageHeader = header %}
     {% set buttonText = buttonText %}
     {% set formAction = 'post' %}
   {% endif %}
-  <h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+  <h1 class="govuk-heading-l">{{ pageHeader }}</h1>
   {% if displayError %}
     <div class="govuk-grid-row">
       <div class="no_padding govuk-grid-column-two-thirds">

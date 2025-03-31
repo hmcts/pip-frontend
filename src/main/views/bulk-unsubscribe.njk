@@ -27,7 +27,7 @@
         ]
       }) }}
     {% endif %}
-    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <h1 class="govuk-heading-l">{{ header }}</h1>
     <form method="post" action="bulk-unsubscribe">
       <div class="govuk-form-group">
         {% set allSubscriptions = caseTableData | length + locationTableData | length %}
