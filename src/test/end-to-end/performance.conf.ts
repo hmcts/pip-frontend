@@ -22,6 +22,6 @@ const initialPerformanceConfig = {
     },
 };
 
-initialPerformanceConfig.helpers['Playwright']['waitForAction'] = 1000;
+initialPerformanceConfig.helpers['Playwright']['waitForAction'] = 100;
 
 export const config: CodeceptJS.MainConfig = initialPerformanceConfig;
