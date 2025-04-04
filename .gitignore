@@ -29,6 +29,7 @@ manualUpload/
 /coverage
 e2e-results/
 /functional-output/
+/performance-output/
 
 .yarn/*
 !.yarn/patches
