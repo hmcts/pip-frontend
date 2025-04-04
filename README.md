@@ -318,6 +318,25 @@ All scripts are configured in package.json
 
 - `yarn test:fullfunctional` - This command is to run all tests including nightly and generates the allure report
 
+### Performance Tests
+
+An initial suite of performance tests are available which utilise the same framework as the E2E Functional Tests.
+
+The configuration for these tests can be found [here](./src/test/end-to-end/performance.conf.ts). All performance tests should be tagged with @Performance, and exist within the [Performance Testing Folder](./src/test/end-to-end/tests/performance).
+
+Running of the performance tests can be run via the following means:
+
+- `yarn test:performance` - This command is to run the performance tests and generate the report
+
+- `yarn test:performance:all` - This command is to run all tests configured in performance.conf.ts
+
+- `yarn test:performance:report` - This command is to create allure reports for performance tests from existing xml reports
+
+At present, performance tests do not run on the pipeline, and are designed to run locally when required. There are a few specific features of the performance test which should be noted:
+
+- The tests override the waitActionTimeout used in the functional tests, to 100ms. This is to reduce the impact of this wait on the overall results, and should be accounted for when interpreting them.
+- The number of concurrent tests can be updated using a combination of run-workers in the package.json, and the for loops within the tests themselves (which duplicate the test). The combination of these provide the ability to test concurrency, alongside load over time.
+
 ## Contributing
 
 We are happy to accept third-party contributions. See [.github/CONTRIBUTING.md](./.github/CONTRIBUTING.md) for more details.
