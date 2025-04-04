@@ -4,7 +4,7 @@ import { setHeadlessWhen } from '@codeceptjs/configure';
 
 setHeadlessWhen(testConfig.TestHeadlessBrowser);
 
-let initialPerformanceConfig= {
+const initialPerformanceConfig = {
     name: 'performance',
     tests: './tests/performance/*-test.ts',
     output: path.join(testConfig.TestPerformanceOutputPath, 'reports'),
@@ -19,7 +19,7 @@ let initialPerformanceConfig= {
         pauseOnFail: {
             enabled: !testConfig.TestHeadlessBrowser,
         },
-    }
+    },
 };
 
 initialPerformanceConfig.helpers['Playwright']['waitForAction'] = 1000;
