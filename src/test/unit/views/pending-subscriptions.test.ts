@@ -75,7 +75,7 @@ describe('Pending Subscriptions Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Add email subscription - Your email subscription - Court and Tribunal Hearings - GOV.UK',
+                'Add email subscription - Your email subscriptions - Court and Tribunal Hearings - GOV.UK',
                 'Page title does not match header'
             );
         });
@@ -191,7 +191,7 @@ describe('Pending Subscriptions Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Add email subscription - Your email subscription - Court and Tribunal Hearings - GOV.UK',
+                'Add email subscription - Your email subscriptions - Court and Tribunal Hearings - GOV.UK',
                 'Page title does not match header'
             );
         });
@@ -260,7 +260,7 @@ describe('Pending Subscriptions Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Add email subscription - Your email subscription - Court and Tribunal Hearings - GOV.UK',
+                'Add email subscription - Your email subscriptions - Court and Tribunal Hearings - GOV.UK',
                 'Page title does not match header'
             );
         });
