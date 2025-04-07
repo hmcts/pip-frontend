@@ -26,6 +26,7 @@ export class LocationService {
                     locationId: value['locationId'] ?? value.locationId,
                     name: value['welshName'] ?? value.name,
                     jurisdiction: value['welshJurisdiction'] ?? value.jurisdiction,
+                    jurisdictionType: value['welshJurisdictionType'] ?? value.jurisdictionType,
                     region: value['welshRegion'] ?? value.region,
                     location: value.location,
                 };
