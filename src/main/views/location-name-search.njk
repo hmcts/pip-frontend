@@ -1,4 +1,4 @@
-{% from "./macros/common-components.njk" import goBack, submitButton, mojAll %}
+{% from "./macros/common-components.njk" import goBack, submitButton, mojAll, locationFilterManipulation %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
@@ -6,219 +6,237 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ title }}
+    {{ title }}
 {% endblock %}
 {% block beforeContent %}
-  {{ super() }}
-  {{ goBack(text = backButton, cspNonce = cspNonce) }}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
-  <h1 class="govuk-heading-l">{{ header }}</h1>
-  <p class="govuk-body">{{ subHeading }}</p>
-  <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
-    <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
-      {% set checkedFilters = [] %}
-      {% set toBeCreated = true %}
-      {% set filterOptionsHtml %}
-        {% for key, option in filterOptions %}
-          {% set checkedFilterItems = [] %}
-          {% set items = [] %}
-          {% for value, item in option %}
-            {% set _ = items.push({
-              value: item.value,
-              text: item.text,
-              checked: item.checked
-            }) %}
-            {% if item.checked %}
-              {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
-            {% endif %}
-          {% endfor %}
-          {% set filterKey = jurisdiction if key == 'Jurisdiction' else region %}
-          {% if checkedFilterItems| length > 0 %}
-            {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
-          {% endif %}
-          {% if toBeCreated %}
-            <div class="moj-button-menu filters__innerButton govuk-!-margin-bottom-4" id="innerButton">
-                <a href="#" role="button" draggable="false"
-                   class="govuk-button govuk-button--secondary toggle-filters"
-                   data-module="govuk-button">
-                  {{ hide }}
-                </a>
-            </div>
-            {% set toBeCreated = false %}
-          {% endif %}
-          {{ govukCheckboxes({
-            idPrefix: key,
-            name: key,
-            classes: "govuk-checkboxes--small",
-            fieldset: {
-              legend: {
-                text: filterKey,
-                classes: 'govuk-fieldset__legend--m'
-              }
-            },
-            items: items
-          }) }}
-        {% endfor %}
-      {% endset %}
-
-      <form method="post" action="location-name-search" class="moj-filter-layout__filter layout-width-four-fifths"
-            autocomplete="off">
-        {{ mojFilter({
-          submit: {
-            text: applyFiltersButton
-          },
-          heading: {
-            text: filter
-          },
-          selectedFilters: {
-            clearLink: {
-              text: filterClear,
-              href: '?clear=all'
-            },
-            heading: {
-              text: filterSelected
-            },
-            categories: checkedFilters
-          },
-          optionsHtml: filterOptionsHtml
-        }) }}
-      </form>
-    </div>
-    <div class="layout-width-three-fifths" id="content">
-      <form class="moj-action-bar" action="location-subscriptions-confirmation" method="post" autocomplete="off">
-        <div class="moj-button-menu govuk-!-margin-bottom-4">
-            <a href="#" role="button" draggable="false"
-               class="govuk-button govuk-button--secondary toggle-filters"
-               data-module="govuk-button">
-              {{ show }}
-            </a>
-        </div>
-        <table class="govuk-table">
-          <tbody class="govuk-table__body">
-          {% set first = '' %}
-          {% for key, value in locationList %}
-            {% if value | length > 0 %}
-              {% for courtName, courtDetails in value %}
-                {% if courtDetails.id > 0 %}
-                  <tr class="govuk-table__row">
-                    {% if first != key %}
-                      {% set first = key %}
-                      <th scope="row" class="govuk-table__header">
-                        <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
-                      </th>
-
+    <h1 class="govuk-heading-l">{{ title }}</h1>
+    <p class="govuk-body">{{ subHeading }}</p>
+    <div id="grid-row" class="govuk-grid-row parent-box alphabetical-box">
+        <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
+            {% set checkedFilters = [] %}
+            {% set toBeCreated = true %}
+            {% set filterOptionsHtml %}
+                {% for key, option in filters.filterOptions %}
+                    {% set checkedFilterItems = [] %}
+                    {% set items = [] %}
+                    {% for value, item in option %}
+                        {% set _ = items.push({
+                            value: item.value,
+                            text: item.text,
+                            checked: item.checked
+                        }) %}
+                        {% if item.checked %}
+                            {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if key == 'Jurisdiction' %}
+                        {% set filterKey = jurisdiction %}
+                    {% elseif key == 'Civil' %}
+                        {% set filterKey = civilType %}
+                    {% elseif key == 'Family' %}
+                        {% set filterKey = familyType %}
+                    {% elseif key == 'Crime' %}
+                        {% set filterKey = crimeType %}
+                    {% elseif key == 'Tribunal' %}
+                        {% set filterKey = tribunalType %}
                     {% else %}
-                      <th scope="row" aria-hidden="true" class="govuk-table__header">
-                      </th>
+                        {% set filterKey = region %}
                     {% endif %}
-                    <td class="govuk-table__cell">
-                      <div class="govuk-checkboxes__item govuk-checkboxes--small">
-                        <input type="checkbox" class="govuk-checkboxes__input court-item"
-                               id="{{ courtDetails.id }}"
-                               value="{{ courtDetails.id }}" name="court-selections[]">
-                        <label class="govuk-label govuk-checkboxes__label no_padding"
-                               for="{{ courtDetails.id }}">
-                          <span class="govuk-visually-hidden">Select {{ courtName }}</span>
-                        </label>
-                      </div>
-                    </td>
-                    <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ courtName }}</td>
-                  </tr>
-                {% endif %}
-              {% endfor %}
-              {% set first = '' %}
-            {% endif %}
-          {% endfor %}
-          </tbody>
-        </table>
-        <h2 class="govuk-heading-m">{{ userSelections }}</h2>
-        <div
-          class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
-          <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
+                    {% if checkedFilterItems | length > 0 %}
+                        {% set _ = checkedFilters.push({heading: {text: ''}, items: checkedFilterItems}) %}
+                    {% endif %}
+                    {% if toBeCreated %}
+                        <div class="moj-button-menu filters__innerButton govuk-!-margin-bottom-4" id="innerButton">
+                            <a href="#" role="button" draggable="false"
+                               class="govuk-button govuk-button--secondary toggle-filters"
+                               data-module="govuk-button">
+                                {{ hide }}
+                            </a>
+                        </div>
+                        {% set toBeCreated = false %}
+                    {% endif %}
+                    <div class="govuk-form-group {% if not filters.showFilters[key] %} always-hide {% endif %}" id="{{ key }}-filter-group">
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+                                <h1 class="govuk-fieldset__heading">
+                                    <a href="javascript:;" class="govuk-link govuk-!-font-size-19" id="{{ key }}-anchor">{{ filterKey }}</a>
+                                    <span class="govuk-body govuk-!-font-size-19 filter-colour" id="{{ key }}-link">&#9660</span>
+                                </h1>
+                            </legend>
+                            <div class="govuk-checkboxes govuk-checkboxes--small" id="{{ key }}-checkbox" data-module="govuk-checkboxes">
+                                {% for item in items %}
+                                    <div class="govuk-checkboxes__item">
+                                        <input class="govuk-checkboxes__input {{ key }}-{{ item.value }}-filter-item" id="{{ key }}-{{ item.value }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
+                                        <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ item.value }}">
+                                            {{ item.text }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </fieldset>
+                    </div>
+                {% endfor %}
+            {% endset %}
+
+            <form method="post" action="location-name-search" class="moj-filter-layout__filter layout-width-four-fifths"
+                  autocomplete="off">
+                {{ mojFilter({
+                    submit: {
+                        text: applyFiltersButton
+                    },
+                    heading: {
+                        text: filter
+                    },
+                    selectedFilters: {
+                        clearLink: {
+                            text: filterClear,
+                            href: '?clear=all'
+                        },
+                        heading: {
+                            text: filterSelected
+                        },
+                        categories: checkedFilters
+                    },
+                    optionsHtml: filterOptionsHtml
+                }) }}
+            </form>
         </div>
-      {{ submitButton(continueButton) }}
-      </form>
-    </div>
+        <div class="layout-width-three-fifths" id="content">
+            <form class="moj-action-bar" action="location-subscriptions-confirmation" method="post" autocomplete="off">
+                <div class="moj-button-menu govuk-!-margin-bottom-4">
+                    <a href="#" role="button" draggable="false"
+                       class="govuk-button govuk-button--secondary toggle-filters"
+                       data-module="govuk-button">
+                        {{ show }}
+                    </a>
+                </div>
+                <table class="govuk-table">
+                    <tbody class="govuk-table__body">
+                    {% set first = '' %}
+                    {% for key, value in filters.alphabetisedList %}
+                        {% if value | length > 0 %}
+                            {% for courtName, courtDetails in value %}
+                                {% if courtDetails.id > 0 %}
+                                    <tr class="govuk-table__row">
+                                        {% if first != key %}
+                                            {% set first = key %}
+                                            <th scope="row" class="govuk-table__header">
+                                                <div id="{{ key }}" class="govuk-!-font-size-36">{{ key }}</div>
+                                            </th>
+                                        {% else %}
+                                            <th scope="row" aria-hidden="true" class="govuk-table__header">
+                                            </th>
+                                        {% endif %}
+                                        <td class="govuk-table__cell">
+                                            <div class="govuk-checkboxes__item govuk-checkboxes--small">
+                                                <input type="checkbox" class="govuk-checkboxes__input court-item"
+                                                       id="{{ courtDetails.id }}"
+                                                       value="{{ courtDetails.id }}" name="court-selections[]">
+                                                <label class="govuk-label govuk-checkboxes__label no_padding"
+                                                       for="{{ courtDetails.id }}">
+                                                    <span class="govuk-visually-hidden">Select {{ courtName }}</span>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td class="govuk-table__cell govuk-!-font-size-19 vertical-center-table-header" aria-hidden="true">{{ courtName }}</td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            {% set first = '' %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <h2 class="govuk-heading-m">{{ userSelections }}</h2>
+                <div
+                    class="selection-counter-box govuk-!-padding-top-3 govuk-!-padding-bottom-1 govuk-!-padding-left-2 govuk-!-padding-right-2 govuk-!-margin-bottom-4">
+                    <p class="govuk-body"><span id="selectionCount">0</span> {{ selected }}</p>
+                </div>
+                {{ submitButton(continueButton) }}
+            </form>
+        </div>
     </div>
     {{ super() }}
-  </div>
+    </div>
 {% endblock %}
 {% block bodyEnd %}
-  {{ super() }}
-  {{ mojAll(cspNonce) }}
-  <script nonce="{{ cspNonce }}">
+    {{ super() }}
+    {{ mojAll(cspNonce) }}
+    <script nonce="{{ cspNonce }}">
+        //Used to ensure that page focus is set to top when the filters reload the page
+        window.onload = function() {
+            window.scrollTo(0,0);
+        };
 
-    //Used to ensure that page focus is set to top when the filters reload the page
-    window.onload = function() {
-      window.scrollTo(0,0);
-    };
+        document.querySelectorAll('.court-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;
+                document.getElementById('selectionCount').innerText = checkedBoxes.toString();
+            });
+        });
 
-    document.querySelectorAll('.court-item').forEach(item => {
-      item.addEventListener('click', function() {
-          const checkedBoxes = document.querySelectorAll('input[name="court-selections[]"]:checked').length;
-          document.getElementById('selectionCount').innerText = checkedBoxes.toString();
-      });
-    });
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
 
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
+        document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
 
-    document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
+        function toggleFilters() {
+            var element = document.getElementById("filters");
+            var content = document.getElementById("content");
+            var navigation = document.getElementsByClassName("govuk-service-navigation pub-navigation");
+            var skipLink = document.getElementsByClassName("govuk-skip-link");
+            var header = document.getElementsByClassName("govuk-header");
+            var backLink = document.getElementsByClassName("govuk-back-link");
+            var footer = document.getElementsByClassName("govuk-footer");
+            var largeHeading = document.getElementsByClassName("govuk-heading-l");
+            var paragraphBody = document.getElementsByClassName("govuk-body");
 
-    function toggleFilters() {
-      var element = document.getElementById("filters");
-      var content = document.getElementById("content");
-      var navigation = document.getElementsByClassName("govuk-service-navigation pub-navigation");
-      var skipLink = document.getElementsByClassName("govuk-skip-link");
-      var header = document.getElementsByClassName("govuk-header");
-      var backLink = document.getElementsByClassName("govuk-back-link");
-      var footer = document.getElementsByClassName("govuk-footer");
-      var largeHeading = document.getElementsByClassName("govuk-heading-l");
-      var paragraphBody = document.getElementsByClassName("govuk-body");
+            element.classList.toggle("hide");
+            content.classList.toggle("hide");
+            navigation[0].classList.toggle("hide");
+            skipLink[0].classList.toggle("hide");
+            header[0].classList.toggle("hide");
+            backLink[0].classList.toggle("hide");
+            footer[0].classList.toggle("hide");
+            largeHeading[0].classList.toggle("hide");
+            paragraphBody[0].classList.toggle("hide");
 
-      element.classList.toggle("hide");
-      content.classList.toggle("hide");
-      navigation[0].classList.toggle("hide");
-      skipLink[0].classList.toggle("hide");
-      header[0].classList.toggle("hide");
-      backLink[0].classList.toggle("hide");
-      footer[0].classList.toggle("hide");
-      largeHeading[0].classList.toggle("hide");
-      paragraphBody[0].classList.toggle("hide");
+            if (element.className.indexOf('hide') > 0) {
+                document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ show }}";
+            } else {
+                document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ hide }}";
 
+                //This ensures that focus works correctly for screen readers in the filter box.
+                var elements = document.getElementsByClassName('govuk-heading-m');
+                elements[0].setAttribute("tabindex", "0");
+                elements[1].setAttribute("tabindex", "0");
+                elements[0].focus();
+            }
+        }
 
-      if (element.className.indexOf('hide') > 0) {
-        document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ show }}";
-      } else {
-        document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ hide }}";
+        //Concat href to maintain filter values when clearing single
+        let tags = document.querySelectorAll('.moj-filter__tag');
+        let currentParam = window.location.search.split('&');
+        tags.forEach(element => {
+            const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
+            element.href = buildHref(tmp, currentParam);
+        })
 
-        //This ensures that focus works correctly for screen readers in the filter box.
-        var elements = document.getElementsByClassName('govuk-heading-m');
-        elements[0].setAttribute("tabindex", "0");
-        elements[1].setAttribute("tabindex", "0");
-        elements[0].focus();
+        function buildHref(filterToClear, currentPath) {
+            const deleteVal = filterToClear.split('=')[1];
+            let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
+            return href.replace(',,', ',');
+        }
 
-      }
-    }
-
-    //Concat href to maintain filter values when clearing single
-    let tags = document.querySelectorAll('.moj-filter__tag');
-    let currentParam = window.location.search.split('&');
-    tags.forEach(element => {
-      const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
-      element.href = buildHref(tmp, currentParam);
-    })
-    function buildHref(filterToClear, currentPath) {
-      const deleteVal = filterToClear.split('=')[1];
-      let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
-      return href.replace(',,', ',');
-    }
-
-    //Add aria label to filter heading
-    document.getElementsByClassName("moj-filter__header-title")[0]
-      .getElementsByTagName("h2")[0]
-      .setAttribute("aria-label", "{{ aria.filterLabel }}");
-  </script>
+        //Add aria label to filter heading
+        document.getElementsByClassName("moj-filter__header-title")[0]
+            .getElementsByTagName("h2")[0]
+            .setAttribute("aria-label", "{{ aria.filterLabel }}");
+    </script>
+    {{ locationFilterManipulation(cspNonce) }}
 {% endblock %}
