@@ -38,7 +38,7 @@ export class FilterService {
 
     private showJurisdictionTypeFilter(filters: object, jurisdiction: string) {
         if (filters) {
-            return filters[jurisdiction].length > 0 || filters[jurisdictionFilter].includes(jurisdiction)
+            return filters[jurisdiction].length > 0 || filters[jurisdictionFilter].includes(jurisdiction);
         }
         return false;
     }
@@ -51,7 +51,7 @@ export class FilterService {
             Crime: this.showJurisdictionTypeFilter(filters, crimeFilter),
             Tribunal: this.showJurisdictionTypeFilter(filters, tribunalFilter),
             Region: true,
-        }
+        };
     }
 
     public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[]): object {
@@ -61,9 +61,10 @@ export class FilterService {
             filterValueOptions[filter] = {};
             const deduplicatedFilterValueOptions = [];
 
-            const filteredValue= filter == jurisdictionFilter || filter == regionFilter
-                ? this.getFilterValueOptions(filter, list)
-                : allJurisdictionTypes;
+            const filteredValue =
+                filter == jurisdictionFilter || filter == regionFilter
+                    ? this.getFilterValueOptions(filter, list)
+                    : allJurisdictionTypes;
 
             filteredValue.forEach(value => {
                 if (Array.isArray(value)) {
@@ -78,9 +79,10 @@ export class FilterService {
                 }
             });
 
-            const finalFilterValueOptions = filter == jurisdictionFilter || filter == regionFilter
-                ? deduplicatedFilterValueOptions
-                : this.getJurisdictionTypeFilterValueOptions(filter, deduplicatedFilterValueOptions);
+            const finalFilterValueOptions =
+                filter == jurisdictionFilter || filter == regionFilter
+                    ? deduplicatedFilterValueOptions
+                    : this.getJurisdictionTypeFilterValueOptions(filter, deduplicatedFilterValueOptions);
 
             [...finalFilterValueOptions]
                 .sort((a, b) => a.localeCompare(b))
@@ -161,7 +163,7 @@ export class FilterService {
                 } else if (filters[jurisdictionFilter].includes(jurisdiction)) {
                     allJurisdictionFilters.push(jurisdiction);
                 }
-            })
+            });
 
             alphabetisedList = await locationService.generateFilteredAlphabetisedCourtList(
                 filters[regionFilter].toString(),
@@ -173,7 +175,7 @@ export class FilterService {
         return {
             alphabetisedList: alphabetisedList,
             filterOptions: filterOptions,
-            showFilters : this.showFilters(filters),
+            showFilters: this.showFilters(filters),
         };
     }
 

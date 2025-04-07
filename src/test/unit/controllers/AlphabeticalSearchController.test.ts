@@ -23,8 +23,8 @@ const expectedFilters = {
 sinon.stub(FilterService.prototype, 'handleFilterInitialisation').resolves(expectedFilters);
 
 const i18n = {
-    'alphabetical-search': { title : 'A-Z search'},
-    'location-name-search': { title: 'Location name search'},
+    'alphabetical-search': { title: 'A-Z search' },
+    'location-name-search': { title: 'Location name search' },
 };
 
 describe('Alphabetical Search Controller', () => {
