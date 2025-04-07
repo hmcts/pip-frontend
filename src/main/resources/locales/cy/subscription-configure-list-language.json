@@ -1,9 +1,9 @@
 {
     "title": "Pa fersiwn o'r rhestr ydych chi am ei derbyn?",
+    "header": "Pa fersiwn o'r rhestr ydych chi am ei derbyn?",
     "radio1": "Saesneg",
     "radio2": "Cymraeg",
     "radio3": "Cymraeg a Saesneg",
-    "buttonText": "Cadarnhau tanysgrifiadau",
     "backButton": "Yn ôl",
     "error": {
         "noSelection": "Dewiswch fersiwn math o restr i barhau",

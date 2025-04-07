@@ -1,6 +1,7 @@
 {
-    "title": "Cadarnhewch eich tanysgrifiadau e-bost",
-    "title_court_subscription": "Eich tanysgrifiadau e-bost",
+    "title": "Ychwanegu tanysgrifiad e-bost - Eich tanysgrifiadau e-bost - Gwrandawiadau llys a thribiwnlys - GOV.UK",
+    "header": "Cadarnhewch eich tanysgrifiadau e-bost",
+    "header_court_subscription": "Eich tanysgrifiadau e-bost",
     "removeText": "Dileu",
     "table": {
         "header1": "Enw'r achos",
@@ -15,7 +16,8 @@
     "buttonAddText": "Ychwanegu tanysgrifiadau",
     "error": {
         "title": "Mae yna broblem",
-        "message": "Mae angen o leiaf un tanysgrifiad."
+        "message": "Mae angen o leiaf un tanysgrifiad.",
+        "pageTitle": "Cadarnhewch eich tanysgrifiadau e-bost - Mae angen o leiaf un tanysgrifiad - Gwrandawiadau llys a thribiwnlys - GOV.UK"
     },
     "backButton": "Yn ôl",
     "courtTribunalName": "Enw’r llys neu’r tribiwnlys"

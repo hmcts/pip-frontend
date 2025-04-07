@@ -1,6 +1,8 @@
 {
-    "title": "Manual upload",
-    "nonStrategicTitle": "Excel File Upload",
+    "title": "Upload - Manual Upload - Court and Tribunal Hearings - GOV.UK",
+    "nonStrategicTitle": "Upload excel file - Excel file upload - Court and Tribunal Hearings - GOV.UK",
+    "header": "Manual upload",
+    "nonStrategicHeader": "Excel File Upload",
     "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB",
     "nonStrategicCardFileUploadText": "Manually upload a excel file (.xlsx), max size 2MB",
     "form": {

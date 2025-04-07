@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 
 const PAGE_URL = '/case-name-search';
-const pageTitleValue = 'Subscribe by case name';
+const pageTitleValue = 'Subscribe by case name – What is the name of the case - Court and Tribunal Hearings - GOV.UK';
 let htmlRes: Document;
 
 sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns([]);
