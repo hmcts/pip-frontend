@@ -21,7 +21,8 @@ const subscriptionsData = { ...JSON.parse(rawData)[0].search.cases[0], partyName
 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscriptionsData);
 sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
 
-const pageTitleValue = 'Search result';
+const pageTitleValue =
+    'Subscribe by case reference number, case ID or unique reference number (URN) – Subscription URN search results - Court and Tribunal Hearings - GOV.UK';
 
 app.request['user'] = { roles: 'VERIFIED' };
 
