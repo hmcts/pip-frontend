@@ -41,7 +41,10 @@ describe('Court Name Search Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+        expect(pageTitle).contains(
+            'Add email subscription - Subscribe by court or tribunal name - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
     });
 
     it('should contain body text', () => {

@@ -25,7 +25,7 @@ describe('Bulk Unsubscribe Confirmation Page', () => {
             it('should have correct page title', () => {
                 const pageTitle = htmlRes.title;
                 expect(pageTitle).contains(
-                    'Are you sure you want to remove these subscriptions?',
+                    'Bulk unsubscribe - Are you sure you want to remove these subscriptions - Court and Tribunal Hearings - GOV.UK',
                     'Page title does not match'
                 );
             });

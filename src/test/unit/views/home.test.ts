@@ -59,7 +59,10 @@ describe('Home page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+            expect(pageTitle).contains(
+                'Court and tribunal hearings - Court and Tribunal Hearings - GOV.UK',
+                'Page title does not match header'
+            );
         });
 
         it('should display header', () => {

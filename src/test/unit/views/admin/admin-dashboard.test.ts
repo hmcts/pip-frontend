@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { MediaAccountApplicationService } from '../../../../main/service/MediaAccountApplicationService';
 
 const PAGE_URL = '/admin-dashboard';
-const pageTitleValue = 'Staff dashboard';
+const pageTitleValue = 'Staff Dashboard - Your Dashboard - Court and Tribunal Hearings - GOV.UK';
 const cards = [
     {
         title: 'Upload',
