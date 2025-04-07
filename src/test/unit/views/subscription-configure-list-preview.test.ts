@@ -14,7 +14,6 @@ const mockListLanguage = 'ENGLISH';
 const PAGE_URL = '/subscription-configure-list-preview';
 const backLinkClass = 'govuk-back-link';
 const tableHeaderClass = 'govuk-table__header';
-const pageHeader = 'Confirm your email subscriptions';
 const pageHeaderWithCourtSub = 'Confirm your email subscriptions';
 const btnConfirmSubscription = 'Confirm Subscriptions';
 let htmlRes: Document;
@@ -48,7 +47,10 @@ describe('Subscriptions Configure List Preview Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains(pageHeader, 'Page title does not match header');
+            expect(pageTitle).contains(
+                'Add email subscription - Confirm your email subscriptions - Court and Tribunal Hearings - GOV.UK',
+                'Page title does not match header'
+            );
         });
 
         it('should display back button', () => {
