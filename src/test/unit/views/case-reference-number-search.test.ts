@@ -28,7 +28,8 @@ stub.resolves(subscriptionsData);
 
 app.request['user'] = { roles: 'VERIFIED' };
 
-const pageTitleValue = 'Subscribe by case reference number, case ID or URN';
+const pageTitleValue =
+    'Subscribe by case reference number, case ID or unique reference number (URN) – What is the reference number - Court and Tribunal Hearings - GOV.UK';
 
 describe('Case Reference Search Page', () => {
     beforeAll(async () => {
