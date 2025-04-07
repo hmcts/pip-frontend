@@ -7,7 +7,11 @@
     "selectedFilter": "Selected filter",
     "hide": "Hide Filters",
     "show": "Show Filters",
-    "jurisdiction": "Type of court or tribunal",
+    "jurisdiction": "Jurisdiction",
+    "civilType": "Civil type",
+    "familyType": "Family type",
+    "crimeType": "Crime type",
+    "tribunalType": "Tribunal type",
     "region": "Region",
     "applyFiltersButton": "Apply filters",
     "aria": {

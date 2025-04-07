@@ -13,50 +13,88 @@ sinon.stub(LocationService.prototype, 'generateAlphabetisedAllCourtList').resolv
 sinon.stub(LocationService.prototype, 'generateFilteredAlphabetisedCourtList').resolves([listData[0]]);
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(listData);
 
-const magsCourt = 'Magistrates';
-const crownCourt = 'Crown';
-const royalCourt = 'Royal';
-const bedfordRegion = 'Bedford';
-const londonRegion = 'London';
-const manchesterRegion = 'Manchester';
 const jurisdiction = 'Jurisdiction';
+const civil = 'Civil';
+const family = 'Family';
+const crime = 'Crime';
+const tribunal = 'Tribunal';
 const region = 'Region';
-const requestFilters = { Jurisdiction: 'Crown', Region: 'Bedford' };
-const requestFiltersNoRegion = { Jurisdiction: ['Crown', 'Tribunal'] };
-const requestFiltersNoJurisdiction = { Region: 'Bedford' };
-const filterNames = ['Jurisdiction', 'Region'];
 const allFilterOptions = {
-    Jurisdiction: { Tribunal: { value: 'Tribunal' } },
-    Region: { Wales: { value: 'Wales' } },
+    Jurisdiction: {
+        Crime: { value: 'Crime' },
+        Family: { value: 'Family' },
+        Tribunal: { value: 'Tribunal' },
+    },
+    Civil: {},
+    Crime: {
+        Crown: { value: 'Crown' },
+        Magistrates: { value: 'Magistrates' },
+    },
+    Family: {
+        'Family Court': { value: 'Family Court' },
+    },
+    Tribunal: {
+        'Social Security and Child Support' : { value: 'Social Security and Child Support' },
+    },
+    Region: {
+        Bedford: { value: 'Bedford' },
+        London: { value: 'London' },
+        Manchester: { value: 'Manchester' },
+    },
 };
-const filterValues = ['Tribunal', 'Wales'];
 
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
 
 describe('Filter Service', () => {
     it('should build filter header options for checkboxes', () => {
-        expect(Object.keys(filterService.buildFilterValueOptions(listData, [])).length).toBe(2);
+        expect(Object.keys(filterService.buildFilterValueOptions(listData, [])).length).toBe(6);
     });
 
     it('should build filter values options for checkboxes', () => {
         const data = filterService.buildFilterValueOptions(listData, []);
-        expect(Object.keys(data[jurisdiction])[0]).toBe(crownCourt);
-        expect(Object.keys(data[jurisdiction])[1]).toBe(magsCourt);
-        expect(Object.keys(data[jurisdiction])[2]).toBe(royalCourt);
-        expect(Object.keys(data[region])[0]).toBe(bedfordRegion);
-        expect(Object.keys(data[region])[1]).toBe(londonRegion);
-        expect(Object.keys(data[region])[2]).toBe(manchesterRegion);
+        expect(Object.keys(data[jurisdiction])).toHaveLength(3);
+        expect(Object.keys(data[jurisdiction])[0]).toBe('Crime');
+        expect(Object.keys(data[jurisdiction])[1]).toBe('Family');
+        expect(Object.keys(data[jurisdiction])[2]).toBe('Tribunal');
+
+        expect(Object.keys(data[civil])).toHaveLength(0);
+
+        expect(Object.keys(data[crime])).toHaveLength(2);
+        expect(Object.keys(data[crime])[0]).toBe('Crown');
+        expect(Object.keys(data[crime])[1]).toBe('Magistrates');
+
+        expect(Object.keys(data[family])).toHaveLength(1);
+        expect(Object.keys(data[family])[0]).toBe('Family Court');
+
+        expect(Object.keys(data[tribunal])).toHaveLength(1);
+        expect(Object.keys(data[tribunal])[0]).toBe('Social Security and Child Support');
+
+        expect(Object.keys(data[region])).toHaveLength(3);
+        expect(Object.keys(data[region])[0]).toBe('Bedford');
+        expect(Object.keys(data[region])[1]).toBe('London');
+        expect(Object.keys(data[region])[2]).toBe('Manchester');
     });
 
     it('should build filters options for checkboxes with checked false', () => {
         const data = filterService.buildFilterValueOptions(listData, []);
-        expect(data[jurisdiction][crownCourt]['checked']).toBe(false);
+        expect(data[jurisdiction][crime]['checked']).toBe(false);
+        expect(data[crime]['Crown']['checked']).toBe(false);
+        expect(data[crime]['Magistrates']['checked']).toBe(false);
     });
 
-    it('should build filters options for checkboxes with checked true', () => {
-        const data = filterService.buildFilterValueOptions(listData, ['Crown']);
-        expect(data[jurisdiction][crownCourt]['checked']).toBe(true);
+    it('should build filters options for jurisdiction checkboxes', () => {
+        const data = filterService.buildFilterValueOptions(listData, ['Crime']);
+        expect(data[jurisdiction][crime]['checked']).toBe(true);
+        expect(data[crime]['Crown']['checked']).toBe(false);
+        expect(data[crime]['Magistrates']['checked']).toBe(false);
+    });
+
+    it('should build filters options for both jurisdiction and jurisdiction type checkboxes', () => {
+        const data = filterService.buildFilterValueOptions(listData, ['Crime', 'Crown', 'Magistrates']);
+        expect(data[jurisdiction][crime]['checked']).toBe(true);
+        expect(data[crime]['Crown']['checked']).toBe(true);
+        expect(data[crime]['Magistrates']['checked']).toBe(true);
     });
 
     it('should return empty filter options for empty locations', () => {
@@ -77,47 +115,52 @@ describe('Filter Service', () => {
         expect(filterService.handleFilterClear(['removed'], 'removed')).toStrictEqual([]);
     });
 
-    it('should return both Jurisdiction and Region', () => {
-        expect(filterService.splitFilters(filterNames, requestFilters)).toStrictEqual(requestFilters);
+    it('should find and return jurisdiction, jurisdiction type and region filters', () => {
+        expect(filterService.findAndSplitFilters(['Crime', 'Crown', 'London'], allFilterOptions))
+            .toStrictEqual({
+                Jurisdiction: ['Crime'],
+                Civil: [],
+                Crime: ['Crown'],
+                Family: [],
+                Tribunal: [],
+                Region: ['London'],
+            });
     });
 
-    it('should return only Region', () => {
-        expect(filterService.splitFilters(filterNames, requestFiltersNoJurisdiction)).toStrictEqual({
-            Jurisdiction: '',
-            Region: 'Bedford',
-        });
+    it('should find and return jurisdiction filters only', () => {
+        expect(filterService.findAndSplitFilters(['Crime', 'Family'], allFilterOptions))
+            .toStrictEqual({
+                Jurisdiction: ['Crime', 'Family'],
+                Civil: [],
+                Crime: [],
+                Family: [],
+                Tribunal: [],
+                Region: [],
+            });
     });
 
-    it('should return only Jurisdiction', () => {
-        expect(filterService.splitFilters(filterNames, requestFiltersNoRegion)).toStrictEqual({
-            Jurisdiction: 'Crown,Tribunal',
-            Region: '',
-        });
+    it('should find and return jurisdiction type filters only', () => {
+        expect(filterService.findAndSplitFilters(['Crown', 'Family Court'], allFilterOptions))
+            .toStrictEqual({
+                Jurisdiction: [],
+                Civil: [],
+                Crime: ['Crown'],
+                Family: ['Family Court'],
+                Tribunal: [],
+                Region: [],
+            });
     });
 
-    it('should find and return both Jurisdiction and Region', () => {
-        expect(filterService.findAndSplitFilters(filterValues, allFilterOptions)).toStrictEqual({
-            Jurisdiction: 'Tribunal',
-            Region: 'Wales',
-        });
-    });
-
-    it('should find and return only Region', () => {
-        expect(
-            filterService.findAndSplitFilters(filterValues, {
-                Jurisdiction: '',
-                Region: { Wales: { value: 'Wales' } },
-            })
-        ).toStrictEqual({ Jurisdiction: '', Region: 'Wales' });
-    });
-
-    it('should find and return only Jurisdiction', () => {
-        expect(
-            filterService.findAndSplitFilters(filterValues, {
-                Jurisdiction: { Tribunal: { value: 'Tribunal' } },
-                Region: '',
-            })
-        ).toStrictEqual({ Jurisdiction: 'Tribunal', Region: '' });
+    it('should find and return region filters only', () => {
+        expect(filterService.findAndSplitFilters(['London', 'Manchester'], allFilterOptions))
+            .toStrictEqual({
+                Jurisdiction: [],
+                Civil: [],
+                Crime: [],
+                Family: [],
+                Tribunal: [],
+                Region: ['London', 'Manchester'],
+            });
     });
 
     it('should return array from string', () => {
@@ -140,6 +183,14 @@ describe('Filter Service', () => {
         expect(await filterService.handleFilterInitialisation(null, null, englishLanguage)).toStrictEqual({
             alphabetisedList: listData,
             filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            showFilters: {
+                Jurisdiction: true,
+                Civil: false,
+                Crime: false,
+                Family: false,
+                Tribunal: false,
+                Region: true,
+            },
         });
     });
 
@@ -147,18 +198,82 @@ describe('Filter Service', () => {
         expect(await filterService.handleFilterInitialisation('all', null, englishLanguage)).toStrictEqual({
             alphabetisedList: listData,
             filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            showFilters: {
+                Jurisdiction: true,
+                Civil: false,
+                Crime: false,
+                Family: false,
+                Tribunal: false,
+                Region: true,
+            },
         });
     });
 
-    it('should return filtered courts if filters have been selected', async () => {
+    it('should return filtered courts if jurisdiction filters selected', async () => {
+        const result = await filterService.handleFilterInitialisation(null, 'Tribunal', englishLanguage);
+        expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
+        expect(result['showFilters']).toStrictEqual({
+            Jurisdiction: true,
+            Civil: false,
+            Crime: false,
+            Family: false,
+            Tribunal: true,
+            Region: true,
+        });
+    });
+
+    it('should return filtered courts if jurisdiction type filters selected', async () => {
+        const result = await filterService.handleFilterInitialisation(null, 'Family Court', englishLanguage);
+        expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
+        expect(result['showFilters']).toStrictEqual({
+            Jurisdiction: true,
+            Civil: false,
+            Crime: false,
+            Family: true,
+            Tribunal: false,
+            Region: true,
+        });
+    });
+
+    it('should return filtered courts if region filters selected', async () => {
         const result = await filterService.handleFilterInitialisation(null, 'Manchester', englishLanguage);
         expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
+        expect(result['showFilters']).toStrictEqual({
+            Jurisdiction: true,
+            Civil: false,
+            Crime: false,
+            Family: false,
+            Tribunal: false,
+            Region: true,
+        });
+    });
+
+    it('should return filtered courts if multiple filters selected', async () => {
+        const result = await filterService.handleFilterInitialisation(null,
+            'Crime,Tribunal,Magistrates,Family Court', englishLanguage);
+        expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
+        expect(result['showFilters']).toStrictEqual({
+            Jurisdiction: true,
+            Civil: false,
+            Crime: true,
+            Family: true,
+            Tribunal: true,
+            Region: true,
+        });
     });
 
     it('should return object for rendering with no clear or filters selected for welsh', async () => {
         expect(await filterService.handleFilterInitialisation(null, null, welshLanguage)).toStrictEqual({
             alphabetisedList: listData,
             filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            showFilters: {
+                Jurisdiction: true,
+                Civil: false,
+                Crime: false,
+                Family: false,
+                Tribunal: false,
+                Region: true,
+            },
         });
     });
 
@@ -166,6 +281,14 @@ describe('Filter Service', () => {
         expect(await filterService.handleFilterInitialisation('all', null, welshLanguage)).toStrictEqual({
             alphabetisedList: listData,
             filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            showFilters: {
+                Jurisdiction: true,
+                Civil: false,
+                Crime: false,
+                Family: false,
+                Tribunal: false,
+                Region: true,
+            },
         });
     });
 

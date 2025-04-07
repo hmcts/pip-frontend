@@ -82,16 +82,53 @@ describe('Alphabetical Search page', () => {
         const filter = htmlRes.getElementsByClassName('moj-filter');
         expect(filter[0].innerHTML).contains('Filter');
     });
-
-    it('should display filter options', () => {
-        const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
-        expect(fieldsets[0].innerHTML).contains('Type of court or tribunal');
-        expect(fieldsets[1].innerHTML).contains('Region');
+    it('should contain filter sections', () => {
+        const filters = htmlRes.getElementsByClassName('govuk-fieldset__legend');
+        expect(filters.length).equal(6, 'Filter count does not match');
+        expect(filters[0].innerHTML).contains('Jurisdiction', "Jurisdiction filter does not match");
+        expect(filters[1].innerHTML).contains('Civil type', "Jurisdiction type filter does not match");
+        expect(filters[2].innerHTML).contains('Crime type', "Jurisdiction type filter does not match");
+        expect(filters[3].innerHTML).contains('Family type', "Jurisdiction type filter does not match");
+        expect(filters[4].innerHTML).contains('Tribunal type', "Jurisdiction type filter does not match");
+        expect(filters[5].innerHTML).contains('Region', "Region filter does not match");
     });
 
-    it('should display filter options value', () => {
-        const fieldsets = htmlRes.getElementsByClassName('govuk-fieldset');
-        expect(fieldsets[0].innerHTML).contains('Crown');
-        expect(fieldsets[1].innerHTML).contains('London');
+    it('should contain always-hide filter sections', () => {
+        const filters = htmlRes.getElementsByClassName('always-hide');
+        expect(filters.length).equal(4, 'Filter count does not match');
+        expect(filters[0].innerHTML).contains('Civil type', "Jurisdiction type filter does not match");
+        expect(filters[1].innerHTML).contains('Crime type', "Jurisdiction type filter does not match");
+        expect(filters[2].innerHTML).contains('Family type', "Jurisdiction type filter does not match");
+        expect(filters[3].innerHTML).contains('Tribunal type', "Jurisdiction type filter does not match");
+    });
+
+    it('should contain jurisdiction filter checkboxes', () => {
+        const checkboxes = htmlRes.getElementsByName('Jurisdiction');
+        expect(checkboxes.length).equal(3, 'Jurisdiction filter does not match');
+    });
+
+    it('should not contain civil type filter checkboxes', () => {
+        const checkboxes = htmlRes.getElementsByName('Civil');
+        expect(checkboxes.length).equal(0, 'Civil type filter does not match');
+    });
+
+    it('should contain crime type filter checkboxes', () => {
+        const checkboxes = htmlRes.getElementsByName('Crime');
+        expect(checkboxes.length).equal(2, 'Crime type filter does not match');
+    });
+
+    it('should contain family type filter checkboxes', () => {
+        const checkboxes = htmlRes.getElementsByName('Family');
+        expect(checkboxes.length).equal(1, 'Family type filter does not match');
+    });
+
+    it('should contain tribunal type filter checkboxes', () => {
+        const checkboxes = htmlRes.getElementsByName('Tribunal');
+        expect(checkboxes.length).equal(1, 'Tribunal type filter does not match');
+    });
+
+    it('should contain region filter checkboxes', () => {
+        const checkboxes = htmlRes.getElementsByName('Region');
+        expect(checkboxes.length).equal(3, 'Region filter does not match');
     });
 });

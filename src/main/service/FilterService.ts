@@ -1,34 +1,86 @@
 import { Location } from '../models/Location';
 import { LocationService } from './LocationService';
+import jurisdictionData from '../resources/jurisdictionLookup.json';
 
-const filterNames = ['Jurisdiction', 'Region'];
+const jurisdictionFilter = 'Jurisdiction';
+const regionFilter = 'Region';
+const civilFilter = 'Civil';
+const familyFilter = 'Family';
+const crimeFilter = 'Crime';
+const tribunalFilter = 'Tribunal';
+const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter];
+const filterNames = [jurisdictionFilter, ...subJurisdictionFilters, regionFilter];
+const jurisdictionType = 'jurisdictionType';
 
 const locationService = new LocationService();
 
 export class FilterService {
-    private getFilterValueOptions(filterName: string, list: Array<Location>): string[] {
+    private getFilterValueOptions(filterName: string, list: Array<Location>): Array<string>[] {
         return [...new Set(list.map(court => court[filterName.toLowerCase()]))];
+    }
+
+    private getAllJurisdictionTypesFromLocationList(list: Array<Location>): Array<string>[] {
+        return [...new Set(list.map(court => court[jurisdictionType]))];
+    }
+
+    private getPossibleJurisdictionTypes(jurisdiction: string): string[] {
+        const mapping = new Map(Object.entries(jurisdictionData));
+        if (mapping.has(jurisdiction)) {
+            return mapping.get(jurisdiction);
+        }
+        return [];
+    }
+
+    private getJurisdictionTypeFilterValueOptions(filterName: string, allJurisdictionTypes: string[]) {
+        const possibleJurisdictionType = this.getPossibleJurisdictionTypes(filterName);
+        return allJurisdictionTypes.filter(element => possibleJurisdictionType.includes(element));
+    }
+
+    private showJurisdictionTypeFilter(filters: object, jurisdiction: string) {
+        if (filters) {
+            return filters[jurisdiction].length > 0 || filters[jurisdictionFilter].includes(jurisdiction)
+        }
+        return false;
+    }
+
+    private showFilters(filters: object) {
+        return {
+            Jurisdiction: true,
+            Civil: this.showJurisdictionTypeFilter(filters, civilFilter),
+            Family: this.showJurisdictionTypeFilter(filters, familyFilter),
+            Crime: this.showJurisdictionTypeFilter(filters, crimeFilter),
+            Tribunal: this.showJurisdictionTypeFilter(filters, tribunalFilter),
+            Region: true,
+        }
     }
 
     public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[]): object {
         const filterValueOptions = {};
-        let finalFilterValueOptions = [];
+        const allJurisdictionTypes = this.getAllJurisdictionTypesFromLocationList(list);
         filterNames.forEach(filter => {
             filterValueOptions[filter] = {};
-            finalFilterValueOptions = [];
-            const filteredValue = this.getFilterValueOptions(filter, list);
+            const deduplicatedFilterValueOptions = [];
+
+            const filteredValue= filter == jurisdictionFilter || filter == regionFilter
+                ? this.getFilterValueOptions(filter, list)
+                : allJurisdictionTypes;
+
             filteredValue.forEach(value => {
                 if (Array.isArray(value)) {
                     const array = [...value];
                     array.forEach(value => {
-                        if (!finalFilterValueOptions.includes(value) && value !== '') {
-                            finalFilterValueOptions.push(value);
+                        if (!deduplicatedFilterValueOptions.includes(value) && value !== '') {
+                            deduplicatedFilterValueOptions.push(value);
                         }
                     });
                 } else if (value) {
-                    finalFilterValueOptions.push(value);
+                    deduplicatedFilterValueOptions.push(value);
                 }
             });
+
+            const finalFilterValueOptions = filter == jurisdictionFilter || filter == regionFilter
+                ? deduplicatedFilterValueOptions
+                : this.getJurisdictionTypeFilterValueOptions(filter, deduplicatedFilterValueOptions);
 
             [...finalFilterValueOptions]
                 .sort((a, b) => a.localeCompare(b))
@@ -54,51 +106,21 @@ export class FilterService {
         }
     }
 
-    public splitFilters(filterNames: string[], body: object): object {
-        const filterValueOptions = {};
-        let jurisdictionFilter = '';
-        let regionFilter = '';
-        filterNames.forEach(filter => {
-            if (body[filter]) {
-                if (filter === 'Jurisdiction') {
-                    jurisdictionFilter = body[filter].toString();
-                } else {
-                    regionFilter = body[filter].toString();
-                }
-            }
-        });
-        filterValueOptions['Jurisdiction'] = jurisdictionFilter;
-        filterValueOptions['Region'] = regionFilter;
-
-        return filterValueOptions;
-    }
-
     public findAndSplitFilters(filterValues: any[], filterOptions: object): object {
-        const filterValueOptions = {};
-
-        const jurisdictionFilter = [];
-        const regionFilter = [];
-
+        const filters = {};
         if (filterValues.length > 0) {
-            filterNames.forEach(filter => {
+            filterNames.forEach(filterName => {
+                filters[filterName] = [];
                 filterValues.forEach(value => {
-                    Object.keys(filterOptions[filter]).forEach(filterValue => {
-                        if (filterOptions[filter][filterValue].value === value) {
-                            if (filter === 'Jurisdiction') {
-                                jurisdictionFilter.push(value);
-                            } else if (filter === 'Region') {
-                                regionFilter.push(value);
-                            }
+                    Object.keys(filterOptions[filterName]).forEach(filterValue => {
+                        if (filterOptions[filterName][filterValue].value === value) {
+                            filters[filterName].push(value);
                         }
                     });
                 });
             });
         }
-
-        filterValueOptions['Jurisdiction'] = jurisdictionFilter.toString();
-        filterValueOptions['Region'] = regionFilter.toString();
-
-        return filterValueOptions;
+        return filters;
     }
 
     public stripFilters(currentFilters: string | string[]): string[] {
@@ -123,23 +145,35 @@ export class FilterService {
             filterValues
         );
 
-        let filters = {};
-        if (filterValues.length > 0) {
+        let filters = null;
+        let alphabetisedList = {};
+        if (filterValues.length == 0) {
+            alphabetisedList = await locationService.generateAlphabetisedAllCourtList(language);
+        } else {
             filters = this.findAndSplitFilters(filterValues, filterOptions);
-        }
 
-        const alphabetisedList =
-            filterValues.length == 0
-                ? await locationService.generateAlphabetisedAllCourtList(language)
-                : await locationService.generateFilteredAlphabetisedCourtList(
-                      filters['Region'],
-                      filters['Jurisdiction'],
-                      language
-                  );
+            // Add all sub-jurisdictions to jurisdiction field to be passed into the backend for filtering. If
+            // sub-jurisdictions exist in the filter the main jurisdiction will not be sent over.
+            const allJurisdictionFilters = [];
+            subJurisdictionFilters.forEach(jurisdiction => {
+                if (filters[jurisdiction].length > 0) {
+                    allJurisdictionFilters.push(...filters[jurisdiction]);
+                } else if (filters[jurisdictionFilter].includes(jurisdiction)) {
+                    allJurisdictionFilters.push(jurisdiction);
+                }
+            })
+
+            alphabetisedList = await locationService.generateFilteredAlphabetisedCourtList(
+                filters[regionFilter].toString(),
+                allJurisdictionFilters.toString(),
+                language
+            );
+        }
 
         return {
             alphabetisedList: alphabetisedList,
             filterOptions: filterOptions,
+            showFilters : this.showFilters(filters),
         };
     }
 

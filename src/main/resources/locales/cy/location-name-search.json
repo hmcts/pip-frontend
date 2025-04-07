@@ -8,12 +8,13 @@
     "filterSelected": "Ffiltyr a ddewiswyd",
     "userSelections": "Cyfanswm a ddetholwyd",
     "selected": "Wedi’i ddewis",
-    "courtTableHeader": "Llysoedd a Thribiwnlysoedd yng Nghymru a Lloegr",
-    "sjpTableHeader": "Rhestrau cenedlaethol",
-    "sjpSubscription": "Achosion Gweithdrefn Un Ynad",
     "hide": "Cuddio’r ffiltrau",
     "show": "Dangos y ffiltrau",
-    "jurisdiction": "Math o lys neu dribiwnlys",
+    "jurisdiction": "Awdurdodaeth",
+    "civilType": "Civil type",
+    "familyType": "Family type",
+    "crimeType": "Crime type",
+    "tribunalType": "Tribunal type",
     "region": "Rhanbarth",
     "aria": {
         "filterLabel": "Hidlo yn ôl awdurdodaeth neu ranbarth"

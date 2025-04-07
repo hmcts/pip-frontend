@@ -131,3 +131,45 @@
     </script>
 {% endmacro %}
 
+{% macro locationFilterManipulation(cspNonce) %}
+    <script nonce="{{ cspNonce }}">
+        ['Jurisdiction', 'Region', 'Civil', 'Family', 'Crime', 'Tribunal'].forEach(
+            filter => handleFilterSectionExpansion(filter)
+        );
+
+        ['Civil', 'Family', 'Crime', 'Tribunal'].forEach(
+            filter => handleJurisdictionTypeFilterDisplay(filter)
+        );
+
+        function handleFilterSectionExpansion(key) {
+            const anchor = '#' + key + '-anchor';
+            document.querySelectorAll(anchor).forEach(item => item.addEventListener('click', function() {
+                document.getElementById(key + '-checkbox').classList.toggle("always-hide");
+                showHideFilters(key);
+            }));
+        }
+
+        function handleJurisdictionTypeFilterDisplay(key) {
+            const filterItem = '.Jurisdiction-' + key + '-filter-item';
+            document.querySelectorAll(filterItem).forEach(item => {
+                item.addEventListener('click', function() {
+                    const checkbox = 'input[name="Jurisdiction-' + key + '"]:checked'
+                    const checked = document.querySelectorAll(checkbox).length;
+                    const filterGroup = document.getElementById(key + '-filter-group');
+
+                    if (checked == filterGroup.classList.contains('always-hide')) {
+                        filterGroup.classList.toggle("always-hide");
+                        showHideFilters(key)
+                    }
+                });
+            });
+        }
+
+        function showHideFilters(key) {
+            const section = document.getElementById(key + '-checkbox');
+            const link = document.getElementById(key + '-link');
+            link.innerHTML = section.classList.contains('always-hide') ? '&#9654;' : '&#9660;'
+        }
+    </script>
+{% endmacro %}
+
