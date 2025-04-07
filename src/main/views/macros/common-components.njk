@@ -153,7 +153,7 @@
             const filterItem = '.Jurisdiction-' + key + '-filter-item';
             document.querySelectorAll(filterItem).forEach(item => {
                 item.addEventListener('click', function() {
-                    const checkbox = 'input[name="Jurisdiction-' + key + '"]:checked'
+                    const checkbox = 'input[id="Jurisdiction-' + key + '"]:checked'
                     const checked = document.querySelectorAll(checkbox).length;
                     const filterGroup = document.getElementById(key + '-filter-group');
 
