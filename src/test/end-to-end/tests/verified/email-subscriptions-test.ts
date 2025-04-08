@@ -509,6 +509,92 @@ Scenario(
     }
 ).tag('@Nightly');
 
+Scenario('I as a verified user should be able to filter locations while subscribing by location', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+
+    const testUserEmail = randomData.getRandomEmailAddress();
+
+    await createLocation(locationId, locationName);
+    const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
+
+    I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
+    I.waitForText('Your account');
+    I.click('#card-subscription-management');
+    I.waitForText('Your email subscriptions');
+    I.click('Add email subscription');
+    I.waitForText('How do you want to add an email subscription?');
+    I.see('You can only search for information that is currently published.');
+    I.click('#subscription-choice-1');
+    I.click('Continue');
+
+    I.click(locate('//input').withAttr({ value: 'Civil' }));
+    I.see('Civil type');
+    I.dontSee('Crime type');
+    I.dontSee('Family type');
+    I.dontSee('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Crime' }));
+    I.see('Civil type');
+    I.see('Crime type');
+    I.dontSee('Family type');
+    I.dontSee('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Family' }));
+    I.see('Civil type');
+    I.see('Crime type');
+    I.see('Family type');
+    I.dontSee('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Tribunal' }));
+    I.see('Civil type');
+    I.see('Crime type');
+    I.see('Family type');
+    I.see('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Civil' }));
+    I.dontSee('Civil type');
+    I.see('Crime type');
+    I.see('Family type');
+    I.see('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Crime' }));
+    I.dontSee('Civil type');
+    I.dontSee('Crime type');
+    I.see('Family type');
+    I.see('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Family' }));
+    I.dontSee('Civil type');
+    I.dontSee('Crime type');
+    I.dontSee('Family type');
+    I.see('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Tribunal' }));
+    I.dontSee('Civil type');
+    I.dontSee('Crime type');
+    I.dontSee('Family type');
+    I.dontSee('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'Tribunal' }));
+    I.click('Apply filters');
+    I.see(locationName);
+    I.dontSee('Civil type');
+    I.dontSee('Crime type');
+    I.dontSee('Family type');
+    I.see('Tribunal type');
+
+    I.click(locate('//input').withAttr({ value: 'South West' }));
+    I.click('Apply filters');
+    I.dontSee(locationName);
+
+    I.click(locate('//input').withAttr({ value: 'South East' }));
+    I.click('Apply filters');
+    I.see(locationName);
+
+    I.logout();
+});
+
 Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
