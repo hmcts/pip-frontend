@@ -48,11 +48,11 @@ const welshLanguage = 'cy';
 
 describe('Filter Service', () => {
     it('should build filter header options for checkboxes', () => {
-        expect(Object.keys(filterService.buildFilterValueOptions(listData, [])).length).toBe(6);
+        expect(Object.keys(filterService.buildFilterValueOptions(listData, [], 'en')).length).toBe(6);
     });
 
     it('should build filter values options for checkboxes', () => {
-        const data = filterService.buildFilterValueOptions(listData, []);
+        const data = filterService.buildFilterValueOptions(listData, [], 'en');
         expect(Object.keys(data[jurisdiction])).toHaveLength(3);
         expect(Object.keys(data[jurisdiction])[0]).toBe('Crime');
         expect(Object.keys(data[jurisdiction])[1]).toBe('Family');
@@ -77,28 +77,28 @@ describe('Filter Service', () => {
     });
 
     it('should build filters options for checkboxes with checked false', () => {
-        const data = filterService.buildFilterValueOptions(listData, []);
+        const data = filterService.buildFilterValueOptions(listData, [], 'en');
         expect(data[jurisdiction][crime]['checked']).toBe(false);
         expect(data[crime]['Crown']['checked']).toBe(false);
         expect(data[crime]['Magistrates']['checked']).toBe(false);
     });
 
     it('should build filters options for jurisdiction checkboxes', () => {
-        const data = filterService.buildFilterValueOptions(listData, ['Crime']);
+        const data = filterService.buildFilterValueOptions(listData, ['Crime'], 'en');
         expect(data[jurisdiction][crime]['checked']).toBe(true);
         expect(data[crime]['Crown']['checked']).toBe(false);
         expect(data[crime]['Magistrates']['checked']).toBe(false);
     });
 
     it('should build filters options for both jurisdiction and jurisdiction type checkboxes', () => {
-        const data = filterService.buildFilterValueOptions(listData, ['Crime', 'Crown', 'Magistrates']);
+        const data = filterService.buildFilterValueOptions(listData, ['Crime', 'Crown', 'Magistrates'], 'en');
         expect(data[jurisdiction][crime]['checked']).toBe(true);
         expect(data[crime]['Crown']['checked']).toBe(true);
         expect(data[crime]['Magistrates']['checked']).toBe(true);
     });
 
     it('should return empty filter options for empty locations', () => {
-        const data = filterService.buildFilterValueOptions([], []);
+        const data = filterService.buildFilterValueOptions([], [], 'en');
         expect(data[jurisdiction]).toStrictEqual({});
         expect(data[region]).toStrictEqual({});
     });
@@ -178,7 +178,7 @@ describe('Filter Service', () => {
     it('should return object for rendering with no clear or filters selected', async () => {
         expect(await filterService.handleFilterInitialisation(null, null, englishLanguage)).toStrictEqual({
             alphabetisedList: listData,
-            filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'en') },
             showFilters: {
                 Jurisdiction: true,
                 Civil: false,
@@ -193,7 +193,7 @@ describe('Filter Service', () => {
     it('should return all courts when clear all has been passed', async () => {
         expect(await filterService.handleFilterInitialisation('all', null, englishLanguage)).toStrictEqual({
             alphabetisedList: listData,
-            filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'en') },
             showFilters: {
                 Jurisdiction: true,
                 Civil: false,
@@ -264,7 +264,7 @@ describe('Filter Service', () => {
     it('should return object for rendering with no clear or filters selected for welsh', async () => {
         expect(await filterService.handleFilterInitialisation(null, null, welshLanguage)).toStrictEqual({
             alphabetisedList: listData,
-            filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'cy') },
             showFilters: {
                 Jurisdiction: true,
                 Civil: false,
@@ -279,7 +279,7 @@ describe('Filter Service', () => {
     it('should return all courts when clear all has been passed for welsh', async () => {
         expect(await filterService.handleFilterInitialisation('all', null, welshLanguage)).toStrictEqual({
             alphabetisedList: listData,
-            filterOptions: { ...filterService.buildFilterValueOptions(listData, []) },
+            filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'cy') },
             showFilters: {
                 Jurisdiction: true,
                 Civil: false,

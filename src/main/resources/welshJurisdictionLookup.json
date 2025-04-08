@@ -1,0 +1,22 @@
+{
+    "Civil": [
+        "Civil Court",
+        "High Court",
+        "Court of Appeals (Civil)"
+    ],
+    "Family": [
+        "Family Court",
+        "High Court (Family Division)"
+    ],
+    "Crime": [
+        "Llys y Goron",
+        "Llys Ynadon",
+        "Court of Appeals (Crime)"
+    ],
+    "Tribunal": [
+        "Tribiwnlys Digolledu am Anafiadau Troseddol",
+        "Siambr Mewnfudo a Lloches",
+        "Primary Health Tribunal",
+        "Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"
+    ]
+}

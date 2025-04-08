@@ -68,8 +68,9 @@
                                 <div class="govuk-checkboxes govuk-checkboxes--small" id="{{ key }}-checkbox" data-module="govuk-checkboxes">
                                     {% for item in items %}
                                         <div class="govuk-checkboxes__item">
-                                            <input class="govuk-checkboxes__input {{ key }}-{{ item.value }}-filter-item" id="{{ key }}-{{ item.value }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
-                                            <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ item.value }}">
+                                            {%  set value = item.value | replace(' ', '') %}
+                                            <input class="govuk-checkboxes__input {{ key }}-{{ value }}-filter-item" id="{{ key }}-{{value }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
+                                            <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ value }}">
                                                 {{ item.text }}
                                             </label>
                                         </div>
@@ -156,72 +157,72 @@
         </div>
     </div>
   </div>
-  <div class="govuk-grid-row parent-box">
-      {{ super() }}
-  </div>
+    <div class="govuk-grid-row parent-box">
+        {{ super() }}
+    </div>
 {% endblock %}
 {% block bodyEnd %}
-  {{ super() }}
-  <script nonce="{{ cspNonce }}">
+    {{ super() }}
+    <script nonce="{{ cspNonce }}">
+        //Used to ensure that page focus is set to top when the filters reload the page
+        window.onload = function() {
+          window.scrollTo(0,0);
+        };
 
-    //Used to ensure that page focus is set to top when the filters reload the page
-    window.onload = function() {
-      window.scrollTo(0,0);
-    };
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
 
-    if (window.history.replaceState) {
-      window.history.replaceState(null, null, window.location.href);
-    }
+        document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
 
-    document.querySelectorAll(".toggle-filters").forEach(item => item.addEventListener("click", toggleFilters));
+        // The following function is hiding content and navigation due to screen readers to read behind the visible panel
+        function toggleFilters() {
+            var element = document.getElementById("filters");
+            var content = document.getElementById("content");
+            var navigation = document.getElementsByClassName("govuk-service-navigation pub-navigation");
+            var skipLink = document.getElementsByClassName("govuk-skip-link");
+            var header = document.getElementsByClassName("govuk-header");
+            var backLink = document.getElementsByClassName("govuk-back-link");
+            var footer = document.getElementsByClassName("govuk-footer");
 
-    // The following function is hiding content and navigation due to screen readers to read behind the visible panel
-    function toggleFilters() {
-      var element = document.getElementById("filters");
-      var content = document.getElementById("content");
-      var navigation = document.getElementsByClassName("govuk-service-navigation pub-navigation");
-      var skipLink = document.getElementsByClassName("govuk-skip-link");
-      var header = document.getElementsByClassName("govuk-header");
-      var backLink = document.getElementsByClassName("govuk-back-link");
-      var footer = document.getElementsByClassName("govuk-footer");
+            element.classList.toggle("hide");
+            content.classList.toggle("hide");
+            navigation[0].classList.toggle("hide");
+            skipLink[0].classList.toggle("hide");
+            header[0].classList.toggle("hide");
+            backLink[0].classList.toggle("hide");
+            footer[0].classList.toggle("hide");
 
-      element.classList.toggle("hide");
-      content.classList.toggle("hide");
-      navigation[0].classList.toggle("hide");
-      skipLink[0].classList.toggle("hide");
-      header[0].classList.toggle("hide");
-      backLink[0].classList.toggle("hide");
-      footer[0].classList.toggle("hide");
-      if (element.className.indexOf('hide') > 0) {
-        document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ show }}";
-      } else {
-        document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ hide }}";
+            if (element.className.indexOf('hide') > 0) {
+                document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ show }}";
+            } else {
+                document.getElementsByClassName('govuk-button govuk-button--secondary')[0].text = "{{ hide }}";
 
-        //This ensures that focus works correctly for screen readers in the filter box.
-        var elements = document.getElementsByClassName('govuk-heading-m');
-        elements[0].setAttribute("tabindex", "0");
-        elements[1].setAttribute("tabindex", "0");
-        elements[0].focus();
-      }
-    }
-    //Concat href to maintain filter values when clearing single
-    let tags = document.querySelectorAll('.moj-filter__tag');
-    let currentParam = window.location.search.split('&');
-    tags.forEach(element => {
-      const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
-      element.href = buildHref(tmp, currentParam);
-    })
+                //This ensures that focus works correctly for screen readers in the filter box.
+                var elements = document.getElementsByClassName('govuk-heading-m');
+                elements[0].setAttribute("tabindex", "0");
+                elements[1].setAttribute("tabindex", "0");
+                elements[0].focus();
+            }
+        }
+        //Concat href to maintain filter values when clearing single
+        let tags = document.querySelectorAll('.moj-filter__tag');
+        let currentParam = window.location.search.split('&');
+        tags.forEach(element => {
+            const tmp = element.href.slice(element.href.indexOf('?'), element.href.length);
+            element.href = buildHref(tmp, currentParam);
+        })
 
-    function buildHref(filterToClear, currentPath) {
-      const deleteVal = filterToClear.split('=')[1];
-      let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
-      return href.replace(',,', ',');
-    }
+        function buildHref(filterToClear, currentPath) {
+            const deleteVal = filterToClear.split('=')[1];
+            let href = currentPath ? currentPath[0].replace(deleteVal, '') + filterToClear.replace('?', '&') : filterToClear
+            return href.replace(',,', ',');
+        }
 
-    //Add aria label to filter heading
-    document.getElementsByClassName("moj-filter__header-title")[0]
-      .getElementsByTagName("h2")[0]
-      .setAttribute("aria-label", "{{ aria.filterLabel }}");
-  </script>
-    {{ locationFilterManipulation(cspNonce) }}
+        //Add aria label to filter heading
+        document.getElementsByClassName("moj-filter__header-title")[0]
+            .getElementsByTagName("h2")[0]
+            .setAttribute("aria-label", "{{ aria.filterLabel }}");
+    </script>
+    {{ locationFilterManipulation(lng, cspNonce) }}
 {% endblock %}

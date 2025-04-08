@@ -1,6 +1,7 @@
 import { Location } from '../models/Location';
 import { LocationService } from './LocationService';
 import jurisdictionData from '../resources/jurisdictionLookup.json';
+import welshJurisdictionData from '../resources/welshJurisdictionLookup.json';
 
 const jurisdictionFilter = 'Jurisdiction';
 const regionFilter = 'Region';
@@ -11,6 +12,12 @@ const tribunalFilter = 'Tribunal';
 const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter];
 const filterNames = [jurisdictionFilter, ...subJurisdictionFilters, regionFilter];
 const jurisdictionType = 'jurisdictionType';
+const jurisdictionMap = new Map([
+    ['Civil', 'Llys Sifil'],
+    ['Family', 'Llys Teulu'],
+    ['Crime', 'Llys Troseddau'],
+    ['Tribunal', 'Tribiwnlys'],
+]);
 
 const locationService = new LocationService();
 
@@ -23,38 +30,42 @@ export class FilterService {
         return [...new Set(list.map(court => court[jurisdictionType]))];
     }
 
-    private getPossibleJurisdictionTypes(jurisdiction: string): string[] {
-        const mapping = new Map(Object.entries(jurisdictionData));
+    private getPossibleJurisdictionTypes(jurisdiction: string, language: string): string[] {
+        const mapping = language == 'cy' ? new Map(Object.entries(welshJurisdictionData)) : new Map(Object.entries(jurisdictionData));
         if (mapping.has(jurisdiction)) {
             return mapping.get(jurisdiction);
         }
         return [];
     }
 
-    private getJurisdictionTypeFilterValueOptions(filterName: string, allJurisdictionTypes: string[]) {
-        const possibleJurisdictionType = this.getPossibleJurisdictionTypes(filterName);
+    private getJurisdictionTypeFilterValueOptions(filterName: string, allJurisdictionTypes: string[], language: string) {
+        const possibleJurisdictionType = this.getPossibleJurisdictionTypes(filterName, language);
         return allJurisdictionTypes.filter(element => possibleJurisdictionType.includes(element));
     }
 
-    private showJurisdictionTypeFilter(filters: object, jurisdiction: string) {
+    private showJurisdictionTypeFilter(filters: object, filterName: string, filterText: string) {
         if (filters) {
-            return filters[jurisdiction].length > 0 || filters[jurisdictionFilter].includes(jurisdiction);
+            return filters[filterName].length > 0 || filters[jurisdictionFilter].includes(filterText);
         }
         return false;
     }
 
-    private showFilters(filters: object) {
+    private showFilters(filters: object, language: string) {
         return {
             Jurisdiction: true,
-            Civil: this.showJurisdictionTypeFilter(filters, civilFilter),
-            Family: this.showJurisdictionTypeFilter(filters, familyFilter),
-            Crime: this.showJurisdictionTypeFilter(filters, crimeFilter),
-            Tribunal: this.showJurisdictionTypeFilter(filters, tribunalFilter),
+            Civil: this.showJurisdictionTypeFilter(filters, civilFilter,
+                language == 'cy' ? jurisdictionMap.get(civilFilter) : civilFilter),
+            Family: this.showJurisdictionTypeFilter(filters, familyFilter,
+                language == 'cy' ? jurisdictionMap.get(familyFilter) : familyFilter),
+            Crime: this.showJurisdictionTypeFilter(filters, crimeFilter,
+                language == 'cy' ? jurisdictionMap.get(crimeFilter) : crimeFilter),
+            Tribunal: this.showJurisdictionTypeFilter(filters, tribunalFilter,
+                language == 'cy' ? jurisdictionMap.get(tribunalFilter) : tribunalFilter),
             Region: true,
         };
     }
 
-    public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[]): object {
+    public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[], language: string): object {
         const filterValueOptions = {};
         const allJurisdictionTypes = this.getAllJurisdictionTypesFromLocationList(list);
         filterNames.forEach(filter => {
@@ -82,11 +93,12 @@ export class FilterService {
             const finalFilterValueOptions =
                 filter == jurisdictionFilter || filter == regionFilter
                     ? deduplicatedFilterValueOptions
-                    : this.getJurisdictionTypeFilterValueOptions(filter, deduplicatedFilterValueOptions);
+                    : this.getJurisdictionTypeFilterValueOptions(filter, deduplicatedFilterValueOptions, language);
 
             [...finalFilterValueOptions]
                 .sort((a, b) => a.localeCompare(b))
                 .forEach(value => {
+                    //const valueWithoutSpaces = value.replace(/\s+/g, '');
                     filterValueOptions[filter][value] = {
                         value: value,
                         text: value,
@@ -144,7 +156,8 @@ export class FilterService {
 
         const filterOptions = this.buildFilterValueOptions(
             await locationService.fetchAllLocations(language),
-            filterValues
+            filterValues,
+            language
         );
 
         let filters = null;
@@ -158,10 +171,11 @@ export class FilterService {
             // sub-jurisdictions exist in the filter the main jurisdiction will not be sent over.
             const allJurisdictionFilters = [];
             subJurisdictionFilters.forEach(jurisdiction => {
+                const jurisdictionText = language == 'cy' ? jurisdictionMap.get(jurisdiction) : jurisdiction;
                 if (filters[jurisdiction].length > 0) {
                     allJurisdictionFilters.push(...filters[jurisdiction]);
-                } else if (filters[jurisdictionFilter].includes(jurisdiction)) {
-                    allJurisdictionFilters.push(jurisdiction);
+                } else if (filters[jurisdictionFilter].includes(jurisdictionText)) {
+                    allJurisdictionFilters.push(jurisdictionText);
                 }
             });
 
@@ -175,7 +189,7 @@ export class FilterService {
         return {
             alphabetisedList: alphabetisedList,
             filterOptions: filterOptions,
-            showFilters: this.showFilters(filters),
+            showFilters: this.showFilters(filters, language),
         };
     }
 

@@ -131,14 +131,14 @@
     </script>
 {% endmacro %}
 
-{% macro locationFilterManipulation(cspNonce) %}
+{% macro locationFilterManipulation(lng, cspNonce) %}
     <script nonce="{{ cspNonce }}">
         ['Jurisdiction', 'Region', 'Civil', 'Family', 'Crime', 'Tribunal'].forEach(
             filter => handleFilterSectionExpansion(filter)
         );
 
         ['Civil', 'Family', 'Crime', 'Tribunal'].forEach(
-            filter => handleJurisdictionTypeFilterDisplay(filter)
+            filter => handleJurisdictionTypeFilterDisplay(filter, "{{ lng }}")
         );
 
         function handleFilterSectionExpansion(key) {
@@ -149,11 +149,14 @@
             }));
         }
 
-        function handleJurisdictionTypeFilterDisplay(key) {
-            const filterItem = '.Jurisdiction-' + key + '-filter-item';
+        function handleJurisdictionTypeFilterDisplay(key, lng) {
+            const itemValue = getItemValue(key, lng);
+            const filterItem = '.Jurisdiction-' + itemValue + '-filter-item';
+
+            console.log('*****' + filterItem)
             document.querySelectorAll(filterItem).forEach(item => {
                 item.addEventListener('click', function() {
-                    const checkbox = 'input[id="Jurisdiction-' + key + '"]:checked'
+                    const checkbox = 'input[id="Jurisdiction-' + itemValue + '"]:checked'
                     const checked = document.querySelectorAll(checkbox).length;
                     const filterGroup = document.getElementById(key + '-filter-group');
 
@@ -163,6 +166,16 @@
                     }
                 });
             });
+        }
+
+        function getItemValue(key, lng) {
+            const jurisdictionMap = new Map([
+                ['Civil', 'Llys ifil'],
+                ['Family', 'Llys Teulu'],
+                ['Crime', 'Llys Troseddau'],
+                ['Tribunal', 'Tribiwnlys']
+            ]);
+            return (lng == 'cy' ? jurisdictionMap.get(key): key).replace(/\s+/g, '');
         }
 
         function showHideFilters(key) {

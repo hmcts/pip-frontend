@@ -70,8 +70,9 @@
                             <div class="govuk-checkboxes govuk-checkboxes--small" id="{{ key }}-checkbox" data-module="govuk-checkboxes">
                                 {% for item in items %}
                                     <div class="govuk-checkboxes__item">
-                                        <input class="govuk-checkboxes__input {{ key }}-{{ item.value }}-filter-item" id="{{ key }}-{{ item.value }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
-                                        <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ item.value }}">
+                                        {%  set value = item.value | replace(' ', '') %}
+                                        <input class="govuk-checkboxes__input {{ key }}-{{ value }}-filter-item" id="{{ key }}-{{value }}" name="{{ key }}" type="checkbox" value="{{ item.value }}" {% if item.checked %} checked {% endif %}>
+                                        <label class="govuk-label govuk-checkboxes__label" for="{{ key }}-{{ value }}">
                                             {{ item.text }}
                                         </label>
                                     </div>
@@ -238,5 +239,5 @@
             .getElementsByTagName("h2")[0]
             .setAttribute("aria-label", "{{ aria.filterLabel }}");
     </script>
-    {{ locationFilterManipulation(cspNonce) }}
+    {{ locationFilterManipulation(lng, cspNonce) }}
 {% endblock %}
