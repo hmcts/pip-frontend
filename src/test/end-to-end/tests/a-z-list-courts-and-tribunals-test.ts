@@ -20,7 +20,7 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     I.click('Select from an A-Z list of courts and tribunals');
     I.waitForText('Find a court or tribunal');
     I.see('Selected filter');
-    I.see('Type of court or tribunal');
+    I.see('Jurisdiction');
     I.see('Region');
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
