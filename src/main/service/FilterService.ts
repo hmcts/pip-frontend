@@ -31,14 +31,21 @@ export class FilterService {
     }
 
     private getPossibleJurisdictionTypes(jurisdiction: string, language: string): string[] {
-        const mapping = language == 'cy' ? new Map(Object.entries(welshJurisdictionData)) : new Map(Object.entries(jurisdictionData));
+        const mapping =
+            language == 'cy'
+                ? new Map(Object.entries(welshJurisdictionData))
+                : new Map(Object.entries(jurisdictionData));
         if (mapping.has(jurisdiction)) {
             return mapping.get(jurisdiction);
         }
         return [];
     }
 
-    private getJurisdictionTypeFilterValueOptions(filterName: string, allJurisdictionTypes: string[], language: string) {
+    private getJurisdictionTypeFilterValueOptions(
+        filterName: string,
+        allJurisdictionTypes: string[],
+        language: string
+    ) {
         const possibleJurisdictionType = this.getPossibleJurisdictionTypes(filterName, language);
         return allJurisdictionTypes.filter(element => possibleJurisdictionType.includes(element));
     }
@@ -53,14 +60,26 @@ export class FilterService {
     private showFilters(filters: object, language: string) {
         return {
             Jurisdiction: true,
-            Civil: this.showJurisdictionTypeFilter(filters, civilFilter,
-                language == 'cy' ? jurisdictionMap.get(civilFilter) : civilFilter),
-            Family: this.showJurisdictionTypeFilter(filters, familyFilter,
-                language == 'cy' ? jurisdictionMap.get(familyFilter) : familyFilter),
-            Crime: this.showJurisdictionTypeFilter(filters, crimeFilter,
-                language == 'cy' ? jurisdictionMap.get(crimeFilter) : crimeFilter),
-            Tribunal: this.showJurisdictionTypeFilter(filters, tribunalFilter,
-                language == 'cy' ? jurisdictionMap.get(tribunalFilter) : tribunalFilter),
+            Civil: this.showJurisdictionTypeFilter(
+                filters,
+                civilFilter,
+                language == 'cy' ? jurisdictionMap.get(civilFilter) : civilFilter
+            ),
+            Family: this.showJurisdictionTypeFilter(
+                filters,
+                familyFilter,
+                language == 'cy' ? jurisdictionMap.get(familyFilter) : familyFilter
+            ),
+            Crime: this.showJurisdictionTypeFilter(
+                filters,
+                crimeFilter,
+                language == 'cy' ? jurisdictionMap.get(crimeFilter) : crimeFilter
+            ),
+            Tribunal: this.showJurisdictionTypeFilter(
+                filters,
+                tribunalFilter,
+                language == 'cy' ? jurisdictionMap.get(tribunalFilter) : tribunalFilter
+            ),
             Region: true,
         };
     }
