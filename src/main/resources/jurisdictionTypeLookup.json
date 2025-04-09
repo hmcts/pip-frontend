@@ -1,9 +1,17 @@
 {
-    "Civil": [],
-    "Family": [],
+    "Civil": [
+        "Civil Court",
+        "High Court",
+        "Court of Appeals (Civil Court)"
+    ],
+    "Family": [
+        "Family Court",
+        "High Court of the Family Division"
+    ],
     "Crime": [
         "Crown",
-        "Magistrates"
+        "Magistrates",
+        "Court of Appeals (Criminal Court)"
     ],
     "Tribunal": [
         "Asylum Support Tribunal",

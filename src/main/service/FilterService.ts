@@ -1,6 +1,6 @@
 import { Location } from '../models/Location';
 import { LocationService } from './LocationService';
-import jurisdictionData from '../resources/jurisdictionLookup.json';
+import jurisdictionTypes from '../resources/jurisdictionTypeLookup.json';
 import welshJurisdictionData from '../resources/welshJurisdictionLookup.json';
 
 const jurisdictionFilter = 'Jurisdiction';
@@ -12,12 +12,6 @@ const tribunalFilter = 'Tribunal';
 const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter];
 const filterNames = [jurisdictionFilter, ...subJurisdictionFilters, regionFilter];
 const jurisdictionType = 'jurisdictionType';
-const jurisdictionMap = new Map([
-    ['Civil', 'Llys Sifil'],
-    ['Family', 'Llys Teulu'],
-    ['Crime', 'Llys Troseddau'],
-    ['Tribunal', 'Tribiwnlys'],
-]);
 
 const locationService = new LocationService();
 
@@ -31,12 +25,21 @@ export class FilterService {
     }
 
     private getPossibleJurisdictionTypes(jurisdiction: string, language: string): string[] {
-        const mapping =
-            language == 'cy'
-                ? new Map(Object.entries(welshJurisdictionData))
-                : new Map(Object.entries(jurisdictionData));
-        if (mapping.has(jurisdiction)) {
-            return mapping.get(jurisdiction);
+        const jurisdictionTypeMapping = new Map(Object.entries(jurisdictionTypes));
+
+        if (jurisdictionTypeMapping.has(jurisdiction)) {
+            const jurisdictionTypes = jurisdictionTypeMapping.get(jurisdiction);
+            if (language == 'cy') {
+                const welshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
+                const welshJurisdictionTypes = [];
+                jurisdictionTypes.forEach(value => {
+                    if (welshJurisdictionMapping.has(value)) {
+                        welshJurisdictionTypes.push(welshJurisdictionMapping.get(value))
+                    }
+                })
+                return welshJurisdictionTypes;
+            }
+            return jurisdictionTypes;
         }
         return [];
     }
@@ -58,27 +61,28 @@ export class FilterService {
     }
 
     private showFilters(filters: object, language: string) {
+        const welshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
         return {
             Jurisdiction: true,
             Civil: this.showJurisdictionTypeFilter(
                 filters,
                 civilFilter,
-                language == 'cy' ? jurisdictionMap.get(civilFilter) : civilFilter
+                language == 'cy' ? welshJurisdictionMapping.get(civilFilter) : civilFilter
             ),
             Family: this.showJurisdictionTypeFilter(
                 filters,
                 familyFilter,
-                language == 'cy' ? jurisdictionMap.get(familyFilter) : familyFilter
+                language == 'cy' ? welshJurisdictionMapping.get(familyFilter) : familyFilter
             ),
             Crime: this.showJurisdictionTypeFilter(
                 filters,
                 crimeFilter,
-                language == 'cy' ? jurisdictionMap.get(crimeFilter) : crimeFilter
+                language == 'cy' ? welshJurisdictionMapping.get(crimeFilter) : crimeFilter
             ),
             Tribunal: this.showJurisdictionTypeFilter(
                 filters,
                 tribunalFilter,
-                language == 'cy' ? jurisdictionMap.get(tribunalFilter) : tribunalFilter
+                language == 'cy' ? welshJurisdictionMapping.get(tribunalFilter) : tribunalFilter
             ),
             Region: true,
         };
@@ -185,12 +189,13 @@ export class FilterService {
             alphabetisedList = await locationService.generateAlphabetisedAllCourtList(language);
         } else {
             filters = this.findAndSplitFilters(filterValues, filterOptions);
+            const welshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
 
             // Add all sub-jurisdictions to jurisdiction field to be passed into the backend for filtering. If
             // sub-jurisdictions exist in the filter the main jurisdiction will not be sent over.
             const allJurisdictionFilters = [];
             subJurisdictionFilters.forEach(jurisdiction => {
-                const jurisdictionText = language == 'cy' ? jurisdictionMap.get(jurisdiction) : jurisdiction;
+                const jurisdictionText = language == 'cy' ? welshJurisdictionMapping.get(jurisdiction) : jurisdiction;
                 if (filters[jurisdiction].length > 0) {
                     allJurisdictionFilters.push(...filters[jurisdiction]);
                 } else if (filters[jurisdictionFilter].includes(jurisdictionText)) {
