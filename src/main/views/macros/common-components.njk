@@ -153,7 +153,6 @@
             const itemValue = getItemValue(key, lng);
             const filterItem = '.Jurisdiction-' + itemValue + '-filter-item';
 
-            console.log('*****' + filterItem)
             document.querySelectorAll(filterItem).forEach(item => {
                 item.addEventListener('click', function() {
                     const checkbox = 'input[id="Jurisdiction-' + itemValue + '"]:checked'
@@ -170,7 +169,7 @@
 
         function getItemValue(key, lng) {
             const jurisdictionMap = new Map([
-                ['Civil', 'Llys ifil'],
+                ['Civil', 'Llys Sifil'],
                 ['Family', 'Llys Teulu'],
                 ['Crime', 'Llys Troseddau'],
                 ['Tribunal', 'Tribiwnlys']

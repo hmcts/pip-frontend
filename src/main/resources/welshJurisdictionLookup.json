@@ -1,22 +1,30 @@
 {
-    "Civil": [
-        "Civil Court",
-        "High Court",
-        "Court of Appeals (Civil)"
-    ],
-    "Family": [
-        "Family Court",
-        "High Court (Family Division)"
-    ],
+    "Civil": [],
+    "Family": [],
     "Crime": [
         "Llys y Goron",
-        "Llys Ynadon",
-        "Court of Appeals (Crime)"
+        "Llys Ynadon"
     ],
     "Tribunal": [
+        "Tribiwnlys Cefnogi Ceiswyr Lloches",
+        "Tribiwnlys Safonau Gofal",
         "Tribiwnlys Digolledu am Anafiadau Troseddol",
+        "Tribiwnlys Haen Gyntaf (Tribiwnlys Cofrestru Tir)",
+        "Tribiwnlys Haen Gyntaf (Siambr Treth)",
+        "Tribiwnlys Haen Gyntaf (Iawndal Pensiynau Rhyfel a'r Lluoedd Arfog)",
+        "Siambr Rheoleiddio Cyffredinol",
         "Siambr Mewnfudo a Lloches",
-        "Primary Health Tribunal",
-        "Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant"
+        "Tribiwnlys Iechyd Meddwl",
+        "Comisiwn Apeliadau Mynediad Pathogenau",
+        "Tribiwnlys Iechyd Sylfaenol",
+        "Comisiwn Apeliadau Sefydliadau Gwaharddedig",
+        "Tribiwnlys Eiddo Preswyl",
+        "Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant",
+        "Comisiwn Apeliadau Mewnfudo Arbennig",
+        "Uwch Dribiwnlys (Siambr Apeliadau Gweinyddol)",
+        "Siambr Uwch Dribiwnlys (Mewnfudo a Lloches) - Adolygiadau Barnwrol",
+        "Siambr Uwch Dribiwnlys (Mewnfudo a Lloches) - Apeliadau Statudol",
+        "Uwch Dribiwnlys (Siambr Tiroedd)",
+        "Uwch Dribiwnlys (Siambr Treth a Siawnsri)"
     ]
 }

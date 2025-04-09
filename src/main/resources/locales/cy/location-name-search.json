@@ -11,10 +11,10 @@
     "hide": "Cuddio’r ffiltrau",
     "show": "Dangos y ffiltrau",
     "jurisdiction": "Awdurdodaeth",
-    "civilType": "Type of civil court",
-    "familyType": "Type of family court",
-    "crimeType": "Type of criminal court",
-    "tribunalType": "Type of tribunal",
+    "civilType": "Math o llys sifil",
+    "familyType": "Math o llys teulu",
+    "crimeType": "Math o llys troseddol",
+    "tribunalType": "Math o dribiwnlys",
     "region": "Rhanbarth",
     "aria": {
         "filterLabel": "Hidlo yn ôl awdurdodaeth neu ranbarth"

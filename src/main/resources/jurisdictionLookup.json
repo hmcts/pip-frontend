@@ -1,22 +1,30 @@
 {
-    "Civil": [
-        "Civil Court",
-        "High Court",
-        "Court of Appeals (Civil)"
-    ],
-    "Family": [
-        "Family Court",
-        "High Court (Family Division)"
-    ],
+    "Civil": [],
+    "Family": [],
     "Crime": [
         "Crown",
-        "Magistrates",
-        "Court of Appeals (Crime)"
+        "Magistrates"
     ],
     "Tribunal": [
+        "Asylum Support Tribunal",
+        "Care Standards Tribunal",
         "Criminal Injuries Compensation Tribunal",
+        "First-Tier Tribunal (Lands Registration Tribunal)",
+        "First-Tier Tribunal (Tax Chamber)",
+        "First-Tier Tribunal (War Pensions and Armed Forces Compensation)",
+        "General Regulatory Chamber",
         "Immigration and Asylum Chamber",
+        "Mental Health Tribunal",
+        "Pathogens Access Appeal Commission",
         "Primary Health Tribunal",
-        "Social Security and Child Support"
+        "Proscribed Organisations Appeal Commission",
+        "Residential Property Tribunal",
+        "Social Security and Child Support",
+        "Special Immigration Appeals Commission",
+        "Upper Tribunal (Administrative Appeals Chamber)",
+        "Upper Tribunal (Siambr Mewnfudo a Lloches) - Judicial Review",
+        "Upper Tribunal (Siambr Mewnfudo a Lloches) - Statutory Appeal",
+        "Upper Tribunal (Lands Chamber)",
+        "Upper Tribunal (Tax and Chancery Chamber)"
     ]
 }
