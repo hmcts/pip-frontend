@@ -47,7 +47,7 @@
                             {% set filterKey = region %}
                         {% endif %}
                         {% if checkedFilterItems| length > 0 %}
-                            {% set _ = checkedFilters.push({heading: {text: filterKey}, items: checkedFilterItems}) %}
+                            {% set _ = checkedFilters.push({heading: {text: ''}, items: checkedFilterItems}) %}
                         {% endif %}
                         {% if toBeCreated %}
                             <div class="moj-button-menu filters__innerButton govuk-!-margin-bottom-4" id="innerButton">

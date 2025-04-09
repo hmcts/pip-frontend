@@ -529,60 +529,60 @@ Scenario('I as a verified user should be able to filter locations while subscrib
     I.click('Continue');
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
-    I.see('Civil type');
-    I.dontSee('Crime type');
-    I.dontSee('Family type');
-    I.dontSee('Tribunal type');
+    I.see('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Crime' }));
-    I.see('Civil type');
-    I.see('Crime type');
-    I.dontSee('Family type');
-    I.dontSee('Tribunal type');
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Family' }));
-    I.see('Civil type');
-    I.see('Crime type');
-    I.see('Family type');
-    I.dontSee('Tribunal type');
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.see('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Tribunal' }));
-    I.see('Civil type');
-    I.see('Crime type');
-    I.see('Family type');
-    I.see('Tribunal type');
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.see('Type of family court');
+    I.see('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
-    I.dontSee('Civil type');
-    I.see('Crime type');
-    I.see('Family type');
-    I.see('Tribunal type');
+    I.dontSee('Type of civil court');
+    I.see('Type of criminal court');
+    I.see('Type of family court');
+    I.see('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Crime' }));
-    I.dontSee('Civil type');
-    I.dontSee('Crime type');
-    I.see('Family type');
-    I.see('Tribunal type');
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.see('Type of family courte');
+    I.see('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Family' }));
-    I.dontSee('Civil type');
-    I.dontSee('Crime type');
-    I.dontSee('Family type');
-    I.see('Tribunal type');
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.see('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Tribunal' }));
-    I.dontSee('Civil type');
-    I.dontSee('Crime type');
-    I.dontSee('Family type');
-    I.dontSee('Tribunal type');
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Tribunal' }));
     I.click('Apply filters');
     I.see(locationName);
-    I.dontSee('Civil type');
-    I.dontSee('Crime type');
-    I.dontSee('Family type');
-    I.see('Tribunal type');
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.see('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'South West' }));
     I.click('Apply filters');

@@ -22,17 +22,20 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     I.see('Selected filter');
     I.see('Jurisdiction');
     I.see('Region');
-    I.dontSee('Civil Type');
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
-    I.see('Civil type');
-    I.dontSee('Crime type');
-    I.dontSee('Family type');
-    I.dontSee('Tribunal type');
+    I.see('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
     I.click(locate('//input').withAttr({ value: 'South East' }));
     I.click('Apply filters');
     I.see(locationName);
-    I.see('Civil type');
+    I.see('Type of civil court');
 
     I.click(locate('//input').withAttr({ value: 'South East' }));
     I.click(locate('//input').withAttr({ value: 'North West' }));
@@ -41,16 +44,16 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
 
     I.click(locate('//input').withAttr({ value: 'North West' }));
     I.click(locate('//input').withAttr({ value: 'Crime' }));
-    I.see('Civil type');
-    I.see('Crime type');
-    I.dontSee('Family type');
-    I.dontSee('Tribunal type');
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
-    I.dontSee('Civil type');
-    I.see('Crime type');
-    I.dontSee('Family type');
-    I.dontSee('Tribunal type');
+    I.dontSee('Type of civil court');
+    I.see('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Magistrates' }));
     I.click(locate('//input').withAttr({ value: 'Crime' }));
