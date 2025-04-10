@@ -27,5 +27,5 @@ initialPerformanceConfig.helpers['Playwright']['waitForAction'] = 100;
 export const config: CodeceptJS.MainConfig = initialPerformanceConfig;
 
 export const performanceConfig = {
-    numberOfTests: process.env.NUMBER_OF_TESTS ? parseInt(process.env.NUMBER_OF_TESTS) : 2
-}
+    numberOfTests: process.env.NUMBER_OF_TESTS ? parseInt(process.env.NUMBER_OF_TESTS) : 2,
+};

@@ -1,4 +1,4 @@
-import {performanceConfig} from "../../performance.conf";
+import { performanceConfig } from '../../performance.conf';
 
 Feature('Login - Performance');
 
