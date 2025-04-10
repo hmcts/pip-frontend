@@ -335,7 +335,9 @@ Running of the performance tests can be run via the following means:
 At present, performance tests do not run on the pipeline, and are designed to run locally when required. There are a few specific features of the performance test which should be noted:
 
 - The tests override the waitActionTimeout used in the functional tests, to 100ms. This is to reduce the impact of this wait on the overall results, and should be accounted for when interpreting them.
-- The number of concurrent tests can be updated using a combination of run-workers in the package.json, and the for loops within the tests themselves (which duplicate the test). The combination of these provide the ability to test concurrency, alongside load over time.
+- The number of concurrent tests can be updated using a combination of run-workers in the package.json, and the environment variable "NUMBER_OF_TESTS". The combination of these provide the ability to test concurrency, alongside load over time.
+
+
 
 ## Contributing
 
