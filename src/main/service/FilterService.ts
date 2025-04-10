@@ -34,9 +34,9 @@ export class FilterService {
                 const welshJurisdictionTypes = [];
                 jurisdictionTypes.forEach(value => {
                     if (welshJurisdictionMapping.has(value)) {
-                        welshJurisdictionTypes.push(welshJurisdictionMapping.get(value))
+                        welshJurisdictionTypes.push(welshJurisdictionMapping.get(value));
                     }
-                })
+                });
                 return welshJurisdictionTypes;
             }
             return jurisdictionTypes;
