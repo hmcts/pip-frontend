@@ -21,7 +21,7 @@ describe('Subscriptions Configure List', () => {
         test('should return subscription configure list page', async () => {
             sinon
                 .stub(SubscriptionService.prototype, 'generateListTypesForCourts')
-                .resolves({ listTypes: listOptions, filterOptions: null });
+                .resolves(listOptions);
 
             await request(app)
                 .get('/subscription-configure-list')

@@ -14,7 +14,7 @@ const generateListTypeStub = sinon.stub(SubscriptionService.prototype, 'generate
 const createListTypeStub = sinon.stub(SubscriptionService.prototype, 'createListTypeSubscriptionPayload');
 
 generateListTypeStub
-    .withArgs(userId, userProvenance, null, null, 'en')
+    .withArgs(userId, userProvenance, 'en')
     .resolves({ listOptions: { A: {} }, filterOptions: { AB: {} } });
 createListTypeStub.withArgs('').resolves([]);
 createListTypeStub.withArgs('test').resolves(['test']);

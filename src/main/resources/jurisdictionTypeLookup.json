@@ -2,21 +2,22 @@
     "Civil": [
         "Civil Court",
         "High Court",
-        "Court of Appeals (Civil Court)"
+        "Court of Appeal (Civil Court)"
     ],
     "Family": [
         "Family Court",
         "High Court of the Family Division"
     ],
     "Crime": [
-        "Crown",
-        "Magistrates",
-        "Court of Appeals (Criminal Court)"
+        "Crown Court",
+        "Magistrates Court",
+        "Court of Appeal (Criminal Court)"
     ],
     "Tribunal": [
         "Asylum Support Tribunal",
         "Care Standards Tribunal",
         "Criminal Injuries Compensation Tribunal",
+        "Employment Tribunal",
         "First-Tier Tribunal (Lands Registration Tribunal)",
         "First-Tier Tribunal (Tax Chamber)",
         "First-Tier Tribunal (War Pensions and Armed Forces Compensation)",

@@ -5,6 +5,7 @@ export interface ListType {
     url: string;
     jurisdictions: Array<string>;
     welshJurisdictions: Array<string>;
+    jurisdictionTypes: Array<string>;
     restrictedProvenances: Array<string>;
     defaultSensitivity: string;
     contDate?: string;
