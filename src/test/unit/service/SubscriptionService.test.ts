@@ -1572,3 +1572,26 @@ describe('removeListTypeForCourt', () => {
         expect(setListTypeSubscriptionStub.calledWith(userId, ['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS']));
     });
 });
+
+describe('fulfillSubscriptions', () => {
+    const validArtefact = { artefactId: '123' };
+    const invalidArtefact = { artefactId: '124' };
+
+    const getMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+    getMetadataStub.withArgs('123', '1').resolves(validArtefact);
+    getMetadataStub.withArgs('124', '1').resolves(invalidArtefact);
+
+    const fulfillSubscriptionRequestStub = sinon.stub(SubscriptionRequests.prototype, 'fulfillSubscriptions');
+    fulfillSubscriptionRequestStub.withArgs(validArtefact).resolves('Subscriptions fulfilled successfully');
+    fulfillSubscriptionRequestStub.withArgs(invalidArtefact).resolves(null);
+
+    it('should return a success message if subscription is deleted', async () => {
+        const result = await subscriptionService.fulfillSubscriptions('123', '1');
+        expect(result).toEqual('Subscriptions fulfilled successfully');
+    });
+
+    it('should return null if subscriptions not fulfilled', async () => {
+        const result = await subscriptionService.fulfillSubscriptions('124', '1');
+        expect(result).toEqual(null);
+    });
+});
