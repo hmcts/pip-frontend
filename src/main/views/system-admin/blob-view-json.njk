@@ -1,19 +1,15 @@
 {% extends "../template.njk" %}
-{% from "../macros/common-components.njk" import goBack %}
+{% from "../macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
-{% block head %}
-  {{ super() }}
-{% endblock %}
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-
   {{ super() }}
-  {{ goBack(text = backButton, cspNonce = cspNonce) }}
+  {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -27,23 +23,28 @@
       {% endif %}</h1>
 
     <div id="section1">
-      <h2 class="govuk-heading-m">Metadata</h2>
+      <form method="post">
+        {% if not noMatchArtefact %}
+          {{ submitButton(label = resubmit, id = 'resubmit-subscription') }}
+        {% endif %}
 
-      {{ govukSummaryList({
-        rows: [
-          {key: {text: "Artefact Id"}, value: { text: metadata.artefactId} },
-          {key: {text: "Language"}, value: { text: metadata.language | titleCase} },
-          {key: {text: "Location Id"}, value: { text: metadata.locationId} },
-          {key: {text: "Location Name"}, value: { text: courtName } },
-          {key: {text: "List Type"}, value: { text: metadata.listType | listType} },
-          {key: {text: "Provenance"}, value: { text: metadata.provenance} },
-          {key: {text: "Publication Type"}, value: { text: metadata.type | titleCase} },
-          {key: {text: "Sensitivity"}, value: { text: metadata.sensitivity | titleCase} },
-          {key: {text: "Content Date"}, value: { text: metadata.contentDate | date('Do MMMM YYYY [at] hh:mm a')} },
-          {key: {text: "Display From"}, value: { text: metadata.displayFrom | date('Do MMMM YYYY [at] hh:mm a')} },
-          {key: {text: "Display To"}, value: { text: metadata.displayTo | date('Do MMMM YYYY [at] hh:mm a')} }
-        ]
-      }) }}
+        <h2 class="govuk-heading-m">Metadata</h2>
+        {{ govukSummaryList({
+          rows: [
+            {key: {text: "Artefact ID"}, value: { text: metadata.artefactId} },
+            {key: {text: "Location ID"}, value: { text: metadata.locationId} },
+            {key: {text: "Location Name"}, value: { text: locationName } },
+            {key: {text: "Publication Type"}, value: { text: metadata.type | titleCase} },
+            {key: {text: "List Type"}, value: { text: metadata.listType | listType} },
+            {key: {text: "Provenance"}, value: { text: metadata.provenance} },
+            {key: {text: "Language"}, value: { text: metadata.language | titleCase} },
+            {key: {text: "Sensitivity"}, value: { text: metadata.sensitivity | titleCase} },
+            {key: {text: "Content Date"}, value: { text: metadata.contentDate | date('Do MMMM YYYY [at] hh:mm a')} },
+            {key: {text: "Display From"}, value: { text: metadata.displayFrom | date('Do MMMM YYYY [at] hh:mm a')} },
+            {key: {text: "Display To"}, value: { text: metadata.displayTo | date('Do MMMM YYYY [at] hh:mm a')} }
+          ]
+        }) }}
+      </form>
     </div>
   </div>
   {% if not noMatchArtefact %}
