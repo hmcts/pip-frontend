@@ -121,7 +121,6 @@ export class FilterService {
             [...finalFilterValueOptions]
                 .sort((a, b) => a.localeCompare(b))
                 .forEach(value => {
-                    //const valueWithoutSpaces = value.replace(/\s+/g, '');
                     filterValueOptions[filter][value] = {
                         value: value,
                         text: value,
