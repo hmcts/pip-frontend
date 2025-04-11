@@ -13,9 +13,7 @@ const language = 'en';
 const generateListTypeStub = sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts');
 const createListTypeStub = sinon.stub(SubscriptionService.prototype, 'createListTypeSubscriptionPayload');
 
-generateListTypeStub
-    .withArgs(userId, userProvenance, 'en')
-    .resolves({ A: {} });
+generateListTypeStub.withArgs(userId, userProvenance, 'en').resolves({ A: {} });
 createListTypeStub.withArgs('').resolves([]);
 createListTypeStub.withArgs('test').resolves(['test']);
 
