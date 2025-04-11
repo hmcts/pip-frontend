@@ -500,7 +500,11 @@ export class SubscriptionService {
         return this.findApplicableListTypeForCourts(courtJurisdictionTypes, selectedListTypes, userRole);
     }
 
-    private findApplicableListTypeForCourts(courtJurisdictionTypes, selectedListTypes, userRole): Map<string, ListType> {
+    private findApplicableListTypeForCourts(
+        courtJurisdictionTypes,
+        selectedListTypes,
+        userRole
+    ): Map<string, ListType> {
         const listTypes = publicationService.getListTypes();
         const sortedListTypes = new Map(
             [...listTypes].sort((a, b) => a[1]['friendlyName'].localeCompare(b[1]['friendlyName']))
