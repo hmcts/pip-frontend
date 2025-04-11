@@ -4,7 +4,7 @@
         "welshFriendlyName": "Rhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)",
         "shortenedFriendlyName": "SJP Public List (Full list)",
         "url": "sjp-public-list",
-        "jurisdictionTypes": ["Magistrates"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
@@ -14,7 +14,7 @@
         "welshFriendlyName": "Rhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)",
         "shortenedFriendlyName": "SJP Public List (New cases)",
         "url": "sjp-public-list-new-cases",
-        "jurisdictionTypes": ["Magistrates"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
@@ -24,7 +24,7 @@
         "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)",
         "shortenedFriendlyName": "SJP Press List (Full list)",
         "url": "sjp-press-list",
-        "jurisdictionTypes": ["Magistrates"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": ["PI_AAD"],
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
@@ -34,7 +34,7 @@
         "welshFriendlyName": "Rhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)",
         "shortenedFriendlyName": "SJP Press List (New cases)",
         "url": "sjp-press-list-new-cases",
-        "jurisdictionTypes": ["Magistrates"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": ["PI_AAD"],
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
@@ -44,7 +44,7 @@
         "welshFriendlyName": "Cofrestr y Wasg Y Weithdrefn Un Ynad",
         "shortenedFriendlyName": "SJP Press Register",
         "url": "",
-        "jurisdictionTypes": ["Magistrates"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": ["PI_AAD"],
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
@@ -54,7 +54,7 @@
         "welshFriendlyName": "Rhestr Ddyddiol Llys y Goron",
         "shortenedFriendlyName": "Crown Daily List",
         "url": "crown-daily-list",
-        "jurisdictionTypes": ["Crown"],
+        "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
@@ -64,7 +64,7 @@
         "welshFriendlyName": "Rhestr Rybudd Llys y Goron",
         "shortenedFriendlyName": "Crown Warned List",
         "url": "crown-warned-list",
-        "jurisdictionTypes": ["Crown"],
+        "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "PRIVATE",
         "isNonStrategic": false
@@ -74,7 +74,7 @@
         "welshFriendlyName": "Rhestr Cwmni Llys y Goron",
         "shortenedFriendlyName": "Crown Firm List",
         "url": "crown-firm-list",
-        "jurisdictionTypes": ["Crown"],
+        "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "PRIVATE",
         "isNonStrategic": false
@@ -84,7 +84,7 @@
         "welshFriendlyName": "Rhestr Gyhoeddus y Llys Ynadon",
         "shortenedFriendlyName": "Magistrates Public List",
         "url": "magistrates-public-list",
-        "jurisdictionTypes": ["Crown"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
@@ -94,7 +94,7 @@
         "welshFriendlyName": "Rhestr Safonol y Llys Ynadon",
         "shortenedFriendlyName": "Magistrates Standard List",
         "url": "magistrates-standard-list",
-        "jurisdictionTypes": ["Crown"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "PRIVATE",
         "isNonStrategic": false
@@ -154,7 +154,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Gwarchod",
         "shortenedFriendlyName": "COP Daily Cause List",
         "url": "cop-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["Family Court", "High Court of the Family Division"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
@@ -164,7 +164,7 @@
         "welshFriendlyName": "Rhestr Ddyddiol y Tribiwnlysoedd Cyflogaeth",
         "shortenedFriendlyName": "ET Daily List",
         "url": "et-daily-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["Employment Tribunal"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
@@ -174,7 +174,7 @@
         "welshFriendlyName": "Rhestr y Wasg Pob Pythefnos y Tribiwnlysoedd Cyflogaeth",
         "shortenedFriendlyName": "ET Fortnightly List",
         "url": "et-fortnightly-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["Employment Tribunal"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
