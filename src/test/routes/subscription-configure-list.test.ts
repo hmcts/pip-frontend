@@ -19,9 +19,7 @@ const listOptions = {
 describe('Subscriptions Configure List', () => {
     describe('on GET', () => {
         test('should return subscription configure list page', async () => {
-            sinon
-                .stub(SubscriptionService.prototype, 'generateListTypesForCourts')
-                .resolves({ listTypes: listOptions, filterOptions: null });
+            sinon.stub(SubscriptionService.prototype, 'generateListTypesForCourts').resolves(listOptions);
 
             await request(app)
                 .get('/subscription-configure-list')

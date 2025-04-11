@@ -10,14 +10,12 @@ export default class SubscriptionConfigureListController {
         const listTypes = await subscriptionService.generateListTypesForCourts(
             req.user['userId'],
             req.user['userProvenance'],
-            null,
-            null,
             req.lng
         );
 
         res.render('subscription-configure-list', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list']),
-            listTypes: listTypes['listOptions'],
+            listTypes,
         });
     }
 
@@ -28,14 +26,12 @@ export default class SubscriptionConfigureListController {
             const listTypes = await subscriptionService.generateListTypesForCourts(
                 req.user['userId'],
                 req.user['userProvenance'],
-                null,
-                null,
                 req.lng
             );
 
             res.render('subscription-configure-list', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list']),
-                listTypes: listTypes['listOptions'],
+                listTypes,
                 noSelectionError: true,
             });
         } else {

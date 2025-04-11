@@ -103,16 +103,16 @@ export class LocationService {
         return await locationRequest.deleteCourt(locationId, userId);
     }
 
-    public async findCourtsJurisdiction(locations): Promise<string[]> {
-        const courtJurisdictions = [];
+    public async findCourtJurisdictionTypes(locations): Promise<string[]> {
+        const courtJurisdictionTypes = [];
         for (const location of locations) {
             const returnedLocation = await this.getLocationById(location['locationId']);
             if (returnedLocation != null) {
-                returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+                returnedLocation.jurisdictionType.forEach(value => courtJurisdictionTypes.push(value));
             }
         }
 
-        return courtJurisdictions;
+        return courtJurisdictionTypes;
     }
 
     public getAdditionalLocationInfo(locationId: string) {

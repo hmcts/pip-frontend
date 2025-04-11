@@ -169,9 +169,9 @@
 
         function getItemValue(key, lng) {
             const jurisdictionMap = new Map([
-                ['Civil', 'Llys Sifil'],
-                ['Family', 'Llys Teulu'],
-                ['Crime', 'Llys Troseddau'],
+                ['Civil', 'Sifil'],
+                ['Family', 'Teulu'],
+                ['Crime', 'Troseddau'],
                 ['Tribunal', 'Tribiwnlys']
             ]);
             return (lng == 'cy' ? jurisdictionMap.get(key): key).replace(/\s+/g, '');
