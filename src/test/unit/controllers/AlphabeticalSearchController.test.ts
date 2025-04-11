@@ -7,13 +7,32 @@ import { FilterService } from '../../../main/service/FilterService';
 
 const alphabeticalSearchController = new AlphabeticalSearchController();
 
-sinon.stub(FilterService.prototype, 'handleFilterInitialisation').resolves({ alphabetisedList: {}, filterOptions: {} });
+const expectedFilters = {
+    alphabetisedList: {},
+    filterOptions: {},
+    showFilters: {
+        Jurisdiction: true,
+        Civil: false,
+        Crime: false,
+        Family: false,
+        Tribunal: false,
+        Region: true,
+    },
+};
+
+sinon.stub(FilterService.prototype, 'handleFilterInitialisation').resolves(expectedFilters);
+
+const i18n = {
+    'alphabetical-search': { title: 'A-Z search' },
+    'location-name-search': { title: 'Location name search' },
+};
 
 describe('Alphabetical Search Controller', () => {
-    const i18n = {
-        'alphabetical-search': {},
-    };
     const request = mockRequest(i18n);
+    const expectedData = {
+        ...i18n['alphabetical-search'],
+        filters: expectedFilters,
+    };
 
     describe('get', () => {
         it('should render the alphabetical search page', () => {
@@ -24,14 +43,7 @@ describe('Alphabetical Search Controller', () => {
             } as unknown as Response;
 
             request.query = {};
-
             const responseMock = sinon.mock(response);
-
-            const expectedData = {
-                ...i18n['alphabetical-search'],
-                locationList: {},
-                filterOptions: {},
-            };
 
             responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
 
@@ -46,15 +58,9 @@ describe('Alphabetical Search Controller', () => {
                     return '';
                 },
             } as unknown as Response;
+
             request.query = { clear: 'all' };
-
             const responseMock = sinon.mock(response);
-
-            const expectedData = {
-                ...i18n['alphabetical-search'],
-                locationList: {},
-                filterOptions: {},
-            };
 
             responseMock.expects('render').once().withArgs('alphabetical-search', expectedData);
 
@@ -97,14 +103,10 @@ describe('Alphabetical Search Controller', () => {
 });
 
 describe('Location Name Search Controller', () => {
-    const i18n = {
-        'alphabetical-search': {},
-    };
     const request = mockRequest(i18n);
     const expectedData = {
         ...i18n['location-name-search'],
-        filterOptions: {},
-        locationList: {},
+        filters: expectedFilters,
     };
 
     describe('GET requests', () => {

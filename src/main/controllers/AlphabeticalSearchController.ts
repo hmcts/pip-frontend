@@ -9,7 +9,7 @@ const subscriptionService = new SubscriptionService();
 
 export default class AlphabeticalSearchController {
     public async get(req: PipRequest, res: Response, page: string): Promise<void> {
-        const initialisedFilter = await filterService.handleFilterInitialisation(
+        const filters = await filterService.handleFilterInitialisation(
             req.query?.clear as string,
             req.query?.filterValues as string,
             req.lng
@@ -17,8 +17,7 @@ export default class AlphabeticalSearchController {
 
         res.render(page, {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[page]),
-            locationList: initialisedFilter['alphabetisedList'],
-            filterOptions: initialisedFilter['filterOptions'],
+            filters,
         });
     }
 

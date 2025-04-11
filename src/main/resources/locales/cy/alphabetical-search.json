@@ -7,7 +7,11 @@
     "selectedFilter": "Hidlwyr a ddewiswyd",
     "hide": "Cuddio Hidlwyr",
     "show": "Dangos Hidlwyr",
-    "jurisdiction": "Math o lys neu dribiwnlys",
+    "jurisdiction": "Awdurdodaeth",
+    "civilType": "Math o llys sifil",
+    "familyType": "Math o llys teulu",
+    "crimeType": "Math o llys troseddol",
+    "tribunalType": "Math o dribiwnlys",
     "region": "Rhanbarth",
     "applyFiltersButton": "Cadarnhau hidlwyr",
     "aria": {
