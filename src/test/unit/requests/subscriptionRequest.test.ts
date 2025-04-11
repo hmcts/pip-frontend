@@ -2,7 +2,7 @@ import { SubscriptionRequests } from '../../../main/resources/requests/Subscript
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { subscriptionManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
+import { accountManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
@@ -35,13 +35,13 @@ const adminUserId = '1234';
 const errorBodyData = { baz: 'qux' };
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionsData2 = JSON.parse(rawData2);
-const stub = sinon.stub(subscriptionManagementApi, 'get');
-const subscriptionManagementStub = sinon.stub(subscriptionManagementApi, 'post');
-const subscriptionManagementPutStub = sinon.stub(subscriptionManagementApi, 'put');
-const deleteStub = sinon.stub(subscriptionManagementApi, 'delete');
+const getStub = sinon.stub(accountManagementApi, 'get');
+const postStub = sinon.stub(accountManagementApi, 'post');
+const putStub = sinon.stub(accountManagementApi, 'put');
+const deleteStub = sinon.stub(accountManagementApi, 'delete');
 
 describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-    stub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
+    getStub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
 
     it('should return user subscription object', async () => {
         const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
@@ -62,12 +62,12 @@ describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, 
 
 describe('getUserSubscriptions error tests', () => {
     beforeEach(() => {
-        stub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({ data: [] });
-        stub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({
+        getStub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({ data: [] });
+        getStub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({
             data: { caseSubscriptions: [], courtSubscriptions: [] },
         });
-        stub.withArgs('/subscription/user/999').rejects(errorMessage);
-        stub.withArgs('/subscription/user/9999').rejects(errorResponse);
+        getStub.withArgs('/subscription/user/999').rejects(errorMessage);
+        getStub.withArgs('/subscription/user/9999').rejects(errorResponse);
     });
 
     it('should return null for error response', async () => {
@@ -95,19 +95,19 @@ describe('subscribe', () => {
     const userId = '1234-1234';
 
     it('should return true if call is successful', async () => {
-        subscriptionManagementStub.withArgs('/subscription').resolves({});
+        postStub.withArgs('/subscription').resolves({});
         const userSubscriptions = await subscriptionActions.subscribe({}, userId);
         expect(userSubscriptions).toBe(true);
     });
 
     it('should return false for failure', async () => {
-        subscriptionManagementStub.withArgs('/subscription').rejects(errorMessage);
+        postStub.withArgs('/subscription').rejects(errorMessage);
         const userSubscriptions = await subscriptionActions.subscribe({}, userId);
         expect(userSubscriptions).toBe(false);
     });
 
     it('should return false for error response', async () => {
-        subscriptionManagementStub.withArgs('/subscription').rejects(errorResponse);
+        postStub.withArgs('/subscription').rejects(errorResponse);
         const userSubscriptions = await subscriptionActions.subscribe({}, userId);
         expect(userSubscriptions).toBe(false);
     });
@@ -147,19 +147,19 @@ describe('bulkDeleteSubscriptions', () => {
     const userId = '456';
 
     it('should return success message if call is successful', async () => {
-        deleteStub.withArgs('/subscription/v2/bulk').resolves({ data: 'unsubscribed successfully' });
+        deleteStub.withArgs('/subscription/bulk').resolves({ data: 'unsubscribed successfully' });
         const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
         expect(response).toBe('unsubscribed successfully');
     });
 
     it('should return nothing for error response', async () => {
-        deleteStub.withArgs('/subscription/v2/bulk').rejects(errorResponse);
+        deleteStub.withArgs('/subscription/bulk').rejects(errorResponse);
         const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
         expect(response).toBe(null);
     });
 
     it('should return nothing for other error', async () => {
-        deleteStub.withArgs('/subscription/v2/bulk').rejects(errorMessage);
+        deleteStub.withArgs('/subscription/bulk').rejects(errorMessage);
         const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
         expect(response).toBe(null);
     });
@@ -167,19 +167,19 @@ describe('bulkDeleteSubscriptions', () => {
 
 describe('add list type Location subscriptions for a user', () => {
     it('should return true if call is successful', async () => {
-        subscriptionManagementStub.withArgs('/subscription/add-list-types').resolves({});
+        postStub.withArgs('/subscription/add-list-types').resolves({});
         const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions('1', {});
         expect(subscriptionAdded).toBe(true);
     });
 
     it('should return false for failure', async () => {
-        subscriptionManagementStub.withArgs('/subscription/add-list-types/null').rejects(errorMessage);
+        postStub.withArgs('/subscription/add-list-types/null').rejects(errorMessage);
         const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
         expect(subscriptionAdded).toBe(false);
     });
 
     it('should return false for error response', async () => {
-        subscriptionManagementStub.withArgs('/subscription/add-list-types/null').rejects(errorResponse);
+        postStub.withArgs('/subscription/add-list-types/null').rejects(errorResponse);
         const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
         expect(subscriptionAdded).toBe(false);
     });
@@ -187,19 +187,19 @@ describe('add list type Location subscriptions for a user', () => {
 
 describe('configure list type Location subscriptions for a user', () => {
     it('should return true if call is successful', async () => {
-        subscriptionManagementPutStub.withArgs('/subscription/configure-list-types').resolves({});
+        putStub.withArgs('/subscription/configure-list-types').resolves({});
         const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions('1', {});
         expect(subscriptionUpdated).toBe(true);
     });
 
     it('should return false for failure', async () => {
-        subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorMessage);
+        putStub.withArgs('/subscription/configure-list-types/null').rejects(errorMessage);
         const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
         expect(subscriptionUpdated).toBe(false);
     });
 
     it('should return false for error response', async () => {
-        subscriptionManagementPutStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
+        putStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
         const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
         expect(subscriptionUpdated).toBe(false);
     });
@@ -207,19 +207,19 @@ describe('configure list type Location subscriptions for a user', () => {
 
 describe('retrieve subscription channels', () => {
     it('should return channels if call is successful', async () => {
-        stub.withArgs('/meta/channels').resolves({ data: ['CHANNEL_A', 'CHANNEL_B'] });
+        getStub.withArgs('/subscription/channel').resolves({ data: ['CHANNEL_A', 'CHANNEL_B'] });
         const channels = await subscriptionActions.retrieveSubscriptionChannels();
         expect(channels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
     });
 
     it('should return empty array for failure', async () => {
-        stub.withArgs('/meta/channels').rejects(errorMessage);
+        getStub.withArgs('/subscription/channel').rejects(errorMessage);
         const channels = await subscriptionActions.retrieveSubscriptionChannels();
         expect(channels).toStrictEqual([]);
     });
 
     it('should return false for error response', async () => {
-        stub.withArgs('/meta/channels').rejects(errorResponse);
+        getStub.withArgs('/subscription/channel').rejects(errorResponse);
         const channels = await subscriptionActions.retrieveSubscriptionChannels();
         expect(channels).toStrictEqual([]);
     });
