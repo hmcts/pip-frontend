@@ -2,7 +2,7 @@
     "Civil": [
         "Civil Court",
         "High Court",
-        "Court of Appeal (Civil Court)"
+        "Court of Appeal (Civil Division)"
     ],
     "Family": [
         "Family Court",
@@ -11,7 +11,7 @@
     "Crime": [
         "Crown Court",
         "Magistrates Court",
-        "Court of Appeal (Criminal Court)"
+        "Court of Appeal (Criminal Division)"
     ],
     "Tribunal": [
         "Asylum Support Tribunal",
