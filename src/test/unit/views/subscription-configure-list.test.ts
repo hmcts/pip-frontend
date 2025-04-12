@@ -94,38 +94,46 @@ describe('Subscription Configure List', () => {
         });
 
         it('should contain list type rows', () => {
-            const elementsCount = 8;
+            const elementsCount = 12;
             const tableRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
             expect(tableRows.length).equal(elementsCount, 'Could not find all table rows');
             expect(tableRows[0].innerHTML).contains('Civil and Family Daily Cause List');
             expect(tableRows[1].innerHTML).contains('Civil Daily Cause List');
-            expect(tableRows[2].innerHTML).contains('Court of Protection Daily Cause List');
-            expect(tableRows[3].innerHTML).contains('Single Justice Procedure Press List (Full List)');
-            expect(tableRows[4].innerHTML).contains('Single Justice Procedure Press List (New Cases)');
-            expect(tableRows[5].innerHTML).contains('Single Justice Procedure Press Register');
-            expect(tableRows[6].innerHTML).contains('Single Justice Procedure Public List (Full List)');
-            expect(tableRows[7].innerHTML).contains('Single Justice Procedure Public List (New Cases)');
+            expect(tableRows[2].innerHTML).contains('Crown Daily List');
+            expect(tableRows[3].innerHTML).contains('Crown Firm List');
+            expect(tableRows[4].innerHTML).contains('Crown Warned List');
+            expect(tableRows[5].innerHTML).contains('Magistrates Public List');
+            expect(tableRows[6].innerHTML).contains('Magistrates Standard List');
+            expect(tableRows[7].innerHTML).contains('Single Justice Procedure Press List (Full List)');
+            expect(tableRows[8].innerHTML).contains('Single Justice Procedure Press List (New Cases)');
+            expect(tableRows[9].innerHTML).contains('Single Justice Procedure Press Register');
+            expect(tableRows[10].innerHTML).contains('Single Justice Procedure Public List (Full List)');
+            expect(tableRows[11].innerHTML).contains('Single Justice Procedure Public List (New Cases)');
         });
 
         it('should display expected subscription list type checkboxes', () => {
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
-            expect(checkboxes.length).equal(8, 'Could not find all row checkboxes');
+            expect(checkboxes.length).equal(12, 'Could not find all row checkboxes');
             expect(checkboxes[0]['value']).contains(
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'Could not find mixed list checkbox'
             );
             expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
-            expect(checkboxes[2]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
-            expect(checkboxes[3]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[4]['value']).contains(
+            expect(checkboxes[2]['value']).contains('CROWN_DAILY_LIST', 'Could not find Crown list checkbox');
+            expect(checkboxes[3]['value']).contains('CROWN_FIRM_LIST', 'Could not find Crown list checkbox');
+            expect(checkboxes[4]['value']).contains('CROWN_WARNED_LIST', 'Could not find Crown list checkbox');
+            expect(checkboxes[5]['value']).contains('MAGISTRATES_PUBLIC_LIST', 'Could not find Magistrates list checkbox');
+            expect(checkboxes[6]['value']).contains('MAGISTRATES_STANDARD_LIST', 'Could not find Maistrates list checkbox');
+            expect(checkboxes[7]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
+            expect(checkboxes[8]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
                 'Could not find SJP delta press list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
-            expect(checkboxes[6]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[7]['value']).contains(
+            expect(checkboxes[9]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
+            expect(checkboxes[10]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
+            expect(checkboxes[11]['value']).contains(
                 'SJP_DELTA_PUBLIC_LIST',
                 'Could not find SJP delta public list checkbox'
             );
@@ -149,7 +157,7 @@ describe('Subscription Configure List', () => {
         });
 
         it('should contain list type rows', () => {
-            const elementsCount = 8;
+            const elementsCount = 12;
             const tableRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -159,43 +167,59 @@ describe('Subscription Configure List', () => {
             );
             expect(tableRows[1].innerHTML).contains('Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil');
             expect(tableRows[2].innerHTML).contains(
-                'Court of Protection Daily Cause List\nRhestr Achosion Dyddiol y Llys Gwarchod'
+                'Crown Daily List\nRhestr Ddyddiol Llys y Goron'
             );
             expect(tableRows[3].innerHTML).contains(
-                'Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)'
+                'Crown Firm List\nRhestr Cwmni Llys y Goron'
             );
             expect(tableRows[4].innerHTML).contains(
-                'Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)'
+                'Crown Warned List\nRhestr Rybudd Llys y Goron'
             );
             expect(tableRows[5].innerHTML).contains(
-                'Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad'
+                'Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon'
             );
             expect(tableRows[6].innerHTML).contains(
+                'Magistrates Standard List\nRhestr Safonol y Llys Ynadon'
+            );
+            expect(tableRows[7].innerHTML).contains(
+                'Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)'
+            );
+            expect(tableRows[8].innerHTML).contains(
+                'Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)'
+            );
+            expect(tableRows[9].innerHTML).contains(
+                'Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad'
+            );
+            expect(tableRows[10].innerHTML).contains(
                 'Single Justice Procedure Public List (Full List)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)'
             );
 
-            expect(tableRows[7].innerHTML).contains(
+            expect(tableRows[11].innerHTML).contains(
                 'Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)'
             );
         });
 
         it('should display expected subscription list type checkboxes', () => {
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
-            expect(checkboxes.length).equal(8, 'Could not find all row checkboxes');
+            expect(checkboxes.length).equal(12, 'Could not find all row checkboxes');
             expect(checkboxes[0]['value']).contains(
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'Could not find mixed list checkbox'
             );
             expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
-            expect(checkboxes[2]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
-            expect(checkboxes[3]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[4]['value']).contains(
+            expect(checkboxes[2]['value']).contains('CROWN_DAILY_LIST', 'Could not find Crown list checkbox');
+            expect(checkboxes[3]['value']).contains('CROWN_FIRM_LIST', 'Could not find Crown list checkbox');
+            expect(checkboxes[4]['value']).contains('CROWN_WARNED_LIST', 'Could not find Crown list checkbox');
+            expect(checkboxes[5]['value']).contains('MAGISTRATES_PUBLIC_LIST', 'Could not find Magistrates list checkbox');
+            expect(checkboxes[6]['value']).contains('MAGISTRATES_STANDARD_LIST', 'Could not find Maistrates list checkbox');
+            expect(checkboxes[7]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
+            expect(checkboxes[8]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
                 'Could not find SJP delta press list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
-            expect(checkboxes[6]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[7]['value']).contains(
+            expect(checkboxes[9]['value']).contains('SJP_PRESS_REGISTER', 'Could not find SJP press register checkbox');
+            expect(checkboxes[10]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
+            expect(checkboxes[11]['value']).contains(
                 'SJP_DELTA_PUBLIC_LIST',
                 'Could not find SJP delta public list checkbox'
             );

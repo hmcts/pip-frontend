@@ -91,7 +91,11 @@ describe('Filter Service', () => {
     });
 
     it('should build filters options for both jurisdiction and jurisdiction type checkboxes', () => {
-        const data = filterService.buildFilterValueOptions(listData, ['Crime', 'Crown Court', 'Magistrates Court'], 'en');
+        const data = filterService.buildFilterValueOptions(
+            listData,
+            ['Crime', 'Crown Court', 'Magistrates Court'],
+            'en'
+        );
         expect(data[jurisdiction][crime]['checked']).toBe(true);
         expect(data[crime]['Crown Court']['checked']).toBe(true);
         expect(data[crime]['Magistrates Court']['checked']).toBe(true);
