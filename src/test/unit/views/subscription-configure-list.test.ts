@@ -124,8 +124,14 @@ describe('Subscription Configure List', () => {
             expect(checkboxes[2]['value']).contains('CROWN_DAILY_LIST', 'Could not find Crown list checkbox');
             expect(checkboxes[3]['value']).contains('CROWN_FIRM_LIST', 'Could not find Crown list checkbox');
             expect(checkboxes[4]['value']).contains('CROWN_WARNED_LIST', 'Could not find Crown list checkbox');
-            expect(checkboxes[5]['value']).contains('MAGISTRATES_PUBLIC_LIST', 'Could not find Magistrates list checkbox');
-            expect(checkboxes[6]['value']).contains('MAGISTRATES_STANDARD_LIST', 'Could not find Maistrates list checkbox');
+            expect(checkboxes[5]['value']).contains(
+                'MAGISTRATES_PUBLIC_LIST',
+                'Could not find Magistrates list checkbox'
+            );
+            expect(checkboxes[6]['value']).contains(
+                'MAGISTRATES_STANDARD_LIST',
+                'Could not find Maistrates list checkbox'
+            );
             expect(checkboxes[7]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
             expect(checkboxes[8]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
@@ -166,21 +172,11 @@ describe('Subscription Configure List', () => {
                 'Select Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu'
             );
             expect(tableRows[1].innerHTML).contains('Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil');
-            expect(tableRows[2].innerHTML).contains(
-                'Crown Daily List\nRhestr Ddyddiol Llys y Goron'
-            );
-            expect(tableRows[3].innerHTML).contains(
-                'Crown Firm List\nRhestr Cwmni Llys y Goron'
-            );
-            expect(tableRows[4].innerHTML).contains(
-                'Crown Warned List\nRhestr Rybudd Llys y Goron'
-            );
-            expect(tableRows[5].innerHTML).contains(
-                'Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon'
-            );
-            expect(tableRows[6].innerHTML).contains(
-                'Magistrates Standard List\nRhestr Safonol y Llys Ynadon'
-            );
+            expect(tableRows[2].innerHTML).contains('Crown Daily List\nRhestr Ddyddiol Llys y Goron');
+            expect(tableRows[3].innerHTML).contains('Crown Firm List\nRhestr Cwmni Llys y Goron');
+            expect(tableRows[4].innerHTML).contains('Crown Warned List\nRhestr Rybudd Llys y Goron');
+            expect(tableRows[5].innerHTML).contains('Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon');
+            expect(tableRows[6].innerHTML).contains('Magistrates Standard List\nRhestr Safonol y Llys Ynadon');
             expect(tableRows[7].innerHTML).contains(
                 'Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)'
             );
@@ -210,8 +206,14 @@ describe('Subscription Configure List', () => {
             expect(checkboxes[2]['value']).contains('CROWN_DAILY_LIST', 'Could not find Crown list checkbox');
             expect(checkboxes[3]['value']).contains('CROWN_FIRM_LIST', 'Could not find Crown list checkbox');
             expect(checkboxes[4]['value']).contains('CROWN_WARNED_LIST', 'Could not find Crown list checkbox');
-            expect(checkboxes[5]['value']).contains('MAGISTRATES_PUBLIC_LIST', 'Could not find Magistrates list checkbox');
-            expect(checkboxes[6]['value']).contains('MAGISTRATES_STANDARD_LIST', 'Could not find Maistrates list checkbox');
+            expect(checkboxes[5]['value']).contains(
+                'MAGISTRATES_PUBLIC_LIST',
+                'Could not find Magistrates list checkbox'
+            );
+            expect(checkboxes[6]['value']).contains(
+                'MAGISTRATES_STANDARD_LIST',
+                'Could not find Maistrates list checkbox'
+            );
             expect(checkboxes[7]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
             expect(checkboxes[8]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
