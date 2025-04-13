@@ -1145,7 +1145,7 @@ describe('generateListTypeForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toHaveLength(0)
+        expect(listKeysM).toHaveLength(0);
     });
 
     it('Test only sorting of lists in welsh', async () => {
