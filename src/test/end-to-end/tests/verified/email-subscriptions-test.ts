@@ -636,12 +636,12 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see('Employment Tribunals Daily List');
     I.see('Employment Tribunals Fortnightly Press List');
 
-    I.dontSee('Crown Daily List')
+    I.dontSee('Crown Daily List');
     I.dontSee('Criminal Injuries Compensation');
-    I.dontSee('Care Standards Tribunal')
-    I.dontSee('Primary Health Tribunal')
-    I.dontSee('First-tier Tribunal')
-    I.dontSee('Upper Tribunal')
+    I.dontSee('Care Standards Tribunal');
+    I.dontSee('Primary Health Tribunal');
+    I.dontSee('First-tier Tribunal');
+    I.dontSee('Upper Tribunal');
 
     I.checkOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
