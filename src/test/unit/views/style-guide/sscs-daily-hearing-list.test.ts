@@ -20,7 +20,7 @@ describe('SSCS Daily Hearing List Page', () => {
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
     const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-    describe('Midlands First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
+    describe('Midlands Social Security and Child Support Tribunal Daily Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/sscs-midlands-daily-hearing-list?artefactId=abc';
 
@@ -40,14 +40,14 @@ describe('SSCS Daily Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Midlands First-tier Tribunal (Social Security and Child Support) Daily Hearing List',
+                'Midlands Social Security and Child Support Tribunal Daily Hearing List',
                 'Could not find the header'
             );
         });
 
         it('should display list for text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[4].innerHTML).contains('List for week commencing 14 February 2022');
+            expect(text[4].innerHTML).contains('List for 14 February 2022');
         });
 
         it('should display list updated date text', () => {
@@ -191,7 +191,7 @@ describe('SSCS Daily Hearing List Page', () => {
         });
     });
 
-    describe('South East First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
+    describe('South East Social Security and Child Support Tribunal Daily Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/sscs-south-east-daily-hearing-list?artefactId=mno';
 
@@ -211,7 +211,7 @@ describe('SSCS Daily Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'South East First-tier Tribunal (Social Security and Child Support) Daily Hearing List',
+                'South East Social Security and Child Support Tribunal Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -230,7 +230,7 @@ describe('SSCS Daily Hearing List Page', () => {
         });
     });
 
-    describe('Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
+    describe('Wales and South West Social Security and Child Support Tribunal Daily Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/sscs-wales-and-south-west-daily-hearing-list?artefactId=tuv';
 
@@ -250,7 +250,7 @@ describe('SSCS Daily Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Wales and South West First-tier Tribunal (Social Security and Child Support) Daily Hearing List',
+                'Wales and South West Social Security and Child Support Tribunal Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -269,7 +269,7 @@ describe('SSCS Daily Hearing List Page', () => {
         });
     });
 
-    describe('Scotland First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
+    describe('Scotland Social Security and Child Support Tribunal Daily Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/sscs-scotland-daily-hearing-list?artefactId=xyz';
 
@@ -289,7 +289,7 @@ describe('SSCS Daily Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Scotland First-tier Tribunal (Social Security and Child Support) Daily Hearing List',
+                'Scotland Social Security and Child Support Tribunal Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -308,7 +308,7 @@ describe('SSCS Daily Hearing List Page', () => {
         });
     });
 
-    describe('North East First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
+    describe('North East Social Security and Child Support Tribunal Daily Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/sscs-north-east-daily-hearing-list?artefactId=def';
 
@@ -328,7 +328,7 @@ describe('SSCS Daily Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'North East First-tier Tribunal (Social Security and Child Support) Daily Hearing List',
+                'North East Social Security and Child Support Tribunal Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -347,7 +347,7 @@ describe('SSCS Daily Hearing List Page', () => {
         });
     });
 
-    describe('North West First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
+    describe('North West Social Security and Child Support Tribunal Daily Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/sscs-north-west-daily-hearing-list?artefactId=kju';
 
@@ -367,7 +367,7 @@ describe('SSCS Daily Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'North West First-tier Tribunal (Social Security and Child Support) Daily Hearing List',
+                'North West Social Security and Child Support Tribunal Daily Hearing List',
                 'Could not find the header'
             );
         });
@@ -386,7 +386,7 @@ describe('SSCS Daily Hearing List Page', () => {
         });
     });
 
-    describe('London First-tier Tribunal (Social Security and Child Support) Daily Hearing List', () => {
+    describe('London Social Security and Child Support Tribunal Daily Hearing List', () => {
         let htmlRes: Document;
         const PAGE_URL = '/sscs-london-daily-hearing-list?artefactId=lon';
 
@@ -406,7 +406,7 @@ describe('SSCS Daily Hearing List Page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'London First-tier Tribunal (Social Security and Child Support) Daily Hearing List',
+                'London Social Security and Child Support Tribunal Daily Hearing List',
                 'Could not find the header'
             );
         });
