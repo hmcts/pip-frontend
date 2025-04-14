@@ -69,7 +69,7 @@ export class LocationRequests {
             const headers = { 'x-requester-id': requesterId };
             const response = await dataManagementApi.get('/locations/download/csv', {
                 responseType: 'arraybuffer',
-                headers
+                headers,
             });
             logger.info(`Reference data download requested by user with ID ${requesterId}`);
             return response.data;

@@ -25,7 +25,7 @@ export class PublicationRequests {
 
     public async getPubsPerLocation(requestId: string): Promise<any> {
         try {
-            let header = { headers: { 'x-requester-id': requestId } };
+            const header = { headers: { 'x-requester-id': requestId } };
             const response = await dataManagementApi.get('/publication/count-by-location', header);
             return response.data;
         } catch (error) {
@@ -106,7 +106,11 @@ export class PublicationRequests {
 
     public async archivePublication(artefactId: string, id: string): Promise<boolean> {
         try {
-            await dataManagementApi.put(`/publication/${artefactId}/archive`, {}, { headers: { 'x-requester-id': id } });
+            await dataManagementApi.put(
+                `/publication/${artefactId}/archive`,
+                {},
+                { headers: { 'x-requester-id': id } }
+            );
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `archive publication with ID ${artefactId}`);

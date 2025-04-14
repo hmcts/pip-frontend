@@ -43,7 +43,7 @@ export class PublicationFileRequests {
      * Request to data management to retrieve the sizes of all publication files
      * @param artefactId the artefact ID of the publication files in Azure blob storage.
      */
-    public async getFileSizes(artefactId: string,  headers: object): Promise<PublicationFileSizes> {
+    public async getFileSizes(artefactId: string, headers: object): Promise<PublicationFileSizes> {
         try {
             const response = await dataManagementApi.get(`/publication/${artefactId}/sizes`, { headers });
             return response.data;

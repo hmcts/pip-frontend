@@ -22,7 +22,7 @@ const fileSizeData = {
 };
 
 const headers = {
-    'x-requester-id': '123-456'
+    'x-requester-id': '123-456',
 };
 
 const publicationFileRequests = new PublicationFileRequests();
@@ -54,7 +54,9 @@ describe('Publication file requests', () => {
         });
 
         it('should return null if request fails', async () => {
-            expect(await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-requester-id': userId })).toBeNull();
+            expect(
+                await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-requester-id': userId })
+            ).toBeNull();
         });
     });
 
