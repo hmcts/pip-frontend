@@ -561,7 +561,7 @@ Scenario('I as a verified user should be able to filter locations while subscrib
     I.click(locate('//input').withAttr({ value: 'Crime' }));
     I.dontSee('Type of civil court');
     I.dontSee('Type of criminal court');
-    I.see('Type of family courte');
+    I.see('Type of family court');
     I.see('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Family' }));
@@ -624,6 +624,25 @@ Scenario('I as a verified user should be able to filter and select which list ty
             "specific cases you may have subscribed to. Also don't forget to come" +
             ' back regularly to see new list types as we add more.'
     );
+
+    I.see('Civil Daily Cause List');
+    I.see('Civil and Family Daily Cause List');
+    I.see('Family Daily Cause List');
+    I.see('Court of Protection Daily Cause List');
+    I.see('Magistrates Public List');
+    I.see('Magistrates Standard List');
+    I.see('Single Justice Procedure Public List');
+    I.see('Single Justice Procedure Press List');
+    I.see('Employment Tribunals Daily List');
+    I.see('Employment Tribunals Fortnightly Press List');
+
+    I.dontSee('Crown Daily List')
+    I.dontSee('Criminal Injuries Compensation');
+    I.dontSee('Care Standards Tribunal')
+    I.dontSee('Primary Health Tribunal')
+    I.dontSee('First-tier Tribunal')
+    I.dontSee('Upper Tribunal')
+
     I.checkOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
     I.waitForText('What version of the list do you want to receive?');
