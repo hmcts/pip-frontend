@@ -39,12 +39,12 @@ sinon.stub(AccountManagementRequests.prototype, 'isAuthorised').resolves(true);
 sinon.stub(ListDownloadService.prototype, 'getFile').resolves('abc');
 
 const getFileSizeStub = sinon.stub(ListDownloadService.prototype, 'getFileSize');
-getFileSizeStub.withArgs('abc', 'pdf').returns('1.1MB');
-getFileSizeStub.withArgs('abc', 'xlsx').returns('25.2KB');
-getFileSizeStub.withArgs('def', 'pdf').returns('1.1MB');
-getFileSizeStub.withArgs('def', 'xlsx').returns(null);
-getFileSizeStub.withArgs('ghi', 'pdf').returns(null);
-getFileSizeStub.withArgs('ghi', 'xlsx').returns('25.2KB');
+getFileSizeStub.withArgs('abc', 'pdf', '123-456').returns('1.1MB');
+getFileSizeStub.withArgs('abc', 'xlsx', '123-456').returns('25.2KB');
+getFileSizeStub.withArgs('def', 'pdf', '123-456').returns('1.1MB');
+getFileSizeStub.withArgs('def', 'xlsx', '123-456').returns(null);
+getFileSizeStub.withArgs('ghi', 'pdf', '123-456').returns(null);
+getFileSizeStub.withArgs('ghi', 'xlsx', '123-456').returns('25.2KB');
 
 expressRequest['user'] = { roles: 'VERIFIED' };
 

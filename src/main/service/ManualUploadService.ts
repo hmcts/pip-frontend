@@ -223,8 +223,8 @@ export class ManualUploadService {
         }
     }
 
-    public async uploadLocationDataPublication(data: any): Promise<boolean> {
-        return await dataManagementRequests.uploadLocationFile(data);
+    public async uploadLocationDataPublication(data: any, requesterId: string): Promise<boolean> {
+        return await dataManagementRequests.uploadLocationFile(data, requesterId);
     }
 
     public formatPublicationDates(formData: any, defaultFormat: boolean): object {
@@ -257,7 +257,7 @@ export class ManualUploadService {
             'x-list-type': headers.listType,
             'x-court-id': headers.court.locationId,
             'x-content-date': headers['content-date-from'],
-            'x-issuer-email': headers.userEmail,
+            'x-requester-id': headers.userId,
         };
     }
 }

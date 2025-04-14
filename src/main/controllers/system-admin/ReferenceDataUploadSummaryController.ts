@@ -39,7 +39,7 @@ export default class ReferenceDataUploadSummaryController {
         } else {
             const response = await manualUploadService.uploadLocationDataPublication({
                 ...formData,
-            });
+            }, req.user['userId']);
 
             await userManagementService.auditAction(
                 req.user,

@@ -109,27 +109,27 @@ describe('List Download Service', () => {
 
     describe('Get file size', () => {
         it('should return file size in KB', async () => {
-            const response = await listDownloadService.getFileSize(artefactId, 'pdf');
+            const response = await listDownloadService.getFileSize(artefactId, 'pdf', '123-456');
             expect(response).to.equal('1.0KB');
         });
 
         it('should return file size in MB', async () => {
-            const response = await listDownloadService.getFileSize('124', 'pdf');
+            const response = await listDownloadService.getFileSize('124', 'pdf', '123-456');
             expect(response).to.equal('1.0MB');
         });
 
         it('should return file size for excel', async () => {
-            const response = await listDownloadService.getFileSize(artefactId, 'xlsx');
+            const response = await listDownloadService.getFileSize(artefactId, 'xlsx', '123-456');
             expect(response).to.equal('0.5KB');
         });
 
         it('should not return file size if no artefact ID provided', async () => {
-            const response = await listDownloadService.getFileSize(null, 'excel');
+            const response = await listDownloadService.getFileSize(null, 'excel', '123-456');
             expect(response).to.be.null;
         });
 
         it('should not return file size if no file type provided', async () => {
-            const response = await listDownloadService.getFileSize(artefactId, null);
+            const response = await listDownloadService.getFileSize(artefactId, null, '123-456');
             expect(response).to.be.null;
         });
     });
