@@ -73,7 +73,7 @@ export class MediaAccountApplicationService {
             applicationId,
             'REJECTED',
             adminId,
-            reasons,
+            reasons
         );
         if (updateStatus) {
             return updateStatus;

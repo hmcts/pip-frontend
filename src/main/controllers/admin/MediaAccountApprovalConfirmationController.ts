@@ -8,7 +8,10 @@ const mediaAccountApplicationService = new MediaAccountApplicationService();
 export default class MediaAccountApprovalConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         if (req.query?.applicantId) {
-            const applicantData = await mediaAccountApplicationService.getApplicationById(req.query.applicantId, req.user['userId']);
+            const applicantData = await mediaAccountApplicationService.getApplicationById(
+                req.query.applicantId,
+                req.user['userId']
+            );
             return res.render('admin/media-account-approval-confirmation', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-approval-confirmation']),
                 applicantData: applicantData,

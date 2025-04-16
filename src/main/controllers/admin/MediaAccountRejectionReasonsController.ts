@@ -31,7 +31,7 @@ export default class MediaAccountRejectionReasonsController {
             const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
                 applicantId,
                 'PENDING',
-                adminId,
+                adminId
             );
             res.render('admin/media-account-rejection', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),

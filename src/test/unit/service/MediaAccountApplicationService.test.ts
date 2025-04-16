@@ -85,14 +85,22 @@ describe('Media Account Application Service', () => {
         dummyApplication['requestDate'] = '2022-05-09T00:00:01';
         mediaApplicationByIdStub.withArgs(applicationId).resolves(dummyApplication);
 
-        const application = await accountApplicationService.getApplicationByIdAndStatus(applicationId, 'PENDING', adminId);
+        const application = await accountApplicationService.getApplicationByIdAndStatus(
+            applicationId,
+            'PENDING',
+            adminId
+        );
         expect(application).toStrictEqual(formattedApplication);
     });
 
     it('should return the expected application by id and status when does not match', async () => {
         mediaApplicationByIdStub.withArgs(applicationId).resolves(dummyApplication);
 
-        const application = await accountApplicationService.getApplicationByIdAndStatus(applicationId, 'OTHER', adminId);
+        const application = await accountApplicationService.getApplicationByIdAndStatus(
+            applicationId,
+            'OTHER',
+            adminId
+        );
         expect(application).toBe(null);
     });
 

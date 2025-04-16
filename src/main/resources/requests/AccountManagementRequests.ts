@@ -85,8 +85,8 @@ export class AccountManagementRequests {
         try {
             const response = await accountManagementApi.get('/application/' + applicationId, {
                 headers: {
-                    'x-requester-id': adminUserId
-                }
+                    'x-requester-id': adminUserId,
+                },
             });
             logger.info('Media Application with ID: ' + applicationId + ' requested by Admin with ID: ' + adminUserId);
             return response.data;
@@ -101,10 +101,12 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/application/image/' + imageId, {
                 responseType: 'arraybuffer',
                 headers: {
-                    'x-requester-id': adminUserId
-                }
+                    'x-requester-id': adminUserId,
+                },
             });
-            logger.info('Media Application image access with ID: ' + imageId + ' requested by Admin with ID: ' + adminUserId);
+            logger.info(
+                'Media Application image access with ID: ' + imageId + ' requested by Admin with ID: ' + adminUserId
+            );
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, `retrieve media application image with ID ${imageId}`);
@@ -116,19 +118,22 @@ export class AccountManagementRequests {
         applicantId,
         status,
         adminUserId,
-        reasons = null,
+        reasons = null
     ): Promise<MediaAccountApplication | null> {
         try {
             let response;
             const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
             if (reasons) {
-                response = await accountManagementApi.put(
-                    '/application/' + applicantId + '/' + status + '/reasons', {
-                        reasons,
-                        headers: headers,
-                    }
+                response = await accountManagementApi.put('/application/' + applicantId + '/' + status + '/reasons', {
+                    reasons,
+                    headers: headers,
+                });
+                logger.info(
+                    'Media Application updated and attempted email send: ' +
+                        applicantId +
+                        ' by Admin with ID: ' +
+                        adminUserId
                 );
-                logger.info('Media Application updated and attempted email send: ' + applicantId + ' by Admin with ID: ' + adminUserId);
             } else {
                 response = await accountManagementApi.put('/application/' + applicantId + '/' + status, {
                     headers: headers,
@@ -147,8 +152,8 @@ export class AccountManagementRequests {
             logger.info('All pending media applications requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/application/status/PENDING', {
                 headers: {
-                    'x-requester-id': adminUserId
-                }
+                    'x-requester-id': adminUserId,
+                },
             });
             return response.data;
         } catch (error) {
@@ -186,8 +191,8 @@ export class AccountManagementRequests {
             logger.info('Third party account data requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/account/all/third-party', {
                 headers: {
-                    'x-requester-id': adminUserId
-                }
+                    'x-requester-id': adminUserId,
+                },
             });
             return response.data;
         } catch (error) {
@@ -227,8 +232,8 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/account/all', {
                 params,
                 headers: {
-                    'x-requester-id': adminUserId
-                }
+                    'x-requester-id': adminUserId,
+                },
             });
             return response.data;
         } catch (error) {
@@ -242,8 +247,8 @@ export class AccountManagementRequests {
             logger.info(`User with ID: ${userId} data requested by Admin with ID: ${adminUserId}`);
             const response = await accountManagementApi.get(`/account/${userId}`, {
                 headers: {
-                    'x-requester-id': adminUserId
-                }
+                    'x-requester-id': adminUserId,
+                },
             });
             return response.data;
         } catch (error) {
@@ -252,7 +257,7 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async deleteUser(userId: string, adminUserId ): Promise<object> {
+    public async deleteUser(userId: string, adminUserId): Promise<object> {
         try {
             logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
             const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
@@ -325,7 +330,7 @@ export class AccountManagementRequests {
             logger.info('All audit log data requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/audit', {
                 params,
-                headers: { 'x-requester-id': adminUserId }
+                headers: { 'x-requester-id': adminUserId },
             });
             return response.data;
         } catch (error) {
@@ -338,7 +343,7 @@ export class AccountManagementRequests {
         try {
             logger.info('Audit log with ID: ' + id + ' requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get(`/audit/${id}`, {
-                headers: { 'x-requester-id': adminUserId }
+                headers: { 'x-requester-id': adminUserId },
             });
             return response.data;
         } catch (error) {

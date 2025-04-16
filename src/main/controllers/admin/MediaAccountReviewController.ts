@@ -11,7 +11,11 @@ const mediaAccountApplicationService = new MediaAccountApplicationService();
 export default class MediaAccountReviewController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.query['applicantId'];
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING', req.user['userId']);
+        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+            applicantId,
+            'PENDING',
+            req.user['userId']
+        );
         if (applicantData) {
             return res.render('admin/media-account-review', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-review']),

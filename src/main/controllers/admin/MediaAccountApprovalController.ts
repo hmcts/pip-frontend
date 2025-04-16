@@ -13,7 +13,11 @@ export default class MediaAccountApprovalController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.query['applicantId'];
         const adminId = req.user['userId'];
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING', adminId);
+        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+            applicantId,
+            'PENDING',
+            adminId
+        );
 
         if (applicantData) {
             res.render('admin/media-account-approval', {

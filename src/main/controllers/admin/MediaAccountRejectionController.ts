@@ -16,7 +16,11 @@ export default class MediaAccountRejectionController {
         const applicantId = req.body['applicantId'];
         const adminId = req.user['userId'];
 
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING', adminId);
+        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+            applicantId,
+            'PENDING',
+            adminId
+        );
 
         if (applicantData) {
             res.render('admin/media-account-rejection', {
@@ -102,7 +106,10 @@ export default class MediaAccountRejectionController {
      * This handles the pages that render if the user has selected 'Reject' on the screen.
      */
     private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
-        const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId, req.user['userId']);
+        const applicantData = await mediaAccountApplicationService.getApplicationById(
+            req.body.applicantId,
+            req.user['userId']
+        );
         if (
             await mediaAccountApplicationService.rejectApplication(
                 applicantId,
