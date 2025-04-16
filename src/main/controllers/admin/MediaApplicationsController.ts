@@ -7,7 +7,7 @@ const mediaApplicationService = new MediaAccountApplicationService();
 
 export default class MediaApplicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const mediaApplications = await mediaApplicationService.getDateOrderedMediaApplications();
+        const mediaApplications = await mediaApplicationService.getDateOrderedMediaApplications(req.user['userId']);
         res.render('admin/media-applications', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-applications']),
             mediaApplications,

@@ -14,7 +14,9 @@ export default class MediaAccountRejectionController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const reasons = req.body['reasons'];
         const applicantId = req.body['applicantId'];
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+        const adminId = req.user['userId'];
+
+        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING', adminId);
 
         if (applicantData) {
             res.render('admin/media-account-rejection', {
@@ -30,6 +32,7 @@ export default class MediaAccountRejectionController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.query?.applicantId as string;
+        const adminId = req.user['userId'];
 
         if (!validate(applicantId)) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
@@ -39,7 +42,8 @@ export default class MediaAccountRejectionController {
 
             const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
                 applicantId,
-                'PENDING'
+                'PENDING',
+                adminId
             );
             if (applicantData) {
                 return MediaAccountRejectionController.applicationFoundFlow(
@@ -98,7 +102,7 @@ export default class MediaAccountRejectionController {
      * This handles the pages that render if the user has selected 'Reject' on the screen.
      */
     private static async rejectionFlow(req, res, applicantId, reasons): Promise<void> {
-        const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId);
+        const applicantData = await mediaAccountApplicationService.getApplicationById(req.body.applicantId, req.user['userId']);
         if (
             await mediaAccountApplicationService.rejectApplication(
                 applicantId,

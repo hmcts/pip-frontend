@@ -10,8 +10,8 @@ const createAccountService = new CreateAccountService();
 const logHelper = new LogHelper();
 
 export class MediaAccountApplicationService {
-    public async getDateOrderedMediaApplications(): Promise<MediaAccountApplication[]> {
-        const applications = await accountManagementRequests.getPendingMediaApplications();
+    public async getDateOrderedMediaApplications(adminUserId: string): Promise<MediaAccountApplication[]> {
+        const applications = await accountManagementRequests.getPendingMediaApplications(adminUserId);
         applications?.sort((a, b) => new Date(a.requestDate).getTime() - new Date(b.requestDate).getTime());
         applications?.forEach(application => {
             application.requestDate = DateTime.fromISO(application.requestDate).toFormat('dd MMM yyyy');
@@ -19,9 +19,9 @@ export class MediaAccountApplicationService {
         return applications;
     }
 
-    public async getApplicationById(applicationId): Promise<MediaAccount | null> {
+    public async getApplicationById(applicationId, adminUserId): Promise<MediaAccount | null> {
         if (applicationId) {
-            const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId);
+            const mediaAccount = await accountManagementRequests.getMediaApplicationById(applicationId, adminUserId);
             if (mediaAccount) {
                 mediaAccount.requestDate = DateTime.fromISO(mediaAccount.requestDate).toFormat('dd MMM yyyy');
                 return mediaAccount;
@@ -31,8 +31,8 @@ export class MediaAccountApplicationService {
         return null;
     }
 
-    public async getApplicationByIdAndStatus(applicationId, status): Promise<MediaAccount | null> {
-        const mediaAccount = await this.getApplicationById(applicationId);
+    public async getApplicationByIdAndStatus(applicationId, status, adminUserId): Promise<MediaAccount | null> {
+        const mediaAccount = await this.getApplicationById(applicationId, adminUserId);
 
         if (mediaAccount && mediaAccount.status === status) {
             return mediaAccount;
@@ -41,16 +41,16 @@ export class MediaAccountApplicationService {
         return null;
     }
 
-    public async getImageById(imageId): Promise<Blob> {
+    public async getImageById(imageId, adminUserId): Promise<Blob> {
         if (imageId) {
-            return accountManagementRequests.getMediaApplicationImageById(imageId);
+            return accountManagementRequests.getMediaApplicationImageById(imageId, adminUserId);
         }
 
         return null;
     }
 
     public async createAccountFromApplication(applicationId, adminId): Promise<MediaAccount> {
-        const mediaApplication = await this.getApplicationByIdAndStatus(applicationId, 'PENDING');
+        const mediaApplication = await this.getApplicationByIdAndStatus(applicationId, 'PENDING', adminId);
 
         if (mediaApplication) {
             const mediaAccount = {};
@@ -61,7 +61,7 @@ export class MediaAccountApplicationService {
 
             await createAccountService.createMediaAccount(mediaAccount, adminId);
 
-            return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'APPROVED');
+            return accountManagementRequests.updateMediaApplicationStatus(applicationId, 'APPROVED', adminId);
         }
 
         return null;
@@ -72,7 +72,8 @@ export class MediaAccountApplicationService {
         const updateStatus = await accountManagementRequests.updateMediaApplicationStatus(
             applicationId,
             'REJECTED',
-            reasons
+            adminId,
+            reasons,
         );
         if (updateStatus) {
             return updateStatus;
