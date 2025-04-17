@@ -10,6 +10,7 @@ export interface HelmetConfig {
 const self = "'self'";
 const googleAnalyticsDomains = ['*.googletagmanager.com', 'https://tagmanager.google.com', '*.google-analytics.com'];
 const dynatraceDomain = 'https://*.dynatrace.com';
+const justiceDomain = 'http://www.justice.gov.uk';
 
 /**
  * Module that enables helmet in the application
@@ -41,6 +42,7 @@ export class Helmet {
             self,
             ...googleAnalyticsDomains,
             dynatraceDomain,
+            justiceDomain,
             (req, res) => `'nonce-${res['locals'].cspNonce}'`,
         ];
 
@@ -54,12 +56,12 @@ export class Helmet {
                     connectSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     defaultSrc: ["'none'"],
                     fontSrc: [self, 'data:'],
-                    imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
+                    imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain, justiceDomain],
                     objectSrc: [self],
                     scriptSrcAttr: [self],
                     manifestSrc: [self],
                     scriptSrc,
-                    styleSrc: [self],
+                    styleSrc: [self, justiceDomain],
                     formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL],
                 },
             })

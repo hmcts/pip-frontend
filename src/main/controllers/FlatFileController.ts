@@ -18,6 +18,8 @@ export default class FlatFileController {
                 res.set('Content-Type', 'application/pdf');
             } else if (metadata.sourceArtefactId.endsWith('.json')) {
                 res.set('Content-Type', 'application/json');
+            } else if (metadata.sourceArtefactId.endsWith('.html') || metadata.sourceArtefactId.endsWith('.htm')) {
+                res.set('Content-Type', 'text/html');
             } else {
                 res.set('Content-Disposition', 'attachment;filename=' + metadata.sourceArtefactId);
             }
