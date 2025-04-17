@@ -13,12 +13,15 @@ export default class SummaryOfPublicationsController {
         if (locationId) {
             const court = await courtService.getLocationById(parseInt(locationId));
             const locationName = courtService.findCourtName(court, req.lng, 'summary-of-publications');
-            const additionalLocationInfo = courtService.getAdditionalLocationInfo(locationId);
+            const locationMetadata = await courtService.getLocationMetadata(parseInt(locationId));
 
+            let cautionMessage = '';
             let noListMessageOverride = '';
-            if (additionalLocationInfo) {
+            if (locationMetadata) {
+                cautionMessage =
+                    req.lng === 'cy' ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
                 noListMessageOverride =
-                    req.lng === 'cy' ? additionalLocationInfo.welshNoListMessage : additionalLocationInfo.noListMessage;
+                    req.lng === 'cy' ? locationMetadata.welshNoListMessage : locationMetadata.noListMessage;
             }
 
             const publications = await summaryOfPublicationsService.getPublications(
@@ -31,6 +34,7 @@ export default class SummaryOfPublicationsController {
                 publications,
                 locationName,
                 court,
+                cautionMessage,
                 noListMessageOverride,
             });
         } else {

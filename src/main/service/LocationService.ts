@@ -2,8 +2,7 @@ import { LocationRequests } from '../resources/requests/LocationRequests';
 import { Location } from '../models/Location';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';
-import locationInfo from '../resources/additionalLocationInfoLookup.json';
-import { AdditionalLocationInfo } from '../models/AdditionalLocationInfo';
+import { LocationMetadata } from '../models/LocationMetadata';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
@@ -114,8 +113,7 @@ export class LocationService {
         return courtJurisdictions;
     }
 
-    public getAdditionalLocationInfo(locationId: string) {
-        const allLocationInfoMap: Map<string, AdditionalLocationInfo> = new Map(Object.entries(locationInfo));
-        return allLocationInfoMap.get(locationId);
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadataByLocationId(locationId);
     }
 }

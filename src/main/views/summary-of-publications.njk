@@ -12,7 +12,10 @@
 {% block content %}
 <div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
-  {% if publications.length === 0 %}
+
+  {% if cautionMessage | length %}
+    <p class="govuk-body govuk-!-padding-bottom-3">{{ cautionMessage }}</p>
+  {% elseif publications.length === 0 %}
     {% if noListMessageOverride | length %}
         <p class="govuk-body govuk-!-font-size-16">{{ noListMessageOverride }}</p>
     {% elseif court.email | length and court.contactNo | length %}
@@ -24,27 +27,27 @@
     {% else %}
         <p class="govuk-body govuk-!-font-size-16">{{ noLists }}</p>
     {% endif %}
-  {% else %}
+  {% endif %}
+
+  {% if publications.length > 0 %}
     <p class="govuk-body">{{ p1 }}</p>
-    <div class="parent-box">
     {% set pubs = [] %}
     <ul class="no-bullets-list">
       {% for item in publications | sort(attribute="listType") | sort(reverse= true, attribute="contentDate") %}
         <li class="govuk-body govuk-!-font-size-16">
           {% if item.isFlatFile %}
             <a class=das-search-results__link target=”_blank” href="file-publication?artefactId={{ item.artefactId }}">
-              {{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
+              {{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}
+            </a>
             {{ newWindow }}
           {% else %}
             <a class=das-search-results__link
-               href="{{ item.listType | listUrl }}?artefactId={{ item.artefactId }}">{{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
+              href="{{ item.listType | listUrl }}?artefactId={{ item.artefactId }}">{{ item.listType | listType(lng) }} {{ item.contentDate | date("DD MMMM YYYY") }} - {{ item.language | language }}</a>
           {% endif %}
         </li>
       {% endfor %}
     </ul>
   {% endif %}
-  <br/>
-  </div>
 </div>
 {% endblock %}
 {% block bodyEnd %}
