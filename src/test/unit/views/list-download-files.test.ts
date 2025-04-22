@@ -46,12 +46,13 @@ getFileSizeStub.withArgs('def', 'xlsx', '123-456').returns(null);
 getFileSizeStub.withArgs('ghi', 'pdf', '123-456').returns(null);
 getFileSizeStub.withArgs('ghi', 'xlsx', '123-456').returns('25.2KB');
 
-expressRequest['user'] = { roles: 'VERIFIED' };
+expressRequest['user'] = { roles: 'VERIFIED', userId: '123-456' };
 
 describe('List Download Files Page', () => {
     describe('With PDF and Excel', () => {
         beforeAll(async () => {
-            await request(app)
+            await request
+            (app)
                 .get(PAGE_URL)
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
