@@ -23,7 +23,6 @@ const readFileStub = sinon.stub(FileHandlingService.prototype, 'readFileFromRedi
 readFileStub.withArgs('1234', 'fileName').resolves('');
 readFileStub.withArgs('12345', 'fileName').throws(new Error());
 readFileStub.withArgs('4567', 'fileName').resolves('');
-readFileStub.withArgs('45678', 'fileName').throws(new Error());
 
 const removeFileStub = sinon.stub(FileHandlingService.prototype, 'removeFileFromRedis').resolves('');
 removeFileStub.resolves('');
