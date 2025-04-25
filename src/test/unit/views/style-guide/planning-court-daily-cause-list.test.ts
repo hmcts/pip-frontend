@@ -61,7 +61,9 @@ describe('Planning Court Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Daily hearings in the Administrative Court sitting at London, Birmingham, Bristol, Cardiff, Manchester and Leeds.');
+        expect(text[9].innerHTML).contains(
+            'Daily hearings in the Administrative Court sitting at London, Birmingham, Bristol, Cardiff, Manchester and Leeds.'
+        );
     });
 
     it('should display Venue header', () => {

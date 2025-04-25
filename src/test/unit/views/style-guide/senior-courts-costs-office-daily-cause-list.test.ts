@@ -11,7 +11,10 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/seniorCourtsCostsOfficeDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/seniorCourtsCostsOfficeDailyCauseList.json'),
+    'utf-8'
+);
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -62,7 +65,9 @@ describe('Senior Courts Costs Office Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains('Hearings in the Senior Court Costs Office will be held in person unless the notice of hearing has directed otherwise.');
+        expect(text[10].innerHTML).contains(
+            'Hearings in the Senior Court Costs Office will be held in person unless the notice of hearing has directed otherwise.'
+        );
     });
 
     it('should display observe hearing link', () => {

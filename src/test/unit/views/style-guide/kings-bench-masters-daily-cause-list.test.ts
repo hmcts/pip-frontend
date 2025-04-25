@@ -62,12 +62,16 @@ describe('King’s Bench Masters Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains('Any media representative (or any other member of the public) wishing to attend a remote hearing should provide an email address and contact number to be sent an appropriate link for access.');
+        expect(text[10].innerHTML).contains(
+            'Any media representative (or any other member of the public) wishing to attend a remote hearing should provide an email address and contact number to be sent an appropriate link for access.'
+        );
     });
 
-    it('should display King\'s Bench Guide link', () => {
+    it("should display King's Bench Guide link", () => {
         const link = htmlRes.getElementsByClassName(govukLinkClass);
-        expect(link[5].getAttribute('href')).eq('https://www.judiciary.uk/guidance-and-resources/kings-bench-guide-2024/');
+        expect(link[5].getAttribute('href')).eq(
+            'https://www.judiciary.uk/guidance-and-resources/kings-bench-guide-2024/'
+        );
     });
 
     it('should display current trail windows link', () => {

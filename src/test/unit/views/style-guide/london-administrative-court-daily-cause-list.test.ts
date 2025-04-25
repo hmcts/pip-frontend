@@ -11,7 +11,10 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/londonAdministrativeCourtDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/londonAdministrativeCourtDailyCauseList.json'),
+    'utf-8'
+);
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -61,7 +64,9 @@ describe('London Administrative Court Daily Cause Listpage', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Daily hearings in the Administrative Court sitting at London, Birmingham, Bristol, Cardiff, Manchester and Leeds.');
+        expect(text[9].innerHTML).contains(
+            'Daily hearings in the Administrative Court sitting at London, Birmingham, Bristol, Cardiff, Manchester and Leeds.'
+        );
     });
 
     it('should display Venue header', () => {

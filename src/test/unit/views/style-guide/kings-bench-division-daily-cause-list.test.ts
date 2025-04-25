@@ -61,7 +61,9 @@ describe('King’s Bench Division Daily Cause Listpage', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains('The hearing will be available to representatives of the media upon request.');
+        expect(text[10].innerHTML).contains(
+            'The hearing will be available to representatives of the media upon request.'
+        );
     });
 
     it('should display Venue header', () => {

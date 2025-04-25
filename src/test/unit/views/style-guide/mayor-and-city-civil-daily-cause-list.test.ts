@@ -62,7 +62,9 @@ describe('Mayor & City Civil Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains('Due to judicial availability cases may be moved between County Court at Central London and Mayors &amp; City of London Court.');
+        expect(text[10].innerHTML).contains(
+            'Due to judicial availability cases may be moved between County Court at Central London and Mayors &amp; City of London Court.'
+        );
     });
 
     it('should display Venue header', () => {

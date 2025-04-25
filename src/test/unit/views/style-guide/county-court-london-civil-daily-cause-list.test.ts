@@ -11,7 +11,10 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/countyCourtLondonCivilDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/countyCourtLondonCivilDailyCauseList.json'),
+    'utf-8'
+);
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -62,7 +65,9 @@ describe('County Court at Central London Civil Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains('Due to judicial availability cases may be moved between County Court at Central London and Mayors &amp; City of London Court.');
+        expect(text[10].innerHTML).contains(
+            'Due to judicial availability cases may be moved between County Court at Central London and Mayors &amp; City of London Court.'
+        );
     });
 
     it('should display Venue header', () => {

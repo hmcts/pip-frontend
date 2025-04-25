@@ -61,7 +61,9 @@ describe('Civil Courts at the RCJ Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Requests from the media and others, including legal bloggers, should be made to Civil Court at the Royal Courts of Justice at mediaenquiries.civilcourtsatthercj@justice.gov.uk.');
+        expect(text[9].innerHTML).contains(
+            'Requests from the media and others, including legal bloggers, should be made to Civil Court at the Royal Courts of Justice at mediaenquiries.civilcourtsatthercj@justice.gov.uk.'
+        );
     });
 
     it('should display Venue header', () => {
