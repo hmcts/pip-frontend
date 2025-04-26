@@ -345,6 +345,9 @@ export default function (app: Application): void {
     app.get('/sscs-london-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'sscs-london-daily-hearing-list')
     );
+    app.get('/interim-applications-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'interim-applications-chd-daily-cause-list')
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
