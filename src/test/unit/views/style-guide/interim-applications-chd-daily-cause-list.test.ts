@@ -11,7 +11,10 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/interimApplicationsChanceryDivisionDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/interimApplicationsChanceryDivisionDailyCauseList.json'),
+    'utf-8'
+);
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -67,11 +70,11 @@ describe('Interim Applications Daily List page', () => {
     it('should display open justice message part 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[10].innerHTML).contains(
-            'An application should not be listed before the Interim Applications Judge unless the overall time '
-            + 'required to deal with the application is 2 hours or less. The 2 hour maximum includes the judge’s'
-            + ' pre-reading time, the hearing of the application, delivery of judgment and time for dealing with costs.'
-            + ' If the judge considers that the estimate will exceed the 2 hour limit it may be stood out of the'
-            + ' interim applications list.'
+            'An application should not be listed before the Interim Applications Judge unless the overall time ' +
+                'required to deal with the application is 2 hours or less. The 2 hour maximum includes the judge’s' +
+                ' pre-reading time, the hearing of the application, delivery of judgment and time for dealing with costs.' +
+                ' If the judge considers that the estimate will exceed the 2 hour limit it may be stood out of the' +
+                ' interim applications list.'
         );
     });
 
