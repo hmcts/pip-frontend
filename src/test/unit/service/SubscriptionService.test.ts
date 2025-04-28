@@ -983,7 +983,9 @@ describe('generateListTypesForCourts', () => {
         const listKeysC = Object.keys(listOptions['C']);
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
@@ -991,10 +993,15 @@ describe('generateListTypesForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(listOptions['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST'
+        ]);
 
         const listKeysS = Object.keys(listOptions['S']);
         expect(listKeysS).toEqual([
+            'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
             'SJP_DELTA_PRESS_LIST',
             'SJP_PRESS_REGISTER',
@@ -1012,7 +1019,9 @@ describe('generateListTypesForCourts', () => {
         const listKeysC = Object.keys(listOptions['C']);
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
@@ -1020,10 +1029,15 @@ describe('generateListTypesForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(listOptions['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST'
+        ]);
 
         const listKeysS = Object.keys(listOptions['S']);
         expect(listKeysS).toEqual([
+            'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
             'SJP_DELTA_PRESS_LIST',
             'SJP_PRESS_REGISTER',
@@ -1491,7 +1505,9 @@ describe('generateListTypeForCourts', () => {
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
@@ -1499,7 +1515,11 @@ describe('generateListTypeForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST'
+        ]);
     });
 
     it('Test only sorting of lists in welsh', async () => {
@@ -1510,7 +1530,9 @@ describe('generateListTypeForCourts', () => {
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
@@ -1518,7 +1540,11 @@ describe('generateListTypeForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST'
+        ]);
     });
 
     it('Test lists types conversion to welsh language', async () => {
