@@ -61,8 +61,8 @@ describe('Filter Service', () => {
         expect(Object.keys(data[civil])).toHaveLength(0);
 
         expect(Object.keys(data[crime])).toHaveLength(2);
-        expect(Object.keys(data[crime])[0]).toBe('Crown');
-        expect(Object.keys(data[crime])[1]).toBe('Magistrates');
+        expect(Object.keys(data[crime])[0]).toBe('Crown Court');
+        expect(Object.keys(data[crime])[1]).toBe('Magistrates Court');
 
         expect(Object.keys(data[family])).toHaveLength(1);
         expect(Object.keys(data[family])[0]).toBe('Family Court');
@@ -79,22 +79,26 @@ describe('Filter Service', () => {
     it('should build filters options for checkboxes with checked false', () => {
         const data = filterService.buildFilterValueOptions(listData, [], 'en');
         expect(data[jurisdiction][crime]['checked']).toBe(false);
-        expect(data[crime]['Crown']['checked']).toBe(false);
-        expect(data[crime]['Magistrates']['checked']).toBe(false);
+        expect(data[crime]['Crown Court']['checked']).toBe(false);
+        expect(data[crime]['Magistrates Court']['checked']).toBe(false);
     });
 
     it('should build filters options for jurisdiction checkboxes', () => {
         const data = filterService.buildFilterValueOptions(listData, ['Crime'], 'en');
         expect(data[jurisdiction][crime]['checked']).toBe(true);
-        expect(data[crime]['Crown']['checked']).toBe(false);
-        expect(data[crime]['Magistrates']['checked']).toBe(false);
+        expect(data[crime]['Crown Court']['checked']).toBe(false);
+        expect(data[crime]['Magistrates Court']['checked']).toBe(false);
     });
 
     it('should build filters options for both jurisdiction and jurisdiction type checkboxes', () => {
-        const data = filterService.buildFilterValueOptions(listData, ['Crime', 'Crown', 'Magistrates'], 'en');
+        const data = filterService.buildFilterValueOptions(
+            listData,
+            ['Crime', 'Crown Court', 'Magistrates Court'],
+            'en'
+        );
         expect(data[jurisdiction][crime]['checked']).toBe(true);
-        expect(data[crime]['Crown']['checked']).toBe(true);
-        expect(data[crime]['Magistrates']['checked']).toBe(true);
+        expect(data[crime]['Crown Court']['checked']).toBe(true);
+        expect(data[crime]['Magistrates Court']['checked']).toBe(true);
     });
 
     it('should return empty filter options for empty locations', () => {
