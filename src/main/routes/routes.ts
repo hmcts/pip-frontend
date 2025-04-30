@@ -411,6 +411,62 @@ export default function (app: Application): void {
             'mayor-and-city-civil-daily-cause-list'
         )
     );
+    app.get('/intellectual-property-and-enterprise-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'intellectual-property-and-enterprise-court-daily-cause-list'
+        )
+    );
+    app.get('/intellectual-property-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'intellectual-property-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/london-circuit-commercial-court-kb-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'london-circuit-commercial-court-kb-daily-cause-list'
+        )
+    );
+    app.get('/patents-court-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'patents-court-chd-daily-cause-list'
+        )
+    );
+    app.get('/pensions-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'pensions-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/property-trusts-probate-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'property-trusts-probate-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/revenue-list-chd-civil-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'revenue-list-chd-civil-daily-cause-list'
+        )
+    );
+    app.get('/technology-and-construction-court-kb-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'technology-and-construction-court-kb-daily-cause-list'
+        )
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
