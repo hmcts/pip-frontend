@@ -742,10 +742,10 @@
         "isNonStrategic": true
     },
     "INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_CHD_DAILY_CAUSE_LIST": {
-        "friendlyName": "Intellectual Property and Enterprise Court (ChD) Daily Cause List",
+        "friendlyName": "Intellectual Property and Enterprise Court Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Intellectual Property and Enterprise Court (ChD) Daily Cause List",
-        "url": "intellectual-property-and-enterprise-court-chd-daily-cause-list",
+        "url": "intellectual-property-and-enterprise-court-daily-cause-list",
         "jurisdictions": ["Civil"],
         "welshJurisdictions": ["Llys Sifil"],
         "restrictedProvenances": [],
@@ -753,7 +753,7 @@
         "isNonStrategic": true
     },
     "INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST": {
-        "friendlyName": "Intellectual Property List (ChD) Daily Cause List",
+        "friendlyName": "Intellectual Property (Chancery Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Intellectual Property List (ChD) Daily Cause List",
         "url": "intellectual-property-list-chd-daily-cause-list",
@@ -764,7 +764,7 @@
         "isNonStrategic": true
     },
     "LONDON_CIRCUIT_COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST": {
-        "friendlyName": "London Circuit Commercial Court (KB) Daily Cause List",
+        "friendlyName": "London Circuit Commercial Court (King’s Bench Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "London Circuit Commercial Court (KB) Daily Cause List",
         "url": "london-circuit-commercial-court-kb-daily-cause-list",
@@ -775,7 +775,7 @@
         "isNonStrategic": true
     },
     "PATENTS_COURT_CHD_DAILY_CAUSE_LIST": {
-        "friendlyName": "Patents Court (ChD) Daily Cause List",
+        "friendlyName": "Patents Court (Chancery Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Patents Court (ChD) Daily Cause List",
         "url": "patents-court-chd-daily-cause-list",
@@ -786,7 +786,7 @@
         "isNonStrategic": true
     },
     "PENSIONS_LIST_CHD_DAILY_CAUSE_LIST": {
-        "friendlyName": "Pensions List (ChD) Daily Cause List",
+        "friendlyName": "Pensions List (Chancery Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Pensions List (ChD) Daily Cause List",
         "url": "pensions-list-chd-daily-cause-list",
@@ -797,7 +797,7 @@
         "isNonStrategic": true
     },
     "PROPERTY_TRUSTS_PROBATE_LIST_CHD_DAILY_CAUSE_LIST": {
-        "friendlyName": "Property, Trusts and Probate List (ChD) Daily Cause List",
+        "friendlyName": "Property, Trusts and Probate List (Chancery Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Property, Trusts and Probate List (ChD) Daily Cause List",
         "url": "property-trusts-probate-list-chd-daily-cause-list",
@@ -808,7 +808,7 @@
         "isNonStrategic": true
     },
     "REVENUE_LIST_CHD_DAILY_CAUSE_LIST": {
-        "friendlyName": "Revenue List (ChD) Daily Cause List",
+        "friendlyName": "Revenue List (Chancery Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Revenue List (ChD) Daily Cause List",
         "url": "revenue-list-chd-civil-daily-cause-list",
@@ -819,7 +819,7 @@
         "isNonStrategic": true
     },
     "TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST": {
-        "friendlyName": "Technology and Construction Court (KB) Daily Cause List",
+        "friendlyName": "Technology and Construction Court (King’s Bench Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Technology and Construction Court (KB) Daily Cause List",
         "url": "technology-and-construction-court-kb-daily-cause-list",
