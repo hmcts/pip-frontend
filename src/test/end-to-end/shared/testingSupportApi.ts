@@ -3,7 +3,6 @@ import { config as testConfig } from '../../config';
 import fs from 'fs';
 import {
     getDataManagementCredentials,
-    getSubscriptionManagementCredentials,
     getAccountManagementCredentials,
 } from '../../../main/resources/requests/utils/axiosConfig';
 import path from 'path/posix';
@@ -52,10 +51,10 @@ const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
 };
 
 const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string) => {
-    const tokenSubscriptionManagement = await getSubscriptionManagementCredentials('');
+    const tokenSubscriptionManagement = await getAccountManagementCredentials('');
     try {
         await superagent
-            .delete(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/testing-support/subscription/${testSuitePrefix}`)
+            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/subscription/${testSuitePrefix}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenSubscriptionManagement.access_token });
     } catch (e) {
@@ -100,7 +99,7 @@ const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: string) =>
 };
 
 export const createSubscription = async (locationId: string, locationName: string, userId: string) => {
-    const token = await getSubscriptionManagementCredentials('');
+    const token = await getAccountManagementCredentials('');
     const payload = {
         channel: 'EMAIL',
         searchType: 'LOCATION_ID',
@@ -111,7 +110,7 @@ export const createSubscription = async (locationId: string, locationName: strin
     };
     try {
         await superagent
-            .post(`${testConfig.SUBSCRIPTION_MANAGEMENT_BASE_URL}/subscription`)
+            .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/subscription`)
             .send(payload)
             .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
