@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon';
 import { createLocation, createSubscription, uploadPublication } from '../../shared/testingSupportApi';
 import { randomData } from '../../shared/random-data';
-import { config } from '../../../config';
+import { config as testConfig, config } from '../../../config';
 
 Feature('System admin delete location');
 
@@ -11,12 +11,11 @@ Scenario(
         const displayFrom = DateTime.now().toISO({ includeOffset: false });
         const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
-        const USER_ID = '0e68f98c-29c5-4eff-aa26-0a872ee8bf86';
         const locationId = randomData.getRandomLocationId();
         const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
         await createLocation(locationId, locationName);
-        await createSubscription(locationId, locationName, USER_ID);
+        await createSubscription(locationId, locationName, testConfig.VERIFIED_USER_ID as string);
         await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
         function tryToDeleteCourt() {
