@@ -12,19 +12,14 @@ const locationService = new LocationService();
 const userManagementService = new UserManagementService();
 export default class BlobViewJsonController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const artefactId = req.query.artefactId as string;
+        const artefactId = req.query.artefactId;
         const data = await publicationService.getIndividualPublicationJson(artefactId, req.user['userId']);
         const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId']);
 
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
-            let courtName = '';
-            if (!noMatchArtefact) {
-                courtName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
-            } else {
-                courtName = 'No match artefacts';
-            }
+            const locationName = await BlobViewJsonController.getLocationName(metadata.locationId, noMatchArtefact);
 
             await userManagementService.auditAction(
                 req.user,
@@ -38,7 +33,7 @@ export default class BlobViewJsonController {
             res.render('system-admin/blob-view-json', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-json']),
                 data: JSON.stringify(data),
-                courtName,
+                locationName,
                 artefactId,
                 metadata,
                 listUrl,
@@ -49,5 +44,24 @@ export default class BlobViewJsonController {
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
+    }
+
+    public async post(req: PipRequest, res: Response): Promise<void> {
+        const artefactId = req.query.artefactId;
+        if (artefactId) {
+            res.redirect(`blob-view-subscription-resubmit-confirmation?artefactId=${artefactId}`);
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
+    }
+
+    private static async getLocationName(locationId, noMatchArtefact): Promise<string> {
+        let locationName = '';
+        if (!noMatchArtefact) {
+            locationName = (await locationService.getLocationById(parseInt(locationId.toString()))).name;
+        } else {
+            locationName = 'No match artefacts';
+        }
+        return locationName;
     }
 }
