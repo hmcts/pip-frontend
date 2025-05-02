@@ -110,12 +110,16 @@ describe('Subscription Configure List', () => {
             expect(tableRows[8].innerHTML).contains('King’s Bench Division Daily Cause List');
             expect(tableRows[9].innerHTML).contains('King’s Bench Masters Daily Cause List');
             expect(tableRows[10].innerHTML).contains('London Administrative Court Daily Cause List');
-            expect(tableRows[11].innerHTML).contains('London Circuit Commercial Court (King’s Bench Division) Daily Cause List');
+            expect(tableRows[11].innerHTML).contains(
+                'London Circuit Commercial Court (King’s Bench Division) Daily Cause List'
+            );
             expect(tableRows[12].innerHTML).contains('Mayor &amp; City Civil Daily Cause List');
             expect(tableRows[13].innerHTML).contains('Patents Court (Chancery Division) Daily Cause List');
             expect(tableRows[14].innerHTML).contains('Pensions List (Chancery Division) Daily Cause List');
             expect(tableRows[15].innerHTML).contains('Planning Court Daily Cause List');
-            expect(tableRows[16].innerHTML).contains('Property, Trusts and Probate List (Chancery Division) Daily Cause List');
+            expect(tableRows[16].innerHTML).contains(
+                'Property, Trusts and Probate List (Chancery Division) Daily Cause List'
+            );
             expect(tableRows[17].innerHTML).contains('Revenue List (Chancery Division) Daily Cause List');
             expect(tableRows[18].innerHTML).contains('Senior Courts Costs Office Daily Cause List');
             expect(tableRows[19].innerHTML).contains('Single Justice Procedure Press List (Full List)');
@@ -123,7 +127,9 @@ describe('Subscription Configure List', () => {
             expect(tableRows[21].innerHTML).contains('Single Justice Procedure Press Register');
             expect(tableRows[22].innerHTML).contains('Single Justice Procedure Public List (Full List)');
             expect(tableRows[23].innerHTML).contains('Single Justice Procedure Public List (New Cases)');
-            expect(tableRows[24].innerHTML).contains('Technology and Construction Court (King’s Bench Division) Daily Cause List');
+            expect(tableRows[24].innerHTML).contains(
+                'Technology and Construction Court (King’s Bench Division) Daily Cause List'
+            );
         });
 
         it('should display expected subscription list type checkboxes', () => {
@@ -254,8 +260,12 @@ describe('Subscription Configure List', () => {
             expect(tableRows[5].innerHTML).contains(
                 'Court of Protection Daily Cause List\nRhestr Achosion Dyddiol y Llys Gwarchod'
             );
-            expect(tableRows[6].innerHTML).contains('Intellectual Property (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)');
-            expect(tableRows[7].innerHTML).contains('Intellectual Property and Enterprise Court Daily Cause List\nRhestr Achosion Dyddiol Llys Mentrau Eiddo Deallusol');
+            expect(tableRows[6].innerHTML).contains(
+                'Intellectual Property (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)'
+            );
+            expect(tableRows[7].innerHTML).contains(
+                'Intellectual Property and Enterprise Court Daily Cause List\nRhestr Achosion Dyddiol Llys Mentrau Eiddo Deallusol'
+            );
             expect(tableRows[8].innerHTML).contains(
                 'King’s Bench Division Daily Cause List\nRhestr Achosion Dyddiol Adran Mainc y Brenin'
             );
@@ -265,17 +275,27 @@ describe('Subscription Configure List', () => {
             expect(tableRows[10].innerHTML).contains(
                 'London Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Llundain'
             );
-            expect(tableRows[11].innerHTML).contains('London Circuit Commercial Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Masnachol Cylchdaith Llundain (Adran Mainc y Brenin)');
+            expect(tableRows[11].innerHTML).contains(
+                'London Circuit Commercial Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Masnachol Cylchdaith Llundain (Adran Mainc y Brenin)'
+            );
             expect(tableRows[12].innerHTML).contains(
                 "Mayor &amp; City Civil Daily Cause List\nRhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas"
             );
-            expect(tableRows[13].innerHTML).contains('Patents Court (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Patentau (Adran Siawnsri)');
-            expect(tableRows[14].innerHTML).contains('Pensions List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Pensiynau (Adran Siawnsri)');
+            expect(tableRows[13].innerHTML).contains(
+                'Patents Court (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Patentau (Adran Siawnsri)'
+            );
+            expect(tableRows[14].innerHTML).contains(
+                'Pensions List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Pensiynau (Adran Siawnsri)'
+            );
             expect(tableRows[15].innerHTML).contains(
                 'Planning Court Daily Cause List\nRhestr Achosion Dyddiol y Llys Cynllunio'
             );
-            expect(tableRows[16].innerHTML).contains('Property, Trusts and Probate List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo, Ymddiriedolaethau a Phrofiant (Adran Siawnsri)');
-            expect(tableRows[17].innerHTML).contains('Revenue List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Refeniw (Adran Siawnsri)');
+            expect(tableRows[16].innerHTML).contains(
+                'Property, Trusts and Probate List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo, Ymddiriedolaethau a Phrofiant (Adran Siawnsri)'
+            );
+            expect(tableRows[17].innerHTML).contains(
+                'Revenue List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Refeniw (Adran Siawnsri)'
+            );
             expect(tableRows[18].innerHTML).contains(
                 'Senior Courts Costs Office Daily Cause List\nRhestr Achosion Dyddiol Swyddfa Costau’r Uwchlysoedd'
             );
@@ -295,7 +315,9 @@ describe('Subscription Configure List', () => {
             expect(tableRows[23].innerHTML).contains(
                 'Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)'
             );
-            expect(tableRows[24].innerHTML).contains('Technology and Construction Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)');
+            expect(tableRows[24].innerHTML).contains(
+                'Technology and Construction Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)'
+            );
         });
 
         it('should display expected subscription list type checkboxes', () => {
