@@ -14,14 +14,14 @@ const rawData = fs.readFileSync(
 const rawJson = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_CHD_DAILY_CAUSE_LIST';
+metaData.listType = 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_DAILY_CAUSE_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(rawJson);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 
-describe('Intellectual Property and Enterprise Court (ChD) Daily Cause List Page', () => {
+describe('Intellectual Property and Enterprise Court Daily Cause List Page', () => {
     describe('on GET', () => {
-        test('should return Intellectual Property and Enterprise Court (ChD) Daily Cause List page', async () => {
+        test('should return Intellectual Property and Enterprise Court Daily Cause List page', async () => {
             await request(app)
                 .get('/intellectual-property-and-enterprise-court-daily-cause-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200));

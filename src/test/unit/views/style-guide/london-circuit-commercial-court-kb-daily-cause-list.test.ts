@@ -12,21 +12,21 @@ const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/propertyTrustsProbateListChdDailyCauseList.json'),
+    path.resolve(__dirname, '../../mocks/londonCircuitCommercialCourtKbDailyCauseList.json'),
     'utf-8'
 );
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'PROPERTY_TRUSTS_PROBATE_LIST_CHD_DAILY_CAUSE_LIST';
+metaData.listType = 'LONDON_CIRCUIT_COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 
 let htmlRes: Document;
-const PAGE_URL = '/property-trusts-probate-list-chd-daily-cause-list?artefactId=abc';
+const PAGE_URL = '/london-circuit-commercial-court-kb-daily-cause-list?artefactId=abc';
 
-describe('Property, Trusts and Probate List (ChD) Daily Cause List page', () => {
+describe('London Circuit Commercial Court (KB) Daily Cause List page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -37,7 +37,7 @@ describe('Property, Trusts and Probate List (ChD) Daily Cause List page', () => 
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Property, Trusts and Probate List (Chancery Division) Daily Cause List');
+        expect(header[0].innerHTML).contains('London Circuit Commercial Court (King’s Bench Division) Daily Cause List');
     });
 
     it('should display venue', () => {
@@ -65,7 +65,7 @@ describe('Property, Trusts and Probate List (ChD) Daily Cause List page', () => 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[10].innerHTML).contains(
-            'If a representative of the media or member of the public wishes to attend the hearing they should contact the listing office chanceryjudgeslisting@justice.gov.uk who will put them in touch with the relevant person.'
+            'The hearing will be available to representatives of the media upon request. It will be organised and conducted using MS Teams (unless otherwise stated). Any media representative (or any other member of the public) wishing to witness the hearing will need to do so over the internet and provide an email address at which to be sent an appropriate link for access. Please contact comct.listing@justice.gov.uk.'
         );
     });
 
@@ -141,6 +141,6 @@ describe('Property, Trusts and Probate List (ChD) Daily Cause List page', () => 
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[15].innerHTML).contains('Data Source: Prov1');
+        expect(text[13].innerHTML).contains('Data Source: Prov1');
     });
 });

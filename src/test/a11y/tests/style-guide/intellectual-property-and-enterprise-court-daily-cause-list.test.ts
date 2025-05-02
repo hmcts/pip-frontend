@@ -9,12 +9,12 @@ const url = '/intellectual-property-and-enterprise-court-daily-cause-list?artefa
 const jsonData = testArtefactJsonData('intellectualPropertyAndEnterpriseCourtDailyCauseList.json');
 const metadata = testArtefactMetadata()[0];
 const locationData = testLocationData();
-metadata.listType = 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_CHD_DAILY_CAUSE_LIST';
+metadata.listType = 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_DAILY_CAUSE_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
 sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData);
 
-describe('Accessibility - Intellectual Property and Enterprise Court (ChD) Daily Cause List Page', () => {
+describe('Accessibility - Intellectual Property and Enterprise Court Daily Cause List Page', () => {
     testAccessibility(url);
 });

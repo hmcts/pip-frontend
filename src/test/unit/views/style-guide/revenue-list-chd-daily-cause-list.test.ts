@@ -12,21 +12,21 @@ const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/propertyTrustsProbateListChdDailyCauseList.json'),
+    path.resolve(__dirname, '../../mocks/revenueListChdDailyCauseList.json'),
     'utf-8'
 );
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'PROPERTY_TRUSTS_PROBATE_LIST_CHD_DAILY_CAUSE_LIST';
+metaData.listType = 'REVENUE_LIST_CHD_DAILY_CAUSE_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 
 let htmlRes: Document;
-const PAGE_URL = '/property-trusts-probate-list-chd-daily-cause-list?artefactId=abc';
+const PAGE_URL = '/revenue-list-chd-civil-daily-cause-list?artefactId=abc';
 
-describe('Property, Trusts and Probate List (ChD) Daily Cause List page', () => {
+describe('Revenue List (ChD) Daily Cause List page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -37,7 +37,7 @@ describe('Property, Trusts and Probate List (ChD) Daily Cause List page', () => 
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Property, Trusts and Probate List (Chancery Division) Daily Cause List');
+        expect(header[0].innerHTML).contains('Revenue List (Chancery Division) Daily Cause List');
     });
 
     it('should display venue', () => {
