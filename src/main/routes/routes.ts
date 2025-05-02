@@ -453,11 +453,11 @@ export default function (app: Application): void {
             'property-trusts-probate-list-chd-daily-cause-list'
         )
     );
-    app.get('/revenue-list-chd-civil-daily-cause-list', (req, res) =>
+    app.get('/revenue-list-chd-daily-cause-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
             res,
-            'revenue-list-chd-civil-daily-cause-list'
+            'revenue-list-chd-daily-cause-list'
         )
     );
     app.get('/technology-and-construction-court-kb-daily-cause-list', (req, res) =>
