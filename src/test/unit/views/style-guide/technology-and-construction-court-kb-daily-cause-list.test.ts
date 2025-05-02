@@ -37,7 +37,9 @@ describe('Technology and Construction Court (KB) Daily Cause List page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Technology and Construction Court (King’s Bench Division) Daily Cause List');
+        expect(header[0].innerHTML).contains(
+            'Technology and Construction Court (King’s Bench Division) Daily Cause List'
+        );
     });
 
     it('should display venue', () => {
