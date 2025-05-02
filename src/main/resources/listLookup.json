@@ -811,7 +811,7 @@
         "friendlyName": "Revenue List (Chancery Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Revenue List (ChD) Daily Cause List",
-        "url": "revenue-list-chd-civil-daily-cause-list",
+        "url": "revenue-list-chd-daily-cause-list",
         "jurisdictions": ["Civil"],
         "welshJurisdictions": ["Llys Sifil"],
         "restrictedProvenances": [],

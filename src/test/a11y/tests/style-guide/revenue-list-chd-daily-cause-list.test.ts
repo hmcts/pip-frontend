@@ -4,7 +4,7 @@ import { LocationRequests } from '../../../../main/resources/requests/LocationRe
 import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
 
-const url = '/revenue-list-chd-civil-daily-cause-list?artefactId=abc';
+const url = '/revenue-list-chd-daily-cause-list?artefactId=abc';
 
 const jsonData = testArtefactJsonData('revenueListChdDailyCauseList.json');
 const metadata = testArtefactMetadata()[0];

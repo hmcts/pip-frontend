@@ -20,7 +20,7 @@ describe('Revenue List (ChD) Daily Cause List Page', () => {
     describe('on GET', () => {
         test('should return Revenue List (ChD) Daily Cause List page', async () => {
             await request(app)
-                .get('/revenue-list-chd-civil-daily-cause-list?artefactId=abc')
+                .get('/revenue-list-chd-daily-cause-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
