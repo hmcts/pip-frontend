@@ -222,14 +222,27 @@ describe('Filter Service', () => {
         });
     });
 
-    it('should return filtered courts if jurisdiction type filters selected', async () => {
-        const result = await filterService.handleFilterInitialisation(null, 'Family Court', englishLanguage);
+    it('should return filtered courts if jurisdiction and jurisdiction type filters selected', async () => {
+        const result = await filterService.handleFilterInitialisation(null, 'Family,Family Court', englishLanguage);
         expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
         expect(result['showFilters']).toStrictEqual({
             Jurisdiction: true,
             Civil: false,
             Crime: false,
             Family: true,
+            Tribunal: false,
+            Region: true,
+        });
+    });
+
+    it('should return all courts if only jurisdiction type filters selected', async () => {
+        const result = await filterService.handleFilterInitialisation(null, 'Family Court', englishLanguage);
+        expect(result['alphabetisedList']).toStrictEqual(listData);
+        expect(result['showFilters']).toStrictEqual({
+            Jurisdiction: true,
+            Civil: false,
+            Crime: false,
+            Family: false,
             Tribunal: false,
             Region: true,
         });
@@ -251,7 +264,7 @@ describe('Filter Service', () => {
     it('should return filtered courts if multiple filters selected', async () => {
         const result = await filterService.handleFilterInitialisation(
             null,
-            'Crime,Tribunal,Magistrates,Family Court',
+            'Crime,Tribunal,Magistrates,Family,Family Court',
             englishLanguage
         );
         expect(result['alphabetisedList']).toStrictEqual([listData[0]]);
