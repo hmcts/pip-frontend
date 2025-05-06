@@ -12,6 +12,10 @@ const tribunalFilter = 'Tribunal';
 const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter];
 const filterNames = [jurisdictionFilter, ...subJurisdictionFilters, regionFilter];
 const jurisdictionType = 'jurisdictionType';
+const jurisdictionTypeMapping = new Map(Object.entries(jurisdictionTypes));
+const englishToWelshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
+const welshToEnglishJurisdictionData = Object.fromEntries(Object.entries(welshJurisdictionData).map(a => a.reverse()))
+const welshToEnglishJurisdictionMapping = new Map(Object.entries(welshToEnglishJurisdictionData));
 
 const locationService = new LocationService();
 
@@ -25,16 +29,13 @@ export class FilterService {
     }
 
     private getPossibleJurisdictionTypes(jurisdiction: string, language: string): string[] {
-        const jurisdictionTypeMapping = new Map(Object.entries(jurisdictionTypes));
-
         if (jurisdictionTypeMapping.has(jurisdiction)) {
             const jurisdictionTypes = jurisdictionTypeMapping.get(jurisdiction);
             if (language == 'cy') {
-                const welshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
                 const welshJurisdictionTypes = [];
                 jurisdictionTypes.forEach(value => {
-                    if (welshJurisdictionMapping.has(value)) {
-                        welshJurisdictionTypes.push(welshJurisdictionMapping.get(value));
+                    if (englishToWelshJurisdictionMapping.has(value)) {
+                        welshJurisdictionTypes.push(englishToWelshJurisdictionMapping.get(value));
                     }
                 });
                 return welshJurisdictionTypes;
@@ -61,31 +62,69 @@ export class FilterService {
     }
 
     private showFilters(filters: object, language: string) {
-        const welshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
         return {
             Jurisdiction: true,
             Civil: this.showJurisdictionTypeFilter(
                 filters,
                 civilFilter,
-                language == 'cy' ? welshJurisdictionMapping.get(civilFilter) : civilFilter
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(civilFilter) : civilFilter
             ),
             Family: this.showJurisdictionTypeFilter(
                 filters,
                 familyFilter,
-                language == 'cy' ? welshJurisdictionMapping.get(familyFilter) : familyFilter
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(familyFilter) : familyFilter
             ),
             Crime: this.showJurisdictionTypeFilter(
                 filters,
                 crimeFilter,
-                language == 'cy' ? welshJurisdictionMapping.get(crimeFilter) : crimeFilter
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(crimeFilter) : crimeFilter
             ),
             Tribunal: this.showJurisdictionTypeFilter(
                 filters,
                 tribunalFilter,
-                language == 'cy' ? welshJurisdictionMapping.get(tribunalFilter) : tribunalFilter
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(tribunalFilter) : tribunalFilter
             ),
             Region: true,
         };
+    }
+
+    private removeFiltersWithoutMainJurisdiction(selectedFilters: string[], reqQuery: string, language: string) {
+        // Remove relevant jurisdiction types from selected filters if the main jurisdiction has not been selected
+        if (selectedFilters && selectedFilters.length > 0) {
+            const selectedFiltersEnglish = [];
+            selectedFilters.forEach(filter => {
+                selectedFiltersEnglish.push(language == 'cy' ? welshToEnglishJurisdictionMapping.get(filter) : filter)
+            })
+
+            selectedFiltersEnglish.forEach(filter => {
+                if (!subJurisdictionFilters.includes(filter)) {
+                    subJurisdictionFilters.forEach(jurisdiction => {
+                        if (jurisdictionTypeMapping.get(jurisdiction).includes(filter) && !selectedFiltersEnglish.includes(jurisdiction)) {
+                            const filterIndex = language == 'cy'
+                                ? selectedFilters.indexOf(englishToWelshJurisdictionMapping.get(filter))
+                                : selectedFilters.indexOf(filter)
+                            selectedFilters.splice(filterIndex, 1)
+                        }
+                    })
+                }
+            })
+
+            // Remove relevant jurisdiction types from selected filters if the main jurisdiction has been cleared
+            if (reqQuery) {
+                const reqQueryEnglish = language == 'cy' ? welshToEnglishJurisdictionMapping.get(reqQuery) as string : reqQuery;
+                if (subJurisdictionFilters.includes(reqQueryEnglish)) {
+                    const jurisdictionTypesToRemoveEnglish = jurisdictionTypeMapping.get(reqQueryEnglish);
+                    const jurisdictionTypesToRemove = [];
+                    jurisdictionTypesToRemoveEnglish.forEach(jurisdictionType =>
+                        jurisdictionTypesToRemove.push(language == 'cy'
+                            ? welshToEnglishJurisdictionMapping.get(jurisdictionType) as string
+                            : jurisdictionType)
+                    );
+                    selectedFilters = selectedFilters.filter(filter => !jurisdictionTypesToRemove.includes(filter));
+                }
+            }
+        }
+        return selectedFilters;
     }
 
     public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[], language: string): object {
@@ -176,6 +215,7 @@ export class FilterService {
             filterValues = this.handleFilterClear(filterValues, clearQuery);
         }
 
+        filterValues =  this.removeFiltersWithoutMainJurisdiction(filterValues,clearQuery, language);
         const filterOptions = this.buildFilterValueOptions(
             await locationService.fetchAllLocations(language),
             filterValues,
@@ -188,13 +228,12 @@ export class FilterService {
             alphabetisedList = await locationService.generateAlphabetisedAllCourtList(language);
         } else {
             filters = this.findAndSplitFilters(filterValues, filterOptions);
-            const welshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
 
             // Add all sub-jurisdictions to jurisdiction field to be passed into the backend for filtering. If
             // sub-jurisdictions exist in the filter the main jurisdiction will not be sent over.
             const allJurisdictionFilters = [];
             subJurisdictionFilters.forEach(jurisdiction => {
-                const jurisdictionText = language == 'cy' ? welshJurisdictionMapping.get(jurisdiction) : jurisdiction;
+                const jurisdictionText = language == 'cy' ? englishToWelshJurisdictionMapping.get(jurisdiction) : jurisdiction;
                 if (filters[jurisdiction].length > 0) {
                     allJurisdictionFilters.push(...filters[jurisdiction]);
                 } else if (filters[jurisdictionFilter].includes(jurisdictionText)) {
