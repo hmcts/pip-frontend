@@ -134,6 +134,11 @@ export async function processCftIdamSignIn(req, res): Promise<any> {
     res.redirect('/account-home');
 }
 
+export async function processCrimeIdamSignIn(req, res): Promise<any> {
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('CRIME_IDAM', req.user['subname']);
+    res.redirect('/account-home');
+}
+
 export async function processSsoSignIn(req, res): Promise<any> {
     if (req.user['created'] && checkRoles(req, allAdminRoles)) {
         await AccountManagementRequests.prototype.updateAccountLastSignedInDate('SSO', req.user['oid']);
