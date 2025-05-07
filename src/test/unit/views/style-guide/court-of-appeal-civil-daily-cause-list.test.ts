@@ -40,7 +40,7 @@ describe('Court of Appeal (Civil Division) Daily Cause List page', () => {
 
     it('should display Future Judgements heading', () => {
         const heading = htmlRes.getElementById(futureJudgementsHeadingId);
-        expect(heading.textContent).contains('Notice for future judgments', 'Could not find Future Judgements heading');
+        expect(heading.textContent).contains('Notice for future judgments');
     });
 
     it('should display venue', () => {
@@ -66,7 +66,7 @@ describe('Court of Appeal (Civil Division) Daily Cause List page', () => {
     });
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Most cases in the Court of Appeal (Civil Division) are now live streamed');
+        expect(text[9].innerHTML).contains('Live Streaming of hearings at the Royal Courts of Justice');
     });
 
     it('should display Venue header', () => {
@@ -221,6 +221,6 @@ describe('Court of Appeal (Civil Division) Daily Cause List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains('Data Source: Prov1');
+        expect(text[14].innerHTML).contains('Data Source: Prov1');
     });
 });
