@@ -119,7 +119,10 @@ describe('Subscription Configure List', () => {
                 'Could not find mixed list checkbox'
             );
             expect(checkboxes[1]['value']).contains('CIVIL_DAILY_CAUSE_LIST', 'Could not find civil list checkbox');
-            expect(checkboxes[2]['value']).contains('COURT_OF_APPEAL_CIVIL_DAILY_CAUSE_LIST', 'Could not find court of appeal civil list checkbox');
+            expect(checkboxes[2]['value']).contains(
+                'COURT_OF_APPEAL_CIVIL_DAILY_CAUSE_LIST',
+                'Could not find court of appeal civil list checkbox'
+            );
             expect(checkboxes[3]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
             expect(checkboxes[4]['value']).contains(
                 'INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST',

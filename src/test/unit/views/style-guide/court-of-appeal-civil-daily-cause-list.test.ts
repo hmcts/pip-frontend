@@ -12,10 +12,7 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/courtOfAppealCivilDailyCauseList.json'),
-    'utf-8'
-);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtOfAppealCivilDailyCauseList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -69,9 +66,7 @@ describe('Court of Appeal (Civil Division) Daily Cause List page', () => {
     });
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
-            'Most cases in the Court of Appeal (Civil Division) are now live streamed'
-        );
+        expect(text[9].innerHTML).contains('Most cases in the Court of Appeal (Civil Division) are now live streamed');
     });
 
     it('should display Venue header', () => {
