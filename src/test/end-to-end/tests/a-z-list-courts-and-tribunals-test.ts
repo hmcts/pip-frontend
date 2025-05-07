@@ -55,7 +55,7 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     I.dontSee('Type of family court');
     I.dontSee('Type of tribunal');
 
-    I.click(locate('//input').withAttr({ value: 'Magistrates' }));
+    I.click(locate('//input').withAttr({ value: 'Magistrates Court' }));
     I.click(locate('//input').withAttr({ value: 'Crime' }));
     I.click('Apply filters');
     I.see(locationName);
