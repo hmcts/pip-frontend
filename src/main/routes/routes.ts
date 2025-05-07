@@ -352,6 +352,13 @@ export default function (app: Application): void {
             'interim-applications-chd-daily-cause-list'
         )
     );
+    app.get('/court-of-appeal-civil-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'court-of-appeal-civil-daily-cause-list'
+        )
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

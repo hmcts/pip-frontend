@@ -984,6 +984,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            "COURT_OF_APPEAL_CIVIL_DAILY_CAUSE_LIST",
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
@@ -1013,6 +1014,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            "COURT_OF_APPEAL_CIVIL_DAILY_CAUSE_LIST",
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
@@ -1492,6 +1494,7 @@ describe('generateListTypeForCourts', () => {
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            "COURT_OF_APPEAL_CIVIL_DAILY_CAUSE_LIST",
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
@@ -1511,6 +1514,7 @@ describe('generateListTypeForCourts', () => {
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
+            "COURT_OF_APPEAL_CIVIL_DAILY_CAUSE_LIST",
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
