@@ -37,9 +37,7 @@ describe('Companies Winding Up (Chancery Division) Daily Cause List page', () =>
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains(
-            'Companies Winding Up (Chancery Division) Daily Cause List'
-        );
+        expect(header[0].innerHTML).contains('Companies Winding Up (Chancery Division) Daily Cause List');
     });
 
     it('should display venue', () => {
@@ -66,9 +64,7 @@ describe('Companies Winding Up (Chancery Division) Daily Cause List page', () =>
 
     it('should display important information heading 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
-            'Company Insolvency Pro Bono Scheme'
-        );
+        expect(text[9].innerHTML).contains('Company Insolvency Pro Bono Scheme');
     });
 
     it('should display important information message 1', () => {

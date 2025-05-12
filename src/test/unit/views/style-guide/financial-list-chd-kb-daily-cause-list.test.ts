@@ -11,10 +11,7 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/financialListChdKbDailyCauseList.json'),
-    'utf-8'
-);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/financialListChdKbDailyCauseList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -66,9 +63,7 @@ describe('Financial List (Chancery Division/King’s Bench Division/Commercial C
 
     it('should display important information heading 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
-            'Remote hearings before a Judge of the Chancery Division'
-        );
+        expect(text[9].innerHTML).contains('Remote hearings before a Judge of the Chancery Division');
     });
 
     it('should display important information message 1', () => {
@@ -80,9 +75,7 @@ describe('Financial List (Chancery Division/King’s Bench Division/Commercial C
 
     it('should display important information heading 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains(
-            'Remote hearings before a Judge of the Commercial Court'
-        );
+        expect(text[11].innerHTML).contains('Remote hearings before a Judge of the Commercial Court');
     });
 
     it('should display important information message 2', () => {

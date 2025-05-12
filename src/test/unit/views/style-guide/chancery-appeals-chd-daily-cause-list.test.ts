@@ -11,10 +11,7 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/chanceryAppealsChdDailyCauseList.json'),
-    'utf-8'
-);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/chanceryAppealsChdDailyCauseList.json'), 'utf-8');
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
@@ -37,9 +34,7 @@ describe('Chancery Appeals (Chancery Division) Daily Cause List page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains(
-            'Chancery Appeals (Chancery Division) Daily Cause List'
-        );
+        expect(header[0].innerHTML).contains('Chancery Appeals (Chancery Division) Daily Cause List');
     });
 
     it('should display venue', () => {
@@ -66,9 +61,7 @@ describe('Chancery Appeals (Chancery Division) Daily Cause List page', () => {
 
     it('should display important information heading 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
-            'Remote hearings before a High Court Judge'
-        );
+        expect(text[9].innerHTML).contains('Remote hearings before a High Court Judge');
     });
 
     it('should display important information message 1', () => {
@@ -80,9 +73,7 @@ describe('Chancery Appeals (Chancery Division) Daily Cause List page', () => {
 
     it('should display important information heading 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains(
-            'Remote judgments'
-        );
+        expect(text[11].innerHTML).contains('Remote judgments');
     });
 
     it('should display important information message 2', () => {

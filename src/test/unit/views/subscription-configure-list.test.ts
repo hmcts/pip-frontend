@@ -127,7 +127,7 @@ describe('Subscription Configure List', () => {
                 'Single Justice Procedure Press Register',
                 'Single Justice Procedure Public List (Full List)',
                 'Single Justice Procedure Public List (New Cases)',
-                'Technology and Construction Court (King’s Bench Division) Daily Cause List'
+                'Technology and Construction Court (King’s Bench Division) Daily Cause List',
             ];
 
             const tableRows = htmlRes
@@ -181,7 +181,7 @@ describe('Subscription Configure List', () => {
                 'SJP_PRESS_REGISTER',
                 'SJP_PUBLIC_LIST',
                 'SJP_DELTA_PUBLIC_LIST',
-                'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST'
+                'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
             ];
 
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
@@ -251,15 +251,17 @@ describe('Subscription Configure List', () => {
                 'Select Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad',
                 'Select Single Justice Procedure Public List (Full List)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)',
                 'Select Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)',
-                'Select Technology and Construction Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)'
+                'Select Technology and Construction Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)',
             ];
 
             const tableRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
 
-            expect(tableRows.length).equal(expectedListNames.length,
-                'Number of table rows does not match expected count');
+            expect(tableRows.length).equal(
+                expectedListNames.length,
+                'Number of table rows does not match expected count'
+            );
 
             // Verify each row contains the expected text
             expectedListNames.forEach((expectedText, index) => {
@@ -304,11 +306,10 @@ describe('Subscription Configure List', () => {
                 'SJP_PRESS_REGISTER',
                 'SJP_PUBLIC_LIST',
                 'SJP_DELTA_PUBLIC_LIST',
-                'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST'
+                'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
             ];
 
-            const checkboxes =
-                htmlRes.getElementsByName('list-selections[]');
+            const checkboxes = htmlRes.getElementsByName('list-selections[]');
 
             expect(checkboxes.length).equal(
                 expectedCheckboxValues.length,

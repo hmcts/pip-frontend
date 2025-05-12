@@ -37,9 +37,7 @@ describe('Insolvency & Companies Court (Chancery Division) Daily Cause List page
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains(
-            'Insolvency &amp; Companies Court (Chancery Division) Daily Cause List'
-        );
+        expect(header[0].innerHTML).contains('Insolvency &amp; Companies Court (Chancery Division) Daily Cause List');
     });
 
     it('should display venue', () => {
@@ -66,9 +64,7 @@ describe('Insolvency & Companies Court (Chancery Division) Daily Cause List page
 
     it('should display important information heading 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
-            'Remote hearings before a High Court Judge'
-        );
+        expect(text[9].innerHTML).contains('Remote hearings before a High Court Judge');
     });
 
     it('should display important information message 1', () => {
@@ -80,9 +76,7 @@ describe('Insolvency & Companies Court (Chancery Division) Daily Cause List page
 
     it('should display important information heading 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains(
-            'Remote hearings before an Insolvency and Companies Court Judge'
-        );
+        expect(text[11].innerHTML).contains('Remote hearings before an Insolvency and Companies Court Judge');
     });
 
     it('should display important information message 2', () => {
@@ -94,9 +88,7 @@ describe('Insolvency & Companies Court (Chancery Division) Daily Cause List page
 
     it('should display important information heading 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[13].innerHTML).contains(
-            'Remote judgments'
-        );
+        expect(text[13].innerHTML).contains('Remote judgments');
     });
 
     it('should display important information message 3', () => {
