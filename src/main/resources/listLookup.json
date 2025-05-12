@@ -828,5 +828,93 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
+    },
+    "ADMIRALTY_COURT_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Admiralty Court (King’s Bench Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys y Morlys (Adran Mainc y Brenin)",
+        "shortenedFriendlyName": "Admiralty Court (KB) Daily Cause List",
+        "url": "admiralty-court-kb-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "BUSINESS_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Business List (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Busnes (Adran Siawnsri)",
+        "shortenedFriendlyName": "Business List (ChD) Daily Cause List",
+        "url": "business-list-chd-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Chancery Appeals (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Apeliadau Siawnsri (Adran Siawnsri)",
+        "shortenedFriendlyName": "Chancery Appeals (ChD) Daily Cause List",
+        "url": "chancery-appeals-chd-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Commercial Court (King’s Bench Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Masnach (Adran Mainc y Brenin)",
+        "shortenedFriendlyName": "Commercial Court (KB) Daily Cause List",
+        "url": "commercial-court-kb-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COMPANIES_WINDING_UP_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Companies Winding Up (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Dirwyn Cwmnïau i Ben (Adran Siawnsri)",
+        "shortenedFriendlyName": "Companies Winding Up (ChD) Daily Cause List",
+        "url": "companies-winding-up-chd-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COMPETITION_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Competition List (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Cystadleuaeth (Adran Siawnsri)",
+        "shortenedFriendlyName": "Competition List (ChD) Daily Cause List",
+        "url": "competition-list-chd-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "FINANCIAL_LIST_CHD_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Financial List (Chancery Division/King’s Bench Division/Commercial Court) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Ariannol (Adran Siawnsri /Adran Mainc y Brenin/Llys Masnach)",
+        "shortenedFriendlyName": "Financial List (ChD/KB) Daily Cause List",
+        "url": "financial-list-chd-kb-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "INSOLVENCY_AND_COMPANIES_COURT_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Insolvency & Companies Court (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Cwmnïau ac achosion Ansolfedd (Adran Siawnsri)",
+        "shortenedFriendlyName": "Insolvency & Companies Court (ChD) Daily Cause List",
+        "url": "insolvency-and-companies-court-chd-daily-cause-list",
+        "jurisdictions": ["Civil"],
+        "welshJurisdictions": ["Llys Sifil"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     }
 }
