@@ -2,9 +2,10 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 import { app } from '../../../main/app';
-import {randomUUID} from "crypto";
+import { randomUUID } from 'crypto';
 
-const PAGE_URL = '/blob-view-json?artefactId=' + randomUUID();
+const randomId = randomUUID()
+const PAGE_URL = '/blob-view-json?artefactId=' + randomId;
 
 describe('Blob view JSON page', () => {
     describe('on GET', () => {
@@ -30,7 +31,7 @@ describe('Blob view JSON page', () => {
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal(
-                        'blob-view-subscription-resubmit-confirmation?artefactId=' + randomUUID()
+                        'blob-view-subscription-resubmit-confirmation?artefactId=' + randomId
                     );
                 });
         });
