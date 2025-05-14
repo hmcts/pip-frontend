@@ -6,7 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { UserManagementService } from '../../service/UserManagementService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';
-import {validate} from "uuid";
+import { validate } from 'uuid';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();

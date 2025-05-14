@@ -142,7 +142,6 @@ describe('Blob view publication controller', () => {
             const request = mockRequest(i18n);
             const uuid = crypto.randomUUID();
 
-
             request.query = { artefactId: uuid };
             request.user = { userId: 10 };
 
