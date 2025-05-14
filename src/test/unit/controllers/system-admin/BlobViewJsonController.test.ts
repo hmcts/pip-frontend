@@ -140,14 +140,17 @@ describe('Blob view publication controller', () => {
             } as unknown as Response;
 
             const request = mockRequest(i18n);
-            request.query = { artefactId: '1234' };
+            const uuid = crypto.randomUUID();
+
+
+            request.query = { artefactId: uuid };
             request.user = { userId: 10 };
 
             const responseMock = sinon.mock(response);
             responseMock
                 .expects('redirect')
                 .once()
-                .withArgs('blob-view-subscription-resubmit-confirmation?artefactId=1234');
+                .withArgs('blob-view-subscription-resubmit-confirmation?artefactId=' + uuid);
             await blobViewController.post(request, response);
             responseMock.verify;
         });
@@ -161,6 +164,24 @@ describe('Blob view publication controller', () => {
 
             const request = mockRequest(i18n);
             request.query = {};
+            request.user = { userId: 10 };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', { title: 'Error' });
+            await blobViewController.post(request, response);
+            responseMock.verify;
+        });
+
+        it('should redirect to error page if artefact ID is not a UUID', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+
+            request.query = { artefactId: 'This is an artefact ID' };
             request.user = { userId: 10 };
 
             const responseMock = sinon.mock(response);

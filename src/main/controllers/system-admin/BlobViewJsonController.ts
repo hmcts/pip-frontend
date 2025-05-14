@@ -6,6 +6,7 @@ import { LocationService } from '../../service/LocationService';
 import { UserManagementService } from '../../service/UserManagementService';
 import { HttpStatusCode } from 'axios';
 import { isValidList } from '../../helpers/listHelper';
+import {validate} from "uuid";
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
@@ -48,7 +49,7 @@ export default class BlobViewJsonController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId;
-        if (artefactId) {
+        if (validate(artefactId)) {
             res.redirect(`blob-view-subscription-resubmit-confirmation?artefactId=${artefactId}`);
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
