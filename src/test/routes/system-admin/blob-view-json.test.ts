@@ -4,7 +4,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { randomUUID } from 'crypto';
 
-const randomId = randomUUID()
+const randomId = randomUUID();
 const PAGE_URL = '/blob-view-json?artefactId=' + randomId;
 
 describe('Blob view JSON page', () => {
