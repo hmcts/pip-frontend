@@ -48,3 +48,13 @@ describe('Accessibility - UTIAC (JR) - Cardiff Daily Hearing List', () => {
 
     testAccessibility(url);
 });
+
+describe('Accessibility - UTIAC (JR) - Leeds Daily Hearing List', () => {
+    const metadata = testArtefactMetadata()[0];
+    metadata.listType = 'UT_IAC_JR_LEEDS_DAILY_HEARING_LIST';
+
+    const url = '/ut-iac-jr-leeds-daily-hearing-list?artefactId=xyz';
+    metadataStub.withArgs('xyz').resolves(metadata);
+
+    testAccessibility(url);
+});
