@@ -991,7 +991,11 @@ describe('generateListTypesForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(listOptions['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+        ]);
 
         const listKeysS = Object.keys(listOptions['S']);
         expect(listKeysS).toEqual([
@@ -1020,7 +1024,11 @@ describe('generateListTypesForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(listOptions['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+        ]);
 
         const listKeysS = Object.keys(listOptions['S']);
         expect(listKeysS).toEqual([
@@ -1499,7 +1507,11 @@ describe('generateListTypeForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+        ]);
     });
 
     it('Test only sorting of lists in welsh', async () => {
@@ -1518,7 +1530,11 @@ describe('generateListTypeForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
+        expect(listKeysM).toEqual([
+            'MAGISTRATES_PUBLIC_LIST',
+            'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+        ]);
     });
 
     it('Test lists types conversion to welsh language', async () => {
