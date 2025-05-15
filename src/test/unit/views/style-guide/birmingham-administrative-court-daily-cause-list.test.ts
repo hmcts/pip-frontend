@@ -11,7 +11,10 @@ const bodyText = 'govuk-body';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/birminghamAdministrativeCourtDailyCauseList.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/birminghamAdministrativeCourtDailyCauseList.json'),
+    'utf-8'
+);
 const jsonData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];

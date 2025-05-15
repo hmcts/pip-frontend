@@ -106,7 +106,7 @@ describe('Subscription Configure List', () => {
                 'Single Justice Procedure Press List (New Cases)',
                 'Single Justice Procedure Press Register',
                 'Single Justice Procedure Public List (Full List)',
-                'Single Justice Procedure Public List (New Cases)'
+                'Single Justice Procedure Public List (New Cases)',
             ];
 
             const tableRows = htmlRes
@@ -139,12 +139,14 @@ describe('Subscription Configure List', () => {
                 'SJP_DELTA_PRESS_LIST',
                 'SJP_PRESS_REGISTER',
                 'SJP_PUBLIC_LIST',
-                'SJP_DELTA_PUBLIC_LIST'
+                'SJP_DELTA_PUBLIC_LIST',
             ];
 
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
-            expect(checkboxes.length).equal(expectedCheckboxValues.length,
-                `Expected ${expectedCheckboxValues.length} checkboxes but found ${checkboxes.length}`);
+            expect(checkboxes.length).equal(
+                expectedCheckboxValues.length,
+                `Expected ${expectedCheckboxValues.length} checkboxes but found ${checkboxes.length}`
+            );
 
             expectedCheckboxValues.forEach((expectedValue, index) => {
                 expect(checkboxes[index]['value']).contains(
@@ -184,7 +186,7 @@ describe('Subscription Configure List', () => {
                 'Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)',
                 'Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad',
                 'Single Justice Procedure Public List (Full List)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)',
-                'Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)'
+                'Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)',
             ];
 
             const tableRows = htmlRes
@@ -214,7 +216,7 @@ describe('Subscription Configure List', () => {
                 'SJP_DELTA_PRESS_LIST',
                 'SJP_PRESS_REGISTER',
                 'SJP_PUBLIC_LIST',
-                'SJP_DELTA_PUBLIC_LIST'
+                'SJP_DELTA_PUBLIC_LIST',
             ];
 
             const checkboxes = htmlRes.getElementsByName('list-selections[]');

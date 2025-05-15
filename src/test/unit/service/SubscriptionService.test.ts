@@ -994,7 +994,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
-            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
         ]);
 
         const listKeysS = Object.keys(listOptions['S']);
@@ -1027,7 +1027,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
-            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
         ]);
 
         const listKeysS = Object.keys(listOptions['S']);
@@ -1510,7 +1510,7 @@ describe('generateListTypeForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
-            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
         ]);
     });
 
@@ -1533,7 +1533,7 @@ describe('generateListTypeForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
-            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST'
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
         ]);
     });
 
