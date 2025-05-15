@@ -155,5 +155,4 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
             expect(text[8].innerHTML).contains('Data Source: Prov1');
         });
     });
-
 });
