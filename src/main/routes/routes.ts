@@ -290,6 +290,13 @@ export default function (app: Application): void {
             'ut-iac-jr-cardiff-daily-hearing-list'
         )
     );
+    app.get('/ut-iac-jr-leeds-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-leeds-daily-hearing-list'
+        )
+    );
     app.get('/ut-iac-statutory-appeals-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
