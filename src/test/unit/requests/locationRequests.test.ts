@@ -105,24 +105,24 @@ describe('Location get requests', () => {
 
         courtDeleteStub
             .withArgs('/locations/1', {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
             })
             .resolves({ data: { exists: true, errorMessage: 'test' } });
         courtDeleteStub
             .withArgs('/locations/2', {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorResponse);
 
         courtDeleteStub
             .withArgs('/locations/4', {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorMessage);
 
         courtDeleteStub
             .withArgs('/locations/5', {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
             })
             .resolves({ data: { exists: false, errorMessage: '' } });
     });

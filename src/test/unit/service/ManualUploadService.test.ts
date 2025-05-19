@@ -38,6 +38,7 @@ const expectedHeaders = {
     'x-court-id': headers.court.locationId,
     'x-content-date': headers['content-date-from'],
     'x-requester-id': requesterId,
+    'x-user-id': requesterId,
 };
 const courtService = sinon.stub(LocationService.prototype, 'getLocationByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);

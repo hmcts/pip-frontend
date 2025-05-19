@@ -10,7 +10,7 @@ export class PublicationRequests {
         try {
             let header;
             if (requesterId) {
-                header = { headers: { 'x-requester-id': requesterId, 'x-admin': admin } };
+                header = { headers: { 'x-requester-id': requesterId, 'x-user-id': requesterId, 'x-admin': admin } };
             } else {
                 header = { headers: { 'x-admin': admin } };
             }
@@ -23,9 +23,9 @@ export class PublicationRequests {
         }
     }
 
-    public async getPubsPerLocation(requestId: string): Promise<any> {
+    public async getPubsPerLocation(requesterId: string): Promise<any> {
         try {
-            const header = { headers: { 'x-requester-id': requestId } };
+            const header = { headers: { 'x-requester-id': requesterId, 'x-user-id': requesterId } };
             const response = await dataManagementApi.get('/publication/count-by-location', header);
             return response.data;
         } catch (error) {
@@ -57,7 +57,7 @@ export class PublicationRequests {
         try {
             let header;
             if (userId) {
-                header = { headers: { 'x-requester-id': userId } };
+                header = { headers: { 'x-requester-id': userId, 'x-user-id': userId } };
             }
 
             const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', header);
@@ -91,7 +91,7 @@ export class PublicationRequests {
         try {
             let header;
             if (userId) {
-                header = { headers: { 'x-requester-id': userId, 'x-admin': admin } };
+                header = { headers: { 'x-requester-id': userId, 'x-user-id': userId, 'x-admin': admin } };
             } else {
                 header = { headers: { 'x-admin': admin } };
             }
@@ -109,7 +109,7 @@ export class PublicationRequests {
             await dataManagementApi.put(
                 `/publication/${artefactId}/archive`,
                 {},
-                { headers: { 'x-requester-id': id } }
+                { headers: { 'x-requester-id': id, 'x-user-id': id } }
             );
             return true;
         } catch (error) {
@@ -120,7 +120,7 @@ export class PublicationRequests {
 
     public async deleteLocationPublication(locationId: number, userId: string): Promise<object> {
         try {
-            const header = { headers: { 'x-requester-id': userId } };
+            const header = { headers: { 'x-requester-id': userId, 'x-user-id': userId} };
             const response = await dataManagementApi.delete(`/publication/${locationId}/deleteArtefacts`, header);
             return response.data;
         } catch (error) {
@@ -131,7 +131,7 @@ export class PublicationRequests {
 
     public async getNoMatchPublications(userId: string): Promise<Artefact[]> {
         try {
-            const header = { headers: { 'x-requester-id': userId } };
+            const header = { headers: { 'x-requester-id': userId, 'x-user-id': userId } };
             const response = await dataManagementApi.get(`/publication/no-match`, header);
             return response.data;
         } catch (error) {

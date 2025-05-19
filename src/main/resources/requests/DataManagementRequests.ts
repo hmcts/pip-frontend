@@ -40,7 +40,7 @@ export class DataManagementRequests {
 
     public async uploadLocationFile(body: any, requesterId: string): Promise<boolean> {
         const token = await getDataManagementCredentials('');
-        const headers = { 'x-requester-id': requesterId };
+        const headers = { 'x-requester-id': requesterId, 'x-user-id': requesterId };
         try {
             await superagent
                 .post(`${this.dataManagementAPI}/locations/upload`)

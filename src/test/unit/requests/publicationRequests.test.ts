@@ -234,7 +234,7 @@ describe('get individual publication json', () => {
     it('should return json for a given publication', async () => {
         dataManagementStub
             .withArgs('/publication/fakeArtefactId/payload', {
-                headers: { 'x-requester-id': '123' },
+                headers: { 'x-requester-id': '123', 'x-user-id': '123' },
             })
             .resolves(mockJson);
         const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
@@ -290,17 +290,17 @@ describe('delete location publication', () => {
     beforeEach(() => {
         dataManagementDeleteStub
             .withArgs('/publication/1/deleteArtefacts', {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
             })
             .resolves({ data: 'success' });
         dataManagementDeleteStub
             .withArgs('/publication/2/deleteArtefacts', {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorResponse);
         dataManagementDeleteStub
             .withArgs('/publication/4/deleteArtefacts', {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
             })
             .rejects(errorMessage);
     });
