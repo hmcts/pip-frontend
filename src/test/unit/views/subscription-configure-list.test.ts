@@ -24,7 +24,17 @@ describe('Subscription Configure List', () => {
     stubGetSubscriptions.withArgs('1').returns(returnedSubscriptions.data);
 
     const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
-    locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Court of Appeal (Civil Division)', 'High Court', 'Magistrates Court'] });
+    locationStub
+        .withArgs(1)
+        .resolves({
+            jurisdictionType: [
+                'Civil Court',
+                'Civil',
+                'Court of Appeal (Civil Division)',
+                'High Court',
+                'Magistrates Court',
+            ],
+        });
     locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     describe('in English', () => {
@@ -140,8 +150,10 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'Could not find court of appeal criminal division list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
-                'Could not find family division list checkbox');
+            expect(checkboxes[5]['value']).contains(
+                'FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
+                'Could not find family division list checkbox'
+            );
             expect(checkboxes[6]['value']).contains(
                 'KINGS_BENCH_DIVISION_DAILY_CAUSE_LIST',
                 "Could not find king's bench division list checkbox"
@@ -238,12 +250,8 @@ describe('Subscription Configure List', () => {
             expect(tableRows[8].innerHTML).contains(
                 'London Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Llundain'
             );
-            expect(tableRows[9].innerHTML).contains(
-                'Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon'
-            );
-            expect(tableRows[10].innerHTML).contains(
-                'Magistrates Standard List\nRhestr Safonol y Llys Ynadon'
-            );
+            expect(tableRows[9].innerHTML).contains('Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon');
+            expect(tableRows[10].innerHTML).contains('Magistrates Standard List\nRhestr Safonol y Llys Ynadon');
             expect(tableRows[11].innerHTML).contains(
                 "Mayor &amp; City Civil Daily Cause List\nRhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas"
             );
@@ -290,8 +298,10 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'Could not find court of appeal criminal division list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
-                'Could not find family division list checkbox');
+            expect(checkboxes[5]['value']).contains(
+                'FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
+                'Could not find family division list checkbox'
+            );
             expect(checkboxes[6]['value']).contains(
                 'KINGS_BENCH_DIVISION_DAILY_CAUSE_LIST',
                 "Could not find king's bench division list checkbox"
