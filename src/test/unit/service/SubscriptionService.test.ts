@@ -972,15 +972,14 @@ describe('generateListTypesForCourts', () => {
     const returnedSubscriptions = JSON.parse(subscriptionData);
 
     stubUserSubscription.withArgs(userId).returns(returnedSubscriptions.data);
-    locationStub.withArgs(9).resolves({ jurisdiction: ['Magistrates'] });
+    locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     it('Test sorting of lists in english', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Family Court', 'Crown Court', 'High Court'] });
 
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'en');
+        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'en');
 
-        const listOptions = result['listOptions'];
-        const listKeysC = Object.keys(listOptions['C']);
+        const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
@@ -992,14 +991,14 @@ describe('generateListTypesForCourts', () => {
             'CROWN_WARNED_LIST',
         ]);
 
-        const listKeysM = Object.keys(listOptions['M']);
+        const listKeysM = Object.keys(result['M']);
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
             'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
         ]);
 
-        const listKeysS = Object.keys(listOptions['S']);
+        const listKeysS = Object.keys(result['S']);
         expect(listKeysS).toEqual([
             'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
@@ -1011,12 +1010,11 @@ describe('generateListTypesForCourts', () => {
     });
 
     it('Test sorting of lists in welsh', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Family Court', 'Crown Court', 'High Court'] });
 
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'cy');
+        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'cy');
 
-        const listOptions = result['listOptions'];
-        const listKeysC = Object.keys(listOptions['C']);
+        const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
@@ -1028,14 +1026,14 @@ describe('generateListTypesForCourts', () => {
             'CROWN_WARNED_LIST',
         ]);
 
-        const listKeysM = Object.keys(listOptions['M']);
+        const listKeysM = Object.keys(result['M']);
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
             'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
         ]);
 
-        const listKeysS = Object.keys(listOptions['S']);
+        const listKeysS = Object.keys(result['S']);
         expect(listKeysS).toEqual([
             'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
@@ -1044,355 +1042,6 @@ describe('generateListTypesForCourts', () => {
             'SJP_PUBLIC_LIST',
             'SJP_DELTA_PUBLIC_LIST',
         ]);
-    });
-
-    it('generate list types with no filters with no selected', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
-
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'en');
-
-        expect(result['listOptions']).toBeDefined();
-        expect(result['filterOptions']).toBeDefined();
-
-        const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
-
-        const listTypes = listOptions['C'];
-        expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
-
-        const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
-        expect(civilAndFamilyCauseList['checked']).toBeTruthy();
-
-        const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
-        expect(civilDailyCauseList['checked']).toBeFalsy();
-
-        const listTypesS = listOptions['S'];
-        expect(listTypesS['SJP_PRESS_LIST']).toBeDefined();
-        expect(listTypesS['SJP_PRESS_REGISTER']).toBeDefined();
-        expect(listTypesS['SJP_PUBLIC_LIST']).toBeDefined();
-
-        const sjpPressList = listTypesS['SJP_PRESS_LIST'];
-        expect(sjpPressList['checked']).toBeFalsy();
-
-        const sjpPublicList = listTypesS['SJP_PUBLIC_LIST'];
-        expect(sjpPublicList['checked']).toBeTruthy();
-
-        const filterOptions = result['filterOptions'];
-        expect(filterOptions['Jurisdiction']).toBeDefined();
-
-        const jurisdictionFilter = filterOptions['Jurisdiction'];
-        expect(jurisdictionFilter['Civil']).toBeDefined();
-        expect(jurisdictionFilter['Family']).toBeDefined();
-        expect(jurisdictionFilter['Magistrates']).toBeDefined();
-
-        const civilFilter = jurisdictionFilter['Civil'];
-        expect(civilFilter['value']).toEqual('Civil');
-        expect(civilFilter['text']).toEqual('Civil');
-        expect(civilFilter['checked']).toBeFalsy();
-
-        const familyFilter = jurisdictionFilter['Family'];
-        expect(familyFilter['value']).toEqual('Family');
-        expect(familyFilter['text']).toEqual('Family');
-        expect(familyFilter['checked']).toBeFalsy();
-
-        const magistratesFilter = jurisdictionFilter['Magistrates'];
-        expect(magistratesFilter['value']).toEqual('Magistrates');
-        expect(magistratesFilter['text']).toEqual('Magistrates');
-        expect(magistratesFilter['checked']).toBeFalsy();
-    });
-
-    it('generate list types with no filters with no selected in Welsh', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
-
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', '', '', 'cy');
-
-        expect(result['listOptions']).toBeDefined();
-        expect(result['filterOptions']).toBeDefined();
-
-        const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
-
-        const listTypes = listOptions['C'];
-        expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
-
-        const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual(
-            'Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu'
-        );
-        expect(civilAndFamilyCauseList['checked']).toBeTruthy();
-
-        const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
-        expect(civilDailyCauseList['checked']).toBeFalsy();
-
-        const listTypesS = listOptions['S'];
-        expect(listTypesS['SJP_PRESS_LIST']).toBeDefined();
-        expect(listTypesS['SJP_PRESS_REGISTER']).toBeDefined();
-        expect(listTypesS['SJP_PUBLIC_LIST']).toBeDefined();
-
-        const sjpPressList = listTypesS['SJP_PRESS_LIST'];
-        expect(sjpPressList['checked']).toBeFalsy();
-
-        const sjpPublicList = listTypesS['SJP_PUBLIC_LIST'];
-        expect(sjpPublicList['checked']).toBeTruthy();
-
-        const filterOptions = result['filterOptions'];
-        expect(filterOptions['Jurisdiction']).toBeDefined();
-
-        const jurisdictionFilter = filterOptions['Jurisdiction'];
-        expect(jurisdictionFilter['Llys Sifil']).toBeDefined();
-        expect(jurisdictionFilter['Llys Teulu']).toBeDefined();
-        expect(jurisdictionFilter['Llys Ynadon']).toBeDefined();
-
-        const civilFilter = jurisdictionFilter['Llys Sifil'];
-        expect(civilFilter['value']).toEqual('Llys Sifil');
-        expect(civilFilter['text']).toEqual('Llys Sifil');
-        expect(civilFilter['checked']).toBeFalsy();
-
-        const familyFilter = jurisdictionFilter['Llys Teulu'];
-        expect(familyFilter['value']).toEqual('Llys Teulu');
-        expect(familyFilter['text']).toEqual('Llys Teulu');
-        expect(familyFilter['checked']).toBeFalsy();
-
-        const magistratesFilter = jurisdictionFilter['Llys Ynadon'];
-        expect(magistratesFilter['value']).toEqual('Llys Ynadon');
-        expect(magistratesFilter['text']).toEqual('Llys Ynadon');
-        expect(magistratesFilter['checked']).toBeFalsy();
-    });
-
-    it('generate list types with filters selected', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
-
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', '', 'en');
-
-        expect(result['listOptions']).toBeDefined();
-        expect(result['filterOptions']).toBeDefined();
-
-        const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
-
-        const listTypes = listOptions['C'];
-        expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
-
-        const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
-        expect(civilAndFamilyCauseList['checked']).toBeTruthy();
-        expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
-
-        const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
-        expect(civilDailyCauseList['checked']).toBeFalsy();
-        expect(civilDailyCauseList['hidden']).toBeTruthy();
-
-        const listTypesS = listOptions['S'];
-        expect(listTypesS['SJP_PRESS_LIST']).toBeDefined();
-        expect(listTypesS['SJP_PRESS_REGISTER']).toBeDefined();
-        expect(listTypesS['SJP_PUBLIC_LIST']).toBeDefined();
-
-        const sjpPressList = listTypesS['SJP_PRESS_LIST'];
-        expect(sjpPressList['checked']).toBeFalsy();
-        expect(sjpPressList['hidden']).toBeTruthy();
-
-        const sjpPublicList = listTypesS['SJP_PUBLIC_LIST'];
-        expect(sjpPublicList['checked']).toBeTruthy();
-        expect(sjpPublicList['hidden']).toBeTruthy();
-
-        const filterOptions = result['filterOptions'];
-        expect(filterOptions['Jurisdiction']).toBeDefined();
-
-        const jurisdictionFilter = filterOptions['Jurisdiction'];
-        expect(jurisdictionFilter['Civil']).toBeDefined();
-        expect(jurisdictionFilter['Family']).toBeDefined();
-        expect(jurisdictionFilter['Magistrates']).toBeDefined();
-
-        const civilFilter = jurisdictionFilter['Civil'];
-        expect(civilFilter['checked']).toBeFalsy();
-
-        const familyFilter = jurisdictionFilter['Family'];
-        expect(familyFilter['checked']).toBeTruthy();
-
-        const magistratesFilter = jurisdictionFilter['Magistrates'];
-        expect(magistratesFilter['checked']).toBeFalsy();
-    });
-
-    it('generate list types with filters selected in Welsh', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
-
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Llys Teulu', '', 'cy');
-
-        expect(result['listOptions']).toBeDefined();
-        expect(result['filterOptions']).toBeDefined();
-
-        const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
-
-        const listTypes = listOptions['C'];
-        expect(listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypes['COP_DAILY_CAUSE_LIST']).toBeDefined();
-
-        const civilAndFamilyCauseList = listTypes['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual(
-            'Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu'
-        );
-        expect(civilAndFamilyCauseList['checked']).toBeTruthy();
-        expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
-
-        const civilDailyCauseList = listTypes['CIVIL_DAILY_CAUSE_LIST'];
-        expect(civilDailyCauseList['checked']).toBeFalsy();
-        expect(civilDailyCauseList['hidden']).toBeTruthy();
-
-        const listTypesS = listOptions['S'];
-        expect(listTypesS['SJP_PRESS_LIST']).toBeDefined();
-        expect(listTypesS['SJP_PRESS_REGISTER']).toBeDefined();
-        expect(listTypesS['SJP_PUBLIC_LIST']).toBeDefined();
-
-        const sjpPressList = listTypesS['SJP_PRESS_LIST'];
-        expect(sjpPressList['checked']).toBeFalsy();
-        expect(sjpPressList['hidden']).toBeTruthy();
-
-        const sjpPublicList = listTypesS['SJP_PUBLIC_LIST'];
-        expect(sjpPublicList['checked']).toBeTruthy();
-        expect(sjpPublicList['hidden']).toBeTruthy();
-
-        const filterOptions = result['filterOptions'];
-        expect(filterOptions['Jurisdiction']).toBeDefined();
-
-        const jurisdictionFilter = filterOptions['Jurisdiction'];
-        expect(jurisdictionFilter['Llys Sifil']).toBeDefined();
-        expect(jurisdictionFilter['Llys Teulu']).toBeDefined();
-        expect(jurisdictionFilter['Llys Ynadon']).toBeDefined();
-
-        const civilFilter = jurisdictionFilter['Llys Sifil'];
-        expect(civilFilter['checked']).toBeFalsy();
-
-        const familyFilter = jurisdictionFilter['Llys Teulu'];
-        expect(familyFilter['checked']).toBeTruthy();
-
-        const magistratesFilter = jurisdictionFilter['Llys Ynadon'];
-        expect(magistratesFilter['checked']).toBeFalsy();
-    });
-
-    it('generate list types with multiple filters selected', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
-
-        const result = await subscriptionService.generateListTypesForCourts(
-            userId,
-            'PI_AAD',
-            'Family,Magistrates',
-            '',
-            'en'
-        );
-
-        expect(result['listOptions']).toBeDefined();
-        expect(result['filterOptions']).toBeDefined();
-
-        const listOptions = result['listOptions'];
-
-        const listTypesC = listOptions['C'];
-        expect(listTypesC['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypesC['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypesC['COP_DAILY_CAUSE_LIST']).toBeDefined();
-
-        const civilAndFamilyCauseList = listTypesC['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['checked']).toBeTruthy();
-        expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
-
-        const civilDailyCauseList = listTypesC['CIVIL_DAILY_CAUSE_LIST'];
-        expect(civilDailyCauseList['checked']).toBeFalsy();
-        expect(civilDailyCauseList['hidden']).toBeTruthy();
-
-        const copDailyCauseList = listTypesC['COP_DAILY_CAUSE_LIST'];
-        expect(copDailyCauseList['checked']).toBeFalsy();
-        expect(copDailyCauseList['hidden']).toBeTruthy();
-
-        const listTypesS = listOptions['S'];
-        expect(listTypesS['SJP_PRESS_LIST']).toBeDefined();
-        expect(listTypesS['SJP_PRESS_REGISTER']).toBeDefined();
-        expect(listTypesS['SJP_PUBLIC_LIST']).toBeDefined();
-
-        const sjpPressList = listTypesS['SJP_PRESS_LIST'];
-        expect(sjpPressList['checked']).toBeFalsy();
-        expect(sjpPressList['hidden']).toBeFalsy();
-
-        const sjpPublicList = listTypesS['SJP_PUBLIC_LIST'];
-        expect(sjpPublicList['checked']).toBeTruthy();
-        expect(sjpPublicList['hidden']).toBeFalsy();
-
-        const filterOptions = result['filterOptions'];
-        expect(filterOptions['Jurisdiction']).toBeDefined();
-
-        const jurisdictionFilter = filterOptions['Jurisdiction'];
-
-        const civilFilter = jurisdictionFilter['Civil'];
-        expect(civilFilter['checked']).toBeFalsy();
-
-        const familyFilter = jurisdictionFilter['Family'];
-        expect(familyFilter['checked']).toBeTruthy();
-
-        const magistratesFilter = jurisdictionFilter['Magistrates'];
-        expect(magistratesFilter['checked']).toBeTruthy();
-    });
-
-    it('generate list types with filters and clear', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil'] });
-
-        const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'Family', 'Family', 'en');
-
-        expect(result['listOptions']).toBeDefined();
-        expect(result['filterOptions']).toBeDefined();
-
-        const listOptions = result['listOptions'];
-        expect(listOptions['C']).toBeDefined();
-
-        const listTypesC = listOptions['C'];
-        expect(listTypesC['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypesC['CIVIL_DAILY_CAUSE_LIST']).toBeDefined();
-        expect(listTypesC['COP_DAILY_CAUSE_LIST']).toBeDefined();
-
-        const civilAndFamilyCauseList = listTypesC['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'];
-        expect(civilAndFamilyCauseList['listFriendlyName']).toEqual('Civil and Family Daily Cause List');
-        expect(civilAndFamilyCauseList['checked']).toBeTruthy();
-        expect(civilAndFamilyCauseList['hidden']).toBeFalsy();
-
-        const civilDailyCauseList = listTypesC['CIVIL_DAILY_CAUSE_LIST'];
-        expect(civilDailyCauseList['checked']).toBeFalsy();
-        expect(civilDailyCauseList['hidden']).toBeFalsy();
-
-        const listTypesS = listOptions['S'];
-        expect(listTypesS['SJP_PRESS_LIST']).toBeDefined();
-        expect(listTypesS['SJP_PRESS_REGISTER']).toBeDefined();
-        expect(listTypesS['SJP_PUBLIC_LIST']).toBeDefined();
-
-        const sjpPressList = listTypesS['SJP_PRESS_LIST'];
-        expect(sjpPressList['checked']).toBeFalsy();
-        expect(sjpPressList['hidden']).toBeFalsy();
-
-        const sjpPublicList = listTypesS['SJP_PUBLIC_LIST'];
-        expect(sjpPublicList['checked']).toBeTruthy();
-        expect(sjpPublicList['hidden']).toBeFalsy();
-
-        const filterOptions = result['filterOptions'];
-        expect(filterOptions['Jurisdiction']).toBeDefined();
-
-        const jurisdictionFilter = filterOptions['Jurisdiction'];
-        expect(jurisdictionFilter['Civil']).toBeDefined();
-        expect(jurisdictionFilter['Family']).toBeDefined();
-        expect(jurisdictionFilter['Magistrates']).toBeDefined();
-
-        const civilFilter = jurisdictionFilter['Civil'];
-        expect(civilFilter['checked']).toBeFalsy();
-
-        const familyFilter = jurisdictionFilter['Family'];
-        expect(familyFilter['checked']).toBeFalsy();
-
-        const magistratesFilter = jurisdictionFilter['Magistrates'];
-        expect(magistratesFilter['checked']).toBeFalsy();
     });
 
     it('retrieve subscription channels', async () => {
@@ -1494,11 +1143,11 @@ describe('generateListTypeForCourts', () => {
     const returnedSubscriptions = JSON.parse(subscriptionData);
 
     stubUserSubscription.withArgs(userId).returns(returnedSubscriptions.data);
-    locationStub.withArgs(9).resolves({ jurisdiction: ['Magistrates'] });
+    locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
     cacheGetStub.withArgs(userId, 'courts').resolves([mockCourt]);
 
     it('Test sorting of lists in english', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Crown Court', 'Civil', 'Family Court','Magistrates Court'] });
 
         const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'en', userId);
 
@@ -1523,7 +1172,7 @@ describe('generateListTypeForCourts', () => {
     });
 
     it('Test only sorting of lists in welsh', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Crown Court', 'Civil', 'Family Court','Magistrates Court'] });
 
         const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'cy', userId);
 
@@ -1548,7 +1197,7 @@ describe('generateListTypeForCourts', () => {
     });
 
     it('Test lists types conversion to welsh language', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crown'] });
+        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Crown Court'] });
 
         const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'cy', userId);
 
@@ -1556,8 +1205,8 @@ describe('generateListTypeForCourts', () => {
             'Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil'
         );
 
-        expect(result['M']['MAGISTRATES_PUBLIC_LIST'].listFriendlyName).toEqual(
-            'Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon'
+        expect(result['C']['CROWN_DAILY_LIST'].listFriendlyName).toEqual(
+            'Crown Daily List\nRhestr Ddyddiol Llys y Goron'
         );
     });
 });
@@ -1582,8 +1231,7 @@ describe('populateListTypesFriendlyName', () => {
 
 describe('removeListTypeForCourt', () => {
     const userId = 1234;
-
-    locationStub.withArgs(10).resolves({ jurisdiction: ['Social Security and Child Support'] });
+    locationStub.withArgs(10).resolves({ jurisdictionType: ['Social Security and Child Support'] });
     cacheGetStub.withArgs(userId, 'courts').resolves([mockCourt]);
     cacheGetStub
         .withArgs(userId, 'listTypes')
@@ -1592,7 +1240,7 @@ describe('removeListTypeForCourt', () => {
     setListTypeSubscriptionStub.resolves({});
 
     it('Remove List type not linked with court', async () => {
-        locationStub.withArgs(1).resolves({ jurisdiction: ['Social Security and Child Support'] });
+        locationStub.withArgs(1).resolves({ jurisdictionType: ['Social Security and Child Support'] });
 
         await subscriptionService.removeListTypeForCourt('PI_AAD', 'en', userId);
         expect(setListTypeSubscriptionStub.calledWith(userId, ['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS']));

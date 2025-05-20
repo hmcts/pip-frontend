@@ -20,13 +20,22 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     I.click('Select from an A-Z list of courts and tribunals');
     I.waitForText('Find a court or tribunal');
     I.see('Selected filter');
-    I.see('Type of court or tribunal');
+    I.see('Jurisdiction');
     I.see('Region');
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
+    I.see('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
     I.click(locate('//input').withAttr({ value: 'South East' }));
     I.click('Apply filters');
     I.see(locationName);
+    I.see('Type of civil court');
 
     I.click(locate('//input').withAttr({ value: 'South East' }));
     I.click(locate('//input').withAttr({ value: 'North West' }));
@@ -34,16 +43,26 @@ Scenario('I as a user should be able to search and filter from an A-Z list of co
     I.dontSee(locationName);
 
     I.click(locate('//input').withAttr({ value: 'North West' }));
-    I.click('Apply filters');
-    I.see(locationName);
+    I.click(locate('//input').withAttr({ value: 'Crime' }));
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
 
     I.click(locate('//input').withAttr({ value: 'Civil' }));
-    I.click(locate('//input').withAttr({ value: 'Immigration and Asylum Chamber' }));
+    I.dontSee('Type of civil court');
+    I.see('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
+    I.click(locate('//input').withAttr({ value: 'Magistrates Court' }));
+    I.click(locate('//input').withAttr({ value: 'Crime' }));
     I.click('Apply filters');
-    I.dontSee(locationName);
+    I.dontSee('Type of criminal court');
 
-    I.click(locate('//input').withAttr({ value: 'Immigration and Asylum Chamber' }));
+    I.click(locate('//input').withAttr({ value: 'Crime' }));
+    I.click(locate('//input').withAttr({ value: 'Magistrates Court' }));
     I.click('Apply filters');
+    I.see(locationName);
 
     I.click(locationName);
     I.waitForText('What do you want to view from ' + locationName + '?');
