@@ -47,11 +47,13 @@ const alphabet = [
     'Y',
     'Z',
 ];
+
 const locations = [
     {
         locationId: 1,
     },
 ];
+
 const validCourt = "Abergavenny Magistrates' Court";
 const validWelshCourt = 'Llys Ynadon y Fenni';
 const englishLanguage = 'en';
@@ -185,9 +187,9 @@ describe('Court Service', () => {
         expect(courtService.sortCourtsAlphabetically([hearingsData[0]])).to.deep.equal([hearingsData[0]]);
     });
 
-    it('should return court jurisdictions for all', async () => {
-        const result = await courtService.findCourtsJurisdiction(locations);
-        expect(result[0]).contains(hearingsData[0]['jurisdiction']);
+    it('should find court jurisdiction types', async () => {
+        const result = await courtService.findCourtJurisdictionTypes(locations);
+        expect(result[0]).contains(hearingsData[0]['jurisdictionType']);
     });
 
     describe('delete location', () => {
