@@ -602,7 +602,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yn y Llys Sirol yng Nghanol Llundain",
         "shortenedFriendlyName": "County Court at Central London Civil Daily Cause List",
         "url": "county-court-london-civil-daily-cause-list",
-        "jurisdictionTypes": ["Civil"],
+        "jurisdictionTypes": ["Civil Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -612,7 +612,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil yn y Llysoedd Barn Brenhinol",
         "shortenedFriendlyName": "Civil Courts at the RCJ Daily Cause List",
         "url": "civil-courts-rcj-daily-cause-list",
-        "jurisdictionTypes": ["Civil"],
+        "jurisdictionTypes": ["Civil Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -622,7 +622,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Apêl (Adran Troseddol)",
         "shortenedFriendlyName": "Court of Appeal (Criminal Division) Daily Cause List",
         "url": "court-of-appeal-criminal-daily-cause-list",
-        "jurisdictionTypes": ["Court of Appeal (Civil Division)"],
+        "jurisdictionTypes": ["Court of Appeal (Criminal Division)"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -672,7 +672,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Mayor & City Civil Daily Cause List",
         "url": "mayor-and-city-civil-daily-cause-list",
-        "jurisdictionTypes": ["Civil"],
+        "jurisdictionTypes": ["Civil Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true

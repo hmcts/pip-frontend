@@ -27,8 +27,7 @@ describe('Subscription Configure List', () => {
     locationStub.withArgs(1).resolves({
         jurisdictionType: [
             'Civil Court',
-            'Civil',
-            'Court of Appeal (Civil Division)',
+            'Court of Appeal (Criminal Division)',
             'High Court',
             'Magistrates Court',
         ],
