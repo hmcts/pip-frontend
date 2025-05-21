@@ -24,11 +24,17 @@ describe('Subscription Configure List', () => {
     stubGetSubscriptions.withArgs('1').returns(returnedSubscriptions.data);
 
     const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
-    locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court',
-            'Civil',
-            'Court of Appeal (Civil Division)',
-            'High Court',
-            'Magistrates Court'] });
+    locationStub
+        .withArgs(1)
+        .resolves({
+            jurisdictionType: [
+                'Civil Court',
+                'Civil',
+                'Court of Appeal (Civil Division)',
+                'High Court',
+                'Magistrates Court',
+            ],
+        });
     locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     describe('in English', () => {

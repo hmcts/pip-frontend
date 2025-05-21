@@ -582,8 +582,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Birmingham",
         "shortenedFriendlyName": "Birmingham Administrative Court Daily Cause List",
         "url": "birmingham-administrative-court-daily-cause-list",
-        "jurisdictions": ["Civil"],
-        "welshJurisdictions": ["Llys Sifil"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -593,8 +592,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Bryste a Chaerdydd",
         "shortenedFriendlyName": "Bristol and Cardiff Administrative Court Daily Cause List",
         "url": "bristol-and-cardiff-administrative-court-daily-cause-list",
-        "jurisdictions": ["Civil"],
-        "welshJurisdictions": ["Llys Sifil"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -604,8 +602,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Manceinion",
         "shortenedFriendlyName": "Manchester Administrative Court Daily Cause List",
         "url": "manchester-administrative-court-daily-cause-list",
-        "jurisdictions": ["Civil"],
-        "welshJurisdictions": ["Llys Sifil"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -615,8 +612,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Leeds",
         "shortenedFriendlyName": "Leeds Administrative Court Daily Cause List",
         "url": "leeds-administrative-court-daily-cause-list",
-        "jurisdictions": ["Civil"],
-        "welshJurisdictions": ["Llys Sifil"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true

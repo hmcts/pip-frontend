@@ -975,7 +975,9 @@ describe('generateListTypesForCourts', () => {
     locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     it('Test sorting of lists in english', async () => {
-        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Family Court', 'Crown Court', 'High Court'] });
+        locationStub
+            .withArgs(1)
+            .resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Family Court', 'Crown Court', 'High Court'] });
 
         const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'en');
 
@@ -1021,10 +1023,7 @@ describe('generateListTypesForCourts', () => {
         ]);
 
         const listKeysM = Object.keys(result['M']);
-        expect(listKeysM).toEqual([
-            'MAGISTRATES_PUBLIC_LIST',
-            'MAGISTRATES_STANDARD_LIST',
-        ]);
+        expect(listKeysM).toEqual(['MAGISTRATES_PUBLIC_LIST', 'MAGISTRATES_STANDARD_LIST']);
 
         const listKeysS = Object.keys(result['S']);
         expect(listKeysS).toEqual([
@@ -1139,7 +1138,9 @@ describe('generateListTypeForCourts', () => {
     cacheGetStub.withArgs(userId, 'courts').resolves([mockCourt]);
 
     it('Test sorting of lists in english', async () => {
-        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Crown Court', 'High Court', 'Magistrates Court'] });
+        locationStub
+            .withArgs(1)
+            .resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Crown Court', 'High Court', 'Magistrates Court'] });
 
         const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'en', userId);
 
@@ -1161,7 +1162,9 @@ describe('generateListTypeForCourts', () => {
     });
 
     it('Test only sorting of lists in welsh', async () => {
-        locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Crown Court', 'High Court', 'Magistrates Court'] });
+        locationStub
+            .withArgs(1)
+            .resolves({ jurisdictionType: ['Civil Court', 'Civil', 'Crown Court', 'High Court', 'Magistrates Court'] });
 
         const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'cy', userId);
 
