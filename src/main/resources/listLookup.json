@@ -672,7 +672,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
         "shortenedFriendlyName": "Mayor & City Civil Daily Cause List",
         "url": "mayor-and-city-civil-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -682,7 +682,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Mentrau Eiddo Deallusol",
         "shortenedFriendlyName": "Intellectual Property and Enterprise Court (ChD) Daily Cause List",
         "url": "intellectual-property-and-enterprise-court-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -692,7 +692,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)",
         "shortenedFriendlyName": "Intellectual Property List (ChD) Daily Cause List",
         "url": "intellectual-property-list-chd-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -702,7 +702,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Masnachol Cylchdaith Llundain (Adran Mainc y Brenin)",
         "shortenedFriendlyName": "London Circuit Commercial Court (KB) Daily Cause List",
         "url": "london-circuit-commercial-court-kb-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
          "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -712,7 +712,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Patentau (Adran Siawnsri)",
         "shortenedFriendlyName": "Patents Court (ChD) Daily Cause List",
         "url": "patents-court-chd-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -722,7 +722,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Pensiynau (Adran Siawnsri)",
         "shortenedFriendlyName": "Pensions List (ChD) Daily Cause List",
         "url": "pensions-list-chd-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -732,7 +732,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Eiddo, Ymddiriedolaethau a Phrofiant (Adran Siawnsri)",
         "shortenedFriendlyName": "Property, Trusts and Probate List (ChD) Daily Cause List",
         "url": "property-trusts-probate-list-chd-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -742,7 +742,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Refeniw (Adran Siawnsri)",
         "shortenedFriendlyName": "Revenue List (ChD) Daily Cause List",
         "url": "revenue-list-chd-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -752,7 +752,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)",
         "shortenedFriendlyName": "Technology and Construction Court (KB) Daily Cause List",
         "url": "technology-and-construction-court-kb-daily-cause-list",
-        "jurisdictionTypes": ["Civil Court"],
+        "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
