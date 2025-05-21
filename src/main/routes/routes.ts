@@ -345,6 +345,72 @@ export default function (app: Application): void {
     app.get('/sscs-london-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'sscs-london-daily-hearing-list')
     );
+    app.get('/london-administrative-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'london-administrative-court-daily-cause-list'
+        )
+    );
+    app.get('/planning-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'planning-court-daily-cause-list')
+    );
+    app.get('/county-court-london-civil-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'county-court-london-civil-daily-cause-list'
+        )
+    );
+    app.get('/civil-courts-rcj-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'civil-courts-rcj-daily-cause-list'
+        )
+    );
+    app.get('/court-of-appeal-criminal-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'court-of-appeal-criminal-daily-cause-list'
+        )
+    );
+    app.get('/family-division-high-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'family-division-high-court-daily-cause-list'
+        )
+    );
+    app.get('/kings-bench-division-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'kings-bench-division-daily-cause-list'
+        )
+    );
+    app.get('/kings-bench-masters-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'kings-bench-masters-daily-cause-list'
+        )
+    );
+    app.get('/senior-courts-costs-office-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'senior-courts-costs-office-daily-cause-list'
+        )
+    );
+    app.get('/mayor-and-city-civil-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'mayor-and-city-civil-daily-cause-list'
+        )
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
