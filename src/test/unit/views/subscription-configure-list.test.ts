@@ -152,8 +152,10 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'Could not find court of appeal criminal division list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
-                'Could not find Family division high court list checkbox');
+            expect(checkboxes[5]['value']).contains(
+                'FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
+                'Could not find Family division high court list checkbox'
+            );
             expect(checkboxes[6]['value']).contains(
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
@@ -291,12 +293,8 @@ describe('Subscription Configure List', () => {
             expect(tableRows[11].innerHTML).contains(
                 'London Circuit Commercial Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Masnachol Cylchdaith Llundain (Adran Mainc y Brenin)'
             );
-            expect(tableRows[12].innerHTML).contains(
-                "Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon"
-            );
-            expect(tableRows[13].innerHTML).contains(
-                "Magistrates Standard List\nRhestr Safonol y Llys Ynadon"
-            );
+            expect(tableRows[12].innerHTML).contains('Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon');
+            expect(tableRows[13].innerHTML).contains('Magistrates Standard List\nRhestr Safonol y Llys Ynadon');
             expect(tableRows[14].innerHTML).contains(
                 "Mayor &amp; City Civil Daily Cause List\nRhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas"
             );
