@@ -576,5 +576,105 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
+    },
+    "LONDON_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "London Administrative Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Llundain",
+        "shortenedFriendlyName": "London Administrative Court Daily Cause List",
+        "url": "london-administrative-court-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "PLANNING_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "Planning Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Cynllunio",
+        "shortenedFriendlyName": "Planning Court Daily Cause List",
+        "url": "planning-court-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST": {
+        "friendlyName": "County Court at Central London Civil Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yn y Llys Sirol yng Nghanol Llundain",
+        "shortenedFriendlyName": "County Court at Central London Civil Daily Cause List",
+        "url": "county-court-london-civil-daily-cause-list",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST": {
+        "friendlyName": "Civil Courts at the RCJ Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil yn y Llysoedd Barn Brenhinol",
+        "shortenedFriendlyName": "Civil Courts at the RCJ Daily Cause List",
+        "url": "civil-courts-rcj-daily-cause-list",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST": {
+        "friendlyName": "Court of Appeal (Criminal Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Apêl (Adran Troseddol)",
+        "shortenedFriendlyName": "Court of Appeal (Criminal Division) Daily Cause List",
+        "url": "court-of-appeal-criminal-daily-cause-list",
+        "jurisdictionTypes": ["Court of Appeal (Criminal Division)"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "Family Division of the High Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Adran Deulu yr Uchel Lys",
+        "shortenedFriendlyName": "Family Division of the High Court Daily Cause List",
+        "url": "family-division-high-court-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "KINGS_BENCH_DIVISION_DAILY_CAUSE_LIST": {
+        "friendlyName": "King’s Bench Division Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Adran Mainc y Brenin",
+        "shortenedFriendlyName": "King’s Bench Division Daily Cause List",
+        "url": "kings-bench-division-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "KINGS_BENCH_MASTERS_DAILY_CAUSE_LIST": {
+        "friendlyName": "King’s Bench Masters Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Meistri Mainc y Brenin",
+        "shortenedFriendlyName": "King’s Bench Masters Daily Cause List",
+        "url": "kings-bench-masters-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST": {
+        "friendlyName": "Senior Courts Costs Office Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Swyddfa Costau’r Uwchlysoedd",
+        "shortenedFriendlyName": "Senior Courts Costs Office Daily Cause List",
+        "url": "senior-courts-costs-office-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST": {
+        "friendlyName": "Mayor & City Civil Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
+        "shortenedFriendlyName": "Mayor & City Civil Daily Cause List",
+        "url": "mayor-and-city-civil-daily-cause-list",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     }
 }
