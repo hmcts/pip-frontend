@@ -24,8 +24,10 @@ describe('Subscription Configure List', () => {
     stubGetSubscriptions.withArgs('1').returns(returnedSubscriptions.data);
 
     const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
-    locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crime'] });
-    locationStub.withArgs(9).resolves({ jurisdiction: ['Magistrates'] });
+    locationStub.withArgs(1).resolves({
+        jurisdictionType: ['Civil Court', 'Court of Appeal (Criminal Division)', 'High Court', 'Magistrates Court'],
+    });
+    locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     describe('in English', () => {
         beforeAll(async () => {
@@ -104,7 +106,7 @@ describe('Subscription Configure List', () => {
             expect(tableRows[2].innerHTML).contains('Civil Daily Cause List');
             expect(tableRows[3].innerHTML).contains('County Court at Central London Civil Daily Cause List');
             expect(tableRows[4].innerHTML).contains('Court of Appeal (Criminal Division) Daily Cause List');
-            expect(tableRows[5].innerHTML).contains('Court of Protection Daily Cause List');
+            expect(tableRows[5].innerHTML).contains('Family Division of the High Court Daily Cause List');
             expect(tableRows[6].innerHTML).contains('Intellectual Property (Chancery Division) Daily Cause List');
             expect(tableRows[7].innerHTML).contains('Intellectual Property and Enterprise Court Daily Cause List');
             expect(tableRows[8].innerHTML).contains('King’s Bench Division Daily Cause List');
@@ -258,7 +260,7 @@ describe('Subscription Configure List', () => {
                 'Court of Appeal (Criminal Division) Daily Cause List\nRhestr Achosion Dyddiol y Llys Apêl (Adran Troseddol)'
             );
             expect(tableRows[5].innerHTML).contains(
-                'Court of Protection Daily Cause List\nRhestr Achosion Dyddiol y Llys Gwarchod'
+                'Family Division of the High Court Daily Cause List\nRhestr Achosion Dyddiol Adran Deulu yr Uchel Lys'
             );
             expect(tableRows[6].innerHTML).contains(
                 'Intellectual Property (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)'
@@ -335,7 +337,8 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'Could not find court of appeal criminal division list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
+            expect(checkboxes[5]['value']).contains('FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST', 
+                'Could not find family division list checkbox');
             expect(checkboxes[6]['value']).contains(
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'

@@ -8,12 +8,13 @@
     "filterSelected": "Selected filter",
     "userSelections": "Total selected",
     "selected": "selected",
-    "courtTableHeader": "Courts and tribunals in England and Wales",
-    "sjpTableHeader": "National lists",
-    "sjpSubscription": "Single Justice Procedure cases",
     "hide": "Hide Filters",
     "show": "Show Filters",
-    "jurisdiction": "Type of court or tribunal",
+    "jurisdiction": "Jurisdiction",
+    "civilType": "Type of civil court",
+    "familyType": "Type of family court",
+    "crimeType": "Type of criminal court",
+    "tribunalType": "Type of tribunal",
     "region": "Region",
     "aria": {
         "filterLabel": "Filter by Jurisdiction or region"
