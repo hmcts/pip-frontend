@@ -24,8 +24,12 @@ describe('Subscription Configure List', () => {
     stubGetSubscriptions.withArgs('1').returns(returnedSubscriptions.data);
 
     const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
-    locationStub.withArgs(1).resolves({ jurisdiction: ['Civil', 'Crime'] });
-    locationStub.withArgs(9).resolves({ jurisdiction: ['Magistrates'] });
+    locationStub.withArgs(1).resolves({ jurisdictionType: ['Civil Court',
+            'Civil',
+            'Court of Appeal (Civil Division)',
+            'High Court',
+            'Magistrates Court'] });
+    locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     describe('in English', () => {
         beforeAll(async () => {
@@ -99,8 +103,9 @@ describe('Subscription Configure List', () => {
                 'Bristol and Cardiff Administrative Court Daily Cause List',
                 'Civil and Family Daily Cause List',
                 'Civil Daily Cause List',
-                'Court of Protection Daily Cause List',
                 'Leeds Administrative Court Daily Cause List',
+                'Magistrates Public List',
+                'Magistrates Standard List',
                 'Manchester Administrative Court Daily Cause List',
                 'Single Justice Procedure Press List (Full List)',
                 'Single Justice Procedure Press List (New Cases)',
@@ -132,8 +137,9 @@ describe('Subscription Configure List', () => {
                 'BRISTOL_AND_CARDIFF_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'CIVIL_DAILY_CAUSE_LIST',
-                'COP_DAILY_CAUSE_LIST',
                 'LEEDS_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
+                'MAGISTRATES_PUBLIC_LIST',
+                'MAGISTRATES_STANDARD_LIST',
                 'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
                 'SJP_PRESS_LIST',
                 'SJP_DELTA_PRESS_LIST',
@@ -179,8 +185,9 @@ describe('Subscription Configure List', () => {
                 'Bristol and Cardiff Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Bryste a Chaerdydd',
                 'Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu',
                 'Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil',
-                'Court of Protection Daily Cause List\nRhestr Achosion Dyddiol y Llys Gwarchod',
                 'Leeds Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Leeds',
+                'Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon',
+                'Magistrates Standard List\nRhestr Safonol y Llys Ynadon',
                 'Manchester Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Manceinion',
                 'Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)',
                 'Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)',
@@ -209,8 +216,9 @@ describe('Subscription Configure List', () => {
                 'BRISTOL_AND_CARDIFF_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'CIVIL_DAILY_CAUSE_LIST',
-                'COP_DAILY_CAUSE_LIST',
                 'LEEDS_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
+                'MAGISTRATES_PUBLIC_LIST',
+                'MAGISTRATES_STANDARD_LIST',
                 'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
                 'SJP_PRESS_LIST',
                 'SJP_DELTA_PRESS_LIST',
