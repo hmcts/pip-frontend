@@ -96,7 +96,7 @@ describe('Subscription Configure List', () => {
         });
 
         it('should contain list type rows', () => {
-            const elementsCount = 25;
+            const elementsCount = 27;
             const tableRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -115,28 +115,30 @@ describe('Subscription Configure List', () => {
             expect(tableRows[11].innerHTML).contains(
                 'London Circuit Commercial Court (King’s Bench Division) Daily Cause List'
             );
-            expect(tableRows[12].innerHTML).contains('Mayor &amp; City Civil Daily Cause List');
-            expect(tableRows[13].innerHTML).contains('Patents Court (Chancery Division) Daily Cause List');
-            expect(tableRows[14].innerHTML).contains('Pensions List (Chancery Division) Daily Cause List');
-            expect(tableRows[15].innerHTML).contains('Planning Court Daily Cause List');
-            expect(tableRows[16].innerHTML).contains(
+            expect(tableRows[12].innerHTML).contains('Magistrates Public List');
+            expect(tableRows[13].innerHTML).contains('Magistrates Standard List');
+            expect(tableRows[14].innerHTML).contains('Mayor &amp; City Civil Daily Cause List');
+            expect(tableRows[15].innerHTML).contains('Patents Court (Chancery Division) Daily Cause List');
+            expect(tableRows[16].innerHTML).contains('Pensions List (Chancery Division) Daily Cause List');
+            expect(tableRows[17].innerHTML).contains('Planning Court Daily Cause List');
+            expect(tableRows[18].innerHTML).contains(
                 'Property, Trusts and Probate List (Chancery Division) Daily Cause List'
             );
-            expect(tableRows[17].innerHTML).contains('Revenue List (Chancery Division) Daily Cause List');
-            expect(tableRows[18].innerHTML).contains('Senior Courts Costs Office Daily Cause List');
-            expect(tableRows[19].innerHTML).contains('Single Justice Procedure Press List (Full List)');
-            expect(tableRows[20].innerHTML).contains('Single Justice Procedure Press List (New Cases)');
-            expect(tableRows[21].innerHTML).contains('Single Justice Procedure Press Register');
-            expect(tableRows[22].innerHTML).contains('Single Justice Procedure Public List (Full List)');
-            expect(tableRows[23].innerHTML).contains('Single Justice Procedure Public List (New Cases)');
-            expect(tableRows[24].innerHTML).contains(
+            expect(tableRows[19].innerHTML).contains('Revenue List (Chancery Division) Daily Cause List');
+            expect(tableRows[20].innerHTML).contains('Senior Courts Costs Office Daily Cause List');
+            expect(tableRows[21].innerHTML).contains('Single Justice Procedure Press List (Full List)');
+            expect(tableRows[22].innerHTML).contains('Single Justice Procedure Press List (New Cases)');
+            expect(tableRows[23].innerHTML).contains('Single Justice Procedure Press Register');
+            expect(tableRows[24].innerHTML).contains('Single Justice Procedure Public List (Full List)');
+            expect(tableRows[25].innerHTML).contains('Single Justice Procedure Public List (New Cases)');
+            expect(tableRows[26].innerHTML).contains(
                 'Technology and Construction Court (King’s Bench Division) Daily Cause List'
             );
         });
 
         it('should display expected subscription list type checkboxes', () => {
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
-            expect(checkboxes.length).equal(25, 'Could not find all row checkboxes');
+            expect(checkboxes.length).equal(27, 'Could not find all row checkboxes');
             expect(checkboxes[0]['value']).contains(
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'Could not find mixed list checkbox'
@@ -150,7 +152,8 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'Could not find court of appeal criminal division list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('COP_DAILY_CAUSE_LIST', 'Could not find COP list checkbox');
+            expect(checkboxes[5]['value']).contains('FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
+                'Could not find Family division high court list checkbox');
             expect(checkboxes[6]['value']).contains(
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
@@ -176,48 +179,56 @@ describe('Subscription Configure List', () => {
                 'Could not find Rolls Building list checkbox'
             );
             expect(checkboxes[12]['value']).contains(
+                'MAGISTRATES_PUBLIC_LIST',
+                'Could not find magistrate public list checkbox'
+            );
+            expect(checkboxes[13]['value']).contains(
+                'MAGISTRATES_STANDARD_LIST',
+                'Could not find magistrate standard list checkbox'
+            );
+            expect(checkboxes[14]['value']).contains(
                 'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
                 'Could not find mayor and city list checkbox'
             );
-            expect(checkboxes[13]['value']).contains(
+            expect(checkboxes[15]['value']).contains(
                 'PATENTS_COURT_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[14]['value']).contains(
+            expect(checkboxes[16]['value']).contains(
                 'PENSIONS_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[15]['value']).contains(
+            expect(checkboxes[17]['value']).contains(
                 'PLANNING_COURT_DAILY_CAUSE_LIST',
                 'Could not find planning court list checkbox'
             );
-            expect(checkboxes[16]['value']).contains(
+            expect(checkboxes[18]['value']).contains(
                 'PROPERTY_TRUSTS_PROBATE_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[17]['value']).contains(
+            expect(checkboxes[19]['value']).contains(
                 'REVENUE_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[18]['value']).contains(
+            expect(checkboxes[20]['value']).contains(
                 'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
                 'Could not find senior courts costs office list checkbox'
             );
-            expect(checkboxes[19]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[20]['value']).contains(
+            expect(checkboxes[21]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
+            expect(checkboxes[22]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
                 'Could not find SJP delta press list checkbox'
             );
-            expect(checkboxes[21]['value']).contains(
+            expect(checkboxes[23]['value']).contains(
                 'SJP_PRESS_REGISTER',
                 'Could not find SJP press register checkbox'
             );
-            expect(checkboxes[22]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[23]['value']).contains(
+            expect(checkboxes[24]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
+            expect(checkboxes[25]['value']).contains(
                 'SJP_DELTA_PUBLIC_LIST',
                 'Could not find SJP delta public list checkbox'
             );
-            expect(checkboxes[24]['value']).contains(
+            expect(checkboxes[26]['value']).contains(
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
@@ -241,7 +252,7 @@ describe('Subscription Configure List', () => {
         });
 
         it('should contain list type rows', () => {
-            const elementsCount = 25;
+            const elementsCount = 27;
             const tableRows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
@@ -281,43 +292,49 @@ describe('Subscription Configure List', () => {
                 'London Circuit Commercial Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Masnachol Cylchdaith Llundain (Adran Mainc y Brenin)'
             );
             expect(tableRows[12].innerHTML).contains(
-                "Mayor &amp; City Civil Daily Cause List\nRhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas"
+                "Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon"
             );
             expect(tableRows[13].innerHTML).contains(
-                'Patents Court (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Patentau (Adran Siawnsri)'
+                "Magistrates Standard List\nRhestr Safonol y Llys Ynadon"
             );
             expect(tableRows[14].innerHTML).contains(
-                'Pensions List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Pensiynau (Adran Siawnsri)'
+                "Mayor &amp; City Civil Daily Cause List\nRhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas"
             );
             expect(tableRows[15].innerHTML).contains(
-                'Planning Court Daily Cause List\nRhestr Achosion Dyddiol y Llys Cynllunio'
+                'Patents Court (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Patentau (Adran Siawnsri)'
             );
             expect(tableRows[16].innerHTML).contains(
-                'Property, Trusts and Probate List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo, Ymddiriedolaethau a Phrofiant (Adran Siawnsri)'
+                'Pensions List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Pensiynau (Adran Siawnsri)'
             );
             expect(tableRows[17].innerHTML).contains(
-                'Revenue List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Refeniw (Adran Siawnsri)'
+                'Planning Court Daily Cause List\nRhestr Achosion Dyddiol y Llys Cynllunio'
             );
             expect(tableRows[18].innerHTML).contains(
-                'Senior Courts Costs Office Daily Cause List\nRhestr Achosion Dyddiol Swyddfa Costau’r Uwchlysoedd'
+                'Property, Trusts and Probate List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo, Ymddiriedolaethau a Phrofiant (Adran Siawnsri)'
             );
             expect(tableRows[19].innerHTML).contains(
-                'Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)'
+                'Revenue List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Refeniw (Adran Siawnsri)'
             );
             expect(tableRows[20].innerHTML).contains(
-                'Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)'
+                'Senior Courts Costs Office Daily Cause List\nRhestr Achosion Dyddiol Swyddfa Costau’r Uwchlysoedd'
             );
             expect(tableRows[21].innerHTML).contains(
-                'Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad'
+                'Single Justice Procedure Press List (Full List)\nRhestr y Wasg Y Weithdrefn Un Ynad (Rhestr Lawn)'
             );
             expect(tableRows[22].innerHTML).contains(
+                'Single Justice Procedure Press List (New Cases)\nRhestr y Wasg Y Weithdrefn Un Ynad (Achosion Newydd)'
+            );
+            expect(tableRows[23].innerHTML).contains(
+                'Single Justice Procedure Press Register\nCofrestr y Wasg Y Weithdrefn Un Ynad'
+            );
+            expect(tableRows[24].innerHTML).contains(
                 'Single Justice Procedure Public List (Full List)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)'
             );
 
-            expect(tableRows[23].innerHTML).contains(
+            expect(tableRows[25].innerHTML).contains(
                 'Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)'
             );
-            expect(tableRows[24].innerHTML).contains(
+            expect(tableRows[26].innerHTML).contains(
                 'Technology and Construction Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)'
             );
         });
@@ -337,8 +354,10 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'Could not find court of appeal criminal division list checkbox'
             );
-            expect(checkboxes[5]['value']).contains('FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST', 
-                'Could not find family division list checkbox');
+            expect(checkboxes[5]['value']).contains(
+                'FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
+                'Could not find family division list checkbox'
+            );
             expect(checkboxes[6]['value']).contains(
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
@@ -364,48 +383,56 @@ describe('Subscription Configure List', () => {
                 'Could not find Rolls Building list checkbox'
             );
             expect(checkboxes[12]['value']).contains(
+                'MAGISTRATES_PUBLIC_LIST',
+                'Could not find magistrate public list checkbox'
+            );
+            expect(checkboxes[13]['value']).contains(
+                'MAGISTRATES_STANDARD_LIST',
+                'Could not find magistrate standard list checkbox'
+            );
+            expect(checkboxes[14]['value']).contains(
                 'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
                 'Could not find mayor and city list checkbox'
             );
-            expect(checkboxes[13]['value']).contains(
+            expect(checkboxes[15]['value']).contains(
                 'PATENTS_COURT_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[14]['value']).contains(
+            expect(checkboxes[16]['value']).contains(
                 'PENSIONS_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[15]['value']).contains(
+            expect(checkboxes[17]['value']).contains(
                 'PLANNING_COURT_DAILY_CAUSE_LIST',
                 'Could not find planning court list checkbox'
             );
-            expect(checkboxes[16]['value']).contains(
+            expect(checkboxes[18]['value']).contains(
                 'PROPERTY_TRUSTS_PROBATE_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[17]['value']).contains(
+            expect(checkboxes[19]['value']).contains(
                 'REVENUE_LIST_CHD_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
-            expect(checkboxes[18]['value']).contains(
+            expect(checkboxes[20]['value']).contains(
                 'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
                 'Could not find senior courts costs office list checkbox'
             );
-            expect(checkboxes[19]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
-            expect(checkboxes[20]['value']).contains(
+            expect(checkboxes[21]['value']).contains('SJP_PRESS_LIST', 'Could not find SJP press list checkbox');
+            expect(checkboxes[22]['value']).contains(
                 'SJP_DELTA_PRESS_LIST',
                 'Could not find SJP delta press list checkbox'
             );
-            expect(checkboxes[21]['value']).contains(
+            expect(checkboxes[23]['value']).contains(
                 'SJP_PRESS_REGISTER',
                 'Could not find SJP press register checkbox'
             );
-            expect(checkboxes[22]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
-            expect(checkboxes[23]['value']).contains(
+            expect(checkboxes[24]['value']).contains('SJP_PUBLIC_LIST', 'Could not find SJP public list checkbox');
+            expect(checkboxes[25]['value']).contains(
                 'SJP_DELTA_PUBLIC_LIST',
                 'Could not find SJP delta public list checkbox'
             );
-            expect(checkboxes[24]['value']).contains(
+            expect(checkboxes[26]['value']).contains(
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
                 'Could not find Rolls Building list checkbox'
             );
