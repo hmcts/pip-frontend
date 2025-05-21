@@ -25,12 +25,7 @@ describe('Subscription Configure List', () => {
 
     const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
     locationStub.withArgs(1).resolves({
-        jurisdictionType: [
-            'Civil Court',
-            'Court of Appeal (Criminal Division)',
-            'High Court',
-            'Magistrates Court',
-        ],
+        jurisdictionType: ['Civil Court', 'Court of Appeal (Criminal Division)', 'High Court', 'Magistrates Court'],
     });
     locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
