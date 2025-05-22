@@ -107,7 +107,7 @@ describe('Subscription Configure List', () => {
             expect(tableRows[3].innerHTML).contains('County Court at Central London Civil Daily Cause List');
             expect(tableRows[4].innerHTML).contains('Court of Appeal (Criminal Division) Daily Cause List');
             expect(tableRows[5].innerHTML).contains('Family Division of the High Court Daily Cause List');
-            expect(tableRows[6].innerHTML).contains('Interim Applications List (Chancery Division) Daily Cause List');
+            expect(tableRows[6].innerHTML).contains('Interim Applications (Chancery Division) Daily Cause List');
             expect(tableRows[7].innerHTML).contains('King’s Bench Division Daily Cause List');
             expect(tableRows[8].innerHTML).contains('King’s Bench Masters Daily Cause List');
             expect(tableRows[9].innerHTML).contains('London Administrative Court Daily Cause List');
@@ -236,11 +236,11 @@ describe('Subscription Configure List', () => {
                 'Court of Appeal (Criminal Division) Daily Cause List\nRhestr Achosion Dyddiol y Llys Apêl (Adran Troseddol)'
             );
             expect(tableRows[5].innerHTML).contains(
-                'Interim Applications List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)'
-            );
-            expect(tableRows[6].innerHTML).contains(
                 'Family Division of the High Court Daily Cause List\nRhestr Achosion Dyddiol Adran Deulu yr Uchel Lys'
             );
+            expect(tableRows[6].innerHTML).contains(
+                'Interim Applications (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)'
+            )
             expect(tableRows[7].innerHTML).contains(
                 'King’s Bench Division Daily Cause List\nRhestr Achosion Dyddiol Adran Mainc y Brenin'
             );
