@@ -326,8 +326,7 @@
         "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Leeds",
         "shortenedFriendlyName": "UTIAC (JR) - Leeds Daily Hearing List",
         "url": "ut-iac-jr-leeds-daily-hearing-list",
-        "jurisdictions": ["Tribunal"],
-        "welshJurisdictions": ["Tribiwnlys"],
+        "jurisdictionTypes": ["Upper Tribunal (Immigration and Asylum) - Judicial Review"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
