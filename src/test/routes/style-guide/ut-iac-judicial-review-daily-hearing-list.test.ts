@@ -1,9 +1,9 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 
-import { app } from '../../../main/app';
-import { PublicationService } from '../../../main/service/PublicationService';
+import {app} from '../../../main/app';
+import {PublicationService} from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 
@@ -81,12 +81,12 @@ describe('UTIAC (JR) - Leeds Daily Hearing List Page', () => {
     const metaData = JSON.parse(rawMetaData)[0];
     metaData.listType = 'UT_IAC_JR_LEEDS_DAILY_HEARING_LIST';
 
-    getPublicationMetadataStub.withArgs('xyz').resolves(metaData);
+    getPublicationMetadataStub.withArgs('ghi').resolves(metaData);
 
     describe('on GET', () => {
         test('should return UTIAC (JR) - Leeds Daily Hearing List page', async () => {
             await request(app)
-                .get('/ut-iac-jr-leeds-daily-hearing-list?artefactId=xyz')
+                .get('/ut-iac-jr-leeds-daily-hearing-list?artefactId=ghi')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
