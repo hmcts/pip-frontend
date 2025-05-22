@@ -240,7 +240,7 @@ describe('Subscription Configure List', () => {
             );
             expect(tableRows[6].innerHTML).contains(
                 'Interim Applications (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)'
-            )
+            );
             expect(tableRows[7].innerHTML).contains(
                 'King’s Bench Division Daily Cause List\nRhestr Achosion Dyddiol Adran Mainc y Brenin'
             );
