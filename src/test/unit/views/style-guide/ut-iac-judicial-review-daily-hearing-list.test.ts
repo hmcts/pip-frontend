@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import request from 'supertest';
-import { app } from '../../../../main/app';
-import { expect } from 'chai';
+import {app} from '../../../../main/app';
+import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { PublicationService } from '../../../../main/service/PublicationService';
+import {PublicationService} from '../../../../main/service/PublicationService';
 
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
@@ -65,7 +65,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber Daily Hearing List Pag
 
         it('should display list update message', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains('The following list is subject to change until 4:30pm.');
+            expect(text[6].innerHTML).contains('The following list is subject to change until 4:30pm. Any alterations after this time will be telephoned or emailed direct to the parties or their legal representatives.');
         });
 
         it('should display observe hearing link text', () => {
