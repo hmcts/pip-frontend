@@ -65,7 +65,9 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
 
         it('should display list update message', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains('The following list is subject to change until 4:30pm. Any alterations after this time will be telephoned or emailed direct to the parties or their legal representatives.');
+            expect(text[6].innerHTML).contains(
+                'The following list is subject to change until 4:30pm. Any alterations after this time will be telephoned or emailed direct to the parties or their legal representatives.'
+            );
         });
 
         it('should display observe hearing link text', () => {
