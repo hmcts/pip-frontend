@@ -99,7 +99,7 @@ describe('Home page', () => {
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
-                'Hearings in First Tier and Upper Tribunals (excluding SSCS, Asylum Support and Employment Tribunals)',
+                'Hearings in First Tier and Upper Tribunals (excluding Employment Tribunals)',
                 'Could not find second bullet'
             );
             expect(bullets[2].innerHTML).contains(
@@ -250,7 +250,7 @@ describe('Home page', () => {
             );
 
             expect(bullets[1].innerHTML).contains(
-                'Gwrandawiadau yn y Tribiwnlys Haen Gyntaf a’r Tribiwnlysoedd Uwch (gan eithrio SSCS, Cymorth Lloches a’r Tribiwnlysoedd Cyflogaeth)',
+                'Gwrandawiadau yn y Tribiwnlys Haen Gyntaf a’r Tribiwnlysoedd Uwch (gan eithrio Tribiwnlysoedd Cyflogaeth)',
                 'Could not find second bullet'
             );
 
