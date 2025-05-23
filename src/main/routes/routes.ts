@@ -345,6 +345,184 @@ export default function (app: Application): void {
     app.get('/sscs-london-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'sscs-london-daily-hearing-list')
     );
+    app.get('/london-administrative-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'london-administrative-court-daily-cause-list'
+        )
+    );
+    app.get('/planning-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'planning-court-daily-cause-list')
+    );
+    app.get('/county-court-london-civil-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'county-court-london-civil-daily-cause-list'
+        )
+    );
+    app.get('/civil-courts-rcj-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'civil-courts-rcj-daily-cause-list'
+        )
+    );
+    app.get('/court-of-appeal-criminal-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'court-of-appeal-criminal-daily-cause-list'
+        )
+    );
+    app.get('/family-division-high-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'family-division-high-court-daily-cause-list'
+        )
+    );
+    app.get('/kings-bench-division-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'kings-bench-division-daily-cause-list'
+        )
+    );
+    app.get('/kings-bench-masters-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'kings-bench-masters-daily-cause-list'
+        )
+    );
+    app.get('/senior-courts-costs-office-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'senior-courts-costs-office-daily-cause-list'
+        )
+    );
+    app.get('/mayor-and-city-civil-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'mayor-and-city-civil-daily-cause-list'
+        )
+    );
+    app.get('/intellectual-property-and-enterprise-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'intellectual-property-and-enterprise-court-daily-cause-list'
+        )
+    );
+    app.get('/intellectual-property-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'intellectual-property-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/london-circuit-commercial-court-kb-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'london-circuit-commercial-court-kb-daily-cause-list'
+        )
+    );
+    app.get('/patents-court-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'patents-court-chd-daily-cause-list'
+        )
+    );
+    app.get('/pensions-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'pensions-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/property-trusts-probate-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'property-trusts-probate-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/revenue-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'revenue-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/technology-and-construction-court-kb-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'technology-and-construction-court-kb-daily-cause-list'
+        )
+    );
+    app.get('/admiralty-court-kb-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'admiralty-court-kb-daily-cause-list'
+        )
+    );
+    app.get('/business-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'business-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/chancery-appeals-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'chancery-appeals-chd-daily-cause-list'
+        )
+    );
+    app.get('/commercial-court-kb-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'commercial-court-kb-daily-cause-list'
+        )
+    );
+    app.get('/companies-winding-up-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'companies-winding-up-chd-daily-cause-list'
+        )
+    );
+    app.get('/competition-list-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'competition-list-chd-daily-cause-list'
+        )
+    );
+    app.get('/financial-list-chd-kb-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'financial-list-chd-kb-daily-cause-list'
+        )
+    );
+    app.get('/insolvency-and-companies-court-chd-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'insolvency-and-companies-court-chd-daily-cause-list'
+        )
+    );
     app.get('/birmingham-administrative-court-daily-cause-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,

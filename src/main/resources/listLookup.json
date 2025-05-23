@@ -577,41 +577,261 @@
         "defaultSensitivity": "",
         "isNonStrategic": false
     },
-    "BIRMINGHAM_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST": {
-        "friendlyName": "Birmingham Administrative Court Daily Cause List",
-        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Birmingham",
-        "shortenedFriendlyName": "Birmingham Administrative Court Daily Cause List",
-        "url": "birmingham-administrative-court-daily-cause-list",
+    "LONDON_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "London Administrative Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Llundain",
+        "shortenedFriendlyName": "London Administrative Court Daily Cause List",
+        "url": "london-administrative-court-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "BRISTOL_AND_CARDIFF_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST": {
-        "friendlyName": "Bristol and Cardiff Administrative Court Daily Cause List",
-        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Bryste a Chaerdydd",
-        "shortenedFriendlyName": "Bristol and Cardiff Administrative Court Daily Cause List",
-        "url": "bristol-and-cardiff-administrative-court-daily-cause-list",
+    "PLANNING_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "Planning Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Cynllunio",
+        "shortenedFriendlyName": "Planning Court Daily Cause List",
+        "url": "planning-court-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST": {
-        "friendlyName": "Manchester Administrative Court Daily Cause List",
-        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Manceinion",
-        "shortenedFriendlyName": "Manchester Administrative Court Daily Cause List",
-        "url": "manchester-administrative-court-daily-cause-list",
+    "COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST": {
+        "friendlyName": "County Court at Central London Civil Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yn y Llys Sirol yng Nghanol Llundain",
+        "shortenedFriendlyName": "County Court at Central London Civil Daily Cause List",
+        "url": "county-court-london-civil-daily-cause-list",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST": {
+        "friendlyName": "Civil Courts at the RCJ Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil yn y Llysoedd Barn Brenhinol",
+        "shortenedFriendlyName": "Civil Courts at the RCJ Daily Cause List",
+        "url": "civil-courts-rcj-daily-cause-list",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST": {
+        "friendlyName": "Court of Appeal (Criminal Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Apêl (Adran Troseddol)",
+        "shortenedFriendlyName": "Court of Appeal (Criminal Division) Daily Cause List",
+        "url": "court-of-appeal-criminal-daily-cause-list",
+        "jurisdictionTypes": ["Court of Appeal (Criminal Division)"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "Family Division of the High Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Adran Deulu yr Uchel Lys",
+        "shortenedFriendlyName": "Family Division of the High Court Daily Cause List",
+        "url": "family-division-high-court-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "LEEDS_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST": {
-        "friendlyName": "Leeds Administrative Court Daily Cause List",
-        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Leeds",
-        "shortenedFriendlyName": "Leeds Administrative Court Daily Cause List",
-        "url": "leeds-administrative-court-daily-cause-list",
+    "KINGS_BENCH_DIVISION_DAILY_CAUSE_LIST": {
+        "friendlyName": "King’s Bench Division Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Adran Mainc y Brenin",
+        "shortenedFriendlyName": "King’s Bench Division Daily Cause List",
+        "url": "kings-bench-division-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "KINGS_BENCH_MASTERS_DAILY_CAUSE_LIST": {
+        "friendlyName": "King’s Bench Masters Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Meistri Mainc y Brenin",
+        "shortenedFriendlyName": "King’s Bench Masters Daily Cause List",
+        "url": "kings-bench-masters-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST": {
+        "friendlyName": "Senior Courts Costs Office Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Swyddfa Costau’r Uwchlysoedd",
+        "shortenedFriendlyName": "Senior Courts Costs Office Daily Cause List",
+        "url": "senior-courts-costs-office-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST": {
+        "friendlyName": "Mayor & City Civil Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Sifil y Maer a'r Ddinas",
+        "shortenedFriendlyName": "Mayor & City Civil Daily Cause List",
+        "url": "mayor-and-city-civil-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "Intellectual Property and Enterprise Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Mentrau Eiddo Deallusol",
+        "shortenedFriendlyName": "Intellectual Property and Enterprise Court (ChD) Daily Cause List",
+        "url": "intellectual-property-and-enterprise-court-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Intellectual Property (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)",
+        "shortenedFriendlyName": "Intellectual Property List (ChD) Daily Cause List",
+        "url": "intellectual-property-list-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "LONDON_CIRCUIT_COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "London Circuit Commercial Court (King’s Bench Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Masnachol Cylchdaith Llundain (Adran Mainc y Brenin)",
+        "shortenedFriendlyName": "London Circuit Commercial Court (KB) Daily Cause List",
+        "url": "london-circuit-commercial-court-kb-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+         "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "PATENTS_COURT_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Patents Court (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Patentau (Adran Siawnsri)",
+        "shortenedFriendlyName": "Patents Court (ChD) Daily Cause List",
+        "url": "patents-court-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "PENSIONS_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Pensions List (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Pensiynau (Adran Siawnsri)",
+        "shortenedFriendlyName": "Pensions List (ChD) Daily Cause List",
+        "url": "pensions-list-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "PROPERTY_TRUSTS_PROBATE_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Property, Trusts and Probate List (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Eiddo, Ymddiriedolaethau a Phrofiant (Adran Siawnsri)",
+        "shortenedFriendlyName": "Property, Trusts and Probate List (ChD) Daily Cause List",
+        "url": "property-trusts-probate-list-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "REVENUE_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Revenue List (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Refeniw (Adran Siawnsri)",
+        "shortenedFriendlyName": "Revenue List (ChD) Daily Cause List",
+        "url": "revenue-list-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Technology and Construction Court (King’s Bench Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)",
+        "shortenedFriendlyName": "Technology and Construction Court (KB) Daily Cause List",
+        "url": "technology-and-construction-court-kb-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "ADMIRALTY_COURT_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Admiralty Court (King’s Bench Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys y Morlys (Adran Mainc y Brenin)",
+        "shortenedFriendlyName": "Admiralty Court (KB) Daily Cause List",
+        "url": "admiralty-court-kb-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "BUSINESS_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Business List (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Busnes (Adran Siawnsri)",
+        "shortenedFriendlyName": "Business List (ChD) Daily Cause List",
+        "url": "business-list-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Chancery Appeals (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Apeliadau Siawnsri (Adran Siawnsri)",
+        "shortenedFriendlyName": "Chancery Appeals (ChD) Daily Cause List",
+        "url": "chancery-appeals-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Commercial Court (King’s Bench Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Masnach (Adran Mainc y Brenin)",
+        "shortenedFriendlyName": "Commercial Court (KB) Daily Cause List",
+        "url": "commercial-court-kb-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COMPANIES_WINDING_UP_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Companies Winding Up (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Dirwyn Cwmnïau i Ben (Adran Siawnsri)",
+        "shortenedFriendlyName": "Companies Winding Up (ChD) Daily Cause List",
+        "url": "companies-winding-up-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "COMPETITION_LIST_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Competition List (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Cystadleuaeth (Adran Siawnsri)",
+        "shortenedFriendlyName": "Competition List (ChD) Daily Cause List",
+        "url": "competition-list-chd-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "FINANCIAL_LIST_CHD_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Financial List (Chancery Division/King’s Bench Division/Commercial Court) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Ariannol (Adran Siawnsri /Adran Mainc y Brenin/Llys Masnach)",
+        "shortenedFriendlyName": "Financial List (ChD/KB) Daily Cause List",
+        "url": "financial-list-chd-kb-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "INSOLVENCY_AND_COMPANIES_COURT_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Insolvency & Companies Court (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Cwmnïau ac achosion Ansolfedd (Adran Siawnsri)",
+        "shortenedFriendlyName": "Insolvency & Companies Court (ChD) Daily Cause List",
+        "url": "insolvency-and-companies-court-chd-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
