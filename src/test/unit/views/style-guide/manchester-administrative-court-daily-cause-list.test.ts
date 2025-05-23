@@ -12,7 +12,7 @@ const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/manchesterAdministrativeCourtDailyCauseList.json'),
+    path.resolve(__dirname, '../../mocks/administrativeCourtDailyCauseList.json'),
     'utf-8'
 );
 const jsonData = JSON.parse(rawData);

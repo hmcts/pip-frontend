@@ -5,7 +5,7 @@ import { testAccessibility } from '../../common/pa11yHelper';
 
 const url = '/bristol-and-cardiff-administrative-court-daily-cause-list?artefactId=abc';
 
-const jsonData = testArtefactJsonData('bristolAndCardiffAdministrativeCourtDailyCauseList.json');
+const jsonData = testArtefactJsonData('administrativeCourtDailyCauseList.json');
 const metadata = testArtefactMetadata()[0];
 metadata.listType = 'BRISTOL_AND_CARDIFF_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST';
 

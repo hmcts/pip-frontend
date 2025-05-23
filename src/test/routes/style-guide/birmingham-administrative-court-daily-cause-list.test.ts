@@ -8,7 +8,7 @@ import fs from 'fs';
 import path from 'path';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../unit/mocks/birminghamAdministrativeCourtDailyCauseList.json'),
+    path.resolve(__dirname, '../../unit/mocks/administrativeCourtDailyCauseList.json'),
     'utf-8'
 );
 const rawJson = JSON.parse(rawData);
