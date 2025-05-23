@@ -11,8 +11,8 @@ const listDownloadService = new ListDownloadService();
 const publicationService = new PublicationService();
 
 async function getFileSizes(req, res, artefactId): Promise<void> {
-    const pdfFileSize = await listDownloadService.getFileSize(artefactId, FileType.PDF);
-    const excelFileSize = await listDownloadService.getFileSize(artefactId, FileType.EXCEL);
+    const pdfFileSize = await listDownloadService.getFileSize(artefactId, FileType.PDF, req.user['userId']);
+    const excelFileSize = await listDownloadService.getFileSize(artefactId, FileType.EXCEL, req.user['userId']);
 
     res.render(url, {
         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[url]),
