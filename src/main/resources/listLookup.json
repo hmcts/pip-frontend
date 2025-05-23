@@ -852,8 +852,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Apêl (Adran Sifil)",
         "shortenedFriendlyName": "Court of Appeal (Civil Division) Daily Cause List",
         "url": "court-of-appeal-civil-daily-cause-list",
-        "jurisdictions": ["Civil"],
-        "welshJurisdictions": ["Llys Sifil"],
+        "jurisdictionTypes": ["Court of Appeal (Civil Division)"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
