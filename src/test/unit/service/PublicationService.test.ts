@@ -1,10 +1,10 @@
 import sinon from 'sinon';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
 
-import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
-import { PublicationService } from '../../../main/service/PublicationService';
+import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
+import {PublicationService} from '../../../main/service/PublicationService';
 
 const caseNumberValue = '123';
 const caseUrnValue = '456';
@@ -177,20 +177,20 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(56);
+        expect(listTypes.size).to.equal(65);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List (Full List)');
         expect(sjpResult['shortenedFriendlyName']).to.equal('SJP Public List (Full list)');
         expect(sjpResult['url']).to.equal('sjp-public-list');
-        expect(sjpResult['jurisdictions']).to.deep.equal(['Magistrates']);
+        expect(sjpResult['jurisdictionTypes']).to.deep.equal(['Magistrates Court']);
         expect(sjpResult['restrictedProvenances']).to.deep.equal([]);
 
         const sjpDeltaResult = listTypes.get('SJP_DELTA_PRESS_LIST');
         expect(sjpDeltaResult['friendlyName']).to.equal('Single Justice Procedure Press List (New Cases)');
         expect(sjpDeltaResult['shortenedFriendlyName']).to.equal('SJP Press List (New cases)');
         expect(sjpDeltaResult['url']).to.equal('sjp-press-list-new-cases');
-        expect(sjpDeltaResult['jurisdictions']).to.deep.equal(['Magistrates']);
+        expect(sjpDeltaResult['jurisdictionTypes']).to.deep.equal(['Magistrates Court']);
         expect(sjpDeltaResult['restrictedProvenances']).to.deep.equal(['PI_AAD']);
     });
 

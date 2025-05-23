@@ -42,9 +42,9 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Business and Property Courts Rolls Building');
-        expect(text[5].innerHTML).equals('7 Rolls Buildings, Fetter Ln, City of London');
-        expect(text[6].innerHTML).equals('London EC4A 1NL');
+        expect(text[4].innerHTML).equals('Rolls Building');
+        expect(text[5].innerHTML).equals('Fetter Lane, London');
+        expect(text[6].innerHTML).equals('EC4A 1NL');
     });
 
     it('should display list date', () => {
@@ -100,12 +100,12 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display Case Number header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[4].innerHTML).equals('Case Number');
+        expect(headerCell[4].innerHTML).equals('Case number');
     });
 
     it('should display Case Name header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[5].innerHTML).equals('Case Name');
+        expect(headerCell[5].innerHTML).equals('Case name');
     });
 
     it('should display Additional Information header', () => {

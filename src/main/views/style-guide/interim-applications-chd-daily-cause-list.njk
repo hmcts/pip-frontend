@@ -14,7 +14,7 @@
             {{ heading }}
         </h2>
         <div>
-            <p class="govuk-body no-margin-bottom">{{ venueLine1 }}</p>
+            <p class="govuk-body govuk-!-font-weight-bold no-margin-bottom">{{ venueLine1 }}</p>
             <p class="govuk-body no-margin-bottom">{{ venueLine2 }}</p>
             <p class="govuk-body">{{ venueLine3 }}</p>
         </div>
@@ -50,7 +50,7 @@
                         <td class="govuk-table__cell">{{ case['judge'] }}</td>
                         <td class="govuk-table__cell">{{ case['time'] | timeFormatter}}</td>
                         <td class="govuk-table__cell">{{ case['venue'] }}</td>
-                        <td class="govuk-table__cell">{{ case['hearingType'] }}</td>
+                        <td class="govuk-table__cell">{{ case['type'] }}</td>
                         <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
                         <td class="govuk-table__cell">{{ case['caseName'] }}</td>
                         <td class="govuk-table__cell">{{ case['additionalInformation'] }}</td>

@@ -1,34 +1,168 @@
 import { Location } from '../models/Location';
 import { LocationService } from './LocationService';
+import jurisdictionTypes from '../resources/jurisdictionTypeLookup.json';
+import welshJurisdictionData from '../resources/welshJurisdictionLookup.json';
 
-const filterNames = ['Jurisdiction', 'Region'];
+const jurisdictionFilter = 'Jurisdiction';
+const regionFilter = 'Region';
+const civilFilter = 'Civil';
+const familyFilter = 'Family';
+const crimeFilter = 'Crime';
+const tribunalFilter = 'Tribunal';
+const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter];
+const filterNames = [jurisdictionFilter, ...subJurisdictionFilters, regionFilter];
+const jurisdictionType = 'jurisdictionType';
+const jurisdictionTypeMapping = new Map(Object.entries(jurisdictionTypes));
+const englishToWelshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
+const welshToEnglishJurisdictionData = Object.fromEntries(Object.entries(welshJurisdictionData).map(a => a.reverse()));
+const welshToEnglishJurisdictionMapping = new Map(Object.entries(welshToEnglishJurisdictionData));
 
 const locationService = new LocationService();
 
 export class FilterService {
-    private getFilterValueOptions(filterName: string, list: Array<Location>): string[] {
+    private getFilterValueOptions(filterName: string, list: Array<Location>): Array<string>[] {
         return [...new Set(list.map(court => court[filterName.toLowerCase()]))];
     }
 
-    public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[]): object {
+    private getAllJurisdictionTypesFromLocationList(list: Array<Location>): Array<string>[] {
+        return [...new Set(list.map(court => court[jurisdictionType]))];
+    }
+
+    private getPossibleJurisdictionTypes(jurisdiction: string, language: string): string[] {
+        if (jurisdictionTypeMapping.has(jurisdiction)) {
+            const jurisdictionTypes = jurisdictionTypeMapping.get(jurisdiction);
+            if (language == 'cy') {
+                const welshJurisdictionTypes = [];
+                jurisdictionTypes.forEach(value => {
+                    if (englishToWelshJurisdictionMapping.has(value)) {
+                        welshJurisdictionTypes.push(englishToWelshJurisdictionMapping.get(value));
+                    }
+                });
+                return welshJurisdictionTypes;
+            }
+            return jurisdictionTypes;
+        }
+        return [];
+    }
+
+    private getJurisdictionTypeFilterValueOptions(
+        filterName: string,
+        allJurisdictionTypes: string[],
+        language: string
+    ) {
+        const possibleJurisdictionType = this.getPossibleJurisdictionTypes(filterName, language);
+        return allJurisdictionTypes.filter(element => possibleJurisdictionType.includes(element));
+    }
+
+    private showJurisdictionTypeFilter(filters: object, filterName: string, filterText: string) {
+        if (filters) {
+            return filters[filterName].length > 0 || filters[jurisdictionFilter].includes(filterText);
+        }
+        return false;
+    }
+
+    private showFilters(filters: object, language: string) {
+        return {
+            Jurisdiction: true,
+            Civil: this.showJurisdictionTypeFilter(
+                filters,
+                civilFilter,
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(civilFilter) : civilFilter
+            ),
+            Family: this.showJurisdictionTypeFilter(
+                filters,
+                familyFilter,
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(familyFilter) : familyFilter
+            ),
+            Crime: this.showJurisdictionTypeFilter(
+                filters,
+                crimeFilter,
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(crimeFilter) : crimeFilter
+            ),
+            Tribunal: this.showJurisdictionTypeFilter(
+                filters,
+                tribunalFilter,
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(tribunalFilter) : tribunalFilter
+            ),
+            Region: true,
+        };
+    }
+
+    private removeFiltersWithoutMainJurisdiction(selectedFilters: string[], reqQuery: string, language: string) {
+        // Remove relevant jurisdiction types from selected filters if the main jurisdiction has not been selected
+        if (selectedFilters && selectedFilters.length > 0) {
+            const selectedFiltersEnglish = [];
+            selectedFilters.forEach(filter => {
+                selectedFiltersEnglish.push(language == 'cy' ? welshToEnglishJurisdictionMapping.get(filter) : filter);
+            });
+
+            selectedFiltersEnglish.forEach(filter => {
+                if (!subJurisdictionFilters.includes(filter)) {
+                    subJurisdictionFilters.forEach(jurisdiction => {
+                        if (
+                            jurisdictionTypeMapping.get(jurisdiction).includes(filter) &&
+                            !selectedFiltersEnglish.includes(jurisdiction)
+                        ) {
+                            const filterIndex =
+                                language == 'cy'
+                                    ? selectedFilters.indexOf(englishToWelshJurisdictionMapping.get(filter))
+                                    : selectedFilters.indexOf(filter);
+                            selectedFilters.splice(filterIndex, 1);
+                        }
+                    });
+                }
+            });
+
+            // Remove relevant jurisdiction types from selected filters if the main jurisdiction has been cleared
+            if (reqQuery) {
+                const reqQueryEnglish =
+                    language == 'cy' ? (welshToEnglishJurisdictionMapping.get(reqQuery) as string) : reqQuery;
+                if (subJurisdictionFilters.includes(reqQueryEnglish)) {
+                    const jurisdictionTypesToRemoveEnglish = jurisdictionTypeMapping.get(reqQueryEnglish);
+                    const jurisdictionTypesToRemove = [];
+                    jurisdictionTypesToRemoveEnglish.forEach(jurisdictionType =>
+                        jurisdictionTypesToRemove.push(
+                            language == 'cy'
+                                ? (welshToEnglishJurisdictionMapping.get(jurisdictionType) as string)
+                                : jurisdictionType
+                        )
+                    );
+                    selectedFilters = selectedFilters.filter(filter => !jurisdictionTypesToRemove.includes(filter));
+                }
+            }
+        }
+        return selectedFilters;
+    }
+
+    public buildFilterValueOptions(list: Array<Location>, selectedFilters: string[], language: string): object {
         const filterValueOptions = {};
-        let finalFilterValueOptions = [];
+        const allJurisdictionTypes = this.getAllJurisdictionTypesFromLocationList(list);
         filterNames.forEach(filter => {
             filterValueOptions[filter] = {};
-            finalFilterValueOptions = [];
-            const filteredValue = this.getFilterValueOptions(filter, list);
+            const deduplicatedFilterValueOptions = [];
+
+            const filteredValue =
+                filter == jurisdictionFilter || filter == regionFilter
+                    ? this.getFilterValueOptions(filter, list)
+                    : allJurisdictionTypes;
+
             filteredValue.forEach(value => {
                 if (Array.isArray(value)) {
                     const array = [...value];
                     array.forEach(value => {
-                        if (!finalFilterValueOptions.includes(value) && value !== '') {
-                            finalFilterValueOptions.push(value);
+                        if (!deduplicatedFilterValueOptions.includes(value) && value !== '') {
+                            deduplicatedFilterValueOptions.push(value);
                         }
                     });
                 } else if (value) {
-                    finalFilterValueOptions.push(value);
+                    deduplicatedFilterValueOptions.push(value);
                 }
             });
+
+            const finalFilterValueOptions =
+                filter == jurisdictionFilter || filter == regionFilter
+                    ? deduplicatedFilterValueOptions
+                    : this.getJurisdictionTypeFilterValueOptions(filter, deduplicatedFilterValueOptions, language);
 
             [...finalFilterValueOptions]
                 .sort((a, b) => a.localeCompare(b))
@@ -54,51 +188,21 @@ export class FilterService {
         }
     }
 
-    public splitFilters(filterNames: string[], body: object): object {
-        const filterValueOptions = {};
-        let jurisdictionFilter = '';
-        let regionFilter = '';
-        filterNames.forEach(filter => {
-            if (body[filter]) {
-                if (filter === 'Jurisdiction') {
-                    jurisdictionFilter = body[filter].toString();
-                } else {
-                    regionFilter = body[filter].toString();
-                }
-            }
-        });
-        filterValueOptions['Jurisdiction'] = jurisdictionFilter;
-        filterValueOptions['Region'] = regionFilter;
-
-        return filterValueOptions;
-    }
-
     public findAndSplitFilters(filterValues: any[], filterOptions: object): object {
-        const filterValueOptions = {};
-
-        const jurisdictionFilter = [];
-        const regionFilter = [];
-
+        const filters = {};
         if (filterValues.length > 0) {
-            filterNames.forEach(filter => {
+            filterNames.forEach(filterName => {
+                filters[filterName] = [];
                 filterValues.forEach(value => {
-                    Object.keys(filterOptions[filter]).forEach(filterValue => {
-                        if (filterOptions[filter][filterValue].value === value) {
-                            if (filter === 'Jurisdiction') {
-                                jurisdictionFilter.push(value);
-                            } else if (filter === 'Region') {
-                                regionFilter.push(value);
-                            }
+                    Object.keys(filterOptions[filterName]).forEach(filterValue => {
+                        if (filterOptions[filterName][filterValue].value === value) {
+                            filters[filterName].push(value);
                         }
                     });
                 });
             });
         }
-
-        filterValueOptions['Jurisdiction'] = jurisdictionFilter.toString();
-        filterValueOptions['Region'] = regionFilter.toString();
-
-        return filterValueOptions;
+        return filters;
     }
 
     public stripFilters(currentFilters: string | string[]): string[] {
@@ -118,28 +222,44 @@ export class FilterService {
             filterValues = this.handleFilterClear(filterValues, clearQuery);
         }
 
+        filterValues = this.removeFiltersWithoutMainJurisdiction(filterValues, clearQuery, language);
         const filterOptions = this.buildFilterValueOptions(
             await locationService.fetchAllLocations(language),
-            filterValues
+            filterValues,
+            language
         );
 
-        let filters = {};
-        if (filterValues.length > 0) {
+        let filters = null;
+        let alphabetisedList = {};
+        if (filterValues.length == 0) {
+            alphabetisedList = await locationService.generateAlphabetisedAllCourtList(language);
+        } else {
             filters = this.findAndSplitFilters(filterValues, filterOptions);
-        }
 
-        const alphabetisedList =
-            filterValues.length == 0
-                ? await locationService.generateAlphabetisedAllCourtList(language)
-                : await locationService.generateFilteredAlphabetisedCourtList(
-                      filters['Region'],
-                      filters['Jurisdiction'],
-                      language
-                  );
+            // Add all sub-jurisdictions to jurisdiction field to be passed into the backend for filtering. If
+            // sub-jurisdictions exist in the filter the main jurisdiction will not be sent over.
+            const allJurisdictionFilters = [];
+            subJurisdictionFilters.forEach(jurisdiction => {
+                const jurisdictionText =
+                    language == 'cy' ? englishToWelshJurisdictionMapping.get(jurisdiction) : jurisdiction;
+                if (filters[jurisdiction].length > 0) {
+                    allJurisdictionFilters.push(...filters[jurisdiction]);
+                } else if (filters[jurisdictionFilter].includes(jurisdictionText)) {
+                    allJurisdictionFilters.push(jurisdictionText);
+                }
+            });
+
+            alphabetisedList = await locationService.generateFilteredAlphabetisedCourtList(
+                filters[regionFilter].toString(),
+                allJurisdictionFilters.toString(),
+                language
+            );
+        }
 
         return {
             alphabetisedList: alphabetisedList,
             filterOptions: filterOptions,
+            showFilters: this.showFilters(filters, language),
         };
     }
 
