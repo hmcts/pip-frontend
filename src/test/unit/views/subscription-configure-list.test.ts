@@ -243,7 +243,7 @@ describe('Subscription Configure List', () => {
                 'Select Insolvency &amp; Companies Court (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Cwmnïau ac achosion Ansolfedd (Adran Siawnsri)',
                 'Select Intellectual Property (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)',
                 'Select Intellectual Property and Enterprise Court Daily Cause List\nRhestr Achosion Dyddiol Llys Mentrau Eiddo Deallusol',
-                'Select Interim Applications (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)'
+                'Select Interim Applications (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)',
                 'Select King’s Bench Division Daily Cause List\nRhestr Achosion Dyddiol Adran Mainc y Brenin',
                 'Select King’s Bench Masters Daily Cause List\nRhestr Achosion Dyddiol Meistri Mainc y Brenin',
                 'Select London Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Llundain',
