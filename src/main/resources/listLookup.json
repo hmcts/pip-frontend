@@ -846,5 +846,15 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
+    },
+    "INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST": {
+        "friendlyName": "Interim Applications (Chancery Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)",
+        "shortenedFriendlyName": "Interim Applications List (ChD) Daily Cause List",
+        "url": "interim-applications-chd-daily-cause-list",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     }
 }
