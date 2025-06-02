@@ -1,10 +1,10 @@
 import sinon from 'sinon';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
 
-import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
-import { PublicationService } from '../../../main/service/PublicationService';
+import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
+import {PublicationService} from '../../../main/service/PublicationService';
 
 const caseNumberValue = '123';
 const caseUrnValue = '456';
@@ -177,7 +177,7 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(80);
+        expect(listTypes.size).to.equal(81);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List (Full List)');
