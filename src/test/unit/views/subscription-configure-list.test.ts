@@ -1,11 +1,11 @@
-import { app } from '../../../main/app';
+import {app} from '../../../main/app';
 import request from 'supertest';
-import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
+import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { LocationService } from '../../../main/service/LocationService';
-import { expect } from 'chai';
+import {LocationService} from '../../../main/service/LocationService';
+import {expect} from 'chai';
 
 const PAGE_URL = '/subscription-configure-list';
 const pageHeader = 'govuk-heading-l';
@@ -115,6 +115,7 @@ describe('Subscription Configure List', () => {
                 'Insolvency &amp; Companies Court (Chancery Division) Daily Cause List',
                 'Intellectual Property (Chancery Division) Daily Cause List',
                 'Intellectual Property and Enterprise Court Daily Cause List',
+                'Interim Applications (Chancery Division) Daily Cause List',
                 'King’s Bench Division Daily Cause List',
                 'King’s Bench Masters Daily Cause List',
                 'Leeds Administrative Court Daily Cause List',
@@ -175,6 +176,7 @@ describe('Subscription Configure List', () => {
                 'INSOLVENCY_AND_COMPANIES_COURT_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_DAILY_CAUSE_LIST',
+                'INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST',
                 'KINGS_BENCH_DIVISION_DAILY_CAUSE_LIST',
                 'KINGS_BENCH_MASTERS_DAILY_CAUSE_LIST',
                 'LEEDS_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
@@ -251,6 +253,7 @@ describe('Subscription Configure List', () => {
                 'Select Insolvency &amp; Companies Court (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Cwmnïau ac achosion Ansolfedd (Adran Siawnsri)',
                 'Select Intellectual Property (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)',
                 'Select Intellectual Property and Enterprise Court Daily Cause List\nRhestr Achosion Dyddiol Llys Mentrau Eiddo Deallusol',
+                'Select Interim Applications (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)',
                 'Select King’s Bench Division Daily Cause List\nRhestr Achosion Dyddiol Adran Mainc y Brenin',
                 'Select King’s Bench Masters Daily Cause List\nRhestr Achosion Dyddiol Meistri Mainc y Brenin',
                 'Select Leeds Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Leeds',
@@ -312,6 +315,7 @@ describe('Subscription Configure List', () => {
                 'INSOLVENCY_AND_COMPANIES_COURT_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_DAILY_CAUSE_LIST',
+                'INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST',
                 'KINGS_BENCH_DIVISION_DAILY_CAUSE_LIST',
                 'KINGS_BENCH_MASTERS_DAILY_CAUSE_LIST',
                 'LEEDS_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
