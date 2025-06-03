@@ -530,6 +530,34 @@ export default function (app: Application): void {
             'insolvency-and-companies-court-chd-daily-cause-list'
         )
     );
+    app.get('/birmingham-administrative-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'birmingham-administrative-court-daily-cause-list'
+        )
+    );
+    app.get('/bristol-and-cardiff-administrative-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'bristol-and-cardiff-administrative-court-daily-cause-list'
+        )
+    );
+    app.get('/manchester-administrative-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'manchester-administrative-court-daily-cause-list'
+        )
+    );
+    app.get('/leeds-administrative-court-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'leeds-administrative-court-daily-cause-list'
+        )
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
