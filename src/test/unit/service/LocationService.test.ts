@@ -17,6 +17,7 @@ const stubCourt = sinon.stub(courtRequest, 'getLocation');
 const stubCourtByName = sinon.stub(courtRequest, 'getLocationByName');
 const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
 const stubCourtDeletion = sinon.stub(courtRequest, 'deleteCourt');
+const stubLocationMetadata = sinon.stub(courtRequest, 'getLocationMetadata');
 
 const validKeysCount = 26;
 const alphabet = [
@@ -61,6 +62,14 @@ const welshLanguage = 'cy';
 const englishLanguageFile = 'sscs-daily-list';
 const deletionResponse = { exists: true, errorMessage: 'test' };
 const adminUserId = '1234';
+const locationMetadataResponse = {
+    locationMetadataId: '123-456',
+    locationId: '1',
+    cautionMessage: 'test',
+    welshCautionMessage: 'test',
+    noListMessage: 'test',
+    welshNoListMessage: 'test'
+};
 
 const crown = 'Crown';
 const magistrates = 'Magistrates';
@@ -72,6 +81,8 @@ stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
 stubCourtDeletion.withArgs(1, adminUserId).returns(deletionResponse);
 stubCourtDeletion.withArgs(2, adminUserId).returns(null);
+stubLocationMetadata.withArgs(1).returns(locationMetadataResponse);
+stubLocationMetadata.withArgs(2).returns(null);
 
 describe('Court Service', () => {
     it('should return all courts', async () => {
@@ -204,13 +215,16 @@ describe('Court Service', () => {
         });
     });
 
-    it('should return additional location info if location exists', () => {
-        let additionalLocationInfo = courtService.getAdditionalLocationInfo('100');
+    it('should return location metadata if location exists', async () => {
+        let additionalLocationInfo = await courtService.getLocationMetadata(1);
         expect(additionalLocationInfo).is.not.undefined;
+        expect(additionalLocationInfo).is.not.empty;
+        expect(additionalLocationInfo.cautionMessage).is.not.empty;
+        expect(additionalLocationInfo.welshCautionMessage).is.not.empty;
         expect(additionalLocationInfo.noListMessage).is.not.empty;
         expect(additionalLocationInfo.welshNoListMessage).is.not.empty;
 
-        additionalLocationInfo = courtService.getAdditionalLocationInfo('999');
-        expect(additionalLocationInfo).is.undefined;
+        additionalLocationInfo = await courtService.getLocationMetadata(2);
+        expect(additionalLocationInfo).is.null;
     });
 });

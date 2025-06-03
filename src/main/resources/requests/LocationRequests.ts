@@ -2,6 +2,7 @@ import { Location } from '../../models/Location';
 import { dataManagementApi } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LogHelper } from '../logging/logHelper';
+import { LocationMetadata } from '../../models/LocationMetadata';
 
 const logger = Logger.getLogger('requests');
 const logHelper = new LogHelper();
@@ -73,6 +74,17 @@ export class LocationRequests {
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve location reference data');
+        }
+        return null;
+    }
+
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
+        try {
+            const response =
+                await dataManagementApi.get(`/location-metadata/search-by-location-id/${locationId}`);
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'get location metadata by locationId');
         }
         return null;
     }
