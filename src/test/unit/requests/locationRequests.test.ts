@@ -8,6 +8,15 @@ const courtRequests = new LocationRequests();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtList = JSON.parse(rawData);
 
+const locationMetadataResponse = {
+    locationMetadataId: '123-456',
+    locationId: 1,
+    cautionMessage: 'English caution message',
+    welshCautionMessage: 'Welsh caution message',
+    noListMessage: 'English no list message',
+    welshNoListMessage: 'Welsh no list message',
+};
+
 const errorResponse = {
     response: {
         data: 'test error',
@@ -125,6 +134,10 @@ describe('Location get requests', () => {
                 headers: { 'x-user-id': adminUserId },
             })
             .resolves({ data: { exists: false, errorMessage: '' } });
+
+        stub.withArgs('/location-metadata/search-by-location-id/1').resolves({ data: locationMetadataResponse });
+        stub.withArgs('/location-metadata/search-by-location-id/2').rejects(errorResponse);
+        stub.withArgs('/location-metadata/search-by-location-id/4').rejects(errorMessage);
     });
 
     it('should return court by court id', async () => {
@@ -228,6 +241,18 @@ describe('Location get requests', () => {
     it('should return exists false if court is deleted', async () => {
         const data = await courtRequests.deleteCourt(5, adminUserId);
         expect(data['exists']).toStrictEqual(false);
+    });
+
+    it('should return location metadata by location id', async () => {
+        expect(await courtRequests.getLocationMetadata(1)).toStrictEqual(locationMetadataResponse);
+    });
+
+    it('should return null if response fails ', async () => {
+        expect(await courtRequests.getLocationMetadata(2)).toBe(null);
+    });
+
+    it('should return null if call fails', async () => {
+        expect(await courtRequests.getLocationMetadata(4)).toBe(null);
     });
 });
 

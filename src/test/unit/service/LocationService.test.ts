@@ -68,7 +68,7 @@ const locationMetadataResponse = {
     cautionMessage: 'test',
     welshCautionMessage: 'test',
     noListMessage: 'test',
-    welshNoListMessage: 'test'
+    welshNoListMessage: 'test',
 };
 
 const crown = 'Crown';
