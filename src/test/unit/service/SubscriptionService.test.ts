@@ -1001,6 +1001,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
             'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
         ]);
 
@@ -1042,6 +1043,7 @@ describe('generateListTypesForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
             'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
         ]);
 
@@ -1185,6 +1187,7 @@ describe('generateListTypeForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
             'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
         ]);
     });
@@ -1216,6 +1219,7 @@ describe('generateListTypeForCourts', () => {
         expect(listKeysM).toEqual([
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
+            'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
             'MAYOR_AND_CITY_CIVIL_DAILY_CAUSE_LIST',
         ]);
     });
