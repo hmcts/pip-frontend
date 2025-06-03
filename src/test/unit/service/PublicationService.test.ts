@@ -1,10 +1,10 @@
 import sinon from 'sinon';
-import { expect } from 'chai';
+import {expect} from 'chai';
 import fs from 'fs';
 import path from 'path';
 
-import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
-import { PublicationService } from '../../../main/service/PublicationService';
+import {PublicationRequests} from '../../../main/resources/requests/PublicationRequests';
+import {PublicationService} from '../../../main/service/PublicationService';
 
 const caseNumberValue = '123';
 const caseUrnValue = '456';
