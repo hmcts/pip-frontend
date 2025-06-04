@@ -537,6 +537,14 @@ export default function (app: Application): void {
             'insolvency-and-companies-court-chd-daily-cause-list'
         )
     );
+    app.get('/court-of-appeal-civil-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'court-of-appeal-civil-daily-cause-list'
+        )
+    );
+
     app.get('/birmingham-administrative-court-daily-cause-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
