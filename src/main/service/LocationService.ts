@@ -121,20 +121,47 @@ export class LocationService {
         return allLocationInfoMap.get(locationId);
     }
 
-    public async addLocationMetadata(locationId: number,
-                                     cautionMessage: string, welshCautionMessage: string,
-                                     noListMessage: string, welshNoListMessage: string,
-                                     userId: string): Promise<boolean> {
-        return await locationRequest.addLocationMetadata(this.createLocationMetadataPayload('', locationId, cautionMessage,
-            welshCautionMessage, noListMessage, welshNoListMessage), userId);
+    public async addLocationMetadata(
+        locationId: number,
+        cautionMessage: string,
+        welshCautionMessage: string,
+        noListMessage: string,
+        welshNoListMessage: string,
+        userId: string
+    ): Promise<boolean> {
+        return await locationRequest.addLocationMetadata(
+            this.createLocationMetadataPayload(
+                '',
+                locationId,
+                cautionMessage,
+                welshCautionMessage,
+                noListMessage,
+                welshNoListMessage
+            ),
+            userId
+        );
     }
 
-    public async updateLocationMetadata(id: string, locationId: number,
-                                     cautionMessage: string, welshCautionMessage: string,
-                                     noListMessage: string, welshNoListMessage: string,
-                                     userId: string): Promise<boolean> {
-        return await locationRequest.updateLocationMetadata(this.createLocationMetadataPayload(id, locationId, cautionMessage,
-            welshCautionMessage, noListMessage, welshNoListMessage), userId);
+    public async updateLocationMetadata(
+        id: string,
+        locationId: number,
+        cautionMessage: string,
+        welshCautionMessage: string,
+        noListMessage: string,
+        welshNoListMessage: string,
+        userId: string
+    ): Promise<boolean> {
+        return await locationRequest.updateLocationMetadata(
+            this.createLocationMetadataPayload(
+                id,
+                locationId,
+                cautionMessage,
+                welshCautionMessage,
+                noListMessage,
+                welshNoListMessage
+            ),
+            userId
+        );
     }
 
     public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
@@ -149,10 +176,14 @@ export class LocationService {
         return await locationRequest.deleteLocationMetadata(id, userId);
     }
 
-    private createLocationMetadataPayload(id: string, locationId: number,
-                                          cautionMessage: string, welshCautionMessage: string,
-                                          noListMessage: string, welshNoListMessage: string): any {
-
+    private createLocationMetadataPayload(
+        id: string,
+        locationId: number,
+        cautionMessage: string,
+        welshCautionMessage: string,
+        noListMessage: string,
+        welshNoListMessage: string
+    ): any {
         return {
             locationMetadataId: id,
             locationId: locationId,
@@ -160,6 +191,6 @@ export class LocationService {
             welshCautionMessage: welshCautionMessage,
             noListMessage: noListMessage,
             welshNoListMessage: welshNoListMessage,
-        }
+        };
     }
 }

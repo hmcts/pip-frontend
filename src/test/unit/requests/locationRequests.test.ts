@@ -50,7 +50,7 @@ const dummyFile = new Blob(['testCsv']);
 const deletionResponse = { exists: true, errorMessage: 'test' };
 const adminUserId = '1234';
 
-describe ('Location Request', () => {
+describe('Location Request', () => {
     describe('Location get requests', () => {
         beforeEach(() => {
             stub.withArgs('/locations/1').resolves({ data: courtList[0] });
@@ -194,7 +194,9 @@ describe ('Location Request', () => {
         });
 
         it('should return Welsh list of courts based on search filter', async () => {
-            expect(await courtRequests.getFilteredCourts(welshRegions, welshJurisdictions, welshLanguage)).toBe(courtList);
+            expect(await courtRequests.getFilteredCourts(welshRegions, welshJurisdictions, welshLanguage)).toBe(
+                courtList
+            );
         });
 
         it('should return empty array if Welsh request fails', async () => {
@@ -303,7 +305,7 @@ describe ('Location Request', () => {
         describe('Add Location metadata', () => {
             it('should add location metadata', async () => {
                 stubPost.withArgs('/location-metadata').withArgs(locationMetadata).resolves(true);
-                expect(await courtRequests.addLocationMetadata(locationMetadata,'123')).toBe(true);
+                expect(await courtRequests.addLocationMetadata(locationMetadata, '123')).toBe(true);
             });
 
             it('should return null if response fails ', async () => {
@@ -313,13 +315,13 @@ describe ('Location Request', () => {
 
             it('should return null if call fails', async () => {
                 stubPost.withArgs('/location-metadata').rejects(errorMessage);
-                expect(await courtRequests.addLocationMetadata({},'123')).toBe(false);
+                expect(await courtRequests.addLocationMetadata({}, '123')).toBe(false);
             });
         });
         describe('Update Location metadata', () => {
             it('should update location metadata', async () => {
                 stubPut.withArgs('/location-metadata').withArgs(locationMetadata).resolves(true);
-                expect(await courtRequests.updateLocationMetadata(locationMetadata,'123')).toBe(true);
+                expect(await courtRequests.updateLocationMetadata(locationMetadata, '123')).toBe(true);
             });
 
             it('should return null if response fails ', async () => {
@@ -329,23 +331,23 @@ describe ('Location Request', () => {
 
             it('should return null if call fails', async () => {
                 stubPut.withArgs('/location-metadata').rejects(errorMessage);
-                expect(await courtRequests.updateLocationMetadata({},'123')).toBe(false);
+                expect(await courtRequests.updateLocationMetadata({}, '123')).toBe(false);
             });
         });
         describe('Delete location meta data', () => {
             it('should return true if provided data is valid', async () => {
                 deleteStub.withArgs('/location-metadata/123-456').resolves(true);
-                expect(await courtRequests.deleteLocationMetadata('123-456','1234-1234')).toBe(true);
+                expect(await courtRequests.deleteLocationMetadata('123-456', '1234-1234')).toBe(true);
             });
 
             it('should return null if response fails ', async () => {
                 deleteStub.withArgs('/location-metadata/null').resolves(false);
-                expect(await courtRequests.deleteLocationMetadata(null,'1234-1234')).toBe(true);
+                expect(await courtRequests.deleteLocationMetadata(null, '1234-1234')).toBe(true);
             });
 
             it('should return null if call fails', async () => {
                 deleteStub.withArgs('/location-metadata/null').resolves(false);
-                expect(await courtRequests.deleteLocationMetadata(null,'1234-1234')).toBe(true);
+                expect(await courtRequests.deleteLocationMetadata(null, '1234-1234')).toBe(true);
             });
         });
     });

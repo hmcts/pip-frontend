@@ -78,7 +78,7 @@ export class LocationRequests {
         return null;
     }
 
-    public async addLocationMetadata(payload:any, userId: string): Promise<boolean> {
+    public async addLocationMetadata(payload: any, userId: string): Promise<boolean> {
         try {
             await dataManagementApi.post('/location-metadata', payload, {
                 headers: { 'x-requester-id': userId },
@@ -92,8 +92,7 @@ export class LocationRequests {
 
     public async getLocationMetadataById(id: string): Promise<LocationMetadata> {
         try {
-            const response =
-                await dataManagementApi.get(`/location-metadata/${id}`);
+            const response = await dataManagementApi.get(`/location-metadata/${id}`);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'get location metadata by id');
@@ -125,10 +124,10 @@ export class LocationRequests {
 
     public async deleteLocationMetadata(id: string, requesterId: string): Promise<boolean> {
         try {
-                await dataManagementApi.delete(`/location-metadata/${id}`, {
-                    headers: { 'x-requester-id': requesterId },
-                });
-                return true;
+            await dataManagementApi.delete(`/location-metadata/${id}`, {
+                headers: { 'x-requester-id': requesterId },
+            });
+            return true;
         } catch (error) {
             logHelper.logErrorResponse(error, 'Delete location metadata by id');
         }
