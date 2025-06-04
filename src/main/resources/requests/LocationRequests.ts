@@ -90,6 +90,16 @@ export class LocationRequests {
         return false;
     }
 
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
+        try {
+            const response = await dataManagementApi.get(`/location-metadata/search-by-location-id/${locationId}`);
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'get location metadata by locationId');
+        }
+        return null;
+    }
+
     public async getLocationMetadataById(id: string): Promise<LocationMetadata> {
         try {
             const response = await dataManagementApi.get(`/location-metadata/${id}`);

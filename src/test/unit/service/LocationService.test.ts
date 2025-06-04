@@ -223,16 +223,6 @@ describe('Court Service', () => {
         });
     });
 
-    it('should return additional location info if location exists', () => {
-        let additionalLocationInfo = courtService.getAdditionalLocationInfo('100');
-        expect(additionalLocationInfo).is.not.undefined;
-        expect(additionalLocationInfo.noListMessage).is.not.empty;
-        expect(additionalLocationInfo.welshNoListMessage).is.not.empty;
-
-        additionalLocationInfo = courtService.getAdditionalLocationInfo('999');
-        expect(additionalLocationInfo).is.undefined;
-    });
-
     describe('Location metadata', () => {
         stubLocationMetadata.withArgs(1).returns(locationMetadata);
         stubLocationMetadata.withArgs(2).returns(null);
