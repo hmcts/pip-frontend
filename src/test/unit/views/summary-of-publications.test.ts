@@ -37,16 +37,22 @@ publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
 ]);
 publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([]);
 
-const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
+const locationMetadataResponse = {
+    locationMetadataId: '123-456',
+    locationId: locationIdForCourtWithNoListMessageOverride,
+    cautionMessage: 'English caution message',
+    welshCautionMessage: 'Welsh caution message',
+    noListMessage: 'English no list message',
+    welshNoListMessage: 'Welsh no list message',
+};
+
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
 additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneAndEmail.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneOnly.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride.toString()).returns({
-    noListMessage: 'English no list message',
-    welshNoListMessage: 'Welsh no list message',
-});
+additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride).returns(locationMetadataResponse);
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
