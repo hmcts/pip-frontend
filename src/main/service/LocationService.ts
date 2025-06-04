@@ -4,6 +4,7 @@ import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';
 import locationInfo from '../resources/additionalLocationInfoLookup.json';
 import { AdditionalLocationInfo } from '../models/AdditionalLocationInfo';
+import { LocationMetadata } from '../models/LocationMetadata';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
@@ -118,5 +119,47 @@ export class LocationService {
     public getAdditionalLocationInfo(locationId: string) {
         const allLocationInfoMap: Map<string, AdditionalLocationInfo> = new Map(Object.entries(locationInfo));
         return allLocationInfoMap.get(locationId);
+    }
+
+    public async addLocationMetadata(locationId: number,
+                                     cautionMessage: string, welshCautionMessage: string,
+                                     noListMessage: string, welshNoListMessage: string,
+                                     userId: string): Promise<boolean> {
+        return await locationRequest.addLocationMetadata(this.createLocationMetadataPayload('', locationId, cautionMessage,
+            welshCautionMessage, noListMessage, welshNoListMessage), userId);
+    }
+
+    public async updateLocationMetadata(id: string, locationId: number,
+                                     cautionMessage: string, welshCautionMessage: string,
+                                     noListMessage: string, welshNoListMessage: string,
+                                     userId: string): Promise<boolean> {
+        return await locationRequest.updateLocationMetadata(this.createLocationMetadataPayload(id, locationId, cautionMessage,
+            welshCautionMessage, noListMessage, welshNoListMessage), userId);
+    }
+
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadata(locationId);
+    }
+
+    public async getLocationMetadataById(id: string): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadataById(id);
+    }
+
+    public async deleteLocationMetadataById(id: string, userId: string): Promise<boolean> {
+        return await locationRequest.deleteLocationMetadata(id, userId);
+    }
+
+    private createLocationMetadataPayload(id: string, locationId: number,
+                                          cautionMessage: string, welshCautionMessage: string,
+                                          noListMessage: string, welshNoListMessage: string): any {
+
+        return {
+            locationMetadataId: id,
+            locationId: locationId,
+            cautionMessage: cautionMessage,
+            welshCautionMessage: welshCautionMessage,
+            noListMessage: noListMessage,
+            welshNoListMessage: welshNoListMessage,
+        }
     }
 }

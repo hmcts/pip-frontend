@@ -1,0 +1,15 @@
+{
+    "title": "Manage Location Metadata",
+    "error": {
+        "noInput": "Please enter required text",
+        "summaryTitleText": "There is a problem"
+    },
+    "header": "Manage Location Metadata",
+    "englishCautionLabel": "English Caution Message",
+    "welshCautionLabel": "Welsh Caution Message",
+    "englishNoListLabel": "English No List Message",
+    "welshNoListLabel": "Welsh No List Message",
+    "addButtonText": "Add",
+    "updateButtonText": "Update",
+    "deleteButtonText": "Delete"
+}
