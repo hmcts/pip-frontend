@@ -169,7 +169,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes when non-strategic', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
-            expect(data['listSubtypes'].length).to.equal(62);
+            expect(data['listSubtypes'].length).to.equal(63);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',
