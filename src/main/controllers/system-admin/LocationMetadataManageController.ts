@@ -9,7 +9,7 @@ export default class LocationMetadataManageController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query.locationId as unknown as number;
         if (locationId) {
-            const locationMetadata = await locationService.getLocationMetadata(locationId);
+            const locationMetadata = await locationService.getLocationMetadata(locationId, req.user['userId']);
             res.render('system-admin/location-metadata-manage', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['location-metadata-manage']),
                 locationMetadata,

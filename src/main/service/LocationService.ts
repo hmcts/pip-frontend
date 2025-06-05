@@ -91,10 +91,6 @@ export class LocationService {
         return courtName;
     }
 
-    public async getLocationMetadata(locationId: number, userId: string): Promise<LocationMetadata> {
-        return await locationRequest.getLocationMetadata(locationId, userId);
-    }
-
     public formatCourtValue(court): any {
         const courtItem = { ...court };
         courtItem.jurisdiction = court.jurisdiction.toString();
@@ -161,12 +157,12 @@ export class LocationService {
         );
     }
 
-    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
-        return await locationRequest.getLocationMetadata(locationId);
+    public async getLocationMetadata(locationId: number, userId: string): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadata(locationId, userId);
     }
 
-    public async getLocationMetadataById(id: string): Promise<LocationMetadata> {
-        return await locationRequest.getLocationMetadataById(id);
+    public async getLocationMetadataById(id: string, userId: string): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadataById(id, userId);
     }
 
     public async deleteLocationMetadataById(id: string, userId: string): Promise<boolean> {

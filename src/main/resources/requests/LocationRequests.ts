@@ -89,7 +89,7 @@ export class LocationRequests {
         }
         return false;
     }
- 
+
     public async getLocationMetadata(locationId: number, requesterId: string): Promise<LocationMetadata> {
         try {
             const response = await dataManagementApi.get(`/location-metadata/location/${locationId}`, {
@@ -102,9 +102,11 @@ export class LocationRequests {
         return null;
     }
 
-    public async getLocationMetadataById(id: string): Promise<LocationMetadata> {
+    public async getLocationMetadataById(id: string, requesterId: string): Promise<LocationMetadata> {
         try {
-            const response = await dataManagementApi.get(`/location-metadata/${id}`);
+            const response = await dataManagementApi.get(`/location-metadata/${id}`, {
+                headers: { 'x-requester-id': requesterId },
+            });
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'get location metadata by id');

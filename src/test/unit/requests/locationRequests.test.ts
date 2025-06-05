@@ -279,27 +279,27 @@ describe('Location Request', () => {
             });
 
             it('should return location metadata by location id', async () => {
-                expect(await courtRequests.getLocationMetadata(1)).toStrictEqual(locationMetadata);
+                expect(await courtRequests.getLocationMetadata(1, adminUserId)).toStrictEqual(locationMetadata);
             });
 
             it('should return null if response fails ', async () => {
-                expect(await courtRequests.getLocationMetadata(2)).toBe(null);
+                expect(await courtRequests.getLocationMetadata(2, adminUserId)).toBe(null);
             });
 
             it('should return null if call fails', async () => {
-                expect(await courtRequests.getLocationMetadata(4)).toBe(null);
+                expect(await courtRequests.getLocationMetadata(4, adminUserId)).toBe(null);
             });
 
             it('should return location metadata by id', async () => {
-                expect(await courtRequests.getLocationMetadataById('123-456')).toStrictEqual(locationMetadata);
+                expect(await courtRequests.getLocationMetadataById('123-456', adminUserId)).toStrictEqual(locationMetadata);
             });
 
             it('should return null if response fails ', async () => {
-                expect(await courtRequests.getLocationMetadataById('878-542')).toBe(null);
+                expect(await courtRequests.getLocationMetadataById('878-542', adminUserId)).toBe(null);
             });
 
             it('should return null if call fails', async () => {
-                expect(await courtRequests.getLocationMetadataById('145-897')).toBe(null);
+                expect(await courtRequests.getLocationMetadataById('145-897', adminUserId)).toBe(null);
             });
         });
         describe('Add Location metadata', () => {
