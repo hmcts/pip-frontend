@@ -216,7 +216,7 @@ describe('Court Service', () => {
     });
 
     it('should return location metadata if location exists', async () => {
-        let additionalLocationInfo = await courtService.getLocationMetadata(1, adminUserId);
+        let additionalLocationInfo = await courtService.getLocationMetadata(1);
         expect(additionalLocationInfo).is.not.undefined;
         expect(additionalLocationInfo).is.not.empty;
         expect(additionalLocationInfo.cautionMessage).is.not.empty;
@@ -224,7 +224,7 @@ describe('Court Service', () => {
         expect(additionalLocationInfo.noListMessage).is.not.empty;
         expect(additionalLocationInfo.welshNoListMessage).is.not.empty;
 
-        additionalLocationInfo = await courtService.getLocationMetadata(2, adminUserId);
+        additionalLocationInfo = await courtService.getLocationMetadata(2);
         expect(additionalLocationInfo).is.null;
     });
 });

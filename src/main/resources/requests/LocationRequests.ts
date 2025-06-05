@@ -78,11 +78,9 @@ export class LocationRequests {
         return null;
     }
 
-    public async getLocationMetadata(locationId: number, requesterId: string): Promise<LocationMetadata> {
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
         try {
-            const response = await dataManagementApi.get(`/location-metadata/location/${locationId}`, {
-                headers: { 'x-requester-id': requesterId },
-            });
+            const response = await dataManagementApi.get(`/location-metadata/location/${locationId}`);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'get location metadata by locationId');
