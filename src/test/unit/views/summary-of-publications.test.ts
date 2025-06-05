@@ -59,10 +59,10 @@ additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).
 additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
 additionalLocationInfoStub
-    .withArgs(locationIdForCourtWithNoListMessageOverride, '123-456')
+    .withArgs(locationIdForCourtWithNoListMessageOverride)
     .returns(locationMetadataResponse);
 additionalLocationInfoStub
-    .withArgs(locationIdForCourtWithCautionMessageOverride, '123-456')
+    .withArgs(locationIdForCourtWithCautionMessageOverride)
     .returns(locationMetadataResponse);
 
 describe('Summary of publications page', () => {
