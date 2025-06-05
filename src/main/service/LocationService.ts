@@ -91,6 +91,10 @@ export class LocationService {
         return courtName;
     }
 
+    public async getLocationMetadata(locationId: number, userId: string): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadata(locationId, userId);
+    }
+
     public formatCourtValue(court): any {
         const courtItem = { ...court };
         courtItem.jurisdiction = court.jurisdiction.toString();
