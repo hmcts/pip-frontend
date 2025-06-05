@@ -135,9 +135,9 @@ describe('Location get requests', () => {
             })
             .resolves({ data: { exists: false, errorMessage: '' } });
 
-        stub.withArgs('/location-metadata/search-by-location-id/1').resolves({ data: locationMetadataResponse });
-        stub.withArgs('/location-metadata/search-by-location-id/2').rejects(errorResponse);
-        stub.withArgs('/location-metadata/search-by-location-id/4').rejects(errorMessage);
+        stub.withArgs('/location-metadata/location/1').resolves({ data: locationMetadataResponse });
+        stub.withArgs('/location-metadata/location/2').rejects(errorResponse);
+        stub.withArgs('/location-metadata/location/4').rejects(errorMessage);
     });
 
     it('should return court by court id', async () => {
