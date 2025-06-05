@@ -52,12 +52,16 @@ additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneOnly.toString
 additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride).returns(locationMetadataResponse);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride, '123-456').returns(locationMetadataResponse);
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
 
     const bodyClass = 'govuk-body';
+
+    beforeAll(async () => {
+        app.request['user'] = { userId: '123-456', roles: 'SYSTEM_ADMIN' };
+    });
 
     describe('Summary of pubs', () => {
         describe('with court telephone and email', () => {
