@@ -78,23 +78,9 @@ export class LocationRequests {
         return null;
     }
 
-    public async addLocationMetadata(payload: any, userId: string): Promise<boolean> {
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
         try {
-            await dataManagementApi.post('/location-metadata', payload, {
-                headers: { 'x-requester-id': userId },
-            });
-            return true;
-        } catch (error) {
-            logHelper.logErrorResponse(error, 'create location metadata');
-        }
-        return false;
-    }
-
-    public async getLocationMetadata(locationId: number, requesterId: string): Promise<LocationMetadata> {
-        try {
-            const response = await dataManagementApi.get(`/location-metadata/location/${locationId}`, {
-                headers: { 'x-requester-id': requesterId },
-            });
+            const response = await dataManagementApi.get(`/location-metadata/location/${locationId}`);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'get location metadata by locationId');

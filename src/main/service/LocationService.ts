@@ -157,8 +157,8 @@ export class LocationService {
         );
     }
 
-    public async getLocationMetadata(locationId: number, userId: string): Promise<LocationMetadata> {
-        return await locationRequest.getLocationMetadata(locationId, userId);
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadata(locationId);
     }
 
     public async getLocationMetadataById(id: string, userId: string): Promise<LocationMetadata> {

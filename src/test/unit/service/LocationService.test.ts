@@ -276,7 +276,7 @@ describe('Court Service', () => {
         stubDeleteLocationMetadata.withArgs(null, adminUserId).returns(false);
 
         it('should return location metadata by Location if location exists', async () => {
-            let locationMetadata = await courtService.getLocationMetadata(1, adminUserId);
+            let locationMetadata = await courtService.getLocationMetadata(1);
             expect(locationMetadata).is.not.undefined;
             expect(locationMetadata).is.not.empty;
             expect(locationMetadata.cautionMessage).is.not.empty;
@@ -284,7 +284,7 @@ describe('Court Service', () => {
             expect(locationMetadata.noListMessage).is.not.empty;
             expect(locationMetadata.welshNoListMessage).is.not.empty;
 
-            locationMetadata = await courtService.getLocationMetadata(2, adminUserId);
+            locationMetadata = await courtService.getLocationMetadata(2);
             expect(locationMetadata).is.null;
         });
 

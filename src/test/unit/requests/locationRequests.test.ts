@@ -279,15 +279,15 @@ describe('Location Request', () => {
             });
 
             it('should return location metadata by location id', async () => {
-                expect(await courtRequests.getLocationMetadata(1, adminUserId)).toStrictEqual(locationMetadata);
+                expect(await courtRequests.getLocationMetadata(1)).toStrictEqual(locationMetadata);
             });
 
             it('should return null if response fails ', async () => {
-                expect(await courtRequests.getLocationMetadata(2, adminUserId)).toBe(null);
+                expect(await courtRequests.getLocationMetadata(2)).toBe(null);
             });
 
             it('should return null if call fails', async () => {
-                expect(await courtRequests.getLocationMetadata(4, adminUserId)).toBe(null);
+                expect(await courtRequests.getLocationMetadata(4)).toBe(null);
             });
 
             it('should return location metadata by id', async () => {
