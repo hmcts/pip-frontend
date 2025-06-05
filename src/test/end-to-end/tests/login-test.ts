@@ -131,7 +131,7 @@ Scenario('I as a CFT user should be able to sign-in with the valid credentials i
     I.loginAsCftUserInWelsh(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));
     I.waitForText('Eich cyfrif');
     I.logoutWelsh();
-}).tag('@CrossBrowser');
+}).tag('@Nightly');
 
 Scenario(
     'I as a CFT user should be able to see proper error message when email is invalid in English',
@@ -139,17 +139,17 @@ Scenario(
         I.loginTestCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
         I.waitForText(
             'You have successfully signed into your MyHMCTS account. Unfortunately, ' +
-                'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+            'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
         );
     }
-).tag('@CrossBrowser');
+).tag('@Nightly');
 
 Scenario('I as a CFT user should be able to see proper error message when email is invalid in Welsh', async ({ I }) => {
     I.loginAsCftUserInWelsh(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
     I.waitForText(
         'Rydych wedi mewngofnodi’n llwyddiannus i’ch cyfrif MyHMCTS. Yn anffodus, nid yw rôl eich cyfrif yn ' +
-            'galluogi ichi gael mynediad at y rhan o wasanaeth gwrandawiadau’r llysoedd a’r tribiwnlysoedd ar ' +
-            'gyfer defnyddwyr sydd wedi eu dilysu.'
+        'galluogi ichi gael mynediad at y rhan o wasanaeth gwrandawiadau’r llysoedd a’r tribiwnlysoedd ar ' +
+        'gyfer defnyddwyr sydd wedi eu dilysu.'
     );
 }).tag('@Nightly');
 
