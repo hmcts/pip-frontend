@@ -208,7 +208,7 @@ describe('Summary of publications page', () => {
             });
         });
 
-        describe('with caution message override in English', () => {
+        describe('with caution message in English', () => {
             const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}`;
             beforeAll(async () => {
                 await request(app)
@@ -224,7 +224,7 @@ describe('Summary of publications page', () => {
             });
         });
 
-        describe('with caution message override in Welsh', () => {
+        describe('with caution message in Welsh', () => {
             const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}&lng=cy`;
             beforeAll(async () => {
                 await request(app)
@@ -240,7 +240,7 @@ describe('Summary of publications page', () => {
             });
         });
 
-        describe('with no court message override in English', () => {
+        describe('with no list for location message override in English', () => {
             const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}`;
             beforeAll(async () => {
                 await request(app)
@@ -250,13 +250,13 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display no court message in English', () => {
+            it('should display no list for location message in English', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).equals('English no list message');
             });
         });
 
-        describe('with no court message override in Welsh', () => {
+        describe('with no list for location message override in Welsh', () => {
             const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}&lng=cy`;
             beforeAll(async () => {
                 await request(app)
@@ -266,7 +266,7 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display no court message in Welsh', () => {
+            it('should display no list for location message in Welsh', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).equals('Welsh no list message');
             });
