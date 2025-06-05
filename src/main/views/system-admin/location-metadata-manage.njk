@@ -1,0 +1,102 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, submitButton, autoCompleteFilteredResults, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+  {% if noResultsError or invalidInputError %}
+    {% set errorMessage = error.noResults if noResultsError else error.noInput %}
+    <div class="govuk-grid-row">
+      <div class="no_padding govuk-grid-column-three-quarters">
+        {{ govukErrorSummary({
+          titleText: error.summaryTitleText,
+          errorList: [
+            {
+              text: errorMessage,
+              href: "#location-metadata-form"
+            }
+          ]
+        }) }}
+      </div>
+    </div>
+  {% endif %}
+  {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
+    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
+  {% set formGroupError = 'govuk-form-group--error'
+    if noResultsError or invalidInputError else 'govuk-form-group' %}
+  <form action="location-metadata-manage" method="post">
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <div  id="location-metadata-form" class="govuk-form-group govuk-!-width-two-thirds">
+      <h2 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" for="search-input">
+          {{ inputMessage }}
+        </label>
+      </h2>
+      <div class="{{ formGroupError }}">
+          <div class="govuk-form-group">
+              <h1 class="govuk-label-wrapper">
+                  <label class="govuk-label govuk-label--m" for="more-detail">
+                      {{ englishCautionLabel }}
+                  </label>
+              </h1>
+              <textarea class="govuk-textarea" id="english-caution-message" name="english-caution-message" rows="5"></textarea>
+          </div>
+          <div class="govuk-form-group">
+              <h1 class="govuk-label-wrapper">
+                  <label class="govuk-label govuk-label--m" for="more-detail">
+                      {{ welshCautionLabel }}
+                  </label>
+              </h1>
+              <textarea class="govuk-textarea" id="welsh-caution-message" name="welsh-caution-message" rows="5"></textarea>
+          </div>
+          <div class="govuk-form-group">
+              <h1 class="govuk-label-wrapper">
+                  <label class="govuk-label govuk-label--m" for="more-detail">
+                      {{ englishNoListLabel }}
+                  </label>
+              </h1>
+              <textarea class="govuk-textarea" id="english-no-list-message" name="english-no-list-message" rows="5"></textarea>
+          </div>
+          <div class="govuk-form-group">
+              <h1 class="govuk-label-wrapper">
+                  <label class="govuk-label govuk-label--m" for="more-detail">
+                      {{ welshCautionLabel }}
+                  </label>
+              </h1>
+              <textarea class="govuk-textarea" id="welsh-no-list-message" name="welsh-no-list-message" rows="5"></textarea>
+          </div>
+      </div>
+    </div>
+    {{ submitButton(continueButton) }}
+  </form>
+{% endblock %}
+{% block bodyEnd %}
+  {% set optionList = [] %}
+  {% for item in autocompleteList %}
+    {% set _ = optionList.push(
+      item.name
+    ) %}
+  {% endfor %}
+
+  <script src="/assets/js/accessible-autocomplete.min.js"></script>
+  <script nonce="{{ cspNonce }}">
+    const element = document.querySelector('#search-input-container');
+    const source = {{ optionList | dump |safe }}
+    const autocompleteParam = {
+      element: element,
+      id: 'search-input',
+      displayMenu: 'overlay',
+    };
+  </script>
+  {{ backButtonHistory(cspNonce) }}
+  {{ autoCompleteFilteredResults(autocompleteParam, cspNonce) }}
+  {{ super() }}
+{% endblock %}
