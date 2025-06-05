@@ -106,19 +106,22 @@ Scenario(
     }
 ).tag('@Nightly');
 
-Scenario.skip('I as a media user should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/sign-in');
-    });
-    I.click('With a Court and tribunal hearings account');
-    I.click('Continue');
-    I.waitForText('Sign in with your email address');
-    I.seeBetaFeedbackOnPage('b2c/login');
-    I.executeScript('window.history.back();');
-    I.click('Forgot your password?');
-    I.waitForText('Please provide the following details.');
-    I.seeBetaFeedbackOnPage('b2c/reset-pw');
-});
+Scenario.skip(
+    'I as a media user should be able to see the beta tag and feedback link when logging in',
+    async ({ I }) => {
+        I.usePlaywrightTo('Go to home page', async ({ page }) => {
+            page.goto(testConfig.TEST_URL + '/sign-in');
+        });
+        I.click('With a Court and tribunal hearings account');
+        I.click('Continue');
+        I.waitForText('Sign in with your email address');
+        I.seeBetaFeedbackOnPage('b2c/login');
+        I.executeScript('window.history.back();');
+        I.click('Forgot your password?');
+        I.waitForText('Please provide the following details.');
+        I.seeBetaFeedbackOnPage('b2c/reset-pw');
+    }
+);
 
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCftUser();
@@ -139,7 +142,7 @@ Scenario(
         I.loginTestCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
         I.waitForText(
             'You have successfully signed into your MyHMCTS account. Unfortunately, ' +
-            'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+                'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
         );
     }
 ).tag('@Nightly');
@@ -148,8 +151,8 @@ Scenario('I as a CFT user should be able to see proper error message when email 
     I.loginAsCftUserInWelsh(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
     I.waitForText(
         'Rydych wedi mewngofnodi’n llwyddiannus i’ch cyfrif MyHMCTS. Yn anffodus, nid yw rôl eich cyfrif yn ' +
-        'galluogi ichi gael mynediad at y rhan o wasanaeth gwrandawiadau’r llysoedd a’r tribiwnlysoedd ar ' +
-        'gyfer defnyddwyr sydd wedi eu dilysu.'
+            'galluogi ichi gael mynediad at y rhan o wasanaeth gwrandawiadau’r llysoedd a’r tribiwnlysoedd ar ' +
+            'gyfer defnyddwyr sydd wedi eu dilysu.'
     );
 }).tag('@Nightly');
 
