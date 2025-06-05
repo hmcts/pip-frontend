@@ -13,7 +13,10 @@ export default class SummaryOfPublicationsController {
         if (locationId) {
             const court = await locationService.getLocationById(parseInt(locationId));
             const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
-            const locationMetadata = await locationService.getLocationMetadata(parseInt(locationId), req.user['userId']);
+            const locationMetadata = await locationService.getLocationMetadata(
+                parseInt(locationId),
+                req.user['userId']
+            );
 
             let noCautionMessageOverride = '';
             let noListMessageOverride = '';
