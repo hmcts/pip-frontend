@@ -58,12 +58,8 @@ additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneOnly.toString
 additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
-additionalLocationInfoStub
-    .withArgs(locationIdForCourtWithNoListMessageOverride, '123-456')
-    .returns(locationMetadataResponse);
-additionalLocationInfoStub
-    .withArgs(locationIdForCourtWithCautionMessageOverride, '123-456')
-    .returns(locationMetadataResponse);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride).returns(locationMetadataResponse);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithCautionMessageOverride).returns(locationMetadataResponse);
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
