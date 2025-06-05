@@ -65,6 +65,18 @@ export class LocationRequests {
         return null;
     }
 
+    public async addLocationMetadata(payload: any, userId: string): Promise<boolean> {
+        try {
+            await dataManagementApi.post('/location-metadata', payload, {
+                headers: { 'x-requester-id': userId },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'create location metadata');
+        }
+        return false;
+    }
+
     public async getLocationsCsv(userId: string): Promise<Blob> {
         try {
             const response = await dataManagementApi.get('/locations/download/csv', {
