@@ -11,6 +11,7 @@ const locationIdForCourtWithEmailOnly = 12;
 const locationIdForCourtWithoutContact = 13;
 const locationIdForCourtWithPublications = 14;
 const locationIdForCourtWithNoListMessageOverride = 15;
+const locationIdForCourtWithCautionMessageOverride = 16;
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub
@@ -25,6 +26,7 @@ courtStub
 courtStub.withArgs(locationIdForCourtWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdForCourtWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdForCourtWithCautionMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
 const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 publicationStub.withArgs(locationIdForCourtWithTelephoneAndEmail).resolves([]);
@@ -36,10 +38,14 @@ publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
     { artefactId: '2', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
 ]);
 publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([]);
+publicationStub.withArgs(locationIdForCourtWithCautionMessageOverride).resolves([
+    { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '2', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+]);
 
 const locationMetadataResponse = {
     locationMetadataId: '123-456',
-    locationId: locationIdForCourtWithNoListMessageOverride,
+    locationId: 1,
     cautionMessage: 'English caution message',
     welshCautionMessage: 'Welsh caution message',
     noListMessage: 'English no list message',
@@ -54,6 +60,9 @@ additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString())
 additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
 additionalLocationInfoStub
     .withArgs(locationIdForCourtWithNoListMessageOverride, '123-456')
+    .returns(locationMetadataResponse);
+additionalLocationInfoStub
+    .withArgs(locationIdForCourtWithCautionMessageOverride, '123-456')
     .returns(locationMetadataResponse);
 
 describe('Summary of publications page', () => {
@@ -196,6 +205,38 @@ describe('Summary of publications page', () => {
                     'Sorry, no lists found for this court',
                     'Contact information is displayed'
                 );
+            });
+        });
+
+        describe('with caution message override in English', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display caution message in English', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('English caution message');
+            });
+        });
+
+        describe('with caution message override in Welsh', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}&lng=cy`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display caution message in Welsh', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('Welsh caution message');
             });
         });
 
