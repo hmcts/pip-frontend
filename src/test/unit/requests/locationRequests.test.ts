@@ -269,9 +269,9 @@ describe('Location Request', () => {
     describe('Location metadata', () => {
         describe('Get Location metadata', () => {
             beforeEach(() => {
-                stub.withArgs('/location-metadata/search-by-location-id/1').resolves({ data: locationMetadata });
-                stub.withArgs('/location-metadata/search-by-location-id/2').rejects(errorResponse);
-                stub.withArgs('/location-metadata/search-by-location-id/4').rejects(errorMessage);
+                stub.withArgs('/location-metadata/location/1').resolves({ data: locationMetadata });
+                stub.withArgs('/location-metadata/location/2').rejects(errorResponse);
+                stub.withArgs('/location-metadata/location/4').rejects(errorMessage);
 
                 stub.withArgs('/location-metadata/123-456').resolves({ data: locationMetadata });
                 stub.withArgs('/location-metadata/878-542').rejects(errorResponse);
