@@ -12,10 +12,10 @@ const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
 const tableHeader = 'govuk-table__header';
 
-describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leeds Daily Hearing List Page', () => {
+describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review London Daily Hearing List Page', () => {
     const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
     const rawData = fs.readFileSync(
-        path.resolve(__dirname, '../../mocks/utIacJudicialReviewLeedsDailyHearingList.json'),
+        path.resolve(__dirname, '../../mocks/utIacJudicialReviewLondonDailyHearingList.json'),
         'utf-8'
     );
 
@@ -24,12 +24,12 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
     sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(jsonData);
     const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
-    describe('UTIAC (JR) - Leeds Daily Hearing List page', () => {
+    describe('UTIAC (JR) - London Daily Hearing List page', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/ut-iac-jr-leeds-daily-hearing-list?artefactId=abc';
+        const PAGE_URL = '/ut-iac-jr-london-daily-hearing-list?artefactId=abc';
 
         const metaData = JSON.parse(rawMetaData)[0];
-        metaData.listType = 'UT_IAC_JR_LEEDS_DAILY_HEARING_LIST';
+        metaData.listType = 'UT_IAC_JR_LONDON_DAILY_HEARING_LIST';
 
         metadataStub.withArgs('abc').returns(metaData);
 
@@ -44,7 +44,7 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
-                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Leeds Daily Hearing List'
+                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily Hearing List'
             );
         });
 
@@ -82,19 +82,19 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
             expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
         });
 
-        it('should display Venue header', () => {
-            const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[0].innerHTML).equals('Venue');
-        });
-
-        it('should display Judges(s) header', () => {
-            const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[1].innerHTML).equals('Judge(s)');
-        });
-
         it('should display Hearing Time header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[2].innerHTML).equals('Hearing time');
+            expect(headerCell[0].innerHTML).equals('Hearing time');
+        });
+
+        it('should display Applicant header', () => {
+            const headerCell = htmlRes.getElementsByClassName(tableHeader);
+            expect(headerCell[1].innerHTML).equals('Applicant');
+        });
+
+        it('should display Representative header', () => {
+            const headerCell = htmlRes.getElementsByClassName(tableHeader);
+            expect(headerCell[2].innerHTML).equals('Representative');
         });
 
         it('should display Case Reference Number header', () => {
@@ -102,9 +102,9 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
             expect(headerCell[3].innerHTML).equals('Case reference number');
         });
 
-        it('should display Case Title header', () => {
+        it('should display Judges(s) header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[4].innerHTML).equals('Case title');
+            expect(headerCell[4].innerHTML).equals('Judge(s)');
         });
 
         it('should display Hearing Type header', () => {
@@ -112,24 +112,29 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
             expect(headerCell[5].innerHTML).equals('Hearing type');
         });
 
+        it('should display Location header', () => {
+            const headerCell = htmlRes.getElementsByClassName(tableHeader);
+            expect(headerCell[6].innerHTML).equals('Location');
+        });
+
         it('should display Additional Information header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[6].innerHTML).equals('Additional information');
-        });
-
-        it('should display Venue cell data', () => {
-            const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[0].innerHTML).contains('This is a venue name');
-        });
-
-        it('should display Judge(s) cell data', () => {
-            const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[1].innerHTML).equals('Judge A');
+            expect(headerCell[7].innerHTML).equals('Additional information');
         });
 
         it('should display Hearing Time cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[2].innerHTML).equals('10:30am');
+            expect(cellText[0].innerHTML).equals('10:30am');
+        });
+
+        it('should display Applicant cell data', () => {
+            const cellText = htmlRes.getElementsByClassName(cell);
+            expect(cellText[1].innerHTML).equals('Applicant A');
+        });
+
+        it('should display Representative cell data', () => {
+            const cellText = htmlRes.getElementsByClassName(cell);
+            expect(cellText[2].innerHTML).equals('Rep A');
         });
 
         it('should display Case Reference Number cell data', () => {
@@ -137,19 +142,24 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Leed
             expect(cellText[3].innerHTML).equals('1234');
         });
 
-        it('should display Case Title cell data', () => {
+        it('should display Judge(s) cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[4].innerHTML).equals('Case A');
+            expect(cellText[4].innerHTML).equals('Judge A');
         });
 
         it('should display Hearing Type cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[5].innerHTML).equals('Hearing type A');
+            expect(cellText[5].innerHTML).equals('Substantive');
+        });
+
+        it('should display Location cell data', () => {
+            const cellText = htmlRes.getElementsByClassName(cell);
+            expect(cellText[6].innerHTML).contains('This is a venue name');
         });
 
         it('should display Additional information cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[6].innerHTML).contains('This is additional information');
+            expect(cellText[7].innerHTML).contains('This is additional information');
         });
 
         it('should display data source text', () => {
