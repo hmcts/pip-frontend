@@ -69,7 +69,7 @@ describe('UTIAC (JR) - Cardiff Daily Hearing List Page', () => {
     getPublicationMetadataStub.withArgs('xyz').resolves(metaData);
 
     describe('on GET', () => {
-        test('should return UTIAC (JR) - Cardiff Daily Hearing List page', async () => {
+        test('should return UTIAC (JR) - Bristol and Cardiff Daily Hearing List page', async () => {
             await request(app)
                 .get('/ut-iac-jr-cardiff-daily-hearing-list?artefactId=xyz')
                 .expect(res => expect(res.status).to.equal(200));
