@@ -146,6 +146,7 @@ export const uploadPublication = async (
             .set('x-list-type', listType)
             .set('x-court-id', locationId)
             .set('x-content-date', contentDate)
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.artefactId;
