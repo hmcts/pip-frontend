@@ -5,20 +5,23 @@ import { LocationService } from '../service/LocationService';
 import { SummaryOfPublicationsService } from '../service/SummaryOfPublicationsService';
 
 const summaryOfPublicationsService = new SummaryOfPublicationsService();
-const courtService = new LocationService();
+const locationService = new LocationService();
 
 export default class SummaryOfPublicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query['locationId'] as string;
         if (locationId) {
-            const court = await courtService.getLocationById(parseInt(locationId));
-            const locationName = courtService.findCourtName(court, req.lng, 'summary-of-publications');
-            const additionalLocationInfo = courtService.getAdditionalLocationInfo(locationId);
+            const court = await locationService.getLocationById(parseInt(locationId));
+            const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
+            const locationMetadata = await locationService.getLocationMetadata(parseInt(locationId));
 
+            let noCautionMessageOverride = '';
             let noListMessageOverride = '';
-            if (additionalLocationInfo) {
+            if (locationMetadata !== null && locationMetadata !== undefined) {
                 noListMessageOverride =
-                    req.lng === 'cy' ? additionalLocationInfo.welshNoListMessage : additionalLocationInfo.noListMessage;
+                    req.lng === 'cy' ? locationMetadata.welshNoListMessage : locationMetadata.noListMessage;
+                noCautionMessageOverride =
+                    req.lng === 'cy' ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
             }
 
             const publications = await summaryOfPublicationsService.getPublications(
@@ -32,6 +35,7 @@ export default class SummaryOfPublicationsController {
                 locationName,
                 court,
                 noListMessageOverride,
+                noCautionMessageOverride,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

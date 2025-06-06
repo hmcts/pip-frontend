@@ -16,6 +16,10 @@ const court = { name: 'New Court', email: 'test@test.com', contactNo: '012345678
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
 const additionalLocationInfo = {
+    locationMetadataId: '123-456',
+    locationId: '1',
+    cautionMessage: 'English caution message',
+    welshCautionMessage: 'Welsh caution message',
     noListMessage: 'English no list message',
     welshNoListMessage: 'Welsh no list message',
 };
@@ -25,9 +29,9 @@ sinon
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(sjpCases);
 
-const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
-additionalLocationInfoStub.withArgs('1').returns(null);
-additionalLocationInfoStub.withArgs('2').returns(additionalLocationInfo);
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
+additionalLocationInfoStub.withArgs(1).returns(null);
+additionalLocationInfoStub.withArgs(2).returns(additionalLocationInfo);
 
 describe('Get publications', () => {
     it('should render the Summary of Publications page', async () => {
@@ -49,6 +53,7 @@ describe('Get publications', () => {
             publications: sjpCases,
             court,
             noListMessageOverride: '',
+            noCautionMessageOverride: '',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -77,6 +82,7 @@ describe('Get publications', () => {
             publications: sjpCases,
             court,
             noListMessageOverride: 'English no list message',
+            noCautionMessageOverride: 'English caution message',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -105,6 +111,7 @@ describe('Get publications', () => {
             publications: sjpCases,
             court,
             noListMessageOverride: 'Welsh no list message',
+            noCautionMessageOverride: 'Welsh caution message',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
