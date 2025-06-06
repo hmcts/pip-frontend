@@ -65,6 +65,18 @@ export class LocationRequests {
         return null;
     }
 
+    public async addLocationMetadata(payload: any, userId: string): Promise<boolean> {
+        try {
+            await dataManagementApi.post('/location-metadata', payload, {
+                headers: { 'x-requester-id': userId },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'create location metadata');
+        }
+        return false;
+    }
+
     public async getLocationsCsv(userId: string): Promise<Blob> {
         try {
             const response = await dataManagementApi.get('/locations/download/csv', {
@@ -86,5 +98,41 @@ export class LocationRequests {
             logHelper.logErrorResponse(error, 'get location metadata by locationId');
         }
         return null;
+    }
+
+    public async getLocationMetadataById(id: string, requesterId: string): Promise<LocationMetadata> {
+        try {
+            const response = await dataManagementApi.get(`/location-metadata/${id}`, {
+                headers: { 'x-requester-id': requesterId },
+            });
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'get location metadata by id');
+        }
+        return null;
+    }
+
+    public async updateLocationMetadata(payload, userId: string): Promise<boolean> {
+        try {
+            await dataManagementApi.put('/location-metadata', payload, {
+                headers: { 'x-requester-id': userId },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'update location metadata');
+        }
+        return false;
+    }
+
+    public async deleteLocationMetadata(id: string, requesterId: string): Promise<boolean> {
+        try {
+            await dataManagementApi.delete(`/location-metadata/${id}`, {
+                headers: { 'x-requester-id': requesterId },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'Delete location metadata by id');
+        }
+        return false;
     }
 }
