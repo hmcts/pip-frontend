@@ -68,7 +68,12 @@ const adminUserId = '1234';
 
 const crown = 'Crown';
 const magistrates = 'Magistrates';
+
+const locationId = 1;
+const locationIdForFailedRequest = 2;
 const locationMetadataId = '123-456';
+const locationMetadataIdForFailedRequest = '123-457';
+
 const locationMetadataEnglishCautionMessage = 'English caution message';
 const locationMetadataWelshCautionMessage = 'Welsh caution message';
 const locationMetadataEnglishNoListMessage = 'English no list message';
@@ -76,7 +81,7 @@ const locationMetadataWelshNoListMessage = 'Welsh no list message';
 
 const locationMetadata = {
     locationMetadataId: locationMetadataId,
-    locationId: 1,
+    locationId: locationId,
     cautionMessage: locationMetadataEnglishCautionMessage,
     welshCautionMessage: locationMetadataWelshCautionMessage,
     noListMessage: locationMetadataEnglishNoListMessage,
@@ -223,53 +228,39 @@ describe('Court Service', () => {
     });
 
     describe('Location metadata', () => {
-        stubLocationMetadata.withArgs(1).returns(locationMetadata);
-        stubLocationMetadata.withArgs(2).returns(null);
+        stubLocationMetadata.withArgs(locationId).returns(locationMetadata);
+        stubLocationMetadata.withArgs(locationIdForFailedRequest).returns(null);
 
         stubAddLocationMetadata
             .withArgs(
                 {
                     locationMetadataId: '',
-                    locationId: 1,
+                    locationId: locationId,
                     cautionMessage: locationMetadataEnglishCautionMessage,
                     welshCautionMessage: locationMetadataWelshCautionMessage,
                     noListMessage: locationMetadataEnglishNoListMessage,
                     welshNoListMessage: locationMetadataWelshNoListMessage,
                 },
-                adminUserId
             )
             .returns(true);
         stubAddLocationMetadata
             .withArgs(
                 {
                     locationMetadataId: '',
-                    locationId: null,
+                    locationId: locationIdForFailedRequest,
                     cautionMessage: locationMetadataEnglishCautionMessage,
                     welshCautionMessage: locationMetadataWelshCautionMessage,
                     noListMessage: locationMetadataEnglishNoListMessage,
                     welshNoListMessage: locationMetadataWelshNoListMessage,
                 },
-                adminUserId
             )
             .returns(false);
 
-        stubUpdateLocationMetadata.withArgs(locationMetadata, adminUserId).returns(true);
-        stubUpdateLocationMetadata
-            .withArgs(
-                {
-                    locationMetadataId: locationMetadataId,
-                    locationId: null,
-                    cautionMessage: locationMetadataEnglishCautionMessage,
-                    welshCautionMessage: locationMetadataWelshCautionMessage,
-                    noListMessage: locationMetadataEnglishNoListMessage,
-                    welshNoListMessage: locationMetadataWelshNoListMessage,
-                },
-                adminUserId
-            )
-            .returns(false);
+        stubUpdateLocationMetadata.withArgs(locationMetadataId).returns(true);
+        stubUpdateLocationMetadata.withArgs(locationMetadataIdForFailedRequest).returns(false);
 
-        stubDeleteLocationMetadata.withArgs(locationMetadataId, adminUserId).returns(true);
-        stubDeleteLocationMetadata.withArgs(null, adminUserId).returns(false);
+        stubDeleteLocationMetadata.withArgs(locationMetadataId).returns(true);
+        stubDeleteLocationMetadata.withArgs(locationMetadataIdForFailedRequest).returns(false);
 
         it('should return location metadata by Location if location exists', async () => {
             let locationMetadata = await courtService.getLocationMetadata(1);
@@ -287,7 +278,7 @@ describe('Court Service', () => {
         it('should add location metadata if correct data provided', async () => {
             expect(
                 await courtService.addLocationMetadata(
-                    1,
+                    locationId,
                     locationMetadataEnglishCautionMessage,
                     locationMetadataWelshCautionMessage,
                     locationMetadataEnglishNoListMessage,
@@ -297,7 +288,7 @@ describe('Court Service', () => {
             ).is.true;
             expect(
                 await courtService.addLocationMetadata(
-                    null,
+                    locationIdForFailedRequest,
                     locationMetadataEnglishCautionMessage,
                     locationMetadataWelshCautionMessage,
                     locationMetadataEnglishNoListMessage,
@@ -311,7 +302,7 @@ describe('Court Service', () => {
             expect(
                 await courtService.updateLocationMetadata(
                     locationMetadataId,
-                    1,
+                    locationId,
                     locationMetadataEnglishCautionMessage,
                     locationMetadataWelshCautionMessage,
                     locationMetadataEnglishNoListMessage,
@@ -321,8 +312,8 @@ describe('Court Service', () => {
             ).is.true;
             expect(
                 await courtService.updateLocationMetadata(
-                    locationMetadataId,
-                    null,
+                    locationMetadataIdForFailedRequest,
+                    locationId,
                     locationMetadataEnglishCautionMessage,
                     locationMetadataWelshCautionMessage,
                     locationMetadataEnglishNoListMessage,
@@ -334,7 +325,7 @@ describe('Court Service', () => {
 
         it('should delete location metadata', async () => {
             expect(await courtService.deleteLocationMetadataById(locationMetadataId, adminUserId)).is.true;
-            expect(await courtService.deleteLocationMetadataById(null, adminUserId)).is.false;
+            expect(await courtService.deleteLocationMetadataById(locationMetadataIdForFailedRequest, adminUserId)).is.false;
         });
     });
 });

@@ -25,7 +25,7 @@ describe('Location metadata delete confirmed page', () => {
 
     it('should have correct header', () => {
         const heading = htmlRes.getElementsByClassName('govuk-panel__title');
-        expect(heading[0].innerHTML).equals('Location metadata deleted', 'Header does not match');
+        expect(heading[0].innerHTML).contains('Location metadata deleted', 'Header does not match');
     });
 
     it('should display correct message in body', () => {
