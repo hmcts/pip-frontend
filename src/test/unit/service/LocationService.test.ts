@@ -232,28 +232,24 @@ describe('Court Service', () => {
         stubLocationMetadata.withArgs(locationIdForFailedRequest).returns(null);
 
         stubAddLocationMetadata
-            .withArgs(
-                {
-                    locationMetadataId: '',
-                    locationId: locationId,
-                    cautionMessage: locationMetadataEnglishCautionMessage,
-                    welshCautionMessage: locationMetadataWelshCautionMessage,
-                    noListMessage: locationMetadataEnglishNoListMessage,
-                    welshNoListMessage: locationMetadataWelshNoListMessage,
-                },
-            )
+            .withArgs({
+                locationMetadataId: '',
+                locationId: locationId,
+                cautionMessage: locationMetadataEnglishCautionMessage,
+                welshCautionMessage: locationMetadataWelshCautionMessage,
+                noListMessage: locationMetadataEnglishNoListMessage,
+                welshNoListMessage: locationMetadataWelshNoListMessage,
+            })
             .returns(true);
         stubAddLocationMetadata
-            .withArgs(
-                {
-                    locationMetadataId: '',
-                    locationId: locationIdForFailedRequest,
-                    cautionMessage: locationMetadataEnglishCautionMessage,
-                    welshCautionMessage: locationMetadataWelshCautionMessage,
-                    noListMessage: locationMetadataEnglishNoListMessage,
-                    welshNoListMessage: locationMetadataWelshNoListMessage,
-                },
-            )
+            .withArgs({
+                locationMetadataId: '',
+                locationId: locationIdForFailedRequest,
+                cautionMessage: locationMetadataEnglishCautionMessage,
+                welshCautionMessage: locationMetadataWelshCautionMessage,
+                noListMessage: locationMetadataEnglishNoListMessage,
+                welshNoListMessage: locationMetadataWelshNoListMessage,
+            })
             .returns(false);
 
         stubUpdateLocationMetadata.withArgs(locationMetadataId).returns(true);
@@ -325,7 +321,8 @@ describe('Court Service', () => {
 
         it('should delete location metadata', async () => {
             expect(await courtService.deleteLocationMetadataById(locationMetadataId, adminUserId)).is.true;
-            expect(await courtService.deleteLocationMetadataById(locationMetadataIdForFailedRequest, adminUserId)).is.false;
+            expect(await courtService.deleteLocationMetadataById(locationMetadataIdForFailedRequest, adminUserId)).is
+                .false;
         });
     });
 });
