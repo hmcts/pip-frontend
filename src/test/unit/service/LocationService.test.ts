@@ -320,8 +320,8 @@ describe('Court Service', () => {
         });
 
         it('should delete location metadata', async () => {
-            expect(await courtService.deleteLocationMetadataById(locationMetadataId, adminUserId)).is.true;
-            expect(await courtService.deleteLocationMetadataById(locationMetadataIdForFailedRequest, adminUserId)).is
+            expect(await courtService.deleteLocationMetadata(locationMetadataId, adminUserId)).is.true;
+            expect(await courtService.deleteLocationMetadata(locationMetadataIdForFailedRequest, adminUserId)).is
                 .false;
         });
     });

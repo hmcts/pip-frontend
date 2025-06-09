@@ -31,7 +31,7 @@ export default class LocationMetadataDeleteConfirmationController {
             if (locationMetadata) {
                 const location = await locationService.getLocationById(locationId);
                 if (req.body['delete-location-metadata-confirm'] === 'yes') {
-                    const success = await locationService.deleteLocationMetadataById(
+                    const success = await locationService.deleteLocationMetadata(
                         locationMetadata.locationMetadataId,
                         req.user['userId']
                     );

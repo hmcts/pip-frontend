@@ -162,7 +162,7 @@ export class LocationService {
         return await locationRequest.getLocationMetadata(locationId);
     }
 
-    public async deleteLocationMetadataById(id: string, userId: string): Promise<boolean> {
+    public async deleteLocationMetadata(id: string, userId: string): Promise<boolean> {
         return await locationRequest.deleteLocationMetadata(id, userId);
     }
 
