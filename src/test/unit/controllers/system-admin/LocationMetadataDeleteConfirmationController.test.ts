@@ -26,7 +26,7 @@ getLocationMetadataStub.withArgs('123').resolves({ locationMetadataId: '123-456'
 getLocationMetadataStub.withArgs('124').resolves({ locationMetadataId: '123-457' });
 getLocationMetadataStub.withArgs('125').resolves(null);
 
-const deleteLocationMetadataStub = sinon.stub(LocationService.prototype, 'deleteLocationMetadataById');
+const deleteLocationMetadataStub = sinon.stub(LocationService.prototype, 'deleteLocationMetadata');
 deleteLocationMetadataStub.withArgs('123-456').resolves(true);
 deleteLocationMetadataStub.withArgs('123-457').resolves(false);
 

@@ -13,7 +13,7 @@ const locationIdWithFailedRequest = '124';
 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'Location A' });
 const getLocationMetadataStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
-const deleteLocationMetadataStub = sinon.stub(LocationService.prototype, 'deleteLocationMetadataById');
+const deleteLocationMetadataStub = sinon.stub(LocationService.prototype, 'deleteLocationMetadata');
 
 getLocationMetadataStub.withArgs(locationId).resolves({ locationMetadataId: '456' });
 getLocationMetadataStub.withArgs(locationIdWithFailedRequest).resolves({ locationMetadataId: '457' });
