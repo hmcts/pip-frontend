@@ -18,7 +18,6 @@ const stubCourtByName = sinon.stub(courtRequest, 'getLocationByName');
 const stubCourtsFilter = sinon.stub(courtRequest, 'getFilteredCourts');
 const stubCourtDeletion = sinon.stub(courtRequest, 'deleteCourt');
 const stubLocationMetadata = sinon.stub(courtRequest, 'getLocationMetadata');
-const stubLocationMetadataById = sinon.stub(courtRequest, 'getLocationMetadataById');
 const stubAddLocationMetadata = sinon.stub(courtRequest, 'addLocationMetadata');
 const stubUpdateLocationMetadata = sinon.stub(courtRequest, 'updateLocationMetadata');
 const stubDeleteLocationMetadata = sinon.stub(courtRequest, 'deleteLocationMetadata');
@@ -227,9 +226,6 @@ describe('Court Service', () => {
         stubLocationMetadata.withArgs(1).returns(locationMetadata);
         stubLocationMetadata.withArgs(2).returns(null);
 
-        stubLocationMetadataById.withArgs(locationMetadataId).returns(locationMetadata);
-        stubLocationMetadataById.withArgs('111-222').returns(null);
-
         stubAddLocationMetadata
             .withArgs(
                 {
@@ -285,19 +281,6 @@ describe('Court Service', () => {
             expect(locationMetadata.welshNoListMessage).is.not.empty;
 
             locationMetadata = await courtService.getLocationMetadata(2);
-            expect(locationMetadata).is.null;
-        });
-
-        it('should return location metadata by Id if location exists', async () => {
-            let locationMetadata = await courtService.getLocationMetadataById(locationMetadataId, adminUserId);
-            expect(locationMetadata).is.not.undefined;
-            expect(locationMetadata).is.not.empty;
-            expect(locationMetadata.cautionMessage).is.not.empty;
-            expect(locationMetadata.welshCautionMessage).is.not.empty;
-            expect(locationMetadata.noListMessage).is.not.empty;
-            expect(locationMetadata.welshNoListMessage).is.not.empty;
-
-            locationMetadata = await courtService.getLocationMetadataById('111-222', adminUserId);
             expect(locationMetadata).is.null;
         });
 

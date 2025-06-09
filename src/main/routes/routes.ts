@@ -1097,6 +1097,21 @@ export default function (app: Application): void {
     app.post('/location-metadata-manage', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.locationMetadataManageController.post(req, res)
     );
+    app.get('/location-metadata-create-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataCreateConfirmedController.get(req, res)
+    );
+    app.get('/location-metadata-update-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataUpdateConfirmedController.get(req, res)
+    );
+    app.get('/location-metadata-delete-confirmation', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmationController.get(req, res)
+    );
+    app.post('/location-metadata-delete-confirmation', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmationController.post(req, res)
+    );
+    app.get('/location-metadata-delete-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmedController.get(req, res)
+    );
 
     //CFT Routes
     app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);

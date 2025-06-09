@@ -1,16 +1,16 @@
 {
-    "title": "Manage Location Metadata",
-    "error": {
-        "noInput": "Please enter required text",
-        "summaryTitleText": "There is a problem"
-    },
-    "header": "Manage Location Metadata",
-    "englishCautionLabel": "English Caution Message",
-    "welshCautionLabel": "Welsh Caution Message",
-    "englishNoListLabel": "English No List Message",
-    "welshNoListLabel": "Welsh No List Message",
-    "addButtonText": "Add",
+    "title": "Manage location metadata",
+    "header": "Manage location metadata for LOCATION",
+    "englishCautionLabel": "English caution message",
+    "welshCautionLabel": "Welsh caution message",
+    "englishNoListLabel": "English no list message",
+    "welshNoListLabel": "Welsh no list message",
+    "createButtonText": "Create",
     "updateButtonText": "Update",
     "deleteButtonText": "Delete",
-    "CancelButtonText": "Cancel"
+    "error": {
+        "title": "There is a problem",
+        "failedUpdateRequestMessage": "Failed to update location metadata",
+        "failedCreateRequestMessage": "Failed to create location metadata"
+    }
 }

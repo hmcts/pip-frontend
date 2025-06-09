@@ -145,6 +145,7 @@ export class LocationService {
         userId: string
     ): Promise<boolean> {
         return await locationRequest.updateLocationMetadata(
+            id,
             this.createLocationMetadataPayload(
                 id,
                 locationId,
@@ -159,10 +160,6 @@ export class LocationService {
 
     public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
         return await locationRequest.getLocationMetadata(locationId);
-    }
-
-    public async getLocationMetadataById(id: string, userId: string): Promise<LocationMetadata> {
-        return await locationRequest.getLocationMetadataById(id, userId);
     }
 
     public async deleteLocationMetadataById(id: string, userId: string): Promise<boolean> {

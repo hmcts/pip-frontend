@@ -1,102 +1,100 @@
 {% extends "../template.njk" %}
-{% from "../macros/common-components.njk" import goBack, submitButton, autoCompleteFilteredResults, backButtonHistory %}
+{% from "../macros/common-components.njk" import goBack, backButtonHistory %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 
 {% block pageTitle %}
-  {{ title }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ super() }}
-  {{ goBack(cspNonce = cspNonce) }}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
-  {% if noResultsError or invalidInputError %}
-    {% set errorMessage = error.noResults if noResultsError else error.noInput %}
-    <div class="govuk-grid-row">
-      <div class="no_padding govuk-grid-column-three-quarters">
-        {{ govukErrorSummary({
-          titleText: error.summaryTitleText,
-          errorList: [
-            {
-              text: errorMessage,
-              href: "#location-metadata-form"
-            }
-          ]
-        }) }}
-      </div>
-    </div>
-  {% endif %}
-  {% set inputClasses = 'govuk-!-width-two-thirds govuk-input--error'
-    if noResultsError or invalidInputError else 'govuk-!-width-two-thirds' %}
-  {% set formGroupError = 'govuk-form-group--error'
-    if noResultsError or invalidInputError else 'govuk-form-group' %}
-  <form action="location-metadata-manage" method="post">
-    <h1 class="govuk-heading-l">{{ header }}</h1>
-    <div  id="location-metadata-form" class="govuk-form-group govuk-!-width-two-thirds">
-      <h2 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--m" for="search-input">
-          {{ inputMessage }}
-        </label>
-      </h2>
-      <div class="{{ formGroupError }}">
-          <div class="govuk-form-group">
-              <h1 class="govuk-label-wrapper">
-                  <label class="govuk-label govuk-label--m" for="more-detail">
-                      {{ englishCautionLabel }}
-                  </label>
-              </h1>
-              <textarea class="govuk-textarea" id="english-caution-message" name="english-caution-message" rows="5"></textarea>
-          </div>
-          <div class="govuk-form-group">
-              <h1 class="govuk-label-wrapper">
-                  <label class="govuk-label govuk-label--m" for="more-detail">
-                      {{ welshCautionLabel }}
-                  </label>
-              </h1>
-              <textarea class="govuk-textarea" id="welsh-caution-message" name="welsh-caution-message" rows="5"></textarea>
-          </div>
-          <div class="govuk-form-group">
-              <h1 class="govuk-label-wrapper">
-                  <label class="govuk-label govuk-label--m" for="more-detail">
-                      {{ englishNoListLabel }}
-                  </label>
-              </h1>
-              <textarea class="govuk-textarea" id="english-no-list-message" name="english-no-list-message" rows="5"></textarea>
-          </div>
-          <div class="govuk-form-group">
-              <h1 class="govuk-label-wrapper">
-                  <label class="govuk-label govuk-label--m" for="more-detail">
-                      {{ welshCautionLabel }}
-                  </label>
-              </h1>
-              <textarea class="govuk-textarea" id="welsh-no-list-message" name="welsh-no-list-message" rows="5"></textarea>
-          </div>
-      </div>
-    </div>
-    {{ submitButton(continueButton) }}
-  </form>
-{% endblock %}
-{% block bodyEnd %}
-  {% set optionList = [] %}
-  {% for item in autocompleteList %}
-    {% set _ = optionList.push(
-      item.name
-    ) %}
-  {% endfor %}
+    {% if locationMetadata | length %}
+        {% set metadataExists = true %}
+    {% else %}
+        {% set metadataExists = false %}
+    {% endif %}
 
-  <script src="/assets/js/accessible-autocomplete.min.js"></script>
-  <script nonce="{{ cspNonce }}">
-    const element = document.querySelector('#search-input-container');
-    const source = {{ optionList | dump |safe }}
-    const autocompleteParam = {
-      element: element,
-      id: 'search-input',
-      displayMenu: 'overlay',
-    };
-  </script>
-  {{ backButtonHistory(cspNonce) }}
-  {{ autoCompleteFilteredResults(autocompleteParam, cspNonce) }}
-  {{ super() }}
+    {% if updateError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.failedUpdateRequestMessage if metadataExists else error.failedCreateRequestMessage,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{ header | replace("LOCATION", location.name) }}</h1>
+    <form action="location-metadata-manage?locationId={{ location.locationId }}" method="post">
+        {{ govukTextarea({
+            name: "english-caution-message",
+            id: "english-caution-message",
+            label: {
+                text: englishCautionLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.cautionMessage
+        }) }}
+
+        {{ govukTextarea({
+            name: "welsh-caution-message",
+            id: "welsh-caution-message",
+            label: {
+                text: welshCautionLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.welshCautionMessage
+        }) }}
+
+        {{ govukTextarea({
+            name: "english-no-list-message",
+            id: "english-no-list-message",
+            label: {
+                text: englishNoListLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.noListMessage
+        }) }}
+
+        {{ govukTextarea({
+            name: "welsh-no-list-message",
+            id: "welsh-no-list-message",
+            label: {
+                text: welshNoListLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.welshNoListMessage
+        }) }}
+
+        <div class="govuk-button-group">
+            {{ govukButton({
+                text: updateButtonText if metadataExists else createButtonText
+            }) }}
+
+            {% if metadataExists %}
+                {{ govukButton({
+                    text: deleteButtonText,
+                    classes: "govuk-button--warning",
+                    href: "location-metadata-delete-confirmation?locationId=" + location.locationId
+                }) }}
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
+    {{ super() }}
 {% endblock %}

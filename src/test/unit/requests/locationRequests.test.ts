@@ -272,10 +272,6 @@ describe('Location Request', () => {
                 stub.withArgs('/location-metadata/location/1').resolves({ data: locationMetadata });
                 stub.withArgs('/location-metadata/location/2').rejects(errorResponse);
                 stub.withArgs('/location-metadata/location/4').rejects(errorMessage);
-
-                stub.withArgs('/location-metadata/123-456').resolves({ data: locationMetadata });
-                stub.withArgs('/location-metadata/878-542').rejects(errorResponse);
-                stub.withArgs('/location-metadata/145-897').rejects(errorMessage);
             });
 
             it('should return location metadata by location id', async () => {
@@ -288,20 +284,6 @@ describe('Location Request', () => {
 
             it('should return null if call fails', async () => {
                 expect(await courtRequests.getLocationMetadata(4)).toBe(null);
-            });
-
-            it('should return location metadata by id', async () => {
-                expect(await courtRequests.getLocationMetadataById('123-456', adminUserId)).toStrictEqual(
-                    locationMetadata
-                );
-            });
-
-            it('should return null if response fails ', async () => {
-                expect(await courtRequests.getLocationMetadataById('878-542', adminUserId)).toBe(null);
-            });
-
-            it('should return null if call fails', async () => {
-                expect(await courtRequests.getLocationMetadataById('145-897', adminUserId)).toBe(null);
             });
         });
         describe('Add Location metadata', () => {
@@ -322,18 +304,18 @@ describe('Location Request', () => {
         });
         describe('Update Location metadata', () => {
             it('should update location metadata', async () => {
-                stubPut.withArgs('/location-metadata').withArgs(locationMetadata).resolves(true);
-                expect(await courtRequests.updateLocationMetadata(locationMetadata, '123')).toBe(true);
+                stubPut.withArgs('/location-metadata/123-456').withArgs(locationMetadata).resolves(true);
+                expect(await courtRequests.updateLocationMetadata('123-456', locationMetadata, '123')).toBe(true);
             });
 
             it('should return null if response fails ', async () => {
-                stubPut.withArgs('/location-metadata').rejects(errorResponse);
-                expect(await courtRequests.updateLocationMetadata({}, '123')).toBe(false);
+                stubPut.withArgs('/location-metadata/123-457').rejects(errorResponse);
+                expect(await courtRequests.updateLocationMetadata('123-457', {}, '123')).toBe(false);
             });
 
             it('should return null if call fails', async () => {
-                stubPut.withArgs('/location-metadata').rejects(errorMessage);
-                expect(await courtRequests.updateLocationMetadata({}, '123')).toBe(false);
+                stubPut.withArgs('/location-metadata/123-458').rejects(errorMessage);
+                expect(await courtRequests.updateLocationMetadata('123-458', {}, '123')).toBe(false);
             });
         });
         describe('Delete location meta data', () => {
@@ -343,13 +325,13 @@ describe('Location Request', () => {
             });
 
             it('should return null if response fails ', async () => {
-                deleteStub.withArgs('/location-metadata/null').resolves(false);
-                expect(await courtRequests.deleteLocationMetadata(null, '1234-1234')).toBe(true);
+                deleteStub.withArgs('/location-metadata/123-457').resolves(false);
+                expect(await courtRequests.deleteLocationMetadata('123-457', '1234-1234')).toBe(true);
             });
 
             it('should return null if call fails', async () => {
-                deleteStub.withArgs('/location-metadata/null').resolves(false);
-                expect(await courtRequests.deleteLocationMetadata(null, '1234-1234')).toBe(true);
+                deleteStub.withArgs('/location-metadata/123-458').resolves(false);
+                expect(await courtRequests.deleteLocationMetadata('123-458', '1234-1234')).toBe(true);
             });
         });
     });
