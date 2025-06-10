@@ -28,13 +28,13 @@ export default class SummaryOfPublicationsController {
                 req.user?.['userId']
             );
 
-            const publicationsWithName = []
+            const publicationsWithName = [];
             publications.forEach(publication => {
                 const friendlyName = publicationService.getListTypes().get(publication.listType).friendlyName;
                 const publicationWithName = {
                     ...publication,
                     listName: friendlyName,
-                }
+                };
                 publicationsWithName.push(publicationWithName);
             });
 
