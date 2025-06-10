@@ -66,7 +66,7 @@ config.helpers = {
         browser: 'chromium',
         waitForTimeout: config.WaitForTimeout,
         waitForAction: 1000,
-        waitForNavigation: 'domcontentloaded',
+        waitForNavigation: 'networkidle0',
         ignoreHTTPSErrors: true,
         bypassCSP: true,
     },
