@@ -70,6 +70,7 @@ export = function () {
                 page.goto(testConfig.TEST_URL + '/admin-dashboard');
             });
             this.waitForText('Sign in');
+            this.waitForClickable('#i0116');
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_LOCAL_USER));
             this.click('Next');
             this.waitForText('Enter password');
