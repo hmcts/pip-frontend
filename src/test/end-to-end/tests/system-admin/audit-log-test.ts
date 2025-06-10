@@ -92,7 +92,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.fillField('#filterDate-day', padFormatted(date.getDate()) as string);
     I.fillField('#filterDate-month', padFormatted(date.getMonth() + 1));
     I.fillField('#filterDate-year', date.getFullYear());
-    I.checkOption('#actions-20');
+    I.checkOption('#actions-21');
     I.click('Apply filters');
 
     const publicationLocator = locate('//tr').withText('Upload Publication').find('a').withText('View');
