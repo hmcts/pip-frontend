@@ -234,6 +234,16 @@ describe('Summary of publications page', () => {
                         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     });
             });
+            it('should display header', () => {
+                const header = htmlRes.getElementsByClassName('govuk-heading-l');
+                expect(header[0].innerHTML).contains('What do you want to view from New Court?', 'Could not find correct value in header');
+            });
+
+            it('should display a back button with the correct value', () => {
+                const backLink = htmlRes.getElementsByClassName('govuk-back-link');
+                expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
+                expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+            });
 
             it('should display publications', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
