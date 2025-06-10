@@ -40,7 +40,7 @@ export = function () {
                 page.goto(testConfig.TEST_URL + '/admin-dashboard');
             });
             this.waitForText('Sign in');
-            this.waitForClickable('#i0116',3);
+            this.waitForClickable('#i0116', 3);
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_SYSTEM_ADMIN_USER));
             this.click('Next');
             this.waitForText('Enter password');
@@ -56,7 +56,7 @@ export = function () {
                 page.goto(testConfig.TEST_URL + '/admin-dashboard');
             });
             this.waitForText('Sign in');
-            this.waitForClickable('#i0116',3);
+            this.waitForClickable('#i0116', 3);
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_CTSC_USER));
             this.click('Next');
             this.waitForText('Enter password');
@@ -72,7 +72,7 @@ export = function () {
                 page.goto(testConfig.TEST_URL + '/admin-dashboard');
             });
             this.waitForText('Sign in');
-            this.waitForClickable('#i0116',3);
+            this.waitForClickable('#i0116', 3);
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_LOCAL_USER));
             this.click('Next');
             this.waitForText('Enter password');
