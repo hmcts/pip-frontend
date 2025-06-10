@@ -73,6 +73,7 @@ export = function () {
             });
             this.waitForText('Sign in');
             this.waitForClickable('#i0116', 3);
+            this.waitForClickable('#idSIButton9', 3);
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_LOCAL_USER));
             this.click('Next');
             this.waitForText('Enter password');
