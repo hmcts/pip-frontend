@@ -32,8 +32,14 @@ publicationStub.withArgs(locationIdForCourtWithTelephoneOnly).resolves([]);
 publicationStub.withArgs(locationIdForCourtWithEmailOnly).resolves([]);
 publicationStub.withArgs(locationIdForCourtWithoutContact).resolves([]);
 publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
-    { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
-    { artefactId: '2', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'WELSH' },
+    { artefactId: '2', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '3', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '4', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-22T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '5', listType: 'FAMILY_DAILY_CAUSE_LIST', contentDate: '2025-01-21T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '6', listType: 'FAMILY_DAILY_CAUSE_LIST', contentDate: '2025-01-21T00:00:00Z', language: 'WELSH' },
+    { artefactId: '7', listType: 'AST_DAILY_HEARING_LIST', contentDate: '2025-01-18T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '8', listType: 'AST_DAILY_HEARING_LIST', contentDate: '2025-01-19T00:00:00Z', language: 'WELSH' },
 ]);
 publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([]);
 
@@ -235,15 +241,44 @@ describe('Summary of publications page', () => {
                     'Select the list you want to view from the link(s) below:',
                     'Select list text does not match'
                 );
-
                 expect(body[5].innerHTML).contains(
-                    'Civil Daily Cause List 20 January 2025 - English (Saesneg)',
-                    'Daily list link text does not match'
+                    'Asylum Support Tribunal Daily Hearing List 19 January 2025 - Welsh (Cymraeg)',
+                    'list type does not match'
                 );
 
                 expect(body[6].innerHTML).contains(
+                    'Asylum Support Tribunal Daily Hearing List 18 January 2025 - English (Saesneg)',
+                    'list type does not match'
+                );
+
+                expect(body[7].innerHTML).contains(
                     'Care Standards Tribunal Weekly Hearing List for week commencing 20 January 2025 - English (Saesneg)',
-                    'Weekly list link text does not match'
+                    'list type does not match'
+                );
+
+                expect(body[8].innerHTML).contains(
+                    'Civil Daily Cause List 22 January 2025 - English (Saesneg)',
+                    'list type does not match'
+                );
+
+                expect(body[9].innerHTML).contains(
+                    'Civil Daily Cause List 20 January 2025 - English (Saesneg)',
+                    'list type does not match'
+                );
+
+                expect(body[10].innerHTML).contains(
+                    'Civil Daily Cause List 20 January 2025 - Welsh (Cymraeg)',
+                    'list type does not match'
+                );
+
+                expect(body[11].innerHTML).contains(
+                    'Family Daily Cause List 21 January 2025 - English (Saesneg)',
+                    'list type does not match'
+                );
+
+                expect(body[12].innerHTML).contains(
+                    'Family Daily Cause List 21 January 2025 - Welsh (Cymraeg)',
+                    'list type does not match'
                 );
             });
         });
