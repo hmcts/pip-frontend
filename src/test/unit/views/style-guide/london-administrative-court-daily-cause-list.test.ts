@@ -62,10 +62,30 @@ describe('London Administrative Court Daily Cause Listpage', () => {
         expect(text[0].innerHTML).equals('Important information');
     });
 
-    it('should display important information message', () => {
+    it('should display important information message 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[9].innerHTML).contains(
-            'Daily hearings in the Administrative Court sitting at London, Birmingham, Bristol, Cardiff, Manchester and Leeds.'
+            'Hearings take place in public unless otherwise indicated. ' +
+            'When considering the use of telephone and video technology the ' +
+            'judiciary will have regard to the principles of open justice. ' +
+            'The court may exclude observers where necessary to secure the proper administration of justice.'
+        );
+    });
+
+    it('should display Judgments heading', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].innerHTML).contains(
+            'Judgments'
+        );
+    });
+
+    it('should display important information message 2', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[11].innerHTML).contains(
+            'Judgments handed down by the judge remotely will be released by circulation to the parties’ ' +
+            'representatives by email and release to the National Archives. The date and time ' +
+            'for hand-down will be deemed to be not before time listed. A copy of the judgment ' +
+            'in final form as handed down can be made available after that time, on request by email.'
         );
     });
 
@@ -104,6 +124,41 @@ describe('London Administrative Court Daily Cause Listpage', () => {
         expect(headerCell[6].innerHTML).equals('Additional information');
     });
 
+    it('should display Venue header for planning court', () => {
+        const headerCell = htmlRes.getElementsByClassName(tableHeader);
+        expect(headerCell[7].innerHTML).equals('Venue');
+    });
+
+    it('should display Judge header for planning court', () => {
+        const headerCell = htmlRes.getElementsByClassName(tableHeader);
+        expect(headerCell[8].innerHTML).equals('Judge');
+    });
+
+    it('should display Time header for planning court', () => {
+        const headerCell = htmlRes.getElementsByClassName(tableHeader);
+        expect(headerCell[9].innerHTML).equals('Time');
+    });
+
+    it('should display Case Number header for planning court', () => {
+        const headerCell = htmlRes.getElementsByClassName(tableHeader);
+        expect(headerCell[10].innerHTML).equals('Case number');
+    });
+
+    it('should display Case Details header for planning court', () => {
+        const headerCell = htmlRes.getElementsByClassName(tableHeader);
+        expect(headerCell[11].innerHTML).equals('Case details');
+    });
+
+    it('should display Hearing Type header for planning court', () => {
+        const headerCell = htmlRes.getElementsByClassName(tableHeader);
+        expect(headerCell[12].innerHTML).equals('Hearing type');
+    });
+
+    it('should display Additional Information header for planning court', () => {
+        const headerCell = htmlRes.getElementsByClassName(tableHeader);
+        expect(headerCell[13].innerHTML).equals('Additional information');
+    });
+
     it('should display Venue cell data', () => {
         const cellText = htmlRes.getElementsByClassName(cell);
         expect(cellText[0].innerHTML).equals('Venue A');
@@ -139,8 +194,85 @@ describe('London Administrative Court Daily Cause Listpage', () => {
         expect(cellText[6].innerHTML).equals('This is additional information');
     });
 
+    it('should display Venue cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[7].innerHTML).equals('Venue B');
+    });
+
+    it('should display Judge cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[8].innerHTML).equals('Judge B');
+    });
+
+    it('should display Time cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[9].innerHTML).equals('10:30am');
+    });
+
+    it('should display Case Number cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[10].innerHTML).equals('12346');
+    });
+
+    it('should display Case Details cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[11].innerHTML).equals('Case details B');
+    });
+
+    it('should display Hearing Type cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[12].innerHTML).equals('Hearing type B');
+    });
+
+    it('should display Additional Information cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[13].innerHTML).equals('This is another additional information');
+    });
+
+    it('should display planning court heading', () => {
+        const header = htmlRes.getElementsByClassName(headingClass);
+        expect(header[1].innerHTML).contains(
+            'Planning Court'
+        );
+    });
+
+    it('should display Venue cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[14].innerHTML).equals('Venue A');
+    });
+
+    it('should display Judge cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[15].innerHTML).equals('Judge A');
+    });
+
+    it('should display Time cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[16].innerHTML).equals('9am');
+    });
+
+    it('should display Case Number cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[17].innerHTML).equals('12345');
+    });
+
+    it('should display Case Details cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[18].innerHTML).equals('Case details A');
+    });
+
+    it('should display Hearing Type cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[19].innerHTML).equals('Hearing type A');
+    });
+
+    it('should display Additional Information cell data', () => {
+        const cellText = htmlRes.getElementsByClassName(cell);
+        expect(cellText[20].innerHTML).equals('This is additional information');
+    });
+
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[14].innerHTML).contains('Data Source: Prov1');
+        expect(text[12].innerHTML).contains('Data Source: Prov1');
     });
 });
