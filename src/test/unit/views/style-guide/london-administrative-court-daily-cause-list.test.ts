@@ -66,26 +66,24 @@ describe('London Administrative Court Daily Cause Listpage', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[9].innerHTML).contains(
             'Hearings take place in public unless otherwise indicated. ' +
-            'When considering the use of telephone and video technology the ' +
-            'judiciary will have regard to the principles of open justice. ' +
-            'The court may exclude observers where necessary to secure the proper administration of justice.'
+                'When considering the use of telephone and video technology the ' +
+                'judiciary will have regard to the principles of open justice. ' +
+                'The court may exclude observers where necessary to secure the proper administration of justice.'
         );
     });
 
     it('should display Judgments heading', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
-            'Judgments'
-        );
+        expect(text[10].innerHTML).contains('Judgments');
     });
 
     it('should display important information message 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[11].innerHTML).contains(
             'Judgments handed down by the judge remotely will be released by circulation to the parties’ ' +
-            'representatives by email and release to the National Archives. The date and time ' +
-            'for hand-down will be deemed to be not before time listed. A copy of the judgment ' +
-            'in final form as handed down can be made available after that time, on request by email.'
+                'representatives by email and release to the National Archives. The date and time ' +
+                'for hand-down will be deemed to be not before time listed. A copy of the judgment ' +
+                'in final form as handed down can be made available after that time, on request by email.'
         );
     });
 
@@ -231,9 +229,7 @@ describe('London Administrative Court Daily Cause Listpage', () => {
 
     it('should display planning court heading', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[1].innerHTML).contains(
-            'Planning Court'
-        );
+        expect(header[1].innerHTML).contains('Planning Court');
     });
 
     it('should display Venue cell data', () => {
