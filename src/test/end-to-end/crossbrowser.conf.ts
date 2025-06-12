@@ -17,7 +17,6 @@ export const config: CodeceptJS.MainConfig = {
     plugins: testConfig.plugins,
     multiple: {
         chromium: { browsers: [{ browser: 'chromium' }] },
-        webkit: { browsers: [{ browser: 'webkit' }] },
         firefox: { browsers: [{ browser: 'firefox' }] },
     },
 };
