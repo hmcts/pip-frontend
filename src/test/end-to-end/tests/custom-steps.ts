@@ -7,7 +7,7 @@ export = function () {
             this.usePlaywrightTo('Go to b2c system admin login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/b2c-admin-login');
             });
-            this.see('Sign in with your email address');
+            this.waitForText('Sign in with your email address');
             this.fillField('#email', secret(testConfig.SYSTEM_ADMIN_USERNAME));
             this.fillField('#password', secret(testConfig.SYSTEM_ADMIN_PASSWORD));
             this.click('Sign in');
@@ -18,7 +18,7 @@ export = function () {
             this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/b2c-admin-login');
             });
-            this.see('Sign in with your email address');
+            this.waitForText('Sign in with your email address');
             this.fillField('#email', secret(testConfig.ADMIN_USERNAME));
             this.fillField('#password', secret(testConfig.ADMIN_PASSWORD));
             this.click('Sign in');
@@ -29,7 +29,7 @@ export = function () {
             this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/b2c-admin-login');
             });
-            this.see('Sign in with your email address');
+            this.waitForText('Sign in with your email address');
             this.fillField('#email', username);
             this.fillField('#password', password);
             this.click('Sign in');
@@ -114,7 +114,7 @@ export = function () {
             });
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
-            this.see('Sign in with your email address');
+            this.waitForText('Sign in with your email address');
             this.fillField('#email', secret(testConfig.MEDIA_USER_USERNAME));
             this.fillField('#password', secret(testConfig.MEDIA_USER_PASSWORD));
             this.click('Sign in');
@@ -127,7 +127,7 @@ export = function () {
             });
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
-            this.see('Sign in with your email address');
+            this.waitForText('Sign in with your email address');
             this.fillField('#email', username);
             this.fillField('#password', password);
             this.click('Sign in');
@@ -139,7 +139,7 @@ export = function () {
             });
             this.click('With a MyHMCTS account');
             this.click('Continue');
-            this.see('Sign in');
+            this.waitForText('Sign in');
             this.fillField('#username', secret(testConfig.CFT_USERNAME));
             this.fillField('#password', secret(testConfig.CFT_PASSWORD));
             this.click('Sign in');
@@ -152,7 +152,7 @@ export = function () {
             });
             this.click('With a MyHMCTS account');
             this.click('Continue');
-            this.see('Sign in');
+            this.waitForText('Sign in');
             this.fillField('#username', username);
             this.fillField('#password', password);
             this.click('Sign in');
@@ -165,14 +165,14 @@ export = function () {
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
-            this.see('Mewngofnodi');
+            this.waitForText('Mewngofnodi');
             this.fillField('#username', username);
             this.fillField('#password', password);
             this.click('Mewngofnodi');
         },
 
         seeBetaFeedbackOnPage: function (page) {
-            this.see('BETA');
+            this.waitForText('BETA');
             this.click('feedback');
             this.seeInCurrentUrl(`https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=${page}`);
         },
