@@ -16,6 +16,7 @@ const errorMessage = {
 const mockUploadFileBody = { file: '', fileName: '' };
 const mockUploadFileHeaders = { foo: 'bar' };
 const fileUploadAPI = new DataManagementRequests();
+const requesterId = '123-456';
 
 describe('Data Management requests', () => {
     describe('upload publication', () => {
@@ -185,7 +186,7 @@ describe('Data Management requests', () => {
                 };
             });
 
-            expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody)).toBe(true);
+            expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody, requesterId)).toBe(true);
         });
 
         it('should return error response', async () => {
@@ -200,7 +201,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'foo' })).toBe(false);
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'foo' }, requesterId)).toBe(false);
         });
 
         it('should return error message', async () => {
@@ -215,7 +216,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBe(false);
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBe(false);
         });
     });
 });
