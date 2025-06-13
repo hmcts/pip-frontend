@@ -87,9 +87,9 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Lond
             expect(headerCell[0].innerHTML).equals('Hearing time');
         });
 
-        it('should display Applicant header', () => {
+        it('should display Case Title header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[1].innerHTML).equals('Applicant');
+            expect(headerCell[1].innerHTML).equals('Case title');
         });
 
         it('should display Representative header', () => {
@@ -127,9 +127,9 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Lond
             expect(cellText[0].innerHTML).equals('10:30am');
         });
 
-        it('should display Applicant cell data', () => {
+        it('should display Case Title cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[1].innerHTML).equals('Applicant A');
+            expect(cellText[1].innerHTML).equals('Case A');
         });
 
         it('should display Representative cell data', () => {
