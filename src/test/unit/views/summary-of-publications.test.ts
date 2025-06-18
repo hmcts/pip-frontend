@@ -246,9 +246,14 @@ describe('Summary of publications page', () => {
                     });
             });
 
+            it('should display caution message when no list is there in English', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('English caution message');
+            });
+
             it('should display no list for location message in English', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('English no list message');
+                expect(body[5].innerHTML).equals('English no list message');
             });
         });
 
@@ -262,9 +267,14 @@ describe('Summary of publications page', () => {
                     });
             });
 
+            it('should display caution message when no list is there in Welsh', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('Welsh caution message');
+            });
+
             it('should display no list for location message in Welsh', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('Welsh no list message');
+                expect(body[5].innerHTML).equals('Welsh no list message');
             });
         });
 
