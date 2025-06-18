@@ -161,5 +161,5 @@
         "allure-js-commons/uuid": "10.0.0",
         "tempfile/uuid": "10.0.0"
     },
-    "packageManager": "yarn@4.7.0"
+    "packageManager": "yarn@4.9.2"
 }
