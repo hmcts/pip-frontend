@@ -1,4 +1,14 @@
 {
     "title": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Llundain",
-    "heading": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Llundain"
+    "heading": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Llundain",
+    "tableHeaders": [
+        "Amser y gwrandawiad",
+        "Deitl yr achos",
+        "Cynrychiolir gan",
+        "Cyfeirnod yr achos",
+        "Barnwr/Barnwyr",
+        "Math o wrandawiad",
+        "Lleoliad",
+        "Gwybodaeth ychwanegol"
+    ]
 }
