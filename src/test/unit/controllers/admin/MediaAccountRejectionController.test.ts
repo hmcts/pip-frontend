@@ -7,6 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 describe('MediaAccountRejectionController', () => {
     const applicantId = uuidv4();
+    const adminId = '456';
 
     // @ts-ignore: otherwise starts a whole chain of things
     let controller;
@@ -40,12 +41,15 @@ describe('MediaAccountRejectionController', () => {
                     getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
                 },
                 lng: 'en',
+                user: {
+                    userId: '456',
+                },
             };
             const res = {
                 render: sinon.spy(),
             };
 
-            appIdAndStatus.withArgs(applicantId, 'PENDING').resolves(applicantData);
+            appIdAndStatus.withArgs(applicantId, 'PENDING', adminId).resolves(applicantData);
 
             await controller.get(req, res);
 
@@ -63,6 +67,9 @@ describe('MediaAccountRejectionController', () => {
                     getDataByLanguage: sinon.stub().returns({ error: {} }),
                 },
                 lng: 'en',
+                user: {
+                    userId: '456',
+                },
             };
             const res = {
                 render: sinon.spy(),
@@ -87,10 +94,16 @@ describe('MediaAccountRejectionController', () => {
                     'reject-confirmation': 'Yes',
                     reasons: 'noMatch, expired',
                 },
+                headers: {
+                    adminId: adminId,
+                },
                 i18n: {
                     getDataByLanguage: sinon.stub().returns({ error: {} }),
                 },
                 lng: 'en',
+                user: {
+                    userId: '456',
+                },
             };
             const res = {
                 render: sinon.spy(),
@@ -117,13 +130,16 @@ describe('MediaAccountRejectionController', () => {
                     getDataByLanguage: sinon.stub().returns({}),
                 },
                 lng: 'en',
+                user: {
+                    userId: '456',
+                },
             };
             const res = {
                 redirect: sinon.spy(),
             };
             const applicantData = { id: applicantId, status: 'PENDING' };
 
-            appIdAndStatus.withArgs(applicantId, 'PENDING').resolves(applicantData);
+            appIdAndStatus.withArgs(applicantId, 'PENDING', adminId).resolves(applicantData);
             await controller.post(req, res);
 
             expect(res.redirect.calledWith('/media-account-review?applicantId=' + applicantId)).to.be.true;
@@ -141,6 +157,9 @@ describe('MediaAccountRejectionController', () => {
                     getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
                 },
                 lng: 'en',
+                user: {
+                    userId: '456',
+                },
             };
             const res = {
                 render: sinon.spy(),
@@ -148,7 +167,7 @@ describe('MediaAccountRejectionController', () => {
             const applicantData = { id: applicantId, status: 'PENDING' };
 
             const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
-            appIdAndStatus.withArgs(applicantId, 'PENDING').resolves(applicantData);
+            appIdAndStatus.withArgs(applicantId, 'PENDING', adminId).resolves(applicantData);
 
             await controller.post(req, res);
 
