@@ -5,6 +5,8 @@ import { testArtefactMetadata, testLocationData } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
 import { app } from '../../../main/app';
 import { ssoNotAuthorised } from '../../../main/helpers/consts';
+import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const publicRoutes = [
     { path: '/' },
@@ -34,6 +36,13 @@ sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData[0]);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').resolves(locationData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData);
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata[0]);
+sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(metadata);
+sinon.stub(PublicationService.prototype, 'getListTypes').returns(
+    new Map([
+        ['CROWN_WARNED_LIST', { friendlyName: 'List A' }],
+        ['SJP_PUBLIC_LIST', { friendlyName: 'List B' }],
+    ])
+);
 
 describe('Accessibility - Public Routes', () => {
     app.request['session'] = { messages: [ssoNotAuthorised] };
