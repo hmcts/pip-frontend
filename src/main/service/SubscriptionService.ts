@@ -565,7 +565,7 @@ export class SubscriptionService {
         };
     }
 
-    public async removeListTypeForCourt(userRole, language, userId) {
+    public async removeListTypeForCourt(userRole, userId) {
         const courtListTypes = await this.getListTypesForCachedCourts(userRole, userId);
         const cachedListTypes = await this.getPendingSubscriptions(userId, 'listTypes');
         const selectedListTypes = [];

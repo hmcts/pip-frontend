@@ -34,10 +34,10 @@ const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSu
 const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const subscribeStub = sinon.stub(SubscriptionService.prototype, 'configureListTypeForLocationSubscriptions');
 const friendlyNameStub = sinon.stub(SubscriptionService.prototype, 'findListTypeFriendlyName');
-const removeListTypeSub = sinon.stub(SubscriptionService.prototype, 'removeListTypeForCourt');
-const removeFromCacheSub = sinon.stub(SubscriptionService.prototype, 'removeFromCache');
+const removeListTypeStub = sinon.stub(SubscriptionService.prototype, 'removeListTypeForCourt');
+const removeFromCacheStub = sinon.stub(SubscriptionService.prototype, 'removeFromCache');
 
-removeFromCacheSub.withArgs(queryParams, userRemoveListTypeSubscription).resolves(true);
+removeFromCacheStub.withArgs(queryParams, userRemoveListTypeSubscription).resolves(true);
 
 subscriptionStub.withArgs(userWithSubscriptions, 'cases').resolves([]);
 subscriptionStub.withArgs(userWithSubscriptions, 'courts').resolves([]);
@@ -92,7 +92,7 @@ subscribeStub.withArgs(userRemoveListTypeSubscription).resolves(false);
 friendlyNameStub.withArgs(mockListTypeValue).resolves(mockListTypeText);
 friendlyNameStub.withArgs(mockListTypeValue2).resolves(mockListTypeText2);
 
-removeListTypeSub.withArgs('PI_AAD', 'en', userRemoveListTypeSubscription).resolves(true);
+removeListTypeStub.withArgs('PI_AAD', userRemoveListTypeSubscription).resolves(true);
 
 const i18n = {
     'subscription-configure-list-preview': {},

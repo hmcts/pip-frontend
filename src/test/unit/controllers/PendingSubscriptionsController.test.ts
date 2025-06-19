@@ -63,6 +63,8 @@ const cacheStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendin
 const subscribeStub = sinon.stub(SubscriptionService.prototype, 'subscribe');
 
 sinon.stub(SubscriptionService.prototype, 'removeFromCache').withArgs(queryParams, '3').resolves(true);
+sinon.stub(SubscriptionService.prototype, 'removeListTypeForCourt').resolves(true);
+
 subscriptionStub.withArgs(userWithoutSubscriptions, 'courts').resolves([]);
 subscriptionStub.withArgs(userWithoutSubscriptions, 'cases').resolves([]);
 subscriptionStub.withArgs(userWithSubscriptions, 'cases').resolves([mockCase]);
