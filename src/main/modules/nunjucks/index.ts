@@ -29,6 +29,8 @@ export class Nunjucks {
                 express: app,
             }
         );
+        env.addGlobal('govukRebrand', true);
+
         /* eslint-disable-next-line @typescript-eslint/no-require-imports */
         const njkFilters = require('./njkFilters');
         njkFilters.createFilters(env);
