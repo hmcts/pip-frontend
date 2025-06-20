@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import { LocationService } from '../../../main/service/LocationService';
 import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {
@@ -13,8 +14,8 @@ const i18n = {
 };
 const court = { name: 'New Court', email: 'test@test.com', contactNo: '0123456789' };
 
-const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../mocks/trimmedSJPCases.json'), 'utf-8');
-const sjpCases = JSON.parse(rawSJPData).results;
+const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
+const metadata = JSON.parse(rawMetadata);
 const additionalLocationInfo = {
     locationMetadataId: '123-456',
     locationId: '1',
@@ -27,11 +28,29 @@ const additionalLocationInfo = {
 sinon
     .stub(LocationService.prototype, 'getLocationById')
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(sjpCases);
+sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(metadata);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
 additionalLocationInfoStub.withArgs(1).returns(null);
 additionalLocationInfoStub.withArgs(2).returns(additionalLocationInfo);
+
+sinon.stub(PublicationService.prototype, 'getListTypes').returns(
+    new Map([
+        ['CROWN_WARNED_LIST', { friendlyName: 'List A' }],
+        ['SJP_PUBLIC_LIST', { friendlyName: 'List B' }],
+    ])
+);
+
+const publicationsWithName = [
+    {
+        ...metadata[0],
+        listName: 'List A',
+    },
+    {
+        ...metadata[1],
+        listName: 'List B',
+    },
+];
 
 describe('Get publications', () => {
     it('should render the Summary of Publications page', async () => {
@@ -50,7 +69,7 @@ describe('Get publications', () => {
         const expectedData = {
             ...i18n['summary-of-publications'],
             locationName: 'New Court',
-            publications: sjpCases,
+            publications: publicationsWithName,
             court,
             noListMessageOverride: '',
             noCautionMessageOverride: '',
@@ -79,7 +98,7 @@ describe('Get publications', () => {
         const expectedData = {
             ...i18n['summary-of-publications'],
             locationName: 'New Court',
-            publications: sjpCases,
+            publications: publicationsWithName,
             court,
             noListMessageOverride: 'English no list message',
             noCautionMessageOverride: 'English caution message',
@@ -108,7 +127,7 @@ describe('Get publications', () => {
         const expectedData = {
             ...i18n['summary-of-publications'],
             locationName: 'New Court',
-            publications: sjpCases,
+            publications: publicationsWithName,
             court,
             noListMessageOverride: 'Welsh no list message',
             noCautionMessageOverride: 'Welsh caution message',
