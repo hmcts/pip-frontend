@@ -11,6 +11,7 @@ const locationIdForCourtWithEmailOnly = 12;
 const locationIdForCourtWithoutContact = 13;
 const locationIdForCourtWithPublications = 14;
 const locationIdForCourtWithNoListMessageOverride = 15;
+const locationIdForCourtWithCautionMessageOverride = 16;
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub
@@ -25,6 +26,7 @@ courtStub
 courtStub.withArgs(locationIdForCourtWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdForCourtWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdForCourtWithCautionMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
 const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
 publicationStub.withArgs(locationIdForCourtWithTelephoneAndEmail).resolves([]);
@@ -42,22 +44,37 @@ publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
     { artefactId: '8', listType: 'AST_DAILY_HEARING_LIST', contentDate: '2025-01-19T00:00:00Z', language: 'WELSH' },
 ]);
 publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([]);
+publicationStub.withArgs(locationIdForCourtWithCautionMessageOverride).resolves([
+    { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+    { artefactId: '2', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
+]);
 
-const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
+const locationMetadataResponse = {
+    locationMetadataId: '123-456',
+    locationId: 1,
+    cautionMessage: 'English caution message',
+    welshCautionMessage: 'Welsh caution message',
+    noListMessage: 'English no list message',
+    welshNoListMessage: 'Welsh no list message',
+};
+
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
 additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneAndEmail.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneOnly.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
 additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride.toString()).returns({
-    noListMessage: 'English no list message',
-    welshNoListMessage: 'Welsh no list message',
-});
+additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride).returns(locationMetadataResponse);
+additionalLocationInfoStub.withArgs(locationIdForCourtWithCautionMessageOverride).returns(locationMetadataResponse);
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
 
     const bodyClass = 'govuk-body';
+
+    beforeAll(async () => {
+        app.request['user'] = { userId: '123-456', roles: 'SYSTEM_ADMIN' };
+    });
 
     describe('Summary of pubs', () => {
         describe('with court telephone and email', () => {
@@ -193,7 +210,39 @@ describe('Summary of publications page', () => {
             });
         });
 
-        describe('with no court message override in English', () => {
+        describe('with caution message in English', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display caution message in English', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('English caution message');
+            });
+        });
+
+        describe('with caution message in Welsh', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}&lng=cy`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display caution message in Welsh', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[4].innerHTML).equals('Welsh caution message');
+            });
+        });
+
+        describe('with no list for location message override in English', () => {
             const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}`;
             beforeAll(async () => {
                 await request(app)
@@ -203,13 +252,18 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display no court message in English', () => {
+            it('should display caution message when no list is there in English', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('English no list message');
+                expect(body[4].innerHTML).equals('English caution message');
+            });
+
+            it('should display no list for location message in English', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[5].innerHTML).equals('English no list message');
             });
         });
 
-        describe('with no court message override in Welsh', () => {
+        describe('with no list for location message override in Welsh', () => {
             const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}&lng=cy`;
             beforeAll(async () => {
                 await request(app)
@@ -219,9 +273,14 @@ describe('Summary of publications page', () => {
                     });
             });
 
-            it('should display no court message in Welsh', () => {
+            it('should display caution message when no list is there in Welsh', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('Welsh no list message');
+                expect(body[4].innerHTML).equals('Welsh caution message');
+            });
+
+            it('should display no list for location message in Welsh', () => {
+                const body = htmlRes.getElementsByClassName(bodyClass);
+                expect(body[5].innerHTML).equals('Welsh no list message');
             });
         });
 
