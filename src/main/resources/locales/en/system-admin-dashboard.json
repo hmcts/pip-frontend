@@ -36,6 +36,11 @@
             "title": "Audit Log Viewer",
             "description": "View audit logs on system admin actions",
             "link": "audit-log-viewer"
+        },
+        {
+            "title": "Manage Location Metadata",
+            "description": "View, update and remove location metadata",
+            "link": "location-metadata-search"
         }
     ]
 }

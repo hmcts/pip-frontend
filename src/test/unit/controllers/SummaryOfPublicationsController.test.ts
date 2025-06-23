@@ -17,6 +17,10 @@ const court = { name: 'New Court', email: 'test@test.com', contactNo: '012345678
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata);
 const additionalLocationInfo = {
+    locationMetadataId: '123-456',
+    locationId: '1',
+    cautionMessage: 'English caution message',
+    welshCautionMessage: 'Welsh caution message',
     noListMessage: 'English no list message',
     welshNoListMessage: 'Welsh no list message',
 };
@@ -26,9 +30,9 @@ sinon
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
 sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(metadata);
 
-const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getAdditionalLocationInfo');
-additionalLocationInfoStub.withArgs('1').returns(null);
-additionalLocationInfoStub.withArgs('2').returns(additionalLocationInfo);
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
+additionalLocationInfoStub.withArgs(1).returns(null);
+additionalLocationInfoStub.withArgs(2).returns(additionalLocationInfo);
 
 sinon.stub(PublicationService.prototype, 'getListTypes').returns(
     new Map([
@@ -68,6 +72,7 @@ describe('Get publications', () => {
             publications: publicationsWithName,
             court,
             noListMessageOverride: '',
+            noCautionMessageOverride: '',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -96,6 +101,7 @@ describe('Get publications', () => {
             publications: publicationsWithName,
             court,
             noListMessageOverride: 'English no list message',
+            noCautionMessageOverride: 'English caution message',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -124,6 +130,7 @@ describe('Get publications', () => {
             publications: publicationsWithName,
             court,
             noListMessageOverride: 'Welsh no list message',
+            noCautionMessageOverride: 'Welsh caution message',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
