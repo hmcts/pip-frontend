@@ -1,0 +1,11 @@
+{
+    "title": "Search for location metadata by court or tribunal name",
+    "error": {
+        "noResults": "There are no matching results",
+        "invalidInput": "Court or tribunal name must be 3 characters or more",
+        "summaryTitleText": "There is a problem"
+    },
+    "header": "Find the location metadata to manage",
+    "inputMessage": "Search by court or tribunal name",
+    "inputHint": "For example, Blackburn Crown Court"
+}
