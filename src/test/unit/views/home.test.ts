@@ -103,8 +103,12 @@ describe('Home page', () => {
                 'Could not find second bullet'
             );
             expect(bullets[2].innerHTML).contains(
-                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Hearings in the Royal Courts of Justice and the Rolls Building',
                 'Could not find third bullet'
+            );
+            expect(bullets[3].innerHTML).contains(
+                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Could not find fourth bullet'
             );
         });
 
@@ -255,8 +259,13 @@ describe('Home page', () => {
             );
 
             expect(bullets[2].innerHTML).contains(
-                'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
+                'Gwrandawiadau yn yr Llys Barn Brenhinol a’r Adeilad Rolls',
                 'Could not find third bullet'
+            );
+
+            expect(bullets[3].innerHTML).contains(
+                'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
+                'Could not find fourth bullet'
             );
         });
 
