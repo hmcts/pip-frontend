@@ -1,13 +1,12 @@
 {
     "listUpdateMessage": "The following list is subject to change until 4:30pm. Any alterations after this time will be telephoned or emailed direct to the parties or their legal representatives.",
     "tableHeaders": [
-        "Hearing time",
-        "Applicant",
-        "Representative",
-        "Case reference number",
+        "Venue",
         "Judge(s)",
+        "Hearing time",
+        "Case reference number",
+        "Case title",
         "Hearing type",
-        "Location",
         "Additional information"
     ]
 }
