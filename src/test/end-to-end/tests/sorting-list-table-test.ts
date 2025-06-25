@@ -38,8 +38,8 @@ Scenario('I should be able to view and sort the table on style guide', async ({ 
     I.fillField('#search-input', locationName);
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
-    I.click(locate('//a').withText('Primary Health Tribunal Hearing List'));
-    I.waitForText('Tribunal Hearing List for Primary Health');
+    I.click(locate('//a').withText('Civil Daily Cause List'));
+    I.waitForText('Civil Daily Cause List for');
     I.click('Time');
     const sortedFirstDateAsc = await I.grabTextFrom(firstRow(1));
     Assert.equal(sortedFirstDateAsc, '9:05am');
