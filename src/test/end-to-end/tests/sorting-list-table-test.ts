@@ -42,17 +42,17 @@ Scenario('I should be able to view and sort the table on style guide', async ({ 
     I.waitForText('Civil Daily Cause List for');
     I.click('Time');
     const sortedFirstDateAsc = await I.grabTextFrom(firstRow(1));
-    Assert.equal(sortedFirstDateAsc, '9:05am');
+    Assert.equal(sortedFirstDateAsc, '10:05am');
 
     const sortedLastTimeAsc = await I.grabTextFrom(lastRow(1));
-    Assert.equal(sortedLastTimeAsc, '2pm');
+    Assert.equal(sortedLastTimeAsc, '3pm');
 
     I.click('Time');
     const sortedFirstTimeDesc = await I.grabTextFrom(firstRow(1));
-    Assert.equal(sortedFirstTimeDesc, '2pm');
+    Assert.equal(sortedFirstTimeDesc, '3pm');
 
     const sortedLastTimeDesc = await I.grabTextFrom(lastRow(1));
-    Assert.equal(sortedLastTimeDesc, '9:05am');
+    Assert.equal(sortedLastTimeDesc, '10:05am');
 
     I.click('Case ID');
     const sortedFirstCaseIdAsc = await I.grabTextFrom(firstRow(2));
