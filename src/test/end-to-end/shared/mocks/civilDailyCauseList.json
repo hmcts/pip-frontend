@@ -72,35 +72,7 @@
                                             }
                                         ],
                                         "channel": ["In Person"]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        },
-        {
-            "courtHouse": {
-                "courtHouseName": "Court B",
-                "courtHouseAddress": {
-                    "line": ["Address Line 1", "Address Line 2"],
-                    "town": "Town B",
-                    "county": "County B",
-                    "postCode": "BB1 BB1"
-                },
-                "courtRoom": [
-                    {
-                        "courtRoomName": "1",
-                        "session": [
-                            {
-                                "sessionChannel": ["VIDEO HEARING"],
-                                "judiciary": [
-                                    {
-                                        "johKnownAs": "Judge KnownAs"
-                                    }
-                                ],
-                                "sittings": [
+                                    },
                                     {
                                         "sittingStart": "2025-07-01T09:30:00.000Z",
                                         "sittingEnd": "2025-07-01T11:00:00.000Z",

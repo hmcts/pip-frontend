@@ -69,17 +69,17 @@ Scenario('I should be able to view and sort the table on style guide', async ({ 
     Assert.equal(sortedLastCaseIdDesc, '12345678');
 
     I.click('Case name');
-    const sortedFirstCaseNameAsc = await I.grabTextFrom(firstRow(2));
+    const sortedFirstCaseNameAsc = await I.grabTextFrom(firstRow(3));
     Assert.equal(sortedFirstCaseNameAsc, 'A1 Vs B1');
 
-    const sortedLastCaseNameAsc = await I.grabTextFrom(lastRow(2));
+    const sortedLastCaseNameAsc = await I.grabTextFrom(lastRow(3));
     Assert.equal(sortedLastCaseNameAsc, 'A3 Vs B3');
 
     I.click('Case name');
-    const sortedFirstCaseNameDesc = await I.grabTextFrom(firstRow(2));
+    const sortedFirstCaseNameDesc = await I.grabTextFrom(firstRow(3));
     Assert.equal(sortedFirstCaseNameDesc, 'A3 Vs B3');
 
-    const sortedLastCaseNameDesc = await I.grabTextFrom(lastRow(2));
+    const sortedLastCaseNameDesc = await I.grabTextFrom(lastRow(3));
     Assert.equal(sortedLastCaseNameDesc, 'A1 Vs B1');
 
     I.click('Case type');
@@ -97,44 +97,44 @@ Scenario('I should be able to view and sort the table on style guide', async ({ 
     Assert.equal(sortedLastCaseTypeDesc, 'A case type');
 
     I.click('Hearing type');
-    const sortedFirstHearingTypeAsc = await I.grabTextFrom(firstRow(4));
+    const sortedFirstHearingTypeAsc = await I.grabTextFrom(firstRow(5));
     Assert.equal(sortedFirstHearingTypeAsc, 'Hearing type A');
 
-    const sortedLastHearingTypeAsc = await I.grabTextFrom(lastRow(4));
+    const sortedLastHearingTypeAsc = await I.grabTextFrom(lastRow(5));
     Assert.equal(sortedLastHearingTypeAsc, 'Hearing type B');
 
     I.click('Hearing type');
-    const sortedFirstHearingTypeDesc = await I.grabTextFrom(firstRow(4));
+    const sortedFirstHearingTypeDesc = await I.grabTextFrom(firstRow(5));
     Assert.equal(sortedFirstHearingTypeDesc, 'Hearing type B');
 
-    const sortedLastHearingTypeDesc = await I.grabTextFrom(lastRow(4));
+    const sortedLastHearingTypeDesc = await I.grabTextFrom(lastRow(5));
     Assert.equal(sortedLastHearingTypeDesc, 'Hearing type A');
 
     I.click('Location');
-    const sortedFirstLocationAsc = await I.grabTextFrom(firstRow(5));
+    const sortedFirstLocationAsc = await I.grabTextFrom(firstRow(6));
     Assert.ok(sortedFirstLocationAsc.toString().includes('In Person'));
 
-    const sortedLastLocationAsc = await I.grabTextFrom(lastRow(5));
+    const sortedLastLocationAsc = await I.grabTextFrom(lastRow(6));
     Assert.ok(sortedLastLocationAsc.toString().includes('Remote, Teams'));
 
     I.click('Location');
-    const sortedFirstLocationDesc = await I.grabTextFrom(firstRow(5));
+    const sortedFirstLocationDesc = await I.grabTextFrom(firstRow(6));
     Assert.ok(sortedFirstLocationDesc.toString().includes('Remote, Teams'));
 
-    const sortedLastLocationDesc = await I.grabTextFrom(lastRow(5));
+    const sortedLastLocationDesc = await I.grabTextFrom(lastRow(6));
     Assert.ok(sortedLastLocationDesc.toString().includes('In Person'));
 
     I.click('Duration');
-    const sortedFirstDurationAsc = await I.grabTextFrom(firstRow(3));
+    const sortedFirstDurationAsc = await I.grabTextFrom(firstRow(7));
     Assert.equal(sortedFirstDurationAsc, '40 mins');
 
-    const sortedLastDurationAsc = await I.grabTextFrom(lastRow(3));
+    const sortedLastDurationAsc = await I.grabTextFrom(lastRow(7));
     Assert.equal(sortedLastDurationAsc, '2 hours');
 
     I.click('Duration');
-    const sortedFirstDurationDesc = await I.grabTextFrom(firstRow(3));
+    const sortedFirstDurationDesc = await I.grabTextFrom(firstRow(7));
     Assert.equal(sortedFirstDurationDesc, '2 hours');
 
-    const sortedLastDurationDesc = await I.grabTextFrom(lastRow(3));
+    const sortedLastDurationDesc = await I.grabTextFrom(lastRow(7));
     Assert.equal(sortedLastDurationDesc, '40 mins');
 });
