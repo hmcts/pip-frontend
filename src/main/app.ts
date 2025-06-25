@@ -42,7 +42,7 @@ new Container().enableFor(app);
 
 logger.info('environment', env);
 
-app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
+app.use(favicon(path.join(__dirname, '/public/assets/rebrand/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
