@@ -1,0 +1,11 @@
+{
+    "title": "Delete location metadata confirmation",
+    "header": "Are you sure you want to delete location metadata for LOCATION?",
+    "radio1": "Yes",
+    "radio2": "No",
+    "error": {
+        "title": "There is a problem",
+        "noOptionMessage": "An option must be selected",
+        "failedRequestMessage": "Failed to delete location metadata"
+    }
+}

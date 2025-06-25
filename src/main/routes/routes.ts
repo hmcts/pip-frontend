@@ -290,6 +290,13 @@ export default function (app: Application): void {
             'ut-iac-jr-cardiff-daily-hearing-list'
         )
     );
+    app.get('/ut-iac-jr-leeds-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-leeds-daily-hearing-list'
+        )
+    );
     app.get('/ut-iac-statutory-appeals-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
@@ -1084,6 +1091,33 @@ export default function (app: Application): void {
         '/delete-user-confirmation',
         isPermittedSystemAdmin,
         app.locals.container.cradle.deleteUserConfirmationController.post
+    );
+    app.get('/location-metadata-search', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataSearchController.get(req, res)
+    );
+    app.post('/location-metadata-search', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataSearchController.post(req, res)
+    );
+    app.get('/location-metadata-manage', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataManageController.get(req, res)
+    );
+    app.post('/location-metadata-manage', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataManageController.post(req, res)
+    );
+    app.get('/location-metadata-create-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataCreateConfirmedController.get(req, res)
+    );
+    app.get('/location-metadata-update-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataUpdateConfirmedController.get(req, res)
+    );
+    app.get('/location-metadata-delete-confirmation', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmationController.get(req, res)
+    );
+    app.post('/location-metadata-delete-confirmation', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmationController.post(req, res)
+    );
+    app.get('/location-metadata-delete-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmedController.get(req, res)
     );
 
     //CFT Routes
