@@ -1270,7 +1270,7 @@ describe('removeListTypeForCourt', () => {
     it('Remove List type not linked with court', async () => {
         locationStub.withArgs(1).resolves({ jurisdictionType: ['Social Security and Child Support'] });
 
-        await subscriptionService.removeListTypeForCourt('PI_AAD', 'en', userId);
+        await subscriptionService.removeListTypeForCourt('PI_AAD', userId);
         expect(setListTypeSubscriptionStub.calledWith(userId, ['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS']));
     });
 });
