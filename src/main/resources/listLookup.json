@@ -597,16 +597,6 @@
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "PLANNING_COURT_DAILY_CAUSE_LIST": {
-        "friendlyName": "Planning Court Daily Cause List",
-        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Cynllunio",
-        "shortenedFriendlyName": "Planning Court Daily Cause List",
-        "url": "planning-court-daily-cause-list",
-        "jurisdictionTypes": ["High Court"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": true
-    },
     "COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "County Court at Central London Civil Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yn y Llys Sirol yng Nghanol Llundain",
