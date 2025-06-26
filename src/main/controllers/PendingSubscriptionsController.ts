@@ -52,6 +52,10 @@ export default class PendingSubscriptionsController {
 
     public async removeSubscription(req: PipRequest, res: Response): Promise<void> {
         await subscriptionService.removeFromCache(req.query, req.user['userId']);
+        if (req.query.court) {
+            await subscriptionService.removeListTypeForCourt(req.user['userProvenance'], req.user['userId']);
+        }
+
         const pendingSubscriptions = {
             cases: await subscriptionService.getSortedPendingSubscriptions(
                 req.user['userId'],

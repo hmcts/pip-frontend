@@ -53,10 +53,10 @@ export default class SubscriptionConfirmationPreviewController {
 
     public async removePendingSubscription(req: PipRequest, res: Response): Promise<void> {
         const userId = req.user['userId'];
-        await subscriptionService.removeFromCache(req.query, req.user['userId']);
+        await subscriptionService.removeFromCache(req.query, userId);
         //If user removes the court, we need to remove relevant list types from the cache as well.
         if (req.query.court) {
-            await subscriptionService.removeListTypeForCourt(req.user['userProvenance'], req.lng, req.user['userId']);
+            await subscriptionService.removeListTypeForCourt(req.user['userProvenance'], userId);
         }
 
         const cacheService = new PendingSubscriptionsFromCache();
