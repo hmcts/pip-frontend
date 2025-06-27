@@ -7,7 +7,7 @@ const mediaApplicationService = new MediaAccountApplicationService();
 
 export default class AdminDashboardController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const mediaApplications = await mediaApplicationService.getDateOrderedMediaApplications();
+        const mediaApplications = await mediaApplicationService.getDateOrderedMediaApplications(req.user['userId']);
         const mediaApplicationsCount = mediaApplications.length;
         res.render('admin/admin-dashboard', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['admin-dashboard']),
