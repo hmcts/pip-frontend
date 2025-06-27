@@ -908,5 +908,15 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
+    },
+    "PCOL_DAILY_CAUSE_LIST": {
+        "friendlyName": "Possession Claim Online Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Hawliadau Meddiant Ar-lein",
+        "shortenedFriendlyName": "PCOL Daily Cause List",
+        "url": "",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     }
 }
