@@ -43,19 +43,18 @@ describe('Senior Courts Costs Office Daily Cause List page', () => {
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[4].innerHTML).equals('Royal Courts of Justice');
-        expect(text[5].innerHTML).equals('Thomas More Building');
-        expect(text[6].innerHTML).equals('Strand, London');
-        expect(text[7].innerHTML).equals('WC2A 2LL');
+        expect(text[5].innerHTML).equals('Strand, London');
+        expect(text[6].innerHTML).equals('WC2A 2LL');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('List for 14 February 2022');
+        expect(text[7].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -65,14 +64,14 @@ describe('Senior Courts Costs Office Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[9].innerHTML).contains(
             'Hearings in the Senior Court Costs Office will be held in person unless the notice of hearing has directed otherwise.'
         );
     });
 
     it('should display observe hearing link', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[15].innerHTML).contains('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+        expect(text[14].innerHTML).contains('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
     });
 
     it('should display Venue header', () => {
@@ -147,6 +146,6 @@ describe('Senior Courts Costs Office Daily Cause List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[16].innerHTML).contains('Data Source: Prov1');
+        expect(text[15].innerHTML).contains('Data Source: Prov1');
     });
 });
