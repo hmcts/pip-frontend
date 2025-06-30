@@ -573,6 +573,9 @@ export default function (app: Application): void {
             'leeds-administrative-court-daily-cause-list'
         )
     );
+    app.get('/cic-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cic-weekly-hearing-list')
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);

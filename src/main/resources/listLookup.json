@@ -908,5 +908,16 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
+    },
+    "CIC_WEEKLY_HEARING_LIST": {
+        "friendlyName": "Criminal Injuries Compensation Weekly Hearing List",
+        "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Digolledu am Anafiadau Troseddol",
+        "shortenedFriendlyName": "CIC Weekly Hearing List",
+        "url": "cic-weekly-hearing-list",
+        "jurisdictionTypes": ["Criminal Injuries Compensation Tribunal"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true,
+        "isWeeklyList": true
     }
 }
