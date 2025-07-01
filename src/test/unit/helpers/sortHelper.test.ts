@@ -4,6 +4,7 @@ import {
     pendingCaseSubscriptionSorter,
     pendingLocationSubscriptionSorter,
     pendingListTypeSubscriptionSorter,
+    pendingWelshLocationSubscriptionSorter,
 } from '../../../main/helpers/sortHelper';
 
 describe('Sort Helper', () => {
@@ -34,6 +35,24 @@ describe('Sort Helper', () => {
                 { name: 'Court B' },
                 { name: 'Court C' },
                 { name: 'Test Court' },
+            ]);
+        });
+    });
+
+    describe('Pending Welsh location subscription sorter', () => {
+        it('should sort by Welsh location names', () => {
+            const locations = [
+                { name: 'A', welshName: 'H' },
+                { name: 'B', welshName: 'G' },
+                { name: 'C', welshName: 'F' },
+                { name: 'D', welshName: 'E' },
+            ];
+
+            expect(locations.sort(pendingWelshLocationSubscriptionSorter)).toStrictEqual([
+                { name: 'D', welshName: 'E' },
+                { name: 'C', welshName: 'F' },
+                { name: 'B', welshName: 'G' },
+                { name: 'A', welshName: 'H' },
             ]);
         });
     });

@@ -108,7 +108,8 @@
           <tbody class="govuk-table__body">
           {% for court in pendingSubscriptions.courts %}
             <tr class="govuk-table__row">
-              <td class="govuk-table__cell">{{ court.name }}</td>
+              {% set courtName = court.welshName if lng == 'cy' else court.name %}
+              <td class="govuk-table__cell">{{ courtName }}</td>
               <td class="govuk-table__cell govuk-!-text-align-right">
                 <a href="/remove-pending-subscription?court={{ court.locationId }}">{{ removeText }}</a>
               </td>

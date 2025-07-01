@@ -1252,7 +1252,7 @@ describe('populateListTypesFriendlyName', () => {
     it('Get List Type Display name in welsh', async () => {
         const result = await subscriptionService.populateListTypesFriendlyName(listName, 'cy');
         expect(result[0]['text']).toEqual(
-            'Social Security and Child Support Tribunal Daily List - Additional Hearings\nRhestr Ddyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant - Gwrandawiadau Ychwanegol'
+            'Rhestr Ddyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant - Gwrandawiadau Ychwanegol'
         );
     });
 });

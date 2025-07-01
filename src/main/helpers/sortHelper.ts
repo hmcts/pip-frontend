@@ -16,6 +16,15 @@ export const pendingLocationSubscriptionSorter = (a, b) => {
     return 0;
 };
 
+export const pendingWelshLocationSubscriptionSorter = (a, b) => {
+    if (a.welshName > b.welshName) {
+        return 1;
+    } else if (a.welshName < b.welshName) {
+        return -1;
+    }
+    return 0;
+};
+
 export const pendingListTypeSubscriptionSorter = (a, b) => {
     if (a > b) {
         return 1;
