@@ -156,6 +156,7 @@ const mockMultiListTypePayload = {
 
 const user = {};
 const adminUserId = '1234';
+const userProvenance = 'PI_AAD';
 
 const subscriptionService = new SubscriptionService();
 const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
@@ -934,14 +935,14 @@ describe('unsubscribing', () => {
     deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
     deleteStub.withArgs('InValidSubscriptionId').resolves(null);
 
-    it('should return a message if subscription is deleted', async () => {
-        const payload = await subscriptionService.unsubscribe('ValidSubscriptionId', '2345-2345');
-        expect(payload).toEqual('Subscription was deleted');
+    it('should return true if subscription is deleted', async () => {
+        const response = await subscriptionService.unsubscribe('ValidSubscriptionId', '2345-2345', userProvenance);
+        expect(response).toBeTruthy();
     });
 
-    it('should return null if subscription delete failed', async () => {
-        const payload = await subscriptionService.unsubscribe('InValidSubscriptionId', '2345-2345');
-        expect(payload).toEqual(null);
+    it('should return false if subscription delete failed', async () => {
+        const response = await subscriptionService.unsubscribe('InValidSubscriptionId', '2345-2345', userProvenance);
+        expect(response).toBeFalsy();
     });
 });
 
@@ -952,14 +953,22 @@ describe('bulkDeleteSubscriptions', () => {
     bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
     bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(null);
 
-    it('should return a message if subscription is deleted', async () => {
-        const payload = await subscriptionService.bulkDeleteSubscriptions(['ValidSubscriptionId'], userId);
-        expect(payload).toEqual('Subscription was deleted');
+    it('should return true if subscription is deleted', async () => {
+        const response = await subscriptionService.bulkDeleteSubscriptions(
+            ['ValidSubscriptionId'],
+            userId,
+            userProvenance
+        );
+        expect(response).toBeTruthy();
     });
 
-    it('should return null if subscription delete failed', async () => {
-        const payload = await subscriptionService.bulkDeleteSubscriptions(['InValidSubscriptionId'], userId);
-        expect(payload).toEqual(null);
+    it('should return false if subscription delete failed', async () => {
+        const response = await subscriptionService.bulkDeleteSubscriptions(
+            ['InValidSubscriptionId'],
+            userId,
+            userProvenance
+        );
+        expect(response).toBeFalsy();
     });
 });
 
