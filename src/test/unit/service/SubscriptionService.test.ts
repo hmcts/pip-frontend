@@ -25,20 +25,20 @@ const mockCourt = {
     locationId: 1,
     name: 'Aberdeen Tribunal Hearing Centre',
     welshName: 'Welsh court name test',
-    jurisdictionType: [ 'Criminal Injuries Compensation Tribunal' ],
+    jurisdictionType: ['Criminal Injuries Compensation Tribunal'],
     location: 'Scotland',
 };
 const mockCourt2 = {
     locationId: 2,
     name: 'Manchester Crown Court',
     welshName: 'Welsh court name test',
-    jurisdictionType: [ 'Crown Court' ],
+    jurisdictionType: ['Crown Court'],
 };
 const mockCourt3 = {
     locationId: 3,
     name: "Barkingside Magistrates' Court",
     welshName: 'Welsh court name test',
-    jurisdictionType: [ 'Criminal Injuries Compensation Tribunal' ],
+    jurisdictionType: ['Criminal Injuries Compensation Tribunal'],
 };
 const mockCase = {
     caseNumber: 'CASENUM1234',
@@ -133,7 +133,7 @@ stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResul
 stubUserSubscription.withArgs(userIdForFailedConfigureListType).resolves(subscriptionResult2.data);
 stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns({
     locationSubscriptions: [],
-    caseSubscriptions: []
+    caseSubscriptions: [],
 });
 
 const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPendingSubscriptions');
@@ -897,22 +897,38 @@ describe('unsubscribing', () => {
     deleteStub.withArgs('InValidSubscriptionId').resolves(false);
 
     it('should return true if subscription is deleted', async () => {
-        const response = await subscriptionService.unsubscribe('ValidSubscriptionId', userIdWithSubscriptions, userProvenance);
+        const response = await subscriptionService.unsubscribe(
+            'ValidSubscriptionId',
+            userIdWithSubscriptions,
+            userProvenance
+        );
         expect(response).toBeTruthy();
     });
 
     it('should return false if subscription delete failed', async () => {
-        const response = await subscriptionService.unsubscribe('InValidSubscriptionId', userIdWithSubscriptions, userProvenance);
+        const response = await subscriptionService.unsubscribe(
+            'InValidSubscriptionId',
+            userIdWithSubscriptions,
+            userProvenance
+        );
         expect(response).toBeFalsy();
     });
 
     it('should return true if unsubscribe is successful but no location subscription remained', async () => {
-        const response = await subscriptionService.unsubscribe('ValidSubscriptionId', userIdWithoutSubscriptions, userProvenance);
+        const response = await subscriptionService.unsubscribe(
+            'ValidSubscriptionId',
+            userIdWithoutSubscriptions,
+            userProvenance
+        );
         expect(response).toBeTruthy();
     });
 
     it('should return false if unsubscribe is successful but failed to configure list type subscriptions', async () => {
-        const response = await subscriptionService.unsubscribe('ValidSubscriptionId', userIdForFailedConfigureListType, userProvenance);
+        const response = await subscriptionService.unsubscribe(
+            'ValidSubscriptionId',
+            userIdForFailedConfigureListType,
+            userProvenance
+        );
         expect(response).toBeFalsy();
     });
 });
