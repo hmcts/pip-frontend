@@ -2,7 +2,8 @@ import { randomData } from '../end-to-end/shared/random-data';
 import { config as testConfig, config } from '../config';
 import {
     clearTestData,
-    createLocation, createSubscription,
+    createLocation,
+    createSubscription,
     createTestUserAccount,
     uploadPublication,
 } from '../end-to-end/shared/testingSupportApi';
@@ -32,7 +33,7 @@ BeforeSuite(async () => {
         displayTo,
         'ENGLISH',
         'etDailyList.json',
-        'ET_DAILY_LIST',
+        'ET_DAILY_LIST'
     );
     await createSubscription(locationId, locationName, testUser['userId'] as string);
 });
@@ -68,7 +69,6 @@ Scenario('Verified User Journey - location-name-search-error-page', async ({ I }
     I.click('Continue');
     I.waitForText('There is a problem');
     I.checkA11y('location-name-search-error-a11y-audit.html');
-
 });
 
 Scenario('Verified User Journey - pending-subscriptions-page', async ({ I }) => {
@@ -305,7 +305,6 @@ Scenario('Verified User Journey - delete-subscription-page', async ({ I }) => {
 
     I.checkA11y('delete-subscription-a11y-audit.html');
 });
-
 
 Scenario('Verified User Journey - unsubscribe-confirmation-page', async ({ I }) => {
     I.click('#card-subscription-management');
