@@ -77,7 +77,7 @@ export class ThirdPartyService {
      */
     public async handleThirdPartySubscriptionUpdate(
         adminUserId,
-        userRole,
+        userProvenance,
         selectedUser,
         selectedListTypes,
         selectedChannel
@@ -92,7 +92,7 @@ export class ThirdPartyService {
                     'Unsubscribing ' + selectedUser + ' for list type ' + sub.listType + ' by admin ' + adminUserId
                 );
 
-                this.subscriptionService.unsubscribe(sub.subscriptionId, adminUserId, userRole);
+                this.subscriptionService.unsubscribe(sub.subscriptionId, adminUserId, userProvenance);
             } else {
                 if (sub.channel !== selectedChannel) {
                     this.logger.info(

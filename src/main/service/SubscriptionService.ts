@@ -141,10 +141,10 @@ export class SubscriptionService {
         };
     }
 
-    public async unsubscribe(subscriptionId: string, userId: string, userRole: string): Promise<boolean> {
+    public async unsubscribe(subscriptionId: string, userId: string, userProvenance: string): Promise<boolean> {
         const response = await subscriptionRequests.unsubscribe(subscriptionId, userId);
         if (response) {
-            return await this.configureListTypeAfterUnsubscribe(userId, userRole);
+            return await this.configureListTypeAfterUnsubscribe(userId, userProvenance);
         }
         return false;
     }
@@ -152,18 +152,18 @@ export class SubscriptionService {
     public async bulkDeleteSubscriptions(
         subscriptionIds: string[],
         userId: string,
-        userRole: string
+        userProvenance: string
     ): Promise<boolean> {
         const response = await subscriptionRequests.bulkDeleteSubscriptions(subscriptionIds, userId);
         if (response) {
-            return await this.configureListTypeAfterUnsubscribe(userId, userRole);
+            return await this.configureListTypeAfterUnsubscribe(userId, userProvenance);
         }
         return false;
     }
 
-    private async configureListTypeAfterUnsubscribe(userId: string, userRole: string): Promise<boolean> {
+    private async configureListTypeAfterUnsubscribe(userId: string, userProvenance: string): Promise<boolean> {
         const userSubscriptions = await this.getSubscriptionsByUser(userId);
-        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole, userSubscriptions);
+        const applicableListTypes = await this.generateAppropriateListTypes(userId, userProvenance, userSubscriptions);
 
         if (userSubscriptions['locationSubscriptions'].length > 0) {
             const storedListTypes = userSubscriptions['locationSubscriptions'][0]['listType'];
@@ -504,7 +504,7 @@ export class SubscriptionService {
         return selectedListLanguage;
     }
 
-    private async generateAppropriateListTypes(userId, userRole, userSubscriptions): Promise<Map<string, ListType>> {
+    private async generateAppropriateListTypes(userId, userProvenance, userSubscriptions): Promise<Map<string, ListType>> {
         const selectedListTypes = await this.getUserSubscriptionListType(userId);
         const courtJurisdictionTypes = [];
         for (const subscription of userSubscriptions['locationSubscriptions']) {
@@ -516,7 +516,7 @@ export class SubscriptionService {
             }
         }
 
-        return this.findApplicableListTypeForCourts(courtJurisdictionTypes, selectedListTypes, userRole);
+        return this.findApplicableListTypeForCourts(courtJurisdictionTypes, selectedListTypes, userProvenance);
     }
 
     public async generateListTypeForCourts(userRole, language, userId): Promise<object> {
@@ -536,7 +536,7 @@ export class SubscriptionService {
     private findApplicableListTypeForCourts(
         courtJurisdictionTypes,
         selectedListTypes,
-        userRole
+        userProvenance
     ): Map<string, ListType> {
         const listTypes = publicationService.getListTypes();
         const sortedListTypes = new Map(
@@ -547,7 +547,7 @@ export class SubscriptionService {
         for (const [listName, listType] of sortedListTypes) {
             if (
                 listType.jurisdictionTypes.some(value => courtJurisdictionTypes.includes(value)) &&
-                (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
+                (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userProvenance))
             ) {
                 listType.checked = selectedListTypes != null && selectedListTypes.includes(listName);
                 applicableListTypes.set(listName, listType);
