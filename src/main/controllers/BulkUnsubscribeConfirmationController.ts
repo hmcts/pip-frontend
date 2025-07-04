@@ -17,7 +17,8 @@ export default class BulkUnsubscribeConfirmationController {
         if (req.body['bulk-unsubscribe-choice'] === 'yes') {
             const unsubscribeResponse = await subscriptionService.bulkDeleteSubscriptions(
                 subscriptionsToDelete,
-                req.user['userId']
+                req.user['userId'],
+                req.user['userProvenance']
             );
             unsubscribeResponse
                 ? res.redirect(unsubscribeConfirmedUrl)

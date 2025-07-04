@@ -13,7 +13,7 @@ const unsubscribeConfirmationController = new UnsubscribeConfirmationController(
 describe('Unsubscribe Confirmation Controller', () => {
     beforeEach(() => {
         stub.withArgs('123').resolves(true);
-        stub.withArgs('foo').resolves(undefined);
+        stub.withArgs('foo').resolves(false);
     });
 
     const i18n = {

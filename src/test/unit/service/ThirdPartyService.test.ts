@@ -12,6 +12,7 @@ describe('Third Party Service tests', () => {
     const getSubscriptionsStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
 
     const adminUserId = '1234-1234';
+    const userProvenance = 'PI_AAD';
 
     describe('generateListTypes', () => {
         const listTypes = new Map([
@@ -203,6 +204,7 @@ describe('Third Party Service tests', () => {
 
             await thirdPartyService.handleThirdPartySubscriptionUpdate(
                 adminUserId,
+                userProvenance,
                 selectedUser,
                 selectedListTypes,
                 selectedChannel
@@ -229,6 +231,7 @@ describe('Third Party Service tests', () => {
 
             await thirdPartyService.handleThirdPartySubscriptionUpdate(
                 adminUserId,
+                userProvenance,
                 selectedUser,
                 selectedListTypes,
                 selectedChannel
@@ -250,6 +253,7 @@ describe('Third Party Service tests', () => {
 
             await thirdPartyService.handleThirdPartySubscriptionUpdate(
                 adminUserId,
+                userProvenance,
                 selectedUser,
                 selectedListTypes,
                 selectedChannel
