@@ -922,7 +922,7 @@
     "SEND_DAILY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Special Educational Needs and Disability) Daily Hearing List",
         "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol y Tribiwnlys Haen Gyntaf (Anghenion Addysgol Arbennig ac Anabledd)",
-        "shortenedFriendlyName": "SEND Daily Hearing list",
+        "shortenedFriendlyName": "SEND Daily Hearing List",
         "url": "send-daily-hearing-list",
         "jurisdictionTypes": ["First-tier Tribunal (Special Educational Needs and Disability)"],
         "restrictedProvenances": [],

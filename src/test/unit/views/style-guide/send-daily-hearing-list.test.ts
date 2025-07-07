@@ -247,7 +247,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display Case reference number header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
-        expect(headerCell[1].innerHTML).equals('Cyfeirnod yr Achos');
+        expect(headerCell[1].innerHTML).equals('Cyfeirnod yr achos');
     });
 
     it('should display Respondent header', () => {
