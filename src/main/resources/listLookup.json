@@ -199,26 +199,6 @@
         "defaultSensitivity": "",
         "isNonStrategic": false
     },
-    "PRIMARY_HEALTH_LIST": {
-        "friendlyName": "Primary Health Tribunal Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Iechyd Sylfaenol",
-        "shortenedFriendlyName": "Primary Health Tribunal Hearing List",
-        "url": "primary-health-list",
-        "jurisdictionTypes": ["Primary Health Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
-    "CARE_STANDARDS_LIST": {
-        "friendlyName": "Care Standards Tribunal Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Safonau Gofal",
-        "shortenedFriendlyName": "Care Standards Tribunal Hearing List",
-        "url": "care-standards-list",
-        "jurisdictionTypes": ["Care Standards Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
     "CIC_DAILY_HEARING_LIST": {
         "friendlyName": "Criminal Injuries Compensation Daily Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Dyddiol y Digolledu am Anafiadau Troseddol",
