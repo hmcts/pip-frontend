@@ -1,9 +1,9 @@
-import { accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials } from './utils/axiosConfig';
-import { Logger } from '@hmcts/nodejs-logging';
-import { MediaAccountApplication } from '../../models/MediaAccountApplication';
-import { DateTime } from 'luxon';
-import { StatusCodes } from 'http-status-codes';
-import { LogHelper } from '../logging/logHelper';
+import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
+import {Logger} from '@hmcts/nodejs-logging';
+import {MediaAccountApplication} from '../../models/MediaAccountApplication';
+import {DateTime} from 'luxon';
+import {StatusCodes} from 'http-status-codes';
+import {LogHelper} from '../logging/logHelper';
 import superagent from 'superagent';
 
 const logger = Logger.getLogger('requests');
@@ -85,7 +85,7 @@ export class AccountManagementRequests {
         try {
             const response = await accountManagementApi.get('/application/' + applicationId, {
                 headers: {
-                    'x-requester-id': adminUserId,
+                    'x-issuer-id': adminUserId,
                 },
             });
             logger.info('Media Application with ID: ' + applicationId + ' requested by Admin with ID: ' + adminUserId);
@@ -101,7 +101,7 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/application/image/' + imageId, {
                 responseType: 'arraybuffer',
                 headers: {
-                    'x-requester-id': adminUserId,
+                    'x-issuer-id': adminUserId,
                 },
             });
             logger.info(
@@ -152,7 +152,7 @@ export class AccountManagementRequests {
             logger.info('All pending media applications requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/application/status/PENDING', {
                 headers: {
-                    'x-requester-id': adminUserId,
+                    'x-issuer-id': adminUserId,
                 },
             });
             return response.data;
@@ -191,7 +191,7 @@ export class AccountManagementRequests {
             logger.info('Third party account data requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/account/all/third-party', {
                 headers: {
-                    'x-requester-id': adminUserId,
+                    'x-issuer-id': adminUserId,
                 },
             });
             return response.data;
@@ -232,7 +232,7 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/account/all', {
                 params,
                 headers: {
-                    'x-requester-id': adminUserId,
+                    'x-issuer-id': adminUserId,
                 },
             });
             return response.data;
@@ -247,7 +247,7 @@ export class AccountManagementRequests {
             logger.info(`User with ID: ${userId} data requested by Admin with ID: ${adminUserId}`);
             const response = await accountManagementApi.get(`/account/${userId}`, {
                 headers: {
-                    'x-requester-id': adminUserId,
+                    'x-issuer-id': adminUserId,
                 },
             });
             return response.data;
@@ -330,7 +330,7 @@ export class AccountManagementRequests {
             logger.info('All audit log data requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/audit', {
                 params,
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-issuer-id': adminUserId },
             });
             return response.data;
         } catch (error) {
@@ -343,7 +343,7 @@ export class AccountManagementRequests {
         try {
             logger.info('Audit log with ID: ' + id + ' requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get(`/audit/${id}`, {
-                headers: { 'x-requester-id': adminUserId },
+                headers: { 'x-issuer-id': adminUserId },
             });
             return response.data;
         } catch (error) {
