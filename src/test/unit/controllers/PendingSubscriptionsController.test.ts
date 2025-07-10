@@ -40,22 +40,26 @@ const mockCaseSubscription3 = {
     urn: '1111',
 };
 const mockCourtSubscription = {
-    name: 'Birmingham Social Security and Child Support',
-    locationId: '4',
+    name: 'Birmingham Administrative Court',
+    welshName: 'Llys Gweinyddol Birmingham',
+    locationId: '113',
 };
 const mockCourtSubscription2 = {
     name: 'Oxford Combined Court Centre',
+    welshName: 'Canolfan Llysoedd Cyfun Rhydychen',
     locationId: '3',
 };
 const mockCourtSubscription3 = {
-    name: 'Bradford Social Security and Child Support',
-    locationId: '5',
+    name: 'Bradford Tribunal Hearing Centre',
+    welshName: 'Canolfan Wrandawiadau Tribiwnlys Bradford',
+    locationId: '19',
 };
 const postData = { 'hearing-selections[]': 'T485913' };
 const queryParams = { court: '643' };
 const userWithSubscriptions = '1';
 const userWithoutSubscriptions = '2';
 const userWithMultipleSubscriptions = '4';
+const userWithMultipleSubscriptionsWelsh = '5';
 const pendingSubscriptionController = new PendingSubscriptionsController();
 const handleSubStub = sinon.stub(SubscriptionService.prototype, 'handleNewSubscription');
 const subscriptionStub = sinon.stub(SubscriptionService.prototype, 'getPendingSubscriptions');
@@ -76,6 +80,12 @@ subscriptionStub
     .resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
 subscriptionStub
     .withArgs(userWithMultipleSubscriptions, 'courts')
+    .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
+subscriptionStub
+    .withArgs(userWithMultipleSubscriptionsWelsh, 'cases')
+    .resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
+subscriptionStub
+    .withArgs(userWithMultipleSubscriptionsWelsh, 'courts')
     .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
 handleSubStub.withArgs(postData, userWithSubscriptions).resolves(true);
 
@@ -101,6 +111,7 @@ describe('Pending Subscriptions Controller', () => {
         it('should render the pending subscription page without subscriptions', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userWithoutSubscriptions };
+            request['lng'] = 'en';
             const expectedData = {
                 ...i18n['pending-subscriptions'],
                 pendingSubscriptions: {
@@ -121,6 +132,7 @@ describe('Pending Subscriptions Controller', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userWithoutSubscriptions };
             request.query = { 'no-subscriptions': 'true' };
+            request['lng'] = 'en';
             const expectedData = {
                 ...i18n['pending-subscriptions'],
                 pendingSubscriptions: {
@@ -140,6 +152,7 @@ describe('Pending Subscriptions Controller', () => {
         it('should render pending subscriptions page with set subscriptions', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userWithSubscriptions };
+            request['lng'] = 'en';
             const expectedData = {
                 ...i18n['pending-subscriptions'],
                 pendingSubscriptions: {
@@ -159,11 +172,32 @@ describe('Pending Subscriptions Controller', () => {
         it('should render pending subscriptions page with multiple subscriptions', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userWithMultipleSubscriptions };
+            request['lng'] = 'en';
             const expectedData = {
                 ...i18n['pending-subscriptions'],
                 pendingSubscriptions: {
                     cases: [mockCaseSubscription2, mockCaseSubscription3, mockCaseSubscription],
                     courts: [mockCourtSubscription, mockCourtSubscription3, mockCourtSubscription2],
+                },
+                displayError: false,
+            };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('pending-subscriptions', expectedData);
+
+            return pendingSubscriptionController.get(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render pending subscriptions page with multiple subscriptions in Welsh', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userWithMultipleSubscriptionsWelsh };
+            request['lng'] = 'cy';
+            const expectedData = {
+                ...i18n['pending-subscriptions'],
+                pendingSubscriptions: {
+                    cases: [mockCaseSubscription2, mockCaseSubscription3, mockCaseSubscription],
+                    courts: [mockCourtSubscription2, mockCourtSubscription3, mockCourtSubscription],
                 },
                 displayError: false,
             };
