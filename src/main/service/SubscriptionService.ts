@@ -13,6 +13,7 @@ import {
     pendingCaseSubscriptionSorter,
     pendingListTypeSubscriptionSorter,
     pendingLocationSubscriptionSorter,
+    pendingWelshLocationSubscriptionSorter,
 } from '../helpers/sortHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
@@ -467,7 +468,7 @@ export class SubscriptionService {
     private generateAlphabetisedListTypes(applicableListTypes, language) {
         const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
         for (const [listName, listType] of applicableListTypes) {
-            const listLocalisedName = this.getListLocalisedName(listType, language);
+            const listLocalisedName = this.getListLocalisedNameForAlphabeticalSorting(listType, language);
             alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
                 listFriendlyName: listLocalisedName,
                 checked: listType.checked,
@@ -478,6 +479,10 @@ export class SubscriptionService {
     }
 
     private getListLocalisedName(listType, language): string {
+        return language === 'en' ? listType.friendlyName : listType.welshFriendlyName;
+    }
+
+    private getListLocalisedNameForAlphabeticalSorting(listType, language): string {
         return language === 'en' ? listType.friendlyName : `${listType.friendlyName}\n${listType.welshFriendlyName}`;
     }
 
@@ -587,9 +592,11 @@ export class SubscriptionService {
     }
 
     public async getAllUserSubscriptionsFromCache(userId, language): Promise<any> {
+        const locationSubscriptionSorter =
+            language == 'cy' ? pendingWelshLocationSubscriptionSorter : pendingLocationSubscriptionSorter;
         return {
             cases: await this.getSortedPendingSubscriptions(userId, 'cases', pendingCaseSubscriptionSorter),
-            courts: await this.getSortedPendingSubscriptions(userId, 'courts', pendingLocationSubscriptionSorter),
+            courts: await this.getSortedPendingSubscriptions(userId, 'courts', locationSubscriptionSorter),
             listTypes: await this.populateListTypesFriendlyName(
                 await this.getSortedPendingSubscriptions(userId, 'listTypes', pendingListTypeSubscriptionSorter),
                 language
