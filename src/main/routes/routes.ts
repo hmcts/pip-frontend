@@ -188,12 +188,6 @@ export default function (app: Application): void {
     app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
     app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
     app.get('/iac-daily-list-additional-cases', app.locals.container.cradle.iacDailyListController.get);
-    app.get('/primary-health-list', (req, res) =>
-        app.locals.container.cradle.tribunalNationalListsController.get(req, res, 'primary-health-list')
-    );
-    app.get('/care-standards-list', (req, res) =>
-        app.locals.container.cradle.tribunalNationalListsController.get(req, res, 'care-standards-list')
-    );
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
 
@@ -572,6 +566,9 @@ export default function (app: Application): void {
             res,
             'leeds-administrative-court-daily-cause-list'
         )
+    );
+    app.get('/cic-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cic-weekly-hearing-list')
     );
 
     // Restricted paths
