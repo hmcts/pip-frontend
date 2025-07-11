@@ -65,7 +65,7 @@ describe('Senior Courts Costs Office Daily Cause List page', () => {
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[9].innerHTML).contains(
-            'Hearings in the Senior Court Costs Office will be held in person unless the notice of hearing has directed otherwise.'
+            'Hearings in the Senior Courts Costs Office will be held in person unless the notice of hearing has directed otherwise.'
         );
     });
 
