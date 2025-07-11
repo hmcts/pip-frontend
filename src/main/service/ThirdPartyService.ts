@@ -75,7 +75,13 @@ export class ThirdPartyService {
      * @param selectedListTypes The list types that have been selected.
      * @param selectedChannel The channel that has been selected.
      */
-    public async handleThirdPartySubscriptionUpdate(adminUserId, selectedUser, selectedListTypes, selectedChannel) {
+    public async handleThirdPartySubscriptionUpdate(
+        adminUserId,
+        userProvenance,
+        selectedUser,
+        selectedListTypes,
+        selectedChannel
+    ) {
         selectedListTypes = selectedListTypes || [];
         selectedListTypes = Array.isArray(selectedListTypes) ? selectedListTypes : Array.of(selectedListTypes);
 
@@ -86,7 +92,7 @@ export class ThirdPartyService {
                     'Unsubscribing ' + selectedUser + ' for list type ' + sub.listType + ' by admin ' + adminUserId
                 );
 
-                this.subscriptionService.unsubscribe(sub.subscriptionId, adminUserId);
+                this.subscriptionService.unsubscribe(sub.subscriptionId, adminUserId, userProvenance);
             } else {
                 if (sub.channel !== selectedChannel) {
                     this.logger.info(
