@@ -207,19 +207,19 @@ describe('configure list type Location subscriptions for a user', () => {
 
 describe('retrieve subscription channels', () => {
     it('should return channels if call is successful', async () => {
-        getStub.withArgs('/subscription/channel').resolves({ data: ['CHANNEL_A', 'CHANNEL_B'] });
+        getStub.withArgs('/subscription/channel?userId=1').resolves({ data: ['CHANNEL_A', 'CHANNEL_B'] });
         const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
         expect(channels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
     });
 
     it('should return empty array for failure', async () => {
-        getStub.withArgs('/subscription/channel').rejects(errorMessage);
+        getStub.withArgs('/subscription/channel?userId=1').rejects(errorMessage);
         const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
         expect(channels).toStrictEqual([]);
     });
 
     it('should return false for error response', async () => {
-        getStub.withArgs('/subscription/channel').rejects(errorResponse);
+        getStub.withArgs('/subscription/channel?userId=1').rejects(errorResponse);
         const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
         expect(channels).toStrictEqual([]);
     });
