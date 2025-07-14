@@ -80,7 +80,7 @@ export class SubscriptionRequests {
 
     public async retrieveSubscriptionChannels(userId, adminUserId): Promise<string[]> {
         try {
-            const channelResponse = await accountManagementApi.get('/subscription/channel/${userId}', {
+            const channelResponse = await accountManagementApi.get('/subscription/channel?userId=' + userId, {
                 headers: { 'x-user-id': adminUserId },
             });
             return channelResponse.data;
