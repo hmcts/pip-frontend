@@ -1062,7 +1062,7 @@ describe('generateListTypesForCourts', () => {
         const subscriptionChannelStub = sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels');
         subscriptionChannelStub.resolves(['CHANNEL_A', 'CHANNEL_B']);
 
-        const retrievedChannels = await subscriptionService.retrieveChannels(userId, adminUserId);
+        const retrievedChannels = await subscriptionService.retrieveChannels();
 
         expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
     });
