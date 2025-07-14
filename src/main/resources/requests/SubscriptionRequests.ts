@@ -78,9 +78,11 @@ export class SubscriptionRequests {
         return false;
     }
 
-    public async retrieveSubscriptionChannels(): Promise<string[]> {
+    public async retrieveSubscriptionChannels(userId, adminUserId): Promise<string[]> {
         try {
-            const channelResponse = await accountManagementApi.get('/subscription/channel');
+            const channelResponse = await accountManagementApi.get('/subscription/channel?userId=' + userId, {
+                headers: { 'x-user-id': adminUserId }
+            });
             return channelResponse.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve the list of subscription channels');
