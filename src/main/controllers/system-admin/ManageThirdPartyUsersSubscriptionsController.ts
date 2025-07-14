@@ -17,7 +17,8 @@ export default class ManageThirdPartyUsersSubscriptionsController {
             const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
             const listTypes = publicationService.getListTypes();
             let subscriptionChannels = await subscriptionsService.retrieveChannels(
-                req.query['userId'], req.user['userId']
+                req.query['userId'],
+                req.user['userId']
             );
 
             if (user) {
