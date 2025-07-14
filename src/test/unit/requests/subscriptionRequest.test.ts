@@ -1,8 +1,8 @@
-import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
+import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import { accountManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
+import {accountManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
@@ -208,19 +208,19 @@ describe('configure list type Location subscriptions for a user', () => {
 describe('retrieve subscription channels', () => {
     it('should return channels if call is successful', async () => {
         getStub.withArgs('/subscription/channel').resolves({ data: ['CHANNEL_A', 'CHANNEL_B'] });
-        const channels = await subscriptionActions.retrieveSubscriptionChannels();
+        const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
         expect(channels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
     });
 
     it('should return empty array for failure', async () => {
         getStub.withArgs('/subscription/channel').rejects(errorMessage);
-        const channels = await subscriptionActions.retrieveSubscriptionChannels();
+        const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
         expect(channels).toStrictEqual([]);
     });
 
     it('should return false for error response', async () => {
         getStub.withArgs('/subscription/channel').rejects(errorResponse);
-        const channels = await subscriptionActions.retrieveSubscriptionChannels();
+        const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
         expect(channels).toStrictEqual([]);
     });
 });

@@ -1,6 +1,6 @@
-import { accountManagementApi } from './utils/axiosConfig';
-import { UserSubscriptions } from '../../models/UserSubscriptions';
-import { LogHelper } from '../logging/logHelper';
+import {accountManagementApi} from './utils/axiosConfig';
+import {UserSubscriptions} from '../../models/UserSubscriptions';
+import {LogHelper} from '../logging/logHelper';
 
 const logHelper = new LogHelper();
 
@@ -54,7 +54,10 @@ export class SubscriptionRequests {
 
     public async addListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
-            await accountManagementApi.post(`/subscription/add-list-types/${userId}`, payload);
+            await accountManagementApi.post(`/subscription/add-list-types/${userId}`, {
+                headers: { 'x-user-id': userId },
+                data: payload,
+            });
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `add subscription's list type for user with ID ${userId}`);
@@ -64,7 +67,10 @@ export class SubscriptionRequests {
 
     public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
-            await accountManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);
+            await accountManagementApi.put(`/subscription/configure-list-types/${userId}`, {
+                headers: { 'x-user-id': userId },
+                data: payload,
+            });
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `configure subscription's list type for user with ID ${userId}`);
@@ -72,9 +78,11 @@ export class SubscriptionRequests {
         return false;
     }
 
-    public async retrieveSubscriptionChannels(): Promise<string[]> {
+    public async retrieveSubscriptionChannels(userId, adminUserId): Promise<string[]> {
         try {
-            const channelResponse = await accountManagementApi.get('/subscription/channel');
+            const channelResponse = await accountManagementApi.get('/subscription/channel/${userId}', {
+                headers: { 'x-user-id': adminUserId },
+            });
             return channelResponse.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve the list of subscription channels');

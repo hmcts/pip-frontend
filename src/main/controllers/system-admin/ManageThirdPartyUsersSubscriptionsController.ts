@@ -1,10 +1,10 @@
-import { PipRequest } from '../../models/request/PipRequest';
-import { Response } from 'express';
-import { cloneDeep } from 'lodash';
-import { SubscriptionService } from '../../service/SubscriptionService';
-import { PublicationService } from '../../service/PublicationService';
-import { ThirdPartyService } from '../../service/ThirdPartyService';
-import { UserManagementService } from '../../service/UserManagementService';
+import {PipRequest} from '../../models/request/PipRequest';
+import {Response} from 'express';
+import {cloneDeep} from 'lodash';
+import {SubscriptionService} from '../../service/SubscriptionService';
+import {PublicationService} from '../../service/PublicationService';
+import {ThirdPartyService} from '../../service/ThirdPartyService';
+import {UserManagementService} from '../../service/UserManagementService';
 
 const thirdPartyService = new ThirdPartyService();
 const subscriptionsService = new SubscriptionService();
@@ -16,7 +16,9 @@ export default class ManageThirdPartyUsersSubscriptionsController {
         if (req.query['userId']) {
             const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
             const listTypes = publicationService.getListTypes();
-            let subscriptionChannels = await subscriptionsService.retrieveChannels();
+            let subscriptionChannels = await subscriptionsService.retrieveChannels(
+                req.query['userId'], req.user['userId']
+            );
 
             if (user) {
                 const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
