@@ -125,7 +125,7 @@ export class AccountManagementRequests {
             const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
             if (reasons) {
                 response = await accountManagementApi.put('/application/' + applicantId + '/' + status + '/reasons', {
-                    reasons,
+                    ...reasons,
                     headers: headers,
                 });
                 logger.info(
@@ -230,7 +230,7 @@ export class AccountManagementRequests {
         try {
             logger.info('All user data requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/account/all', {
-                params,
+                ...params,
                 headers: {
                     'x-issuer-id': adminUserId,
                 },
@@ -329,7 +329,7 @@ export class AccountManagementRequests {
         try {
             logger.info('All audit log data requested by Admin with ID: ' + adminUserId);
             const response = await accountManagementApi.get('/audit', {
-                params,
+                ...params,
                 headers: { 'x-issuer-id': adminUserId },
             });
             return response.data;
