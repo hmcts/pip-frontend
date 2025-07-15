@@ -30,7 +30,7 @@ export class SubscriptionRequests {
     public async subscribe(payload, userId: string): Promise<boolean> {
         try {
             await accountManagementApi.post('/subscription', payload, {
-                headers: { 'x-user-id': userId }
+                headers: { 'x-user-id': userId },
             });
             return true;
         } catch (error) {
@@ -67,7 +67,7 @@ export class SubscriptionRequests {
     public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
             await accountManagementApi.put(`/subscription/configure-list-types/${userId}`, payload, {
-                headers: { 'x-user-id': userId }
+                headers: { 'x-user-id': userId },
             });
             return true;
         } catch (error) {
