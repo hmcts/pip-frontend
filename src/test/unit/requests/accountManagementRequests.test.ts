@@ -588,12 +588,10 @@ describe('Account Management Requests', () => {
         });
 
         it('should return data on success', async () => {
-            getStub
-                .withArgs(getAllAccountsEndpoint, { pageSize: 25, headers: { 'x-issuer-id': '1234' } })
-                .resolves({
-                    status: 200,
-                    data: { userId: '321', userProvenance: 'userProvenance' },
-                });
+            getStub.withArgs(getAllAccountsEndpoint, { pageSize: 25, headers: { 'x-issuer-id': '1234' } }).resolves({
+                status: 200,
+                data: { userId: '321', userProvenance: 'userProvenance' },
+            });
             const response = await accountManagementRequests.getAllAccountsExceptThirdParty({ pageSize: 25 }, '1234');
             expect(response).toStrictEqual({
                 userId: '321',
@@ -896,9 +894,7 @@ describe('Account Management Requests', () => {
         };
 
         it('should return data on success', async () => {
-            getStub
-                .withArgs('/audit', { pageSize: 25, headers: { 'x-issuer-id': '1234' } })
-                .resolves(mockResponseData);
+            getStub.withArgs('/audit', { pageSize: 25, headers: { 'x-issuer-id': '1234' } }).resolves(mockResponseData);
             const response = await accountManagementRequests.getAllAuditLogs({ pageSize: 25 }, '1234');
             expect(response).toStrictEqual(auditBody);
         });
