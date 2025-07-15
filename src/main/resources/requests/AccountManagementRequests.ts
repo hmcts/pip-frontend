@@ -124,10 +124,10 @@ export class AccountManagementRequests {
             let response;
             const headers = adminUserId ? { 'x-admin-id': adminUserId } : {};
             if (reasons) {
-                response = await accountManagementApi.put('/application/' + applicantId + '/' + status + '/reasons', {
-                    ...reasons,
-                    headers: headers,
-                });
+                response = await accountManagementApi.put('/application/' + applicantId + '/' + status + '/reasons',
+                    reasons,
+                    { headers }
+                );
                 logger.info(
                     'Media Application updated and attempted email send: ' +
                         applicantId +
@@ -135,9 +135,9 @@ export class AccountManagementRequests {
                         adminUserId
                 );
             } else {
-                response = await accountManagementApi.put('/application/' + applicantId + '/' + status, {
-                    headers: headers,
-                });
+                response = await accountManagementApi.put('/application/' + applicantId + '/' + status,
+                    { headers }
+                );
                 logger.info('Media Application updated: ' + applicantId + ' by Admin with ID: ' + adminUserId);
             }
             return response.data;
