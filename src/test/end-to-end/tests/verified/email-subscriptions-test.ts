@@ -1,5 +1,10 @@
 import { DateTime } from 'luxon';
-import { createLocation, createTestUserAccount, uploadPublication } from '../../shared/testingSupportApi';
+import {
+    createLocation,
+    createSubscription,
+    createTestUserAccount,
+    uploadPublication,
+} from '../../shared/testingSupportApi';
 import { randomData } from '../../shared/random-data';
 import { config as testConfig, config } from '../../../config';
 
@@ -509,7 +514,7 @@ Scenario(
     }
 ).tag('@Nightly');
 
-Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
+Scenario('I as a verified user should be able to filter locations while subscribing by location', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
@@ -527,17 +532,117 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see('You can only search for information that is currently published.');
     I.click('#subscription-choice-1');
     I.click('Continue');
+
+    I.click(locate('//input').withAttr({ value: 'Civil' }));
+    I.see('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Crime' }));
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Family' }));
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.see('Type of family court');
+    I.dontSee('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Tribunal' }));
+    I.see('Type of civil court');
+    I.see('Type of criminal court');
+    I.see('Type of family court');
+    I.see('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Civil' }));
+    I.dontSee('Type of civil court');
+    I.see('Type of criminal court');
+    I.see('Type of family court');
+    I.see('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Crime' }));
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.see('Type of family court');
+    I.see('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Family' }));
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.see('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Tribunal' }));
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.dontSee('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'Tribunal' }));
+    I.click('Apply filters');
+    I.see(locationName);
+    I.dontSee('Type of civil court');
+    I.dontSee('Type of criminal court');
+    I.dontSee('Type of family court');
+    I.see('Type of tribunal');
+
+    I.click(locate('//input').withAttr({ value: 'South West' }));
+    I.click('Apply filters');
+    I.dontSee(locationName);
+
+    I.click(locate('//input').withAttr({ value: 'South East' }));
+    I.click('Apply filters');
+    I.see(locationName);
+
+    I.logout();
+});
+
+Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
+    const locationId = randomData.getRandomLocationId();
+    const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    const locationIdOne = randomData.getRandomLocationId();
+    const locationNameOne = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+    const testUserEmail = randomData.getRandomEmailAddress();
+
+    const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
+    await createLocation(locationIdOne, locationNameOne);
+    await createLocation(locationId, locationName);
+    await createSubscription(locationIdOne, locationNameOne, testUser['userId'] as string);
+
+    I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
+    I.waitForText('Your account');
+    I.click('#card-subscription-management');
+    I.waitForText('Your email subscriptions');
+    I.click('Add email subscription');
+    I.waitForText('How do you want to add an email subscription?');
+    I.see('You can only search for information that is currently published.');
+    I.click('#subscription-choice-1');
+    I.click('Continue');
     I.checkOption('//*[@id="' + locationId + '"]');
     I.click('Continue');
     I.waitForText('Your email subscriptions');
     I.see(locationName);
     I.click('Continue');
     I.waitForText('Select List Types');
-    I.see(
-        'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-            "specific cases you may have subscribed to. Also don't forget to come" +
-            ' back regularly to see new list types as we add more.'
-    );
+    I.see('Civil Daily Cause List');
+    I.see('Civil and Family Daily Cause List');
+    I.see('Family Daily Cause List');
+    I.see('Court of Protection Daily Cause List');
+    I.see('Magistrates Public List');
+    I.see('Magistrates Standard List');
+    I.see('Single Justice Procedure Public List');
+    I.see('Single Justice Procedure Press List');
+    I.see('Employment Tribunals Daily List');
+    I.see('Employment Tribunals Fortnightly Press List');
+    I.dontSee('Crown Daily List');
+    I.dontSee('Criminal Injuries Compensation');
+    I.dontSee('Care Standards Tribunal');
+    I.dontSee('Primary Health Tribunal');
+    I.dontSee('First-tier Tribunal');
+    I.dontSee('Upper Tribunal');
     I.checkOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
     I.waitForText('What version of the list do you want to receive?');
@@ -563,8 +668,17 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.waitForText('List types updated');
 
     I.click('manage your current email subscriptions');
+    I.waitForText('Your email subscriptions');
+    I.click(locate('//tr').withText(locationNameOne).find('a').withText('Unsubscribe'));
+    I.waitForText('Are you sure you want to remove this subscription?');
+    I.click('#unsubscribe-confirm');
+    I.click('Continue');
+    I.waitForText('Your subscription has been removed');
+    I.click('Email subscriptions');
+
     I.click('Edit list types');
     I.waitForText('Select List Types');
+    I.seeCheckboxIsChecked('#CIVIL_DAILY_CAUSE_LIST');
     I.dontSeeCheckboxIsChecked('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Email subscriptions');
     I.click(locate('//tr').withText(locationName).find('a').withText('Unsubscribe'));

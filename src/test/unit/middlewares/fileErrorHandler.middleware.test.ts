@@ -18,7 +18,7 @@ describe('File Error Handler Middleware', () => {
 
     it('it should pass through if there are no errors', () => {
         fileErrorHandlerMiddleware(null, mockRequest, mockResponse as unknown as Response, nextFunction);
-        expect(nextFunction).toBeCalledTimes(1);
+        expect(nextFunction).toHaveBeenCalledTimes(1);
     });
 
     it('should set dummy request properties if there is file size error', () => {
@@ -29,12 +29,12 @@ describe('File Error Handler Middleware', () => {
             nextFunction
         );
         expect(fileRequest).toStrictEqual(expectedFileLimitRequest);
-        expect(nextFunction).toBeCalledTimes(1);
+        expect(nextFunction).toHaveBeenCalledTimes(1);
     });
 
     it('should set error query param if any other error occurs', () => {
         fileErrorHandlerMiddleware({ code: 'FOO' }, errorRequest, mockResponse as unknown as Response, nextFunction);
         expect(errorRequest).toStrictEqual(expectedErrorRequest);
-        expect(nextFunction).toBeCalledTimes(1);
+        expect(nextFunction).toHaveBeenCalledTimes(1);
     });
 });

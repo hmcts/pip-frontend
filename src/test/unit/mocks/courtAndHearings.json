@@ -4,77 +4,90 @@
         "name": "Abergavenny Magistrates' Court",
         "locationType": "VENUE",
         "welshName": "Llys Ynadon y Fenni",
-        "jurisdiction": ["Magistrates"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Magistrates Court"],
         "region": ["Bedford"],
-        "welshJurisdiction": ["Ynadon"],
+        "welshJurisdiction": ["Llys Troseddau"],
+        "welshJurisdictionType":["Llys Ynadon"],
         "welshRegion": ["Bedford Welsh"]
     },
     {
         "locationId": 2,
         "name": "Accrington County Court",
-        "jurisdiction": ["Crown"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Crown Court"],
         "region": "London"
     },
     {
         "locationId": 3,
         "name": "Accrington Magistrates' Court",
-        "jurisdiction": ["Crown"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Crown Court"],
         "region": ["Manchester"],
         "welshRegion": ["Manceinion"]
     },
     {
         "locationId": 4,
         "name": "Aldershot and Farnham County Court and Family Court",
-        "jurisdiction": ["Crown"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Crown Court"],
         "region": ["Manchester"],
         "hearings": 7
     },
     {
         "locationId": 5,
         "name": "Aldershot Magistrates' Court",
-        "jurisdiction": ["Royal"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Magistrates Court"],
         "region": ["Manchester"]
     },
     {
         "locationId": 6,
         "name": "Alton Magistrates' Court",
-        "jurisdiction": ["Royal"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Magistrates Court"],
         "region": ["London"]
     },
     {
         "locationId": 7,
         "name": "Altrincham County Court and Family Court",
-        "jurisdiction": ["Crown"],
+        "jurisdiction": ["Crime", "Family"],
+        "jurisdictionType":["Crown Court", "Family Court"],
         "region": ["Manchester"]
     },
     {
         "locationId": 8,
         "name": "Andover Magistrates' Court",
-        "jurisdiction": ["Royal"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Magistrates Court"],
         "region": ["Bedford"]
     },
     {
         "locationId": 9,
         "name": "Tameside Magistrates' Court",
-        "jurisdiction": ["Royal"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Magistrate Courts"],
         "region": ["Manchester"]
     },
     {
         "locationId": 10,
         "name": "Aylesbury County Court and Family Court",
-        "jurisdiction": ["Royal"],
+        "jurisdiction": ["Crime", "Family"],
+        "jurisdictionType":["Crown Court", "Family Court"],
         "region": ["Manchester"]
     },
     {
         "locationId": 543,
         "name": "Wakefield Social Security and Child Support Tribunal",
-        "jurisdiction": ["Crown"],
+        "jurisdiction": ["Crime", "Tribunal"],
+        "jurisdictionType":["Crown Court", "Social Security and Child Support"],
         "region": ["London"]
     },
     {
         "locationId": 542,
         "name": "West London Court no hearings",
-        "jurisdiction": ["Crown"],
+        "jurisdiction": ["Crime"],
+        "jurisdictionType":["Crown Court"],
         "region": ["London"]
     }
 ]

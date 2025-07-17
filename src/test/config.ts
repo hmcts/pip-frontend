@@ -35,8 +35,6 @@ export const config = {
     SSO_TEST_NO_ROLES_PWD: process.env.SSO_TEST_NO_ROLES_PWD,
     DATA_MANAGEMENT_BASE_URL:
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net',
-    SUBSCRIPTION_MANAGEMENT_BASE_URL:
-        process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net',
     ACCOUNT_MANAGEMENT_BASE_URL:
         process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net',
 

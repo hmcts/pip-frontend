@@ -4,7 +4,6 @@ import { PendingSubscriptionsFromCache } from './PendingSubscriptionsFromCache';
 import { UserSubscriptions } from '../models/UserSubscriptions';
 import { PublicationService } from './PublicationService';
 import { LocationService } from './LocationService';
-import { FilterService } from './FilterService';
 import { Location } from '../models/Location';
 import { ListType } from '../models/ListType';
 import { AToZHelper } from '../helpers/aToZHelper';
@@ -14,12 +13,12 @@ import {
     pendingCaseSubscriptionSorter,
     pendingListTypeSubscriptionSorter,
     pendingLocationSubscriptionSorter,
+    pendingWelshLocationSubscriptionSorter,
 } from '../helpers/sortHelper';
 
 const subscriptionRequests = new SubscriptionRequests();
 const pendingSubscriptionsFromCache = new PendingSubscriptionsFromCache();
 const publicationService = new PublicationService();
-const filterService = new FilterService();
 const locationService = new LocationService();
 
 const timeZone = 'Europe/London';
@@ -143,12 +142,46 @@ export class SubscriptionService {
         };
     }
 
-    public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
-        return subscriptionRequests.unsubscribe(subscriptionId, userId);
+    public async unsubscribe(subscriptionId: string, userId: string, userProvenance: string): Promise<boolean> {
+        const response = await subscriptionRequests.unsubscribe(subscriptionId, userId);
+        if (response) {
+            return await this.configureListTypeAfterUnsubscribe(userId, userProvenance);
+        }
+        return false;
     }
 
-    public async bulkDeleteSubscriptions(subscriptionIds: string[], userId: string): Promise<object> {
-        return subscriptionRequests.bulkDeleteSubscriptions(subscriptionIds, userId);
+    public async bulkDeleteSubscriptions(
+        subscriptionIds: string[],
+        userId: string,
+        userProvenance: string
+    ): Promise<boolean> {
+        const response = await subscriptionRequests.bulkDeleteSubscriptions(subscriptionIds, userId);
+        if (response) {
+            return await this.configureListTypeAfterUnsubscribe(userId, userProvenance);
+        }
+        return false;
+    }
+
+    private async configureListTypeAfterUnsubscribe(userId: string, userProvenance: string): Promise<boolean> {
+        const userSubscriptions = await this.getSubscriptionsByUser(userId);
+        const applicableListTypes = await this.generateAppropriateListTypes(userId, userProvenance, userSubscriptions);
+
+        if (userSubscriptions['locationSubscriptions'].length > 0) {
+            const storedListTypes = userSubscriptions['locationSubscriptions'][0]['listType'];
+            const languageToConfigure = userSubscriptions['locationSubscriptions'][0]['listLanguage'];
+            const listTypesToConfigure = [];
+            for (const [listName, listType] of applicableListTypes) {
+                if (listType.checked && storedListTypes.includes(listName)) {
+                    listTypesToConfigure.push(listName);
+                }
+            }
+            return await this.configureListTypeForLocationSubscriptions(
+                userId,
+                listTypesToConfigure,
+                languageToConfigure
+            );
+        }
+        return true;
     }
 
     public async handleNewSubscription(pendingSubscription, user): Promise<void> {
@@ -423,60 +456,33 @@ export class SubscriptionService {
     /**
      * This method generates the relevant list types for the courts that the user has configured.
      * @param userId The user ID of the user who is configuring their list types.
-     * @param filterValuesQuery The currently selected filters.
-     * @param clearQuery The clear filter for the query.
+     * @param userRole The role of the user.
+     * @param language The language the application is in.
      */
-    public async generateListTypesForCourts(
-        userId,
-        userRole,
-        filterValuesQuery,
-        clearQuery,
-        language
-    ): Promise<object> {
-        let filterValues = filterService.stripFilters(filterValuesQuery);
-        if (clearQuery) {
-            filterValues = filterService.handleFilterClear(filterValues, clearQuery);
-        }
-
-        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole);
-
-        return {
-            listOptions: this.generateAlphabetisedListTypes(filterValues, applicableListTypes, language),
-            filterOptions: this.buildFilterValueOptions(applicableListTypes, filterValues, language),
-        };
+    public async generateListTypesForCourts(userId, userRole, language): Promise<object> {
+        const userSubscriptions = await this.getSubscriptionsByUser(userId);
+        const applicableListTypes = await this.generateAppropriateListTypes(userId, userRole, userSubscriptions);
+        return this.generateAlphabetisedListTypes(applicableListTypes, language);
     }
 
-    private generateAlphabetisedListTypes(filterValues, applicableListTypes, language) {
+    private generateAlphabetisedListTypes(applicableListTypes, language) {
         const alphabetisedListTypes = AToZHelper.generateAlphabetObject();
-
-        if (filterValues.length == 0) {
-            for (const [listName, listType] of applicableListTypes) {
-                const listLocalisedName = this.getListLocalisedName(listType, language);
-                alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
-                    listFriendlyName: listLocalisedName,
-                    checked: listType.checked,
-                };
-            }
-        } else {
-            for (const [listName, listType] of applicableListTypes) {
-                const listLocalisedName = this.getListLocalisedName(listType, language);
-                const hidden =
-                    language === 'en'
-                        ? !listType.jurisdictions.some(jurisdiction => filterValues.includes(jurisdiction))
-                        : !listType.welshJurisdictions.some(jurisdiction => filterValues.includes(jurisdiction));
-
-                alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
-                    listFriendlyName: listLocalisedName,
-                    checked: listType.checked,
-                    hidden: hidden,
-                };
-            }
+        for (const [listName, listType] of applicableListTypes) {
+            const listLocalisedName = this.getListLocalisedNameForAlphabeticalSorting(listType, language);
+            alphabetisedListTypes[listLocalisedName.charAt(0).toUpperCase()][listName] = {
+                listFriendlyName: listLocalisedName,
+                checked: listType.checked,
+            };
         }
 
         return alphabetisedListTypes;
     }
 
     private getListLocalisedName(listType, language): string {
+        return language === 'en' ? listType.friendlyName : listType.welshFriendlyName;
+    }
+
+    private getListLocalisedNameForAlphabeticalSorting(listType, language): string {
         return language === 'en' ? listType.friendlyName : `${listType.friendlyName}\n${listType.welshFriendlyName}`;
     }
 
@@ -503,38 +509,40 @@ export class SubscriptionService {
         return selectedListLanguage;
     }
 
-    private async generateAppropriateListTypes(userId, userRole): Promise<Map<string, ListType>> {
-        const userSubscriptions = await this.getSubscriptionsByUser(userId);
-
+    private async generateAppropriateListTypes(userId, userProvenance, userSubscriptions): Promise<Map<string, ListType>> {
         const selectedListTypes = await this.getUserSubscriptionListType(userId);
-        const courtJurisdictions = [];
+        const courtJurisdictionTypes = [];
         for (const subscription of userSubscriptions['locationSubscriptions']) {
             if ('locationId' in subscription) {
                 const returnedLocation = await locationService.getLocationById(subscription['locationId']);
                 if (returnedLocation != null) {
-                    returnedLocation.jurisdiction.forEach(jurisdiction => courtJurisdictions.push(jurisdiction));
+                    returnedLocation.jurisdictionType.forEach(value => courtJurisdictionTypes.push(value));
                 }
             }
         }
 
-        return this.findApplicableListTypeForCourts(courtJurisdictions, selectedListTypes, userRole);
+        return this.findApplicableListTypeForCourts(courtJurisdictionTypes, selectedListTypes, userProvenance);
     }
 
     public async generateListTypeForCourts(userRole, language, userId): Promise<object> {
         const applicableListTypes = await this.getListTypesForCachedCourts(userRole, userId);
-        return this.generateAlphabetisedListTypes([], applicableListTypes, language);
+        return this.generateAlphabetisedListTypes(applicableListTypes, language);
     }
 
     private async getListTypesForCachedCourts(userRole, userId) {
         const cacheService = new PendingSubscriptionsFromCache();
         const cachedCourts = await cacheService.getPendingSubscriptions(userId, 'courts');
-        const courtsJurisdictions = await locationService.findCourtsJurisdiction(cachedCourts);
+        const courtJurisdictionTypes = await locationService.findCourtJurisdictionTypes(cachedCourts);
 
         const selectedListTypes = await this.getUserSubscriptionListType(userId);
-        return this.findApplicableListTypeForCourts(courtsJurisdictions, selectedListTypes, userRole);
+        return this.findApplicableListTypeForCourts(courtJurisdictionTypes, selectedListTypes, userRole);
     }
 
-    private findApplicableListTypeForCourts(courtJurisdictions, selectedListTypes, userRole): Map<string, ListType> {
+    private findApplicableListTypeForCourts(
+        courtJurisdictionTypes,
+        selectedListTypes,
+        userProvenance
+    ): Map<string, ListType> {
         const listTypes = publicationService.getListTypes();
         const sortedListTypes = new Map(
             [...listTypes].sort((a, b) => a[1]['friendlyName'].localeCompare(b[1]['friendlyName']))
@@ -543,8 +551,8 @@ export class SubscriptionService {
         const applicableListTypes = new Map();
         for (const [listName, listType] of sortedListTypes) {
             if (
-                listType.jurisdictions.some(jurisdiction => courtJurisdictions.includes(jurisdiction)) &&
-                (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userRole))
+                listType.jurisdictionTypes.some(value => courtJurisdictionTypes.includes(value)) &&
+                (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userProvenance))
             ) {
                 listType.checked = selectedListTypes != null && selectedListTypes.includes(listName);
                 applicableListTypes.set(listName, listType);
@@ -552,37 +560,6 @@ export class SubscriptionService {
         }
 
         return applicableListTypes;
-    }
-
-    private buildFilterValueOptions(list: Map<string, ListType>, selectedFilters: string[], language): object {
-        const filterValueOptions = {};
-        filterValueOptions['Jurisdiction'] = {};
-
-        const finalFilterValueOptions = this.getAllJurisdictions(list, language);
-
-        [...finalFilterValueOptions]
-            .sort((a, b) => a.localeCompare(b))
-            .forEach(value => {
-                filterValueOptions['Jurisdiction'][value] = {
-                    value: value,
-                    text: value,
-                    checked: selectedFilters.includes(value),
-                };
-            });
-        return filterValueOptions;
-    }
-
-    private getAllJurisdictions(list: Map<string, ListType>, language: string): string[] {
-        const filterSet = new Set<string>();
-        list.forEach(value => {
-            if (language == 'en') {
-                value.jurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
-            } else {
-                value.welshJurisdictions.forEach(jurisdiction => filterSet.add(jurisdiction));
-            }
-        });
-
-        return [...filterSet];
     }
 
     public async retrieveChannels(): Promise<string[]> {
@@ -615,9 +592,11 @@ export class SubscriptionService {
     }
 
     public async getAllUserSubscriptionsFromCache(userId, language): Promise<any> {
+        const locationSubscriptionSorter =
+            language == 'cy' ? pendingWelshLocationSubscriptionSorter : pendingLocationSubscriptionSorter;
         return {
             cases: await this.getSortedPendingSubscriptions(userId, 'cases', pendingCaseSubscriptionSorter),
-            courts: await this.getSortedPendingSubscriptions(userId, 'courts', pendingLocationSubscriptionSorter),
+            courts: await this.getSortedPendingSubscriptions(userId, 'courts', locationSubscriptionSorter),
             listTypes: await this.populateListTypesFriendlyName(
                 await this.getSortedPendingSubscriptions(userId, 'listTypes', pendingListTypeSubscriptionSorter),
                 language
@@ -626,7 +605,7 @@ export class SubscriptionService {
         };
     }
 
-    public async removeListTypeForCourt(userRole, language, userId) {
+    public async removeListTypeForCourt(userRole, userId) {
         const courtListTypes = await this.getListTypesForCachedCourts(userRole, userId);
         const cachedListTypes = await this.getPendingSubscriptions(userId, 'listTypes');
         const selectedListTypes = [];

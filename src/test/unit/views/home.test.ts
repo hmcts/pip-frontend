@@ -99,12 +99,16 @@ describe('Home page', () => {
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
-                'Hearings in First Tier and Upper Tribunals (excluding SSCS, Asylum Support and Employment Tribunals)',
+                'Hearings in First Tier and Upper Tribunals (excluding Employment Tribunals)',
                 'Could not find second bullet'
             );
             expect(bullets[2].innerHTML).contains(
-                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Hearings in the Royal Courts of Justice and the Rolls Building',
                 'Could not find third bullet'
+            );
+            expect(bullets[3].innerHTML).contains(
+                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Could not find fourth bullet'
             );
         });
 
@@ -250,13 +254,18 @@ describe('Home page', () => {
             );
 
             expect(bullets[1].innerHTML).contains(
-                'Gwrandawiadau yn y Tribiwnlys Haen Gyntaf a’r Tribiwnlysoedd Uwch (gan eithrio SSCS, Cymorth Lloches a’r Tribiwnlysoedd Cyflogaeth)',
+                'Gwrandawiadau yn y Tribiwnlys Haen Gyntaf a’r Tribiwnlysoedd Uwch (gan eithrio Tribiwnlysoedd Cyflogaeth)',
                 'Could not find second bullet'
             );
 
             expect(bullets[2].innerHTML).contains(
-                'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
+                'Gwrandawiadau yn yr Llys Barn Brenhinol a’r Adeilad Rolls',
                 'Could not find third bullet'
+            );
+
+            expect(bullets[3].innerHTML).contains(
+                'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
+                'Could not find fourth bullet'
             );
         });
 

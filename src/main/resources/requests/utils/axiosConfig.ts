@@ -20,10 +20,6 @@ const dataManagementUrl = process.env.DATA_MANAGEMENT_AZ_API
     ? process.env.DATA_MANAGEMENT_AZ_API
     : config.get('secrets.pip-ss-kv.DATA_MANAGEMENT_AZ_API');
 
-const subscriptionManagementUrl = process.env.SUBSCRIPTION_MANAGEMENT_AZ_API
-    ? process.env.SUBSCRIPTION_MANAGEMENT_AZ_API
-    : config.get('secrets.pip-ss-kv.SUBSCRIPTION_MANAGEMENT_AZ_API');
-
 const accountManagementUrl = process.env.ACCOUNT_MANAGEMENT_AZ_API
     ? process.env.ACCOUNT_MANAGEMENT_AZ_API
     : config.get('secrets.pip-ss-kv.ACCOUNT_MANAGEMENT_AZ_API');
@@ -32,11 +28,6 @@ export const accountManagementApiUrl =
     process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net';
 export const dataManagementApi = axios.create({
     baseURL: process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net',
-    timeout: 10000,
-});
-export const subscriptionManagementApi = axios.create({
-    baseURL:
-        process.env.SUBSCRIPTION_MANAGEMENT_URL || 'https://pip-subscription-management.staging.platform.hmcts.net',
     timeout: 10000,
 });
 export const accountManagementApi = axios.create({
@@ -66,7 +57,6 @@ function createCredentials(url): (scope: any) => any {
 }
 
 export const getDataManagementCredentials = createCredentials(dataManagementUrl);
-export const getSubscriptionManagementCredentials = createCredentials(subscriptionManagementUrl);
 export const getAccountManagementCredentials = createCredentials(accountManagementUrl);
 
 const getBearerToken = (tokenCache, config) => {
@@ -83,19 +73,11 @@ const getMaxAgeOfCache = {
 } as TokenCacheOptions;
 
 const dataManagementCacheToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
-const subscriptionManagementCacheToken = tokenProvider.tokenCache(
-    getSubscriptionManagementCredentials as any,
-    getMaxAgeOfCache
-);
 const accountManagementCacheToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
         return getBearerToken(dataManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
-    });
-
-    subscriptionManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
-        return getBearerToken(subscriptionManagementCacheToken, config) as Promise<InternalAxiosRequestConfig<any>>;
     });
 
     accountManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {

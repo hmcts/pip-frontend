@@ -9,7 +9,8 @@ export default class UnsubscribeConfirmationController {
         if (req.body?.['unsubscribe-confirm'] === 'yes') {
             const unsubscribeResponse = await subscriptionService.unsubscribe(
                 req.body.subscription,
-                req.user['userId']
+                req.user['userId'],
+                req.user['userProvenance']
             );
             unsubscribeResponse
                 ? res.render(
