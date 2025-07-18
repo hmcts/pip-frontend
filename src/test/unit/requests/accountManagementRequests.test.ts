@@ -15,7 +15,7 @@ const errorResponse = {
 const errorMessage = {
     message: 'test',
 };
-const mockHeaders = { headers: { 'x-issuer-email': 'joe@bloggs.com' } };
+const mockHeaders = { headers: { 'x-requester_id': '12345' } };
 const mockValidBody = {
     email: 'joe@bloggs.com',
     firstName: 'Joe',
@@ -588,7 +588,7 @@ describe('Account Management Requests', () => {
         });
 
         it('should return data on success', async () => {
-            getStub.withArgs(getAllAccountsEndpoint, { pageSize: 25, headers: { 'x-issuer-id': '1234' } }).resolves({
+            getStub.withArgs(getAllAccountsEndpoint, { pageSize: 25, headers: { 'x-requester-id': '1234' } }).resolves({
                 status: 200,
                 data: { userId: '321', userProvenance: 'userProvenance' },
             });
@@ -671,7 +671,7 @@ describe('Account Management Requests', () => {
         it('should return string on deletion success', async () => {
             deleteStub
                 .withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`, {
-                    headers: { 'x-admin-id': adminUserId },
+                    headers: { 'x-requester-id': adminUserId },
                 })
                 .resolves({ status: 200, data: 'Deleted' });
             const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
@@ -711,7 +711,7 @@ describe('Account Management Requests', () => {
             putStub
                 .withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`, null, {
                     headers: {
-                        'x-admin-id': adminIdToUse,
+                        'x-requester-id': adminIdToUse,
                     },
                 })
                 .resolves({
@@ -894,7 +894,7 @@ describe('Account Management Requests', () => {
         };
 
         it('should return data on success', async () => {
-            getStub.withArgs('/audit', { pageSize: 25, headers: { 'x-issuer-id': '1234' } }).resolves(mockResponseData);
+            getStub.withArgs('/audit', { pageSize: 25, headers: { 'x-requester-id': '1234' } }).resolves(mockResponseData);
             const response = await accountManagementRequests.getAllAuditLogs({ pageSize: 25 }, '1234');
             expect(response).toStrictEqual(auditBody);
         });
