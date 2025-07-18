@@ -1,9 +1,9 @@
-import {accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials} from './utils/axiosConfig';
-import {Logger} from '@hmcts/nodejs-logging';
-import {MediaAccountApplication} from '../../models/MediaAccountApplication';
-import {DateTime} from 'luxon';
-import {StatusCodes} from 'http-status-codes';
-import {LogHelper} from '../logging/logHelper';
+import { accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials } from './utils/axiosConfig';
+import { Logger } from '@hmcts/nodejs-logging';
+import { MediaAccountApplication } from '../../models/MediaAccountApplication';
+import { DateTime } from 'luxon';
+import { StatusCodes } from 'http-status-codes';
+import { LogHelper } from '../logging/logHelper';
 import superagent from 'superagent';
 
 const logger = Logger.getLogger('requests');

@@ -1,8 +1,8 @@
-import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
 import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
-import {accountManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
+import { accountManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
 
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';

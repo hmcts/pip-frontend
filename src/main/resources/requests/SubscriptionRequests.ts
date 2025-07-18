@@ -1,6 +1,6 @@
-import {accountManagementApi} from './utils/axiosConfig';
-import {UserSubscriptions} from '../../models/UserSubscriptions';
-import {LogHelper} from '../logging/logHelper';
+import { accountManagementApi } from './utils/axiosConfig';
+import { UserSubscriptions } from '../../models/UserSubscriptions';
+import { LogHelper } from '../logging/logHelper';
 
 const logHelper = new LogHelper();
 

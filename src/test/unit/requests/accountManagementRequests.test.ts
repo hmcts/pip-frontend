@@ -1,9 +1,9 @@
 import sinon from 'sinon';
-import {accountManagementApi} from '../../../main/resources/requests/utils/axiosConfig';
-import {AccountManagementRequests} from '../../../main/resources/requests/AccountManagementRequests';
+import { accountManagementApi } from '../../../main/resources/requests/utils/axiosConfig';
+import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import fs from 'fs';
 import path from 'path';
-import {DateTime} from 'luxon';
+import { DateTime } from 'luxon';
 import superagent from 'superagent';
 
 const accountManagementRequests = new AccountManagementRequests();
@@ -894,7 +894,9 @@ describe('Account Management Requests', () => {
         };
 
         it('should return data on success', async () => {
-            getStub.withArgs('/audit', { pageSize: 25, headers: { 'x-requester-id': '1234' } }).resolves(mockResponseData);
+            getStub
+                .withArgs('/audit', { pageSize: 25, headers: { 'x-requester-id': '1234' } })
+                .resolves(mockResponseData);
             const response = await accountManagementRequests.getAllAuditLogs({ pageSize: 25 }, '1234');
             expect(response).toStrictEqual(auditBody);
         });

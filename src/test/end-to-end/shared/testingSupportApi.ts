@@ -1,12 +1,12 @@
 import superagent from 'superagent';
-import {config as testConfig} from '../../config';
+import { config as testConfig } from '../../config';
 import fs from 'fs';
 import {
     getAccountManagementCredentials,
     getDataManagementCredentials,
 } from '../../../main/resources/requests/utils/axiosConfig';
 import path from 'path/posix';
-import {randomData} from './random-data';
+import { randomData } from './random-data';
 
 const createFile = (filePath, fileName) => {
     return {
