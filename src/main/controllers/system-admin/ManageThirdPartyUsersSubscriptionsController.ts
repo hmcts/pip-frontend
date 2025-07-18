@@ -50,6 +50,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
         ) {
             await thirdPartyService.handleThirdPartySubscriptionUpdate(
                 req.user['userId'],
+                req.user['userProvenance'],
                 selectedUser,
                 selectedListTypes,
                 selectedChannel
