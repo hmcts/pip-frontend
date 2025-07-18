@@ -509,7 +509,11 @@ export class SubscriptionService {
         return selectedListLanguage;
     }
 
-    private async generateAppropriateListTypes(userId, userProvenance, userSubscriptions): Promise<Map<string, ListType>> {
+    private async generateAppropriateListTypes(
+        userId,
+        userProvenance,
+        userSubscriptions
+    ): Promise<Map<string, ListType>> {
         const selectedListTypes = await this.getUserSubscriptionListType(userId);
         const courtJurisdictionTypes = [];
         for (const subscription of userSubscriptions['locationSubscriptions']) {
