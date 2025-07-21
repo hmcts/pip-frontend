@@ -19,26 +19,26 @@ const userIdWithUrnSubscription = '4';
 const userIdWithCaseSubscription = '5';
 const userIdWithCourtSubscription = '6';
 const userIdWithCourtMultiListTypeSubscription = '7';
+const userIdForFailedConfigureListType = '8';
 
 const mockCourt = {
     locationId: 1,
     name: 'Aberdeen Tribunal Hearing Centre',
     welshName: 'Welsh court name test',
-    jurisdiction: 'Tribunal',
+    jurisdictionType: ['Criminal Injuries Compensation Tribunal'],
     location: 'Scotland',
 };
 const mockCourt2 = {
     locationId: 2,
     name: 'Manchester Crown Court',
     welshName: 'Welsh court name test',
-    jurisdiction: 'Tribunal',
+    jurisdictionType: ['Crown Court'],
 };
 const mockCourt3 = {
     locationId: 3,
     name: "Barkingside Magistrates' Court",
     welshName: 'Welsh court name test',
-    jurisdiction: 'Tribunal',
-    location: 'England',
+    jurisdictionType: ['Criminal Injuries Compensation Tribunal'],
 };
 const mockCase = {
     caseNumber: 'CASENUM1234',
@@ -97,28 +97,6 @@ const courtSubscriptionPayload = {
     locationName: 'Aberdeen Tribunal Hearing Centre',
     userId: userIdWithSubscriptions,
 };
-const courtSubscriptionWithSingleListTypePayload = {
-    listType: ['CIVIL_DAILY_CAUSE_LIST'],
-    listLanguage: ['ENGLISH'],
-    userId: userIdWithSubscriptions,
-};
-const courtSubscriptionWithMultipleListTypePayload = {
-    listType: ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
-    listLanguage: ['ENGLISH'],
-    userId: userIdWithSubscriptions,
-};
-
-const courtSubscriptionWithEmptyListTypePayload = {
-    listType: [],
-    listLanguage: [],
-    userId: userIdWithSubscriptions,
-};
-
-const courtSubscriptionWithEmptyListTypeAndNoUserPayload = {
-    listType: [],
-    listLanguage: [],
-    userId: null,
-};
 
 const caseSubscriptionPayload = {
     caseName: 'CASENAME1234',
@@ -142,27 +120,22 @@ const mockLanguage = ['ENGLISH'];
 const mockListTypes = ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'];
 const mockLanguages = ['ENGLISH,WELSH'];
 
-const mockSingleListTypePayload = {
-    listType: ['SJP_PUBLIC_LIST'],
-    listLanguage: ['ENGLISH'],
-    userId: '1',
-};
-
-const mockMultiListTypePayload = {
-    listType: ['CIVIL_DAILY_CAUSE_LIST', 'FAMILY_DAILY_CAUSE_LIST'],
-    listLanguage: ['ENGLISH'],
-    userId: '1',
-};
-
 const user = {};
 const adminUserId = '1234';
+const userProvenance = 'PI_AAD';
 
 const subscriptionService = new SubscriptionService();
 const stubUserSubscription = sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions');
 const rawData2 = fs.readFileSync(path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptions.json'), 'utf-8');
 const subscriptionResult2 = JSON.parse(rawData2);
+
 stubUserSubscription.withArgs(userIdWithSubscriptions).returns(subscriptionResult2.data);
-stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns([]);
+stubUserSubscription.withArgs(userIdForFailedConfigureListType).resolves(subscriptionResult2.data);
+stubUserSubscription.withArgs(userIdWithoutSubscriptions).returns({
+    locationSubscriptions: [],
+    caseSubscriptions: [],
+});
+
 const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPendingSubscriptions');
 const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
@@ -203,10 +176,7 @@ cacheGetStub.withArgs(userIdWithSubscriptions, 'cases').resolves([mockCase]);
 cacheGetStub.withArgs(userIdWithSubscriptions, 'courts').resolves([mockCourt]);
 cacheGetStub.withArgs(userIdWithSubscriptions, 'listTypes').resolves(mockListType);
 cacheGetStub.withArgs(userIdWithSubscriptions, 'listLanguage').resolves(mockLanguage);
-cacheGetStub.withArgs(userIdWithoutSubscriptions, 'cases').resolves([]);
-cacheGetStub.withArgs(userIdWithoutSubscriptions, 'courts').resolves([]);
-cacheGetStub.withArgs(userIdWithoutSubscriptions, 'listTypes').resolves([]);
-cacheGetStub.withArgs(userIdWithoutSubscriptions, 'listLanguage').resolves([]);
+cacheGetStub.withArgs(userIdWithoutSubscriptions).resolves([]);
 cacheGetStub
     .withArgs(userIdForSortedSubscriptions, 'cases')
     .resolves([mockCaseSubscription, mockCaseSubscription2, mockCaseSubscription3]);
@@ -214,20 +184,12 @@ cacheGetStub
     .withArgs(userIdForSortedSubscriptions, 'courts')
     .resolves([mockCourtSubscription, mockCourtSubscription2, mockCourtSubscription3]);
 cacheGetStub.withArgs(userIdForSortedSubscriptions, 'listTypes').resolves(mockListTypes);
-addListTypeSubscriptionStub.withArgs(userIdWithSubscriptions, mockSingleListTypePayload).resolves(true);
-addListTypeSubscriptionStub.withArgs(userIdWithCourtMultiListTypeSubscription, mockMultiListTypePayload).resolves(true);
-updateListTypeSubscriptionStub
-    .withArgs(userIdWithSubscriptions, courtSubscriptionWithSingleListTypePayload)
-    .resolves(true);
-updateListTypeSubscriptionStub
-    .withArgs(userIdWithSubscriptions, courtSubscriptionWithMultipleListTypePayload)
-    .resolves(true);
-updateListTypeSubscriptionStub
-    .withArgs(userIdWithSubscriptions, courtSubscriptionWithEmptyListTypePayload)
-    .resolves(true);
-
-updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypeAndNoUserPayload).resolves(false);
-updateListTypeSubscriptionStub.withArgs(null, courtSubscriptionWithEmptyListTypePayload).resolves(false);
+addListTypeSubscriptionStub.withArgs(userIdWithSubscriptions).resolves(true);
+addListTypeSubscriptionStub.withArgs(userIdWithCourtMultiListTypeSubscription).resolves(true);
+updateListTypeSubscriptionStub.withArgs(userIdWithSubscriptions).resolves(true);
+updateListTypeSubscriptionStub.withArgs(null).resolves(false);
+updateListTypeSubscriptionStub.withArgs(null).resolves(false);
+updateListTypeSubscriptionStub.withArgs(userIdForFailedConfigureListType).resolves(false);
 deleteStubLocation.withArgs(1, adminUserId).returns('success');
 deleteStubLocation.withArgs(2, adminUserId).returns(null);
 
@@ -931,35 +893,86 @@ describe('getUserSubscriptionListLanguage', () => {
 describe('unsubscribing', () => {
     const deleteStub = sinon.stub(SubscriptionRequests.prototype, 'unsubscribe');
 
-    deleteStub.withArgs('ValidSubscriptionId').resolves('Subscription was deleted');
-    deleteStub.withArgs('InValidSubscriptionId').resolves(null);
+    deleteStub.withArgs('ValidSubscriptionId').resolves(true);
+    deleteStub.withArgs('InValidSubscriptionId').resolves(false);
 
-    it('should return a message if subscription is deleted', async () => {
-        const payload = await subscriptionService.unsubscribe('ValidSubscriptionId', '2345-2345');
-        expect(payload).toEqual('Subscription was deleted');
+    it('should return true if subscription is deleted', async () => {
+        const response = await subscriptionService.unsubscribe(
+            'ValidSubscriptionId',
+            userIdWithSubscriptions,
+            userProvenance
+        );
+        expect(response).toBeTruthy();
     });
 
-    it('should return null if subscription delete failed', async () => {
-        const payload = await subscriptionService.unsubscribe('InValidSubscriptionId', '2345-2345');
-        expect(payload).toEqual(null);
+    it('should return false if subscription delete failed', async () => {
+        const response = await subscriptionService.unsubscribe(
+            'InValidSubscriptionId',
+            userIdWithSubscriptions,
+            userProvenance
+        );
+        expect(response).toBeFalsy();
+    });
+
+    it('should return true if unsubscribe is successful but no location subscription remained', async () => {
+        const response = await subscriptionService.unsubscribe(
+            'ValidSubscriptionId',
+            userIdWithoutSubscriptions,
+            userProvenance
+        );
+        expect(response).toBeTruthy();
+    });
+
+    it('should return false if unsubscribe is successful but failed to configure list type subscriptions', async () => {
+        const response = await subscriptionService.unsubscribe(
+            'ValidSubscriptionId',
+            userIdForFailedConfigureListType,
+            userProvenance
+        );
+        expect(response).toBeFalsy();
     });
 });
 
 describe('bulkDeleteSubscriptions', () => {
-    const userId = '123';
     const bulkDeleteStub = sinon.stub(SubscriptionRequests.prototype, 'bulkDeleteSubscriptions');
 
-    bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves('Subscription was deleted');
-    bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(null);
+    bulkDeleteStub.withArgs(['ValidSubscriptionId']).resolves(true);
+    bulkDeleteStub.withArgs(['InValidSubscriptionId']).resolves(false);
 
-    it('should return a message if subscription is deleted', async () => {
-        const payload = await subscriptionService.bulkDeleteSubscriptions(['ValidSubscriptionId'], userId);
-        expect(payload).toEqual('Subscription was deleted');
+    it('should return true if subscription is deleted', async () => {
+        const response = await subscriptionService.bulkDeleteSubscriptions(
+            ['ValidSubscriptionId'],
+            userIdWithSubscriptions,
+            userProvenance
+        );
+        expect(response).toBeTruthy();
     });
 
-    it('should return null if subscription delete failed', async () => {
-        const payload = await subscriptionService.bulkDeleteSubscriptions(['InValidSubscriptionId'], userId);
-        expect(payload).toEqual(null);
+    it('should return false if subscription delete failed', async () => {
+        const response = await subscriptionService.bulkDeleteSubscriptions(
+            ['InValidSubscriptionId'],
+            userIdWithSubscriptions,
+            userProvenance
+        );
+        expect(response).toBeFalsy();
+    });
+
+    it('should return true if subscription delete is successful but no location subscription remained', async () => {
+        const response = await subscriptionService.bulkDeleteSubscriptions(
+            ['ValidSubscriptionId'],
+            userIdWithoutSubscriptions,
+            userProvenance
+        );
+        expect(response).toBeTruthy();
+    });
+
+    it('should return false if subscription delete is successful but failed to configure list type subscriptions', async () => {
+        const response = await subscriptionService.bulkDeleteSubscriptions(
+            ['ValidSubscriptionId'],
+            userIdForFailedConfigureListType,
+            userProvenance
+        );
+        expect(response).toBeFalsy();
     });
 });
 
@@ -1252,7 +1265,7 @@ describe('populateListTypesFriendlyName', () => {
     it('Get List Type Display name in welsh', async () => {
         const result = await subscriptionService.populateListTypesFriendlyName(listName, 'cy');
         expect(result[0]['text']).toEqual(
-            'Social Security and Child Support Tribunal Daily List - Additional Hearings\nRhestr Ddyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant - Gwrandawiadau Ychwanegol'
+            'Rhestr Ddyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant - Gwrandawiadau Ychwanegol'
         );
     });
 });
@@ -1270,7 +1283,7 @@ describe('removeListTypeForCourt', () => {
     it('Remove List type not linked with court', async () => {
         locationStub.withArgs(1).resolves({ jurisdictionType: ['Social Security and Child Support'] });
 
-        await subscriptionService.removeListTypeForCourt('PI_AAD', 'en', userId);
+        await subscriptionService.removeListTypeForCourt('PI_AAD', userId);
         expect(setListTypeSubscriptionStub.calledWith(userId, ['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS']));
     });
 });

@@ -1,9 +1,9 @@
 import sinon from 'sinon';
-import {expect} from 'chai';
-import {ManualUploadService} from '../../../main/service/ManualUploadService';
-import {LocationService} from '../../../main/service/LocationService';
-import {DataManagementRequests} from '../../../main/resources/requests/DataManagementRequests';
-import {PublicationService} from '../../../main/service/PublicationService';
+import { expect } from 'chai';
+import { ManualUploadService } from '../../../main/service/ManualUploadService';
+import { LocationService } from '../../../main/service/LocationService';
+import { DataManagementRequests } from '../../../main/resources/requests/DataManagementRequests';
+import { PublicationService } from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 
@@ -150,7 +150,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes when not non-strategic', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage, false, undefined);
-            expect(data['listSubtypes'].length).to.equal(25);
+            expect(data['listSubtypes'].length).to.equal(24);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',
@@ -171,7 +171,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes when non-strategic', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
-            expect(data['listSubtypes'].length).to.equal(64);
+            expect(data['listSubtypes'].length).to.equal(65);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',

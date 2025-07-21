@@ -1,0 +1,100 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    {% if locationMetadata | length %}
+        {% set metadataExists = true %}
+    {% else %}
+        {% set metadataExists = false %}
+    {% endif %}
+
+    {% if updateError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.failedUpdateRequestMessage if metadataExists else error.failedCreateRequestMessage,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{ header | replace("LOCATION", location.name) }}</h1>
+    <form action="location-metadata-manage?locationId={{ location.locationId }}" method="post">
+        {{ govukTextarea({
+            name: "english-caution-message",
+            id: "english-caution-message",
+            label: {
+                text: englishCautionLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.cautionMessage
+        }) }}
+
+        {{ govukTextarea({
+            name: "welsh-caution-message",
+            id: "welsh-caution-message",
+            label: {
+                text: welshCautionLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.welshCautionMessage
+        }) }}
+
+        {{ govukTextarea({
+            name: "english-no-list-message",
+            id: "english-no-list-message",
+            label: {
+                text: englishNoListLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.noListMessage
+        }) }}
+
+        {{ govukTextarea({
+            name: "welsh-no-list-message",
+            id: "welsh-no-list-message",
+            label: {
+                text: welshNoListLabel,
+                classes: "govuk-label--m",
+                isPageHeading: true
+            },
+            value: locationMetadata.welshNoListMessage
+        }) }}
+
+        <div class="govuk-button-group">
+            {{ govukButton({
+                text: updateButtonText if metadataExists else createButtonText
+            }) }}
+
+            {% if metadataExists %}
+                {{ govukButton({
+                    text: deleteButtonText,
+                    classes: "govuk-button--warning",
+                    href: "location-metadata-delete-confirmation?locationId=" + location.locationId
+                }) }}
+            {% endif %}
+        </div>
+    </form>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
+    {{ super() }}
+{% endblock %}
