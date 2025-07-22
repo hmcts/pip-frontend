@@ -161,6 +161,7 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${artefactId}`)
             .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
+            .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete artefact for: ${artefactId}, http-status: ${e.response?.status}`);
