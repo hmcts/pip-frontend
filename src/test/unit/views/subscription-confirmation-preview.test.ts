@@ -33,15 +33,26 @@ const mockUrnCase = {
 };
 
 const mockCourt = {
-    locationId: 643,
+    locationId: 1,
     name: 'Aberdeen Tribunal Hearing Centre',
-    jurisdiction: 'Tribunal',
-    location: 'Scotland',
-    hearingList: [],
-    hearings: 0,
+    welshName: 'Canolfan Gwrandawiadau Tribiwnlys Aberdeen',
 };
+
+const mockCourt2 = {
+    locationId: 2,
+    name: 'Basildon Combined Court',
+    welshName: 'Llysoedd Cyfun Basildon',
+};
+
+const mockCourt3 = {
+    locationId: 3,
+    name: 'Cambridge County Court and Family Court',
+    welshName: 'Llys Sirol a Llys Teulu Caergrawnt',
+};
+
 const mockListTypeValue = 'listType1';
 const mockListTypeText = 'List Type1';
+const mockWelshListTypeText = 'Welsh List Type1';
 
 const mockListLanguageText = 'English';
 const mockListLanguage = 'ENGLISH';
@@ -73,7 +84,7 @@ getSubscriptionsStub.withArgs('3', 'listTypes').resolves([]);
 getSubscriptionsStub.withArgs('3', 'listLanguage').resolves([]);
 
 getSubscriptionsStub.withArgs('4', 'cases').resolves([]);
-getSubscriptionsStub.withArgs('4', 'courts').resolves([mockCourt]);
+getSubscriptionsStub.withArgs('4', 'courts').resolves([mockCourt, mockCourt2, mockCourt3]);
 getSubscriptionsStub.withArgs('4', 'listTypes').resolves([mockListTypeValue]);
 getSubscriptionsStub.withArgs('4', 'listLanguage').resolves([mockListLanguage]);
 
@@ -82,7 +93,8 @@ getSubscriptionsStub.withArgs('5', 'courts').resolves([mockCourt]);
 getSubscriptionsStub.withArgs('5', 'listTypes').resolves([]);
 getSubscriptionsStub.withArgs('5', 'listLanguage').resolves([mockListLanguage]);
 
-friendlyNameStub.withArgs(mockListTypeValue).resolves(mockListTypeText);
+friendlyNameStub.withArgs(mockListTypeValue, 'en').resolves(mockListTypeText);
+friendlyNameStub.withArgs(mockListTypeValue, 'cy').resolves(mockWelshListTypeText);
 
 describe('Subscriptions Confirmation Preview Page', () => {
     describe('user with subscriptions', () => {
@@ -281,14 +293,14 @@ describe('Subscriptions Confirmation Preview Page', () => {
             expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
         });
 
-        it('should contain 1 row in the court table with correct values', () => {
+        it('should contain 3 rows in the court table with correct values', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
-            expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
+            expect(rows.length).equal(3, 'Case table did not contain expected number of rows');
             expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Remove', 'Second cell does not contain correct value');
             expect(cells[1].querySelector('a').getAttribute('href')).equal(
                 `/remove-pending-subscription?court=${mockCourt.locationId}`
             );
@@ -317,7 +329,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(rows.length).equal(1, 'List Type table did not contain expected number of rows');
             expect(cells[0].innerHTML).contains(mockListTypeText, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Remove', 'Second cell does not contain correct value');
             expect(cells[1].querySelector('a').getAttribute('href')).equal(
                 `/remove-pending-subscription?list-type=${mockListTypeValue}`
             );
@@ -330,7 +342,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(rows.length).equal(1, 'List Language table did not contain expected number of rows');
             expect(cells[0].innerHTML).contains(mockListLanguageText, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains('Change', 'Fourth cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Change', 'Second cell does not contain correct value');
             expect(cells[1].querySelector('a').getAttribute('href')).equal(`/subscription-add-list-language`);
         });
 
@@ -340,7 +352,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[14];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'
@@ -350,6 +362,106 @@ describe('Subscriptions Confirmation Preview Page', () => {
                 '/subscription-add',
                 'Add another link does not contain href'
             );
+        });
+    });
+
+    describe('user with court subscription but without case subscriptions in Welsh', () => {
+        beforeAll(async () => {
+            app.request['user'] = { userId: '4', roles: 'VERIFIED' };
+            await request(app)
+                .get(PAGE_URL + '?lng=cy')
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+        });
+
+        it('should display correct court table headers', () => {
+            const tableHeaders = htmlRes
+                .getElementsByClassName('govuk-table')[0]
+                .getElementsByClassName('govuk-table__header');
+            expect(tableHeaders[0].innerHTML).contains(
+                'Enw’r llys neu’r tribiwnlys',
+                'Could not find text in first header'
+            );
+            expect(tableHeaders[1].innerHTML).contains('Camau gweithredu', 'Could not find text in second header');
+        });
+
+        it('should contain 3 rows in the court table with correct values', () => {
+            const rows = htmlRes
+                .getElementsByClassName('govuk-table__body')[0]
+                .getElementsByClassName('govuk-table__row');
+            expect(rows.length).equal(3, 'Case table did not contain expected number of rows');
+
+            const firstRowCells = rows[0].getElementsByClassName('govuk-table__cell');
+            expect(firstRowCells[0].innerHTML).contains(
+                mockCourt.welshName,
+                'First cell does not contain correct value'
+            );
+            expect(firstRowCells[1].innerHTML).contains('Dileu', 'Second cell does not contain correct value');
+            expect(firstRowCells[1].querySelector('a').getAttribute('href')).equal(
+                `/remove-pending-subscription?court=${mockCourt.locationId}`
+            );
+
+            const secondRowCells = rows[1].getElementsByClassName('govuk-table__cell');
+            expect(secondRowCells[0].innerHTML).contains(
+                mockCourt3.welshName,
+                'First cell does not contain correct value'
+            );
+            expect(secondRowCells[1].innerHTML).contains('Dileu', 'Second cell does not contain correct value');
+            expect(secondRowCells[1].querySelector('a').getAttribute('href')).equal(
+                `/remove-pending-subscription?court=${mockCourt3.locationId}`
+            );
+
+            const thirdRowCells = rows[2].getElementsByClassName('govuk-table__cell');
+            expect(thirdRowCells[0].innerHTML).contains(
+                mockCourt2.welshName,
+                'First cell does not contain correct value'
+            );
+            expect(thirdRowCells[1].innerHTML).contains('Dileu', 'Second cell does not contain correct value');
+            expect(thirdRowCells[1].querySelector('a').getAttribute('href')).equal(
+                `/remove-pending-subscription?court=${mockCourt2.locationId}`
+            );
+        });
+
+        it('should display correct list type table headers', () => {
+            const tableHeaders = htmlRes
+                .getElementsByClassName('govuk-table')[1]
+                .getElementsByClassName('govuk-table__header');
+            expect(tableHeaders[0].innerHTML).contains('Math o restr', 'Could not find text in first header');
+            expect(tableHeaders[1].innerHTML).contains('Camau gweithredu', 'Could not find text in second header');
+        });
+
+        it('should display correct list language table headers', () => {
+            const tableHeaders = htmlRes
+                .getElementsByClassName('govuk-table')[2]
+                .getElementsByClassName('govuk-table__header');
+            expect(tableHeaders[0].innerHTML).contains('Fersiwn', 'Could not find text in first header');
+            expect(tableHeaders[1].innerHTML).contains('Camau gweithredu', 'Could not find text in second header');
+        });
+
+        it('should contain 1 row in the list type table with correct values', () => {
+            const rows = htmlRes
+                .getElementsByClassName('govuk-table__body')[1]
+                .getElementsByClassName('govuk-table__row');
+            const cells = rows[0].getElementsByClassName('govuk-table__cell');
+            expect(rows.length).equal(1, 'List Type table did not contain expected number of rows');
+            expect(cells[0].innerHTML).contains(mockWelshListTypeText, 'First cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Dileu', 'Second cell does not contain correct value');
+            expect(cells[1].querySelector('a').getAttribute('href')).equal(
+                `/remove-pending-subscription?list-type=${mockListTypeValue}`
+            );
+        });
+
+        it('should contain 1 row in the list language table with correct values', () => {
+            const rows = htmlRes
+                .getElementsByClassName('govuk-table__body')[2]
+                .getElementsByClassName('govuk-table__row');
+            const cells = rows[0].getElementsByClassName('govuk-table__cell');
+            expect(rows.length).equal(1, 'List Language table did not contain expected number of rows');
+            expect(cells[0].innerHTML).contains('Saesneg', 'First cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Newid', 'Second cell does not contain correct value');
+            expect(cells[1].querySelector('a').getAttribute('href')).equal(`/subscription-add-list-language`);
         });
     });
 
