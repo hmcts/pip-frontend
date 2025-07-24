@@ -306,7 +306,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^3.6.3":
+"@azure/msal-node@npm:^3.6.4":
   version: 3.6.4
   resolution: "@azure/msal-node@npm:3.6.4"
   dependencies:
@@ -5071,10 +5071,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.17.18":
-  version: 4.17.18
-  resolution: "@types/lodash@npm:4.17.18"
-  checksum: 10/54ebb15b29925112dbe9da3abd99fb80d7202bc5ba20fc1b4fc8ea835d0012f00cbd9a3e7f367b70e7c3f2d5ee635964e3920a489625647b558f02994b3dd381
+"@types/lodash@npm:^4.17.20":
+  version: 4.17.20
+  resolution: "@types/lodash@npm:4.17.20"
+  checksum: 10/8cd8ad3bd78d2e06a93ae8d6c9907981d5673655fec7cb274a4d9a59549aab5bb5b3017361280773b8990ddfccf363e14d1b37c97af8a9fe363de677f9a61524
   languageName: node
   linkType: hard
 
@@ -15017,7 +15017,7 @@ __metadata:
   resolution: "publishing-information-project@workspace:."
   dependencies:
     "@axe-core/playwright": "npm:^4.10.2"
-    "@azure/msal-node": "npm:^3.6.3"
+    "@azure/msal-node": "npm:^3.6.4"
     "@babel/core": "npm:^7.28.0"
     "@babel/eslint-parser": "npm:7.28.0"
     "@babel/preset-env": "npm:7.28.0"
@@ -15041,7 +15041,7 @@ __metadata:
     "@types/es6-promisify": "npm:^6.0.4"
     "@types/express": "npm:^4.17.23"
     "@types/jest": "npm:^30.0.0"
-    "@types/lodash": "npm:^4.17.18"
+    "@types/lodash": "npm:^4.17.20"
     "@types/node": "npm:^22.15.32"
     "@types/nunjucks": "npm:^3.2.6"
     "@types/require-directory": "npm:^2.1.6"
