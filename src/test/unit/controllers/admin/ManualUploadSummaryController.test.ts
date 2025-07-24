@@ -22,6 +22,7 @@ sinon.stub(ManualUploadService.prototype, 'formatPublicationDates').returns(mock
 const readFileStub = sinon.stub(FileHandlingService.prototype, 'readFileFromRedis');
 readFileStub.withArgs('1234', 'fileName').resolves('');
 readFileStub.withArgs('12345', 'fileName').throws(new Error());
+readFileStub.withArgs('4567', 'fileName').resolves('');
 
 const removeFileStub = sinon.stub(FileHandlingService.prototype, 'removeFileFromRedis').resolves('');
 removeFileStub.resolves('');
@@ -171,11 +172,11 @@ describe('Manual upload summary controller', () => {
                     return '';
                 },
             } as unknown as Response;
-            req.user = { userId: '1234', email: '2' };
+            req.user = { userId: '1234' };
             req['cookies'] = { formCookie: JSON.stringify(mockData) };
             const responseMock = sinon.mock(res);
 
-            uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves('1234');
+            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves('1234');
 
             responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=false');
 
@@ -216,7 +217,7 @@ describe('Manual upload summary controller', () => {
         request['cookies'] = { formCookie: JSON.stringify(mockData) };
         it('should render manual upload summary page with error', async () => {
             request.query = { 'non-strategic': 'true' };
-            request.user = { email: '1', userId: '1234' };
+            request.user = { email: '1', userId: '4567' };
             const nonStrategicUpload = true;
             const options = {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
@@ -230,12 +231,13 @@ describe('Manual upload summary controller', () => {
 
             await manualUploadSummaryController.post(request, response);
             responseMock.verify();
-            sinon.assert.calledWith(readFileStub, '1234', 'fileName');
-            sinon.assert.calledWith(removeFileStub, '1234', 'fileName');
+            sinon.assert.calledWith(readFileStub, '4567', 'fileName');
+            sinon.assert.calledWith(removeFileStub, '4567', 'fileName');
         });
 
         it('should render manual upload summary page with query params', async () => {
             request.query = { check: 'true', 'non-strategic': 'true' };
+            request.user = { userId: '1234' };
             const nonStrategicUpload = true;
             const options = {
                 ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
@@ -254,6 +256,7 @@ describe('Manual upload summary controller', () => {
         it('should redirect to success page', async () => {
             const req = mockRequest(i18n);
             req.query = { 'non-strategic': 'true' };
+            req.user = { userId: '1234' };
             const res = {
                 render: () => {
                     return '';
@@ -263,11 +266,10 @@ describe('Manual upload summary controller', () => {
                     return '';
                 },
             } as unknown as Response;
-            req.user = { userId: '1234', email: '2' };
             req['cookies'] = { formCookie: JSON.stringify(mockData) };
             const responseMock = sinon.mock(res);
 
-            uploadStub.withArgs({ ...mockData, file: '', userEmail: '2' }, true).resolves('1234');
+            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves('1234');
 
             responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=true');
 
@@ -284,7 +286,7 @@ describe('Manual upload summary controller', () => {
             } as unknown as Response;
 
             req.query = { 'non-strategic': 'true' };
-            req.user = { userId: '12345', email: '2' };
+            req.user = { userId: '12345' };
             req['cookies'] = { formCookie: JSON.stringify(mockData) };
 
             const options = {
