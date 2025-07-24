@@ -251,8 +251,9 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }))
-                .toBe('Failed to upload locations.');
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBe(
+                'Failed to upload locations.'
+            );
         });
 
         it('should return false for non UI error message', async () => {
