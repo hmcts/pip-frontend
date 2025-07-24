@@ -16,7 +16,7 @@
       titleText: error.title,
       errorList: [
         {
-          text: error.message,
+          text: errorMessage if errorMessage else error.message,
           href: "#"
         }
       ]
