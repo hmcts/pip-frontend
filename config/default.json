@@ -24,7 +24,7 @@
             "TENANT_ID": "",
             "DATA_MANAGEMENT_AZ_API": "",
             "ACCOUNT_MANAGEMENT_AZ_API": "",
-            "INSTRUMENTATION_KEY": "",
+            "APP_INSIGHTS_CONNECTION_STRING": "",
             "SSO_SG_ADMIN_CTSC": "1234",
             "SSO_SG_ADMIN_LOCAL": "12345",
             "SSO_SG_SYSTEM_ADMIN": "12345678"

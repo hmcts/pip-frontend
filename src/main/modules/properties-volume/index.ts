@@ -9,8 +9,8 @@ export class PropertiesVolume {
             propertiesVolume.addTo(config);
 
             this.setSecret(
-                'secrets.Publishing-information-project.AppInsightsInstrumentationKey',
-                'appInsights.instrumentationKey'
+                'secrets.pip-ss-kv.APP_INSIGHTS_CONNECTION_STRING',
+                'appInsights.app-insights-connection-string'
             );
         }
     }

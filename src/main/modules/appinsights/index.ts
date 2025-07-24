@@ -4,15 +4,15 @@ import { setup, defaultClient } from 'applicationinsights';
 
 export class AppInsights {
     enable(): void {
-        let appInsightsKey;
-        if (process.env.INSTRUMENTATION_KEY) {
-            appInsightsKey = process.env.INSTRUMENTATION_KEY;
-        } else if (config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY')) {
-            appInsightsKey = config.get('secrets.pip-ss-kv.INSTRUMENTATION_KEY');
+        let appInsightsConnectionString;
+        if (process.env.APP_INSIGHTS_CONNECTION_STRING) {
+            appInsightsConnectionString = process.env.APP_INSIGHTS_CONNECTION_STRING;
+        } else if (config.get('secrets.pip-ss-kv.APP_INSIGHTS_CONNECTION_STRING')) {
+            appInsightsConnectionString = config.get('secrets.pip-ss-kv.APP_INSIGHTS_CONNECTION_STRING');
         }
 
-        if (appInsightsKey) {
-            setup(appInsightsKey).setSendLiveMetrics(true).start();
+        if (appInsightsConnectionString) {
+            setup(appInsightsConnectionString).setSendLiveMetrics(true).start();
 
             defaultClient.context.tags[defaultClient.context.keys.cloudRole] = 'pip-frontend';
             defaultClient.trackTrace({
