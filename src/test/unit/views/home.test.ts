@@ -95,7 +95,7 @@ describe('Home page', () => {
         it('should display bullets', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
-                'Hearings in most Civil and Family Courts in the Southeast region',
+                'Hearings in most Civil and Family Courts in the South East and South West regions',
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
@@ -249,7 +249,7 @@ describe('Home page', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
 
             expect(bullets[0].innerHTML).contains(
-                'Gwrandawiadau ym mwyafrif y Llysoedd Sifil a Theulu yn Ne-ddwyrain Lloegr',
+                'Gwrandawiadau yn y rhan fwyaf o Lysoedd Sifil a Theulu yn rhanbarthau De Ddwyrain a De Orllewin Lloegr',
                 'Could not find first bullet'
             );
 

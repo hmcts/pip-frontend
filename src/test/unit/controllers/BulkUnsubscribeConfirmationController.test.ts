@@ -59,7 +59,7 @@ describe('Bulk Unsubscribe Confirmation Controller', () => {
             .resolves({ ...caseSubscriptions, ...locationSubscriptions });
 
         stub.withArgs(['aaa', 'bbb']).resolves(true);
-        stub.withArgs(['foo']).resolves(undefined);
+        stub.withArgs(['foo']).resolves(false);
 
         it("should render the bulk unsubscribe confirmed page if 'Yes' is selected", () => {
             const responseMock = sinon.mock(response);

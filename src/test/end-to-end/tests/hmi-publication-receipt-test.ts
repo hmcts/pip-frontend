@@ -15,5 +15,5 @@ Scenario('I should be able to confirm HMI publication is received successfully f
     I.pressKey('Escape');
     I.click('Continue');
     I.waitForText('What do you want to view from ' + locationName);
-    I.see('Care Standards Tribunal Hearing List ' + expectedDate);
+    I.see('Civil Daily Cause List ' + expectedDate);
 }).tag('@Nightly');

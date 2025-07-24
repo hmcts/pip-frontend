@@ -199,26 +199,6 @@
         "defaultSensitivity": "",
         "isNonStrategic": false
     },
-    "PRIMARY_HEALTH_LIST": {
-        "friendlyName": "Primary Health Tribunal Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Iechyd Sylfaenol",
-        "shortenedFriendlyName": "Primary Health Tribunal Hearing List",
-        "url": "primary-health-list",
-        "jurisdictionTypes": ["Primary Health Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
-    "CARE_STANDARDS_LIST": {
-        "friendlyName": "Care Standards Tribunal Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Safonau Gofal",
-        "shortenedFriendlyName": "Care Standards Tribunal Hearing List",
-        "url": "care-standards-list",
-        "jurisdictionTypes": ["Care Standards Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
     "CIC_DAILY_HEARING_LIST": {
         "friendlyName": "Criminal Injuries Compensation Daily Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Dyddiol y Digolledu am Anafiadau Troseddol",
@@ -895,6 +875,37 @@
         "shortenedFriendlyName": "Leeds Administrative Court Daily Cause List",
         "url": "leeds-administrative-court-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "CIC_WEEKLY_HEARING_LIST": {
+        "friendlyName": "Criminal Injuries Compensation Weekly Hearing List",
+        "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Digolledu am Anafiadau Troseddol",
+        "shortenedFriendlyName": "CIC Weekly Hearing List",
+        "url": "cic-weekly-hearing-list",
+        "jurisdictionTypes": ["Criminal Injuries Compensation Tribunal"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true,
+        "isWeeklyList": true
+    },
+    "PCOL_DAILY_CAUSE_LIST": {
+        "friendlyName": "Possession Claim Online Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Hawliadau Meddiant Ar-lein",
+        "shortenedFriendlyName": "PCOL Daily Cause List",
+        "url": "",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
+    "SEND_DAILY_HEARING_LIST": {
+        "friendlyName": "First-tier Tribunal (Special Educational Needs and Disability) Daily Hearing List",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol y Tribiwnlys Haen Gyntaf (Anghenion Addysgol Arbennig ac Anabledd)",
+        "shortenedFriendlyName": "SEND Daily Hearing List",
+        "url": "send-daily-hearing-list",
+        "jurisdictionTypes": ["First-tier Tribunal (Special Educational Needs and Disability)"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
