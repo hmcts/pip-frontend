@@ -133,7 +133,7 @@ describe('Reference manual manual upload summary controller', () => {
             };
 
             request['cookies'] = { formCookie: JSON.stringify(mockData2) };
-            uploadStub.withArgs({ ...mockData2, file: '' }).resolves('Failed to upload locations.');
+            uploadStub.withArgs({ ...mockData2, file: '' }).resolves("Failed to upload locations.");
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('system-admin/reference-data-upload-summary', options);

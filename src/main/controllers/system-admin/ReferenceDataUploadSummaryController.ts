@@ -50,7 +50,7 @@ export default class ReferenceDataUploadSummaryController {
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
             if (response) {
-                if (typeof response === 'string') {
+                if (typeof response === "string") {
                     res.render('system-admin/reference-data-upload-summary', {
                         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
                         fileUploadData: formData,
