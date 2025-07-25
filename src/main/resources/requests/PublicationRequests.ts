@@ -39,12 +39,14 @@ export class PublicationRequests {
         userId: string
     ): Promise<Artefact[]> {
         try {
-            const axiosConfig = userId ? {
-                params: { searchTerm: searchQuery, searchValue: searchValue },
-                headers: { 'x-user-id': userId },
-            } : {
-                params: { searchTerm: searchQuery, searchValue: searchValue },
-            };
+            const axiosConfig = userId
+                ? {
+                      params: { searchTerm: searchQuery, searchValue: searchValue },
+                      headers: { 'x-user-id': userId },
+                  }
+                : {
+                      params: { searchTerm: searchQuery, searchValue: searchValue },
+                  };
             const response = await dataManagementApi.get('/publication/search', axiosConfig);
             return response.data;
         } catch (error) {
