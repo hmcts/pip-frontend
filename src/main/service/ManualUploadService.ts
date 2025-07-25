@@ -223,7 +223,7 @@ export class ManualUploadService {
         }
     }
 
-    public async uploadLocationDataPublication(data: any): Promise<any> {
+    public async uploadLocationDataPublication(data: any): Promise<boolean> {
         return await dataManagementRequests.uploadLocationFile(data);
     }
 

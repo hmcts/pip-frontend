@@ -38,7 +38,7 @@ export class DataManagementRequests {
         return null;
     }
 
-    public async uploadLocationFile(body: any): Promise<any> {
+    public async uploadLocationFile(body: any): Promise<boolean> {
         const token = await getDataManagementCredentials('');
 
         try {
@@ -50,11 +50,7 @@ export class DataManagementRequests {
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, 'upload location reference data');
-            if (error.response?.status === 400 && error.response?.text) {
-                const errorJson = JSON.parse(error.response.text);
-                return errorJson.uiError ? errorJson.message : false;
-            }
-            return false;
         }
+        return false;
     }
 }

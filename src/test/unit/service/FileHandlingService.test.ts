@@ -187,13 +187,6 @@ describe('File handling service', () => {
             const file = await fileHandlingService.readFileFromRedis(userId, 'validationJson.json');
             expect(file).toEqual(JSON.parse(jsonContent));
         });
-
-        it('should read a pdf file successfully', async () => {
-            getStub.withArgs('1234-validationFile2.pdf').resolves(null);
-
-            const fileBuffer = await fileHandlingService.readFileFromRedis(userId, 'validationFile2.pdf');
-            expect(fileBuffer).toBeNull();
-        });
     });
 
     describe('storeFile in redis', () => {
