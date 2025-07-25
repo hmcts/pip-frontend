@@ -89,8 +89,7 @@ const countPerLocation = [
 ];
 
 const publicationService = new PublicationService();
-const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');
-publicationRequestStub.resolves(returnedArtefact);
+sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').resolves(returnedArtefact);
 
 const publicationRequests = PublicationRequests.prototype;
 

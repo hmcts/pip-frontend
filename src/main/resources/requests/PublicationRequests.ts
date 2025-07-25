@@ -39,12 +39,15 @@ export class PublicationRequests {
         userId: string
     ): Promise<Artefact[]> {
         try {
-            let header;
-            if (userId) {
-                header = { headers: { 'x-user-id': userId } };
-            }
-
-            const response = await dataManagementApi.get(`/publication/search/${searchQuery}/${searchValue}`, header);
+            const axiosConfig = userId
+                ? {
+                      params: { searchTerm: searchQuery, searchValue: searchValue },
+                      headers: { 'x-user-id': userId },
+                  }
+                : {
+                      params: { searchTerm: searchQuery, searchValue: searchValue },
+                  };
+            const response = await dataManagementApi.get('/publication/search', axiosConfig);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve publications by case value');
