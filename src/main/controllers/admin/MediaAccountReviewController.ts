@@ -11,7 +11,11 @@ const mediaAccountApplicationService = new MediaAccountApplicationService();
 export default class MediaAccountReviewController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.query['applicantId'];
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+            applicantId,
+            'PENDING',
+            req.user['userId']
+        );
         if (applicantData) {
             return res.render('admin/media-account-review', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-review']),
@@ -24,8 +28,8 @@ export default class MediaAccountReviewController {
     public async getImage(req: PipRequest, res: Response): Promise<void> {
         const imageId = req.query['imageId'];
         const applicantId = req.query['applicantId'];
-        const image = await mediaAccountApplicationService.getImageById(imageId);
-        const applicant = await mediaAccountApplicationService.getApplicationById(applicantId);
+        const image = await mediaAccountApplicationService.getImageById(imageId, req.user['userId']);
+        const applicant = await mediaAccountApplicationService.getApplicationById(applicantId, req.user['userId']);
 
         if (image && applicant) {
             const imageName = applicant.imageName;
