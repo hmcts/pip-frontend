@@ -711,7 +711,8 @@ describe('Account Management Requests', () => {
             putStub
                 .withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`, null, {
                     headers: {
-                        'x-requester-id': adminIdToUse, 'x-admin-id': adminIdToUse
+                        'x-requester-id': adminIdToUse,
+                        'x-admin-id': adminIdToUse,
                     },
                 })
                 .resolves({

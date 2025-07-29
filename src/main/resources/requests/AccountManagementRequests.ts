@@ -18,7 +18,7 @@ export class AccountManagementRequests {
     public async createAzureAccount(payload, requester): Promise<object | null> {
         try {
             const response = await accountManagementApi.post('/account/add/azure', payload, {
-                headers: { 'x-requester-id': requester , 'x-issuer-id': requester },
+                headers: { 'x-requester-id': requester, 'x-issuer-id': requester },
             });
             logger.info('Azure account created');
             return response.data;
@@ -72,7 +72,7 @@ export class AccountManagementRequests {
                 .post(`${accountManagementApiUrl}/account/media-bulk-upload`)
                 .set('enctype', 'multipart/form-data')
                 .set({ Authorization: 'Bearer ' + token.access_token })
-                .set({ 'x-requester-id': requester,  'x-issuer-id': requester})
+                .set({ 'x-requester-id': requester, 'x-issuer-id': requester })
                 .attach('mediaList', file, filename);
             return true;
         } catch (error) {
