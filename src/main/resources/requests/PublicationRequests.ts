@@ -6,11 +6,11 @@ import { LogHelper } from '../logging/logHelper';
 const logHelper = new LogHelper();
 
 export class PublicationRequests {
-    public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<any> {
+    public async getIndividualPublicationMetadata(artefactId, requesterId, admin): Promise<any> {
         try {
             let header;
-            if (userId) {
-                header = { headers: { 'x-user-id': userId, 'x-admin': admin } };
+            if (requesterId) {
+                header = { headers: { 'x-requester-id': requesterId, 'x-user-id': requesterId, 'x-admin': admin } };
             } else {
                 header = { headers: { 'x-admin': admin } };
             }
@@ -23,9 +23,10 @@ export class PublicationRequests {
         }
     }
 
-    public async getPubsPerLocation(): Promise<any> {
+    public async getPubsPerLocation(requesterId: string): Promise<any> {
         try {
-            const response = await dataManagementApi.get('/publication/count-by-location');
+            const header = { headers: { 'x-requester-id': requesterId, 'x-user-id': requesterId } };
+            const response = await dataManagementApi.get('/publication/count-by-location', header);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve publication count for all locations');
@@ -56,7 +57,7 @@ export class PublicationRequests {
         try {
             let header;
             if (userId) {
-                header = { headers: { 'x-user-id': userId } };
+                header = { headers: { 'x-requester-id': userId, 'x-user-id': userId } };
             }
 
             const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', header);
@@ -90,7 +91,7 @@ export class PublicationRequests {
         try {
             let header;
             if (userId) {
-                header = { headers: { 'x-user-id': userId, 'x-admin': admin } };
+                header = { headers: { 'x-requester-id': userId, 'x-user-id': userId, 'x-admin': admin } };
             } else {
                 header = { headers: { 'x-admin': admin } };
             }
@@ -105,7 +106,11 @@ export class PublicationRequests {
 
     public async archivePublication(artefactId: string, id: string): Promise<boolean> {
         try {
-            await dataManagementApi.put(`/publication/${artefactId}/archive`, {}, { headers: { 'x-issuer-id': id } });
+            await dataManagementApi.put(
+                `/publication/${artefactId}/archive`,
+                {},
+                { headers: { 'x-requester-id': id, 'x-user-id': id } }
+            );
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `archive publication with ID ${artefactId}`);
@@ -115,7 +120,7 @@ export class PublicationRequests {
 
     public async deleteLocationPublication(locationId: number, userId: string): Promise<object> {
         try {
-            const header = { headers: { 'x-user-id': userId } };
+            const header = { headers: { 'x-requester-id': userId, 'x-user-id': userId } };
             const response = await dataManagementApi.delete(`/publication/${locationId}/deleteArtefacts`, header);
             return response.data;
         } catch (error) {
@@ -124,9 +129,10 @@ export class PublicationRequests {
         return null;
     }
 
-    public async getNoMatchPublications(): Promise<Artefact[]> {
+    public async getNoMatchPublications(userId: string): Promise<Artefact[]> {
         try {
-            const response = await dataManagementApi.get(`/publication/no-match`);
+            const header = { headers: { 'x-requester-id': userId, 'x-user-id': userId } };
+            const response = await dataManagementApi.get(`/publication/no-match`, header);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve no-match publications');
