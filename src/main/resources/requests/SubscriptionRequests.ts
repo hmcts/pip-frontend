@@ -20,7 +20,7 @@ export class SubscriptionRequests {
     public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
         try {
             const response = await accountManagementApi.delete(`/subscription/${subscriptionId}`, {
-                headers: { 'x-requester-id': userId },
+                headers: { 'x-requester-id': userId, 'x-user-id': userId },
             });
             return response.data;
         } catch (error) {
@@ -32,7 +32,7 @@ export class SubscriptionRequests {
     public async subscribe(payload, userId: string): Promise<boolean> {
         try {
             await accountManagementApi.post('/subscription', payload, {
-                headers: { 'x-requester-id': userId },
+                headers: { 'x-requester-id': userId, 'x-user-id': userId },
             });
             return true;
         } catch (error) {
@@ -44,7 +44,7 @@ export class SubscriptionRequests {
     public async bulkDeleteSubscriptions(subscriptionIds: string[], userId: string): Promise<object> {
         try {
             const response = await accountManagementApi.delete('/subscription/bulk', {
-                headers: { 'x-requester-id': userId },
+                headers: { 'x-requester-id': userId, 'x-user-id': userId },
                 data: subscriptionIds,
             });
             return response.data;
@@ -92,7 +92,7 @@ export class SubscriptionRequests {
 
     public async deleteLocationSubscription(locationId: number, userId: string): Promise<object> {
         try {
-            const header = { headers: { 'x-requester-id': userId } };
+            const header = { headers: { 'x-requester-id': userId, 'x-user-id': userId } };
             const response = await accountManagementApi.delete(`/subscription/location/${locationId}`, header);
             return response.data;
         } catch (error) {
