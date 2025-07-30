@@ -153,7 +153,7 @@ describe('Media Account Approval Page', () => {
 
     it('should display continue button', () => {
         const button = htmlRes.getElementsByTagName(buttonTag);
-        expect(button[1].innerHTML).contains(continueButtonText, 'Could not find the continue button text');
+        expect(button[0].innerHTML).contains(continueButtonText, 'Could not find the continue button text');
     });
 });
 

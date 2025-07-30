@@ -147,7 +147,7 @@ describe('Manual upload page', () => {
         });
 
         it('should display continue button', () => {
-            const button = htmlRes.getElementsByTagName('button')[1];
+            const button = htmlRes.getElementsByTagName('button')[0];
             expect(button.innerHTML).contains(buttonText, 'Could not find continue button');
         });
 
