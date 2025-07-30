@@ -275,7 +275,7 @@ export const createTestUserAccount = async (
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/account`)
             .send(verifiedUserAzureAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('Content-Type', 'application/json')
+            .set('Content-Type', 'application/json');
         return azureResponse.body;
     } catch (e) {
         if (e.response?.badRequest) {
