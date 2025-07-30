@@ -354,9 +354,6 @@ export default function (app: Application): void {
             'london-administrative-court-daily-cause-list'
         )
     );
-    app.get('/planning-court-daily-cause-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'planning-court-daily-cause-list')
-    );
     app.get('/county-court-london-civil-daily-cause-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
@@ -538,6 +535,10 @@ export default function (app: Application): void {
             res,
             'court-of-appeal-civil-daily-cause-list'
         )
+    );
+
+    app.get('/send-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'send-daily-hearing-list')
     );
 
     app.get('/birmingham-administrative-court-daily-cause-list', (req, res) =>
