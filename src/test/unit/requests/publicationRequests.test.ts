@@ -118,24 +118,19 @@ describe('getIndividualPubMetadata()', () => {
 });
 
 describe('Get by case value', () => {
-    dataManagementStub.withArgs('/publication/search/valid/valid').resolves(successResponse);
-    dataManagementStub.withArgs('/publication/search/valid/invalid').rejects(errorResponse);
-    dataManagementStub.withArgs('/publication/search/invalid/invalid').rejects(errorMessage);
-
     it('should return data on successful get', async () => {
+        dataManagementStub.withArgs('/publication/search').resolves(successResponse);
         expect(await pubRequests.getPublicationByCaseValue(valid, valid, userId)).toBe(successResponse.data);
     });
 
     it('should handle error response from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/search').rejects(errorResponse);
         expect(await pubRequests.getPublicationByCaseValue(valid, invalid, userId)).toStrictEqual([]);
     });
 
     it('should handle error request from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/search').rejects(errorMessage);
         expect(await pubRequests.getPublicationByCaseValue(invalid, valid, userId)).toStrictEqual([]);
-    });
-
-    it('should handle error request from returned service returning empty array', async () => {
-        expect(await pubRequests.getPublicationByCaseValue(invalid, invalid, userId)).toStrictEqual([]);
     });
 });
 
