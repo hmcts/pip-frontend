@@ -43,7 +43,7 @@ export class PublicationRequests {
             const axiosConfig = userId
                 ? {
                       params: { searchTerm: searchQuery, searchValue: searchValue },
-                      headers: { 'x-user-id': userId },
+                      headers: { 'x-requester-id': userId, 'x-user-id': userId },
                   }
                 : {
                       params: { searchTerm: searchQuery, searchValue: searchValue },
