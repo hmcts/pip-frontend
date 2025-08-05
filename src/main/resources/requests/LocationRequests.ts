@@ -18,12 +18,17 @@ export class LocationRequests {
         return null;
     }
 
-    public async getLocationByName(courtName: string, language: string): Promise<Location> {
+    public async getLocationByName(locationName: string, language: string): Promise<Location> {
         try {
-            const response = await dataManagementApi.get(`/locations/name/${courtName}/language/${language}`);
+            const response = await dataManagementApi.get('/locations/name', {
+                params: {
+                    locationName: locationName,
+                    language: language,
+                },
+            });
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, `retrieve location with name ${courtName}`);
+            logHelper.logErrorResponse(error, `retrieve location with name ${locationName}`);
         }
         return null;
     }

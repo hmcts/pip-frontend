@@ -43,8 +43,8 @@ export class LocationService {
         return await locationRequest.getLocation(locationId);
     }
 
-    public async getLocationByName(courtName: string, language: string): Promise<Location> {
-        return await locationRequest.getLocationByName(courtName, language);
+    public async getLocationByName(locationName: string, language: string): Promise<Location> {
+        return await locationRequest.getLocationByName(locationName, language);
     }
 
     public async generateAlphabetisedAllCourtList(language: string): Promise<object> {
