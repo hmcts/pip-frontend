@@ -7,8 +7,7 @@ export default class CancelledPasswordResetController {
         const betaText = JSON.parse(JSON.stringify(req.i18n.getDataByLanguage(req.lng).template)).betaHeadingAdmin;
         res.render('cancelled-password-reset', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['cancelled-password-reset']),
-            betaText: betaText,
-            isAdmin: req.params['isAdmin'] === 'true',
+            betaText: betaText
         });
     }
 }

@@ -30,7 +30,6 @@ describe('Password Change Confirmation controller', () => {
         const expectedData = {
             ...i18n['password-change-confirmation'],
             betaText: betaText,
-            isAdmin: true,
         };
 
         responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
@@ -50,7 +49,6 @@ describe('Password Change Confirmation controller', () => {
         const expectedData = {
             ...i18n['password-change-confirmation'],
             betaText: betaText,
-            isAdmin: false,
         };
 
         responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);

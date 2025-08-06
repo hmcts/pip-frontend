@@ -7,8 +7,7 @@ export default class PasswordChangeController {
         const betaText = JSON.parse(JSON.stringify(req.i18n.getDataByLanguage(req.lng).template)).betaHeadingAdmin;
         res.render('password-change-confirmation', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['password-change-confirmation']),
-            betaText: betaText,
-            isAdmin: req.params['isAdmin'] === 'true',
+            betaText: betaText
         });
     }
 }

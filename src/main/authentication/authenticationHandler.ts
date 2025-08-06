@@ -107,26 +107,9 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
     }
 }
 
-export async function processAdminAccountSignIn(req, res): Promise<any> {
-    if (checkRoles(req, allAdminRoles)) {
-        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
-        if (checkRoles(req, systemAdminRoles)) {
-            res.redirect('/system-admin-dashboard');
-        } else {
-            res.redirect('/admin-dashboard');
-        }
-    } else {
-        sessionManagement.logOut(req, res, true);
-    }
-}
-
 export async function processMediaAccountSignIn(req, res): Promise<any> {
-    if (checkRoles(req, allAdminRoles)) {
-        sessionManagement.logOut(req, res, true);
-    } else {
-        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
-        res.redirect('/account-home');
-    }
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
+    res.redirect('/account-home');
 }
 
 export async function processCftIdamSignIn(req, res): Promise<any> {
@@ -167,8 +150,6 @@ export function regenerateSession(req, res, next): void {
             req.session.regenerate(() => {
                 if (req.user['userProvenance'] == 'PI_AAD') {
                     const logoutUrl = sessionManagement.aadLogOutUrl(
-                        checkRoles(req, allAdminRoles),
-                        false,
                         false,
                         req.lng
                     );

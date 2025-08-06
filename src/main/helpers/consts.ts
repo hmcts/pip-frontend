@@ -57,7 +57,6 @@ export const formattedProvenances = {
 export const reSignInUrls = {
     CFT: '/cft-login',
     AAD: `/login?p=${authenticationConfig.POLICY}`,
-    ADMIN: `/admin-login?p=${authenticationConfig.ADMIN_POLICY}`,
     SSO: '/sso-login',
 };
 
