@@ -160,6 +160,28 @@ describe('Location Request', () => {
             expect(await courtRequests.getLocationByName(courtNameSearch, englishLanguage)).toBe(null);
         });
 
+        courtDeleteStub
+            .withArgs('/locations/1', {
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+            })
+            .resolves({ data: { exists: true, errorMessage: 'test' } });
+        courtDeleteStub
+            .withArgs('/locations/2', {
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+            })
+            .rejects(errorResponse);
+
+        courtDeleteStub
+            .withArgs('/locations/4', {
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+            })
+            .rejects(errorMessage);
+
+        courtDeleteStub
+            .withArgs('/locations/5', {
+                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+            })
+            .resolves({ data: { exists: false, errorMessage: '' } });
         it('should return Welsh court by name', async () => {
             stub.withArgs('/locations/name').resolves({ data: courtList[0] });
             expect(await courtRequests.getLocationByName(courtWelshNameSearch, welshLanguage)).toBe(courtList[0]);

@@ -7,7 +7,9 @@ const logHelper = new LogHelper();
 export class SubscriptionRequests {
     public async getUserSubscriptions(userId: string): Promise<UserSubscriptions> {
         try {
-            const response = await accountManagementApi.get(`/subscription/user/${userId}`);
+            const response = await accountManagementApi.get(`/subscription/user/${userId}`, {
+                headers: { 'x-requester-id': userId },
+            });
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, `retrieve subscriptions for user with ID ${userId}`);
@@ -18,7 +20,7 @@ export class SubscriptionRequests {
     public async unsubscribe(subscriptionId: string, userId: string): Promise<object> {
         try {
             const response = await accountManagementApi.delete(`/subscription/${subscriptionId}`, {
-                headers: { 'x-user-id': userId },
+                headers: { 'x-requester-id': userId, 'x-user-id': userId },
             });
             return response.data;
         } catch (error) {
@@ -30,7 +32,7 @@ export class SubscriptionRequests {
     public async subscribe(payload, userId: string): Promise<boolean> {
         try {
             await accountManagementApi.post('/subscription', payload, {
-                headers: { 'x-user-id': userId },
+                headers: { 'x-requester-id': userId, 'x-user-id': userId },
             });
             return true;
         } catch (error) {
@@ -42,7 +44,7 @@ export class SubscriptionRequests {
     public async bulkDeleteSubscriptions(subscriptionIds: string[], userId: string): Promise<object> {
         try {
             const response = await accountManagementApi.delete('/subscription/bulk', {
-                headers: { 'x-user-id': userId },
+                headers: { 'x-requester-id': userId, 'x-user-id': userId },
                 data: subscriptionIds,
             });
             return response.data;
@@ -54,7 +56,9 @@ export class SubscriptionRequests {
 
     public async addListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
-            await accountManagementApi.post(`/subscription/add-list-types/${userId}`, payload);
+            await accountManagementApi.post(`/subscription/add-list-types/${userId}`, payload, {
+                headers: { 'x-requester-id': userId },
+            });
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `add subscription's list type for user with ID ${userId}`);
@@ -64,7 +68,9 @@ export class SubscriptionRequests {
 
     public async configureListTypeForLocationSubscriptions(userId, payload): Promise<boolean> {
         try {
-            await accountManagementApi.put(`/subscription/configure-list-types/${userId}`, payload);
+            await accountManagementApi.put(`/subscription/configure-list-types/${userId}`, payload, {
+                headers: { 'x-requester-id': userId },
+            });
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, `configure subscription's list type for user with ID ${userId}`);
@@ -72,9 +78,11 @@ export class SubscriptionRequests {
         return false;
     }
 
-    public async retrieveSubscriptionChannels(): Promise<string[]> {
+    public async retrieveSubscriptionChannels(userId, adminUserId): Promise<string[]> {
         try {
-            const channelResponse = await accountManagementApi.get('/subscription/channel');
+            const channelResponse = await accountManagementApi.get('/subscription/channel?userId=' + userId, {
+                headers: { 'x-requester-id': adminUserId },
+            });
             return channelResponse.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve the list of subscription channels');
@@ -84,7 +92,7 @@ export class SubscriptionRequests {
 
     public async deleteLocationSubscription(locationId: number, userId: string): Promise<object> {
         try {
-            const header = { headers: { 'x-user-id': userId } };
+            const header = { headers: { 'x-requester-id': userId, 'x-user-id': userId } };
             const response = await accountManagementApi.delete(`/subscription/location/${locationId}`, header);
             return response.data;
         } catch (error) {

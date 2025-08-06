@@ -43,7 +43,7 @@ export default class ManualUploadSummaryController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const userEmail = req.user['email'];
+        const userId = req.user['userId'];
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
 
         formData.listTypeName = manualUploadService.getListItemName(formData.listType);
@@ -56,7 +56,7 @@ export default class ManualUploadSummaryController {
         const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
 
         try {
-            formData.file = await fileHandlingService.readFileFromRedis(req.user['userId'], formData.fileName);
+            formData.file = await fileHandlingService.readFileFromRedis(userId, formData.fileName);
         } catch {
             return ManualUploadSummaryController.renderConfirmationError(
                 req,
@@ -79,12 +79,12 @@ export default class ManualUploadSummaryController {
             });
         } else {
             const artefactId = await manualUploadService.uploadPublication(
-                { ...formData, userEmail: userEmail },
+                { ...formData, userId: userId },
                 true,
                 nonStrategicUpload
             );
 
-            fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
+            fileHandlingService.removeFileFromRedis(userId, formData.fileName);
 
             if (artefactId) {
                 await userManagementService.auditAction(

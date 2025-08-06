@@ -37,6 +37,7 @@ const errorResponseWithNotBadRequest = {
 const mockUploadFileBody = { file: '', fileName: '' };
 const mockUploadFileHeaders = { foo: 'bar' };
 const fileUploadAPI = new DataManagementRequests();
+const requesterId = '123-456';
 
 describe('Data Management requests', () => {
     describe('upload publication', () => {
@@ -205,8 +206,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-
-            expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody)).toBeTruthy();
+            expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody, requesterId)).toBe(true);
         });
 
         it('should return error response', async () => {
@@ -221,7 +221,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'foo' })).toBeFalsy();
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'foo' }, requesterId)).toBe(false);
         });
 
         it('should return error message', async () => {
@@ -236,7 +236,8 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBeFalsy();
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBe(false);
+
         });
 
         it('should return UI error message', async () => {
@@ -251,7 +252,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBe(
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBe(
                 'Failed to upload locations.'
             );
         });
@@ -268,7 +269,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBeFalsy();
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
         });
 
         it('should return false when not Bad Request status', async () => {
@@ -283,7 +284,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBeFalsy();
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
         });
     });
 });
