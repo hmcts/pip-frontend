@@ -30,7 +30,6 @@ jobs:
 
             - run: |
                   mediaSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
-                  adminSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/admin/return"
                   adminPasswordResetUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/password-change-confirmation/true"
                   mediaPasswordResetUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/password-change-confirmation/false"
                   targetAppName="pip-frontend-stg"
@@ -53,8 +52,8 @@ jobs:
                   echo "Found Reply URLs"
                   echo $replyUrls
 
-                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}" && "${replyUrls}" =~ "${adminSignInUrl}" && "${replyUrls}" =~ "${adminPasswordResetUrl}" && "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
-                    echo "Reply URLs contain $mediaSignInUrl, $adminSignInUrl, adminPasswordResetUrl and mediaPasswordResetUrl"
+                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}" && "${replyUrls}" =~ "${adminPasswordResetUrl}" && "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
+                    echo "Reply URLs contain $mediaSignInUrl, adminPasswordResetUrl and mediaPasswordResetUrl"
                   elif [ -z $replyUrls ]; then
                     echo "No Reply URLs Found. ISSUE!!"
                   else
@@ -66,13 +65,6 @@ jobs:
 
                     if [[ ! "${replyUrls}" =~ "${mediaSignInUrl}" ]]; then
                       replyUrlString+="\"$mediaSignInUrl\""
-                    fi
-
-                    if [[ ! "${replyUrls}" =~ "${adminSignInUrl}" ]]; then
-                      if [[ ! ${replyUrlString: -1} == "," ]]; then
-                        replyUrlString+=","
-                      fi
-                      replyUrlString+="\"$adminSignInUrl\""
                     fi
 
                     if [[ ! "${replyUrls}" =~ "${adminPasswordResetUrl}" ]]; then

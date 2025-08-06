@@ -2,7 +2,7 @@ import process from 'process';
 import config from 'config';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import passportCustom from 'passport-custom';
-import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
+import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
 import { SsoAuthentication, ssoOidcConfig } from './ssoAuthentication';
 import { OIDCStrategy as AzureOIDCStrategy } from 'passport-azure-ad';
@@ -89,9 +89,6 @@ function oidcSetup(): void {
     const identityMetadata = process.env.CONFIG_ENDPOINT
         ? process.env.CONFIG_ENDPOINT
         : config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT');
-    const adminIdentityMetadata = process.env.CONFIG_ADMIN_ENDPOINT
-        ? process.env.CONFIG_ADMIN_ENDPOINT
-        : config.get('secrets.pip-ss-kv.CONFIG_ADMIN_ENDPOINT');
     const mediaVerificationIdentityMetadata = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT
         ? process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT
         : config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT');
@@ -109,23 +106,6 @@ function oidcSetup(): void {
                 responseType: authenticationConfig.RESPONSE_TYPE,
                 responseMode: authenticationConfig.RESPONSE_MODE_FORM_POST,
                 redirectUrl: AUTH_RETURN_URL,
-                allowHttpForRedirectUrl: true,
-                clientSecret: clientSecret,
-                isB2C: true,
-            },
-            piAadVerifyFunction
-        )
-    );
-
-    passport.use(
-        'admin-login',
-        new AzureOIDCStrategy(
-            {
-                identityMetadata: adminIdentityMetadata,
-                clientID: clientId,
-                responseType: authenticationConfig.RESPONSE_TYPE,
-                responseMode: authenticationConfig.RESPONSE_MODE_FORM_POST,
-                redirectUrl: ADMIN_AUTH_RETURN_URL,
                 allowHttpForRedirectUrl: true,
                 clientSecret: clientSecret,
                 isB2C: true,
