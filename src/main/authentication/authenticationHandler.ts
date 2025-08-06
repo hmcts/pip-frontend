@@ -149,10 +149,7 @@ export function regenerateSession(req, res, next): void {
         req.session.save(() => {
             req.session.regenerate(() => {
                 if (req.user['userProvenance'] == 'PI_AAD') {
-                    const logoutUrl = sessionManagement.aadLogOutUrl(
-                        false,
-                        req.lng
-                    );
+                    const logoutUrl = sessionManagement.aadLogOutUrl(false, req.lng);
                     const logoutUrlFormatted = new URL(logoutUrl);
                     logoutUrlFormatted.searchParams.set(
                         'post_logout_redirect_uri',

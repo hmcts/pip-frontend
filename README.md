@@ -170,8 +170,6 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | TEST_A11Y_HEADLESS         | Whether the accessibility tests should run in headless mode. Default is true. Used for test debugging.                                                      |
 | DATA_MANAGEMENT_URL        | URL for data-management that the codecept tests use when creating test data                                                                                 |
 | ACCOUNT_MANAGEMENT_URL     | URL for account-management that the codecept tests use when creating test data                                                                              |
-| SYSTEM_ADMIN_PROVENANCE_ID | Test system admin provenance ID, used during E2E tests                                                                                                      |
-| SYSTEM_ADMIN_USER_ID       | Test system admin user ID, used during E2E tests                                                                                                            |
 | VERIFIED_USER_ID           | Test verified ID, used during E2E tests                                                                                                                     |
 | CLIENT_ID_INTERNAL         | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                   |
 | CLIENT_SECRET_INTERNAL     | Secret key for authentication requests during service to service communication.                                                                             |

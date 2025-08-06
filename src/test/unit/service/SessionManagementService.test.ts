@@ -205,7 +205,6 @@ describe('Test logout', () => {
         responseMock.verify();
     });
 
-
     it('should redirect for media user when session expired', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(mediaSessionExpiredUrl);
@@ -247,7 +246,6 @@ describe('Test logout', () => {
         expect(req.session['user']).to.be.null;
         responseMock.verify();
     });
-
 
     describe('Test media user session expiry', () => {
         const now = Date.now();

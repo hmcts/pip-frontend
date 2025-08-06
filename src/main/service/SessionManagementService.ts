@@ -84,11 +84,9 @@ export class SessionManagementService {
 
     public aadLogOutUrl(isSessionExpired: boolean, language: string): string {
         const b2cUrl = B2C_URL;
-        const b2cPolicy =  authenticationConfig.POLICY;
+        const b2cPolicy = authenticationConfig.POLICY;
 
-        const encodedSignOutRedirect = encodeURIComponent(
-            this.logOutRedirectUrl(isSessionExpired, language)
-        );
+        const encodedSignOutRedirect = encodeURIComponent(this.logOutRedirectUrl(isSessionExpired, language));
         return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
     }
 
@@ -111,10 +109,7 @@ export class SessionManagementService {
         }
     }
 
-    private logOutRedirectUrl(
-        isSessionExpired: boolean,
-        language: string
-    ): string {
+    private logOutRedirectUrl(isSessionExpired: boolean, language: string): string {
         const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(isSessionExpired)}`);
         url.searchParams.append('lng', language);
 
@@ -124,7 +119,7 @@ export class SessionManagementService {
         return url.toString();
     }
 
-    private getRedirectionPath( isSessionExpired: boolean): string {
+    private getRedirectionPath(isSessionExpired: boolean): string {
         if (isSessionExpired) {
             return 'session-expired';
         } else {
