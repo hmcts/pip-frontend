@@ -126,12 +126,14 @@ export class FileHandlingService {
      */
     async readFileFromRedis(userId, fileName) {
         const fileData = await redisClient.get(userId + '-' + fileName);
-
-        if (this.getFileExtension(fileName) === 'json') {
-            return JSON.parse(fileData);
-        } else {
-            return Buffer.from(fileData, 'base64');
+        if (fileData) {
+            if (this.getFileExtension(fileName) === 'json') {
+                return JSON.parse(fileData);
+            } else {
+                return Buffer.from(fileData, 'base64');
+            }
         }
+        return null;
     }
 
     /**
