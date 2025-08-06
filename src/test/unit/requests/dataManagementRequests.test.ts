@@ -252,7 +252,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBe(
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBe(
                 'Failed to upload locations.'
             );
         });
@@ -269,7 +269,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBeFalsy();
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
         });
 
         it('should return false when not Bad Request status', async () => {
@@ -284,7 +284,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBeFalsy();
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
         });
     });
 });
