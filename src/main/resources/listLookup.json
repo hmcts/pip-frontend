@@ -909,5 +909,25 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
+    },
+    "MAGISTRATES_ADULT_COURT_LIST_DAILY": {
+        "friendlyName": "Magistrates Adult Court List - Daily",
+        "welshFriendlyName": "Rhestr Llys Ynadon Oedolion - Dyddiol",
+        "shortenedFriendlyName": "Magistrates Adult Court List - Daily",
+        "url": "magistrates-adult-court-list-daily",
+        "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
+    },
+    "MAGISTRATES_ADULT_COURT_LIST_FUTURE": {
+        "friendlyName": "Magistrates Adult Court List - Future",
+        "welshFriendlyName": "Rhestr Llys Ynadon Oedolion – Dyfodol",
+        "shortenedFriendlyName": "Magistrates Adult Court List - Future",
+        "url": "magistrates-adult-court-list-future",
+        "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
     }
 }
