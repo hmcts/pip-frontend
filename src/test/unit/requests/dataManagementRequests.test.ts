@@ -243,7 +243,6 @@ describe('Data Management requests', () => {
                 };
             });
             expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBe(false);
-
         });
 
         it('should return UI error message', async () => {
