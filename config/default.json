@@ -6,7 +6,6 @@
     "secrets": {
         "pip-ss-kv": {
             "B2C_URL": "https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net",
-            "B2C_ADMIN_URL": "https://staff.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net",
             "CLIENT_SECRET": "client-secret",
             "CFT_IDAM_CLIENT_SECRET": "client-secret",
             "SSO_CLIENT_SECRET": "client-secret",

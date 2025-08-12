@@ -132,7 +132,6 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | DATA_MANAGEMENT_URL                | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        | No        |
 | AUTH_RETURN_URL                    | URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.                                                                      | No        |
 | MEDIA_VERIFICATION_RETURN_URL      | Same as above, but for after a media user verifies their account using the OTP process                                                                                                  | No        |
-| B2C_ADMIN_URL                      | URL used for routing to Azure from the service (for admin journey).                                                                                                                     | No        |
 | B2C_URL                            | Same as above but for media journey.                                                                                                                                                    | No        |
 | CONFIG_ENDPOINT                    | Same as above but for media journey.                                                                                                                                                    | No        |
 | MEDIA_VERIFICATION_CONFIG_ENDPOINT | Same as above but for verification of media accounts.                                                                                                                                   | No        |
@@ -156,15 +155,11 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | Variable                   | Description                                                                                                                                                 |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | B2C_USERNAME               | User's username for B2C authentication                                                                                                                      |
-| B2C_PASSWORD               | User's password for B2C authentication                                                                                                                      |
-| B2C_ADMIN_USERNAME         | B2C administrator's username                                                                                                                                |
-| B2C_ADMIN_PASSWORD         | B2C administrator's password                                                                                                                                |
+| B2C_PASSWORD               | User's password for B2C authentication                                                                                                                      | |
 | CFT_INVALID_USERNAME       | Invalid username for CFT authentication                                                                                                                     |
 | CFT_VALID_USERNAME         | Valid username for CFT authentication                                                                                                                       |
 | CFT_VALID_PASSWORD         | Valid password for CFT authentication                                                                                                                       |
-| CFT_INVALID_PASSWORD       | Invalid password for CFT authentication                                                                                                                     |
-| B2C_SYSTEM_ADMIN_USERNAME  | B2C system administrator's username                                                                                                                         |
-| B2C_SYSTEM_ADMIN_PASSWORD  | B2C system administrator's password                                                                                                                         |
+| CFT_INVALID_PASSWORD       | Invalid password for CFT authentication                                                                                                                     | |
 | TEST_URL                   | The URL of the frontend service that the tests will run against                                                                                             |
 | TEST_HEADLESS              | Whether the E2E tests should run in headless mode. Default is true                                                                                          |
 | TEST_A11Y_HEADLESS         | Whether the accessibility tests should run in headless mode. Default is true. Used for test debugging.                                                      |
