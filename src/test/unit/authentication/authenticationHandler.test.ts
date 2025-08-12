@@ -326,7 +326,6 @@ describe('process account password change confirmation', () => {
         expect(mockFunction.mock.calls.length).to.equal(1);
         expect(mockFunction.mock.calls[0][0]).to.equal('/cancelled-password-reset');
     });
-
 });
 
 describe('process cft sign in', () => {
