@@ -13,6 +13,12 @@ const errorMessage = {
     message: 'test',
 };
 
+const errorResponseWithStatusButNoText = {
+    response: {
+        status: 400,
+    },
+};
+
 const errorResponseWithUiErrorText = {
     response: {
         status: 400,
@@ -285,6 +291,21 @@ describe('Data Management requests', () => {
                 };
             });
             expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
+        });
+
+        it('should return false when error response text is not present', async () => {
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponseWithStatusButNoText) };
+                            },
+                        };
+                    },
+                };
+            });
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBeFalsy();
         });
     });
 });
