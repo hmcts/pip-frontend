@@ -19,27 +19,7 @@ describe('Password Change Confirmation controller', () => {
     };
     const request = mockRequest(i18n);
 
-    it('should render password-change-confirmation for an admin', async () => {
-        request.params['isAdmin'] = 'true';
-        const responseMock = sinon.mock(response);
-
-        const i18n = {
-            'password-change-confirmation': {},
-        };
-
-        const expectedData = {
-            ...i18n['password-change-confirmation'],
-            betaText: betaText,
-        };
-
-        responseMock.expects('render').once().withArgs('password-change-confirmation', expectedData);
-
-        await passwordChangeController.post(request, response);
-        await responseMock.verify();
-    });
-
-    it('should render password-change-confirmation for a media user', async () => {
-        request.params['isAdmin'] = 'false';
+    it('should render password-change-confirmation', async () => {
         const responseMock = sinon.mock(response);
 
         const i18n = {

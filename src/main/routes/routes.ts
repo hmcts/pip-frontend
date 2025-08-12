@@ -81,11 +81,11 @@ export default function (app: Application): void {
         app.locals.container.cradle.createMediaAccountController.post
     );
     app.post(
-        '/password-change-confirmation/:isAdmin',
+        '/password-change-confirmation',
         checkPasswordReset,
         app.locals.container.cradle.passwordChangeController.post
     );
-    app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
+    app.get('/cancelled-password-reset', app.locals.container.cradle.cancelledPasswordResetController.get);
     app.get('/media-verification', regenerateSession, keepSessionLanguage, (req, res, next) =>
         passport.authenticate('media-verification', {
             failureRedirect: '/',

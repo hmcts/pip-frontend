@@ -30,8 +30,7 @@ jobs:
 
             - run: |
                   mediaSignInUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/login/return"
-                  adminPasswordResetUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/password-change-confirmation/true"
-                  mediaPasswordResetUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/password-change-confirmation/false"
+                  mediaPasswordResetUrl="https://pip-frontend-pr-${PR_NUMBER}.dev.platform.hmcts.net/password-change-confirmation"
                   targetAppName="pip-frontend-stg"
 
                   azureClientId="${B2C_CLIENT_ID}"
@@ -52,8 +51,8 @@ jobs:
                   echo "Found Reply URLs"
                   echo $replyUrls
 
-                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}" && "${replyUrls}" =~ "${adminPasswordResetUrl}" && "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
-                    echo "Reply URLs contain $mediaSignInUrl, adminPasswordResetUrl and mediaPasswordResetUrl"
+                  if [[ "${replyUrls}" =~ "${mediaSignInUrl}" && "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then
+                    echo "Reply URLs contain $mediaSignInUrl and mediaPasswordResetUrl"
                   elif [ -z $replyUrls ]; then
                     echo "No Reply URLs Found. ISSUE!!"
                   else
@@ -65,13 +64,6 @@ jobs:
 
                     if [[ ! "${replyUrls}" =~ "${mediaSignInUrl}" ]]; then
                       replyUrlString+="\"$mediaSignInUrl\""
-                    fi
-
-                    if [[ ! "${replyUrls}" =~ "${adminPasswordResetUrl}" ]]; then
-                      if [[ ! ${replyUrlString: -1} == "," ]]; then
-                        replyUrlString+=","
-                      fi
-                      replyUrlString+="\"$adminPasswordResetUrl\""
                     fi
 
                     if [[ ! "${replyUrls}" =~ "${mediaPasswordResetUrl}" ]]; then

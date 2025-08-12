@@ -8,7 +8,7 @@ let htmlRes: Document;
 
 describe('Cancelled Password Reset', () => {
     beforeAll(async () => {
-        const PAGE_URL = '/cancelled-password-reset/false';
+        const PAGE_URL = '/cancelled-password-reset';
         await request(app)
             .get(PAGE_URL)
             .then(res => {

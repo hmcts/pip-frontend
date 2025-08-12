@@ -8,7 +8,7 @@ let htmlRes: Document;
 
 describe('password-change-confirmation', () => {
     beforeAll(async () => {
-        const PAGE_URL = '/password-change-confirmation/false';
+        const PAGE_URL = '/password-change-confirmation';
         await request(app)
             .post(PAGE_URL)
             .then(res => {
