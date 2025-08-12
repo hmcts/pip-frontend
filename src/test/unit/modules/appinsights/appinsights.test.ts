@@ -63,7 +63,7 @@ describe('App Insights', () => {
         expect(mockTrackTrace).toHaveBeenCalledWith({ message: 'App insights activated' });
     });
 
-    it('does nothing if no connection string is available', async () => {
+    it('Does nothing if no connection string is available', async () => {
         jest.resetModules();
         jest.doMock('config', () => ({
             get: jest.fn(() => undefined),
