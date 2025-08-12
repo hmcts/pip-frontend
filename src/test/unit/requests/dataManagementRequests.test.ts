@@ -305,7 +305,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBeFalsy();
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
         });
     });
 });
