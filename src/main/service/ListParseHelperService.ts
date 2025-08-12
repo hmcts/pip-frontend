@@ -320,7 +320,6 @@ export class ListParseHelperService {
      * @param publicationDatetime The publication date time to convert in UTC.
      */
     public publicationDateInUkTime(publicationDatetime: string, language: string): string {
-
         return DateTime.fromISO(publicationDatetime, { zone: timeZone }).setLocale(language).toFormat(dateFormat);
     }
 
