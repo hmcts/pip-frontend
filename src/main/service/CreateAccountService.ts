@@ -144,12 +144,12 @@ export class CreateAccountService {
         ];
     }
 
-    formatCreateAccountPIPayload(azureAccount): any[] {
+    formatCreateMediaAccountPIPayload(azureAccount): any[] {
         return [
             {
                 email: azureAccount.email,
                 provenanceUserId: azureAccount.azureAccountId,
-                roles: azureAccount.role,
+                roles: 'VERIFIED',
                 userProvenance: 'PI_AAD',
             },
         ];
@@ -175,7 +175,7 @@ export class CreateAccountService {
         );
         if (azureResponse?.['CREATED_ACCOUNTS'][0]) {
             const response = await accountManagementRequests.createPIAccount(
-                this.formatCreateAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
+                this.formatCreateMediaAccountPIPayload(azureResponse['CREATED_ACCOUNTS'][0]),
                 requester
             );
             return response ? true : false;
