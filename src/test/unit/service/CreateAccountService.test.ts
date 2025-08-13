@@ -372,9 +372,7 @@ describe('Create Account Service', () => {
             await createAccountService.createMediaAccount(validMediaPayload, validEmail);
             sinon.assert.calledWithMatch(
                 createPIAccStub,
-                sinon.match((arg) =>
-                    arg[0].roles === 'VERIFIED'
-                ),
+                sinon.match(arg => arg[0].roles === 'VERIFIED'),
                 validEmail
             );
         });
