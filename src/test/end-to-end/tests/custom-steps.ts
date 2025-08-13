@@ -80,6 +80,7 @@ export = function () {
             this.usePlaywrightTo('Go to media login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a Court and tribunal hearings account');
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.waitForText('Sign in with your email address');
@@ -93,6 +94,7 @@ export = function () {
             this.usePlaywrightTo('Go to media login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a Court and tribunal hearings account');
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.waitForText('Sign in with your email address');
@@ -105,6 +107,7 @@ export = function () {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.waitForText('Sign in');
@@ -118,6 +121,7 @@ export = function () {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.waitForText('Sign in');
@@ -130,6 +134,7 @@ export = function () {
             this.usePlaywrightTo('Go to cft Welsh login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a MyHMCTS account');
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
