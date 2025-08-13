@@ -5,8 +5,7 @@ const helperService = new ListParseHelperService();
 export class MagistratesAdultCourtListService {
     public processPayload(payload: JSON, language: string): any[] {
         const results = [];
-        payload['document'].data.job.sessions.forEach(sessionsNode => {
-            const sessionNode = sessionsNode.session;
+        payload['document'].data.job.sessions.forEach(sessionNode => {
             const cases = this.buildCases(sessionNode, language);
             results.push({
                 lja: sessionNode.lja,
@@ -21,11 +20,10 @@ export class MagistratesAdultCourtListService {
 
     private buildCases(sessionNode: any, language: string): any[] {
         const cases = [];
-        sessionNode.blocks.forEach(blocksNode => {
-            blocksNode.block.cases.forEach(casesNode => {
-                const caseNode = casesNode.case;
+        sessionNode.blocks.forEach(blockNode => {
+            blockNode.cases.forEach(caseNode => {
                 const caseInfo = {
-                    blockStartTime: helperService.publicationTimeInUkTime(blocksNode.block.bstart),
+                    blockStartTime: helperService.publicationTimeInUkTime(blockNode.bstart),
                     caseNumber: caseNode.caseno,
                     defendantName: caseNode.def_name,
                     defendantDob: caseNode.def_dob ? caseNode.def_dob : '',
@@ -58,13 +56,10 @@ export class MagistratesAdultCourtListService {
         const offenceTitles = [];
         const offenceSummaries = [];
 
-        offencesNode.forEach(offencesNode => {
-            if (offencesNode?.offence) {
-                const offenceNode = offencesNode.offence;
-                offenceCodes.push(offenceNode.code);
-                offenceTitles.push(language === 'cy' && offenceNode.cy_title ? offenceNode.cy_title : offenceNode.title);
-                offenceSummaries.push(language === 'cy' && offenceNode.cy_sum ? offenceNode.cy_sum :offenceNode.sum);
-            }
+        offencesNode.forEach(offenceNode => {
+            offenceCodes.push(offenceNode.code);
+            offenceTitles.push(language === 'cy' && offenceNode.cy_title ? offenceNode.cy_title : offenceNode.title);
+            offenceSummaries.push(language === 'cy' && offenceNode.cy_sum ? offenceNode.cy_sum :offenceNode.sum);
         });
         return {
             offenceCode: offenceCodes.filter(line => line.trim().length > 0).join(', '),
