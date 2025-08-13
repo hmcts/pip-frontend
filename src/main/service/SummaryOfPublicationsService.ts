@@ -8,7 +8,7 @@ export class SummaryOfPublicationsService {
         return publicationRequests.getPublicationsByCourt(locationId, userId, admin);
     }
 
-    public async getNoMatchPublications(): Promise<Artefact[]> {
-        return publicationRequests.getNoMatchPublications();
+    public async getNoMatchPublications(userId: string): Promise<Artefact[]> {
+        return publicationRequests.getNoMatchPublications(userId);
     }
 }

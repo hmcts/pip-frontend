@@ -74,7 +74,7 @@ export class SsoAuthentication {
 
     private async updateSsoUser(ssoUser, userId): Promise<object | string> {
         if (ssoUser['roles'] === 'SYSTEM_ADMIN') {
-            const deleteUserResponse = await accountManagementRequests.deleteUser(userId, null);
+            const deleteUserResponse = await accountManagementRequests.deleteUser(userId, ssoUser['userId']);
             return deleteUserResponse ? this.createSsoUser(ssoUser) : null;
         } else {
             return await accountManagementRequests.updateUser(userId, ssoUser['roles'], null);
