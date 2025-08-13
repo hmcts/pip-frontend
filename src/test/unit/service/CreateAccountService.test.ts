@@ -92,7 +92,7 @@ const azureResponse = {
     CREATED_ACCOUNTS: [
         {
             email: 'email',
-            provenanceUserId: 'azureAccountId',
+            azureAccountId: 'azureAccountId',
             roles: 'role',
         },
     ],
@@ -363,6 +363,20 @@ describe('Create Account Service', () => {
             createPIAccStub.resolves(true);
             const res = await createAccountService.createMediaAccount(validMediaPayload, validEmail);
             expect(res).toEqual(true);
+        });
+
+        it('check call to create media account contains VERIFIED role', async () => {
+            createPIAccStub.resetHistory();
+            createAzureAccountStub.withArgs(validMediaConvertedPayload, validEmail).resolves(azureResponse);
+            createPIAccStub.resolves(true);
+            await createAccountService.createMediaAccount(validMediaPayload, validEmail);
+            sinon.assert.calledWithMatch(
+                createPIAccStub,
+                sinon.match((arg) =>
+                    arg[0].roles === 'VERIFIED'
+                ),
+                validEmail
+            );
         });
 
         it('should return false if create azure account request fails', async () => {
