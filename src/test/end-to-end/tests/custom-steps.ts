@@ -176,6 +176,33 @@ export = function () {
             this.click('Mewngofnodi');
         },
 
+        loginAsCrimeUser: function (
+            username = testConfig.CRIME_VALID_USERNAME,
+            password = testConfig.CRIME_VALID_PASSWORD
+        ) {
+            this.amOnPage('/sign-in');
+            this.click('With a Common Platform account');
+            this.click('Continue');
+            this.see('Sign in to Common Platform');
+            this.fillField('#idToken1', secret(username));
+            this.fillField('#idToken2', secret(password));
+            this.click('Sign in');
+        },
+
+        loginAsCrimeUserInWelsh: function (
+            username = testConfig.CRIME_VALID_USERNAME,
+            password = testConfig.CRIME_VALID_PASSWORD
+        ) {
+            this.amOnPage('/sign-in');
+            this.click('Cymraeg');
+            this.click('Gyda chyfrif Common Platform');
+            this.click('Parhau');
+            this.see('Sign in to Common Platform');
+            this.fillField('#idToken1', secret(username));
+            this.fillField('#idToken2', secret(password));
+            this.click('Sign in');
+        },
+
         seeBetaFeedbackOnPage: function (page) {
             this.waitForText('BETA');
             this.click('feedback');
