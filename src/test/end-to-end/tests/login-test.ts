@@ -180,19 +180,17 @@ Scenario(
     }
 ).tag('@Nightly');
 
-/*
 Scenario('I as a Crime user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCrimeUser();
     I.waitForText('Your account');
     I.logout();
-}).tag('@CrossBrowser');
+}).tag('@SkipOnPR');
 
 Scenario('I as a Crime user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
     I.loginAsCrimeUserInWelsh();
     I.waitForText('Eich cyfrif');
     I.logoutWelsh();
-}).tag('@CrossBrowser');
-*/
+}).tag('@SkipOnPR');
 
 Scenario(
     'I as a Crime user should be able to see proper error message when username or password is wrong',
