@@ -917,7 +917,7 @@
         "url": "magistrates-adult-court-list-daily",
         "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE",
+        "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
     },
     "MAGISTRATES_ADULT_COURT_LIST_FUTURE": {
@@ -927,7 +927,7 @@
         "url": "magistrates-adult-court-list-future",
         "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE",
+        "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
     }
 }
