@@ -29,7 +29,11 @@ export default class MagistratesAdultCourtListDailyController {
             const locationName = courtService.findCourtName(returnedLocation, req.lng, listPath);
 
             const printDate = payload['document'].data.job.printdate;
-            const publishedDate = formatDate(MagistratesAdultCourtListDailyController.toIsoDate(printDate), 'dd MMMM yyyy', req.lng);
+            const publishedDate = formatDate(
+                MagistratesAdultCourtListDailyController.toIsoDate(printDate),
+                'dd MMMM yyyy',
+                req.lng
+            );
 
             const printStartTime = payload['document'].info?.start_time;
             const publishedTime = printStartTime ? helperService.publicationTimeInUkTime(printStartTime) : '';

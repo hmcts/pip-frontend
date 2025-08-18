@@ -25,8 +25,8 @@ export class MagistratesPublicAdultCourtListDailyService {
                 const caseInfo = {
                     caseNumber: caseNode.caseno,
                     blockStartTime: helperService.publicationTimeInUkTime(blockNode.bstart),
-                    defendantName: caseNode.def_name
-                }
+                    defendantName: caseNode.def_name,
+                };
                 cases.push(caseInfo);
             });
         });

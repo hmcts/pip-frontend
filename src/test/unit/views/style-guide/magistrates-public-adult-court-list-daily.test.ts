@@ -15,7 +15,10 @@ const bodyClass = 'govuk-body';
 const tableHeaderClass = 'govuk-table__header';
 const tableCellClass = 'govuk-table__cell';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtListDaily.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtListDaily.json'),
+    'utf-8'
+);
 const listData = JSON.parse(rawData);
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
@@ -34,7 +37,7 @@ magsAdultCourtListMetadataStub.withArgs(artefactIdDailyList).resolves(metadataDa
 
 let htmlRes: Document;
 
-describe("Magistrates Public Adult Court List Daily page", () => {
+describe('Magistrates Public Adult Court List Daily page', () => {
     const pageUrl = urlDailyList + '?artefactId=' + artefactIdDailyList;
 
     beforeAll(async () => {
@@ -53,7 +56,10 @@ describe("Magistrates Public Adult Court List Daily page", () => {
 
     it('should display page heading', () => {
         const heading = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(heading[0].innerHTML).contains('Magistrates Public List for Abergavenny Magistrates\' Court', 'Could not find the header');
+        expect(heading[0].innerHTML).contains(
+            "Magistrates Public List for Abergavenny Magistrates' Court",
+            'Could not find the header'
+        );
     });
 
     it('should display list date', () => {
@@ -63,10 +69,7 @@ describe("Magistrates Public Adult Court List Daily page", () => {
 
     it('should display publication date', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[1].innerHTML).contains(
-            'Last updated 31 July 2025 at 9:05am',
-            'Publication date does not match'
-        );
+        expect(body[1].innerHTML).contains('Last updated 31 July 2025 at 9:05am', 'Publication date does not match');
     });
 
     it('should display reporting restriction heading', () => {
@@ -84,7 +87,10 @@ describe("Magistrates Public Adult Court List Daily page", () => {
 
     it('should display Court Name section heading', () => {
         const searchInput = htmlRes.getElementsByClassName('govuk-accordion__section-heading');
-        expect(searchInput[0].innerHTML).contains('North Shields Magistrates\' Court', 'Court Name section heading not found');
+        expect(searchInput[0].innerHTML).contains(
+            "North Shields Magistrates' Court",
+            'Court Name section heading not found'
+        );
     });
 
     it('should display Court Room', () => {
@@ -94,7 +100,7 @@ describe("Magistrates Public Adult Court List Daily page", () => {
 
     it('should display LJA', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[8].innerHTML).contains('LJA: North Northumbria Magistrates\' Court', 'LJA does not match');
+        expect(body[8].innerHTML).contains("LJA: North Northumbria Magistrates' Court", 'LJA does not match');
     });
 
     it('should display Session Start Time', () => {

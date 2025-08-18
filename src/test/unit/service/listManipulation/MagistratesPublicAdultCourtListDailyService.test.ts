@@ -1,8 +1,7 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import { MagistratesPublicAdultCourtListDailyService }
-    from '../../../../main/service/listManipulation/MagistratesPublicAdultCourtListDailyService';
+import { MagistratesPublicAdultCourtListDailyService } from '../../../../main/service/listManipulation/MagistratesPublicAdultCourtListDailyService';
 
 const magistratesPublicAdultCourtListService = new MagistratesPublicAdultCourtListDailyService();
 const rawListData = fs.readFileSync(
@@ -21,8 +20,8 @@ describe('Magistrate Public Adult Court List service', () => {
 
         it('should format court and session info', async () => {
             const results = magistratesPublicAdultCourtListService.processPayload(JSON.parse(rawListData));
-            expect(results[0].lja).to.equal('North Northumbria Magistrates\' Court');
-            expect(results[0].courtName).to.equal('North Shields Magistrates\' Court');
+            expect(results[0].lja).to.equal("North Northumbria Magistrates' Court");
+            expect(results[0].courtName).to.equal("North Shields Magistrates' Court");
             expect(results[0].courtRoom).to.equal(1);
             expect(results[0].sessionStartTime).to.equal('9am');
         });

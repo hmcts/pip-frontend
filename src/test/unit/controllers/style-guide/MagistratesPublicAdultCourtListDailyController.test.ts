@@ -8,16 +8,16 @@ import { DateTime } from 'luxon';
 import { LocationService } from '../../../../main/service/LocationService';
 import { HttpStatusCode } from 'axios';
 import { describe } from '@jest/globals';
-import MagistratesPublicAdultCourtListDailyController
-    from '../../../../main/controllers/style-guide/MagistratesPublicAdultCourtListDailyController';
-import {
-    MagistratesPublicAdultCourtListDailyService
-} from '../../../../main/service/listManipulation/MagistratesPublicAdultCourtListDailyService';
+import MagistratesPublicAdultCourtListDailyController from '../../../../main/controllers/style-guide/MagistratesPublicAdultCourtListDailyController';
+import { MagistratesPublicAdultCourtListDailyService } from '../../../../main/service/listManipulation/MagistratesPublicAdultCourtListDailyService';
 
 const artefactIdDailyList = 'abc';
 const artefactIdListNotFound = 'xyz';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtListDaily.json'), 'utf-8');
+const rawData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtListDaily.json'),
+    'utf-8'
+);
 const listData = JSON.parse(rawData);
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
@@ -29,9 +29,12 @@ const rawCourtData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtA
 const courtData = JSON.parse(rawCourtData);
 
 const magsPublicAdultCourtListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
-const magsPublicAdultCourtListMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+const magsPublicAdultCourtListMetadataStub = sinon.stub(
+    PublicationService.prototype,
+    'getIndividualPublicationMetadata'
+);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(MagistratesPublicAdultCourtListDailyService.prototype, 'processPayload').returns(listData)
+sinon.stub(MagistratesPublicAdultCourtListDailyService.prototype, 'processPayload').returns(listData);
 
 magsPublicAdultCourtListJsonStub.withArgs(artefactIdDailyList).resolves(listData);
 magsPublicAdultCourtListJsonStub.withArgs(artefactIdDailyList, undefined).resolves(undefined);
@@ -50,7 +53,7 @@ const i18n = {
 
 const magistratesPublicAdultCourtListController = new MagistratesPublicAdultCourtListDailyController();
 
-describe("Magistrates Public Adult Court List Daily Controller", () => {
+describe('Magistrates Public Adult Court List Daily Controller', () => {
     const response = {
         render: () => {
             return '';
