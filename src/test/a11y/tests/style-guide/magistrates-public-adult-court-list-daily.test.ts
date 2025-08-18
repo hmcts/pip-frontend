@@ -10,7 +10,7 @@ const jsonData = testArtefactJsonData('magistratesPublicAdultCourtListDaily.json
 const metadata = testArtefactMetadata()[0];
 const locationData = testLocationData();
 
-metadata.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST';
+metadata.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
