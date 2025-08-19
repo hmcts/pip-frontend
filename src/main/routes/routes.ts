@@ -869,14 +869,14 @@ export default function (app: Application): void {
         app.locals.container.cradle.systemAdminDashboardController.get
     );
 
-    app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationController.get);
+    app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationsController.get);
     app.get(
         '/blob-view-publications',
         isPermittedSystemAdmin,
         app.locals.container.cradle.blobViewPublicationsController.get
     );
-    app.get('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.get);
-    app.post('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.post);
+    app.get('/blob-view-publication', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationController.get);
+    app.post('/blob-view-publication', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationController.post);
     app.get(
         '/blob-view-subscription-resubmit-confirmation',
         isPermittedSystemAdmin,
