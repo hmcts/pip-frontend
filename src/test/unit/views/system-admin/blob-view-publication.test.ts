@@ -41,7 +41,7 @@ describe('Blob explorer publication page', () => {
             app.request['user'] = { userId: '1', roles: 'SYSTEM_ADMIN' };
 
             await request(app)
-                .get('/blob-view-json?artefactId=abc')
+                .get('/blob-view-publication?artefactId=abc')
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 });
@@ -218,7 +218,7 @@ describe('Blob explorer publication page', () => {
             app.request['user'] = { userId: '1', roles: 'SYSTEM_ADMIN' };
 
             await request(app)
-                .get('/blob-view-json?artefactId=def')
+                .get('/blob-view-publication?artefactId=def')
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 });
