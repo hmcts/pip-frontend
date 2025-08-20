@@ -16,7 +16,7 @@ const tableHeaderClass = 'govuk-table__header';
 const tableCellClass = 'govuk-table__cell';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtListDaily.json'),
+    path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtList.json'),
     'utf-8'
 );
 const listData = JSON.parse(rawData);

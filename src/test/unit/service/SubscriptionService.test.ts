@@ -1012,6 +1012,8 @@ describe('generateListTypesForCourts', () => {
 
         const listKeysM = Object.keys(result['M']);
         expect(listKeysM).toEqual([
+            'MAGISTRATES_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
@@ -1055,6 +1057,8 @@ describe('generateListTypesForCourts', () => {
 
         const listKeysM = Object.keys(result['M']);
         expect(listKeysM).toEqual([
+            'MAGISTRATES_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
@@ -1200,6 +1204,8 @@ describe('generateListTypeForCourts', () => {
 
         const listKeysM = Object.keys(result['M']);
         expect(listKeysM).toEqual([
+            'MAGISTRATES_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
@@ -1233,6 +1239,8 @@ describe('generateListTypeForCourts', () => {
 
         const listKeysM = Object.keys(result['M']);
         expect(listKeysM).toEqual([
+            'MAGISTRATES_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
