@@ -15,7 +15,7 @@ const helperService = new ListParseHelperService();
 const magistratesAdultCourtListService = new MagistratesAdultCourtListService();
 
 const standardListPath = 'magistrates-adult-court-list';
-const publicListPath = 'magistrates-public-adult-court-list-daily';
+const publicListPath = 'magistrates-public-adult-court-list';
 
 export default class MagistratesAdultCourtListController {
     public async get(req: PipRequest, res: Response, listType: string): Promise<void> {

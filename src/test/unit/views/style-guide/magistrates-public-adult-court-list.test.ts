@@ -34,7 +34,7 @@ magsAdultCourtListMetadataStub.withArgs(artefactIdDailyList).resolves(metadataDa
 
 let htmlRes: Document;
 
-describe('Magistrates Public Adult Court List Daily page', () => {
+describe('Magistrates Public Adult Court List page', () => {
     const pageUrl = urlDailyList + '?artefactId=' + artefactIdDailyList;
 
     beforeAll(async () => {
