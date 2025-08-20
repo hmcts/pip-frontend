@@ -1,0 +1,90 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "../macros/common-components.njk" import goBack, searchInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% extends "../list-template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    <div class="parent-box">
+        <h1 id='page-heading' class="govuk-heading-l">{{ heading }} {{ locationName }}</h1>
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
+        {% if publishedTime | length %}
+            <p class="govuk-body">{{ listUpdated }} {{ publishedDate }} {{ at }} {{ publishedTime }}</p>
+        {% else %}
+            <p class="govuk-body">{{ listUpdated }} {{ publishedDate }}</p>
+        {% endif %}
+
+        <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
+            <div class="govuk-body">
+                <h3>{{ restrictionInformationHeading }}</h3>
+                <p class="govuk-body">{{ restrictionInformationP1 }}</p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon align-warning-icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        {{ restrictionInformationBoldText }}
+                    </strong>
+                </div>
+                <p class="govuk-body">{{ restrictionInformationP2 }}</p>
+                <p class="govuk-body">{{ restrictionInformationP3 }}</p>
+                <p class="govuk-body">{{ restrictionInformationP4 }}</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>{{ restrictionBulletPoint1 }}</li>
+                    <li>{{ restrictionBulletPoint2 }}</li>
+                </ul>
+            </div>
+        </div>
+
+        {{ searchInput(text = searchCases) }}
+        <div class="search-area">
+            {% set listSessionCount = 0 %}
+            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-1">
+                {% for listSession in listData %}
+                    {% set listSessionCount = listSessionCount + 1 %}
+                    <div class="govuk-accordion__section govuk-accordion__section--expanded">
+                        <div class="govuk-accordion__section-header">
+                            <h2 class="govuk-accordion__section-heading">
+                                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ listSessionCount }}">{{ listSession.courtName }}</span>
+                            </h2>
+                            <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ sittingAt }} {{ listSession.courtRoom }}</p>
+                            <p class="govuk-body govuk-!-margin-bottom-1">{{ lja }} {{ listSession.lja }}</p>
+                            <p class="govuk-body">{{ sessionStart }} {{ listSession.sessionStartTime }}</p>
+                        </div>
+                        <div id="accordion-default-content-{{ listSessionCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ listSessionCount }}">
+                            <div class="parent-box overflow-table">
+                                <table class="govuk-table overflow-table" data-module="moj-sortable-table">
+                                    <thead class="govuk-table__head">
+                                    <tr class="govuk-table__row">
+                                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[0] }}</th>
+                                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[1] }}</th>
+                                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableHeaders[2] }}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="govuk-table__body">
+                                        {% for row in listSession.cases %}
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell" data-sort-value="{{ row.blockStartTime | timeToSortValue }}">{{ row.blockStartTime }}</td>
+                                                <td class="govuk-table__cell">{{ row.defendantName }}</td>
+                                                <td class="govuk-table__cell">{{ row.caseNumber }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <p class="govuk-body govuk-!-font-size-14 data-source">{{ dataSource }}: {{ provenance | convertDataSourceName(lng) }}</p>
+            {{ super() }}
+        </div>
+    </div>
+{% endblock %}
