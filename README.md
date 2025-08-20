@@ -234,6 +234,7 @@ We use a few automated tools to ensure quality and security within the service. 
 ## Test Suite
 
 This microservice is comprehensively tested using unit, accessibility (a11y), routes and functional tests.
+
 You can run the entire set of tests (except e2e/functional tests) using `yarn cichecks`.
 
 ### Unit tests
