@@ -84,9 +84,7 @@ describe.each([urlDailyList, urlFutureList, urlPublicDailyList])(
 
         const request = mockRequest(i18n);
         const isStandardList = url !== urlPublicDailyList;
-        const listPathValue = isStandardList
-            ? 'magistrates-adult-court-list'
-            : 'magistrates-public-adult-court-list';
+        const listPathValue = isStandardList ? 'magistrates-adult-court-list' : 'magistrates-public-adult-court-list';
         const listPath = 'style-guide/' + listPathValue;
 
         request.path = url;
