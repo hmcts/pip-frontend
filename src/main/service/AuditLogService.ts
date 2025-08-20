@@ -150,8 +150,8 @@ export class AuditLogService {
         return inputFieldObject;
     }
 
-    public async buildAuditLogDetailsSummaryList(id: string): Promise<object> {
-        const auditLog = await accountManagementRequests.getAuditLogById(id);
+    public async buildAuditLogDetailsSummaryList(id: string, adminUserId: string): Promise<object> {
+        const auditLog = await accountManagementRequests.getAuditLogById(id, adminUserId);
         const rows = [];
 
         if (auditLog) {
