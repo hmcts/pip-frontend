@@ -4,12 +4,13 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 import passportCustom from 'passport-custom';
 import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL, ADMIN_AUTH_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
+import { crimeIdamAuthentication } from './crimeIdamAuthentication';
 import { SsoAuthentication, ssoOidcConfig } from './ssoAuthentication';
 import { OIDCStrategy as AzureOIDCStrategy } from 'passport-azure-ad';
 import passport from 'passport';
-
 import authenticationConfig from './authentication-config.json';
 import { ssoNotAuthorised } from '../helpers/consts';
+
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
 const ssoAuthentication = new SsoAuthentication();
@@ -60,6 +61,24 @@ async function serializeUser(foundUser, done) {
             await accountManagementRequests.createPIAccount(piAccount, '');
         }
         done(null, { uid: foundUser.uid, flow: 'CFT' });
+    } else if (foundUser['flow'] === 'Crime') {
+        const user = await accountManagementRequests.getPiUserByCrimeID(foundUser['subname']);
+
+        if (!user) {
+            const piAccount = [
+                {
+                    userProvenance: 'CRIME_IDAM',
+                    email: foundUser['email'],
+                    roles: 'VERIFIED',
+                    provenanceUserId: foundUser['subname'],
+                    forenames: foundUser['given_name'],
+                    surname: foundUser['family_name'],
+                },
+            ];
+
+            await accountManagementRequests.createPIAccount(piAccount, '');
+        }
+        done(null, { uid: foundUser['subname'], flow: 'Crime' });
     } else {
         done(null, { oid: foundUser.oid, flow: foundUser.flow === 'SSO' ? 'SSO' : 'AAD' });
     }
@@ -69,6 +88,8 @@ async function deserializeUser(userDetails, done) {
     let user;
     if (userDetails['flow'] === 'CFT') {
         user = await accountManagementRequests.getPiUserByCftID(userDetails['uid']);
+    } else if (userDetails['flow'] === 'Crime') {
+        user = await accountManagementRequests.getPiUserByCrimeID(userDetails['uid']);
     } else {
         user =
             userDetails['flow'] === 'SSO'
@@ -154,6 +175,7 @@ function oidcSetup(): void {
     passport.use('sso', new AzureOIDCStrategy(ssoOidcConfig, ssoVerifyFunction));
 
     passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
+    passport.use('crime-idam', new CustomStrategy(crimeIdamAuthentication));
 }
 
 /**
