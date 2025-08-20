@@ -12,7 +12,7 @@ import url from 'url';
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const userManagementService = new UserManagementService();
-export default class BlobViewJsonController {
+export default class BlobViewPublicationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId;
         const data = await publicationService.getIndividualPublicationJson(artefactId, req.user['userId']);
@@ -21,7 +21,7 @@ export default class BlobViewJsonController {
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
-            const locationName = await BlobViewJsonController.getLocationName(metadata.locationId, noMatchArtefact);
+            const locationName = await BlobViewPublicationController.getLocationName(metadata.locationId, noMatchArtefact);
 
             await userManagementService.auditAction(
                 req.user,
@@ -29,11 +29,12 @@ export default class BlobViewJsonController {
                 'Requested to view artefact with id: ' + artefactId
             );
 
-            const listUrl =
-                process.env.FRONTEND_URL + '/' + listTypes.get(metadata.listType)?.url + '?artefactId=' + artefactId;
+            const listUrl = process.env.FRONTEND_URL + '/'
+                + (metadata.isFlatFile ? 'file-publication' : listTypes.get(metadata.listType)?.url)
+                + '?artefactId=' + artefactId;
 
-            res.render('system-admin/blob-view-json', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-json']),
+            res.render('system-admin/blob-view-publication', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publication']),
                 data: JSON.stringify(data),
                 locationName,
                 artefactId,

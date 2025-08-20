@@ -5,11 +5,11 @@ import { app } from '../../../main/app';
 import { randomUUID } from 'crypto';
 
 const randomId = randomUUID();
-const PAGE_URL = '/blob-view-json?artefactId=' + randomId;
+const PAGE_URL = '/blob-view-publication?artefactId=' + randomId;
 
-describe('Blob view JSON page', () => {
+describe('Blob view publication page', () => {
     describe('on GET', () => {
-        test('should render blob view json page', async () => {
+        test('should render blob view publication page', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',

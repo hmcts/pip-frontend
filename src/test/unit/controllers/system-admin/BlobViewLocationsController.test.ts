@@ -2,10 +2,10 @@ import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import { LocationService } from '../../../../main/service/LocationService';
-import BlobViewLocationController from '../../../../main/controllers/system-admin/BlobViewLocationController';
+import BlobViewLocationsController from '../../../../main/controllers/system-admin/BlobViewLocationsController';
 import { PublicationService } from '../../../../main/service/PublicationService';
 
-const blobViewController = new BlobViewLocationController();
+const blobViewController = new BlobViewLocationsController();
 const i18n = {
     'blob-view-controller': {},
 };

@@ -32,7 +32,7 @@ const systemAdminRoutes = [
     { path: '/system-admin-dashboard' },
     { path: '/blob-view-locations' },
     { path: '/blob-view-publications', parameter: '?locationId=123' },
-    { path: '/blob-view-json', parameter: '?artefactId=abc' },
+    { path: '/blob-view-publication', parameter: '?artefactId=abc' },
     { path: '/blob-view-subscription-resubmit-confirmation', parameter: '?artefactId=abc' },
     { path: '/blob-view-subscription-resubmit-confirmed' },
     { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
