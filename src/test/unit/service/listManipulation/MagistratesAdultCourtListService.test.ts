@@ -1,15 +1,10 @@
 import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {
-    MagistratesAdultCourtListService
-} from '../../../../main/service/listManipulation/MagistratesAdultCourtListService';
+import { MagistratesAdultCourtListService } from '../../../../main/service/listManipulation/MagistratesAdultCourtListService';
 
 const magistratesAdultCourtListService = new MagistratesAdultCourtListService();
-const rawListData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/magistratesAdultCourtList.json'),
-    'utf-8'
-);
+const rawListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesAdultCourtList.json'), 'utf-8');
 
 const lng = 'en';
 
@@ -24,8 +19,8 @@ describe('Magistrate Adult Court List service', () => {
 
         it('should format court and session info', async () => {
             const results = await magistratesAdultCourtListService.processPayload(JSON.parse(rawListData), lng, true);
-            expect(results[0].lja).to.equal('North Northumbria Magistrates\' Court');
-            expect(results[0].courtName).to.equal('North Shields Magistrates\' Court');
+            expect(results[0].lja).to.equal("North Northumbria Magistrates' Court");
+            expect(results[0].courtName).to.equal("North Shields Magistrates' Court");
             expect(results[0].courtRoom).to.equal(1);
             expect(results[0].sessionStartTime).to.equal('9am');
         });
@@ -61,8 +56,8 @@ describe('Magistrate Adult Court List service', () => {
 
         it('should format court and session info', async () => {
             const results = await magistratesAdultCourtListService.processPayload(JSON.parse(rawListData), lng, false);
-            expect(results[0].lja).to.equal('North Northumbria Magistrates\' Court');
-            expect(results[0].courtName).to.equal('North Shields Magistrates\' Court');
+            expect(results[0].lja).to.equal("North Northumbria Magistrates' Court");
+            expect(results[0].courtName).to.equal("North Shields Magistrates' Court");
             expect(results[0].courtRoom).to.equal(1);
             expect(results[0].sessionStartTime).to.equal('9am');
         });

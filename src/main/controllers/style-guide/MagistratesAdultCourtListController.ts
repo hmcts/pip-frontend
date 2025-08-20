@@ -27,13 +27,20 @@ export default class MagistratesAdultCourtListController {
         if (isValidList(payload, metadata) && isValidListType(metadataListType, listType)) {
             const listPath = listType.startsWith('magistrates-public') ? publicListPath : standardListPath;
 
-            const listData = magistratesAdultCourtListService.processPayload(payload as JSON, req.lng,
-                !listType.startsWith('magistrates-public'));
+            const listData = magistratesAdultCourtListService.processPayload(
+                payload as JSON,
+                req.lng,
+                !listType.startsWith('magistrates-public')
+            );
             const returnedLocation = await courtService.getLocationById(metadata['locationId']);
             const locationName = courtService.findCourtName(returnedLocation, req.lng, listPath);
 
             const printDate = payload['document'].data.job.printdate;
-            const publishedDate = formatDate(MagistratesAdultCourtListController.toIsoDate(printDate), 'dd MMMM yyyy', req.lng);
+            const publishedDate = formatDate(
+                MagistratesAdultCourtListController.toIsoDate(printDate),
+                'dd MMMM yyyy',
+                req.lng
+            );
 
             const printStartTime = payload['document'].info?.start_time;
             const publishedTime = printStartTime ? helperService.publicationTimeInUkTime(printStartTime) : '';

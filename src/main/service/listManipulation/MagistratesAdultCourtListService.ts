@@ -35,8 +35,8 @@ export class MagistratesAdultCourtListService {
                         defendantAge: caseNode.def_age ? caseNode.def_age : '',
                         defendantAddress: this.formatDefendantAddress(caseNode.def_addr),
                         informant: caseNode.inf,
-                        offence: this.processOffences(caseNode.offences, language)
-                    }
+                        offence: this.processOffences(caseNode.offences, language),
+                    };
                 }
 
                 cases.push(caseInfo);
@@ -66,12 +66,12 @@ export class MagistratesAdultCourtListService {
         offencesNode.forEach(offenceNode => {
             offenceCodes.push(offenceNode.code);
             offenceTitles.push(language === 'cy' && offenceNode.cy_title ? offenceNode.cy_title : offenceNode.title);
-            offenceSummaries.push(language === 'cy' && offenceNode.cy_sum ? offenceNode.cy_sum :offenceNode.sum);
+            offenceSummaries.push(language === 'cy' && offenceNode.cy_sum ? offenceNode.cy_sum : offenceNode.sum);
         });
         return {
             offenceCode: offenceCodes.filter(line => line.trim().length > 0).join(', '),
             offenceTitle: offenceTitles.filter(line => line.trim().length > 0).join(', '),
-            offenceSummary: offenceSummaries.filter(line => line.trim().length > 0).join(', ')
-        }
+            offenceSummary: offenceSummaries.filter(line => line.trim().length > 0).join(', '),
+        };
     }
 }

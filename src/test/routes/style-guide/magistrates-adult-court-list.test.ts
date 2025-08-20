@@ -13,9 +13,15 @@ const urlDailyList = '/magistrates-adult-court-list-daily';
 const urlFutureList = '/magistrates-adult-court-list-future';
 const urlPublicDailyList = '/magistrates-public-adult-court-list-daily';
 
-const rawStandardData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/magistratesAdultCourtList.json'), 'utf-8');
+const rawStandardData = fs.readFileSync(
+    path.resolve(__dirname, '../../unit/mocks/magistratesAdultCourtList.json'),
+    'utf-8'
+);
 const standardListData = JSON.parse(rawStandardData);
-const rawPublicData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/magistratesPublicAdultCourtList.json'), 'utf-8');
+const rawPublicData = fs.readFileSync(
+    path.resolve(__dirname, '../../unit/mocks/magistratesPublicAdultCourtList.json'),
+    'utf-8'
+);
 const publicListData = JSON.parse(rawPublicData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
@@ -28,7 +34,7 @@ const metadataPublicDailyList = JSON.parse(rawMetaData)[0];
 metadataPublicDailyList.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY';
 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
-const getIndividualPublicationJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson')
+const getIndividualPublicationJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 getIndividualPublicationJsonStub.withArgs('abc').resolves(standardListData);
 getIndividualPublicationJsonStub.withArgs('def').resolves(standardListData);
 getIndividualPublicationJsonStub.withArgs('ace').resolves(publicListData);
@@ -38,7 +44,7 @@ metadataStub.withArgs('abc').returns(metadataDailyList);
 metadataStub.withArgs('def').returns(metadataFutureList);
 metadataStub.withArgs('ace').returns(metadataPublicDailyList);
 
-describe("Magistrates Adult Court List Daily Page", () => {
+describe('Magistrates Adult Court List Daily Page', () => {
     describe('on GET', () => {
         test('should return Magistrate Adult Court List page', async () => {
             await request(app)
@@ -49,7 +55,7 @@ describe("Magistrates Adult Court List Daily Page", () => {
     });
 });
 
-describe("Magistrates Adult Court List Future Page", () => {
+describe('Magistrates Adult Court List Future Page', () => {
     describe('on GET', () => {
         test('should return Magistrate Adult Court List page', async () => {
             await request(app)
@@ -60,7 +66,7 @@ describe("Magistrates Adult Court List Future Page", () => {
     });
 });
 
-describe("Magistrates Public Adult Court List Daily Page", () => {
+describe('Magistrates Public Adult Court List Daily Page', () => {
     describe('on GET', () => {
         test('should return Public Magistrate Adult Court List Daily page', async () => {
             await request(app)

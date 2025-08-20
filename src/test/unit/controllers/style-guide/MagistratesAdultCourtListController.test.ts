@@ -9,8 +9,7 @@ import { LocationService } from '../../../../main/service/LocationService';
 import { MagistratesAdultCourtListService } from '../../../../main/service/listManipulation/MagistratesAdultCourtListService';
 import { HttpStatusCode } from 'axios';
 import { describe } from '@jest/globals';
-import MagistratesAdultCourtListController
-    from '../../../../main/controllers/style-guide/MagistratesAdultCourtListController';
+import MagistratesAdultCourtListController from '../../../../main/controllers/style-guide/MagistratesAdultCourtListController';
 
 const urlDailyList = '/magistrates-adult-court-list-daily';
 const urlFutureList = '/magistrates-adult-court-list-future';
@@ -74,93 +73,97 @@ const i18n = {
 
 const magistratesAdultCourtListController = new MagistratesAdultCourtListController();
 
-describe.each([urlDailyList, urlFutureList, urlPublicDailyList])("Magistrates Adult Court List Controller with path '%s'", url => {
-    const response = {
-        render: () => {
-            return '';
-        },
-    } as unknown as Response;
+describe.each([urlDailyList, urlFutureList, urlPublicDailyList])(
+    "Magistrates Adult Court List Controller with path '%s'",
+    url => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
 
-    const request = mockRequest(i18n);
-    const isStandardList = url !== urlPublicDailyList;
-    const listPathValue = isStandardList ?
-        'magistrates-adult-court-list' : 'magistrates-public-adult-court-list-daily';
-    const listPath = 'style-guide/' + listPathValue;
+        const request = mockRequest(i18n);
+        const isStandardList = url !== urlPublicDailyList;
+        const listPathValue = isStandardList
+            ? 'magistrates-adult-court-list'
+            : 'magistrates-public-adult-court-list-daily';
+        const listPath = 'style-guide/' + listPathValue;
 
-    request.path = url;
+        request.path = url;
 
-    it('should render the Magistrates Adult Court List page', async () => {
-        request.query = { artefactId: artefactIdMap.get(url) };
-        request.user = { userId: '1' };
+        it('should render the Magistrates Adult Court List page', async () => {
+            request.query = { artefactId: artefactIdMap.get(url) };
+            request.user = { userId: '1' };
 
-        const responseMock = sinon.mock(response);
+            const responseMock = sinon.mock(response);
 
-        const expectedData = {
-            ...i18n[listPathValue],
-            ...i18n['list-template'],
-            listData: isStandardList ? standardListData : publicListData,
-            contentDate: DateTime.fromISO(metadataDailyList['contentDate'], {
-                zone: 'utc',
-            }).toFormat('dd MMMM yyyy'),
-            locationName: "Abergavenny Magistrates' Court",
-            provenance: 'prov1',
-            publishedDate: '31 July 2025',
-            publishedTime: '9:05am',
-        };
+            const expectedData = {
+                ...i18n[listPathValue],
+                ...i18n['list-template'],
+                listData: isStandardList ? standardListData : publicListData,
+                contentDate: DateTime.fromISO(metadataDailyList['contentDate'], {
+                    zone: 'utc',
+                }).toFormat('dd MMMM yyyy'),
+                locationName: "Abergavenny Magistrates' Court",
+                provenance: 'prov1',
+                publishedDate: '31 July 2025',
+                publishedTime: '9:05am',
+            };
 
-        responseMock.expects('render').once().withArgs(listPath, expectedData);
+            responseMock.expects('render').once().withArgs(listPath, expectedData);
 
-        await magistratesAdultCourtListController.get(request, response, url.substring(1));
-        return responseMock.verify();
-    });
+            await magistratesAdultCourtListController.get(request, response, url.substring(1));
+            return responseMock.verify();
+        });
 
-    it('should render error page if query param is empty', async () => {
-        request.query = {};
-        request.user = { userId: '1' };
-        const responseMock = sinon.mock(response);
+        it('should render error page if query param is empty', async () => {
+            request.query = {};
+            request.user = { userId: '1' };
+            const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await magistratesAdultCourtListController.get(request, response, url.substring(1));
-        return responseMock.verify();
-    });
+            await magistratesAdultCourtListController.get(request, response, url.substring(1));
+            return responseMock.verify();
+        });
 
-    it('should render list not found page if response is 404', async () => {
-        request.user = { userId: '1' };
-        request.query = { artefactId: '1234' };
-        const responseMock = sinon.mock(response);
+        it('should render list not found page if response is 404', async () => {
+            request.user = { userId: '1' };
+            request.query = { artefactId: '1234' };
+            const responseMock = sinon.mock(response);
 
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await magistratesAdultCourtListController.get(request, response, url.substring(1));
-        return responseMock.verify();
-    });
+            await magistratesAdultCourtListController.get(request, response, url.substring(1));
+            return responseMock.verify();
+        });
 
-    it('should render error page if list is not allowed to view by the user', async () => {
-        request.query = { artefactId: artefactIdMap.get(url) };
-        request.user = {};
-        const responseMock = sinon.mock(response);
+        it('should render error page if list is not allowed to view by the user', async () => {
+            request.query = { artefactId: artefactIdMap.get(url) };
+            request.user = {};
+            const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
+            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await magistratesAdultCourtListController.get(request, response, url.substring(1));
-        return responseMock.verify();
-    });
+            await magistratesAdultCourtListController.get(request, response, url.substring(1));
+            return responseMock.verify();
+        });
 
-    it('should render list not found page if list type not valid', async () => {
-        request.query = { artefactId: artefactIdListNotFound };
-        request.user = { userId: '1' };
-        const responseMock = sinon.mock(response);
+        it('should render list not found page if list type not valid', async () => {
+            request.query = { artefactId: artefactIdListNotFound };
+            request.user = { userId: '1' };
+            const responseMock = sinon.mock(response);
 
-        responseMock
-            .expects('render')
-            .once()
-            .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await magistratesAdultCourtListController.get(request, response, url.substring(1));
-        return responseMock.verify();
-    });
-});
+            await magistratesAdultCourtListController.get(request, response, url.substring(1));
+            return responseMock.verify();
+        });
+    }
+);

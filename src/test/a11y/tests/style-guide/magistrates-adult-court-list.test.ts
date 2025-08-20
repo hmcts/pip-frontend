@@ -4,7 +4,7 @@ import { testAccessibility } from '../../common/pa11yHelper';
 import { LocationService } from '../../../../main/service/LocationService';
 import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
 
-const userId = '1'
+const userId = '1';
 const urlDailyList = '/magistrates-adult-court-list-daily';
 const urlFutureList = '/magistrates-adult-court-list-future';
 const urlPublicDailyList = '/magistrates-public-adult-court-list-daily';

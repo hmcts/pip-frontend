@@ -15,10 +15,7 @@ const bodyClass = 'govuk-body';
 const tableHeaderClass = 'govuk-table__header';
 const tableCellClass = 'govuk-table__cell';
 
-const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtList.json'),
-    'utf-8'
-);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 
