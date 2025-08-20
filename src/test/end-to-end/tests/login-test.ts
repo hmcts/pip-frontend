@@ -192,9 +192,7 @@ Scenario('I as a Crime user should be able to sign-in with the valid credentials
     I.loginAsCrimeUserInWelsh();
     I.waitForText('Eich cyfrif');
     I.logoutWelsh();
-})
-    .tag('@SkipOnPR')
-    .tag('@CrossBrowser');
+}).tag('@Nightly');
 
 Scenario(
     'I as a Crime user should be able to see proper error message when username or password is wrong',
