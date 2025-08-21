@@ -27,8 +27,8 @@ export class PublicationService {
         return publicationRequests.getIndividualPublicationFile(artefactId, userId);
     }
 
-    public async getIndividualPublicationJson(artefactId, userId: string): Promise<JSON | HttpStatusCode> {
-        return publicationRequests.getIndividualPublicationJson(artefactId, userId);
+    public async getIndividualPublicationJson(artefactId, userId: string, admin = false): Promise<JSON | HttpStatusCode> {
+        return publicationRequests.getIndividualPublicationJson(artefactId, userId, admin);
     }
 
     public async getCasesByCaseName(caseName: string, userId: string): Promise<object[]> {

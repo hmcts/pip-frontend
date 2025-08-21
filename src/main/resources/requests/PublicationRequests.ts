@@ -6,7 +6,7 @@ import { LogHelper } from '../logging/logHelper';
 const logHelper = new LogHelper();
 
 export class PublicationRequests {
-    public async getIndividualPublicationMetadata(artefactId, userId, admin): Promise<any> {
+    public async getIndividualPublicationMetadata(artefactId, userId, admin = false): Promise<any> {
         try {
             let header;
             if (userId) {
@@ -55,11 +55,13 @@ export class PublicationRequests {
         return [];
     }
 
-    public async getIndividualPublicationJson(artefactId, userId): Promise<HttpStatusCode> {
+    public async getIndividualPublicationJson(artefactId, userId, admin = false): Promise<HttpStatusCode> {
         try {
             let header;
             if (userId) {
-                header = { headers: { 'x-user-id': userId } };
+                header = { headers: { 'x-user-id': userId, 'x-admin': admin  } };
+            } else {
+                header = { headers: { 'x-admin': admin } };
             }
 
             const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', header);

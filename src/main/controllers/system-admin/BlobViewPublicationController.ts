@@ -15,8 +15,8 @@ const userManagementService = new UserManagementService();
 export default class BlobViewPublicationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId;
-        const data = await publicationService.getIndividualPublicationJson(artefactId, req.user['userId']);
-        const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId']);
+        const data = await publicationService.getIndividualPublicationJson(artefactId, req.user['userId'], true);
+        const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId'], true);
 
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();

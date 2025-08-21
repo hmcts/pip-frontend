@@ -15,7 +15,7 @@ export default class BlobViewSubscriptionResubmitConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId;
         if (artefactId) {
-            const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId']);
+            const metadata = await publicationService.getIndividualPublicationMetadata(artefactId, req.user['userId'], true);
             const locationName = (await locationService.getLocationById(parseInt(metadata.locationId.toString()))).name;
             res.render('system-admin/blob-view-subscription-resubmit-confirmation', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-subscription-resubmit-confirmation']),
@@ -30,7 +30,7 @@ export default class BlobViewSubscriptionResubmitConfirmationController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId;
         if (artefactId) {
-            const response = await subscriptionService.fulfillSubscriptions(artefactId, req.user['userId']);
+            const response = await subscriptionService.fulfillSubscriptions(artefactId, req.user['userId'], true);
             if (response) {
                 await userManagementService.auditAction(
                     req.user,
