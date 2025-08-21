@@ -228,9 +228,7 @@ describe('get individual publication file', () => {
 describe('get individual publication json', () => {
     it('should return json for a given publication', async () => {
         dataManagementStub
-            .withArgs('/publication/fakeArtefactId/payload', {
-                headers: { 'x-user-id': '123' },
-            })
+            .withArgs('/publication/fakeArtefactId/payload')
             .resolves(mockJson);
         const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
         expect(message).toBe(mockJson.data);
