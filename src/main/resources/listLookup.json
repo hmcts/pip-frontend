@@ -199,16 +199,6 @@
         "defaultSensitivity": "",
         "isNonStrategic": false
     },
-    "CIC_DAILY_HEARING_LIST": {
-        "friendlyName": "Criminal Injuries Compensation Daily Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau Dyddiol y Digolledu am Anafiadau Troseddol",
-        "shortenedFriendlyName": "CIC Daily Hearing List",
-        "url": "",
-        "jurisdictionTypes": ["Criminal Injuries Compensation Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
     "PHT_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Iechyd Sylfaenol",
