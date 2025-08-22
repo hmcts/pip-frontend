@@ -178,4 +178,8 @@ export function createFilters(env) {
     env.addFilter('timeFormatter', function (time) {
         return time ? time.replace('.', ':') : null;
     });
+
+    env.addFilter('isHtml', function(str: string) {
+        return /<\/?[a-z][\s\S]*>/i.test(str);
+    });
 }

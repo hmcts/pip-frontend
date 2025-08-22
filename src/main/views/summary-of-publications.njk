@@ -12,20 +12,28 @@
 {% block content %}
 <div class="parent-box">
   <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
-  {% if noCautionMessageOverride | length %}
-     <p class="govuk-body">{{ noCautionMessageOverride }}</p>
+  {% if cautionMessageOverride | length %}
+    {% if cautionMessageOverride | isHtml %}
+      <div class="govuk-body">{{ cautionMessageOverride | safe }}</div>
+    {% else %}
+      <p class="govuk-body">{{ cautionMessageOverride }}</p>
+    {% endif %}
   {% endif %}
   {% if publications.length === 0 %}
     {% if noListMessageOverride | length %}
+      {% if noListMessageOverride | isHtml %}
+        <div class="govuk-body">{{ noListMessageOverride | safe }}</div>
+      {% else %}
         <p class="govuk-body">{{ noListMessageOverride }}</p>
+      {% endif %}
     {% elseif court.email | length and court.contactNo | length %}
-        <p class="govuk-body">{{ noListsWithCourtTelephoneAndEmail | replace("COURTNAME", locationName) | replace("CONTACTNO", court.contactNo) | replace("EMAIL", court.email) }}</p>
+      <p class="govuk-body">{{ noListsWithCourtTelephoneAndEmail | replace("COURTNAME", locationName) | replace("CONTACTNO", court.contactNo) | replace("EMAIL", court.email) }}</p>
     {% elseif court.contactNo | length %}
-        <p class="govuk-body">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.contactNo) }}</p>
+      <p class="govuk-body">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.contactNo) }}</p>
     {% elseif court.email | length %}
-        <p class="govuk-body">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.email) }}</p>
+      <p class="govuk-body">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.email) }}</p>
     {% else %}
-        <p class="govuk-body">{{ noLists }}</p>
+      <p class="govuk-body">{{ noLists }}</p>
     {% endif %}
   {% else %}
     <p class="govuk-body">{{ p1 }}</p>
