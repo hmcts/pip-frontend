@@ -28,7 +28,10 @@ const artefactIdMap = new Map<string, string>([
 const rawStandardData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesAdultCourtList.json'), 'utf-8');
 const standardListData = JSON.parse(rawStandardData);
 
-const rawPublicData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtList.json'), 'utf-8');
+const rawPublicData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtList.json'),
+    'utf-8'
+);
 const publicListData = JSON.parse(rawPublicData);
 
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
