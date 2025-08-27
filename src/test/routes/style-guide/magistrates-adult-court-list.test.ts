@@ -23,7 +23,6 @@ const rawPublicData = fs.readFileSync(
     'utf-8'
 );
 const publicListData = JSON.parse(rawPublicData);
-
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 
 const metadataDailyList = JSON.parse(rawMetaData)[0];
@@ -44,7 +43,7 @@ metadataStub.withArgs('abc').returns(metadataDailyList);
 metadataStub.withArgs('def').returns(metadataFutureList);
 metadataStub.withArgs('ace').returns(metadataPublicDailyList);
 
-describe('Magistrates Adult Court List Daily Page', () => {
+describe("Magistrates Adult Court List Daily Page", () => {
     describe('on GET', () => {
         test('should return Magistrate Adult Court List page', async () => {
             await request(app)
@@ -55,7 +54,7 @@ describe('Magistrates Adult Court List Daily Page', () => {
     });
 });
 
-describe('Magistrates Adult Court List Future Page', () => {
+describe("Magistrates Adult Court List Future Page", () => {
     describe('on GET', () => {
         test('should return Magistrate Adult Court List page', async () => {
             await request(app)

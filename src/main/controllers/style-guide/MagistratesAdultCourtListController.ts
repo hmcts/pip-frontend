@@ -32,6 +32,7 @@ export default class MagistratesAdultCourtListController {
                 req.lng,
                 !listType.startsWith('magistrates-public')
             );
+
             const returnedLocation = await courtService.getLocationById(metadata['locationId']);
             const locationName = courtService.findCourtName(returnedLocation, req.lng, listPath);
 

@@ -11,7 +11,6 @@ const urlPublicDailyList = '/magistrates-public-adult-court-list-daily';
 
 const standardJsonData = testArtefactJsonData('magistratesAdultCourtList.json');
 const publicJsonData = testArtefactJsonData('magistratesPublicAdultCourtList.json');
-
 const metadata = testArtefactMetadata()[0];
 const locationData = testLocationData();
 
@@ -29,10 +28,12 @@ magsAdultCourtListJsonStub.withArgs('abc').resolves(standardJsonData);
 magsAdultCourtListJsonStub.withArgs('def').resolves(standardJsonData);
 magsAdultCourtListJsonStub.withArgs('ace').resolves(publicJsonData);
 
+
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 metadataStub.withArgs('abc', userId).returns(metadataDailyList);
 metadataStub.withArgs('def', userId).returns(metadataFutureList);
 metadataStub.withArgs('ace', userId).returns(metadataPublicDailyList);
+
 
 describe('Accessibility - Magistrates Adult Court List Daily Page', () => {
     testAccessibility(`${urlDailyList}?artefactId=abc`);

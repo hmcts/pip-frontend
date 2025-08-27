@@ -913,7 +913,7 @@
     "MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY": {
         "friendlyName": "Magistrates Public Adult Court List - Daily",
         "welshFriendlyName": "Magistrates Public Adult Court List - Daily",
-        "shortenedFriendlyName": "Magistrates Adult Court List - Daily",
+        "shortenedFriendlyName": "Magistrates Public Adult Court List - Daily",
         "url": "magistrates-public-adult-court-list-daily",
         "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
