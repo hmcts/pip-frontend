@@ -623,8 +623,8 @@ export class SubscriptionService {
         pendingSubscriptionsFromCache.setListTypeSubscription(userId, [...new Set(selectedListTypes)]);
     }
 
-    public async fulfillSubscriptions(artefactId, userId, admin = false): Promise<string> {
-        const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, userId, admin);
+    public async fulfillSubscriptions(artefactId, userId): Promise<string> {
+        const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, userId);
         return await subscriptionRequests.fulfillSubscriptions(artefact);
     }
 }

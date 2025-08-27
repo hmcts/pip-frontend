@@ -47,7 +47,7 @@
             </form>
         </div>
     </div>
-    {% if not noMatchArtefact and metadata.sensitivity == 'PUBLIC' %}
+    {% if not noMatchArtefact %}
         <p class="govuk-body-l">
           <a class="govuk-link" href="{{ listUrl }}">{{ viewLinkFlatFile if metadata.isFlatFile else viewLinkJson }}</a>
         </p>
@@ -56,9 +56,9 @@
     {% if not metadata.isFlatFile %}
         <details class="govuk-details" data-module="govuk-details">
             <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      {{ viewJson }}
-    </span>
+                <span class="govuk-details__summary-text">
+                    {{ viewJson }}
+                </span>
             </summary>
             <div class="json-container">
                 {{ data | safe }}
