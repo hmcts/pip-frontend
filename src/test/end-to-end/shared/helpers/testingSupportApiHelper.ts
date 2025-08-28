@@ -16,7 +16,7 @@ class TestingSupportApi extends Helper implements TestingSupportAPI {
     createTestUserAccount = TestingSupportAPI.createTestUserAccount;
     createThirdPartyUserAccount = TestingSupportAPI.createThirdPartyUserAccount;
     deleteThirdPartyUserAccount = TestingSupportAPI.deleteThirdPartyUserAccount;
-    uploadFlatFile=TestingSupportAPI.uploadFlatFile;
+    uploadFlatFile = TestingSupportAPI.uploadFlatFile;
 }
 
 export = TestingSupportApi;
