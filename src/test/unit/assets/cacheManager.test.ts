@@ -1,5 +1,3 @@
-import sinon from 'sinon';
-
 const expectedValues = {
     host: '127.0.0.1',
     port: '6379',
@@ -11,8 +9,6 @@ const expectedEnvValues = {
     port: '6380',
     password: 'password',
 };
-
-sinon.stub()
 
 describe('cache manager', () => {
     let redisConfig;
