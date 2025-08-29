@@ -1,11 +1,11 @@
-import { LocationService } from '../../../main/service/LocationService';
-import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
-import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
-import { SubscriptionService } from '../../../main/service/SubscriptionService';
+import {LocationService} from '../../../main/service/LocationService';
+import {PendingSubscriptionsFromCache} from '../../../main/service/PendingSubscriptionsFromCache';
+import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
+import {SubscriptionService} from '../../../main/service/SubscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import { PublicationService } from '../../../main/service/PublicationService';
+import {PublicationService} from '../../../main/service/PublicationService';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
@@ -1081,7 +1081,7 @@ describe('generateListTypesForCourts', () => {
         const subscriptionChannelStub = sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels');
         subscriptionChannelStub.resolves(['CHANNEL_A', 'CHANNEL_B']);
 
-        const retrievedChannels = await subscriptionService.retrieveChannels();
+        const retrievedChannels = await subscriptionService.retrieveChannels(userId, adminUserId);
 
         expect(retrievedChannels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
     });

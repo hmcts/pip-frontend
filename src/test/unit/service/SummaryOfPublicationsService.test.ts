@@ -32,6 +32,6 @@ describe('Summary Of Publications Service', () => {
     });
     it('should return a list of noMatch publications', async () => {
         pubNoMatchStub.resolves('{"item":"listOfPubs"}');
-        expect(await sopService.getNoMatchPublications()).to.equal('{"item":"listOfPubs"}');
+        expect(await sopService.getNoMatchPublications('123-456')).to.equal('{"item":"listOfPubs"}');
     });
 });

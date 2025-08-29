@@ -10,8 +10,9 @@ import path from 'path';
 const manualUploadService = new ManualUploadService();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
+const requesterId = '123-456';
 const headers = {
-    userEmail: 'test@email.com',
+    userId: requesterId,
     fileName: 'file.pdf',
     artefactType: 'type',
     classification: 'classified',
@@ -36,7 +37,8 @@ const expectedHeaders = {
     'x-list-type': headers.listType,
     'x-court-id': headers.court.locationId,
     'x-content-date': headers['content-date-from'],
-    'x-issuer-email': 'test@email.com',
+    'x-requester-id': requesterId,
+    'x-user-id': requesterId,
 };
 const courtService = sinon.stub(LocationService.prototype, 'getLocationByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);
@@ -454,7 +456,7 @@ describe('Manual upload service', () => {
     });
 
     it('should upload a reference data file', async () => {
-        const fileUpload = await manualUploadService.uploadLocationDataPublication(headers);
+        const fileUpload = await manualUploadService.uploadLocationDataPublication(headers, requesterId);
         expect(fileUpload).to.be.true;
     });
 

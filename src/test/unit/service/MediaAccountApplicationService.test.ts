@@ -12,6 +12,7 @@ describe('Media Account Application Service', () => {
     const applicationId = '1234';
     const imageId = '12345';
     const adminEmail = 'a@b.com';
+    const adminId = '5678';
     const accountApplicationService = new MediaAccountApplicationService();
 
     const dummyAccount = {
@@ -55,7 +56,7 @@ describe('Media Account Application Service', () => {
     const createAccountServiceStub = sinon.stub(CreateAccountService.prototype, 'createMediaAccount');
 
     it('should return media applications ordered by date', async () => {
-        const results = await accountApplicationService.getDateOrderedMediaApplications();
+        const results = await accountApplicationService.getDateOrderedMediaApplications(adminId);
         expect(results[0].fullName).toEqual('Test Name 2');
         expect(results[0].requestDate).toEqual('05 Mar 2022');
         expect(new Date(results[0].requestDate) < new Date(results[1].requestDate)).toBeTruthy();
@@ -64,19 +65,19 @@ describe('Media Account Application Service', () => {
     it('should return the expected application by id', async () => {
         mediaApplicationByIdStub.withArgs(applicationId).resolves(dummyApplication);
 
-        const application = await accountApplicationService.getApplicationById(applicationId);
+        const application = await accountApplicationService.getApplicationById(applicationId, adminId);
         expect(application).toStrictEqual(formattedApplication);
     });
 
     it('should return null application by id when no id provided', async () => {
-        const application = await accountApplicationService.getApplicationById(null);
+        const application = await accountApplicationService.getApplicationById(null, adminId);
         expect(application).toBe(null);
     });
 
     it('should return null when id does not match an application', async () => {
         mediaApplicationByIdStub.withArgs(applicationId).resolves(null);
 
-        const application = await accountApplicationService.getApplicationById(applicationId);
+        const application = await accountApplicationService.getApplicationById(applicationId, adminId);
         expect(application).toBe(null);
     });
 
@@ -84,33 +85,41 @@ describe('Media Account Application Service', () => {
         dummyApplication['requestDate'] = '2022-05-09T00:00:01';
         mediaApplicationByIdStub.withArgs(applicationId).resolves(dummyApplication);
 
-        const application = await accountApplicationService.getApplicationByIdAndStatus(applicationId, 'PENDING');
+        const application = await accountApplicationService.getApplicationByIdAndStatus(
+            applicationId,
+            'PENDING',
+            adminId
+        );
         expect(application).toStrictEqual(formattedApplication);
     });
 
     it('should return the expected application by id and status when does not match', async () => {
         mediaApplicationByIdStub.withArgs(applicationId).resolves(dummyApplication);
 
-        const application = await accountApplicationService.getApplicationByIdAndStatus(applicationId, 'OTHER');
+        const application = await accountApplicationService.getApplicationByIdAndStatus(
+            applicationId,
+            'OTHER',
+            adminId
+        );
         expect(application).toBe(null);
     });
 
     it('should return null application by id and status', async () => {
-        const application = await accountApplicationService.getApplicationByIdAndStatus(null, 'PENDING');
+        const application = await accountApplicationService.getApplicationByIdAndStatus(null, 'PENDING', adminId);
         expect(application).toBe(null);
     });
 
     it('should return the expected image', async () => {
         mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
 
-        const applicationImage = await accountApplicationService.getImageById(imageId);
+        const applicationImage = await accountApplicationService.getImageById(imageId, adminId);
         expect(applicationImage).toBe(dummyImage);
     });
 
     it('should return null image ID', async () => {
         mediaApplicationByImageStub.withArgs(imageId).resolves(dummyImage);
 
-        const applicationImage = await accountApplicationService.getImageById(null);
+        const applicationImage = await accountApplicationService.getImageById(null, adminId);
         expect(applicationImage).toBe(null);
     });
 
@@ -161,7 +170,7 @@ describe('rejectApplication', () => {
 
         await service.rejectApplication(applicationId, adminId, reasons);
 
-        expect(mediaApplicationUpdateStatusStub.calledOnceWith(applicationId, 'REJECTED', reasons)).toBeTruthy;
+        expect(mediaApplicationUpdateStatusStub.calledOnceWith(applicationId, 'REJECTED', adminId, reasons)).toBeTruthy;
     });
 
     it('should return null if any of the operations fail', async () => {
@@ -174,7 +183,7 @@ describe('rejectApplication', () => {
         const service = new MediaAccountApplicationService();
         const result = await service.rejectApplication(applicationId, adminId, reasons);
 
-        expect(mediaApplicationUpdateStatusStub.calledOnceWith(applicationId, 'REJECTED', reasons)).toBeTruthy;
+        expect(mediaApplicationUpdateStatusStub.calledOnceWith(applicationId, 'REJECTED', adminId, reasons)).toBeTruthy;
         expect(result).toBeNull;
     });
 });

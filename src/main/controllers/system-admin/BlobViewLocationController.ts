@@ -9,7 +9,7 @@ const publicationService = new PublicationService();
 export default class BlobViewLocationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const listOfLocations = await locationService.fetchAllLocations(req.lng);
-        const counts = await publicationService.getCountsOfPubsPerLocation();
+        const counts = await publicationService.getCountsOfPubsPerLocation(req.user['userId']);
         if (listOfLocations && counts) {
             const dictionaryOfLocations = new Map();
             for (const loc of listOfLocations) {
