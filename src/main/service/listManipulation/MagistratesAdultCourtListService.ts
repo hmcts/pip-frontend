@@ -3,10 +3,10 @@ import { ListParseHelperService } from '../ListParseHelperService';
 const helperService = new ListParseHelperService();
 
 export class MagistratesAdultCourtListService {
-    public processPayload(payload: JSON, language: string): any[] {
+    public processPayload(payload: JSON, language: string, isStandard: boolean): any[] {
         const results = [];
         payload['document'].data.job.sessions.forEach(sessionNode => {
-            const cases = this.buildCases(sessionNode, language);
+            const cases = this.buildCases(sessionNode, language, isStandard);
             results.push({
                 lja: sessionNode.lja,
                 courtName: sessionNode.court,
@@ -18,20 +18,27 @@ export class MagistratesAdultCourtListService {
         return results;
     }
 
-    private buildCases(sessionNode: any, language: string): any[] {
+    private buildCases(sessionNode: any, language: string, isStandard: boolean): any[] {
         const cases = [];
         sessionNode.blocks.forEach(blockNode => {
             blockNode.cases.forEach(caseNode => {
-                const caseInfo = {
+                let caseInfo = {
                     blockStartTime: helperService.publicationTimeInUkTime(blockNode.bstart),
                     caseNumber: caseNode.caseno,
                     defendantName: caseNode.def_name,
-                    defendantDob: caseNode.def_dob ? caseNode.def_dob : '',
-                    defendantAge: caseNode.def_age ? caseNode.def_age : '',
-                    defendantAddress: this.formatDefendantAddress(caseNode.def_addr),
-                    informant: caseNode.inf,
-                    offence: this.processOffences(caseNode.offences, language)
+                } as object;
+
+                if (isStandard) {
+                    caseInfo = {
+                        ...caseInfo,
+                        defendantDob: caseNode.def_dob ? caseNode.def_dob : '',
+                        defendantAge: caseNode.def_age ? caseNode.def_age : '',
+                        defendantAddress: this.formatDefendantAddress(caseNode.def_addr),
+                        informant: caseNode.inf,
+                        offence: this.processOffences(caseNode.offences, language),
+                    };
                 }
+
                 cases.push(caseInfo);
             });
         });
@@ -59,12 +66,12 @@ export class MagistratesAdultCourtListService {
         offencesNode.forEach(offenceNode => {
             offenceCodes.push(offenceNode.code);
             offenceTitles.push(language === 'cy' && offenceNode.cy_title ? offenceNode.cy_title : offenceNode.title);
-            offenceSummaries.push(language === 'cy' && offenceNode.cy_sum ? offenceNode.cy_sum :offenceNode.sum);
+            offenceSummaries.push(language === 'cy' && offenceNode.cy_sum ? offenceNode.cy_sum : offenceNode.sum);
         });
         return {
             offenceCode: offenceCodes.filter(line => line.trim().length > 0).join(', '),
             offenceTitle: offenceTitles.filter(line => line.trim().length > 0).join(', '),
-            offenceSummary: offenceSummaries.filter(line => line.trim().length > 0).join(', ')
-        }
+            offenceSummary: offenceSummaries.filter(line => line.trim().length > 0).join(', '),
+        };
     }
 }
