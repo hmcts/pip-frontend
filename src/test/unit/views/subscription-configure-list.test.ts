@@ -267,7 +267,7 @@ describe('Subscription Configure List', () => {
                 'Select London Circuit Commercial Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Masnachol Cylchdaith Llundain (Adran Mainc y Brenin)',
                 'Select Magistrates Adult Court List - Daily\nRhestr Llys Ynadon Oedolion - Dyddiol',
                 'Select Magistrates Adult Court List - Future\nRhestr Llys Ynadon Oedolion – Dyfodol',
-                'Select Magistrates Public Adult Court List - Daily\nMagistrates Public Adult Court List - Daily',
+                'Select Magistrates Public Adult Court List - Daily\nRhestr Achosion Cyhoeddus Llys Ynadon (Oedolion) - Dyddiol',
                 'Select Magistrates Public List\nRhestr Gyhoeddus y Llys Ynadon',
                 'Select Magistrates Standard List\nRhestr Safonol y Llys Ynadon',
                 'Select Manchester Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Manceinion',
