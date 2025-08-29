@@ -1,6 +1,6 @@
 {
-    "title": "Magistrates Standard List",
-    "heading": "Magistrates Standard List for",
+    "title": "Magistrates Public List",
+    "heading": "Magistrates Public List for",
     "listDate": "List for",
     "listUpdated": "Last updated",
     "at": "at",
@@ -16,16 +16,9 @@
     "lja": "LJA:",
     "sessionStart": "Session start",
     "tableHeaders": [
-        "Block Start",
+        "Listing Time",
         "Defendant Name",
-        "Date of Birth",
-        "Address",
-        "Age",
-        "Informant",
-        "Case Number",
-        "Offence Code",
-        "Offence Title",
-        "Offence Summary"
+        "Case Number"
     ],
     "dataSource": "Data Source"
 }
