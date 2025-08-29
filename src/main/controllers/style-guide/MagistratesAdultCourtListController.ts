@@ -14,8 +14,8 @@ const courtService = new LocationService();
 const helperService = new ListParseHelperService();
 const magistratesAdultCourtListService = new MagistratesAdultCourtListService();
 
-const listPath = 'magistrates-adult-court-list';
-
+const standardListPath = 'magistrates-adult-court-list';
+const publicListPath = 'magistrates-public-adult-court-list';
 
 export default class MagistratesAdultCourtListController {
     public async get(req: PipRequest, res: Response, listType: string): Promise<void> {
@@ -25,12 +25,23 @@ export default class MagistratesAdultCourtListController {
         const metadataListType = formatMetaDataListType(metadata);
 
         if (isValidList(payload, metadata) && isValidListType(metadataListType, listType)) {
-            const listData = magistratesAdultCourtListService.processPayload(payload as JSON, req.lng);
+            const listPath = listType.startsWith('magistrates-public') ? publicListPath : standardListPath;
+
+            const listData = magistratesAdultCourtListService.processPayload(
+                payload as JSON,
+                req.lng,
+                !listType.startsWith('magistrates-public')
+            );
+
             const returnedLocation = await courtService.getLocationById(metadata['locationId']);
             const locationName = courtService.findCourtName(returnedLocation, req.lng, listPath);
 
             const printDate = payload['document'].data.job.printdate;
-            const publishedDate = formatDate(MagistratesAdultCourtListController.toIsoDate(printDate), 'dd MMMM yyyy', req.lng);
+            const publishedDate = formatDate(
+                MagistratesAdultCourtListController.toIsoDate(printDate),
+                'dd MMMM yyyy',
+                req.lng
+            );
 
             const printStartTime = payload['document'].info?.start_time;
             const publishedTime = printStartTime ? helperService.publicationTimeInUkTime(printStartTime) : '';

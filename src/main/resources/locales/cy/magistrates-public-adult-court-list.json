@@ -1,6 +1,6 @@
 {
-    "title": "Rhestr Safonol y Llys Ynadon",
-    "heading": "Rhestr Safonol y Llys Ynadon ar gyfer",
+    "title": "Rhestr Gyhoeddus y Llys Ynadon",
+    "heading": "Rhestr Gyhoeddus y Llys Ynadon ar gyfer ",
     "listDate": "Rhestr ar gyfer",
     "listUpdated": "Diweddarwyd diwethaf",
     "at": "am",
@@ -16,16 +16,9 @@
     "lja": "LJA:",
     "sessionStart": "Yn eistedd yn",
     "tableHeaders": [
-        "Amser Cychwyn y Bloc",
+        "Amser rhestru",
         "Enw'r Diffynnydd",
-        "Dyddiad Geni",
-        "Cyfeiriad",
-        "Oedran",
-        "Hysbysydd",
-        "Cyfeirnod yr Achos",
-        "Cod y Drosedd",
-        "Teitl y Drosedd",
-        "Crynodeb o’r Drosedd"
+        "Cyfeirnod yr Achos"
     ],
     "dataSource": "Ffynhonnell y Data"
 }
