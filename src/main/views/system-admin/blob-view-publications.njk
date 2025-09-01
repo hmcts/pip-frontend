@@ -24,7 +24,7 @@
         {% endfor %}
         {% for pub in listOfPublications %}
           {% set _ = rows.push([
-            {html: '<a class="govuk-link--no-underline" href="blob-view-json?artefactId='+pub.artefactId+'">'+pub.artefactId+'</a>'},
+            {html: '<a class="govuk-link--no-underline" href="blob-view-publication?artefactId='+pub.artefactId+'">'+pub.artefactId+'</a>'},
             {text: pub.listType | listType(lng)},
             {text: pub | dateRange}
           ]) %}
@@ -35,7 +35,7 @@
         {% endfor %}
         {% for pub in listOfPublications %}
           {% set _ = rows.push([
-            {html: '<a class="govuk-link--no-underline" href="blob-view-json?artefactId='+pub.artefactId+'">'+pub.artefactId+'</a>'},
+            {html: '<a class="govuk-link--no-underline" href="blob-view-publication?artefactId='+pub.artefactId+'">'+pub.artefactId+'</a>'},
             {text: pub.locationId},
             {text: pub.listType | listType(lng)},
             {text: pub | dateRange}

@@ -287,10 +287,10 @@ Scenario('System Admin User Journey - blob-view-publications-page', ({ I }) => {
     I.checkA11y('blob-view-publications-a11y-audit.html');
 });
 
-Scenario('System Admin User Journey - blob-view-json-page', ({ I }) => {
-    I.amOnPage('/blob-view-json?artefactId=' + artefactId);
+Scenario('System Admin User Journey - blob-view-publication page', ({ I }) => {
+    I.amOnPage('/blob-view-publication?artefactId=' + artefactId);
     I.waitForText('Blob Explorer - JSON file');
-    I.checkA11y('blob-view-json-a11y-audit.html');
+    I.checkA11y('blob-view-publication-a11y-audit.html');
 });
 
 Scenario('System Admin User Journey - resubmit-confirmation-page', ({ I }) => {
