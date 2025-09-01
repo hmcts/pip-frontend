@@ -1,14 +1,14 @@
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
-import BlobViewJsonController from '../../../../main/controllers/system-admin/BlobViewJsonController';
+import BlobViewPublicationController from '../../../../main/controllers/system-admin/BlobViewPublicationController';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { LocationService } from '../../../../main/service/LocationService';
 import { HttpStatusCode } from 'axios';
 
-const blobViewController = new BlobViewJsonController();
+const blobViewController = new BlobViewPublicationController();
 const i18n = {
-    'blob-view-json': {},
+    'blob-view-publication': {},
     error: { title: 'Error' },
 };
 const artefactJson = JSON.parse('{"Test":true}');
@@ -44,7 +44,7 @@ describe('Blob view publication controller', () => {
             const responseMock = sinon.mock(response);
 
             const expectedData = {
-                ...i18n['blob-view-json'],
+                ...i18n['blob-view-publication'],
                 data: artefactJsonString,
                 locationName: 'Single Justice Procedure',
                 artefactId: '1234',
@@ -52,7 +52,7 @@ describe('Blob view publication controller', () => {
                 listUrl: 'https://localhost:8080/sjp-public-list?artefactId=1234',
                 noMatchArtefact: false,
             };
-            responseMock.expects('render').once().withArgs('system-admin/blob-view-json', expectedData);
+            responseMock.expects('render').once().withArgs('system-admin/blob-view-publication', expectedData);
             await blobViewController.get(request, response);
             responseMock.verify;
         });
@@ -77,7 +77,7 @@ describe('Blob view publication controller', () => {
             } as unknown as Response;
 
             const expectedData = {
-                ...i18n['blob-view-json'],
+                ...i18n['blob-view-publication'],
                 data: artefactJsonString,
                 locationName: 'No match artefacts',
                 artefactId: '1234',
@@ -91,7 +91,7 @@ describe('Blob view publication controller', () => {
             request.query = { artefactId: '1234' };
             request.user = { userId: 10 };
 
-            responseMock.expects('render').once().withArgs('system-admin/blob-view-json', expectedData);
+            responseMock.expects('render').once().withArgs('system-admin/blob-view-publication', expectedData);
             await blobViewController.get(request, response);
             responseMock.verify;
         });
