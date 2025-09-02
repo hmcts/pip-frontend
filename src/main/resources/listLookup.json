@@ -900,6 +900,16 @@
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
+    "MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY": {
+        "friendlyName": "Magistrates Public Adult Court List - Daily",
+        "welshFriendlyName": "Rhestr Achosion Cyhoeddus Llys Ynadon (Oedolion) - Dyddiol",
+        "shortenedFriendlyName": "Magistrates Public Adult Court List - Daily",
+        "url": "magistrates-public-adult-court-list-daily",
+        "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
     "MAGISTRATES_ADULT_COURT_LIST_DAILY": {
         "friendlyName": "Magistrates Adult Court List - Daily",
         "welshFriendlyName": "Rhestr Llys Ynadon Oedolion - Dyddiol",

@@ -190,10 +190,27 @@ export default function (app: Application): void {
     app.get('/iac-daily-list-additional-cases', app.locals.container.cradle.iacDailyListController.get);
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
+    app.get('/magistrates-public-adult-court-list-daily', (req, res) =>
+        app.locals.container.cradle.magistratesAdultCourtListController.get(
+            req,
+            res,
+            'magistrates-public-adult-court-list-daily'
+        )
+    );
     app.get('/magistrates-adult-court-list-daily', (req, res) =>
-        app.locals.container.cradle.magistratesAdultCourtListController.get(req, res, 'magistrates-adult-court-list-daily'));
+        app.locals.container.cradle.magistratesAdultCourtListController.get(
+            req,
+            res,
+            'magistrates-adult-court-list-daily'
+        )
+    );
     app.get('/magistrates-adult-court-list-future', (req, res) =>
-        app.locals.container.cradle.magistratesAdultCourtListController.get(req, res, 'magistrates-adult-court-list-future'));
+        app.locals.container.cradle.magistratesAdultCourtListController.get(
+            req,
+            res,
+            'magistrates-adult-court-list-future'
+        )
+    );
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>
@@ -873,14 +890,14 @@ export default function (app: Application): void {
         app.locals.container.cradle.systemAdminDashboardController.get
     );
 
-    app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationController.get);
+    app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationsController.get);
     app.get(
         '/blob-view-publications',
         isPermittedSystemAdmin,
         app.locals.container.cradle.blobViewPublicationsController.get
     );
-    app.get('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.get);
-    app.post('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.post);
+    app.get('/blob-view-publication', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationController.get);
+    app.post('/blob-view-publication', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationController.post);
     app.get(
         '/blob-view-subscription-resubmit-confirmation',
         isPermittedSystemAdmin,
