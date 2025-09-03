@@ -13,7 +13,7 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
     await createLocation(locationId, locationName);
-    const artefactId = await uploadPublication('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
+    const artefactId = await uploadPublication('PRIVATE', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
 
     I.loginAsSsoSystemAdmin();
     I.click('#card-blob-view-locations');
@@ -31,7 +31,7 @@ Scenario('I as a system admin should be able to discover content uploaded to all
     I.see(locationId);
     I.see(locationName);
     I.see(artefactId);
-    I.see('Public');
+    I.see('Private');
     I.see('English');
     I.see('Link to rendered template');
     I.see('View Raw JSON Content');
