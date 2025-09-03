@@ -8,7 +8,6 @@ import config from 'config';
 propertiesVolume.addTo(config);
 
 import { Logger } from '@hmcts/nodejs-logging';
-import * as bodyParser from 'body-parser';
 import session from 'express-session';
 import express, { NextFunction } from 'express';
 import { Helmet } from './modules/helmet';
@@ -45,8 +44,8 @@ app.get('/favicon.ico', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/assets/rebrand/images/favicon.ico'));
 });
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const redisStore = new RedisStore({
