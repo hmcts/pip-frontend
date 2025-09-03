@@ -14,9 +14,8 @@ export class LocationRequests {
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, `retrieve location with ID ${locationId}`);
-            throw error;
         }
-        //return null;
+        return null;
     }
 
     public async getLocationByName(locationName: string, language: string): Promise<Location> {
