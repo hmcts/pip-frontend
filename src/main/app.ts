@@ -10,7 +10,7 @@ propertiesVolume.addTo(config);
 import { Logger } from '@hmcts/nodejs-logging';
 import * as bodyParser from 'body-parser';
 import session from 'express-session';
-import express from 'express';
+import express, { NextFunction } from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
 import { HTTPError } from 'HttpError';
@@ -46,7 +46,7 @@ app.get('/favicon.ico', (req, res) => {
 });
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const redisStore = new RedisStore({
@@ -94,7 +94,8 @@ app.use((req: PipRequest, res) => {
 });
 
 // error handler
-app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
+/* eslint-disable @typescript-eslint/no-unused-vars */
+app.use((err: HTTPError, req: PipRequest, res: express.Response, next: NextFunction) => {
     logger.error(`${err.stack || err}`);
 
     // set locals, only providing error in development
