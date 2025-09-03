@@ -93,7 +93,7 @@ app.use((req: PipRequest, res) => {
     res.render('not-found', req.i18n.getDataByLanguage(req.lng)['not-found']);
 });
 
-// error handler
+// error handler - pass in the next function so any unhandled errors are caught here
 /* eslint-disable @typescript-eslint/no-unused-vars */
 app.use((err: HTTPError, req: PipRequest, res: express.Response, next: NextFunction) => {
     logger.error(`${err.stack || err}`);
