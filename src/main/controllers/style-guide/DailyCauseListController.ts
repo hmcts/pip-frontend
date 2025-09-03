@@ -55,8 +55,6 @@ export default class DailyCauseListController {
             (!missingListType(metaDataListType) && !isOneOfValidListTypes(metaDataListType, list, civilListType))
         ) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);
-        } else {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
     }
 }

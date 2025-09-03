@@ -63,8 +63,8 @@ export default function (app: Application): void {
     }
 
     // Public paths
-    app.get('/*', globalAuthGiver);
-    app.post('/*', globalAuthGiver);
+    app.get('/{*splat}', globalAuthGiver);
+    app.post('/{*splat}', globalAuthGiver);
     app.get('/', app.locals.container.cradle.homeController.get);
     app.get('/accessibility-statement', app.locals.container.cradle.accessibilityStatementController.get);
     app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);

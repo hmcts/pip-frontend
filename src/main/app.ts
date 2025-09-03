@@ -13,7 +13,7 @@ import session from 'express-session';
 import express from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
-import favicon from 'serve-favicon';
+//import favicon from 'serve-favicon';
 import { HTTPError } from 'HttpError';
 import { Nunjucks } from './modules/nunjucks';
 import passport from 'passport';
@@ -42,7 +42,10 @@ new Container().enableFor(app);
 
 logger.info('environment', env);
 
-app.use(favicon(path.join(__dirname, '/public/assets/rebrand/images/favicon.ico')));
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/assets/rebrand/images/favicon.ico'));
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
