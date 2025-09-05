@@ -43,43 +43,6 @@ describe('cache manager', () => {
     });
 });
 
-describe('Test interval', () => {
-    const pingFunction = jest.fn();
-
-    const mockRedis = {
-        status: 'ready',
-        ping: pingFunction,
-    };
-
-    beforeEach(() => {
-        jest.useFakeTimers();
-    });
-
-    afterEach(() => {
-        pingFunction.mockReset();
-    });
-
-    it('should call setInterval', async () => {
-        const setInterval = jest.spyOn(global, 'setInterval');
-        await import('../../../main/cacheManager');
-        expect(setInterval).toHaveBeenCalledWith(expect.anything(), 300000);
-    });
-
-    it('should call ping when ready', async () => {
-        const redisConfig = await import('../../../main/cacheManager');
-        mockRedis.status = 'ready';
-        redisConfig.intervalFunction(mockRedis);
-        expect(pingFunction).toHaveBeenCalledTimes(1);
-    });
-
-    it('should not call ping when not ready', async () => {
-        const redisConfig = await import('../../../main/cacheManager');
-        mockRedis.status = 'connecting';
-        redisConfig.intervalFunction(mockRedis);
-        expect(pingFunction).toHaveBeenCalledTimes(0);
-    });
-});
-
 describe('Cache Manager creation', () => {
     beforeEach(() => {
         jest.resetModules();
@@ -91,12 +54,29 @@ describe('Cache Manager creation', () => {
         process.env.REDIS_MOCK = '';
         process.env.REDIS_PASSWORD = 'TEST_PASSWORD';
 
-        const ioRedis = await import('ioredis');
-        jest.mock('ioredis');
+        const connectMock = jest.fn(() => ({
+            catch: jest.fn(),
+        }));
+
+        jest.mock('redis', () => ({
+            createClient: jest.fn(() => ({
+                connect: connectMock,
+                on: jest.fn(),
+            })),
+        }));
+
+        const redis = await import('redis');
 
         await import('../../../main/cacheManager');
-        expect(ioRedis).toHaveBeenCalledTimes(1);
-        expect(ioRedis).toHaveBeenCalledWith('rediss://:TEST_PASSWORD@127.0.0.1:6379', { connectTimeout: 10000 });
+        expect(redis.createClient).toHaveBeenCalledTimes(1);
+        expect(redis.createClient).toHaveBeenCalledWith({
+            url: 'rediss://:TEST_PASSWORD@127.0.0.1:6379',
+            pingInterval: 300000,
+            socket: {
+                connectTimeout: 10000,
+            }
+        });
+        expect(connectMock).toHaveBeenCalledTimes(1);
     });
 
     it('should throw an error if password has not been set in a non-local or mock environment', async () => {
@@ -113,12 +93,29 @@ describe('Cache Manager creation', () => {
         process.env.REDIS_LOCAL = 'true';
         process.env.REDIS_MOCK = '';
 
-        const ioRedis = await import('ioredis');
-        jest.mock('ioredis');
+        const connectMock = jest.fn(() => ({
+            catch: jest.fn(),
+        }));
+
+        jest.mock('redis', () => ({
+            createClient: jest.fn(() => ({
+                connect: connectMock,
+                on: jest.fn(),
+            })),
+        }));
+
+        const redis = await import('redis');
 
         await import('../../../main/cacheManager');
-        expect(ioRedis).toHaveBeenCalledTimes(1);
-        expect(ioRedis).toHaveBeenCalledWith('redis://:@127.0.0.1:6379', { connectTimeout: 10000 });
+        expect(redis.createClient).toHaveBeenCalledTimes(1);
+        expect(redis.createClient).toHaveBeenCalledWith({
+            url: 'redis://:@127.0.0.1:6379',
+            pingInterval: 300000,
+            socket: {
+                connectTimeout: 10000,
+            }
+        });
+        expect(connectMock).toHaveBeenCalledTimes(1);
     });
 
     it('should create a redis client with mock', async () => {
