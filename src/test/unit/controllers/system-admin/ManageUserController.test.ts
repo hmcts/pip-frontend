@@ -26,7 +26,6 @@ describe('Manage user controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/manage-user';
 
     it('should render the manage user page', async () => {
         request.query = { id: '1234' };

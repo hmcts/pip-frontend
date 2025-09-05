@@ -75,7 +75,6 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
     "Sscs Daily List Controller with path '%s'",
     url => {
         it('should render the sscs daily list page', async () => {
-            request.path = url;
             request.query = { artefactId: artefactIdMap.get(url) };
             request.user = { userId: userId };
 
@@ -98,7 +97,6 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
             return responseMock.verify();
         });
         it('should render error page if query param is empty', async () => {
-            request.path = url;
             request.query = {};
             request.user = { userId: userId };
 
@@ -111,7 +109,6 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
         });
 
         it('should render list not found page if response is 404', async () => {
-            request.path = url;
             request.query = { artefactId: '1234' };
             request.user = { userId: userId };
 
@@ -127,7 +124,6 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])(
         });
 
         it('should render list not found page if list type not valid', async () => {
-            request.path = url;
             request.query = { artefactId: artefactIdListNotFound };
             request.user = { userId: '1' };
             const responseMock = sinon.mock(response);

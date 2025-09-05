@@ -55,7 +55,6 @@ describe('Et Fortnightly List Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/et-fortnightly-list';
 
     it('should render the ET fortnightly cause list page in English', async () => {
         request.query = { artefactId: artefactId };
