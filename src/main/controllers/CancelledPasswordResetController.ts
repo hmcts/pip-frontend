@@ -8,7 +8,6 @@ export default class CancelledPasswordResetController {
         res.render('cancelled-password-reset', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['cancelled-password-reset']),
             betaText: betaText,
-            isAdmin: req.params['isAdmin'] === 'true',
         });
     }
 }

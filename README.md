@@ -131,11 +131,8 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | ACCOUNT_MANAGEMENT_URL             | URL used for connecting to the pip-account-management service. Defaults to staging if not provided.                                                                                     | No        |
 | DATA_MANAGEMENT_URL                | URL used for connecting to the pip-data-management service. Defaults to staging if not provided.                                                                                        | No        |
 | AUTH_RETURN_URL                    | URL used to redirect user to the service after authentication with Azure B2C. Defaults to staging if not provided.                                                                      | No        |
-| ADMIN_AUTH_RETURN_URL              | Same as above, but for admin sign in.                                                                                                                                                   | No        |
 | MEDIA_VERIFICATION_RETURN_URL      | Same as above, but for after a media user verifies their account using the OTP process                                                                                                  | No        |
-| B2C_ADMIN_URL                      | URL used for routing to Azure from the service (for admin journey).                                                                                                                     | No        |
 | B2C_URL                            | Same as above but for media journey.                                                                                                                                                    | No        |
-| CONFIG_ADMIN_ENDPOINT              | URL that provides metadata about the B2C tenant's OpenID Connect configuration, such as the issuer URL, token signing keys, and supported scopes. This is for the admin journey.        | No        |
 | CONFIG_ENDPOINT                    | Same as above but for media journey.                                                                                                                                                    | No        |
 | MEDIA_VERIFICATION_CONFIG_ENDPOINT | Same as above but for verification of media accounts.                                                                                                                                   | No        |
 | SSO_CONFIG_ENDPOINT                | Same as above but for SSO sign-in.                                                                                                                                                      | No        |
@@ -158,22 +155,16 @@ Secrets required for getting tests to run correctly can be found in the below ta
 | Variable                   | Description                                                                                                                                                 |
 |----------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | B2C_USERNAME               | User's username for B2C authentication                                                                                                                      |
-| B2C_PASSWORD               | User's password for B2C authentication                                                                                                                      |
-| B2C_ADMIN_USERNAME         | B2C administrator's username                                                                                                                                |
-| B2C_ADMIN_PASSWORD         | B2C administrator's password                                                                                                                                |
+| B2C_PASSWORD               | User's password for B2C authentication                                                                                                                      | |
 | CFT_INVALID_USERNAME       | Invalid username for CFT authentication                                                                                                                     |
 | CFT_VALID_USERNAME         | Valid username for CFT authentication                                                                                                                       |
 | CFT_VALID_PASSWORD         | Valid password for CFT authentication                                                                                                                       |
-| CFT_INVALID_PASSWORD       | Invalid password for CFT authentication                                                                                                                     |
-| B2C_SYSTEM_ADMIN_USERNAME  | B2C system administrator's username                                                                                                                         |
-| B2C_SYSTEM_ADMIN_PASSWORD  | B2C system administrator's password                                                                                                                         |
+| CFT_INVALID_PASSWORD       | Invalid password for CFT authentication                                                                                                                     | |
 | TEST_URL                   | The URL of the frontend service that the tests will run against                                                                                             |
 | TEST_HEADLESS              | Whether the E2E tests should run in headless mode. Default is true                                                                                          |
 | TEST_A11Y_HEADLESS         | Whether the accessibility tests should run in headless mode. Default is true. Used for test debugging.                                                      |
 | DATA_MANAGEMENT_URL        | URL for data-management that the codecept tests use when creating test data                                                                                 |
 | ACCOUNT_MANAGEMENT_URL     | URL for account-management that the codecept tests use when creating test data                                                                              |
-| SYSTEM_ADMIN_PROVENANCE_ID | Test system admin provenance ID, used during E2E tests                                                                                                      |
-| SYSTEM_ADMIN_USER_ID       | Test system admin user ID, used during E2E tests                                                                                                            |
 | VERIFIED_USER_ID           | Test verified ID, used during E2E tests                                                                                                                     |
 | CLIENT_ID_INTERNAL         | Unique ID for the application within Azure AD. Used to identify the application during service to service authentication.                                   |
 | CLIENT_SECRET_INTERNAL     | Secret key for authentication requests during service to service communication.                                                                             |
@@ -243,6 +234,7 @@ We use a few automated tools to ensure quality and security within the service. 
 ## Test Suite
 
 This microservice is comprehensively tested using unit, accessibility (a11y), routes and functional tests.
+
 You can run the entire set of tests (except e2e/functional tests) using `yarn cichecks`.
 
 ### Unit tests
