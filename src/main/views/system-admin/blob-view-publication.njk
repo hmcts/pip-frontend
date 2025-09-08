@@ -48,7 +48,7 @@
     </div>
   </div>
   {% if not noMatchArtefact %}
-    <p class="govuk-body-l"><a class="govuk-link" href="{{ listUrl }}">{{ viewLink }}</a></p>
+    <p class="govuk-body-l"><a class="govuk-link" href="{{ listUrl }}">{{ viewLinkFlatFile if metadata.isFlatFile else viewLinkJson }}</a></p>
   {% endif %}
 
   {% if not metadata.isFlatFile %}

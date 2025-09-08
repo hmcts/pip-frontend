@@ -6,7 +6,7 @@ import { PublicationService } from '../../service/PublicationService';
 
 const locationService = new LocationService();
 const publicationService = new PublicationService();
-export default class BlobViewLocationController {
+export default class BlobViewLocationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const listOfLocations = await locationService.fetchAllLocations(req.lng);
         const counts = await publicationService.getCountsOfPubsPerLocation(req.user['userId']);

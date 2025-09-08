@@ -156,6 +156,42 @@ export const uploadPublication = async (
     }
 };
 
+export const uploadFlatFile = async (
+    sensitivity: string,
+    locationId: string,
+    contentDate: string,
+    displayFrom: string,
+    displayTo: string,
+    language: string,
+    fileName = 'testFlatFile.pdf',
+    listType = 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST'
+) => {
+    const token = await getDataManagementCredentials('');
+
+    const filePath = path.join(__dirname, './mocks/' + fileName);
+    const fileBuffer = fs.readFileSync(filePath);
+    try {
+        const response = await superagent
+            .post(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication`)
+            .attach('file', fileBuffer, fileName)
+            .set('x-provenance', 'MANUAL_UPLOAD')
+            .set('x-source-artefact-id', fileName)
+            .set('x-type', 'LIST')
+            .set('x-sensitivity', sensitivity)
+            .set('x-language', language)
+            .set('x-display-from', displayFrom)
+            .set('x-display-to', displayTo)
+            .set('x-list-type', listType)
+            .set('x-court-id', locationId)
+            .set('x-content-date', contentDate)
+            .set('Content-Type', 'multipart/form-data')
+            .set({ Authorization: 'Bearer ' + token.access_token });
+        return response.body?.artefactId;
+    } catch (e) {
+        throw new Error(`Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}`);
+    }
+};
+
 export const deletePublicationByArtefactId = async (artefactId: string) => {
     const token = await getDataManagementCredentials('');
     try {
