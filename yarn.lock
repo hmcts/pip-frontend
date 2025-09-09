@@ -4363,14 +4363,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ministryofjustice/frontend@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "@ministryofjustice/frontend@npm:4.0.2"
+"@ministryofjustice/frontend@npm:^5.1.5":
+  version: 5.1.5
+  resolution: "@ministryofjustice/frontend@npm:5.1.5"
   peerDependencies:
-    govuk-frontend: 5.x
-    jquery: 3.x
-    moment: 2.x
-  checksum: 10/80489599aa8a44c46494488490053f88ae856c020e36fb26cea667be13ae3cb93da8c42300c20fed300afd6a995fa752ec3162ba793e0d4bba0af23a4b654bc0
+    govuk-frontend: ^5.8.0
+    moment: 2.30.1
+  checksum: 10/8bf6327dbd18db94e91c72200b20fd1a1d766125a2f38789d4ee5650d81c9b392e804ef591ce77db2a8d4c03156a6ea3d064b27585ad3de3df33149012ed5263
   languageName: node
   linkType: hard
 
@@ -16374,7 +16373,7 @@ __metadata:
     "@hmcts/nodejs-healthcheck": "npm:^1.8.6"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     "@hmcts/properties-volume": "npm:^1.2.0"
-    "@ministryofjustice/frontend": "npm:^4.0.2"
+    "@ministryofjustice/frontend": "npm:^5.1.5"
     "@playwright/browser-chromium": "npm:1.55.0"
     "@playwright/browser-firefox": "npm:1.55.0"
     "@playwright/browser-webkit": "npm:1.55.0"
