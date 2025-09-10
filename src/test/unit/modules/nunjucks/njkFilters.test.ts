@@ -256,4 +256,26 @@ describe('Nunjucks Custom Filter Tests', function () {
             expect(result).to.equal('10:30am');
         });
     });
+
+    describe('isHtml filter', function () {
+        it('should return true for a string containing HTML tags', function () {
+            const result = env.renderString('{{ "<b>bold</b>" | isHtml }}', {});
+            expect(result).to.equal('true');
+        });
+
+        it('should return false for a plain text', function () {
+            const result = env.renderString('{{ "plain text" | isHtml }}', {});
+            expect(result).to.equal('false');
+        });
+
+        it('should return true for a string with self-closing HTML tag', function () {
+            const result = env.renderString('{{ "<br/>" | isHtml }}', {});
+            expect(result).to.equal('true');
+        });
+
+        it('should return false for an empty string', function () {
+            const result = env.renderString('{{ "" | isHtml }}', {});
+            expect(result).to.equal('false');
+        });
+    });
 });
