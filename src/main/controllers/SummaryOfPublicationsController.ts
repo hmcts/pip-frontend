@@ -17,12 +17,12 @@ export default class SummaryOfPublicationsController {
             const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
             const locationMetadata = await locationService.getLocationMetadata(parseInt(locationId));
 
-            let noCautionMessageOverride = '';
+            let cautionMessageOverride = '';
             let noListMessageOverride = '';
             if (locationMetadata !== null && locationMetadata !== undefined) {
                 noListMessageOverride =
                     req.lng === 'cy' ? locationMetadata.welshNoListMessage : locationMetadata.noListMessage;
-                noCautionMessageOverride =
+                cautionMessageOverride =
                     req.lng === 'cy' ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
             }
 
@@ -47,7 +47,7 @@ export default class SummaryOfPublicationsController {
                 locationName,
                 court,
                 noListMessageOverride,
-                noCautionMessageOverride,
+                cautionMessageOverride,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
