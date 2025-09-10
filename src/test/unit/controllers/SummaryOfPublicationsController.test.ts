@@ -72,7 +72,7 @@ describe('Get publications', () => {
             publications: publicationsWithName,
             court,
             noListMessageOverride: '',
-            noCautionMessageOverride: '',
+            cautionMessageOverride: '',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -101,7 +101,7 @@ describe('Get publications', () => {
             publications: publicationsWithName,
             court,
             noListMessageOverride: 'English no list message',
-            noCautionMessageOverride: 'English caution message',
+            cautionMessageOverride: 'English caution message',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -130,7 +130,7 @@ describe('Get publications', () => {
             publications: publicationsWithName,
             court,
             noListMessageOverride: 'Welsh no list message',
-            noCautionMessageOverride: 'Welsh caution message',
+            cautionMessageOverride: 'Welsh caution message',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -151,3 +151,4 @@ describe('Get publications', () => {
         responseMock.expects('render').once().withArgs('error');
     });
 });
+
