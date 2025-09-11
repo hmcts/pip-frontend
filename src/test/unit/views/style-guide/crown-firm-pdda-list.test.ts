@@ -96,10 +96,7 @@ describe('Crown Firm PDDA List page', () => {
 
     it('should display sitting date heading', () => {
         const heading = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(heading[1].innerHTML).contains(
-            "Wednesday 10 September 2025",
-            'Sitting date heading does not match'
-        );
+        expect(heading[1].innerHTML).contains('Wednesday 10 September 2025', 'Sitting date heading does not match');
     });
 
     it('should display court house name', () => {
@@ -122,7 +119,7 @@ describe('Crown Firm PDDA List page', () => {
     it('should display court room and judge names section heading', () => {
         const searchInput = htmlRes.getElementsByClassName('govuk-accordion__section-heading');
         expect(searchInput[0].innerHTML).contains(
-            "Courtroom 1: TestJudgeRequested, Ms TestJusticeForename TestJusticeSurname Sr",
+            'Courtroom 1: TestJudgeRequested, Ms TestJusticeForename TestJusticeSurname Sr',
             'Court room and judge names section heading not found'
         );
     });
@@ -195,4 +192,3 @@ describe('Crown Firm PDDA List page', () => {
         expect(cell[5].innerHTML).contains('TestListNote', 'Listing notes cell does not match');
     });
 });
-

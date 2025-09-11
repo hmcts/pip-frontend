@@ -51,9 +51,9 @@ export class CrownFirmPddaListService {
 
     private formatJudgeName(judiciary): string {
         const names = [];
-        names.push(this.formatIndividualName(judiciary.Judge))
+        names.push(this.formatIndividualName(judiciary.Judge));
 
-        if(judiciary.Justice) {
+        if (judiciary.Justice) {
             judiciary.Justice.forEach(justice => {
                 names.push(this.formatIndividualName(justice));
             });
@@ -72,15 +72,17 @@ export class CrownFirmPddaListService {
     private formatRepresentativeName(defendants): string {
         const names = [];
         defendants.forEach(defendant => {
-            defendant.Counsel?.forEach(counsel => counsel.Solicitor?.forEach(solicitor => {
-                const party = solicitor.Party;
-                if (party?.Person) {
-                    names.push(this.useMaskedNameIfRequested(party.Person.PersonalDetails))
-                } else if (party?.Organisation) {
-                    names.push(party.Organisation.OrganisationName);
-                }
-            }))
-        })
+            defendant.Counsel?.forEach(counsel =>
+                counsel.Solicitor?.forEach(solicitor => {
+                    const party = solicitor.Party;
+                    if (party?.Person) {
+                        names.push(this.useMaskedNameIfRequested(party.Person.PersonalDetails));
+                    } else if (party?.Organisation) {
+                        names.push(party.Organisation.OrganisationName);
+                    }
+                })
+            );
+        });
         return names.filter(name => name.trim().length > 0).join(', ');
     }
 
@@ -92,7 +94,8 @@ export class CrownFirmPddaListService {
     }
 
     private formatIndividualName(individual): string {
-        return individual.CitizenNameRequestedName ? individual.CitizenNameRequestedName
+        return individual.CitizenNameRequestedName
+            ? individual.CitizenNameRequestedName
             : this.formatNameParts(individual);
     }
 

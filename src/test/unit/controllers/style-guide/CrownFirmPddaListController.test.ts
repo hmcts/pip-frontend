@@ -10,21 +10,17 @@ import { CrownFirmPddaListService } from '../../../../main/service/listManipulat
 import CrownFirmPddaListController from '../../../../main/controllers/style-guide/CrownFirmPddaListController';
 import { HttpStatusCode } from 'axios';
 
-
 const url = '/crown-firm-pdda-list';
 const artefactId = 'abc';
 const artefactIdListNotFound = 'def';
 const artefactIdListInvalidListType = 'ghi';
 
-const rawListData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/crownFirmPddaList.json'),
-    'utf-8'
-);
+const rawListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownFirmPddaList.json'), 'utf-8');
 const listData = JSON.parse(rawListData);
 
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metadata = JSON.parse(rawMetadata)[0];
-metadata.listType = 'CROWN_FIRM_PDDA_LIST'
+metadata.listType = 'CROWN_FIRM_PDDA_LIST';
 const metadataListNotFound = JSON.parse(rawMetadata)[0];
 
 const rawCourtData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
@@ -34,7 +30,7 @@ sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 sinon.stub(CrownFirmPddaListService.prototype, 'processPayload').returns(listData);
 
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
-const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata')
+const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 jsonStub.withArgs(artefactId).resolves(listData);
 jsonStub.withArgs(artefactId, undefined).resolves(undefined);
@@ -53,7 +49,7 @@ const i18n = {
 
 const crownFirmPddaListController = new CrownFirmPddaListController();
 
-describe("Crown Firm PDDA List Controller", () => {
+describe('Crown Firm PDDA List Controller', () => {
     const response = {
         render: () => {
             return '';
@@ -82,7 +78,7 @@ describe("Crown Firm PDDA List Controller", () => {
             startDate: '10 September 2025',
             endDate: '11 September 2025',
             version: '1.0',
-            venueAddress: [ '1 Main Road', 'London', 'A1 1AA' ]
+            venueAddress: ['1 Main Road', 'London', 'A1 1AA'],
         };
 
         responseMock.expects('render').once().withArgs(listPath, expectedData);
@@ -141,4 +137,3 @@ describe("Crown Firm PDDA List Controller", () => {
         return responseMock.verify();
     });
 });
-

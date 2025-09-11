@@ -18,9 +18,9 @@ describe('Crown Firm PDDA List service', () => {
         });
 
         it('should format courthouse info', async () => {
-            const results= await crownFirmPddaListService.processPayload(JSON.parse(rawListData), lng);
-            expect(results[0].sittingDate).to.equal("Wednesday 10 September 2025");
-            expect(results[0].courtName).to.equal("TestCourtHouseName");
+            const results = await crownFirmPddaListService.processPayload(JSON.parse(rawListData), lng);
+            expect(results[0].sittingDate).to.equal('Wednesday 10 September 2025');
+            expect(results[0].courtName).to.equal('TestCourtHouseName');
             expect(results[0].courtAddress).to.have.length(3);
             expect(results[0].courtAddress[0]).to.equal('1 Main Road');
             expect(results[0].courtAddress[1]).to.equal('London');
@@ -29,7 +29,7 @@ describe('Crown Firm PDDA List service', () => {
         });
 
         it('should format sitting info', async () => {
-            const results= await crownFirmPddaListService.processPayload(JSON.parse(rawListData), lng);
+            const results = await crownFirmPddaListService.processPayload(JSON.parse(rawListData), lng);
             const sitting = results[0].sittings[0];
             expect(sitting.courtRoomNumber).to.equal(1);
             expect(sitting.sittingAt).to.equal('10am');
@@ -41,8 +41,8 @@ describe('Crown Firm PDDA List service', () => {
             const results = await crownFirmPddaListService.processPayload(JSON.parse(rawListData), lng);
             const hearing = results[0].sittings[0].hearings[0];
             expect(hearing.caseNumber).to.equal('T00112233');
-            expect(hearing.defendantName).to.equal('' +
-                'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix'
+            expect(hearing.defendantName).to.equal(
+                '' + 'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix'
             );
             expect(hearing.hearingType).to.equal('TestHearingDescription');
             expect(hearing.representativeName).to.equal('TestSolicitorRequestedName');
@@ -53,12 +53,9 @@ describe('Crown Firm PDDA List service', () => {
 
     it('should format address', async () => {
         const input = {
-            Line : [
-                '1 Main Road',
-                'London'
-            ],
-            Postcode : 'A1 1AA'
-        }
+            Line: ['1 Main Road', 'London'],
+            Postcode: 'A1 1AA',
+        };
 
         const result = crownFirmPddaListService.formatAddress(input);
         expect(result).to.have.length(3);

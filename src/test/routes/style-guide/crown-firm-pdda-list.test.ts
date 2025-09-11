@@ -9,10 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import { describe } from '@jest/globals';
 
-const rawListData = fs.readFileSync(
-    path.resolve(__dirname, '../../unit/mocks/crownFirmPddaList.json'),
-    'utf-8'
-);
+const rawListData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/crownFirmPddaList.json'), 'utf-8');
 const listData = JSON.parse(rawListData);
 
 const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
@@ -34,4 +31,3 @@ describe('Crown Firm PDDA List Page', () => {
         });
     });
 });
-

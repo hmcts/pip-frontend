@@ -1007,7 +1007,7 @@ describe('generateListTypesForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
-            "CROWN_FIRM_PDDA_LIST",
+            'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
         ]);
 
@@ -1053,7 +1053,7 @@ describe('generateListTypesForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
-            "CROWN_FIRM_PDDA_LIST",
+            'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
         ]);
 
@@ -1201,7 +1201,7 @@ describe('generateListTypeForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
-            "CROWN_FIRM_PDDA_LIST",
+            'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
         ]);
 
@@ -1237,7 +1237,7 @@ describe('generateListTypeForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_LIST',
             'CROWN_FIRM_LIST',
-            "CROWN_FIRM_PDDA_LIST",
+            'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
         ]);
 
