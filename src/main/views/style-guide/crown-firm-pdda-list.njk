@@ -53,6 +53,7 @@
         {{ searchInput(text = searchCases) }}
         <div class="search-area">
             {% set countHouseCount = 0 %}
+            {% set sittingCount = 0 %}
             {% for courtHouse in listData %}
                 {% set countHouseCount = countHouseCount + 1 %}
                 <div class="site-header" tabindex="0" aria-label="Court House Details">
@@ -70,7 +71,6 @@
                     <p class="govuk-body govuk-!-font-weight-bold">{{ courtHouse.courtPhone }}</p>
                 </div>
                 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ countHouseCount }}">
-                    {% set sittingCount = 0 %}
                     {% for sitting in courtHouse.sittings %}
                         <div class="govuk-accordion__section govuk-accordion__section--expanded">
                             <div class="govuk-accordion__section-header">
