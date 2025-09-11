@@ -211,6 +211,7 @@ export default function (app: Application): void {
             'magistrates-adult-court-list-future'
         )
     );
+    app.get('/crown-firm-pdda-list', app.locals.container.cradle.crownFirmPddaListController.get);
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>
@@ -890,14 +891,26 @@ export default function (app: Application): void {
         app.locals.container.cradle.systemAdminDashboardController.get
     );
 
-    app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationsController.get);
+    app.get(
+        '/blob-view-locations',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewLocationsController.get
+    );
     app.get(
         '/blob-view-publications',
         isPermittedSystemAdmin,
         app.locals.container.cradle.blobViewPublicationsController.get
     );
-    app.get('/blob-view-publication', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationController.get);
-    app.post('/blob-view-publication', isPermittedSystemAdmin, app.locals.container.cradle.blobViewPublicationController.post);
+    app.get(
+        '/blob-view-publication',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewPublicationController.get
+    );
+    app.post(
+        '/blob-view-publication',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewPublicationController.post
+    );
     app.get(
         '/blob-view-subscription-resubmit-confirmation',
         isPermittedSystemAdmin,

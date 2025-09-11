@@ -673,7 +673,7 @@
         "shortenedFriendlyName": "London Circuit Commercial Court (KB) Daily Cause List",
         "url": "london-circuit-commercial-court-kb-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
-         "restrictedProvenances": [],
+        "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
@@ -822,9 +822,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Apêl (Adran Sifil)",
         "shortenedFriendlyName": "Court of Appeal (Civil Division) Daily Cause List",
         "url": "court-of-appeal-civil-daily-cause-list",
-        "jurisdictionTypes": [
-            "Court of Appeal (Civil Division)"
-        ],
+        "jurisdictionTypes": ["Court of Appeal (Civil Division)"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -928,6 +926,16 @@
         "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "CROWN_FIRM_PDDA_LIST": {
+        "friendlyName": "Crown Firm PDDA List",
+        "welshFriendlyName": "Crown Firm PDDA List",
+        "shortenedFriendlyName": "Crown Firm PDDA List",
+        "url": "crown-firm-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "PRIVATE",
         "isNonStrategic": false
     }
 }
