@@ -929,9 +929,9 @@
         "isNonStrategic": false
     },
     "CROWN_FIRM_PDDA_LIST": {
-        "friendlyName": "Crown Firm List",
-        "welshFriendlyName": "Rhestr Cwmni Llys y Goron",
-        "shortenedFriendlyName": "Crown Firm List - PDDA",
+        "friendlyName": "Crown Firm PDDA List",
+        "welshFriendlyName": "Rhestr PDDA Cwmni Llys y Goron",
+        "shortenedFriendlyName": "Crown Firm PDDA List",
         "url": "crown-firm-pdda-list",
         "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
