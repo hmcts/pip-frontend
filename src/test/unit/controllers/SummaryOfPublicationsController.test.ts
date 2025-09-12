@@ -151,4 +151,3 @@ describe('Get publications', () => {
         responseMock.expects('render').once().withArgs('error');
     });
 });
-
