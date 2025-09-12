@@ -18,12 +18,8 @@ const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub
     .withArgs(locationIdWithTelephoneAndEmail)
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
-courtStub
-    .withArgs(locationIdWithTelephoneOnly)
-    .resolves(JSON.parse('{"name":"New Court", "contactNo": "0123456789"}'));
-courtStub
-    .withArgs(locationIdWithEmailOnly)
-    .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com"}'));
+courtStub.withArgs(locationIdWithTelephoneOnly).resolves(JSON.parse('{"name":"New Court", "contactNo": "0123456789"}'));
+courtStub.withArgs(locationIdWithEmailOnly).resolves(JSON.parse('{"name":"New Court", "email": "test@test.com"}'));
 courtStub.withArgs(locationIdWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
