@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { createLocation, uploadPublication } from '../../shared/testingSupportApi';
+import { createLocation, uploadFlatFile, uploadPublication } from '../../shared/testingSupportApi';
 import { randomData } from '../../shared/random-data';
 import { config } from '../../../config';
 
@@ -8,7 +8,7 @@ Feature('System admin blob explorer');
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
-Scenario('I as a system admin should be able to discover content uploaded to all locations.', async ({ I }) => {
+Scenario('I as a system admin should be able to discover json content uploaded to all locations.', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
 
@@ -46,6 +46,41 @@ Scenario('I as a system admin should be able to discover content uploaded to all
 
     I.logoutSsoSystemAdmin();
 });
+
+Scenario(
+    'I as a system admin should be able to discover flat file content uploaded to all locations.',
+    async ({ I }) => {
+        const locationId = randomData.getRandomLocationId();
+        const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
+
+        await createLocation(locationId, locationName);
+        const artefactId = await uploadFlatFile('PUBLIC', locationId, displayFrom, displayFrom, displayTo, 'ENGLISH');
+
+        I.loginAsSsoSystemAdmin();
+        I.click('#card-blob-view-locations');
+        I.waitForText('Blob Explorer - Locations');
+        I.see('Choose a location to see all publications associated with it.');
+        I.see(locationName);
+        I.click(locationName);
+        I.waitForText('Blob Explorer - Publications');
+        I.see(locationName);
+        I.see('Choose a publication from the list.');
+        I.click(artefactId);
+        I.waitForText('Blob Explorer - Flat file');
+        I.see('Re-submit subscription');
+        I.see('Metadata');
+        I.see(locationId);
+        I.see(locationName);
+        I.see(artefactId);
+        I.see('Public');
+        I.see('English');
+        I.see('Link to file');
+        I.click('Link to file');
+        I.seeInCurrentUrl(artefactId);
+        await I.executeScript('window.history.back()');
+        I.logoutSsoSystemAdmin();
+    }
+);
 
 Scenario('I as a system admin should be able to re-submit subscription for a publication', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
