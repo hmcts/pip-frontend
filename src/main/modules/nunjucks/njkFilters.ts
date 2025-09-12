@@ -179,7 +179,7 @@ export function createFilters(env) {
         return time ? time.replace('.', ':') : null;
     });
 
-    env.addFilter('isHtml', function(str: string) {
+    env.addFilter('isHtml', function (str: string) {
         return /<\/?[a-z][\s\S]*>/i.test(str);
     });
 }
