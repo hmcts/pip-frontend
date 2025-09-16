@@ -3,43 +3,52 @@ import { formatDate } from '../../helpers/dateTimeHelper';
 
 const helperService = new ListParseHelperService();
 
-export class CrownFirmPddaListService {
-    public processPayload(payload: JSON, language: string): any[] {
+export class CrownPddaListService {
+    public processPayload(payload: JSON, language: string, listType: string): any[] {
         const results = [];
-        payload['FirmList'].CourtLists.forEach(courtList => {
+        const isDailyList = listType.includes('daily');
+        const payloadPath = isDailyList ? 'DailyList' : 'FirmList';
+        payload[payloadPath].CourtLists.forEach(courtList => {
             const courtHouse = courtList.CourtHouse;
             results.push({
-                sittingDate: formatDate(this.toIsoDate(courtList.SittingDate), 'EEEE dd MMMM yyyy', language),
+                sittingDate: isDailyList ? '' : formatDate(this.toIsoDate(courtList.SittingDate), 'EEEE dd MMMM yyyy', language),
                 courtName: courtHouse.CourtHouseName,
                 courtAddress: courtHouse.CourtHouseAddress ? this.formatAddress(courtHouse.CourtHouseAddress) : [],
                 courtPhone: courtHouse.CourtHouseTelephone ? courtHouse.CourtHouseTelephone : '',
-                sittings: this.buildSittingInfo(courtList),
+                sittings: this.buildSittingInfo(courtList, isDailyList),
             });
         });
         return results;
     }
 
-    private buildSittingInfo(courtList: any): any[] {
+    private buildSittingInfo(courtList: any, isDailyList: boolean): any[] {
         const sittings = [];
         courtList.Sittings.forEach(sitting => {
             sittings.push({
                 courtRoomNumber: sitting.CourtRoomNumber,
                 sittingAt: sitting.SittingAt ? helperService.publicationTimeInUkTime(sitting.SittingAt) : '',
                 judgeName: this.formatJudgeName(sitting.Judiciary),
-                hearings: this.buildHearings(sitting),
+                hearings: this.buildHearings(sitting, isDailyList),
             });
         });
         return sittings;
     }
 
-    private buildHearings(sitting: any): any[] {
+    private buildHearings(sitting: any, isDailyList: boolean): any[] {
         const hearings = [];
         sitting.Hearings.forEach(hearing => {
+            let representativeName;
+            if (isDailyList) {
+                representativeName = '';
+            } else {
+                representativeName = hearing.Defendants ? this.formatRepresentativeName(hearing.Defendants) : '';
+            }
+
             hearings.push({
                 caseNumber: hearing.CaseNumberCaTH,
                 defendantName: hearing.Defendants ? this.formatDefendantName(hearing.Defendants) : '',
                 hearingType: hearing.HearingDetails.HearingDescription,
-                representativeName: hearing.Defendants ? this.formatRepresentativeName(hearing.Defendants) : '',
+                representativeName,
                 prosecutingAuthority: hearing.Prosecution?.ProsecutingAuthority
                     ? hearing.Prosecution.ProsecutingAuthority
                     : '',

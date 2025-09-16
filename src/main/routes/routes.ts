@@ -211,7 +211,13 @@ export default function (app: Application): void {
             'magistrates-adult-court-list-future'
         )
     );
-    app.get('/crown-firm-pdda-list', app.locals.container.cradle.crownFirmPddaListController.get);
+    app.get('/crown-daily-pdda-list', (req, res) =>
+        app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-daily-pdda-list')
+    );
+
+    app.get('/crown-firm-pdda-list', (req, res) =>
+        app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-firm-pdda-list')
+    );
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>

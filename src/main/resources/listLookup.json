@@ -937,5 +937,15 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "PRIVATE",
         "isNonStrategic": false
+    },
+    "CROWN_DAILY_PDDA_LIST": {
+        "friendlyName": "Crown Daily PDDA List",
+        "welshFriendlyName": "Rhestr PDDA Ddyddiol Llys y Goron",
+        "shortenedFriendlyName": "Crown Daily PDDA List",
+        "url": "crown-daily-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
     }
 }
