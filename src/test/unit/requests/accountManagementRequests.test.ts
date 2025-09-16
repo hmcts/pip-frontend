@@ -15,7 +15,7 @@ const errorResponse = {
 const errorMessage = {
     message: 'test',
 };
-const mockHeaders = { headers: { 'x-issuer-email': 'joe@bloggs.com' } };
+const mockHeaders = { headers: { 'x-requester_id': '12345', 'x-issuer-id': '12345' } };
 const mockValidBody = {
     email: 'joe@bloggs.com',
     firstName: 'Joe',
@@ -258,6 +258,7 @@ describe('Account Management Requests', () => {
     describe('Get media applications', () => {
         const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/mediaApplications.json'), 'utf-8');
         const mediaApplications = JSON.parse(rawData);
+        const adminUserId = '123';
 
         beforeEach(() => {
             sinon.restore();
@@ -266,22 +267,23 @@ describe('Account Management Requests', () => {
 
         it('should return media applications', async () => {
             getStub.withArgs('/application/status/PENDING').resolves({ data: mediaApplications });
-            expect(await accountManagementRequests.getPendingMediaApplications()).toEqual(mediaApplications);
+            expect(await accountManagementRequests.getPendingMediaApplications(adminUserId)).toEqual(mediaApplications);
         });
 
         it('should return empty array and an error response if get fails', async () => {
             getStub.withArgs('/application/status/PENDING').rejects(errorResponse);
-            expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+            expect(await accountManagementRequests.getPendingMediaApplications(adminUserId)).toEqual([]);
         });
 
         it('should return empty array and an error response if request fails', async () => {
             getStub.withArgs('/application/status/PENDING').rejects(errorMessage);
-            expect(await accountManagementRequests.getPendingMediaApplications()).toEqual([]);
+            expect(await accountManagementRequests.getPendingMediaApplications(adminUserId)).toEqual([]);
         });
     });
 
     describe('Get Media Application By ID', () => {
         const applicationID = '1234';
+        const adminUserId = '123';
 
         const dummyApplication = {
             id: '1234',
@@ -302,19 +304,19 @@ describe('Account Management Requests', () => {
 
         it('should return dummy application on success', async () => {
             getStub.withArgs(applicationGetEndpoint + applicationID).resolves({ status: 201, data: dummyApplication });
-            const response = await accountManagementRequests.getMediaApplicationById(applicationID);
+            const response = await accountManagementRequests.getMediaApplicationById(applicationID, adminUserId);
             expect(response).toBe(dummyApplication);
         });
 
         it('should return false on error response', async () => {
             getStub.withArgs(applicationGetEndpoint + applicationID).rejects(errorResponse);
-            const response = await accountManagementRequests.getMediaApplicationById(applicationID);
+            const response = await accountManagementRequests.getMediaApplicationById(applicationID, adminUserId);
             expect(response).toBe(null);
         });
 
         it('should return false on error message', async () => {
             getStub.withArgs(applicationGetEndpoint + applicationID).rejects(errorMessage);
-            const response = await accountManagementRequests.getMediaApplicationById(applicationID);
+            const response = await accountManagementRequests.getMediaApplicationById(applicationID, adminUserId);
             expect(response).toBe(null);
         });
     });
@@ -327,22 +329,23 @@ describe('Account Management Requests', () => {
 
         const imageID = '1234';
         const dummyImage = new Blob(['testJPEG']);
+        const adminUserId = '123';
 
         it('should return dummy application on success', async () => {
             getStub.withArgs(imageGetEndpoint + imageID).resolves({ status: 201, data: dummyImage });
-            const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+            const response = await accountManagementRequests.getMediaApplicationImageById(imageID, adminUserId);
             expect(response).toBe(dummyImage);
         });
 
         it('should return false on error response', async () => {
             getStub.withArgs(imageGetEndpoint + imageID).rejects(errorResponse);
-            const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+            const response = await accountManagementRequests.getMediaApplicationImageById(imageID, adminUserId);
             expect(response).toBe(null);
         });
 
         it('should return false on error message', async () => {
             getStub.withArgs(imageGetEndpoint + imageID).rejects(errorMessage);
-            const response = await accountManagementRequests.getMediaApplicationImageById(imageID);
+            const response = await accountManagementRequests.getMediaApplicationImageById(imageID, adminUserId);
             expect(response).toBe(null);
         });
     });
@@ -355,6 +358,7 @@ describe('Account Management Requests', () => {
         });
 
         const applicationID = '1234';
+        const adminUserId = '123';
 
         const dummyApplication = {
             id: '1234',
@@ -373,7 +377,11 @@ describe('Account Management Requests', () => {
             putStub
                 .withArgs(applicationGetEndpoint + applicationID + statusEndpoint)
                 .resolves({ status: 201, data: dummyApplication });
-            const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+            const response = await accountManagementRequests.updateMediaApplicationStatus(
+                applicationID,
+                status,
+                adminUserId
+            );
             expect(response).toBe(dummyApplication);
         });
 
@@ -381,19 +389,31 @@ describe('Account Management Requests', () => {
             putStub
                 .withArgs(applicationGetEndpoint + applicationID + statusEndpoint)
                 .resolves({ status: 201, data: dummyApplication });
-            const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+            const response = await accountManagementRequests.updateMediaApplicationStatus(
+                applicationID,
+                status,
+                adminUserId
+            );
             expect(response).toBe(dummyApplication);
         });
 
         it('should return false on error response', async () => {
             putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorResponse);
-            const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+            const response = await accountManagementRequests.updateMediaApplicationStatus(
+                applicationID,
+                status,
+                adminUserId
+            );
             expect(response).toBe(null);
         });
 
         it('should return false on error message', async () => {
             putStub.withArgs(applicationGetEndpoint + applicationID + statusEndpoint).rejects(errorMessage);
-            const response = await accountManagementRequests.updateMediaApplicationStatus(applicationID, status);
+            const response = await accountManagementRequests.updateMediaApplicationStatus(
+                applicationID,
+                status,
+                adminUserId
+            );
             expect(response).toBe(null);
         });
     });
@@ -568,18 +588,11 @@ describe('Account Management Requests', () => {
         });
 
         it('should return data on success', async () => {
-            getStub.withArgs(getAllAccountsEndpoint, { params: { pageSize: 25 } }).resolves({
+            getStub.withArgs(getAllAccountsEndpoint, { pageSize: 25, headers: { 'x-requester-id': '1234' } }).resolves({
                 status: 200,
                 data: { userId: '321', userProvenance: 'userProvenance' },
             });
-            const response = await accountManagementRequests.getAllAccountsExceptThirdParty(
-                {
-                    params: {
-                        pageSize: 25,
-                    },
-                },
-                '1234'
-            );
+            const response = await accountManagementRequests.getAllAccountsExceptThirdParty({ pageSize: 25 }, '1234');
             expect(response).toStrictEqual({
                 userId: '321',
                 userProvenance: 'userProvenance',
@@ -658,7 +671,7 @@ describe('Account Management Requests', () => {
         it('should return string on deletion success', async () => {
             deleteStub
                 .withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`, {
-                    headers: { 'x-admin-id': adminUserId },
+                    headers: { 'x-requester-id': adminUserId, 'x-admin-id': adminUserId },
                 })
                 .resolves({ status: 200, data: 'Deleted' });
             const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
@@ -698,6 +711,7 @@ describe('Account Management Requests', () => {
             putStub
                 .withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`, null, {
                     headers: {
+                        'x-requester-id': adminIdToUse,
                         'x-admin-id': adminIdToUse,
                     },
                 })
@@ -881,15 +895,10 @@ describe('Account Management Requests', () => {
         };
 
         it('should return data on success', async () => {
-            getStub.withArgs('/audit', { params: { pageSize: 25 } }).resolves(mockResponseData);
-            const response = await accountManagementRequests.getAllAuditLogs(
-                {
-                    params: {
-                        pageSize: 25,
-                    },
-                },
-                '1234'
-            );
+            getStub
+                .withArgs('/audit', { pageSize: 25, headers: { 'x-requester-id': '1234' } })
+                .resolves(mockResponseData);
+            const response = await accountManagementRequests.getAllAuditLogs({ pageSize: 25 }, '1234');
             expect(response).toStrictEqual(auditBody);
         });
 
