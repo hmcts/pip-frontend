@@ -1,426 +1,356 @@
 {
-    "DailyList": {
-        "DocumentID": {
-            "DocumentName": "TestDocumentName",
-            "UniqueID": "TestUniqueID",
-            "DocumentType": "TestDocumentType",
-            "TimeStamp": "2025-09-09T10:00:00Z",
-            "Version": "1.0",
-            "SecurityClassification": "TestSecurity"
-        },
-        "ListHeader": {
-            "StartDate": "2025-09-10",
-            "Version": "1.0",
-            "PublishedTime": "2025-09-09T10:00:00Z"
-        },
-        "CrownCourt": {
-            "CourtHouseType": "Crown Court",
-            "CourtHouseCode": "1234",
-            "CourtHouseName": "TestCourtHouseName",
-            "CourtHouseAddress": {
-                "Line": [
-                    "1 Main Road",
-                    "London"
-                ],
-                "Postcode": "A1 1AA"
-            },
-            "CourtHouseTelephone": "02071234567"
-        },
-        "CourtLists": [
-            {
-                "CourtHouse": {
-                    "CourtHouseType": "Crown Court",
-                    "CourtHouseCode": "1234",
-                    "CourtHouseShortName": "TestShortName",
-                    "CourtHouseName": "TestCourtHouseName",
-                    "CourtHouseAddress": {
-                        "Line": [
-                            "1 Main Road",
-                            "London"
-                        ],
-                        "Postcode": "A1 1AA"
-                    },
-                    "CourtHouseTelephone": "02071234568"
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "title": "Root",
+    "type": "object",
+    "required": [
+        "DailyList"
+    ],
+    "properties": {
+        "DailyList": {
+            "type": "object",
+            "required": [
+                "DocumentID",
+                "ListHeader",
+                "CrownCourt",
+                "CourtLists"
+            ],
+            "properties": {
+                "DocumentID": {
+                    "type": "object",
+                    "required": ["UniqueID", "DocumentType"],
+                    "properties": {
+                        "UniqueID": { "type": "string" },
+                        "DocumentType": { "type": "string" }
+                    }
                 },
-                "Sittings": [
-                    {
-                        "CourtRoomNumber": 1,
-                        "SittingSequenceNo": "TestSeqNo",
-                        "SittingAt": "10:00:00",
-                        "SittingPriority": "T",
-                        "SittingNote": "TestSittingNote",
-                        "Judiciary": {
-                            "Judge": {
-                                "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestJudgeForename",
-                                "CitizenNameSurname": "TestJudgeSurname",
-                                "CitizenNameSuffix": "Jr",
-                                "CitizenNameRequestedName": "TestJudgeRequested"
-                            },
-                            "Justice": [
-                                {
-                                    "CitizenNameTitle": "Ms",
-                                    "CitizenNameForename": "TestJusticeForename",
-                                    "CitizenNameSurname": "TestJusticeSurname",
-                                    "CitizenNameSuffix": "Sr"
-                                }
-                            ]
+                "ListHeader": {
+                    "type": "object",
+                    "required": ["StartDate", "Version", "PublishedTime"],
+                    "properties": {
+                        "StartDate": { "type": "string", "format": "date" },
+                        "EndDate": { "type": "string", "format": "date" },
+                        "Version": { "type": "string" },
+                        "PublishedTime": { "type": "string", "format": "date-time" }
+                    }
+                },
+                "CrownCourt": {
+                    "type": "object",
+                    "required": ["CourtHouseType", "CourtHouseCode", "CourtHouseName"],
+                    "properties": {
+                        "CourtHouseType": {
+                            "type": "string",
+                            "enum": ["Crown Court", "Magistrates Court", "Youth Court"]
                         },
-                        "Hearings": [
-                            {
-                                "HearingSequenceNumber": 1,
-                                "HearingDetails": {
-                                    "HearingDescription": "TestHearingDescription",
-                                    "HearingDate": "2025-09-10",
-                                    "HearingEndDate": "2025-09-10",
-                                    "HearingType": "ABC"
+                        "CourtHouseCode": { "type": "string", "pattern": "^[0-9]{3,4}$" },
+                        "CourtHouseName": { "type": "string" },
+                        "CourtHouseAddress": {
+                            "type": "object",
+                            "properties": {
+                                "Line": {
+                                    "type": "array",
+                                    "maxItems": 5,
+                                    "items": { "type": "string" }
                                 },
-                                "TimeMarkingNote": "TestTimeMarkingNote",
-                                "CaseNumber": "T00112233",
-                                "CaseNumberCaTH": "T00112233",
-                                "Prosecution": {
-                                    "Advocate": {
-                                        "PersonalDetails": {
-                                            "Name": {
-                                                "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestAdvocateForename",
-                                                "CitizenNameSurname": "TestAdvocateSurname",
-                                                "CitizenNameRequestedName": "TestAdvocateRequestedName"
+                                "Postcode": { "type": "string" }
+                            }
+                        },
+                        "CourtHouseTelephone": { "type": "string" }
+                    }
+                },
+                "CourtLists": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["CourtHouse", "Sittings"],
+                        "properties": {
+                            "CourtHouse": {
+                                "type": "object",
+                                "required": ["CourtHouseType", "CourtHouseCode", "CourtHouseName"],
+                                "properties": {
+                                    "CourtHouseType": {
+                                        "type": "string",
+                                        "enum": ["Crown Court", "Magistrates Court", "Youth Court"]
+                                    },
+                                    "CourtHouseCode": { "type": "string", "pattern": "^[0-9]{3,4}$" },
+                                    "CourtHouseShortName": { "type": "string" },
+                                    "CourtHouseName": { "type": "string" },
+                                    "CourtHouseAddress": {
+                                        "type": "object",
+                                        "properties": {
+                                            "Line": {
+                                                "type": "array",
+                                                "maxItems": 5,
+                                                "items": { "type": "string" }
                                             },
-                                            "MaskedName": "TestAdvocateMasked",
-                                            "IsMasked": "no"
+                                            "Postcode": { "type": "string" }
                                         }
                                     },
-                                    "ProsecutingReference": "TestProsecutingRef",
-                                    "ProsecutingOrganisation": {
-                                        "OrganisationName": "TestProsecutingOrg"
-                                    },
-                                    "ProsecutingAuthority": "Crown Prosecution Service"
-                                },
-                                "CommittingCourt": {
-                                    "CourtHouseType": "Crown Court",
-                                    "CourtHouseCode": "5678",
-                                    "CourtHouseShortName": "TestOriginShortName",
-                                    "CourtHouseName": "TestOriginName"
-                                },
-                                "ListNote": "TestListNote",
-                                "Defendants": [
-                                    {
-                                        "PersonalDetails": {
-                                            "Name": {
-                                                "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestDefendantForename",
-                                                "CitizenNameSurname": "TestDefendantSurname",
-                                                "CitizenNameSuffix": "TestDefendantSuffix",
-                                                "CitizenNameRequestedName": "TestDefendantRequestedName"
-                                            },
-                                            "MaskedName": "TestMaskedName",
-                                            "IsMasked": "yes",
-                                            "DateOfBirth": {
-                                                "BirthDate": "2000-01-01",
-                                                "VerifiedBy": "not verified"
-                                            },
-                                            "Age": 24,
-                                            "Sex": "male",
-                                            "Address": {
-                                                "Line": ["TestDefendantAddress"],
-                                                "Postcode": "TestDefendantPostcode"
-                                            },
-                                            "Nationality": "TestNationality"
+                                    "CourtHouseTelephone": { "type": "string" }
+                                }
+                            },
+                            "Sittings": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "required": [
+                                        "CourtRoomNumber",
+                                        "Judiciary",
+                                        "Hearings"
+                                    ],
+                                    "properties": {
+                                        "CourtRoomNumber": { "type": "integer" },
+                                        "SittingAt": { "type": "string", "format": "time"},
+                                        "SittingPriority": {
+                                            "type": "string",
+                                            "enum": ["T", "F", "R"]
                                         },
-                                        "URN": "TestURN",
-                                        "Counsel": [
-                                            {
-                                                "Solicitor": [
-                                                    {
-                                                        "Party": {
-                                                            "Person": {
+                                        "SittingNote": { "type": "string" },
+                                        "Judiciary": {
+                                            "type": "object",
+                                            "required": ["Judge"],
+                                            "properties": {
+                                                "Judge": {
+                                                    "type": "object",
+                                                    "required": ["CitizenNameSurname"],
+                                                    "properties": {
+                                                        "CitizenNameTitle": {
+                                                            "type": "string",
+                                                            "minLength": 1,
+                                                            "maxLength": 35
+                                                        },
+                                                        "CitizenNameForename": {
+                                                            "type": "string",
+                                                            "minLength": 1,
+                                                            "maxLength": 35
+                                                        },
+                                                        "CitizenNameSurname": {
+                                                            "type": "string",
+                                                            "minLength": 1,
+                                                            "maxLength": 35
+                                                        },
+                                                        "CitizenNameSuffix": {
+                                                            "type": "string",
+                                                            "minLength": 1,
+                                                            "maxLength": 35
+                                                        },
+                                                        "CitizenNameRequestedName": {
+                                                            "type": "string",
+                                                            "minLength": 1,
+                                                            "maxLength": 70}
+                                                    }
+                                                },
+                                                "Justice": {
+                                                    "type": "array",
+                                                    "maxItems": 4,
+                                                    "items": {
+                                                        "type": "object",
+                                                        "required": ["CitizenNameSurname"],
+                                                        "properties": {
+                                                            "CitizenNameTitle": {
+                                                                "type": "string",
+                                                                "minLength": 1,
+                                                                "maxLength": 35
+                                                            },
+                                                            "CitizenNameForename": {
+                                                                "type": "string",
+                                                                "minLength": 1,
+                                                                "maxLength": 35
+                                                            },
+                                                            "CitizenNameSurname": {
+                                                                "type": "string",
+                                                                "minLength": 1,
+                                                                "maxLength": 35
+                                                            },
+                                                            "CitizenNameSuffix": {
+                                                                "type": "string",
+                                                                "minLength": 1,
+                                                                "maxLength": 35
+                                                            },
+                                                            "CitizenNameRequestedName": {
+                                                                "type": "string",
+                                                                "minLength": 1,
+                                                                "maxLength": 70}
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "Hearings": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "required": [
+                                                    "HearingSequenceNumber",
+                                                    "HearingDetails",
+                                                    "CaseNumber",
+                                                    "CaseNumberCaTH"
+                                                ],
+                                                "properties": {
+                                                    "HearingSequenceNumber": { "type": "integer" },
+                                                    "HearingDetails": {
+                                                        "type": "object",
+                                                        "required": ["HearingDescription"],
+                                                        "properties": {
+                                                            "HearingDescription": { "type": "string" },
+                                                            "HearingType": { "type": "string" }
+                                                        }
+                                                    },
+                                                    "TimeMarkingNote": { "type": "string" },
+                                                    "CaseNumber": { "type": "string", "pattern": "^[A-Z][0-9]{8}$" },
+                                                    "CaseNumberCaTH": { "type": "string", "pattern": "^[A-Z][0-9]{8}$" },
+                                                    "Prosecution": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "ProsecutingReference": { "type": "string" },
+                                                            "ProsecutingOrganisation": {
+                                                                "type": "object",
+                                                                "required": ["OrganisationName"],
+                                                                "properties": {
+                                                                    "OrganisationName": { "type": "string" }
+                                                                }
+                                                            },
+                                                            "ProsecutingAuthority": {
+                                                                "type": "string",
+                                                                "enum": ["Crown Prosecution Service",
+                                                                    "Customs and Excise",
+                                                                    "Department of Trade and Industry",
+                                                                    "Inland Revenue",
+                                                                    "Other Prosecutor"]
+                                                            }
+                                                        }
+                                                    },
+                                                    "CommittingCourt": {
+                                                        "type": "object",
+                                                        "required": ["CourtHouseType", "CourtHouseCode", "CourtHouseName"],
+                                                        "properties": {
+                                                            "CourtHouseType": {
+                                                                "type": "string",
+                                                                "enum": ["Crown Court", "Magistrates Court", "Youth Court"]
+                                                            },
+                                                            "CourtHouseCode": { "type": "string", "pattern": "^[0-9]{3,4}$" },
+                                                            "CourtHouseShortName": { "type": "string" },
+                                                            "CourtHouseName": { "type": "string" }
+                                                        }
+                                                    },
+                                                    "ListNote": { "type": "string" },
+                                                    "Defendants": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "object",
+                                                            "properties": {
                                                                 "PersonalDetails": {
-                                                                    "Name": {
-                                                                        "CitizenNameTitle": "Mr",
-                                                                        "CitizenNameForename": "TestForename",
-                                                                        "CitizenNameSurname": "TestSurname",
-                                                                        "CitizenNameSuffix": "TestSuffix",
-                                                                        "CitizenNameRequestedName": "TestSolicitorRequestedName"
-                                                                    },
-                                                                    "MaskedName": "TestSolicitorMasked",
-                                                                    "IsMasked": "no",
-                                                                    "DateOfBirth": {
-                                                                        "BirthDate": "1980-01-01",
-                                                                        "VerifiedBy": "not verified"
-                                                                    },
-                                                                    "Sex": "female",
-                                                                    "Address": {
-                                                                        "Line": [
-                                                                            "TestSolicitorAddress"
-                                                                        ],
-                                                                        "Postcode": "TestSolicitorPostcode"
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                        "Name": {
+                                                                            "type": "object",
+                                                                            "properties": {
+                                                                                "CitizenNameTitle": {
+                                                                                    "type": "string",
+                                                                                    "minLength": 1,
+                                                                                    "maxLength": 35
+                                                                                },
+                                                                                "CitizenNameForename": {
+                                                                                    "type": "string",
+                                                                                    "minLength": 1,
+                                                                                    "maxLength": 35
+                                                                                },
+                                                                                "CitizenNameSurname": {
+                                                                                    "type": "string",
+                                                                                    "minLength": 1,
+                                                                                    "maxLength": 35
+                                                                                },
+                                                                                "CitizenNameSuffix": {
+                                                                                    "type": "string",
+                                                                                    "minLength": 1,
+                                                                                    "maxLength": 35
+                                                                                },
+                                                                                "CitizenNameRequestedName": {
+                                                                                    "type": "string",
+                                                                                    "minLength": 1,
+                                                                                    "maxLength": 70}
+                                                                            }
+                                                                        },
+                                                                        "MaskedName": { "type": "string" },
+                                                                        "IsMasked": { "type": "string",
+                                                                            "enum": ["yes", "no"]
+                                                                        },
+                                                                        "DateOfBirth": {
+                                                                            "type": "object",
+                                                                            "properties": {
+                                                                                "BirthDate": { "type": "string", "format": "date"},
+                                                                                "VerifiedBy": {
+                                                                                    "type": "string",
+                                                                                    "enum": [
+                                                                                        "not verified",
+                                                                                        "accepted on balance of probabilities",
+                                                                                        "secondary certificate",
+                                                                                        "certified copy of birth certificate",
+                                                                                        "short form birth certificate or certificate of registration of birth",
+                                                                                        "birth certificate"
+                                                                                    ]
+                                                                                }
+                                                                            }
+                                                                        },
+                                                                        "Age": { "type": "integer" },
+                                                                        "Sex": {
+                                                                            "type": "string",
+                                                                            "enum": ["unknown", "male", "female", "indeterminate"]
+                                                                        },
+                                                                        "Address": {
+                                                                            "type": "object",
+                                                                            "properties": {
+                                                                                "Line": {
+                                                                                    "type": "array",
+                                                                                    "maxItems": 5,
+                                                                                    "items": { "type": "string" }
+                                                                                },
+                                                                                "Postcode": { "type": "string" }
+                                                                            }
+                                                                        },
+                                                                        "Nationality": { "type": "string" }
+                                                                    }
+                                                                },
+                                                                "URN": { "type": "string" },
+                                                                "PrisonerID": { "type": "string" },
+                                                                "PrisonLocation": {
+                                                                    "type": "object",
+                                                                    "required": ["Location"],
+                                                                    "properties": {
+                                                                        "Location": {
+                                                                            "type": "array",
+                                                                            "items": { "type": "string" }
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "Charges": {
+                                                                    "type": "array",
+                                                                    "items": {
+                                                                        "type": "object",
+                                                                        "required": ["OffenceStatement"],
+                                                                        "properties": {
+                                                                            "OffenceStatement": { "type": "string" },
+                                                                            "IndictmentCountNumber": { "type": "integer" },
+                                                                            "CJSoffenceCode": { "type": "string" }
+                                                                        }
                                                                     }
                                                                 }
                                                             }
                                                         }
+                                                    },
+                                                    "Respondent": {
+                                                        "type": "array",
+                                                        "items": { "type": "string" }
                                                     }
-                                                ]
+                                                }
                                             }
-                                        ],
-                                        "Charges": [
-                                            {
-                                                "OffenceStatement": "TestOffenceStatement",
-                                                "IndictmentCountNumber": 1,
-                                                "CJSoffenceCode": "TestCJSCode"
-                                            }
-                                        ]
-                                    },
-                                    {
-                                        "PersonalDetails": {
-                                            "Name": {
-                                                "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestDefendantForename",
-                                                "CitizenNameSurname": "TestDefendantSurname",
-                                                "CitizenNameSuffix": "TestDefendantSuffix"
-                                            },
-                                            "IsMasked": "no"
                                         }
                                     }
-                                ],
-                                "Respondent": ["TestRespondent"]
+                                }
                             }
-                        ]
-                    }
-                ]
-            },
-            {
-                "CourtHouse": {
-                    "CourtHouseType": "Crown Court",
-                    "CourtHouseCode": "1234",
-                    "CourtHouseShortName": "TestShortName",
-                    "CourtHouseName": "TestCourtHouseName",
-                    "CourtHouseAddress": {
-                        "Line": [
-                            "1 High Road",
-                            "London"
-                        ],
-                        "Postcode": "B1 1BB"
-                    },
-                    "CourtHouseTelephone": "02071234568"
-                },
-                "Sittings": [
-                    {
-                        "CourtRoomNumber": 5,
-                        "SittingSequenceNo": "TestSeqNo",
-                        "SittingAt": "14:00:00",
-                        "SittingPriority": "T",
-                        "SittingNote": "TestSittingNote",
-                        "Judiciary": {
-                            "Judge": {
-                                "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestJudgeForename",
-                                "CitizenNameSurname": "TestJudgeSurname",
-                                "CitizenNameSuffix": "Jr",
-                                "CitizenNameRequestedName": "TestJudgeRequested"
-                            }
-                        },
-                        "Hearings": [
-                            {
-                                "HearingSequenceNumber": 1,
-                                "HearingDetails": {
-                                    "HearingDescription": "TestHearingDescription2",
-                                    "HearingDate": "2025-09-10",
-                                    "HearingEndDate": "2025-09-11",
-                                    "HearingType": "ABC"
-                                },
-                                "TimeMarkingNote": "TestTimeMarkingNote",
-                                "CaseNumber": "T00112234",
-                                "CaseNumberCaTH": "T00112234",
-                                "Prosecution": {
-                                    "Advocate": {
-                                        "PersonalDetails": {
-                                            "Name": {
-                                                "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestAdvocateForename",
-                                                "CitizenNameSurname": "TestAdvocateSurname",
-                                                "CitizenNameRequestedName": "TestAdvocateRequestedName"
-                                            },
-                                            "MaskedName": "TestAdvocateMasked",
-                                            "IsMasked": "no"
-                                        }
-                                    },
-                                    "ProsecutingReference": "TestProsecutingRef",
-                                    "ProsecutingOrganisation": {
-                                        "OrganisationName": "TestProsecutingOrg"
-                                    },
-                                    "ProsecutingAuthority": "Inland Revenue"
-                                },
-                                "CommittingCourt": {
-                                    "CourtHouseType": "Crown Court",
-                                    "CourtHouseCode": "5678",
-                                    "CourtHouseShortName": "TestOriginShortName",
-                                    "CourtHouseName": "TestOriginName"
-                                },
-                                "ListNote": "TestListNote2",
-                                "Defendants": [
-                                    {
-                                        "PersonalDetails": {
-                                            "Name": {
-                                                "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestDefendantForename",
-                                                "CitizenNameSurname": "TestDefendantSurname",
-                                                "CitizenNameSuffix": "TestDefendantSuffix",
-                                                "CitizenNameRequestedName": "TestDefendantRequestedName"
-                                            },
-                                            "MaskedName": "TestMaskedName",
-                                            "IsMasked": "no",
-                                            "DateOfBirth": {
-                                                "BirthDate": "2000-01-01",
-                                                "VerifiedBy": "not verified"
-                                            },
-                                            "Age": 24,
-                                            "Sex": "male",
-                                            "Address": {
-                                                "Line": ["TestDefendantAddress"],
-                                                "Postcode": "TestDefendantPostcode"
-                                            },
-                                            "Nationality": "TestNationality"
-                                        },
-                                        "URN": "TestURN",
-                                        "Counsel": [
-                                            {
-                                                "Solicitor": [
-                                                    {
-                                                        "Party": {
-                                                            "Organisation": {
-                                                                "OrganisationName": "TestSolicitorOrg"
-                                                            }
-                                                        }
-                                                    }
-                                                ]
-                                            }
-                                        ],
-                                        "Charges": [
-                                            {
-                                                "OffenceStatement": "TestOffenceStatement",
-                                                "IndictmentCountNumber": 1,
-                                                "CJSoffenceCode": "TestCJSCode"
-                                            }
-                                        ]
-                                    }
-                                ],
-                                "Respondent": ["TestRespondent"]
-                            }
-                        ]
-                    },
-                    {
-                        "CourtRoomNumber": 6,
-                        "SittingSequenceNo": "TestSeqNo",
-                        "SittingAt": "15:00:00",
-                        "SittingPriority": "T",
-                        "SittingNote": "TestSittingNote",
-                        "Judiciary": {
-                            "Judge": {
-                                "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestJudgeForename",
-                                "CitizenNameSurname": "TestJudgeSurname"
-                            }
-                        },
-                        "Hearings": [
-                            {
-                                "HearingSequenceNumber": 1,
-                                "HearingDetails": {
-                                    "HearingDescription": "TestHearingDescription3",
-                                    "HearingDate": "2025-09-10",
-                                    "HearingEndDate": "2025-09-11",
-                                    "HearingType": "ABC"
-                                },
-                                "TimeMarkingNote": "TestTimeMarkingNote",
-                                "CaseNumber": "T00112235",
-                                "CaseNumberCaTH": "T00112235",
-                                "Prosecution": {
-                                    "Advocate": {
-                                        "PersonalDetails": {
-                                            "Name": {
-                                                "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestAdvocateForename",
-                                                "CitizenNameSurname": "TestAdvocateSurname",
-                                                "CitizenNameRequestedName": "TestAdvocateRequestedName"
-                                            },
-                                            "MaskedName": "TestAdvocateMasked",
-                                            "IsMasked": "no"
-                                        }
-                                    },
-                                    "ProsecutingReference": "TestProsecutingRef",
-                                    "ProsecutingOrganisation": {
-                                        "OrganisationName": "TestProsecutingOrg"
-                                    },
-                                    "ProsecutingAuthority": "Other Prosecutor"
-                                },
-                                "CommittingCourt": {
-                                    "CourtHouseType": "Crown Court",
-                                    "CourtHouseCode": "5678",
-                                    "CourtHouseShortName": "TestOriginShortName",
-                                    "CourtHouseName": "TestOriginName"
-                                },
-                                "ListNote": "TestListNote3"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "ReserveList": [
-            {
-                "HearingDetails": {
-                    "HearingDescription": "TestReserveHearing",
-                    "HearingDate": "2025-09-11",
-                    "HearingEndDate": "2025-09-11",
-                    "HearingType": "DEF"
-                },
-                "CaseNumber": "T00112244",
-                "CaseNumberCaTH": "T00112244",
-                "Prosecution": {
-                    "Advocate": {
-                        "PersonalDetails": {
-                            "Name": {
-                                "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestReserveAdvocateForename",
-                                "CitizenNameSurname": "TestReserveAdvocateSurname",
-                                "CitizenNameSuffix": "TestReserveAdvocateSuffix",
-                                "CitizenNameRequestedName": "TestReserveAdvocateRequestedName"
-                            },
-                            "MaskedName": "TestReserveAdvocateMasked",
-                            "IsMasked": "yes"
                         }
-                    },
-                    "ProsecutingReference": "TestReserveProsecutingRef",
-                    "ProsecutingOrganisation": {
-                        "OrganisationName": "TestReserveProsecutingOrg"
-                    },
-                    "ProsecutingAuthority": "Other Prosecutor"
-                },
-                "CommittingCourt": {
-                    "CourtHouseType": "Magistrates Court",
-                    "CourtHouseCode": "4321",
-                    "CourtHouseShortName": "TestReserveOriginShortName",
-                    "CourtHouseName": "TestReserveOriginName"
-                },
-                "ListNote": "TestReserveListNote",
-                "Defendants": [
-                    {
-                        "PersonalDetails": {
-                            "Name": {
-                                "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestReserveForename",
-                                "CitizenNameSurname": "TestReserveSurname",
-                                "CitizenNameSuffix": "TestReserveSuffix",
-                                "CitizenNameRequestedName": "TestReserveRequestedName"
-                            },
-                            "MaskedName": "TestReserveMasked",
-                            "IsMasked": "yes"
-                        },
-                        "URN": "TestReserveURN"
                     }
-                ],
-                "Respondent": ["TestReserveRespondent"]
+                }
             }
-        ]
+        }
     }
 }
