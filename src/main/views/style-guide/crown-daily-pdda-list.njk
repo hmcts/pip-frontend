@@ -53,7 +53,7 @@
             {% for courtHouse in listData %}
                 {% set countHouseCount = countHouseCount + 1 %}
                 <div class="site-header" tabindex="0" aria-label="Court House Details">
-                    <h1 class="govuk-heading-l govuk-!-margin-bottom-1 site-address">{{ courtHouse.courtName }}</h1>
+                    <h1 class="govuk-heading-l site-address">{{ courtHouse.courtName }}</h1>
                     {% set lineCount = 0 %}
                     {% for line in courtHouse.courtAddress %}
                         {% set lineCount = lineCount + 1 %}
