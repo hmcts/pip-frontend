@@ -10,22 +10,31 @@ const numberOfBytes = 1024;
 
 export class ListDownloadService {
     public async showDownloadButton(artefactId, user): Promise<boolean> {
-        return user && user['roles'] === 'VERIFIED' ? await publicationFileRequests.fileExists(artefactId) : false;
+        return user && user['roles'] === 'VERIFIED'
+            ? await publicationFileRequests.fileExists(artefactId, {
+                  'x-requester-id': user['userId'],
+                  'x-user-id': user['userId'],
+              })
+            : false;
     }
 
     public async getFile(artefactId, userId, fileExtension): Promise<string> {
         if (artefactId) {
             const fileType = Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)];
             return await publicationFileRequests.getStoredFile(artefactId, fileType, {
+                'x-requester-id': userId,
                 'x-user-id': userId,
             });
         }
         return null;
     }
 
-    public async getFileSize(artefactId, fileExtension): Promise<string> {
+    public async getFileSize(artefactId, fileExtension, userId): Promise<string> {
         const byteUnits = ['KB', 'MB'];
-        const fileSizes = await publicationFileRequests.getFileSizes(artefactId);
+        const fileSizes = await publicationFileRequests.getFileSizes(artefactId, {
+            'x-requester-id': userId,
+            'x-user-id': userId,
+        });
 
         if (fileSizes) {
             let fileSize;
