@@ -177,4 +177,3 @@ describe('Crown Daily PDDA List page', () => {
         expect(cell[4].innerHTML).contains('TestListNote', 'Listing notes cell does not match');
     });
 });
-

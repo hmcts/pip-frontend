@@ -11,7 +11,9 @@ export class CrownPddaListService {
         payload[payloadPath].CourtLists.forEach(courtList => {
             const courtHouse = courtList.CourtHouse;
             results.push({
-                sittingDate: isDailyList ? '' : formatDate(this.toIsoDate(courtList.SittingDate), 'EEEE dd MMMM yyyy', language),
+                sittingDate: isDailyList
+                    ? ''
+                    : formatDate(this.toIsoDate(courtList.SittingDate), 'EEEE dd MMMM yyyy', language),
                 courtName: courtHouse.CourtHouseName,
                 courtAddress: courtHouse.CourtHouseAddress ? this.formatAddress(courtHouse.CourtHouseAddress) : [],
                 courtPhone: courtHouse.CourtHouseTelephone ? courtHouse.CourtHouseTelephone : '',

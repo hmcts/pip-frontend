@@ -26,7 +26,6 @@ const publicationMetadataStub = sinon.stub(PublicationService.prototype, 'getInd
 publicationMetadataStub.withArgs('abc').returns(metadataDaily);
 publicationMetadataStub.withArgs('def').returns(metadataFirm);
 
-
 describe('Accessibility - Crown Daily PDDA List Page', () => {
     testAccessibility(`${urlDaily}?artefactId=abc`);
 });

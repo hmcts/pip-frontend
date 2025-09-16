@@ -95,7 +95,7 @@ describe.each([urlDailyList, urlFirmList])("Crown PDDA List Controller with path
             publishedDate: '09 September 2025',
             publishedTime: '11am',
             startDate: '10 September 2025',
-            endDate: '11 September 2025',
+            endDate: url === 'crown-daily-pdda-list' ? '' : '11 September 2025',
             version: '1.0',
             venueAddress: ['1 Main Road', 'London', 'A1 1AA'],
         };
