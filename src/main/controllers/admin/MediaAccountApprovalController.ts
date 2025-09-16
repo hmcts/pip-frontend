@@ -12,7 +12,12 @@ const userManagementService = new UserManagementService();
 export default class MediaAccountApprovalController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.query['applicantId'];
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(applicantId, 'PENDING');
+        const adminId = req.user['userId'];
+        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
+            applicantId,
+            'PENDING',
+            adminId
+        );
 
         if (applicantData) {
             res.render('admin/media-account-approval', {
@@ -27,6 +32,7 @@ export default class MediaAccountApprovalController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.body?.applicantId;
+        const adminId = req.user['userId'];
 
         if (!validate(applicantId)) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
@@ -34,7 +40,8 @@ export default class MediaAccountApprovalController {
             const approved = req.body['approved'];
             const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
                 applicantId,
-                'PENDING'
+                'PENDING',
+                adminId
             );
 
             if (applicantData) {
