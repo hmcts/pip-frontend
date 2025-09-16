@@ -55,7 +55,6 @@ describe('Magistrates Public List Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/magistrates-public-list';
 
     it('should render the magistrates public list page', async () => {
         request.query = { artefactId: artefactId };

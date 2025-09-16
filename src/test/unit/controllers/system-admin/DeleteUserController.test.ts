@@ -24,7 +24,6 @@ describe('Delete user controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/delete-user';
 
     it('should render the delete user page', async () => {
         request.query = { id: '1234' };

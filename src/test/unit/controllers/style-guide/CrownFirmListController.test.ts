@@ -68,7 +68,6 @@ describe('Crown Firm List Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/crown-firm-list';
 
     it('should render the crown firm list page', async () => {
         request.query = { artefactId: artefactId };

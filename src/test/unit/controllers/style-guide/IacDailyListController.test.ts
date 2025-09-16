@@ -72,7 +72,6 @@ describe('IAC Daily List Controller', () => {
     const request = mockRequest(i18n);
 
     describe.each([iacMainListUrl, iacAdditionalCasesListUrl])("get with path '%s'", url => {
-        request.path = url;
         metaData.listType = url.substring(1).toUpperCase();
 
         it('should render the IAC daily list page', async () => {

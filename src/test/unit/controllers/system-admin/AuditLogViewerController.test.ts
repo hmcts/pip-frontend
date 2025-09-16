@@ -61,7 +61,6 @@ describe('Audit log view controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/audit-log-viewer';
 
     it('should render the audit log viewer page', async () => {
         request.url = '/audit-log-viewer';

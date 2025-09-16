@@ -55,7 +55,6 @@ describe('Crown Daily List Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/crown-daily-list';
 
     it('should render the crown daily list page', async () => {
         request.query = { artefactId: artefactId };
