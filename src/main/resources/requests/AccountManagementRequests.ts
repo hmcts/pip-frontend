@@ -185,6 +185,20 @@ export class AccountManagementRequests {
         return null;
     }
 
+    public async getPiUserByCrimeID(uid: string): Promise<any> {
+        try {
+            const response = await accountManagementApi.get(`/account/provenance/CRIME_IDAM/${uid}`);
+            return response.data;
+        } catch (error) {
+            if (error.response?.status === StatusCodes.NOT_FOUND) {
+                logger.info(`Could not find Crime IDAM user with provenance user ID: ${uid}`);
+            } else {
+                logHelper.logErrorResponse(error, 'retrieve P&I user account by Crime IDAM ID');
+            }
+        }
+        return null;
+    }
+
     public async getThirdPartyAccounts(adminUserId): Promise<any> {
         try {
             logger.info('Third party account data requested by Admin with ID: ' + adminUserId);

@@ -16,6 +16,7 @@ import {
     mapAzureLanguage,
     keepSessionLanguage,
     regenerateSession,
+    processCrimeIdamSignIn,
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -1162,6 +1163,23 @@ export default function (app: Application): void {
         processCftIdamSignIn
     );
     app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+
+    //CRIME IDAM Routes
+    app.get(
+        '/crime-login',
+        regenerateSession,
+        keepSessionLanguage,
+        app.locals.container.cradle.crimeLoginController.get
+    );
+    app.get(
+        '/crime-login/return',
+        passport.authenticate('crime-idam', {
+            failureRedirect: '/error',
+        }),
+        keepSessionLanguage,
+        processCrimeIdamSignIn
+    );
+    app.get('/error', app.locals.container.cradle.errorController.get);
 
     // SSO Routes
     app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>

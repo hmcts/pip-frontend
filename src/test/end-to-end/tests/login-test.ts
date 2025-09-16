@@ -180,6 +180,28 @@ Scenario(
     }
 ).tag('@Nightly');
 
+Scenario('I as a Crime user should be able to sign-in with the valid credentials in English', async ({ I }) => {
+    I.loginAsCrimeUser();
+    I.waitForText('Your account');
+    I.logout();
+})
+    .tag('@SkipOnPR')
+    .tag('@CrossBrowser');
+
+Scenario('I as a Crime user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
+    I.loginAsCrimeUserInWelsh();
+    I.waitForText('Eich cyfrif');
+    I.logoutWelsh();
+}).tag('@Nightly');
+
+Scenario(
+    'I as a Crime user should be able to see proper error message when username or password is wrong',
+    async ({ I }) => {
+        I.loginAsCrimeUser('email@justice.gov.uk', 'password');
+        I.waitForText('You did not enter a correct username or password');
+    }
+).tag('@Nightly');
+
 Scenario(
     'I as a media user should see the media rejected login screen when logging in via the admin flow',
     async ({ I }) => {
