@@ -26,13 +26,13 @@ export default class CrownPddaListController {
             const returnedLocation = await locationService.getLocationById(metadata['locationId']);
             const locationName = locationService.findCourtName(returnedLocation, req.lng, listType);
 
-            listType.startsWith('magistrates-public');
-            const listPayload = listType.includes('daily') ? payload['DailyList'] : payload['FirmList'];
+            const isDailyList = listType.includes('daily');
+            const listPayload = isDailyList ? payload['DailyList'] : payload['FirmList'];
             const listHeader = listPayload.ListHeader;
             const publishedDate = helperService.publicationDateInUkTime(listHeader.PublishedTime, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(listHeader.PublishedTime);
             const startDate = formatDate(crownPddaListService.toIsoDate(listHeader.StartDate), 'dd MMMM yyyy', req.lng);
-            const endDate = listHeader.EndDate
+            const endDate = !isDailyList && listHeader.EndDate
                 ? formatDate(crownPddaListService.toIsoDate(listHeader.EndDate), 'dd MMMM yyyy', req.lng)
                 : '';
             const version = listHeader.Version;
