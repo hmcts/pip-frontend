@@ -25,8 +25,9 @@
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">{{ importantInformationHeading }}</span>
             </summary>
-            <div class="govuk-details__text">
-                <p class="govuk-body">{{ importantInformationLine1 }}</p>
+            <div id="importantInformationSection" class="govuk-details__text">
+                <p class="govuk-body">{{ importantInformationSection.line1 }}</p>
+                <p class="govuk-body">{{ importantInformationSection.line2 }} <a href="{{ importantInformationSection.links[0].link }}" target="_blank">{{ importantInformationSection.links[0].text }}</a></p>
             </div>
         </details>
 
