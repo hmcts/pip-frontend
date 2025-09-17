@@ -32,9 +32,10 @@ export default class CrownPddaListController {
             const publishedDate = helperService.publicationDateInUkTime(listHeader.PublishedTime, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(listHeader.PublishedTime);
             const startDate = formatDate(crownPddaListService.toIsoDate(listHeader.StartDate), 'dd MMMM yyyy', req.lng);
-            const endDate = !isDailyList && listHeader.EndDate
-                ? formatDate(crownPddaListService.toIsoDate(listHeader.EndDate), 'dd MMMM yyyy', req.lng)
-                : '';
+            const endDate =
+                !isDailyList && listHeader.EndDate
+                    ? formatDate(crownPddaListService.toIsoDate(listHeader.EndDate), 'dd MMMM yyyy', req.lng)
+                    : '';
             const version = listHeader.Version;
             const venueAddress = crownPddaListService.formatAddress(listPayload.CrownCourt.CourtHouseAddress);
 
