@@ -16,10 +16,8 @@ export class CrownWarnedPddaListService {
         });
 
         // Sort cases by fixed date within each group
-        groupedData.forEach((cases) => {
-            cases.sort((a: any, b: any) =>
-                new Date(a.fixedDate).getTime() - new Date(b.fixedDate).getTime()
-            );
+        groupedData.forEach(cases => {
+            cases.sort((a: any, b: any) => new Date(a.fixedDate).getTime() - new Date(b.fixedDate).getTime());
         });
 
         return groupedData;
@@ -33,9 +31,7 @@ export class CrownWarnedPddaListService {
                     groupedData.set(hearingDescription, []);
                 }
 
-                groupedData.get(hearingDescription)!.push(
-                    this.formatCaseInformation(hearing, hearingCase)
-                );
+                groupedData.get(hearingDescription)!.push(this.formatCaseInformation(hearing, hearingCase));
             });
         });
     }
@@ -43,7 +39,9 @@ export class CrownWarnedPddaListService {
     private formatCaseInformation(hearing: any, hearingCase: any): any {
         const fixedDate = hearing.HearingDate;
         const caseReference = hearingCase.CaseNumberCaTH;
-        const defendantNames = hearingCase.Defendants ? crownPddaListService.formatDefendantName(hearingCase.Defendants) : '';
+        const defendantNames = hearingCase.Defendants
+            ? crownPddaListService.formatDefendantName(hearingCase.Defendants)
+            : '';
         const prosecutingAuthority = hearingCase.Prosecution?.ProsecutingAuthority
             ? hearingCase.Prosecution.ProsecutingAuthority
             : '';
@@ -57,6 +55,6 @@ export class CrownWarnedPddaListService {
             prosecutingAuthority: prosecutingAuthority,
             linkedCases: linkedCases,
             listingNotes: listingNotes,
-        }
+        };
     }
 }

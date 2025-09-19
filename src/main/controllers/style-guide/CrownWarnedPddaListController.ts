@@ -34,8 +34,8 @@ export default class CrownWarnedPddaListController {
             const publishedTime = helperService.publicationTimeInUkTime(listHeader.PublishedTime);
             const startDate = formatDate(crownPddaListService.toIsoDate(listHeader.StartDate), 'dd MMMM yyyy', req.lng);
             const endDate = listHeader.EndDate
-                    ? formatDate(crownPddaListService.toIsoDate(listHeader.EndDate), 'dd MMMM yyyy', req.lng)
-                    : '';
+                ? formatDate(crownPddaListService.toIsoDate(listHeader.EndDate), 'dd MMMM yyyy', req.lng)
+                : '';
             const version = listHeader.Version;
             const venueAddress = crownPddaListService.formatAddress(listPayload.CrownCourt.CourtHouseAddress);
 

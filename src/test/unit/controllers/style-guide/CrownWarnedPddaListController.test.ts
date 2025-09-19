@@ -94,7 +94,7 @@ describe('Crown Warned PDDA List Controller', () => {
             startDate: '01 January 2024',
             endDate: '02 January 2024',
             version: 'TestVersion',
-            venueAddress: [ 'TestAddressLine1', 'TestAddressLine2', 'TestPostcode' ]
+            venueAddress: ['TestAddressLine1', 'TestAddressLine2', 'TestPostcode'],
         };
 
         responseMock.expects('render').once().withArgs(listPath, expectedData);
