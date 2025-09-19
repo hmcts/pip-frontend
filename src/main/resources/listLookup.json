@@ -947,5 +947,15 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "PRIVATE",
         "isNonStrategic": false
+    },
+    "CROWN_WARNED_PDDA_LIST": {
+        "friendlyName": "Crown Warned PDDA List",
+        "welshFriendlyName": "Rhestr Rybudd PDDA Llys y Goron",
+        "shortenedFriendlyName": "Crown Warned PDDA List",
+        "url": "crown-warned-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "PRIVATE",
+        "isNonStrategic": false
     }
 }

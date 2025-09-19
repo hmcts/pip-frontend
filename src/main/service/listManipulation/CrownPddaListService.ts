@@ -72,7 +72,7 @@ export class CrownPddaListService {
         return names.filter(name => name.trim().length > 0).join(', ');
     }
 
-    private formatDefendantName(defendants): string {
+    formatDefendantName(defendants): string {
         const names = [];
         defendants.forEach(defendant => {
             names.push(this.useMaskedNameIfRequested(defendant.PersonalDetails));
