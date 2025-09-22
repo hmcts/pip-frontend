@@ -935,7 +935,7 @@
         "url": "crown-firm-pdda-list",
         "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE",
+        "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
     },
     "CROWN_DAILY_PDDA_LIST": {
