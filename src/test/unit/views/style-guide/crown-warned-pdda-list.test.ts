@@ -44,7 +44,10 @@ describe('Crown Warned PDDA List page', () => {
 
     it('should display header with venue name and list type', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).equal('Crown Warned List for Abergavenny Magistrates\' Court', 'Could not find the header');
+        expect(header[0].innerHTML).equal(
+            "Crown Warned List for Abergavenny Magistrates' Court",
+            'Could not find the header'
+        );
     });
 
     it('should display list date', () => {
@@ -113,13 +116,14 @@ describe('Crown Warned PDDA List page', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
         expect(body[9].getElementsByTagName('p')[0].innerHTML).contains(
             'You must check if any reporting restrictions apply before publishing details on any of the cases listed here either in writing, in a broadcast or by internet, including social media.',
-            'restriction first paragraph does not match');
+            'restriction first paragraph does not match'
+        );
     });
 
     it('should display publishing restriction warning text', () => {
         const waringText = htmlRes.getElementsByClassName(warningTextClass);
         expect(waringText[0].innerHTML).contains(
-            'You\'ll be in contempt of court if you publish any information which is protected by a reporting restriction. You could get a fine, prison sentence or both.',
+            "You'll be in contempt of court if you publish any information which is protected by a reporting restriction. You could get a fine, prison sentence or both.",
             'Could not find the publishing restriction warning text'
         );
     });
@@ -128,37 +132,41 @@ describe('Crown Warned PDDA List page', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
         expect(body[9].getElementsByTagName('p')[1].innerHTML).contains(
             'Specific restrictions ordered by the court will be mentioned on the cases listed here',
-            'restriction second paragraph does not match');
+            'restriction second paragraph does not match'
+        );
     });
 
     it('should display restriction third paragraph', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
         expect(body[9].getElementsByTagName('p')[2].innerHTML).contains(
             'However, restrictions are not always listed. Some apply automatically. For example, anonymity given to the victims of certain sexual offences.',
-            'restriction third paragraph does not match');
+            'restriction third paragraph does not match'
+        );
     });
 
     it('should display restriction fourth paragraph', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
         expect(body[9].getElementsByTagName('p')[3].innerHTML).contains(
             'To find out which reporting restrictions apply on a specific case, contact:',
-            'restriction fourth paragraph does not match');
+            'restriction fourth paragraph does not match'
+        );
     });
 
     it('should display restriction contact bullet point one', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
         expect(body[9].getElementsByTagName('li')[0].innerHTML).contains(
             'the court directly',
-            'restriction contact bullet point one does not match');
+            'restriction contact bullet point one does not match'
+        );
     });
 
     it('should display restriction contact bullet point two', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
         expect(body[9].getElementsByTagName('li')[1].innerHTML).contains(
             'HM Courts and Tribunals Service on 0330 808 4407',
-            'restriction contact bullet point two does not match');
+            'restriction contact bullet point two does not match'
+        );
     });
-
 
     it('should display the search input box', () => {
         const searchInput = htmlRes.getElementsByClassName('govuk-form-group');
@@ -170,10 +178,7 @@ describe('Crown Warned PDDA List page', () => {
         expect(accordion[0].innerHTML).to.equal('For Trial', 'Could not find first accordion heading');
         expect(accordion[1].innerHTML).to.equal('For Appeal', 'Could not find second accordion heading');
         expect(accordion[2].innerHTML).to.equal('For Sentence', 'Could not find third accordion heading');
-        expect(accordion[3].innerHTML).to.equal(
-            'To be allocated',
-            'Could not find fourth accordion heading'
-        );
+        expect(accordion[3].innerHTML).to.equal('To be allocated', 'Could not find fourth accordion heading');
     });
 
     it('should display table header', () => {
@@ -203,7 +208,10 @@ describe('Crown Warned PDDA List page', () => {
 
     it('should display prosecuting authority', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[3].innerHTML).to.equal('Crown Prosecution Service', 'Could not find prosecuting authority table cell');
+        expect(cell[3].innerHTML).to.equal(
+            'Crown Prosecution Service',
+            'Could not find prosecuting authority table cell'
+        );
     });
 
     it('should display linked cases', () => {
