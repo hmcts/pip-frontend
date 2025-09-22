@@ -218,9 +218,7 @@ export default function (app: Application): void {
     app.get('/crown-firm-pdda-list', (req, res) =>
         app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-firm-pdda-list')
     );
-    app.get('/crown-warned-pdda-list', (req, res) =>
-        app.locals.container.cradle.crownWarnedPddaListController.get(req, res)
-    );
+    app.get('/crown-warned-pdda-list', app.locals.container.cradle.crownWarnedPddaListController.get);
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>

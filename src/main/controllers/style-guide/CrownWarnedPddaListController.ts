@@ -9,12 +9,14 @@ import { PublicationService } from '../../service/PublicationService';
 import { formatDate } from '../../helpers/dateTimeHelper';
 import { CrownPddaListService } from '../../service/listManipulation/CrownPddaListService';
 import { CrownWarnedPddaListService } from '../../service/listManipulation/CrownWarnedPddaListService';
+import { CrownWarnedListService } from '../../service/listManipulation/CrownWarnedListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crownPddaListService = new CrownPddaListService();
 const crownWarnedPddaListService = new CrownWarnedPddaListService();
+const crownWarnedListService = new CrownWarnedListService();
 const listType = 'crown-warned-pdda-list';
 
 export default class CrownWarnedPddaListController {
@@ -46,6 +48,7 @@ export default class CrownWarnedPddaListController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 locationName: locationName,
+                contentDate: crownWarnedListService.formatContentDate(metadata.contentDate, req.lng),
                 provenance: metadata.provenance,
                 publishedDate,
                 publishedTime,

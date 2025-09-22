@@ -7,12 +7,12 @@ export class CrownWarnedPddaListService {
         const groupedData = new Map<string, object[]>();
 
         warnedPddaListData['WarnedList'].CourtLists.forEach((courtList: any) => {
-            courtList.WithFixedDate.forEach((withFixDate: any) => {
+            courtList.WithFixedDate?.forEach((withFixDate: any) => {
                 this.formatFixture(withFixDate, groupedData, false);
             });
-            if (courtList.WithoutFixedDate) {
-                this.formatFixture(courtList.WithoutFixedDate, groupedData, true);
-            }
+            courtList.WithoutFixedDate?.forEach((withoutFixDate: any) => {
+                this.formatFixture(withoutFixDate, groupedData, true);
+            });
         });
 
         // Sort cases by fixed date within each group
@@ -24,6 +24,7 @@ export class CrownWarnedPddaListService {
     }
 
     private formatFixture(fixtureDate: any, groupedData: Map<string, object[]>, isWithoutFixeDate: boolean): any {
+        const fixedDate = fixtureDate.Fixture.FixedDate;
         fixtureDate.Fixture.Cases.forEach((hearingCase: any) => {
             hearingCase.Hearing.forEach((hearing: any) => {
                 const hearingDescription = !isWithoutFixeDate ? hearing.HearingDescription : 'To be allocated';
@@ -31,13 +32,12 @@ export class CrownWarnedPddaListService {
                     groupedData.set(hearingDescription, []);
                 }
 
-                groupedData.get(hearingDescription)!.push(this.formatCaseInformation(hearing, hearingCase));
+                groupedData.get(hearingDescription)!.push(this.formatCaseInformation(fixedDate, hearing, hearingCase));
             });
         });
     }
 
-    private formatCaseInformation(hearing: any, hearingCase: any): any {
-        const fixedDate = hearing.HearingDate;
+    private formatCaseInformation(fixedDate: any, hearing: any, hearingCase: any): any {
         const caseReference = hearingCase.CaseNumberCaTH;
         const defendantNames = hearingCase.Defendants
             ? crownPddaListService.formatDefendantName(hearingCase.Defendants)
@@ -49,7 +49,7 @@ export class CrownWarnedPddaListService {
         const listingNotes = hearing.ListNote || '';
 
         return {
-            fixedDate: new Date(fixedDate).toLocaleDateString('en-GB'),
+            fixedDate: fixedDate ? new Date(fixedDate).toLocaleDateString('en-GB') : '',
             caseReference: caseReference,
             defendantNames: defendantNames,
             prosecutingAuthority: prosecutingAuthority,
