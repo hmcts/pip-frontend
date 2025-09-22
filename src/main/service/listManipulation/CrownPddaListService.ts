@@ -39,10 +39,8 @@ export class CrownPddaListService {
     private buildHearings(sitting: any, isDailyList: boolean): any[] {
         const hearings = [];
         sitting.Hearings.forEach(hearing => {
-            let representativeName;
-            if (isDailyList) {
-                representativeName = '';
-            } else {
+            let representativeName = '';
+            if (!isDailyList) {
                 representativeName = hearing.Defendants ? this.formatRepresentativeName(hearing.Defendants) : '';
             }
 
