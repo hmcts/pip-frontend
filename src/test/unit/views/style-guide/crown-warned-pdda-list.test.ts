@@ -62,7 +62,7 @@ describe('Crown Warned PDDA List page', () => {
 
     it('should display version', () => {
         const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[6].innerHTML).contains('Final TestVersion', 'Version does not match');
+        expect(body[6].innerHTML).contains('Version TestVersion', 'Version does not match');
     });
 
     it('should display venue address', () => {

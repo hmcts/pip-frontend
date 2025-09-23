@@ -80,7 +80,7 @@
                                 <thead class="govuk-table__head">
                                 <tr class="govuk-table__row">
                                     {% for header in tableHeaders %}
-                                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ header }}</th>
+                                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
                                     {% endfor %}
                                 </tr>
                                 </thead>
@@ -88,12 +88,12 @@
                                 {% for row in rows %}
                                     {% set noBorder = "no-border-bottom" %}
                                     <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell {{ noBorder }}  no-wrap" data-sort-value="{{ row.fixedDate | dateToSortValue }}">{{ row.fixedDate }}</td>
-                                        <td class="govuk-table__cell {{ noBorder }}">{{ row.caseReference }}</td>
-                                        <td class="govuk-table__cell {{ noBorder }}">{{ row.defendantNames }}</td>
-                                        <td class="govuk-table__cell {{ noBorder }}">{{ row.prosecutingAuthority }}</td>
-                                        <td class="govuk-table__cell {{ noBorder }}">{{ row.linkedCases }}</td>
-                                        <td class="govuk-table__cell {{ noBorder }}">{{ row.listingNotes }}</td>
+                                        <td class="govuk-table__cell no-wrap" data-sort-value="{{ row.fixedDate | dateToSortValue }}">{{ row.fixedDate }}</td>
+                                        <td class="govuk-table__cell no-wrap">{{ row.caseReference }}</td>
+                                        <td class="govuk-table__cell">{{ row.defendantNames }}</td>
+                                        <td class="govuk-table__cell">{{ row.prosecutingAuthority }}</td>
+                                        <td class="govuk-table__cell">{{ row.linkedCases }}</td>
+                                        <td class="govuk-table__cell">{{ row.listingNotes }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
