@@ -55,7 +55,10 @@ describe('Manual Upload Summary Page', () => {
 
     it('should display the correct page title', () => {
         const title = htmlRes.title;
-        expect(title).contains('Manual Upload - File Upload Summary - Court and Tribunal Hearings - GOV.UK', 'Could not find the correct page title');
+        expect(title).contains(
+            'Manual Upload - File Upload Summary - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the correct page title'
+        );
     });
 
     it('should display correct header', async () => {
