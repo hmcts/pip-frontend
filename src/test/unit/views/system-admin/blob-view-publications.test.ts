@@ -39,9 +39,17 @@ describe('Blob View Publications Page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'System Admin - Blob Explorer Publications - Court and Tribunal Hearings - GOV.UK',
+                'Could not find the title'
+            );
+        });
+
     it('should display the main heading', () => {
         const header = htmlRes.getElementsByClassName(headingClass)[0];
-        expect(header.innerHTML).to.contain('Blob Explorer - Publications');
+        expect(header.innerHTML).to.contain('Blob Explorer Publications');
     });
 
     it('should display the location name as a subheading', () => {
@@ -87,7 +95,7 @@ describe('Blob View Publications Page - No Match Artefacts', () => {
 
     it('should display the main heading', () => {
         const header = htmlRes.getElementsByClassName(headingClass)[0];
-        expect(header.innerHTML).to.contain('Blob Explorer - Publications');
+        expect(header.innerHTML).to.contain('Blob Explorer Publications');
     });
 
     it('should display "No match artefacts" as the location name', () => {
