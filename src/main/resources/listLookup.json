@@ -955,7 +955,7 @@
         "url": "crown-warned-pdda-list",
         "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE",
+        "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
     }
 }
