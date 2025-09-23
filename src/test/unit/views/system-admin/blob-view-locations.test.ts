@@ -9,14 +9,14 @@ const locationsMock = [
     { locationId: 1, name: 'Gamma Court' },
     { locationId: 2, name: 'Beta Court' },
     { locationId: 3, name: 'Delta Court' },
-    { locationId: 4, name: 'Alpha Court' }
+    { locationId: 4, name: 'Alpha Court' },
 ];
 const countsMock = new Map([
     ['1', 5],
     ['2', 10],
     ['3', 7],
     ['4', 3],
-    ['noMatch', 2]
+    ['noMatch', 2],
 ]);
 
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(locationsMock);
@@ -66,7 +66,7 @@ describe('Blob View Locations Page', () => {
             rows[1].children[0].innerHTML,
             rows[2].children[0].innerHTML,
             rows[3].children[0].innerHTML,
-            rows[4].children[0].innerHTML
+            rows[4].children[0].innerHTML,
         ];
         expect(locationNames[0]).to.contain('Alpha Court');
         expect(locationNames[1]).to.contain('Beta Court');
