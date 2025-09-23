@@ -19,10 +19,18 @@ describe('Manual Upload Confirmation Page', () => {
                 });
         });
 
+        it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Manual upload - File Upload Successful - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the title'
+        );
+    });
+
         it('should display confirmation within the panel', () => {
             const panelTitle = htmlRes.getElementsByClassName('govuk-panel__title');
             const panelMessage = htmlRes.getElementsByClassName('govuk-panel__body');
-            expect(panelTitle[0].innerHTML).to.contains('Success');
+            expect(panelTitle[0].innerHTML).to.contains('File Upload Successful');
             expect(panelMessage[0].innerHTML).to.contains('Your file has been uploaded');
         });
 

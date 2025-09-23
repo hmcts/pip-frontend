@@ -17,6 +17,7 @@ describe('Media Account Review Test', () => {
     const buttonTag = 'button';
 
     const expectedHeader = "Applicant's details";
+    const expectedTitle = "Applicant's details";
     const nameHeader = 'Name';
     const nameValue = 'Test Name';
     const emailHeader = 'Email';
@@ -59,6 +60,11 @@ describe('Media Account Review Test', () => {
                     htmlRes.getElementsByTagName('div')[0].remove();
                 });
         });
+
+        it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(expectedTitle, 'Could not find the title');
+    });
 
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);

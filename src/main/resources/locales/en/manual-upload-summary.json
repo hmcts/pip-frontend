@@ -1,6 +1,7 @@
 {
-    "title": "File Upload Summary",
-    "header": "Check upload details",
+    "title": "Manual Upload - File Upload Summary - Court and Tribunal Hearings - GOV.UK",
+    "header": "File Upload Summary",
+    "inputMessage": "Check upload details",
     "actionName": "Change",
     "fileKey": "File",
     "courtNameKey": "Court name",

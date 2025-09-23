@@ -19,7 +19,7 @@ describe('Blob explorer subscription re-submit confirmed page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).equals('Subscription re-submitted', 'Page title does not match');
+        expect(pageTitle).equals('Blob Explorer - Subscription re-submitted - Court and Tribunal Hearings - GOV.UK', 'Page title does not match');
     });
 
     it('should have correct header', () => {

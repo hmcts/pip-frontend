@@ -1,5 +1,6 @@
 {
-    "title": "Bulk create media accounts",
+    "title": "Create media accounts - Bulk create media accounts - Court and Tribunal Hearings - GOV.UK",
+    "header": "Bulk create media accounts",
     "fileUploadText": "Upload a csv file containing a list of media accounts to be created.",
     "recordDescription": "Each record must include the email, first name and surname information.",
     "fileHeaderDescription": "The file must also have the header 'email,firstName,surname'.",
