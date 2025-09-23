@@ -20,7 +20,8 @@ const errorSummaryClass = 'govuk-error-summary__title';
 const errorMessageClass = 'govuk-error-summary__body';
 
 const expectedHeader = 'Are you sure you want to approve this application?';
-const expectedTitle = 'Manage media account requests - Are you sure you want to approve this application? - Court and Tribunal Hearings - GOV.UK';
+const expectedTitle =
+    'Manage media account requests - Are you sure you want to approve this application? - Court and Tribunal Hearings - GOV.UK';
 const expectedTableCaption = "Applicant's Details";
 const nameHeader = 'Name';
 const nameValue = 'Test Name';

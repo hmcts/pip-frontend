@@ -20,12 +20,12 @@ describe('Manual Upload Confirmation Page', () => {
         });
 
         it('should have correct page title', () => {
-        const pageTitle = htmlRes.title;
-        expect(pageTitle).contains(
-            'Manual upload - File Upload Successful - Court and Tribunal Hearings - GOV.UK',
-            'Could not find the title'
-        );
-    });
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'Manual upload - File Upload Successful - Court and Tribunal Hearings - GOV.UK',
+                'Could not find the title'
+            );
+        });
 
         it('should display confirmation within the panel', () => {
             const panelTitle = htmlRes.getElementsByClassName('govuk-panel__title');

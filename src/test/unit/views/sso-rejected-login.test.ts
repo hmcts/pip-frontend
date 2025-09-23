@@ -27,12 +27,9 @@ describe('SSO rejected login page', () => {
     });
 
     it('should display header', () => {
-            const header = htmlRes.getElementsByClassName('govuk-heading-l');
-            expect(header[0].innerHTML).contains(
-                'SSO Rejected Login',
-                'Could not find the header'
-            );
-        });
+        const header = htmlRes.getElementsByClassName('govuk-heading-l');
+        expect(header[0].innerHTML).contains('SSO Rejected Login', 'Could not find the header');
+    });
 
     it('should display paragraph text', () => {
         const bodyText = htmlRes.getElementsByClassName('govuk-body');

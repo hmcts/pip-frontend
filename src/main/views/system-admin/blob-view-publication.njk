@@ -4,12 +4,17 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block pageTitle %}
-  {{ title }}
+    {{ title }}
+    {% if metadata.isFlatFile %}
+        {{ flatFile }}
+    {% else %}
+        {{ jsonFile }}
+    {% endif %}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ super() }}
-  {{ goBack(cspNonce = cspNonce) }}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
@@ -21,48 +26,51 @@
       {% else %}
         {{ jsonFile }}
       {% endif %}</h1>
+    </h1>
 
-    <div id="section1">
-      <form method="post">
-        {% if not noMatchArtefact %}
-          {{ submitButton(label = resubmit, id = 'resubmit-subscription') }}
-        {% endif %}
+        <div id="section1">
+            <form method="post">
+                {% if not noMatchArtefact %}
+                    {{ submitButton(label = resubmit, id = 'resubmit-subscription') }}
+                {% endif %}
 
-        <h2 class="govuk-heading-m">Metadata</h2>
-        {{ govukSummaryList({
-          rows: [
-            {key: {text: "Artefact ID"}, value: { text: metadata.artefactId} },
-            {key: {text: "Location ID"}, value: { text: metadata.locationId} },
-            {key: {text: "Location Name"}, value: { text: locationName } },
-            {key: {text: "Publication Type"}, value: { text: metadata.type | titleCase} },
-            {key: {text: "List Type"}, value: { text: metadata.listType | listType} },
-            {key: {text: "Provenance"}, value: { text: metadata.provenance} },
-            {key: {text: "Language"}, value: { text: metadata.language | titleCase} },
-            {key: {text: "Sensitivity"}, value: { text: metadata.sensitivity | titleCase} },
-            {key: {text: "Content Date"}, value: { text: metadata.contentDate | date('Do MMMM YYYY [at] hh:mm a')} },
-            {key: {text: "Display From"}, value: { text: metadata.displayFrom | date('Do MMMM YYYY [at] hh:mm a')} },
-            {key: {text: "Display To"}, value: { text: metadata.displayTo | date('Do MMMM YYYY [at] hh:mm a')} }
-          ]
-        }) }}
-      </form>
+                <h2 class="govuk-heading-m">Metadata</h2>
+                {{ govukSummaryList({
+                    rows: [
+                        {key: {text: "Artefact ID"}, value: { text: metadata.artefactId} },
+                        {key: {text: "Location ID"}, value: { text: metadata.locationId} },
+                        {key: {text: "Location Name"}, value: { text: locationName } },
+                        {key: {text: "Publication Type"}, value: { text: metadata.type | titleCase} },
+                        {key: {text: "List Type"}, value: { text: metadata.listType | listType} },
+                        {key: {text: "Provenance"}, value: { text: metadata.provenance} },
+                        {key: {text: "Language"}, value: { text: metadata.language | titleCase} },
+                        {key: {text: "Sensitivity"}, value: { text: metadata.sensitivity | titleCase} },
+                        {key: {text: "Content Date"}, value: { text: metadata.contentDate | date('Do MMMM YYYY [at] hh:mm a')} },
+                        {key: {text: "Display From"}, value: { text: metadata.displayFrom | date('Do MMMM YYYY [at] hh:mm a')} },
+                        {key: {text: "Display To"}, value: { text: metadata.displayTo | date('Do MMMM YYYY [at] hh:mm a')} }
+                    ]
+                }) }}
+            </form>
+        </div>
     </div>
-  </div>
-  {% if not noMatchArtefact %}
-    <p class="govuk-body-l"><a class="govuk-link" href="{{ listUrl }}">{{ viewLinkFlatFile if metadata.isFlatFile else viewLinkJson }}</a></p>
-  {% endif %}
+    {% if not noMatchArtefact %}
+        <p class="govuk-body-l">
+          <a class="govuk-link" href="{{ listUrl }}">{{ viewLinkFlatFile if metadata.isFlatFile else viewLinkJson }}</a>
+        </p>
+    {% endif %}
 
-  {% if not metadata.isFlatFile %}
-    <details class="govuk-details" data-module="govuk-details">
-      <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      {{ viewJson }}
-    </span>
-      </summary>
-      <div class="json-container">
-        {{ data | safe }}
-      </div>
-    </details>
-  {% endif %}
+    {% if not metadata.isFlatFile %}
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    {{ viewJson }}
+                </span>
+            </summary>
+            <div class="json-container">
+                {{ data | safe }}
+            </div>
+        </details>
+    {% endif %}
 
-  {{ super() }}
+    {{ super() }}
 {% endblock %}

@@ -19,7 +19,10 @@ describe('Bulk Create Media Accounts Confirmed Page', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Create media accounts - Media accounts created - Court and Tribunal Hearings - GOV.UK', 'Page title does not match');
+        expect(pageTitle).contains(
+            'Create media accounts - Media accounts created - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match'
+        );
     });
 
     it('should display confirmation panel component', () => {

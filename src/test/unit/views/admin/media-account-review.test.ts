@@ -62,9 +62,9 @@ describe('Media Account Review Test', () => {
         });
 
         it('should have correct page title', () => {
-        const pageTitle = htmlRes.title;
-        expect(pageTitle).contains(expectedTitle, 'Could not find the title');
-    });
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(expectedTitle, 'Could not find the title');
+        });
 
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
