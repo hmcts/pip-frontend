@@ -17,6 +17,11 @@ describe('Cancelled Password Reset', () => {
                 });
         });
 
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains('Password reset - Password unchanged - Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
+        });
+
         it('should display the page header', () => {
             const header = htmlRes.getElementsByClassName(largeHeadingClass);
             expect(header[0].innerHTML).contains('Password unchanged', 'Could not find the header');

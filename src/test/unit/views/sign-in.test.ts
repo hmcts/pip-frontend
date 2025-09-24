@@ -1,10 +1,10 @@
-import { expect } from 'chai';
+ import { expect } from 'chai';
 import request from 'supertest';
 
 import { app } from '../../../main/app';
 
 const PAGE_URL = '/sign-in';
-const pageTitleValue = 'How do you want to sign in?';
+const pageTitleValue = 'Sign in - How do you want to sign in? - Court and Tribunal Hearings - GOV.UK';
 const headingClass = 'govuk-fieldset__heading';
 const buttonClass = 'govuk-button';
 const errorSummaryClass = 'govuk-error-summary';

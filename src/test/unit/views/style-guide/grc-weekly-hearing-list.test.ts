@@ -33,6 +33,14 @@ describe('GRC Weekly Hearing List page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'General Regulatory Chamber Weekly Hearing List - Court and Tribunal Hearings – GOV.UK',
+                'Could not find the page title'
+            );
+        });
+
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains('General Regulatory Chamber Weekly Hearing List');

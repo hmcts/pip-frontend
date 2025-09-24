@@ -16,8 +16,8 @@
 
 {% block content %}
   <div class="parent-box">
-    <h2 class="govuk-heading-l">{{ title }}</h2>
-    <p class="govuk-body">{{ heading }}</p>
+    <h2 class="govuk-heading-l">{{ header }}</h2>
+    <p class="govuk-body">{{ subHeading }}</p>
     {% if pdfFileSize %}
       <p class="govuk-body download-link">
         <a class='govuk-link' href="list-download-files?type=pdf&artefactId={{ artefactId }}">{{ pdfDownloadText | replace("SIZE", pdfFileSize) }}</a>

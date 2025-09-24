@@ -3,7 +3,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ title }} {{ locationName }}?
+  {{ title }} {{ locationName }}? – Court and Tribunal Hearings – GOV.UK?
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
@@ -11,7 +11,7 @@
 {% endblock %}
 {% block content %}
 <div class="parent-box">
-  <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
+  <h1 class="govuk-heading-l">{{ header }} {{ locationName }}?</h1>
   {% if noCautionMessageOverride | length %}
      <p class="govuk-body">{{ noCautionMessageOverride }}</p>
   {% endif %}

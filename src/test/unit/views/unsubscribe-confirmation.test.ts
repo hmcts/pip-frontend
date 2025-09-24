@@ -8,7 +8,7 @@ const PAGE_URL = '/unsubscribe-confirmation';
 const validBody = { 'unsubscribe-confirm': 'yes', subscription: '123' };
 let htmlRes: Document;
 
-const pageTitleValue = 'Subscription removed';
+const pageTitleValue = 'Unsubscribe from Subscription - Subscription removed - Court and Tribunal Hearings - GOV.UK';
 
 app.request['user'] = { roles: 'VERIFIED' };
 

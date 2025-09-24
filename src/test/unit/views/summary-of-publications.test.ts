@@ -293,11 +293,20 @@ describe('Summary of publications page', () => {
                         htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     });
             });
+
             it('should display header', () => {
                 const header = htmlRes.getElementsByClassName('govuk-heading-l');
                 expect(header[0].innerHTML).contains(
                     'What do you want to view from New Court?',
                     'Could not find correct value in header'
+                );
+            });
+
+            it('should have correct page title', () => {
+                const pageTitle = htmlRes.title;
+                expect(pageTitle).contains(
+                    'What do you want to view from New Court? – Court and Tribunal Hearings – GOV.UK',
+                    'Could not find the page title'
                 );
             });
 

@@ -17,11 +17,19 @@ describe('accessibility-statement', () => {
             });
     });
 
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Accessibility statement - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the page title'
+        );
+    });
+
     it('should display the page header', () => {
         const header = htmlRes.getElementsByClassName(largeHeadingClass);
 
         expect(header[0].innerHTML).contains(
-            'Accessibility statement for the court and tribunal hearings service',
+            'Accessibility statement',
             'Could not find the header'
         );
     });
