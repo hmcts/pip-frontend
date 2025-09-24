@@ -336,6 +336,38 @@ describe('Summary of publications page', () => {
             expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
         });
 
+        describe('with publications', () => {
+            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithPublications}`;
+            beforeAll(async () => {
+                await request(app)
+                    .get(PAGE_URL)
+                    .then(res => {
+                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    });
+            });
+
+            it('should display header', () => {
+                const header = htmlRes.getElementsByClassName('govuk-heading-l');
+                expect(header[0].innerHTML).contains(
+                    'What do you want to view from New Court?',
+                    'Could not find correct value in header'
+                );
+            });
+
+            it('should have correct page title', () => {
+                const pageTitle = htmlRes.title;
+                expect(pageTitle).contains(
+                    'What do you want to view from New Court? – Court and Tribunal Hearings – GOV.UK',
+                    'Could not find the page title'
+                );
+            });
+
+            it('should display a back button with the correct value', () => {
+                const backLink = htmlRes.getElementsByClassName('govuk-back-link');
+                expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
+                expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+            });
+
         it('should display publications', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
             expect(body[4].innerHTML).contains(

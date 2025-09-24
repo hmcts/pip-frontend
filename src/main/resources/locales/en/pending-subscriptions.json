@@ -1,5 +1,5 @@
 {
-    "title": "Add email subscription - Your email subscriptions - Court and Tribunal Hearings - GOV.UK",
+    "title": "Your email subscriptions - Confirm your email subscriptions - Court and Tribunal Hearings - GOV.UK",
     "header": "Confirm your email subscriptions",
     "header_court_subscription": "Your email subscriptions",
     "removeText": "Remove",
@@ -16,8 +16,8 @@
     "buttonAddText": "Add Subscriptions",
     "error": {
         "title": "There is a problem",
-        "message": "At least 1 subscription is needed.",
-        "pageTitle": "Confirm your email subscriptions - At least 1 subscription is needed - Court and Tribunal Hearings - GOV.UK"
+        "message": "At least one subscription is needed.",
+        "pageTitle": "Confirm your email subscriptions - At least one subscription is needed - Court and Tribunal Hearings - GOV.UK"
     },
     "backButton": "Back",
     "courtTribunalName": "Court or tribunal name"

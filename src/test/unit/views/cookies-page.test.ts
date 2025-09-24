@@ -24,9 +24,17 @@ describe('Cookies page', () => {
             });
     });
 
-    it('should display title', () => {
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Cookie Policy - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the page title'
+        );
+    });
+
+    it('should display header', () => {
         const header = htmlRes.getElementsByClassName(titleClass);
-        expect(header[0].innerHTML).contains('Cookies', 'Could not find the title');
+        expect(header[0].innerHTML).contains('Cookie Policy', 'Could not find the title');
     });
 
     it('should display the first heading', () => {
