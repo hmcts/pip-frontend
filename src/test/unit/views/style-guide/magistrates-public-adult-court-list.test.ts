@@ -9,7 +9,14 @@ import { app } from '../../../../main/app';
 import { expect } from 'chai';
 
 const urlDailyList = '/magistrates-public-adult-court-list-daily';
+const urlFutureList = '/magistrates-public-adult-court-list-future';
 const artefactIdDailyList = 'abc';
+const artefactIdFutureList = 'def';
+
+const artefactIdMap = new Map<string, string>([
+    [urlDailyList, artefactIdDailyList],
+    [urlFutureList, artefactIdFutureList],
+]);
 
 const bodyClass = 'govuk-body';
 const tableHeaderClass = 'govuk-table__header';
@@ -21,6 +28,8 @@ const rawMetadata = fs.readFileSync(path.resolve(__dirname, '../../mocks/returne
 
 const metadataDailyList = JSON.parse(rawMetadata)[0];
 metadataDailyList.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY';
+const metadataFutureList = JSON.parse(rawMetadata)[0];
+metadataFutureList.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_FUTURE';
 
 const rawCourtData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawCourtData);
@@ -30,12 +39,15 @@ const magsAdultCourtListMetadataStub = sinon.stub(PublicationService.prototype, 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
 magsAdultCourtListJsonStub.withArgs(artefactIdDailyList).resolves(listData);
+magsAdultCourtListJsonStub.withArgs(artefactIdFutureList).resolves(listData);
+
 magsAdultCourtListMetadataStub.withArgs(artefactIdDailyList).resolves(metadataDailyList);
+magsAdultCourtListMetadataStub.withArgs(artefactIdFutureList).resolves(metadataFutureList);
 
 let htmlRes: Document;
 
-describe('Magistrates Public Adult Court List page', () => {
-    const pageUrl = urlDailyList + '?artefactId=' + artefactIdDailyList;
+describe.each([urlDailyList, urlFutureList])("Magistrates Public Adult Court List page with path '%s'", url => {
+    const pageUrl = url + '?artefactId=' + artefactIdMap.get(url);
 
     beforeAll(async () => {
         await request(app)
