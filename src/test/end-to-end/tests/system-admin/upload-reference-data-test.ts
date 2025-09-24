@@ -23,7 +23,7 @@ Scenario('I as a system admin should be able to upload reference data manually',
     I.click('Continue');
     I.waitForText('Check upload details');
     I.click('Confirm');
-    I.waitForText('Success');
+    I.waitForText('File Upload Successful');
     I.see('Your file has been uploaded');
     I.see('What do you want to do next?');
     I.see('Upload another file');

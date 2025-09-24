@@ -131,6 +131,6 @@ Scenario('Third party user management show proper error messages', async ({ I })
 
     I.click('#delete-user-confirm');
     I.click('Continue');
-    I.waitForText('Success');
+    I.waitForText('Third party user created');
     I.logoutSsoSystemAdmin();
 }).tag('@Nightly');
