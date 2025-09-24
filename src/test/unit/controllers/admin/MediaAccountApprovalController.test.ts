@@ -42,8 +42,9 @@ describe('Media Account Approval Controller', () => {
 
         const request = mockRequest(i18n);
         request['query'] = { applicantId: applicantId };
+        request['user'] = { userId: adminAccountId };
 
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+        mediaAccountApplicationStub.withArgs(applicantId, status, adminAccountId).resolves(dummyApplication);
 
         responseMock
             .expects('render')
@@ -80,7 +81,7 @@ describe('Media Account Approval Controller', () => {
         request['body'] = { approved: 'Yes', applicantId: applicantId };
         request['user'] = { userId: adminAccountId };
 
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+        mediaAccountApplicationStub.withArgs(applicantId, status, adminAccountId).resolves(dummyApplication);
         mediaAccountCreationStub.withArgs(applicantId, adminAccountId).resolves(true);
 
         responseMock
@@ -116,7 +117,7 @@ describe('Media Account Approval Controller', () => {
         request['body'] = { applicantId: applicantId };
         request['user'] = { userId: adminAccountId };
 
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+        mediaAccountApplicationStub.withArgs(applicantId, status, adminAccountId).resolves(dummyApplication);
 
         responseMock
             .expects('render')
@@ -139,7 +140,7 @@ describe('Media Account Approval Controller', () => {
         request['body'] = { approved: 'No', applicantId: applicantId };
         request['user'] = { userId: adminAccountId };
 
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+        mediaAccountApplicationStub.withArgs(applicantId, status, adminAccountId).resolves(dummyApplication);
 
         responseMock
             .expects('redirect')
@@ -158,7 +159,7 @@ describe('Media Account Approval Controller', () => {
         request['body'] = { approved: 'Yes', applicantId: applicantId };
         request['user'] = { userId: adminAccountId };
 
-        mediaAccountApplicationStub.withArgs(applicantId, status).resolves(dummyApplication);
+        mediaAccountApplicationStub.withArgs(applicantId, status, adminAccountId).resolves(dummyApplication);
         mediaAccountCreationStub.withArgs(applicantId, adminAccountId).resolves(false);
 
         responseMock

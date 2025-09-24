@@ -18,14 +18,14 @@ const uploadStub = sinon.stub(ManualUploadService.prototype, 'uploadPublication'
 sinon.stub(FileHandlingService.prototype, 'readFileFromRedis').resolves('');
 sinon.stub(FileHandlingService.prototype, 'removeFileFromRedis').resolves('').resolves('');
 sinon.stub(ManualUploadService.prototype, 'getListItemName').returns('');
-uploadStub.withArgs({ ...mockCookie, listTypeName: '', file: '', userEmail: 'test@email.com' }, true).resolves(true);
-uploadStub.withArgs({ ...mockCookie, listTypeName: '', file: '', userEmail: '2@email.com' }, true).resolves(false);
+uploadStub.withArgs({ ...mockCookie, listTypeName: '', file: '', userId: '1234' }, true).resolves(true);
+uploadStub.withArgs({ ...mockCookie, listTypeName: '', file: '', userId: '1111' }, true).resolves(false);
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
 describe('Manual upload summary', () => {
     beforeEach(() => {
-        app.request['user'] = { email: 'test@email.com', roles: 'SYSTEM_ADMIN' };
+        app.request['user'] = { userId: '1234', roles: 'SYSTEM_ADMIN' };
         app.request['cookies'] = { formCookie: JSON.stringify(mockCookie) };
     });
 
@@ -53,7 +53,7 @@ describe('Manual upload summary', () => {
         });
 
         test('should return summary page if upload fails', async () => {
-            app.request['user'] = { email: '2@email.com', roles: 'SYSTEM_ADMIN' };
+            app.request['user'] = { userId: '1111', roles: 'SYSTEM_ADMIN' };
             await request(app)
                 .post(PAGE_URL)
                 .send({ data: 'invalid' })

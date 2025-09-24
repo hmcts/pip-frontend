@@ -38,14 +38,14 @@ export class DataManagementRequests {
         return null;
     }
 
-    public async uploadLocationFile(body: any): Promise<any> {
+    public async uploadLocationFile(body: any, requesterId: string): Promise<boolean> {
         const token = await getDataManagementCredentials('');
-
+        const headers = { 'x-requester-id': requesterId, 'x-user-id': requesterId };
         try {
             await superagent
                 .post(`${this.dataManagementAPI}/locations/upload`)
                 .set('enctype', 'multipart/form-data')
-                .set({ Authorization: 'Bearer ' + token.access_token })
+                .set({ ...headers, Authorization: 'Bearer ' + token.access_token })
                 .attach('locationList', body.file, body.fileName);
             return true;
         } catch (error) {
