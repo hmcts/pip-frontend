@@ -23,4 +23,3 @@ describe('List Not Found Page', () => {
         expect(header.innerHTML).contains('Page Not Found', 'Header does not match');
     });
 });
-

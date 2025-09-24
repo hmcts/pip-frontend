@@ -4,7 +4,8 @@ const PAGE_URL = '/session-expired';
 import request from 'supertest';
 import { app } from '../../../main/app';
 
-const expectedTitle = 'Session expired - You have been signed out due to inactivity - Court and Tribunal Hearings - GOV.UK';
+const expectedTitle =
+    'Session expired - You have been signed out due to inactivity - Court and Tribunal Hearings - GOV.UK';
 const expectedHeader = 'You have been signed out due to inactivity';
 const expectedBodyDetail =
     'This has been for your security and for the security of the individuals included within our service.';

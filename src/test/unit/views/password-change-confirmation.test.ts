@@ -19,7 +19,10 @@ describe('password-change-confirmation', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains('Password reset - Password changed successfully- Court and Tribunal Hearings - GOV.UK', 'Page title does not match header');
+            expect(pageTitle).contains(
+                'Password reset - Password changed successfully- Court and Tribunal Hearings - GOV.UK',
+                'Page title does not match header'
+            );
         });
 
         it('should display the page header', () => {

@@ -28,10 +28,7 @@ describe('accessibility-statement', () => {
     it('should display the page header', () => {
         const header = htmlRes.getElementsByClassName(largeHeadingClass);
 
-        expect(header[0].innerHTML).contains(
-            'Accessibility statement',
-            'Could not find the header'
-        );
+        expect(header[0].innerHTML).contains('Accessibility statement', 'Could not find the header');
     });
 
     it('should display the heading in section 2', () => {

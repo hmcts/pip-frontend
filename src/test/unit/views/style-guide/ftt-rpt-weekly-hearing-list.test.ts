@@ -40,7 +40,6 @@ describe('Residential Property Weekly Hearing List Page', () => {
                 });
         });
 
-
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(

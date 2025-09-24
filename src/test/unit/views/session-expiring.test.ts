@@ -5,7 +5,8 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { request as expressRequest } from 'express';
 
-const expectedTitle = 'Session expiring - You will soon be signed out due to inactivity - Court and Tribunal Hearings - GOV.UK';
+const expectedTitle =
+    'Session expiring - You will soon be signed out due to inactivity - Court and Tribunal Hearings - GOV.UK';
 const expectedHeader = 'You will soon be signed out due to inactivity';
 const expectedBody = 'To remain signed in, please click below';
 const expectedButtonText = 'Continue';
