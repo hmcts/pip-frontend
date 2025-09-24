@@ -53,9 +53,17 @@ describe('Manual Upload Summary Page', () => {
             });
     });
 
-    it('should display correct title', async () => {
+    it('should display the correct page title', () => {
+        const title = htmlRes.title;
+        expect(title).contains(
+            'Manual Upload - File Upload Summary - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the correct page title'
+        );
+    });
+
+    it('should display correct header', async () => {
         const title = htmlRes.getElementsByClassName('govuk-heading-l')[0];
-        expect(title.innerHTML).to.equal('Check upload details', 'Unable to find header');
+        expect(title.innerHTML).to.equal('File Upload Summary', 'Unable to find header');
     });
 
     it('should display confirm button', async () => {

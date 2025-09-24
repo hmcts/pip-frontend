@@ -8,7 +8,7 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-    {{ successPanel(panelTitle, panelBodyMessage) }}
+    {{ successPanel(header, panelBodyMessage) }}
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-top-6">{{ nextMessage }}</p>
     <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="manage-third-party-users">{{ manageThirdPartyUser }}</a></p>
     <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="system-admin-dashboard">{{ home }}</a></p>

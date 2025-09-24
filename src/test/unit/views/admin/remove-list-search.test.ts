@@ -31,7 +31,7 @@ describe('Remove List Search Page', () => {
         const pageTitle = htmlRes.title;
         expect(pageTitle).contains(
             'Remove - Find content to remove - Court and Tribunal Hearings - GOV.UK',
-            'Page title does not match header'
+            'Could not find the title'
         );
     });
 

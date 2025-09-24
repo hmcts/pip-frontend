@@ -1,5 +1,6 @@
 {
-    "title": "Reference manual data upload",
+    "title": "Upload Reference Data - Manually upload a csv file - Court and Tribunal Hearings - GOV.UK",
+    "header": "Manually upload a csv file",
     "fileUploadText": "Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB",
     "warning": "Warning",
     "warningText": "Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.",

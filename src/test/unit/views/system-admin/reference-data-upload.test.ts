@@ -12,7 +12,7 @@ const headingClass = 'govuk-heading-xl';
 const insetTextClass = 'govuk-inset-text';
 const linkClass = 'govuk-link';
 
-const expectedHeader = 'Reference manual data upload';
+const expectedHeader = 'Manually upload a csv file';
 const expectedFileQuestion = 'Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB';
 const expectedFileInputType = 'file';
 const buttonText = 'Continue';

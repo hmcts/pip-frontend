@@ -20,7 +20,7 @@ describe('Remove List Success Page', () => {
     it('should display confirmation within the panel', () => {
         const panelTitle = htmlRes.getElementsByClassName('govuk-panel__title');
         const panelMessage = htmlRes.getElementsByClassName('govuk-panel__body');
-        expect(panelTitle[0].innerHTML).to.contains('Success');
+        expect(panelTitle[0].innerHTML).to.contains('Content Removal Successful');
         expect(panelMessage[0].innerHTML).to.contains('Your content has been removed');
     });
 

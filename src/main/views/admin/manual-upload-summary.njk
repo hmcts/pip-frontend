@@ -36,6 +36,11 @@
     {% endif %}
   <div class="parent-box">
     <h1 class="govuk-heading-l">{{ header }}</h1>
+    <h2 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--m" for="search-input">
+           {{ inputMessage }}
+        </label>
+    </h2>
     <form enctype="multipart/form-data" method="post" class="govuk-!-width-two-thirds" action="manual-upload-summary?non-strategic={{ nonStrategicUpload }}">
         {% set baseUploadPath = "manual-upload?non-strategic=" + nonStrategicUpload %}
         {{ govukSummaryList({

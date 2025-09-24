@@ -36,7 +36,7 @@ describe('Audit Log Viewer Page', () => {
 
     it('should display heading', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('System admin audit log', 'Could not find the header');
+        expect(header[0].innerHTML).contains('View audit log', 'Could not find the header');
     });
 
     it('Should display Timestamp in table header', () => {

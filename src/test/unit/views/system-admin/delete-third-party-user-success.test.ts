@@ -24,7 +24,7 @@ describe('Delete third party user success page', () => {
         const panelTitle = htmlRes.getElementsByClassName('govuk-panel__title')[0];
         const panelMessage = htmlRes.getElementsByClassName('govuk-panel__body')[0];
 
-        expect(panelTitle.innerHTML).contains('Success', 'Panel title does not match');
+        expect(panelTitle.innerHTML).contains('Third party user deleted', 'Panel title does not match');
         expect(panelMessage.innerHTML).contains(
             'The third party user and associated subscriptions have been removed.',
             'Panel message does not match'

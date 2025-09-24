@@ -1,5 +1,6 @@
 {
-    "title": "Blob Explorer - Publications",
+    "title": "System Admin - Blob Explorer Publications - Court and Tribunal Hearings - GOV.UK",
+    "header": "Blob Explorer Publications",
     "subHeading": "Choose a publication from the list.",
     "tableHeaders": ["Artefact Id", "List Type", "Display From / To"],
     "noMatchTableHeaders": ["Artefact Id", "Location Id", "List Type", "Display From / To"]

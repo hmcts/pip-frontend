@@ -26,7 +26,7 @@ export default class AuditLogViewerController {
             );
             res.render('system-admin/audit-log-viewer', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['audit-log-viewer']),
-                header: auditLogService.getTableHeaders(),
+                tableHeader: auditLogService.getTableHeaders(),
                 auditLogData: pageData['auditLogData'],
                 paginationData: pageData['paginationData'],
                 emailFieldData: pageData['emailFieldData'],

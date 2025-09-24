@@ -1,7 +1,6 @@
 {
-    "title": "User Management",
-    "heading": "User Management",
-    "subHeading": "Use this page to find, update and delete a user",
+    "title": "User Management - Find, update and delete a user - Court and Tribunal Hearings - GOV.UK",
+    "heading": "Find, update and delete a user",
     "filter": "Filter",
     "clearFilters": "Clear filters",
     "clearHref": "?clear=all",
