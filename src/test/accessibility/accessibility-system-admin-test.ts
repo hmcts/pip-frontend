@@ -227,7 +227,7 @@ Scenario('System Admin User Journey - create-third-party-user-exists-error-page'
 
 Scenario('System Admin User Journey - create-third-party-user-success-page', async ({ I }) => {
     I.amOnPage('/create-third-party-user-success');
-    I.waitForText('Third party user has been created');
+    I.waitForText('Third party user created');
     I.checkA11y('create-third-party-user-success-a11y-audit.html');
 });
 
@@ -283,7 +283,7 @@ Scenario('System Admin User Journey - blob-view-locations-page', ({ I }) => {
 
 Scenario('System Admin User Journey - blob-view-publications-page', ({ I }) => {
     I.amOnPage('/blob-view-publications?locationId=' + LOCATION_ID);
-    I.waitForText('Blob Explorer - Publications');
+    I.waitForText('Blob Explorer Publications');
     I.checkA11y('blob-view-publications-a11y-audit.html');
 });
 

@@ -21,7 +21,7 @@ Scenario('I as a system admin should be able to discover json content uploaded t
     I.see('Choose a location to see all publications associated with it.');
     I.see(locationName);
     I.click(locationName);
-    I.waitForText('Blob Explorer - Publications');
+    I.waitForText('Blob Explorer Publications');
     I.see(locationName);
     I.see('Choose a publication from the list.');
     I.click(artefactId);
@@ -62,7 +62,7 @@ Scenario(
         I.see('Choose a location to see all publications associated with it.');
         I.see(locationName);
         I.click(locationName);
-        I.waitForText('Blob Explorer - Publications');
+        I.waitForText('Blob Explorer Publications');
         I.see(locationName);
         I.see('Choose a publication from the list.');
         I.click(artefactId);
@@ -93,7 +93,7 @@ Scenario('I as a system admin should be able to re-submit subscription for a pub
     I.click('#card-blob-view-locations');
     I.waitForText('Blob Explorer Locations');
     I.click(locationName);
-    I.waitForText('Blob Explorer - Publications');
+    I.waitForText('Blob Explorer Publications');
     I.click(artefactId);
     I.waitForText('Blob Explorer - JSON file');
 
@@ -109,7 +109,7 @@ Scenario('I as a system admin should be able to re-submit subscription for a pub
     I.click('Cancel');
     I.waitForText('Blob Explorer Locations');
     I.click(locationName);
-    I.waitForText('Blob Explorer - Publications');
+    I.waitForText('Blob Explorer Publications');
     I.click(artefactId);
     I.waitForText('Blob Explorer - JSON file');
     I.click('Re-submit subscription');

@@ -56,7 +56,7 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.see(testName);
     I.see('Verified third party - All');
     I.click('Confirm');
-    I.waitForText('Third party user has been created');
+    I.waitForText('Third party user created');
 
     I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
@@ -99,7 +99,7 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.click('Continue');
     I.waitForText('Create third party user summary');
     I.click('Confirm');
-    I.waitForText('Third party user has been created');
+    I.waitForText('Third party user created');
 
     I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
