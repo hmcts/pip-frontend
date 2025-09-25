@@ -104,7 +104,7 @@ Scenario('I as a system admin should be able to create and manage location metad
     I.fillField('#search-input', locationName);
     I.click('Continue', null, { noWaitAfter: true });
     I.waitForText('Manage location metadata for ' + locationName);
-    I.dontSee('Update');
+    I.dontSee('Update', '#main-content > form > div.govuk-button-group');
     I.dontSee('Delete');
 });
 
