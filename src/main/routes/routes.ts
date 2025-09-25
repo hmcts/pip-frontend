@@ -197,6 +197,13 @@ export default function (app: Application): void {
             'magistrates-public-adult-court-list-daily'
         )
     );
+    app.get('/magistrates-public-adult-court-list-future', (req, res) =>
+        app.locals.container.cradle.magistratesAdultCourtListController.get(
+            req,
+            res,
+            'magistrates-public-adult-court-list-future'
+        )
+    );
     app.get('/magistrates-adult-court-list-daily', (req, res) =>
         app.locals.container.cradle.magistratesAdultCourtListController.get(
             req,
