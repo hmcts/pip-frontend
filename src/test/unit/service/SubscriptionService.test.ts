@@ -1,11 +1,11 @@
-import {LocationService} from '../../../main/service/LocationService';
-import {PendingSubscriptionsFromCache} from '../../../main/service/PendingSubscriptionsFromCache';
-import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
-import {SubscriptionService} from '../../../main/service/SubscriptionService';
+import { LocationService } from '../../../main/service/LocationService';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/PublicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
@@ -1010,6 +1010,7 @@ describe('generateListTypesForCourts', () => {
             'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
+            'CROWN_WARNED_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);
@@ -1057,6 +1058,7 @@ describe('generateListTypesForCourts', () => {
             'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
+            'CROWN_WARNED_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);
@@ -1206,6 +1208,7 @@ describe('generateListTypeForCourts', () => {
             'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
+            'CROWN_WARNED_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);
@@ -1243,6 +1246,7 @@ describe('generateListTypeForCourts', () => {
             'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
             'CROWN_WARNED_LIST',
+            'CROWN_WARNED_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);
