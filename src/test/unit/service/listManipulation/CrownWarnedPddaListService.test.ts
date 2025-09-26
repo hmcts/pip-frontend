@@ -5,7 +5,7 @@ import { CrownWarnedPddaListService } from '../../../../main/service/listManipul
 
 const crownWarnedPddaListService = new CrownWarnedPddaListService();
 
-describe('Crown Warned PDDS List service', () => {
+describe('Crown Warned PDDA List service', () => {
     describe('processPayload', () => {
         const payload = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownWarnedPddaList.json'), 'utf-8');
         const parsedPayload = JSON.parse(payload);
