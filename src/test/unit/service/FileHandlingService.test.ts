@@ -203,7 +203,7 @@ describe('File handling service', () => {
 
             await fileHandlingService.storeFileIntoRedis(userId, 'validationFile.pdf', 'validation.pdf');
 
-            sinon.assert.calledWith(setStub, '1234-validation.pdf', sinon.match.any, 'EX', sinon.match.any);
+            sinon.assert.calledWith(setStub, '1234-validation.pdf', sinon.match.any, { EX: sinon.match.any });
         });
 
         it('should store a JSON file succesfully', async () => {
@@ -211,7 +211,7 @@ describe('File handling service', () => {
 
             await fileHandlingService.storeFileIntoRedis(userId, 'validationJson.json', 'validation.json');
 
-            sinon.assert.calledWith(setStub, '1234-validation.json', sinon.match.any, 'EX', sinon.match.any);
+            sinon.assert.calledWith(setStub, '1234-validation.json', sinon.match.any, { EX : sinon.match.any });
         });
     });
 

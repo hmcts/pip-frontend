@@ -22,7 +22,6 @@ sinon.stub(AuditLogService.prototype, 'buildAuditLogDetailsSummaryList').returns
 
 describe('Audit log details controller', () => {
     const request = mockRequest(i18n);
-    request.path = '/audit-log-details';
 
     it('should render the audit log details page', async () => {
         request.query = { id: '123', timestamp: '31/01/2023 10:00:00' };
