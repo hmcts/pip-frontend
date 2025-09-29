@@ -71,7 +71,7 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.waitForText('Are you sure you want to delete ' + testName + '?');
     I.click('#delete-user-confirm');
     I.click('Continue');
-    I.waitForText('Third party user created');
+    I.waitForText('Third party user deleted');
     I.see('The third party user and associated subscriptions have been removed.');
     I.see('What do you want to do next?');
 
