@@ -319,7 +319,7 @@ describe('Summary of publications page', () => {
             it('should display publications', () => {
                 const body = htmlRes.getElementsByClassName(bodyClass);
                 expect(body[4].innerHTML).contains(
-                    'Select the list you want to view from the link(s) below:',
+                    'the list you want to view from the link(s) below',
                     'Select list text does not match'
                 );
                 expect(body[5].innerHTML).contains(
