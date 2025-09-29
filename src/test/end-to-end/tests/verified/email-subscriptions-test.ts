@@ -77,7 +77,7 @@ Scenario(
         I.see('Employment Tribunals Daily List');
         I.see('English');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -264,7 +264,7 @@ Scenario(
         I.see(locationName1);
         I.see(locationName2);
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
         I.click('Email subscriptions');
         I.waitForText('Your email subscriptions');
         I.see(locationName1);
@@ -650,7 +650,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Continue');
     I.waitForText('Confirm your email subscriptions');
     I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
+    I.waitForText('Subscription confirmation');
 
     I.click('Email subscriptions');
     I.click('Edit list types');
