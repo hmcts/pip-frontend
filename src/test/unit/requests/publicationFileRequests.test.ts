@@ -21,6 +21,10 @@ const fileSizeData = {
     excel: 123,
 };
 
+const headers = {
+    'x-requester-id': '123-456',
+};
+
 const publicationFileRequests = new PublicationFileRequests();
 
 const getStub = sinon.stub(dataManagementApi, 'get');
@@ -40,45 +44,47 @@ getStub.withArgs('/publication/abc2/sizes').rejects(errorMessage);
 describe('Publication file requests', () => {
     describe('Get stored file', () => {
         it('should return publication', async () => {
-            expect(await publicationFileRequests.getStoredFile('abc', 'PDF', { 'x-user-id': userId })).toEqual(
+            expect(await publicationFileRequests.getStoredFile('abc', 'PDF', { 'x-requester-id': userId })).toEqual(
                 dummyData
             );
         });
 
         it('should return null if get fails', async () => {
-            expect(await publicationFileRequests.getStoredFile('abc1', 'PDF', { 'x-user-id': userId })).toBeNull();
+            expect(await publicationFileRequests.getStoredFile('abc1', 'PDF', { 'x-requester-id': userId })).toBeNull();
         });
 
         it('should return null if request fails', async () => {
-            expect(await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-user-id': userId })).toBeNull();
+            expect(
+                await publicationFileRequests.getStoredFile('abc2', 'EXCEL', { 'x-requester-id': userId })
+            ).toBeNull();
         });
     });
 
     describe('File exists', () => {
         it('should return true if file exists', async () => {
-            expect(await publicationFileRequests.fileExists('abc')).toEqual(true);
+            expect(await publicationFileRequests.fileExists('abc', headers)).toEqual(true);
         });
 
         it('should return false and an error response if get fails', async () => {
-            expect(await publicationFileRequests.fileExists('abc1')).toEqual(false);
+            expect(await publicationFileRequests.fileExists('abc1', headers)).toEqual(false);
         });
 
         it('should return false and an error response if request fails', async () => {
-            expect(await publicationFileRequests.fileExists('abc2')).toEqual(false);
+            expect(await publicationFileRequests.fileExists('abc2', headers)).toEqual(false);
         });
     });
 
     describe('Get file sizes', () => {
         it('should return true if file exists', async () => {
-            expect(await publicationFileRequests.getFileSizes('abc')).toEqual(fileSizeData);
+            expect(await publicationFileRequests.getFileSizes('abc', headers)).toEqual(fileSizeData);
         });
 
         it('should return false and an error response if get fails', async () => {
-            expect(await publicationFileRequests.getFileSizes('abc1')).toBeNull();
+            expect(await publicationFileRequests.getFileSizes('abc1', headers)).toBeNull();
         });
 
         it('should return false and an error response if request fails', async () => {
-            expect(await publicationFileRequests.getFileSizes('abc2')).toBeNull();
+            expect(await publicationFileRequests.getFileSizes('abc2', headers)).toBeNull();
         });
     });
 });

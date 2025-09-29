@@ -5,35 +5,33 @@ import { expect } from 'chai';
 import { LocationService } from '../../../main/service/LocationService';
 import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 
-const locationIdForCourtWithTelephoneAndEmail = 10;
-const locationIdForCourtWithTelephoneOnly = 11;
-const locationIdForCourtWithEmailOnly = 12;
-const locationIdForCourtWithoutContact = 13;
-const locationIdForCourtWithPublications = 14;
-const locationIdForCourtWithNoListMessageOverride = 15;
-const locationIdForCourtWithCautionMessageOverride = 16;
+const locationIdWithTelephoneAndEmail = 10;
+const locationIdWithTelephoneOnly = 11;
+const locationIdWithEmailOnly = 12;
+const locationIdWithoutContact = 13;
+const locationIdWithPublications = 14;
+const locationIdWithNoListMessageOverride = 15;
+const locationIdWithCautionMessageOverride = 16;
+const locationIdWithHtmlMessageOverride = 17;
 
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub
-    .withArgs(locationIdForCourtWithTelephoneAndEmail)
+    .withArgs(locationIdWithTelephoneAndEmail)
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
-courtStub
-    .withArgs(locationIdForCourtWithTelephoneOnly)
-    .resolves(JSON.parse('{"name":"New Court", "contactNo": "0123456789"}'));
-courtStub
-    .withArgs(locationIdForCourtWithEmailOnly)
-    .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com"}'));
-courtStub.withArgs(locationIdForCourtWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
-courtStub.withArgs(locationIdForCourtWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
-courtStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
-courtStub.withArgs(locationIdForCourtWithCautionMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdWithTelephoneOnly).resolves(JSON.parse('{"name":"New Court", "contactNo": "0123456789"}'));
+courtStub.withArgs(locationIdWithEmailOnly).resolves(JSON.parse('{"name":"New Court", "email": "test@test.com"}'));
+courtStub.withArgs(locationIdWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdWithCautionMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
+courtStub.withArgs(locationIdWithHtmlMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
 const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
-publicationStub.withArgs(locationIdForCourtWithTelephoneAndEmail).resolves([]);
-publicationStub.withArgs(locationIdForCourtWithTelephoneOnly).resolves([]);
-publicationStub.withArgs(locationIdForCourtWithEmailOnly).resolves([]);
-publicationStub.withArgs(locationIdForCourtWithoutContact).resolves([]);
-publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
+publicationStub.withArgs(locationIdWithTelephoneAndEmail).resolves([]);
+publicationStub.withArgs(locationIdWithTelephoneOnly).resolves([]);
+publicationStub.withArgs(locationIdWithEmailOnly).resolves([]);
+publicationStub.withArgs(locationIdWithoutContact).resolves([]);
+publicationStub.withArgs(locationIdWithPublications).resolves([
     { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'WELSH' },
     { artefactId: '2', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
     { artefactId: '3', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
@@ -43,11 +41,12 @@ publicationStub.withArgs(locationIdForCourtWithPublications).resolves([
     { artefactId: '7', listType: 'AST_DAILY_HEARING_LIST', contentDate: '2025-01-18T00:00:00Z', language: 'ENGLISH' },
     { artefactId: '8', listType: 'AST_DAILY_HEARING_LIST', contentDate: '2025-01-19T00:00:00Z', language: 'WELSH' },
 ]);
-publicationStub.withArgs(locationIdForCourtWithNoListMessageOverride).resolves([]);
-publicationStub.withArgs(locationIdForCourtWithCautionMessageOverride).resolves([
+publicationStub.withArgs(locationIdWithNoListMessageOverride).resolves([]);
+publicationStub.withArgs(locationIdWithCautionMessageOverride).resolves([
     { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
     { artefactId: '2', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
 ]);
+publicationStub.withArgs(locationIdWithHtmlMessageOverride).resolves([]);
 
 const locationMetadataResponse = {
     locationMetadataId: '123-456',
@@ -58,14 +57,24 @@ const locationMetadataResponse = {
     welshNoListMessage: 'Welsh no list message',
 };
 
+const htmlLocationMetadataResponse = {
+    locationMetadataId: '123-456',
+    locationId: 1,
+    cautionMessage: '<strong>HTML caution message</strong>',
+    welshCautionMessage: '<strong>HTML caution message</strong>',
+    noListMessage: '<strong>HTML no list message</strong>',
+    welshNoListMessage: '<strong>HTML no list message</strong>',
+};
+
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
-additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneAndEmail.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithTelephoneOnly.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithEmailOnly.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithoutContact.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithPublications.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithNoListMessageOverride).returns(locationMetadataResponse);
-additionalLocationInfoStub.withArgs(locationIdForCourtWithCautionMessageOverride).returns(locationMetadataResponse);
+additionalLocationInfoStub.withArgs(locationIdWithTelephoneAndEmail.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdWithTelephoneOnly.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdWithEmailOnly.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdWithoutContact.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdWithPublications.toString()).returns(null);
+additionalLocationInfoStub.withArgs(locationIdWithNoListMessageOverride).returns(locationMetadataResponse);
+additionalLocationInfoStub.withArgs(locationIdWithCautionMessageOverride).returns(locationMetadataResponse);
+additionalLocationInfoStub.withArgs(locationIdWithHtmlMessageOverride).returns(htmlLocationMetadataResponse);
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
@@ -76,292 +85,311 @@ describe('Summary of publications page', () => {
         app.request['user'] = { userId: '123-456', roles: 'SYSTEM_ADMIN' };
     });
 
-    describe('Summary of pubs', () => {
-        describe('with court telephone and email', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithTelephoneAndEmail}`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
-
-            it('should display the telephone and email message', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 or test@test.com for more information.',
-                    'Telephone and email message is not displayed'
-                );
-            });
+    describe('with court telephone and email', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithTelephoneAndEmail}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with court telephone only', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithTelephoneOnly}`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display the telephone and email message', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 or test@test.com for more information.',
+                'Telephone and email message is not displayed'
+            );
+        });
+    });
 
-            it('should display the telephone only message', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 for more information.',
-                    'Telephone only message is not displayed'
-                );
-            });
+    describe('with court telephone only', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithTelephoneOnly}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with court email only', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithEmailOnly}`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display the telephone only message', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 for more information.',
+                'Telephone only message is not displayed'
+            );
+        });
+    });
 
-            it('should display the email only message', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on test@test.com for more information.',
-                    'Email only message is not displayed'
-                );
-            });
+    describe('with court email only', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithEmailOnly}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with court telephone and email in Welsh', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithTelephoneAndEmail}&lng=cy`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display the email only message', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on test@test.com for more information.',
+                'Email only message is not displayed'
+            );
+        });
+    });
 
-            it('should display telephone and email in welsh', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 neu test@test.com am ragor o wybodaeth.",
-                    'Telephone and email in Welsh is not displayed'
-                );
-            });
+    describe('with court telephone and email in Welsh', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithTelephoneAndEmail}&lng=cy`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with court telephone only in Welsh', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithTelephoneOnly}&lng=cy`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display telephone and email in welsh', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 neu test@test.com am ragor o wybodaeth.",
+                'Telephone and email in Welsh is not displayed'
+            );
+        });
+    });
 
-            it('should display the telephone only message in welsh', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 am ragor o wybodaeth.",
-                    'Telephone only message in Welsh is not displayed'
-                );
-            });
+    describe('with court telephone only in Welsh', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithTelephoneOnly}&lng=cy`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with court email only in Welsh', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithEmailOnly}&lng=cy`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display the telephone only message in welsh', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 am ragor o wybodaeth.",
+                'Telephone only message in Welsh is not displayed'
+            );
+        });
+    });
 
-            it('should display the email only message in welsh', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar test@test.com am ragor o wybodaeth.",
-                    'Email only message in Welsh is not displayed'
-                );
-            });
+    describe('with court email only in Welsh', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithEmailOnly}&lng=cy`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with no court contact information', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithoutContact}`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display the email only message in welsh', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar test@test.com am ragor o wybodaeth.",
+                'Email only message in Welsh is not displayed'
+            );
+        });
+    });
 
-            it('should display no contact information', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    'Sorry, no lists found for this court',
-                    'Contact information is displayed'
-                );
-            });
+    describe('with no court contact information', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithoutContact}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with caution message in English', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display no contact information', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                'Sorry, no lists found for this court',
+                'Contact information is displayed'
+            );
+        });
+    });
 
-            it('should display caution message in English', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('English caution message');
-            });
+    describe('with caution message in English', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithCautionMessageOverride}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with caution message in Welsh', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithCautionMessageOverride}&lng=cy`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display caution message in English', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).equals('English caution message');
+        });
+    });
 
-            it('should display caution message in Welsh', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('Welsh caution message');
-            });
+    describe('with caution message in Welsh', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithCautionMessageOverride}&lng=cy`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with no list for location message override in English', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display caution message in Welsh', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).equals('Welsh caution message');
+        });
+    });
 
-            it('should display caution message when no list is there in English', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('English caution message');
-            });
-
-            it('should display no list for location message in English', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[5].innerHTML).equals('English no list message');
-            });
+    describe('with no list for location message override in English', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithNoListMessageOverride}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
         });
 
-        describe('with no list for location message override in Welsh', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithNoListMessageOverride}&lng=cy`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
-
-            it('should display caution message when no list is there in Welsh', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).equals('Welsh caution message');
-            });
-
-            it('should display no list for location message in Welsh', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[5].innerHTML).equals('Welsh no list message');
-            });
+        it('should display caution message when no list is there in English', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).equals('English caution message');
         });
 
-        describe('with publications', () => {
-            const PAGE_URL = `/summary-of-publications?locationId=${locationIdForCourtWithPublications}`;
-            beforeAll(async () => {
-                await request(app)
-                    .get(PAGE_URL)
-                    .then(res => {
-                        htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    });
-            });
+        it('should display no list for location message in English', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[5].innerHTML).equals('English no list message');
+        });
+    });
 
-            it('should display header', () => {
-                const header = htmlRes.getElementsByClassName('govuk-heading-l');
-                expect(header[0].innerHTML).contains(
-                    'What do you want to view from New Court?',
-                    'Could not find correct value in header'
-                );
-            });
+    describe('with no list for location message override in Welsh', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithNoListMessageOverride}&lng=cy`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
 
-            it('should have correct page title', () => {
-                const pageTitle = htmlRes.title;
-                expect(pageTitle).contains(
-                    'What do you want to view from New Court? – Court and Tribunal Hearings – GOV.UK',
-                    'Could not find the page title'
-                );
-            });
+        it('should display caution message when no list is there in Welsh', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).equals('Welsh caution message');
+        });
 
-            it('should display a back button with the correct value', () => {
-                const backLink = htmlRes.getElementsByClassName('govuk-back-link');
-                expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
-                expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
-            });
+        it('should display no list for location message in Welsh', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[5].innerHTML).equals('Welsh no list message');
+        });
+    });
 
-            it('should display publications', () => {
-                const body = htmlRes.getElementsByClassName(bodyClass);
-                expect(body[4].innerHTML).contains(
-                    'the list you want to view from the link(s) below',
-                    'Select list text does not match'
-                );
-                expect(body[5].innerHTML).contains(
-                    'Asylum Support Tribunal Daily Hearing List 19 January 2025 - Welsh (Cymraeg)',
-                    'list type does not match'
-                );
+    describe('with override message in HTML format', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithHtmlMessageOverride}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
 
-                expect(body[6].innerHTML).contains(
-                    'Asylum Support Tribunal Daily Hearing List 18 January 2025 - English (Saesneg)',
-                    'list type does not match'
-                );
+        it('should display caution message as HTML', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).equals('<strong>HTML caution message</strong>');
+        });
 
-                expect(body[7].innerHTML).contains(
-                    'Care Standards Tribunal Weekly Hearing List for week commencing 20 January 2025 - English (Saesneg)',
-                    'list type does not match'
-                );
+        it('should display no list message as HTML', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[5].innerHTML).equals('<strong>HTML no list message</strong>');
+        });
+    });
 
-                expect(body[8].innerHTML).contains(
-                    'Civil Daily Cause List 22 January 2025 - English (Saesneg)',
-                    'list type does not match'
-                );
+    describe('with publications', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithPublications}`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
 
-                expect(body[9].innerHTML).contains(
-                    'Civil Daily Cause List 20 January 2025 - English (Saesneg)',
-                    'list type does not match'
-                );
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'What do you want to view from New Court? – Court and Tribunal Hearings – GOV.UK',
+                'Could not find the page title'
+            );
+        });
 
-                expect(body[10].innerHTML).contains(
-                    'Civil Daily Cause List 20 January 2025 - Welsh (Cymraeg)',
-                    'list type does not match'
-                );
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName('govuk-heading-l');
+            expect(header[0].innerHTML).contains(
+                'What do you want to view from New Court?',
+                'Could not find correct value in header'
+            );
+        });
 
-                expect(body[11].innerHTML).contains(
-                    'Family Daily Cause List 21 January 2025 - English (Saesneg)',
-                    'list type does not match'
-                );
+        it('should display a back button with the correct value', () => {
+            const backLink = htmlRes.getElementsByClassName('govuk-back-link');
+            expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
+            expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+        });
 
-                expect(body[12].innerHTML).contains(
-                    'Family Daily Cause List 21 January 2025 - Welsh (Cymraeg)',
-                    'list type does not match'
-                );
-            });
+        it('should display publications', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[4].innerHTML).contains(
+                'Select the list you want to view from the link(s) below:',
+                'Select list text does not match'
+            );
+            expect(body[5].innerHTML).contains(
+                'Asylum Support Tribunal Daily Hearing List 19 January 2025 - Welsh (Cymraeg)',
+                'list type does not match'
+            );
+
+            expect(body[6].innerHTML).contains(
+                'Asylum Support Tribunal Daily Hearing List 18 January 2025 - English (Saesneg)',
+                'list type does not match'
+            );
+
+            expect(body[7].innerHTML).contains(
+                'Care Standards Tribunal Weekly Hearing List for week commencing 20 January 2025 - English (Saesneg)',
+                'list type does not match'
+            );
+
+            expect(body[8].innerHTML).contains(
+                'Civil Daily Cause List 22 January 2025 - English (Saesneg)',
+                'list type does not match'
+            );
+
+            expect(body[9].innerHTML).contains(
+                'Civil Daily Cause List 20 January 2025 - English (Saesneg)',
+                'list type does not match'
+            );
+
+            expect(body[10].innerHTML).contains(
+                'Civil Daily Cause List 20 January 2025 - Welsh (Cymraeg)',
+                'list type does not match'
+            );
+
+            expect(body[11].innerHTML).contains(
+                'Family Daily Cause List 21 January 2025 - English (Saesneg)',
+                'list type does not match'
+            );
+
+            expect(body[12].innerHTML).contains(
+                'Family Daily Cause List 21 January 2025 - Welsh (Cymraeg)',
+                'list type does not match'
+            );
         });
     });
 });

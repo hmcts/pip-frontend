@@ -26,7 +26,7 @@ export default class BlobViewPublicationsController {
                 );
             } else {
                 locationName = 'No match artefacts';
-                listOfPublications = await summaryOfPublicationsService.getNoMatchPublications();
+                listOfPublications = await summaryOfPublicationsService.getNoMatchPublications(req.user['userId']);
             }
 
             res.render('system-admin/blob-view-publications', {
