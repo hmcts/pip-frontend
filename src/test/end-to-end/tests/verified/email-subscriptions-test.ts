@@ -107,7 +107,7 @@ Scenario(
         );
         I.fillField('#search-input', caseURN);
         I.click('Continue');
-        I.waitForText('Search result');
+        I.waitForText('Subscription URN search results');
         I.see('1 found');
         I.see(caseURN);
         I.click('Continue');
@@ -123,7 +123,7 @@ Scenario(
         I.see('For example, Smith');
         I.fillField('#case-name', caseName);
         I.click('Continue');
-        I.waitForText('Search result');
+        I.waitForText('Subscription by case name');
         I.see(caseName);
         I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
