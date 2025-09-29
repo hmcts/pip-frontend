@@ -95,7 +95,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -113,7 +113,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -135,7 +135,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.waitForText('All subscriptions');
@@ -317,7 +317,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('Continue');
     I.waitForText('Confirm your email subscriptions');
     I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
+    I.waitForText('Subscription confirmation');
 
     I.click('Email subscriptions');
     I.waitForText('Your email subscriptions');
@@ -336,7 +336,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('Continue');
     I.waitForText('Confirm your email subscriptions');
     I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
+    I.waitForText('Subscription confirmation');
 
     I.click('Email subscriptions');
     I.waitForText('Your email subscriptions');
@@ -480,7 +480,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Edit list types');
