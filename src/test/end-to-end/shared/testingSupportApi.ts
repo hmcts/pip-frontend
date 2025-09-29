@@ -113,7 +113,6 @@ export const createSubscription = async (locationId: string, locationName: strin
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/subscription`)
             .send(payload)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`)
             .set('x-requester-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
