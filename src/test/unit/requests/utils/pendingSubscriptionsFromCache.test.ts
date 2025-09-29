@@ -60,7 +60,7 @@ getStub.withArgs('pending-courts-subscriptions-2').resolves([]);
 getStub.withArgs('pending-listTypes-subscriptions-1').resolves(mockListTypeJson);
 getStub.withArgs('pending-listLanguage-subscriptions-1').resolves(mockListLanguageJson);
 
-redisClient['status'] = 'ready';
+redisClient.isReady = true;
 
 const set = sinon.stub(redisClient, 'set');
 const del = sinon.stub(redisClient, 'del');

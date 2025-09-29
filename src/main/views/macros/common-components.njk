@@ -90,10 +90,10 @@
 {% endmacro %}
 
 {% macro mojAll(cspNonce) %}
-  <script type="text/javascript" src="/assets/js/jquery.js"></script>
-  <script type="text/javascript" src="/assets/js/mojAll.js"></script>
-  <script nonce="{{ cspNonce }}">
-    window.MOJFrontend.initAll()
+  <script type="module" src="/assets/js/mojAll.js"></script>
+  <script type="module" nonce="{{ cspNonce }}">
+    import * as MOJFrontend from '/assets/js/mojAll.js'
+    MOJFrontend.initAll()
   </script>
 {% endmacro %}
 

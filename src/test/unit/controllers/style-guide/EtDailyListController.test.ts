@@ -52,7 +52,6 @@ describe('Et Daily List Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/et-daily-list';
 
     it('should render the ET daily cause list page in English', async () => {
         request.query = { artefactId: artefactId };
