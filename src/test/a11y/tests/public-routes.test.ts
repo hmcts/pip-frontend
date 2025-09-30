@@ -35,6 +35,7 @@ sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData[0]);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').resolves(locationData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData);
 sinon.stub(PublicationRequests.prototype, 'getPublicationsByLocation').resolves(metadata[0]);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(metadata);
 sinon.stub(PublicationService.prototype, 'getListTypes').returns(
     new Map([
         ['CROWN_WARNED_LIST', { friendlyName: 'List A' }],
