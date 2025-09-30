@@ -2,10 +2,8 @@ import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/LocationService';
-import { SummaryOfPublicationsService } from '../service/SummaryOfPublicationsService';
 import { PublicationService } from '../service/PublicationService';
 
-const summaryOfPublicationsService = new SummaryOfPublicationsService();
 const locationService = new LocationService();
 const publicationService = new PublicationService();
 
@@ -26,8 +24,8 @@ export default class SummaryOfPublicationsController {
                     req.lng === 'cy' ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
             }
 
-            const publications = await summaryOfPublicationsService.getPublications(
-                parseInt(locationId.toString()),
+            const publications = await publicationService.getPublicationsByLocation(
+                locationId,
                 req.user?.['userId']
             );
 

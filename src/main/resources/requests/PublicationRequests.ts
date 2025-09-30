@@ -90,7 +90,7 @@ export class PublicationRequests {
         }
     }
 
-    public async getPublicationsByCourt(locationId: string, userId: string, admin: boolean): Promise<Artefact[]> {
+    public async getPublicationsByLocation(locationId: string, userId: string, admin: boolean): Promise<Artefact[]> {
         try {
             let header;
             if (userId) {

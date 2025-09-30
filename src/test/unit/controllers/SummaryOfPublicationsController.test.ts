@@ -5,7 +5,6 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import { LocationService } from '../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 import { PublicationService } from '../../../main/service/PublicationService';
 
 const publicationController = new SummaryOfPublicationsController();
@@ -28,7 +27,7 @@ const additionalLocationInfo = {
 sinon
     .stub(LocationService.prototype, 'getLocationById')
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(metadata);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(metadata);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
 additionalLocationInfoStub.withArgs(1).returns(null);

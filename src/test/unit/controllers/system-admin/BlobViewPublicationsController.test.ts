@@ -3,9 +3,9 @@ import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import { LocationService } from '../../../../main/service/LocationService';
 import BlobViewPublicationsController from '../../../../main/controllers/system-admin/BlobViewPublicationsController';
-import { SummaryOfPublicationsService } from '../../../../main/service/SummaryOfPublicationsService';
 import fs from 'fs';
 import path from 'path';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const blobViewController = new BlobViewPublicationsController();
 const i18n = {
@@ -21,7 +21,7 @@ describe('Get publications', () => {
             .withArgs(1)
             .resolves(JSON.parse('{"name":"New Court"}'));
 
-        sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs(1).resolves(sjpCases);
+        sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').withArgs(1).resolves(sjpCases);
 
         const response = {
             render: () => {
@@ -45,7 +45,7 @@ describe('Get publications', () => {
     });
 
     it('should render No Match artefacts if location ID equals noMatch', async () => {
-        sinon.stub(SummaryOfPublicationsService.prototype, 'getNoMatchPublications').resolves(sjpCases);
+        sinon.stub(PublicationService.prototype, 'getNoMatchPublications').resolves(sjpCases);
 
         const response = {
             render: () => {

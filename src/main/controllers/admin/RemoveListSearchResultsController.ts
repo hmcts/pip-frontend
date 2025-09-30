@@ -2,25 +2,25 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../../service/LocationService';
-import { SummaryOfPublicationsService } from '../../service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../../service/ManualUploadService';
 import * as url from 'url';
 import { checkIfUrl } from '../../helpers/urlHelper';
+import { PublicationService } from '../../service/PublicationService';
 
 const courtService = new LocationService();
-const summaryOfPublicationsService = new SummaryOfPublicationsService();
+const publicationsService = new PublicationService();
 const manualUploadService = new ManualUploadService();
 
 export default class RemoveListSearchResultsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const locationId = parseInt(req.query?.locationId as string);
+        const locationId = req.query?.locationId as string;
         const noOptionSelectedError = req.query?.error;
         locationId
             ? res.render('admin/remove-list-search-results', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search-results']),
-                  court: await courtService.getLocationById(locationId),
+                  court: await courtService.getLocationById(parseInt(locationId)),
                   removalList: manualUploadService.formatListRemovalValues(
-                      await summaryOfPublicationsService.getPublications(locationId, req.user?.['userId'], true)
+                      await publicationsService.getPublicationsByLocation(locationId, req.user?.['userId'], true)
                   ),
                   noOptionSelectedError: noOptionSelectedError,
               })

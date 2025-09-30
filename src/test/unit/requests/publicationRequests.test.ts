@@ -134,25 +134,21 @@ describe('Get by case value', () => {
     });
 });
 
-describe('Get publication by court id', () => {
+describe('Get publications by location ID', () => {
     dataManagementStub.withArgs('/publication/locationId/valid').resolves(successResponse);
     dataManagementStub.withArgs('/publication/locationId/invalid').rejects(errorResponse);
     dataManagementStub.withArgs('/publication/locationId/error').rejects(errorMessage);
 
     it('should return data on successful get', async () => {
-        expect(await pubRequests.getPublicationsByCourt(valid, userId, false)).toBe(successResponse.data);
+        expect(await pubRequests.getPublicationsByLocation(valid, userId)).toBe(successResponse.data);
     });
 
     it('should handle error response from returned service returning empty array', async () => {
-        expect(await pubRequests.getPublicationsByCourt(invalid, userId, false)).toStrictEqual([]);
+        expect(await pubRequests.getPublicationsByLocation(invalid, userId)).toStrictEqual([]);
     });
 
     it('should handle error request from returned service returning empty array', async () => {
-        expect(await pubRequests.getPublicationsByCourt('test', userId, false)).toStrictEqual([]);
-    });
-
-    it('should handle error request from returned service returning empty array', async () => {
-        expect(await pubRequests.getPublicationsByCourt('error', userId, false)).toStrictEqual([]);
+        expect(await pubRequests.getPublicationsByLocation('error', userId)).toStrictEqual([]);
     });
 });
 
@@ -219,9 +215,9 @@ describe('get individual publication file', () => {
     });
 
     it('should send an error to the log if error message exists and error request does not exist', async () => {
-        dataManagementStub.withArgs('/publication/search/y').rejects(errorMessage);
-        const message = await publicationRequests.getPublicationsByCourt('y', userId, false);
-        expect(message).toStrictEqual([]);
+        dataManagementStub.withArgs('/publication/noErrRequest/payload').rejects(errorMessage);
+        const message = await publicationRequests.getIndividualPublicationFile('y', userId);
+        expect(message).toBe(null);
     });
 });
 

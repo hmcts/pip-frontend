@@ -1,11 +1,11 @@
 import { LocationService } from '../../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../../main/service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../../../../main/service/ManualUploadService';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const PAGE_URL = '/remove-list-search-results?locationId=5';
 const mockCourt = {
@@ -44,8 +44,8 @@ const sensitivityValues = ['Public', 'Classified', 'Classified'];
 const checkboxType = 'input type="checkbox"';
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
 sinon
-    .stub(SummaryOfPublicationsService.prototype, 'getPublications')
-    .withArgs('5', true, true)
+    .stub(PublicationService.prototype, 'getPublicationsByLocation')
+    .withArgs('5')
     .resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
 
