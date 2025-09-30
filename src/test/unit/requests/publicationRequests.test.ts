@@ -140,15 +140,15 @@ describe('Get publications by location ID', () => {
     dataManagementStub.withArgs('/publication/locationId/error').rejects(errorMessage);
 
     it('should return data on successful get', async () => {
-        expect(await pubRequests.getPublicationsByLocation(valid, userId)).toBe(successResponse.data);
+        expect(await pubRequests.getPublicationsByLocation(valid, userId, false)).toBe(successResponse.data);
     });
 
     it('should handle error response from returned service returning empty array', async () => {
-        expect(await pubRequests.getPublicationsByLocation(invalid, userId)).toStrictEqual([]);
+        expect(await pubRequests.getPublicationsByLocation(invalid, userId, false)).toStrictEqual([]);
     });
 
     it('should handle error request from returned service returning empty array', async () => {
-        expect(await pubRequests.getPublicationsByLocation('error', userId)).toStrictEqual([]);
+        expect(await pubRequests.getPublicationsByLocation('error', userId, false)).toStrictEqual([]);
     });
 });
 
