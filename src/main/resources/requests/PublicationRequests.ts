@@ -112,7 +112,7 @@ export class PublicationRequests {
             await dataManagementApi.put(
                 `/publication/${artefactId}/archive`,
                 {},
-                { headers: { 'x-requester-id': id, 'x-issuer-id': id } }
+                { headers: { 'x-requester-id': id } }
             );
             return true;
         } catch (error) {

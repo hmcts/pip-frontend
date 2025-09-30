@@ -18,7 +18,7 @@ export class AccountManagementRequests {
     public async createAzureAccount(payload, requester): Promise<object | null> {
         try {
             const response = await accountManagementApi.post('/account/add/azure', payload, {
-                headers: { 'x-requester-id': requester, 'x-issuer-id': requester },
+                headers: { 'x-requester-id': requester },
             });
             logger.info('Azure account created');
             return response.data;
@@ -36,7 +36,7 @@ export class AccountManagementRequests {
     public async createPIAccount(payload, requester): Promise<object | null> {
         try {
             const response = await accountManagementApi.post('/account/add/pi', payload, {
-                headers: { 'x-requester-id': requester, 'x-issuer-id': requester },
+                headers: { 'x-requester-id': requester },
             });
             logger.info('P&I account created');
             return response.status === StatusCodes.CREATED ? response.data : null;
@@ -72,7 +72,7 @@ export class AccountManagementRequests {
                 .post(`${accountManagementApiUrl}/account/media-bulk-upload`)
                 .set('enctype', 'multipart/form-data')
                 .set({ Authorization: 'Bearer ' + token.access_token })
-                .set({ 'x-requester-id': requester, 'x-issuer-id': requester })
+                .set({ 'x-requester-id': requester })
                 .attach('mediaList', file, filename);
             return true;
         } catch (error) {
@@ -259,7 +259,7 @@ export class AccountManagementRequests {
     public async deleteUser(userId: string, adminUserId): Promise<object> {
         try {
             logger.info('User with ID: ' + userId + ' deleted by Admin with ID: ' + adminUserId);
-            const headers = adminUserId ? { 'x-requester-id': adminUserId, 'x-admin-id': adminUserId } : {};
+            const headers = adminUserId ? { 'x-requester-id': adminUserId } : {};
             const response = await accountManagementApi.delete(`/account/v2/${userId}`, {
                 headers: headers,
             });
@@ -280,7 +280,7 @@ export class AccountManagementRequests {
                     ' by Admin with ID: ' +
                     adminUserId
             );
-            const headers = adminUserId ? { 'x-requester-id': adminUserId, 'x-admin-id': adminUserId } : {};
+            const headers = adminUserId ? { 'x-requester-id': adminUserId } : {};
             const response = await accountManagementApi.put(`/account/update/${userId}/${role}`, null, {
                 headers: headers,
             });
