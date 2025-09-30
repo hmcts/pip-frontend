@@ -60,7 +60,6 @@ describe('Magistrate Standard List Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/' + listPath;
 
     it('should render the magistrate standard list page', async () => {
         request.query = { artefactId: artefactId };
