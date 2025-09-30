@@ -11,17 +11,15 @@ const publicationsMock = [
 ];
 
 sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(publicationsMock);
-sinon
-    .stub(PublicationService.prototype, 'getNoMatchPublications')
-    .resolves([
-        {
-            artefactId: '3',
-            listType: 'TYPE3',
-            locationId: '2',
-            publicationDate: '2024-06-03',
-            contentDate: '2024-06-03',
-        },
-    ]);
+sinon.stub(PublicationService.prototype, 'getNoMatchPublications').resolves([
+    {
+        artefactId: '3',
+        listType: 'TYPE3',
+        locationId: '2',
+        publicationDate: '2024-06-03',
+        contentDate: '2024-06-03',
+    },
+]);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ locationId: 1, name: 'Alpha Court' });
 sinon.stub(LocationService.prototype, 'findCourtName').returns('Alpha Court');
 
