@@ -43,10 +43,7 @@ const languageRowValues = ['English', 'Welsh'];
 const sensitivityValues = ['Public', 'Classified', 'Classified'];
 const checkboxType = 'input type="checkbox"';
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
-sinon
-    .stub(PublicationService.prototype, 'getPublicationsByLocation')
-    .withArgs('5')
-    .resolves(mockPublications);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').withArgs('5').resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };

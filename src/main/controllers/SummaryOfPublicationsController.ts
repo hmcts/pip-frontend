@@ -24,10 +24,7 @@ export default class SummaryOfPublicationsController {
                     req.lng === 'cy' ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
             }
 
-            const publications = await publicationService.getPublicationsByLocation(
-                locationId,
-                req.user?.['userId']
-            );
+            const publications = await publicationService.getPublicationsByLocation(locationId, req.user?.['userId']);
 
             const publicationsWithName = [];
             publications.forEach(publication => {

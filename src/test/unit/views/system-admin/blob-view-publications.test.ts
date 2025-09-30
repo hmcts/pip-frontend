@@ -7,13 +7,21 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 
 const publicationsMock = [
     { artefactId: '1', listType: 'TYPE1', locationId: '1', publicationDate: '2024-06-01', contentDate: '2024-06-01' },
-    { artefactId: '2', listType: 'TYPE2', locationId: '1', publicationDate: '2024-06-02', contentDate: '2024-06-02' }
+    { artefactId: '2', listType: 'TYPE2', locationId: '1', publicationDate: '2024-06-02', contentDate: '2024-06-02' },
 ];
 
 sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(publicationsMock);
-sinon.stub(PublicationService.prototype, 'getNoMatchPublications').resolves([
-    { artefactId: '3', listType: 'TYPE3', locationId: '2', publicationDate: '2024-06-03', contentDate: '2024-06-03' }
-]);
+sinon
+    .stub(PublicationService.prototype, 'getNoMatchPublications')
+    .resolves([
+        {
+            artefactId: '3',
+            listType: 'TYPE3',
+            locationId: '2',
+            publicationDate: '2024-06-03',
+            contentDate: '2024-06-03',
+        },
+    ]);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ locationId: 1, name: 'Alpha Court' });
 sinon.stub(LocationService.prototype, 'findCourtName').returns('Alpha Court');
 

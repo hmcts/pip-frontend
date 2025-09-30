@@ -20,10 +20,7 @@ export default class BlobViewPublicationsController {
             if (!noMatchArtefact) {
                 court = await locationService.getLocationById(parseInt(locationId));
                 locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
-                listOfPublications = await publicationService.getPublicationsByLocation(
-                    locationId,
-                    req.user['userId']
-                );
+                listOfPublications = await publicationService.getPublicationsByLocation(locationId, req.user['userId']);
             } else {
                 locationName = 'No match artefacts';
                 listOfPublications = await publicationService.getNoMatchPublications(req.user['userId']);
