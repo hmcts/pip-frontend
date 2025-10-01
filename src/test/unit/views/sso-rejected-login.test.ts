@@ -21,7 +21,7 @@ describe('SSO rejected login page', () => {
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
         expect(pageTitle).contains(
-            'Account log in - SSO Rejected Login- Court and Tribunal Hearings - GOV.UK',
+            'Account log in - SSO Rejected Login - Court and Tribunal Hearings - GOV.UK',
             'Page title does not match header'
         );
     });
