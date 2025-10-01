@@ -24,7 +24,7 @@ export default class SignInController {
                 break;
             }
             case 'common': {
-                res.redirect('https://hmcts-sjp.herokuapp.com/sign-in-idam.html');
+                res.redirect('/crime-login');
                 break;
             }
             case 'pi': {
