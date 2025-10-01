@@ -54,7 +54,6 @@ describe('Cop Daily Cause List Controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/cop-daily-cause-list';
 
     it('should render the cop daily cause list page', async () => {
         request.query = { artefactId: artefactId };

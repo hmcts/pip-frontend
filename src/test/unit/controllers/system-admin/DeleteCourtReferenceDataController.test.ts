@@ -116,7 +116,6 @@ describe('Delete Court Search Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.path = '/delete-court-reference-data';
         request.body = { 'input-autocomplete': 'Valid Location' };
         const responseMock = sinon.mock(response);
 

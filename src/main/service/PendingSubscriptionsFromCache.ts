@@ -2,7 +2,7 @@ import { redisClient } from '../cacheManager';
 
 export class PendingSubscriptionsFromCache {
     public async setPendingSubscriptions(subscriptions, subscriptionType, userId): Promise<void> {
-        if (redisClient.status === 'ready') {
+        if (redisClient.isReady) {
             let subscriptionsSet = [];
             //We need to clear the cache for only list language because user can click back and select
             //listTypes again. We need to store the updated values in cache. List language is different
@@ -36,7 +36,7 @@ export class PendingSubscriptionsFromCache {
     }
 
     public async getPendingSubscriptions(userId, type): Promise<any[]> {
-        if (redisClient.status === 'ready' && userId) {
+        if (redisClient.isReady && userId) {
             const cacheResult = JSON.parse(await redisClient.get(`pending-${type}-subscriptions-${userId}`));
             return cacheResult ? cacheResult : [];
         }
@@ -45,7 +45,7 @@ export class PendingSubscriptionsFromCache {
 
     // @param removeObject - post data object {case-number: 'id'} || {case-urn: 'id'} || {court: 'id'}
     public async removeFromCache(removeObject, userId): Promise<void> {
-        if (redisClient.status === 'ready' && userId) {
+        if (redisClient.isReady && userId) {
             if (removeObject['case-number'] || removeObject['case-urn']) {
                 const cachedCases = await this.getPendingSubscriptions(userId, 'cases');
                 cachedCases.forEach((item, index) => {
