@@ -14,15 +14,18 @@ import MagistratesAdultCourtListController from '../../../../main/controllers/st
 const urlDailyList = '/magistrates-adult-court-list-daily';
 const urlFutureList = '/magistrates-adult-court-list-future';
 const urlPublicDailyList = '/magistrates-public-adult-court-list-daily';
+const urlPublicFutureList = '/magistrates-public-adult-court-list-future';
 const artefactIdDailyList = 'abc';
 const artefactIdFutureList = 'def';
 const artefactIdPublicDailyList = 'ace';
+const artefactIdPublicFutureList = 'dfg';
 const artefactIdListNotFound = 'xyz';
 
 const artefactIdMap = new Map<string, string>([
     [urlDailyList, artefactIdDailyList],
     [urlFutureList, artefactIdFutureList],
     [urlPublicDailyList, artefactIdPublicDailyList],
+    [urlPublicFutureList, artefactIdPublicFutureList],
 ]);
 
 const rawStandardData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesAdultCourtList.json'), 'utf-8');
@@ -42,6 +45,8 @@ const metadataFutureList = JSON.parse(rawMetadata)[0];
 metadataFutureList.listType = 'MAGISTRATES_ADULT_COURT_LIST_FUTURE';
 const metadataPublicDailyList = JSON.parse(rawMetadata)[0];
 metadataPublicDailyList.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY';
+const metadataPublicFutureList = JSON.parse(rawMetadata)[0];
+metadataPublicFutureList.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_FUTURE';
 const metadataListNotFound = JSON.parse(rawMetadata)[0];
 
 const rawCourtData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
@@ -60,12 +65,15 @@ magsAdultCourtListJsonStub.withArgs(artefactIdFutureList).resolves(standardListD
 magsAdultCourtListJsonStub.withArgs(artefactIdFutureList, undefined).resolves(undefined);
 magsAdultCourtListJsonStub.withArgs(artefactIdPublicDailyList).resolves(publicListData);
 magsAdultCourtListJsonStub.withArgs(artefactIdPublicDailyList, undefined).resolves(undefined);
+magsAdultCourtListJsonStub.withArgs(artefactIdPublicFutureList).resolves(publicListData);
+magsAdultCourtListJsonStub.withArgs(artefactIdPublicFutureList, undefined).resolves(undefined);
 magsAdultCourtListJsonStub.withArgs('').resolves([]);
 magsAdultCourtListJsonStub.withArgs('1234').resolves(HttpStatusCode.NotFound);
 
 magsAdultCourtListMetadataStub.withArgs(artefactIdDailyList).resolves(metadataDailyList);
 magsAdultCourtListMetadataStub.withArgs(artefactIdFutureList).resolves(metadataFutureList);
 magsAdultCourtListMetadataStub.withArgs(artefactIdPublicDailyList).resolves(metadataPublicDailyList);
+magsAdultCourtListMetadataStub.withArgs(artefactIdPublicFutureList).resolves(metadataPublicFutureList);
 magsAdultCourtListMetadataStub.withArgs('').resolves([]);
 magsAdultCourtListMetadataStub.withArgs(artefactIdListNotFound).resolves(metadataListNotFound);
 
@@ -76,7 +84,7 @@ const i18n = {
 
 const magistratesAdultCourtListController = new MagistratesAdultCourtListController();
 
-describe.each([urlDailyList, urlFutureList, urlPublicDailyList])(
+describe.each([urlDailyList, urlFutureList, urlPublicDailyList, urlPublicFutureList])(
     "Magistrates Adult Court List Controller with path '%s'",
     url => {
         const response = {
@@ -86,7 +94,7 @@ describe.each([urlDailyList, urlFutureList, urlPublicDailyList])(
         } as unknown as Response;
 
         const request = mockRequest(i18n);
-        const isStandardList = url !== urlPublicDailyList;
+        const isStandardList = [urlDailyList, urlFutureList].includes(url);
         const listPathValue = isStandardList ? 'magistrates-adult-court-list' : 'magistrates-public-adult-court-list';
         const listPath = 'style-guide/' + listPathValue;
 

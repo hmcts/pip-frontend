@@ -1,11 +1,11 @@
-import {LocationService} from '../../../main/service/LocationService';
-import {PendingSubscriptionsFromCache} from '../../../main/service/PendingSubscriptionsFromCache';
-import {SubscriptionRequests} from '../../../main/resources/requests/SubscriptionRequests';
-import {SubscriptionService} from '../../../main/service/SubscriptionService';
+import { LocationService } from '../../../main/service/LocationService';
+import { PendingSubscriptionsFromCache } from '../../../main/service/PendingSubscriptionsFromCache';
+import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
+import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import fs from 'fs';
 import path from 'path';
 import sinon from 'sinon';
-import {PublicationService} from '../../../main/service/PublicationService';
+import { PublicationService } from '../../../main/service/PublicationService';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
@@ -1015,6 +1015,7 @@ describe('generateListTypesForCourts', () => {
             'MAGISTRATES_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
             'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
@@ -1060,6 +1061,7 @@ describe('generateListTypesForCourts', () => {
             'MAGISTRATES_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
             'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
@@ -1207,6 +1209,7 @@ describe('generateListTypeForCourts', () => {
             'MAGISTRATES_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
             'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
@@ -1242,6 +1245,7 @@ describe('generateListTypeForCourts', () => {
             'MAGISTRATES_ADULT_COURT_LIST_DAILY',
             'MAGISTRATES_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY',
+            'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_FUTURE',
             'MAGISTRATES_PUBLIC_LIST',
             'MAGISTRATES_STANDARD_LIST',
             'MANCHESTER_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
