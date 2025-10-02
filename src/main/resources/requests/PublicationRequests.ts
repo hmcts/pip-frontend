@@ -76,7 +76,7 @@ export class PublicationRequests {
             let header;
             if (userId) {
                 header = {
-                    headers: { 'x-user-id': userId },
+                    headers: { 'x-requester-id': userId },
                     responseType: 'arraybuffer',
                 };
             } else {
