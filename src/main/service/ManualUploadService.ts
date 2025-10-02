@@ -258,7 +258,6 @@ export class ManualUploadService {
             'x-court-id': headers.court.locationId,
             'x-content-date': headers['content-date-from'],
             'x-requester-id': headers.userId,
-            'x-user-id': headers.userId,
         };
     }
 }

@@ -113,7 +113,6 @@ export const createSubscription = async (locationId: string, locationName: strin
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/subscription`)
             .send(payload)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`)
             .set('x-requester-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
@@ -198,7 +197,6 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
     try {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${artefactId}`)
-            .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
             .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
@@ -224,7 +222,6 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/pi`)
             .send(thirdPartyUserAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
             .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
         return azureResponse.body['CREATED_ACCOUNTS'][0];
     } catch (e) {
@@ -271,7 +268,6 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/system-admin`)
             .send(systemAdminAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-issuer-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
             .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
     } catch (e) {
         if (e.response?.badRequest) {

@@ -15,7 +15,7 @@ const errorResponse = {
 const errorMessage = {
     message: 'test',
 };
-const mockHeaders = { headers: { 'x-requester_id': '12345', 'x-issuer-id': '12345' } };
+const mockHeaders = { headers: { 'x-requester_id': '12345' } };
 const mockValidBody = {
     email: 'joe@bloggs.com',
     firstName: 'Joe',
@@ -705,7 +705,7 @@ describe('Account Management Requests', () => {
         it('should return string on deletion success', async () => {
             deleteStub
                 .withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`, {
-                    headers: { 'x-requester-id': adminUserId, 'x-admin-id': adminUserId },
+                    headers: { 'x-requester-id': adminUserId },
                 })
                 .resolves({ status: 200, data: 'Deleted' });
             const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
@@ -746,7 +746,6 @@ describe('Account Management Requests', () => {
                 .withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`, null, {
                     headers: {
                         'x-requester-id': adminIdToUse,
-                        'x-admin-id': adminIdToUse,
                     },
                 })
                 .resolves({
