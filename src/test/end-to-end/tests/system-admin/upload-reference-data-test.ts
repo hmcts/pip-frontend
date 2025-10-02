@@ -18,17 +18,17 @@ Scenario('I as a system admin should be able to upload reference data manually',
     I.click('Continue');
     I.waitForText('Check upload details');
     I.click('Change');
-    I.waitForText('Reference manual data upload');
+    I.waitForText('Manually upload a csv file');
     I.attachFile('#reference-data-upload', CSV_FILE_PATH);
     I.click('Continue');
     I.waitForText('Check upload details');
     I.click('Confirm');
-    I.waitForText('Success');
+    I.waitForText('File Upload Successful');
     I.see('Your file has been uploaded');
     I.see('What do you want to do next?');
     I.see('Upload another file');
     I.click('Upload another file');
-    I.waitForText('Reference manual data upload');
+    I.waitForText('Manually upload a csv file');
 
     I.handleDownloads('downloadedReferenceData.csv');
     I.click('Download current reference data');

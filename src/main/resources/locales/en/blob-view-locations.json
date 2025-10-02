@@ -1,5 +1,6 @@
 {
-    "title": "Blob Explorer - Locations",
+    "title": "System Admin - Blob Explorer Locations - Court and Tribunal Hearings - GOV.UK",
+    "header": "Blob Explorer Locations",
     "subHeading": "Choose a location to see all publications associated with it.",
     "tableHeaders": ["Location", "Number of Publications"]
 }

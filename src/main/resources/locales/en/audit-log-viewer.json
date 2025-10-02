@@ -1,5 +1,6 @@
 {
-    "title": "System admin audit log",
+    "title": "Audit Log Viewer - View audit log - Court and Tribunal Hearings - GOV.UK",
+    "header": "View audit log",
     "filter": "Filter",
     "clearFilters": "Clear filters",
     "clearHref": "?clear=all",

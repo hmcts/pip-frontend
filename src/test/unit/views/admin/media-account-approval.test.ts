@@ -20,6 +20,8 @@ const errorSummaryClass = 'govuk-error-summary__title';
 const errorMessageClass = 'govuk-error-summary__body';
 
 const expectedHeader = 'Are you sure you want to approve this application?';
+const expectedTitle =
+    'Manage media account requests - Are you sure you want to approve this application? - Court and Tribunal Hearings - GOV.UK';
 const expectedTableCaption = "Applicant's Details";
 const nameHeader = 'Name';
 const nameValue = 'Test Name';
@@ -72,6 +74,11 @@ describe('Media Account Approval Page', () => {
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    });
+
+    it('should display the correct page title', () => {
+        const title = htmlRes.title;
+        expect(title).contains(expectedTitle, 'Could not find the correct page title');
     });
 
     it('should display table caption', () => {

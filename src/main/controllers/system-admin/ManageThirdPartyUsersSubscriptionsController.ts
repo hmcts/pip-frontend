@@ -1,10 +1,10 @@
-import {PipRequest} from '../../models/request/PipRequest';
-import {Response} from 'express';
-import {cloneDeep} from 'lodash';
-import {SubscriptionService} from '../../service/SubscriptionService';
-import {PublicationService} from '../../service/PublicationService';
-import {ThirdPartyService} from '../../service/ThirdPartyService';
-import {UserManagementService} from '../../service/UserManagementService';
+import { PipRequest } from '../../models/request/PipRequest';
+import { Response } from 'express';
+import { cloneDeep } from 'lodash';
+import { SubscriptionService } from '../../service/SubscriptionService';
+import { PublicationService } from '../../service/PublicationService';
+import { ThirdPartyService } from '../../service/ThirdPartyService';
+import { UserManagementService } from '../../service/UserManagementService';
 
 const thirdPartyService = new ThirdPartyService();
 const subscriptionsService = new SubscriptionService();

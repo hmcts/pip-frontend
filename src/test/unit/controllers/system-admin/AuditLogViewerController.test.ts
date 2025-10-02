@@ -68,7 +68,7 @@ describe('Audit log view controller', () => {
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['audit-log-viewer'],
-            header: 'testHeader',
+            tableHeader: 'testHeader',
             auditLogData: 'test',
             paginationData: 'test2',
             emailFieldData: 'test3',
@@ -100,7 +100,7 @@ describe('Audit log view controller', () => {
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['audit-log-viewer'],
-            header: 'testHeader',
+            tableHeader: 'testHeader',
             auditLogData: 'test',
             paginationData: 'test2',
             emailFieldData: 'test3',

@@ -6,7 +6,7 @@
 {% extends "../template.njk" %}
 
 {% block pageTitle %}
-    Media Account Rejection Reasons
+    {{ title }}
 {% endblock %}
 {% block beforeContent %}
     {{ super() }}
@@ -41,7 +41,7 @@
         name: "rejection-reasons",
         fieldset: {
             legend: {
-                text: heading1,
+                text: header,
                 isPageHeading: true,
                 classes: "govuk-fieldset__legend--l"
             }
