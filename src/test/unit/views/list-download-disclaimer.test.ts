@@ -22,7 +22,10 @@ describe('List Download Disclaimer Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains('Terms and conditions', 'Page title does not match');
+            expect(pageTitle).contains(
+                'Terms and conditions - Court and Tribunal Hearings - GOV.UK',
+                'Page title does not match'
+            );
         });
 
         it('should display header', () => {

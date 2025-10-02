@@ -8,7 +8,7 @@ describe('Session expired', () => {
             await request(app)
                 .get('/session-expired?reSignInUrl=AAD')
                 .expect(res => expect(res.status).to.equal(200))
-                .expect(res => expect(res.text).to.contains('You have been signed out, due to inactivity'));
+                .expect(res => expect(res.text).to.contains('You have been signed out due to inactivity'));
         });
 
         test('should return error page when an invalid re sign in url has been provided', async () => {

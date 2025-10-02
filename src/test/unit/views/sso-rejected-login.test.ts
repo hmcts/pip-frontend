@@ -18,6 +18,19 @@ describe('SSO rejected login page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Account log in - SSO Rejected Login - Court and Tribunal Hearings - GOV.UK',
+            'Page title does not match header'
+        );
+    });
+
+    it('should display page header', () => {
+        const header = htmlRes.getElementsByClassName('govuk-heading-l');
+        expect(header[0].innerHTML).contains('SSO Rejected Login', 'Page header does not match');
+    });
+
     it('should display paragraph text', () => {
         const bodyText = htmlRes.getElementsByClassName('govuk-body');
         expect(bodyText[4].innerHTML).contains(

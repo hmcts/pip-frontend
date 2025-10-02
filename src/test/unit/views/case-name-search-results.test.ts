@@ -5,8 +5,9 @@ import { expect } from 'chai';
 import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 
 const PAGE_URL = '/case-name-search-results?search=Meedo';
-const pageTitleValue =
-    'Subscription by case name – Subscription case search results - Court and Tribunal Hearings - GOV.UK';
+const pageTitleValue = 'Email Subscription - Subscription by case name - Court and Tribunal Hearings - GOV.UK';
+const pageHeadingVaule = 'Subscription by case name';
+
 let htmlRes: Document;
 
 const data = [
@@ -44,7 +45,7 @@ describe('Case name search results page', () => {
 
     it('should display header', () => {
         const pageHeading = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(pageHeading[0].innerHTML).contains('Search result', 'Page heading does not exist');
+        expect(pageHeading[0].innerHTML).contains(pageHeadingVaule, 'Page heading does not exist');
     });
 
     it('should display results count message', () => {

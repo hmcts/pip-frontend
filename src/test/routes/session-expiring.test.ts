@@ -10,7 +10,7 @@ describe('Session expiring', () => {
             await request(app)
                 .get('/session-expiring')
                 .expect(res => expect(res.status).to.equal(200))
-                .expect(res => expect(res.text).to.contain('You will soon be signed out, due to inactivity'));
+                .expect(res => expect(res.text).to.contain('You will soon be signed out due to inactivity'));
         });
 
         test('should return error page when no user', async () => {

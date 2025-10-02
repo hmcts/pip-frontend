@@ -40,6 +40,14 @@ describe('Residential Property Weekly Hearing List Page', () => {
                 });
         });
 
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'First-tier Tribunal (Residential Property Tribunal): Eastern region Weekly Hearing List – Court and Tribunal Hearings – GOV.UK',
+                'Could not find the page title'
+            );
+        });
+
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
