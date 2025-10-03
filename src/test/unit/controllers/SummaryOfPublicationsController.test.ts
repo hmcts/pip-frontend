@@ -149,7 +149,10 @@ describe('Get publications', () => {
         request.query = { locationId: 'Test2' };
         request.user = { userId: 1 };
         const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('error', { ...i18n.error });
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
     });
 
     it('should render the error screen if there is no locationId passed as a param', async () => {
@@ -161,6 +164,9 @@ describe('Get publications', () => {
         const request = mockRequest(i18n);
         request.user = { userId: 1 };
         const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('error', { ...i18n.error });
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
     });
 });
