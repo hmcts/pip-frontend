@@ -57,7 +57,10 @@ describe('Get publications', () => {
 
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('render').once().withArgs('error', { ...i18n.error });
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
         await blobViewController.get(request, response);
         responseMock.verify;
     });

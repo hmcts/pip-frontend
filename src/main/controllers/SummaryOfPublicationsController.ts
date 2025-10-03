@@ -11,7 +11,6 @@ export default class SummaryOfPublicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query['locationId'] as string;
 
-
         if (locationId && !isNaN(parseInt(locationId))) {
             const court = await locationService.getLocationById(parseInt(locationId));
             const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');

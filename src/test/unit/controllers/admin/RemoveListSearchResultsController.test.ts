@@ -100,7 +100,10 @@ describe('Remove List Summary Controller', () => {
             const request = mockRequest(i18n);
             request.query = { locationId: 'Test5' };
 
-            responseMock.expects('render').once().withArgs('error', { ...i18n.error });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', { ...i18n.error });
             await removeListSearchResultsController.get(request, response);
             await responseMock.verify();
         });
