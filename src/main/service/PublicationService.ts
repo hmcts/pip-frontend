@@ -61,8 +61,12 @@ export class PublicationService {
         return this.getCaseFromArtefact(artefact[0], 'caseUrn', urn);
     }
 
-    public async getPublicationsByCourt(locationId: string, userId: string): Promise<Artefact[]> {
-        return await publicationRequests.getPublicationsByCourt(locationId, userId, false);
+    public async getPublicationsByLocation(locationId: string, userId: string, admin = false): Promise<Artefact[]> {
+        return await publicationRequests.getPublicationsByLocation(locationId, userId, admin);
+    }
+
+    public async getNoMatchPublications(userId: string): Promise<Artefact[]> {
+        return publicationRequests.getNoMatchPublications(userId);
     }
 
     private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
