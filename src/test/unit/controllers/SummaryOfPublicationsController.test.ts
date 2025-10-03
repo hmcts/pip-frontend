@@ -10,6 +10,7 @@ import { PublicationService } from '../../../main/service/PublicationService';
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {
     'list-option': {},
+    error: { title: 'error' },
 };
 const court = { name: 'New Court', email: 'test@test.com', contactNo: '0123456789' };
 
@@ -136,6 +137,19 @@ describe('Get publications', () => {
 
         await publicationController.get(request, response);
         responseMock.verify();
+    });
+
+    it('should render the error page if location ID is no a number', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.query = { locationId: 'Test2' };
+        request.user = { userId: 1 };
+        const responseMock = sinon.mock(response);
+        responseMock.expects('render').once().withArgs('error');
     });
 
     it('should render the error screen if there is no locationId passed as a param', async () => {

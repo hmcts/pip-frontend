@@ -15,7 +15,7 @@ export default class RemoveListSearchResultsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query?.locationId as string;
         const noOptionSelectedError = req.query?.error;
-        locationId
+        locationId && !isNaN(parseInt(locationId))
             ? res.render('admin/remove-list-search-results', {
                   ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['remove-list-search-results']),
                   court: await courtService.getLocationById(parseInt(locationId)),

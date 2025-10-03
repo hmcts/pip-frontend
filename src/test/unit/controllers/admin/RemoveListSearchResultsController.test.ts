@@ -83,7 +83,7 @@ describe('Remove List Summary Controller', () => {
             await responseMock.verify();
         });
 
-        it('should render error page', async () => {
+        it('should render error page if no lopcation ID', async () => {
             const request = mockRequest(i18n);
             const responseMock = sinon.mock(response);
             request.query = {};
@@ -91,6 +91,16 @@ describe('Remove List Summary Controller', () => {
                 .expects('render')
                 .once()
                 .withArgs('error', { ...i18n.error });
+            await removeListSearchResultsController.get(request, response);
+            await responseMock.verify();
+        });
+
+        it('should render error page if location ID not an integer', async () => {
+            const responseMock = sinon.mock(response);
+            const request = mockRequest(i18n);
+            request.query = { locationId: 'Test5' };
+
+            responseMock.expects('render').once().withArgs('error', { ...i18n.error });
             await removeListSearchResultsController.get(request, response);
             await responseMock.verify();
         });

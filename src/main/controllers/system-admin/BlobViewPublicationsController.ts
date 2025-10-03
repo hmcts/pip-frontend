@@ -17,21 +17,28 @@ export default class BlobViewPublicationsController {
             // reusing summary-of-pubs language file and service as this is essentially the same kind of page.
             // If the location being asked for is noMatch we do not need to request data from the API as it is not a real location
             const noMatchArtefact = locationId === 'noMatch';
-            if (!noMatchArtefact) {
+            if (locationId === 'noMatch') {
+                locationName = 'No match artefacts';
+                listOfPublications = await publicationService.getNoMatchPublications(req.user['userId']);
+                res.render('system-admin/blob-view-publications', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publications']),
+                    listOfPublications: listOfPublications,
+                    locationName,
+                    noMatchArtefact,
+                });
+            } else if (isNaN(parseInt(locationId))) {
+                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+            } else {
                 court = await locationService.getLocationById(parseInt(locationId));
                 locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
                 listOfPublications = await publicationService.getPublicationsByLocation(locationId, req.user['userId']);
-            } else {
-                locationName = 'No match artefacts';
-                listOfPublications = await publicationService.getNoMatchPublications(req.user['userId']);
+                res.render('system-admin/blob-view-publications', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publications']),
+                    listOfPublications: listOfPublications,
+                    locationName,
+                    noMatchArtefact,
+                });
             }
-
-            res.render('system-admin/blob-view-publications', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publications']),
-                listOfPublications: listOfPublications,
-                locationName,
-                noMatchArtefact,
-            });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }

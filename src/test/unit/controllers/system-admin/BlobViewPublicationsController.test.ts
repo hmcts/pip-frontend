@@ -10,6 +10,7 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 const blobViewController = new BlobViewPublicationsController();
 const i18n = {
     'blob-view-publications': {},
+    error: { title: 'error' },
 };
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
@@ -41,6 +42,23 @@ describe('Get publications', () => {
             noMatchArtefact: false,
         };
         responseMock.expects('render').once().withArgs('system-admin/blob-view-publications', expectedData);
+        responseMock.verify;
+    });
+
+    it('should render error page if location ID is not an integer', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.query = { locationId: 'Test1' };
+        request.user = { id: 1 };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error', { ...i18n.error });
+        await blobViewController.get(request, response);
         responseMock.verify;
     });
 
