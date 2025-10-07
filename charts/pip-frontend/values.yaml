@@ -52,6 +52,10 @@ nodejs:
                   alias: B2C_URL
                 - name: cft-idam-client-secret
                   alias: CFT_IDAM_CLIENT_SECRET
+                - name: crime-idam-client-id
+                  alias: CRIME_IDAM_CLIENT_ID
+                - name: crime-idam-client-secret
+                  alias: CRIME_IDAM_CLIENT_SECRET
                 - name: sso-client-id
                   alias: SSO_CLIENT_ID
                 - name: sso-client-secret
