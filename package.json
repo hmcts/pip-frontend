@@ -34,7 +34,7 @@
         "test:functional": "npm-run-all -scl test:functional:min test:functional:report",
         "test:fullfunctional": "npm-run-all -scl test:functional:all test:accessibility test:functional:allreport",
         "test:functional:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-workers 8 parallel --config ./src/test/end-to-end/functional.conf.js",
-        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-workers 8 parallel  --grep '(?=.*)^(?!.*@(Smoke|Nightly))' --config ./src/test/end-to-end/functional.conf.js",
+        "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 bash -c 'if [ \"${ENV}\" = \"dev\" ]; then PATTERN=\"(?=.*)^(?!.*@(Smoke|Nightly|SkipOnPR))\"; else PATTERN=\"(?=.*)^(?!.*@(Smoke|Nightly))\"; fi && codeceptjs run-workers 8 parallel --grep \"$PATTERN\" --config ./src/test/end-to-end/functional.conf.js'",
         "test:functional:report": "allure generate functional-output/functional/reports/ -c -o functional-output/functional/allure",
         "test:functional:allreport": "npm-run-all -scl test:functional:report test:accessibility:amendreport test:accessibility:aggregatereport test:accessibility:report",
         "test:accessibility": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run --steps --config ./src/test/accessibility/accessibility.conf.js",
