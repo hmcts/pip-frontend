@@ -1,9 +1,9 @@
-import {expect} from 'chai';
+import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 
-import {app} from '../../../main/app';
-import {PublicationService} from '../../../main/service/PublicationService';
+import { app } from '../../../main/app';
+import { PublicationService } from '../../../main/service/PublicationService';
 import fs from 'fs';
 import path from 'path';
 
