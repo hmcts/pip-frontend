@@ -5,7 +5,7 @@ import SignInController from '../../../main/controllers/SignInController';
 
 const signInController = new SignInController();
 const CFTAccountUrl = '/cft-login';
-const CrimeAccountUrl = 'https://hmcts-sjp.herokuapp.com/sign-in-idam.html';
+const CrimeAccountUrl = '/crime-login';
 const piUrl = '/login?p=B2C_1_SignInUserFlow';
 
 describe('Sign In Option Controller', () => {
