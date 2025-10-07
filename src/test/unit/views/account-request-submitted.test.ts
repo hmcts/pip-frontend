@@ -30,10 +30,7 @@ describe('Account request submitted page', () => {
     it('should display valid header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
         console.log(header);
-        expect(header[0].innerHTML).contains(
-            pageHeaderValue,
-            'Could not find correct value in the heading message'
-        );
+        expect(header[0].innerHTML).contains(pageHeaderValue, 'Could not find correct value in the heading message');
     });
 
     it('should display valid review message', () => {
