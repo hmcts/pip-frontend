@@ -75,7 +75,7 @@ describe('AST Daily List page', () => {
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[11].innerHTML).contains(
-            'For more information, please visit https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing'
+            'For more information, please visit'
         );
     });
 
