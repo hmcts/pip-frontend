@@ -4,7 +4,16 @@
     "venueName": "Royal Courts of Justice",
     "addressLine1": "Strand, London",
     "addressLine2": "WC2A 2LL",
-    "importantInformationLine1": "Please note that advocates, whether appearing remotely or in person, are required to be robed for all hearings as from 1 October 2020. If you are an interested party or the media and wish to attend any of the Criminal Appeal Courts, please contact courtclerks@criminalappealoffice.justice.gov.uk.",
+    "section1": {
+        "line1": "Please note that advocates, whether appearing remotely or in person, are required to be robed for all hearings as from 1 October 2020. If you are an interested party or the media and wish to attend any of the Criminal Appeal Courts, please contact courtclerks@criminalappealoffice.justice.gov.uk.",
+        "line2": "For further information about our hearings, please see ",
+        "links": [
+            {
+                "link": "https://www.judiciary.uk/wp-content/uploads/2025/07/A-QUICK-GUIDE-TO-HEARINGS-IN-THE-CACD.docx",
+                "text": "this quick guide"
+            }
+        ]
+    },
     "tableHeaders": [
         "Venue",
         "Judge",
