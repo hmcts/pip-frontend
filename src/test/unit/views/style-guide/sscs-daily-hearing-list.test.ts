@@ -85,9 +85,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains(
-                'For more information, please visit'
-            );
+            expect(text[8].innerHTML).contains('For more information, please visit');
         });
 
         it('should display observation link', () => {
