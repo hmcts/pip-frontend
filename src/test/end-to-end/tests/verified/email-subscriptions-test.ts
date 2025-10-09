@@ -123,7 +123,7 @@ Scenario(
         I.see('For example, Smith');
         I.fillField('#case-name', caseName);
         I.click('Continue');
-        I.waitForText('Subscription by case name');
+        I.waitForText('Subscription case search results');
         I.see(caseName);
         I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
