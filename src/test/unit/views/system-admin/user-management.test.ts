@@ -7,7 +7,6 @@ import { request as expressRequest } from 'express';
 
 const PAGE_URL = '/user-management';
 const headingClass = 'govuk-heading-l';
-const headingCaptionClass = 'govuk-caption-l';
 const tableHeaderClass = 'govuk-table__header';
 const filterHeaderClass = 'govuk-heading-m';
 const linkClass = 'govuk-link';
@@ -38,15 +37,7 @@ describe('User Management Page', () => {
 
     it('should display heading', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('User Management', 'Could not find the header');
-    });
-
-    it('should display heading caption', () => {
-        const header = htmlRes.getElementsByClassName(headingCaptionClass);
-        expect(header[0].innerHTML).contains(
-            'Use this page to find, update and delete a user',
-            'Could not find the header'
-        );
+        expect(header[0].innerHTML).contains('Find, update and delete a user', 'Could not find the header');
     });
 
     it('Should display Email in table header', () => {

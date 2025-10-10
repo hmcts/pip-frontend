@@ -1,12 +1,13 @@
 {
-    "title": "Remove List Summary",
+    "title": "Dileu - Dileu’r crynodeb o’r rhestr - Gwrandawiadau llys a thribiwnlys - GOV.UK",
+    "header": "Dileu’r crynodeb o’r rhestr",
+    "inputMessage": "Select content to remove",
     "error": {
         "noResults": "There are no matching results",
         "invalidInput": "Court or tribunal name must be 3 characters or more",
         "summaryTitleText": "There is a problem",
         "noOptionSelectedError": "At least one publication must be selected"
     },
-    "header": "Select content to remove",
     "resultsMessage": "Showing RESULTS_COUNT result(s)",
     "tableHeaders": ["List type", "Court or Tribunal Name", "Display Dates", "Language", "Sensitivity", "Select"],
     "rowAction": "Remove",

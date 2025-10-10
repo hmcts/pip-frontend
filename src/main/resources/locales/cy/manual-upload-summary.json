@@ -1,6 +1,7 @@
 {
-    "title": "File Upload Summary",
-    "header": "Check upload details",
+    "title": "Wedi llwyddo i uwchlwytho â llaw - Crynodeb o uwchlwytho ffeiliau - Gwrandawiadau Llys a Thribiwnlys - GOV.UK",
+    "header": "Crynodeb o uwchlwytho ffeiliau",
+    "inputMessage": "Check upload details",
     "actionName": "Change",
     "fileKey": "File",
     "courtNameKey": "Court name",

@@ -31,7 +31,7 @@ describe('Create third party user summary page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains('Check user details', 'Header does not match');
+        expect(header[0].innerHTML).contains('Create third party user summary', 'Header does not match');
     });
 
     it('should display correct summary keys', async () => {

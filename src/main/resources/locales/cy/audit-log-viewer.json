@@ -1,5 +1,6 @@
 {
-    "title": "System admin audit log",
+    "title": "Syllwr Archwilio Logiau - Gweld y log archwilio - Gwrandawiadau Llys a Thrydyddol - GOV.UK",
+    "header": "Gweld y log archwilio",
     "filter": "Filter",
     "clearFilters": "Clear filters",
     "clearHref": "?clear=all",

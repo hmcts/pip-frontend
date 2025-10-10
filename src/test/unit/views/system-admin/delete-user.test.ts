@@ -32,7 +32,15 @@ describe('Delete User Page', () => {
             });
     });
 
-    it('should display heading', () => {
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Delete User - Are you sure you want to delete user? - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the title'
+        );
+    });
+
+    it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains(
             'Are you sure you want to delete test@email.com?',

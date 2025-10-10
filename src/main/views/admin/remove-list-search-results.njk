@@ -26,6 +26,11 @@
         {% endif %}
         <h1 class="govuk-heading-l">{{ header }}</h1>
         {% if removalList | length > 0 %}
+            <h2 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--m" for="search-input">
+                   {{ inputMessage }}
+                </label>
+            </h2>
             <form method="post" action="remove-list-search-results">
                 <div {% if noOptionSelectedError %} class="govuk-form-group--error" {% endif %}>
                     <p class="govuk-body">{{ resultsMessage | replace("RESULTS_COUNT", removalList | length ) }}</p>
