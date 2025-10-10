@@ -64,7 +64,6 @@ describe('User management controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/user-management';
 
     it('should render the user management page', async () => {
         request.url = '/user-management';
