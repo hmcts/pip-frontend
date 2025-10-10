@@ -200,7 +200,7 @@ describe('get individual publication file', () => {
     it('should return file for a given publication', async () => {
         dataManagementStub
             .withArgs('/publication/fakeArtefactId/file', {
-                headers: { 'x-user-id': '123' },
+                headers: { 'x-requester-id': '123' },
                 responseType: 'arraybuffer',
             })
             .resolves(indivPubJsonObject);
