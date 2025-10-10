@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
+import { createClient } from "redis";
 
 function getRedisPassword(): string {
     if (config.has('secrets.pip-ss-kv.REDIS_PASSWORD')) {
@@ -28,8 +29,6 @@ if (process.env.REDIS_MOCK) {
     redisClient = redis.createClient();
 } else {
     const redisCredentials = setRedisCredentials();
-    const ioRedis = require('ioredis');
-
     let connectionString = '';
     if (process.env.REDIS_LOCAL) {
         // for running local dev environment (i.e. 'start:dev' profile)
@@ -40,18 +39,19 @@ if (process.env.REDIS_MOCK) {
     }
 
     logger.info('Connecting to Redis');
-    redisClient = new ioRedis(connectionString, { connectTimeout: 10000 });
-}
+    redisClient = createClient({
+        url: connectionString,
+        pingInterval: 300000,
+        socket: {
+            connectTimeout: 10000,
+        }
+    })
 
-export function intervalFunction(redisClient) {
-    if (redisClient.status === 'ready') {
-        redisClient.ping();
-    }
+    redisClient.connect()
+        .catch(function(error) {
+            logger.error('Error connecting to Redis client: ' + error);
+        });
 }
-
-//This is required due to azure removing idle connections after 10 minutes. Unfortunately the KEEPALIVE option
-//does not work with Azure. ioredis does not include an in build ping process, therefore need to implement our own.
-setInterval(() => intervalFunction(redisClient), 300000);
 
 redisClient.on('connect', () => {
     /* istanbul ignore next */
@@ -71,13 +71,13 @@ redisClient.on('error', error => {
 redisClient.on('ready', () => {
     /* istanbul ignore next */
     if (!process.env.REDIS_SUPPRESS) {
-        logger.info('redis ready');
+        logger.info('Redis ready');
     }
 });
 
 redisClient.on('close', () => {
     /* istanbul ignore next */
     if (!process.env.REDIS_SUPPRESS) {
-        logger.info('connection closed');
+        logger.info('Connection closed');
     }
 });

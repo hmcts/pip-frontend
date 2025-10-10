@@ -176,7 +176,7 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(89);
+        expect(listTypes.size).to.equal(92);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List (Full List)');
@@ -234,7 +234,7 @@ describe('Publication service', () => {
 
     describe('Count of locationIds->pubs endpoint', () => {
         it('should return a list of locationIds alongside the relevant number of publications', async () => {
-            const data = await publicationService.getCountsOfPubsPerLocation();
+            const data = await publicationService.getCountsOfPubsPerLocation('123-456');
             const expectedMap = new Map();
             expectedMap.set('1', 2);
             expectedMap.set('3', 1);

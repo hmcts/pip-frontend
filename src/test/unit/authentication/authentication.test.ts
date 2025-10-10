@@ -59,6 +59,7 @@ describe('Authentication', () => {
         expect(passport._strategies).to.have.property('login');
         expect(passport._strategies).to.have.property('media-verification');
         expect(passport._strategies).to.have.property('cft-idam');
+        expect(passport._strategies).to.have.property('crime-idam');
 
         expect(passport._strategies['login'].name).to.eql('azuread-openidconnect');
         expect(passport._strategies['login']._options.redirectUrl).to.eql(
@@ -70,6 +71,7 @@ describe('Authentication', () => {
         );
         expect(passport._strategies['sso'].name).to.eql('azuread-openidconnect');
         expect(passport._strategies['cft-idam'].name).to.eql('custom');
+        expect(passport._strategies['crime-idam'].name).to.eql('custom');
     });
 
     parameters.forEach(parameter => {
@@ -312,6 +314,81 @@ describe('Authentication', () => {
         expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'CFT' });
     });
 
+    it('Test that serialising a user for Crime IDAM where user exists returns their uid and flow', async () => {
+        const sinon = await import('sinon');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
+        const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByCrimeID');
+        stub.resolves({ userId: '1234' });
+
+        authentication();
+
+        const serializers = passport._serializers;
+        const firstSerializer = serializers[0];
+
+        const mockCallback = jest.fn();
+
+        const profile = { subname: '1234', flow: 'Crime' };
+        await firstSerializer(profile, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(stub.calledWith('1234')).to.be.true;
+        expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'Crime' });
+    });
+
+    it('Test that serialising a user for Crime IDAM where user does not exist returns their uid and flow', async () => {
+        const sinon = await import('sinon');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
+        const getUserByIdStub = sinon.stub(
+            AccountManagementRequests.AccountManagementRequests.prototype,
+            'getPiUserByCrimeID'
+        );
+        getUserByIdStub.resolves(null);
+
+        const createUserStub = sinon.stub(
+            AccountManagementRequests.AccountManagementRequests.prototype,
+            'createPIAccount'
+        );
+        createUserStub.resolves({});
+
+        const piArgs = [
+            {
+                userProvenance: 'CRIME_IDAM',
+                email: 'test@user.com',
+                roles: 'VERIFIED',
+                provenanceUserId: '1234',
+                forenames: 'FirstName',
+                surname: 'Surname',
+            },
+        ];
+
+        authentication();
+
+        const serializers = passport._serializers;
+        const firstSerializer = serializers[0];
+
+        const mockCallback = jest.fn();
+
+        const profile = {
+            subname: '1234',
+            flow: 'Crime',
+            email: 'test@user.com',
+            given_name: 'FirstName',
+            family_name: 'Surname',
+        };
+        await firstSerializer(profile, mockCallback);
+
+        expect(mockCallback.mock.calls.length).to.eql(1);
+        expect(mockCallback.mock.calls[0][0]).to.eql(null);
+        expect(getUserByIdStub.calledWith('1234')).to.be.true;
+
+        const createArgs = createUserStub.getCall(0).args;
+        expect(createArgs[0]).to.eql(piArgs);
+        expect(createArgs[1]).to.eql('');
+
+        expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'Crime' });
+    });
+
     it('Test serialising a SSO user', async () => {
         authentication();
 
@@ -360,6 +437,26 @@ describe('Authentication', () => {
         authentication();
 
         const profile = { uid: '1234', flow: 'CFT' };
+
+        const firstDeserializer = passport._deserializers[0];
+        const serializeMockCallback = jest.fn();
+
+        await firstDeserializer(profile, serializeMockCallback);
+
+        expect(serializeMockCallback.mock.calls.length).to.eql(1);
+        expect(serializeMockCallback.mock.calls[0][0]).to.eql(null);
+        expect(serializeMockCallback.mock.calls[0][1]).to.eql(userId);
+    });
+
+    it('Test that deserialising a Crime IDAM user returns the user object from the PI User table', async () => {
+        const sinon = await import('sinon');
+        const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
+        const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByCrimeID');
+        stub.resolves(userId);
+
+        authentication();
+
+        const profile = { uid: '1234', flow: 'Crime' };
 
         const firstDeserializer = passport._deserializers[0];
         const serializeMockCallback = jest.fn();

@@ -183,19 +183,19 @@ describe('get individual publication metadata', () => {
 describe('get count of pubs for each court', () => {
     it('should return the text as a string if successful', async () => {
         dataManagementStub.withArgs('/publication/count-by-location').resolves(successResponse);
-        const message = await pubRequests.getPubsPerLocation();
+        const message = await pubRequests.getPubsPerLocation('123-456');
         expect(message).toBe(successResponse.data);
     });
 
     it('should send an error response to logs if error response exists', async () => {
         dataManagementStub.withArgs('/publication/count-by-location').rejects(errorResponse);
-        const response = await pubRequests.getPubsPerLocation();
+        const response = await pubRequests.getPubsPerLocation('123-456');
         expect(response).toBe(null);
     });
 
     it('should send an error to the log if error message exists and error request does not exist', async () => {
         dataManagementStub.withArgs('/publication/count-by-location').rejects(errorMessage);
-        const message = await publicationRequests.getPubsPerLocation();
+        const message = await publicationRequests.getPubsPerLocation('123-456');
         expect(message).toStrictEqual(null);
     });
 });
@@ -204,7 +204,7 @@ describe('get individual publication file', () => {
     it('should return file for a given publication', async () => {
         dataManagementStub
             .withArgs('/publication/fakeArtefactId/file', {
-                headers: { 'x-user-id': '123' },
+                headers: { 'x-requester-id': '123' },
                 responseType: 'arraybuffer',
             })
             .resolves(indivPubJsonObject);
@@ -229,7 +229,7 @@ describe('get individual publication json', () => {
     it('should return json for a given publication', async () => {
         dataManagementStub
             .withArgs('/publication/fakeArtefactId/payload', {
-                headers: { 'x-user-id': '123' },
+                headers: { 'x-requester-id': '123' },
             })
             .resolves(mockJson);
         const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
@@ -267,17 +267,17 @@ describe('archive publication', () => {
 describe('Get noMatch publications', () => {
     it('should return data on successful get', async () => {
         dataManagementStub.withArgs('/publication/no-match').resolves(successResponse);
-        expect(await pubRequests.getNoMatchPublications()).toBe(successResponse.data);
+        expect(await pubRequests.getNoMatchPublications('123-456')).toBe(successResponse.data);
     });
 
     it('should handle error response from returned service returning empty array', async () => {
         dataManagementStub.withArgs('/publication/no-match').rejects(errorResponse);
-        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
+        expect(await pubRequests.getNoMatchPublications('123-456')).toStrictEqual([]);
     });
 
     it('should handle error request from returned service returning empty array', async () => {
         dataManagementStub.withArgs('/publication/no-match').rejects(errorMessage);
-        expect(await pubRequests.getNoMatchPublications()).toStrictEqual([]);
+        expect(await pubRequests.getNoMatchPublications('123-456')).toStrictEqual([]);
     });
 });
 
@@ -285,17 +285,17 @@ describe('delete location publication', () => {
     beforeEach(() => {
         dataManagementDeleteStub
             .withArgs('/publication/1/deleteArtefacts', {
-                headers: { 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .resolves({ data: 'success' });
         dataManagementDeleteStub
             .withArgs('/publication/2/deleteArtefacts', {
-                headers: { 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .rejects(errorResponse);
         dataManagementDeleteStub
             .withArgs('/publication/4/deleteArtefacts', {
-                headers: { 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .rejects(errorMessage);
     });

@@ -45,6 +45,8 @@ export class SessionManagementService {
                 req.session.regenerate(() => {
                     if (req.user['userProvenance'] == 'PI_AAD') {
                         res.redirect(this.aadLogOutUrl(isSessionExpired, req.lng));
+                    } else if (req.user['userProvenance'] == 'CRIME_IDAM') {
+                        res.redirect(this.crimeLogOutUrl(isSessionExpired, req.lng));
                     } else if (req.user['userProvenance'] == 'SSO') {
                         res.redirect(this.ssoLogoutUrl(isSessionExpired, req.lng));
                     } else {
@@ -93,6 +95,14 @@ export class SessionManagementService {
     private cftLogOutUrl(isSessionExpired: boolean, language: string): string {
         if (isSessionExpired) {
             return '/session-expired?lng=' + language + '&reSignInUrl=CFT';
+        } else {
+            return '/session-logged-out?lng=' + language;
+        }
+    }
+
+    private crimeLogOutUrl(isSessionExpired: boolean, language: string): string {
+        if (isSessionExpired) {
+            return '/session-expired?lng=' + language + '&reSignInUrl=CRIME';
         } else {
             return '/session-logged-out?lng=' + language;
         }

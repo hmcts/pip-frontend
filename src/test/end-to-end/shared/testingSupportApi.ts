@@ -2,8 +2,8 @@ import superagent from 'superagent';
 import { config as testConfig } from '../../config';
 import fs from 'fs';
 import {
-    getDataManagementCredentials,
     getAccountManagementCredentials,
+    getDataManagementCredentials,
 } from '../../../main/resources/requests/utils/axiosConfig';
 import path from 'path/posix';
 import { randomData } from './random-data';
@@ -113,7 +113,7 @@ export const createSubscription = async (locationId: string, locationName: strin
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/subscription`)
             .send(payload)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-user-id', `${testConfig.VERIFIED_USER_ID}`);
+            .set('x-requester-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
         throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
     }
@@ -146,6 +146,7 @@ export const uploadPublication = async (
             .set('x-list-type', listType)
             .set('x-court-id', locationId)
             .set('x-content-date', contentDate)
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.artefactId;
@@ -182,6 +183,7 @@ export const uploadFlatFile = async (
             .set('x-list-type', listType)
             .set('x-court-id', locationId)
             .set('x-content-date', contentDate)
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set('Content-Type', 'multipart/form-data')
             .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.artefactId;
@@ -195,7 +197,7 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
     try {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${artefactId}`)
-            .set('x-issuer-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete artefact for: ${artefactId}, http-status: ${e.response?.status}`);
@@ -220,7 +222,7 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/pi`)
             .send(thirdPartyUserAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-issuer-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
         return azureResponse.body['CREATED_ACCOUNTS'][0];
     } catch (e) {
         if (e.response?.badRequest) {
@@ -239,6 +241,7 @@ export const deleteThirdPartyUserAccount = async (userId: string) => {
     try {
         await superagent
             .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         if (e.response?.badRequest) {
@@ -265,7 +268,7 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/system-admin`)
             .send(systemAdminAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-issuer-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
     } catch (e) {
         if (e.response?.badRequest) {
             e.response.body['error'] = true;
@@ -305,8 +308,7 @@ export const createTestUserAccount = async (
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/account`)
             .send(verifiedUserAzureAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('Content-Type', 'application/json')
-            .set('x-issuer-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
+            .set('Content-Type', 'application/json');
         return azureResponse.body;
     } catch (e) {
         if (e.response?.badRequest) {

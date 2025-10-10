@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as helmet from 'helmet';
-import { B2C_URL, CFT_IDAM_URL } from '../../helpers/envUrls';
+
+import { B2C_URL, CFT_IDAM_URL, CRIME_IDAM_URL } from '../../helpers/envUrls';
 import { randomBytes } from 'crypto';
 
 export interface HelmetConfig {
@@ -60,7 +61,7 @@ export class Helmet {
                     manifestSrc: [self],
                     scriptSrc,
                     styleSrc: [self],
-                    formAction: [self, B2C_URL, CFT_IDAM_URL],
+                    formAction: [self, B2C_URL, CFT_IDAM_URL, CRIME_IDAM_URL],
                 },
             })
         );
