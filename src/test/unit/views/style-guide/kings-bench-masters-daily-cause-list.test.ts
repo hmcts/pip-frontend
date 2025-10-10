@@ -70,7 +70,7 @@ describe('King’s Bench Masters Daily Cause List page', () => {
     it("should display King's Bench Guide link", () => {
         const link = htmlRes.getElementsByClassName(govukLinkClass);
         expect(link[5].getAttribute('href')).eq(
-            'https://www.judiciary.uk/guidance-and-resources/kings-bench-guide-2024/'
+            'https://www.judiciary.uk/guidance-and-resources/kings-bench-guide-2025/#:~:text=The%20King%E2%80%99s%20Bench%20Guide%202025%20has%20been%20published.,Division.%20%E2%80%A2%20updated%20KB%20Masters%E2%80%99%20Clerks%E2%80%99%20contact%20details'
         );
     });
 
