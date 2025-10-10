@@ -61,7 +61,7 @@ export class LocationRequests {
 
     public async deleteCourt(locationId: number, requesterId: string): Promise<object> {
         try {
-            const header = { headers: { 'x-requester-id': requesterId, 'x-user-id': requesterId } };
+            const header = { headers: { 'x-requester-id': requesterId } };
             const response = await dataManagementApi.delete(`/locations/${locationId}`, header);
             return response.data;
         } catch (error) {
@@ -72,7 +72,7 @@ export class LocationRequests {
 
     public async getLocationsCsv(requesterId: string): Promise<Blob> {
         try {
-            const headers = { 'x-requester-id': requesterId, 'x-user-id': requesterId };
+            const headers = { 'x-requester-id': requesterId };
             const response = await dataManagementApi.get('/locations/download/csv', {
                 responseType: 'arraybuffer',
                 headers,

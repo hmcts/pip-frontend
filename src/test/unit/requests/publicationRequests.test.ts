@@ -204,7 +204,7 @@ describe('get individual publication file', () => {
     it('should return file for a given publication', async () => {
         dataManagementStub
             .withArgs('/publication/fakeArtefactId/file', {
-                headers: { 'x-user-id': '123' },
+                headers: { 'x-requester-id': '123' },
                 responseType: 'arraybuffer',
             })
             .resolves(indivPubJsonObject);
@@ -229,7 +229,7 @@ describe('get individual publication json', () => {
     it('should return json for a given publication', async () => {
         dataManagementStub
             .withArgs('/publication/fakeArtefactId/payload', {
-                headers: { 'x-requester-id': '123', 'x-user-id': '123' },
+                headers: { 'x-requester-id': '123' },
             })
             .resolves(mockJson);
         const message = await pubRequests.getIndividualPublicationJson('fakeArtefactId', userId);
@@ -285,17 +285,17 @@ describe('delete location publication', () => {
     beforeEach(() => {
         dataManagementDeleteStub
             .withArgs('/publication/1/deleteArtefacts', {
-                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .resolves({ data: 'success' });
         dataManagementDeleteStub
             .withArgs('/publication/2/deleteArtefacts', {
-                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .rejects(errorResponse);
         dataManagementDeleteStub
             .withArgs('/publication/4/deleteArtefacts', {
-                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .rejects(errorMessage);
     });

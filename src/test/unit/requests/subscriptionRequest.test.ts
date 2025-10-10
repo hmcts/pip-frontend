@@ -229,17 +229,17 @@ describe('delete location subscription', () => {
     beforeEach(() => {
         deleteStub
             .withArgs('/subscription/location/1', {
-                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .resolves({ data: 'success' });
         deleteStub
             .withArgs('/subscription/location/2', {
-                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .rejects(errorResponse);
         deleteStub
             .withArgs('/subscription/location/4', {
-                headers: { 'x-requester-id': adminUserId, 'x-user-id': adminUserId },
+                headers: { 'x-requester-id': adminUserId },
             })
             .rejects(errorMessage);
     });
