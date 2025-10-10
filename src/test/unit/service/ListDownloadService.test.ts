@@ -22,11 +22,9 @@ fileExistsStub.withArgs('123').resolves(true);
 fileExistsStub.withArgs('124').resolves(false);
 
 const downloadFilesStub = sinon.stub(PublicationFileRequests.prototype, 'getStoredFile');
-downloadFilesStub.withArgs('123', 'PDF', { 'x-requester-id': '1234', 'x-user-id': '1234' }).resolves(expectedPdfData);
-downloadFilesStub
-    .withArgs('123', 'EXCEL', { 'x-requester-id': '1234', 'x-user-id': '1234' })
-    .resolves(expectedExcelData);
-downloadFilesStub.withArgs('124', 'PDF', { 'x-requester-id': '1234', 'x-user-id': '1234' }).resolves(null);
+downloadFilesStub.withArgs('123', 'PDF', { 'x-requester-id': '1234' }).resolves(expectedPdfData);
+downloadFilesStub.withArgs('123', 'EXCEL', { 'x-requester-id': '1234' }).resolves(expectedExcelData);
+downloadFilesStub.withArgs('124', 'PDF', { 'x-requester-id': '1234' }).resolves(null);
 
 const getFileSizeStub = sinon.stub(PublicationFileRequests.prototype, 'getFileSizes');
 getFileSizeStub.withArgs('123').resolves({
