@@ -5,12 +5,12 @@ import sinon from 'sinon';
 import fs from 'fs';
 import path from 'path';
 import { LocationService } from '../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 import { PublicationService } from '../../../main/service/PublicationService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {
     'list-option': {},
+    error: { title: 'error' },
 };
 const court = { name: 'New Court', email: 'test@test.com', contactNo: '0123456789' };
 
@@ -28,7 +28,7 @@ const additionalLocationInfo = {
 sinon
     .stub(LocationService.prototype, 'getLocationById')
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(metadata);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(metadata);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
 additionalLocationInfoStub.withArgs(1).returns(null);
@@ -139,6 +139,22 @@ describe('Get publications', () => {
         responseMock.verify();
     });
 
+    it('should render the error page if location ID is no a number', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.query = { locationId: 'Test2' };
+        request.user = { userId: 1 };
+        const responseMock = sinon.mock(response);
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
+    });
+
     it('should render the error screen if there is no locationId passed as a param', async () => {
         const response = {
             render: () => {
@@ -148,6 +164,9 @@ describe('Get publications', () => {
         const request = mockRequest(i18n);
         request.user = { userId: 1 };
         const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('error');
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
     });
 });
