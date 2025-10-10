@@ -48,6 +48,14 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Lond
             );
         });
 
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily Hearing List - Court and Tribunal Hearings - GOV.UK',
+                'Could not find the page title'
+            );
+        });
+
         it('should display list date', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[4].innerHTML).contains('List for 14 February 2022');

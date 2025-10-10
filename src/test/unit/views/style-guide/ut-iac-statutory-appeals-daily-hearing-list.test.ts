@@ -36,6 +36,14 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Upper Tribunal (Immigration and Asylum) Chamber Statutory Appeal Daily Hearing List - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the page title'
+        );
+    });
+
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains(

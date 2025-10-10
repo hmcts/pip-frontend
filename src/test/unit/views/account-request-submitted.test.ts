@@ -3,7 +3,8 @@ import { expect } from 'chai';
 import request from 'supertest';
 
 const PAGE_URL = '/account-request-submitted';
-const pageTitleValue = 'Account request submitted';
+const pageTitleValue = 'Account request submitted - What happens next - Court and Tribunal Hearings - GOV.UK';
+const pageHeaderValue = 'What happens next';
 let htmlRes: Document;
 
 describe('Account request submitted page', () => {
@@ -26,12 +27,10 @@ describe('Account request submitted page', () => {
         expect(header[0].innerHTML).contains('Details submitted', 'Could not find correct value in panel title');
     });
 
-    it('should display valid heading message', () => {
-        const message = htmlRes.getElementsByClassName('govuk-heading-m');
-        expect(message[0].innerHTML).contains(
-            'What happens next',
-            'Could not find correct value in the heading message'
-        );
+    it('should display valid header', () => {
+        const header = htmlRes.getElementsByClassName('govuk-heading-l');
+        console.log(header);
+        expect(header[0].innerHTML).contains(pageHeaderValue, 'Could not find correct value in the heading message');
     });
 
     it('should display valid review message', () => {

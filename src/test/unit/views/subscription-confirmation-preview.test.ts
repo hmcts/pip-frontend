@@ -683,7 +683,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
         it('should display error summary if user tries to confirm 0 subscriptions', () => {
             const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
             const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title')[0];
-            expect(errorSummaryList.innerHTML).contains('At least 1 subscription is needed.');
+            expect(errorSummaryList.innerHTML).contains('At least one subscription is needed.');
             expect(errorSummaryTitle.innerHTML).contains('There is a problem');
         });
     });
@@ -702,7 +702,7 @@ describe('Subscriptions Confirmation Preview Page', () => {
         it('should display error summary if user tries to confirm 0 subscriptions', () => {
             const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list')[0];
             const errorSummaryTitle = htmlRes.getElementsByClassName('govuk-error-summary__title')[0];
-            expect(errorSummaryList.innerHTML).contains('At least 1 subscription is needed.');
+            expect(errorSummaryList.innerHTML).contains('At least one subscription is needed.');
             expect(errorSummaryTitle.innerHTML).contains('There is a problem');
         });
 
