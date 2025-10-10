@@ -8,8 +8,6 @@ import {
     isPermittedManualUpload,
     isPermittedMediaAccount,
     mediaVerificationHandling,
-    processMediaAccountSignIn,
-    processAdminAccountSignIn,
     processCftIdamSignIn,
     processCrimeIdamSignIn,
     isPermittedSystemAdmin,
@@ -31,7 +29,6 @@ import {
 import request from 'supertest';
 import { app } from '../../../main/app';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
-import { SessionManagementService } from '../../../main/service/SessionManagementService';
 
 const updateMediaAccountVerification = sinon.stub(
     AccountManagementRequests.prototype,
@@ -269,15 +266,7 @@ describe('forgot password reset', () => {
             .expect(res => expect(res.redirect).to.be.true)
             .expect(res => expect(res.header.location).to.contain('response_type=code'))
             .expect(res => expect(res.header.location).to.contain('response_mode=form_post'))
-            .expect(res => expect(res.header.location).to.contain('/password-change-confirmation/false'));
-    });
-
-    test('should redirect to azure again if password reset error is returned from the B2C with the correct admin redirect url', async () => {
-        await request(app)
-            .post('/login/admin/return')
-            .send({ error: 'access_denied', error_description: 'AADB2C90118' })
-            .expect(res => expect(res.redirect).to.be.true)
-            .expect(res => expect(res.header.location).to.contain('/password-change-confirmation/true'));
+            .expect(res => expect(res.header.location).to.contain('/password-change-confirmation'));
     });
 });
 
@@ -315,64 +304,6 @@ describe('media verification handling', () => {
     });
 });
 
-describe('process account sign-in', () => {
-    const sessionManagementServiceStub = sinon.stub(SessionManagementService.prototype, 'logOut');
-
-    it('should redirect to admin dashboard for an admin user', async () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'INTERNAL_SUPER_ADMIN_CTSC', oid: '1234' } };
-        const res = { redirect: mockRedirectFunction };
-
-        await processAdminAccountSignIn(req, res);
-
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1234')).to.be.true;
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/admin-dashboard');
-    });
-
-    it('should redirect to system dashboard for a system admin user', async () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'SYSTEM_ADMIN', oid: '1235' } };
-        const res = { redirect: mockRedirectFunction };
-
-        await processAdminAccountSignIn(req, res);
-
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1235')).to.be.true;
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/system-admin-dashboard');
-    });
-
-    it('should redirect to admin account reject screen for a non admin user trying to login via admin flow', async () => {
-        const req = { user: { roles: 'SYSTEM_ADMIN', oid: '1236' } };
-        const res = {};
-
-        await processMediaAccountSignIn(req, res);
-
-        expect(sessionManagementServiceStub.calledWith(req, res, true)).to.be.true;
-    });
-
-    it('should redirect to media account reject screen for a non admin user trying to login via admin flow', async () => {
-        const req = { user: { roles: 'VERIFIED', oid: '1236' } };
-        const res = {};
-
-        await processAdminAccountSignIn(req, res);
-
-        expect(sessionManagementServiceStub.calledWith(req, res, true)).to.be.true;
-    });
-
-    it('should redirect to account home for a media user', async () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const req = { user: { roles: 'VERIFIED', oid: '1236' } };
-        const res = { redirect: mockRedirectFunction };
-
-        await processMediaAccountSignIn(req, res);
-
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(updateAccountLastSignedInDate.calledWith('PI_AAD', '1236')).to.be.true;
-        expect(mockRedirectFunction.mock.calls[0][0]).to.equal('/account-home');
-    });
-});
-
 describe('process account password change confirmation', () => {
     it('should continue to next middleware when no error returned', async () => {
         const mockFunction = jest.fn(argument => argument);
@@ -386,36 +317,15 @@ describe('process account password change confirmation', () => {
     });
 
     it('should redirect to cancelled password reset when error is confirmed', async () => {
-        const isAdmin = 'true';
         const mockFunction = jest.fn(argument => argument);
-        const req = { body: { error_description: 'AADB2C90091' }, params: { isAdmin: isAdmin } };
+        const req = { body: { error_description: 'AADB2C90091' } };
         const res = { redirect: mockFunction };
         const next = null;
 
         checkPasswordReset(req, res, next);
 
         expect(mockFunction.mock.calls.length).to.equal(1);
-        expect(mockFunction.mock.calls[0][0]).to.equal('/cancelled-password-reset/' + isAdmin);
-    });
-
-    it('should redirect to error page when invalid isAdmin flag is displayed', async () => {
-        const mockFunction = jest.fn(argument => argument);
-        const req = {
-            body: { error_description: 'AADB2C90091' },
-            params: { isAdmin: 'UNKNOWN_TYPE' },
-            i18n: {
-                getDataByLanguage: lng => {
-                    return { error: lng };
-                },
-            },
-        };
-        const res = { render: mockFunction };
-        const next = null;
-
-        checkPasswordReset(req, res, next);
-
-        expect(mockFunction.mock.calls.length).to.equal(1);
-        expect(mockFunction.mock.calls[0][0]).to.equal('error');
+        expect(mockFunction.mock.calls[0][0]).to.equal('/cancelled-password-reset');
     });
 });
 
@@ -574,21 +484,7 @@ describe('test forgotten password redirect', () => {
         forgotPasswordRedirect(req, res, next());
 
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.contain('/password-change-confirmation/false');
-    });
-
-    it('test redirect is called with admin return', () => {
-        const mockRedirectFunction = jest.fn(argument => argument);
-        const res = { redirect: mockRedirectFunction };
-        const next = () => {
-            return 0;
-        };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login/admin/return' };
-
-        forgotPasswordRedirect(req, res, next());
-
-        expect(mockRedirectFunction.mock.calls.length).to.equal(1);
-        expect(mockRedirectFunction.mock.calls[0][0]).to.contain('/password-change-confirmation/true');
+        expect(mockRedirectFunction.mock.calls[0][0]).to.contain('/password-change-confirmation');
     });
 
     it('test redirect is called with english language', () => {

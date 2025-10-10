@@ -33,26 +33,6 @@ describe('Session Expired Controller', () => {
         responseMock.verify();
     });
 
-    it('should render session expired page for admin user', () => {
-        const response = {
-            render: () => {
-                return '';
-            },
-        } as unknown as Response;
-        const responseMock = sinon.mock(response);
-        const request = mockRequest(i18n);
-        request.query = { reSignInUrl: 'ADMIN' };
-
-        const expectedOptions = {
-            ...i18n['session-expired'],
-            signInUrl: reSignInUrls.ADMIN,
-        };
-
-        responseMock.expects('render').once().withArgs('session-expired', expectedOptions);
-        sessionExpiredController.get(request, response);
-        responseMock.verify();
-    });
-
     it('should render session expired page for CFT IDAM user', () => {
         const response = {
             render: () => {
