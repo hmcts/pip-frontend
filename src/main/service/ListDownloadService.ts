@@ -13,7 +13,6 @@ export class ListDownloadService {
         return user && user['roles'] === 'VERIFIED'
             ? await publicationFileRequests.fileExists(artefactId, {
                   'x-requester-id': user['userId'],
-                  'x-user-id': user['userId'],
               })
             : false;
     }
@@ -23,7 +22,6 @@ export class ListDownloadService {
             const fileType = Object.keys(FileType)[Object.values(FileType).indexOf(fileExtension)];
             return await publicationFileRequests.getStoredFile(artefactId, fileType, {
                 'x-requester-id': userId,
-                'x-user-id': userId,
             });
         }
         return null;
@@ -33,7 +31,6 @@ export class ListDownloadService {
         const byteUnits = ['KB', 'MB'];
         const fileSizes = await publicationFileRequests.getFileSizes(artefactId, {
             'x-requester-id': userId,
-            'x-user-id': userId,
         });
 
         if (fileSizes) {
