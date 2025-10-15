@@ -58,7 +58,6 @@ export const reSignInUrls = {
     CFT: '/cft-login',
     CRIME: '/crime-login',
     AAD: `/login?p=${authenticationConfig.POLICY}`,
-    ADMIN: `/admin-login?p=${authenticationConfig.ADMIN_POLICY}`,
     SSO: '/sso-login',
 };
 

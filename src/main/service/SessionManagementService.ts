@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
-import { B2C_ADMIN_URL, B2C_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
+import { B2C_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
 import { reSignInUrls } from '../helpers/consts';
 import * as url from 'url';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -9,7 +9,7 @@ const defaultSessionExpiry = 60 * 60 * 1000;
 const reSignInUrlKeys = Object.keys(reSignInUrls);
 
 export class SessionManagementService {
-    public logOut(req, res, isWrongFlow, isSessionExpired = false): void {
+    public logOut(req, res, isSessionExpired = false): void {
         req.session.user = null;
 
         //If the request doesn't have a user, it must have already been logged out on another tab. Therefore
@@ -44,9 +44,7 @@ export class SessionManagementService {
             req.session.save(() => {
                 req.session.regenerate(() => {
                     if (req.user['userProvenance'] == 'PI_AAD') {
-                        res.redirect(
-                            this.aadLogOutUrl(checkRoles(req, allAdminRoles), isWrongFlow, isSessionExpired, req.lng)
-                        );
+                        res.redirect(this.aadLogOutUrl(isSessionExpired, req.lng));
                     } else if (req.user['userProvenance'] == 'CRIME_IDAM') {
                         res.redirect(this.crimeLogOutUrl(isSessionExpired, req.lng));
                     } else if (req.user['userProvenance'] == 'SSO') {
@@ -61,7 +59,7 @@ export class SessionManagementService {
 
     public handleSessionExpiry(req, res): boolean {
         if (this.isSessionExpired(req)) {
-            this.logOut(req, res, false);
+            this.logOut(req, res);
             return true;
         }
         return false;
@@ -86,21 +84,11 @@ export class SessionManagementService {
         return false;
     }
 
-    public aadLogOutUrl(isAdmin: boolean, isWrongFlow: boolean, isSessionExpired: boolean, language: string): string {
-        let b2cUrl;
-        let b2cPolicy;
+    public aadLogOutUrl(isSessionExpired: boolean, language: string): string {
+        const b2cUrl = B2C_URL;
+        const b2cPolicy = authenticationConfig.POLICY;
 
-        if (isWrongFlow) {
-            b2cUrl = isAdmin ? B2C_URL : B2C_ADMIN_URL;
-            b2cPolicy = isAdmin ? authenticationConfig.POLICY : authenticationConfig.ADMIN_POLICY;
-        } else {
-            b2cUrl = isAdmin ? B2C_ADMIN_URL : B2C_URL;
-            b2cPolicy = isAdmin ? authenticationConfig.ADMIN_POLICY : authenticationConfig.POLICY;
-        }
-
-        const encodedSignOutRedirect = encodeURIComponent(
-            this.logOutRedirectUrl(isAdmin, isWrongFlow, isSessionExpired, language)
-        );
+        const encodedSignOutRedirect = encodeURIComponent(this.logOutRedirectUrl(isSessionExpired, language));
         return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
     }
 
@@ -131,25 +119,18 @@ export class SessionManagementService {
         }
     }
 
-    private logOutRedirectUrl(
-        isAdmin: boolean,
-        isWrongFlow: boolean,
-        isSessionExpired: boolean,
-        language: string
-    ): string {
-        const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(isWrongFlow, isSessionExpired, isAdmin)}`);
+    private logOutRedirectUrl(isSessionExpired: boolean, language: string): string {
+        const url = new URL(`${FRONTEND_URL}/${this.getRedirectionPath(isSessionExpired)}`);
         url.searchParams.append('lng', language);
 
         if (isSessionExpired) {
-            url.searchParams.append('reSignInUrl', isAdmin ? 'ADMIN' : 'AAD');
+            url.searchParams.append('reSignInUrl', 'AAD');
         }
         return url.toString();
     }
 
-    private getRedirectionPath(isWrongFlow: boolean, isSessionExpired: boolean, isAdmin: boolean): string {
-        if (isWrongFlow) {
-            return isAdmin ? 'admin-rejected-login' : 'media-rejected-login';
-        } else if (isSessionExpired) {
+    private getRedirectionPath(isSessionExpired: boolean): string {
+        if (isSessionExpired) {
             return 'session-expired';
         } else {
             return 'session-logged-out';
