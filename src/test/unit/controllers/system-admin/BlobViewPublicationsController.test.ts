@@ -3,13 +3,14 @@ import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import { LocationService } from '../../../../main/service/LocationService';
 import BlobViewPublicationsController from '../../../../main/controllers/system-admin/BlobViewPublicationsController';
-import { SummaryOfPublicationsService } from '../../../../main/service/SummaryOfPublicationsService';
 import fs from 'fs';
 import path from 'path';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const blobViewController = new BlobViewPublicationsController();
 const i18n = {
     'blob-view-publications': {},
+    error: { title: 'error' },
 };
 const rawSJPData = fs.readFileSync(path.resolve(__dirname, '../../mocks/trimmedSJPCases.json'), 'utf-8');
 const sjpCases = JSON.parse(rawSJPData).results;
@@ -21,7 +22,7 @@ describe('Get publications', () => {
             .withArgs(1)
             .resolves(JSON.parse('{"name":"New Court"}'));
 
-        sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs(1).resolves(sjpCases);
+        sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').withArgs(1).resolves(sjpCases);
 
         const response = {
             render: () => {
@@ -44,8 +45,28 @@ describe('Get publications', () => {
         responseMock.verify;
     });
 
+    it('should render error page if location ID is not an integer', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.query = { locationId: 'Test1' };
+        request.user = { id: 1 };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('error', { ...i18n.error });
+        await blobViewController.get(request, response);
+        responseMock.verify;
+    });
+
     it('should render No Match artefacts if location ID equals noMatch', async () => {
-        sinon.stub(SummaryOfPublicationsService.prototype, 'getNoMatchPublications').resolves(sjpCases);
+        sinon.stub(PublicationService.prototype, 'getNoMatchPublications').resolves(sjpCases);
 
         const response = {
             render: () => {

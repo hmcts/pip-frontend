@@ -1,6 +1,5 @@
 import sinon from 'sinon';
 import { LocationService } from '../../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../../main/service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../../../../main/service/ManualUploadService';
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
@@ -62,7 +61,7 @@ const removeListFormData = { courtLists: ['valid-artefact', 'valid-artefact'], l
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(mockArtefactsArray);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockArtefactsArray);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('5', true, true).resolves([]);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').withArgs('5').resolves([]);
 
 const removeListSearchResultsController = new RemoveListSearchResultsController();
 
@@ -84,10 +83,23 @@ describe('Remove List Summary Controller', () => {
             await responseMock.verify();
         });
 
-        it('should render error page', async () => {
+        it('should render error page if no lopcation ID', async () => {
             const request = mockRequest(i18n);
             const responseMock = sinon.mock(response);
             request.query = {};
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', { ...i18n.error });
+            await removeListSearchResultsController.get(request, response);
+            await responseMock.verify();
+        });
+
+        it('should render error page if location ID not an integer', async () => {
+            const responseMock = sinon.mock(response);
+            const request = mockRequest(i18n);
+            request.query = { locationId: 'Test5' };
+
             responseMock
                 .expects('render')
                 .once()
