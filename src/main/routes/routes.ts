@@ -173,9 +173,6 @@ export default function (app: Application): void {
     app.get('/civil-and-family-daily-cause-list', (req, res) =>
         app.locals.container.cradle.dailyCauseListController.get(req, res, 'civil-and-family-daily-cause-list')
     );
-    app.get('/crown-daily-list', app.locals.container.cradle.crownDailyListController.get);
-    app.get('/crown-firm-list', app.locals.container.cradle.crownFirmListController.get);
-    app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedListController.get);
     app.get('/daily-cause-list', (req, res) =>
         app.locals.container.cradle.dailyCauseListController.get(req, res, 'daily-cause-list')
     );
