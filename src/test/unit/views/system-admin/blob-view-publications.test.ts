@@ -3,15 +3,15 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { app } from '../../../../main/app';
 import { LocationService } from '../../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../../main/service/SummaryOfPublicationsService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const publicationsMock = [
     { artefactId: '1', listType: 'TYPE1', locationId: '1', publicationDate: '2024-06-01', contentDate: '2024-06-01' },
     { artefactId: '2', listType: 'TYPE2', locationId: '1', publicationDate: '2024-06-02', contentDate: '2024-06-02' },
 ];
 
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(publicationsMock);
-sinon.stub(SummaryOfPublicationsService.prototype, 'getNoMatchPublications').resolves([
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(publicationsMock);
+sinon.stub(PublicationService.prototype, 'getNoMatchPublications').resolves([
     {
         artefactId: '3',
         listType: 'TYPE3',
