@@ -44,7 +44,7 @@ const userData = testUserData();
 sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData[0]);
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').resolves(locationData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData);
-sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata);
+sinon.stub(PublicationRequests.prototype, 'getPublicationsByLocation').resolves(metadata);
 sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').resolves(metadata[0]);
 sinon.stub(AccountManagementRequests.prototype, 'getPendingMediaApplications').resolves(mediaApplications);
 sinon.stub(AccountManagementRequests.prototype, 'getMediaApplicationById').resolves(mediaApplications[0]);
