@@ -14,8 +14,8 @@
     "buttonAddText": "Add Subscriptions",
     "error": {
         "title": "There is a problem",
-        "message": "At least 1 subscription is needed.",
-        "pageTitle": "Confirm your email subscriptions - At least 1 subscription is needed - Court and Tribunal Hearings - GOV.UK"
+        "message": "At least one subscription is needed.",
+        "pageTitle": "Confirm your email subscriptions - At least one subscription is needed - Court and Tribunal Hearings - GOV.UK"
     },
     "english": "English",
     "welsh": "Welsh",
