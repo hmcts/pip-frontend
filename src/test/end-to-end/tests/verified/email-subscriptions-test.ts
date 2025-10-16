@@ -637,7 +637,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see('Single Justice Procedure Press List');
     I.see('Employment Tribunals Daily List');
     I.see('Employment Tribunals Fortnightly Press List');
-    I.dontSee('Crown Daily List');
+    I.dontSee('Crown Daily PDDA List');
     I.dontSee('Criminal Injuries Compensation');
     I.dontSee('Care Standards Tribunal');
     I.dontSee('Primary Health Tribunal');
