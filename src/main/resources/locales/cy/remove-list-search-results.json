@@ -10,5 +10,5 @@
     "resultsMessage": "Showing RESULTS_COUNT result(s)",
     "tableHeaders": ["List type", "Court or Tribunal Name", "Display Dates", "Language", "Sensitivity", "Select"],
     "rowAction": "Remove",
-    "languageItems": ["English", "Welsh", "Bilingual"]
+    "languageItems": ["English", "Welsh"]
 }
