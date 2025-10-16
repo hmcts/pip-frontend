@@ -30,7 +30,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.selectOption(listTypeId, 'Crown Warned PDDA List');
 
     classification = await I.grabValueFrom(classificationId);
-    Assert.equal(classification, sensitivityPrivate);
+    Assert.equal(classification, sensitivityClassified);
 
     I.selectOption(listTypeId, 'Magistrates Standard List');
 
