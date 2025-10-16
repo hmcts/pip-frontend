@@ -38,7 +38,7 @@ sinon.stub(PublicationRequests.prototype, 'getPublicationsByLocation').resolves(
 sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(metadata);
 sinon.stub(PublicationService.prototype, 'getListTypes').returns(
     new Map([
-        ['CROWN_WARNED_LIST', { friendlyName: 'List A' }],
+        ['CROWN_WARNED_PDDA_LIST', { friendlyName: 'List A' }],
         ['SJP_PUBLIC_LIST', { friendlyName: 'List B' }],
     ])
 );
