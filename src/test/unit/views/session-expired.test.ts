@@ -4,7 +4,9 @@ const PAGE_URL = '/session-expired';
 import request from 'supertest';
 import { app } from '../../../main/app';
 
-const expectedHeader = 'You have been signed out, due to inactivity';
+const expectedTitle =
+    'Session expired - You have been signed out due to inactivity - Court and Tribunal Hearings - GOV.UK';
+const expectedHeader = 'You have been signed out due to inactivity';
 const expectedBodyDetail =
     'This has been for your security and for the security of the individuals included within our service.';
 const expectedBodySignInMessage = 'Please click here to sign in or close this session';
@@ -25,7 +27,7 @@ describe('Session Expired Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains(expectedHeader, 'Page title does not match');
+            expect(pageTitle).contains(expectedTitle, 'Page title does not match');
         });
 
         it('should display page header', () => {

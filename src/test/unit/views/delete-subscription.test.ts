@@ -6,6 +6,8 @@ let htmlRes: Document;
 const PAGE_URL = '/delete-subscription?subscription=ValidSubscription';
 const buttonClass = 'govuk-button';
 const expectedButtonText = 'Continue';
+const expectedTitleText =
+    'Unsubscribe from Subscription - Are you sure you want to remove this subscription? - Court and Tribunal Hearings - GOV.UK';
 const expectedHeaderText = 'Are you sure you want to remove this subscription?';
 const radioClass = 'govuk-radios__item';
 const expectedRadioLabel1 = 'Yes';
@@ -21,6 +23,11 @@ describe('Delete Subscription page', () => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
             });
+    });
+
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(expectedTitleText, 'Page title does not match header');
     });
 
     it('should display header', () => {
