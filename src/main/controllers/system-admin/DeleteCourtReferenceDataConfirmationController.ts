@@ -41,7 +41,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                         apiError: response['exists'],
                         errorMessage: response['errorMessage'],
                     });
-                } else if (response === null)  {
+                } else if (response === null) {
                     await userManagementService.auditAction(
                         req.user,
                         'DELETE_LOCATION_ATTEMPT',
