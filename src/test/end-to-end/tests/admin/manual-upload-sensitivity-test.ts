@@ -40,7 +40,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.selectOption(listTypeId, 'Crown Firm PDDA List');
 
     classification = await I.grabValueFrom(classificationId);
-    Assert.equal(classification, sensitivityPrivate);
+    Assert.equal(classification, sensitivityClassified);
 
     I.attachFile('#manual-file-upload', '../unit/mocks/crownWarnedPddaList.json');
     I.fillField('#search-input', 'Single Justice Procedure');
