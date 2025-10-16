@@ -3,7 +3,7 @@
 ![Light Mode Logo](lightLogo.png#gh-light-mode-only)
 ![Dark Mode Logo](darkLogo.jpg#gh-dark-mode-only)
 
-# Table of Contents.
+# Table of Contents
 
 1. [Overview](#overview)
     1. [Features and functionality](#features-and-functionality)
