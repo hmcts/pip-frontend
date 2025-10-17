@@ -1,5 +1,6 @@
 {
-    "header": "Are you sure you want to delete this court?",
+    "title": "Dileu data cyfeirnod y llys - Ydych chi'n siŵr eich bod eisiau dileu'r llys hwn? - Gwrandawiadau Llys a Thrydyddol - GOV.UK",
+    "header": "Ydych chi'n siŵr eich bod eisiau dileu'r llys hwn?",
     "optionYes": "Yes",
     "optionNo": "No",
     "error": {
