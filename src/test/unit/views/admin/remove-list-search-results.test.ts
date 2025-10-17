@@ -60,9 +60,17 @@ describe('Remove List Summary Page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Remove - Remove List Summary - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the title'
+        );
+    });
+
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains('Select content to remove', 'Could not find correct value in header');
+        expect(header[0].innerHTML).contains('Remove List Summary', 'Could not find correct value in header');
     });
 
     it('should display results count', () => {

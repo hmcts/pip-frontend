@@ -1,5 +1,6 @@
 {
-    "title": "Blob Explorer - Locations",
+    "title": "Gweinyddwr y System - Archwiliwr Lleoliadau Blob - Gwrandawiadau Llys a Thribiwnlys - GOV.UK",
+    "header": "Archwiliwr Lleoliadau Blob",
     "subHeading": "Choose a location to see all publications associated with it.",
     "tableHeaders": ["Location", "Number of Publications"]
 }

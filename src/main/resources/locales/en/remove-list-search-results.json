@@ -1,12 +1,13 @@
 {
-    "title": "Remove List Summary",
+    "title": "Remove - Remove List Summary - Court and Tribunal Hearings - GOV.UK",
+    "header": "Remove List Summary",
+    "inputMessage": "Select content to remove",
     "error": {
         "noResults": "There are no matching results",
         "invalidInput": "Court or tribunal name must be 3 characters or more",
         "summaryTitleText": "There is a problem",
         "noOptionSelectedError": "At least one publication must be selected"
     },
-    "header": "Select content to remove",
     "resultsMessage": "Showing RESULTS_COUNT result(s)",
     "tableHeaders": [
         "List type",

@@ -21,14 +21,14 @@ describe('SSO rejected login page', () => {
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
         expect(pageTitle).contains(
-            'Account log in - SSO Rejected Login - Court and Tribunal Hearings - GOV.UK',
-            'Page title does not match header'
+            'Sign in - SSO Rejected Login - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the title'
         );
     });
 
-    it('should display page header', () => {
+    it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains('SSO Rejected Login', 'Page header does not match');
+        expect(header[0].innerHTML).contains('SSO Rejected Login', 'Could not find the header');
     });
 
     it('should display paragraph text', () => {
