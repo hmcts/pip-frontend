@@ -45,18 +45,18 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.fillField('#thirdPartyName', testName);
     I.click('#thirdPartyRole');
     I.click('Continue');
-    I.waitForText('Check user details');
+    I.waitForText('Create third party user summary');
     I.see(testName);
     I.see('General third party');
     I.click(locate('//div').withText('General third party').find('a').withText('Change'));
     I.waitForText('Create third party user');
     I.click('#thirdPartyRole-8');
     I.click('Continue');
-    I.waitForText('Check user details');
+    I.waitForText('Create third party user summary');
     I.see(testName);
     I.see('Verified third party - All');
     I.click('Confirm');
-    I.waitForText('Third party user has been created');
+    I.waitForText('Third party user created');
 
     I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
@@ -71,7 +71,7 @@ Scenario('I as a system admin should be able to create and delete third party us
     I.waitForText('Are you sure you want to delete ' + testName + '?');
     I.click('#delete-user-confirm');
     I.click('Continue');
-    I.waitForText('Success');
+    I.waitForText('Third party user deleted');
     I.see('The third party user and associated subscriptions have been removed.');
     I.see('What do you want to do next?');
 
@@ -97,9 +97,9 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.fillField('#thirdPartyName', testName);
     I.click('#thirdPartyRole');
     I.click('Continue');
-    I.waitForText('Check user details');
+    I.waitForText('Create third party user summary');
     I.click('Confirm');
-    I.waitForText('Third party user has been created');
+    I.waitForText('Third party user created');
 
     I.click(locate('//li').withText('Dashboard'));
     I.waitForText('System Admin Dashboard');
@@ -110,7 +110,7 @@ Scenario('Third party user management show proper error messages', async ({ I })
     I.fillField('#thirdPartyName', testName);
     I.click('#thirdPartyRole');
     I.click('Continue');
-    I.waitForText('Check user details');
+    I.waitForText('Create third party user summary');
     I.click('Confirm');
     I.waitForText('There is a problem');
     I.see('Failed to create third party user. It is possible that the user already exists.');
@@ -131,6 +131,6 @@ Scenario('Third party user management show proper error messages', async ({ I })
 
     I.click('#delete-user-confirm');
     I.click('Continue');
-    I.waitForText('Success');
+    I.waitForText('Third party user created');
     I.logoutSsoSystemAdmin();
 }).tag('@Nightly');

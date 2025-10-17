@@ -23,6 +23,7 @@ sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptio
 
 const pageTitleValue =
     'Subscribe by case reference number, case ID or unique reference number (URN) – Subscription URN search results - Court and Tribunal Hearings - GOV.UK';
+const pageHeaderValue = 'Subscription URN search results';
 
 app.request['user'] = { roles: 'VERIFIED' };
 
@@ -39,6 +40,11 @@ describe('Case Reference Search Results Page - Number', () => {
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
         expect(pageTitle).contains(pageTitleValue, 'Page title does not match header');
+    });
+
+    it('should display page header', () => {
+        const header = htmlRes.getElementsByClassName('govuk-heading-l');
+        expect(header[0].innerHTML).contains(pageHeaderValue, 'Page header does not match');
     });
 
     it('should display back button', () => {
