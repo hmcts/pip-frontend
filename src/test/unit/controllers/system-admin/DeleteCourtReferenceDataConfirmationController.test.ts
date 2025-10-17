@@ -9,11 +9,12 @@ const deleteStub = sinon.stub(LocationService.prototype, 'deleteLocationById');
 
 const deleteCourtReferenceDataConfirmationController = new DeleteCourtReferenceDataConfirmationController();
 
-const court = { locationId: 1, jurisdiction: 'test', region: 'test' };
+const court = { locationId: 1, jurisdiction: 'test', region: 'test', name: 'test' };
 const userId = '1234';
 const user = { userId: userId };
 
 sinon.stub(LocationService.prototype, 'formatCourtValue').returns(court);
+sinon.stub(LocationService.prototype, 'getLocationById').returns(court);
 courtStub.withArgs('1').resolves(court);
 deleteStub.withArgs('1', userId).resolves({ exists: true, errorMessage: 'test' });
 deleteStub.withArgs('2', userId).resolves(null);

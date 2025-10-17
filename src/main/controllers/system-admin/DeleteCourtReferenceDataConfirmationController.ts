@@ -33,7 +33,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     await userManagementService.auditAction(
                         req.user,
                         'DELETE_LOCATION_ATTEMPT',
-                        'Location attempted to be deleted with id: ' + formData.locationId
+                        'Location ' + court.name + ' deletion attempted'
                     );
                     res.render('system-admin/delete-court-reference-data-confirmation', {
                         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
@@ -45,7 +45,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     await userManagementService.auditAction(
                         req.user,
                         'DELETE_LOCATION_ATTEMPT',
-                        'Location attempted to be deleted with id: ' + formData.locationId
+                        'Location ' + court.name + ' deletion attempted'
                     );
                     res.render('system-admin/delete-court-reference-data-confirmation', {
                         ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
@@ -57,7 +57,7 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     await userManagementService.auditAction(
                         req.user,
                         'DELETE_LOCATION_SUCCESS',
-                        'Location has been deleted with id: ' + formData.locationId
+                        'Location ' + court.name + ' has been deleted'
                     );
                     res.redirect('/delete-court-reference-data-success');
                 }
