@@ -13,5 +13,6 @@
     "dataSource": "Data Source",
     "backButton": "Back",
     "listDate": "List for",
-    "observationText": "For more information, please visit https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing "
+    "observationLinkText1": "For more information, please visit ",
+    "observationLinkText2": "https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing"
 }
