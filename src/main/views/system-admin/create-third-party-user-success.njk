@@ -11,7 +11,7 @@
     {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block content %}
-    {{ successPanel(panelTitle) }}
+    {{ successPanel(header) }}
     {{ govukSummaryList({
         rows: [
             {

@@ -14,12 +14,12 @@ Scenario(
         I.waitForText('System Admin Dashboard');
 
         I.click('#card-user-management');
-        I.waitForText('User Management');
+        I.waitForText('Find, update and delete a user');
         I.click('Back');
         I.waitForText('System Admin Dashboard');
 
         I.click('#card-audit-log-viewer');
-        I.waitForText('System admin audit log');
+        I.waitForText('View audit log');
         I.see('Timestamp');
         I.see('Email');
         I.see('Action');
@@ -35,7 +35,7 @@ Scenario(
         I.click('Dashboard');
         I.waitForText('System Admin Dashboard');
         I.click('#card-audit-log-viewer');
-        I.waitForText('System admin audit log');
+        I.waitForText('View audit log');
 
         I.click(locate('//tr').withText('View User Management').find('a').withText('View'));
         I.waitForText('View audit log for ' + getCurrentDateWthFormat('dd/MM/yyyy'));
@@ -82,7 +82,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
 
     I.click('Dashboard');
     I.click('#card-audit-log-viewer');
-    I.waitForText('System admin audit log');
+    I.waitForText('View audit log');
     I.see('Timestamp');
     I.see('Email');
     I.see('Action');
@@ -118,7 +118,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.click('Dashboard');
     I.see('System Admin Dashboard');
     I.click('#card-audit-log-viewer');
-    I.waitForText('System admin audit log');
+    I.waitForText('View audit log');
     I.see('Filter');
     I.fillField('#filterDate-day', padFormatted(date.getDate()) as string);
     I.click('Apply filters');
