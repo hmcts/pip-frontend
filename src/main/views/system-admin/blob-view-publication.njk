@@ -18,15 +18,15 @@
 {% endblock %}
 
 {% block content %}
-    <div class="parent-box">
-        <h1 class="govuk-heading-l">
-            {{ title }}
-            {% if metadata.isFlatFile %}
-                {{ flatFile }}
-            {% else %}
-                {{ jsonFile }}
-            {% endif %}
-        </h1>
+  <div class="parent-box">
+    <h1 class="govuk-heading-l">
+      {{ header }}
+      {% if metadata.isFlatFile %}
+        {{ flatFile }}
+      {% else %}
+        {{ jsonFile }}
+      {% endif %}</h1>
+    </h1>
 
         <div id="section1">
             <form method="post">

@@ -326,7 +326,7 @@ describe('Summary of publications page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'What do you want to view from New Court? – Court and Tribunal Hearings – GOV.UK',
+                'Summary of publications - What do you want to view from - Court and Tribunal Hearings - GOV.UK New Court? – Court and Tribunal Hearings – GOV.UK?',
                 'Could not find the page title'
             );
         });
