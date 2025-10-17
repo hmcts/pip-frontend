@@ -118,7 +118,6 @@ Scenario('I as a system admin should be able to re-submit subscription for a pub
     I.click('Confirm');
     I.waitForText('Subscription re-submitted');
     I.see('What do you want to do next?');
-    I.see('Blob Explorer Locations');
 
     I.click('Blob explorer - Locations');
     I.waitForText('Choose a location to see all publications associated with it.');

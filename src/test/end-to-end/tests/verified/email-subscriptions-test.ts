@@ -421,7 +421,7 @@ Scenario(
         I.waitForText('Subscribe by court or tribunal name');
         I.click('Continue');
         I.waitForText('There is a problem');
-        I.see('At least 1 subscription is needed.');
+        I.see('At least one subscription is needed.');
 
         I.click('Add Subscriptions');
         I.click('#subscription-choice-1');
