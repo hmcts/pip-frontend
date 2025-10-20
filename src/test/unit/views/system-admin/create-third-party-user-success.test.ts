@@ -30,8 +30,8 @@ describe('Create third party user success page', () => {
     });
 
     it('should display success panel', () => {
-        const panelMessage = htmlRes.getElementsByClassName('govuk-panel__title')[0];
-        expect(panelMessage.innerHTML).contains('Third party user has been created', 'Panel message does not match');
+        const header = htmlRes.getElementsByClassName('govuk-panel__title')[0];
+        expect(header.innerHTML).contains('Third party user created', 'Panel message does not match');
     });
 
     it('should display correct summary keys', async () => {

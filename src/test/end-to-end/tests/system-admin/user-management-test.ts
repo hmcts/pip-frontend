@@ -19,7 +19,7 @@ Scenario('I as a system admin should be able to delete a user', async ({ I }) =>
     I.click('Dashboard');
     I.waitForText('System Admin Dashboard');
     I.click('#card-user-management');
-    I.waitForText('User Management');
+    I.waitForText('Find, update and delete a user');
     I.fillField('#email', testEmail);
     I.click('Apply filters');
     I.waitForText(testEmail);
@@ -48,7 +48,7 @@ Scenario('I as a system admin should be able to delete a user', async ({ I }) =>
 Scenario('I as a system admin should be able to filter users correctly on the User Management page', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
     I.click('#card-user-management');
-    I.waitForText('User Management');
+    I.waitForText('Find, update and delete a user');
 
     I.fillField('#email', systemAdminUsername);
     I.click('Apply filters');
@@ -60,7 +60,7 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
     const provenanceId = (await I.grabTextFrom(locate('.govuk-summary-list__value').at(5))).trim();
 
     I.click('Back');
-    I.waitForText('User Management');
+    I.waitForText('Find, update and delete a user');
     I.click('Clear filters');
     I.fillField('#userId', userId);
     I.click('Apply filters');
@@ -98,7 +98,7 @@ Scenario('I as a system admin should be able to filter users correctly on the Us
 Scenario('I as a system admin should be able to use the pagination on the user management page', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
     I.click('#card-user-management');
-    I.waitForText('User Management');
+    I.waitForText('Find, update and delete a user');
 
     I.see('Next');
     I.see('2 of');
