@@ -957,5 +957,55 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
+    },
+    "HIGH_COURT_CIVIL_DAILY_CAUSE_LIST": {
+        "friendlyName": "High Court Civil Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yr Uchel Lys",
+        "shortenedFriendlyName": "High Court Civil Daily Cause List",
+        "url": "high-court-civil-daily-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
+    "HIGH_COURT_FAMILY_DAILY_CAUSE_LIST": {
+        "friendlyName": "High Court Family Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Teulu yr Uchel Lys",
+        "shortenedFriendlyName": "High Court Family Daily Cause List",
+        "url": "high-court-family-daily-list",
+        "jurisdictionTypes": ["High Court of the Family Division"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
+    "BUSINESS_AND_PROPERTY_DAILY_CAUSE_LIST": {
+        "friendlyName": "Business and Property Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Busnes ac Eiddo",
+        "shortenedFriendlyName": "Business and Property Daily Cause List",
+        "url": "business-and-property-daily-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
+    "CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "Circuit Commercial Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Masnachol Cylchdaith",
+        "shortenedFriendlyName": "Circuit Commercial Court Daily Cause List",
+        "url": "circuit-commercial-court-daily-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
+    "TECHNOLOGY_AND_CONSTRUCTION_COURT_DAILY_CAUSE_LIST": {
+        "friendlyName": "Technology and Construction Court Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Technoleg ac Adeiladwaith",
+        "shortenedFriendlyName": "Technology and Construction Court Daily Cause List",
+        "url": "technology-and-construction-court-daily-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
     }
 }
