@@ -100,8 +100,10 @@ describe('Subscription Configure List', () => {
                 'Admiralty Court (King’s Bench Division) Daily Cause List',
                 'Birmingham Administrative Court Daily Cause List',
                 'Bristol and Cardiff Administrative Court Daily Cause List',
+                'Business and Property Daily Cause List',
                 'Business List (Chancery Division) Daily Cause List',
                 'Chancery Appeals (Chancery Division) Daily Cause List',
+                'Circuit Commercial Court Daily Cause List',
                 'Civil and Family Daily Cause List',
                 'Civil Courts at the RCJ Daily Cause List',
                 'Civil Daily Cause List',
@@ -112,6 +114,7 @@ describe('Subscription Configure List', () => {
                 'Court of Appeal (Criminal Division) Daily Cause List',
                 'Family Division of the High Court Daily Cause List',
                 'Financial List (Chancery Division/King’s Bench Division/Commercial Court) Daily Cause List',
+                'High Court Civil Daily Cause List',
                 'Insolvency &amp; Companies Court (Chancery Division) Daily Cause List',
                 'Intellectual Property (Chancery Division) Daily Cause List',
                 'Intellectual Property and Enterprise Court Daily Cause List',
@@ -140,6 +143,7 @@ describe('Subscription Configure List', () => {
                 'Single Justice Procedure Public List (Full List)',
                 'Single Justice Procedure Public List (New Cases)',
                 'Technology and Construction Court (King’s Bench Division) Daily Cause List',
+                'Technology and Construction Court Daily Cause List'
             ];
 
             const tableRows = htmlRes
@@ -164,8 +168,10 @@ describe('Subscription Configure List', () => {
                 'ADMIRALTY_COURT_KB_DAILY_CAUSE_LIST',
                 'BIRMINGHAM_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
                 'BRISTOL_AND_CARDIFF_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
+                'BUSINESS_AND_PROPERTY_DAILY_CAUSE_LIST',
                 'BUSINESS_LIST_CHD_DAILY_CAUSE_LIST',
                 'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
+                'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
                 'CIVIL_DAILY_CAUSE_LIST',
@@ -176,6 +182,7 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
                 'FINANCIAL_LIST_CHD_KB_DAILY_CAUSE_LIST',
+                'HIGH_COURT_CIVIL_DAILY_CAUSE_LIST',
                 'INSOLVENCY_AND_COMPANIES_COURT_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_DAILY_CAUSE_LIST',
@@ -204,6 +211,7 @@ describe('Subscription Configure List', () => {
                 'SJP_PUBLIC_LIST',
                 'SJP_DELTA_PUBLIC_LIST',
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
+                'TECHNOLOGY_AND_CONSTRUCTION_COURT_DAILY_CAUSE_LIST'
             ];
 
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
@@ -244,8 +252,10 @@ describe('Subscription Configure List', () => {
                 'Select Admiralty Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys y Morlys (Adran Mainc y Brenin)',
                 'Select Birmingham Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Birmingham',
                 'Select Bristol and Cardiff Administrative Court Daily Cause List\nRhestr Achosion Dyddiol Llys Gweinyddol Bryste a Chaerdydd',
+                'Select Business and Property Daily Cause List\nRhestr Achosion Dyddiol Busnes ac Eiddo',
                 'Select Business List (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol y Llys Busnes (Adran Siawnsri)',
                 'Select Chancery Appeals (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Apeliadau Siawnsri (Adran Siawnsri)',
+                'Select Circuit Commercial Court Daily Cause List\nRhestr Achosion Dyddiol Llys Masnachol Cylchdaith',
                 'Select Civil and Family Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil a Theulu',
                 'Select Civil Courts at the RCJ Daily Cause List\nRhestr Achosion Dyddiol Llys Sifil yn y Llysoedd Barn Brenhinol',
                 'Select Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil',
@@ -256,6 +266,7 @@ describe('Subscription Configure List', () => {
                 'Select Court of Appeal (Criminal Division) Daily Cause List\nRhestr Achosion Dyddiol y Llys Apêl (Adran Troseddol)',
                 'Select Family Division of the High Court Daily Cause List\nRhestr Achosion Dyddiol Adran Deulu yr Uchel Lys',
                 'Select Financial List (Chancery Division/King’s Bench Division/Commercial Court) Daily Cause List\nRhestr Achosion Dyddiol Ariannol (Adran Siawnsri /Adran Mainc y Brenin/Llys Masnach)',
+                'Select High Court Civil Daily Cause List\nRhestr Achosion Dyddiol Sifil yr Uchel Lys',
                 'Select Insolvency &amp; Companies Court (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Cwmnïau ac achosion Ansolfedd (Adran Siawnsri)',
                 'Select Intellectual Property (Chancery Division) Daily Cause List\nRhestr Achosion Dyddiol Eiddo Deallusol (Adran Siawnsri)',
                 'Select Intellectual Property and Enterprise Court Daily Cause List\nRhestr Achosion Dyddiol Llys Mentrau Eiddo Deallusol',
@@ -284,6 +295,7 @@ describe('Subscription Configure List', () => {
                 'Select Single Justice Procedure Public List (Full List)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)',
                 'Select Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)',
                 'Select Technology and Construction Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)',
+                'Select Technology and Construction Court Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladwaith'
             ];
 
             const tableRows = htmlRes
@@ -309,8 +321,10 @@ describe('Subscription Configure List', () => {
                 'ADMIRALTY_COURT_KB_DAILY_CAUSE_LIST',
                 'BIRMINGHAM_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
                 'BRISTOL_AND_CARDIFF_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST',
+                'BUSINESS_AND_PROPERTY_DAILY_CAUSE_LIST',
                 'BUSINESS_LIST_CHD_DAILY_CAUSE_LIST',
                 'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
+                'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
                 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
                 'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
                 'CIVIL_DAILY_CAUSE_LIST',
@@ -321,6 +335,7 @@ describe('Subscription Configure List', () => {
                 'COURT_OF_APPEAL_CRIMINAL_DAILY_CAUSE_LIST',
                 'FAMILY_DIVISION_HIGH_COURT_DAILY_CAUSE_LIST',
                 'FINANCIAL_LIST_CHD_KB_DAILY_CAUSE_LIST',
+                'HIGH_COURT_CIVIL_DAILY_CAUSE_LIST',
                 'INSOLVENCY_AND_COMPANIES_COURT_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_LIST_CHD_DAILY_CAUSE_LIST',
                 'INTELLECTUAL_PROPERTY_AND_ENTERPRISE_COURT_DAILY_CAUSE_LIST',
@@ -349,6 +364,7 @@ describe('Subscription Configure List', () => {
                 'SJP_PUBLIC_LIST',
                 'SJP_DELTA_PUBLIC_LIST',
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
+                'TECHNOLOGY_AND_CONSTRUCTION_COURT_DAILY_CAUSE_LIST'
             ];
 
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
