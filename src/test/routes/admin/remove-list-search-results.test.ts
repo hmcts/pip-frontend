@@ -3,14 +3,14 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 import { LocationService } from '../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../../../main/service/ManualUploadService';
 import { request as expressRequest } from 'express';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const URL = '/remove-list-search';
 
 const courtServiceStub = sinon.stub(LocationService.prototype, 'getLocationById');
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').withArgs('2', true, true).resolves([]);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').withArgs('2').resolves([]);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').withArgs([]).returns([]);
 courtServiceStub.withArgs('2').resolves(true);
 courtServiceStub.withArgs('888').resolves(false);

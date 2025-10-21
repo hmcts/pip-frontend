@@ -3,16 +3,22 @@ import request from 'supertest';
 import { expect } from 'chai';
 import { app } from '../../../../main/app';
 import { LocationService } from '../../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../../main/service/SummaryOfPublicationsService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const publicationsMock = [
     { artefactId: '1', listType: 'TYPE1', locationId: '1', publicationDate: '2024-06-01', contentDate: '2024-06-01' },
-    { artefactId: '2', listType: 'TYPE2', locationId: '1', publicationDate: '2024-06-02', contentDate: '2024-06-02' }
+    { artefactId: '2', listType: 'TYPE2', locationId: '1', publicationDate: '2024-06-02', contentDate: '2024-06-02' },
 ];
 
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(publicationsMock);
-sinon.stub(SummaryOfPublicationsService.prototype, 'getNoMatchPublications').resolves([
-    { artefactId: '3', listType: 'TYPE3', locationId: '2', publicationDate: '2024-06-03', contentDate: '2024-06-03' }
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(publicationsMock);
+sinon.stub(PublicationService.prototype, 'getNoMatchPublications').resolves([
+    {
+        artefactId: '3',
+        listType: 'TYPE3',
+        locationId: '2',
+        publicationDate: '2024-06-03',
+        contentDate: '2024-06-03',
+    },
 ]);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ locationId: 1, name: 'Alpha Court' });
 sinon.stub(LocationService.prototype, 'findCourtName').returns('Alpha Court');
@@ -33,9 +39,17 @@ describe('Blob View Publications Page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'System Admin - Blob Explorer Publications - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the title'
+        );
+    });
+
     it('should display the main heading', () => {
         const header = htmlRes.getElementsByClassName(headingClass)[0];
-        expect(header.innerHTML).to.contain('Blob Explorer - Publications');
+        expect(header.innerHTML).to.contain('Blob Explorer Publications');
     });
 
     it('should display the location name as a subheading', () => {
@@ -81,7 +95,7 @@ describe('Blob View Publications Page - No Match Artefacts', () => {
 
     it('should display the main heading', () => {
         const header = htmlRes.getElementsByClassName(headingClass)[0];
-        expect(header.innerHTML).to.contain('Blob Explorer - Publications');
+        expect(header.innerHTML).to.contain('Blob Explorer Publications');
     });
 
     it('should display "No match artefacts" as the location name', () => {

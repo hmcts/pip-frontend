@@ -59,7 +59,7 @@ describe('Remove List Confirmation Page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                'Are you sure you want to remove this content?',
+                'Remove - Are you sure you want to remove this content? - Court and Tribunal Hearings - GOV.UK',
                 'Page title does not match header'
             );
         });

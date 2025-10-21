@@ -3,7 +3,7 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import { LocationService } from '../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../main/service/SummaryOfPublicationsService';
+import { PublicationService } from '../../../main/service/PublicationService';
 
 const locationIdWithTelephoneAndEmail = 10;
 const locationIdWithTelephoneOnly = 11;
@@ -26,12 +26,12 @@ courtStub.withArgs(locationIdWithNoListMessageOverride).resolves(JSON.parse('{"n
 courtStub.withArgs(locationIdWithCautionMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 courtStub.withArgs(locationIdWithHtmlMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
-const publicationStub = sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications');
-publicationStub.withArgs(locationIdWithTelephoneAndEmail).resolves([]);
-publicationStub.withArgs(locationIdWithTelephoneOnly).resolves([]);
-publicationStub.withArgs(locationIdWithEmailOnly).resolves([]);
-publicationStub.withArgs(locationIdWithoutContact).resolves([]);
-publicationStub.withArgs(locationIdWithPublications).resolves([
+const publicationStub = sinon.stub(PublicationService.prototype, 'getPublicationsByLocation');
+publicationStub.withArgs(locationIdWithTelephoneAndEmail.toString()).resolves([]);
+publicationStub.withArgs(locationIdWithTelephoneOnly.toString()).resolves([]);
+publicationStub.withArgs(locationIdWithEmailOnly.toString()).resolves([]);
+publicationStub.withArgs(locationIdWithoutContact.toString()).resolves([]);
+publicationStub.withArgs(locationIdWithPublications.toString()).resolves([
     { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'WELSH' },
     { artefactId: '2', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
     { artefactId: '3', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
@@ -41,12 +41,12 @@ publicationStub.withArgs(locationIdWithPublications).resolves([
     { artefactId: '7', listType: 'AST_DAILY_HEARING_LIST', contentDate: '2025-01-18T00:00:00Z', language: 'ENGLISH' },
     { artefactId: '8', listType: 'AST_DAILY_HEARING_LIST', contentDate: '2025-01-19T00:00:00Z', language: 'WELSH' },
 ]);
-publicationStub.withArgs(locationIdWithNoListMessageOverride).resolves([]);
-publicationStub.withArgs(locationIdWithCautionMessageOverride).resolves([
+publicationStub.withArgs(locationIdWithNoListMessageOverride.toString()).resolves([]);
+publicationStub.withArgs(locationIdWithCautionMessageOverride.toString()).resolves([
     { artefactId: '1', listType: 'CIVIL_DAILY_CAUSE_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
     { artefactId: '2', listType: 'CST_WEEKLY_HEARING_LIST', contentDate: '2025-01-20T00:00:00Z', language: 'ENGLISH' },
 ]);
-publicationStub.withArgs(locationIdWithHtmlMessageOverride).resolves([]);
+publicationStub.withArgs(locationIdWithHtmlMessageOverride.toString()).resolves([]);
 
 const locationMetadataResponse = {
     locationMetadataId: '123-456',
@@ -322,6 +322,15 @@ describe('Summary of publications page', () => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 });
         });
+
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'Summary of publications - What do you want to view from - Court and Tribunal Hearings - GOV.UK New Court? – Court and Tribunal Hearings – GOV.UK?',
+                'Could not find the page title'
+            );
+        });
+
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(

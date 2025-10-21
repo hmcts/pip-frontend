@@ -1,10 +1,11 @@
 {
-    "header": "Are you sure you want to delete all the subscriptions?",
+    "title": "Dileu tanysgrifiadau llys - Ydych chi'n siŵr eich bod eisiau dileu'r holl danysgrifiadau? - Gwrandawiadau Llys a Thrydyddol - GOV.UK",
+    "header": "Ydych chi'n siŵr eich bod eisiau dileu'r holl danysgrifiadau?",
     "optionYes": "Yes",
     "optionNo": "No",
     "warning": "You are about to delete all the subscriptions for ",
     "error": {
         "title": "There is a problem",
-        "text": "Please select an option"
+        "text": "Dewiswch opsiwn"
     }
 }
