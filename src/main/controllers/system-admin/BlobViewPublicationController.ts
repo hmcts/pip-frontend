@@ -21,7 +21,10 @@ export default class BlobViewPublicationController {
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
-            const locationName = await BlobViewPublicationController.getLocationName(metadata.locationId, noMatchArtefact);
+            const locationName = await BlobViewPublicationController.getLocationName(
+                metadata.locationId,
+                noMatchArtefact
+            );
 
             await userManagementService.auditAction(
                 req.user,
@@ -29,9 +32,12 @@ export default class BlobViewPublicationController {
                 'Requested to view artefact with id: ' + artefactId
             );
 
-            const listUrl = process.env.FRONTEND_URL + '/'
-                + (metadata.isFlatFile ? 'file-publication' : listTypes.get(metadata.listType)?.url)
-                + '?artefactId=' + artefactId;
+            const listUrl =
+                process.env.FRONTEND_URL +
+                '/' +
+                (metadata.isFlatFile ? 'file-publication' : listTypes.get(metadata.listType)?.url) +
+                '?artefactId=' +
+                artefactId;
 
             res.render('system-admin/blob-view-publication', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['blob-view-publication']),
