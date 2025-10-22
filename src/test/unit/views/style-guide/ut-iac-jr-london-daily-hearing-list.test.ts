@@ -1,10 +1,10 @@
 import sinon from 'sinon';
 import request from 'supertest';
-import {app} from '../../../../main/app';
-import {expect} from 'chai';
+import { app } from '../../../../main/app';
+import { expect } from 'chai';
 import fs from 'fs';
 import path from 'path';
-import {PublicationService} from '../../../../main/service/PublicationService';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
@@ -45,6 +45,14 @@ describe('Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review Lond
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
                 'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily Hearing List'
+            );
+        });
+
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: London Daily Hearing List - Court and Tribunal Hearings - GOV.UK',
+                'Could not find the page title'
             );
         });
 

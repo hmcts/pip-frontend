@@ -73,7 +73,7 @@ describe('Manual upload page', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
                 'Upload - Manual Upload - Court and Tribunal Hearings - GOV.UK',
-                'Could not find the header'
+                'Could not find the title'
             );
         });
 

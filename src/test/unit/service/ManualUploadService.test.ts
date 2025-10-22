@@ -38,7 +38,6 @@ const expectedHeaders = {
     'x-court-id': headers.court.locationId,
     'x-content-date': headers['content-date-from'],
     'x-requester-id': requesterId,
-    'x-user-id': requesterId,
 };
 const courtService = sinon.stub(LocationService.prototype, 'getLocationByName');
 courtService.withArgs('validCourt').resolves(courtData[0]);
@@ -150,7 +149,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes when not non-strategic', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage, false, undefined);
-            expect(data['listSubtypes'].length).to.equal(27);
+            expect(data['listSubtypes'].length).to.equal(30);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',

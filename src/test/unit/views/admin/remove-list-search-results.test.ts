@@ -1,11 +1,11 @@
 import { LocationService } from '../../../../main/service/LocationService';
-import { SummaryOfPublicationsService } from '../../../../main/service/SummaryOfPublicationsService';
 import { ManualUploadService } from '../../../../main/service/ManualUploadService';
 import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../../main/app';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import { PublicationService } from '../../../../main/service/PublicationService';
 
 const PAGE_URL = '/remove-list-search-results?locationId=5';
 const mockCourt = {
@@ -43,10 +43,7 @@ const languageRowValues = ['English', 'Welsh'];
 const sensitivityValues = ['Public', 'Classified', 'Classified'];
 const checkboxType = 'input type="checkbox"';
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(mockCourt);
-sinon
-    .stub(SummaryOfPublicationsService.prototype, 'getPublications')
-    .withArgs('5', true, true)
-    .resolves(mockPublications);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').withArgs('5').resolves(mockPublications);
 sinon.stub(ManualUploadService.prototype, 'formatListRemovalValues').returns(mockPublications);
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
@@ -63,9 +60,17 @@ describe('Remove List Summary Page', () => {
             });
     });
 
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Remove - Remove List Summary - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the title'
+        );
+    });
+
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains('Select content to remove', 'Could not find correct value in header');
+        expect(header[0].innerHTML).contains('Remove List Summary', 'Could not find correct value in header');
     });
 
     it('should display results count', () => {

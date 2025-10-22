@@ -11,7 +11,7 @@
 {% block content %}
     <div class="parent-box">
         <h2 id="page-heading" class="govuk-heading-l">
-            {{ heading }}
+            {{ header }}
         </h2>
 
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
@@ -22,8 +22,8 @@
             <div class="govuk-details__text">
                 <p class="govuk-body govuk-!-margin-bottom-2">{{ openJusticeStatement }}</p>
                 <p class="govuk-body govuk-!-margin-bottom-2">{{ contactMessage | replace("EMAIL", emailAddress) }}</p>
-                <p class="govuk-body govuk-!-padding-bottom-5">
-                    <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationText }}</a>
+                <p class="govuk-body govuk-!-padding-bottom-2">{{ observationLinkText1 }}
+                    <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationLinkText2 }}</a>
                 </p>
             </div>
         </details>

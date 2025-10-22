@@ -98,8 +98,6 @@ describe.each([urlDailyList, urlFutureList, urlPublicDailyList, urlPublicFutureL
         const listPathValue = isStandardList ? 'magistrates-adult-court-list' : 'magistrates-public-adult-court-list';
         const listPath = 'style-guide/' + listPathValue;
 
-        request.path = url;
-
         it('should render the Magistrates Adult Court List page', async () => {
             request.query = { artefactId: artefactIdMap.get(url) };
             request.user = { userId: '1' };

@@ -37,6 +37,14 @@ describe('SSCS Daily Hearing List Page', () => {
                 });
         });
 
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                'Midlands Social Security and Child Support Tribunal Daily Hearing List - Court and Tribunal Hearings - GOV.UK',
+                'Could not find the page title'
+            );
+        });
+
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).contains(
@@ -85,9 +93,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains(
-                'For more information, please visit https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing'
-            );
+            expect(text[8].innerHTML).contains('For more information, please visit');
         });
 
         it('should display observation link', () => {

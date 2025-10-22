@@ -16,6 +16,7 @@ import {
     mapAzureLanguage,
     keepSessionLanguage,
     regenerateSession,
+    processCrimeIdamSignIn,
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -63,8 +64,8 @@ export default function (app: Application): void {
     }
 
     // Public paths
-    app.get('/*', globalAuthGiver);
-    app.post('/*', globalAuthGiver);
+    app.get('/{*splat}', globalAuthGiver);
+    app.post('/{*splat}', globalAuthGiver);
     app.get('/', app.locals.container.cradle.homeController.get);
     app.get('/accessibility-statement', app.locals.container.cradle.accessibilityStatementController.get);
     app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
@@ -218,6 +219,14 @@ export default function (app: Application): void {
             'magistrates-adult-court-list-future'
         )
     );
+    app.get('/crown-daily-pdda-list', (req, res) =>
+        app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-daily-pdda-list')
+    );
+
+    app.get('/crown-firm-pdda-list', (req, res) =>
+        app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-firm-pdda-list')
+    );
+    app.get('/crown-warned-pdda-list', app.locals.container.cradle.crownWarnedPddaListController.get);
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>
@@ -1169,6 +1178,23 @@ export default function (app: Application): void {
         processCftIdamSignIn
     );
     app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+
+    //CRIME IDAM Routes
+    app.get(
+        '/crime-login',
+        regenerateSession,
+        keepSessionLanguage,
+        app.locals.container.cradle.crimeLoginController.get
+    );
+    app.get(
+        '/crime-login/return',
+        passport.authenticate('crime-idam', {
+            failureRedirect: '/error',
+        }),
+        keepSessionLanguage,
+        processCrimeIdamSignIn
+    );
+    app.get('/error', app.locals.container.cradle.errorController.get);
 
     // SSO Routes
     app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>

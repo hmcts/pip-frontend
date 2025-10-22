@@ -14,6 +14,7 @@ nodejs:
         FRONTEND_URL: https://${SERVICE_FQDN}
         EXCLUDE_E2E: true
         CFT_IDAM_URL: https://idam-web-public.aat.platform.hmcts.net
+        CRIME_IDAM_URL: https://login.sit.cjscp.org.uk
         SESSION_COOKIE_SAME_SITE: ''
     keyVaults:
         pip-ss-kv:

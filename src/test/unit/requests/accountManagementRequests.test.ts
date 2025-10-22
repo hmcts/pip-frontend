@@ -15,7 +15,7 @@ const errorResponse = {
 const errorMessage = {
     message: 'test',
 };
-const mockHeaders = { headers: { 'x-requester_id': '12345', 'x-issuer-id': '12345' } };
+const mockHeaders = { headers: { 'x-requester_id': '12345' } };
 const mockValidBody = {
     email: 'joe@bloggs.com',
     firstName: 'Joe',
@@ -47,6 +47,7 @@ const imageGetEndpoint = '/application/image/';
 const piAadUserEndpoint = '/account/provenance/PI_AAD/';
 const ssoUserEndpoint = '/account/provenance/SSO/';
 const cftIdamUserEndpoint = '/account/provenance/CFT_IDAM/';
+const crimeIdamUserEndpoint = '/account/provenance/CRIME_IDAM/';
 const updateAccountEndpoint = '/account/provenance/PI_AAD/';
 const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
@@ -517,6 +518,39 @@ describe('Account Management Requests', () => {
         });
     });
 
+    describe('Get Crime IDAM user by uid', () => {
+        const idtoUse = '123';
+
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        it('should return pi user id on success', async () => {
+            getStub.withArgs(`${crimeIdamUserEndpoint}${idtoUse}`).resolves({
+                status: 200,
+                data: { userId: '321', userProvenance: 'userProvenance' },
+            });
+            const response = await accountManagementRequests.getPiUserByCrimeID(idtoUse);
+            expect(response).toStrictEqual({
+                userId: '321',
+                userProvenance: 'userProvenance',
+            });
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs(`${crimeIdamUserEndpoint}${idtoUse}`).rejects(errorResponse);
+            const response = await accountManagementRequests.getPiUserByCrimeID(idtoUse);
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs(`${crimeIdamUserEndpoint}${idtoUse}`).rejects(errorMessage);
+            const response = await accountManagementRequests.getPiUserByCrimeID(idtoUse);
+            expect(response).toBe(null);
+        });
+    });
+
     describe('Update Media Account Verification', () => {
         beforeEach(() => {
             sinon.restore();
@@ -671,7 +705,7 @@ describe('Account Management Requests', () => {
         it('should return string on deletion success', async () => {
             deleteStub
                 .withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`, {
-                    headers: { 'x-requester-id': adminUserId, 'x-admin-id': adminUserId },
+                    headers: { 'x-requester-id': adminUserId },
                 })
                 .resolves({ status: 200, data: 'Deleted' });
             const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
@@ -712,7 +746,6 @@ describe('Account Management Requests', () => {
                 .withArgs(`${updateUserByUserIdEndpoint}${idtoUse}/${role}`, null, {
                     headers: {
                         'x-requester-id': adminIdToUse,
-                        'x-admin-id': adminIdToUse,
                     },
                 })
                 .resolves({

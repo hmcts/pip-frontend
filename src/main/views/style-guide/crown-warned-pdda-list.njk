@@ -1,0 +1,110 @@
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "../macros/common-components.njk" import goBack, searchInput %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% extends "../list-template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    <div class="parent-box">
+        <h1 id='page-heading' class="govuk-heading-l">{{ heading }} {{ locationName }}</h1>
+        {% if endDate | length %}
+            <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ startDate }} {{ to }} {{ endDate }}</p>
+        {% else %}
+            <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ startDate }}</p>
+        {% endif %}
+        <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ at }} {{ publishedTime }}</p>
+        <p class="govuk-body">{{ versionText }} {{ version }}</p>
+
+        <p class="govuk-body">
+            {% for line in venueAddress %}
+                {{ line }}<br />
+            {% endfor %}
+        </p>
+
+        <div class="govuk-body list-info">
+            <p>{{ headingP1 }} {{ contentDate }}</p>
+            <p>{{ headingP2 }}</p>
+            <p>{{ headingP3 }}</p>
+            <p>{{ headingP4 }}</p>
+        </div>
+
+        <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
+            <div class="govuk-body">
+                <h3>{{ restrictionInformationHeading }}</h3>
+                <p class="govuk-body">{{ restrictionInformationP1 }}</p>
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon align-warning-icon" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        {{ restrictionInformationBoldText }}
+                    </strong>
+                </div>
+                <p class="govuk-body">{{ restrictionInformationP2 }}</p>
+                <p class="govuk-body">{{ restrictionInformationP3 }}</p>
+                <p class="govuk-body">{{ restrictionInformationP4 }}</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>{{ restrictionBulletPoint1 }}</li>
+                    <li>{{ restrictionBulletPoint2 }}</li>
+                </ul>
+            </div>
+        </div>
+
+        {{ searchInput(text = searchCases) }}
+        <div class="search-area">
+            {% set toBeAllocated = "to be allocated" %}
+            {% set hearingTypeCount = 0 %}
+            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+                {% for hearingType, rows in listData %}
+                {% set hearingTypeCount = hearingTypeCount + 1 %}
+                    <div class="govuk-accordion__section govuk-accordion__section--expanded">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            {% if hearingType | lower == toBeAllocated %}
+                                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ hearingTypeCount }}">{{ toBeAllocatedText }}</span>
+                            {% else %}
+                                <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ hearingTypeCount }}">{{ hearingType }}</span>
+                            {% endif %}
+                        </h2>
+                    </div>
+                    <div id="accordion-default-content-{{ hearingTypeCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ hearingTypeCount }}">
+                        <div class="parent-box overflow-table">
+                            <table class="govuk-table overflow-table" data-module="moj-sortable-table">
+                                <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    {% for header in tableHeaders %}
+                                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody class="govuk-table__body">
+                                {% for row in rows %}
+                                    {% set noBorder = "no-border-bottom" %}
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell no-wrap" data-sort-value="{{ row.fixedDate | dateToSortValue }}">{{ row.fixedDate }}</td>
+                                        <td class="govuk-table__cell no-wrap">{{ row.caseReference }}</td>
+                                        <td class="govuk-table__cell">{{ row.defendantNames }}</td>
+                                        <td class="govuk-table__cell">{{ row.prosecutingAuthority }}</td>
+                                        <td class="govuk-table__cell">{{ row.linkedCases }}</td>
+                                        <td class="govuk-table__cell">{{ row.listingNotes }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div> <!-- Close govuk-accordion div -->
+            <p class="govuk-body govuk-!-font-size-14 data-source">{{ dataSource }}: {{ provenance | convertDataSourceName(lng) }}</p>
+            {{ super() }}
+        </div> <!-- Close search-area div -->
+    </div> <!-- Close parent-box div -->
+{% endblock %}

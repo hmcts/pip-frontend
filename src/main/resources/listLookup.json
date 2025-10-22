@@ -673,7 +673,7 @@
         "shortenedFriendlyName": "London Circuit Commercial Court (KB) Daily Cause List",
         "url": "london-circuit-commercial-court-kb-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
-         "restrictedProvenances": [],
+        "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
@@ -822,9 +822,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Apêl (Adran Sifil)",
         "shortenedFriendlyName": "Court of Appeal (Civil Division) Daily Cause List",
         "url": "court-of-appeal-civil-daily-cause-list",
-        "jurisdictionTypes": [
-            "Court of Appeal (Civil Division)"
-        ],
+        "jurisdictionTypes": ["Court of Appeal (Civil Division)"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -936,6 +934,36 @@
         "shortenedFriendlyName": "Magistrates Adult Court List - Future",
         "url": "magistrates-adult-court-list-future",
         "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "CROWN_FIRM_PDDA_LIST": {
+        "friendlyName": "Crown Firm PDDA List",
+        "welshFriendlyName": "Rhestr PDDA Cwmni Llys y Goron",
+        "shortenedFriendlyName": "Crown Firm PDDA List",
+        "url": "crown-firm-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "CROWN_DAILY_PDDA_LIST": {
+        "friendlyName": "Crown Daily PDDA List",
+        "welshFriendlyName": "Rhestr PDDA Ddyddiol Llys y Goron",
+        "shortenedFriendlyName": "Crown Daily PDDA List",
+        "url": "crown-daily-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "CROWN_WARNED_PDDA_LIST": {
+        "friendlyName": "Crown Warned PDDA List",
+        "welshFriendlyName": "Rhestr Rybudd PDDA Llys y Goron",
+        "shortenedFriendlyName": "Crown Warned PDDA List",
+        "url": "crown-warned-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false

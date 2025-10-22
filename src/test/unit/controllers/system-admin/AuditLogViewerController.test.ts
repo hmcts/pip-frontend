@@ -61,7 +61,6 @@ describe('Audit log view controller', () => {
         },
     } as unknown as Response;
     const request = mockRequest(i18n);
-    request.path = '/audit-log-viewer';
 
     it('should render the audit log viewer page', async () => {
         request.url = '/audit-log-viewer';
@@ -69,7 +68,7 @@ describe('Audit log view controller', () => {
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['audit-log-viewer'],
-            header: 'testHeader',
+            tableHeader: 'testHeader',
             auditLogData: 'test',
             paginationData: 'test2',
             emailFieldData: 'test3',
@@ -101,7 +100,7 @@ describe('Audit log view controller', () => {
         const responseMock = sinon.mock(response);
         const expectedData = {
             ...i18n['audit-log-viewer'],
-            header: 'testHeader',
+            tableHeader: 'testHeader',
             auditLogData: 'test',
             paginationData: 'test2',
             emailFieldData: 'test3',

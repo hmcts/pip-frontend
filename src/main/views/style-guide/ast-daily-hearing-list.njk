@@ -11,7 +11,7 @@
 {% block content %}
     <div class="parent-box">
         <h2 id="page-heading" class="govuk-heading-l">
-            {{ heading }}
+            {{ header }}
         </h2>
         <div>
             <p class="govuk-body no-margin-bottom">{{ venueLine1 }}</p>
@@ -26,8 +26,8 @@
             <div class="govuk-details__text">
                 <p class="govuk-body govuk-!-margin-bottom-2">{{ openJusticeMessage }}</p>
                 <p class="govuk-body govuk-!-margin-bottom-2">{{ joinHearingMessage }}</p>
-                <p class="govuk-body govuk-!-padding-bottom-5">
-                    <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observeHearingLinkText }}</a>
+                <p class="govuk-body govuk-!-padding-bottom-5">{{ observationLinkText1 }}
+                    <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationLinkText2 }}</a>
                 </p>
             </div>
         </details>
