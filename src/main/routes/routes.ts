@@ -16,6 +16,7 @@ import {
     mapAzureLanguage,
     keepSessionLanguage,
     regenerateSession,
+    processCrimeIdamSignIn,
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -63,8 +64,8 @@ export default function (app: Application): void {
     }
 
     // Public paths
-    app.get('/*', globalAuthGiver);
-    app.post('/*', globalAuthGiver);
+    app.get('/{*splat}', globalAuthGiver);
+    app.post('/{*splat}', globalAuthGiver);
     app.get('/', app.locals.container.cradle.homeController.get);
     app.get('/accessibility-statement', app.locals.container.cradle.accessibilityStatementController.get);
     app.get('/account-request-submitted', app.locals.container.cradle.mediaAccountRequestSubmittedController.get);
@@ -188,14 +189,37 @@ export default function (app: Application): void {
     app.get('/et-fortnightly-list', app.locals.container.cradle.etFortnightlyListController.get);
     app.get('/iac-daily-list', app.locals.container.cradle.iacDailyListController.get);
     app.get('/iac-daily-list-additional-cases', app.locals.container.cradle.iacDailyListController.get);
-    app.get('/primary-health-list', (req, res) =>
-        app.locals.container.cradle.tribunalNationalListsController.get(req, res, 'primary-health-list')
-    );
-    app.get('/care-standards-list', (req, res) =>
-        app.locals.container.cradle.tribunalNationalListsController.get(req, res, 'care-standards-list')
-    );
     app.get('/magistrates-public-list', app.locals.container.cradle.magistratesPublicListController.get);
     app.get('/magistrates-standard-list', app.locals.container.cradle.magistratesStandardListController.get);
+    app.get('/magistrates-public-adult-court-list-daily', (req, res) =>
+        app.locals.container.cradle.magistratesAdultCourtListController.get(
+            req,
+            res,
+            'magistrates-public-adult-court-list-daily'
+        )
+    );
+    app.get('/magistrates-adult-court-list-daily', (req, res) =>
+        app.locals.container.cradle.magistratesAdultCourtListController.get(
+            req,
+            res,
+            'magistrates-adult-court-list-daily'
+        )
+    );
+    app.get('/magistrates-adult-court-list-future', (req, res) =>
+        app.locals.container.cradle.magistratesAdultCourtListController.get(
+            req,
+            res,
+            'magistrates-adult-court-list-future'
+        )
+    );
+    app.get('/crown-daily-pdda-list', (req, res) =>
+        app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-daily-pdda-list')
+    );
+
+    app.get('/crown-firm-pdda-list', (req, res) =>
+        app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-firm-pdda-list')
+    );
+    app.get('/crown-warned-pdda-list', app.locals.container.cradle.crownWarnedPddaListController.get);
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>
@@ -290,6 +314,13 @@ export default function (app: Application): void {
             'ut-iac-jr-cardiff-daily-hearing-list'
         )
     );
+    app.get('/ut-iac-jr-leeds-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ut-iac-jr-leeds-daily-hearing-list'
+        )
+    );
     app.get('/ut-iac-statutory-appeals-daily-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
@@ -351,9 +382,6 @@ export default function (app: Application): void {
             res,
             'london-administrative-court-daily-cause-list'
         )
-    );
-    app.get('/planning-court-daily-cause-list', (req, res) =>
-        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'planning-court-daily-cause-list')
     );
     app.get('/county-court-london-civil-daily-cause-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
@@ -538,6 +566,10 @@ export default function (app: Application): void {
         )
     );
 
+    app.get('/send-daily-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'send-daily-hearing-list')
+    );
+
     app.get('/birmingham-administrative-court-daily-cause-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
@@ -565,6 +597,9 @@ export default function (app: Application): void {
             res,
             'leeds-administrative-court-daily-cause-list'
         )
+    );
+    app.get('/cic-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cic-weekly-hearing-list')
     );
 
     // Restricted paths
@@ -864,14 +899,26 @@ export default function (app: Application): void {
         app.locals.container.cradle.systemAdminDashboardController.get
     );
 
-    app.get('/blob-view-locations', isPermittedSystemAdmin, app.locals.container.cradle.blobViewLocationController.get);
+    app.get(
+        '/blob-view-locations',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewLocationsController.get
+    );
     app.get(
         '/blob-view-publications',
         isPermittedSystemAdmin,
         app.locals.container.cradle.blobViewPublicationsController.get
     );
-    app.get('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.get);
-    app.post('/blob-view-json', isPermittedSystemAdmin, app.locals.container.cradle.blobViewJsonController.post);
+    app.get(
+        '/blob-view-publication',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewPublicationController.get
+    );
+    app.post(
+        '/blob-view-publication',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewPublicationController.post
+    );
     app.get(
         '/blob-view-subscription-resubmit-confirmation',
         isPermittedSystemAdmin,
@@ -1085,6 +1132,33 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.deleteUserConfirmationController.post
     );
+    app.get('/location-metadata-search', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataSearchController.get(req, res)
+    );
+    app.post('/location-metadata-search', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataSearchController.post(req, res)
+    );
+    app.get('/location-metadata-manage', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataManageController.get(req, res)
+    );
+    app.post('/location-metadata-manage', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataManageController.post(req, res)
+    );
+    app.get('/location-metadata-create-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataCreateConfirmedController.get(req, res)
+    );
+    app.get('/location-metadata-update-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataUpdateConfirmedController.get(req, res)
+    );
+    app.get('/location-metadata-delete-confirmation', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmationController.get(req, res)
+    );
+    app.post('/location-metadata-delete-confirmation', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmationController.post(req, res)
+    );
+    app.get('/location-metadata-delete-confirmed', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.locationMetadataDeleteConfirmedController.get(req, res)
+    );
 
     //CFT Routes
     app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);
@@ -1097,6 +1171,23 @@ export default function (app: Application): void {
         processCftIdamSignIn
     );
     app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
+
+    //CRIME IDAM Routes
+    app.get(
+        '/crime-login',
+        regenerateSession,
+        keepSessionLanguage,
+        app.locals.container.cradle.crimeLoginController.get
+    );
+    app.get(
+        '/crime-login/return',
+        passport.authenticate('crime-idam', {
+            failureRedirect: '/error',
+        }),
+        keepSessionLanguage,
+        processCrimeIdamSignIn
+    );
+    app.get('/error', app.locals.container.cradle.errorController.get);
 
     // SSO Routes
     app.get('/sso-login', regenerateSession, keepSessionLanguage, (req, res, next) =>

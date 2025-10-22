@@ -16,7 +16,10 @@ export default class ManageThirdPartyUsersSubscriptionsController {
         if (req.query['userId']) {
             const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
             const listTypes = publicationService.getListTypes();
-            let subscriptionChannels = await subscriptionsService.retrieveChannels();
+            let subscriptionChannels = await subscriptionsService.retrieveChannels(
+                req.query['userId'],
+                req.user['userId']
+            );
 
             if (user) {
                 const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
@@ -47,6 +50,7 @@ export default class ManageThirdPartyUsersSubscriptionsController {
         ) {
             await thirdPartyService.handleThirdPartySubscriptionUpdate(
                 req.user['userId'],
+                req.user['userProvenance'],
                 selectedUser,
                 selectedListTypes,
                 selectedChannel

@@ -1,8 +1,17 @@
 #!groovy
 
 properties([
-// H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
-pipelineTriggers([cron('H 07 * * 1-5')])
+    pipelineTriggers([cron('H 07 * * 1-5')]),
+    parameters([
+        string(name: 'DATA_MANAGEMENT_URL', defaultValue: 'https://pip-data-management.staging.platform.hmcts.net',
+            description: 'The data managementURL you want to run the full functional tests against'),
+        string(name: 'ACCOUNT_MANAGEMENT_URL', defaultValue: 'https://pip-account-management.staging.platform.hmcts.net',
+            description: 'The account management URL you want to run the full functional tests against'),
+        string(name: 'PUBLICATION_SERVICES_URL', defaultValue: 'https://pip-publication-services.staging.platform.hmcts.net',
+            description: 'The publication services URL you want to run the full functional tests against'),
+        string(name: 'FRONT_END_URL', defaultValue: 'https://pip-frontend.staging.platform.hmcts.net',
+            description: 'The front-end URL you want to run the full functional tests against'),
+    ])
 ])
 
 @Library("Infrastructure")
@@ -37,6 +46,8 @@ def setupTestSecrets() {
             secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL'),
             secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD'),
+            secret('crime-valid-test-account', 'CRIME_VALID_USERNAME'),
+            secret('crime-valid-test-account-password', 'CRIME_VALID_PASSWORD'),
             secret('sso-test-admin-account-ctsc-user', 'SSO_TEST_ADMIN_CTSC_USER'),
             secret('sso-test-admin-account-ctsc-pwd', 'SSO_TEST_ADMIN_CTSC_PWD'),
             secret('sso-test-admin-local-account-user', 'SSO_TEST_ADMIN_LOCAL_USER'),
@@ -67,6 +78,8 @@ def setupTestSecrets() {
         env.CLIENT_SECRET_INTERNAL = "${CLIENT_SECRET_INTERNAL}"
         env.TEST_URL = "https://pip-frontend.staging.platform.hmcts.net"
         env.TEST_USER_PASSWORD = "${TEST_USER_PASSWORD}"
+        env.CRIME_VALID_USERNAME = "${CRIME_VALID_USERNAME}"
+        env.CRIME_VALID_PASSWORD = "${CRIME_VALID_PASSWORD}"
         env.SSO_TEST_ADMIN_CTSC_USER = "${SSO_TEST_ADMIN_CTSC_USER}"
         env.SSO_TEST_ADMIN_CTSC_PWD = "${SSO_TEST_ADMIN_CTSC_PWD}"
         env.SSO_TEST_ADMIN_LOCAL_USER = "${SSO_TEST_ADMIN_LOCAL_USER}"

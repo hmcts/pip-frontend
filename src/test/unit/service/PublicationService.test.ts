@@ -89,8 +89,7 @@ const countPerLocation = [
 ];
 
 const publicationService = new PublicationService();
-const publicationRequestStub = sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue');
-publicationRequestStub.resolves(returnedArtefact);
+sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').resolves(returnedArtefact);
 
 const publicationRequests = PublicationRequests.prototype;
 
@@ -108,9 +107,10 @@ stub.withArgs().returns(dailyCauseListData);
 const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
 stubMetaData.returns(metaData);
 
-const stubCourtPubs = sinon.stub(publicationRequests, 'getPublicationsByCourt');
-stubCourtPubs.withArgs('1', userId, false).resolves(returnedArtefact);
-stubCourtPubs.withArgs('2', userId, false).resolves([]);
+const stubPublicationsByLocation = sinon.stub(publicationRequests, 'getPublicationsByLocation');
+stubPublicationsByLocation.withArgs('1').resolves(returnedArtefact);
+stubPublicationsByLocation.withArgs('2').resolves([]);
+
 sinon.stub(publicationRequests, 'getPubsPerLocation').returns(countPerLocation);
 const validCourtName = 'PRESTON';
 const invalidCourtName = 'TEST';
@@ -119,6 +119,8 @@ const adminUserId = '1234';
 const stubPublicationDeletion = sinon.stub(PublicationRequests.prototype, 'deleteLocationPublication');
 stubPublicationDeletion.withArgs(1, adminUserId).returns('success');
 stubPublicationDeletion.withArgs(2, adminUserId).returns(null);
+
+sinon.stub(PublicationRequests.prototype, 'getNoMatchPublications').resolves('{"item":"listOfPubs"}');
 
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
@@ -177,7 +179,7 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(86);
+        expect(listTypes.size).to.equal(92);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List (Full List)');
@@ -222,20 +224,26 @@ describe('Publication service', () => {
         });
     });
 
-    describe('getPublicationsByCourt Publication Service', () => {
+    describe('getPublicationsByLocation', () => {
         it('should return artefact for a valid call', async () => {
-            const data = await publicationService.getPublicationsByCourt('1', userId);
+            const data = await publicationService.getPublicationsByLocation('1', userId);
             expect(data).to.deep.equal(returnedArtefact);
         });
         it('should return empty list for a invalid call', async () => {
-            const data = await publicationService.getPublicationsByCourt('2', userId);
+            const data = await publicationService.getPublicationsByLocation('2', userId);
             expect(data).to.deep.equal([]);
+        });
+    });
+
+    describe('getNoMatchPublications', () => {
+        it('should return a list of noMatch publications', async () => {
+            expect(await publicationService.getNoMatchPublications('123-456')).to.equal('{"item":"listOfPubs"}');
         });
     });
 
     describe('Count of locationIds->pubs endpoint', () => {
         it('should return a list of locationIds alongside the relevant number of publications', async () => {
-            const data = await publicationService.getCountsOfPubsPerLocation();
+            const data = await publicationService.getCountsOfPubsPerLocation('123-456');
             const expectedMap = new Map();
             expectedMap.set('1', 2);
             expectedMap.set('3', 1);

@@ -95,7 +95,7 @@ describe('Home page', () => {
         it('should display bullets', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
-                'Hearings in most Civil and Family Courts in the Southeast region',
+                'Hearings in most Civil and Family Courts in the South East and South West regions',
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
@@ -103,8 +103,12 @@ describe('Home page', () => {
                 'Could not find second bullet'
             );
             expect(bullets[2].innerHTML).contains(
-                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Hearings in the Royal Courts of Justice and the Rolls Building',
                 'Could not find third bullet'
+            );
+            expect(bullets[3].innerHTML).contains(
+                'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
+                'Could not find fourth bullet'
             );
         });
 
@@ -245,7 +249,7 @@ describe('Home page', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
 
             expect(bullets[0].innerHTML).contains(
-                'Gwrandawiadau ym mwyafrif y Llysoedd Sifil a Theulu yn Ne-ddwyrain Lloegr',
+                'Gwrandawiadau yn y rhan fwyaf o Lysoedd Sifil a Theulu yn rhanbarthau De Ddwyrain a De Orllewin Lloegr',
                 'Could not find first bullet'
             );
 
@@ -255,8 +259,13 @@ describe('Home page', () => {
             );
 
             expect(bullets[2].innerHTML).contains(
-                'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
+                'Gwrandawiadau yn yr Llys Barn Brenhinol a’r Adeilad Rolls',
                 'Could not find third bullet'
+            );
+
+            expect(bullets[3].innerHTML).contains(
+                'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
+                'Could not find fourth bullet'
             );
         });
 

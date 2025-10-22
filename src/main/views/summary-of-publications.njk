@@ -3,7 +3,7 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ title }} {{ locationName }}?
+  {{ title }} {{ locationName }}? – Court and Tribunal Hearings – GOV.UK?
 {% endblock %}
 {% block beforeContent %}
   {{ super() }}
@@ -11,25 +11,36 @@
 {% endblock %}
 {% block content %}
 <div class="parent-box">
-  <h1 class="govuk-heading-l">{{ title }} {{ locationName }}?</h1>
+  <h1 class="govuk-heading-l">{{ header }} {{ locationName }}?</h1>
+  {% if cautionMessageOverride | length %}
+    {% if cautionMessageOverride | isHtml %}
+      <div class="govuk-body">{{ cautionMessageOverride | safe }}</div>
+    {% else %}
+      <p class="govuk-body">{{ cautionMessageOverride }}</p>
+    {% endif %}
+  {% endif %}
   {% if publications.length === 0 %}
     {% if noListMessageOverride | length %}
-        <p class="govuk-body govuk-!-font-size-16">{{ noListMessageOverride }}</p>
+      {% if noListMessageOverride | isHtml %}
+        <div class="govuk-body">{{ noListMessageOverride | safe }}</div>
+      {% else %}
+        <p class="govuk-body">{{ noListMessageOverride }}</p>
+      {% endif %}
     {% elseif court.email | length and court.contactNo | length %}
-        <p class="govuk-body govuk-!-font-size-16">{{ noListsWithCourtTelephoneAndEmail | replace("COURTNAME", locationName) | replace("CONTACTNO", court.contactNo) | replace("EMAIL", court.email) }}</p>
+      <p class="govuk-body">{{ noListsWithCourtTelephoneAndEmail | replace("COURTNAME", locationName) | replace("CONTACTNO", court.contactNo) | replace("EMAIL", court.email) }}</p>
     {% elseif court.contactNo | length %}
-        <p class="govuk-body govuk-!-font-size-16">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.contactNo) }}</p>
+      <p class="govuk-body">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.contactNo) }}</p>
     {% elseif court.email | length %}
-        <p class="govuk-body govuk-!-font-size-16">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.email) }}</p>
+      <p class="govuk-body">{{ noListsWithCourtTelephoneOrEmail | replace("COURTNAME", locationName) | replace("COURTCONTACT", court.email) }}</p>
     {% else %}
-        <p class="govuk-body govuk-!-font-size-16">{{ noLists }}</p>
+      <p class="govuk-body">{{ noLists }}</p>
     {% endif %}
   {% else %}
     <p class="govuk-body">{{ p1 }}</p>
     <div class="parent-box">
     {% set pubs = [] %}
     <ul class="no-bullets-list">
-      {% for item in publications | sort(attribute="listType") | sort(reverse= true, attribute="contentDate") %}
+      {% for item in publications| sort(attribute="language") | sort(reverse= true, attribute="contentDate") | sort(attribute="listName") %}
         <li class="govuk-body govuk-!-font-size-16">
           {% if item.isFlatFile %}
             <a class=das-search-results__link target=”_blank” href="file-publication?artefactId={{ item.artefactId }}">

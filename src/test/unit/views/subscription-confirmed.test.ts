@@ -27,7 +27,7 @@ describe('Subscriptions Confirmed Page', () => {
     it('should display confirmation panel with correct title and message', () => {
         const panel = htmlRes.getElementsByClassName('govuk-panel--confirmation')[0];
         expect(panel.getElementsByClassName('govuk-panel__title')[0].innerHTML).contains(
-            'Email subscriptions updated',
+            'Subscription confirmation',
             'Could not find panel title or is incorrect'
         );
         expect(panel.getElementsByClassName('govuk-panel__body').length).equal(

@@ -39,14 +39,14 @@ sinon.stub(AccountManagementRequests.prototype, 'isAuthorised').resolves(true);
 sinon.stub(ListDownloadService.prototype, 'getFile').resolves('abc');
 
 const getFileSizeStub = sinon.stub(ListDownloadService.prototype, 'getFileSize');
-getFileSizeStub.withArgs('abc', 'pdf').returns('1.1MB');
-getFileSizeStub.withArgs('abc', 'xlsx').returns('25.2KB');
-getFileSizeStub.withArgs('def', 'pdf').returns('1.1MB');
-getFileSizeStub.withArgs('def', 'xlsx').returns(null);
-getFileSizeStub.withArgs('ghi', 'pdf').returns(null);
-getFileSizeStub.withArgs('ghi', 'xlsx').returns('25.2KB');
+getFileSizeStub.withArgs('abc', 'pdf', '123-456').returns('1.1MB');
+getFileSizeStub.withArgs('abc', 'xlsx', '123-456').returns('25.2KB');
+getFileSizeStub.withArgs('def', 'pdf', '123-456').returns('1.1MB');
+getFileSizeStub.withArgs('def', 'xlsx', '123-456').returns(null);
+getFileSizeStub.withArgs('ghi', 'pdf', '123-456').returns(null);
+getFileSizeStub.withArgs('ghi', 'xlsx', '123-456').returns('25.2KB');
 
-expressRequest['user'] = { roles: 'VERIFIED' };
+expressRequest['user'] = { roles: 'VERIFIED', userId: '123-456' };
 
 describe('List Download Files Page', () => {
     describe('With PDF and Excel', () => {
@@ -61,7 +61,10 @@ describe('List Download Files Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains('Download your file', 'Page title does not match');
+            expect(pageTitle).contains(
+                'Email subscriptions - Download your file - Court and Tribunal Hearings - GOV.UK',
+                'Page title does not match'
+            );
         });
 
         it('should display header', () => {

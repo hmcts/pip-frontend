@@ -199,36 +199,6 @@
         "defaultSensitivity": "",
         "isNonStrategic": false
     },
-    "PRIMARY_HEALTH_LIST": {
-        "friendlyName": "Primary Health Tribunal Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Iechyd Sylfaenol",
-        "shortenedFriendlyName": "Primary Health Tribunal Hearing List",
-        "url": "primary-health-list",
-        "jurisdictionTypes": ["Primary Health Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
-    "CARE_STANDARDS_LIST": {
-        "friendlyName": "Care Standards Tribunal Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau’r Tribiwnlys Safonau Gofal",
-        "shortenedFriendlyName": "Care Standards Tribunal Hearing List",
-        "url": "care-standards-list",
-        "jurisdictionTypes": ["Care Standards Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
-    "CIC_DAILY_HEARING_LIST": {
-        "friendlyName": "Criminal Injuries Compensation Daily Hearing List",
-        "welshFriendlyName": "Rhestr Gwrandawiadau Dyddiol y Digolledu am Anafiadau Troseddol",
-        "shortenedFriendlyName": "CIC Daily Hearing List",
-        "url": "",
-        "jurisdictionTypes": ["Criminal Injuries Compensation Tribunal"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
     "PHT_WEEKLY_HEARING_LIST": {
         "friendlyName": "Primary Health Tribunal Weekly Hearing List",
         "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Iechyd Sylfaenol",
@@ -285,7 +255,6 @@
         "jurisdictionTypes": ["Upper Tribunal (Immigration and Asylum) - Judicial Review"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "parentPage": "ut-iac-judicial-review-daily-hearing-list",
         "isNonStrategic": true
     },
     "UT_IAC_JR_MANCHESTER_DAILY_HEARING_LIST": {
@@ -311,10 +280,21 @@
         "isNonStrategic": true
     },
     "UT_IAC_JR_CARDIFF_DAILY_HEARING_LIST": {
-        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Cardiff Daily Hearing List",
-        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Caerdydd",
-        "shortenedFriendlyName": "UTIAC (JR) - Cardiff Daily Hearing List",
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Bristol and Cardiff Daily Hearing List",
+        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Bryste a Caerdydd",
+        "shortenedFriendlyName": "UTIAC (JR) - Bristol and Cardiff Daily Hearing List",
         "url": "ut-iac-jr-cardiff-daily-hearing-list",
+        "jurisdictionTypes": ["Upper Tribunal (Immigration and Asylum) - Judicial Review"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "parentPage": "ut-iac-judicial-review-daily-hearing-list",
+        "isNonStrategic": true
+    },
+    "UT_IAC_JR_LEEDS_DAILY_HEARING_LIST": {
+        "friendlyName": "Upper Tribunal (Immigration and Asylum) Chamber - Judicial Review: Leeds Daily Hearing List",
+        "welshFriendlyName": "Uwch Dribiwnlys (Mewnfudo a Lloches) - Rhestr o Wrandawiadau Dyddiol Siambr Adolygiadau Barnwrol Leeds",
+        "shortenedFriendlyName": "UTIAC (JR) - Leeds Daily Hearing List",
+        "url": "ut-iac-jr-leeds-daily-hearing-list",
         "jurisdictionTypes": ["Upper Tribunal (Immigration and Asylum) - Judicial Review"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
@@ -587,16 +567,6 @@
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
-    "PLANNING_COURT_DAILY_CAUSE_LIST": {
-        "friendlyName": "Planning Court Daily Cause List",
-        "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Cynllunio",
-        "shortenedFriendlyName": "Planning Court Daily Cause List",
-        "url": "planning-court-daily-cause-list",
-        "jurisdictionTypes": ["High Court"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": true
-    },
     "COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "County Court at Central London Civil Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yn y Llys Sirol yng Nghanol Llundain",
@@ -703,7 +673,7 @@
         "shortenedFriendlyName": "London Circuit Commercial Court (KB) Daily Cause List",
         "url": "london-circuit-commercial-court-kb-daily-cause-list",
         "jurisdictionTypes": ["High Court"],
-         "restrictedProvenances": [],
+        "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
@@ -852,9 +822,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Apêl (Adran Sifil)",
         "shortenedFriendlyName": "Court of Appeal (Civil Division) Daily Cause List",
         "url": "court-of-appeal-civil-daily-cause-list",
-        "jurisdictionTypes": [
-            "Court of Appeal (Civil Division)"
-        ],
+        "jurisdictionTypes": ["Court of Appeal (Civil Division)"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
@@ -898,5 +866,96 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": true
+    },
+    "CIC_WEEKLY_HEARING_LIST": {
+        "friendlyName": "Criminal Injuries Compensation Weekly Hearing List",
+        "welshFriendlyName": "Rhestr Gwrandawiadau Wythnosol y Tribiwnlys Digolledu am Anafiadau Troseddol",
+        "shortenedFriendlyName": "CIC Weekly Hearing List",
+        "url": "cic-weekly-hearing-list",
+        "jurisdictionTypes": ["Criminal Injuries Compensation Tribunal"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true,
+        "isWeeklyList": true
+    },
+    "PCOL_DAILY_CAUSE_LIST": {
+        "friendlyName": "Possession Claim Online Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Hawliadau Meddiant Ar-lein",
+        "shortenedFriendlyName": "PCOL Daily Cause List",
+        "url": "",
+        "jurisdictionTypes": ["Civil Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
+    "SEND_DAILY_HEARING_LIST": {
+        "friendlyName": "First-tier Tribunal (Special Educational Needs and Disability) Daily Hearing List",
+        "welshFriendlyName": "Rhestr o Wrandawiadau Dyddiol y Tribiwnlys Haen Gyntaf (Anghenion Addysgol Arbennig ac Anabledd)",
+        "shortenedFriendlyName": "SEND Daily Hearing List",
+        "url": "send-daily-hearing-list",
+        "jurisdictionTypes": ["First-tier Tribunal (Special Educational Needs and Disability)"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
+    "MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY": {
+        "friendlyName": "Magistrates Public Adult Court List - Daily",
+        "welshFriendlyName": "Rhestr Achosion Cyhoeddus Llys Ynadon (Oedolion) - Dyddiol",
+        "shortenedFriendlyName": "Magistrates Public Adult Court List - Daily",
+        "url": "magistrates-public-adult-court-list-daily",
+        "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
+    "MAGISTRATES_ADULT_COURT_LIST_DAILY": {
+        "friendlyName": "Magistrates Adult Court List - Daily",
+        "welshFriendlyName": "Rhestr Llys Ynadon Oedolion - Dyddiol",
+        "shortenedFriendlyName": "Magistrates Adult Court List - Daily",
+        "url": "magistrates-adult-court-list-daily",
+        "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "MAGISTRATES_ADULT_COURT_LIST_FUTURE": {
+        "friendlyName": "Magistrates Adult Court List - Future",
+        "welshFriendlyName": "Rhestr Llys Ynadon Oedolion – Dyfodol",
+        "shortenedFriendlyName": "Magistrates Adult Court List - Future",
+        "url": "magistrates-adult-court-list-future",
+        "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "CROWN_FIRM_PDDA_LIST": {
+        "friendlyName": "Crown Firm PDDA List",
+        "welshFriendlyName": "Rhestr PDDA Cwmni Llys y Goron",
+        "shortenedFriendlyName": "Crown Firm PDDA List",
+        "url": "crown-firm-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "CROWN_DAILY_PDDA_LIST": {
+        "friendlyName": "Crown Daily PDDA List",
+        "welshFriendlyName": "Rhestr PDDA Ddyddiol Llys y Goron",
+        "shortenedFriendlyName": "Crown Daily PDDA List",
+        "url": "crown-daily-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
+    },
+    "CROWN_WARNED_PDDA_LIST": {
+        "friendlyName": "Crown Warned PDDA List",
+        "welshFriendlyName": "Rhestr Rybudd PDDA Llys y Goron",
+        "shortenedFriendlyName": "Crown Warned PDDA List",
+        "url": "crown-warned-pdda-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false
     }
 }

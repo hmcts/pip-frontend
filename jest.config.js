@@ -2,7 +2,7 @@ module.exports = {
     cache: true,
     cacheDirectory: '/tmp/jest-cache',
     preset: 'ts-jest/presets/js-with-babel',
-    transformIgnorePatterns: ['/node_modules/(?!(chai|@azure)/)'],
+    transformIgnorePatterns: ['/node_modules/(?!(chai|@azure|applicationinsights/node_modules/@azure|@typespec)/)'],
     roots: ['<rootDir>/src/test/unit'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
     moduleNameMapper: {
@@ -17,6 +17,6 @@ module.exports = {
         '^.+\\.ts?$': 'ts-jest',
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    collectCoverageFrom: ['!**/modules/**'],
+    collectCoverageFrom: ['**'],
     setupFiles: ['<rootDir>/jestEnvVars.js'],
 };

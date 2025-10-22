@@ -12,7 +12,7 @@ const headingClass = 'govuk-heading-xl';
 const insetTextClass = 'govuk-inset-text';
 const linkClass = 'govuk-link';
 
-const expectedHeader = 'Reference manual data upload';
+const expectedHeader = 'Manually upload a csv file';
 const expectedFileQuestion = 'Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB';
 const expectedFileInputType = 'file';
 const buttonText = 'Continue';
@@ -55,7 +55,7 @@ describe('Reference Data Manual upload page', () => {
         });
 
         it('should display continue button', () => {
-            const button = htmlRes.getElementsByTagName('button')[1];
+            const button = htmlRes.getElementsByTagName('button')[0];
             expect(button.innerHTML).contains(buttonText, 'Could not find continue button');
         });
 

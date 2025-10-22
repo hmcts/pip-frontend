@@ -1,5 +1,10 @@
 import { DateTime } from 'luxon';
-import { createLocation, createTestUserAccount, uploadPublication } from '../../shared/testingSupportApi';
+import {
+    createLocation,
+    createSubscription,
+    createTestUserAccount,
+    uploadPublication,
+} from '../../shared/testingSupportApi';
 import { randomData } from '../../shared/random-data';
 import { config as testConfig, config } from '../../../config';
 
@@ -72,7 +77,7 @@ Scenario(
         I.see('Employment Tribunals Daily List');
         I.see('English');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -90,7 +95,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -102,13 +107,13 @@ Scenario(
         );
         I.fillField('#search-input', caseURN);
         I.click('Continue');
-        I.waitForText('Search result');
+        I.waitForText('Subscription URN search results');
         I.see('1 found');
         I.see(caseURN);
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Add email subscription');
@@ -118,7 +123,7 @@ Scenario(
         I.see('For example, Smith');
         I.fillField('#case-name', caseName);
         I.click('Continue');
-        I.waitForText('Search result');
+        I.waitForText('Subscription case search results');
         I.see(caseName);
         I.see(caseNamePartyFullName);
         I.see(caseNamePartyOrganisationName);
@@ -130,7 +135,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.waitForText('All subscriptions');
@@ -259,7 +264,7 @@ Scenario(
         I.see(locationName1);
         I.see(locationName2);
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
         I.click('Email subscriptions');
         I.waitForText('Your email subscriptions');
         I.see(locationName1);
@@ -312,7 +317,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('Continue');
     I.waitForText('Confirm your email subscriptions');
     I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
+    I.waitForText('Subscription confirmation');
 
     I.click('Email subscriptions');
     I.waitForText('Your email subscriptions');
@@ -331,7 +336,7 @@ Scenario('I as a verified user should be able to select all subscriptions when b
     I.click('Continue');
     I.waitForText('Confirm your email subscriptions');
     I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
+    I.waitForText('Subscription confirmation');
 
     I.click('Email subscriptions');
     I.waitForText('Your email subscriptions');
@@ -416,7 +421,7 @@ Scenario(
         I.waitForText('Subscribe by court or tribunal name');
         I.click('Continue');
         I.waitForText('There is a problem');
-        I.see('At least 1 subscription is needed.');
+        I.see('At least one subscription is needed.');
 
         I.click('Add Subscriptions');
         I.click('#subscription-choice-1');
@@ -475,7 +480,7 @@ Scenario(
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
-        I.waitForText('Email subscriptions updated');
+        I.waitForText('Subscription confirmation');
 
         I.click('Email subscriptions');
         I.click('Edit list types');
@@ -598,11 +603,14 @@ Scenario('I as a verified user should be able to filter locations while subscrib
 Scenario('I as a verified user should be able to filter and select which list type to receive', async ({ I }) => {
     const locationId = randomData.getRandomLocationId();
     const locationName = config.TEST_SUITE_PREFIX + randomData.getRandomString();
-
+    const locationIdOne = randomData.getRandomLocationId();
+    const locationNameOne = config.TEST_SUITE_PREFIX + randomData.getRandomString();
     const testUserEmail = randomData.getRandomEmailAddress();
 
-    await createLocation(locationId, locationName);
     const testUser = await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testUserEmail);
+    await createLocation(locationIdOne, locationNameOne);
+    await createLocation(locationId, locationName);
+    await createSubscription(locationIdOne, locationNameOne, testUser['userId'] as string);
 
     I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
     I.waitForText('Your account');
@@ -619,12 +627,6 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see(locationName);
     I.click('Continue');
     I.waitForText('Select List Types');
-    I.see(
-        'Choose the lists you will receive for your selected courts and tribunals. This will not affect any ' +
-            "specific cases you may have subscribed to. Also don't forget to come" +
-            ' back regularly to see new list types as we add more.'
-    );
-
     I.see('Civil Daily Cause List');
     I.see('Civil and Family Daily Cause List');
     I.see('Family Daily Cause List');
@@ -635,14 +637,12 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see('Single Justice Procedure Press List');
     I.see('Employment Tribunals Daily List');
     I.see('Employment Tribunals Fortnightly Press List');
-
     I.dontSee('Crown Daily List');
     I.dontSee('Criminal Injuries Compensation');
     I.dontSee('Care Standards Tribunal');
     I.dontSee('Primary Health Tribunal');
     I.dontSee('First-tier Tribunal');
     I.dontSee('Upper Tribunal');
-
     I.checkOption('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Continue');
     I.waitForText('What version of the list do you want to receive?');
@@ -650,7 +650,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.click('Continue');
     I.waitForText('Confirm your email subscriptions');
     I.click('Confirm Subscriptions');
-    I.waitForText('Email subscriptions updated');
+    I.waitForText('Subscription confirmation');
 
     I.click('Email subscriptions');
     I.click('Edit list types');
@@ -668,8 +668,17 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.waitForText('List types updated');
 
     I.click('manage your current email subscriptions');
+    I.waitForText('Your email subscriptions');
+    I.click(locate('//tr').withText(locationNameOne).find('a').withText('Unsubscribe'));
+    I.waitForText('Are you sure you want to remove this subscription?');
+    I.click('#unsubscribe-confirm');
+    I.click('Continue');
+    I.waitForText('Your subscription has been removed');
+    I.click('Email subscriptions');
+
     I.click('Edit list types');
     I.waitForText('Select List Types');
+    I.seeCheckboxIsChecked('#CIVIL_DAILY_CAUSE_LIST');
     I.dontSeeCheckboxIsChecked('#CIVIL_AND_FAMILY_DAILY_CAUSE_LIST');
     I.click('Email subscriptions');
     I.click(locate('//tr').withText(locationName).find('a').withText('Unsubscribe'));

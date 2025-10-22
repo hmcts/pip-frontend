@@ -10,10 +10,9 @@ propertiesVolume.addTo(config);
 import { Logger } from '@hmcts/nodejs-logging';
 import * as bodyParser from 'body-parser';
 import session from 'express-session';
-import express from 'express';
+import express, { NextFunction } from 'express';
 import { Helmet } from './modules/helmet';
 import * as path from 'path';
-import favicon from 'serve-favicon';
 import { HTTPError } from 'HttpError';
 import { Nunjucks } from './modules/nunjucks';
 import passport from 'passport';
@@ -42,7 +41,10 @@ new Container().enableFor(app);
 
 logger.info('environment', env);
 
-app.use(favicon(path.join(__dirname, '/public/assets/images/favicon.ico')));
+app.get('/favicon.ico', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/assets/rebrand/images/favicon.ico'));
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -91,8 +93,9 @@ app.use((req: PipRequest, res) => {
     res.render('not-found', req.i18n.getDataByLanguage(req.lng)['not-found']);
 });
 
-// error handler
-app.use((err: HTTPError, req: PipRequest, res: express.Response) => {
+// error handler - pass in the next function so any unhandled errors are caught here
+/* eslint-disable @typescript-eslint/no-unused-vars */
+app.use((err: HTTPError, req: PipRequest, res: express.Response, next: NextFunction) => {
     logger.error(`${err.stack || err}`);
 
     // set locals, only providing error in development

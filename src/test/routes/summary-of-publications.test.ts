@@ -3,12 +3,14 @@ import { app } from '../../main/app';
 import request from 'supertest';
 import { PublicationService } from '../../main/service/PublicationService';
 import sinon from 'sinon';
-import { SummaryOfPublicationsService } from '../../main/service/SummaryOfPublicationsService';
 
 const mockJSON = '{"data":"false"}';
-const mockArray = '[{"data":"false"}]';
+const mockArray = '[{"listType": "List_A"}]';
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(mockJSON);
-sinon.stub(SummaryOfPublicationsService.prototype, 'getPublications').resolves(mockArray);
+sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(JSON.parse(mockArray));
+sinon
+    .stub(PublicationService.prototype, 'getListTypes')
+    .returns(new Map([['List_A', { friendlyName: 'List name A' }]]));
 
 describe('Summary of Publications', () => {
     describe('on GET', () => {

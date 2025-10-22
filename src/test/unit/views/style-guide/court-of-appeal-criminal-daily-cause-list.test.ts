@@ -140,6 +140,6 @@ describe('Court of Appeal (Criminal Division) Daily Cause List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains('Data Source: Prov1');
+        expect(text[11].innerHTML).contains('Data Source: Prov1');
     });
 });

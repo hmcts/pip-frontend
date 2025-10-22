@@ -26,9 +26,9 @@ export class PublicationFileRequests {
      * Request to data management to check if any publication file exists.
      * @param artefactId the artefact ID of the publication files in Azure blob storage.
      */
-    public async fileExists(artefactId: string): Promise<boolean> {
+    public async fileExists(artefactId: string, headers: object): Promise<boolean> {
         try {
-            const response = await dataManagementApi.get(`/publication/${artefactId}/exists`);
+            const response = await dataManagementApi.get(`/publication/${artefactId}/exists`, { headers });
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(
@@ -43,9 +43,9 @@ export class PublicationFileRequests {
      * Request to data management to retrieve the sizes of all publication files
      * @param artefactId the artefact ID of the publication files in Azure blob storage.
      */
-    public async getFileSizes(artefactId: string): Promise<PublicationFileSizes> {
+    public async getFileSizes(artefactId: string, headers: object): Promise<PublicationFileSizes> {
         try {
-            const response = await dataManagementApi.get(`/publication/${artefactId}/sizes`);
+            const response = await dataManagementApi.get(`/publication/${artefactId}/sizes`, { headers });
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(

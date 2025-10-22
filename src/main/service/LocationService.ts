@@ -2,8 +2,7 @@ import { LocationRequests } from '../resources/requests/LocationRequests';
 import { Location } from '../models/Location';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';
-import locationInfo from '../resources/additionalLocationInfoLookup.json';
-import { AdditionalLocationInfo } from '../models/AdditionalLocationInfo';
+import { LocationMetadata } from '../models/LocationMetadata';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
@@ -44,8 +43,8 @@ export class LocationService {
         return await locationRequest.getLocation(locationId);
     }
 
-    public async getLocationByName(courtName: string, language: string): Promise<Location> {
-        return await locationRequest.getLocationByName(courtName, language);
+    public async getLocationByName(locationName: string, language: string): Promise<Location> {
+        return await locationRequest.getLocationByName(locationName, language);
     }
 
     public async generateAlphabetisedAllCourtList(language: string): Promise<object> {
@@ -99,8 +98,8 @@ export class LocationService {
         return courtItem;
     }
 
-    public async deleteLocationById(locationId: number, userId: string): Promise<object> {
-        return await locationRequest.deleteCourt(locationId, userId);
+    public async deleteLocationById(locationId: number, requesterId: string): Promise<object> {
+        return await locationRequest.deleteCourt(locationId, requesterId);
     }
 
     public async findCourtJurisdictionTypes(locations): Promise<string[]> {
@@ -115,8 +114,73 @@ export class LocationService {
         return courtJurisdictionTypes;
     }
 
-    public getAdditionalLocationInfo(locationId: string) {
-        const allLocationInfoMap: Map<string, AdditionalLocationInfo> = new Map(Object.entries(locationInfo));
-        return allLocationInfoMap.get(locationId);
+    public async addLocationMetadata(
+        locationId: number,
+        cautionMessage: string,
+        welshCautionMessage: string,
+        noListMessage: string,
+        welshNoListMessage: string,
+        userId: string
+    ): Promise<boolean> {
+        return await locationRequest.addLocationMetadata(
+            this.createLocationMetadataPayload(
+                '',
+                locationId,
+                cautionMessage,
+                welshCautionMessage,
+                noListMessage,
+                welshNoListMessage
+            ),
+            userId
+        );
+    }
+
+    public async updateLocationMetadata(
+        id: string,
+        locationId: number,
+        cautionMessage: string,
+        welshCautionMessage: string,
+        noListMessage: string,
+        welshNoListMessage: string,
+        userId: string
+    ): Promise<boolean> {
+        return await locationRequest.updateLocationMetadata(
+            id,
+            this.createLocationMetadataPayload(
+                id,
+                locationId,
+                cautionMessage,
+                welshCautionMessage,
+                noListMessage,
+                welshNoListMessage
+            ),
+            userId
+        );
+    }
+
+    public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
+        return await locationRequest.getLocationMetadata(locationId);
+    }
+
+    public async deleteLocationMetadata(id: string, userId: string): Promise<boolean> {
+        return await locationRequest.deleteLocationMetadata(id, userId);
+    }
+
+    private createLocationMetadataPayload(
+        id: string,
+        locationId: number,
+        cautionMessage: string,
+        welshCautionMessage: string,
+        noListMessage: string,
+        welshNoListMessage: string
+    ): any {
+        return {
+            locationMetadataId: id,
+            locationId: locationId,
+            cautionMessage: cautionMessage,
+            welshCautionMessage: welshCautionMessage,
+            noListMessage: noListMessage,
+            welshNoListMessage: welshNoListMessage,
+        };
     }
 }

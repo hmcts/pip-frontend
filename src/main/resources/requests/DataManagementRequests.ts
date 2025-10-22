@@ -38,19 +38,23 @@ export class DataManagementRequests {
         return null;
     }
 
-    public async uploadLocationFile(body: any): Promise<boolean> {
+    public async uploadLocationFile(body: any, requesterId: string): Promise<boolean> {
         const token = await getDataManagementCredentials('');
-
+        const headers = { 'x-requester-id': requesterId };
         try {
             await superagent
                 .post(`${this.dataManagementAPI}/locations/upload`)
                 .set('enctype', 'multipart/form-data')
-                .set({ Authorization: 'Bearer ' + token.access_token })
+                .set({ ...headers, Authorization: 'Bearer ' + token.access_token })
                 .attach('locationList', body.file, body.fileName);
             return true;
         } catch (error) {
             logHelper.logErrorResponse(error, 'upload location reference data');
+            if (error.response?.status === 400 && error.response?.text) {
+                const errorJson = JSON.parse(error.response.text);
+                return errorJson.uiError ? errorJson.message : false;
+            }
+            return false;
         }
-        return false;
     }
 }

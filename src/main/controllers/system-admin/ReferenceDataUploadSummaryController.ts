@@ -37,9 +37,12 @@ export default class ReferenceDataUploadSummaryController {
                 fileUploadData: formData,
             });
         } else {
-            const response = await manualUploadService.uploadLocationDataPublication({
-                ...formData,
-            });
+            const response = await manualUploadService.uploadLocationDataPublication(
+                {
+                    ...formData,
+                },
+                req.user['userId']
+            );
 
             await userManagementService.auditAction(
                 req.user,
@@ -50,13 +53,22 @@ export default class ReferenceDataUploadSummaryController {
             fileHandlingService.removeFileFromRedis(req.user['userId'], formData.fileName);
 
             if (response) {
-                await userManagementService.auditAction(
-                    req.user,
-                    'REFERENCE_DATA_UPLOAD',
-                    'Reference data successfully uploaded'
-                );
-                res.clearCookie('formCookie');
-                res.redirect('reference-data-upload-confirmation');
+                if (typeof response === 'string') {
+                    res.render('system-admin/reference-data-upload-summary', {
+                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),
+                        fileUploadData: formData,
+                        displayError: true,
+                        errorMessage: response,
+                    });
+                } else {
+                    await userManagementService.auditAction(
+                        req.user,
+                        'REFERENCE_DATA_UPLOAD',
+                        'Reference data successfully uploaded'
+                    );
+                    res.clearCookie('formCookie');
+                    res.redirect('reference-data-upload-confirmation');
+                }
             } else {
                 res.render('system-admin/reference-data-upload-summary', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['reference-data-upload-summary']),

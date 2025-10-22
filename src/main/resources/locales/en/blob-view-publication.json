@@ -1,0 +1,10 @@
+{
+    "title": "System Admin - Blob Explorer - Court and Tribunal Hearings - GOV.UK",
+    "header": "Blob Explorer -",
+    "viewJson": "View Raw JSON Content",
+    "viewLinkJson": "Link to rendered template",
+    "viewLinkFlatFile": "Link to file",
+    "flatFile": "Flat file",
+    "jsonFile": "JSON file",
+    "resubmit": "Re-submit subscription"
+}

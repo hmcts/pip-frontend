@@ -112,6 +112,7 @@ export = function () {
             this.usePlaywrightTo('Go to media login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a Court and tribunal hearings account');
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.waitForText('Sign in with your email address');
@@ -125,6 +126,7 @@ export = function () {
             this.usePlaywrightTo('Go to media login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a Court and tribunal hearings account');
             this.click('With a Court and tribunal hearings account');
             this.click('Continue');
             this.waitForText('Sign in with your email address');
@@ -137,6 +139,7 @@ export = function () {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.waitForText('Sign in');
@@ -150,6 +153,7 @@ export = function () {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
             this.waitForText('Sign in');
@@ -162,6 +166,7 @@ export = function () {
             this.usePlaywrightTo('Go to cft Welsh login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
+            this.waitForText('With a MyHMCTS account');
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
@@ -169,6 +174,33 @@ export = function () {
             this.fillField('#username', username);
             this.fillField('#password', password);
             this.click('Mewngofnodi');
+        },
+
+        loginAsCrimeUser: function (
+            username = testConfig.CRIME_VALID_USERNAME,
+            password = testConfig.CRIME_VALID_PASSWORD
+        ) {
+            this.amOnPage('/sign-in');
+            this.click('With a Common Platform account');
+            this.click('Continue');
+            this.see('Sign in to Common Platform');
+            this.fillField('#idToken1', secret(username));
+            this.fillField('#idToken2', secret(password));
+            this.click('Sign in');
+        },
+
+        loginAsCrimeUserInWelsh: function (
+            username = testConfig.CRIME_VALID_USERNAME,
+            password = testConfig.CRIME_VALID_PASSWORD
+        ) {
+            this.amOnPage('/sign-in');
+            this.click('Cymraeg');
+            this.click('Gyda chyfrif Common Platform');
+            this.click('Parhau');
+            this.see('Sign in to Common Platform');
+            this.fillField('#idToken1', secret(username));
+            this.fillField('#idToken2', secret(password));
+            this.click('Sign in');
         },
 
         seeBetaFeedbackOnPage: function (page) {

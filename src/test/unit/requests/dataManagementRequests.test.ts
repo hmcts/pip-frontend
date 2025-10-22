@@ -13,9 +13,37 @@ const errorMessage = {
     message: 'test',
 };
 
+const errorResponseWithStatusButNoText = {
+    response: {
+        status: 400,
+    },
+};
+
+const errorResponseWithUiErrorText = {
+    response: {
+        status: 400,
+        text: '{"message":"Failed to upload locations.","timestamp":"2025-07-24T14:14:19.382542","uiError":true}',
+    },
+};
+
+const errorResponseWithNonUiErrorText = {
+    response: {
+        status: 400,
+        text: '{"message":"Failed to upload locations.","timestamp":"2025-07-24T14:14:19.382542"}',
+    },
+};
+
+const errorResponseWithNotBadRequest = {
+    response: {
+        status: 404,
+        text: '{"message":"Not Found.","timestamp":"2025-07-24T14:14:19.382542"}',
+    },
+};
+
 const mockUploadFileBody = { file: '', fileName: '' };
 const mockUploadFileHeaders = { foo: 'bar' };
 const fileUploadAPI = new DataManagementRequests();
+const requesterId = '123-456';
 
 describe('Data Management requests', () => {
     describe('upload publication', () => {
@@ -184,8 +212,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-
-            expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody)).toBe(true);
+            expect(await fileUploadAPI.uploadLocationFile(mockUploadFileBody, requesterId)).toBe(true);
         });
 
         it('should return error response', async () => {
@@ -200,7 +227,7 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'foo' })).toBe(false);
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'foo' }, requesterId)).toBe(false);
         });
 
         it('should return error message', async () => {
@@ -215,7 +242,69 @@ describe('Data Management requests', () => {
                     },
                 };
             });
-            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' })).toBe(false);
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBe(false);
+        });
+
+        it('should return UI error message', async () => {
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponseWithUiErrorText) };
+                            },
+                        };
+                    },
+                };
+            });
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBe(
+                'Failed to upload locations.'
+            );
+        });
+
+        it('should return false for non UI error message', async () => {
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponseWithNonUiErrorText) };
+                            },
+                        };
+                    },
+                };
+            });
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
+        });
+
+        it('should return false when not Bad Request status', async () => {
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponseWithNotBadRequest) };
+                            },
+                        };
+                    },
+                };
+            });
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
+        });
+
+        it('should return false when error response text is not present', async () => {
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(errorResponseWithStatusButNoText) };
+                            },
+                        };
+                    },
+                };
+            });
+            expect(await fileUploadAPI.uploadLocationFile({ file: '', fileName: 'baz' }, requesterId)).toBeFalsy();
         });
     });
 });

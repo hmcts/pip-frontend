@@ -62,7 +62,7 @@ Scenario(
     }
 ).tag('@Nightly');
 
-Scenario.skip('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
+Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
     I.usePlaywrightTo('Go to home page', async ({ page }) => {
         page.goto(testConfig.TEST_URL + '/b2c-admin-login');
     });
@@ -106,22 +106,20 @@ Scenario(
     }
 ).tag('@Nightly');
 
-Scenario.skip(
-    'I as a media user should be able to see the beta tag and feedback link when logging in',
-    async ({ I }) => {
-        I.usePlaywrightTo('Go to home page', async ({ page }) => {
-            page.goto(testConfig.TEST_URL + '/sign-in');
-        });
-        I.click('With a Court and tribunal hearings account');
-        I.click('Continue');
-        I.waitForText('Sign in with your email address');
-        I.seeBetaFeedbackOnPage('b2c/login');
-        I.executeScript('window.history.back();');
-        I.click('Forgot your password?');
-        I.waitForText('Please provide the following details.');
-        I.seeBetaFeedbackOnPage('b2c/reset-pw');
-    }
-);
+Scenario('I as a media user should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
+    I.usePlaywrightTo('Go to home page', async ({ page }) => {
+        page.goto(testConfig.TEST_URL + '/sign-in');
+    });
+    I.waitForText('With a Court and tribunal hearings account');
+    I.click('With a Court and tribunal hearings account');
+    I.click('Continue');
+    I.waitForText('Sign in with your email address');
+    I.seeBetaFeedbackOnPage('b2c/login');
+    I.executeScript('window.history.back();');
+    I.click('Forgot your password?');
+    I.waitForText('Please provide the following details.');
+    I.seeBetaFeedbackOnPage('b2c/reset-pw');
+});
 
 Scenario('I as a CFT user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCftUser();
@@ -179,6 +177,28 @@ Scenario(
         I.loginTestCftUser('email..justice.gov.uk', 'password');
         I.waitForText('Email address is not valid');
         I.see('Email address is not valid');
+    }
+).tag('@Nightly');
+
+Scenario('I as a Crime user should be able to sign-in with the valid credentials in English', async ({ I }) => {
+    I.loginAsCrimeUser();
+    I.waitForText('Your account');
+    I.logout();
+})
+    .tag('@SkipOnPR')
+    .tag('@CrossBrowser');
+
+Scenario('I as a Crime user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
+    I.loginAsCrimeUserInWelsh();
+    I.waitForText('Eich cyfrif');
+    I.logoutWelsh();
+}).tag('@Nightly');
+
+Scenario(
+    'I as a Crime user should be able to see proper error message when username or password is wrong',
+    async ({ I }) => {
+        I.loginAsCrimeUser('email@justice.gov.uk', 'password');
+        I.waitForText('You did not enter a correct username or password');
     }
 ).tag('@Nightly');
 

@@ -187,6 +187,13 @@ describe('File handling service', () => {
             const file = await fileHandlingService.readFileFromRedis(userId, 'validationJson.json');
             expect(file).toEqual(JSON.parse(jsonContent));
         });
+
+        it('should read a pdf file successfully', async () => {
+            getStub.withArgs('1234-validationFile2.pdf').resolves(null);
+
+            const fileBuffer = await fileHandlingService.readFileFromRedis(userId, 'validationFile2.pdf');
+            expect(fileBuffer).toBeNull();
+        });
     });
 
     describe('storeFile in redis', () => {
@@ -196,7 +203,7 @@ describe('File handling service', () => {
 
             await fileHandlingService.storeFileIntoRedis(userId, 'validationFile.pdf', 'validation.pdf');
 
-            sinon.assert.calledWith(setStub, '1234-validation.pdf', sinon.match.any, 'EX', sinon.match.any);
+            sinon.assert.calledWith(setStub, '1234-validation.pdf', sinon.match.any, { EX: sinon.match.any });
         });
 
         it('should store a JSON file succesfully', async () => {
@@ -204,7 +211,7 @@ describe('File handling service', () => {
 
             await fileHandlingService.storeFileIntoRedis(userId, 'validationJson.json', 'validation.json');
 
-            sinon.assert.calledWith(setStub, '1234-validation.json', sinon.match.any, 'EX', sinon.match.any);
+            sinon.assert.calledWith(setStub, '1234-validation.json', sinon.match.any, { EX : sinon.match.any });
         });
     });
 

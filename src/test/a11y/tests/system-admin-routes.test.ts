@@ -32,7 +32,7 @@ const systemAdminRoutes = [
     { path: '/system-admin-dashboard' },
     { path: '/blob-view-locations' },
     { path: '/blob-view-publications', parameter: '?locationId=123' },
-    { path: '/blob-view-json', parameter: '?artefactId=abc' },
+    { path: '/blob-view-publication', parameter: '?artefactId=abc' },
     { path: '/blob-view-subscription-resubmit-confirmation', parameter: '?artefactId=abc' },
     { path: '/blob-view-subscription-resubmit-confirmed' },
     { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
@@ -62,6 +62,12 @@ const systemAdminRoutes = [
     { path: '/manage-user' },
     { path: '/delete-user', parameter: `?id=${userId}` },
     { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
+    { path: '/location-metadata-search' },
+    { path: '/location-metadata-manage', parameter: '?locationId=123' },
+    { path: '/location-metadata-delete-confirmation', parameter: '?locationId=123' },
+    { path: '/location-metadata-delete-confirmed' },
+    { path: '/location-metadata-update-confirmed' },
+    { path: '/location-metadata-create-confirmed' },
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');
@@ -89,9 +95,10 @@ const countPerLocation = [
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(LocationRequests.prototype, 'getLocation').resolves(locationData[0]);
+sinon.stub(LocationRequests.prototype, 'getLocationMetadata').resolves({ locationMetadataId: '123' });
 sinon.stub(LocationRequests.prototype, 'getFilteredCourts').resolves(locationData);
 sinon.stub(LocationRequests.prototype, 'getAllLocations').resolves(locationData);
-sinon.stub(PublicationRequests.prototype, 'getPublicationsByCourt').resolves(metadata);
+sinon.stub(PublicationRequests.prototype, 'getPublicationsByLocation').resolves(metadata);
 sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').returns(metadata[0]);
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(userDataThirdParty);
@@ -153,6 +160,22 @@ describe('Accessibility - System Admin Routes', () => {
             const url = '/bulk-create-media-accounts';
 
             describe('with no input data', () => {
+                testAccessibility(url, '', true);
+            });
+        });
+
+        describe('Location Metadata Manage Page', () => {
+            const url = '/location-metadata-manage';
+
+            describe('with no location ID', () => {
+                testAccessibility(url, '', true);
+            });
+        });
+
+        describe('Location Metadata Delete Confirmation Page', () => {
+            const url = '/location-metadata-delete-confirmation';
+
+            describe('with no location ID', () => {
                 testAccessibility(url, '', true);
             });
         });

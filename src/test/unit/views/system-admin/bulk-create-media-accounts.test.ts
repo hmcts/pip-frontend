@@ -20,7 +20,10 @@ describe('Bulk Create Media Accounts Page', () => {
 
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
-            expect(pageTitle).contains('Bulk create media accounts', 'Page title does not match');
+            expect(pageTitle).contains(
+                'Create media accounts - Bulk create media accounts - Court and Tribunal Hearings - GOV.UK',
+                'Page title does not match'
+            );
         });
 
         it('should have correct header', () => {
@@ -50,7 +53,7 @@ describe('Bulk Create Media Accounts Page', () => {
         });
 
         it('should display continue button', () => {
-            const button = htmlRes.getElementsByTagName('button')[1];
+            const button = htmlRes.getElementsByTagName('button')[0];
             expect(button.innerHTML).contains('Continue', 'Could not find continue button');
         });
     });
