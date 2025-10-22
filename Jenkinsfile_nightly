@@ -1,8 +1,17 @@
 #!groovy
 
 properties([
-// H allow predefined but random minute see https://en.wikipedia.org/wiki/Cron#Non-standard_characters
-pipelineTriggers([cron('H 07 * * 1-5')])
+    pipelineTriggers([cron('H 07 * * 1-5')]),
+    parameters([
+        string(name: 'DATA_MANAGEMENT_URL', defaultValue: 'https://pip-data-management.staging.platform.hmcts.net',
+            description: 'The data managementURL you want to run the full functional tests against'),
+        string(name: 'ACCOUNT_MANAGEMENT_URL', defaultValue: 'https://pip-account-management.staging.platform.hmcts.net',
+            description: 'The account management URL you want to run the full functional tests against'),
+        string(name: 'PUBLICATION_SERVICES_URL', defaultValue: 'https://pip-publication-services.staging.platform.hmcts.net',
+            description: 'The publication services URL you want to run the full functional tests against'),
+        string(name: 'FRONT_END_URL', defaultValue: 'https://pip-frontend.staging.platform.hmcts.net',
+            description: 'The front-end URL you want to run the full functional tests against'),
+    ])
 ])
 
 @Library("Infrastructure")
