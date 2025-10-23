@@ -9,8 +9,8 @@ properties([
             description: 'The account management URL you want to run the full functional tests against'),
         string(name: 'PUBLICATION_SERVICES_URL', defaultValue: 'https://pip-publication-services.staging.platform.hmcts.net',
             description: 'The publication services URL you want to run the full functional tests against'),
-        string(name: 'FRONT_END_URL', defaultValue: 'https://pip-frontend.staging.platform.hmcts.net',
-            description: 'The front-end URL you want to run the full functional tests against'),
+        string(name: 'TEST_URL', defaultValue: 'https://pip-frontend.staging.platform.hmcts.net',
+            description: 'The front-end URL you want to run the full functional tests against')
     ])
 ])
 
@@ -76,7 +76,6 @@ def setupTestSecrets() {
         env.TENANT_ID = "${TENANT_ID}"
         env.CLIENT_ID_INTERNAL = "${CLIENT_ID_INTERNAL}"
         env.CLIENT_SECRET_INTERNAL = "${CLIENT_SECRET_INTERNAL}"
-        env.TEST_URL = "https://pip-frontend.staging.platform.hmcts.net"
         env.TEST_USER_PASSWORD = "${TEST_USER_PASSWORD}"
         env.CRIME_VALID_USERNAME = "${CRIME_VALID_USERNAME}"
         env.CRIME_VALID_PASSWORD = "${CRIME_VALID_PASSWORD}"
