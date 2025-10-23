@@ -9,8 +9,8 @@ properties([
             description: 'The account management URL you want to run the full functional tests against'),
         string(name: 'PUBLICATION_SERVICES_URL', defaultValue: 'https://pip-publication-services.staging.platform.hmcts.net',
             description: 'The publication services URL you want to run the full functional tests against'),
-        string(name: 'TEST_URL', defaultValue: 'https://pip-frontend.staging.platform.hmcts.net',
-            description: 'The front-end URL you want to run the full functional tests against')
+        string(name: 'FRONT_END_URL', defaultValue: 'https://pip-frontend.staging.platform.hmcts.net',
+            description: 'The front-end URL you want to run the full functional tests against'),
     ])
 ])
 
