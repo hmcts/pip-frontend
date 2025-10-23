@@ -12,6 +12,7 @@ import { describe } from '@jest/globals';
 const urlDailyList = '/magistrates-adult-court-list-daily';
 const urlFutureList = '/magistrates-adult-court-list-future';
 const urlPublicDailyList = '/magistrates-public-adult-court-list-daily';
+const urlPublicFutureList = '/magistrates-public-adult-court-list-future';
 
 const rawStandardData = fs.readFileSync(
     path.resolve(__dirname, '../../unit/mocks/magistratesAdultCourtList.json'),
@@ -31,17 +32,21 @@ const metadataFutureList = JSON.parse(rawMetaData)[0];
 metadataFutureList.listType = 'MAGISTRATES_ADULT_COURT_LIST_FUTURE';
 const metadataPublicDailyList = JSON.parse(rawMetaData)[0];
 metadataPublicDailyList.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_DAILY';
+const metadataPublicFutureList = JSON.parse(rawMetaData)[0];
+metadataPublicFutureList.listType = 'MAGISTRATES_PUBLIC_ADULT_COURT_LIST_FUTURE';
 
 sinon.stub(LocationService.prototype, 'getLocationById').resolves({ name: 'courtName' });
 const getIndividualPublicationJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 getIndividualPublicationJsonStub.withArgs('abc').resolves(standardListData);
 getIndividualPublicationJsonStub.withArgs('def').resolves(standardListData);
 getIndividualPublicationJsonStub.withArgs('ace').resolves(publicListData);
+getIndividualPublicationJsonStub.withArgs('dfg').resolves(publicListData);
 
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 metadataStub.withArgs('abc').returns(metadataDailyList);
 metadataStub.withArgs('def').returns(metadataFutureList);
 metadataStub.withArgs('ace').returns(metadataPublicDailyList);
+metadataStub.withArgs('dfg').returns(metadataPublicFutureList);
 
 describe('Magistrates Adult Court List Daily Page', () => {
     describe('on GET', () => {
@@ -70,6 +75,17 @@ describe('Magistrates Public Adult Court List Daily Page', () => {
         test('should return Public Magistrate Adult Court List Daily page', async () => {
             await request(app)
                 .get(urlPublicDailyList + '?artefactId=ace')
+                .expect(res => expect(res.status).to.equal(200))
+                .expect(res => expect(res.text).to.contain('Magistrates Public List'));
+        });
+    });
+});
+
+describe('Magistrates Public Adult Court List Future Page', () => {
+    describe('on GET', () => {
+        test('should return Public Magistrate Adult Court List Future page', async () => {
+            await request(app)
+                .get(urlPublicFutureList + '?artefactId=dfg')
                 .expect(res => expect(res.status).to.equal(200))
                 .expect(res => expect(res.text).to.contain('Magistrates Public List'));
         });
