@@ -64,7 +64,7 @@ Scenario('System Admin User Journey - reference-data-upload-page', async ({ I })
 
 Scenario('System Admin User Journey - reference-data-upload-summary-page', async ({ I }) => {
     I.amOnPage('/reference-data-upload');
-    I.waitForText('Reference manual data upload');
+    I.waitForText('Manually upload a csv file');
     I.attachFile('#reference-data-upload', CSV_FILE_PATH);
     I.click('Continue');
     I.waitForText('Check upload details');
@@ -73,7 +73,7 @@ Scenario('System Admin User Journey - reference-data-upload-summary-page', async
 
 Scenario('System Admin User Journey - reference-data-upload-check-details-page', async ({ I }) => {
     I.amOnPage('/reference-data-upload');
-    I.waitForText('Reference manual data upload');
+    I.waitForText('Manually upload a csv file');
     I.attachFile('#reference-data-upload', CSV_FILE_PATH);
     I.click('Continue');
     I.waitForText('Check upload details');
@@ -82,7 +82,7 @@ Scenario('System Admin User Journey - reference-data-upload-check-details-page',
 
 Scenario('System Admin User Journey - reference-data-upload-confirmation-page', async ({ I }) => {
     I.amOnPage('/reference-data-upload');
-    I.waitForText('Reference manual data upload');
+    I.waitForText('Manually upload a csv file');
     I.attachFile('#reference-data-upload', CSV_FILE_PATH);
     I.click('Continue');
     I.waitForText('Check upload details');
@@ -93,7 +93,7 @@ Scenario('System Admin User Journey - reference-data-upload-confirmation-page', 
 
 Scenario('System Admin User Journey - reference-data-no-file-error--page', async ({ I }) => {
     I.amOnPage('/reference-data-upload');
-    I.waitForText('Reference manual data upload');
+    I.waitForText('Manually upload a csv file');
     I.click('Continue');
     I.waitForText('Please provide a file');
     I.checkA11y('reference-data-no-file-a11y-audit.html');
@@ -101,7 +101,7 @@ Scenario('System Admin User Journey - reference-data-no-file-error--page', async
 
 Scenario('System Admin User Journey - reference-data-upload-error--page', async ({ I }) => {
     I.amOnPage('/reference-data-upload');
-    I.waitForText('Reference manual data upload');
+    I.waitForText('Manually upload a csv file');
     I.attachFile('#reference-data-upload', INVALID_FILE_PATH);
     I.click('Continue');
     I.waitForText('Check upload details');
@@ -183,7 +183,7 @@ Scenario('System Admin User Journey - delete-third-party-user-confirmation-page'
 
 Scenario('System Admin User Journey - delete-third-party-user-success-page', async ({ I }) => {
     I.amOnPage('/delete-third-party-user-success');
-    I.waitForText('Success');
+    I.waitForText('Third party user deleted');
     I.checkA11y('delete-third-party-user-success-a11y-audit.html');
 });
 
@@ -208,7 +208,7 @@ Scenario('System Admin User Journey - create-third-party-user-summary-page', asy
     I.fillField('#thirdPartyName', 'some name');
     I.click('#thirdPartyRole');
     I.click('Continue');
-    I.waitForText('Check user details');
+    I.waitForText('Create third party user summary');
     I.checkA11y('create-third-party-user-summary-a11y-audit.html');
 });
 
@@ -219,7 +219,7 @@ Scenario('System Admin User Journey - create-third-party-user-exists-error-page'
     I.fillField('#thirdPartyName', TEST_PROVENANCE_USER_ID);
     I.click('#thirdPartyRole');
     I.click('Continue');
-    I.waitForText('Check user details');
+    I.waitForText('Create third party user summary');
     I.click('Confirm');
     I.waitForText('Failed to create third party user. It is possible that the user already exists.');
     I.checkA11y('create-third-party-user-exists-error-a11y-audit.html');
@@ -235,13 +235,13 @@ Scenario('System Admin User Journey - create-third-party-user-success-page', asy
 
 Scenario('System Admin User Journey - user-management-page', async ({ I }) => {
     I.amOnPage('/user-management');
-    I.waitForText('User Management');
+    I.waitForText('Find, update and delete a user');
     I.checkA11y('user-management-a11y-audit.html');
 });
 
 Scenario('System Admin User Journey - user-management-filter-error-page', async ({ I }) => {
     I.amOnPage('/user-management');
-    I.waitForText('User Management');
+    I.waitForText('Find, update and delete a user');
     I.fillField('#email', 'invalid-email');
     I.click('Apply filters');
     I.waitForText('There is a problem');
@@ -277,7 +277,7 @@ Scenario('System Admin User Journey - user-delete-success-page', async ({ I }) =
 
 Scenario('System Admin User Journey - blob-view-locations-page', ({ I }) => {
     I.amOnPage('/blob-view-locations');
-    I.waitForText('Blob Explorer - Locations');
+    I.waitForText('Blob Explorer Locations');
     I.checkA11y('blob-view-locations-a11y-audit.html');
 });
 
@@ -340,13 +340,13 @@ Scenario('System Admin User Journey - bulk-create-media-accounts-success-page', 
 
 Scenario('System Admin User Journey - audit-log-viewer-page', ({ I }) => {
     I.amOnPage('/audit-log-viewer');
-    I.waitForText('System admin audit log');
+    I.waitForText('View audit log');
     I.checkA11y('audit-log-viewer-a11y-audit.html');
 });
 
 Scenario('System Admin User Journey - audit-log-details', ({ I }) => {
     I.amOnPage('/audit-log-viewer');
-    I.waitForText('System admin audit log');
+    I.waitForText('View audit log');
     I.click('#view-details-link-1');
     I.waitForText('View audit log for ');
     I.checkA11y('audit-log-details-a11y-audit.html');
