@@ -7,7 +7,7 @@ process.on('unhandledRejection', reason => {
 });
 
 export const config = {
-    TEST_URL: process.env.FRONTEND_URL || 'https://localhost:8080',
+    TEST_URL: process.env.TEST_URL || 'https://localhost:8080',
     SYSTEM_ADMIN_USERNAME: process.env.B2C_SYSTEM_ADMIN_USERNAME,
     SYSTEM_ADMIN_PASSWORD: process.env.B2C_SYSTEM_ADMIN_PASSWORD,
     ADMIN_USERNAME: process.env.B2C_ADMIN_USERNAME,

@@ -67,7 +67,7 @@ def setupTestSecrets() {
         env.TENANT_ID = "${TENANT_ID}"
         env.CLIENT_ID_INTERNAL = "${CLIENT_ID_INTERNAL}"
         env.CLIENT_SECRET_INTERNAL = "${CLIENT_SECRET_INTERNAL}"
-        env.FRONTEND_URL = "https://pip-frontend.staging.platform.hmcts.net"
+        env.TEST_URL = "https://pip-frontend.staging.platform.hmcts.net"
         env.TEST_USER_PASSWORD = "${TEST_USER_PASSWORD}"
         env.CRIME_VALID_USERNAME = "${CRIME_VALID_USERNAME}"
         env.CRIME_VALID_PASSWORD = "${CRIME_VALID_PASSWORD}"
