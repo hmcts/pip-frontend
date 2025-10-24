@@ -22,7 +22,7 @@ def component = "frontend"
 
 def setupTestSecrets() {
 
-    def bootstrap_env = env.ENV == "prod" || env.ENV == "demo" || env.ENV == "sbox" ? env.ENV : "stg"
+    def bootstrap_env = env.ENV == "prod" || env.ENV == "demo" || env.ENV == "test" || env.ENV == "sbox" ? env.ENV : "stg"
 
     azureKeyVault(
         keyVaultURL: "https://pip-bootstrap-${bootstrap_env}-kv.vault.azure.net/",
