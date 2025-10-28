@@ -36,7 +36,7 @@ test.describe('Login', () => {
     });
 
     test('Admin/System Admin - Error messages when username or password is wrong', async ({ page }) => {
-        await login(page, b2cAdminLogin, 'email@justice.gov.uk', 'password')
+        await login(page, b2cAdminLogin, 'email@justice.gov.uk', 'password');
         await expect(page.locator('text=Invalid username or password.')).toBeVisible();
     });
 
@@ -52,7 +52,7 @@ test.describe('Login', () => {
     });
 
     test('Media User - Error messages when username or password is wrong', async ({ page }) => {
-        await login(page, signIn, 'email@justice.gov.uk', 'password')
+        await login(page, signIn, 'email@justice.gov.uk', 'password');
         await expect(page.locator('text=Invalid username or password.')).toBeVisible();
     });
 
@@ -60,7 +60,6 @@ test.describe('Login', () => {
         await login(page, signIn, 'email..@justice.gov.uk', 'password');
         await expect(page.locator('text=Please enter a valid email address.')).toBeVisible();
     });
-
 });
 
 async function login(page, urlSuffix: string, email: string, password: string) {
@@ -91,7 +90,7 @@ async function checkBetaTagAndFeedbackLink(page) {
     expect(href).toMatch(/^https?:\/\//);
 
     await feedbackButton.click();
-    await expect(page.locator(('text=Online Information Feedback Form'))).toBeVisible();
+    await expect(page.locator('text=Online Information Feedback Form')).toBeVisible();
 }
 
 async function logout(page) {
