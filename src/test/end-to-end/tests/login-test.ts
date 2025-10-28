@@ -180,6 +180,8 @@ Scenario(
     }
 ).tag('@Nightly');
 
+/*
+-- Disabling Crime IDAM end-to-end tests because pre-prod login is not working any more.
 Scenario('I as a Crime user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCrimeUser();
     I.waitForText('Your account');
@@ -201,6 +203,8 @@ Scenario(
         I.waitForText('You did not enter a correct username or password');
     }
 ).tag('@Nightly');
+
+*/
 
 Scenario(
     'I as a media user should see the media rejected login screen when logging in via the admin flow',
