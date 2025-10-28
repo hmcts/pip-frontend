@@ -981,7 +981,7 @@
     "BUSINESS_AND_PROPERTY_DAILY_CAUSE_LIST": {
         "friendlyName": "Business & Property Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Busnes ac Eiddo",
-        "shortenedFriendlyName": "Business and Property Daily Cause List",
+        "shortenedFriendlyName": "Business & Property Daily Cause List",
         "url": "business-and-property-daily-list",
         "jurisdictionTypes": ["High Court"],
         "restrictedProvenances": [],
