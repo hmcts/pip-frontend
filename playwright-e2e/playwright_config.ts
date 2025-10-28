@@ -1,6 +1,9 @@
 // better handling of unhandled exceptions
 import path from 'path';
 import process from 'process';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 process.on('unhandledRejection', reason => {
     throw reason;
@@ -9,11 +12,11 @@ process.on('unhandledRejection', reason => {
 export const config = {
     TEST_URL: process.env.TEST_URL || 'https://localhost:8080',
     SYSTEM_ADMIN_USERNAME: process.env.B2C_SYSTEM_ADMIN_ACCOUNT,
-    SYSTEM_ADMIN_PASSWORD: process.env.B2C_SYSTEM_ADMIN_PASSWORD,
+    SYSTEM_ADMIN_PASSWORD: process.env.B2C_SYSTEM_ADMIN_ACCOUNT_PASSWORD,
     ADMIN_USERNAME: process.env.B2C_ADMIN_USERNAME,
     ADMIN_PASSWORD: process.env.B2C_ADMIN_PASSWORD,
-    MEDIA_USER_USERNAME: process.env.B2C_USERNAME,
-    MEDIA_USER_PASSWORD: process.env.B2C_PASSWORD,
+    MEDIA_USER_USERNAME: process.env.B2C_TEST_USERNAME,
+    MEDIA_USER_PASSWORD: process.env.B2C_TEST_PASSWORD,
     CFT_USERNAME: process.env.CFT_VALID_USERNAME,
     CFT_PASSWORD: process.env.CFT_VALID_PASSWORD,
     CFT_INVALID_USERNAME: process.env.CFT_INVALID_USERNAME,
