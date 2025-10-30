@@ -97,7 +97,7 @@ describe('Summary of publications page', () => {
 
         it('should display the telephone and email message', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 or test@test.com for more information.',
                 'Telephone and email message is not displayed'
             );
@@ -116,7 +116,7 @@ describe('Summary of publications page', () => {
 
         it('should display the telephone only message', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on 0123456789 for more information.',
                 'Telephone only message is not displayed'
             );
@@ -135,7 +135,7 @@ describe('Summary of publications page', () => {
 
         it('should display the email only message', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 'Sorry, lists for New Court are temporarily not available. Please contact the court/tribunal direct on test@test.com for more information.',
                 'Email only message is not displayed'
             );
@@ -154,7 +154,7 @@ describe('Summary of publications page', () => {
 
         it('should display telephone and email in welsh', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 neu test@test.com am ragor o wybodaeth.",
                 'Telephone and email in Welsh is not displayed'
             );
@@ -173,7 +173,7 @@ describe('Summary of publications page', () => {
 
         it('should display the telephone only message in welsh', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar 0123456789 am ragor o wybodaeth.",
                 'Telephone only message in Welsh is not displayed'
             );
@@ -192,7 +192,7 @@ describe('Summary of publications page', () => {
 
         it('should display the email only message in welsh', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer New Court ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar test@test.com am ragor o wybodaeth.",
                 'Email only message in Welsh is not displayed'
             );
@@ -211,7 +211,7 @@ describe('Summary of publications page', () => {
 
         it('should display no contact information', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 'Sorry, no lists found for this court',
                 'Contact information is displayed'
             );
@@ -230,7 +230,7 @@ describe('Summary of publications page', () => {
 
         it('should display caution message in English', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).equals('English caution message');
+            expect(body[5].innerHTML).equals('English caution message');
         });
     });
 
@@ -246,7 +246,7 @@ describe('Summary of publications page', () => {
 
         it('should display caution message in Welsh', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).equals('Welsh caution message');
+            expect(body[5].innerHTML).equals('Welsh caution message');
         });
     });
 
@@ -262,12 +262,12 @@ describe('Summary of publications page', () => {
 
         it('should display caution message when no list is there in English', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).equals('English caution message');
+            expect(body[5].innerHTML).equals('English caution message');
         });
 
         it('should display no list for location message in English', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[5].innerHTML).equals('English no list message');
+            expect(body[6].innerHTML).equals('English no list message');
         });
     });
 
@@ -283,12 +283,12 @@ describe('Summary of publications page', () => {
 
         it('should display caution message when no list is there in Welsh', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).equals('Welsh caution message');
+            expect(body[5].innerHTML).equals('Welsh caution message');
         });
 
         it('should display no list for location message in Welsh', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[5].innerHTML).equals('Welsh no list message');
+            expect(body[6].innerHTML).equals('Welsh no list message');
         });
     });
 
@@ -304,12 +304,12 @@ describe('Summary of publications page', () => {
 
         it('should display caution message as HTML', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).equals('<strong>HTML caution message</strong>');
+            expect(body[5].innerHTML).equals('<strong>HTML caution message</strong>');
         });
 
         it('should display no list message as HTML', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[5].innerHTML).equals('<strong>HTML no list message</strong>');
+            expect(body[6].innerHTML).equals('<strong>HTML no list message</strong>');
         });
     });
 
@@ -339,6 +339,18 @@ describe('Summary of publications page', () => {
             );
         });
 
+        it('should display link to FaCT', () => {
+            const text = htmlRes.getElementsByClassName('govuk-body')[4].getElementsByTagName('a');
+            expect(text[0].innerHTML).contains(
+                'Find contact details and other information about courts and tribunals',
+                'Could not find link to FaCT'
+            );
+            expect(text[0].getAttribute('href').valueOf()).contains(
+                'https://www.gov.uk/find-court-tribunal',
+                'Could not find Href for link to FaCT'
+            );
+        });
+
         it('should display a back button with the correct value', () => {
             const backLink = htmlRes.getElementsByClassName('govuk-back-link');
             expect(backLink[0].innerHTML).contains('Back', 'Back button does not contain correct text');
@@ -347,46 +359,46 @@ describe('Summary of publications page', () => {
 
         it('should display publications', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[4].innerHTML).contains(
+            expect(body[5].innerHTML).contains(
                 'Select the list you want to view from the link(s) below:',
                 'Select list text does not match'
             );
-            expect(body[5].innerHTML).contains(
+            expect(body[6].innerHTML).contains(
                 'Asylum Support Tribunal Daily Hearing List 19 January 2025 - Welsh (Cymraeg)',
                 'list type does not match'
             );
 
-            expect(body[6].innerHTML).contains(
+            expect(body[7].innerHTML).contains(
                 'Asylum Support Tribunal Daily Hearing List 18 January 2025 - English (Saesneg)',
                 'list type does not match'
             );
 
-            expect(body[7].innerHTML).contains(
+            expect(body[8].innerHTML).contains(
                 'Care Standards Tribunal Weekly Hearing List for week commencing 20 January 2025 - English (Saesneg)',
                 'list type does not match'
             );
 
-            expect(body[8].innerHTML).contains(
+            expect(body[9].innerHTML).contains(
                 'Civil Daily Cause List 22 January 2025 - English (Saesneg)',
                 'list type does not match'
             );
 
-            expect(body[9].innerHTML).contains(
+            expect(body[10].innerHTML).contains(
                 'Civil Daily Cause List 20 January 2025 - English (Saesneg)',
                 'list type does not match'
             );
 
-            expect(body[10].innerHTML).contains(
+            expect(body[11].innerHTML).contains(
                 'Civil Daily Cause List 20 January 2025 - Welsh (Cymraeg)',
                 'list type does not match'
             );
 
-            expect(body[11].innerHTML).contains(
+            expect(body[12].innerHTML).contains(
                 'Family Daily Cause List 21 January 2025 - English (Saesneg)',
                 'list type does not match'
             );
 
-            expect(body[12].innerHTML).contains(
+            expect(body[13].innerHTML).contains(
                 'Family Daily Cause List 21 January 2025 - Welsh (Cymraeg)',
                 'list type does not match'
             );
