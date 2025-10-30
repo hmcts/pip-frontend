@@ -346,7 +346,7 @@ describe('Summary of publications page', () => {
                 'Could not find link to FaCT'
             );
             expect(text[0].getAttribute('href').valueOf()).contains(
-                'https://www.gov.uk/find-court-tribunal',
+                'https://www.find-court-tribunal.service.gov.uk',
                 'Could not find Href for link to FaCT'
             );
         });
