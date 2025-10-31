@@ -38,10 +38,6 @@
             {
                 "text": "Welsh",
                 "value": "WELSH"
-            },
-            {
-                "text": "Bilingual English/Welsh",
-                "value": "BI_LINGUAL"
             }
         ],
         "displayDateFrom": "Display file from",
