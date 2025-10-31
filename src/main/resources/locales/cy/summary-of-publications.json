@@ -16,5 +16,10 @@
     "noListsWithCourtTelephoneAndEmail": "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer COURTNAME ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar CONTACTNO neu EMAIL am ragor o wybodaeth.",
     "noListsWithCourtTelephoneOrEmail": "Mae’n ddrwg gennym, nid yw’r rhestrau ar gyfer COURTNAME ar gael ar hyn o bryd. Cysylltwch â'r llys/tribiwnlys yn uniongyrchol ar COURTCONTACT am ragor o wybodaeth.",
     "backButton": "Yn ôl",
-    "missingCourt": "Llys ar Goll"
+    "missingCourt": "Llys ar Goll",
+    "findACourtOrTribunalLink": {
+        "linkMessage": "Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd",
+        "message": "yng Nghymru a Lloegr, a rhai tribiwnlysoedd heb eu datganoli yn yr Alban.",
+        "link": "https://www.find-court-tribunal.service.gov.uk/?lng=cy"
+    }
 }
