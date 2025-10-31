@@ -1005,11 +1005,8 @@ describe('generateListTypesForCourts', () => {
             'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
-            'CROWN_DAILY_LIST',
             'CROWN_DAILY_PDDA_LIST',
-            'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_LIST',
             'CROWN_WARNED_PDDA_LIST',
         ]);
 
@@ -1054,11 +1051,8 @@ describe('generateListTypesForCourts', () => {
             'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
-            'CROWN_DAILY_LIST',
             'CROWN_DAILY_PDDA_LIST',
-            'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_LIST',
             'CROWN_WARNED_PDDA_LIST',
         ]);
 
@@ -1205,11 +1199,8 @@ describe('generateListTypeForCourts', () => {
             'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
-            'CROWN_DAILY_LIST',
             'CROWN_DAILY_PDDA_LIST',
-            'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_LIST',
             'CROWN_WARNED_PDDA_LIST',
         ]);
 
@@ -1244,11 +1235,8 @@ describe('generateListTypeForCourts', () => {
             'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
-            'CROWN_DAILY_LIST',
             'CROWN_DAILY_PDDA_LIST',
-            'CROWN_FIRM_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_LIST',
             'CROWN_WARNED_PDDA_LIST',
         ]);
 
@@ -1272,10 +1260,6 @@ describe('generateListTypeForCourts', () => {
 
         expect(result['C']['CIVIL_DAILY_CAUSE_LIST'].listFriendlyName).toEqual(
             'Civil Daily Cause List\nRhestr Achosion Dyddiol y Llys Sifil'
-        );
-
-        expect(result['C']['CROWN_DAILY_LIST'].listFriendlyName).toEqual(
-            'Crown Daily List\nRhestr Ddyddiol Llys y Goron'
         );
     });
 });

@@ -49,36 +49,6 @@
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
     },
-    "CROWN_DAILY_LIST": {
-        "friendlyName": "Crown Daily List",
-        "welshFriendlyName": "Rhestr Ddyddiol Llys y Goron",
-        "shortenedFriendlyName": "Crown Daily List",
-        "url": "crown-daily-list",
-        "jurisdictionTypes": ["Crown Court"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "",
-        "isNonStrategic": false
-    },
-    "CROWN_WARNED_LIST": {
-        "friendlyName": "Crown Warned List",
-        "welshFriendlyName": "Rhestr Rybudd Llys y Goron",
-        "shortenedFriendlyName": "Crown Warned List",
-        "url": "crown-warned-list",
-        "jurisdictionTypes": ["Crown Court"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE",
-        "isNonStrategic": false
-    },
-    "CROWN_FIRM_LIST": {
-        "friendlyName": "Crown Firm List",
-        "welshFriendlyName": "Rhestr Cwmni Llys y Goron",
-        "shortenedFriendlyName": "Crown Firm List",
-        "url": "crown-firm-list",
-        "jurisdictionTypes": ["Crown Court"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "PRIVATE",
-        "isNonStrategic": false
-    },
     "MAGISTRATES_PUBLIC_LIST": {
         "friendlyName": "Magistrates Public List",
         "welshFriendlyName": "Rhestr Gyhoeddus y Llys Ynadon",
