@@ -997,6 +997,7 @@ describe('generateListTypesForCourts', () => {
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
+            'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
@@ -1046,6 +1047,7 @@ describe('generateListTypesForCourts', () => {
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
+            'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
@@ -1197,6 +1199,7 @@ describe('generateListTypeForCourts', () => {
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
+            'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
@@ -1236,6 +1239,7 @@ describe('generateListTypeForCourts', () => {
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
             'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
+            'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
