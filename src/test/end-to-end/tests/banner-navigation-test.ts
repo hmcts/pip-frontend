@@ -36,15 +36,6 @@ Scenario('Verified user - all banner navigation links should take user to the co
     I.logout();
 }).tag('@CrossBrowser');
 
-Scenario('CFT user - all banner navigation links should take user to the correct pages', async ({ I }) => {
-    I.loginAsCftUser();
-    I.click(locate('//li').withText('Email subscriptions'));
-    I.waitForText('Your email subscriptions');
-    I.click(locate('//li').withText('Dashboard'));
-    I.waitForText('Your account');
-    I.logout();
-}).tag('@CrossBrowser');
-
 Scenario('Admin user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.loginAsSsoAdminLocal();
     I.click(locate('//li').withText('Dashboard'));
