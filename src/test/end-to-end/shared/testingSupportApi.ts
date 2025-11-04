@@ -240,7 +240,7 @@ export const deleteThirdPartyUserAccount = async (userId: string) => {
     const token = await getAccountManagementCredentials('');
     try {
         await superagent
-            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
+            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/v2/${userId}`)
             .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {

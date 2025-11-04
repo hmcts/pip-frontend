@@ -6,13 +6,12 @@ Feature('System admin user management');
 
 const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
-const TEST_ROLE = 'INTERNAL_ADMIN_LOCAL';
 
 const systemAdminUsername = testConfig.SSO_TEST_SYSTEM_ADMIN_USER as string;
 
 Scenario('I as a system admin should be able to delete a user', async ({ I }) => {
     const testEmail = randomData.getRandomEmailAddress();
-    await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail, TEST_ROLE);
+    await createTestUserAccount(TEST_FIRST_NAME, TEST_LAST_NAME, testEmail);
 
     I.loginAsSsoSystemAdmin();
     I.click('Admin Dashboard');
@@ -25,7 +24,7 @@ Scenario('I as a system admin should be able to delete a user', async ({ I }) =>
     I.waitForText(testEmail);
     I.click('#manage-link');
     I.waitForText('Manage ' + testEmail);
-    I.waitForText('Local Admin');
+    I.waitForText('Verified');
 
     I.click('Delete user');
     I.waitForText('Are you sure you want to delete ' + testEmail + '?');
