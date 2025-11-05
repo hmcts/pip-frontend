@@ -6,7 +6,7 @@
 pre-push:
     commands:
         audit:
-            run: yarn audit | cat
+            run: yarn npm audit | cat
     scripts:
         'check-for-unsuppressed-vulns.py':
             runner: python3
