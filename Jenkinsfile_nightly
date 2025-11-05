@@ -10,7 +10,7 @@ properties([
             description: 'The publication services URL you want to run the full functional tests against'),
         string(name: 'TEST_URL', defaultValue: 'https://pip-frontend.staging.platform.hmcts.net',
             description: 'The front-end URL you want to run the full functional tests against'),
-        string(name: 'env.ENV', defaultValue: 'stg',
+        string(name: 'ENV', defaultValue: 'stg',
             description: 'Environment name e.g. test, stg, demo')
     ])
 ])
