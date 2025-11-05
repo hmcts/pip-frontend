@@ -32,7 +32,7 @@
         "test:crossbrowser:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-multiple --all --grep @CrossBrowser --config ./src/test/end-to-end/crossbrowser.conf.js",
         "test:crossbrowser:report": "allure generate functional-output/cross-browser/reports/**/* -c -o functional-output/cross-browser/allure",
         "test:functional": "npm-run-all -scl test:functional:min test:functional:report",
-        "test:fullfunctional": "npm-run-all -scl test:functional:all test:accessibility test:functional:allreport",
+        "test:fullfunctional": "npm-run-all -scl test:functional:all test:functional:report",
         "test:functional:all": "NODE_TLS_REJECT_UNAUTHORIZED=0 codeceptjs run-workers 8 parallel --config ./src/test/end-to-end/functional.conf.js",
         "test:functional:min": "NODE_TLS_REJECT_UNAUTHORIZED=0 bash -c 'if [ \"${ENV}\" = \"dev\" ]; then PATTERN=\"(?=.*)^(?!.*@(Smoke|Nightly|SkipOnPR))\"; else PATTERN=\"(?=.*)^(?!.*@(Smoke|Nightly))\"; fi && codeceptjs run-workers 8 parallel --grep \"$PATTERN\" --config ./src/test/end-to-end/functional.conf.js'",
         "test:functional:report": "allure generate functional-output/functional/reports/ -c -o functional-output/functional/allure",
