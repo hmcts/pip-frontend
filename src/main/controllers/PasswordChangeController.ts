@@ -8,7 +8,6 @@ export default class PasswordChangeController {
         res.render('password-change-confirmation', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['password-change-confirmation']),
             betaText: betaText,
-            isAdmin: req.params['isAdmin'] === 'true',
         });
     }
 }

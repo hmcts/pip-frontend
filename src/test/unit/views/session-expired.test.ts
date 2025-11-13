@@ -51,26 +51,6 @@ describe('Session Expired Page', () => {
         });
     });
 
-    describe('admin user', () => {
-        beforeAll(async () => {
-            await request(app)
-                .get(PAGE_URL + '?reSignInUrl=ADMIN')
-                .then(response => {
-                    htmlRes = new DOMParser().parseFromString(response.text, 'text/html');
-                    htmlRes.getElementsByTagName('div')[0].remove();
-                });
-        });
-
-        it('should display sign in button', () => {
-            const buttons = htmlRes.getElementsByClassName('govuk-button');
-            expect(buttons[0].innerHTML).contains(expectedButtonText, 'Could not find button');
-            expect(buttons[0].attributes.getNamedItem('href').value).contains(
-                '/admin-login?p=B2C_1_SignInAdminUserFlow',
-                'Could not find button href'
-            );
-        });
-    });
-
     describe('CFT user', () => {
         beforeAll(async () => {
             await request(app)

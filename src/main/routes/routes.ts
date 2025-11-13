@@ -9,7 +9,6 @@ import {
     isPermittedSystemAdmin,
     forgotPasswordRedirect,
     mediaVerificationHandling,
-    processAdminAccountSignIn,
     processMediaAccountSignIn,
     processCftIdamSignIn,
     checkPasswordReset,
@@ -19,7 +18,6 @@ import {
     processCrimeIdamSignIn,
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
-import authenticationConfig from '../authentication/authentication-config.json';
 import { SessionManagementService } from '../service/SessionManagementService';
 import { urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
@@ -84,13 +82,11 @@ export default function (app: Application): void {
         app.locals.container.cradle.createMediaAccountController.post
     );
     app.post(
-        '/password-change-confirmation/:isAdmin',
+        '/password-change-confirmation',
         checkPasswordReset,
         app.locals.container.cradle.passwordChangeController.post
     );
-    app.get('/cancelled-password-reset/:isAdmin', app.locals.container.cradle.cancelledPasswordResetController.get);
-    app.get('/admin-rejected-login', app.locals.container.cradle.adminRejectedLoginController.get);
-    app.get('/media-rejected-login', app.locals.container.cradle.mediaRejectedLoginController.get);
+    app.get('/cancelled-password-reset', app.locals.container.cradle.cancelledPasswordResetController.get);
     app.get('/media-verification', regenerateSession, keepSessionLanguage, (req, res, next) =>
         passport.authenticate('media-verification', {
             failureRedirect: '/',
@@ -104,14 +100,6 @@ export default function (app: Application): void {
             next
         )
     );
-    app.get('/admin-login', regenerateSession, keepSessionLanguage, (req, res, next) =>
-        passport.authenticate('admin-login', { failureRedirect: '/', extraAuthReqQueryParams: extraLanguageArg(req) })(
-            req,
-            res,
-            next
-        )
-    );
-    app.get('/b2c-admin-login', (_req, res) => res.redirect(`/admin-login?p=${authenticationConfig.ADMIN_POLICY}`));
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.post(
         '/login/return',
@@ -123,17 +111,6 @@ export default function (app: Application): void {
             })(req, res, next),
         keepSessionLanguage,
         processMediaAccountSignIn
-    );
-    app.post(
-        '/login/admin/return',
-        forgotPasswordRedirect,
-        (req, res, next) =>
-            passport.authenticate('admin-login', {
-                failureRedirect: '/view-option',
-                extraAuthReqQueryParams: extraLanguageArg(req),
-            })(req, res, next),
-        keepSessionLanguage,
-        processAdminAccountSignIn
     );
     app.post(
         '/media-verification/return',
@@ -148,7 +125,7 @@ export default function (app: Application): void {
     );
     app.get('/session-expiring', isPermittedAnyRole, app.locals.container.cradle.sessionExpiringController.get);
     app.get('/session-expired', app.locals.container.cradle.sessionExpiredController.get);
-    app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, false, true));
+    app.get('/session-expired-logout', (_req, res) => sessionManagement.logOut(_req, res, true));
     app.get('/session-logged-out', app.locals.container.cradle.sessionLoggedOutController.get);
     app.get('/not-found', app.locals.container.cradle.notFoundPageController.get);
 
