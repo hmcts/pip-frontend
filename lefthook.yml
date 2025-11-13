@@ -4,12 +4,12 @@
 #   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
 #
 pre-push:
+    commands:
+        audit:
+            run: yarn npm audit | cat
     scripts:
         'check-for-unsuppressed-vulns.py':
             runner: python3
-        commands:
-            audit:
-                run: yarn audit | cat
 pre-commit:
     parallel: true
     commands:
