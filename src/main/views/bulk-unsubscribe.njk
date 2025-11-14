@@ -70,7 +70,9 @@
                     <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
                       <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
                         <input type="checkbox" class="govuk-checkboxes__input" id="select-all-cases">
-                        <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-cases" > </label>
+                        <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-cases" name="select-all-cases">
+                            <span class="govuk-visually-hidden">Select all cases</span>
+                        </label>
                       </div>
                     </th>
                   </tr>
@@ -87,7 +89,9 @@
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
                           <input type="checkbox" class="govuk-checkboxes__input caseCheckbox" name="caseSubscription" id="caseSubscription-{{ caseCount }}" value={{ row.subscriptionId }}>
-                          <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="caseSubscription-{{ caseCount }}"> </label>
+                          <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="caseSubscription-{{ caseCount }}">
+                              <span class="govuk-visually-hidden">Select case {{ caseCount }}</span>
+                          </label>
                         </div>
                       </td>
                     </tr>
@@ -104,8 +108,10 @@
                     <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ courtTable.date }}</th>
                     <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
                       <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
-                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-locations">
-                        <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-locations"> </label>
+                        <input type="checkbox" class="govuk-checkboxes__input" id="select-all-locations" name="select-all-locations">
+                        <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="select-all-locations">
+                            <span class="govuk-visually-hidden">Select all locations</span>
+                        </label>
                       </div>
                     </th>
                   </tr>
@@ -120,7 +126,9 @@
                       <td class="govuk-table__cell govuk-table__cell--numeric">
                         <div class="govuk-checkboxes__item govuk-checkboxes--small bulk-delete-checkbox">
                           <input type="checkbox" class="govuk-checkboxes__input locationCheckbox" name="courtSubscription" id="courtSubscription-{{ locationCount }}" value={{ row.subscriptionId }}>
-                          <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="courtSubscription-{{ locationCount }}"> </label>
+                          <label class="govuk-label govuk-checkboxes__label bulk-unsubscribe-label" for="courtSubscription-{{ locationCount }}">
+                              <span class="govuk-visually-hidden">Select location {{ locationCount }}</span>
+                          </label>
                         </div>
                       </td>
                     </tr>
