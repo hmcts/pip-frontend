@@ -38,7 +38,6 @@ export class Helmet {
         });
 
         const scriptSrc = [
-            self,
             ...googleAnalyticsDomains,
             dynatraceDomain,
             (req, res) => `'nonce-${res['locals'].cspNonce}'`,
@@ -53,7 +52,7 @@ export class Helmet {
                 directives: {
                     defaultSrc: [self],
                     connectSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
-                    imgSrc: [self, ...googleAnalyticsDomains],
+                    imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
                     scriptSrc,
                     frameAncestors: ["'none'"],
                     formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL, CRIME_IDAM_URL],
