@@ -25,7 +25,7 @@ export class Helmet {
 
     public enableFor(app: express.Express): void {
         // include default helmet functions
-        app.use(helmet.default({ xFrameOptions: false, xssFilter: false }));
+        app.use(helmet.default({ xFrameOptions: false, xXssProtection: false }));
 
         this.setContentSecurityPolicy(app);
         this.setReferrerPolicy(app, this.config.referrerPolicy);
