@@ -69,7 +69,6 @@
         "connect-redis": "^9.0.0",
         "core-js": "3.46.0",
         "cors": "^2.8.5",
-        "depcheck": "^1.4.7",
         "express": "^5.1.0",
         "express-session": "^1.18.2",
         "govuk-frontend": "5.13.0",
