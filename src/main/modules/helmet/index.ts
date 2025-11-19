@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as helmet from 'helmet';
-import { B2C_URL, CFT_IDAM_URL, CRIME_IDAM_URL } from '../../helpers/envUrls';
+import { B2C_ADMIN_URL, B2C_URL, CFT_IDAM_URL, CRIME_IDAM_URL } from '../../helpers/envUrls';
 import { randomBytes } from 'crypto';
 
 export interface HelmetConfig {
@@ -38,6 +38,7 @@ export class Helmet {
         });
 
         const scriptSrc = [
+            self,
             ...googleAnalyticsDomains,
             dynatraceDomain,
             (req, res) => `'nonce-${res['locals'].cspNonce}'`,
@@ -50,12 +51,16 @@ export class Helmet {
         app.use(
             helmet.contentSecurityPolicy({
                 directives: {
-                    defaultSrc: [self],
                     connectSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
+                    defaultSrc: ["'none'"],
+                    fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
+                    objectSrc: [self],
+                    scriptSrcAttr: [self],
+                    manifestSrc: [self],
                     scriptSrc,
-                    frameAncestors: ["'none'"],
-                    formAction: [self, B2C_URL, CFT_IDAM_URL, CRIME_IDAM_URL],
+                    styleSrc: [self],
+                    formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL, CRIME_IDAM_URL],
                 },
             })
         );
