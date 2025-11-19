@@ -18,9 +18,7 @@ Scenario('I as an unverified user should be able to make end-to-end journey', as
     });
     I.waitForText('Court and tribunal hearings');
     I.see('You can use this service to get information about:');
-    I.see(
-        'Hearings in Civil and Family Courts in the South East, South West (excluding Bristol) and some courts in the North East and North West regions'
-    );
+    I.see('Hearings in Civil and Family Courts in the South East, South West (excluding Bristol) and some courts in the North East and North West regions');
     I.see('Hearings in First Tier and Upper Tribunals (excluding Employment Tribunals)');
     I.see('Hearings in the Royal Courts of Justice and the Rolls Building');
     I.see('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding');
