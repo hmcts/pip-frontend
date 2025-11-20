@@ -69,7 +69,6 @@ export class MagistratesAdultCourtListService {
             offenceSummaries.push(language === 'cy' && offenceNode.cy_sum ? offenceNode.cy_sum : offenceNode.sum);
         });
 
-
         return {
             offenceCode: offenceCodes.filter(line => line.trim().length > 0).join(', '),
             offenceTitle: offenceTitles.filter(line => line.trim().length > 0).join(', '),

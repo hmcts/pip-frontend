@@ -5,7 +5,10 @@ import { MagistratesAdultCourtListService } from '../../../../main/service/listM
 
 const magistratesAdultCourtListService = new MagistratesAdultCourtListService();
 const rawListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesAdultCourtList.json'), 'utf-8');
-const rawPublicListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtList.json'), 'utf-8');
+const rawPublicListData = fs.readFileSync(
+    path.resolve(__dirname, '../../mocks/magistratesPublicAdultCourtList.json'),
+    'utf-8'
+);
 
 const lng = 'en';
 
@@ -47,7 +50,7 @@ describe('Magistrate Adult Court List service', () => {
         });
 
         it('should have correct result count when sessions object does not exist', async () => {
-            const parsedListData = JSON.parse(rawListData)
+            const parsedListData = JSON.parse(rawListData);
             delete parsedListData.document.data.job.sessions;
 
             const results = await magistratesAdultCourtListService.processPayload(parsedListData, lng, true);
@@ -55,25 +58,32 @@ describe('Magistrate Adult Court List service', () => {
         });
 
         it('should have correct result count when session array does not exist', async () => {
-            const parsedListData = JSON.parse(rawListData)
+            const parsedListData = JSON.parse(rawListData);
             delete parsedListData.document.data.job.sessions.session;
 
             const results = await magistratesAdultCourtListService.processPayload(parsedListData, lng, true);
             expect(results).to.have.length(0);
         });
-
     });
 
     describe('process payload when public', () => {
         it('should have correct result count', async () => {
-            const results = await magistratesAdultCourtListService.processPayload(JSON.parse(rawPublicListData), lng, false);
+            const results = await magistratesAdultCourtListService.processPayload(
+                JSON.parse(rawPublicListData),
+                lng,
+                false
+            );
             expect(results).to.have.length(6);
             expect(results[0].cases).to.have.length(2);
             expect(results[1].cases).to.have.length(2);
         });
 
         it('should format court and session info', async () => {
-            const results = await magistratesAdultCourtListService.processPayload(JSON.parse(rawPublicListData), lng, false);
+            const results = await magistratesAdultCourtListService.processPayload(
+                JSON.parse(rawPublicListData),
+                lng,
+                false
+            );
             expect(results[0].lja).to.equal("North Northumbria Magistrates' Court");
             expect(results[0].courtName).to.equal("North Shields Magistrates' Court");
             expect(results[0].courtRoom).to.equal(1);
@@ -81,7 +91,11 @@ describe('Magistrate Adult Court List service', () => {
         });
 
         it('should format case info', async () => {
-            const results = await magistratesAdultCourtListService.processPayload(JSON.parse(rawPublicListData), lng, false);
+            const results = await magistratesAdultCourtListService.processPayload(
+                JSON.parse(rawPublicListData),
+                lng,
+                false
+            );
             const cases = results[0].cases[0];
             expect(Object.keys(cases)).to.have.length(3);
             expect(cases.blockStartTime).to.equal('9am');
@@ -90,7 +104,7 @@ describe('Magistrate Adult Court List service', () => {
         });
 
         it('should have correct result count when sessions object does not exist', async () => {
-            const parsedListData = JSON.parse(rawPublicListData)
+            const parsedListData = JSON.parse(rawPublicListData);
             delete parsedListData.document.data.job.sessions;
 
             const results = await magistratesAdultCourtListService.processPayload(parsedListData, lng, true);
@@ -98,7 +112,7 @@ describe('Magistrate Adult Court List service', () => {
         });
 
         it('should have correct result count when session array does not exist', async () => {
-            const parsedListData = JSON.parse(rawPublicListData)
+            const parsedListData = JSON.parse(rawPublicListData);
             delete parsedListData.document.data.job.sessions.session;
 
             const results = await magistratesAdultCourtListService.processPayload(parsedListData, lng, true);

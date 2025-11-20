@@ -116,14 +116,11 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
             "North Shields Magistrates' Court - Missing Cases",
             "North Shields Magistrates' Court - Missing Case",
             "North Shields Magistrates' Court - Missing Offences",
-            "North Shields Magistrates' Court - Missing Offence"
+            "North Shields Magistrates' Court - Missing Offence",
         ];
 
         expectedHeadings.forEach((heading, idx) => {
-            expect(searchInput[idx].innerHTML).contains(
-                heading,
-                'Court Name section heading not found'
-            );
+            expect(searchInput[idx].innerHTML).contains(heading, 'Court Name section heading not found');
         });
     });
 
@@ -250,49 +247,45 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
     it('check no cases are shown when blocks or cases are not present', () => {
         const searchInput = htmlRes.getElementsByClassName('govuk-accordion__section');
 
-        [2, 3, 4, 5].forEach((index) => {
-            expect(searchInput[index].innerHTML).not.contains(
-                tableCellClass,
-                'Court Name section heading not found'
-            );
+        [2, 3, 4, 5].forEach(index => {
+            expect(searchInput[index].innerHTML).not.contains(tableCellClass, 'Court Name section heading not found');
         });
     });
 
     it('check cases are shown when offences are not present', () => {
         const searchInput = htmlRes.getElementsByClassName('govuk-accordion__section');
 
-        [6, 7].forEach((index) => {
-            expect(searchInput[index].innerHTML).contains(
-                tableCellClass,
-                'Court Name section heading not found'
-            );
+        [6, 7].forEach(index => {
+            expect(searchInput[index].innerHTML).contains(tableCellClass, 'Court Name section heading not found');
         });
     });
-
 });
 
-describe.each([artefactIdNoSessions, artefactIdNoSession])("Magistrates Adult Court List page renders correctly when no sessions or session", artefactId => {
-    const pageUrl = urlDailyList + '?artefactId=' + artefactId;
+describe.each([artefactIdNoSessions, artefactIdNoSession])(
+    'Magistrates Adult Court List page renders correctly when no sessions or session',
+    artefactId => {
+        const pageUrl = urlDailyList + '?artefactId=' + artefactId;
 
-    beforeAll(async () => {
-        await request(app)
-            .get(pageUrl)
-            .then(res => {
-                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                htmlRes.getElementsByTagName('div')[0].remove();
-            });
-    });
+        beforeAll(async () => {
+            await request(app)
+                .get(pageUrl)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+        });
 
-    it('should display page heading', () => {
-        const heading = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(heading[0].innerHTML).contains(
-            "Magistrates Standard List for Abergavenny Magistrates' Court",
-            'Could not find the header'
-        );
-    });
+        it('should display page heading', () => {
+            const heading = htmlRes.getElementsByClassName('govuk-heading-l');
+            expect(heading[0].innerHTML).contains(
+                "Magistrates Standard List for Abergavenny Magistrates' Court",
+                'Could not find the header'
+            );
+        });
 
-    it('should display Court Name section heading', () => {
-        const searchInput = htmlRes.getElementsByClassName('govuk-accordion__section-heading');
-        expect(searchInput.length).equals(0, 'Court section heading found when it should not be present');
-    });
-});
+        it('should display Court Name section heading', () => {
+            const searchInput = htmlRes.getElementsByClassName('govuk-accordion__section-heading');
+            expect(searchInput.length).equals(0, 'Court section heading found when it should not be present');
+        });
+    }
+);
