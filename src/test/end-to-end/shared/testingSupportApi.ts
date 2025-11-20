@@ -197,7 +197,7 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
     try {
         await superagent
             .delete(`${testConfig.DATA_MANAGEMENT_BASE_URL}/publication/${artefactId}`)
-            .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         throw new Error(`Failed to delete artefact for: ${artefactId}, http-status: ${e.response?.status}`);
@@ -222,7 +222,7 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/pi`)
             .send(thirdPartyUserAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
         return azureResponse.body['CREATED_ACCOUNTS'][0];
     } catch (e) {
         if (e.response?.badRequest) {
@@ -240,8 +240,8 @@ export const deleteThirdPartyUserAccount = async (userId: string) => {
     const token = await getAccountManagementCredentials('');
     try {
         await superagent
-            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/delete/${userId}`)
-            .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`)
+            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/v2/${userId}`)
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
         if (e.response?.badRequest) {
@@ -268,7 +268,7 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
             .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/account/add/system-admin`)
             .send(systemAdminAccount)
             .set({ Authorization: 'Bearer ' + token.access_token })
-            .set('x-requester-id', `${testConfig.SYSTEM_ADMIN_USER_ID}`);
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
     } catch (e) {
         if (e.response?.badRequest) {
             e.response.body['error'] = true;

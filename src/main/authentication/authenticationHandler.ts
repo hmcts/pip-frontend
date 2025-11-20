@@ -1,14 +1,14 @@
 import config from 'config';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
-import { B2C_URL, FRONTEND_URL, B2C_ADMIN_URL } from '../helpers/envUrls';
+import { B2C_URL, FRONTEND_URL } from '../helpers/envUrls';
 import { SessionManagementService } from '../service/SessionManagementService';
 import {
-    verifiedRoles,
-    systemAdminRoles,
     allAdminRoles,
+    checkRoles,
     manualUploadRoles,
     mediaAccountCreationRoles,
-    checkRoles,
+    systemAdminRoles,
+    verifiedRoles,
 } from './authenticationHelper';
 
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -16,8 +16,6 @@ import authenticationConfig from '../authentication/authentication-config.json';
 const CLIENT_ID = config.get('secrets.pip-ss-kv.CLIENT_ID');
 
 const sessionManagement = new SessionManagementService();
-
-const validPasswordResetValues = ['true', 'false'];
 
 export function isPermittedMedia(req: any, res, next) {
     return checkAuthenticatedMedia(req, res, next, verifiedRoles);
@@ -74,18 +72,9 @@ export function checkAuthenticatedMedia(req: any, res, next, roles: string[]): b
 export function forgotPasswordRedirect(req, res, next): void {
     const body = JSON.stringify(req.body);
     if (body.includes('AADB2C90118')) {
-        let redirectUrl = `${FRONTEND_URL}/password-change-confirmation`;
-        let b2cUrl = '';
-
-        if (req.originalUrl === '/login/admin/return') {
-            redirectUrl += '/true';
-            b2cUrl = B2C_ADMIN_URL;
-        } else {
-            redirectUrl += '/false';
-            b2cUrl = B2C_URL;
-        }
+        const redirectUrl = `${FRONTEND_URL}/password-change-confirmation`;
         const POLICY_URL =
-            `${b2cUrl}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
+            `${B2C_URL}/oauth2/v2.0/authorize?p=${authenticationConfig.FORGOT_PASSWORD_POLICY}` +
             `&client_id=${CLIENT_ID}&nonce=defaultNonce&redirect_uri=${redirectUrl}` +
             '&scope=openid&response_type=code&prompt=login&response_mode=form_post&ui_locales=' +
             mapAzureLanguage(req.lng);
@@ -107,26 +96,9 @@ export async function mediaVerificationHandling(req, res): Promise<any> {
     }
 }
 
-export async function processAdminAccountSignIn(req, res): Promise<any> {
-    if (checkRoles(req, allAdminRoles)) {
-        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
-        if (checkRoles(req, systemAdminRoles)) {
-            res.redirect('/system-admin-dashboard');
-        } else {
-            res.redirect('/admin-dashboard');
-        }
-    } else {
-        sessionManagement.logOut(req, res, true);
-    }
-}
-
 export async function processMediaAccountSignIn(req, res): Promise<any> {
-    if (checkRoles(req, allAdminRoles)) {
-        sessionManagement.logOut(req, res, true);
-    } else {
-        await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
-        res.redirect('/account-home');
-    }
+    await AccountManagementRequests.prototype.updateAccountLastSignedInDate('PI_AAD', req.user['oid']);
+    res.redirect('/account-home');
 }
 
 export async function processCftIdamSignIn(req, res): Promise<any> {
@@ -171,12 +143,7 @@ export function regenerateSession(req, res, next): void {
         req.session.save(() => {
             req.session.regenerate(() => {
                 if (req.user['userProvenance'] == 'PI_AAD') {
-                    const logoutUrl = sessionManagement.aadLogOutUrl(
-                        checkRoles(req, allAdminRoles),
-                        false,
-                        false,
-                        req.lng
-                    );
+                    const logoutUrl = sessionManagement.aadLogOutUrl(false, req.lng);
                     const logoutUrlFormatted = new URL(logoutUrl);
                     logoutUrlFormatted.searchParams.set(
                         'post_logout_redirect_uri',
@@ -202,12 +169,7 @@ export function regenerateSession(req, res, next): void {
  */
 export function checkPasswordReset(req, res, next) {
     if (req.body['error_description']?.includes('AADB2C90091')) {
-        const resetPath = validPasswordResetValues.indexOf(req.params['isAdmin']);
-        if (req.params && resetPath != -1) {
-            res.redirect('/cancelled-password-reset/' + validPasswordResetValues[resetPath]);
-        } else {
-            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        }
+        res.redirect('/cancelled-password-reset');
     } else {
         next();
     }

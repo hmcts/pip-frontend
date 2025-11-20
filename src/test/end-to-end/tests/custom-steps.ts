@@ -3,38 +3,6 @@ import { checkA11y, injectAxe } from 'axe-playwright';
 
 export = function () {
     return actor({
-        loginAsB2CSystemAdmin: function () {
-            this.usePlaywrightTo('Go to b2c system admin login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-            });
-            this.waitForText('Sign in with your email address');
-            this.fillField('#email', secret(testConfig.SYSTEM_ADMIN_USERNAME));
-            this.fillField('#password', secret(testConfig.SYSTEM_ADMIN_PASSWORD));
-            this.click('Sign in');
-            this.waitForText('System Admin Dashboard');
-        },
-
-        loginAsB2CAdmin: function () {
-            this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-            });
-            this.waitForText('Sign in with your email address');
-            this.fillField('#email', secret(testConfig.ADMIN_USERNAME));
-            this.fillField('#password', secret(testConfig.ADMIN_PASSWORD));
-            this.click('Sign in');
-            this.waitForText('Your Dashboard');
-        },
-
-        loginTestB2CAdminUser: function (username, password) {
-            this.usePlaywrightTo('Go to b2c admin login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-            });
-            this.waitForText('Sign in with your email address');
-            this.fillField('#email', username);
-            this.fillField('#password', password);
-            this.click('Sign in');
-        },
-
         loginAsSsoSystemAdmin: function () {
             this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/admin-dashboard');
