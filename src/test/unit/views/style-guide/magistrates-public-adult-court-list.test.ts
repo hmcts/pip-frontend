@@ -81,12 +81,12 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Public Adult Court Lis
     });
 
     it('should display list date', () => {
-        const text  = htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[1].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display publication date', () => {
-        const text  = htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[2].innerHTML).contains('Last updated 31 July 2025 at 9:05am', 'Publication date does not match');
     });
 
@@ -112,17 +112,17 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Public Adult Court Lis
     });
 
     it('should display Court Room', () => {
-        const text  = htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[8].innerHTML).contains('Sitting at 1', 'Court Room does not match');
     });
 
     it('should display LJA', () => {
-        const text  = htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[9].innerHTML).contains("LJA: North Northumbria Magistrates' Court", 'LJA does not match');
     });
 
     it('should display Session Start Time', () => {
-        const text  = htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[10].innerHTML).contains('Session start 9am', 'Session Start Time does not match');
     });
 

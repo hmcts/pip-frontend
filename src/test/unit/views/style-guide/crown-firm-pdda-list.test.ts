@@ -70,22 +70,22 @@ describe('Crown Firm PDDA List page', () => {
     });
 
     it('should display list date', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[1].innerHTML).equals('List for 10 September 2025 to 11 September 2025');
     });
 
     it('should display publication date', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[2].innerHTML).contains('Last updated 09 September 2025 at 11am', 'Publication date does not match');
     });
 
     it('should display version', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[3].innerHTML).contains('Version 1.0', 'Version does not match');
     });
 
     it('should display venue address', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[4].innerHTML).contains('1 Main Road', 'Address line 1 does not match');
         expect(text[4].innerHTML).contains('London', 'Address line 2 does not match');
         expect(text[4].innerHTML).contains('A1 1AA', 'Address line 3 does not match');
@@ -110,19 +110,19 @@ describe('Crown Firm PDDA List page', () => {
     });
 
     it('should display court house name', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[10].innerHTML).contains('TestCourtHouseName', 'Court house name does not match');
     });
 
     it('should display court house address', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[11].innerHTML).contains('1 Main Road', 'Court house address line 1 does not match');
         expect(text[12].innerHTML).contains('London', 'Court house address line 2 does not match');
         expect(text[13].innerHTML).contains('A1 1AA', 'Court house address line 3 does not match');
     });
 
     it('should display court house telephone', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[14].innerHTML).contains('02071234568', 'Court house telephone does not match');
     });
 
@@ -135,7 +135,7 @@ describe('Crown Firm PDDA List page', () => {
     });
 
     it('should display sitting at time', () => {
-        const text= htmlRes.getElementsByClassName(bodyText);
+        const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[15].innerHTML).contains('Sitting at 10am', 'Sitting at time does not match');
     });
 

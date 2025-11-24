@@ -5,10 +5,10 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../../main/app';
 import { expect } from 'chai';
-import {describe} from "@jest/globals";
+import { describe } from '@jest/globals';
 
 const IAC_DAILY_ARTEFACT_ID = '1234';
-const IAC_ADDITIONAL_CASES_ARTEFACT_ID = '12345'
+const IAC_ADDITIONAL_CASES_ARTEFACT_ID = '12345';
 
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
@@ -33,13 +33,12 @@ const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPubl
 metadataStub.withArgs(IAC_DAILY_ARTEFACT_ID).returns(dailyListMetaData);
 metadataStub.withArgs(IAC_ADDITIONAL_CASES_ARTEFACT_ID).returns(additionalCasesMetaData);
 
-const iacDailyListUrl = '/iac-daily-list?artefactId='
-    + IAC_DAILY_ARTEFACT_ID;
-const iacDailyListAdditionalHearings = '/iac-daily-list-additional-cases?artefactId='
-    + IAC_ADDITIONAL_CASES_ARTEFACT_ID;
+const iacDailyListUrl = '/iac-daily-list?artefactId=' + IAC_DAILY_ARTEFACT_ID;
+const iacDailyListAdditionalHearings =
+    '/iac-daily-list-additional-cases?artefactId=' + IAC_ADDITIONAL_CASES_ARTEFACT_ID;
 
 describe('IAC daily cause list page', () => {
-    describe.each([iacDailyListUrl, iacDailyListAdditionalHearings])("IAC Daily List with path %s", url => {
+    describe.each([iacDailyListUrl, iacDailyListAdditionalHearings])('IAC Daily List with path %s', url => {
         beforeAll(async () => {
             await request(app)
                 .get(url)
@@ -68,7 +67,10 @@ describe('IAC daily cause list page', () => {
 
         it('should display summary heading', () => {
             const summary = htmlRes.getElementsByClassName(summaryHeading);
-            expect(summary[0].innerHTML).contains('Important information', 'Could not find the display summary heading');
+            expect(summary[0].innerHTML).contains(
+                'Important information',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display list for text', () => {

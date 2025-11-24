@@ -189,7 +189,9 @@ describe('Mayor & City Civil Daily Cause List page in Welsh', () => {
 
     it('should display fact link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).contains('Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd yng Nghymru a Lloegr');
+        expect(text[4].innerHTML).contains(
+            'Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd yng Nghymru a Lloegr'
+        );
     });
 
     it('should display fact link', () => {

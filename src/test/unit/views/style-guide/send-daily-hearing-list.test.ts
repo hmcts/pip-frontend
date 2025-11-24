@@ -193,7 +193,9 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display fact link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).contains('Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd yng Nghymru a Lloegr');
+        expect(text[4].innerHTML).contains(
+            'Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd yng Nghymru a Lloegr'
+        );
     });
 
     it('should display fact link', () => {
