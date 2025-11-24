@@ -13,7 +13,7 @@ const urlFutureList = '/magistrates-adult-court-list-future';
 const artefactIdDailyList = 'abc';
 const artefactIdFutureList = 'def';
 
-const bodyClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const tableHeaderClass = 'govuk-table__header';
 const tableCellClass = 'govuk-table__cell';
 
@@ -71,14 +71,24 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
         );
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[0].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[2].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display list date', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[0].innerHTML).equals('List for 14 February 2022');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[1].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display publication date', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[1].innerHTML).contains('Last updated 31 July 2025 at 9:05am', 'Publication date does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[2].innerHTML).contains('Last updated 31 July 2025 at 9:05am', 'Publication date does not match');
     });
 
     it('should display reporting restriction heading', () => {
@@ -103,18 +113,18 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
     });
 
     it('should display Court Room', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[7].innerHTML).contains('Sitting at 1', 'Court Room does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[8].innerHTML).contains('Sitting at 1', 'Court Room does not match');
     });
 
     it('should display LJA', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[8].innerHTML).contains("LJA: North Northumbria Magistrates' Court", 'LJA does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[9].innerHTML).contains("LJA: North Northumbria Magistrates' Court", 'LJA does not match');
     });
 
     it('should display Session Start Time', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].innerHTML).contains('Session start 9am', 'Session Start Time does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].innerHTML).contains('Session start 9am', 'Session Start Time does not match');
     });
 
     it('should display Block Start table header', () => {

@@ -38,22 +38,32 @@ describe('Mayor & City Civil Daily Cause List page in English', () => {
         expect(header[0].innerHTML).contains('Civil Daily Cause List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).contain('Mayor &amp; City');
-        expect(text[5].innerHTML).equals('Guildhall Buildings');
-        expect(text[6].innerHTML).equals('Basinghall Street');
-        expect(text[7].innerHTML).equals('London EC2V 5AR');
+        expect(text[5].innerHTML).contain('Mayor &amp; City');
+        expect(text[6].innerHTML).equals('Guildhall Buildings');
+        expect(text[7].innerHTML).equals('Basinghall Street');
+        expect(text[8].innerHTML).equals('London EC2V 5AR');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('List for 14 February 2022');
+        expect(text[9].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[10].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -63,7 +73,7 @@ describe('Mayor & City Civil Daily Cause List page in English', () => {
 
     it('should display important information message part 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'Central London County Court and Mayors &amp; City of London Court – Hearings for the County Court at ' +
                 'Central London will be heard at the Thomas More Building, located in the Royal Courts of Justice. ' +
                 'Cases are also listed at Mayors &amp; City of London Court, Guildhall Buildings, Basinghall Street, ' +
@@ -77,7 +87,7 @@ describe('Mayor & City Civil Daily Cause List page in English', () => {
 
     it('should display important information message part 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains(
+        expect(text[12].innerHTML).contains(
             'Requests for the media and others, including legal bloggers, should be made to County Court at ' +
                 'Central London via enquiries.centrallondon.countycourt@justice.gov.uk ' +
                 'or Mayors and City of London Court via enquiries.centrallondon.countycourt@justice.gov.uk. ' +
@@ -159,7 +169,7 @@ describe('Mayor & City Civil Daily Cause List page in English', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains('Data Source: Prov1');
+        expect(text[13].innerHTML).contains('Data Source: Prov1');
     });
 });
 
@@ -177,22 +187,32 @@ describe('Mayor & City Civil Daily Cause List page in Welsh', () => {
         expect(header[0].innerHTML).contains('Rhestr Achosion Dyddiol y Llys Sifil');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd yng Nghymru a Lloegr');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Mayor &amp; City');
-        expect(text[5].innerHTML).equals('Guildhall Buildings');
-        expect(text[6].innerHTML).equals('Basinghall Street');
-        expect(text[7].innerHTML).equals('London EC2V 5AR');
+        expect(text[5].innerHTML).equals('Mayor &amp; City');
+        expect(text[6].innerHTML).equals('Guildhall Buildings');
+        expect(text[7].innerHTML).equals('Basinghall Street');
+        expect(text[8].innerHTML).equals('London EC2V 5AR');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Rhestr ar gyfer 14 Chwefror 2022');
+        expect(text[9].innerHTML).equals('Rhestr ar gyfer 14 Chwefror 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).equals('Diweddarwyd ddiwethaf 20 Ionawr 2025 am 9:30am');
+        expect(text[10].innerHTML).equals('Diweddarwyd ddiwethaf 20 Ionawr 2025 am 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -202,7 +222,7 @@ describe('Mayor & City Civil Daily Cause List page in Welsh', () => {
 
     it('should display important information message part 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'Llys Sirol Canol Llundain a Llys Maer a Dinas Llundain – Bydd gwrandawiadau ar gyfer ' +
                 'Llys Sirol Canol Llundain yn cael eu gwrando yn Adeilad Thomas More, ' +
                 'sydd wedi’i leoli yn y Llysoedd Barn Brenhinol. Rhestrir achosion hefyd yn ' +
@@ -216,7 +236,7 @@ describe('Mayor & City Civil Daily Cause List page in Welsh', () => {
 
     it('should display important information message part 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains(
+        expect(text[12].innerHTML).contains(
             'Dylid gwneud ceisiadau ar gyfer y cyfryngau ac eraill, gan gynnwys blogwyr cyfreithiol, ' +
                 'i Lys Sirol Canol Llundain drwy enquiries.centrallondon.countycourt@justice.gov.uk ' +
                 'neu Lys Maer a Dinas Llundain drwy enquiries.centrallondon.countycourt@justice.gov.uk. ' +
@@ -263,6 +283,6 @@ describe('Mayor & City Civil Daily Cause List page in Welsh', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains('Ffynhonnell Data: Prov1');
+        expect(text[13].innerHTML).contains('Ffynhonnell Data: Prov1');
     });
 });

@@ -40,14 +40,24 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
         );
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('List for 14 February 2022');
+        expect(text[5].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[6].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -57,7 +67,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[6].innerHTML).contains(
+        expect(text[7].innerHTML).contains(
             'Special Educational Needs and Disability (SEND) Tribunal hearings ' +
                 'are held in private and unless a request from the parties for the ' +
                 'hearing to be heard in public has been approved, you will not be able to observe.'
@@ -66,7 +76,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).contains(
+        expect(text[8].innerHTML).contains(
             'Private hearings do not allow anyone to observe ' +
                 'remotely or in person. This includes members of the press.'
         );
@@ -74,7 +84,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).contains(
+        expect(text[9].innerHTML).contains(
             'Open justice is a fundamental principle of our justice system. ' +
                 'To attend a public hearing using a remote link you must apply for permission to observe.'
         );
@@ -82,7 +92,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 4', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
+        expect(text[10].innerHTML).contains(
             'Requests to observe a public hearing that is taking ' +
                 'place should be made in good time direct to: send@justice.gov.uk. ' +
                 'You may be asked to provide further details.'
@@ -91,7 +101,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 5', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'The judge hearing the case will decide if it is appropriate for ' +
                 'you to observe remotely. They will have regard to the interests of justice, ' +
                 'the technical capacity for remote observation and what is necessary ' +
@@ -161,7 +171,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('Data Source: Prov1');
+        expect(text[12].innerHTML).contains('Data Source: Prov1');
     });
 });
 
@@ -181,14 +191,24 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
         );
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd yng Nghymru a Lloegr');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Rhestr ar gyfer 14 Chwefror 2022');
+        expect(text[5].innerHTML).equals('Rhestr ar gyfer 14 Chwefror 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).equals('Diweddarwyd ddiwethaf 20 Ionawr 2025 am 9:30am');
+        expect(text[6].innerHTML).equals('Diweddarwyd ddiwethaf 20 Ionawr 2025 am 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -198,7 +218,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[6].innerHTML).contains(
+        expect(text[7].innerHTML).contains(
             'Cynhelir gwrandawiadau Tribiwnlys Anghenion Addysgol Arbennig ' +
                 'ac Anabledd (SEND) yn breifat ac oni bai bod cais gan y partïon i wrandawiad ' +
                 "gael ei wrando yn gyhoeddus wedi'i gymeradwyo, ni fyddwch yn gallu arsylwi."
@@ -207,7 +227,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).contains(
+        expect(text[8].innerHTML).contains(
             'Nid yw gwrandawiadau preifat yn caniatáu i ' +
                 "unrhyw un arsylwi o bell neu wyneb yn wyneb. Mae hyn yn cynnwys aelodau o'r wasg."
         );
@@ -215,7 +235,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).contains(
+        expect(text[9].innerHTML).contains(
             'Mae cyfiawnder agored yn un o egwyddorion sylfaenol ein system ' +
                 'gyfiawnder. Ar gyfer mynychu gwrandawiad cyhoeddus gan ddefnyddio ' +
                 'cyswllt o bell rhaid i chi wneud cais am ganiatâd i arsylwi.'
@@ -224,7 +244,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 4', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
+        expect(text[10].innerHTML).contains(
             "Dylid gwneud ceisiadau i arsylwi gwrandawiad cyhoeddus sy'n cael " +
                 'ei gynnal mewn pryd yn uniongyrchol at: send@justice.gov.uk. ' +
                 'Efallai y gofynnir i chi ddarparu rhagor o fanylion.'
@@ -233,7 +253,7 @@ describe('First-tier Tribunal (Special Educational Needs and Disability) Daily H
 
     it('should display important information message 5', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             "Bydd y barnwr sy'n gwrando’r achos yn penderfynu a yw'n briodol i chi " +
                 'arsylwi o bell. Byddant yn ystyried buddiannau cyfiawnder, y gallu technegol ' +
                 "i arsylwi o bell a'r hyn sy'n angenrheidiol i sicrhau gweinyddiaeth briodol cyfiawnder."
