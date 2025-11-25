@@ -3,7 +3,7 @@
 
 {% block bodyEnd %}
   {{ backButtonHistory(cspNonce) }}
-  <script nonce="{{ cspNonce }}" src="assets/js/mark.min.js"></script>
+  <script src="assets/js/mark.min.js"></script>
   <script nonce="{{ cspNonce }}">
     var instance = new Mark(document.getElementsByClassName("search-area")[0]);
     const input = document.getElementById("search-input");
