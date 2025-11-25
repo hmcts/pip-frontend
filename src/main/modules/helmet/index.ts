@@ -38,6 +38,7 @@ export class Helmet {
         });
 
         const scriptSrc = [
+            self,
             ...googleAnalyticsDomains,
             dynatraceDomain,
             (req, res) => `'nonce-${res['locals'].cspNonce}'`,
@@ -50,11 +51,15 @@ export class Helmet {
         app.use(
             helmet.contentSecurityPolicy({
                 directives: {
-                    defaultSrc: [self],
                     connectSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
+                    defaultSrc: ["'none'"],
+                    fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
+                    objectSrc: [self],
+                    scriptSrcAttr: [self],
+                    manifestSrc: [self],
                     scriptSrc,
-                    frameAncestors: ["'none'"],
+                    styleSrc: [self],
                     formAction: [self, B2C_URL, B2C_ADMIN_URL, CFT_IDAM_URL, CRIME_IDAM_URL],
                 },
             })
