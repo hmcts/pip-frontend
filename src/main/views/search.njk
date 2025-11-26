@@ -74,7 +74,7 @@
         ) %}
     {% endfor %}
 
-    <script src="/assets/js/accessible-autocomplete.min.js"></script>
+    <script nonce="{{ cspNonce }}" src="/assets/js/accessible-autocomplete.min.js"></script>
     <script nonce="{{ cspNonce }}">
 
       //Used to ensure that page focus is set to top when the page reloads

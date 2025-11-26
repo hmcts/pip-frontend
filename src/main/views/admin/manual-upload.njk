@@ -290,7 +290,7 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script src="/assets/js/accessible-autocomplete.min.js"></script>
+  <script nonce="{{ cspNonce }}" src="/assets/js/accessible-autocomplete.min.js"></script>
   <script nonce="{{ cspNonce}}">
     {% set optionList = [] %}
     {% for item in listItems.courtList %}

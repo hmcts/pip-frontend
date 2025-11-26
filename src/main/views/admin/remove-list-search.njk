@@ -58,7 +58,7 @@
         ) %}
     {% endfor %}
 
-    <script src="/assets/js/accessible-autocomplete.min.js"></script>
+    <script nonce="{{ cspNonce }}" src="/assets/js/accessible-autocomplete.min.js"></script>
     <script nonce="{{ cspNonce }}">
       const element = document.querySelector('#search-input-container');
       const source = {{ optionList | dump |safe }};
