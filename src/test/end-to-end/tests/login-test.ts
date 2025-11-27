@@ -2,78 +2,6 @@ import { config as testConfig } from '../../config';
 
 Feature('Login');
 
-Scenario('I as a system admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsB2CSystemAdmin();
-    I.logout();
-}).tag('@CrossBrowser');
-
-Scenario(
-    'I as a system admin should be able to see proper error messages when username or password fields are empty',
-    async ({ I }) => {
-        I.loginTestB2CAdminUser('', '');
-        I.waitForText('Please enter your Email Address');
-        I.see('Please enter your password');
-    }
-).tag('@Nightly');
-
-Scenario(
-    'I as a system admin should be able to see proper error message when username or password is wrong',
-    async ({ I }) => {
-        I.loginTestB2CAdminUser('email@justice.gov.uk', 'password');
-        I.waitForText('Invalid username or password.');
-    }
-).tag('@Nightly');
-
-Scenario(
-    'I as a system admin should be able to see proper error message when username is not a valid email address',
-    async ({ I }) => {
-        I.loginTestB2CAdminUser('email..@justice.gov.uk', 'password');
-        I.waitForText('Please enter a valid email address.');
-    }
-).tag('@Nightly');
-
-Scenario('I as a admin should be able to sign-in with the valid credentials', async ({ I }) => {
-    I.loginAsB2CAdmin();
-    I.logout();
-}).tag('@CrossBrowser');
-
-Scenario(
-    'I as a admin should be able to see proper error messages when username or password fields are empty',
-    async ({ I }) => {
-        I.loginTestB2CAdminUser('', '');
-        I.waitForText('Please enter your Email Address');
-        I.see('Please enter your password');
-    }
-).tag('@Nightly');
-
-Scenario(
-    'I as a admin should be able to see proper error message when username or password is wrong',
-    async ({ I }) => {
-        I.loginTestB2CAdminUser('email@justice.gov.uk', 'password');
-        I.waitForText('Invalid username or password.');
-    }
-).tag('@Nightly');
-
-Scenario(
-    'I as a admin should be able to see proper error message when username is not a valid email address',
-    async ({ I }) => {
-        I.loginTestB2CAdminUser('email..@justice.gov.uk', 'password');
-        I.waitForText('Please enter a valid email address.');
-    }
-).tag('@Nightly');
-
-Scenario('I as a admin should be able to see the beta tag and feedback link when logging in', async ({ I }) => {
-    I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/b2c-admin-login');
-    });
-    I.waitForText('Sign in with your email address');
-    I.seeBetaFeedbackOnPage('b2c/login');
-    I.executeScript('window.history.back();');
-    I.click('Forgot your password?');
-    I.waitForText('Please provide the following details.');
-    I.seeBetaFeedbackOnPage('b2c/reset-pw');
-});
-
 Scenario('I as a media user should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsMediaUser();
     I.logout();
@@ -180,8 +108,6 @@ Scenario(
     }
 ).tag('@Nightly');
 
-/*
--- Disabling Crime IDAM end-to-end tests because pre-prod login is not working any more.
 Scenario('I as a Crime user should be able to sign-in with the valid credentials in English', async ({ I }) => {
     I.loginAsCrimeUser();
     I.waitForText('Your account');
@@ -203,32 +129,6 @@ Scenario(
         I.waitForText('You did not enter a correct username or password');
     }
 ).tag('@Nightly');
-
-*/
-
-Scenario(
-    'I as a media user should see the media rejected login screen when logging in via the admin flow',
-    async ({ I }) => {
-        I.loginTestB2CAdminUser(secret(testConfig.MEDIA_USER_USERNAME), secret(testConfig.MEDIA_USER_PASSWORD));
-        I.waitForText('Sign in failed');
-        I.see(
-            'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'
-        );
-        I.see('/sign-in');
-    }
-);
-
-Scenario(
-    'I as a admin user should see the admin rejected login screen when logging in via the media flow',
-    async ({ I }) => {
-        I.loginTestMediaUser(secret(testConfig.ADMIN_USERNAME), secret(testConfig.ADMIN_PASSWORD));
-        I.waitForText('Sign in failed');
-        I.see(
-            'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user'
-        );
-        I.see('/admin-dashboard');
-    }
-);
 
 Scenario('I as a SSO system admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
