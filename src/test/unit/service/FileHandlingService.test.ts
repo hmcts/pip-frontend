@@ -211,7 +211,7 @@ describe('File handling service', () => {
 
             await fileHandlingService.storeFileIntoRedis(userId, 'validationJson.json', 'validation.json');
 
-            sinon.assert.calledWith(setStub, '1234-validation.json', sinon.match.any, { EX : sinon.match.any });
+            sinon.assert.calledWith(setStub, '1234-validation.json', sinon.match.any, { EX: sinon.match.any });
         });
     });
 
