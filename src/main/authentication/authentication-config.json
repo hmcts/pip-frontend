@@ -3,6 +3,5 @@
     "RESPONSE_MODE_FORM_POST": "form_post",
     "RESPONSE_MODE_QUERY": "query",
     "POLICY": "B2C_1_SignInUserFlow",
-    "ADMIN_POLICY": "B2C_1_SignInAdminUserFlow",
     "FORGOT_PASSWORD_POLICY": "B2C_1A_PASSWORD_RESET"
 }

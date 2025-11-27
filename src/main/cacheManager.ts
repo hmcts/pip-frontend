@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 import { Logger } from '@hmcts/nodejs-logging';
 import config from 'config';
-import { createClient } from "redis";
+import { createClient } from 'redis';
 
 function getRedisPassword(): string {
     if (config.has('secrets.pip-ss-kv.REDIS_PASSWORD')) {
@@ -44,13 +44,12 @@ if (process.env.REDIS_MOCK) {
         pingInterval: 300000,
         socket: {
             connectTimeout: 10000,
-        }
-    })
+        },
+    });
 
-    redisClient.connect()
-        .catch(function(error) {
-            logger.error('Error connecting to Redis client: ' + error);
-        });
+    redisClient.connect().catch(function (error) {
+        logger.error('Error connecting to Redis client: ' + error);
+    });
 }
 
 redisClient.on('connect', () => {
