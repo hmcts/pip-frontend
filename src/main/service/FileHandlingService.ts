@@ -95,13 +95,9 @@ export class FileHandlingService {
         try {
             if (this.getFileExtension(sanitisedFileName) === 'json') {
                 const rawData = fs.readFileSync(`./manualUpload/tmp/${originalFilename}`, 'utf-8');
-                await redisClient.set(
-                    userId + '-' + sanitisedFileName,
-                    JSON.stringify(JSON.parse(rawData)),
-                    {
-                        EX : this.REDIS_EXPIRY_TIME,
-                    },
-                );
+                await redisClient.set(userId + '-' + sanitisedFileName, JSON.stringify(JSON.parse(rawData)), {
+                    EX: this.REDIS_EXPIRY_TIME,
+                });
             } else {
                 await redisClient.set(
                     userId + '-' + sanitisedFileName,
@@ -109,8 +105,8 @@ export class FileHandlingService {
                         encoding: 'base64',
                     }),
                     {
-                        EX : this.REDIS_EXPIRY_TIME,
-                    },
+                        EX: this.REDIS_EXPIRY_TIME,
+                    }
                 );
             }
         } catch (err) {

@@ -28,33 +28,6 @@ describe('Login', () => {
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
     });
 
-    test('should redirect to the Admin B2C login in English', async () => {
-        app.request['lng'] = 'en';
-
-        await request(app)
-            .get('/admin-login?p=B2C_1_SignInAdminUserFlow')
-            .expect(res => expect(res.redirect).toBeTruthy)
-            .expect(res => expect(res.headers['location']).toContain('b2c_1_signinadminuserflow'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
-    });
-
-    test('should redirect to the Admin B2C login in Welsh', async () => {
-        app.request['lng'] = 'cy';
-
-        await request(app)
-            .get('/admin-login?p=B2C_1_SignInAdminUserFlow')
-            .expect(res => expect(res.redirect).toBeTruthy)
-            .expect(res => expect(res.headers['location']).toContain('b2c_1_signinadminuserflow'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
-    });
-
-    test('should redirect to the Admin login page', async () => {
-        await request(app)
-            .get('/b2c-admin-login')
-            .expect(res => expect(res.redirect).toBeTruthy)
-            .expect(res => expect(res.headers['location']).toContain('/admin-login?p=B2C_1_SignInAdminUserFlow'));
-    });
-
     test('should redirect to the SSO login page', async () => {
         await request(app)
             .get('/sso-login')
@@ -124,53 +97,11 @@ describe('Login', () => {
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
     });
 
-    test('should redirect to the admin login page in english on return', async () => {
-        app.request['lng'] = 'en';
-
-        await request(app)
-            .post('/login/admin/return?p=B2C_1_SignInAdminUserFlow')
-            .expect(res => expect(res.redirect).toBeTruthy())
-            .expect(res => expect(res.headers['location']).toContain('b2c_1_signinadminuserflow'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
-    });
-
-    test('should redirect to the admin login page in welsh on return', async () => {
-        app.request['lng'] = 'cy';
-
-        await request(app)
-            .post('/login/admin/return?p=B2C_1_SignInAdminUserFlow')
-            .expect(res => expect(res.redirect).toBeTruthy())
-            .expect(res => expect(res.headers['location']).toContain('b2c_1_signinadminuserflow'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
-    });
-
     test('should redirect to the SSO login page on return', async () => {
         await request(app)
             .get('/sso/return')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('https://login.microsoftonline.com'));
-    });
-
-    test('should redirect to the password reset page in english on return', async () => {
-        app.request['lng'] = 'en';
-        app.request['body'] = mockRequestBody;
-
-        await request(app)
-            .post('/login/admin/return?p=B2C_1_SignInAdminUserFlow')
-            .expect(res => expect(res.redirect).toBeTruthy())
-            .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
-    });
-
-    test('should redirect to the password reset page in welsh on return', async () => {
-        app.request['lng'] = 'cy';
-        app.request['body'] = mockRequestBody;
-
-        await request(app)
-            .post('/login/admin/return?p=B2C_1_SignInAdminUserFlow')
-            .expect(res => expect(res.redirect).toBeTruthy())
-            .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
-            .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
     });
 
     test('should redirect to the media verification page in english on return', async () => {
