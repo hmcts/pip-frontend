@@ -15,6 +15,7 @@
     "startTime": "Start Time",
     "caseRef": "Case Ref",
     "caseDetails": "Case Details",
+    "caseType": "Case Type",
     "hearingType": "Hearing Type",
     "timeEstimate": "Time Estimate",
     "hearingChannel": "Hearing Channel",
