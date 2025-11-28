@@ -27,7 +27,6 @@ describe('Cancelled password reset controller', () => {
         const expectedData = {
             ...i18n['cancelled-password-reset'],
             betaText: betaText,
-            isAdmin: true,
         };
 
         responseMock.expects('render').once().withArgs('cancelled-password-reset', expectedData);
@@ -44,7 +43,6 @@ describe('Cancelled password reset controller', () => {
         const expectedData = {
             ...i18n['cancelled-password-reset'],
             betaText: betaText,
-            isAdmin: false,
         };
 
         responseMock.expects('render').once().withArgs('cancelled-password-reset', expectedData);
