@@ -28,11 +28,11 @@ export const accountManagementApiUrl =
     process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net';
 export const dataManagementApi = axios.create({
     baseURL: process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net',
-    timeout: 10000,
+    timeout: 20000,
 });
 export const accountManagementApi = axios.create({
     baseURL: accountManagementApiUrl,
-    timeout: 10000,
+    timeout: 20000,
 });
 export const cftIdamTokenApi = axios.create({
     baseURL: CFT_IDAM_URL,
