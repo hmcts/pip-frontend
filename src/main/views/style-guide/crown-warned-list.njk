@@ -15,6 +15,7 @@
 {% block content %}
   <div class="parent-box">
     <h2 id="page-heading" class="govuk-heading-l">{{ heading }} {{ venue.venueName }}</h2>
+    <p class="govuk-body"><a class="govuk-link" href={{ factLink }}>{{ factLinkText1 }}</a>{{ factLinkText2 }}</p>
     <p class="govuk-body publication-date">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
     <p class="govuk-body version">{{ draft }}: {{ versionText }} {{ version }}</p>
     <p class="govuk-body venue-address">{{ venueAddress | striptags(true) | escape | nl2br }}</p>

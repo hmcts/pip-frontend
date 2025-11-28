@@ -45,14 +45,24 @@ describe('CIC Weekly Hearing List page', () => {
         expect(header[0].innerHTML).contains('Criminal Injuries Compensation Weekly Hearing List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).contains('List for week commencing 14 February 2022');
+        expect(text[5].innerHTML).contains('List for week commencing 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+        expect(text[6].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -62,33 +72,33 @@ describe('CIC Weekly Hearing List page', () => {
 
     it('should display important information message line 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[6].innerHTML).contains('Open justice is a fundamental principle of our justice system.');
+        expect(text[7].innerHTML).contains('Open justice is a fundamental principle of our justice system.');
     });
 
     it('should display important information message line 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).contains(
+        expect(text[8].innerHTML).contains(
             'When considering the use of telephone and video technology, the judiciary will have regard to the principles of open justice.'
         );
     });
 
     it('should display important information message line 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).contains(
+        expect(text[9].innerHTML).contains(
             'Criminal Injuries Compensation Tribunal parties and representatives will be informed directly as to the arrangements for hearing cases remotely.'
         );
     });
 
     it('should display restricted reporting orders message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'The inclusion of a case in the Press List is no guarantee that it is not subject to a restricted reporting order.'
         );
     });
 
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+        expect(text[12].innerHTML).contains('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
     });
 
     it('should display Date header', () => {
@@ -173,6 +183,6 @@ describe('CIC Weekly Hearing List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains('Data Source: Prov1');
+        expect(text[13].innerHTML).contains('Data Source: Prov1');
     });
 });

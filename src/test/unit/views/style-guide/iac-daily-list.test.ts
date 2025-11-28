@@ -5,16 +5,17 @@ import sinon from 'sinon';
 import request from 'supertest';
 import { app } from '../../../../main/app';
 import { expect } from 'chai';
-import {describe} from "@jest/globals";
+import { describe } from '@jest/globals';
 
 const IAC_DAILY_ARTEFACT_ID = '1234';
-const IAC_ADDITIONAL_CASES_ARTEFACT_ID = '12345'
+const IAC_ADDITIONAL_CASES_ARTEFACT_ID = '12345';
 
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
-const paragraphClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const courtListClass = 'site-address';
 const courtRoomClass = 'govuk-accordion__section-button';
+const cellText = 'govuk-table__cell';
 
 let htmlRes: Document;
 
@@ -32,13 +33,12 @@ const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPubl
 metadataStub.withArgs(IAC_DAILY_ARTEFACT_ID).returns(dailyListMetaData);
 metadataStub.withArgs(IAC_ADDITIONAL_CASES_ARTEFACT_ID).returns(additionalCasesMetaData);
 
-const iacDailyListUrl = '/iac-daily-list?artefactId='
-    + IAC_DAILY_ARTEFACT_ID;
-const iacDailyListAdditionalHearings = '/iac-daily-list-additional-cases?artefactId='
-    + IAC_ADDITIONAL_CASES_ARTEFACT_ID;
+const iacDailyListUrl = '/iac-daily-list?artefactId=' + IAC_DAILY_ARTEFACT_ID;
+const iacDailyListAdditionalHearings =
+    '/iac-daily-list-additional-cases?artefactId=' + IAC_ADDITIONAL_CASES_ARTEFACT_ID;
 
 describe('IAC daily cause list page', () => {
-    describe.each([iacDailyListUrl, iacDailyListAdditionalHearings])("IAC Daily List with path %s", url => {
+    describe.each([iacDailyListUrl, iacDailyListAdditionalHearings])('IAC Daily List with path %s', url => {
         beforeAll(async () => {
             await request(app)
                 .get(url)
@@ -55,19 +55,32 @@ describe('IAC daily cause list page', () => {
             );
         });
 
+        it('should display fact link text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+        });
+
+        it('should display fact link', () => {
+            const text = htmlRes.getElementsByClassName('govuk-link');
+            expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+        });
+
         it('should display summary heading', () => {
             const summary = htmlRes.getElementsByClassName(summaryHeading);
-            expect(summary[0].innerHTML).contains('Important information', 'Could not find the display summary heading');
+            expect(summary[0].innerHTML).contains(
+                'Important information',
+                'Could not find the display summary heading'
+            );
         });
 
         it('should display list for text', () => {
-            const listForText = htmlRes.getElementsByClassName(paragraphClass)[4];
-            expect(listForText.innerHTML).contains('List for ');
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[5].innerHTML).contains('List for ');
         });
 
         it('should display last updated text', () => {
-            const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
-            expect(listUpdatedText.innerHTML).contains('Last updated 31 August 2022 at 11am');
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[6].innerHTML).contains('Last updated 31 August 2022 at 11am');
         });
 
         it('should display the search input box', () => {
@@ -93,32 +106,32 @@ describe('IAC daily cause list page', () => {
         });
 
         it('should display data source text', () => {
-            const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
-            expect(listForText.innerHTML).contains('Data Source');
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[7].innerHTML).contains('Data Source');
         });
 
         it('should display sitting channel if present', () => {
-            const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+            const cell = htmlRes.getElementsByClassName(cellText);
             expect(cell[5].innerHTML).contains('Teams, Attended');
         });
 
         it('should display session channel if sitting channel is not present', () => {
-            const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+            const cell = htmlRes.getElementsByClassName(cellText);
             expect(cell[26].innerHTML).contains('VIDEO HEARING,');
         });
 
         it('should display Respondent', () => {
-            const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+            const cell = htmlRes.getElementsByClassName(cellText);
             expect(cell[3].innerHTML).contains('Test Name');
         });
 
         it('should display respondent using organisation', () => {
-            const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+            const cell = htmlRes.getElementsByClassName(cellText);
             expect(cell[10].innerHTML).contains('Organisation Name');
         });
 
         it('should display hearing type if present', () => {
-            const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+            const cell = htmlRes.getElementsByClassName(cellText);
             expect(cell[6].innerHTML).contains('Directions');
         });
     });

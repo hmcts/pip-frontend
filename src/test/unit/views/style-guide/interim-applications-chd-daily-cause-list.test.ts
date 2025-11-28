@@ -40,21 +40,31 @@ describe('Interim Applications Daily List page', () => {
         expect(header[0].innerHTML).contains('Interim Applications List (Chancery Division) Daily Cause List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Rolls Building');
-        expect(text[5].innerHTML).equals('Fetter Lane, London');
-        expect(text[6].innerHTML).equals('EC4A 1NL');
+        expect(text[5].innerHTML).equals('Rolls Building');
+        expect(text[6].innerHTML).equals('Fetter Lane, London');
+        expect(text[7].innerHTML).equals('EC4A 1NL');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).equals('List for 14 February 2022');
+        expect(text[8].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -64,12 +74,12 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display open justice message part 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Parties should contact the clerk to the Interim Judge, ');
+        expect(text[10].innerHTML).contains('Parties should contact the clerk to the Interim Judge, ');
     });
 
     it('should display open justice message part 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'An application should not be listed before the Interim Applications Judge unless the overall time ' +
                 'required to deal with the application is 2 hours or less. The 2 hour maximum includes the judge’s' +
                 ' pre-reading time, the hearing of the application, delivery of judgment and time for dealing with costs.' +
@@ -150,6 +160,6 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('Data Source: Prov1');
+        expect(text[12].innerHTML).contains('Data Source: Prov1');
     });
 });

@@ -37,21 +37,31 @@ describe('Admiralty Court (King’s Bench Division) Daily Cause List page', () =
         expect(header[0].innerHTML).contains('Admiralty Court (King’s Bench Division) Daily Cause List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Rolls Building');
-        expect(text[5].innerHTML).equals('Fetter Lane, London');
-        expect(text[6].innerHTML).equals('EC4A 1NL');
+        expect(text[5].innerHTML).equals('Rolls Building');
+        expect(text[6].innerHTML).equals('Fetter Lane, London');
+        expect(text[7].innerHTML).equals('EC4A 1NL');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).equals('List for 14 February 2022');
+        expect(text[8].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -61,36 +71,36 @@ describe('Admiralty Court (King’s Bench Division) Daily Cause List page', () =
 
     it('should display important information heading 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Remote hearings before a High Court Judge');
+        expect(text[10].innerHTML).contains('Remote hearings before a High Court Judge');
     });
 
     it('should display important information message 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'The hearing will be available to representatives of the media upon request. It will be organised and conducted using MS Teams (unless otherwise stated). Any media representative (or any other member of the public) wishing to witness the hearing will need to do so over the internet and provide an email address at which to be sent an appropriate link for access. Please contact comct.listing@justice.gov.uk.'
         );
     });
 
     it('should display important information heading 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('Remote hearings before the Admiralty Registrar');
+        expect(text[12].innerHTML).contains('Remote hearings before the Admiralty Registrar');
     });
 
     it('should display important information message 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains(
+        expect(text[13].innerHTML).contains(
             'Remote hearing via MS Teams. For details on accessing the hearing, please contact admiralty.registrar@justice.gov.uk. Any party who attends the hearing in person at the Rolls Building should contact a member of staff in the List Office who will then connect them to the remote hearings'
         );
     });
 
     it('should display important information heading 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[13].innerHTML).contains('Remote judgments');
+        expect(text[14].innerHTML).contains('Remote judgments');
     });
 
     it('should display important information message 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[14].innerHTML).contains(
+        expect(text[15].innerHTML).contains(
             'Remote hand-down: This judgment will be handed down remotely by circulation to the parties or their representatives by email and release to The National Archives. A copy of the judgment in final form as handed down should be available on The National Archives website shortly thereafter. Members of the media can obtain a copy on request by email to the Judicial Office press.enquiries@judiciary.uk'
         );
     });
@@ -167,6 +177,6 @@ describe('Admiralty Court (King’s Bench Division) Daily Cause List page', () =
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[15].innerHTML).contains('Data Source: Prov1');
+        expect(text[16].innerHTML).contains('Data Source: Prov1');
     });
 });

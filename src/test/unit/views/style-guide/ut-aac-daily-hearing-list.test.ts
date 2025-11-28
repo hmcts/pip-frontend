@@ -55,14 +55,24 @@ describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Pag
             );
         });
 
+        it('should display fact link text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+        });
+
+        it('should display fact link', () => {
+            const text = htmlRes.getElementsByClassName('govuk-link');
+            expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+        });
+
         it('should display list for text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[4].innerHTML).contains('List for 14 February 2022');
+            expect(text[5].innerHTML).contains('List for 14 February 2022');
         });
 
         it('should display list updated date text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+            expect(text[6].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
         });
 
         it('should display important information heading', () => {
@@ -72,12 +82,12 @@ describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Pag
 
         it('should display contact information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains('Details');
+            expect(text[7].innerHTML).contains('Details');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Lists are subject to change until 4:30pm. Any alterations after this time will be ' +
                     'telephoned or emailed direct to the parties or their legal representatives.'
             );
@@ -85,17 +95,17 @@ describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Pag
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains('England and Wales');
+            expect(text[9].innerHTML).contains('England and Wales');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[9].innerHTML).contains('Remote hearings via CVP');
+            expect(text[10].innerHTML).contains('Remote hearings via CVP');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[10].innerHTML).contains(
+            expect(text[11].innerHTML).contains(
                 'Hearings will be available to representatives of the media or any other member of the public, on their ' +
                     'request, and therefore will be a hearing conducted in ' +
                     'public in accordance with Rule 37 of the Tribunal Procedure (Upper Tribunal) Rules 2008.'
@@ -104,7 +114,7 @@ describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Pag
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[11].innerHTML).contains(
+            expect(text[12].innerHTML).contains(
                 'Any media representative or any other member of the public wishing to witness the hearing ' +
                     'will need to do so over the internet and provide an email address at which to be sent ' +
                     'an appropriate link for access.'
@@ -113,22 +123,22 @@ describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Pag
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[12].innerHTML).contains('Please contact adminappeals@justice.gov.uk.');
+            expect(text[13].innerHTML).contains('Please contact adminappeals@justice.gov.uk.');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[13].innerHTML).contains('Scotland');
+            expect(text[14].innerHTML).contains('Scotland');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[14].innerHTML).contains('Remote hearings');
+            expect(text[15].innerHTML).contains('Remote hearings');
         });
 
         it('should display information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[15].innerHTML).contains(
+            expect(text[16].innerHTML).contains(
                 'When hearings are listed for Scotland the hearing will be available to representatives ' +
                     'of the media or any other member of the public, on their request, and therefore will ' +
                     'be a hearing conducted in public in accordance with Rule 37 of the Tribunal Procedure (Upper Tribunal) ' +
@@ -220,7 +230,7 @@ describe('Upper Tribunal (Administrative Appeals Chamber) Daily Hearing List Pag
 
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[16].innerHTML).contains('Data Source: Prov1');
+            expect(text[17].innerHTML).contains('Data Source: Prov1');
         });
     });
 });
