@@ -49,6 +49,115 @@ Scenario('I as a media user should be able to see the beta tag and feedback link
     I.seeBetaFeedbackOnPage('b2c/reset-pw');
 });
 
+Scenario('I as a CFT user should be able to sign-in with the valid credentials in English', async ({ I }) => {
+    I.loginAsCftUser();
+    I.logout();
+})
+    .tag('@CrossBrowser')
+    .tag('@Smoke');
+
+Scenario('I as a CFT user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
+    I.loginAsCftUserInWelsh(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));
+    I.waitForText('Eich cyfrif');
+    I.logoutWelsh();
+}).tag('@Nightly');
+
+Scenario(
+    'I as a CFT user should be able to see proper error message when email is invalid in English',
+    async ({ I }) => {
+        I.loginTestCftUser(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
+        I.waitForText(
+            'You have successfully signed into your MyHMCTS account. Unfortunately, ' +
+                'your account role does not allow you to access the verified user part of the Court and tribunal hearings service'
+        );
+    }
+).tag('@Nightly');
+
+Scenario('I as a CFT user should be able to see proper error message when email is invalid in Welsh', async ({ I }) => {
+    I.loginAsCftUserInWelsh(testConfig.CFT_INVALID_USERNAME, testConfig.CFT_INVALID_PASSWORD);
+    I.waitForText(
+        'Rydych wedi mewngofnodi’n llwyddiannus i’ch cyfrif MyHMCTS. Yn anffodus, nid yw rôl eich cyfrif yn ' +
+            'galluogi ichi gael mynediad at y rhan o wasanaeth gwrandawiadau’r llysoedd a’r tribiwnlysoedd ar ' +
+            'gyfer defnyddwyr sydd wedi eu dilysu.'
+    );
+}).tag('@Nightly');
+
+Scenario(
+    'I as a CFT user should be able to see proper error messages when username or password fields are empty',
+    async ({ I }) => {
+        I.loginTestCftUser('', '');
+        I.waitForText('Email address cannot be blank');
+        I.see('Password cannot be blank');
+    }
+).tag('@Nightly');
+
+Scenario(
+    'I as a CFT user should be able to see proper error message when username or password is wrong',
+    async ({ I }) => {
+        I.loginTestCftUser('email@justice.gov.uk', 'password');
+        I.waitForText('Incorrect email or password');
+    }
+).tag('@Nightly');
+
+Scenario(
+    'I as a CFT user should be able to see proper error message when username is not a valid email address',
+    async ({ I }) => {
+        I.loginTestCftUser('email..justice.gov.uk', 'password');
+        I.waitForText('Email address is not valid');
+        I.see('Email address is not valid');
+    }
+).tag('@Nightly');
+
+/*
+-- Disabling Crime IDAM end-to-end tests because pre-prod login is not working any more.
+Scenario('I as a Crime user should be able to sign-in with the valid credentials in English', async ({ I }) => {
+    I.loginAsCrimeUser();
+    I.waitForText('Your account');
+    I.logout();
+})
+    .tag('@SkipOnPR')
+    .tag('@CrossBrowser');
+
+Scenario('I as a Crime user should be able to sign-in with the valid credentials in Welsh', async ({ I }) => {
+    I.loginAsCrimeUserInWelsh();
+    I.waitForText('Eich cyfrif');
+    I.logoutWelsh();
+}).tag('@Nightly');
+
+Scenario(
+    'I as a Crime user should be able to see proper error message when username or password is wrong',
+    async ({ I }) => {
+        I.loginAsCrimeUser('email@justice.gov.uk', 'password');
+        I.waitForText('You did not enter a correct username or password');
+    }
+).tag('@Nightly');
+
+*/
+
+Scenario(
+    'I as a media user should see the media rejected login screen when logging in via the admin flow',
+    async ({ I }) => {
+        I.loginTestB2CAdminUser(secret(testConfig.MEDIA_USER_USERNAME), secret(testConfig.MEDIA_USER_PASSWORD));
+        I.waitForText('Sign in failed');
+        I.see(
+            'Please always sign in using the following link below to sign in with your court and tribunal hearings account.'
+        );
+        I.see('/sign-in');
+    }
+);
+
+Scenario(
+    'I as a admin user should see the admin rejected login screen when logging in via the media flow',
+    async ({ I }) => {
+        I.loginTestMediaUser(secret(testConfig.ADMIN_USERNAME), secret(testConfig.ADMIN_PASSWORD));
+        I.waitForText('Sign in failed');
+        I.see(
+            'Please always sign in using the following link below to sign in as a court and tribunal hearings service Super Admin or Admin user'
+        );
+        I.see('/admin-dashboard');
+    }
+);
+
 Scenario('I as a SSO system admin should be able to sign-in with the valid credentials', async ({ I }) => {
     I.loginAsSsoSystemAdmin();
     I.logoutSsoSystemAdmin();
