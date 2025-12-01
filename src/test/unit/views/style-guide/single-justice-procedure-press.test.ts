@@ -13,7 +13,7 @@ const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const listSummary = 'govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1';
 const offenderInformationClass = 'govuk-summary-list__value';
-const bodyClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const buttonClass = 'govuk-button';
 const linkClass = 'govuk-link';
 const paginationClass = 'govuk-pagination__link';
@@ -105,6 +105,16 @@ describe('Single Justice Procedure List page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName(headingClass);
             expect(header[0].innerHTML).equals(sjpResource['title'], 'Could not find the header');
+        });
+
+        it('should display fact link text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[0].innerHTML).contains('Find contact details and other information about courts and tribunals');
+        });
+
+        it('should display fact link', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[2].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
         });
 
         it('should display summary', () => {
@@ -235,8 +245,8 @@ describe('Single Justice Procedure List page', () => {
         });
 
         it('should have reporting restriction section', () => {
-            const reportingRestrictionSection = htmlRes.getElementsByClassName(bodyClass);
-            expect(reportingRestrictionSection[4].innerHTML).contains(
+            const reportingRestrictionSection = htmlRes.getElementsByClassName(bodyText);
+            expect(reportingRestrictionSection[6].innerHTML).contains(
                 reportingRestriction,
                 'Could not find the reporting Restriction'
             );
@@ -248,17 +258,17 @@ describe('Single Justice Procedure List page', () => {
         });
 
         it('should display offence title and offence wording', () => {
-            const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[5].innerHTML).contains(
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[8].innerHTML).contains(
                 'This is an offence title - This is offence wording',
                 'Offence text does not match'
             );
         });
 
         it('should display offence title only if no offence wording', () => {
-            const body = htmlRes.getElementsByClassName(bodyClass);
-            expect(body[10].innerHTML).contains('This is an offence title', 'Offence text does not match');
-            expect(body[10].innerHTML).not.contains('This is an offence title -', 'Offence text does not match');
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[11].innerHTML).contains('This is an offence title', 'Offence text does not match');
+            expect(text[11].innerHTML).not.contains('This is an offence title -', 'Offence text does not match');
         });
     });
 
@@ -360,7 +370,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display the clear filters link', () => {
             const links = htmlRes.getElementsByClassName(linkClass);
-            expect(links[2].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
+            expect(links[3].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
         });
 
         it('should display the apply filters button', () => {
@@ -378,12 +388,12 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display the postcode section', () => {
             const links = htmlRes.getElementsByClassName(linkClass);
-            expect(links[3].innerHTML).contains('Postcode', 'Could not find the postcode section');
+            expect(links[4].innerHTML).contains('Postcode', 'Could not find the postcode section');
         });
 
         it('should display the prosecutor section', () => {
             const links = htmlRes.getElementsByClassName(linkClass);
-            expect(links[4].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
+            expect(links[5].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
         });
     });
 
@@ -420,7 +430,7 @@ describe('Single Justice Procedure List page', () => {
 
             it('should display the clear filters link', () => {
                 const links = htmlRes.getElementsByClassName(linkClass);
-                expect(links[2].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
+                expect(links[3].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
             });
 
             it('should display the apply filters button', () => {
@@ -438,12 +448,12 @@ describe('Single Justice Procedure List page', () => {
 
             it('should display the postcode section', () => {
                 const links = htmlRes.getElementsByClassName(linkClass);
-                expect(links[3].innerHTML).contains('Postcode', 'Could not find the postcode section');
+                expect(links[4].innerHTML).contains('Postcode', 'Could not find the postcode section');
             });
 
             it('should display the prosecutor section', () => {
                 const links = htmlRes.getElementsByClassName(linkClass);
-                expect(links[4].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
+                expect(links[5].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
             });
         }
     );

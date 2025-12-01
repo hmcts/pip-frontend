@@ -15,6 +15,7 @@
     <h2 id='page-heading' class="govuk-heading-l">
       {{ header }}{{ courtName }}
     </h2>
+    <p class="govuk-body"><a class="govuk-link" href={{ factLink }}>{{ factLinkText1 }}</a>{{ factLinkText2 }}</p>
   <p class="govuk-body">
     {% for line in listData['venue']['venueAddress']['line'] %}
       {% if line | length %}

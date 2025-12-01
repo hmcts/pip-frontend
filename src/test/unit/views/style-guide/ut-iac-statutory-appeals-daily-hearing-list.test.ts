@@ -51,14 +51,24 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
         );
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).contains('List for 14 February 2022');
+        expect(text[5].innerHTML).contains('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+        expect(text[6].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -68,26 +78,26 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
 
     it('should display list update message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[6].innerHTML).contains('We update this list by 5pm for the following day.');
+        expect(text[7].innerHTML).contains('We update this list by 5pm for the following day.');
     });
 
     it('should display attend hearing message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).contains(
+        expect(text[8].innerHTML).contains(
             'For details on attending a UTIAC remote hearing, please email uppertribunallistingteam@justice.gov.uk.'
         );
     });
 
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).contains(
+        expect(text[9].innerHTML).contains(
             'Observe a court or tribunal hearing as a journalist, researcher or member of the public'
         );
     });
 
     it('should display observe hearing link', () => {
         const text = htmlRes.getElementsByClassName(govukLinkClass);
-        expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+        expect(text[6].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
     });
 
     it('should display Hearing Time header', () => {
@@ -172,6 +182,6 @@ describe('UT IAC Statutory Appeals Daily Hearing List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Data Source: Prov1');
+        expect(text[10].innerHTML).contains('Data Source: Prov1');
     });
 });

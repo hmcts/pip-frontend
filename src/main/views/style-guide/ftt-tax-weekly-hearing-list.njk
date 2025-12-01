@@ -13,7 +13,7 @@
         <h2 id="page-heading" class="govuk-heading-l">
             {{ header }}
         </h2>
-
+        <p class="govuk-body"><a class="govuk-link" href={{ factLink }}>{{ factLinkText1 }}</a>{{ factLinkText2 }}</p>
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ weeklyListDate }} {{ contentDate }}</p>
         <p class="govuk-body">{{ listUpdated | replace("DATE", lastUpdatedDate) }} {{ lastUpdatedTime }}</p>
 

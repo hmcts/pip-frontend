@@ -17,6 +17,7 @@ const accordionClass = 'govuk-accordion__section-button';
 const tableHeaderClass = 'govuk-table__header';
 const tableCellClass = 'govuk-table__cell';
 const dataSourceClass = 'data-source';
+const bodyText = 'govuk-body';
 
 let htmlRes: Document;
 
@@ -41,6 +42,16 @@ describe('Crown Warned List page', () => {
     it('should display header with venue name and list type', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).equal('Crown Warned List for Manchester Court', 'Could not find the header');
+    });
+
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
     });
 
     it('should display publication date', () => {

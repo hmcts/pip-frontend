@@ -24,6 +24,7 @@ const titleTextMap = new Map<string, string>([
 ]);
 
 const headingClass = 'govuk-heading-l';
+const bodyText = 'govuk-body';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
 const warningClass = 'govuk-warning-text__text';
@@ -80,6 +81,16 @@ describe.each([sscDailyListUrl, sscDailyListAdditionalHearingsUrl])("Sscs daily 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
+    });
+
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
     });
 
     it('should display warning', () => {
