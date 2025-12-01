@@ -64,11 +64,6 @@ export function createFilters(env) {
         return languageLookup[x];
     });
 
-    // to switch a string to titleCase (and remove extraneous underline in bilingual header)
-    env.addFilter('titleCase', function (x) {
-        return x == 'BI_LINGUAL' ? 'Bilingual' : x.charAt(0).toUpperCase() + x.slice(1).toLowerCase();
-    });
-
     // for calculating date ranges
     env.addFilter('dateRange', function (x) {
         return (
