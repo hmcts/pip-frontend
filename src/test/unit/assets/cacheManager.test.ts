@@ -74,7 +74,7 @@ describe('Cache Manager creation', () => {
             pingInterval: 300000,
             socket: {
                 connectTimeout: 10000,
-            }
+            },
         });
         expect(connectMock).toHaveBeenCalledTimes(1);
     });
@@ -113,7 +113,7 @@ describe('Cache Manager creation', () => {
             pingInterval: 300000,
             socket: {
                 connectTimeout: 10000,
-            }
+            },
         });
         expect(connectMock).toHaveBeenCalledTimes(1);
     });
