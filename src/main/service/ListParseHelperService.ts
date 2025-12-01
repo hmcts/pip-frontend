@@ -334,7 +334,7 @@ export class ListParseHelperService {
      */
     public getRegionalJohFromLocationDetails(locationDetails: object): string {
         let formattedJoh = '';
-        locationDetails['region']['regionalJOH']?.forEach(joh => {
+        locationDetails?.['region']?.['regionalJOH']?.forEach(joh => {
             if (formattedJoh.length > 0) {
                 formattedJoh += ', ';
             }

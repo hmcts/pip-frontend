@@ -29,68 +29,68 @@ describe('List Helper service', () => {
     describe('Find and manipulate party details', () => {
         it('should return applicant petitioner details', async () => {
             const partyDetails = {
-                "party": [
+                party: [
                     {
-                        "partyRole": "APPLICANT_PETITIONER",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'APPLICANT_PETITIONER',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'APPLICANT_PETITIONER_REPRESENTATIVE',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "CLAIMANT_PETITIONER",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'CLAIMANT_PETITIONER',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'CLAIMANT_PETITIONER_REPRESENTATIVE',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "RESPONDENT",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'RESPONDENT',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "RESPONDENT_REPRESENTATIVE",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'RESPONDENT_REPRESENTATIVE',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "PROSECUTING_AUTHORITY",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'PROSECUTING_AUTHORITY',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "DEFENDANT"
+                        partyRole: 'DEFENDANT',
                     },
                     {
-                        "partyRole": "DEFENDANT_REPRESENTATIVE"
-                    }
-                ]
+                        partyRole: 'DEFENDANT_REPRESENTATIVE',
+                    },
+                ],
             };
             listParseHelperService.findAndManipulatePartyInformation(partyDetails);
             expect(partyDetails['appellant']).to.equal('Mr Forenames Middlename Surname');
@@ -175,11 +175,9 @@ describe('List Helper service', () => {
     describe('createOrganisationDetails', () => {
         it('should create organisation details with organisation name', async () => {
             const organisationDetails = {
-                "organisationName": "Organisation name"
+                organisationName: 'Organisation name',
             };
-            expect(listParseHelperService.createOrganisationDetails(organisationDetails)).to.equal(
-                'Organisation name'
-            );
+            expect(listParseHelperService.createOrganisationDetails(organisationDetails)).to.equal('Organisation name');
         });
     });
 
@@ -264,6 +262,44 @@ describe('List Helper service', () => {
             expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal(
                 'Judge KnownAs, Judge KnownAs 3'
             );
+        });
+    });
+
+    describe('getRegionalJohFromLocationDetails', () => {
+        it('should return a comma-separated list of johKnownAs', () => {
+            const locationDetails = {
+                region: {
+                    regionalJOH: [{ johKnownAs: 'Judge A' }, { johKnownAs: 'Judge B' }],
+                },
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal(
+                'Judge A, Judge B'
+            );
+        });
+
+        it('should return an empty string if no regionalJOH present', () => {
+            const locationDetails = {
+                region: {
+                    regionalJOH: [],
+                },
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if regionalJOH is missing', () => {
+            const locationDetails = {
+                region: {},
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if region is missing', () => {
+            const locationDetails = {};
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if locationDetails is undefined', () => {
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(undefined)).to.equal('');
         });
     });
 });
