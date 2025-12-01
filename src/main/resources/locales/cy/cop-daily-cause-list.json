@@ -15,6 +15,7 @@
     "startTime": "Amser dechrau",
     "caseRef": "Cyfeirnod achos",
     "caseDetails": "Manylion yr achos",
+    "caseType": "Math o achos",
     "hearingType": "Math o wrandawiad",
     "timeEstimate": "Amcangyfrif o'r amser",
     "hearingChannel": "Sianel y Gwrandawiad",
