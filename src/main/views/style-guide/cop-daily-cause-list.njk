@@ -66,6 +66,7 @@
                     <th scope="col" class="govuk-table__header">{{ startTime }}</th>
                     <th scope="col" class="govuk-table__header">{{ caseRef }}</th>
                     <th scope="col" class="govuk-table__header">{{ caseDetails }}</th>
+                    <th scope="col" class="govuk-table__header">{{ caseType }}</th>
                     <th scope="col" class="govuk-table__header">{{ hearingType }}</th>
                     <th scope="col" class="govuk-table__header">{{ timeEstimate }}</th>
                     <th scope="col" class="govuk-table__header">{{ hearingChannel }}</th>
@@ -83,7 +84,8 @@
                         <tr class="govuk-table__row">
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['time'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ case['caseNumber'] }}</td>
-                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseSuppressionName'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseName'] }}</td>
+                          <td class="govuk-table__cell {{ noBorder }}">{{ case['caseType'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ duration | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
