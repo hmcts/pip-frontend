@@ -23,7 +23,7 @@ def component = "frontend"
 
 def setupTestSecrets() {
 
-    def bootstrap_env = env.ENV == "prod" || env.ENV == "demo" || env.ENV == "sbox" ? env.ENV : "stg"
+    def bootstrap_env = env.ENV == "prod" || env.ENV == "demo" || env.ENV == "test" || env.ENV == "sbox" ? env.ENV : "stg"
 
     azureKeyVault(
         keyVaultURL: "https://pip-bootstrap-${bootstrap_env}-kv.vault.azure.net/",
@@ -46,17 +46,17 @@ def setupTestSecrets() {
             secret('app-tenant', 'TENANT_ID'),
             secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL'),
-            secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD'),
+            secret('auto-generated-test-user-pwd', 'TEST_USER_PASSWORD'),
             secret('crime-valid-test-account', 'CRIME_VALID_USERNAME'),
             secret('crime-valid-test-account-password', 'CRIME_VALID_PASSWORD'),
             secret('sso-test-admin-account-ctsc-user', 'SSO_TEST_ADMIN_CTSC_USER'),
             secret('sso-test-admin-account-ctsc-pwd', 'SSO_TEST_ADMIN_CTSC_PWD'),
             secret('sso-test-admin-local-account-user', 'SSO_TEST_ADMIN_LOCAL_USER'),
-            secret('sso-test-admin-local-account-pwd','SSO_TEST_ADMIN_LOCAL_PWD'),
-            secret('sso-test-system-admin-account-user','SSO_TEST_SYSTEM_ADMIN_USER'),
+            secret('sso-test-admin-local-account-pwd', 'SSO_TEST_ADMIN_LOCAL_PWD'),
+            secret('sso-test-system-admin-account-user', 'SSO_TEST_SYSTEM_ADMIN_USER'),
             secret('sso-test-system-admin-account-pwd', 'SSO_TEST_SYSTEM_ADMIN_PWD'),
             secret('sso-test-system-admin-user-id', 'SSO_SYSTEM_ADMIN_USER_ID'),
-            secret('sso-test-no-roles-account-user','SSO_TEST_NO_ROLES_USER'),
+            secret('sso-test-no-roles-account-user', 'SSO_TEST_NO_ROLES_USER'),
             secret('sso-test-no-roles-account-pwd', 'SSO_TEST_NO_ROLES_PWD'),
         ]) {
         env.B2C_USERNAME = "${B2C_USERNAME}"
