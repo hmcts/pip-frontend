@@ -11,7 +11,7 @@ const PAGE_URL = '/cop-daily-cause-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const summaryHeading = 'govuk-details__summary-text';
 const summaryText = 'govuk-details__text';
-const paragraphClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const accordionHeading = 'govuk-accordion__section-heading';
 const courtNameClass = 'site-address';
 
@@ -46,6 +46,16 @@ describe('Cop daily cause list page', () => {
         expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[5].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display summary', () => {
         const summary = htmlRes.getElementsByClassName(summaryHeading);
         expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
@@ -62,8 +72,8 @@ describe('Cop daily cause list page', () => {
     });
 
     it('should display list for text', () => {
-        const listForText = htmlRes.getElementsByClassName(paragraphClass)[4];
-        expect(listForText.innerHTML).contains('List for');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('List for');
     });
 
     it('should display the search input box', () => {
@@ -72,8 +82,8 @@ describe('Cop daily cause list page', () => {
     });
 
     it('should display last updated text', () => {
-        const listUpdatedText = htmlRes.getElementsByClassName(paragraphClass)[5];
-        expect(listUpdatedText.innerHTML).contains('Last updated');
+        const text = htmlRes.getElementsByClassName(bodyText)[6];
+        expect(text.innerHTML).contains('Last updated');
     });
 
     it('should display the court name on the page', () => {
@@ -102,8 +112,8 @@ describe('Cop daily cause list page', () => {
     });
 
     it('should display data source text', () => {
-        const listForText = htmlRes.getElementsByClassName(paragraphClass)[6];
-        expect(listForText.innerHTML).contains('Data Source');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[7].innerHTML).contains('Data Source');
     });
 
     it('should display reporting restrictions', () => {
