@@ -16,6 +16,7 @@
 
 {% block content %}
   <h1 class="govuk-heading-l">{{ title }}</h1>
+  <p class="govuk-body"><a class="govuk-link" href={{ factLink }}>{{ factLinkText1 }}</a>{{ factLinkText2 }}</p>
   <p class="govuk-body">{{ listDetail | replace("CASES_COUNT", length) }} {{ publishedDateTime }} {{ publishedAt }} {{ publishedTime }}</p>
 
   {% if showDownloadButton %}

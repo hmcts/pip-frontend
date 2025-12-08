@@ -15,6 +15,7 @@
 {% block content %}
     <div class="parent-box">
         <h1 id='page-heading' class="govuk-heading-l">{{ heading }} {{ locationName }}</h1>
+        <p class="govuk-body"><a class="govuk-link" href={{ factLink }}>{{ factLinkText1 }}</a>{{ factLinkText2 }}</p>
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ startDate }}</p>
         <p class="govuk-body">{{ listUpdated }} {{ publishedDate }} {{ at }} {{ publishedTime }}</p>
         <p class="govuk-body">{{ versionText }} {{ version }}</p>
