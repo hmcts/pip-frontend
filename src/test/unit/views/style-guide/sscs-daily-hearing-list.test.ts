@@ -53,14 +53,24 @@ describe('SSCS Daily Hearing List Page', () => {
             );
         });
 
+        it('should display fact link text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+        });
+
+        it('should display fact link', () => {
+            const text = htmlRes.getElementsByClassName('govuk-link');
+            expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+        });
+
         it('should display list for text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[4].innerHTML).contains('List for 14 February 2022');
+            expect(text[5].innerHTML).contains('List for 14 February 2022');
         });
 
         it('should display list updated date text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[5].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
+            expect(text[6].innerHTML).contains('Last updated 20 January 2025 at 9:30am');
         });
 
         it('should display important information heading', () => {
@@ -70,7 +80,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display open justice text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[6].innerHTML).contains(
+            expect(text[7].innerHTML).contains(
                 'Open justice is a fundamental principle of our justice system. When considering the ' +
                     'use of telephone and video technology, the judiciary will have regard to ' +
                     'the principles of open justice. Judges may determine that a hearing should ' +
@@ -80,7 +90,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display contact message text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
                     'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
                     'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
@@ -93,12 +103,12 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains('For more information, please visit');
+            expect(text[9].innerHTML).contains('For more information, please visit');
         });
 
         it('should display observation link', () => {
             const text = htmlRes.getElementsByClassName(govukLinkClass);
-            expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+            expect(text[6].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
         });
 
         it('should display Venue header', () => {
@@ -193,7 +203,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[9].innerHTML).contains('Data Source: Prov1');
+            expect(text[10].innerHTML).contains('Data Source: Prov1');
         });
     });
 
@@ -224,7 +234,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display contact message text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
                     'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
                     'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
@@ -263,7 +273,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display contact message text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
                     'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
                     'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
@@ -302,7 +312,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display contact message text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
                     'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
                     'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
@@ -341,7 +351,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display contact message text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
                     'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
                     'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
@@ -380,7 +390,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display contact message text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
                     'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
                     'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +
@@ -419,7 +429,7 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display contact message text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[7].innerHTML).contains(
+            expect(text[8].innerHTML).contains(
                 'Social Security and Child Support Tribunal parties and representatives will be informed directly ' +
                     'as to the arrangements for hearing cases remotely. Any other person interested in joining ' +
                     'the hearing remotely should contact the Social Security and Child Support Tribunal Office ' +

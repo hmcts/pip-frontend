@@ -38,21 +38,31 @@ describe('King’s Bench Masters Daily Cause List page', () => {
         expect(header[0].innerHTML).contains('King’s Bench Masters Daily Cause List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName(govukLinkClass);
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Royal Courts of Justice');
-        expect(text[5].innerHTML).equals('Strand, London');
-        expect(text[6].innerHTML).equals('WC2A 2LL');
+        expect(text[5].innerHTML).equals('Royal Courts of Justice');
+        expect(text[6].innerHTML).equals('Strand, London');
+        expect(text[7].innerHTML).equals('WC2A 2LL');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).equals('List for 14 February 2022');
+        expect(text[8].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -62,21 +72,21 @@ describe('King’s Bench Masters Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'Any media representative (or any other member of the public) wishing to attend a remote hearing should provide an email address and contact number to be sent an appropriate link for access.'
         );
     });
 
     it("should display King's Bench Guide link", () => {
         const link = htmlRes.getElementsByClassName(govukLinkClass);
-        expect(link[5].getAttribute('href')).eq(
+        expect(link[6].getAttribute('href')).eq(
             'https://www.judiciary.uk/guidance-and-resources/kings-bench-guide-2025/#:~:text=The%20King%E2%80%99s%20Bench%20Guide%202025%20has%20been%20published.,Division.%20%E2%80%A2%20updated%20KB%20Masters%E2%80%99%20Clerks%E2%80%99%20contact%20details'
         );
     });
 
     it('should display current trail windows link', () => {
         const link = htmlRes.getElementsByClassName(govukLinkClass);
-        expect(link[6].getAttribute('href')).eq('https://www.gov.uk/guidance/queens-bench-hearing-and-trial-dates');
+        expect(link[7].getAttribute('href')).eq('https://www.gov.uk/guidance/queens-bench-hearing-and-trial-dates');
     });
 
     it('should display Venue header', () => {
@@ -151,6 +161,6 @@ describe('King’s Bench Masters Daily Cause List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[21].innerHTML).contains('Data Source: Prov1');
+        expect(text[22].innerHTML).contains('Data Source: Prov1');
     });
 });
