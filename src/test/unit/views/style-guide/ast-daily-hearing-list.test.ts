@@ -46,21 +46,31 @@ describe('AST Daily List page', () => {
         expect(header[0].innerHTML).contains('Asylum Support Tribunal Daily Hearing List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName(govukLinkClass);
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('2nd Floor, Import Building');
-        expect(text[5].innerHTML).equals('2 Clove Crescent');
-        expect(text[6].innerHTML).equals('London E14 2BE');
+        expect(text[5].innerHTML).equals('2nd Floor, Import Building');
+        expect(text[6].innerHTML).equals('2 Clove Crescent');
+        expect(text[7].innerHTML).equals('London E14 2BE');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).equals('List for 14 February 2022');
+        expect(text[8].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -70,24 +80,24 @@ describe('AST Daily List page', () => {
 
     it('should display open justice message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Open justice is a fundamental principle of our justice system.');
+        expect(text[10].innerHTML).contains('Open justice is a fundamental principle of our justice system.');
     });
 
     it('should display join hearing message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'Asylum Support Tribunal parties and representatives will be informed directly as to the arrangements for hearing cases remotely.'
         );
     });
 
     it('should display observe hearing link text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('For more information, please visit');
+        expect(text[12].innerHTML).contains('For more information, please visit');
     });
 
     it('should display observe hearing link', () => {
         const text = htmlRes.getElementsByClassName(govukLinkClass);
-        expect(text[5].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
+        expect(text[6].getAttribute('href')).eq('https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing');
     });
 
     it('should display Appellant header', () => {
@@ -152,6 +162,6 @@ describe('AST Daily List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains('Data Source: Prov1');
+        expect(text[13].innerHTML).contains('Data Source: Prov1');
     });
 });

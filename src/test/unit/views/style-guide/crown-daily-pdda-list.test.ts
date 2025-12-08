@@ -11,7 +11,7 @@ import { expect } from 'chai';
 const urlDailyPddaList = '/crown-daily-pdda-list';
 const artefactIdDailyPddaList = 'abc';
 
-const bodyClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const tableHeaderClass = 'govuk-table__header';
 const tableCellClass = 'govuk-table__cell';
 
@@ -59,26 +59,36 @@ describe('Crown Daily PDDA List page', () => {
         );
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[0].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[2].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display list date', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[0].innerHTML).equals('List for 10 September 2025');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[1].innerHTML).equals('List for 10 September 2025');
     });
 
     it('should display publication date', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[1].innerHTML).contains('Last updated 09 September 2025 at 11am', 'Publication date does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[2].innerHTML).contains('Last updated 09 September 2025 at 11am', 'Publication date does not match');
     });
 
     it('should display version', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[2].innerHTML).contains('Version 1.0', 'Version does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[3].innerHTML).contains('Version 1.0', 'Version does not match');
     });
 
     it('should display venue address', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[3].innerHTML).contains('1 Main Road', 'Address line 1 does not match');
-        expect(body[3].innerHTML).contains('London', 'Address line 2 does not match');
-        expect(body[3].innerHTML).contains('A1 1AA', 'Address line 3 does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('1 Main Road', 'Address line 1 does not match');
+        expect(text[4].innerHTML).contains('London', 'Address line 2 does not match');
+        expect(text[4].innerHTML).contains('A1 1AA', 'Address line 3 does not match');
     });
 
     it('should display reporting restriction heading', () => {
@@ -100,15 +110,15 @@ describe('Crown Daily PDDA List page', () => {
     });
 
     it('should display court house address', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].innerHTML).contains('1 Main Road', 'Court house address line 1 does not match');
-        expect(body[10].innerHTML).contains('London', 'Court house address line 2 does not match');
-        expect(body[11].innerHTML).contains('A1 1AA', 'Court house address line 3 does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].innerHTML).contains('1 Main Road', 'Court house address line 1 does not match');
+        expect(text[11].innerHTML).contains('London', 'Court house address line 2 does not match');
+        expect(text[12].innerHTML).contains('A1 1AA', 'Court house address line 3 does not match');
     });
 
     it('should display court house telephone', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[12].innerHTML).contains('02071234568', 'Court house telephone does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[13].innerHTML).contains('02071234568', 'Court house telephone does not match');
     });
 
     it('should display court room and judge names section heading', () => {
@@ -120,8 +130,8 @@ describe('Crown Daily PDDA List page', () => {
     });
 
     it('should display sitting at time', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[13].innerHTML).contains('Sitting at 10am', 'Sitting at time does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[14].innerHTML).contains('Sitting at 10am', 'Sitting at time does not match');
     });
 
     it('should display Case Number table header', () => {

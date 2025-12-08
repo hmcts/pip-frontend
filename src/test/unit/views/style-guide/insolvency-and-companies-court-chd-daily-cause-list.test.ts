@@ -39,22 +39,31 @@ describe('Insolvency & Companies Court (Chancery Division) Daily Cause List page
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).contains('Insolvency &amp; Companies Court (Chancery Division) Daily Cause List');
     });
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
 
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Rolls Building');
-        expect(text[5].innerHTML).equals('Fetter Lane, London');
-        expect(text[6].innerHTML).equals('EC4A 1NL');
+        expect(text[5].innerHTML).equals('Rolls Building');
+        expect(text[6].innerHTML).equals('Fetter Lane, London');
+        expect(text[7].innerHTML).equals('EC4A 1NL');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).equals('List for 14 February 2022');
+        expect(text[8].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -64,36 +73,36 @@ describe('Insolvency & Companies Court (Chancery Division) Daily Cause List page
 
     it('should display important information heading 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Remote hearings before a High Court Judge');
+        expect(text[10].innerHTML).contains('Remote hearings before a High Court Judge');
     });
 
     it('should display important information message 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'If a representative of the media or member of the public wishes to attend the hearing they should contact the listing office chanceryjudgeslisting@justice.gov.uk who will put them in touch with the relevant person.'
         );
     });
 
     it('should display important information heading 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('Remote hearings before an Insolvency and Companies Court Judge');
+        expect(text[12].innerHTML).contains('Remote hearings before an Insolvency and Companies Court Judge');
     });
 
     it('should display important information message 2', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains(
+        expect(text[13].innerHTML).contains(
             'If a representative of the media or member of the public wishes to attend the hearing, they should contact the ICC judges’ clerks at rolls.icl.hearings1@justice.gov.uk who will put them in touch with the relevant person.'
         );
     });
 
     it('should display important information heading 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[13].innerHTML).contains('Remote judgments');
+        expect(text[14].innerHTML).contains('Remote judgments');
     });
 
     it('should display important information message 3', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[14].innerHTML).contains(
+        expect(text[15].innerHTML).contains(
             'Remote hand-down: This judgment will be handed down remotely by circulation to the parties or their representatives by email and release to The National Archives. A copy of the judgment in final form as handed down should be available on The National Archives website shortly thereafter. Members of the media can obtain a copy on request by email to the Judicial Office press.enquiries@judiciary.uk'
         );
     });
@@ -170,6 +179,6 @@ describe('Insolvency & Companies Court (Chancery Division) Daily Cause List page
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[15].innerHTML).contains('Data Source: Prov1');
+        expect(text[16].innerHTML).contains('Data Source: Prov1');
     });
 });
