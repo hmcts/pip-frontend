@@ -9,7 +9,7 @@ import { LocationService } from '../../../../main/service/LocationService';
 
 const PAGE_URL = '/crown-warned-pdda-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
-const bodyClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const listInfoClass = 'list-info';
 const restrictionHeadingClass = 'restriction-list-section';
 const warningTextClass = 'govuk-warning-text';
@@ -50,26 +50,36 @@ describe('Crown Warned PDDA List page', () => {
         );
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display list date', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[4].innerHTML.trim()).equals('01 January 2024 to 02 January 2024');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[5].innerHTML.trim()).equals('01 January 2024 to 02 January 2024');
     });
 
     it('should display publication date', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[5].innerHTML).contains('Last updated 01 January 2024', 'Publication date does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[6].innerHTML).contains('Last updated 01 January 2024', 'Publication date does not match');
     });
 
     it('should display version', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[6].innerHTML).contains('Version TestVersion', 'Version does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[7].innerHTML).contains('Version TestVersion', 'Version does not match');
     });
 
     it('should display venue address', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[7].innerHTML).contains('TestAddressLine1', 'Address line 1 does not match');
-        expect(body[7].innerHTML).contains('TestAddressLine2', 'Address line 2 does not match');
-        expect(body[7].innerHTML).contains('TestPostcode', 'Address line 3 does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[8].innerHTML).contains('TestAddressLine1', 'Address line 1 does not match');
+        expect(text[8].innerHTML).contains('TestAddressLine2', 'Address line 2 does not match');
+        expect(text[8].innerHTML).contains('TestPostcode', 'Address line 3 does not match');
     });
 
     it('should display the list information text first paragraph', () => {
@@ -113,8 +123,8 @@ describe('Crown Warned PDDA List page', () => {
     });
 
     it('should display restriction first paragraph', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].getElementsByTagName('p')[0].innerHTML).contains(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].getElementsByTagName('p')[0].innerHTML).contains(
             'You must check if any reporting restrictions apply before publishing details on any of the cases listed here either in writing, in a broadcast or by internet, including social media.',
             'restriction first paragraph does not match'
         );
@@ -129,40 +139,40 @@ describe('Crown Warned PDDA List page', () => {
     });
 
     it('should display restriction second paragraph', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].getElementsByTagName('p')[1].innerHTML).contains(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].getElementsByTagName('p')[1].innerHTML).contains(
             'Specific restrictions ordered by the court will be mentioned on the cases listed here',
             'restriction second paragraph does not match'
         );
     });
 
     it('should display restriction third paragraph', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].getElementsByTagName('p')[2].innerHTML).contains(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].getElementsByTagName('p')[2].innerHTML).contains(
             'However, restrictions are not always listed. Some apply automatically. For example, anonymity given to the victims of certain sexual offences.',
             'restriction third paragraph does not match'
         );
     });
 
     it('should display restriction fourth paragraph', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].getElementsByTagName('p')[3].innerHTML).contains(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].getElementsByTagName('p')[3].innerHTML).contains(
             'To find out which reporting restrictions apply on a specific case, contact:',
             'restriction fourth paragraph does not match'
         );
     });
 
     it('should display restriction contact bullet point one', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].getElementsByTagName('li')[0].innerHTML).contains(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].getElementsByTagName('li')[0].innerHTML).contains(
             'the court directly',
             'restriction contact bullet point one does not match'
         );
     });
 
     it('should display restriction contact bullet point two', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[9].getElementsByTagName('li')[1].innerHTML).contains(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[10].getElementsByTagName('li')[1].innerHTML).contains(
             'HM Courts and Tribunals Service on 0330 808 4407',
             'restriction contact bullet point two does not match'
         );

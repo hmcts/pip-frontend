@@ -47,6 +47,16 @@ describe('Civil And Family Daily Cause List page', () => {
         expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName('govuk-body');
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display summary', () => {
         const summary = htmlRes.getElementsByClassName(summaryHeading);
         expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
