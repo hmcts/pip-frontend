@@ -133,5 +133,4 @@ describe('Cop daily cause list page', () => {
         const foundRestriction = tableCells.some(cell => cell.innerHTML.includes('Reporting restriction'));
         expect(foundRestriction).to.be.false;
     });
-
 });

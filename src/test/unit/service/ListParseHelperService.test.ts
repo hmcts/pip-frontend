@@ -29,68 +29,68 @@ describe('List Helper service', () => {
     describe('Find and manipulate party details', () => {
         it('should return applicant petitioner details', async () => {
             const partyDetails = {
-                "party": [
+                party: [
                     {
-                        "partyRole": "APPLICANT_PETITIONER",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'APPLICANT_PETITIONER',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'APPLICANT_PETITIONER_REPRESENTATIVE',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "CLAIMANT_PETITIONER",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'CLAIMANT_PETITIONER',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'CLAIMANT_PETITIONER_REPRESENTATIVE',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "RESPONDENT",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'RESPONDENT',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "RESPONDENT_REPRESENTATIVE",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'RESPONDENT_REPRESENTATIVE',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "PROSECUTING_AUTHORITY",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'PROSECUTING_AUTHORITY',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "DEFENDANT"
+                        partyRole: 'DEFENDANT',
                     },
                     {
-                        "partyRole": "DEFENDANT_REPRESENTATIVE"
-                    }
-                ]
+                        partyRole: 'DEFENDANT_REPRESENTATIVE',
+                    },
+                ],
             };
             listParseHelperService.findAndManipulatePartyInformation(partyDetails);
             expect(partyDetails['appellant']).to.equal('Mr Forenames Middlename Surname');
@@ -175,11 +175,9 @@ describe('List Helper service', () => {
     describe('createOrganisationDetails', () => {
         it('should create organisation details with organisation name', async () => {
             const organisationDetails = {
-                "organisationName": "Organisation name"
+                organisationName: 'Organisation name',
             };
-            expect(listParseHelperService.createOrganisationDetails(organisationDetails)).to.equal(
-                'Organisation name'
-            );
+            expect(listParseHelperService.createOrganisationDetails(organisationDetails)).to.equal('Organisation name');
         });
     });
 
@@ -271,7 +269,7 @@ describe('List Helper service', () => {
         it('should calculate duration in hours and minutes', () => {
             const sitting = {
                 sittingStart: '2022-02-13T14:30:00.000Z',
-                sittingEnd: '2022-02-13T16:00:00.000Z'
+                sittingEnd: '2022-02-13T16:00:00.000Z',
             };
             listParseHelperService.calculateDuration(sitting);
             expect(sitting['durationAsHours']).to.equal(1);
@@ -283,7 +281,7 @@ describe('List Helper service', () => {
         it('should calculate duration in days if duration exceeds 24 hours', () => {
             const sitting = {
                 sittingStart: '2022-02-13T14:30:00.000Z',
-                sittingEnd: '2022-02-14T16:30:00.000Z'
+                sittingEnd: '2022-02-14T16:30:00.000Z',
             };
             listParseHelperService.calculateDuration(sitting);
             expect(sitting['durationAsHours']).to.equal(26);
@@ -294,7 +292,7 @@ describe('List Helper service', () => {
         it('should set duration fields to empty if start or end is empty', () => {
             const sitting = {
                 sittingStart: '',
-                sittingEnd: ''
+                sittingEnd: '',
             };
             listParseHelperService.calculateDuration(sitting);
             expect(sitting['duration']).to.equal('');
@@ -307,7 +305,7 @@ describe('List Helper service', () => {
     describe('findAndConcatenateHearingPlatform', () => {
         it('should concatenate channels from sitting', () => {
             const sitting = {
-                channel: ['Teams', 'In-Person']
+                channel: ['Teams', 'In-Person'],
             };
             const session = {};
             listParseHelperService.findAndConcatenateHearingPlatform(sitting, session);
@@ -316,10 +314,10 @@ describe('List Helper service', () => {
 
         it('should concatenate channels from session if sitting channel is empty', () => {
             const sitting = {
-                channel: []
+                channel: [],
             };
             const session = {
-                sessionChannel: ['Channel', 'Telephone']
+                sessionChannel: ['Channel', 'Telephone'],
             };
             listParseHelperService.findAndConcatenateHearingPlatform(sitting, session);
             expect(sitting['caseHearingChannel']).to.equal('Channel, Telephone');
@@ -336,7 +334,7 @@ describe('List Helper service', () => {
     describe('formatCaseTime', () => {
         it('should format time as hour only if minutes are zero', () => {
             const sitting = {
-                sittingStart: '2022-02-13T14:00:00.000Z'
+                sittingStart: '2022-02-13T14:00:00.000Z',
             };
             listParseHelperService.formatCaseTime(sitting, 'ha');
             expect(sitting['time']).to.equal('2pm');
@@ -344,7 +342,7 @@ describe('List Helper service', () => {
 
         it('should format time as hour and minute if minutes are not zero', () => {
             const sitting = {
-                sittingStart: '2022-02-13T14:30:00.000Z'
+                sittingStart: '2022-02-13T14:30:00.000Z',
             };
             listParseHelperService.formatCaseTime(sitting, 'h:mma');
             expect(sitting['time']).to.equal('2:30pm');
@@ -352,7 +350,7 @@ describe('List Helper service', () => {
 
         it('should handle non-UTC times correctly', () => {
             const sitting = {
-                sittingStart: '2022-02-13T14:30:00.000'
+                sittingStart: '2022-02-13T14:30:00.000',
             };
             listParseHelperService.formatCaseTime(sitting, 'h:mma');
             expect(sitting['time']).to.be.a('string');
@@ -360,7 +358,7 @@ describe('List Helper service', () => {
 
         it('should not set time if sittingStart is empty', () => {
             const sitting = {
-                sittingStart: ''
+                sittingStart: '',
             };
             listParseHelperService.formatCaseTime(sitting, 'h:mma');
             expect(sitting['time']).to.be.undefined;
