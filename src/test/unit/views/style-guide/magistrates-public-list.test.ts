@@ -9,7 +9,7 @@ import { LocationService } from '../../../../main/service/LocationService';
 
 const PAGE_URL = '/magistrates-public-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
-const bodyClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const restrictionHeading = 'govuk-grid restriction-list-section';
 const accordionClass = 'govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
@@ -47,23 +47,33 @@ describe('Magistrates public List page', () => {
         expect(header[0].innerHTML).equals(expectedHeader, 'Could not find the header');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display last updated date and time', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[5].innerHTML).equals(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[6].innerHTML).equals(
             'Last updated 14 September 2020 at 12:30am',
             'Last updated date and time does not match'
         );
     });
 
     it('should display venue address', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[7].innerHTML).equals('THE LAW COURTS<br>\nMain Road<br>\nPR1 2LL', 'Venue address does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[8].innerHTML).equals('THE LAW COURTS<br>\nMain Road<br>\nPR1 2LL', 'Venue address does not match');
     });
 
     it('should display venue telephone and email', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[8].innerHTML).equals('Telephone: 01772 844700', 'Venue telephone does not match');
-        expect(body[9].innerHTML).equals('Email: court1@moj.gov.uk', 'Venue email does not match');
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[9].innerHTML).equals('Telephone: 01772 844700', 'Venue telephone does not match');
+        expect(text[10].innerHTML).equals('Email: court1@moj.gov.uk', 'Venue email does not match');
     });
 
     it('should display restriction heading', () => {

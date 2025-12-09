@@ -9,7 +9,7 @@ import { LocationService } from '../../../../main/service/LocationService';
 
 const PAGE_URL = '/magistrates-standard-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
-const bodyClass = 'govuk-body';
+const bodyText = 'govuk-body';
 const restrictionHeading = 'govuk-grid restriction-list-section';
 const accordionClass = 'govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
@@ -48,9 +48,19 @@ describe('Magistrate Standard List page', () => {
         expect(header[0].innerHTML).contains(expectedHeader, 'Could not find the header');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[0].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[2].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display publication date', () => {
-        const body = htmlRes.getElementsByClassName(bodyClass);
-        expect(body[1].innerHTML).contains(
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[2].innerHTML).contains(
             'Last updated: 01 December 2023 at 11:30pm',
             'Could not find the publication date'
         );
