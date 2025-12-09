@@ -114,8 +114,7 @@ export class CrownPddaListService {
             nameParts.push(individual.CitizenNameTitle);
         }
         if (individual.CitizenNameForename) {
-            const formattedForename = individual.CitizenNameForename
-                .map(part => part.trim())
+            const formattedForename = individual.CitizenNameForename.map(part => part.trim())
                 .filter(part => part.length > 0)
                 .join(' ');
             nameParts.push(formattedForename);

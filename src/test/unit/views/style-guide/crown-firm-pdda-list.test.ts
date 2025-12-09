@@ -184,10 +184,7 @@ describe('Crown Firm PDDA List page', () => {
 
     it('should display requested Defendant Name(s) table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[7].innerHTML).contains(
-            'TestDefendantRequestedName',
-            'Defendant name cell does not match'
-        );
+        expect(cell[7].innerHTML).contains('TestDefendantRequestedName', 'Defendant name cell does not match');
     });
 
     it('should display Hearing Type table cell', () => {
