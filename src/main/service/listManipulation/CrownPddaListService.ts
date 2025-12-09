@@ -114,7 +114,11 @@ export class CrownPddaListService {
             nameParts.push(individual.CitizenNameTitle);
         }
         if (individual.CitizenNameForename) {
-            nameParts.push(individual.CitizenNameForename);
+            const formattedForename = individual.CitizenNameForename
+                .map(part => part.trim())
+                .filter(part => part.length > 0)
+                .join(' ');
+            nameParts.push(formattedForename);
         }
         if (individual.CitizenNameSurname) {
             nameParts.push(individual.CitizenNameSurname);
