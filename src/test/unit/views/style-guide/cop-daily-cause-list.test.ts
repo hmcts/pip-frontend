@@ -125,4 +125,13 @@ describe('Cop daily cause list page', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[3].innerHTML).contains('Case Type');
     });
+
+    it('should not display reporting restrictions row when reportingRestrictions is absent', () => {
+        const accordionSections = htmlRes.getElementsByClassName('govuk-accordion__section-content');
+        const room2Table = accordionSections[1].getElementsByTagName('table')[0];
+        const tableCells = Array.from(room2Table.getElementsByClassName('govuk-table__cell'));
+        const foundRestriction = tableCells.some(cell => cell.innerHTML.includes('Reporting restriction'));
+        expect(foundRestriction).to.be.false;
+    });
+
 });
