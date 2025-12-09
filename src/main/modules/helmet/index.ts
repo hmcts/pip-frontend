@@ -26,10 +26,11 @@ export class Helmet {
 
     public enableFor(app: express.Express): void {
         // include default helmet functions
-        app.use(helmet.default());
+        app.use(helmet.default({ xFrameOptions: false, xXssProtection: false }));
 
         this.setContentSecurityPolicy(app);
         this.setReferrerPolicy(app, this.config.referrerPolicy);
+        this.setPermissionsPolicy(app);
     }
 
     private setContentSecurityPolicy(app: express.Express): void {
@@ -68,5 +69,12 @@ export class Helmet {
         }
 
         app.use(helmet.referrerPolicy({ policy: policy }));
+    }
+
+    private setPermissionsPolicy(app: express.Express): void {
+        app.use((req, res, next) => {
+            res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+            next();
+        });
     }
 }
