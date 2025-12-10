@@ -362,6 +362,45 @@ describe('List Helper service', () => {
             };
             listParseHelperService.formatCaseTime(sitting, 'h:mma');
             expect(sitting['time']).to.be.undefined;
+
+        });
+    });
+
+    describe('getRegionalJohFromLocationDetails', () => {
+        it('should return a comma-separated list of johKnownAs', () => {
+            const locationDetails = {
+                region: {
+                    regionalJOH: [{ johKnownAs: 'Judge A' }, { johKnownAs: 'Judge B' }],
+                },
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal(
+                'Judge A, Judge B'
+            );
+        });
+
+        it('should return an empty string if no regionalJOH present', () => {
+            const locationDetails = {
+                region: {
+                    regionalJOH: [],
+                },
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if regionalJOH is missing', () => {
+            const locationDetails = {
+                region: {},
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if region is missing', () => {
+            const locationDetails = {};
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if locationDetails is undefined', () => {
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(undefined)).to.equal('');
         });
     });
 });
