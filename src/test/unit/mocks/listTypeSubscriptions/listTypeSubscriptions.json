@@ -6,7 +6,7 @@
                 "subscriptionId": "f038b7ea-2972-4be4-a5ff-70abb4f78686",
                 "locationId": 1,
                 "dateAdded": "2022-01-14T11:42:57.847708",
-                "listType": ["CIVIL_DAILY_CAUSE_LIST", "CROWN_DAILY_LIST"]
+                "listType": ["CIVIL_DAILY_CAUSE_LIST", "CROWN_DAILY_PDDA_LIST"]
             },
             {
                 "subscriptionId": "4f5253db-dd57-487f-b4f3-5467cb9ea7c8",
