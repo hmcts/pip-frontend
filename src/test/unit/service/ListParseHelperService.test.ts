@@ -362,7 +362,6 @@ describe('List Helper service', () => {
             };
             listParseHelperService.formatCaseTime(sitting, 'h:mma');
             expect(sitting['time']).to.be.undefined;
-
         });
     });
 
