@@ -133,4 +133,10 @@ describe('Cop daily cause list page', () => {
         const foundRestriction = tableCells.some(cell => cell.innerHTML.includes('Reporting restriction'));
         expect(foundRestriction).to.be.false;
     });
+
+    it('should set correct colspan for reporting restrictions row', () => {
+        const restrictionCell = htmlRes.querySelector('td[colspan="7"] .linked-cases-heading');
+        expect(restrictionCell).to.not.be.null;
+        expect(restrictionCell?.parentElement?.getAttribute('colspan')).to.equal('7');
+    });
 });
