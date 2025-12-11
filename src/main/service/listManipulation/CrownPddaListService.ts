@@ -38,23 +38,25 @@ export class CrownPddaListService {
 
     private buildHearings(sitting: any, isDailyList: boolean): any[] {
         const hearings = [];
-        sitting.Hearings.forEach(hearing => {
-            let representativeName = '';
-            if (!isDailyList) {
-                representativeName = hearing.Defendants ? this.formatRepresentativeName(hearing.Defendants) : '';
-            }
+        if (sitting.Hearings) {
+            sitting.Hearings.forEach(hearing => {
+                let representativeName = '';
+                if (!isDailyList) {
+                    representativeName = hearing.Defendants ? this.formatRepresentativeName(hearing.Defendants) : '';
+                }
 
-            hearings.push({
-                caseNumber: hearing.CaseNumberCaTH,
-                defendantName: hearing.Defendants ? this.formatDefendantName(hearing.Defendants) : '',
-                hearingType: hearing.HearingDetails.HearingDescription,
-                representativeName,
-                prosecutingAuthority: hearing.Prosecution?.ProsecutingAuthority
-                    ? hearing.Prosecution.ProsecutingAuthority
-                    : '',
-                listNote: hearing.ListNote ? hearing.ListNote : '',
+                hearings.push({
+                    caseNumber: hearing.CaseNumberCaTH,
+                    defendantName: hearing.Defendants ? this.formatDefendantName(hearing.Defendants) : '',
+                    hearingType: hearing.HearingDetails.HearingDescription,
+                    representativeName,
+                    prosecutingAuthority: hearing.Prosecution?.ProsecutingAuthority
+                        ? hearing.Prosecution.ProsecutingAuthority
+                        : '',
+                    listNote: hearing.ListNote ? hearing.ListNote : '',
+                });
             });
-        });
+        }
         return hearings;
     }
 
