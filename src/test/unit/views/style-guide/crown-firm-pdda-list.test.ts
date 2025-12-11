@@ -174,12 +174,17 @@ describe('Crown Firm PDDA List page', () => {
         expect(cell[0].innerHTML).contains('T00112233', 'Case number cell does not match');
     });
 
-    it('should display Defendant Name(s) table cell', () => {
+    it('should display formatted Defendant Name(s) table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
         expect(cell[1].innerHTML).contains(
-            'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix',
+            'Mr TestDefendantForename1 TestDefendantForename2 TestDefendantSurname TestDefendantSuffix, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix',
             'Defendant name cell does not match'
         );
+    });
+
+    it('should display requested Defendant Name(s) table cell', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[7].innerHTML).contains('TestDefendantRequestedName', 'Defendant name cell does not match');
     });
 
     it('should display Hearing Type table cell', () => {

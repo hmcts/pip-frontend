@@ -88,7 +88,8 @@ describe('Crown PDDA List service', () => {
             const hearing = results[0].sittings[0].hearings[0];
             expect(hearing.caseNumber).to.equal('T00112233');
             expect(hearing.defendantName).to.equal(
-                '' + 'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix'
+                '' +
+                    'Mr TestDefendantForename1 TestDefendantForename2 TestDefendantSurname TestDefendantSuffix, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix'
             );
             expect(hearing.hearingType).to.equal('TestHearingDescription');
             expect(hearing.representativeName).to.equal('TestSolicitorRequestedName');

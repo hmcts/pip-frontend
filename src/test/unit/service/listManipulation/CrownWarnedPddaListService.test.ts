@@ -23,13 +23,13 @@ describe('Crown Warned PDDA List service', () => {
         it('should format dependant name', async () => {
             const data: Map<string, object[]> = await crownWarnedPddaListService.processPayload(parsedPayload);
             const cases = data.get('For Trial');
-            expect(cases[0]['defendantNames']).is.equal('TestDefendantRequestedName');
+            expect(cases[0]['defendantNames']).is.equal('Mr Pete Paul Dan Y');
         });
 
         it('should format dependant names for second hearing', async () => {
             const data: Map<string, object[]> = await crownWarnedPddaListService.processPayload(parsedPayload);
             const cases = data.get('For Appeal');
-            expect(cases[0]['defendantNames']).is.equal('TestDefendantRequestedName');
+            expect(cases[0]['defendantNames']).is.equal('Mr Pete Paul Dan Y');
         });
 
         it('should format fixed date', async () => {
