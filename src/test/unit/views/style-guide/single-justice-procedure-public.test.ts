@@ -10,7 +10,7 @@ import { describe } from '@jest/globals';
 import { v4 as uuidv4 } from 'uuid';
 
 const headingClass = 'govuk-heading-l';
-const summaryHeading = 'govuk-body';
+const bodyText = 'govuk-body';
 const tableHeadings = 'govuk-table__header';
 const sjpTableData = 'govuk-table__cell';
 const buttonClass = 'govuk-button';
@@ -105,10 +105,20 @@ describe('Single Justice Procedure List page', () => {
             expect(header[0].innerHTML).contains(sjpResource.title, 'Could not find the header');
         });
 
+        it('should display fact link text', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[0].innerHTML).contains('Find contact details and other information about courts and tribunals');
+        });
+
+        it('should display fact link', () => {
+            const links = htmlRes.getElementsByClassName(linkClass);
+            expect(links[2].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+        });
+
         it('should display summary', () => {
-            const summary = htmlRes.getElementsByClassName(summaryHeading);
-            expect(summary[0].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
-            expect(summary[0].innerHTML).contains(listDate, 'Could not find the published date');
+            const summary = htmlRes.getElementsByClassName(bodyText);
+            expect(summary[1].innerHTML).contains(summaryHeadingText, 'Could not find the display summary heading');
+            expect(summary[1].innerHTML).contains(listDate, 'Could not find the published date');
         });
 
         it('should display table headers correctly', () => {
@@ -256,7 +266,7 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display the clear filters link', () => {
             const links = htmlRes.getElementsByClassName(linkClass);
-            expect(links[2].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
+            expect(links[3].innerHTML).contains('Clear filters', 'Could not find the clear filters link');
         });
 
         it('should display the apply filters button', () => {
@@ -274,12 +284,12 @@ describe('Single Justice Procedure List page', () => {
 
         it('should display the postcode section', () => {
             const links = htmlRes.getElementsByClassName(linkClass);
-            expect(links[3].innerHTML).contains('Postcode', 'Could not find the postcode section');
+            expect(links[4].innerHTML).contains('Postcode', 'Could not find the postcode section');
         });
 
         it('should display the prosecutor section', () => {
             const links = htmlRes.getElementsByClassName(linkClass);
-            expect(links[4].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
+            expect(links[5].innerHTML).contains('Prosecutor', 'Could not find the prosecutor section');
         });
     });
 

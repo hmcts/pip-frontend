@@ -95,7 +95,7 @@ describe('Home page', () => {
         it('should display bullets', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
-                'Hearings in Civil and Family Courts in the South East, South West (excluding Bristol), Wales and some courts in the Midlands (Birmingham), North East and North West regions',
+                'Hearings in Civil and Family Courts in England and Wales',
                 'Could not find first bullet'
             );
             expect(bullets[1].innerHTML).contains(
@@ -249,7 +249,7 @@ describe('Home page', () => {
             const bullets = htmlRes.getElementsByClassName('govuk-body')[1].getElementsByTagName('li');
 
             expect(bullets[0].innerHTML).contains(
-                'Gwrandawiadau yn y Llysoedd Sifil a’r Llysoedd Teulu yn Ne-ddwyrain Lloegr, De-orllewin Lloegr (gan eithrio Bryste), Cymru, a rhai llysoedd yng Canolbarth Lloegr (Birmingham), Ngogledd-ddwyrain a Gogledd-orllewin Lloegr',
+                'Gwrandawiadau yn y Llysoedd Sifil a’r Llysoedd Teulu yn Llundain a’r Cymru',
                 'Could not find first bullet'
             );
 
