@@ -79,7 +79,7 @@
                     {% for hearing in sitting['hearing'] %}
                       {% for case in hearing['case'] %}
                         {% set noBorder = '' %}
-                        {% if case['formattedReportingRestriction'] | length %}
+                        {% if case['reportingRestrictions'] | length %}
                           {% set noBorder = 'no-border-bottom' %}
                         {% endif %}
                         <tr class="govuk-table__row">
@@ -91,9 +91,9 @@
                           <td class="govuk-table__cell {{ noBorder }}">{{ duration | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
-                        {% if case['formattedReportingRestriction'] | length %}
+                        {% if case['reportingRestrictions'] | length %}
                           <tr class="govuk-table__row">
-                              <td class="govuk-table__cell" colspan="6"><span class="linked-cases-heading">{{ reportingRestriction }}:</span> {{ case['formattedReportingRestriction'] }}</td>
+                              <td class="govuk-table__cell" colspan="7"><span class="linked-cases-heading">{{ reportingRestriction }}:</span> {{ case['reportingRestrictions'] }}</td>
                           </tr>
                         {% endif %}
                       {% endfor %}
