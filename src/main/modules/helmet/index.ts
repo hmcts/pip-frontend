@@ -26,10 +26,11 @@ export class Helmet {
 
     public enableFor(app: express.Express): void {
         // include default helmet functions
-        app.use(helmet.default());
+        app.use(helmet.default({ xFrameOptions: false, xXssProtection: false }));
 
         this.setContentSecurityPolicy(app);
         this.setReferrerPolicy(app, this.config.referrerPolicy);
+        this.setPermissionsPolicy(app);
     }
 
     private setContentSecurityPolicy(app: express.Express): void {
@@ -39,7 +40,6 @@ export class Helmet {
         });
 
         const scriptSrc = [
-            self,
             ...googleAnalyticsDomains,
             dynatraceDomain,
             (req, res) => `'nonce-${res['locals'].cspNonce}'`,
@@ -52,15 +52,11 @@ export class Helmet {
         app.use(
             helmet.contentSecurityPolicy({
                 directives: {
+                    defaultSrc: [self],
                     connectSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
-                    defaultSrc: ["'none'"],
-                    fontSrc: [self, 'data:'],
                     imgSrc: [self, ...googleAnalyticsDomains, dynatraceDomain],
-                    objectSrc: [self],
-                    scriptSrcAttr: [self],
-                    manifestSrc: [self],
                     scriptSrc,
-                    styleSrc: [self],
+                    frameAncestors: ["'none'"],
                     formAction: [self, B2C_URL, CFT_IDAM_URL, CRIME_IDAM_URL],
                 },
             })
@@ -73,5 +69,12 @@ export class Helmet {
         }
 
         app.use(helmet.referrerPolicy({ policy: policy }));
+    }
+
+    private setPermissionsPolicy(app: express.Express): void {
+        app.use((req, res, next) => {
+            res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+            next();
+        });
     }
 }
