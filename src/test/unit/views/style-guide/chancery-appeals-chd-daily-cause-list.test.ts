@@ -47,7 +47,6 @@ describe('Chancery Appeals (Chancery Division) Daily Cause List page', () => {
         expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
     });
 
-
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[5].innerHTML).equals('Rolls Building');
