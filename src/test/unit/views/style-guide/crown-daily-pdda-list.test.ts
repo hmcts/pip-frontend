@@ -164,10 +164,18 @@ describe('Crown Daily PDDA List page', () => {
         expect(cell[0].innerHTML).contains('T00112233', 'Case number cell does not match');
     });
 
-    it('should display Defendant Name(s) table cell', () => {
+    it('should display requested Defendant Name(s) table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
         expect(cell[1].innerHTML).contains(
             'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix',
+            'Defendant name cell does not match'
+        );
+    });
+
+    it('should display formatted Defendant Name(s) table cell', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[6].innerHTML).contains(
+            'Mr TestDefendantForename1 TestDefendantForename2 TestDefendantSurname TestDefendantSuffix',
             'Defendant name cell does not match'
         );
     });
