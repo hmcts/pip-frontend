@@ -40,21 +40,31 @@ describe('Companies Winding Up (Chancery Division) Daily Cause List page', () =>
         expect(header[0].innerHTML).contains('Companies Winding Up (Chancery Division) Daily Cause List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Rolls Building');
-        expect(text[5].innerHTML).equals('Fetter Lane, London');
-        expect(text[6].innerHTML).equals('EC4A 1NL');
+        expect(text[5].innerHTML).equals('Rolls Building');
+        expect(text[6].innerHTML).equals('Fetter Lane, London');
+        expect(text[7].innerHTML).equals('EC4A 1NL');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).equals('List for 14 February 2022');
+        expect(text[8].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -64,12 +74,12 @@ describe('Companies Winding Up (Chancery Division) Daily Cause List page', () =>
 
     it('should display important information heading 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains('Company Insolvency Pro Bono Scheme');
+        expect(text[10].innerHTML).contains('Company Insolvency Pro Bono Scheme');
     });
 
     it('should display important information message 1', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[10].innerHTML).contains(
+        expect(text[11].innerHTML).contains(
             'The Company Insolvency Pro Bono Scheme provides free legal advice and/or representation in court on Wednesdays. If you have a case listed in the winding up court, please come to Consultation Room 17 on the 2nd Floor of the Rolls Building to speak with a barrister on Wednesday morning. You can also email in advance on admin@companyinsolvencyscheme.com.'
         );
     });
@@ -146,6 +156,6 @@ describe('Companies Winding Up (Chancery Division) Daily Cause List page', () =>
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[11].innerHTML).contains('Data Source: Prov1');
+        expect(text[12].innerHTML).contains('Data Source: Prov1');
     });
 });

@@ -18,6 +18,7 @@
     <br>
     <h2 id="page-heading3" class="govuk-heading-l">{{ sittingAt }} {{ courtName }}</h2>
     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listFor }} {{ contentDate }}</p>
+    <p class="govuk-body"><a class="govuk-link" href={{ factLink }}>{{ factLinkText1 }}</a>{{ factLinkText2 }}</p>
     <p class="govuk-body">{{ listUpdated | replace("DATE", publishedDate) }} {{ publishedTime }}</p>
     <details class="govuk-details" data-module="govuk-details" open>
       <summary class="govuk-details__summary"><span
@@ -78,7 +79,7 @@
                     {% for hearing in sitting['hearing'] %}
                       {% for case in hearing['case'] %}
                         {% set noBorder = '' %}
-                        {% if case['formattedReportingRestriction'] | length %}
+                        {% if case['reportingRestrictions'] | length %}
                           {% set noBorder = 'no-border-bottom' %}
                         {% endif %}
                         <tr class="govuk-table__row">
@@ -90,9 +91,9 @@
                           <td class="govuk-table__cell {{ noBorder }}">{{ duration | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                           <td class="govuk-table__cell {{ noBorder }}">{{ sitting['caseHearingChannel'] }}</td>
                         </tr>
-                        {% if case['formattedReportingRestriction'] | length %}
+                        {% if case['reportingRestrictions'] | length %}
                           <tr class="govuk-table__row">
-                              <td class="govuk-table__cell" colspan="6"><span class="linked-cases-heading">{{ reportingRestriction }}:</span> {{ case['formattedReportingRestriction'] }}</td>
+                              <td class="govuk-table__cell" colspan="7"><span class="linked-cases-heading">{{ reportingRestriction }}:</span> {{ case['reportingRestrictions'] }}</td>
                           </tr>
                         {% endif %}
                       {% endfor %}

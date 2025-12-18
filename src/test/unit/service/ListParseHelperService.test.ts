@@ -29,68 +29,68 @@ describe('List Helper service', () => {
     describe('Find and manipulate party details', () => {
         it('should return applicant petitioner details', async () => {
             const partyDetails = {
-                "party": [
+                party: [
                     {
-                        "partyRole": "APPLICANT_PETITIONER",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'APPLICANT_PETITIONER',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "APPLICANT_PETITIONER_REPRESENTATIVE",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'APPLICANT_PETITIONER_REPRESENTATIVE',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "CLAIMANT_PETITIONER",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'CLAIMANT_PETITIONER',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "CLAIMANT_PETITIONER_REPRESENTATIVE",
-                        "individualDetails": {
-                            "individualForenames": "Forenames",
-                            "individualMiddleName": "Middlename",
-                            "individualSurname": "Surname",
-                            "title": "Mr"
-                        }
+                        partyRole: 'CLAIMANT_PETITIONER_REPRESENTATIVE',
+                        individualDetails: {
+                            individualForenames: 'Forenames',
+                            individualMiddleName: 'Middlename',
+                            individualSurname: 'Surname',
+                            title: 'Mr',
+                        },
                     },
                     {
-                        "partyRole": "RESPONDENT",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'RESPONDENT',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "RESPONDENT_REPRESENTATIVE",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'RESPONDENT_REPRESENTATIVE',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "PROSECUTING_AUTHORITY",
-                        "organisationDetails": {
-                            "organisationName": "Organisation Name"
-                        }
+                        partyRole: 'PROSECUTING_AUTHORITY',
+                        organisationDetails: {
+                            organisationName: 'Organisation Name',
+                        },
                     },
                     {
-                        "partyRole": "DEFENDANT"
+                        partyRole: 'DEFENDANT',
                     },
                     {
-                        "partyRole": "DEFENDANT_REPRESENTATIVE"
-                    }
-                ]
+                        partyRole: 'DEFENDANT_REPRESENTATIVE',
+                    },
+                ],
             };
             listParseHelperService.findAndManipulatePartyInformation(partyDetails);
             expect(partyDetails['appellant']).to.equal('Mr Forenames Middlename Surname');
@@ -175,11 +175,9 @@ describe('List Helper service', () => {
     describe('createOrganisationDetails', () => {
         it('should create organisation details with organisation name', async () => {
             const organisationDetails = {
-                "organisationName": "Organisation name"
+                organisationName: 'Organisation name',
             };
-            expect(listParseHelperService.createOrganisationDetails(organisationDetails)).to.equal(
-                'Organisation name'
-            );
+            expect(listParseHelperService.createOrganisationDetails(organisationDetails)).to.equal('Organisation name');
         });
     });
 
@@ -264,6 +262,144 @@ describe('List Helper service', () => {
             expect(listParseHelperService.findAndManipulateJudiciary(judiciaryDetails)).to.equal(
                 'Judge KnownAs, Judge KnownAs 3'
             );
+        });
+    });
+
+    describe('calculateDuration', () => {
+        it('should calculate duration in hours and minutes', () => {
+            const sitting = {
+                sittingStart: '2022-02-13T14:30:00.000Z',
+                sittingEnd: '2022-02-13T16:00:00.000Z',
+            };
+            listParseHelperService.calculateDuration(sitting);
+            expect(sitting['durationAsHours']).to.equal(1);
+            expect(sitting['durationAsMinutes']).to.equal(30);
+            expect(sitting['durationAsDays']).to.equal(0);
+            expect(sitting['time']).to.be.a('string');
+        });
+
+        it('should calculate duration in days if duration exceeds 24 hours', () => {
+            const sitting = {
+                sittingStart: '2022-02-13T14:30:00.000Z',
+                sittingEnd: '2022-02-14T16:30:00.000Z',
+            };
+            listParseHelperService.calculateDuration(sitting);
+            expect(sitting['durationAsHours']).to.equal(26);
+            expect(sitting['durationAsMinutes']).to.equal(0);
+            expect(sitting['durationAsDays']).to.equal(1);
+        });
+
+        it('should set duration fields to empty if start or end is empty', () => {
+            const sitting = {
+                sittingStart: '',
+                sittingEnd: '',
+            };
+            listParseHelperService.calculateDuration(sitting);
+            expect(sitting['duration']).to.equal('');
+            expect(sitting).to.not.have.property('durationAsHours');
+            expect(sitting).to.not.have.property('durationAsMinutes');
+            expect(sitting).to.not.have.property('durationAsDays');
+        });
+    });
+
+    describe('findAndConcatenateHearingPlatform', () => {
+        it('should concatenate channels from sitting', () => {
+            const sitting = {
+                channel: ['Teams', 'In-Person'],
+            };
+            const session = {};
+            listParseHelperService.findAndConcatenateHearingPlatform(sitting, session);
+            expect(sitting['caseHearingChannel']).to.equal('Teams, In-Person');
+        });
+
+        it('should concatenate channels from session if sitting channel is empty', () => {
+            const sitting = {
+                channel: [],
+            };
+            const session = {
+                sessionChannel: ['Channel', 'Telephone'],
+            };
+            listParseHelperService.findAndConcatenateHearingPlatform(sitting, session);
+            expect(sitting['caseHearingChannel']).to.equal('Channel, Telephone');
+        });
+
+        it('should set caseHearingChannel to empty string if no channels present', () => {
+            const sitting = {};
+            const session = {};
+            listParseHelperService.findAndConcatenateHearingPlatform(sitting, session);
+            expect(sitting['caseHearingChannel']).to.equal('');
+        });
+    });
+
+    describe('formatCaseTime', () => {
+        it('should format time as hour only if minutes are zero', () => {
+            const sitting = {
+                sittingStart: '2022-02-13T14:00:00.000Z',
+            };
+            listParseHelperService.formatCaseTime(sitting, 'ha');
+            expect(sitting['time']).to.equal('2pm');
+        });
+
+        it('should format time as hour and minute if minutes are not zero', () => {
+            const sitting = {
+                sittingStart: '2022-02-13T14:30:00.000Z',
+            };
+            listParseHelperService.formatCaseTime(sitting, 'h:mma');
+            expect(sitting['time']).to.equal('2:30pm');
+        });
+
+        it('should handle non-UTC times correctly', () => {
+            const sitting = {
+                sittingStart: '2022-02-13T14:30:00.000',
+            };
+            listParseHelperService.formatCaseTime(sitting, 'h:mma');
+            expect(sitting['time']).to.be.a('string');
+        });
+
+        it('should not set time if sittingStart is empty', () => {
+            const sitting = {
+                sittingStart: '',
+            };
+            listParseHelperService.formatCaseTime(sitting, 'h:mma');
+            expect(sitting['time']).to.be.undefined;
+        });
+    });
+
+    describe('getRegionalJohFromLocationDetails', () => {
+        it('should return a comma-separated list of johKnownAs', () => {
+            const locationDetails = {
+                region: {
+                    regionalJOH: [{ johKnownAs: 'Judge A' }, { johKnownAs: 'Judge B' }],
+                },
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal(
+                'Judge A, Judge B'
+            );
+        });
+
+        it('should return an empty string if no regionalJOH present', () => {
+            const locationDetails = {
+                region: {
+                    regionalJOH: [],
+                },
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if regionalJOH is missing', () => {
+            const locationDetails = {
+                region: {},
+            };
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if region is missing', () => {
+            const locationDetails = {};
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(locationDetails)).to.equal('');
+        });
+
+        it('should return an empty string if locationDetails is undefined', () => {
+            expect(listParseHelperService.getRegionalJohFromLocationDetails(undefined)).to.equal('');
         });
     });
 });

@@ -40,21 +40,31 @@ describe('Family Division of the High Court Daily Cause List page', () => {
         expect(header[0].innerHTML).contains('Family Division of the High Court Daily Cause List');
     });
 
+    it('should display fact link text', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[4].innerHTML).contains('Find contact details and other information about courts and tribunals');
+    });
+
+    it('should display fact link', () => {
+        const text = htmlRes.getElementsByClassName('govuk-link');
+        expect(text[5].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
+    });
+
     it('should display venue', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[4].innerHTML).equals('Royal Courts of Justice');
-        expect(text[5].innerHTML).equals('Strand, London');
-        expect(text[6].innerHTML).equals('WC2A 2LL');
+        expect(text[5].innerHTML).equals('Royal Courts of Justice');
+        expect(text[6].innerHTML).equals('Strand, London');
+        expect(text[7].innerHTML).equals('WC2A 2LL');
     });
 
     it('should display list date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[7].innerHTML).equals('List for 14 February 2022');
+        expect(text[8].innerHTML).equals('List for 14 February 2022');
     });
 
     it('should display list updated date text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
+        expect(text[9].innerHTML).equals('Last updated 20 January 2025 at 9:30am');
     });
 
     it('should display important information heading', () => {
@@ -64,7 +74,7 @@ describe('Family Division of the High Court Daily Cause List page', () => {
 
     it('should display important information message', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).contains(
+        expect(text[10].innerHTML).contains(
             'Any application made after 1 March 2022 will be listed as an in person hearing unless an application for it to be heard remotely has been made prior to the hearing and granted by a judge.'
         );
     });
@@ -141,6 +151,6 @@ describe('Family Division of the High Court Daily Cause List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[22].innerHTML).contains('Data Source: Prov1');
+        expect(text[23].innerHTML).contains('Data Source: Prov1');
     });
 });
