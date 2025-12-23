@@ -3,17 +3,16 @@ import { getSsoUserGroups } from '../helpers/graphApiHelper';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { FRONTEND_URL } from '../helpers/envUrls';
 import config from 'config';
-import authenticationConfig from './authentication-config.json';
+import * as client from 'openid-client'
+import { jwtDecode } from 'jwt-decode';
+import { ssoNotAuthorised } from '../helpers/consts';
 
 const ssoClientId = process.env.SSO_CLIENT_ID
-    ? process.env.SSO_CLIENT_ID
-    : config.get('secrets.pip-ss-kv.SSO_CLIENT_ID');
+    ? process.env.SSO_CLIENT_ID as string
+    : config.get('secrets.pip-ss-kv.SSO_CLIENT_ID') as string;
 const ssoClientSecret = process.env.SSO_CLIENT_SECRET
-    ? process.env.SSO_CLIENT_SECRET
-    : config.get('secrets.pip-ss-kv.SSO_CLIENT_SECRET');
-const ssoMetadata = process.env.SSO_CONFIG_ENDPOINT
-    ? process.env.SSO_CONFIG_ENDPOINT
-    : config.get('secrets.pip-ss-kv.SSO_CONFIG_ENDPOINT');
+    ? process.env.SSO_CLIENT_SECRET as string
+    : config.get('secrets.pip-ss-kv.SSO_CLIENT_SECRET') as string;
 const ssoSgSystemAdmin = process.env.SSO_SG_SYSTEM_ADMIN
     ? process.env.SSO_SG_SYSTEM_ADMIN
     : (config.get('secrets.pip-ss-kv.SSO_SG_SYSTEM_ADMIN') as string);
@@ -23,17 +22,36 @@ const ssoSgAdminCtsc = process.env.SSO_SG_ADMIN_CTSC
 const ssoSgAdminLocal = process.env.SSO_SG_ADMIN_LOCAL
     ? process.env.SSO_SG_ADMIN_LOCAL
     : (config.get('secrets.pip-ss-kv.SSO_SG_ADMIN_LOCAL') as string);
+const ssoConfigEndpoint = process.env.SSO_CONFIG_ENDPOINT
+    ? new URL(process.env.SSO_CONFIG_ENDPOINT)
+    : new URL(config.get('secrets.pip-ss-kv.SSO_CONFIG_ENDPOINT'));
 
-export const ssoOidcConfig = {
-    identityMetadata: ssoMetadata,
-    clientID: ssoClientId,
-    responseType: authenticationConfig.RESPONSE_TYPE,
-    responseMode: authenticationConfig.RESPONSE_MODE_QUERY,
-    redirectUrl: FRONTEND_URL + '/sso/return',
-    allowHttpForRedirectUrl: true,
-    clientSecret: ssoClientSecret,
-    scope: 'openid profile email',
+export async function getSsoConfig() {
+    const ssoOidcClient = await client.discovery(ssoConfigEndpoint, ssoClientId, ssoClientSecret)
+
+    return {
+        config: ssoOidcClient,
+        callbackURL: FRONTEND_URL + '/sso/return',
+        scope: 'openid profile email'
+    }
 };
+
+export async function ssoVerifyFunction(tokens, done): Promise<any> {
+    const profile = jwtDecode(tokens['id_token']);
+    const userGroups = profile['groups'] ?? [];
+    const userRole = await new SsoAuthentication().determineUserRole(profile['oid'], userGroups, tokens['access_token']);
+
+    if (userRole) {
+        profile['roles'] = userRole;
+        profile['email'] = profile['preferred_username'];
+        profile['flow'] = 'SSO';
+        const response = await new SsoAuthentication().handleSsoUser(profile);
+        profile['created'] = response && !response['error'];
+        return done(null, profile);
+    } else {
+        return done(null, null, { message: ssoNotAuthorised });
+    }
+}
 
 const accountManagementRequests = new AccountManagementRequests();
 

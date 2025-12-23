@@ -105,5 +105,5 @@ app.use((err: HTTPError, req: PipRequest, res: express.Response, next: NextFunct
     res.render('error', req.i18n.getDataByLanguage(req.lng).error);
 });
 
-import authentication from './authentication/authentication';
-authentication();
+import { oidcSetup } from './authentication/authentication';
+oidcSetup();

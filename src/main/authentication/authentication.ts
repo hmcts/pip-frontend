@@ -1,47 +1,14 @@
-import process from 'process';
-import config from 'config';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import passportCustom from 'passport-custom';
-import { AUTH_RETURN_URL, MEDIA_VERIFICATION_RETURN_URL } from '../helpers/envUrls';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
 import { crimeIdamAuthentication } from './crimeIdamAuthentication';
-import { SsoAuthentication, ssoOidcConfig } from './ssoAuthentication';
-import { OIDCStrategy as AzureOIDCStrategy } from 'passport-azure-ad';
+import { getSsoConfig, ssoVerifyFunction } from './ssoAuthentication';
+import { OIDCStrategy } from './extendedOidcStrategy'
 import passport from 'passport';
-import authenticationConfig from './authentication-config.json';
-import { ssoNotAuthorised } from '../helpers/consts';
+import { getB2cConfig, getB2cMediaVerificationConfig, piAadVerifyFunction } from './b2cAuthentication';
 
 const CustomStrategy = passportCustom.Strategy;
 const accountManagementRequests = new AccountManagementRequests();
-const ssoAuthentication = new SsoAuthentication();
-
-async function piAadVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-    const returnedUser = await accountManagementRequests.getPiUserByAzureOid(profile['oid']);
-
-    if (returnedUser) {
-        profile['roles'] = returnedUser['roles'];
-        profile['userProvenance'] = returnedUser['userProvenance'];
-        return done(null, profile);
-    } else {
-        return done(null, null);
-    }
-}
-
-async function ssoVerifyFunction(iss, sub, profile, accessToken, refreshToken, done): Promise<any> {
-    const userGroups = profile._json['groups'] ?? [];
-    const userRole = await ssoAuthentication.determineUserRole(profile.oid, userGroups, accessToken);
-
-    if (userRole) {
-        profile['roles'] = userRole;
-        profile['email'] = profile._json['preferred_username'];
-        profile['flow'] = 'SSO';
-        const response = await ssoAuthentication.handleSsoUser(profile);
-        profile['created'] = response && !response['error'];
-        return done(null, profile);
-    } else {
-        return done(null, null, { message: ssoNotAuthorised });
-    }
-}
 
 async function serializeUser(foundUser, done) {
     if (foundUser.flow === 'CFT') {
@@ -100,68 +67,15 @@ async function deserializeUser(userDetails, done) {
 }
 
 /**
- * This sets up the OIDC version of authentication, integrating with Azure.
+ * This sets up the authentication process for the different IDAM's and routes
  */
-function oidcSetup(): void {
-    const clientSecret = process.env.CLIENT_SECRET
-        ? process.env.CLIENT_SECRET
-        : config.get('secrets.pip-ss-kv.CLIENT_SECRET');
-    const clientId = process.env.CLIENT_ID ? process.env.CLIENT_ID : config.get('secrets.pip-ss-kv.CLIENT_ID');
-    const identityMetadata = process.env.CONFIG_ENDPOINT
-        ? process.env.CONFIG_ENDPOINT
-        : config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT');
-    const mediaVerificationIdentityMetadata = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT
-        ? process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT
-        : config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT');
-
+export async function oidcSetup(): Promise<void> {
     passport.serializeUser(serializeUser);
-
     passport.deserializeUser(deserializeUser);
 
-    passport.use(
-        'login',
-        new AzureOIDCStrategy(
-            {
-                identityMetadata: identityMetadata,
-                clientID: clientId,
-                responseType: authenticationConfig.RESPONSE_TYPE,
-                responseMode: authenticationConfig.RESPONSE_MODE_FORM_POST,
-                redirectUrl: AUTH_RETURN_URL,
-                allowHttpForRedirectUrl: true,
-                clientSecret: clientSecret,
-                isB2C: true,
-            },
-            piAadVerifyFunction
-        )
-    );
-
-    passport.use(
-        'media-verification',
-        new AzureOIDCStrategy(
-            {
-                identityMetadata: mediaVerificationIdentityMetadata,
-                clientID: clientId,
-                responseType: authenticationConfig.RESPONSE_TYPE,
-                responseMode: authenticationConfig.RESPONSE_MODE_FORM_POST,
-                redirectUrl: MEDIA_VERIFICATION_RETURN_URL,
-                allowHttpForRedirectUrl: true,
-                clientSecret: clientSecret,
-                isB2C: true,
-            },
-            piAadVerifyFunction
-        )
-    );
-
-    passport.use('sso', new AzureOIDCStrategy(ssoOidcConfig, ssoVerifyFunction));
-
+    passport.use('login', new OIDCStrategy(await getB2cConfig(), piAadVerifyFunction));
+    passport.use('media-verification', new OIDCStrategy(await getB2cMediaVerificationConfig(), piAadVerifyFunction));
+    passport.use('sso', new OIDCStrategy(await getSsoConfig(), ssoVerifyFunction));
     passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
     passport.use('crime-idam', new CustomStrategy(crimeIdamAuthentication));
-}
-
-/**
- * This function sets up the authentication service
- * Values are read from config, and from the environment passed in
- */
-export default function (): void {
-    oidcSetup();
 }
