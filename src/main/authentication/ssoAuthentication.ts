@@ -3,16 +3,16 @@ import { getSsoUserGroups } from '../helpers/graphApiHelper';
 import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
 import { FRONTEND_URL } from '../helpers/envUrls';
 import config from 'config';
-import * as client from 'openid-client'
+import * as client from 'openid-client';
 import { jwtDecode } from 'jwt-decode';
 import { ssoNotAuthorised } from '../helpers/consts';
 
 const ssoClientId = process.env.SSO_CLIENT_ID
-    ? process.env.SSO_CLIENT_ID as string
-    : config.get('secrets.pip-ss-kv.SSO_CLIENT_ID') as string;
+    ? (process.env.SSO_CLIENT_ID as string)
+    : (config.get('secrets.pip-ss-kv.SSO_CLIENT_ID') as string);
 const ssoClientSecret = process.env.SSO_CLIENT_SECRET
-    ? process.env.SSO_CLIENT_SECRET as string
-    : config.get('secrets.pip-ss-kv.SSO_CLIENT_SECRET') as string;
+    ? (process.env.SSO_CLIENT_SECRET as string)
+    : (config.get('secrets.pip-ss-kv.SSO_CLIENT_SECRET') as string);
 const ssoSgSystemAdmin = process.env.SSO_SG_SYSTEM_ADMIN
     ? process.env.SSO_SG_SYSTEM_ADMIN
     : (config.get('secrets.pip-ss-kv.SSO_SG_SYSTEM_ADMIN') as string);
@@ -27,19 +27,23 @@ const ssoConfigEndpoint = process.env.SSO_CONFIG_ENDPOINT
     : new URL(config.get('secrets.pip-ss-kv.SSO_CONFIG_ENDPOINT'));
 
 export async function getSsoConfig() {
-    const ssoOidcClient = await client.discovery(ssoConfigEndpoint, ssoClientId, ssoClientSecret)
+    const ssoOidcClient = await client.discovery(ssoConfigEndpoint, ssoClientId, ssoClientSecret);
 
     return {
         config: ssoOidcClient,
         callbackURL: FRONTEND_URL + '/sso/return',
-        scope: 'openid profile email'
-    }
-};
+        scope: 'openid profile email',
+    };
+}
 
 export async function ssoVerifyFunction(tokens, done): Promise<any> {
     const profile = jwtDecode(tokens['id_token']);
     const userGroups = profile['groups'] ?? [];
-    const userRole = await new SsoAuthentication().determineUserRole(profile['oid'], userGroups, tokens['access_token']);
+    const userRole = await new SsoAuthentication().determineUserRole(
+        profile['oid'],
+        userGroups,
+        tokens['access_token']
+    );
 
     if (userRole) {
         profile['roles'] = userRole;

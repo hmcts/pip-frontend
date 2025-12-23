@@ -94,11 +94,7 @@ export default function (app: Application): void {
         })(req, res, next)
     );
     app.get('/login', regenerateSession, keepSessionLanguage, (req, res, next) =>
-        passport.authenticate('login', { failureRedirect: '/', locale: extraLanguageArg(req) })(
-            req,
-            res,
-            next
-        )
+        passport.authenticate('login', { failureRedirect: '/', locale: extraLanguageArg(req) })(req, res, next)
     );
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
     app.get(

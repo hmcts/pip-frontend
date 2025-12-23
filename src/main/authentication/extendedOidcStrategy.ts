@@ -1,11 +1,10 @@
 // @ts-ignore Ignore
-import { Strategy } from 'openid-client/passport'
+import { Strategy } from 'openid-client/passport';
 
 /**
  * Extended the OIDC Strategy class to allow for custom query parameters in the outbound request
  */
 export class OIDCStrategy extends Strategy {
-
     constructor(options, callback) {
         super(options, callback);
     }
@@ -21,5 +20,4 @@ export class OIDCStrategy extends Strategy {
         params.set('ui_locales', options['locale']);
         return params;
     }
-
 }

@@ -3,7 +3,7 @@ import passportCustom from 'passport-custom';
 import { cftIdamAuthentication } from './cftIdamAuthentication';
 import { crimeIdamAuthentication } from './crimeIdamAuthentication';
 import { getSsoConfig, ssoVerifyFunction } from './ssoAuthentication';
-import { OIDCStrategy } from './extendedOidcStrategy'
+import { OIDCStrategy } from './extendedOidcStrategy';
 import passport from 'passport';
 import { getB2cConfig, getB2cMediaVerificationConfig, piAadVerifyFunction } from './b2cAuthentication';
 
