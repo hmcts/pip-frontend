@@ -1,0 +1,9 @@
+{
+    "title": "Manage subscriber",
+    "heading": "Manage subscriber",
+    "name": "Name",
+    "createdDate": "Created Date",
+    "manageSubscriptions": "Manage subscriptions",
+    "manageOAuthConfiguration": "Manage OAuth configuration",
+    "deleteUser": "Delete subscriber"
+}
