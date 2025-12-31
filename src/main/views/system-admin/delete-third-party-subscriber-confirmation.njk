@@ -1,0 +1,56 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    {% if noOptionError or failedRequestError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.noOptionMessage if noOptionError else error.failedRequestMessage,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+    <h2 class="govuk-heading-l">{{ header | replace("USER", thirdPartySubscriber.name ) }}</h2>
+    <form action="delete-third-party-subscriber-confirmation" method="post">
+        {{ govukInput({
+            id: "user",
+            name: "user",
+            type: "hidden",
+            value: userId
+        }) }}
+        {{ govukRadios({
+            idPrefix: "delete-subscriber-confirm",
+            name: "delete-subscriber-confirm",
+            items: [
+                {
+                    value: "yes",
+                    text: radio1
+                },
+                {
+                    value: "no",
+                    text: radio2
+                }
+            ]
+        }) }}
+        {{ submitButton() }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+{% endblock %}

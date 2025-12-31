@@ -150,6 +150,19 @@ export class ThirdPartyService {
     }
 
     /**
+     * Service which gets third party subscribers from the backend.
+     */
+    public async getThirdPartySubscriber(adminUserId): Promise<any> {
+        const returnedAccounts = await this.accountManagementRequests.getThirdPartySubscribers(adminUserId);
+        for (const account of returnedAccounts) {
+            account['createdDate'] = DateTime.fromISO(account['createdDate'], {
+                zone: 'Europe/London',
+            }).toFormat('dd MMMM yyyy');
+        }
+        return returnedAccounts;
+    }
+
+    /**
      * Method which retrieves a user by their PI User ID.
      *
      * If the user is not a third party role, then this will return null.
@@ -158,6 +171,21 @@ export class ThirdPartyService {
     public async getThirdPartyUserById(userId, adminUserId): Promise<any> {
         const account = await this.accountManagementRequests.getUserByUserId(userId, adminUserId);
         if (account && account.userProvenance === 'THIRD_PARTY') {
+            account['createdDate'] = DateTime.fromISO(account['createdDate']).toFormat('dd MMMM yyyy');
+            return account;
+        }
+        return null;
+    }
+
+    /**
+     * Method which retrieves a user by their PI User ID.
+     *
+     * If the user is not a third party role, then this will return null.
+     * It also sets the created date of the user to the right format.
+     */
+    public async getThirdPartySubscriberById(userId, adminUserId): Promise<any> {
+        const account = await this.accountManagementRequests.getThirdPartySubscriberByUserId(userId, adminUserId);
+        if (account) {
             account['createdDate'] = DateTime.fromISO(account['createdDate']).toFormat('dd MMMM yyyy');
             return account;
         }
@@ -191,6 +219,26 @@ export class ThirdPartyService {
         return fields.userNameError || fields.userRoleError ? fields : null;
     }
 
+    public validateThirdPartySubscriberFormFields(formData): any | null {
+        const fields = {
+            userNameError: !formData.thirdPartySubscriberName,
+        };
+        return fields.userNameError ? fields : null;
+    }
+
+    public validateThirdPartySubscriberOathConfigFormFields(formData): any | null {
+        const fields = {
+            destinationUrlError: !formData.destinationUrl,
+            tokenUrlError: !formData.tokenUrl,
+            scopeKeyError: !formData.scopeKey,
+            scopeValueError: !formData.scopeValue,
+            clientIdError: !formData.clientId,
+            clientSecretError: !formData.clientSecret,
+        };
+
+        return Object.values(fields).some(error => error) ? fields : null;
+    }
+
     public async createThirdPartyUser(formData, requesterId): Promise<boolean> {
         const response = await this.accountManagementRequests.createPIAccount(
             this.formatThirdPartyUserPayload(formData),
@@ -209,5 +257,16 @@ export class ThirdPartyService {
                 userProvenance: 'THIRD_PARTY',
             },
         ];
+    }
+
+    public async createThirdPartySubscriber(formData, requesterId): Promise<boolean> {
+        return await this.accountManagementRequests.createThirdPartySubscriber(
+            this.formatThirdPartySubscriberPayload(formData),
+            requesterId
+        );
+    }
+
+    private formatThirdPartySubscriberPayload(formData) {
+        return { name: formData.thirdPartySubscriberName };
     }
 }

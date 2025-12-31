@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import { DateTime } from 'luxon';
 import superagent from 'superagent';
+import { StatusCodes } from 'http-status-codes';
 
 const accountManagementRequests = new AccountManagementRequests();
 const errorResponse = {
@@ -15,7 +16,7 @@ const errorResponse = {
 const errorMessage = {
     message: 'test',
 };
-const mockHeaders = { headers: { 'x-requester_id': '12345' } };
+const mockHeaders = { headers: { 'x-requester-id': '12345' } };
 const mockValidBody = {
     email: 'joe@bloggs.com',
     firstName: 'Joe',
@@ -39,6 +40,9 @@ const mockValidMediaBody = {
         name: 'filename.png',
     },
 };
+const mockValidThirdPartySubscriberBody = {
+    name: 'Joe',
+};
 
 const azureEndpoint = '/account/add/azure';
 const piEndpoint = '/account/add/pi';
@@ -53,6 +57,7 @@ const getAllAccountsEndpoint = '/account/all';
 const getUserByUserIdEndpoint = '/account/';
 const deleteUserByUserIdEndpoint = '/account/v2/';
 const updateUserByUserIdEndpoint = '/account/update/';
+const thirdPartySubscriberEndpoint = '/third-party';
 
 const status = 'APPROVED';
 const statusEndpoint = '/' + status;
@@ -180,6 +185,29 @@ describe('Account Management Requests', () => {
                 };
             });
             expect(await accountManagementRequests.createMediaApplication(mockValidMediaBody)).toBe(false);
+        });
+    });
+
+    describe('Create Third Party Subscriber Account', () => {
+        it('should return true on success', async () => {
+            postStub.withArgs(thirdPartySubscriberEndpoint).resolves({ status: StatusCodes.CREATED });
+            const response = await accountManagementRequests.createThirdPartySubscriber(
+                mockValidThirdPartySubscriberBody,
+                mockHeaders
+            );
+            expect(response).toStrictEqual(true);
+        });
+
+        it('should return null on error response', async () => {
+            postStub.withArgs(thirdPartySubscriberEndpoint).resolves(Promise.reject(errorResponse));
+            const response = await accountManagementRequests.createThirdPartySubscriber({ foo: 'blah' }, mockHeaders);
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            postStub.withArgs(thirdPartySubscriberEndpoint).resolves(Promise.reject(errorMessage));
+            const response = await accountManagementRequests.createThirdPartySubscriber({ bar: 'baz' }, mockHeaders);
+            expect(response).toBe(null);
         });
     });
 
@@ -693,6 +721,39 @@ describe('Account Management Requests', () => {
         });
     });
 
+    describe('Get third party subscriber by id', () => {
+        const idtoUse = '123';
+
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        it('should return pi user on success', async () => {
+            getStub.withArgs(`${thirdPartySubscriberEndpoint}/${idtoUse}`).resolves({
+                status: 200,
+                data: { userId: '321', name: 'name' },
+            });
+            const response = await accountManagementRequests.getThirdPartySubscriberByUserId(idtoUse, '1234');
+            expect(response).toStrictEqual({
+                userId: '321',
+                name: 'name',
+            });
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
+            const response = await accountManagementRequests.getThirdPartySubscriberByUserId(idtoUse, '1234');
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs(`${getUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
+            const response = await accountManagementRequests.getThirdPartySubscriberByUserId(idtoUse, '1234');
+            expect(response).toBe(null);
+        });
+    });
+
     describe('Delete user by user id', () => {
         const idtoUse = '123';
         const adminUserId = '456';
@@ -721,6 +782,38 @@ describe('Account Management Requests', () => {
         it('should return null on error message', async () => {
             deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
             const response = await accountManagementRequests.deleteUser(idtoUse, adminUserId);
+            expect(response).toBe(null);
+        });
+    });
+
+    describe('Delete third party subscriber id', () => {
+        const idtoUse = '123';
+        const adminUserId = '456';
+
+        beforeEach(() => {
+            sinon.restore();
+            deleteStub = sinon.stub(accountManagementApi, 'delete');
+        });
+
+        it('should return string on deletion success', async () => {
+            deleteStub
+                .withArgs(`${thirdPartySubscriberEndpoint}/${idtoUse}`, {
+                    headers: { 'x-requester-id': adminUserId },
+                })
+                .resolves({ status: 200, data: 'Deleted' });
+            const response = await accountManagementRequests.deleteThirdPartySubscriber(idtoUse, adminUserId);
+            expect(response).toStrictEqual('Deleted');
+        });
+
+        it('should return null on error response', async () => {
+            deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorResponse);
+            const response = await accountManagementRequests.deleteThirdPartySubscriber(idtoUse, adminUserId);
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            deleteStub.withArgs(`${deleteUserByUserIdEndpoint}${idtoUse}`).rejects(errorMessage);
+            const response = await accountManagementRequests.deleteThirdPartySubscriber(idtoUse, adminUserId);
             expect(response).toBe(null);
         });
     });
@@ -804,6 +897,36 @@ describe('Account Management Requests', () => {
         it('should return false on error message', async () => {
             getStub.withArgs('/account/all/third-party').rejects(errorMessage);
             const response = await accountManagementRequests.getThirdPartyAccounts(adminUserId);
+            expect(response).toBe(null);
+        });
+    });
+
+    describe('Get third party subscriber accounts', () => {
+        const adminUserId = '1234-1234';
+
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        it('should return third party accounts', async () => {
+            const thirdPartySubscribers = [{ userId: '1234-1234' }, { userId: '2345-2345' }];
+
+            getStub.withArgs(thirdPartySubscriberEndpoint).resolves({ status: 200, data: thirdPartySubscribers });
+
+            const response = await accountManagementRequests.getThirdPartySubscribers(adminUserId);
+            expect(response).toBe(thirdPartySubscribers);
+        });
+
+        it('should return false on error response', async () => {
+            getStub.withArgs(thirdPartySubscriberEndpoint).rejects(errorResponse);
+            const response = await accountManagementRequests.getThirdPartySubscribers(adminUserId);
+            expect(response).toBe(null);
+        });
+
+        it('should return false on error message', async () => {
+            getStub.withArgs(thirdPartySubscriberEndpoint).rejects(errorMessage);
+            const response = await accountManagementRequests.getThirdPartySubscribers(adminUserId);
             expect(response).toBe(null);
         });
     });
