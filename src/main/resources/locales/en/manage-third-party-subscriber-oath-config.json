@@ -1,0 +1,17 @@
+{
+    "title": "Court and tribunal hearings - Manage third party subscriber Oath Configuration- Court and Tribunal Hearings - GOV.UK",
+    "header": "Manage third party subscriber Oath Configuration",
+    "destinationUrlLabel": "Destination URL",
+    "destinationUrlError": "Enter Destination URL",
+    "tokenUrlLabel": "Token URL",
+    "tokenUrlError": "Enter Token URL",
+    "scopeKeyLabel": "Scope Key",
+    "scopeKeyError": "Enter Scope Key",
+    "scopeValueLabel": "Scope Value",
+    "scopeValueError": "Enter Scope Value",
+    "clientIdLabel": "Client ID",
+    "clientIdError": "Enter Client ID",
+    "clientSecretLabel": "Client Secret",
+    "clientSecretError": "Enter Client Secret",
+    "errorTitle": "There is a problem"
+}
