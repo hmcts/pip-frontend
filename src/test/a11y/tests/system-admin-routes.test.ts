@@ -11,7 +11,8 @@ import {
     testArtefactMetadata,
     testAuditData,
     testLocationData,
-    testSubscriptionData, testThirdPartySubscriber,
+    testSubscriptionData,
+    testThirdPartySubscriber,
     testUserData,
 } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
