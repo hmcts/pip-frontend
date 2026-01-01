@@ -87,7 +87,7 @@ describe('Third Party Service tests', () => {
         });
     });
 
-    describe('getThirdPartySubscriber', () => {
+    describe('getThirdPartySubscribers', () => {
         const thirdPartySubscribers = [
             {
                 userId: '1234-1234',
@@ -108,7 +108,7 @@ describe('Third Party Service tests', () => {
         getThirdPartySubscribersStub.resolves(thirdPartySubscribers);
 
         it('should return correct number and details of third party subscribers', async () => {
-            const data = await thirdPartyService.getThirdPartySubscriber(adminUserId);
+            const data = await thirdPartyService.getThirdPartySubscribers(adminUserId);
             expect(data.length).to.equal(2, 'Number of accounts returned does not match expected length');
 
             const firstAccount = data[0];

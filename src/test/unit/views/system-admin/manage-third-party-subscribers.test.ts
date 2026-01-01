@@ -17,7 +17,7 @@ describe('Manage third party subscribers', () => {
 
     expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-    sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriber').resolves([
+    sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscribers').resolves([
         {
             userId: '1234-1234',
             name: 'ThisIsAName',

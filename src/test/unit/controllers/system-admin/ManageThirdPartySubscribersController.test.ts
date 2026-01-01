@@ -26,7 +26,7 @@ describe('Manage third party subscribers Controller', () => {
             },
         ];
 
-        const getThirdPartySubscribersStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriber');
+        const getThirdPartySubscribersStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscribers');
         getThirdPartySubscribersStub.resolves(thirdPartySubscribersData);
 
         const options = {

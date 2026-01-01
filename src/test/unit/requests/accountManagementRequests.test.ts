@@ -107,6 +107,29 @@ describe('Account Management Requests', () => {
         });
     });
 
+    describe('Create Third Party Subscriber Account', () => {
+        it('should return true on success', async () => {
+            postStub.withArgs(thirdPartySubscriberEndpoint).resolves({ status: StatusCodes.CREATED });
+            const response = await accountManagementRequests.createThirdPartySubscriber(
+                mockValidThirdPartySubscriberBody,
+                mockHeaders
+            );
+            expect(response).toStrictEqual(true);
+        });
+
+        it('should return null on error response', async () => {
+            postStub.withArgs(thirdPartySubscriberEndpoint).resolves(Promise.reject(errorResponse));
+            const response = await accountManagementRequests.createThirdPartySubscriber({ foo: 'blah' }, mockHeaders);
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            postStub.withArgs(thirdPartySubscriberEndpoint).resolves(Promise.reject(errorMessage));
+            const response = await accountManagementRequests.createThirdPartySubscriber({ bar: 'baz' }, mockHeaders);
+            expect(response).toBe(null);
+        });
+    });
+
     describe('Create Media Account', () => {
         beforeEach(async () => {
             sinon.restore();
@@ -185,29 +208,6 @@ describe('Account Management Requests', () => {
                 };
             });
             expect(await accountManagementRequests.createMediaApplication(mockValidMediaBody)).toBe(false);
-        });
-    });
-
-    describe('Create Third Party Subscriber Account', () => {
-        it('should return true on success', async () => {
-            postStub.withArgs(thirdPartySubscriberEndpoint).resolves({ status: StatusCodes.CREATED });
-            const response = await accountManagementRequests.createThirdPartySubscriber(
-                mockValidThirdPartySubscriberBody,
-                mockHeaders
-            );
-            expect(response).toStrictEqual(true);
-        });
-
-        it('should return null on error response', async () => {
-            postStub.withArgs(thirdPartySubscriberEndpoint).resolves(Promise.reject(errorResponse));
-            const response = await accountManagementRequests.createThirdPartySubscriber({ foo: 'blah' }, mockHeaders);
-            expect(response).toBe(null);
-        });
-
-        it('should return null on error message', async () => {
-            postStub.withArgs(thirdPartySubscriberEndpoint).resolves(Promise.reject(errorMessage));
-            const response = await accountManagementRequests.createThirdPartySubscriber({ bar: 'baz' }, mockHeaders);
-            expect(response).toBe(null);
         });
     });
 

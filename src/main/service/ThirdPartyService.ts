@@ -152,7 +152,7 @@ export class ThirdPartyService {
     /**
      * Service which gets third party subscribers from the backend.
      */
-    public async getThirdPartySubscriber(adminUserId): Promise<any> {
+    public async getThirdPartySubscribers(adminUserId): Promise<any> {
         const returnedAccounts = await this.accountManagementRequests.getThirdPartySubscribers(adminUserId);
         for (const account of returnedAccounts) {
             account['createdDate'] = DateTime.fromISO(account['createdDate'], {
