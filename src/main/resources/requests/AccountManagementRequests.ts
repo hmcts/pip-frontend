@@ -47,8 +47,8 @@ export class AccountManagementRequests {
     }
 
     /**
-     * Request to account management that creates a PI account.
-     * @param payload The payload containing the azure accounts to request.
+     * Request to account management that creates a third party subscriber account.
+     * @param payload The payload containing the name of subscriber account to request.
      * @param requester The user ID of the person requesting this.
      */
     public async createThirdPartySubscriber(payload, requester): Promise<boolean> {

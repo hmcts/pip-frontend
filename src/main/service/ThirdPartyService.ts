@@ -178,9 +178,9 @@ export class ThirdPartyService {
     }
 
     /**
-     * Method which retrieves a user by their PI User ID.
+     * Method which retrieves a subscriber by its User ID.
      *
-     * If the user is not a third party role, then this will return null.
+     * If the user is not available, then this will return null.
      * It also sets the created date of the user to the right format.
      */
     public async getThirdPartySubscriberById(userId, adminUserId): Promise<any> {
@@ -224,19 +224,6 @@ export class ThirdPartyService {
             userNameError: !formData.thirdPartySubscriberName,
         };
         return fields.userNameError ? fields : null;
-    }
-
-    public validateThirdPartySubscriberOathConfigFormFields(formData): any | null {
-        const fields = {
-            destinationUrlError: !formData.destinationUrl,
-            tokenUrlError: !formData.tokenUrl,
-            scopeKeyError: !formData.scopeKey,
-            scopeValueError: !formData.scopeValue,
-            clientIdError: !formData.clientId,
-            clientSecretError: !formData.clientSecret,
-        };
-
-        return Object.values(fields).some(error => error) ? fields : null;
     }
 
     public async createThirdPartyUser(formData, requesterId): Promise<boolean> {
