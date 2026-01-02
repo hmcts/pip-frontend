@@ -2,10 +2,10 @@ import request from 'supertest';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
+import { ThirdPartyRequests } from '../../../main/resources/requests/ThirdPartyRequests';
 
-sinon.stub(AccountManagementRequests.prototype, 'getThirdPartySubscriberByUserId').resolves({ name: 'thirdPartyName' });
-const deleteUserStub = sinon.stub(AccountManagementRequests.prototype, 'deleteThirdPartySubscriber');
+sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberByUserId').resolves({ name: 'thirdPartyName' });
+const deleteUserStub = sinon.stub(ThirdPartyRequests.prototype, 'deleteThirdPartySubscriber');
 deleteUserStub.withArgs('123', '1').resolves('success');
 deleteUserStub.withArgs('124', '1').resolves(null);
 

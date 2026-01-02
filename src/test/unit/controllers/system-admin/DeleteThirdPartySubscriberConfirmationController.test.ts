@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import DeleteThirdPartySubscriberConfirmationController from '../../../../main/controllers/system-admin/DeleteThirdPartySubscriberConfirmationController';
-import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
+import { ThirdPartyRequests } from '../../../../main/resources/requests/ThirdPartyRequests';
 
 const i18n = {
     'delete-third-party-subscriber-confirmation': {
@@ -29,9 +29,9 @@ const response = {
 
 const request = mockRequest(i18n);
 
-sinon.stub(AccountManagementRequests.prototype, 'getThirdPartySubscriberByUserId').resolves(thirdPartySubscriber);
+sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberByUserId').resolves(thirdPartySubscriber);
 
-const deleteSubscriberStub = sinon.stub(AccountManagementRequests.prototype, 'deleteThirdPartySubscriber');
+const deleteSubscriberStub = sinon.stub(ThirdPartyRequests.prototype, 'deleteThirdPartySubscriber');
 deleteSubscriberStub.withArgs(userId, adminUserId).resolves('success');
 deleteSubscriberStub.withArgs(userIdWithFailedRequest, adminUserId).resolves(null);
 

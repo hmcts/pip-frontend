@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { app } from '../../../../main/app';
 import request from 'supertest';
 import sinon from 'sinon';
-import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
+import { ThirdPartyRequests } from '../../../../main/resources/requests/ThirdPartyRequests';
 
 const thirdPartySubscriberName = 'test name';
 const PAGE_URL = `/delete-third-party-subscriber-confirmation?userId=${thirdPartySubscriberName}`;
@@ -12,7 +12,7 @@ app.request['user'] = {
 };
 
 sinon
-    .stub(AccountManagementRequests.prototype, 'getThirdPartySubscriberByUserId')
+    .stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberByUserId')
     .resolves({ name: thirdPartySubscriberName });
 
 let htmlRes: Document;

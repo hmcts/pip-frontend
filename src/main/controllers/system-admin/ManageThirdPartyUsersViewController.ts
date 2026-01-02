@@ -2,17 +2,17 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { SubscriptionService } from '../../service/SubscriptionService';
-import { ThirdPartyService } from '../../service/ThirdPartyService';
+import { CourtelThirdPartyService } from '../../service/CourtelThirdPartyService';
 import { UserManagementService } from '../../service/UserManagementService';
 
-const thirdPartyService = new ThirdPartyService();
+const courtelThirdPartyService = new CourtelThirdPartyService();
 const subscriptionsService = new SubscriptionService();
 const userManagementService = new UserManagementService();
 
 export default class ManageThirdPartyUsersViewController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         if (req.query['userId']) {
-            const user = await thirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
+            const user = await courtelThirdPartyService.getThirdPartyUserById(req.query['userId'], req.user['userId']);
             if (user) {
                 const subscriptions = await subscriptionsService.getSubscriptionsByUser(user.userId);
 

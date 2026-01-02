@@ -1,180 +1,25 @@
-import { SubscriptionService } from './SubscriptionService';
-import { SubscriptionRequests } from '../resources/requests/SubscriptionRequests';
 import { DateTime } from 'luxon';
-import { AccountManagementRequests } from '../resources/requests/AccountManagementRequests';
+import { ThirdPartyRequests } from '../resources/requests/ThirdPartyRequests';
 import { Logger } from '@hmcts/nodejs-logging';
-import thirdPartyRoles from '../resources/thirdPartyRoles.json';
 
 /**
  * This service class handles support methods for dealing with third parties
  */
 export class ThirdPartyService {
     logger = Logger.getLogger('thirdPartyService');
-
-    subscriptionService = new SubscriptionService();
-    subscriptionRequests = new SubscriptionRequests();
-    accountManagementRequests = new AccountManagementRequests();
-
-    /**
-     * Generates a set of list types, with friendly names for Third Party subscriptions
-     * @param listTypes The available list types to subscribe to.
-     * @param subscriptions The current third party subscriptions.
-     */
-    public generateListTypes(listTypes, subscriptions) {
-        const formattedListTypes = {};
-
-        listTypes = new Map([...listTypes.entries()].sort((a, b) => a[0].localeCompare([b[0]])));
-        for (const [listName, listDetails] of listTypes) {
-            formattedListTypes[listName] = {
-                listFriendlyName: listDetails.friendlyName,
-                checked:
-                    subscriptions.listTypeSubscriptions.filter(listType => listType['listType'] === listName).length >
-                    0,
-            };
-        }
-
-        return formattedListTypes;
-    }
-
-    /**
-     * Generates a list of available channels for Radio buttons, for Third Parties
-     * @param subscriptionChannels The list of available subscription channels.
-     * @param subscriptions The current third party subscriptions.
-     */
-    public generateAvailableChannels(subscriptionChannels, subscriptions) {
-        const items = [];
-        let hasBeenChecked = false;
-
-        subscriptionChannels.forEach(channel => {
-            if (
-                subscriptions.listTypeSubscriptions.length > 0 &&
-                subscriptions.listTypeSubscriptions[0].channel === channel
-            ) {
-                hasBeenChecked = true;
-            }
-            items.push({
-                value: channel,
-                text: channel,
-                checked:
-                    subscriptions.listTypeSubscriptions.length > 0 &&
-                    subscriptions.listTypeSubscriptions[0].channel === channel,
-            });
-        });
-
-        if (!hasBeenChecked && items.length > 0) {
-            items[0]['checked'] = true;
-        }
-
-        return items;
-    }
-
-    /**
-     * This method handles the update of third party subscriptions.
-     * @oaram adminUserID The admin who is performing the action
-     * @param selectedUser The user ID of the user to update.
-     * @param selectedListTypes The list types that have been selected.
-     * @param selectedChannel The channel that has been selected.
-     */
-    public async handleThirdPartySubscriptionUpdate(
-        adminUserId,
-        userProvenance,
-        selectedUser,
-        selectedListTypes,
-        selectedChannel
-    ) {
-        selectedListTypes = selectedListTypes || [];
-        selectedListTypes = Array.isArray(selectedListTypes) ? selectedListTypes : Array.of(selectedListTypes);
-
-        const currentSubscriptions = await this.subscriptionService.getSubscriptionsByUser(selectedUser);
-        currentSubscriptions.listTypeSubscriptions.forEach(sub => {
-            if (!selectedListTypes.includes(sub.listType)) {
-                this.logger.info(
-                    'Unsubscribing ' + selectedUser + ' for list type ' + sub.listType + ' by admin ' + adminUserId
-                );
-
-                this.subscriptionService.unsubscribe(sub.subscriptionId, adminUserId, userProvenance);
-            } else {
-                if (sub.channel !== selectedChannel) {
-                    this.logger.info(
-                        'Updating subscription for ' +
-                            selectedUser +
-                            ' for list type ' +
-                            sub.listType +
-                            ' by admin ' +
-                            adminUserId
-                    );
-                    this.createdThirdPartySubscription(selectedUser, sub.listType, selectedChannel, adminUserId);
-                }
-
-                selectedListTypes.filter(item => item !== sub.listType);
-            }
-        });
-
-        selectedListTypes.forEach(listType => {
-            this.logger.info(
-                'Creating subscription for ' + selectedUser + ' for list type ' + listType + ' by admin ' + adminUserId
-            );
-            this.createdThirdPartySubscription(adminUserId, selectedUser, listType, selectedChannel);
-        });
-    }
-
-    /**
-     * Handles creation of new subscriptions for third parties.
-     * @param adminId The admin who is making the request.
-     * @param userId The user ID to add a subscription for.
-     * @param listType The list type to subscribe to.
-     * @param channel The channel for the subscription.
-     */
-    public createdThirdPartySubscription(adminId, userId, listType, channel) {
-        const subscription = {
-            channel: channel,
-            searchType: 'LIST_TYPE',
-            searchValue: listType,
-            userId: userId,
-        };
-
-        this.subscriptionRequests.subscribe(subscription, adminId);
-    }
-
-    /**
-     * Service which gets third party accounts from the backend.
-     */
-    public async getThirdPartyAccounts(adminUserId): Promise<any> {
-        const returnedAccounts = await this.accountManagementRequests.getThirdPartyAccounts(adminUserId);
-        for (const account of returnedAccounts) {
-            account['createdDate'] = DateTime.fromISO(account['createdDate'], {
-                zone: 'Europe/London',
-            }).toFormat('dd MMMM yyyy');
-        }
-        return returnedAccounts;
-    }
+    thirdPartyRequests = new ThirdPartyRequests();
 
     /**
      * Service which gets third party subscribers from the backend.
      */
     public async getThirdPartySubscribers(adminUserId): Promise<any> {
-        const returnedAccounts = await this.accountManagementRequests.getThirdPartySubscribers(adminUserId);
+        const returnedAccounts = await this.thirdPartyRequests.getThirdPartySubscribers(adminUserId);
         for (const account of returnedAccounts) {
             account['createdDate'] = DateTime.fromISO(account['createdDate'], {
                 zone: 'Europe/London',
             }).toFormat('dd MMMM yyyy');
         }
         return returnedAccounts;
-    }
-
-    /**
-     * Method which retrieves a user by their PI User ID.
-     *
-     * If the user is not a third party role, then this will return null.
-     * It also sets the created date of the user to the right format.
-     */
-    public async getThirdPartyUserById(userId, adminUserId): Promise<any> {
-        const account = await this.accountManagementRequests.getUserByUserId(userId, adminUserId);
-        if (account && account.userProvenance === 'THIRD_PARTY') {
-            account['createdDate'] = DateTime.fromISO(account['createdDate']).toFormat('dd MMMM yyyy');
-            return account;
-        }
-        return null;
     }
 
     /**
@@ -184,39 +29,12 @@ export class ThirdPartyService {
      * It also sets the created date of the user to the right format.
      */
     public async getThirdPartySubscriberById(userId, adminUserId): Promise<any> {
-        const account = await this.accountManagementRequests.getThirdPartySubscriberByUserId(userId, adminUserId);
+        const account = await this.thirdPartyRequests.getThirdPartySubscriberByUserId(userId, adminUserId);
         if (account) {
             account['createdDate'] = DateTime.fromISO(account['createdDate']).toFormat('dd MMMM yyyy');
             return account;
         }
         return null;
-    }
-
-    public getThirdPartyRoleByKey(key: string): any {
-        return thirdPartyRoles.find(item => item.key === key);
-    }
-
-    public buildThirdPartyRoleList(selectedRole = ''): any[] {
-        const roleList = [];
-        thirdPartyRoles.forEach(role => {
-            roleList.push({
-                value: role.key,
-                text: role.name,
-                checked: selectedRole === role.key,
-                hint: {
-                    text: role.description,
-                },
-            });
-        });
-        return roleList;
-    }
-
-    public validateThirdPartyUserFormFields(formData): any | null {
-        const fields = {
-            userNameError: !formData.thirdPartyName,
-            userRoleError: !formData.thirdPartyRole,
-        };
-        return fields.userNameError || fields.userRoleError ? fields : null;
     }
 
     public validateThirdPartySubscriberFormFields(formData): any | null {
@@ -226,28 +44,8 @@ export class ThirdPartyService {
         return fields.userNameError ? fields : null;
     }
 
-    public async createThirdPartyUser(formData, requesterId): Promise<boolean> {
-        const response = await this.accountManagementRequests.createPIAccount(
-            this.formatThirdPartyUserPayload(formData),
-            requesterId
-        );
-
-        return response?.['CREATED_ACCOUNTS'][0] ? true : false;
-    }
-
-    private formatThirdPartyUserPayload(formData) {
-        return [
-            {
-                email: null,
-                provenanceUserId: formData.thirdPartyName,
-                roles: formData.thirdPartyRole,
-                userProvenance: 'THIRD_PARTY',
-            },
-        ];
-    }
-
     public async createThirdPartySubscriber(formData, requesterId): Promise<boolean> {
-        return await this.accountManagementRequests.createThirdPartySubscriber(
+        return await this.thirdPartyRequests.createThirdPartySubscriber(
             this.formatThirdPartySubscriberPayload(formData),
             requesterId
         );

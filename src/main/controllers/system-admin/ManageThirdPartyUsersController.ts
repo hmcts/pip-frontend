@@ -1,10 +1,10 @@
 import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { ThirdPartyService } from '../../service/ThirdPartyService';
 import { UserManagementService } from '../../service/UserManagementService';
+import { CourtelThirdPartyService } from '../../service/CourtelThirdPartyService';
 
-const thirdPartyService = new ThirdPartyService();
+const courtelThirdPartyService = new CourtelThirdPartyService();
 const userManagementService = new UserManagementService();
 
 export default class ManageThirdPartyUsersController {
@@ -17,7 +17,7 @@ export default class ManageThirdPartyUsersController {
 
         res.render('system-admin/manage-third-party-users', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users']),
-            thirdPartyAccounts: await thirdPartyService.getThirdPartyAccounts(req.user['userId']),
+            thirdPartyAccounts: await courtelThirdPartyService.getThirdPartyAccounts(req.user['userId']),
         });
     }
 }

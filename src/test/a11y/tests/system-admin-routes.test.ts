@@ -22,6 +22,7 @@ import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
+import { ThirdPartyRequests } from '../../../main/resources/requests/ThirdPartyRequests';
 
 const userId = '1';
 const name = 'Test';
@@ -111,8 +112,8 @@ sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').re
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(userDataThirdParty);
 sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts').returns([userDataThirdParty]);
-sinon.stub(AccountManagementRequests.prototype, 'getThirdPartySubscriberByUserId').resolves(testThirdPartySubscriber);
-sinon.stub(AccountManagementRequests.prototype, 'getThirdPartySubscribers').returns([testThirdPartySubscriber]);
+sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberByUserId').resolves(testThirdPartySubscriber);
+sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscribers').returns([testThirdPartySubscriber]);
 sinon.stub(AccountManagementRequests.prototype, 'getAuditLogById').returns(auditData);
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').resolves(subscriptionData);
 sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels').resolves(['EMAIL', 'API']);
