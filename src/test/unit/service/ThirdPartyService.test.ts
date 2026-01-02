@@ -6,7 +6,6 @@ import { ThirdPartyRequests } from '../../../main/resources/requests/ThirdPartyR
 const thirdPartyService = new ThirdPartyService();
 
 describe('Third Party Service tests', () => {
-
     const adminUserId = '1234-1234';
 
     describe('getThirdPartySubscribers', () => {
@@ -23,10 +22,7 @@ describe('Third Party Service tests', () => {
             },
         ];
 
-        const getThirdPartySubscribersStub = sinon.stub(
-            ThirdPartyRequests.prototype,
-            'getThirdPartySubscribers'
-        );
+        const getThirdPartySubscribersStub = sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscribers');
         getThirdPartySubscribersStub.resolves(thirdPartySubscribers);
 
         it('should return correct number and details of third party subscribers', async () => {
@@ -88,10 +84,7 @@ describe('Third Party Service tests', () => {
             thirdPartySubscriberName: 'name',
         };
 
-        const createThirdPartySubscriberStub = sinon.stub(
-            ThirdPartyRequests.prototype,
-            'createThirdPartySubscriber'
-        );
+        const createThirdPartySubscriberStub = sinon.stub(ThirdPartyRequests.prototype, 'createThirdPartySubscriber');
         createThirdPartySubscriberStub.withArgs(sinon.match.any, '1').resolves(true);
         createThirdPartySubscriberStub.withArgs(sinon.match.any, '2').resolves(false);
         createThirdPartySubscriberStub.withArgs(sinon.match.any, '3').resolves(null);

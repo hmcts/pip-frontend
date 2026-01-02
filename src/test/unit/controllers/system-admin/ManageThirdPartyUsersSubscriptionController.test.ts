@@ -29,7 +29,10 @@ describe('Manage third party users subscription controller', () => {
         const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
         const getChannelsListStub = sinon.stub(SubscriptionService.prototype, 'retrieveChannels');
         const generateListTypesStub = sinon.stub(CourtelThirdPartyService.prototype, 'generateListTypes');
-        const generateAvailableChannelsStub = sinon.stub(CourtelThirdPartyService.prototype, 'generateAvailableChannels');
+        const generateAvailableChannelsStub = sinon.stub(
+            CourtelThirdPartyService.prototype,
+            'generateAvailableChannels'
+        );
 
         it('should render third party subscriptions page', async () => {
             request['query'] = { userId: userId };
@@ -94,7 +97,10 @@ describe('Manage third party users subscription controller', () => {
         };
         const request = mockRequest(i18n);
 
-        const updateThirdPartySubsStub = sinon.stub(CourtelThirdPartyService.prototype, 'handleThirdPartySubscriptionUpdate');
+        const updateThirdPartySubsStub = sinon.stub(
+            CourtelThirdPartyService.prototype,
+            'handleThirdPartySubscriptionUpdate'
+        );
 
         it('should render the third party confirmation page', async () => {
             request['body'] = {

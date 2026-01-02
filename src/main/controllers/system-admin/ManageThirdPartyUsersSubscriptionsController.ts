@@ -29,7 +29,10 @@ export default class ManageThirdPartyUsersSubscriptionsController {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions']),
                     listTypes: courtelThirdPartyService.generateListTypes(listTypes, subscriptions),
                     userId: req.query['userId'],
-                    channelItems: courtelThirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions),
+                    channelItems: courtelThirdPartyService.generateAvailableChannels(
+                        subscriptionChannels,
+                        subscriptions
+                    ),
                 });
                 return;
             }

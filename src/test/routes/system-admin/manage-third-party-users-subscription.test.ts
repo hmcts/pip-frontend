@@ -35,7 +35,10 @@ describe('Manage third party users subscription', () => {
     });
 
     describe('on POST', () => {
-        const updateThirdPartySubsStub = sinon.stub(CourtelThirdPartyService.prototype, 'handleThirdPartySubscriptionUpdate');
+        const updateThirdPartySubsStub = sinon.stub(
+            CourtelThirdPartyService.prototype,
+            'handleThirdPartySubscriptionUpdate'
+        );
         updateThirdPartySubsStub.withArgs(userId, 'CHANNEL_A', ['LIST_SELECTION']).resolves();
         getThirdPartyUserByIdStub.withArgs(userId).resolves({ userId: userId });
 

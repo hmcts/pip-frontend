@@ -19,12 +19,11 @@ const mockValidThirdPartySubscriberBody = {
 
 const thirdPartySubscriberEndpoint = '/third-party';
 
-let postStub = sinon.stub(accountManagementApi, 'post');
+const postStub = sinon.stub(accountManagementApi, 'post');
 let getStub = sinon.stub(accountManagementApi, 'get');
 let deleteStub = sinon.stub(accountManagementApi, 'delete');
 
 describe('Account Management Requests', () => {
-
     describe('Create Third Party Subscriber Account', () => {
         it('should return true on success', async () => {
             postStub.withArgs(thirdPartySubscriberEndpoint).resolves({ status: StatusCodes.CREATED });
