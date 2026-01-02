@@ -6,7 +6,7 @@ import { Logger } from '@hmcts/nodejs-logging';
 import thirdPartyRoles from '../resources/thirdPartyRoles.json';
 
 /**
- * This service class handles support methods for dealing with third parties
+ * This service class handles support methods for dealing with courtel third parties
  */
 export class CourtelThirdPartyService {
     logger = Logger.getLogger('courtelThirdPartyService');
@@ -16,9 +16,9 @@ export class CourtelThirdPartyService {
     accountManagementRequests = new AccountManagementRequests();
 
     /**
-     * Generates a set of list types, with friendly names for Third Party subscriptions
+     * Generates a set of list types, with friendly names for Third Party Courtel subscriptions
      * @param listTypes The available list types to subscribe to.
-     * @param subscriptions The current third party subscriptions.
+     * @param subscriptions The current third party courtel subscriptions.
      */
     public generateListTypes(listTypes, subscriptions) {
         const formattedListTypes = {};
@@ -37,9 +37,9 @@ export class CourtelThirdPartyService {
     }
 
     /**
-     * Generates a list of available channels for Radio buttons, for Third Parties
+     * Generates a list of available channels for Radio buttons, for Third Courtel Parties
      * @param subscriptionChannels The list of available subscription channels.
-     * @param subscriptions The current third party subscriptions.
+     * @param subscriptions The current third party courtel subscriptions.
      */
     public generateAvailableChannels(subscriptionChannels, subscriptions) {
         const items = [];
@@ -69,7 +69,7 @@ export class CourtelThirdPartyService {
     }
 
     /**
-     * This method handles the update of third party subscriptions.
+     * This method handles the update of third party courtel subscriptions.
      * @oaram adminUserID The admin who is performing the action
      * @param selectedUser The user ID of the user to update.
      * @param selectedListTypes The list types that have been selected.
@@ -119,7 +119,7 @@ export class CourtelThirdPartyService {
     }
 
     /**
-     * Handles creation of new subscriptions for third parties.
+     * Handles creation of new subscriptions for third courtel parties.
      * @param adminId The admin who is making the request.
      * @param userId The user ID to add a subscription for.
      * @param listType The list type to subscribe to.
