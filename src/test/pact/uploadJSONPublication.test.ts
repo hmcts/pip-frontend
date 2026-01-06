@@ -13,7 +13,7 @@ jest.mock('../../main/resources/requests/utils/axiosConfig', () => {
         dataManagementApi: actualAxios.create({
             baseURL: 'http://placeholder.com',
             timeout: 20000,
-        })
+        }),
     };
 });
 
@@ -31,31 +31,28 @@ describe('upload json publication contract', () => {
             .addInteraction()
             .given('user is authorised to upload JSON publication')
             .uponReceiving('a request to upload JSON publication')
-            .withRequest('POST', '/publication', (req) => {
-                req
-                    .headers({
-                        'x-provenance': 'MANUAL_UPLOAD',
-                        'x-source-artefact-id': 'test-source-id',
-                        'x-type': 'LIST',
-                        'x-sensitivity': 'PUBLIC',
-                        'x-language': 'ENGLISH',
-                        'x-display-from': '2026-01-01T00:00:00',
-                        'x-display-to': '2027-01-01T23:59:59',
-                        'x-list-type': 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
-                        'x-court-id': '9',
-                        'x-content-date': '2026-01-01T00:00:00',
-                        'x-requester-id': 'b760814f-dc71-4904-95ae-473fb5aed45b',
-                        'Content-Type': 'application/json'
-                    })
-                    .jsonBody(civilAndFamilyDailyCauseListData);
+            .withRequest('POST', '/publication', req => {
+                req.headers({
+                    'x-provenance': 'MANUAL_UPLOAD',
+                    'x-source-artefact-id': 'test-source-id',
+                    'x-type': 'LIST',
+                    'x-sensitivity': 'PUBLIC',
+                    'x-language': 'ENGLISH',
+                    'x-display-from': '2026-01-01T00:00:00',
+                    'x-display-to': '2027-01-01T23:59:59',
+                    'x-list-type': 'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+                    'x-court-id': '9',
+                    'x-content-date': '2026-01-01T00:00:00',
+                    'x-requester-id': 'b760814f-dc71-4904-95ae-473fb5aed45b',
+                    'Content-Type': 'application/json',
+                }).jsonBody(civilAndFamilyDailyCauseListData);
             })
-            .willRespondWith(201, (res) => {
-                res
-                    .jsonBody({
-                        artefactId: MatchersV3.uuid()
-                    });
+            .willRespondWith(201, res => {
+                res.jsonBody({
+                    artefactId: MatchersV3.uuid(),
+                });
             })
-            .executeTest(async (mockServer) => {
+            .executeTest(async mockServer => {
                 dataManagementApi.defaults.baseURL = mockServer.url;
 
                 const result = await dataManagementRequests.uploadJSONPublication(
@@ -72,7 +69,7 @@ describe('upload json publication contract', () => {
                         'x-court-id': '9',
                         'x-content-date': '2026-01-01T00:00:00',
                         'x-requester-id': 'b760814f-dc71-4904-95ae-473fb5aed45b',
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
                     }
                 );
 
