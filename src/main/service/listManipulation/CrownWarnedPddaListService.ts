@@ -25,15 +25,17 @@ export class CrownWarnedPddaListService {
     }
 
     private formatFixture(fixtureDate: any, groupedData: Map<string, object[]>, isWithoutFixeDate: boolean): any {
-        const fixedDate = fixtureDate.Fixture.FixedDate;
-        fixtureDate.Fixture.Cases.forEach((hearingCase: any) => {
-            hearingCase.Hearing.forEach((hearing: any) => {
-                const hearingDescription = !isWithoutFixeDate ? hearing.HearingDescription : 'To be allocated';
-                if (!groupedData.has(hearingDescription)) {
-                    groupedData.set(hearingDescription, []);
-                }
+        fixtureDate.Fixture.forEach((fixture: any) => {
+            const fixedDate = fixture.FixedDate;
+            fixture.Cases.forEach((hearingCase: any) => {
+                hearingCase.Hearing.forEach((hearing: any) => {
+                    const hearingDescription = !isWithoutFixeDate ? hearing.HearingDescription : 'To be allocated';
+                    if (!groupedData.has(hearingDescription)) {
+                        groupedData.set(hearingDescription, []);
+                    }
 
-                groupedData.get(hearingDescription)!.push(this.formatCaseInformation(fixedDate, hearing, hearingCase));
+                    groupedData.get(hearingDescription)!.push(this.formatCaseInformation(fixedDate, hearing, hearingCase));
+                });
             });
         });
     }
