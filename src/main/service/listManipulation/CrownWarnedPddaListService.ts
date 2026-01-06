@@ -34,7 +34,9 @@ export class CrownWarnedPddaListService {
                         groupedData.set(hearingDescription, []);
                     }
 
-                    groupedData.get(hearingDescription)!.push(this.formatCaseInformation(fixedDate, hearing, hearingCase));
+                    groupedData
+                        .get(hearingDescription)!
+                        .push(this.formatCaseInformation(fixedDate, hearing, hearingCase));
                 });
             });
         });
