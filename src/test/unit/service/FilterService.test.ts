@@ -325,4 +325,47 @@ describe('Filter Service', () => {
         } as unknown as string;
         expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val', 'newTest']);
     });
+
+    it('should translate jurisdiction filter values from English to Welsh', () => {
+        const jurisdictionEng = ['Crime', 'Tribunal'];
+
+        const result = filterService.translateFilterValues(jurisdictionEng, 'cy');
+        expect(result).toStrictEqual(['Troseddau', 'Tribiwnlys']);
+    });
+
+    it('should translate jurisdiction filter values from Welsh to English', () => {
+        const jurisdictionWel = ['Troseddau', 'Tribiwnlys'];
+
+        const result = filterService.translateFilterValues(jurisdictionWel, 'en');
+        expect(result).toStrictEqual(['Crime', 'Tribunal']);
+    });
+
+    it('should translate region filter values from English to Welsh', () => {
+        const regionEng = ['London', 'Royal Courts of Justice Group'];
+
+        const result = filterService.translateFilterValues(regionEng, 'cy');
+        expect(result).toStrictEqual(['Llundain', 'Grŵp y Llysoedd Barn Brenhinol']);
+    });
+
+    it('should translate region filter values from Welsh to English', () => {
+        const regionWel = ['Cymru', 'Cenedlaethol'];
+
+        const result = filterService.translateFilterValues(regionWel, 'en');
+        expect(result).toStrictEqual(['Wales', 'National']);
+    });
+
+    it('should translate a mixed list of jurisdiction and region values from English to Welsh', () => {
+        const mixedEng = ['Tribunal', 'Care Standards Tribunal', 'Scotland'];
+
+        const result = filterService.translateFilterValues(mixedEng, 'cy');
+        expect(result).toStrictEqual(['Tribiwnlys', 'Tribiwnlys Safonau Gofal', 'Yr Alban']);
+    });
+
+    it('should translate a mixed list of jurisdiction and region values from Welsh to English', () => {
+        const mixedWel = ['Tribiwnlys', 'Tribiwnlys Safonau Gofal', 'Yr Alban'];
+
+        const result = filterService.translateFilterValues(mixedWel, 'en');
+        expect(result).toStrictEqual(['Tribunal', 'Care Standards Tribunal', 'Scotland']);
+    });
+
 });
