@@ -1085,6 +1085,16 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.deleteThirdPartySubscriberSuccessController.get
     );
+    app.get(
+        '/manage-third-party-subscriber-oath-config',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberOathConfigController.get
+    );
+    app.post(
+        '/manage-third-party-subscriber-oath-config',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberOathConfigController.post
+    );
     app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
 

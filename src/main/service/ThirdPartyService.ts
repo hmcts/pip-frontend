@@ -54,4 +54,17 @@ export class ThirdPartyService {
     private formatThirdPartySubscriberPayload(formData) {
         return { name: formData.thirdPartySubscriberName };
     }
+
+    public validateThirdPartySubscriberOathConfigFormFields(formData): any | null {
+        const fields = {
+            destinationUrlError: !formData.destinationUrl,
+            tokenUrlError: !formData.tokenUrl,
+            scopeKeyError: !formData.scopeKey,
+            scopeValueError: !formData.scopeValue,
+            clientIdError: !formData.clientId,
+            clientSecretError: !formData.clientSecret,
+        };
+
+        return Object.values(fields).some(error => error) ? fields : null;
+    }
 }
