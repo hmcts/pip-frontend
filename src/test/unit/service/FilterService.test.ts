@@ -367,5 +367,4 @@ describe('Filter Service', () => {
         const result = filterService.translateFilterValues(mixedWel, 'en');
         expect(result).toStrictEqual(['Tribunal', 'Care Standards Tribunal', 'Scotland']);
     });
-
 });
