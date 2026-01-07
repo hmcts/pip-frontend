@@ -1,3 +1,5 @@
+//This file runs for all unit tests (excluding routes and a11y), and mocks the openid config
+
 jest.mock('openid-client', () => ({
     discovery: jest.fn(),
 }));
