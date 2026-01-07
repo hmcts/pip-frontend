@@ -1,10 +1,10 @@
 import request from 'supertest';
 import { app } from '../../main/app';
 
-const mockRequestBody = { test: 'AADB2C90118' };
+const forgottenPasswordRedirectPath = '&error_description=AADB2C90118';
 
 describe('Login', () => {
-    beforeEach(() => {
+    beforeEach(async () => {
         app.request['body'] = {};
     });
 
@@ -14,6 +14,9 @@ describe('Login', () => {
         await request(app)
             .get('/login?p=B2C_1_SignInUserFlow')
             .expect(res => expect(res.redirect).toBeTruthy)
+            .expect(res => {
+                console.log(res);
+            })
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinuserflow'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
     });
@@ -59,7 +62,7 @@ describe('Login', () => {
         app.request['lng'] = 'en';
 
         await request(app)
-            .post('/login/return?p=B2C_1_SignInUserFlow')
+            .get('/login/return?p=B2C_1_SignInUserFlow')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinuserflow'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
@@ -69,7 +72,7 @@ describe('Login', () => {
         app.request['lng'] = 'cy';
 
         await request(app)
-            .post('/login/return?p=B2C_1_SignInUserFlow')
+            .get('/login/return?p=B2C_1_SignInUserFlow')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinuserflow'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
@@ -77,10 +80,9 @@ describe('Login', () => {
 
     test('should redirect to the password reset in english on return', async () => {
         app.request['lng'] = 'en';
-        app.request['body'] = mockRequestBody;
 
         await request(app)
-            .post('/login/return?p=B2C_1_SignInUserFlow')
+            .get('/login/return?p=B2C_1_SignInUserFlow' + forgottenPasswordRedirectPath)
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
@@ -88,10 +90,9 @@ describe('Login', () => {
 
     test('should redirect to the password reset in welsh on return', async () => {
         app.request['lng'] = 'cy';
-        app.request['body'] = mockRequestBody;
 
         await request(app)
-            .post('/login/return?p=B2C_1_SignInUserFlow')
+            .get('/login/return?p=B2C_1_SignInUserFlow' + forgottenPasswordRedirectPath)
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
@@ -108,7 +109,7 @@ describe('Login', () => {
         app.request['lng'] = 'en';
 
         await request(app)
-            .post('/media-verification/return?p=B2C_1_SignInMediaVerification')
+            .get('/media-verification/return?p=B2C_1_SignInMediaVerification')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinmediaverification'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
@@ -118,7 +119,7 @@ describe('Login', () => {
         app.request['lng'] = 'cy';
 
         await request(app)
-            .post('/media-verification/return?p=B2C_1_SignInMediaVerification')
+            .get('/media-verification/return?p=B2C_1_SignInMediaVerification')
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinmediaverification'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));
@@ -126,10 +127,9 @@ describe('Login', () => {
 
     test('should redirect to the password reset page in english on return', async () => {
         app.request['lng'] = 'en';
-        app.request['body'] = mockRequestBody;
 
         await request(app)
-            .post('/media-verification/return?p=B2C_1_SignInMediaVerification')
+            .get('/media-verification/return?p=B2C_1_SignInMediaVerification' + forgottenPasswordRedirectPath)
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
@@ -137,10 +137,9 @@ describe('Login', () => {
 
     test('should redirect to the password reset page in welsh on return', async () => {
         app.request['lng'] = 'cy';
-        app.request['body'] = mockRequestBody;
 
         await request(app)
-            .post('/media-verification/return?p=B2C_1_SignInMediaVerification')
+            .get('/media-verification/return?p=B2C_1_SignInMediaVerification' + forgottenPasswordRedirectPath)
             .expect(res => expect(res.redirect).toBeTruthy())
             .expect(res => expect(res.headers['location']).toContain('B2C_1A_PASSWORD_RESET'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=cy-GB'));

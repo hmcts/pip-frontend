@@ -12,7 +12,7 @@ process.env.SSO_SG_SYSTEM_ADMIN = systemAdminSecurityGroup;
 process.env.SSO_SG_ADMIN_CTSC = adminCtscSecurityGroup;
 process.env.SSO_SG_ADMIN_LOCAL = adminLocalSecurityGroup;
 
-import { SsoAuthentication } from '../../../main/authentication/ssoAuthentication';
+import { SsoAuthentication, ssoVerifyFunction, getSsoConfig } from '../../../main/authentication/ssoAuthentication';
 
 const ssoAuthentication = new SsoAuthentication();
 
@@ -97,5 +97,90 @@ describe('SSO Authentication', () => {
         delete process.env.SSO_SG_SYSTEM_ADMIN;
         delete process.env.SSO_SG_ADMIN_CTSC;
         delete process.env.SSO_SG_ADMIN_LOCAL;
+    });
+});
+
+describe('getSsoConfig', () => {
+    it('should return config object with OIDC client, callbackURL, and scope', async () => {
+        const result = await getSsoConfig();
+        expect(result).toHaveProperty('config', { issuer: 'test-issuer' });
+        expect(result).toHaveProperty('callbackURL', 'https://localhost:8080/sso/return');
+        expect(result).toHaveProperty('scope', 'openid profile email');
+    });
+});
+
+describe('ssoVerifyFunction', () => {
+    let jwtDecodeStub;
+    let determineUserRoleStub;
+    let handleSsoUserStub;
+    const tokens = {
+        id_token: 'mock_id_token',
+        access_token: 'mock_access_token',
+    };
+    const profile = {
+        oid: 'test-oid',
+        preferred_username: 'test-username',
+        groups: ['group1'],
+    };
+
+    beforeEach(async () => {
+        jwtDecodeStub = sinon.stub(await import('jwt-decode'), 'jwtDecode').returns({ ...profile });
+        determineUserRoleStub = sinon.stub(SsoAuthentication.prototype, 'determineUserRole');
+        handleSsoUserStub = sinon.stub(SsoAuthentication.prototype, 'handleSsoUser');
+    });
+
+    afterEach(() => {
+        jwtDecodeStub.restore();
+        determineUserRoleStub.restore();
+        handleSsoUserStub.restore();
+    });
+
+    it('should call done with profile when user is authorized', async () => {
+        determineUserRoleStub.resolves('SYSTEM_ADMIN');
+        handleSsoUserStub.resolves({ userId: 'abc', roles: 'SYSTEM_ADMIN' });
+
+        const done = jest.fn();
+        await ssoVerifyFunction(tokens, done);
+
+        expect(done).toHaveBeenCalledWith(
+            null,
+            expect.objectContaining({
+                oid: 'test-oid',
+                roles: 'SYSTEM_ADMIN',
+                email: 'test-username',
+                flow: 'SSO',
+                created: true,
+            })
+        );
+    });
+
+    it('should call done with null and error message when user is not authorized', async () => {
+        determineUserRoleStub.resolves(null);
+
+        const done = jest.fn();
+        await ssoVerifyFunction(tokens, done);
+
+        expect(done).toHaveBeenCalledWith(
+            null,
+            null,
+            expect.objectContaining({
+                message: expect.any(String),
+            })
+        );
+    });
+
+    it('should set created to false if handleSsoUser returns error', async () => {
+        determineUserRoleStub.resolves('SYSTEM_ADMIN');
+        handleSsoUserStub.resolves({ error: 'some error' });
+
+        const done = jest.fn();
+        await ssoVerifyFunction(tokens, done);
+
+        expect(done).toHaveBeenCalledWith(
+            null,
+            expect.objectContaining({
+                created: false,
+            })
+        );
     });
 });
