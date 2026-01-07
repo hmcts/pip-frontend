@@ -13,7 +13,7 @@
         },
         "CrownCourt": {
             "CourtHouseType": "Crown Court",
-            "CourtHouseCode": "1234",
+            "CourtHouseCode": 1234,
             "CourtHouseName": "TestCourtHouseName",
             "CourtHouseAddress": {
                 "Line": ["TestAddressLine1", "TestAddressLine2"],
@@ -26,7 +26,7 @@
             {
                 "CourtHouse": {
                     "CourtHouseType": "Crown Court",
-                    "CourtHouseCode": "1234",
+                    "CourtHouseCode": 1234,
                     "CourtHouseShortName": "TestShortName",
                     "CourtHouseName": "TestCourtHouseName",
                     "CourtHouseAddress": {
@@ -47,7 +47,7 @@
                                     "CaseNumberCaTH": "T20237000",
                                     "CaseArrivedFrom": {
                                         "OriginatingCourt": {
-                                            "CourtHouseCode": "5678",
+                                            "CourtHouseCode": 5678,
                                             "CourtHouseShortName": "TestOriginShortName",
                                             "CourtHouseName": "TestOriginName"
                                         }
@@ -73,10 +73,9 @@
                                             "PersonalDetails": {
                                                 "Name": {
                                                     "CitizenNameTitle": "Mr",
-                                                    "CitizenNameForename": "Pete",
+                                                    "CitizenNameForename": ["Pete", "Paul"],
                                                     "CitizenNameSurname": "Dan",
-                                                    "CitizenNameSuffix": "Y",
-                                                    "CitizenNameRequestedName": "TestDefendantRequestedName"
+                                                    "CitizenNameSuffix": "Y"
                                                 },
                                                 "MaskedName": "TestMaskedName",
                                                 "IsMasked": "no",
@@ -137,7 +136,7 @@
                                     "CaseNumberCaTH": "A06110090",
                                     "CaseArrivedFrom": {
                                         "OriginatingCourt": {
-                                            "CourtHouseCode": "5678",
+                                            "CourtHouseCode": 5678,
                                             "CourtHouseShortName": "TestOriginShortName",
                                             "CourtHouseName": "TestOriginName"
                                         }
@@ -163,7 +162,7 @@
                                             "PersonalDetails": {
                                                 "Name": {
                                                     "CitizenNameTitle": "Mr",
-                                                    "CitizenNameForename": "Pete",
+                                                    "CitizenNameForename": ["Pete"],
                                                     "CitizenNameSurname": "Dan",
                                                     "CitizenNameSuffix": "Y",
                                                     "CitizenNameRequestedName": "TestDefendantRequestedName"
@@ -252,7 +251,7 @@
                                         "PersonalDetails": {
                                             "Name": {
                                                 "CitizenNameTitle": "TestDefendantTitle",
-                                                "CitizenNameForename": "TestDefendantForename",
+                                                "CitizenNameForename": ["TestDefendantForename"],
                                                 "CitizenNameSurname": "TestDefendantSurname",
                                                 "CitizenNameSuffix": "TestDefendantSuffix",
                                                 "CitizenNameRequestedName": "TestDefendantRequestedName"

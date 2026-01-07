@@ -16,7 +16,7 @@
         },
         "CrownCourt": {
             "CourtHouseType": "Crown Court",
-            "CourtHouseCode": "1234",
+            "CourtHouseCode": 1234,
             "CourtHouseName": "TestCourtHouseName",
             "CourtHouseAddress": {
                 "Line": [
@@ -32,7 +32,7 @@
                 "SittingDate": "2025-09-10",
                 "CourtHouse": {
                     "CourtHouseType": "Crown Court",
-                    "CourtHouseCode": "1234",
+                    "CourtHouseCode": 1234,
                     "CourtHouseShortName": "TestShortName",
                     "CourtHouseName": "TestCourtHouseName",
                     "CourtHouseAddress": {
@@ -47,14 +47,13 @@
                 "Sittings": [
                     {
                         "CourtRoomNumber": 1,
-                        "SittingSequenceNo": "TestSeqNo",
                         "SittingAt": "10:00:00",
                         "SittingPriority": "T",
                         "SittingNote": "TestSittingNote",
                         "Judiciary": {
                             "Judge": {
                                 "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestJudgeForename",
+                                "CitizenNameForename": ["TestJudgeForename1", "TestJudgeForename2"],
                                 "CitizenNameSurname": "TestJudgeSurname",
                                 "CitizenNameSuffix": "Jr",
                                 "CitizenNameRequestedName": "TestJudgeRequested"
@@ -62,7 +61,7 @@
                             "Justice": [
                                 {
                                     "CitizenNameTitle": "Ms",
-                                    "CitizenNameForename": "TestJusticeForename",
+                                    "CitizenNameForename": ["TestJusticeForename"],
                                     "CitizenNameSurname": "TestJusticeSurname",
                                     "CitizenNameSuffix": "Sr"
                                 }
@@ -85,7 +84,7 @@
                                         "PersonalDetails": {
                                             "Name": {
                                                 "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestAdvocateForename",
+                                                "CitizenNameForename": ["TestAdvocateForename"],
                                                 "CitizenNameSurname": "TestAdvocateSurname",
                                                 "CitizenNameRequestedName": "TestAdvocateRequestedName"
                                             },
@@ -101,7 +100,7 @@
                                 },
                                 "CommittingCourt": {
                                     "CourtHouseType": "Crown Court",
-                                    "CourtHouseCode": "5678",
+                                    "CourtHouseCode": 5678,
                                     "CourtHouseShortName": "TestOriginShortName",
                                     "CourtHouseName": "TestOriginName"
                                 },
@@ -111,13 +110,12 @@
                                         "PersonalDetails": {
                                             "Name": {
                                                 "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestDefendantForename",
+                                                "CitizenNameForename": ["TestDefendantForename1", "TestDefendantForename2"],
                                                 "CitizenNameSurname": "TestDefendantSurname",
-                                                "CitizenNameSuffix": "TestDefendantSuffix",
-                                                "CitizenNameRequestedName": "TestDefendantRequestedName"
+                                                "CitizenNameSuffix": "TestDefendantSuffix"
                                             },
                                             "MaskedName": "TestMaskedName",
-                                            "IsMasked": "yes",
+                                            "IsMasked": "no",
                                             "DateOfBirth": {
                                                 "BirthDate": "2000-01-01",
                                                 "VerifiedBy": "not verified"
@@ -140,7 +138,7 @@
                                                                 "PersonalDetails": {
                                                                     "Name": {
                                                                         "CitizenNameTitle": "Mr",
-                                                                        "CitizenNameForename": "TestForename",
+                                                                        "CitizenNameForename": ["TestForename"],
                                                                         "CitizenNameSurname": "TestSurname",
                                                                         "CitizenNameSuffix": "TestSuffix",
                                                                         "CitizenNameRequestedName": "TestSolicitorRequestedName"
@@ -177,7 +175,7 @@
                                         "PersonalDetails": {
                                             "Name": {
                                                 "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestDefendantForename",
+                                                "CitizenNameForename": ["TestDefendantForename"],
                                                 "CitizenNameSurname": "TestDefendantSurname",
                                                 "CitizenNameSuffix": "TestDefendantSuffix"
                                             },
@@ -195,7 +193,7 @@
                 "SittingDate": "2025-09-11",
                 "CourtHouse": {
                     "CourtHouseType": "Crown Court",
-                    "CourtHouseCode": "1234",
+                    "CourtHouseCode": 1234,
                     "CourtHouseShortName": "TestShortName",
                     "CourtHouseName": "TestCourtHouseName",
                     "CourtHouseAddress": {
@@ -210,14 +208,13 @@
                 "Sittings": [
                     {
                         "CourtRoomNumber": 5,
-                        "SittingSequenceNo": "TestSeqNo",
                         "SittingAt": "14:00:00",
                         "SittingPriority": "T",
                         "SittingNote": "TestSittingNote",
                         "Judiciary": {
                             "Judge": {
                                 "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestJudgeForename",
+                                "CitizenNameForename": ["TestJudgeForename"],
                                 "CitizenNameSurname": "TestJudgeSurname",
                                 "CitizenNameSuffix": "Jr",
                                 "CitizenNameRequestedName": "TestJudgeRequested"
@@ -240,7 +237,7 @@
                                         "PersonalDetails": {
                                             "Name": {
                                                 "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestAdvocateForename",
+                                                "CitizenNameForename": ["TestAdvocateForename"],
                                                 "CitizenNameSurname": "TestAdvocateSurname",
                                                 "CitizenNameRequestedName": "TestAdvocateRequestedName"
                                             },
@@ -256,7 +253,7 @@
                                 },
                                 "CommittingCourt": {
                                     "CourtHouseType": "Crown Court",
-                                    "CourtHouseCode": "5678",
+                                    "CourtHouseCode": 5678,
                                     "CourtHouseShortName": "TestOriginShortName",
                                     "CourtHouseName": "TestOriginName"
                                 },
@@ -266,7 +263,7 @@
                                         "PersonalDetails": {
                                             "Name": {
                                                 "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestDefendantForename",
+                                                "CitizenNameForename": ["TestDefendantForename"],
                                                 "CitizenNameSurname": "TestDefendantSurname",
                                                 "CitizenNameSuffix": "TestDefendantSuffix",
                                                 "CitizenNameRequestedName": "TestDefendantRequestedName"
@@ -314,14 +311,13 @@
                     },
                     {
                         "CourtRoomNumber": 6,
-                        "SittingSequenceNo": "TestSeqNo",
                         "SittingAt": "15:00:00",
                         "SittingPriority": "T",
                         "SittingNote": "TestSittingNote",
                         "Judiciary": {
                             "Judge": {
                                 "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestJudgeForename",
+                                "CitizenNameForename": ["TestJudgeForename"],
                                 "CitizenNameSurname": "TestJudgeSurname"
                             }
                         },
@@ -342,7 +338,7 @@
                                         "PersonalDetails": {
                                             "Name": {
                                                 "CitizenNameTitle": "Mr",
-                                                "CitizenNameForename": "TestAdvocateForename",
+                                                "CitizenNameForename": ["TestAdvocateForename"],
                                                 "CitizenNameSurname": "TestAdvocateSurname",
                                                 "CitizenNameRequestedName": "TestAdvocateRequestedName"
                                             },
@@ -358,7 +354,7 @@
                                 },
                                 "CommittingCourt": {
                                     "CourtHouseType": "Crown Court",
-                                    "CourtHouseCode": "5678",
+                                    "CourtHouseCode": 5678,
                                     "CourtHouseShortName": "TestOriginShortName",
                                     "CourtHouseName": "TestOriginName"
                                 },
@@ -384,7 +380,7 @@
                         "PersonalDetails": {
                             "Name": {
                                 "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestReserveAdvocateForename",
+                                "CitizenNameForename": ["TestReserveAdvocateForename"],
                                 "CitizenNameSurname": "TestReserveAdvocateSurname",
                                 "CitizenNameSuffix": "TestReserveAdvocateSuffix",
                                 "CitizenNameRequestedName": "TestReserveAdvocateRequestedName"
@@ -401,7 +397,7 @@
                 },
                 "CommittingCourt": {
                     "CourtHouseType": "Magistrates Court",
-                    "CourtHouseCode": "4321",
+                    "CourtHouseCode": 4321,
                     "CourtHouseShortName": "TestReserveOriginShortName",
                     "CourtHouseName": "TestReserveOriginName"
                 },
@@ -411,7 +407,7 @@
                         "PersonalDetails": {
                             "Name": {
                                 "CitizenNameTitle": "Mr",
-                                "CitizenNameForename": "TestReserveForename",
+                                "CitizenNameForename": ["TestReserveForename1", "TestReserveForename2"],
                                 "CitizenNameSurname": "TestReserveSurname",
                                 "CitizenNameSuffix": "TestReserveSuffix",
                                 "CitizenNameRequestedName": "TestReserveRequestedName"
