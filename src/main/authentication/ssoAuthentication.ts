@@ -22,12 +22,12 @@ const ssoSgAdminCtsc = process.env.SSO_SG_ADMIN_CTSC
 const ssoSgAdminLocal = process.env.SSO_SG_ADMIN_LOCAL
     ? process.env.SSO_SG_ADMIN_LOCAL
     : (config.get('secrets.pip-ss-kv.SSO_SG_ADMIN_LOCAL') as string);
-const ssoConfigEndpoint = process.env.SSO_CONFIG_ENDPOINT
-    ? new URL(process.env.SSO_CONFIG_ENDPOINT)
-    : new URL(config.get('secrets.pip-ss-kv.SSO_CONFIG_ENDPOINT'));
+const ssoIssuerUrl = process.env.SSO_ISSUER_URL
+    ? new URL(process.env.SSO_ISSUER_URL)
+    : new URL(config.get('secrets.pip-ss-kv.SSO_ISSUER_URL'));
 
 export async function getSsoConfig() {
-    const ssoOidcClient = await client.discovery(ssoConfigEndpoint, ssoClientId, ssoClientSecret);
+    const ssoOidcClient = await client.discovery(ssoIssuerUrl, ssoClientId, ssoClientSecret);
 
     return {
         config: ssoOidcClient,
