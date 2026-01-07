@@ -2,9 +2,9 @@ import request from 'supertest';
 import { app } from '../../../../main/app';
 import { request as expressRequest } from 'express';
 import { expect } from 'chai';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 import { SubscriptionService } from '../../../../main/service/SubscriptionService';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 describe('Manage third party users - view', () => {
     const PAGE_URL = '/manage-third-party-users/view';
@@ -21,7 +21,7 @@ describe('Manage third party users - view', () => {
 
     const userId = '1234-1234';
 
-    const getThirdPartyUserStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
+    const getThirdPartyUserStub = sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyUserById');
     const getSubscriptionsByUser = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
 
     getThirdPartyUserStub.withArgs(userId).resolves({

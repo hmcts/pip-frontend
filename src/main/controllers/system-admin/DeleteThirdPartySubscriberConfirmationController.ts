@@ -1,17 +1,17 @@
 import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { AccountManagementRequests } from '../../resources/requests/AccountManagementRequests';
 import { UserManagementService } from '../../service/UserManagementService';
 import * as url from 'url';
+import { ThirdPartyRequests } from '../../resources/requests/ThirdPartyRequests';
 
-const accountManagementRequests = new AccountManagementRequests();
+const thirdPartyRequests = new ThirdPartyRequests();
 const userManagementService = new UserManagementService();
 
 export default class DeleteThirdPartySubscriberConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const userId = req.query.userId as string;
-        const thirdPartySubscriber = await accountManagementRequests.getThirdPartySubscriberByUserId(
+        const thirdPartySubscriber = await thirdPartyRequests.getThirdPartySubscriberByUserId(
             userId,
             req.user['userId']
         );
@@ -26,12 +26,12 @@ export default class DeleteThirdPartySubscriberConfirmationController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const userId = req.body.user as string;
-        const thirdPartySubscriber = await accountManagementRequests.getThirdPartySubscriberByUserId(
+        const thirdPartySubscriber = await thirdPartyRequests.getThirdPartySubscriberByUserId(
             userId,
             req.user['userId']
         );
         if (req.body['delete-subscriber-confirm'] === 'yes') {
-            const response = await accountManagementRequests.deleteThirdPartySubscriber(userId, req.user['userId']);
+            const response = await thirdPartyRequests.deleteThirdPartySubscriber(userId, req.user['userId']);
             if (response) {
                 await userManagementService.auditAction(
                     req.user,

@@ -12,6 +12,7 @@ import {
     testAuditData,
     testLocationData,
     testSubscriptionData,
+    testThirdPartySubscriber,
     testUserData,
 } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
@@ -21,6 +22,7 @@ import fs from 'fs';
 import path from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
+import { ThirdPartyRequests } from '../../../main/resources/requests/ThirdPartyRequests';
 
 const userId = '1';
 const name = 'Test';
@@ -44,6 +46,8 @@ const systemAdminRoutes = [
     { path: '/manage-third-party-users' },
     { path: '/manage-third-party-users/view', parameter: `?userId=${userId}` },
     { path: '/manage-third-party-users/subscriptions', parameter: `?userId=${userId}` },
+    { path: '/manage-third-party-subscribers' },
+    { path: '/manage-third-party-subscribers/view', parameter: `?userId=${userId}` },
     { path: '/user-management' },
     { path: '/delete-court-reference-data' },
     { path: '/delete-court-reference-data-confirmation', parameter: '?locationId=123' },
@@ -59,6 +63,11 @@ const systemAdminRoutes = [
     { path: '/create-third-party-user-success' },
     { path: '/delete-third-party-user-confirmation' },
     { path: '/delete-third-party-user-success' },
+    { path: '/create-third-party-subscriber' },
+    { path: '/create-third-party-subscriber-summary' },
+    { path: '/create-third-party-subscriber-success' },
+    { path: '/delete-third-party-subscriber-confirmation' },
+    { path: '/delete-third-party-subscriber-success' },
     { path: '/manage-user' },
     { path: '/delete-user', parameter: `?id=${userId}` },
     { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
@@ -103,6 +112,8 @@ sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationMetadata').re
 sinon.stub(PublicationRequests.prototype, 'getPubsPerLocation').returns(countPerLocation);
 sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(userDataThirdParty);
 sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts').returns([userDataThirdParty]);
+sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberByUserId').resolves(testThirdPartySubscriber);
+sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscribers').returns([testThirdPartySubscriber]);
 sinon.stub(AccountManagementRequests.prototype, 'getAuditLogById').returns(auditData);
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').resolves(subscriptionData);
 sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels').resolves(['EMAIL', 'API']);

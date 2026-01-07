@@ -2,9 +2,9 @@ import { app } from '../../../main/app';
 import request from 'supertest';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
+import { CourtelThirdPartyService } from '../../../main/service/CourtelThirdPartyService';
 
 describe('Manage third party users view', () => {
     describe('on GET', () => {
@@ -15,7 +15,7 @@ describe('Manage third party users view', () => {
 
         expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-        const getThirdPartyByUserIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
+        const getThirdPartyByUserIdStub = sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyUserById');
         const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
         getThirdPartyByUserIdStub.withArgs(userId).resolves(mockUser);
         getSubscriptionsByUserStub.withArgs(userId).resolves(mockSubscriptions);

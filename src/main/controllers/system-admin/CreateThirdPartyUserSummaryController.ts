@@ -1,10 +1,10 @@
 import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { ThirdPartyService } from '../../service/ThirdPartyService';
+import { CourtelThirdPartyService } from '../../service/CourtelThirdPartyService';
 import { UserManagementService } from '../../service/UserManagementService';
 
-const thirdPartyService = new ThirdPartyService();
+const courtelThirdPartyService = new CourtelThirdPartyService();
 const userManagementService = new UserManagementService();
 
 export default class CreateThirdPartyUserSummaryController {
@@ -19,7 +19,7 @@ export default class CreateThirdPartyUserSummaryController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
-        const response = await thirdPartyService.createThirdPartyUser(formData, req.user['userId']);
+        const response = await courtelThirdPartyService.createThirdPartyUser(formData, req.user['userId']);
 
         if (response) {
             await userManagementService.auditAction(

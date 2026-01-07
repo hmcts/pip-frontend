@@ -17,7 +17,7 @@ export default class ManageThirdPartyUsersController {
 
         res.render('system-admin/manage-third-party-subscribers', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscribers']),
-            thirdPartySubscribers: await thirdPartyService.getThirdPartySubscriber(req.user['userId']),
+            thirdPartySubscribers: await thirdPartyService.getThirdPartySubscribers(req.user['userId']),
         });
     }
 }
