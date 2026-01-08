@@ -13,10 +13,10 @@ const clientSecret = process.env.CLIENT_SECRET
 const clientId = process.env.CLIENT_ID
     ? (process.env.CLIENT_ID as string)
     : (config.get('secrets.pip-ss-kv.CLIENT_ID') as string);
-const b2cConfigEndpoint = process.env.B2C_ISSUER_URL
+const b2cConfigEndpoint = process.env.CONFIG_ENDPOINT
     ? new URL(process.env.CONFIG_ENDPOINT)
     : new URL(config.get('secrets.pip-ss-kv.CONFIG_ENDPOINT'));
-const b2cMediaVerificationConfigEndpoint = process.env.B2C_MEDIA_ISSUER_URL
+const b2cMediaVerificationConfigEndpoint = process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT
     ? new URL(process.env.MEDIA_VERIFICATION_CONFIG_ENDPOINT)
     : new URL(config.get('secrets.pip-ss-kv.MEDIA_VERIFICATION_CONFIG_ENDPOINT'));
 
