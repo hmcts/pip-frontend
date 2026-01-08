@@ -106,6 +106,9 @@ export async function appSetup() {
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     });
 
+    console.log("Starting auth setup");
     const oidc = await import('./authentication/authentication');
     await oidc.oidcSetup();
+
+    console.log("Finished auth setup");
 }
