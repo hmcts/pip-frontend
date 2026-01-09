@@ -12,8 +12,7 @@ import {
     testAuditData,
     testLocationData,
     testSubscriptionData,
-    testThirdPartySubscriber,
-    testThirdPartySubscriptions,
+    testThirdPartySubscriber, testThirdPartySubscriptions,
     testUserData,
 } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
@@ -33,56 +32,56 @@ const systemAdminRole = 'SYSTEM_ADMIN';
 const fileName = 'test.csv';
 
 const systemAdminRoutes = [
-    // { path: '/system-admin-dashboard' },
-    // { path: '/blob-view-locations' },
-    // { path: '/blob-view-publications', parameter: '?locationId=123' },
-    // { path: '/blob-view-publication', parameter: '?artefactId=abc' },
-    // { path: '/blob-view-subscription-resubmit-confirmation', parameter: '?artefactId=abc' },
-    // { path: '/blob-view-subscription-resubmit-confirmed' },
-    // { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
-    // { path: '/bulk-create-media-accounts-confirmation', parameter: '?artefactId=abc' },
-    // { path: '/bulk-create-media-accounts-confirmed' },
-    // { path: '/reference-data-upload' },
-    // { path: '/reference-data-upload-summary' },
-    // { path: '/reference-data-upload-confirmation' },
-    // { path: '/manage-third-party-users' },
-    // { path: '/manage-third-party-users/view', parameter: `?userId=${userId}` },
-    // { path: '/manage-third-party-users/subscriptions', parameter: `?userId=${userId}` },
-    // { path: '/manage-third-party-subscribers' },
-    // { path: '/manage-third-party-subscribers/view', parameter: `?userId=${userId}` },
+    { path: '/system-admin-dashboard' },
+    { path: '/blob-view-locations' },
+    { path: '/blob-view-publications', parameter: '?locationId=123' },
+    { path: '/blob-view-publication', parameter: '?artefactId=abc' },
+    { path: '/blob-view-subscription-resubmit-confirmation', parameter: '?artefactId=abc' },
+    { path: '/blob-view-subscription-resubmit-confirmed' },
+    { path: '/bulk-create-media-accounts', parameter: '?locationId=123' },
+    { path: '/bulk-create-media-accounts-confirmation', parameter: '?artefactId=abc' },
+    { path: '/bulk-create-media-accounts-confirmed' },
+    { path: '/reference-data-upload' },
+    { path: '/reference-data-upload-summary' },
+    { path: '/reference-data-upload-confirmation' },
+    { path: '/manage-third-party-users' },
+    { path: '/manage-third-party-users/view', parameter: `?userId=${userId}` },
+    { path: '/manage-third-party-users/subscriptions', parameter: `?userId=${userId}` },
+    { path: '/manage-third-party-subscribers' },
+    { path: '/manage-third-party-subscribers/view', parameter: `?userId=${userId}` },
     { path: '/manage-third-party-subscriptions', parameter: `?userId=${userId}` },
     { path: '/manage-third-party-subscriptions-summary', parameter: `?userId=${userId}` },
     { path: '/manage-third-party-subscriptions-created-success' },
     { path: '/manage-third-party-subscriptions-updated-success' },
-    // { path: '/user-management' },
-    // { path: '/delete-court-reference-data' },
-    // { path: '/delete-court-reference-data-confirmation', parameter: '?locationId=123' },
-    // { path: '/delete-court-reference-data-success' },
-    // { path: '/delete-court-subscription-confirmation', parameter: '?locationId=123' },
-    // { path: '/delete-court-subscription-success', parameter: '?locationId=123' },
-    // { path: '/delete-court-publication-confirmation', parameter: '?locationId=123' },
-    // { path: '/delete-court-publication-success', parameter: '?locationId=123' },
-    // { path: '/audit-log-viewer' },
-    // { path: '/audit-log-details', parameter: '?id=123&timestamp=10/01/2024' },
-    // { path: '/create-third-party-user' },
-    // { path: '/create-third-party-user-summary' },
-    // { path: '/create-third-party-user-success' },
-    // { path: '/delete-third-party-user-confirmation' },
-    // { path: '/delete-third-party-user-success' },
-    // { path: '/create-third-party-subscriber' },
-    // { path: '/create-third-party-subscriber-summary' },
-    // { path: '/create-third-party-subscriber-success' },
-    // { path: '/delete-third-party-subscriber-confirmation' },
-    // { path: '/delete-third-party-subscriber-success' },
-    // { path: '/manage-user' },
-    // { path: '/delete-user', parameter: `?id=${userId}` },
+    { path: '/user-management' },
+    { path: '/delete-court-reference-data' },
+    { path: '/delete-court-reference-data-confirmation', parameter: '?locationId=123' },
+    { path: '/delete-court-reference-data-success' },
+    { path: '/delete-court-subscription-confirmation', parameter: '?locationId=123' },
+    { path: '/delete-court-subscription-success', parameter: '?locationId=123' },
+    { path: '/delete-court-publication-confirmation', parameter: '?locationId=123' },
+    { path: '/delete-court-publication-success', parameter: '?locationId=123' },
+    { path: '/audit-log-viewer' },
+    { path: '/audit-log-details', parameter: '?id=123&timestamp=10/01/2024' },
+    { path: '/create-third-party-user' },
+    { path: '/create-third-party-user-summary' },
+    { path: '/create-third-party-user-success' },
+    { path: '/delete-third-party-user-confirmation' },
+    { path: '/delete-third-party-user-success' },
+    { path: '/create-third-party-subscriber' },
+    { path: '/create-third-party-subscriber-summary' },
+    { path: '/create-third-party-subscriber-success' },
+    { path: '/delete-third-party-subscriber-confirmation' },
+    { path: '/delete-third-party-subscriber-success' },
+    { path: '/manage-user' },
+    { path: '/delete-user', parameter: `?id=${userId}` },
     { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
-    // { path: '/location-metadata-search' },
-    // { path: '/location-metadata-manage', parameter: '?locationId=123' },
-    // { path: '/location-metadata-delete-confirmation', parameter: '?locationId=123' },
-    // { path: '/location-metadata-delete-confirmed' },
-    // { path: '/location-metadata-update-confirmed' },
-    // { path: '/location-metadata-create-confirmed' },
+    { path: '/location-metadata-search' },
+    { path: '/location-metadata-manage', parameter: '?locationId=123' },
+    { path: '/location-metadata-delete-confirmation', parameter: '?locationId=123' },
+    { path: '/location-metadata-delete-confirmed' },
+    { path: '/location-metadata-update-confirmed' },
+    { path: '/location-metadata-create-confirmed' },
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');
@@ -90,6 +89,7 @@ const metadata = testArtefactMetadata();
 const locationData = testLocationData();
 const subscriptionData = testSubscriptionData();
 const userDataThirdParty = testUserData('THIRD_PARTY');
+const thirdPartySubscriptions = testThirdPartySubscriptions();
 const auditData = testAuditData();
 
 const rawUserPageData = fs.readFileSync(path.resolve(__dirname, '../common/mocks/userPageData.json'), 'utf-8');
@@ -120,7 +120,7 @@ sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(user
 sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts').returns([userDataThirdParty]);
 sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberByUserId').resolves(testThirdPartySubscriber);
 sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscribers').returns([testThirdPartySubscriber]);
-sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriptionsByUserId').resolves(testThirdPartySubscriptions);
+sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriptionsByUserId').resolves(thirdPartySubscriptions);
 sinon.stub(AccountManagementRequests.prototype, 'getAuditLogById').returns(auditData);
 sinon.stub(SubscriptionRequests.prototype, 'getUserSubscriptions').resolves(subscriptionData);
 sinon.stub(SubscriptionRequests.prototype, 'retrieveSubscriptionChannels').resolves(['EMAIL', 'API']);
@@ -140,6 +140,8 @@ describe('Accessibility - System Admin Routes', () => {
             fileName: fileName,
             thirdPartyName: 'Third party user name',
             thirdPartyRoleObject: { name: 'General third party' },
+            CIVIL_DAILY_CAUSE_LIST: 'Public',
+            FAMILY_DAILY_CAUSE_LIST: 'Private',
         }),
         createAdminAccount: JSON.stringify({
             firstName: name,

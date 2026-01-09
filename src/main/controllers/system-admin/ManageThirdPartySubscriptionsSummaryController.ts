@@ -14,8 +14,11 @@ export default class ManageThirdPartySubscriptionsSummaryController {
             const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
             const listTypesMap = new Map<string, string>(Object.entries(formData));
             const listTypeNamesMap = new Map<string, string>();
+            const allListTypes = publicationService.getListTypes();
             listTypesMap.forEach((value, key) => {
-                listTypeNamesMap.set(publicationService.getListTypes().get(key).friendlyName, value);
+                if (allListTypes.has(key)) {
+                    listTypeNamesMap.set(allListTypes.get(key).friendlyName, value);
+                }
             });
 
             res.render('system-admin/manage-third-party-subscriptions-summary', {
