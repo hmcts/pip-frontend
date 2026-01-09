@@ -14,9 +14,6 @@ describe('Login', () => {
         await request(app)
             .get('/login?p=B2C_1_SignInUserFlow')
             .expect(res => expect(res.redirect).toBeTruthy)
-            .expect(res => {
-                console.log(res);
-            })
             .expect(res => expect(res.headers['location']).toContain('b2c_1_signinuserflow'))
             .expect(res => expect(res.headers['location']).toContain('ui_locales=en'));
     });

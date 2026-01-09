@@ -73,13 +73,9 @@ export async function oidcSetup(): Promise<void> {
     passport.serializeUser(serializeUser);
     passport.deserializeUser(deserializeUser);
 
-    console.log('Setting up OIDC Strategies for B2C, SSO, CFT IDAM, and Crime IDAM');
     passport.use('login', new OIDCStrategy(await getB2cConfig(), piAadVerifyFunction));
-    console.log('Set up login');
     passport.use('media-verification', new OIDCStrategy(await getB2cMediaVerificationConfig(), piAadVerifyFunction));
-    console.log('Set up media verification');
     passport.use('sso', new OIDCStrategy(await getSsoConfig(), ssoVerifyFunction));
-    console.log('Set up SSO');
     passport.use('cft-idam', new CustomStrategy(cftIdamAuthentication));
     passport.use('crime-idam', new CustomStrategy(crimeIdamAuthentication));
 }
