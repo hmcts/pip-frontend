@@ -1,0 +1,53 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    <div class="parent-box">
+        <h1 class="govuk-heading-l">{{ header }}</h1>
+        <p class="govuk-body">{{ selectMessage }}</p>
+        <div class="govuk-grid-row" id="list-type-content">
+            <form method="post">
+                <input type="hidden" id="userId" name="userId" value="{{ userId }}">
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">{{ listTypeHeader }}</th>
+                            <th scope="col" class="govuk-table__header">{{ sensitivityHeader }}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% for key, value in listTypeSensitivityMapping %}
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-!-padding-bottom-0" id="{{ key }}-name">{{ value.friendlyName }}</td>
+                                <td class="govuk-table__cell govuk-!-padding-bottom-0" id="{{ key }}-sensitivity">
+                                    {{ govukSelect({
+                                        id: key,
+                                        name: key,
+                                        items: value.sensitivityItems
+                                    }) }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ submitButton(updateButton if subscriptions | length else createButton) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
+    {{ super() }}
+{% endblock %}

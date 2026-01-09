@@ -1,0 +1,9 @@
+{
+    "title": "Manage third-party subscriptions",
+    "header": "Manage third-party subscriptions",
+    "selectMessage": "Please select a sensitivity",
+    "listTypeHeader": "List type",
+    "sensitivityHeader": "Sensitivity",
+    "createButton": "Create",
+    "updateButton": "Update"
+}
