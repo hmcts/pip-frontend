@@ -73,11 +73,7 @@ export class ThirdPartyService {
         return { name: formData.thirdPartySubscriberName };
     }
 
-    public async createThirdPartySubscriptions(
-        formData: any,
-        userId: string,
-        requesterId: string
-    ): Promise<boolean> {
+    public async createThirdPartySubscriptions(formData: any, userId: string, requesterId: string): Promise<boolean> {
         const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
         return await this.thirdPartyRequests.createThirdPartySubscriptions(
             this.formatThirdPartySubscriptionsPayload(listTypeSensitivityMap, userId),
@@ -85,11 +81,7 @@ export class ThirdPartyService {
         );
     }
 
-    public async updateThirdPartySubscriptions(
-        formData: any,
-        userId: string,
-        requesterId: string
-    ): Promise<boolean> {
+    public async updateThirdPartySubscriptions(formData: any, userId: string, requesterId: string): Promise<boolean> {
         const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
         return await this.thirdPartyRequests.updateThirdPartySubscriptions(
             this.formatThirdPartySubscriptionsPayload(listTypeSensitivityMap, userId),

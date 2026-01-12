@@ -28,7 +28,10 @@ export default class ManageThirdPartySubscriptionsSummaryController {
         const thirdPartyUserId = req.body?.userId;
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
 
-        const subscriptions = await thirdPartyService.getThirdPartySubscriptionsByUserId(thirdPartyUserId, req.user['userId']);
+        const subscriptions = await thirdPartyService.getThirdPartySubscriptionsByUserId(
+            thirdPartyUserId,
+            req.user['userId']
+        );
         const subscriptionsPresent = subscriptions && subscriptions.length > 0;
 
         const success = subscriptionsPresent

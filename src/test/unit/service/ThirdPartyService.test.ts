@@ -11,9 +11,9 @@ describe('Third Party Service tests', () => {
     const invalidUserId = '124';
 
     const subscriptionFormData = {
-        'CIVIL_DAILY_CAUSE_LIST': 'PUBLIC',
-        'FAMILY_DAILY_CAUSE_LIST': 'PRIVATE',
-        'SJP_PRESS_LIST': 'CLASSIFIED',
+        CIVIL_DAILY_CAUSE_LIST: 'PUBLIC',
+        FAMILY_DAILY_CAUSE_LIST: 'PRIVATE',
+        SJP_PRESS_LIST: 'CLASSIFIED',
     };
 
     const thirdPartySubscriptions = [
@@ -230,9 +230,9 @@ describe('Third Party Service tests', () => {
             expect(result).to.have.length(3);
 
             const keys = Array.from(result.keys());
-            expect(keys[0]).to.equal("Civil Daily Cause List");
-            expect(keys[1]).to.equal("Family Daily Cause List");
-            expect(keys[2]).to.equal("Single Justice Procedure Press List (Full List)");
+            expect(keys[0]).to.equal('Civil Daily Cause List');
+            expect(keys[1]).to.equal('Family Daily Cause List');
+            expect(keys[2]).to.equal('Single Justice Procedure Press List (Full List)');
         });
     });
 });
