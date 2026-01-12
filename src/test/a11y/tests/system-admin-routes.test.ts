@@ -12,7 +12,8 @@ import {
     testAuditData,
     testLocationData,
     testSubscriptionData,
-    testThirdPartySubscriber, testThirdPartySubscriptions,
+    testThirdPartySubscriber,
+    testThirdPartySubscriptions,
     testUserData,
 } from '../common/testData';
 import { filterRoutes, testAccessibility } from '../common/pa11yHelper';
