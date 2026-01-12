@@ -36,7 +36,7 @@ const formCookie = {
     FAMILY_DAILY_CAUSE_LIST: 'Private',
 };
 
-const listTypeNamesMap = new Map([
+const listTypeNameMap = new Map([
     ['Civil Daily Cause List', 'Public'],
     ['Family Daily Cause List', 'Private'],
 ]);
@@ -86,7 +86,7 @@ describe('Manage third-party subscriptions summary controller', () => {
 
             const expectedOptions = {
                 title: 'Manage third-party subscriptions summary',
-                listTypeNamesMap,
+                listTypeNameMap,
                 userId: userId,
             };
 
@@ -151,7 +151,7 @@ describe('Manage third-party subscriptions summary controller', () => {
 
             const expectedOptions = {
                 title: 'Manage third-party subscriptions summary',
-                listTypeNamesMap,
+                listTypeNameMap,
                 userId: userId3,
                 requestError: true,
             };

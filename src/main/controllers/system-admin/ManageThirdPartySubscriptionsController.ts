@@ -7,10 +7,10 @@ const thirdPartyService = new ThirdPartyService();
 
 export default class ManageThirdPartySubscriptionsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const userId = req.query?.userId as string;
-        if (userId) {
+        const thirdPartyUserId = req.query?.userId as string;
+        if (thirdPartyUserId) {
             const subscriptions = await thirdPartyService.getThirdPartySubscriptionsByUserId(
-                userId,
+                thirdPartyUserId,
                 req.user['userId']
             );
             const listTypeSensitivityMapping = thirdPartyService.constructListTypeSensitivityMappings(subscriptions);
@@ -19,7 +19,7 @@ export default class ManageThirdPartySubscriptionsController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriptions']),
                 subscriptions,
                 listTypeSensitivityMapping,
-                userId,
+                userId: thirdPartyUserId,
             });
             return;
         }
@@ -29,9 +29,9 @@ export default class ManageThirdPartySubscriptionsController {
     public post(req: PipRequest, res: Response): void {
         const map = new Map<string, string>(Object.entries(req.body));
         const listTypeMap = new Map([...map].filter(([k, v]) => k !== 'userId' && v !== 'EMPTY'));
-        const userId = req.body?.userId;
+        const thirdPartyUserId = req.body?.userId;
 
         res.cookie('formCookie', JSON.stringify(Object.fromEntries(listTypeMap)), { secure: true });
-        res.redirect(`/manage-third-party-subscriptions-summary?userId=${userId}`);
+        res.redirect(`/manage-third-party-subscriptions-summary?userId=${thirdPartyUserId}`);
     }
 }

@@ -74,23 +74,25 @@ export class ThirdPartyService {
     }
 
     public async createThirdPartySubscriptions(
-        formData: Map<string, string>,
+        formData: any,
         userId: string,
         requesterId: string
     ): Promise<boolean> {
+        const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
         return await this.thirdPartyRequests.createThirdPartySubscriptions(
-            this.formatThirdPartySubscriptionsPayload(formData, userId),
+            this.formatThirdPartySubscriptionsPayload(listTypeSensitivityMap, userId),
             requesterId
         );
     }
 
     public async updateThirdPartySubscriptions(
-        formData: Map<string, string>,
+        formData: any,
         userId: string,
         requesterId: string
     ): Promise<boolean> {
+        const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
         return await this.thirdPartyRequests.updateThirdPartySubscriptions(
-            this.formatThirdPartySubscriptionsPayload(formData, userId),
+            this.formatThirdPartySubscriptionsPayload(listTypeSensitivityMap, userId),
             userId,
             requesterId
         );
@@ -105,11 +107,11 @@ export class ThirdPartyService {
     }
 
     private formatThirdPartySubscriptionsPayload(
-        listTypes: Map<string, string>,
+        listTypeMap: Map<string, string>,
         userId: string
     ): ThirdPartySubscription[] {
         const payload = [];
-        listTypes.forEach((value, key) =>
+        listTypeMap.forEach((value, key) =>
             payload.push({
                 userId: userId,
                 listType: key,
@@ -139,6 +141,19 @@ export class ThirdPartyService {
         return new Map(
             [...listTypeSensitivityMap].sort(([, v], [, v2]) => (v.friendlyName < v2.friendlyName ? -1 : 1))
         );
+    }
+
+    public replaceListTypeKeysWithFriendlyNames(formData: any): Map<string, string> {
+        const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
+        const allListTypes = publicationService.getListTypes();
+
+        const listTypeNameSensitivityMap = new Map<string, string>();
+        listTypeSensitivityMap.forEach((value, key) => {
+            if (allListTypes.has(key)) {
+                listTypeNameSensitivityMap.set(allListTypes.get(key).friendlyName, value);
+            }
+        });
+        return listTypeNameSensitivityMap;
     }
 
     private populateSensitivityItems(listType: string, subscriptionMap: Map<string, string>): SensitivityItem[] {

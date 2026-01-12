@@ -10,11 +10,11 @@ describe('Third Party Service tests', () => {
     const userId = '123';
     const invalidUserId = '124';
 
-    const subscriptionFormData = new Map([
-        ['CIVIL_DAILY_CAUSE_LIST', 'PUBLIC'],
-        ['FAMILY_DAILY_CAUSE_LIST', 'PRIVATE'],
-        ['SJP_PRESS_LIST', 'CLASSIFIED'],
-    ]);
+    const subscriptionFormData = {
+        'CIVIL_DAILY_CAUSE_LIST': 'PUBLIC',
+        'FAMILY_DAILY_CAUSE_LIST': 'PRIVATE',
+        'SJP_PRESS_LIST': 'CLASSIFIED',
+    };
 
     const thirdPartySubscriptions = [
         {
@@ -221,6 +221,18 @@ describe('Third Party Service tests', () => {
             expect(sjpPressListResult.sensitivityItems[1].selected).to.be.false;
             expect(sjpPressListResult.sensitivityItems[2].selected).to.be.false;
             expect(sjpPressListResult.sensitivityItems[3].selected).to.be.true;
+        });
+    });
+
+    describe('Replace list type keys with friendly names', () => {
+        it('should return expected list type friendly names', () => {
+            const result = thirdPartyService.replaceListTypeKeysWithFriendlyNames(subscriptionFormData);
+            expect(result).to.have.length(3);
+
+            const keys = Array.from(result.keys());
+            expect(keys[0]).to.equal("Civil Daily Cause List");
+            expect(keys[1]).to.equal("Family Daily Cause List");
+            expect(keys[2]).to.equal("Single Justice Procedure Press List (Full List)");
         });
     });
 });

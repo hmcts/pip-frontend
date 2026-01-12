@@ -1,7 +1,7 @@
 {
     "title": "Manage third-party subscriptions",
     "header": "Manage third-party subscriptions",
-    "selectMessage": "Please select a sensitivity",
+    "selectMessage": "To subscribe to publications of a list type, please select a sensitivity level for the list type below.",
     "listTypeHeader": "List type",
     "sensitivityHeader": "Sensitivity",
     "createButton": "Create",
