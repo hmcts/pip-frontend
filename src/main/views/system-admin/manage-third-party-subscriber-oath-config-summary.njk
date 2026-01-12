@@ -1,0 +1,169 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" action="manage-third-party-subscriber-oath-config-summary">
+        {{ govukInput({
+            id: "user",
+            name: "user",
+            type: "hidden",
+            value: formData.user
+        }) }}
+        {{ govukInput({
+            id: "createConfig",
+            name: "createConfig",
+            type: "hidden",
+            value: formData.createConfig
+        }) }}
+        {{ govukSummaryList({
+            rows: [
+                {
+                    key: {
+                        text: destinationUrl
+                    },
+                    value: {
+                        text: formData.destinationUrl
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#destinationUrl",
+                                text: actionName,
+                                visuallyHiddenText: destinationUrl
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                    text: tokenUrl
+                    },
+                        value: {
+                        text: formData.tokenUrl
+                    },
+                        actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#tokenUrl",
+                                text: actionName,
+                                visuallyHiddenText: tokenUrl
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: scopeKey
+                    },
+                    value: {
+                        text: formData.scopeKey
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#scopeKey",
+                                text: actionName,
+                                visuallyHiddenText: destinationUrl
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: scopeValue
+                    },
+                    value: {
+                        text: formData.scopeValue
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#scopeValue",
+                                text: actionName,
+                                visuallyHiddenText: scopeValue
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                    text: clientIdKey
+                    },
+                        value: {
+                        text: formData.clientIdKey
+                    },
+                        actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#clientIdKey",
+                                text: actionName,
+                                visuallyHiddenText: clientIdKey
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: clientId
+                    },
+                    value: {
+                        text: formData.clientId
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#clientId",
+                                text: actionName,
+                                visuallyHiddenText: clientId
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                    text: clientSecretKey
+                    },
+                        value: {
+                        text: formData.clientSecretKey
+                    },
+                        actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#clientSecretKey",
+                                text: actionName,
+                                visuallyHiddenText: clientSecretKey
+                            }
+                        ]
+                    }
+                }
+            ]
+        }) }}
+        {{ submitButton(confirmButton) }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+{% endblock %}

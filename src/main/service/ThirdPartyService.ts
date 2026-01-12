@@ -51,8 +51,33 @@ export class ThirdPartyService {
         );
     }
 
+    public async createThirdPartySubscriberOathConfig(formData, requesterId): Promise<boolean> {
+        return await this.thirdPartyRequests.createThirdPartySubscriberOathConfig(
+            this.formatThirdPartySubscriberOathConfigPayload(formData),
+            requesterId
+        );
+    }
+
+    public async updateThirdPartySubscriberOathConfig(formData, requesterId): Promise<boolean> {
+        return await this.thirdPartyRequests.updateThirdPartySubscriberOathConfig(formData.user,
+            this.formatThirdPartySubscriberOathConfigPayload(formData),
+            requesterId
+        );
+    }
+
     private formatThirdPartySubscriberPayload(formData) {
         return { name: formData.thirdPartySubscriberName };
+    }
+
+    private formatThirdPartySubscriberOathConfigPayload(formData) {
+        return {
+            userId: formData.user,
+            destinationUrl: formData.destinationUrl,
+            tokenUrl: formData.tokenUrl,
+            clientIdKey: formData.clientIdKey,
+            clientSecretKey: formData.clientSecretKey,
+            scopeKey: formData.scopeKey,
+        };
     }
 
     public validateThirdPartySubscriberOathConfigFormFields(formData): any | null {
@@ -61,7 +86,9 @@ export class ThirdPartyService {
             tokenUrlError: !formData.tokenUrl,
             scopeKeyError: !formData.scopeKey,
             scopeValueError: !formData.scopeValue,
+            clientIdKeyError: !formData.clientIdKey,
             clientIdError: !formData.clientId,
+            clientSecretKeyError: !formData.clientSecretKey,
             clientSecretError: !formData.clientSecret,
         };
 

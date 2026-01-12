@@ -9,8 +9,12 @@
     "scopeKeyError": "Enter Scope Key",
     "scopeValueLabel": "Scope Value",
     "scopeValueError": "Enter Scope Value",
+    "clientIdKeyLabel": "Client ID Key",
+    "clientIdKeyError": "Enter Client ID Key",
     "clientIdLabel": "Client ID",
     "clientIdError": "Enter Client ID",
+    "clientSecretKeyLabel": "Client Secret Key",
+    "clientSecretKeyError": "Enter Client Secret Key",
     "clientSecretLabel": "Client Secret",
     "clientSecretError": "Enter Client Secret",
     "errorTitle": "There is a problem"

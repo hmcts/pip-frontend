@@ -2,6 +2,7 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/password-input/macro.njk" import govukPasswordInput %}
 
 {% extends "../template.njk" %}
 {% block pageTitle %}
@@ -26,8 +27,14 @@
         {% if formErrors.scopeValueError %}
             {% set errorList = (errorList.push({text: scopeValueError, href: "#scopeValue"}), errorList) %}
         {% endif %}
+        {% if formErrors.clientIdKeyError %}
+            {% set errorList = (errorList.push({text: clientIdKeyError, href: "#clientIdKey"}), errorList) %}
+        {% endif %}
         {% if formErrors.clientIdError %}
             {% set errorList = (errorList.push({text: clientIdError, href: "#clientId"}), errorList) %}
+        {% endif %}
+        {% if formErrors.clientSecretKeyError %}
+            {% set errorList = (errorList.push({text: clientSecretKeyError, href: "#clientSecretKey"}), errorList) %}
         {% endif %}
         {% if formErrors.clientSecretError %}
             {% set errorList = (errorList.push({text: clientSecretError, href: "#clientSecret"}), errorList) %}
@@ -42,7 +49,9 @@
     {% set tokenUrlErrorMessage = {text: tokenUrlError} if formErrors.tokenUrlError else '' %}
     {% set scopeKeyErrorMessage = {text: scopeKeyError} if formErrors.scopeKeyError else '' %}
     {% set scopeValueErrorMessage = {text: scopeValueError} if formErrors.scopeValueError else '' %}
+    {% set clientIdKeyErrorMessage = {text: clientIdKeyError} if formErrors.clientIdKeyError else '' %}
     {% set clientIdErrorMessage = {text: clientIdError} if formErrors.clientIdError else '' %}
+    {% set clientSecretKeyErrorMessage = {text: clientSecretKeyError} if formErrors.clientSecretKeyError else '' %}
     {% set clientSecretErrorMessage = {text: clientSecretError} if formErrors.clientSecretError else '' %}
 
     {% set destinationUrlInput = govukInput({
@@ -85,6 +94,16 @@
         },
         errorMessage: scopeValueErrorMessage
     }) %}
+    {% set clientIdKeyInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "clientIdKey",
+        name: "clientIdKey",
+        value: formData.clientIdKey,
+        label: {
+            text: clientIdKeyLabel
+        },
+        errorMessage: clientIdKeyErrorMessage
+    }) %}
     {% set clientIdInput = govukInput({
         classes: 'govuk-!-width-two-thirds',
         id: "clientId",
@@ -95,11 +114,21 @@
         },
         errorMessage: clientIdErrorMessage
     }) %}
-    {% set clientSecretInput = govukInput({
+    {% set clientSecretKeyInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "clientSecretKey",
+        name: "clientSecretKey",
+        value: formData.clientSecretKey,
+        label: {
+            text: clientSecretKeyLabel
+        },
+        errorMessage: clientSecretKeyErrorMessage
+    }) %}
+    {% set clientSecretInput = govukPasswordInput({
         classes: 'govuk-!-width-two-thirds',
         id: "clientSecret",
         name: "clientSecret",
-        value: formData.clientSecret,
+        value: "",
         label: {
             text: clientSecretLabel
         },
@@ -107,11 +136,25 @@
     }) %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
     <form method="post" novalidate>
+        {{ govukInput({
+            id: "user",
+            name: "user",
+            type: "hidden",
+            value: formData.user
+        }) }}
+        {{ govukInput({
+            id: "createConfig",
+            name: "createConfig",
+            type: "hidden",
+            value: formData.createConfig
+        }) }}
         {{ destinationUrlInput }}
         {{ tokenUrlInput }}
         {{ scopeKeyInput }}
         {{ scopeValueInput }}
+        {{ clientIdKeyInput }}
         {{ clientIdInput }}
+        {{ clientSecretKeyInput }}
         {{ clientSecretInput }}
         {{ submitButton() }}
     </form>

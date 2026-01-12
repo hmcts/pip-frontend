@@ -2,12 +2,29 @@ import { PipRequest } from '../../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { ThirdPartyService } from '../../service/ThirdPartyService';
+import { ThirdPartyRequests } from '../../resources/requests/ThirdPartyRequests';
 
 const thirdPartyService = new ThirdPartyService();
+const thirdPartyRequests = new ThirdPartyRequests();
 
 export default class ManageThirdPartySubscriberOathConfigController {
-    public get(req: PipRequest, res: Response): void {
-        const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
+    public async get(req: PipRequest, res: Response): Promise<void> {
+        let formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
+
+        const userId = req.query.userId as string;
+        if (formData.user != userId) {
+            formData = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(
+                userId,
+                req.user['userId']
+            );
+
+            if (!formData || typeof formData !== "object") {
+                formData = {};
+                formData.createConfig = 'true';
+            }
+
+            formData.user = userId;
+        }
 
         res.render('system-admin/manage-third-party-subscriber-oath-config', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oath-config']),
