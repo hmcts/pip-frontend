@@ -13,12 +13,9 @@ export default class ManageThirdPartySubscriberOathConfigController {
 
         const userId = req.query.userId as string;
         if (formData.user != userId) {
-            formData = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(
-                userId,
-                req.user['userId']
-            );
+            formData = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(userId, req.user['userId']);
 
-            if (!formData || typeof formData !== "object") {
+            if (!formData || typeof formData !== 'object') {
                 formData = {};
                 formData.createConfig = 'true';
             }

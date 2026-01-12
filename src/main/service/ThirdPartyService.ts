@@ -59,7 +59,8 @@ export class ThirdPartyService {
     }
 
     public async updateThirdPartySubscriberOathConfig(formData, requesterId): Promise<boolean> {
-        return await this.thirdPartyRequests.updateThirdPartySubscriberOathConfig(formData.user,
+        return await this.thirdPartyRequests.updateThirdPartySubscriberOathConfig(
+            formData.user,
             this.formatThirdPartySubscriberOathConfigPayload(formData),
             requesterId
         );
