@@ -283,6 +283,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/functions-extensions-base@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@azure/functions-extensions-base@npm:0.2.0"
+  checksum: 10/6f8e6db44c94246f25cb05cb1e3602e71252d97c9234f56c676be576c209107660b15f6c08717a4bd6d0c108a5cccaded9309ef5a5d70cc44bf9c3b7e2924757
+  languageName: node
+  linkType: hard
+
 "@azure/functions-old@npm:@azure/functions@3.5.1":
   version: 3.5.1
   resolution: "@azure/functions@npm:3.5.1"
@@ -295,13 +302,13 @@ __metadata:
   linkType: hard
 
 "@azure/functions@npm:^4.6.0":
-  version: 4.7.2
-  resolution: "@azure/functions@npm:4.7.2"
+  version: 4.11.0
+  resolution: "@azure/functions@npm:4.11.0"
   dependencies:
+    "@azure/functions-extensions-base": "npm:0.2.0"
     cookie: "npm:^0.7.0"
     long: "npm:^4.0.0"
-    undici: "npm:^5.29.0"
-  checksum: 10/ce0caebf89960efc8717072c88abc404a08cdde3c72aca2041818abad691976784d28db4309e90aabdcea73431cd30c147cb9531cb447ff0e928b79838cc752a
+  checksum: 10/98b19d5c55f7cc3bf985750cb86f2e695dd136ef15df7379d45bf38099c40b0ed74e7781de80fe850cebbf9a524980495ae9ae2c093abc59f394f3192035d0da
   languageName: node
   linkType: hard
 
@@ -2987,13 +2994,6 @@ __metadata:
     lefthook: bin/index.js
   checksum: 10/8236b898f2a1c75d38c24559a5022979f31a45255dfeb23bd5d096582c0fedd4cbfd4fec1557cb0755c5546b1449ad19673d15256b3b10cc4ed98be7a9f28f9f
   conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=ia32)
-  languageName: node
-  linkType: hard
-
-"@fastify/busboy@npm:^2.0.0":
-  version: 2.1.1
-  resolution: "@fastify/busboy@npm:2.1.1"
-  checksum: 10/2bb8a7eca8289ed14c9eb15239bc1019797454624e769b39a0b90ed204d032403adc0f8ed0d2aef8a18c772205fa7808cf5a1b91f21c7bfc7b6032150b1062c5
   languageName: node
   linkType: hard
 
@@ -17829,19 +17829,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^5.29.0":
-  version: 5.29.0
-  resolution: "undici@npm:5.29.0"
-  dependencies:
-    "@fastify/busboy": "npm:^2.0.0"
-  checksum: 10/0ceca8924a32acdcc0cfb8dd2d368c217840970aa3f5e314fc169608474be6341c5b8e50cad7bd257dbe3b4e432bc5d0a0d000f83644b54fa11a48735ec52b93
-  languageName: node
-  linkType: hard
-
 "undici@npm:^6.19.5":
-  version: 6.21.3
-  resolution: "undici@npm:6.21.3"
-  checksum: 10/b6b8f4a90e294c11fabbb174b471a310840695ed0154a44b81e9bb4a08867ed738c8a7eac4eb46c7902d502fbccf03fa2cf2e5f18d9a2218d82e4294e3f74a2b
+  version: 6.23.0
+  resolution: "undici@npm:6.23.0"
+  checksum: 10/56950995e7b628e62c996430445d17995ca9b70f6f2afe760a63da54205660d968bd08f0741b6f4fb008f40aa35c69cce979cd96ced399585d8c897a76a4f1d1
   languageName: node
   linkType: hard
 
