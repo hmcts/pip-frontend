@@ -44,6 +44,8 @@
         "cichecks": "yarn && yarn build && yarn lint && yarn test && yarn test:routes &&  yarn test:a11y"
     },
     "dependencies": {
+        "@azure/identity": "^4.13.0",
+        "@azure/keyvault-secrets": "^4.10.0",
         "@azure/msal-node": "^3.8.1",
         "@hmcts/cookie-manager": "^1.1.0",
         "@hmcts/info-provider": "^1.2.3",
