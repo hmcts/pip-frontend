@@ -16,14 +16,29 @@ export default class ManageThirdPartySubscriberOathConfigController {
         const userId = req.query.userId as string;
         if (formData.user != userId) {
             formData = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(userId, req.user['userId']);
-            const thirdPartySubscriber = await thirdPartyService.getThirdPartySubscriberById(userId, req.user['userId']);
+            const thirdPartySubscriber = await thirdPartyService.getThirdPartySubscriberById(
+                userId,
+                req.user['userId']
+            );
 
             if (!formData || typeof formData !== 'object') {
                 formData = {};
                 formData.createConfig = 'true';
-                formData.scopeKey = keyVaultService.createKeyVaultSecretName(thirdPartySubscriber.name, userId, 'scope');
-                formData.clientIdKey = keyVaultService.createKeyVaultSecretName(thirdPartySubscriber.name, userId, 'client-id');
-                formData.clientSecretKey = keyVaultService.createKeyVaultSecretName(thirdPartySubscriber.name, userId, 'client-secret');
+                formData.scopeKey = keyVaultService.createKeyVaultSecretName(
+                    thirdPartySubscriber.name,
+                    userId,
+                    'scope'
+                );
+                formData.clientIdKey = keyVaultService.createKeyVaultSecretName(
+                    thirdPartySubscriber.name,
+                    userId,
+                    'client-id'
+                );
+                formData.clientSecretKey = keyVaultService.createKeyVaultSecretName(
+                    thirdPartySubscriber.name,
+                    userId,
+                    'client-secret'
+                );
             } else {
                 formData.scopeValue = await keyVaultService.getSecret(formData.scopeKey);
                 formData.clientId = await keyVaultService.getSecret(formData.clientIdKey);
