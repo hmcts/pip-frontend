@@ -41,11 +41,7 @@ export async function getSsoConfig() {
 export async function ssoVerifyFunction(tokens, done): Promise<any> {
     const profile = jwtDecode(tokens['id_token']);
     const userGroups = profile['groups'] ?? [];
-    const userRole = await determineUserRole(
-        profile['oid'],
-        userGroups,
-        tokens['access_token']
-    );
+    const userRole = await determineUserRole(profile['oid'], userGroups, tokens['access_token']);
 
     if (userRole) {
         profile['roles'] = userRole;
@@ -93,11 +89,11 @@ async function updateSsoUser(ssoUser, userId): Promise<object | string> {
 
 async function createSsoUser(ssoUser): Promise<object> {
     if (ssoUser['roles'] === 'SYSTEM_ADMIN') {
-    const piAccount = {
-        email: ssoUser['email'],
-        provenanceUserId: ssoUser['oid'],
-    };
-    return await accountManagementRequests.createSystemAdminUser(piAccount);
+        const piAccount = {
+            email: ssoUser['email'],
+            provenanceUserId: ssoUser['oid'],
+        };
+        return await accountManagementRequests.createSystemAdminUser(piAccount);
     } else {
         const piAccount = [
             {

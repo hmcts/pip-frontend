@@ -12,7 +12,12 @@ process.env.SSO_SG_SYSTEM_ADMIN = systemAdminSecurityGroup;
 process.env.SSO_SG_ADMIN_CTSC = adminCtscSecurityGroup;
 process.env.SSO_SG_ADMIN_LOCAL = adminLocalSecurityGroup;
 
-import { ssoVerifyFunction, getSsoConfig, determineUserRole, handleSsoUser } from '../../../main/authentication/ssoAuthentication';
+import {
+    ssoVerifyFunction,
+    getSsoConfig,
+    determineUserRole,
+    handleSsoUser,
+} from '../../../main/authentication/ssoAuthentication';
 import { describe } from '@jest/globals';
 
 const graphApiStub = sinon.stub(graphApi, 'post');
@@ -45,9 +50,7 @@ sinon
     .stub(AccountManagementRequests.prototype, 'createPIAccount')
     .resolves({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
 
-
-describe ("SSO Authentication Test", () => {
-
+describe('SSO Authentication Test', () => {
     afterAll(() => {
         delete process.env.SSO_SG_SYSTEM_ADMIN;
         delete process.env.SSO_SG_ADMIN_CTSC;
@@ -76,9 +79,7 @@ describe ("SSO Authentication Test", () => {
         });
     });
 
-
     describe('handleSsoUser', () => {
-
         it('should return PI user if user is found with the same role', async () => {
             const response = await handleSsoUser({ oid: '1', roles: 'SYSTEM_ADMIN' });
             expect(response).toEqual({ userId: '123', roles: 'SYSTEM_ADMIN' });
@@ -108,7 +109,6 @@ describe ("SSO Authentication Test", () => {
             const response = await handleSsoUser({ oid: '2', roles: 'INTERNAL_ADMIN_CTSC' });
             expect(response).toEqual({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
         });
-
     });
 
     describe('getSsoConfig', () => {
@@ -136,7 +136,7 @@ describe ("SSO Authentication Test", () => {
             systemAdminStub = sinon
                 .stub(AccountManagementRequests.prototype, 'createSystemAdminUser')
                 .resolves({ userId: '124', roles: 'SYSTEM_ADMIN' });
-        })
+        });
 
         it('should call done with profile when user is authorized', async () => {
             const profile = {
@@ -207,7 +207,7 @@ describe ("SSO Authentication Test", () => {
             systemAdminStub.restore();
             systemAdminStub = sinon
                 .stub(AccountManagementRequests.prototype, 'createSystemAdminUser')
-                .resolves({ error: "This is an error" });
+                .resolves({ error: 'This is an error' });
 
             const profile = {
                 oid: '6',
@@ -228,5 +228,4 @@ describe ("SSO Authentication Test", () => {
             );
         });
     });
-
 });
