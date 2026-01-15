@@ -1,0 +1,17 @@
+{
+    "title": "Manage third party subscriber Oath Config - Create third party subscriber oath config summary - Court and Tribunal Hearings - GOV.UK",
+    "header": "Manage third party subscriber oath config summary",
+    "destinationUrl": "Name",
+    "tokenUrl": "Token URL",
+    "scopeKey": "Scope Key",
+    "scopeValue": "Scope Value",
+    "clientIdKey": "Client ID Key",
+    "clientId": "Client ID",
+    "clientSecretKey": "Client Secret Key",
+    "actionName": "Change",
+    "confirmButton": "Confirm",
+    "error": {
+        "title": "There is a problem",
+        "message": "Failed to manage third party subscriber oath config. Please try again."
+    }
+}

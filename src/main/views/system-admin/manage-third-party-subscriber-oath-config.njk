@@ -82,6 +82,9 @@
         label: {
             text: scopeKeyLabel
         },
+        attributes: {
+            readonly: "readonly"
+        },
         errorMessage: scopeKeyErrorMessage
     }) %}
     {% set scopeValueInput = govukInput({
@@ -102,6 +105,9 @@
         label: {
             text: clientIdKeyLabel
         },
+        attributes: {
+            readonly: "readonly"
+        },
         errorMessage: clientIdKeyErrorMessage
     }) %}
     {% set clientIdInput = govukInput({
@@ -121,6 +127,9 @@
         value: formData.clientSecretKey,
         label: {
             text: clientSecretKeyLabel
+        },
+        attributes: {
+            readonly: "readonly"
         },
         errorMessage: clientSecretKeyErrorMessage
     }) %}
@@ -156,7 +165,11 @@
         {{ clientIdInput }}
         {{ clientSecretKeyInput }}
         {{ clientSecretInput }}
-        {{ submitButton() }}
+        {% if formData.createConfig === "true" %}
+            {{ submitButton(createOathConfigBtn) }}
+        {% else %}
+            {{ submitButton(updateOathConfigBtn) }}
+        {% endif %}
     </form>
 
 {% endblock %}

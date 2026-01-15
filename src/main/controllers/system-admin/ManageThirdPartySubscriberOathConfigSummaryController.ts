@@ -3,9 +3,11 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { ThirdPartyService } from '../../service/ThirdPartyService';
 import { UserManagementService } from '../../service/UserManagementService';
+import { KeyVaultService } from '../../service/KeyVaultService';
 
 const thirdPartyService = new ThirdPartyService();
 const userManagementService = new UserManagementService();
+const keyVaultService = new KeyVaultService();
 
 export default class ManageThirdPartySubscriberOathConfigSummaryController {
     public get(req: PipRequest, res: Response): void {
@@ -27,11 +29,20 @@ export default class ManageThirdPartySubscriberOathConfigSummaryController {
         }
 
         if (response) {
+            await Promise.all([
+                keyVaultService.createOrUpdateSecret(formData.scopeKey, formData.scopeValue),
+                keyVaultService.createOrUpdateSecret(formData.clientIdKey, formData.clientId),
+                keyVaultService.createOrUpdateSecret(formData.clientSecretKey, formData.clientSecret),
+            ]);
+        }
+
+        if (response) {
             await userManagementService.auditAction(
                 req.user,
                 'THIRD_PARTY_SUBSCRIBER_CREATION',
                 `Third party oath config created successfully`
             );
+            res.clearCookie('formCookie');
             res.redirect('/manage-third-party-subscriber-oath-config-success');
         } else {
             res.render('system-admin/manage-third-party-subscriber-oath-config-summary', {
