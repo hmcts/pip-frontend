@@ -15,6 +15,7 @@ src/main/public/img/lib/*
 src/main/public/js/lib/**/*.js
 src/main/public/stylesheets/lib/*
 src/main/views/govuk
+src/main/resources/localhost-ssl
 
 node-rpm-packaging/
 mochawesome-report/
