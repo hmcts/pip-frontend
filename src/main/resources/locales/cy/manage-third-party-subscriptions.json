@@ -8,6 +8,6 @@
     "updateButton": "Update",
     "error": {
         "title": "There is a problem",
-        "message": "At least one list type must be selected to create subscription."
+        "message": "At least one list type must be selected to create new subscription."
     }
 }
