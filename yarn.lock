@@ -497,10 +497,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.13.1":
-  version: 15.13.1
-  resolution: "@azure/msal-common@npm:15.13.1"
-  checksum: 10/463479c32ad2df420871d0170e2a9272d3bd02dae32d431e37f740dee53782160bc40037163b81833b498b99f7ba00d9a62446113e6267bdbd30dc17a3232971
+"@azure/msal-common@npm:15.14.0":
+  version: 15.14.0
+  resolution: "@azure/msal-common@npm:15.14.0"
+  checksum: 10/afd94e96e7d43fa3b29860d09829cc2e5bdf1250fec1f31eab7ff3c014171f2bab0f3f172c3aa1f16fd1bdfdf699c309b157bcc2452e5a959db5943810270978
   languageName: node
   linkType: hard
 
@@ -529,14 +529,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^3.8.1":
-  version: 3.8.1
-  resolution: "@azure/msal-node@npm:3.8.1"
+"@azure/msal-node@npm:^3.8.5":
+  version: 3.8.5
+  resolution: "@azure/msal-node@npm:3.8.5"
   dependencies:
-    "@azure/msal-common": "npm:15.13.1"
+    "@azure/msal-common": "npm:15.14.0"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10/952deebd85a1d7eb5c6affdc47f56e738dbd4be7ca086b12316776e62215f7ed0d2c804bac41744a3d51fff72871baa2b7f23817bc811aa3f7581aa7532ddea8
+  checksum: 10/f210c1ef865665742c84b933829ec141756d52101a0b83e53ade239e894f7444cbe1abcedf956aee95ce0c402af655e5d230339cac6654c9a2e2091e0b097443
   languageName: node
   linkType: hard
 
@@ -3010,12 +3010,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@evilmartians/lefthook@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@evilmartians/lefthook@npm:2.0.2"
+"@evilmartians/lefthook@npm:^2.0.15":
+  version: 2.0.15
+  resolution: "@evilmartians/lefthook@npm:2.0.15"
   bin:
     lefthook: bin/index.js
-  checksum: 10/8236b898f2a1c75d38c24559a5022979f31a45255dfeb23bd5d096582c0fedd4cbfd4fec1557cb0755c5546b1449ad19673d15256b3b10cc4ed98be7a9f28f9f
+  checksum: 10/f3bb9a640a096f9a8abce0f8387493d0c649cf001b32aa4dae82ffc0b7fb0782e9f6e0b6a55eb8ef2c2e53ad1ffb7faf2b3efb6be1632cebab52b53a20835b59
   conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=ia32)
   languageName: node
   linkType: hard
@@ -5490,12 +5490,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cookie-parser@npm:^1.4.9":
-  version: 1.4.9
-  resolution: "@types/cookie-parser@npm:1.4.9"
+"@types/cookie-parser@npm:^1.4.10":
+  version: 1.4.10
+  resolution: "@types/cookie-parser@npm:1.4.10"
   peerDependencies:
     "@types/express": "*"
-  checksum: 10/6192a4899b5412a4c3be0f47158321aef73a4cd7e7a4f7b2a37e2e1045f11a21209681cb1bc5335f250ee2a6ce64d8a3fefb851181a98e6415d3716ef9ed1f62
+  checksum: 10/1f37b5a4115dbfd4b7bbea2d874fbf9495eca8c3e8c87fa7e38c50f9fff66222377c911cfdc7a1ea08855e822919c5534ebbcc4bf25b596bc6f7270e403483d9
   languageName: node
   linkType: hard
 
@@ -5583,14 +5583,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express@npm:^5.0.3":
-  version: 5.0.3
-  resolution: "@types/express@npm:5.0.3"
+"@types/express@npm:^5.0.6":
+  version: 5.0.6
+  resolution: "@types/express@npm:5.0.6"
   dependencies:
     "@types/body-parser": "npm:*"
     "@types/express-serve-static-core": "npm:^5.0.0"
-    "@types/serve-static": "npm:*"
-  checksum: 10/bb6f10c14c8e3cce07f79ee172688aa9592852abd7577b663cd0c2054307f172c2b2b36468c918fed0d4ac359b99695807b384b3da6157dfa79acbac2226b59b
+    "@types/serve-static": "npm:^2"
+  checksum: 10/da2cc3de1b1a4d7f20ed3fb6f0a8ee08e99feb3c2eb5a8d643db77017d8d0e70fee9e95da38a73f51bcdf5eda3bb6435073c0271dc04fb16fda92e55daf911fa
   languageName: node
   linkType: hard
 
@@ -5700,10 +5700,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.17.20":
-  version: 4.17.20
-  resolution: "@types/lodash@npm:4.17.20"
-  checksum: 10/8cd8ad3bd78d2e06a93ae8d6c9907981d5673655fec7cb274a4d9a59549aab5bb5b3017361280773b8990ddfccf363e14d1b37c97af8a9fe363de677f9a61524
+"@types/lodash@npm:^4.17.23":
+  version: 4.17.23
+  resolution: "@types/lodash@npm:4.17.23"
+  checksum: 10/05935534a44aadef67c2158b2fb4a042a226970088106a40ddc67e4f063783149fe5cf02279d7dd4a1e72c98d9189b9430face659645dbf77270f8c4c3e387f5
   languageName: node
   linkType: hard
 
@@ -5816,12 +5816,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/require-directory@npm:^2.1.6":
-  version: 2.1.6
-  resolution: "@types/require-directory@npm:2.1.6"
+"@types/require-directory@npm:^2.1.7":
+  version: 2.1.7
+  resolution: "@types/require-directory@npm:2.1.7"
   dependencies:
     "@types/node": "npm:*"
-  checksum: 10/7c4a9408e04d106d968a911af913ea4cad6d3c4f17eef7fa7c948835173ce596b24baf36d495575fbd975cb2aaea66de7b660292766ecc3c6168a6f5b897bde9
+  checksum: 10/d4c651171b91a83db968cb062d87545e7c6164a47e0bfb762acd7e84f6fd694a4f40eb7d9437f00ea0255064506600f6cf54c404cd617974dac385adde275943
   languageName: node
   linkType: hard
 
@@ -5852,6 +5852,16 @@ __metadata:
     "@types/mime": "npm:*"
     "@types/node": "npm:*"
   checksum: 10/9b759cf03e0896e9434df6d2d528c3e0016a2cef54e66775fb67f8fa6f9e78eed693adc95b3d6a18aacf629d8d596ad71c1d3eee5ecf95402b766cb012061ca2
+  languageName: node
+  linkType: hard
+
+"@types/serve-static@npm:^2":
+  version: 2.2.0
+  resolution: "@types/serve-static@npm:2.2.0"
+  dependencies:
+    "@types/http-errors": "npm:*"
+    "@types/node": "npm:*"
+  checksum: 10/f2bad1304c7d0d3b7221faff3e490c40129d3803f4fb1b2fb84f31f561071c5e6a4b876c41bbbe82d5645034eea936e946bcaaf993dac1093ce68b56effad6e0
   languageName: node
   linkType: hard
 
@@ -7462,9 +7472,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:^2.2.0":
-  version: 2.2.1
-  resolution: "body-parser@npm:2.2.1"
+"body-parser@npm:^2.2.1":
+  version: 2.2.2
+  resolution: "body-parser@npm:2.2.2"
   dependencies:
     bytes: "npm:^3.1.2"
     content-type: "npm:^1.0.5"
@@ -7472,10 +7482,10 @@ __metadata:
     http-errors: "npm:^2.0.0"
     iconv-lite: "npm:^0.7.0"
     on-finished: "npm:^2.4.1"
-    qs: "npm:^6.14.0"
+    qs: "npm:^6.14.1"
     raw-body: "npm:^3.0.1"
     type-is: "npm:^2.0.1"
-  checksum: 10/cab162d62da03058dec8ff4ebf6bf22922b46bf32bd85e59e7fca78d4962aec97b7a7f913dbc3204bb4aa058df03284463ca4c5cc920bf783e591b8de049ffe0
+  checksum: 10/69671f67d4d5ae5974593901a92d639757231da1725ed6de4d35e86cde9ce7650afdf1cd28df9b6f7892ea7f9eb03ccb30c70fe27d679275ae4cb4aae5ce1b21
   languageName: node
   linkType: hard
 
@@ -9989,17 +9999,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "express@npm:5.1.0"
+"express@npm:^5.2.1":
+  version: 5.2.1
+  resolution: "express@npm:5.2.1"
   dependencies:
     accepts: "npm:^2.0.0"
-    body-parser: "npm:^2.2.0"
+    body-parser: "npm:^2.2.1"
     content-disposition: "npm:^1.0.0"
     content-type: "npm:^1.0.5"
     cookie: "npm:^0.7.1"
     cookie-signature: "npm:^1.2.1"
     debug: "npm:^4.4.0"
+    depd: "npm:^2.0.0"
     encodeurl: "npm:^2.0.0"
     escape-html: "npm:^1.0.3"
     etag: "npm:^1.8.1"
@@ -10020,7 +10031,7 @@ __metadata:
     statuses: "npm:^2.0.1"
     type-is: "npm:^2.0.1"
     vary: "npm:^1.1.2"
-  checksum: 10/6dba00bbdf308f43a84ed3f07a7e9870d5208f2a0b8f60f39459dda089750379747819863fad250849d3c9163833f33f94ce69d73938df31e0c5a430800d7e56
+  checksum: 10/4aa545d89702ac83f645c77abda1b57bcabe288f0b380fb5580fac4e323ea0eb533005c8e666b4e19152fb16d4abf11ba87b22aa9a10857a0485cd86b94639bd
   languageName: node
   linkType: hard
 
@@ -15420,14 +15431,14 @@ __metadata:
   resolution: "publishing-information-project@workspace:."
   dependencies:
     "@axe-core/playwright": "npm:^4.11.0"
-    "@azure/msal-node": "npm:^3.8.1"
+    "@azure/msal-node": "npm:^3.8.5"
     "@babel/core": "npm:7.28.5"
     "@babel/eslint-parser": "npm:7.28.5"
     "@babel/preset-env": "npm:7.28.5"
     "@codeceptjs/allure-legacy": "npm:^1.0.2"
     "@codeceptjs/helper": "npm:^2.0.4"
     "@eslint/js": "npm:^9.39.2"
-    "@evilmartians/lefthook": "npm:^2.0.2"
+    "@evilmartians/lefthook": "npm:^2.0.15"
     "@hmcts/cookie-manager": "npm:^1.1.0"
     "@hmcts/info-provider": "npm:^1.2.3"
     "@hmcts/nodejs-healthcheck": "npm:^1.8.6"
@@ -15440,14 +15451,14 @@ __metadata:
     "@types/axios-token-interceptor": "npm:^0.2.8"
     "@types/chai-as-promised": "npm:^8.0.2"
     "@types/config": "npm:^3.3.5"
-    "@types/cookie-parser": "npm:^1.4.9"
+    "@types/cookie-parser": "npm:^1.4.10"
     "@types/es6-promisify": "npm:^6.0.4"
-    "@types/express": "npm:^5.0.3"
+    "@types/express": "npm:^5.0.6"
     "@types/jest": "npm:^30.0.0"
-    "@types/lodash": "npm:^4.17.20"
+    "@types/lodash": "npm:^4.17.23"
     "@types/node": "npm:^24.0.0"
     "@types/nunjucks": "npm:^3.2.6"
-    "@types/require-directory": "npm:^2.1.6"
+    "@types/require-directory": "npm:^2.1.7"
     "@types/serve-favicon": "npm:^2.5.7"
     "@types/supertest": "npm:^6.0.3"
     allure-commandline: "npm:^2.36.0"
@@ -15472,7 +15483,7 @@ __metadata:
     csv: "npm:^6.4.1"
     eslint: "npm:^9.39.2"
     eslint-config-prettier: "npm:10.1.8"
-    express: "npm:^5.1.0"
+    express: "npm:^5.2.1"
     express-session: "npm:^1.18.2"
     globals: "npm:17.0.0"
     govuk-frontend: "npm:5.13.0"
@@ -15523,7 +15534,7 @@ __metadata:
     typescript: "npm:5.9.3"
     typescript-eslint: "npm:^8.52.0"
     uuid: "npm:^13.0.0"
-    validator: "npm:^13.15.20"
+    validator: "npm:^13.15.22"
     webpack: "npm:^5.104.1"
     webpack-cli: "npm:^6.0.1"
     webpack-dev-middleware: "npm:^7.4.5"
@@ -18314,10 +18325,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"validator@npm:^13.15.20":
-  version: 13.15.20
-  resolution: "validator@npm:13.15.20"
-  checksum: 10/498f9b201dda7b09207bbc13606e6f90595987eab9e3a60fc5b8d8d96141c9351192aea56d392c78640e2462770eedccf545cf13b2ef43e87d73a755ba485c5d
+"validator@npm:^13.15.22":
+  version: 13.15.26
+  resolution: "validator@npm:13.15.26"
+  checksum: 10/22488ae718ca724eda81b7c8bf505005d4d70cb6ff9a319f48fd897a31d40fd9a2971af4a3288667a04c56b4f95912555495519d54a5d8d63c2572bf4970081a
   languageName: node
   linkType: hard
 
