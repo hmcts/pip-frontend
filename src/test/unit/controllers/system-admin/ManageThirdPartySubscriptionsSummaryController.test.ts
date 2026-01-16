@@ -31,7 +31,7 @@ const userId2 = '124';
 const userId3 = '125';
 const adminUserId = '126';
 
-const formCookie = {
+const listTypeSensitivityCookie = {
     CIVIL_DAILY_CAUSE_LIST: 'Public',
     FAMILY_DAILY_CAUSE_LIST: 'Private',
 };
@@ -80,7 +80,7 @@ describe('Manage third-party subscriptions summary controller', () => {
             const request = mockRequest(i18n);
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
-            request['cookies'] = { formCookie: JSON.stringify(formCookie) };
+            request['cookies'] = { listTypeSensitivityCookie: JSON.stringify(listTypeSensitivityCookie) };
 
             const responseMock = sinon.mock(response);
 
@@ -102,7 +102,7 @@ describe('Manage third-party subscriptions summary controller', () => {
         it('should render the error page if no user ID supplied', async () => {
             const request = mockRequest(i18n);
             request.user = { userId: adminUserId };
-            request['cookies'] = { formCookie: JSON.stringify(formCookie) };
+            request['cookies'] = { listTypeSensitivityCookie: JSON.stringify(listTypeSensitivityCookie) };
             const responseMock = sinon.mock(response);
 
             responseMock.expects('render').once().withArgs('error', { title: 'Error' });
@@ -117,7 +117,7 @@ describe('Manage third-party subscriptions summary controller', () => {
             const request = mockRequest(i18n);
             request.body = { userId: userId };
             request.user = { userId: adminUserId };
-            request.cookies = { formCookie: JSON.stringify(formCookie) };
+            request.cookies = { listTypeSensitivityCookie: JSON.stringify(listTypeSensitivityCookie) };
 
             const responseMock = sinon.mock(response);
 
@@ -131,7 +131,7 @@ describe('Manage third-party subscriptions summary controller', () => {
             const request = mockRequest(i18n);
             request.body = { userId: userId2 };
             request.user = { userId: adminUserId };
-            request.cookies = { formCookie: JSON.stringify(formCookie) };
+            request.cookies = { listTypeSensitivityCookie: JSON.stringify(listTypeSensitivityCookie) };
 
             const responseMock = sinon.mock(response);
 
@@ -145,7 +145,7 @@ describe('Manage third-party subscriptions summary controller', () => {
             const request = mockRequest(i18n);
             request.body = { userId: userId3 };
             request.user = { userId: adminUserId };
-            request.cookies = { formCookie: JSON.stringify(formCookie) };
+            request.cookies = { listTypeSensitivityCookie: JSON.stringify(listTypeSensitivityCookie) };
 
             const responseMock = sinon.mock(response);
 

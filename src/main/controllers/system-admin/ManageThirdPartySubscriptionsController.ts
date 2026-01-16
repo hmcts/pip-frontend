@@ -26,12 +26,32 @@ export default class ManageThirdPartySubscriptionsController {
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
     }
 
-    public post(req: PipRequest, res: Response): void {
+    public async post(req: PipRequest, res: Response): Promise<void> {
         const map = new Map<string, string>(Object.entries(req.body));
         const listTypeMap = new Map([...map].filter(([k, v]) => k !== 'userId' && v !== 'EMPTY'));
         const thirdPartyUserId = req.body?.userId;
 
-        res.cookie('formCookie', JSON.stringify(Object.fromEntries(listTypeMap)), { secure: true });
+        const subscriptions = await thirdPartyService.getThirdPartySubscriptionsByUserId(
+            thirdPartyUserId,
+            req.user['userId']
+        );
+
+        if (!subscriptions && listTypeMap.size === 0) {
+            const listTypeSensitivityMapping = thirdPartyService.constructListTypeSensitivityMappings(subscriptions);
+
+            res.render('system-admin/manage-third-party-subscriptions', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriptions']),
+                subscriptions,
+                listTypeSensitivityMapping,
+                userId: thirdPartyUserId,
+                noSelectionError: true,
+            });
+            return;
+        }
+
+        if (listTypeMap.size > 0) {
+            res.cookie('listTypeSensitivityCookie', JSON.stringify(Object.fromEntries(listTypeMap)), { secure: true });
+        }
         res.redirect(`/manage-third-party-subscriptions-summary?userId=${thirdPartyUserId}`);
     }
 }

@@ -26,7 +26,8 @@ const response = {
 } as unknown as Response;
 
 const userId = '123';
-const adminUserId = '124';
+const userId2 = '124';
+const adminUserId = '125';
 
 const thirdPartySubscriptions = [
     {
@@ -42,7 +43,9 @@ const thirdPartySubscriptions = [
 ];
 const testListTypeSensitivityMapping = 'test-mapping';
 
-sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriptionsByUserId').resolves(thirdPartySubscriptions);
+const getThirdPartySubscriptionsStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriptionsByUserId');
+getThirdPartySubscriptionsStub.withArgs(userId).resolves(thirdPartySubscriptions);
+getThirdPartySubscriptionsStub.withArgs(userId2).resolves(null);
 sinon.stub(ThirdPartyService.prototype, 'constructListTypeSensitivityMappings').returns(testListTypeSensitivityMapping);
 
 const manageThirdPartySubscriptionsController = new ManageThirdPartySubscriptionsController();
@@ -95,11 +98,37 @@ describe('Manage third-party subscriptions controller', () => {
 
             const request = mockRequest(i18n);
             request.body = formData;
-            request['cookies'] = { formCookie: JSON.stringify(formData) };
+            request['cookies'] = { listTypeSensitivityCookie: JSON.stringify(formData) };
 
             const responseMock = sinon.mock(response);
 
             responseMock.expects('redirect').once().withArgs(`/manage-third-party-subscriptions-summary?userId=123`);
+
+            await manageThirdPartySubscriptionsController.post(request, response);
+            responseMock.verify();
+        });
+
+        it('should render the manage third-party subscriptions page with error if no existing subscription and no new subscription selected failed', async () => {
+            const formData = { userId: userId2 };
+
+            const request = mockRequest(i18n);
+            request.body = { userId: userId2 };
+            request['cookies'] = { listTypeSensitivityCookie: JSON.stringify(formData) };
+
+            const responseMock = sinon.mock(response);
+
+            const expectedOptions = {
+                title: 'Manage third-party subscriptions',
+                subscriptions: null,
+                listTypeSensitivityMapping: testListTypeSensitivityMapping,
+                userId: userId2,
+                noSelectionError: true,
+            };
+
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/manage-third-party-subscriptions', expectedOptions);
 
             await manageThirdPartySubscriptionsController.post(request, response);
             responseMock.verify();

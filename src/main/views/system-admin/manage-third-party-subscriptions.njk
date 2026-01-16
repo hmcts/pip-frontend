@@ -1,4 +1,5 @@
 {% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 
@@ -13,6 +14,18 @@
 {% endblock %}
 
 {% block content %}
+    {% if noSelectionError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+
     <div class="parent-box">
         <h1 class="govuk-heading-l">{{ header }}</h1>
         <p class="govuk-body">{{ selectMessage }}</p>

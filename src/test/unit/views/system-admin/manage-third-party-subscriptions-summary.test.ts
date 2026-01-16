@@ -5,7 +5,7 @@ import { expect } from 'chai';
 const userId = '123';
 const PAGE_URL = '/manage-third-party-subscriptions-summary';
 
-const formCookie = {
+const listTypeSensitivityCookie = {
     CIVIL_DAILY_CAUSE_LIST: 'Public',
     FAMILY_DAILY_CAUSE_LIST: 'Private',
     SJP_PRESS_LIST: 'Classified',
@@ -16,7 +16,7 @@ app.request['user'] = {
 };
 
 app.request['cookies'] = {
-    formCookie: JSON.stringify(formCookie),
+    listTypeSensitivityCookie: JSON.stringify(listTypeSensitivityCookie),
 };
 
 let htmlRes: Document;

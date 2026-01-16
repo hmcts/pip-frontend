@@ -7,6 +7,6 @@ export default class ManageThirdPartySubscriptionsCreatedSuccessController {
             'system-admin/manage-third-party-subscriptions-created-success',
             req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriptions-created-success']
         );
-        res.clearCookie('formCookie');
+        res.clearCookie('listTypeSensitivityCookie');
     }
 }

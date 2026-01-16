@@ -141,6 +141,8 @@ describe('Accessibility - System Admin Routes', () => {
             fileName: fileName,
             thirdPartyName: 'Third party user name',
             thirdPartyRoleObject: { name: 'General third party' },
+        }),
+        listTypeSensitivityCookie: JSON.stringify({
             CIVIL_DAILY_CAUSE_LIST: 'Public',
             FAMILY_DAILY_CAUSE_LIST: 'Private',
         }),
