@@ -9,7 +9,9 @@ export default class ManageThirdPartySubscriptionsSummaryController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const thirdPartyUserId = req.query?.userId as string;
         if (thirdPartyUserId) {
-            const formData = req.cookies?.listTypeSensitivityCookie ? JSON.parse(req.cookies.listTypeSensitivityCookie) : {};
+            const formData = req.cookies?.listTypeSensitivityCookie
+                ? JSON.parse(req.cookies.listTypeSensitivityCookie)
+                : {};
 
             // Map list type keys to their friendly names for display
             const listTypeNameMap = thirdPartyService.replaceListTypeKeysWithFriendlyNames(formData);
@@ -26,7 +28,9 @@ export default class ManageThirdPartySubscriptionsSummaryController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const thirdPartyUserId = req.body?.userId;
-        const formData = req.cookies?.listTypeSensitivityCookie ? JSON.parse(req.cookies.listTypeSensitivityCookie) : {};
+        const formData = req.cookies?.listTypeSensitivityCookie
+            ? JSON.parse(req.cookies.listTypeSensitivityCookie)
+            : {};
 
         const subscriptions = await thirdPartyService.getThirdPartySubscriptionsByUserId(
             thirdPartyUserId,
