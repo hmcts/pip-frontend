@@ -50,11 +50,10 @@ export default class ManageThirdPartySubscriptionsController {
         }
 
         if (listTypeMap.size > 0) {
-            res.cookie(
-                'listTypeSensitivityCookie',
-                JSON.stringify(Object.fromEntries(listTypeMap)),
-                { secure: true, httpOnly: true }
-            );
+            res.cookie('listTypeSensitivityCookie', JSON.stringify(Object.fromEntries(listTypeMap)), {
+                secure: true,
+                httpOnly: true,
+            });
         }
         res.redirect(`/manage-third-party-subscriptions-summary?userId=${thirdPartyUserId}`);
     }
