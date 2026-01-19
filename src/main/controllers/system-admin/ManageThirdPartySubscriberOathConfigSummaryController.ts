@@ -11,7 +11,7 @@ const keyVaultService = new KeyVaultService();
 
 export default class ManageThirdPartySubscriberOathConfigSummaryController {
     public get(req: PipRequest, res: Response): void {
-        const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
+        const formData = req.cookies?.thirdPartySubscriberCookie ? JSON.parse(req.cookies['thirdPartySubscriberCookie']) : {};
         res.render('system-admin/manage-third-party-subscriber-oath-config-summary', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oath-config-summary']),
             formData,
@@ -20,7 +20,7 @@ export default class ManageThirdPartySubscriberOathConfigSummaryController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
+        const formData = req.cookies?.thirdPartySubscriberCookie ? JSON.parse(req.cookies['thirdPartySubscriberCookie']) : {};
         let response: boolean;
         if (formData.createConfig) {
             response = await thirdPartyService.createThirdPartySubscriberOathConfig(formData, req.user['userId']);
@@ -39,10 +39,10 @@ export default class ManageThirdPartySubscriberOathConfigSummaryController {
         if (response) {
             await userManagementService.auditAction(
                 req.user,
-                'THIRD_PARTY_SUBSCRIBER_CREATION',
+                'THIRD_PARTY_SUBSCRIBER_OATH_CONFIG_CREATED',
                 `Third party oath config created successfully`
             );
-            res.clearCookie('formCookie');
+            res.clearCookie('thirdPartySubscriberCookie');
             res.redirect('/manage-third-party-subscriber-oath-config-success');
         } else {
             res.render('system-admin/manage-third-party-subscriber-oath-config-summary', {

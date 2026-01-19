@@ -33,7 +33,7 @@ const cookie = {
 };
 
 app.request['cookies'] = {
-    formCookie: JSON.stringify(cookie),
+    thirdPartySubscriberCookie: JSON.stringify(cookie),
 };
 
 app.request['user'] = {

@@ -95,7 +95,7 @@ describe('KeyVaultService', () => {
             mockSecretClient.setSecret.withArgs(secretName, secretValue).rejects(error);
 
             await expect(service.createOrUpdateSecret(secretName, secretValue)).rejects.toThrow(
-                `KeyVault createOrUpdateSecret failed for "${secretName}"`
+                `KeyVault createOrUpdateSecret failed for "${secretName} reason: Permission denied"`
             );
         });
     });

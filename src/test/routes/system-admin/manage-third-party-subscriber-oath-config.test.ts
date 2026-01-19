@@ -60,7 +60,7 @@ describe('Manage third party subscriber oath config page', () => {
     describe('on GET', () => {
         test('should render manage third party subscriber oath config page with existing cookie', async () => {
             app.request['cookies'] = {
-                formCookie: JSON.stringify(cookie),
+                thirdPartySubscriberCookie: JSON.stringify(cookie),
             };
 
             await request(app)

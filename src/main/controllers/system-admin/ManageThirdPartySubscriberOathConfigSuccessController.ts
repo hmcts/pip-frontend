@@ -7,7 +7,5 @@ export default class ManageThirdPartySubscriberOathConfigSuccessController {
         res.render('system-admin/manage-third-party-subscriber-oath-config-success', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oath-config-success']),
         });
-
-        res.clearCookie('formCookie');
     }
 }

@@ -11,7 +11,7 @@ const keyVaultService = new KeyVaultService();
 
 export default class ManageThirdPartySubscriberOathConfigController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        let formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
+        let formData = req.cookies?.thirdPartySubscriberCookie ? JSON.parse(req.cookies['thirdPartySubscriberCookie']) : {};
 
         const userId = req.query.userId as string;
         if (formData.user != userId) {
@@ -64,7 +64,7 @@ export default class ManageThirdPartySubscriberOathConfigController {
                 formErrors,
             });
         } else {
-            res.cookie('formCookie', JSON.stringify(formData), { secure: true });
+            res.cookie('thirdPartySubscriberCookie', JSON.stringify(formData), { secure: true });
             res.redirect('/manage-third-party-subscriber-oath-config-summary');
         }
     }

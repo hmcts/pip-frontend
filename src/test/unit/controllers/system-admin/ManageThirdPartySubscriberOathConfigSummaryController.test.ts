@@ -97,7 +97,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
     describe('GET request', () => {
         it('should render the summary page with form data from cookies', () => {
             const request = mockRequest(i18n);
-            request.cookies = { formCookie: JSON.stringify(formDataCreate) };
+            request.cookies = { thirdPartySubscriberCookie: JSON.stringify(formDataCreate) };
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
@@ -139,7 +139,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
     describe('POST request', () => {
         it('should create new config, update secrets, audit, and redirect on success', async () => {
             const request = mockRequest(i18n);
-            request.cookies = { formCookie: JSON.stringify(formDataCreate) };
+            request.cookies = { thirdPartySubscriberCookie: JSON.stringify(formDataCreate) };
             request.user = { userId: adminUserId };
 
             mockThirdPartyService.createThirdPartySubscriberOathConfig
@@ -151,7 +151,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('clearCookie').once().withArgs('formCookie');
+            responseMock.expects('clearCookie').once().withArgs('thirdPartySubscriberCookie');
             responseMock.expects('redirect').once().withArgs('/manage-third-party-subscriber-oath-config-success');
 
             await controller.post(request, response);
@@ -177,7 +177,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
             sinon.assert.calledWith(
                 mockUserManagementService.auditAction,
                 request.user,
-                'THIRD_PARTY_SUBSCRIBER_CREATION',
+                'THIRD_PARTY_SUBSCRIBER_OATH_CONFIG_CREATED',
                 'Third party oath config created successfully'
             );
 
@@ -186,7 +186,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
 
         it('should update existing config, update secrets, audit, and redirect on success', async () => {
             const request = mockRequest(i18n);
-            request.cookies = { formCookie: JSON.stringify(formDataUpdate) };
+            request.cookies = { thirdPartySubscriberCookie: JSON.stringify(formDataUpdate) };
             request.user = { userId: adminUserId };
 
             mockThirdPartyService.updateThirdPartySubscriberOathConfig
@@ -198,7 +198,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('clearCookie').once().withArgs('formCookie');
+            responseMock.expects('clearCookie').once().withArgs('thirdPartySubscriberCookie');
             responseMock.expects('redirect').once().withArgs('/manage-third-party-subscriber-oath-config-success');
 
             await controller.post(request, response);
@@ -215,7 +215,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
 
         it('should render page with error when config creation fails', async () => {
             const request = mockRequest(i18n);
-            request.cookies = { formCookie: JSON.stringify(formDataCreate) };
+            request.cookies = { thirdPartySubscriberCookie: JSON.stringify(formDataCreate) };
             request.user = { userId: adminUserId };
 
             mockThirdPartyService.createThirdPartySubscriberOathConfig
@@ -247,7 +247,7 @@ describe('ManageThirdPartySubscriberOathConfigSummaryController', () => {
 
         it('should render page with error when config update fails', async () => {
             const request = mockRequest(i18n);
-            request.cookies = { formCookie: JSON.stringify(formDataUpdate) };
+            request.cookies = { thirdPartySubscriberCookie: JSON.stringify(formDataUpdate) };
             request.user = { userId: adminUserId };
 
             mockThirdPartyService.updateThirdPartySubscriberOathConfig

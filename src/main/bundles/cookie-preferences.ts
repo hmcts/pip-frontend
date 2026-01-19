@@ -36,7 +36,7 @@ const config = {
         {
             categoryName: 'essential',
             optional: false,
-            cookies: ['i18next', 'formCookie', 'createAdminAccount', 'connect.sid'],
+            cookies: ['i18next', 'formCookie', 'createAdminAccount', 'connect.sid', 'thirdPartySubscriberCookie'],
         },
         {
             categoryName: 'analytics',

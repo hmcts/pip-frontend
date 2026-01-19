@@ -27,7 +27,7 @@ createThirdPartySubscriberOathConfigStub.withArgs(cookie, '2').resolves(true);
 
 describe('Manage third party subscriber oath config summary page', () => {
     beforeEach(() => {
-        app.request['cookies'] = { formCookie: JSON.stringify(cookie) };
+        app.request['cookies'] = { thirdPartySubscriberCookie: JSON.stringify(cookie) };
     });
 
     describe('on GET', () => {

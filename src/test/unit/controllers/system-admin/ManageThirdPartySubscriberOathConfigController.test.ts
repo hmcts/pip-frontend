@@ -119,7 +119,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
     describe('GET request', () => {
         it('should render page with existing config from cookies when user matches', async () => {
             const request = mockRequest(i18n);
-            request.cookies = { formCookie: JSON.stringify(existingConfigData) };
+            request.cookies = { thirdPartySubscriberCookie: JSON.stringify(existingConfigData) };
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
@@ -140,7 +140,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
 
         it('should fetch and render existing config when user does not match cookie', async () => {
             const request = mockRequest(i18n);
-            request.cookies = { formCookie: JSON.stringify({ user: 'different-user' }) };
+            request.cookies = { thirdPartySubscriberCookie: JSON.stringify({ user: 'different-user' }) };
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
@@ -279,7 +279,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             responseMock
                 .expects('cookie')
                 .once()
-                .withArgs('formCookie', JSON.stringify(postFormData), { secure: true });
+                .withArgs('thirdPartySubscriberCookie', JSON.stringify(postFormData), { secure: true });
 
             responseMock.expects('redirect').once().withArgs('/manage-third-party-subscriber-oath-config-summary');
 
