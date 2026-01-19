@@ -66,8 +66,7 @@ export default class ManageThirdPartySubscriberOathConfigController {
                 formErrors,
             });
         } else {
-            res.cookie('thirdPartySubscriberCookie',
-                JSON.stringify(formData), {
+            res.cookie('thirdPartySubscriberCookie', JSON.stringify(formData), {
                 secure: true,
                 httpOnly: true,
             });
