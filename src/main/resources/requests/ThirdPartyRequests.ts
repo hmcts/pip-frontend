@@ -2,6 +2,7 @@ import { accountManagementApi } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LogHelper } from '../logging/logHelper';
 import { StatusCodes } from 'http-status-codes';
+import { ThirdPartySubscription } from '../../models/ThirdPartySubscription';
 const logger = Logger.getLogger('requests');
 const logHelper = new LogHelper();
 
@@ -64,6 +65,51 @@ export class ThirdPartyRequests {
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, `delete third party subscriber with ID ${userId}`);
+        }
+        return null;
+    }
+
+    public async createThirdPartySubscriptions(payload: ThirdPartySubscription[], requester: string): Promise<boolean> {
+        try {
+            await accountManagementApi.post('/third-party/subscription', payload, {
+                headers: { 'x-requester-id': requester },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'create third party subscriptions');
+        }
+        return false;
+    }
+
+    public async updateThirdPartySubscriptions(
+        payload: ThirdPartySubscription[],
+        userId: string,
+        requester: string
+    ): Promise<boolean> {
+        try {
+            await accountManagementApi.put(`/third-party/subscription/${userId}`, payload, {
+                headers: { 'x-requester-id': requester },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `update third party subscriptions with user ID ${userId}`);
+        }
+        return false;
+    }
+
+    public async getThirdPartySubscriptionsByUserId(
+        userId: string,
+        requester: string
+    ): Promise<ThirdPartySubscription[]> {
+        try {
+            const response = await accountManagementApi.get(`/third-party/subscription/${userId}`, {
+                headers: {
+                    'x-requester-id': requester,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `retrieve third party subscriptions with user ID ${userId}`);
         }
         return null;
     }

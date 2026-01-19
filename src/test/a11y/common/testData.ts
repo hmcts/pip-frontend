@@ -51,6 +51,21 @@ export const testThirdPartySubscriber = () => {
     };
 };
 
+export const testThirdPartySubscriptions = () => {
+    return [
+        {
+            userId: '123',
+            listType: 'CIVIL_DAILY_CAUSE_LIST',
+            sensitivity: 'PUBLIC',
+        },
+        {
+            userId: '123',
+            listType: 'FAMILY_DAILY_CAUSE_LIST',
+            sensitivity: 'PRIVATE',
+        },
+    ];
+};
+
 export const testAuditData = () => {
     return {
         userId: '1',

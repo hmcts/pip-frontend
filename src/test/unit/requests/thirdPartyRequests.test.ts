@@ -4,6 +4,9 @@ import { StatusCodes } from 'http-status-codes';
 import { ThirdPartyRequests } from '../../../main/resources/requests/ThirdPartyRequests';
 
 const thirdPartyRequests = new ThirdPartyRequests();
+const userId = '123';
+const requesterId = '456';
+
 const errorResponse = {
     response: {
         data: 'test error',
@@ -16,14 +19,28 @@ const mockHeaders = { headers: { 'x-requester-id': '12345' } };
 const mockValidThirdPartySubscriberBody = {
     name: 'Joe',
 };
+const mockThirdPartySubscriptionsBody = [
+    {
+        userId: userId,
+        listType: 'CIVIL_DAILY_CAUSE_LIST',
+        sensitivity: 'PUBLIC',
+    },
+    {
+        userId: userId,
+        listType: 'FAMILY_DAILY_CAUSE_LIST',
+        sensitivity: 'PRIVATE',
+    },
+];
 
 const thirdPartySubscriberEndpoint = '/third-party';
+const thirdPartySubscriptionEndpoint = '/third-party/subscription';
 
-const postStub = sinon.stub(accountManagementApi, 'post');
+let postStub = sinon.stub(accountManagementApi, 'post');
+let putStub = sinon.stub(accountManagementApi, 'put');
 let getStub = sinon.stub(accountManagementApi, 'get');
 let deleteStub = sinon.stub(accountManagementApi, 'delete');
 
-describe('Account Management Requests', () => {
+describe('Third-party Requests', () => {
     describe('Create Third Party Subscriber Account', () => {
         it('should return true on success', async () => {
             postStub.withArgs(thirdPartySubscriberEndpoint).resolves({ status: StatusCodes.CREATED });
@@ -138,6 +155,105 @@ describe('Account Management Requests', () => {
         it('should return false on error message', async () => {
             getStub.withArgs(thirdPartySubscriberEndpoint).rejects(errorMessage);
             const response = await thirdPartyRequests.getThirdPartySubscribers(adminUserId);
+            expect(response).toBe(null);
+        });
+    });
+
+    describe('Create third party subscriptions', () => {
+        beforeEach(() => {
+            sinon.restore();
+            postStub = sinon.stub(accountManagementApi, 'post');
+        });
+
+        it('should return true on success', async () => {
+            postStub.withArgs(thirdPartySubscriptionEndpoint).resolves({ status: StatusCodes.CREATED });
+            const response = await thirdPartyRequests.createThirdPartySubscriptions(
+                mockThirdPartySubscriptionsBody,
+                requesterId
+            );
+            expect(response).toBeTruthy();
+        });
+
+        it('should return false on error response', async () => {
+            postStub.withArgs(thirdPartySubscriptionEndpoint).resolves(Promise.reject(errorResponse));
+            const response = await thirdPartyRequests.createThirdPartySubscriptions(
+                mockThirdPartySubscriptionsBody,
+                requesterId
+            );
+            expect(response).toBeFalsy();
+        });
+
+        it('should return false on error message', async () => {
+            postStub.withArgs(thirdPartySubscriptionEndpoint).resolves(Promise.reject(errorMessage));
+            const response = await thirdPartyRequests.createThirdPartySubscriptions(
+                mockThirdPartySubscriptionsBody,
+                requesterId
+            );
+            expect(response).toBeFalsy();
+        });
+    });
+
+    describe('Update third party subscriptions', () => {
+        beforeEach(() => {
+            sinon.restore();
+            putStub = sinon.stub(accountManagementApi, 'put');
+        });
+
+        it('should return true on success', async () => {
+            putStub.withArgs(`${thirdPartySubscriptionEndpoint}/${userId}`).resolves({ status: StatusCodes.OK });
+            const response = await thirdPartyRequests.updateThirdPartySubscriptions(
+                mockThirdPartySubscriptionsBody,
+                userId,
+                requesterId
+            );
+            expect(response).toBeTruthy();
+        });
+
+        it('should return false on error response', async () => {
+            putStub.withArgs(`${thirdPartySubscriptionEndpoint}/${userId}`).resolves(Promise.reject(errorResponse));
+            const response = await thirdPartyRequests.updateThirdPartySubscriptions(
+                mockThirdPartySubscriptionsBody,
+                userId,
+                requesterId
+            );
+            expect(response).toBeFalsy();
+        });
+
+        it('should return false on error message', async () => {
+            putStub.withArgs(`${thirdPartySubscriptionEndpoint}/${userId}`).resolves(Promise.reject(errorMessage));
+            const response = await thirdPartyRequests.updateThirdPartySubscriptions(
+                mockThirdPartySubscriptionsBody,
+                userId,
+                requesterId
+            );
+            expect(response).toBeFalsy();
+        });
+    });
+
+    describe('Get third party subscriptions by user ID', () => {
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        it('should return third-party subscriptions on success', async () => {
+            getStub
+                .withArgs(`${thirdPartySubscriptionEndpoint}/${userId}`)
+                .resolves({ status: 200, data: mockThirdPartySubscriptionsBody });
+
+            const response = await thirdPartyRequests.getThirdPartySubscriptionsByUserId(userId, requesterId);
+            expect(response).toStrictEqual(mockThirdPartySubscriptionsBody);
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs(`${thirdPartySubscriptionEndpoint}/${userId}`).rejects(errorResponse);
+            const response = await thirdPartyRequests.getThirdPartySubscriptionsByUserId(userId, requesterId);
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs(`${thirdPartySubscriptionEndpoint}/${userId}`).rejects(errorMessage);
+            const response = await thirdPartyRequests.getThirdPartySubscriptionsByUserId(userId, requesterId);
             expect(response).toBe(null);
         });
     });

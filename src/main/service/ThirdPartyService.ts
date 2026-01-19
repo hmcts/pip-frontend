@@ -1,6 +1,24 @@
 import { DateTime } from 'luxon';
 import { ThirdPartyRequests } from '../resources/requests/ThirdPartyRequests';
 import { Logger } from '@hmcts/nodejs-logging';
+import { PublicationService } from './PublicationService';
+import { ThirdPartySubscription } from '../models/ThirdPartySubscription';
+
+const publicationService = new PublicationService();
+
+const sensitivityLevels = ['Public', 'Private', 'Classified'];
+const defaultSensitivityItem = { text: '<Not selected>', value: 'EMPTY' };
+
+interface SensitivityItem {
+    text: string;
+    value: string;
+    selected?: boolean;
+}
+
+interface ListTypeValue {
+    friendlyName: string;
+    sensitivityItems: SensitivityItem[];
+}
 
 /**
  * This service class handles support methods for dealing with third parties
@@ -53,5 +71,94 @@ export class ThirdPartyService {
 
     private formatThirdPartySubscriberPayload(formData) {
         return { name: formData.thirdPartySubscriberName };
+    }
+
+    public async createThirdPartySubscriptions(formData: any, userId: string, requesterId: string): Promise<boolean> {
+        const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
+        return await this.thirdPartyRequests.createThirdPartySubscriptions(
+            this.formatThirdPartySubscriptionsPayload(listTypeSensitivityMap, userId),
+            requesterId
+        );
+    }
+
+    public async updateThirdPartySubscriptions(formData: any, userId: string, requesterId: string): Promise<boolean> {
+        const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
+        return await this.thirdPartyRequests.updateThirdPartySubscriptions(
+            this.formatThirdPartySubscriptionsPayload(listTypeSensitivityMap, userId),
+            userId,
+            requesterId
+        );
+    }
+
+    public async getThirdPartySubscriptionsByUserId(
+        userId: string,
+        adminUserId: string
+    ): Promise<ThirdPartySubscription[]> {
+        const subscriptions = await this.thirdPartyRequests.getThirdPartySubscriptionsByUserId(userId, adminUserId);
+        return subscriptions;
+    }
+
+    private formatThirdPartySubscriptionsPayload(
+        listTypeMap: Map<string, string>,
+        userId: string
+    ): ThirdPartySubscription[] {
+        const payload = [];
+        listTypeMap.forEach((value, key) =>
+            payload.push({
+                userId: userId,
+                listType: key,
+                sensitivity: value.toUpperCase(),
+            })
+        );
+        return payload;
+    }
+
+    public constructListTypeSensitivityMappings(subscriptions: ThirdPartySubscription[]): Map<string, ListTypeValue> {
+        const listTypeSensitivityMap = new Map<string, ListTypeValue>();
+
+        // Create a map of existing subscribed list types with their sensitivities for easy lookup
+        const subscriptionMap: Map<string, string> = subscriptions
+            ? new Map(subscriptions.map(obj => [obj.listType, obj.sensitivity]))
+            : new Map();
+
+        publicationService.getListTypes().forEach((value, key) => {
+            const sensitivityItems = this.populateSensitivityItems(key, subscriptionMap);
+            listTypeSensitivityMap.set(key, {
+                friendlyName: value.friendlyName,
+                sensitivityItems: sensitivityItems,
+            });
+        });
+
+        // Sort the map by friendly name alphabetically
+        return new Map(
+            [...listTypeSensitivityMap].sort(([, v], [, v2]) => (v.friendlyName < v2.friendlyName ? -1 : 1))
+        );
+    }
+
+    public replaceListTypeKeysWithFriendlyNames(formData: any): Map<string, string> {
+        const listTypeSensitivityMap = new Map<string, string>(Object.entries(formData));
+        const allListTypes = publicationService.getListTypes();
+
+        const listTypeNameSensitivityMap = new Map<string, string>();
+        listTypeSensitivityMap.forEach((value, key) => {
+            if (allListTypes.has(key)) {
+                listTypeNameSensitivityMap.set(allListTypes.get(key).friendlyName, value);
+            }
+        });
+        return listTypeNameSensitivityMap;
+    }
+
+    private populateSensitivityItems(listType: string, subscriptionMap: Map<string, string>): SensitivityItem[] {
+        const sensitivityItems: SensitivityItem[] = [defaultSensitivityItem];
+
+        sensitivityLevels.forEach(level => {
+            sensitivityItems.push({
+                text: level,
+                value: level,
+                selected: subscriptionMap.has(listType) && subscriptionMap.get(listType) === level.toUpperCase(),
+            });
+        });
+
+        return sensitivityItems;
     }
 }
