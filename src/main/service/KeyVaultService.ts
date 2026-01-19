@@ -8,8 +8,8 @@ export class KeyVaultService {
 
     constructor() {
         //BELOW TWO LINES WILL BE CHANGED WHEN PIP-INFRA REPO CHANGES WILL BE MERGED
-        const kvEnv = process.env.KEY_VAULT_ENVIRONMENT || 'demo';
-        const keyVaultUrl = 'https://pip-bootstrap-' + kvEnv + '-kv.vault.azure.net/';
+        const thirdPartyKeyVault = process.env.THIRD_PARTY_KEY_VAULT || 'pip-bootstrap-demo-kv';
+        const keyVaultUrl = 'https://' + thirdPartyKeyVault + '.vault.azure.net/';
         const nodeENV = process.env.NODE_ENV || 'development';
 
         const MANAGED_IDENTITY_CLIENT_ID = config.get('secrets.pip-ss-kv.MANAGED_IDENTITY_CLIENT_ID');

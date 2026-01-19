@@ -15,7 +15,7 @@ nodejs:
         CFT_IDAM_URL: https://idam-web-public.aat.platform.hmcts.net
         CRIME_IDAM_URL: https://login.sit.cjscp.org.uk
         SESSION_COOKIE_SAME_SITE: ''
-        KEY_VAULT_ENVIRONMENT: {{ .Values.global.environment }}
+        THIRD_PARTY_KEY_VAULT: pip-bootstrap-{{ .Values.global.environment }}-kv
     keyVaults:
         pip-ss-kv:
             resourceGroup: pip-ss-stg-rg
