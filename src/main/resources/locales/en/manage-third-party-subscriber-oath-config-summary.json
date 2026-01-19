@@ -1,7 +1,7 @@
 {
     "title": "Manage third party subscriber Oath Config - Create third party subscriber oath config summary - Court and Tribunal Hearings - GOV.UK",
     "header": "Manage third party subscriber oath config summary",
-    "destinationUrl": "Name",
+    "destinationUrl": "Destination URL",
     "tokenUrl": "Token URL",
     "scopeKey": "Scope Key",
     "scopeValue": "Scope Value",

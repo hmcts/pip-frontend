@@ -264,9 +264,10 @@ export class FilterService {
     }
 
     public generateFilterKeyValues(body: string): string {
-        const keys = Object.keys(body);
+        const safeBody = body || {};
+        const keys = Object.keys(safeBody ?? {});
         const values = [];
-        keys.forEach(key => values.push(body[key]));
+        keys.forEach(key => values.push(safeBody[key]));
         return Array.prototype.concat.apply([], values);
     }
 }

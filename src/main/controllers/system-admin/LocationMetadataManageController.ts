@@ -34,18 +34,18 @@ export default class LocationMetadataManageController {
                 ? await locationService.updateLocationMetadata(
                       locationMetadata.locationMetadataId,
                       locationId,
-                      req.body['english-caution-message'],
-                      req.body['welsh-caution-message'],
-                      req.body['english-no-list-message'],
-                      req.body['welsh-no-list-message'],
+                      req.body?.['english-caution-message'],
+                      req.body?.['welsh-caution-message'],
+                      req.body?.['english-no-list-message'],
+                      req.body?.['welsh-no-list-message'],
                       req.user['userId']
                   )
                 : await locationService.addLocationMetadata(
                       locationId,
-                      req.body['english-caution-message'],
-                      req.body['welsh-caution-message'],
-                      req.body['english-no-list-message'],
-                      req.body['welsh-no-list-message'],
+                      req.body?.['english-caution-message'],
+                      req.body?.['welsh-caution-message'],
+                      req.body?.['english-no-list-message'],
+                      req.body?.['welsh-no-list-message'],
                       req.user['userId']
                   );
 

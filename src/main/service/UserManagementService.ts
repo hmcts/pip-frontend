@@ -62,15 +62,17 @@ export class UserManagementService {
      */
     public generateFilterKeyValues(body: string): string {
         const filterValues = [];
-        Object.keys(body).forEach(key => {
-            if (body[key].length > 0) {
-                let separator = '&';
-                if (filterValues.length === 0) {
-                    separator = '';
+        if (!body) {
+            Object.keys(body).forEach(key => {
+                if (body[key].length > 0) {
+                    let separator = '&';
+                    if (filterValues.length === 0) {
+                        separator = '';
+                    }
+                    filterValues.push(separator + key + '=' + body[key]);
                 }
-                filterValues.push(separator + key + '=' + body[key]);
-            }
-        });
+            });
+        }
         return filterValues.join('');
     }
 

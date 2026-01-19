@@ -104,4 +104,60 @@ describe('Third Party Service tests', () => {
             expect(result).to.be.null;
         });
     });
+
+    describe('createThirdPartySubscriberOathConfig', () => {
+        const formData = {
+            userId: 'user',
+            destinationUrl: 'destinationUrl',
+            tokenUrl: 'tokenUrl',
+            clientIdKey: 'clientIdKey',
+            clientSecretKey: 'clientSecretKey',
+            scopeKey: 'scopeKey',
+        };
+
+        const createThirdPartySubscriberOathConfigStub = sinon.stub(
+            ThirdPartyRequests.prototype,
+            'createThirdPartySubscriberOathConfig'
+        );
+        createThirdPartySubscriberOathConfigStub.withArgs(sinon.match.any, '1').resolves(true);
+        createThirdPartySubscriberOathConfigStub.withArgs(sinon.match.any, '2').resolves(false);
+        createThirdPartySubscriberOathConfigStub.withArgs(sinon.match.any, '3').resolves(null);
+
+        it('should return true if account management request return created third party oath config for subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOathConfig(formData, '1');
+            expect(result).to.be.true;
+        });
+
+        it('should return false if account management request return errored third party oath config for subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOathConfig(formData, '2');
+            expect(result).to.be.false;
+        });
+
+        it('should return false if account management request returns null', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOathConfig(formData, '3');
+            expect(result).to.be.null;
+        });
+    });
+
+    describe('validateThirdPartySubscriberOathConfigFormFields', () => {
+        it('should return errors with no third party subscriber name', () => {
+            const result = thirdPartyService.validateThirdPartySubscriberOathConfigFormFields({});
+            expect(result.destinationUrlError).to.be.true;
+        });
+
+        it('should return null when both third party subscriber name', () => {
+            const result = thirdPartyService.validateThirdPartySubscriberOathConfigFormFields({
+                userId: 'user',
+                destinationUrl: 'destinationUrl',
+                tokenUrl: 'tokenUrl',
+                clientIdKey: 'clientIdKey',
+                clientId: 'clientId',
+                clientSecretKey: 'clientSecretKey',
+                clientSecret: 'clientSecret',
+                scopeKey: 'scopeKey',
+                scopeValue: 'scope',
+            });
+            expect(result).to.be.null;
+        });
+    });
 });

@@ -39,7 +39,7 @@ export class ThirdPartyService {
 
     public validateThirdPartySubscriberFormFields(formData): any | null {
         const fields = {
-            userNameError: !formData.thirdPartySubscriberName,
+            userNameError: !formData?.thirdPartySubscriberName,
         };
         return fields.userNameError ? fields : null;
     }
