@@ -279,7 +279,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             responseMock
                 .expects('cookie')
                 .once()
-                .withArgs('thirdPartySubscriberCookie', JSON.stringify(postFormData), { secure: true, httpOnly: true, });
+                .withArgs('thirdPartySubscriberCookie', JSON.stringify(postFormData), { secure: true, httpOnly: true });
 
             responseMock.expects('redirect').once().withArgs('/manage-third-party-subscriber-oath-config-summary');
 
