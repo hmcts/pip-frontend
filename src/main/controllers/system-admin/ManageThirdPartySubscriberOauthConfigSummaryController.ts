@@ -38,9 +38,7 @@ export default class ManageThirdPartySubscriberOauthConfigSummaryController {
                 keyVaultService.createOrUpdateSecret(formData.clientIdKey, formData.clientId),
                 keyVaultService.createOrUpdateSecret(formData.clientSecretKey, formData.clientSecret),
             ]);
-        }
 
-        if (response) {
             await userManagementService.auditAction(
                 req.user,
                 'THIRD_PARTY_SUBSCRIBER_OAUTH_CONFIG_CREATED',

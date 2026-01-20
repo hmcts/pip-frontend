@@ -12,4 +12,4 @@ nodejs:
         FRONTEND_URL: https://${SERVICE_FQDN}
         SESSION_COOKIE_SAME_SITE: ''
         CRIME_IDAM_URL: https://login.prp.cjscp.org.uk
-        THIRD_PARTY_KEY_VAULT: pip-bootstrap-{{ .Values.global.environment }}-kv
+        THIRD_PARTY_KEY_VAULT: pip-tp-kv-{{ .Values.global.environment }}

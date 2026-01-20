@@ -68,6 +68,11 @@ export class ThirdPartyRequests {
         return null;
     }
 
+    /**
+     * Request to account management that get third party subscriber oauth config.
+     * @param userId The third party subscriber ID
+     * @param requester The user ID of the person requesting this.
+     */
     public async getThirdPartySubscriberOauthConfigByUserId(userId: string, adminUserId: string): Promise<any> {
         try {
             logger.info(`Third party subscriber with ID: ${userId} data requested by Admin with ID: ${adminUserId}`);
