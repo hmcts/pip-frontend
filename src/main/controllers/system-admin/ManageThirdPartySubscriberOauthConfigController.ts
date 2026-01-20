@@ -9,7 +9,7 @@ const thirdPartyService = new ThirdPartyService();
 const thirdPartyRequests = new ThirdPartyRequests();
 const keyVaultService = new KeyVaultService();
 
-export default class ManageThirdPartySubscriberOathConfigController {
+export default class ManageThirdPartySubscriberOauthConfigController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         let formData = req.cookies?.thirdPartySubscriberCookie
             ? JSON.parse(req.cookies['thirdPartySubscriberCookie'])
@@ -17,7 +17,7 @@ export default class ManageThirdPartySubscriberOathConfigController {
 
         const userId = req.query.userId as string;
         if (formData.user != userId) {
-            formData = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(userId, req.user['userId']);
+            formData = await thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(userId, req.user['userId']);
             const thirdPartySubscriber = await thirdPartyService.getThirdPartySubscriberById(
                 userId,
                 req.user['userId']
@@ -49,19 +49,19 @@ export default class ManageThirdPartySubscriberOathConfigController {
             formData.user = userId;
         }
 
-        res.render('system-admin/manage-third-party-subscriber-oath-config', {
-            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oath-config']),
+        res.render('system-admin/manage-third-party-subscriber-oauth-config', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oauth-config']),
             formData,
         });
     }
 
     public post(req: PipRequest, res: Response): void {
         const formData = req.body;
-        const formErrors = thirdPartyService.validateThirdPartySubscriberOathConfigFormFields(formData);
+        const formErrors = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields(formData);
 
         if (formErrors) {
-            res.render('system-admin/manage-third-party-subscriber-oath-config', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oath-config']),
+            res.render('system-admin/manage-third-party-subscriber-oauth-config', {
+                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oauth-config']),
                 formData,
                 formErrors,
             });
@@ -70,7 +70,7 @@ export default class ManageThirdPartySubscriberOathConfigController {
                 secure: true,
                 httpOnly: true,
             });
-            res.redirect('/manage-third-party-subscriber-oath-config-summary');
+            res.redirect('/manage-third-party-subscriber-oauth-config-summary');
         }
     }
 }

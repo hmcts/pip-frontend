@@ -5,11 +5,11 @@ import sinon from 'sinon';
 // Mock the services before importing the controller
 const mockThirdPartyService = {
     getThirdPartySubscriberById: sinon.stub(),
-    validateThirdPartySubscriberOathConfigFormFields: sinon.stub(),
+    validateThirdPartySubscriberOauthConfigFormFields: sinon.stub(),
 };
 
 const mockThirdPartyRequests = {
-    getThirdPartySubscriberOathConfigByUserId: sinon.stub(),
+    getThirdPartySubscriberOauthConfigByUserId: sinon.stub(),
 };
 
 const mockKeyVaultService = {
@@ -30,7 +30,7 @@ jest.mock('../../../../main/service/KeyVaultService', () => ({
     KeyVaultService: jest.fn().mockImplementation(() => mockKeyVaultService),
 }));
 
-import ManageThirdPartySubscriberOathConfigController from '../../../../main/controllers/system-admin/ManageThirdPartySubscriberOathConfigController';
+import ManageThirdPartySubscriberOauthConfigController from '../../../../main/controllers/system-admin/ManageThirdPartySubscriberOauthConfigController';
 
 const userId = 'test-user-123';
 const adminUserId = 'admin-456';
@@ -81,7 +81,7 @@ const formErrors = {
 };
 
 const i18n = {
-    'manage-third-party-subscriber-oath-config': {
+    'manage-third-party-subscriber-oauth-config': {
         title: 'Manage Third Party Subscriber OAuth Config',
     },
 };
@@ -98,16 +98,16 @@ const response = {
     },
 } as unknown as Response;
 
-describe('ManageThirdPartySubscriberOathConfigController', () => {
-    let controller: ManageThirdPartySubscriberOathConfigController;
+describe('ManageThirdPartySubscriberOauthConfigController', () => {
+    let controller: ManageThirdPartySubscriberOauthConfigController;
 
     beforeEach(() => {
-        controller = new ManageThirdPartySubscriberOathConfigController();
+        controller = new ManageThirdPartySubscriberOauthConfigController();
 
         // Reset all stubs
-        mockThirdPartyRequests.getThirdPartySubscriberOathConfigByUserId.reset();
+        mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId.reset();
         mockThirdPartyService.getThirdPartySubscriberById.reset();
-        mockThirdPartyService.validateThirdPartySubscriberOathConfigFormFields.reset();
+        mockThirdPartyService.validateThirdPartySubscriberOauthConfigFormFields.reset();
         mockKeyVaultService.createKeyVaultSecretName.reset();
         mockKeyVaultService.getSecret.reset();
     });
@@ -125,14 +125,14 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['manage-third-party-subscriber-oath-config'],
+                ...i18n['manage-third-party-subscriber-oauth-config'],
                 formData: existingConfigData,
             };
 
             responseMock
                 .expects('render')
                 .once()
-                .withArgs('system-admin/manage-third-party-subscriber-oath-config', expectedOptions);
+                .withArgs('system-admin/manage-third-party-subscriber-oauth-config', expectedOptions);
 
             await controller.get(request, response);
             responseMock.verify();
@@ -144,7 +144,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
-            mockThirdPartyRequests.getThirdPartySubscriberOathConfigByUserId
+            mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId
                 .withArgs(userId, adminUserId)
                 .resolves(existingConfigData);
             mockThirdPartyService.getThirdPartySubscriberById
@@ -155,14 +155,14 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['manage-third-party-subscriber-oath-config'],
+                ...i18n['manage-third-party-subscriber-oauth-config'],
                 formData: formDataWithValues,
             };
 
             responseMock
                 .expects('render')
                 .once()
-                .withArgs('system-admin/manage-third-party-subscriber-oath-config', expectedOptions);
+                .withArgs('system-admin/manage-third-party-subscriber-oauth-config', expectedOptions);
 
             await controller.get(request, response);
             responseMock.verify();
@@ -174,7 +174,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
-            mockThirdPartyRequests.getThirdPartySubscriberOathConfigByUserId
+            mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId
                 .withArgs(userId, adminUserId)
                 .resolves(null);
             mockThirdPartyService.getThirdPartySubscriberById
@@ -192,14 +192,14 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['manage-third-party-subscriber-oath-config'],
+                ...i18n['manage-third-party-subscriber-oauth-config'],
                 formData: newConfigFormData,
             };
 
             responseMock
                 .expects('render')
                 .once()
-                .withArgs('system-admin/manage-third-party-subscriber-oath-config', expectedOptions);
+                .withArgs('system-admin/manage-third-party-subscriber-oauth-config', expectedOptions);
 
             await controller.get(request, response);
             responseMock.verify();
@@ -211,7 +211,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
-            mockThirdPartyRequests.getThirdPartySubscriberOathConfigByUserId
+            mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId
                 .withArgs(userId, adminUserId)
                 .resolves('invalid-data');
             mockThirdPartyService.getThirdPartySubscriberById
@@ -229,14 +229,14 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['manage-third-party-subscriber-oath-config'],
+                ...i18n['manage-third-party-subscriber-oauth-config'],
                 formData: newConfigFormData,
             };
 
             responseMock
                 .expects('render')
                 .once()
-                .withArgs('system-admin/manage-third-party-subscriber-oath-config', expectedOptions);
+                .withArgs('system-admin/manage-third-party-subscriber-oauth-config', expectedOptions);
 
             await controller.get(request, response);
             responseMock.verify();
@@ -248,13 +248,13 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             const request = mockRequest(i18n);
             request.body = postFormData;
 
-            mockThirdPartyService.validateThirdPartySubscriberOathConfigFormFields
+            mockThirdPartyService.validateThirdPartySubscriberOauthConfigFormFields
                 .withArgs(postFormData)
                 .returns(formErrors);
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
-                ...i18n['manage-third-party-subscriber-oath-config'],
+                ...i18n['manage-third-party-subscriber-oauth-config'],
                 formData: postFormData,
                 formErrors: formErrors,
             };
@@ -262,7 +262,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             responseMock
                 .expects('render')
                 .once()
-                .withArgs('system-admin/manage-third-party-subscriber-oath-config', expectedOptions);
+                .withArgs('system-admin/manage-third-party-subscriber-oauth-config', expectedOptions);
 
             controller.post(request, response);
             responseMock.verify();
@@ -272,7 +272,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
             const request = mockRequest(i18n);
             request.body = postFormData;
 
-            mockThirdPartyService.validateThirdPartySubscriberOathConfigFormFields.withArgs(postFormData).returns(null);
+            mockThirdPartyService.validateThirdPartySubscriberOauthConfigFormFields.withArgs(postFormData).returns(null);
 
             const responseMock = sinon.mock(response);
 
@@ -281,7 +281,7 @@ describe('ManageThirdPartySubscriberOathConfigController', () => {
                 .once()
                 .withArgs('thirdPartySubscriberCookie', JSON.stringify(postFormData), { secure: true, httpOnly: true });
 
-            responseMock.expects('redirect').once().withArgs('/manage-third-party-subscriber-oath-config-summary');
+            responseMock.expects('redirect').once().withArgs('/manage-third-party-subscriber-oauth-config-summary');
 
             controller.post(request, response);
             responseMock.verify();

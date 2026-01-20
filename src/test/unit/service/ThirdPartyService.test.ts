@@ -105,7 +105,7 @@ describe('Third Party Service tests', () => {
         });
     });
 
-    describe('createThirdPartySubscriberOathConfig', () => {
+    describe('createThirdPartySubscriberOauthConfig', () => {
         const formData = {
             userId: 'user',
             destinationUrl: 'destinationUrl',
@@ -115,38 +115,38 @@ describe('Third Party Service tests', () => {
             scopeKey: 'scopeKey',
         };
 
-        const createThirdPartySubscriberOathConfigStub = sinon.stub(
+        const createThirdPartySubscriberOauthConfigStub = sinon.stub(
             ThirdPartyRequests.prototype,
-            'createThirdPartySubscriberOathConfig'
+            'createThirdPartySubscriberOauthConfig'
         );
-        createThirdPartySubscriberOathConfigStub.withArgs(sinon.match.any, '1').resolves(true);
-        createThirdPartySubscriberOathConfigStub.withArgs(sinon.match.any, '2').resolves(false);
-        createThirdPartySubscriberOathConfigStub.withArgs(sinon.match.any, '3').resolves(null);
+        createThirdPartySubscriberOauthConfigStub.withArgs(sinon.match.any, '1').resolves(true);
+        createThirdPartySubscriberOauthConfigStub.withArgs(sinon.match.any, '2').resolves(false);
+        createThirdPartySubscriberOauthConfigStub.withArgs(sinon.match.any, '3').resolves(null);
 
-        it('should return true if account management request return created third party oath config for subscriber', async () => {
-            const result = await thirdPartyService.createThirdPartySubscriberOathConfig(formData, '1');
+        it('should return true if account management request return created third party oauth config for subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '1');
             expect(result).to.be.true;
         });
 
-        it('should return false if account management request return errored third party oath config for subscriber', async () => {
-            const result = await thirdPartyService.createThirdPartySubscriberOathConfig(formData, '2');
+        it('should return false if account management request return errored third party oauth config for subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '2');
             expect(result).to.be.false;
         });
 
         it('should return false if account management request returns null', async () => {
-            const result = await thirdPartyService.createThirdPartySubscriberOathConfig(formData, '3');
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '3');
             expect(result).to.be.null;
         });
     });
 
-    describe('validateThirdPartySubscriberOathConfigFormFields', () => {
+    describe('validateThirdPartySubscriberOauthConfigFormFields', () => {
         it('should return errors with no third party subscriber name', () => {
-            const result = thirdPartyService.validateThirdPartySubscriberOathConfigFormFields({});
+            const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({});
             expect(result.destinationUrlError).to.be.true;
         });
 
         it('should return null when both third party subscriber name', () => {
-            const result = thirdPartyService.validateThirdPartySubscriberOathConfigFormFields({
+            const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({
                 userId: 'user',
                 destinationUrl: 'destinationUrl',
                 tokenUrl: 'tokenUrl',

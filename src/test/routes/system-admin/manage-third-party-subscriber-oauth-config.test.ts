@@ -25,19 +25,19 @@ const thirdPartySubscriber = {
     name: 'TestSubscriber',
 };
 
-const getThirdPartySubscriberOathConfigByUserIdStub = sinon.stub(
+const getThirdPartySubscriberOauthConfigByUserIdStub = sinon.stub(
     ThirdPartyRequests.prototype,
-    'getThirdPartySubscriberOathConfigByUserId'
+    'getThirdPartySubscriberOauthConfigByUserId'
 );
 const getThirdPartySubscriberByIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberById');
-const validateThirdPartySubscriberOathConfigFormFieldsStub = sinon.stub(
+const validateThirdPartySubscriberOauthConfigFormFieldsStub = sinon.stub(
     ThirdPartyService.prototype,
-    'validateThirdPartySubscriberOathConfigFormFields'
+    'validateThirdPartySubscriberOauthConfigFormFields'
 );
 const getSecretStub = sinon.stub(KeyVaultService.prototype, 'getSecret');
 const createKeyVaultSecretNameStub = sinon.stub(KeyVaultService.prototype, 'createKeyVaultSecretName');
 
-getThirdPartySubscriberOathConfigByUserIdStub.resolves(cookie);
+getThirdPartySubscriberOauthConfigByUserIdStub.resolves(cookie);
 getThirdPartySubscriberByIdStub.resolves(thirdPartySubscriber);
 createKeyVaultSecretNameStub.withArgs('TestSubscriber', userId, 'scope').returns('TestSubscriber-test-user-123-scope');
 createKeyVaultSecretNameStub
@@ -49,7 +49,7 @@ createKeyVaultSecretNameStub
 getSecretStub.withArgs('TestSubscriber-test-user-123-scope').resolves('read:data write:data');
 getSecretStub.withArgs('TestSubscriber-test-user-123-client-id').resolves('client-123');
 
-describe('Manage third party subscriber oath config page', () => {
+describe('Manage third party subscriber oauth config page', () => {
     beforeEach(() => {
         app.request['user'] = {
             userId: '1',
@@ -58,37 +58,37 @@ describe('Manage third party subscriber oath config page', () => {
     });
 
     describe('on GET', () => {
-        test('should render manage third party subscriber oath config page with existing cookie', async () => {
+        test('should render manage third party subscriber oauth config page with existing cookie', async () => {
             app.request['cookies'] = {
                 thirdPartySubscriberCookie: JSON.stringify(cookie),
             };
 
             await request(app)
-                .get('/manage-third-party-subscriber-oath-config')
+                .get('/manage-third-party-subscriber-oauth-config')
                 .query({ userId: userId })
                 .expect(res => {
                     expect(res.status).to.equal(200);
                 });
         });
 
-        test('should render manage third party subscriber oath config page with new config', async () => {
+        test('should render manage third party subscriber oauth config page with new config', async () => {
             app.request['cookies'] = {};
-            getThirdPartySubscriberOathConfigByUserIdStub.resolves(null);
+            getThirdPartySubscriberOauthConfigByUserIdStub.resolves(null);
 
             await request(app)
-                .get('/manage-third-party-subscriber-oath-config')
+                .get('/manage-third-party-subscriber-oauth-config')
                 .query({ userId: userId })
                 .expect(res => {
                     expect(res.status).to.equal(200);
                 });
         });
 
-        test('should render manage third party subscriber oath config page with existing config from database', async () => {
+        test('should render manage third party subscriber oauth config page with existing config from database', async () => {
             app.request['cookies'] = {};
-            getThirdPartySubscriberOathConfigByUserIdStub.resolves(cookie);
+            getThirdPartySubscriberOauthConfigByUserIdStub.resolves(cookie);
 
             await request(app)
-                .get('/manage-third-party-subscriber-oath-config')
+                .get('/manage-third-party-subscriber-oauth-config')
                 .query({ userId: userId })
                 .expect(res => {
                     expect(res.status).to.equal(200);
@@ -97,12 +97,12 @@ describe('Manage third party subscriber oath config page', () => {
     });
 
     describe('on POST', () => {
-        test('should render manage third party subscriber oath config page with errors', async () => {
+        test('should render manage third party subscriber oauth config page with errors', async () => {
             const formErrors = { destinationUrl: 'Destination URL is required' };
-            validateThirdPartySubscriberOathConfigFormFieldsStub.returns(formErrors);
+            validateThirdPartySubscriberOauthConfigFormFieldsStub.returns(formErrors);
 
             await request(app)
-                .post('/manage-third-party-subscriber-oath-config')
+                .post('/manage-third-party-subscriber-oauth-config')
                 .send({
                     destinationUrl: '',
                     tokenUrl: 'https://token.example.com',
@@ -113,14 +113,14 @@ describe('Manage third party subscriber oath config page', () => {
         });
 
         test('should redirect to summary page when form is valid', async () => {
-            validateThirdPartySubscriberOathConfigFormFieldsStub.returns(null);
+            validateThirdPartySubscriberOauthConfigFormFieldsStub.returns(null);
 
             await request(app)
-                .post('/manage-third-party-subscriber-oath-config')
+                .post('/manage-third-party-subscriber-oauth-config')
                 .send(cookie)
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('/manage-third-party-subscriber-oath-config-summary');
+                    expect(res.header['location']).to.equal('/manage-third-party-subscriber-oauth-config-summary');
                 });
         });
     });

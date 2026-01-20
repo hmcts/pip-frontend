@@ -1086,29 +1086,29 @@ export default function (app: Application): void {
         app.locals.container.cradle.deleteThirdPartySubscriberSuccessController.get
     );
     app.get(
-        '/manage-third-party-subscriber-oath-config',
+        '/manage-third-party-subscriber-oauth-config',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manageThirdPartySubscriberOathConfigController.get
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigController.get
     );
     app.post(
-        '/manage-third-party-subscriber-oath-config',
+        '/manage-third-party-subscriber-oauth-config',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manageThirdPartySubscriberOathConfigController.post
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigController.post
     );
     app.get(
-        '/manage-third-party-subscriber-oath-config-summary',
+        '/manage-third-party-subscriber-oauth-config-summary',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manageThirdPartySubscriberOathConfigSummaryController.get
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigSummaryController.get
     );
     app.post(
-        '/manage-third-party-subscriber-oath-config-summary',
+        '/manage-third-party-subscriber-oauth-config-summary',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manageThirdPartySubscriberOathConfigSummaryController.post
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigSummaryController.post
     );
     app.get(
-        '/manage-third-party-subscriber-oath-config-success',
+        '/manage-third-party-subscriber-oauth-config-success',
         isPermittedSystemAdmin,
-        app.locals.container.cradle.manageThirdPartySubscriberOathConfigSuccessController.get
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigSuccessController.get
     );
     app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);

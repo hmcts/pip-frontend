@@ -1,11 +1,11 @@
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
-import ManageThirdPartySubscriberOathConfigSuccessController from '../../../../main/controllers/system-admin/ManageThirdPartySubscriberOathConfigSuccessController';
+import ManageThirdPartySubscriberOauthConfigSuccessController from '../../../../main/controllers/system-admin/ManageThirdPartySubscriberOauthConfigSuccessController';
 
 const i18n = {
-    'manage-third-party-subscriber-oath-config-success': {
-        title: 'Manage third party oath config success',
+    'manage-third-party-subscriber-oauth-config-success': {
+        title: 'Manage third party oauth config success',
     },
 };
 
@@ -23,22 +23,22 @@ const response = {
 
 const request = mockRequest(i18n);
 
-const manageThirdPartySubscriberOathConfigSuccessController =
-    new ManageThirdPartySubscriberOathConfigSuccessController();
+const manageThirdPartySubscriberOauthConfigSuccessController =
+    new ManageThirdPartySubscriberOauthConfigSuccessController();
 
-describe('Manage third party oath config success controller', () => {
-    it('should render the manage third party oath config success page', async () => {
+describe('Manage third party oauth config success controller', () => {
+    it('should render the manage third party oauth config success page', async () => {
         const responseMock = sinon.mock(response);
         const expectedOptions = {
-            ...i18n['manage-third-party-subscriber-oath-config-success'],
+            ...i18n['manage-third-party-subscriber-oauth-config-success'],
         };
 
         responseMock
             .expects('render')
             .once()
-            .withArgs('system-admin/manage-third-party-subscriber-oath-config-success', expectedOptions);
+            .withArgs('system-admin/manage-third-party-subscriber-oauth-config-success', expectedOptions);
 
-        await manageThirdPartySubscriberOathConfigSuccessController.get(request, response);
+        await manageThirdPartySubscriberOauthConfigSuccessController.get(request, response);
         responseMock.verify();
     });
 });

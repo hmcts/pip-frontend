@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { app } from '../../../../main/app';
 import request from 'supertest';
 
-const PAGE_URL = '/manage-third-party-subscriber-oath-config-summary';
+const PAGE_URL = '/manage-third-party-subscriber-oauth-config-summary';
 
 const userId = 'test-user-123';
 
@@ -29,7 +29,7 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Create third party subscriber oath config summary page', () => {
+describe('Create third party subscriber oauth config summary page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -42,7 +42,7 @@ describe('Create third party subscriber oath config summary page', () => {
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
         expect(header[0].innerHTML).contains(
-            'Manage third party subscriber oath config summary',
+            'Manage third party subscriber oauth config summary',
             'Header does not match'
         );
     });
@@ -83,7 +83,7 @@ describe('Create third party subscriber oath config summary page', () => {
         expect(action.innerHTML).to.contain('Destination URL', 'Destination URL action does not match');
         expect(action.innerHTML).to.contain('Change', 'Destination URL action does not match');
         expect(action.getAttribute('href')).to.equal(
-            'manage-third-party-subscriber-oath-config?userId=test-user-123#destinationUrl',
+            'manage-third-party-subscriber-oauth-config?userId=test-user-123#destinationUrl',
             'Destination url action link does not match'
         );
 
@@ -91,7 +91,7 @@ describe('Create third party subscriber oath config summary page', () => {
         expect(action.innerHTML).to.contain('Token URL', 'Token URL action does not match');
         expect(action.innerHTML).to.contain('Change', 'Destination URL action does not match');
         expect(action.getAttribute('href')).to.equal(
-            'manage-third-party-subscriber-oath-config?userId=test-user-123#tokenUrl',
+            'manage-third-party-subscriber-oauth-config?userId=test-user-123#tokenUrl',
             'Token url action link does not match'
         );
 
@@ -99,7 +99,7 @@ describe('Create third party subscriber oath config summary page', () => {
         expect(action.innerHTML).to.contain('Scope Value', 'Scope Value action does not match');
         expect(action.innerHTML).to.contain('Change', 'Scope Value action does not match');
         expect(action.getAttribute('href')).to.equal(
-            'manage-third-party-subscriber-oath-config?userId=test-user-123#scopeValue',
+            'manage-third-party-subscriber-oauth-config?userId=test-user-123#scopeValue',
             'Scope Value action link does not match'
         );
 
@@ -107,7 +107,7 @@ describe('Create third party subscriber oath config summary page', () => {
         expect(action.innerHTML).to.contain('Client ID', 'Client ID action does not match');
         expect(action.innerHTML).to.contain('Change', 'Scope Value action does not match');
         expect(action.getAttribute('href')).to.equal(
-            'manage-third-party-subscriber-oath-config?userId=test-user-123#clientId',
+            'manage-third-party-subscriber-oauth-config?userId=test-user-123#clientId',
             'Client ID action link does not match'
         );
     });

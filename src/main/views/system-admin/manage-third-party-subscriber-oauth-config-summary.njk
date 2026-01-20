@@ -24,7 +24,7 @@
         }) }}
     {% endif %}
     <h1 class="govuk-heading-l">{{ header }}</h1>
-    <form method="post" action="manage-third-party-subscriber-oath-config-summary">
+    <form method="post" action="manage-third-party-subscriber-oauth-config-summary">
         {{ govukInput({
             id: "user",
             name: "user",
@@ -49,7 +49,7 @@
                     actions: {
                         items: [
                             {
-                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#destinationUrl",
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#destinationUrl",
                                 text: actionName,
                                 visuallyHiddenText: destinationUrl
                             }
@@ -66,7 +66,7 @@
                         actions: {
                         items: [
                             {
-                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#tokenUrl",
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#tokenUrl",
                                 text: actionName,
                                 visuallyHiddenText: tokenUrl
                             }
@@ -91,7 +91,7 @@
                     actions: {
                         items: [
                             {
-                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#scopeValue",
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#scopeValue",
                                 text: actionName,
                                 visuallyHiddenText: scopeValue
                             }
@@ -116,7 +116,7 @@
                     actions: {
                         items: [
                             {
-                                href: "manage-third-party-subscriber-oath-config?userId=" + formData.user + "#clientId",
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#clientId",
                                 text: actionName,
                                 visuallyHiddenText: clientId
                             }

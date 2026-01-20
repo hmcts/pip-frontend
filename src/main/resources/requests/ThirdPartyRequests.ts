@@ -68,7 +68,7 @@ export class ThirdPartyRequests {
         return null;
     }
 
-    public async getThirdPartySubscriberOathConfigByUserId(userId: string, adminUserId: string): Promise<any> {
+    public async getThirdPartySubscriberOauthConfigByUserId(userId: string, adminUserId: string): Promise<any> {
         try {
             logger.info(`Third party subscriber with ID: ${userId} data requested by Admin with ID: ${adminUserId}`);
             const response = await accountManagementApi.get(`/third-party/configuration/${userId}`, {
@@ -78,43 +78,43 @@ export class ThirdPartyRequests {
             });
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, `retrieve third party subscriber oath config with ID ${userId}`);
+            logHelper.logErrorResponse(error, `retrieve third party subscriber oauth config with ID ${userId}`);
         }
         return null;
     }
 
     /**
-     * Request to account management that creates a third party subscriber oath config.
+     * Request to account management that creates a third party subscriber oauth config.
      * @param payload The payload containing the name of subscriber account to request.
      * @param requester The user ID of the person requesting this.
      */
-    public async createThirdPartySubscriberOathConfig(payload, requester): Promise<boolean> {
+    public async createThirdPartySubscriberOauthConfig(payload, requester): Promise<boolean> {
         try {
             const response = await accountManagementApi.post('/third-party/configuration', payload, {
                 headers: { 'x-requester-id': requester },
             });
-            logger.info('Third party subscriber oath config created');
+            logger.info('Third party subscriber oauth config created');
             return response.status === StatusCodes.CREATED;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'third party subscriber oath config creation');
+            logHelper.logErrorResponse(error, 'third party subscriber oauth config creation');
         }
         return null;
     }
 
     /**
-     * Request to account management that update a third party subscriber oath config.
+     * Request to account management that update a third party subscriber oauth config.
      * @param payload The payload containing the name of subscriber account to request.
      * @param requester The user ID of the person requesting this.
      */
-    public async updateThirdPartySubscriberOathConfig(userId: string, payload, requester): Promise<boolean> {
+    public async updateThirdPartySubscriberOauthConfig(userId: string, payload, requester): Promise<boolean> {
         try {
             const response = await accountManagementApi.put(`/third-party/configuration/${userId}`, payload, {
                 headers: { 'x-requester-id': requester },
             });
-            logger.info('Third party subscriber oath config updated');
+            logger.info('Third party subscriber oauth config updated');
             return response.status === StatusCodes.OK;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'third party subscriber oath config updation');
+            logHelper.logErrorResponse(error, 'third party subscriber oauth config updation');
         }
         return null;
     }

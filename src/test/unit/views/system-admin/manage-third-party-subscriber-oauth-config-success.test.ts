@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { app } from '../../../../main/app';
 import request from 'supertest';
 
-const PAGE_URL = '/manage-third-party-subscriber-oath-config-success';
+const PAGE_URL = '/manage-third-party-subscriber-oauth-config-success';
 
 app.request['user'] = {
     roles: 'SYSTEM_ADMIN',
@@ -10,7 +10,7 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Create third party oath config success page', () => {
+describe('Create third party oauth config success page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -22,6 +22,6 @@ describe('Create third party oath config success page', () => {
 
     it('should display success panel', () => {
         const header = htmlRes.getElementsByClassName('govuk-panel__title')[0];
-        expect(header.innerHTML).contains('Third party subscriber oath config updated', 'Panel message does not match');
+        expect(header.innerHTML).contains('Third party subscriber oauth config updated', 'Panel message does not match');
     });
 });

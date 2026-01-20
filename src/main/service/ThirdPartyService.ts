@@ -51,17 +51,17 @@ export class ThirdPartyService {
         );
     }
 
-    public async createThirdPartySubscriberOathConfig(formData, requesterId): Promise<boolean> {
-        return await this.thirdPartyRequests.createThirdPartySubscriberOathConfig(
-            this.formatThirdPartySubscriberOathConfigPayload(formData),
+    public async createThirdPartySubscriberOauthConfig(formData, requesterId): Promise<boolean> {
+        return await this.thirdPartyRequests.createThirdPartySubscriberOauthConfig(
+            this.formatThirdPartySubscriberOauthConfigPayload(formData),
             requesterId
         );
     }
 
-    public async updateThirdPartySubscriberOathConfig(formData, requesterId): Promise<boolean> {
-        return await this.thirdPartyRequests.updateThirdPartySubscriberOathConfig(
+    public async updateThirdPartySubscriberOauthConfig(formData, requesterId): Promise<boolean> {
+        return await this.thirdPartyRequests.updateThirdPartySubscriberOauthConfig(
             formData.user,
-            this.formatThirdPartySubscriberOathConfigPayload(formData),
+            this.formatThirdPartySubscriberOauthConfigPayload(formData),
             requesterId
         );
     }
@@ -70,7 +70,7 @@ export class ThirdPartyService {
         return { name: formData.thirdPartySubscriberName };
     }
 
-    private formatThirdPartySubscriberOathConfigPayload(formData) {
+    private formatThirdPartySubscriberOauthConfigPayload(formData) {
         return {
             userId: formData.user,
             destinationUrl: formData.destinationUrl,
@@ -81,7 +81,7 @@ export class ThirdPartyService {
         };
     }
 
-    public validateThirdPartySubscriberOathConfigFormFields(formData): any | null {
+    public validateThirdPartySubscriberOauthConfigFormFields(formData): any | null {
         const fields = {
             destinationUrlError: !formData.destinationUrl,
             tokenUrlError: !formData.tokenUrl,

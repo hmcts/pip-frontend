@@ -19,53 +19,53 @@ const cookie = {
     tokenUrl: 'https://token.example.com',
 };
 
-const createThirdPartySubscriberOathConfigStub = sinon.stub(
+const createThirdPartySubscriberOauthConfigStub = sinon.stub(
     ThirdPartyService.prototype,
-    'createThirdPartySubscriberOathConfig'
+    'createThirdPartySubscriberOauthConfig'
 );
-createThirdPartySubscriberOathConfigStub.withArgs(cookie, '2').resolves(true);
+createThirdPartySubscriberOauthConfigStub.withArgs(cookie, '2').resolves(true);
 
-describe('Manage third party subscriber oath config summary page', () => {
+describe('Manage third party subscriber oauth config summary page', () => {
     beforeEach(() => {
         app.request['cookies'] = { thirdPartySubscriberCookie: JSON.stringify(cookie) };
     });
 
     describe('on GET', () => {
-        test('should render create third party subscriber oath config summary page', async () => {
+        test('should render create third party subscriber oauth config summary page', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',
             };
 
             await request(app)
-                .get('/manage-third-party-subscriber-oath-config-summary')
+                .get('/manage-third-party-subscriber-oauth-config-summary')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
 
     describe('on POST', () => {
-        test('should render create third party subscriber oath config summary page with errors', async () => {
+        test('should render create third party subscriber oauth config summary page with errors', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',
             };
 
             await request(app)
-                .post('/manage-third-party-subscriber-oath-config-summary')
+                .post('/manage-third-party-subscriber-oauth-config-summary')
                 .expect(res => expect(res.status).to.equal(200));
         });
 
-        test('should redirect to create third party subscriber oath config success page', async () => {
+        test('should redirect to create third party subscriber oauth config success page', async () => {
             app.request['user'] = {
                 userId: '2',
                 roles: 'SYSTEM_ADMIN',
             };
 
             await request(app)
-                .post('/manage-third-party-subscriber-oath-config-summary')
+                .post('/manage-third-party-subscriber-oauth-config-summary')
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.header['location']).to.equal('/manage-third-party-subscriber-oath-config-success');
+                    expect(res.header['location']).to.equal('/manage-third-party-subscriber-oauth-config-success');
                 });
         });
     });

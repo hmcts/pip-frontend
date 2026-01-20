@@ -15,7 +15,7 @@ import sinon from 'sinon';
 import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import { ThirdPartyRequests } from '../../../../main/resources/requests/ThirdPartyRequests';
 
-const PAGE_URL = '/manage-third-party-subscriber-oath-config';
+const PAGE_URL = '/manage-third-party-subscriber-oauth-config';
 
 const userId = 'test-user-123';
 
@@ -42,8 +42,8 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Manage third party subscriber oath config page', () => {
-    sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberOathConfigByUserId').resolves(cookie);
+describe('Manage third party subscriber oauth config page', () => {
+    sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberOauthConfigByUserId').resolves(cookie);
     sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberById').resolves({ name: cookie.user });
 
     // Configure the mock's behavior
@@ -69,7 +69,7 @@ describe('Manage third party subscriber oath config page', () => {
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
         expect(header[0].innerHTML).contains(
-            'Manage third party subscriber Oath Configuration',
+            'Manage third party subscriber Oauth Configuration',
             'Header does not match'
         );
     });

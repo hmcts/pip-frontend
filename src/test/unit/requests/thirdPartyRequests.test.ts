@@ -18,7 +18,7 @@ const mockValidThirdPartySubscriberBody = {
 };
 
 const thirdPartySubscriberEndpoint = '/third-party';
-const thirdPartySubscriberOathConfigEndpoint = '/third-party/configuration';
+const thirdPartySubscriberOauthConfigEndpoint = '/third-party/configuration';
 
 let postStub = sinon.stub(accountManagementApi, 'post');
 let getStub = sinon.stub(accountManagementApi, 'get');
@@ -144,7 +144,7 @@ describe('Account Management Requests', () => {
         });
     });
 
-    describe('Get third party subscriber oath config by id', () => {
+    describe('Get third party subscriber oauth config by id', () => {
         const idtoUse = '123';
 
         beforeEach(() => {
@@ -152,12 +152,12 @@ describe('Account Management Requests', () => {
             getStub = sinon.stub(accountManagementApi, 'get');
         });
 
-        it('should return third party subscriber oath config on success', async () => {
-            getStub.withArgs(`${thirdPartySubscriberOathConfigEndpoint}/${idtoUse}`).resolves({
+        it('should return third party subscriber oauth config on success', async () => {
+            getStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).resolves({
                 status: 200,
                 data: { userId: '321', destinationUrl: 'url' },
             });
-            const response = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(idtoUse, '1234');
+            const response = await thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(idtoUse, '1234');
             expect(response).toStrictEqual({
                 userId: '321',
                 destinationUrl: 'url',
@@ -165,27 +165,27 @@ describe('Account Management Requests', () => {
         });
 
         it('should return null on error response', async () => {
-            getStub.withArgs(`${thirdPartySubscriberOathConfigEndpoint}/${idtoUse}`).rejects(errorResponse);
-            const response = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(idtoUse, '1234');
+            getStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).rejects(errorResponse);
+            const response = await thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(idtoUse, '1234');
             expect(response).toBe(null);
         });
 
         it('should return null on error message', async () => {
-            getStub.withArgs(`${thirdPartySubscriberOathConfigEndpoint}/${idtoUse}`).rejects(errorMessage);
-            const response = await thirdPartyRequests.getThirdPartySubscriberOathConfigByUserId(idtoUse, '1234');
+            getStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).rejects(errorMessage);
+            const response = await thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(idtoUse, '1234');
             expect(response).toBe(null);
         });
     });
 
-    describe('Create Third Party Subscriber Oath Config', () => {
+    describe('Create Third Party Subscriber Oauth Config', () => {
         beforeEach(() => {
             sinon.restore();
             postStub = sinon.stub(accountManagementApi, 'post');
         });
 
         it('should return true on success', async () => {
-            postStub.withArgs(thirdPartySubscriberOathConfigEndpoint).resolves({ status: StatusCodes.CREATED });
-            const response = await thirdPartyRequests.createThirdPartySubscriberOathConfig(
+            postStub.withArgs(thirdPartySubscriberOauthConfigEndpoint).resolves({ status: StatusCodes.CREATED });
+            const response = await thirdPartyRequests.createThirdPartySubscriberOauthConfig(
                 mockValidThirdPartySubscriberBody,
                 mockHeaders
             );
@@ -193,8 +193,8 @@ describe('Account Management Requests', () => {
         });
 
         it('should return null on error response', async () => {
-            postStub.withArgs(thirdPartySubscriberOathConfigEndpoint).resolves(Promise.reject(errorResponse));
-            const response = await thirdPartyRequests.createThirdPartySubscriberOathConfig(
+            postStub.withArgs(thirdPartySubscriberOauthConfigEndpoint).resolves(Promise.reject(errorResponse));
+            const response = await thirdPartyRequests.createThirdPartySubscriberOauthConfig(
                 { foo: 'blah' },
                 mockHeaders
             );
@@ -202,15 +202,15 @@ describe('Account Management Requests', () => {
         });
 
         it('should return null on error message', async () => {
-            postStub.withArgs(thirdPartySubscriberOathConfigEndpoint).resolves(Promise.reject(errorMessage));
-            const response = await thirdPartyRequests.createThirdPartySubscriberOathConfig({ bar: 'baz' }, mockHeaders);
+            postStub.withArgs(thirdPartySubscriberOauthConfigEndpoint).resolves(Promise.reject(errorMessage));
+            const response = await thirdPartyRequests.createThirdPartySubscriberOauthConfig({ bar: 'baz' }, mockHeaders);
             expect(response).toBe(null);
         });
     });
 
-    describe('Update third party subscriber oath config by id', () => {
+    describe('Update third party subscriber oauth config by id', () => {
         const idtoUse = '123';
-        const updateOathConfigPayload = {
+        const updateOauthConfigPayload = {
             userId: '321',
             destinationUrl: 'url',
         };
@@ -219,34 +219,34 @@ describe('Account Management Requests', () => {
             putStub = sinon.stub(accountManagementApi, 'put');
         });
 
-        it('should update third party subscriber oath config on success', async () => {
-            putStub.withArgs(`${thirdPartySubscriberOathConfigEndpoint}/${idtoUse}`).resolves({
+        it('should update third party subscriber oauth config on success', async () => {
+            putStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).resolves({
                 status: 200,
                 data: { userId: '321', destinationUrl: 'url' },
             });
-            const response = await thirdPartyRequests.updateThirdPartySubscriberOathConfig(
+            const response = await thirdPartyRequests.updateThirdPartySubscriberOauthConfig(
                 idtoUse,
-                updateOathConfigPayload,
+                updateOauthConfigPayload,
                 '1234'
             );
             expect(response).toStrictEqual(true);
         });
 
         it('should return null on error response', async () => {
-            putStub.withArgs(`${thirdPartySubscriberOathConfigEndpoint}/${idtoUse}`).rejects(errorResponse);
-            const response = await thirdPartyRequests.updateThirdPartySubscriberOathConfig(
+            putStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).rejects(errorResponse);
+            const response = await thirdPartyRequests.updateThirdPartySubscriberOauthConfig(
                 idtoUse,
-                updateOathConfigPayload,
+                updateOauthConfigPayload,
                 '1234'
             );
             expect(response).toBe(null);
         });
 
         it('should return null on error message', async () => {
-            putStub.withArgs(`${thirdPartySubscriberOathConfigEndpoint}/${idtoUse}`).rejects(errorMessage);
-            const response = await thirdPartyRequests.updateThirdPartySubscriberOathConfig(
+            putStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).rejects(errorMessage);
+            const response = await thirdPartyRequests.updateThirdPartySubscriberOauthConfig(
                 idtoUse,
-                updateOathConfigPayload,
+                updateOauthConfigPayload,
                 '1234'
             );
             expect(response).toBe(null);

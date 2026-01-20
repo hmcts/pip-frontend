@@ -1,6 +1,6 @@
 {
-    "title": "Court and tribunal hearings - Manage third party subscriber Oath Configuration- Court and Tribunal Hearings - GOV.UK",
-    "header": "Manage third party subscriber Oath Configuration",
+    "title": "Court and tribunal hearings - Manage third party subscriber Oauth Configuration- Court and Tribunal Hearings - GOV.UK",
+    "header": "Manage third party subscriber Oauth Configuration",
     "destinationUrlLabel": "Destination URL",
     "destinationUrlError": "Enter Destination URL",
     "tokenUrlLabel": "Token URL",
@@ -17,7 +17,7 @@
     "clientSecretKeyError": "Enter Client Secret Key",
     "clientSecretLabel": "Client Secret",
     "clientSecretError": "Enter Client Secret",
-    "createOathConfigBtn": "Create",
-    "updateOathConfigBtn": "Update",
+    "createOauthConfigBtn": "Create",
+    "updateOauthConfigBtn": "Update",
     "errorTitle": "There is a problem"
 }
