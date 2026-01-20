@@ -203,7 +203,10 @@ describe('Account Management Requests', () => {
 
         it('should return null on error message', async () => {
             postStub.withArgs(thirdPartySubscriberOauthConfigEndpoint).resolves(Promise.reject(errorMessage));
-            const response = await thirdPartyRequests.createThirdPartySubscriberOauthConfig({ bar: 'baz' }, mockHeaders);
+            const response = await thirdPartyRequests.createThirdPartySubscriberOauthConfig(
+                { bar: 'baz' },
+                mockHeaders
+            );
             expect(response).toBe(null);
         });
     });

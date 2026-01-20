@@ -272,7 +272,9 @@ describe('ManageThirdPartySubscriberOauthConfigController', () => {
             const request = mockRequest(i18n);
             request.body = postFormData;
 
-            mockThirdPartyService.validateThirdPartySubscriberOauthConfigFormFields.withArgs(postFormData).returns(null);
+            mockThirdPartyService.validateThirdPartySubscriberOauthConfigFormFields
+                .withArgs(postFormData)
+                .returns(null);
 
             const responseMock = sinon.mock(response);
 
