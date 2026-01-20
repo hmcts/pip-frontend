@@ -68,7 +68,7 @@ describe('Manage third party subscribers - view', () => {
             expect(buttons[0].innerHTML).contains('Manage subscriptions', 'Button does not contain the correct text');
         });
 
-        it('manage oath configuration button should be correct', () => {
+        it('manage oauth configuration button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
             expect(buttons[1].innerHTML).contains(
                 'Manage OAuth configuration',

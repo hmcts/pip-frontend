@@ -26,11 +26,17 @@
     {% set userNameErrorMessage = {text: userNameError} if formErrors.userNameError else '' %}
     {% set userNameInput = govukInput({
         classes: 'govuk-!-width-two-thirds',
+        hint: {
+            text: userNameLengthHint
+        },
         id: "thirdPartySubscriberName",
         name: "thirdPartySubscriberName",
         value: formData.thirdPartySubscriberName,
         label: {
             text: userNameLabel
+        },
+        attributes: {
+            maxlength: 75
         },
         errorMessage: userNameErrorMessage
     }) %}

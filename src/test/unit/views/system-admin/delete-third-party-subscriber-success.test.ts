@@ -26,7 +26,7 @@ describe('Delete third party subscriber success page', () => {
 
         expect(panelTitle.innerHTML).contains('Third party subscriber deleted', 'Panel title does not match');
         expect(panelMessage.innerHTML).contains(
-            'The third party subscriber, associated subscriptions and Oath configuration have been removed.',
+            'The third party subscriber, associated subscriptions and Oauth configuration have been removed.',
             'Panel message does not match'
         );
     });

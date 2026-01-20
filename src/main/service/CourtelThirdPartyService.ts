@@ -185,8 +185,8 @@ export class CourtelThirdPartyService {
 
     public validateThirdPartyUserFormFields(formData): any | null {
         const fields = {
-            userNameError: !formData.thirdPartyName,
-            userRoleError: !formData.thirdPartyRole,
+            userNameError: !formData?.thirdPartyName,
+            userRoleError: !formData?.thirdPartyRole,
         };
         return fields.userNameError || fields.userRoleError ? fields : null;
     }
