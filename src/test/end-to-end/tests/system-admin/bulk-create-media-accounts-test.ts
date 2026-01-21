@@ -7,7 +7,7 @@ Feature('Bulk create media accounts');
 Scenario('I as a system admin should be able to bulk create media accounts', async ({ I }) => {
     const validUser1 = randomData.getRandomEmailAddress();
     const validUser2 = randomData.getRandomEmailAddress();
-    const fileName = 'src/test/end-to-end/shared/mocks/bulkCreateUser.csv';
+    const fileName = 'src/test/end-to-end/shared/mocks/bulkCreateUserValid.csv';
 
     const columns = {
         email: 'email',
@@ -36,7 +36,7 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.see(
         'Note the upload process has a maximum of 30 accounts created per run. Please ensure the file uploaded for processing has no more than 30 cases.'
     );
-    I.attachFile('#bulk-account-upload', './shared/mocks/bulkCreateUser.csv');
+    I.attachFile('#bulk-account-upload', './shared/mocks/bulkCreateUserValid.csv');
     I.click('Continue');
     I.waitForText('Create media accounts confirmation');
     I.see(validUser1);
