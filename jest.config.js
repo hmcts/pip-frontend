@@ -3,7 +3,7 @@ module.exports = {
     cacheDirectory: '/tmp/jest-cache',
     preset: 'ts-jest/presets/js-with-babel',
     transformIgnorePatterns: [
-        '/node_modules/(?!(chai|@azure|uuid|applicationinsights/node_modules/@azure|@typespec)/)',
+        '/node_modules/(?!(chai|@azure|uuid|applicationinsights/node_modules/@azure|@typespec|@azure-rest)/)',
     ],
     roots: ['<rootDir>/src/test/unit'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
