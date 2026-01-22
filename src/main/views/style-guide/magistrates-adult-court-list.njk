@@ -17,12 +17,7 @@
         <h1 id='page-heading' class="govuk-heading-l">{{ heading }} {{ locationName }}</h1>
         <p class="govuk-body"><a class="govuk-link" href={{ factLink }}>{{ factLinkText1 }}</a>{{ factLinkText2 }}</p>
         <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ listDate }} {{ contentDate }}</p>
-        {% if publishedTime | length %}
-            <p class="govuk-body">{{ listUpdated }} {{ publishedDate }} {{ at }} {{ publishedTime }}</p>
-        {% else %}
-            <p class="govuk-body">{{ listUpdated }} {{ publishedDate }}</p>
-        {% endif %}
-
+        <p class="govuk-body">{{ listUpdated }} {{ publishedDate }}</p>
         <div class="govuk-grid restriction-list-section govuk-!-margin-bottom-5">
             <div class="govuk-body">
                 <h3>{{ restrictionInformationHeading }}</h3>

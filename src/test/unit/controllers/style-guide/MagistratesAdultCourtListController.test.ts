@@ -114,7 +114,6 @@ describe.each([urlDailyList, urlFutureList, urlPublicDailyList, urlPublicFutureL
                 locationName: "Abergavenny Magistrates' Court",
                 provenance: 'prov1',
                 publishedDate: '31 July 2025',
-                publishedTime: '9:05am',
             };
 
             responseMock.expects('render').once().withArgs(listPath, expectedData);

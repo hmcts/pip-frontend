@@ -100,7 +100,7 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Public Adult Court Lis
 
     it('should display publication date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[2].innerHTML).contains('Last updated 31 July 2025 at 9:05am', 'Publication date does not match');
+        expect(text[2].innerHTML).contains('Last updated 31 July 2025', 'Publication date does not match');
     });
 
     it('should display reporting restriction heading', () => {

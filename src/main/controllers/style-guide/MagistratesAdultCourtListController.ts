@@ -43,9 +43,6 @@ export default class MagistratesAdultCourtListController {
                 req.lng
             );
 
-            const printStartTime = payload['document'].info?.start_time;
-            const publishedTime = printStartTime ? helperService.publicationTimeInUkTime(printStartTime) : '';
-
             res.render(`style-guide/${listPath}`, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listPath]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
@@ -54,7 +51,6 @@ export default class MagistratesAdultCourtListController {
                 locationName: locationName,
                 provenance: metadata.provenance,
                 publishedDate,
-                publishedTime,
             });
         } else if (
             payload === HttpStatusCode.NotFound ||
