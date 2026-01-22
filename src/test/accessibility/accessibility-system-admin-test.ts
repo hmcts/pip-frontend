@@ -24,7 +24,7 @@ let testUser;
 let artefactId;
 
 const CSV_FILE_PATH = '../end-to-end/shared/mocks/system-admin-upload-reference-data-test.csv';
-const BULK_CREATE_USER_FILE_PATH = '../end-to-end/shared/mocks/bulkCreateUserValid.csv';
+const BULK_CREATE_USER_FILE_PATH = '../end-to-end/shared/mocks/bulkCreateUser.csv';
 const INVALID_FILE_PATH = '../end-to-end/shared/mocks/reference-data-invalid.csv';
 const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
