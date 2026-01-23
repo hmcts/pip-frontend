@@ -41,7 +41,9 @@ deleteUserStub.withArgs('124').resolves('User deleted');
 deleteUserStub.withArgs('125').resolves('User deleted');
 deleteUserStub.withArgs('126').resolves(null);
 
-sinon.stub(AccountManagementRequests.prototype, 'updateUser').resolves({ userId: '125', roles: 'INTERNAL_ADMIN_LOCAL' });
+sinon
+    .stub(AccountManagementRequests.prototype, 'updateUser')
+    .resolves({ userId: '125', roles: 'INTERNAL_ADMIN_LOCAL' });
 
 let systemAdminStub = sinon
     .stub(AccountManagementRequests.prototype, 'createSystemAdminUser')
