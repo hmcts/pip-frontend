@@ -22,6 +22,7 @@ export class CrimeListsService {
                             this.findLinkedCasesInformation(hearing);
                             hearing['case'].forEach(hearingCase => {
                                 this.manipulateParty(hearingCase);
+                                this.findOffences(hearingCase);
                             });
                         });
                     });
@@ -62,9 +63,11 @@ export class CrimeListsService {
             switch (party.partyRole) {
                 case 'DEFENDANT': {
                     this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
+                    this.pushIfExists(defendants, this.createOrganisationDetails(party.organisationDetails));
                     break;
                 }
                 case 'DEFENDANT_REPRESENTATIVE': {
+                    this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
                     this.pushIfExists(
                         defendantRepresentatives,
                         this.createOrganisationDetails(party.organisationDetails)
@@ -72,6 +75,7 @@ export class CrimeListsService {
                     break;
                 }
                 case 'PROSECUTING_AUTHORITY': {
+                    this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
                     this.pushIfExists(
                         prosecutingAuthorities,
                         this.createOrganisationDetails(party.organisationDetails)
@@ -93,6 +97,17 @@ export class CrimeListsService {
 
     private createOrganisationDetails(organisationDetails) {
         return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
+    }
+
+    public findOffences(node): void {
+        const offences = [];
+
+        node?.party?.forEach(party => {
+            party.offence?.forEach(offence =>{
+                this.pushIfExists(offences, ListParseHelperService.writeStringIfValid(offence.offenceTitle));
+            })
+        });
+        node.offences = offences;
     }
 
     public findLinkedCasesInformation(hearing): void {
