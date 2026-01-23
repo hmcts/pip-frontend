@@ -103,9 +103,9 @@ export class CrimeListsService {
         const offences = [];
 
         node?.party?.forEach(party => {
-            party.offence?.forEach(offence =>{
+            party.offence?.forEach(offence => {
                 this.pushIfExists(offences, ListParseHelperService.writeStringIfValid(offence.offenceTitle));
-            })
+            });
         });
         node.offences = offences;
     }
