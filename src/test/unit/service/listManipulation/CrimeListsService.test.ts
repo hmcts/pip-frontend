@@ -76,7 +76,12 @@ describe('Crime Data manipulation service', () => {
         it('should format multiple offences', async () => {
             const hearing = partyData.hearing[1];
             crimeListsService.findOffences(hearing);
-            expect(hearing.offences).to.deep.equal(['Test offence 1', 'Test offence 2', 'Test offence 3', 'Test offence 4']);
+            expect(hearing.offences).to.deep.equal([
+                'Test offence 1',
+                'Test offence 2',
+                'Test offence 3',
+                'Test offence 4',
+            ]);
         });
-    })
+    });
 });
