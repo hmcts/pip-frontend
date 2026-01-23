@@ -41,6 +41,11 @@
             "title": "Manage Location Metadata",
             "description": "View, update and remove location metadata",
             "link": "location-metadata-search"
+        },
+        {
+            "title": "Manage Third Party Subscribers",
+            "description": "View, update and remove third party subscribers",
+            "link": "manage-third-party-subscribers"
         }
     ]
 }

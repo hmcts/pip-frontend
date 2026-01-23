@@ -1,0 +1,47 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    {% if formErrors %}
+        {% set errorList = [] %}
+        {% if formErrors.userNameError %}
+            {% set errorList = (errorList.push({text: userNameError, href: "#thirdPartySubscriberName"}), errorList) %}
+        {% endif %}
+        {{ govukErrorSummary({
+            titleText: errorTitle,
+            errorList: errorList
+        }) }}
+    {% endif %}
+
+    {% set userNameErrorMessage = {text: userNameError} if formErrors.userNameError else '' %}
+    {% set userNameInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "thirdPartySubscriberName",
+        name: "thirdPartySubscriberName",
+        value: formData.thirdPartySubscriberName,
+        label: {
+            text: userNameLabel
+        },
+        errorMessage: userNameErrorMessage
+    }) %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" novalidate>
+        {{ userNameInput }}
+        {{ submitButton() }}
+    </form>
+
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+{% endblock %}

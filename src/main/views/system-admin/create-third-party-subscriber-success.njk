@@ -1,0 +1,34 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, successPanel, backButtonHistory %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    {{ successPanel(header) }}
+    {{ govukSummaryList({
+        rows: [
+            {
+                key: {
+                    text: name
+                },
+                    value: {
+                    text: formData.thirdPartySubscriberName
+                }
+            }
+        ]
+    }) }}
+    <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-top-6">{{ nextMessage }}</p>
+    <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="manage-third-party-subscribers">{{ manageThirdPartySubscriber }}</a></p>
+    <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="system-admin-dashboard">{{ home }}</a></p>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+{% endblock %}

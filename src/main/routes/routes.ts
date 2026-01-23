@@ -1035,6 +1035,56 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.deleteThirdPartyUserSuccessController.get
     );
+    app.get(
+        '/manage-third-party-subscribers',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscribersController.get
+    );
+    app.get(
+        '/manage-third-party-subscribers/view',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscribersViewController.get
+    );
+    app.get(
+        '/create-third-party-subscriber',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartySubscriberController.get
+    );
+    app.post(
+        '/create-third-party-subscriber',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartySubscriberController.post
+    );
+    app.get(
+        '/create-third-party-subscriber-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartySubscriberSummaryController.get
+    );
+    app.post(
+        '/create-third-party-subscriber-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartySubscriberSummaryController.post
+    );
+    app.get(
+        '/create-third-party-subscriber-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.createThirdPartySubscriberSuccessController.get
+    );
+    app.get(
+        '/delete-third-party-subscriber-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartySubscriberConfirmationController.get
+    );
+    app.post(
+        '/delete-third-party-subscriber-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartySubscriberConfirmationController.post
+    );
+    app.get(
+        '/delete-third-party-subscriber-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteThirdPartySubscriberSuccessController.get
+    );
     app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
 
