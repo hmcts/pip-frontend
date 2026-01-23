@@ -73,7 +73,6 @@ describe('Magistrates Public List Controller', () => {
             courtName: "Abergavenny Magistrates' Court",
             publishedTime: '12:30am',
             provenance: 'prov1',
-            version: '',
             venueAddress: 'THE LAW COURTS\nMain Road\nPR1 2LL',
         };
 
