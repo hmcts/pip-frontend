@@ -46,7 +46,6 @@ export default class MagistratesPublicListController {
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
                 provenance: metaData.provenance,
-                version: searchResults['document']['version'],
                 courtName: location.name,
                 venueAddress: venueAddress,
             });
