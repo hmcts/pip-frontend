@@ -10,10 +10,12 @@ deleteUserStub.withArgs('123', '1').resolves('success');
 deleteUserStub.withArgs('124', '1').resolves(null);
 
 describe('Delete third party user confirmation page', () => {
-    app.request['user'] = {
-        userId: '1',
-        roles: 'SYSTEM_ADMIN',
-    };
+    beforeEach(() => {
+        app.request['user'] = {
+            userId: '1',
+            roles: 'SYSTEM_ADMIN',
+        };
+    });
 
     describe('on GET', () => {
         test('should render delete third party user confirmation page', async () => {

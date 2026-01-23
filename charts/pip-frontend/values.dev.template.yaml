@@ -57,8 +57,8 @@ nodejs:
                     alias: SSO_CLIENT_ID
                 -   name: sso-client-secret-dev
                     alias: SSO_CLIENT_SECRET
-                -   name: sso-config-endpoint
-                    alias: SSO_CONFIG_ENDPOINT
+                -   name: sso-issuer-url
+                    alias: SSO_ISSUER_URL
                 -   name: sso-sg-admin-ctsc-dev
                     alias: SSO_SG_ADMIN_CTSC
                 -   name: sso-sg-admin-local-dev
