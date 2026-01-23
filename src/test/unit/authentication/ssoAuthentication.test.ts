@@ -38,9 +38,10 @@ getUserStub.withArgs('6').resolves(null);
 
 const deleteUserStub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
 deleteUserStub.withArgs('124').resolves('User deleted');
+deleteUserStub.withArgs('125').resolves('User deleted');
 deleteUserStub.withArgs('126').resolves(null);
 
-sinon.stub(AccountManagementRequests.prototype, 'updateUser').resolves('User updated');
+sinon.stub(AccountManagementRequests.prototype, 'updateUser').resolves({ userId: '125', roles: 'INTERNAL_ADMIN_LOCAL' });
 
 let systemAdminStub = sinon
     .stub(AccountManagementRequests.prototype, 'createSystemAdminUser')
@@ -86,13 +87,13 @@ describe('SSO Authentication Test', () => {
         });
 
         it('should return PI user if user is found with different role (system admin)', async () => {
-            const response = await handleSsoUser({ oid: '3', roles: 'SYSTEM_ADMIN' });
+            const response = await handleSsoUser({ oid: '4', roles: 'SYSTEM_ADMIN' });
             expect(response).toEqual({ userId: '124', roles: 'SYSTEM_ADMIN' });
         });
 
         it('should return PI user if user is found with different role (admin)', async () => {
-            const response = await handleSsoUser({ oid: '4', roles: 'INTERNAL_ADMIN_CTSC' });
-            expect(response).toEqual({ userId: '125', roles: 'INTERNAL_ADMIN_CTSC' });
+            const response = await handleSsoUser({ oid: '4', roles: 'INTERNAL_ADMIN_LOCAL' });
+            expect(response).toEqual({ userId: '125', roles: 'INTERNAL_ADMIN_LOCAL' });
         });
 
         it('should not create system admin if existing user failed to be deleted', async () => {

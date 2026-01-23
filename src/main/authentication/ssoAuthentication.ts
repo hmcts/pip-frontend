@@ -81,7 +81,7 @@ export async function determineUserRole(oid: string, userGroups: string[], acces
 async function updateSsoUser(ssoUser, userId): Promise<object | string> {
     if (ssoUser['roles'] === 'SYSTEM_ADMIN') {
         const deleteUserResponse = await accountManagementRequests.deleteUser(userId, userId);
-        return deleteUserResponse ? this.createSsoUser(ssoUser) : null;
+        return deleteUserResponse ? createSsoUser(ssoUser) : null;
     } else {
         return await accountManagementRequests.updateUser(userId, ssoUser['roles'], null);
     }
