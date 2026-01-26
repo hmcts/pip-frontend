@@ -163,7 +163,7 @@ export function createFilters(env) {
                 }
                 return 'Manual Upload';
             default:
-                return provenance.replaceAll('_', ' ').replace(/\w\S*/g, function(word) {
+                return provenance.replaceAll('_', ' ').replace(/\w\S*/g, function (word) {
                     return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
                 });
         }
