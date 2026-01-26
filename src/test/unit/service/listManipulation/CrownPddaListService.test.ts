@@ -101,7 +101,7 @@ describe('Crown PDDA List service', () => {
     it('should format address', async () => {
         const input = {
             Line: ['1 Main Road', 'London'],
-            Postcode: 'A1 1AA',
+            PostCode: 'A1 1AA',
         };
 
         const result = crownPddaListService.formatAddress(input);
