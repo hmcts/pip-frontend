@@ -98,7 +98,7 @@ describe('Crown PDDA List service', () => {
         });
     });
 
-    it('should format address', async () => {
+    it('should format address when postcode is present', async () => {
         const input = {
             Line: ['1 Main Road', 'London'],
             PostCode: 'A1 1AA',
@@ -109,6 +109,17 @@ describe('Crown PDDA List service', () => {
         expect(result[0]).to.equal('1 Main Road');
         expect(result[1]).to.equal('London');
         expect(result[2]).to.equal('A1 1AA');
+    });
+
+    it('should format address when postcode is not present', async () => {
+        const input = {
+            Line: ['1 Main Road', 'London']
+        };
+
+        const result = crownPddaListService.formatAddress(input);
+        expect(result).to.have.length(2);
+        expect(result[0]).to.equal('1 Main Road');
+        expect(result[1]).to.equal('London');
     });
 
     it('should convert to ISO date', async () => {
