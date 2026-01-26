@@ -113,7 +113,7 @@ describe('Crown PDDA List service', () => {
 
     it('should format address when postcode is not present', async () => {
         const input = {
-            Line: ['1 Main Road', 'London']
+            Line: ['1 Main Road', 'London'],
         };
 
         const result = crownPddaListService.formatAddress(input);
