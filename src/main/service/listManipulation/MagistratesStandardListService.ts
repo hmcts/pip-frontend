@@ -20,7 +20,9 @@ export class MagistratesStandardListService {
                                 if (caseObject.party) {
                                     const caseInfo = this.buildHearing(caseObject, hearing);
                                     const caseSitting = this.buildSitting(sitting, caseInfo);
-                                    caseObject.party?.forEach(party => this.processParty(party, caseSitting, casesAndApplications));
+                                    caseObject.party?.forEach(party =>
+                                        this.processParty(party, caseSitting, casesAndApplications)
+                                    );
                                 }
                             });
 
@@ -28,27 +30,33 @@ export class MagistratesStandardListService {
                                 if (application.party) {
                                     const applicationInfo = this.buildHearing(application, hearing, true);
                                     const applicationSitting = this.buildSitting(sitting, applicationInfo);
-                                    application.party?.forEach(party => this.processParty(party, applicationSitting, casesAndApplications));
+                                    application.party?.forEach(party =>
+                                        this.processParty(party, applicationSitting, casesAndApplications)
+                                    );
                                 }
                             });
                         });
 
                         const courtRoomObject = {
-                            "courtHouseName": ListParseHelperService.writeStringIfValid(courtList.courtHouse.courtHouseName),
-                            "courtRoomName": this.formatCourtRoomJudiciary(courtRoom, session),
-                            "lja": ListParseHelperService.writeStringIfValid(courtList.courtHouse.lja),
-                        }
+                            courtHouseName: ListParseHelperService.writeStringIfValid(
+                                courtList.courtHouse.courtHouseName
+                            ),
+                            courtRoomName: this.formatCourtRoomJudiciary(courtRoom, session),
+                            lja: ListParseHelperService.writeStringIfValid(courtList.courtHouse.lja),
+                        };
 
-                        const existingKeyIndex = listData.findIndex(room =>
-                            room['courtRoomName'] === courtRoomObject['courtRoomName']
-                            && room['courtHouseName'] === courtRoomObject['courtHouseName'])
-
+                        const existingKeyIndex = listData.findIndex(
+                            room =>
+                                room['courtRoomName'] === courtRoomObject['courtRoomName'] &&
+                                room['courtHouseName'] === courtRoomObject['courtHouseName']
+                        );
 
                         if (existingKeyIndex === -1) {
                             courtRoomObject['casesAndApplications'] = casesAndApplications;
-                            listData.push(courtRoomObject)
+                            listData.push(courtRoomObject);
                         } else {
-                            listData[existingKeyIndex]['casesAndApplications'] = listData[existingKeyIndex]['casesAndApplications'].concat(casesAndApplications);
+                            listData[existingKeyIndex]['casesAndApplications'] =
+                                listData[existingKeyIndex]['casesAndApplications'].concat(casesAndApplications);
                         }
                     });
                 });
@@ -63,16 +71,17 @@ export class MagistratesStandardListService {
     }
 
     private buildHearing(applicationOrCase, hearing, isApplication = false) {
-
-        const prosecutingAuthority = applicationOrCase.party
-            ?.find(party => party['partyRole'] === 'PROSECUTING_AUTHORITY' && party['organisationDetails'])
-            ?.organisationDetails.organisationName || '';
+        const prosecutingAuthority =
+            applicationOrCase.party?.find(
+                party => party['partyRole'] === 'PROSECUTING_AUTHORITY' && party['organisationDetails']
+            )?.organisationDetails.organisationName || '';
 
         return {
             prosecutingAuthority,
             attendanceMethod: ListParseHelperService.writeStringIfValid(hearing.channel),
-            reference: ListParseHelperService.writeStringIfValid(isApplication ?
-                applicationOrCase.applicationReference : applicationOrCase.caseUrn),
+            reference: ListParseHelperService.writeStringIfValid(
+                isApplication ? applicationOrCase.applicationReference : applicationOrCase.caseUrn
+            ),
             applicationType: ListParseHelperService.writeStringIfValid(applicationOrCase.applicationType),
             caseSequenceIndicator: ListParseHelperService.writeStringIfValid(applicationOrCase.caseSequenceIndicator),
             hearingType: ListParseHelperService.writeStringIfValid(hearing.hearingType),
@@ -160,7 +169,6 @@ export class MagistratesStandardListService {
     }
 
     private addSubjectPartyCase(cases, subjectPartyHeading, caseAndApplicationSitting) {
-
         // Check if a case/application with the same subject party heading has already been stored. If so append the new case to it,
         // or else create a new case and add to the list of cases
         const commonSubjectParty = this.fetchCommonSubjectPartyCase(cases, subjectPartyHeading);

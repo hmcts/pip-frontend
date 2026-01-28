@@ -31,9 +31,12 @@ const courtData = JSON.parse(rawDataCourt);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
 describe('Magistrate Standard List page', () => {
-
-    const getJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(magistrateStandardListData);
-    const getMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+    const getJsonStub = sinon
+        .stub(PublicationService.prototype, 'getIndividualPublicationJson')
+        .returns(magistrateStandardListData);
+    const getMetadataStub = sinon
+        .stub(PublicationService.prototype, 'getIndividualPublicationMetadata')
+        .returns(metaData);
 
     beforeAll(async () => {
         await request(app)
@@ -265,7 +268,6 @@ describe('Magistrate Standard List page', () => {
 });
 
 describe('Magistrate Standard List page', () => {
-
     async function renderPageWithData(overrides?: (data: any) => void): Promise<Document> {
         const clone = JSON.parse(JSON.stringify(magistrateStandardListData));
         if (overrides) {
@@ -279,7 +281,6 @@ describe('Magistrate Standard List page', () => {
         return new DOMParser().parseFromString(res.text, 'text/html');
     }
 
-
     it('should not display LJA if not present', async () => {
         const doc = await renderPageWithData(clone => {
             delete clone.courtLists[0].courtHouse.lja;
@@ -292,8 +293,8 @@ describe('Magistrate Standard List page', () => {
 
     it('should display only DOB if age is missing', async () => {
         const doc = await renderPageWithData(clone => {
-            delete clone.courtLists[0].courtHouse.courtRoom[0].session[0]
-                .sittings[0].hearing[0].case[0].party[0].individualDetails.age;
+            delete clone.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0]
+                .individualDetails.age;
         });
         const div = doc.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
         expect(div.innerHTML).to.contain('DOB and Age');
@@ -303,12 +304,11 @@ describe('Magistrate Standard List page', () => {
 
     it('should display only Age if DOB is missing', async () => {
         const doc = await renderPageWithData(clone => {
-            delete clone.courtLists[0].courtHouse.courtRoom[0].session[0]
-                .sittings[0].hearing[0].case[0].party[0].individualDetails.dateOfBirth;
+            delete clone.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0]
+                .individualDetails.dateOfBirth;
         });
         const div = doc.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
         expect(div.innerHTML).to.contain('DOB and Age');
         expect(div.innerHTML).to.contain('Age: 20');
     });
-
 });

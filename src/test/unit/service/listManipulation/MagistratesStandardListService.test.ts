@@ -6,7 +6,6 @@ import { MagistratesStandardListService } from '../../../../main/service/listMan
 import { ListParseHelperService } from '../../../../main/service/ListParseHelperService';
 import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
 
-
 const magistratesStandardListService = new MagistratesStandardListService();
 const rawMagistrateStandardListData = fs.readFileSync(
     path.resolve(__dirname, '../../mocks/magistratesStandardList.json'),
@@ -34,7 +33,7 @@ describe('Magistrate Standard List service', () => {
 
         it('should handle missing courtRoom/session/sittings gracefully', () => {
             const minimalData = JSON.stringify({
-                courtLists: [{ courtHouse: { courtRoom: [] } }]
+                courtLists: [{ courtHouse: { courtRoom: [] } }],
             });
             const data = magistratesStandardListService.manipulateData(minimalData);
             expect(data).to.be.an('array').that.is.empty;
@@ -42,18 +41,26 @@ describe('Magistrate Standard List service', () => {
 
         it('should not throw if hearing.case or hearing.application is missing', () => {
             const customData = JSON.stringify({
-                courtLists: [{
-                    courtHouse: {
-                        courtRoom: [{
-                            courtRoomName: 'Room',
-                            session: [{
-                                sittings: [{
-                                    hearing: [{}]
-                                }]
-                            }]
-                        }]
-                    }
-                }]
+                courtLists: [
+                    {
+                        courtHouse: {
+                            courtRoom: [
+                                {
+                                    courtRoomName: 'Room',
+                                    session: [
+                                        {
+                                            sittings: [
+                                                {
+                                                    hearing: [{}],
+                                                },
+                                            ],
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    },
+                ],
             });
             expect(() => magistratesStandardListService.manipulateData(customData)).to.not.throw();
         });
@@ -92,7 +99,7 @@ describe('Magistrate Standard List service', () => {
                 convictionDate: '01/05/2026',
                 adjournedDate: '02/05/2026',
                 offenceLegislation: 'This is a legislation',
-                offenceMaxPenalty: '100yrs'
+                offenceMaxPenalty: '100yrs',
             });
         });
 
@@ -103,7 +110,7 @@ describe('Magistrate Standard List service', () => {
                 dob: '01/01/1950',
                 age: 20,
                 address: 'Address Line 1, Address Line 2, Town A, County A, AA1 AA1',
-                asn: 'AB12345'
+                asn: 'AB12345',
             });
         });
 
@@ -115,7 +122,7 @@ describe('Magistrate Standard List service', () => {
             expect(orgCase).to.exist;
             const orgPartyInfo = orgCase.sittings[0].subjectPartyInfo;
             expect(orgPartyInfo).to.deep.equal({
-                address: 'Address Line 1Z, Address Line 2Z, Town C, This is a postcode'
+                address: 'Address Line 1Z, Address Line 2Z, Town C, This is a postcode',
             });
         });
 
@@ -129,7 +136,7 @@ describe('Magistrate Standard List service', () => {
                 applicationType: '',
                 caseSequenceIndicator: '2 of 3',
                 hearingType: 'mda',
-                panel: 'ADULT'
+                panel: 'ADULT',
             });
         });
 
@@ -142,16 +149,18 @@ describe('Magistrate Standard List service', () => {
                 prosecutingAuthority: 'Prosecuting Authority Name',
                 attendanceMethod: ['VIDEO HEARING'],
                 reference: 'AppRefB',
-                applicationType: "Application Type 2",
-                caseSequenceIndicator: "",
+                applicationType: 'Application Type 2',
+                caseSequenceIndicator: '',
                 hearingType: 'mda',
-                panel: 'ADULT'
+                panel: 'ADULT',
             });
         });
 
         it('should add multiple sittings for the same subject party', () => {
             const json = JSON.parse(rawMagistrateStandardListData);
-            const sitting = JSON.parse(JSON.stringify(json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0]));
+            const sitting = JSON.parse(
+                JSON.stringify(json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0])
+            );
             json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings.push(sitting);
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
             const subjectCases = data[0]['casesAndApplications'].filter((c: any) => c.subjectPartyHeading);
@@ -172,7 +181,9 @@ describe('Magistrate Standard List service', () => {
 
         it('should handle missing individualDetails and organisationDetails', () => {
             const json = JSON.parse(rawMagistrateStandardListData);
-            json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0] = { subject: true };
+            json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0] = {
+                subject: true,
+            };
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
             expect(data[0]['casesAndApplications']).to.have.length(0);
         });

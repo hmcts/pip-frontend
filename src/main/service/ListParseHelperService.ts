@@ -290,8 +290,9 @@ export class ListParseHelperService {
             if (sittingStart.substr(sittingStart.length - 1) !== 'Z') {
                 zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
             }
-            return zonedDateTime.toFormat(zonedDateTime.minute === 0 ?
-                timeFormatHourOnly : timeFormatHourMinute).toLowerCase();
+            return zonedDateTime
+                .toFormat(zonedDateTime.minute === 0 ? timeFormatHourOnly : timeFormatHourMinute)
+                .toLowerCase();
         }
     }
 
