@@ -4,32 +4,51 @@ import { formatDate } from '../../helpers/dateTimeHelper';
 
 const helperService = new ListParseHelperService();
 const crimeListsService = new CrimeListsService();
-const needToConfirm = 'Need to confirm';
 
 export class MagistratesStandardListService {
-    public manipulateData(jsonData: string, language: string): Map<string, object[]> {
-        const listData = new Map<string, object[]>();
+    public manipulateData(jsonData: string): Array<object> {
+        const listData = new Array<object>();
 
         JSON.parse(jsonData).courtLists.forEach(courtList => {
             courtList.courtHouse.courtRoom.forEach(courtRoom => {
                 courtRoom.session.forEach(session => {
                     session.sittings.forEach(sitting => {
-                        this.processSittingInfo(session, sitting, language);
-                        const cases = [];
+                        this.processSittingInfo(session, sitting);
+                        const casesAndApplications = [];
                         sitting.hearing.forEach(hearing => {
-                            hearing.case.forEach(hearingCase => {
-                                if (hearingCase.party) {
-                                    const caseInfo = this.buildHearingCase(hearingCase, sitting, hearing);
-                                    const caseSitting = this.buildCaseSitting(sitting, caseInfo);
-                                    hearingCase.party?.forEach(party => this.processParty(party, caseSitting, cases));
+                            hearing.case?.forEach(caseObject => {
+                                if (caseObject.party) {
+                                    const caseInfo = this.buildHearing(caseObject, hearing);
+                                    const caseSitting = this.buildSitting(sitting, caseInfo);
+                                    caseObject.party?.forEach(party => this.processParty(party, caseSitting, casesAndApplications));
+                                }
+                            });
+
+                            hearing.application?.forEach(application => {
+                                if (application.party) {
+                                    const applicationInfo = this.buildHearing(application, hearing, true);
+                                    const applicationSitting = this.buildSitting(sitting, applicationInfo);
+                                    application.party?.forEach(party => this.processParty(party, applicationSitting, casesAndApplications));
                                 }
                             });
                         });
-                        const key = this.formatCourtRoomJudiciary(courtRoom, session, sitting);
-                        if (listData.has(key)) {
-                            listData.set(key, listData.get(key).concat(cases));
+
+                        const courtRoomObject = {
+                            "courtHouseName": ListParseHelperService.writeStringIfValid(courtList.courtHouse.courtHouseName),
+                            "courtRoomName": this.formatCourtRoomJudiciary(courtRoom, session),
+                            "lja": ListParseHelperService.writeStringIfValid(courtList.courtHouse.lja),
+                        }
+
+                        const existingKeyIndex = listData.findIndex(room =>
+                            room['courtRoomName'] === courtRoomObject['courtRoomName']
+                            && room['courtHouseName'] === courtRoomObject['courtHouseName'])
+
+
+                        if (existingKeyIndex === -1) {
+                            courtRoomObject['casesAndApplications'] = casesAndApplications;
+                            listData.push(courtRoomObject)
                         } else {
-                            listData.set(key, cases);
+                            listData[existingKeyIndex]['casesAndApplications'] = listData[existingKeyIndex]['casesAndApplications'].concat(casesAndApplications);
                         }
                     });
                 });
@@ -39,25 +58,25 @@ export class MagistratesStandardListService {
         return listData;
     }
 
-    private processSittingInfo(session, sitting, language) {
-        crimeListsService.calculateDuration(sitting, language, 'magistrates-standard-list');
+    private processSittingInfo(session, sitting) {
         helperService.findAndConcatenateHearingPlatform(sitting, session);
     }
 
-    private buildHearingCase(hearingCase, sitting, hearing) {
+    private buildHearing(applicationOrCase, hearing, isApplication = false) {
+
+        const prosecutingAuthority = applicationOrCase.party
+            ?.find(party => party['partyRole'] === 'PROSECUTING_AUTHORITY' && party['organisationDetails'])
+            ?.organisationDetails.organisationName || '';
+
         return {
-            prosecutingAuthorityCode: ListParseHelperService.writeStringIfValid(
-                hearingCase.informant?.prosecutionAuthorityCode
-            ),
-            hearingNumber: ListParseHelperService.writeStringIfValid(hearingCase.hearingNumber),
-            attendanceMethod: ListParseHelperService.writeStringIfValid(sitting.caseHearingChannel),
-            caseNumber: ListParseHelperService.writeStringIfValid(hearingCase.caseNumber),
-            caseSequenceIndicator: ListParseHelperService.writeStringIfValid(hearingCase.caseSequenceIndicator),
-            asn: needToConfirm,
+            prosecutingAuthority,
+            attendanceMethod: ListParseHelperService.writeStringIfValid(hearing.channel),
+            reference: ListParseHelperService.writeStringIfValid(isApplication ?
+                applicationOrCase.applicationReference : applicationOrCase.caseUrn),
+            applicationType: ListParseHelperService.writeStringIfValid(applicationOrCase.applicationType),
+            caseSequenceIndicator: ListParseHelperService.writeStringIfValid(applicationOrCase.caseSequenceIndicator),
             hearingType: ListParseHelperService.writeStringIfValid(hearing.hearingType),
-            panel: ListParseHelperService.writeStringIfValid(hearingCase.panel),
-            convictionDate: this.formatDate(hearingCase.convictionDate),
-            adjournedDate: this.formatDate(hearingCase.adjournedDate),
+            panel: ListParseHelperService.writeStringIfValid(hearing.panel),
         };
     }
 
@@ -65,37 +84,51 @@ export class MagistratesStandardListService {
         return formatDate(ListParseHelperService.writeStringIfValid(date), 'dd/MM/yyyy', 'en');
     }
 
-    private buildCaseSitting(sitting, caseInfo) {
+    private buildSitting(sitting, caseApplicationInfo) {
         return {
-            sittingStartTime: ListParseHelperService.writeStringIfValid(sitting.time),
-            sittingDuration: ListParseHelperService.writeStringIfValid(sitting.formattedDuration),
-            caseInfo: caseInfo,
+            sittingStartTime: helperService.formatCaseTime(sitting),
+            info: caseApplicationInfo,
         };
     }
 
-    private processParty(party, caseSitting, cases) {
-        if (party.partyRole === 'DEFENDANT' && party.individualDetails) {
-            const defendantHeading = this.formatDefendantHeading(party.individualDetails);
-            caseSitting = {
-                ...caseSitting,
-                defendantInfo: this.buildDefendantInfo(party),
-                offences: this.processOffences(party),
-            };
-            this.addDefendantCase(cases, defendantHeading, caseSitting);
+    private processParty(party, sitting, casesAndApplications) {
+        if (party.subject === true) {
+            if (party.individualDetails) {
+                const subjectPartyHeading = this.formatIndividualSubjectPartyHeading(party.individualDetails);
+                sitting = {
+                    ...sitting,
+                    subjectPartyInfo: this.buildIndividualSubjectPartyInfo(party),
+                    offences: this.processOffences(party),
+                };
+                this.addSubjectPartyCase(casesAndApplications, subjectPartyHeading, sitting);
+            } else if (party.organisationDetails) {
+                const subjectPartyHeading = this.formatOrganisationSubjectPartyHeading(party.organisationDetails);
+                sitting = {
+                    ...sitting,
+                    subjectPartyInfo: this.buildOrganisationSubjectPartyInfo(party),
+                    offences: this.processOffences(party),
+                };
+                this.addSubjectPartyCase(casesAndApplications, subjectPartyHeading, sitting);
+            }
         }
     }
 
-    private buildDefendantInfo(party) {
+    private buildIndividualSubjectPartyInfo(party) {
         return {
             dob: ListParseHelperService.writeStringIfValid(party.individualDetails.dateOfBirth),
             age: ListParseHelperService.writeStringIfValid(party.individualDetails.age),
             address: crimeListsService.formatAddress(party.individualDetails.address, ', '),
-            plea: ListParseHelperService.writeStringIfValid(party.individualDetails.plea),
-            pleaDate: needToConfirm,
+            asn: ListParseHelperService.writeStringIfValid(party.individualDetails.asn),
         };
     }
 
-    private formatDefendantHeading(individualDetails) {
+    private buildOrganisationSubjectPartyInfo(party) {
+        return {
+            address: crimeListsService.formatAddress(party.organisationDetails.organisationAddress, ', '),
+        };
+    }
+
+    private formatIndividualSubjectPartyHeading(individualDetails) {
         const gender = ListParseHelperService.writeStringIfValid(individualDetails.gender);
         return (
             crimeListsService.createIndividualDetails(individualDetails) +
@@ -104,44 +137,59 @@ export class MagistratesStandardListService {
         );
     }
 
+    private formatOrganisationSubjectPartyHeading(organisationDetails) {
+        return ListParseHelperService.writeStringIfValid(organisationDetails.organisationName);
+    }
+
     private processOffences(party) {
         const offences = [];
         party.offence?.forEach(offence => {
             offences.push({
+                offenceCode: ListParseHelperService.writeStringIfValid(offence.offenceCode),
                 offenceTitle: ListParseHelperService.writeStringIfValid(offence.offenceTitle),
                 offenceWording: ListParseHelperService.writeStringIfValid(offence.offenceWording),
+                plea: ListParseHelperService.writeStringIfValid(offence.plea),
+                pleaDate: this.formatDate(offence.pleaDate),
+                convictionDate: this.formatDate(offence.convictionDate),
+                adjournedDate: this.formatDate(offence.adjournedDate),
+                offenceLegislation: ListParseHelperService.writeStringIfValid(offence.offenceLegislation),
+                offenceMaxPenalty: ListParseHelperService.writeStringIfValid(offence.offenceMaxPen),
             });
         });
         return offences;
     }
 
-    private addDefendantCase(cases, defendantHeading, caseSitting) {
-        // Check if a case with the same defendant heading has already been stored. If so append the new case to it,
-        // or else create a new case and add to the list of cases
-        const commonCase = this.fetchCommonDefendantCase(cases, defendantHeading);
+    private addSubjectPartyCase(cases, subjectPartyHeading, caseAndApplicationSitting) {
 
-        if (commonCase) {
-            commonCase.caseSittings.push(caseSitting);
+        // Check if a case/application with the same subject party heading has already been stored. If so append the new case to it,
+        // or else create a new case and add to the list of cases
+        const commonSubjectParty = this.fetchCommonSubjectPartyCase(cases, subjectPartyHeading);
+
+        if (commonSubjectParty) {
+            commonSubjectParty.sittings.push(caseAndApplicationSitting);
         } else {
-            const caseSittings = [caseSitting];
-            cases.push({ defendantHeading, caseSittings });
+            const sittings = [caseAndApplicationSitting];
+            cases.push({ subjectPartyHeading, sittings });
         }
     }
 
-    private fetchCommonDefendantCase(cases, defendantHeading) {
+    private fetchCommonSubjectPartyCase(cases, subjectPartyHeading) {
         for (const c of cases) {
-            if (c.defendantHeading === defendantHeading) {
+            if (c.subjectPartyHeading === subjectPartyHeading) {
                 return c;
             }
         }
         return null;
     }
 
-    private formatCourtRoomJudiciary(courtRoom, session, sitting) {
-        let judiciary = helperService.findAndManipulateJudiciaryForCrime(sitting);
-        if (!judiciary) {
-            judiciary = helperService.findAndManipulateJudiciaryForCrime(session);
-        }
+    /**
+     * Processes the judiciary for the court room
+     * @param courtRoom The court room to be processed
+     * @param session The session containing the court room
+     * @private
+     */
+    private formatCourtRoomJudiciary(courtRoom, session) {
+        const judiciary = helperService.findAndManipulateJudiciary(session);
         const courtRoomName = ListParseHelperService.writeStringIfValid(courtRoom.courtRoomName);
         return [courtRoomName, judiciary].filter(item => item.length > 0).join(': ');
     }

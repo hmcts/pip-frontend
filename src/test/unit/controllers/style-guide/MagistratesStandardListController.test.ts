@@ -26,8 +26,8 @@ const magsStandardListJsonStub = sinon.stub(PublicationService.prototype, 'getIn
 const magsStandardListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
-const data1 = { defendantHeading: 'heading1', caseNumber: 'case1' };
-const data2 = { defendantHeading: 'heading2', caseNumber: 'case2' };
+const data1 = { subjectPartyHeading: 'heading1', caseUrn: 'case1' };
+const data2 = { subjectPartyHeading: 'heading2', caseUrn: 'case2' };
 
 const listData = new Map<string, object[]>();
 listData.set('courtRoom1', [data1]);
@@ -78,7 +78,6 @@ describe('Magistrate Standard List Controller', () => {
             courtName: "Abergavenny Magistrates' Court",
             publishedTime: '11:30pm',
             provenance: 'prov1',
-            version: '1.0',
             venueAddress: 'Address Line 1\nAddress Line 2\nTown\nLancashire\nAA1 AA1',
         };
 
