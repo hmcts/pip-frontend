@@ -49,5 +49,4 @@ describe('Crime Data manipulation service', () => {
             expect(formattedAddress).to.equal('Address Line 1, Address Line 2, Town, County, AA1 1AA');
         });
     });
-
 });
