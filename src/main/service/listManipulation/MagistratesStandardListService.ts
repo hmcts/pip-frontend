@@ -103,26 +103,26 @@ export class MagistratesStandardListService {
     private processParty(party, sitting, casesAndApplications) {
         if (party.subject === true) {
             if (party.individualDetails) {
-                const subjectPartyHeading = this.formatIndividualSubjectPartyHeading(party.individualDetails);
+                const partyHeading = this.formatIndividualPartyHeading(party.individualDetails);
                 sitting = {
                     ...sitting,
-                    subjectPartyInfo: this.buildIndividualSubjectPartyInfo(party),
+                    partyInfo: this.buildIndividualPartyInfo(party),
                     offences: this.processOffences(party),
                 };
-                this.addSubjectPartyCase(casesAndApplications, subjectPartyHeading, sitting);
+                this.addPartyCase(casesAndApplications, partyHeading, sitting);
             } else if (party.organisationDetails) {
-                const subjectPartyHeading = this.formatOrganisationSubjectPartyHeading(party.organisationDetails);
+                const partyHeading = this.formatOrganisationPartyHeading(party.organisationDetails);
                 sitting = {
                     ...sitting,
-                    subjectPartyInfo: this.buildOrganisationSubjectPartyInfo(party),
+                    partyInfo: this.buildOrganisationPartyInfo(party),
                     offences: this.processOffences(party),
                 };
-                this.addSubjectPartyCase(casesAndApplications, subjectPartyHeading, sitting);
+                this.addPartyCase(casesAndApplications, partyHeading, sitting);
             }
         }
     }
 
-    private buildIndividualSubjectPartyInfo(party) {
+    private buildIndividualPartyInfo(party) {
         return {
             dob: ListParseHelperService.writeStringIfValid(party.individualDetails.dateOfBirth),
             age: ListParseHelperService.writeStringIfValid(party.individualDetails.age),
@@ -131,13 +131,13 @@ export class MagistratesStandardListService {
         };
     }
 
-    private buildOrganisationSubjectPartyInfo(party) {
+    private buildOrganisationPartyInfo(party) {
         return {
             address: crimeListsService.formatAddress(party.organisationDetails.organisationAddress, ', '),
         };
     }
 
-    private formatIndividualSubjectPartyHeading(individualDetails) {
+    private formatIndividualPartyHeading(individualDetails) {
         const gender = ListParseHelperService.writeStringIfValid(individualDetails.gender);
         return (
             crimeListsService.createIndividualDetails(individualDetails) +
@@ -146,7 +146,7 @@ export class MagistratesStandardListService {
         );
     }
 
-    private formatOrganisationSubjectPartyHeading(organisationDetails) {
+    private formatOrganisationPartyHeading(organisationDetails) {
         return ListParseHelperService.writeStringIfValid(organisationDetails.organisationName);
     }
 
@@ -168,22 +168,22 @@ export class MagistratesStandardListService {
         return offences;
     }
 
-    private addSubjectPartyCase(cases, subjectPartyHeading, caseAndApplicationSitting) {
-        // Check if a case/application with the same subject party heading has already been stored. If so append the new case to it,
+    private addPartyCase(cases, partyHeading, caseAndApplicationSitting) {
+        // Check if a case/application with the same party heading has already been stored. If so append the new case to it,
         // or else create a new case and add to the list of cases
-        const commonSubjectParty = this.fetchCommonSubjectPartyCase(cases, subjectPartyHeading);
+        const commonParty = this.fetchCommonPartyCase(cases, partyHeading);
 
-        if (commonSubjectParty) {
-            commonSubjectParty.sittings.push(caseAndApplicationSitting);
+        if (commonParty) {
+            commonParty.sittings.push(caseAndApplicationSitting);
         } else {
             const sittings = [caseAndApplicationSitting];
-            cases.push({ subjectPartyHeading, sittings });
+            cases.push({ partyHeading, sittings });
         }
     }
 
-    private fetchCommonSubjectPartyCase(cases, subjectPartyHeading) {
+    private fetchCommonPartyCase(cases, partyHeading) {
         for (const c of cases) {
-            if (c.subjectPartyHeading === subjectPartyHeading) {
+            if (c.partyHeading === partyHeading) {
                 return c;
             }
         }

@@ -26,8 +26,8 @@ const magsStandardListJsonStub = sinon.stub(PublicationService.prototype, 'getIn
 const magsStandardListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
-const data1 = { subjectPartyHeading: 'heading1', caseUrn: 'case1' };
-const data2 = { subjectPartyHeading: 'heading2', caseUrn: 'case2' };
+const data1 = { partyHeading: 'heading1', caseUrn: 'case1' };
+const data2 = { partyHeading: 'heading2', caseUrn: 'case2' };
 
 const listData = new Map<string, object[]>();
 listData.set('courtRoom1', [data1]);

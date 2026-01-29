@@ -46,7 +46,7 @@
     {{ searchInput(text = searchCases) }}
     <div class="search-area">
         {% set courtRoomCount = 0 %}
-        {% set subjectPartyCount = 0 %}
+        {% set partyCount = 0 %}
         {% for room in listData %}
             {% set courtRoomCount = courtRoomCount + 1 %}
             <div class="site-header" tabindex="0" aria-label="List Details">
@@ -60,16 +60,16 @@
             </div>
             <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtRoomCount }}">
                 {% for row in room.casesAndApplications %}
-                    {% set subjectPartyCount = subjectPartyCount + 1 %}
+                    {% set partyCount = partyCount + 1 %}
                     <div class="govuk-accordion__section govuk-accordion__section--expanded">
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ subjectPartyCount }}">
-                                {{ nameHeading }} {{ row.subjectPartyHeading }}
+                            <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ partyCount }}">
+                                {{ nameHeading }} {{ row.partyHeading }}
                             </span>
                             </h2>
                         </div>
-                        <div id="accordion-default-content-{{ subjectPartyCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ subjectPartyCount }}">
+                        <div id="accordion-default-content-{{ partyCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ partyCount }}">
                             {% set sittingCount = 0 %}
                             {% for sitting in row.sittings %}
                                 {% set sittingCount = sittingCount + 1 %}
@@ -83,16 +83,16 @@
                                                 </span>
                                             </p>
                                             <br/>
-                                            {% if sitting.subjectPartyInfo.dob | length %}
-                                                {% if sitting.subjectPartyInfo.age %}
-                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ sitting.subjectPartyInfo.dob }} {{ age }} {{ sitting.subjectPartyInfo.age }}</p>
+                                            {% if sitting.partyInfo.dob | length %}
+                                                {% if sitting.partyInfo.age %}
+                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ sitting.partyInfo.dob }} {{ age }} {{ sitting.partyInfo.age }}</p>
                                                 {% else %}
-                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ sitting.subjectPartyInfo.dob }}</p>
+                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ sitting.partyInfo.dob }}</p>
                                                 {% endif %}
-                                            {% elseif sitting.subjectPartyInfo.age %}
-                                                <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ age }} {{ sitting.subjectPartyInfo.age }}</p>
+                                            {% elseif sitting.partyInfo.age %}
+                                                <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ age }} {{ sitting.partyInfo.age }}</p>
                                             {% endif %}
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ address }}</span>{{ sitting.subjectPartyInfo.address }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ address }}</span>{{ sitting.partyInfo.address }}</p>
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ prosecutingAuthority }}</span>{{ sitting.info.prosecutingAuthority }}</p>
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span>{{ sitting.info.attendanceMethod }}</p>
                                         </div>
@@ -103,7 +103,7 @@
                                                 <p class="govuk-body"><span class="linked-cases-heading">{{ applicationType }}</span>{{ sitting.info.applicationType }}</p>
                                             {% endif %}
 
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ asn }}</span>{{ sitting.subjectPartyInfo.asn }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ asn }}</span>{{ sitting.partyInfo.asn }}</p>
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ hearingType }}</span>{{ sitting.info.hearingType }}</p>
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ panel }}</span>{{ sitting.info.panel }}</p>
                                         </div>

@@ -72,16 +72,16 @@ describe('Magistrate Standard List service', () => {
             const expectedHeading = 'Surname1, Forename1 (male)*';
             const found = data
                 .flatMap(room => room['casesAndApplications'])
-                .find((c: any) => c.subjectPartyHeading === expectedHeading);
+                .find((c: any) => c.partyHeading === expectedHeading);
 
-            expect(found, 'Expected heading not found in subjectPartyHeading').to.exist;
+            expect(found, 'Expected heading not found in partyHeading').to.exist;
         });
 
         it('should format organisation subject party heading', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
             const found = data
                 .flatMap(room => room['casesAndApplications'])
-                .find((c: any) => c.subjectPartyHeading === 'This is an organisation');
+                .find((c: any) => c.partyHeading === 'This is an organisation');
             expect(found).to.exist;
         });
 
@@ -105,8 +105,8 @@ describe('Magistrate Standard List service', () => {
 
         it('should correctly build individual subject party info', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const subjectPartyInfo = data[0]['casesAndApplications'][0].sittings[0].subjectPartyInfo;
-            expect(subjectPartyInfo).to.deep.equal({
+            const partyInfo = data[0]['casesAndApplications'][0].sittings[0].partyInfo;
+            expect(partyInfo).to.deep.equal({
                 dob: '01/01/1950',
                 age: 20,
                 address: 'Address Line 1, Address Line 2, Town A, County A, AA1 AA1',
@@ -118,9 +118,9 @@ describe('Magistrate Standard List service', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
             const orgCase = data
                 .flatMap(room => room['casesAndApplications'])
-                .find((c: any) => c.subjectPartyHeading === 'This is an organisation');
+                .find((c: any) => c.partyHeading === 'This is an organisation');
             expect(orgCase).to.exist;
-            const orgPartyInfo = orgCase.sittings[0].subjectPartyInfo;
+            const orgPartyInfo = orgCase.sittings[0].partyInfo;
             expect(orgPartyInfo).to.deep.equal({
                 address: 'Address Line 1Z, Address Line 2Z, Town C, This is a postcode',
             });
@@ -163,7 +163,7 @@ describe('Magistrate Standard List service', () => {
             );
             json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings.push(sitting);
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
-            const subjectCases = data[0]['casesAndApplications'].filter((c: any) => c.subjectPartyHeading);
+            const subjectCases = data[0]['casesAndApplications'].filter((c: any) => c.partyHeading);
             subjectCases.forEach((c: any) => {
                 expect(c.sittings.length).to.be.greaterThan(0);
             });
