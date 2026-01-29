@@ -12,9 +12,9 @@ export class MagistratesStandardListService {
         JSON.parse(jsonData).courtLists.forEach(courtList => {
             courtList.courtHouse.courtRoom.forEach(courtRoom => {
                 courtRoom.session.forEach(session => {
-                    const casesAndApplications = [];
                     session.sittings.forEach(sitting => {
                         this.processSittingInfo(session, sitting);
+                        const casesAndApplications = [];
                         sitting.hearing.forEach(hearing => {
                             hearing.case?.forEach(caseObject => {
                                 if (caseObject.party) {
