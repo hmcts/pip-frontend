@@ -104,19 +104,13 @@ describe('Magistrate Standard List page', () => {
     it('should display the Court House if present', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
 
-        expect(siteAddress[0].innerHTML).contains(
-            'PRESTON',
-            'Could not find the court house header'
-        );
+        expect(siteAddress[0].innerHTML).contains('PRESTON', 'Could not find the court house header');
     });
 
     it('should display the LJA if present', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
 
-        expect(siteAddress[1].innerHTML).contains(
-            'LJA: Local Justice Area A',
-            'Could not find the local justice area'
-        );
+        expect(siteAddress[1].innerHTML).contains('LJA: Local Justice Area A', 'Could not find the local justice area');
     });
 
     it('should display the site name for both sections', () => {
