@@ -165,7 +165,7 @@ describe('Magistrate Standard List service', () => {
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
             const subjectCases = data[0]['casesAndApplications'].filter((c: any) => c.partyHeading);
             subjectCases.forEach((c: any) => {
-                expect(c.sittings.length).to.be.greaterThan(0);
+                expect(c.sittings.length).to.be.equal(2);
             });
         });
     });

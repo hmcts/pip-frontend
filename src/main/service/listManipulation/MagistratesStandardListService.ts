@@ -12,9 +12,9 @@ export class MagistratesStandardListService {
         JSON.parse(jsonData).courtLists.forEach(courtList => {
             courtList.courtHouse.courtRoom.forEach(courtRoom => {
                 courtRoom.session.forEach(session => {
+                    const casesAndApplications = [];
                     session.sittings.forEach(sitting => {
                         this.processSittingInfo(session, sitting);
-                        const casesAndApplications = [];
                         sitting.hearing.forEach(hearing => {
                             hearing.case?.forEach(caseObject => {
                                 if (caseObject.party) {
@@ -109,7 +109,7 @@ export class MagistratesStandardListService {
                     partyInfo: this.buildIndividualPartyInfo(party),
                     offences: this.processOffences(party),
                 };
-                this.addPartyCase(casesAndApplications, partyHeading, sitting);
+                this.addPartyMatter(casesAndApplications, partyHeading, sitting);
             } else if (party.organisationDetails) {
                 const partyHeading = this.formatOrganisationPartyHeading(party.organisationDetails);
                 sitting = {
@@ -117,7 +117,7 @@ export class MagistratesStandardListService {
                     partyInfo: this.buildOrganisationPartyInfo(party),
                     offences: this.processOffences(party),
                 };
-                this.addPartyCase(casesAndApplications, partyHeading, sitting);
+                this.addPartyMatter(casesAndApplications, partyHeading, sitting);
             }
         }
     }
@@ -168,23 +168,23 @@ export class MagistratesStandardListService {
         return offences;
     }
 
-    private addPartyCase(cases, partyHeading, caseAndApplicationSitting) {
-        // Check if a case/application with the same party heading has already been stored. If so append the new case to it,
-        // or else create a new case and add to the list of cases
-        const commonParty = this.fetchCommonPartyCase(cases, partyHeading);
+    private addPartyMatter(matters, partyHeading, caseAndApplicationSitting) {
+        // Check if a matter with the same party heading has already been stored. If so append the new matter to it,
+        // or else add it to the existing list
+        const commonParty = this.fetchCommonPartyMatter(matters, partyHeading);
 
         if (commonParty) {
             commonParty.sittings.push(caseAndApplicationSitting);
         } else {
             const sittings = [caseAndApplicationSitting];
-            cases.push({ partyHeading, sittings });
+            matters.push({ partyHeading, sittings });
         }
     }
 
-    private fetchCommonPartyCase(cases, partyHeading) {
-        for (const c of cases) {
-            if (c.partyHeading === partyHeading) {
-                return c;
+    private fetchCommonPartyMatter(matters, partyHeading) {
+        for (const m of matters) {
+            if (m.partyHeading === partyHeading) {
+                return m;
             }
         }
         return null;
