@@ -18,7 +18,7 @@ export class MagistratesStandardListService {
                         sitting.hearing.forEach(hearing => {
                             hearing.case?.forEach(caseObject => {
                                 if (caseObject.party) {
-                                    const caseInfo = this.buildHearing(caseObject, hearing);
+                                    const caseInfo = this.buildMatterInfo(caseObject, hearing);
                                     const caseSitting = this.buildSitting(sitting, caseInfo);
                                     caseObject.party?.forEach(party =>
                                         this.processParty(party, caseSitting, casesAndApplications)
@@ -28,7 +28,7 @@ export class MagistratesStandardListService {
 
                             hearing.application?.forEach(application => {
                                 if (application.party) {
-                                    const applicationInfo = this.buildHearing(application, hearing, true);
+                                    const applicationInfo = this.buildMatterInfo(application, hearing, true);
                                     const applicationSitting = this.buildSitting(sitting, applicationInfo);
                                     application.party?.forEach(party =>
                                         this.processParty(party, applicationSitting, casesAndApplications)
@@ -70,7 +70,7 @@ export class MagistratesStandardListService {
         helperService.findAndConcatenateHearingPlatform(sitting, session);
     }
 
-    private buildHearing(applicationOrCase, hearing, isApplication = false) {
+    private buildMatterInfo(applicationOrCase, hearing, isApplication = false) {
         const prosecutingAuthority =
             applicationOrCase.party?.find(
                 party => party['partyRole'] === 'PROSECUTING_AUTHORITY' && party['organisationDetails']
