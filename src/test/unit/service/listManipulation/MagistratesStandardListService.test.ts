@@ -95,7 +95,7 @@ describe('Magistrate Standard List service', () => {
                 offenceTitle: 'drink driving',
                 offenceWording: 'driving whilst under the influence of alcohol',
                 plea: 'NOT_GUILTY',
-                pleaDate: '27/01/2026',
+                pleaDate: '27/06/2026',
                 convictionDate: '01/05/2026',
                 adjournedDate: '02/05/2026',
                 offenceLegislation: 'This is a legislation',

@@ -11,6 +11,8 @@ const PAGE_URL = '/magistrates-standard-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
 const restrictionHeading = 'govuk-grid restriction-list-section';
+const siteAddressClass = 'site-address';
+const linkedCasesClass = 'linked-cases-heading';
 const accordionClass = 'govuk-accordion__section-button';
 
 const courtName = "Abergavenny Magistrates' Court";
@@ -67,12 +69,23 @@ describe('Magistrate Standard List page', () => {
         expect(text[2].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
     });
 
+    it('should display restriction bullet points', () => {
+        const bullets = htmlRes.getElementsByClassName('govuk-list--bullet')[0];
+        expect(bullets.innerHTML).to.contain('the court directly');
+        expect(bullets.innerHTML).to.contain('HM Courts and Tribunals Service on 0330 808 4407');
+    });
+
     it('should display publication date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[2].innerHTML).contains(
             'Last updated: 01 December 2023 at 11:30pm',
             'Could not find the publication date'
         );
+    });
+
+    it('should display venue address', () => {
+        const venue = htmlRes.getElementsByClassName('venue-address')[0];
+        expect(venue.innerHTML).to.contain('Address Line 1');
     });
 
     it('should display restriction heading', () => {
@@ -88,37 +101,46 @@ describe('Magistrate Standard List page', () => {
         expect(searchInput[0].innerHTML).contains('Search Cases');
     });
 
-    it('should display accordion open/close all', () => {
+    it('should display the Court House if present', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+
+        expect(siteAddress[0].innerHTML).contains(
+            'PRESTON',
+            'Could not find the court house header'
+        );
+    });
+
+    it('should display the LJA if present', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+
+        expect(siteAddress[1].innerHTML).contains(
+            'LJA: Local Justice Area A',
+            'Could not find the local justice area'
+        );
+    });
+
+    it('should display the site name for both sections', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+        expect(siteAddress[2].innerHTML).contains(
+            'Courtroom 1: Test Name, Test Name',
+            'Could not find the site name in section 1'
+        );
+    });
+
+    it('should display party heading', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Name:  Surname1, Forename1 MiddleName (male)*',
+            'Name: Surname1, Forename1 MiddleName (male)*',
             'Could not find the accordion heading'
         );
     });
 
-    it('should display correct offence title', () => {
-        const cell = htmlRes.getElementsByClassName('offence-summary');
-        expect(cell[0].innerHTML).contains('1. ');
-        expect(cell[1].innerHTML).contains('dd01-01');
-        expect(cell[2].innerHTML).contains(' - ');
-        expect(cell[3].innerHTML).contains('drink driving');
-    });
-
-    it('should display offence wording', () => {
-        const offence = htmlRes.getElementsByClassName('govuk-details__text');
-        expect(offence[0].innerHTML).contains('driving whilst under the influence of alcohol');
-    });
-
-    it('should display the go back button', () => {
-        const goBack = htmlRes.querySelector('.govuk-back-link');
-        expect(goBack).to.exist;
-    });
-
-    it('should display the LJA if present', () => {
-        const ljaHeaders = Array.from(htmlRes.getElementsByClassName('site-address')).filter(el =>
-            el.textContent.includes('Local Justice Area A')
+    it('should display sitting at', () => {
+        const sittingHeading = htmlRes.getElementsByClassName(linkedCasesClass);
+        expect(sittingHeading[0].innerHTML).to.contains(
+            'Sitting at 1:30pm [2 of 3]',
+            'Could not find the accordion heading'
         );
-        expect(ljaHeaders.length).to.be.greaterThan(0);
     });
 
     it('should display DOB and Age if both present', () => {
@@ -142,7 +164,7 @@ describe('Magistrate Standard List page', () => {
         expect(div.innerHTML).to.contain('VIDEO HEARING');
     });
 
-    it('should display case reference if present', () => {
+    it('should display reference if present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
         expect(div.innerHTML).to.contain('45684548');
     });
@@ -172,102 +194,61 @@ describe('Magistrate Standard List page', () => {
         expect(div.innerHTML).to.contain('ADULT');
     });
 
+    it('should display correct offence title', () => {
+        const cell = htmlRes.getElementsByClassName('offence-summary');
+        expect(cell[0].innerHTML).contains('1. ');
+        expect(cell[1].innerHTML).contains('dd01-01');
+        expect(cell[2].innerHTML).contains(' - ');
+        expect(cell[3].innerHTML).contains('drink driving');
+    });
+
+    it('should display offence wording', () => {
+        const offence = htmlRes.getElementsByClassName('govuk-details__text');
+        expect(offence[0].innerHTML).contains('driving whilst under the influence of alcohol');
+    });
+
     it('should display offence legislation if present', () => {
-        const cells = htmlRes.getElementsByClassName('govuk-table__cell');
-        let found = false;
-        for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerHTML.includes('This is a legislation')) {
-                found = true;
-                break;
-            }
-        }
-        expect(found).to.be.true;
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[2].innerHTML).contains('This is a legislation');
     });
 
     it('should display offence max penalty if present', () => {
-        const cells = htmlRes.getElementsByClassName('govuk-table__cell');
-        let found = false;
-        for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerHTML.includes('100yrs')) {
-                found = true;
-                break;
-            }
-        }
-        expect(found).to.be.true;
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[4].innerHTML).contains('100yrs');
     });
 
     it('should display plea if present', () => {
-        const cells = htmlRes.getElementsByClassName('govuk-table__cell');
-        let found = false;
-        for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerHTML.includes('NOT_GUILTY') || cells[i].innerHTML.includes('GUILTY')) {
-                found = true;
-                break;
-            }
-        }
-        expect(found).to.be.true;
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[6].innerHTML).contains('NOT_GUILTY');
     });
 
-    it('should display plea date if present', () => {
-        const cells = htmlRes.getElementsByClassName('govuk-table__cell');
-        let found = false;
-        for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerHTML.match(/\d{2}\/\d{2}\/\d{4}/)) {
-                found = true;
-                break;
-            }
-        }
-        expect(found).to.be.true;
+    it('should display date of plea if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[8].innerHTML).contains('27/06/2026');
     });
 
-    it('should display conviction date if present', () => {
-        const cells = htmlRes.getElementsByClassName('govuk-table__cell');
-        let found = false;
-        for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerHTML.match(/\d{2}\/\d{2}\/\d{4}/)) {
-                found = true;
-                break;
-            }
-        }
-        expect(found).to.be.true;
+    it('should display convicted on if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[10].innerHTML).contains('01/05/2026');
     });
 
-    it('should display adjourned date if present', () => {
-        const cells = htmlRes.getElementsByClassName('govuk-table__cell');
-        let found = false;
-        for (let i = 0; i < cells.length; i++) {
-            if (cells[i].innerHTML.match(/\d{2}\/\d{2}\/\d{4}/)) {
-                found = true;
-                break;
-            }
-        }
-        expect(found).to.be.true;
+    it('should display adjourned from on if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[12].innerHTML).contains('02/05/2026 - For the trial');
     });
 
-    it('should display offence wording if present', () => {
-        const details = htmlRes.getElementsByClassName('govuk-details__text');
-        expect(details[0].innerHTML).to.contain('driving whilst under the influence of alcohol');
-    });
-
-    it('should display restriction bullet points', () => {
-        const bullets = htmlRes.getElementsByClassName('govuk-list--bullet')[0];
-        // Assert for the actual expected bullet text values
-        expect(bullets.innerHTML).to.contain('the court directly');
-        expect(bullets.innerHTML).to.contain('HM Courts and Tribunals Service on 0330 808 4407');
+    it('should display the go back button', () => {
+        const goBack = htmlRes.querySelector('.govuk-back-link');
+        expect(goBack).to.exist;
     });
 
     it('should display data source and provenance', () => {
         const body = htmlRes.getElementsByClassName('govuk-body govuk-!-font-size-14')[0];
         expect(body.innerHTML).to.contain('Data Source: Prov1');
     });
-
-    it('should display venue address', () => {
-        const venue = htmlRes.getElementsByClassName('venue-address')[0];
-        expect(venue.innerHTML).to.contain('Address Line 1');
-    });
 });
 
-describe('Magistrate Standard List page', () => {
+describe('Magistrate Standard List page with custom data', () => {
     async function renderPageWithData(overrides?: (data: any) => void): Promise<Document> {
         const clone = JSON.parse(JSON.stringify(magistrateStandardListData));
         if (overrides) {
