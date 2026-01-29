@@ -25,7 +25,7 @@ describe('Crime Data manipulation service', () => {
         it('should format multiple defendants and prosecuting authorities', async () => {
             const hearing = partyData.hearing[1];
             crimeListsService.manipulateParty(hearing);
-            expect(hearing.defendant).to.equal('SurnameA, ForenamesA, SurnameB, ForenamesB');
+            expect(hearing.defendant).to.equal('SurnameA, ForenamesA MiddlenameA, SurnameB, ForenamesB');
             expect(hearing.defendantRepresentative).to.equal('Defendant rep nameA, Defendant rep nameB');
             expect(hearing.prosecutingAuthority).to.equal('Prosecuting authority nameA, Prosecuting authority nameB');
         });
@@ -49,4 +49,5 @@ describe('Crime Data manipulation service', () => {
             expect(formattedAddress).to.equal('Address Line 1, Address Line 2, Town, County, AA1 1AA');
         });
     });
+
 });

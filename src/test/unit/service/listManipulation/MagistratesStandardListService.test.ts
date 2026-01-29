@@ -69,7 +69,7 @@ describe('Magistrate Standard List service', () => {
     describe('Private methods (indirectly via manipulateData)', () => {
         it('should format individual subject party heading with gender and custody', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const expectedHeading = 'Surname1, Forename1 (male)*';
+            const expectedHeading = 'Surname1, Forename1 MiddleName (male)*';
             const found = data
                 .flatMap(room => room['casesAndApplications'])
                 .find((c: any) => c.partyHeading === expectedHeading);

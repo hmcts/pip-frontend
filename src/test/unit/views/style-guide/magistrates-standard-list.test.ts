@@ -91,7 +91,7 @@ describe('Magistrate Standard List page', () => {
     it('should display accordion open/close all', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Name:  Surname1, Forename1 (male)*',
+            'Name:  Surname1, Forename1 MiddleName (male)*',
             'Could not find the accordion heading'
         );
     });

@@ -29,6 +29,7 @@
                     "partyRole": "DEFENDANT",
                     "individualDetails": {
                         "individualForenames": "ForenamesA",
+                        "individualMiddleName": "MiddlenameA",
                         "individualSurname": "SurnameA"
                     }
                 },
