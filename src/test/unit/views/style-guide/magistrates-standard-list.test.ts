@@ -12,8 +12,8 @@ const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
 const restrictionHeading = 'govuk-grid restriction-list-section';
 const siteAddressClass = 'site-address';
-const linkedCasesClass = 'linked-cases-heading';
 const accordionClass = 'govuk-accordion__section-button';
+const accordionSectionClass = 'govuk-accordion__section';
 
 const courtName = "Abergavenny Magistrates' Court";
 const expectedHeader = 'Magistrates Standard List for ' + courtName;
@@ -130,9 +130,17 @@ describe('Magistrate Standard List page', () => {
     });
 
     it('should display sitting at', () => {
-        const sittingHeading = htmlRes.getElementsByClassName(linkedCasesClass);
+        const sittingHeading = htmlRes.getElementsByClassName(accordionSectionClass);
         expect(sittingHeading[0].innerHTML).to.contains(
             'Sitting at 1:30pm [2 of 3]',
+            'Could not find the accordion heading'
+        );
+    });
+
+    it('should display second sitting at for same party', () => {
+        const sittingHeading = htmlRes.getElementsByClassName(accordionSectionClass);
+        expect(sittingHeading[0].innerHTML).to.contains(
+            'Sitting at 4:30pm [2 of 3]',
             'Could not find the accordion heading'
         );
     });
@@ -164,7 +172,7 @@ describe('Magistrate Standard List page', () => {
     });
 
     it('should display application type if present', () => {
-        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[2];
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[3];
         expect(div.innerHTML).to.contain('Application Type 1');
     });
 
