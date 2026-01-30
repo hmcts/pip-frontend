@@ -11,8 +11,9 @@ const PAGE_URL = '/magistrates-standard-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
 const restrictionHeading = 'govuk-grid restriction-list-section';
-const accordionClass = 'govuk-accordion__section-button';
 const siteAddressClass = 'site-address';
+const accordionClass = 'govuk-accordion__section-button';
+const accordionSectionClass = 'govuk-accordion__section';
 
 const courtName = "Abergavenny Magistrates' Court";
 const expectedHeader = 'Magistrates Standard List for ' + courtName;
@@ -29,11 +30,16 @@ metaData.listType = 'MAGISTRATES_STANDARD_LIST';
 const rawDataCourt = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawDataCourt);
 
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(magistrateStandardListData);
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
 describe('Magistrate Standard List page', () => {
+    const getJsonStub = sinon
+        .stub(PublicationService.prototype, 'getIndividualPublicationJson')
+        .returns(magistrateStandardListData);
+    const getMetadataStub = sinon
+        .stub(PublicationService.prototype, 'getIndividualPublicationMetadata')
+        .returns(metaData);
+
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -41,6 +47,11 @@ describe('Magistrate Standard List page', () => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                 htmlRes.getElementsByTagName('div')[0].remove();
             });
+    });
+
+    afterAll(() => {
+        getJsonStub.restore();
+        getMetadataStub.restore();
     });
 
     it('should display header', () => {
@@ -58,12 +69,23 @@ describe('Magistrate Standard List page', () => {
         expect(text[2].getAttribute('href')).eq('https://www.find-court-tribunal.service.gov.uk/');
     });
 
+    it('should display restriction bullet points', () => {
+        const bullets = htmlRes.getElementsByClassName('govuk-list--bullet')[0];
+        expect(bullets.innerHTML).to.contain('the court directly');
+        expect(bullets.innerHTML).to.contain('HM Courts and Tribunals Service on 0330 808 4407');
+    });
+
     it('should display publication date', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
         expect(text[2].innerHTML).contains(
             'Last updated: 01 December 2023 at 11:30pm',
             'Could not find the publication date'
         );
+    });
+
+    it('should display venue address', () => {
+        const venue = htmlRes.getElementsByClassName('venue-address')[0];
+        expect(venue.innerHTML).to.contain('Address Line 1');
     });
 
     it('should display restriction heading', () => {
@@ -79,53 +101,107 @@ describe('Magistrate Standard List page', () => {
         expect(searchInput[0].innerHTML).contains('Search Cases');
     });
 
+    it('should display the Court House if present', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+
+        expect(siteAddress[0].innerHTML).contains('PRESTON', 'Could not find the court house header');
+    });
+
+    it('should display the LJA if present', () => {
+        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
+
+        expect(siteAddress[1].innerHTML).contains('LJA: Local Justice Area A', 'Could not find the local justice area');
+    });
+
     it('should display the site name for both sections', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
-        expect(siteAddress[0].innerHTML).contains(
-            'Courtroom 1: Judge Test Name Presiding, Judge Test Name',
+        expect(siteAddress[2].innerHTML).contains(
+            'Courtroom 1: Test Name, Test Name',
             'Could not find the site name in section 1'
         );
     });
 
-    it('should display the courtroom', () => {
-        const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
-        expect(siteAddress[1].innerHTML).contains(
-            'Courtroom 2: Judge Test Name Presiding 2, Judge Test Name 2',
-            'Could not find the Court name with Sitting at text'
-        );
-    });
-
-    it('should display accordion open/close all', () => {
+    it('should display party heading', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Defendant Name:  Surname1, Forename1 (male)*',
+            'Name: Surname1, Forename1 MiddleName (male)*',
             'Could not find the accordion heading'
         );
     });
 
-    it('should display defendant information correctly', () => {
-        const div1 = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding');
-        const items1 = div1.item(0).children;
-        expect(items1[0].innerHTML).contains('1:30pm');
-        expect(items1[0].innerHTML).contains('2 hours 30 mins');
-        expect(items1[0].innerHTML).contains('[2 of 3]');
-        expect(items1[2].innerHTML).contains('39');
-        expect(items1[3].innerHTML).contains('Address Line 1, Address Line 2, Month A, County A, AA1 AA1');
-        expect(items1[4].innerHTML).contains('Test1234');
-        expect(items1[5].innerHTML).contains('12');
-        expect(items1[6].innerHTML).contains('VIDEO HEARING');
+    it('should display sitting at', () => {
+        const sittingHeading = htmlRes.getElementsByClassName(accordionSectionClass);
+        expect(sittingHeading[0].innerHTML).to.contains(
+            'Sitting at 1:30pm [2 of 3]',
+            'Could not find the accordion heading'
+        );
+    });
 
-        const div2 = htmlRes.getElementsByClassName('govuk-grid-column-one-third');
-        const items2 = div2.item(0).children;
-        expect(items2[0].innerHTML).contains('45684548');
-        expect(items2[1].innerHTML).contains('Need to confirm');
-        expect(items2[2].innerHTML).contains('mda');
-        expect(items2[3].innerHTML).contains('ADULT');
+    it('should display second sitting at for same party', () => {
+        const sittingHeading = htmlRes.getElementsByClassName(accordionSectionClass);
+        expect(sittingHeading[0].innerHTML).to.contains(
+            'Sitting at 4:30pm [2 of 3]',
+            'Could not find the accordion heading'
+        );
+    });
+
+    it('should display DOB and Age if both present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('DOB and Age');
+        expect(div.innerHTML).to.match(/01\/01\/1950.*20/);
+    });
+
+    it('should display address if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('Address Line 1, Address Line 2');
+    });
+
+    it('should display prosecuting authority if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('Prosecuting Authority Name');
+    });
+
+    it('should display attendance method if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('VIDEO HEARING');
+    });
+
+    it('should display reference if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
+        expect(div.innerHTML).to.contain('45684548');
+    });
+
+    it('should display application type if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[3];
+        expect(div.innerHTML).to.contain('Application Type 1');
+    });
+
+    it('should not display application type if not present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
+        expect(div.innerHTML).to.not.contain('Application Type');
+    });
+
+    it('should display asn if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
+        expect(div.innerHTML).to.contain('AB12345');
+    });
+
+    it('should display hearing type if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
+        expect(div.innerHTML).to.contain('mda');
+    });
+
+    it('should display panel if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
+        expect(div.innerHTML).to.contain('ADULT');
     });
 
     it('should display correct offence title', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-details__summary-text');
-        expect(cell[0].innerHTML).contains('1. drink driving');
+        const cell = htmlRes.getElementsByClassName('offence-summary');
+        expect(cell[0].innerHTML).contains('1. ');
+        expect(cell[1].innerHTML).contains('dd01-01');
+        expect(cell[2].innerHTML).contains(' - ');
+        expect(cell[3].innerHTML).contains('drink driving');
     });
 
     it('should display offence wording', () => {
@@ -133,11 +209,89 @@ describe('Magistrate Standard List page', () => {
         expect(offence[0].innerHTML).contains('driving whilst under the influence of alcohol');
     });
 
-    it('should display correct offence information', () => {
+    it('should display offence legislation if present', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[1].innerHTML).contains('NOT_GUILTY');
-        expect(cell[3].innerHTML).contains('Need to confirm');
-        expect(cell[5].innerHTML).contains('13/12/2023');
-        expect(cell[7].innerHTML).contains('13/12/2023');
+        expect(cell[2].innerHTML).contains('This is a legislation');
+    });
+
+    it('should display offence max penalty if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[4].innerHTML).contains('100yrs');
+    });
+
+    it('should display plea if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[6].innerHTML).contains('NOT_GUILTY');
+    });
+
+    it('should display date of plea if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[8].innerHTML).contains('27/06/2026');
+    });
+
+    it('should display convicted on if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[10].innerHTML).contains('01/05/2026');
+    });
+
+    it('should display adjourned from on if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[12].innerHTML).contains('02/05/2026 - For the trial');
+    });
+
+    it('should display the go back button', () => {
+        const goBack = htmlRes.querySelector('.govuk-back-link');
+        expect(goBack).to.exist;
+    });
+
+    it('should display data source and provenance', () => {
+        const body = htmlRes.getElementsByClassName('govuk-body govuk-!-font-size-14')[0];
+        expect(body.innerHTML).to.contain('Data Source: Prov1');
+    });
+});
+
+describe('Magistrate Standard List page with custom data', () => {
+    async function renderPageWithData(overrides?: (data: any) => void): Promise<Document> {
+        const clone = JSON.parse(JSON.stringify(magistrateStandardListData));
+        if (overrides) {
+            overrides(clone);
+        }
+        const stubJson = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(clone);
+        const stubMeta = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
+        const res = await request(app).get(PAGE_URL);
+        stubJson.restore();
+        stubMeta.restore();
+        return new DOMParser().parseFromString(res.text, 'text/html');
+    }
+
+    it('should not display LJA if not present', async () => {
+        const doc = await renderPageWithData(clone => {
+            delete clone.courtLists[0].courtHouse.lja;
+        });
+        const ljaHeaders = Array.from(doc.getElementsByClassName('site-address')).filter(el =>
+            el.textContent.includes('Local Justice Area A')
+        );
+        expect(ljaHeaders.length).to.equal(0);
+    });
+
+    it('should display only DOB if age is missing', async () => {
+        const doc = await renderPageWithData(clone => {
+            delete clone.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0]
+                .individualDetails.age;
+        });
+        const div = doc.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('DOB and Age');
+        expect(div.innerHTML).to.contain('01/01/1950');
+        expect(div.innerHTML).to.not.match(/Age\s*\d+/);
+    });
+
+    it('should display only Age if DOB is missing', async () => {
+        const doc = await renderPageWithData(clone => {
+            delete clone.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0]
+                .individualDetails.dateOfBirth;
+        });
+        const div = doc.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('DOB and Age');
+        expect(div.innerHTML).to.contain('Age: 20');
     });
 });

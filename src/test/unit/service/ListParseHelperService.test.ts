@@ -336,32 +336,28 @@ describe('List Helper service', () => {
             const sitting = {
                 sittingStart: '2022-02-13T14:00:00.000Z',
             };
-            listParseHelperService.formatCaseTime(sitting, 'ha');
-            expect(sitting['time']).to.equal('2pm');
+            expect(listParseHelperService.formatCaseTime(sitting)).to.equal('2pm');
         });
 
         it('should format time as hour and minute if minutes are not zero', () => {
             const sitting = {
                 sittingStart: '2022-02-13T14:30:00.000Z',
             };
-            listParseHelperService.formatCaseTime(sitting, 'h:mma');
-            expect(sitting['time']).to.equal('2:30pm');
+            expect(listParseHelperService.formatCaseTime(sitting)).to.equal('2:30pm');
         });
 
         it('should handle non-UTC times correctly', () => {
             const sitting = {
                 sittingStart: '2022-02-13T14:30:00.000',
             };
-            listParseHelperService.formatCaseTime(sitting, 'h:mma');
-            expect(sitting['time']).to.be.a('string');
+            expect(listParseHelperService.formatCaseTime(sitting)).to.be.a('string');
         });
 
         it('should not set time if sittingStart is empty', () => {
             const sitting = {
                 sittingStart: '',
             };
-            listParseHelperService.formatCaseTime(sitting, 'h:mma');
-            expect(sitting['time']).to.be.undefined;
+            expect(listParseHelperService.formatCaseTime(sitting)).to.be.undefined;
         });
     });
 
