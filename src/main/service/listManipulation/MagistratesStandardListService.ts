@@ -19,9 +19,7 @@ export class MagistratesStandardListService {
                             hearing.case?.forEach(caseObject => {
                                 if (caseObject.party) {
                                     const caseSitting = this.buildSitting(sitting, caseObject, hearing);
-                                    caseObject.party?.forEach(party =>
-                                        this.processParty(party, caseSitting, matters)
-                                    );
+                                    caseObject.party?.forEach(party => this.processParty(party, caseSitting, matters));
                                 }
                             });
 
@@ -67,9 +65,8 @@ export class MagistratesStandardListService {
 
     private buildSitting(sitting, matter, hearing, isApplication = false) {
         const prosecutingAuthority =
-            matter.party?.find(
-                party => party['partyRole'] === 'PROSECUTING_AUTHORITY' && party['organisationDetails']
-            )?.organisationDetails.organisationName || '';
+            matter.party?.find(party => party['partyRole'] === 'PROSECUTING_AUTHORITY' && party['organisationDetails'])
+                ?.organisationDetails.organisationName || '';
 
         return {
             sittingStartTime: helperService.formatCaseTime(sitting),
@@ -99,7 +96,8 @@ export class MagistratesStandardListService {
                 this.addPartyMatter(matters, partyHeading, sitting);
             } else if (party.organisationDetails) {
                 const partyHeading = ListParseHelperService.writeStringIfValid(
-                    party.organisationDetails.organisationName);
+                    party.organisationDetails.organisationName
+                );
                 sitting = {
                     ...sitting,
                     partyInfo: this.buildOrganisationPartyInfo(party.organisationDetails),
@@ -155,7 +153,7 @@ export class MagistratesStandardListService {
     private addPartyMatter(matters: any[], partyHeading, sitting) {
         // Check if a matter with the same party heading has already been stored. If so append the new matter to it,
         // or else add it to the existing list
-        const commonParty = matters.find(matter => matter.partyHeading === partyHeading)
+        const commonParty = matters.find(matter => matter.partyHeading === partyHeading);
 
         if (commonParty) {
             commonParty.sittings.push(sitting);

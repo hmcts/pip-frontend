@@ -70,9 +70,7 @@ describe('Magistrate Standard List service', () => {
         it('should format individual subject party heading with gender and custody', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
             const expectedHeading = 'Surname1, Forename1 MiddleName (male)*';
-            const found = data
-                .flatMap(room => room['matters'])
-                .find((c: any) => c.partyHeading === expectedHeading);
+            const found = data.flatMap(room => room['matters']).find((c: any) => c.partyHeading === expectedHeading);
 
             expect(found, 'Expected heading not found in partyHeading').to.exist;
         });
