@@ -1,7 +1,6 @@
 {
     "WarnedList": {
         "DocumentID": {
-            "DocumentName": "TestDocumentName",
             "UniqueID": "TestUniqueID",
             "DocumentType": "TestDocumentType"
         },
@@ -17,7 +16,7 @@
             "CourtHouseName": "TestCourtHouseName",
             "CourtHouseAddress": {
                 "Line": ["TestAddressLine1", "TestAddressLine2"],
-                "Postcode": "TestPostcode"
+                "PostCode": "TestPostcode"
             },
             "CourtHouseTelephone": "TestTelephone"
         },
@@ -31,14 +30,15 @@
                     "CourtHouseName": "TestCourtHouseName",
                     "CourtHouseAddress": {
                         "Line": ["TestAddressLine1"],
-                        "Postcode": "TestPostcode"
+                        "PostCode": "TestPostcode"
                     },
                     "CourtHouseTelephone": "TestTelephone"
                 },
                 "WithFixedDate": [
                     {
                         "HearingType": "ABC",
-                        "Fixture": {
+                        "Fixture": [
+                            {
                             "FixedDate": "2024-01-01",
                             "Notes": "TestNotes",
                             "Cases": [
@@ -87,7 +87,7 @@
                                                 "Sex": "male",
                                                 "Address": {
                                                     "Line": ["TestDefendantAddress"],
-                                                    "Postcode": "TestDefendantPostcode"
+                                                    "PostCode": "TestDefendantPostcode"
                                                 },
                                                 "Nationality": "TestNationality"
                                             },
@@ -177,7 +177,7 @@
                                                 "Sex": "male",
                                                 "Address": {
                                                     "Line": ["TestDefendantAddress"],
-                                                    "Postcode": "TestDefendantPostcode"
+                                                    "PostCode": "TestDefendantPostcode"
                                                 },
                                                 "Nationality": "TestNationality"
                                             },
@@ -222,97 +222,99 @@
                                     ]
                                 }
                             ]
-                        }
+                        }]
                     }],
                 "WithoutFixedDate": [
                     {
-                    "HearingType": "XYZ",
-                    "Fixture": {
-                        "FixedDate": "2024-01-03",
-                        "Notes": "TestNotes2",
-                        "Cases": [
+                        "HearingType": "XYZ",
+                        "Fixture": [
                             {
-                                "CaseNumber": "T00112244",
-                                "CaseNumberCaTH": "T00112244",
-                                "CaseArrivedFrom": {
-                                    "Section53": "no"
-                                },
-                                "Hearing": [
+                                "FixedDate": "2024-01-03",
+                                "Notes": "TestNotes2",
+                                "Cases": [
                                     {
-                                        "HearingDescription": "TestHearingDescription2",
-                                        "HearingDate": "2024-01-03",
-                                        "HearingEndDate": "2024-01-04",
-                                        "ListNote": "TestListNote2",
-                                        "HearingType": "GHI"
-                                    }
-                                ],
-                                "Defendants": [
-                                    {
-                                        "PersonalDetails": {
-                                            "Name": {
-                                                "CitizenNameTitle": "TestDefendantTitle",
-                                                "CitizenNameForename": ["TestDefendantForename"],
-                                                "CitizenNameSurname": "TestDefendantSurname",
-                                                "CitizenNameSuffix": "TestDefendantSuffix",
-                                                "CitizenNameRequestedName": "TestDefendantRequestedName"
-                                            },
-                                            "MaskedName": "TestMaskedName2",
-                                            "IsMasked": "yes",
-                                            "DateOfBirth": {
-                                                "BirthDate": "1990-01-01",
-                                                "VerifiedBy": "not verified"
-                                            },
-                                            "Age": 34,
-                                            "Sex": "female",
-                                            "Address": {
-                                                "Line": ["TestDefendantAddress2"],
-                                                "Postcode": "TestDefendantPostcode2"
-                                            },
-                                            "Nationality": "TestNationality2"
+                                        "CaseNumber": "T00112244",
+                                        "CaseNumberCaTH": "T00112244",
+                                        "CaseArrivedFrom": {
+                                            "Section53": "no"
                                         },
-                                        "URN": "TestURN2",
-                                        "PrisonerID": "TestPrisonerID2",
-                                        "PrisonLocation": {
-                                            "Location": ["TestPrisonLocation2"]
-                                        },
-                                        "CustodyStatus": "In custody",
-                                        "Counsel": [
+                                        "Hearing": [
                                             {
-                                                "Solicitor": [
+                                                "HearingDescription": "TestHearingDescription2",
+                                                "HearingDate": "2024-01-03",
+                                                "HearingEndDate": "2024-01-04",
+                                                "ListNote": "TestListNote2",
+                                                "HearingType": "GHI"
+                                            }
+                                        ],
+                                        "Defendants": [
+                                            {
+                                                "PersonalDetails": {
+                                                    "Name": {
+                                                        "CitizenNameTitle": "TestDefendantTitle",
+                                                        "CitizenNameForename": ["TestDefendantForename"],
+                                                        "CitizenNameSurname": "TestDefendantSurname",
+                                                        "CitizenNameSuffix": "TestDefendantSuffix",
+                                                        "CitizenNameRequestedName": "TestDefendantRequestedName"
+                                                    },
+                                                    "MaskedName": "TestMaskedName2",
+                                                    "IsMasked": "yes",
+                                                    "DateOfBirth": {
+                                                        "BirthDate": "1990-01-01",
+                                                        "VerifiedBy": "not verified"
+                                                    },
+                                                    "Age": 34,
+                                                    "Sex": "female",
+                                                    "Address": {
+                                                        "Line": ["TestDefendantAddress2"],
+                                                        "PostCode": "TestDefendantPostcode2"
+                                                    },
+                                                    "Nationality": "TestNationality2"
+                                                },
+                                                "URN": "TestURN2",
+                                                "PrisonerID": "TestPrisonerID2",
+                                                "PrisonLocation": {
+                                                    "Location": ["TestPrisonLocation2"]
+                                                },
+                                                "CustodyStatus": "In custody",
+                                                "Counsel": [
                                                     {
-                                                        "Party": {
-                                                            "Organisation": {
-                                                                "OrganisationName": "TestSolicitorOrg2"
+                                                        "Solicitor": [
+                                                            {
+                                                                "Party": {
+                                                                    "Organisation": {
+                                                                        "OrganisationName": "TestSolicitorOrg2"
+                                                                    }
+                                                                }
                                                             }
-                                                        }
+                                                        ]
+                                                    }
+                                                ],
+                                                "Charges": [
+                                                    {
+                                                        "OffenceStatement": "TestOffenceStatement2",
+                                                        "IndictmentCountNumber": 2,
+                                                        "CJSoffenceCode": "TestCJSCode2"
                                                     }
                                                 ]
                                             }
                                         ],
-                                        "Charges": [
+                                        "Prosecution": {
+                                            "ProsecutingOrganisation": {
+                                                "OrganisationName": "TestProsecutingOrg2"
+                                            },
+                                            "ProsecutingAuthority": "Other Prosecutor"
+                                        },
+                                        "LinkedCases": [
                                             {
-                                                "OffenceStatement": "TestOffenceStatement2",
-                                                "IndictmentCountNumber": 2,
-                                                "CJSoffenceCode": "TestCJSCode2"
+                                                "CaseNumber": "TestLinkedCaseNumber2"
                                             }
                                         ]
-                                    }
-                                ],
-                                "Prosecution": {
-                                    "ProsecutingOrganisation": {
-                                        "OrganisationName": "TestProsecutingOrg2"
-                                    },
-                                    "ProsecutingAuthority": "Other Prosecutor"
-                                },
-                                "LinkedCases": [
-                                    {
-                                        "CaseNumber": "TestLinkedCaseNumber2"
                                     }
                                 ]
                             }
                         ]
                     }
-                }
                 ]
             }
         ]
