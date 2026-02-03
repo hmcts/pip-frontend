@@ -10,8 +10,8 @@ import { CrownPddaListService } from '../../../../main/service/listManipulation/
 import CrownPddaListController from '../../../../main/controllers/style-guide/CrownPddaListController';
 import { HttpStatusCode } from 'axios';
 
-const urlDailyList = 'crown-daily-pdda-list';
-const urlFirmList = 'crown-firm-pdda-list';
+const urlDailyList = 'crown-daily-list';
+const urlFirmList = 'crown-firm-list';
 
 const artefactIdDailyList = 'abc';
 const artefactIdFirmList = 'def';
@@ -41,8 +41,8 @@ const courtData = JSON.parse(rawCourtData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
 const processPayloadStub = sinon.stub(CrownPddaListService.prototype, 'processPayload');
-processPayloadStub.withArgs(sinon.match.any, sinon.match.any, 'crown-daily-pdda-list').returns(dailyListData);
-processPayloadStub.withArgs(sinon.match.any, sinon.match.any, 'crown-firm-pdda-list').returns(firmListData);
+processPayloadStub.withArgs(sinon.match.any, sinon.match.any, 'crown-daily-list').returns(dailyListData);
+processPayloadStub.withArgs(sinon.match.any, sinon.match.any, 'crown-firm-list').returns(firmListData);
 
 const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const metadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
@@ -60,10 +60,10 @@ metadataStub.withArgs(artefactIdListInvalidListType).resolves(metadataListNotFou
 const i18n = {
     listType: { value: '123' },
     'list-template': {},
-    'crown-daily-pdda-list': {
+    'crown-daily-list': {
         title: 'Crown Daily List',
     },
-    'crown-firm-pdda-list': {
+    'crown-firm-list': {
         title: 'Crown Firm List',
     },
 };
@@ -95,7 +95,7 @@ describe.each([urlDailyList, urlFirmList])("Crown PDDA List Controller with path
             publishedDate: '09 September 2025',
             publishedTime: '11am',
             startDate: '10 September 2025',
-            endDate: url === 'crown-daily-pdda-list' ? '' : '11 September 2025',
+            endDate: url === 'crown-daily-list' ? '' : '11 September 2025',
             version: '1.0',
             venueAddress: ['1 Main Road', 'London', 'A1 1AA'],
         };
