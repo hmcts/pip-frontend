@@ -27,7 +27,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, '');
 
-    I.selectOption(listTypeId, 'Crown Warned PDDA List');
+    I.selectOption(listTypeId, 'Crown Warned List');
 
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityClassified);
@@ -44,7 +44,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
 
     I.attachFile('#manual-file-upload', '../unit/mocks/crownWarnedPddaList.json');
     I.fillField('#search-input', 'Single Justice Procedure');
-    I.selectOption(listTypeId, 'Crown Warned PDDA List');
+    I.selectOption(listTypeId, 'Crown Warned List');
 
     I.fillField('#content-date-from-day', padFormatted(date.getDate()));
     I.fillField('#content-date-from-month', padFormatted(date.getMonth() + 1));
