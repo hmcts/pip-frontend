@@ -8,7 +8,7 @@ import request from 'supertest';
 import { app } from '../../../../main/app';
 import { expect } from 'chai';
 
-const urlDailyPddaList = '/crown-daily-pdda-list';
+const urlDailyPddaList = '/crown-daily-list';
 const artefactIdDailyPddaList = 'abc';
 
 const bodyText = 'govuk-body';

@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { LocationService } from '../../../../main/service/LocationService';
 
-const PAGE_URL = '/crown-warned-pdda-list?artefactId=abc';
+const PAGE_URL = '/crown-warned-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
 const listInfoClass = 'list-info';

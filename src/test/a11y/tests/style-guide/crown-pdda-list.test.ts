@@ -4,8 +4,8 @@ import { LocationService } from '../../../../main/service/LocationService';
 import { testAccessibility } from '../../common/pa11yHelper';
 import { testArtefactJsonData, testArtefactMetadata, testLocationData } from '../../common/testData';
 
-const urlDaily = '/crown-daily-pdda-list?artefactId=abc';
-const urlFirm = '/crown-firm-pdda-list?artefactId=xyz';
+const urlDaily = '/crown-daily-list?artefactId=abc';
+const urlFirm = '/crown-firm-list?artefactId=xyz';
 
 const jsonDailyData = testArtefactJsonData('crownDailyPddaList.json');
 const jsonFirmData = testArtefactJsonData('crownFirmPddaList.json');
