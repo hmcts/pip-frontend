@@ -37,7 +37,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityPrivate);
 
-    I.selectOption(listTypeId, 'Crown Firm PDDA List');
+    I.selectOption(listTypeId, 'Crown Firm List');
 
     classification = await I.grabValueFrom(classificationId);
     Assert.equal(classification, sensitivityClassified);
