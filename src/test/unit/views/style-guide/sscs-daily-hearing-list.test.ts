@@ -141,9 +141,9 @@ describe('SSCS Daily Hearing List Page', () => {
             expect(headerCell[5].innerHTML).contains('Hearing time');
         });
 
-        it('should display Panel header', () => {
+        it('should display Tribunal header', () => {
             const headerCell = htmlRes.getElementsByClassName(tableHeader);
-            expect(headerCell[6].innerHTML).contains('Panel');
+            expect(headerCell[6].innerHTML).contains('Tribunal');
         });
 
         it('should display FTA/Respondent header', () => {
@@ -186,9 +186,9 @@ describe('SSCS Daily Hearing List Page', () => {
             expect(cellText[5].innerHTML).contains('10:30am');
         });
 
-        it('should display Panel cell data', () => {
+        it('should display Tribunal cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[6].innerHTML).contains('Panel 1');
+            expect(cellText[6].innerHTML).contains('Member 1');
         });
 
         it('should display FTA/Respondent cell data', () => {

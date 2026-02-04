@@ -32,17 +32,11 @@
         <div class="parent-box overflow-table govuk-!-margin-top-5 govuk-!-margin-bottom-5 search-area">
             <table class="govuk-table overflow-table">
                 <thead class="govuk-table__head">
-                <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ venue }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ appealReferenceNumber }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingType }} </th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ appellant }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ courtroom }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingTime }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ panel }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ ftaRespondent }}</th>
-                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ additionalInformation }}</th>
-                </tr>
+                    <tr class="govuk-table__row">
+                        {% for header in tableHeaders %}
+                            <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
+                        {% endfor %}
+                    </tr>
                 </thead>
                 <tbody class="govuk-table__body">
                 {% for case in listData %}
@@ -53,7 +47,7 @@
                         <td class="govuk-table__cell">{{ case['appellant'] }}</td>
                         <td class="govuk-table__cell">{{ case['courtroom'] }} </td>
                         <td class="govuk-table__cell">{{ case['hearingTime'] | timeFormatter }} </td>
-                        <td class="govuk-table__cell">{{ case['panel'] }} </td>
+                        <td class="govuk-table__cell new-line-wrap">{{ case['tribunal'] }} </td>
                         <td class="govuk-table__cell">{{ case['fta/respondent'] }} </td>
                         <td class="govuk-table__cell">{{ case['additionalInformation'] }} </td>
                     </tr>
