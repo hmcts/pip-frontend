@@ -188,7 +188,10 @@ describe('SSCS Daily Hearing List Page', () => {
 
         it('should display Tribunal cell data', () => {
             const cellText = htmlRes.getElementsByClassName(cell);
-            expect(cellText[6].innerHTML).contains('Member 1');
+            expect(cellText[6].innerHTML)
+                .contains('Tribunal member 1')
+                .contains('Tribunal member 2')
+                .contains('Tribunal member 3')
         });
 
         it('should display FTA/Respondent cell data', () => {
