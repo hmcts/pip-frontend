@@ -146,5 +146,4 @@ describe('Magistrates public List page', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[6].innerHTML).contains('Test offence 1');
     });
-
 });
