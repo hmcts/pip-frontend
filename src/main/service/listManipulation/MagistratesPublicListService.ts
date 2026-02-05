@@ -70,5 +70,4 @@ export class MagistratesPublicListService {
             node.time = helperService.publicationTimeInUkTime(node.sittingStart);
         }
     }
-
 }
