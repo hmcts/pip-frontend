@@ -7,7 +7,6 @@ const separator = ', ';
 /**
  * Service class provides reusable methods for crime list templates:
  *   Crown Daily List
- *   Magistrates Public List
  */
 export class CrimeListsService {
     public manipulateCrimeListData(crimeListData: string, language: string, languageFile: string): object {
@@ -22,7 +21,6 @@ export class CrimeListsService {
                             this.findLinkedCasesInformation(hearing);
                             hearing['case'].forEach(hearingCase => {
                                 this.manipulateParty(hearingCase);
-                                this.findOffences(hearingCase);
                             });
                         });
                     });
@@ -63,11 +61,9 @@ export class CrimeListsService {
             switch (party.partyRole) {
                 case 'DEFENDANT': {
                     this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
-                    this.pushIfExists(defendants, this.createOrganisationDetails(party.organisationDetails));
                     break;
                 }
                 case 'DEFENDANT_REPRESENTATIVE': {
-                    this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
                     this.pushIfExists(
                         defendantRepresentatives,
                         this.createOrganisationDetails(party.organisationDetails)
@@ -75,7 +71,6 @@ export class CrimeListsService {
                     break;
                 }
                 case 'PROSECUTING_AUTHORITY': {
-                    this.pushIfExists(defendants, this.createIndividualDetails(party.individualDetails));
                     this.pushIfExists(
                         prosecutingAuthorities,
                         this.createOrganisationDetails(party.organisationDetails)
@@ -99,17 +94,6 @@ export class CrimeListsService {
         return ListParseHelperService.writeStringIfValid(organisationDetails?.organisationName);
     }
 
-    public findOffences(node): void {
-        const offences = [];
-
-        node?.party?.forEach(party => {
-            party.offence?.forEach(offence => {
-                this.pushIfExists(offences, ListParseHelperService.writeStringIfValid(offence.offenceTitle));
-            });
-        });
-        node.offences = offences;
-    }
-
     public findLinkedCasesInformation(hearing): void {
         let linkedCases = '';
         let listingNotes = '';
@@ -130,43 +114,6 @@ export class CrimeListsService {
         }
 
         hearing['listingNotes'] = listingNotes?.replace(/,\s*$/, '').trim();
-    }
-
-    public findUnallocatedCasesInCrownDailyListData(crimeListData: string): Array<object> {
-        const unallocatedCasesCrownListData = JSON.parse(crimeListData);
-        const unallocatedCases = [];
-        let courtListForUnallocatedCases;
-        unallocatedCasesCrownListData['courtLists'].forEach(courtList => {
-            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-                if (courtRoom.courtRoomName.includes('to be allocated')) {
-                    const courtRoomCopy = JSON.parse(JSON.stringify(courtRoom));
-                    unallocatedCases.push(courtRoomCopy);
-                    courtRoom['exclude'] = true;
-                }
-            });
-            courtListForUnallocatedCases = JSON.parse(JSON.stringify(courtList));
-        });
-
-        if (unallocatedCases.length > 0) {
-            this.formatUnallocatedCourtList(
-                unallocatedCasesCrownListData,
-                courtListForUnallocatedCases,
-                unallocatedCases
-            );
-        }
-        return unallocatedCasesCrownListData;
-    }
-
-    private formatUnallocatedCourtList(
-        unallocatedCasesCrownListData,
-        courtListForUnallocatedCases,
-        unallocatedCase
-    ): void {
-        courtListForUnallocatedCases['courtHouse']['courtHouseName'] = '';
-        courtListForUnallocatedCases['courtHouse']['courtHouseAddress'] = null;
-        courtListForUnallocatedCases['unallocatedCases'] = true;
-        courtListForUnallocatedCases['courtHouse']['courtRoom'] = unallocatedCase;
-        unallocatedCasesCrownListData['courtLists'].push(courtListForUnallocatedCases);
     }
 
     public formatAddress(address, delimiter = '\n') {
