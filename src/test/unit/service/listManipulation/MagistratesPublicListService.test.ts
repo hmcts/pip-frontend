@@ -4,14 +4,10 @@ import path from 'path';
 import { MagistratesPublicListService } from '../../../../main/service/listManipulation/MagistratesPublicListService';
 
 const magistratesPublicListService = new MagistratesPublicListService();
-const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../mocks/magistratesPublicList.json'),
-    'utf-8'
-);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicList.json'), 'utf-8');
 
 describe('Magistrates Public List service', () => {
     describe('manipulate data', () => {
-
         it('should find and format judiciary', async () => {
             const listData = magistratesPublicListService.manipulateData(rawData);
             listData['courtLists'].forEach(courtList => {
@@ -61,11 +57,10 @@ describe('Magistrates Public List service', () => {
                 });
             });
 
-            const hearing1
-                = listData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
+            const hearing1 =
+                listData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
             expect(hearing1['case'][0]['defendant']).to.equal('Surname 1, Forename 1');
             expect(hearing1['application'][0]['defendant']).to.equal('Test Applicant Surname, Test Applicant Forename');
-
         });
 
         it('should find and format prosecuting authority for each case or application', function () {
@@ -87,8 +82,8 @@ describe('Magistrates Public List service', () => {
                 });
             });
 
-            const hearing1
-                = listData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
+            const hearing1 =
+                listData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
             expect(hearing1['case'][0]['prosecutingAuthority']).to.equal('Pro_Auth');
             expect(hearing1['application'][0]['prosecutingAuthority']).to.equal('Test Surname, Test Forename');
         });
@@ -112,13 +107,19 @@ describe('Magistrates Public List service', () => {
                 });
             });
 
-            const hearing1
-                = listData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
+            const hearing1 =
+                listData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
             expect(hearing1['case'][0]['offences']).to.deep.equal(['Test offence 1']);
-            expect(hearing1['case'][1]['offences']).to.deep.equal(['Test offence 1', 'Test offence 2', 'Test offence 3']);
-            expect(hearing1['application'][0]['offences']).to.deep.equal(['Test offence 1', 'Test offence 2', 'Test offence 3']);
+            expect(hearing1['case'][1]['offences']).to.deep.equal([
+                'Test offence 1',
+                'Test offence 2',
+                'Test offence 3',
+            ]);
+            expect(hearing1['application'][0]['offences']).to.deep.equal([
+                'Test offence 1',
+                'Test offence 2',
+                'Test offence 3',
+            ]);
         });
-
-    })
-
+    });
 });

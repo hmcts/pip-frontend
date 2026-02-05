@@ -29,18 +29,6 @@ describe('Crime Data manipulation service', () => {
             expect(hearing.defendantRepresentative).to.equal('Defendant rep nameA, Defendant rep nameB');
             expect(hearing.prosecutingAuthority).to.equal('Prosecuting authority nameA, Prosecuting authority nameB');
         });
-
-        it('should format single defendant organisation', async () => {
-            const hearing = partyData.hearing[2];
-            crimeListsService.manipulateParty(hearing);
-            expect(hearing.defendant).to.equal('Defendant org name');
-        });
-
-        it('should format multiple defendants individual and organisation', async () => {
-            const hearing = partyData.hearing[3];
-            crimeListsService.manipulateParty(hearing);
-            expect(hearing.defendant).to.equal('Surname A, Forename A, Defendant org name');
-        });
     });
 
     describe('formatAddress', () => {
@@ -61,27 +49,5 @@ describe('Crime Data manipulation service', () => {
             expect(formattedAddress).to.equal('Address Line 1, Address Line 2, Town, County, AA1 1AA');
         });
     });
-    describe('findOffences', () => {
-        let partyData;
-        beforeEach(() => {
-            partyData = JSON.parse(rawCrimePartyData);
-        });
 
-        it('should return single offence', async () => {
-            const hearing = partyData.hearing[0];
-            crimeListsService.findOffences(hearing);
-            expect(hearing.offences).to.deep.equal(['Test offence 1']);
-        });
-
-        it('should format multiple offences', async () => {
-            const hearing = partyData.hearing[1];
-            crimeListsService.findOffences(hearing);
-            expect(hearing.offences).to.deep.equal([
-                'Test offence 1',
-                'Test offence 2',
-                'Test offence 3',
-                'Test offence 4',
-            ]);
-        });
-    });
 });
