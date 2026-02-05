@@ -1,10 +1,10 @@
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import { Response } from 'express';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import { SubscriptionService } from '../../../../main/service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import ManageThirdPartyUsersViewController from '../../../../main/controllers/system-admin/ManageThirdPartyUsersViewController';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 const manageThirdPartyUsersViewController = new ManageThirdPartyUsersViewController();
 
@@ -20,7 +20,7 @@ describe('Manage third party users view Controller', () => {
         },
     } as unknown as Response;
 
-    const getThirdPartyByUserIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
+    const getThirdPartyByUserIdStub = sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyUserById');
     const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
 
     const userId = '1234-1234';

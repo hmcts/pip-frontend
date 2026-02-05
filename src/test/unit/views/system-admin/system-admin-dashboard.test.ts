@@ -42,7 +42,7 @@ describe('System Admin Dashboard page', () => {
 
     it('should display 8 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(8);
+        expect(cardComponents.length).equal(9);
     });
 
     it('blob Explorer card should have correct content and links', () => {

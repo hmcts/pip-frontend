@@ -1,8 +1,8 @@
 import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import CreateThirdPartyUserSummaryController from '../../../../main/controllers/system-admin/CreateThirdPartyUserSummaryController';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 const formData = {
     thirdPartyName: 'name',
@@ -30,7 +30,7 @@ const response = {
 const request = mockRequest(i18n);
 request['cookies'] = { formCookie: JSON.stringify(formData) };
 
-const createThirdPartyStub = sinon.stub(ThirdPartyService.prototype, 'createThirdPartyUser');
+const createThirdPartyStub = sinon.stub(CourtelThirdPartyService.prototype, 'createThirdPartyUser');
 createThirdPartyStub.withArgs(formData, '1').resolves(null);
 createThirdPartyStub.withArgs(formData, '2').resolves('true');
 
