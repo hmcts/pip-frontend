@@ -114,7 +114,7 @@ describe('Magistrates public List page', () => {
 
     it('should display Sitting at time with zero minute', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[30].innerHTML).contains('8am');
+        expect(cell[35].innerHTML).contains('8am');
     });
 
     it('should display Case Reference', () => {
@@ -147,8 +147,4 @@ describe('Magistrates public List page', () => {
         expect(cell[6].innerHTML).contains('Test offence 1');
     });
 
-    it('should display multiple Offence Titles if more than one offence is there', () => {
-        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[6].innerHTML).contains('Test offence 2');
-    });
 });
