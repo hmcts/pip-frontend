@@ -51,7 +51,7 @@
                                                                     "individualForenames": "Forename1",
                                                                     "individualMiddleName": "MiddleName",
                                                                     "individualSurname": "Surname1",
-                                                                    "dateOfBirth": "01/01/1950",
+                                                                    "dateOfBirth": "1950-01-01",
                                                                     "age": 20,
                                                                     "address": {
                                                                         "county": "County A",
@@ -121,7 +121,7 @@
                                                                     "individualForenames": "Forename1",
                                                                     "individualMiddleName": "MiddleName",
                                                                     "individualSurname": "Surname1",
-                                                                    "dateOfBirth": "01/01/1950",
+                                                                    "dateOfBirth": "1950-01-01",
                                                                     "age": 20,
                                                                     "address": {
                                                                         "county": "County A",
@@ -210,7 +210,7 @@
                                                                     "individualForenames": "Forename4",
                                                                     "individualMiddleName": "MiddleName",
                                                                     "individualSurname": "Surname4",
-                                                                    "dateOfBirth": "01/01/1951",
+                                                                    "dateOfBirth": "1951-01-01",
                                                                     "age": 21,
                                                                     "address": {
                                                                         "county": "County B",

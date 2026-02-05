@@ -110,7 +110,7 @@ export class MagistratesStandardListService {
 
     private buildIndividualPartyInfo(individualDetails) {
         return {
-            dob: ListParseHelperService.writeStringIfValid(individualDetails.dateOfBirth),
+            dob: this.formatDate(individualDetails.dateOfBirth),
             age: ListParseHelperService.writeStringIfValid(individualDetails.age),
             address: crimeListsService.formatAddress(individualDetails.address, ', '),
             asn: ListParseHelperService.writeStringIfValid(individualDetails.asn),
