@@ -22,7 +22,7 @@
     href: 'subscription-add'
   }) }}
 
-  {% set allSubscriptions = caseTableData | length +  locationTableData | length %}
+  {% set allSubscriptions = (caseTableData | length) + (locationTableData | length) %}
   {% if allSubscriptions > 0 %}
     {{ govukButton({
       id: 'bulk-unsubscribe-button',
@@ -131,17 +131,4 @@
   {{ super() }}
   {{ mojAll(cspNonce) }}
 
-  <script nonce="{{ cspNonce }}">
-    window.onload = function() {
-      let nav = document.getElementsByClassName("moj-sub-navigation")[1].getElementsByTagName("ul")[0];
-      let hideAllSection = nav.querySelectorAll('li[class="moj-sub-navigation__item"]');
-      Array.from(hideAllSection).forEach((element, index) => {
-        element.querySelectorAll('.moj-sub-navigation__link').forEach(function(el) {
-          if(el.firstChild.nodeValue.indexOf('(0)') > 0) {
-            el.style.display = 'none';
-          }
-        });
-      });
-    };
-  </script>
 {% endblock %}
