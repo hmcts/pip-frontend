@@ -153,15 +153,18 @@
 
   <script nonce="{{ cspNonce }}">
     window.onload = function() {
-      let nav = document.getElementsByClassName("moj-sub-navigation")[1].getElementsByTagName("ul")[0];
-      let hideAllSection = nav.querySelectorAll('li[class="moj-sub-navigation__item"]');
-      Array.from(hideAllSection).forEach((element, index) => {
-        element.querySelectorAll('.moj-sub-navigation__link').forEach(function(el) {
-          if(el.firstChild.nodeValue.indexOf('(0)') > 0) {
-            el.style.display = 'none';
-          }
+      const subNavigationElements = document.getElementsByClassName("moj-sub-navigation");
+      if (subNavigationElements > 1) {
+        let nav = document.getElementsByClassName("moj-sub-navigation")[1].getElementsByTagName("ul")[0];
+        let hideAllSection = nav.querySelectorAll('li[class="moj-sub-navigation__item"]');
+        Array.from(hideAllSection).forEach((element, index) => {
+          element.querySelectorAll('.moj-sub-navigation__link').forEach(function(el) {
+            if (el.firstChild.nodeValue.indexOf('(0)') > 0) {
+              el.style.display = 'none';
+            }
+          });
         });
-      });
+      }
     };
 
     document.querySelectorAll('.caseCheckbox').forEach(item => item.addEventListener('click', untickSelectAllCases));
