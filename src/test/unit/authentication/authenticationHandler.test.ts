@@ -1,5 +1,39 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
+
+const mockConfig = {
+    config: {},
+    callbackURL: 'mock-callback-url',
+    scope: 'mock-scope',
+};
+
+const mockFunctionFromOidcConstructor = (options, callback) => {
+    return {
+        options: options,
+        callbackFunction: callback,
+    };
+};
+
+jest.mock('../../../main/authentication/extendedOidcStrategy', () => {
+    return {
+        OIDCStrategy: jest.fn().mockImplementation((config, callback) => {
+            return mockFunctionFromOidcConstructor(config, callback);
+        }),
+    };
+});
+
+import * as b2cAuthentication from '../../../main/authentication/b2cAuthentication';
+
+// @ts-ignore Unneeded config
+jest.spyOn(b2cAuthentication, 'getB2cConfig').mockResolvedValue(mockConfig);
+// @ts-ignore Unneeded config
+jest.spyOn(b2cAuthentication, 'getB2cMediaVerificationConfig').mockResolvedValue(mockConfig);
+
+import * as ssoAuthentication from '../../../main/authentication/ssoAuthentication';
+
+// @ts-ignore Unneeded config
+jest.spyOn(ssoAuthentication, 'getSsoConfig').mockResolvedValue(mockConfig);
+
 import {
     checkAuthenticatedMedia,
     checkAuthenticatedAdmin,
@@ -27,7 +61,7 @@ import {
 } from '../../../main/authentication/authenticationHelper';
 
 import request from 'supertest';
-import { app } from '../../../main/app';
+import { app, appSetup } from '../../../main/app';
 import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 
 const updateMediaAccountVerification = sinon.stub(
@@ -260,12 +294,11 @@ describe('Test IsPermittedSystemAdmin', () => {
 
 describe('forgot password reset', () => {
     test('should redirect to azure again if password reset error is returned from the B2C with the correct media redirect url', async () => {
+        await appSetup();
         await request(app)
-            .post('/login/return')
-            .send({ error: 'access_denied', error_description: 'AADB2C90118' })
+            .get('/login/return?error_description=AADB2C90118')
             .expect(res => expect(res.redirect).to.be.true)
             .expect(res => expect(res.header.location).to.contain('response_type=code'))
-            .expect(res => expect(res.header.location).to.contain('response_mode=form_post'))
             .expect(res => expect(res.header.location).to.contain('/password-change-confirmation'));
     });
 });
@@ -307,7 +340,7 @@ describe('media verification handling', () => {
 describe('process account password change confirmation', () => {
     it('should continue to next middleware when no error returned', async () => {
         const mockFunction = jest.fn(argument => argument);
-        const req = { body: {} };
+        const req = { url: '' };
         const res = {};
         const next = mockFunction;
 
@@ -318,7 +351,7 @@ describe('process account password change confirmation', () => {
 
     it('should redirect to cancelled password reset when error is confirmed', async () => {
         const mockFunction = jest.fn(argument => argument);
-        const req = { body: { error_description: 'AADB2C90091' } };
+        const req = { url: 'error_description=AADB2C90091' };
         const res = { redirect: mockFunction };
         const next = null;
 
@@ -467,7 +500,7 @@ describe('test forgotten password redirect', () => {
     it('test next is called if not a forgotten password reset', () => {
         const mockRedirectFunction = jest.fn(argument => argument);
         const res = {};
-        const req = { body: {} };
+        const req = { url: '' };
 
         forgotPasswordRedirect(req, res, mockRedirectFunction);
         expect(mockRedirectFunction.mock.calls.length).to.equal(1);
@@ -479,7 +512,7 @@ describe('test forgotten password redirect', () => {
         const next = () => {
             return 0;
         };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login' };
+        const req = { url: 'error_description=AADB2C90118', originalUrl: '/login' };
 
         forgotPasswordRedirect(req, res, next());
 
@@ -493,7 +526,7 @@ describe('test forgotten password redirect', () => {
         const next = () => {
             return 0;
         };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'en' };
+        const req = { url: 'error_description=AADB2C90118', originalUrl: '/login', lng: 'en' };
 
         forgotPasswordRedirect(req, res, next());
 
@@ -506,7 +539,7 @@ describe('test forgotten password redirect', () => {
         const next = () => {
             return 0;
         };
-        const req = { body: { test: 'AADB2C90118' }, originalUrl: '/login', lng: 'cy' };
+        const req = { url: 'error_description=AADB2C90118', originalUrl: '/login', lng: 'cy' };
 
         forgotPasswordRedirect(req, res, next());
 

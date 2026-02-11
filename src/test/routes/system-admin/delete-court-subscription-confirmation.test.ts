@@ -15,10 +15,13 @@ courtStub.withArgs('2').resolves({ locationId: 2, jurisdiction: 'test', region: 
 subsDeleteStub.withArgs('2').resolves('success');
 
 describe('Delete Court Subscription Confirmation', () => {
-    app.request['user'] = {
-        userId: '1',
-        roles: 'SYSTEM_ADMIN',
-    };
+    beforeEach(() => {
+        app.request['user'] = {
+            userId: '1',
+            roles: 'SYSTEM_ADMIN',
+        };
+    });
+
     describe('on GET', () => {
         test('should return court subscription confirmation page', async () => {
             await request(app)
