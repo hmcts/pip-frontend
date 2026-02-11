@@ -34,21 +34,14 @@ const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLoc
 additionalLocationInfoStub.withArgs(1).returns(null);
 additionalLocationInfoStub.withArgs(2).returns(additionalLocationInfo);
 
-sinon.stub(PublicationService.prototype, 'getListTypes').returns(
-    new Map([
-        ['CROWN_WARNED_PDDA_LIST', { friendlyName: 'List A' }],
-        ['SJP_PUBLIC_LIST', { friendlyName: 'List B' }],
-    ])
-);
-
 const publicationsWithName = [
     {
         ...metadata[0],
-        listName: 'List A',
+        listName: 'Crown Warned PDDA List',
     },
     {
         ...metadata[1],
-        listName: 'List B',
+        listName: 'Single Justice Procedure Public List (Full List)',
     },
 ];
 

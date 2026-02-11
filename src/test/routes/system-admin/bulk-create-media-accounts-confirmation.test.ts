@@ -9,8 +9,6 @@ const PAGE_URL = '/bulk-create-media-accounts-confirmation';
 const fileName = 'fileName';
 const mockData = { fileName: fileName, uploadFileName: fileName, file: '' };
 
-app.request['cookies'] = { formCookie: JSON.stringify(mockData) };
-
 const file = 'file';
 const mockAccounts = [
     ['email', 'firstName', 'surname'],
@@ -26,11 +24,18 @@ createAccountsStub.withArgs(file, fileName, '1').resolves(true);
 createAccountsStub.withArgs(file, fileName, '2').resolves(false);
 
 describe('Bulk create media accounts confirmation', () => {
+    beforeEach(() => {
+        app.request['cookies'] = { formCookie: JSON.stringify(mockData) };
+    });
+
     describe('on GET', () => {
-        app.request['user'] = {
-            userId: '1',
-            roles: 'SYSTEM_ADMIN',
-        };
+        beforeEach(() => {
+            app.request['user'] = {
+                userId: '1',
+                roles: 'SYSTEM_ADMIN',
+            };
+        });
+
         test('should render bulk create media accounts confirmation page', async () => {
             await request(app)
                 .get(PAGE_URL)
@@ -39,10 +44,12 @@ describe('Bulk create media accounts confirmation', () => {
     });
 
     describe('on POST', () => {
-        app.request['user'] = {
-            userId: '1',
-            roles: 'SYSTEM_ADMIN',
-        };
+        beforeEach(() => {
+            app.request['user'] = {
+                userId: '1',
+                roles: 'SYSTEM_ADMIN',
+            };
+        });
 
         test("should redirect to bulk create media accounts page if 'Yes' is selected", async () => {
             await request(app)
