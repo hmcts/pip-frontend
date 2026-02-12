@@ -55,70 +55,66 @@
       }]
     }) }}
 
-    {% if caseTableData | length == 0 and locationTableData | length == 0 %}
-      {% if activeAllTab == true %}
-        <p class="govuk-body">{{ noSubs }}</p>
-      {% elseif activeCaseTab == true %}
-        <p class="govuk-body">{{ noSubsCase }}</p>
-      {% elseif activelocationTab == true %}
-        <p class="govuk-body">{{ noSubsCourt }}</p>
-      {% endif %}
-    {% else %}
-      {% if (activeAllTab == true and caseTableData | length != 0) or (activeCaseTab == true and caseTableData | length != 0) %}
-        {# Case Subscriptions Table #}
-        <table class="govuk-table govuk-!-margin-bottom-9" id="cases-table">
-          <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header1 }}</th>
-              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header2 }}</th>
-              <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header3 }}</th>
-              <th scope="col" class="govuk-table__header">{{ table.date }}</th>
-              <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ table.actions }}</th>
-            </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-            {% for row in caseTableData %}
-              <tr class="govuk-table__row">
-                <td class="govuk-table__cell">{{ row.caseName }}</td>
-                <td class="govuk-table__cell">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
-                <td class="govuk-table__cell">{{ row.caseRef }}</td>
-                <td class="govuk-table__cell no-wrap">{{ row.date }}</td>
-                <td class="govuk-table__cell govuk-table__cell--numeric">
-                  <a class="unsubscribe-action" href="delete-subscription?subscription={{ row.subscriptionId }}">{{ unsubscribe }}</a>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      {% endif %}
-      {% if (activeAllTab == true and locationTableData | length != 0) or (activeLocationTab == true and locationTableData | length != 0) %}
-        {# location Subscriptions Table #}
-        {{ govukButton({
-          text: configureListTypeButton,
-          href: 'subscription-configure-list'
-        }) }}
+    {% if activeCaseTab == true and caseTableData | length == 0 %}
+      <p class="govuk-body">{{ noSubsCase }}</p>
+    {% elseif activeLocationTab == true and locationTableData | length == 0 %}
+      <p class="govuk-body">{{ noSubsCourt }}</p>
+    {% endif %}
 
-        <table class="govuk-table" id="locations-table">
-          <thead class="govuk-table__head">
+    {% if (activeAllTab == true and caseTableData | length != 0) or (activeCaseTab == true and caseTableData | length != 0) %}
+      {# Case Subscriptions Table #}
+      <table class="govuk-table govuk-!-margin-bottom-9" id="cases-table">
+        <thead class="govuk-table__head">
           <tr class="govuk-table__row">
-            <th scope="col" class="govuk-table__header govuk-!-width-three-quarters" aria-sort="none">{{ courtTable.header1 }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header1 }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header2 }}</th>
+            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header3 }}</th>
             <th scope="col" class="govuk-table__header">{{ table.date }}</th>
             <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ table.actions }}</th>
           </tr>
-          </thead>
-          <tbody class="govuk-table__body">
-          {% for row in locationTableData %}
+        </thead>
+        <tbody class="govuk-table__body">
+          {% for row in caseTableData %}
             <tr class="govuk-table__row">
-              <td class="govuk-table__cell">{{ row.locationName }}</td>
+              <td class="govuk-table__cell">{{ row.caseName }}</td>
+              <td class="govuk-table__cell">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
+              <td class="govuk-table__cell">{{ row.caseRef }}</td>
               <td class="govuk-table__cell no-wrap">{{ row.date }}</td>
               <td class="govuk-table__cell govuk-table__cell--numeric">
                 <a class="unsubscribe-action" href="delete-subscription?subscription={{ row.subscriptionId }}">{{ unsubscribe }}</a>
               </td>
             </tr>
           {% endfor %}
-          </tbody>
-        </table>
-      {% endif %}
+        </tbody>
+      </table>
+    {% endif %}
+    {% if (activeAllTab == true and locationTableData | length != 0) or (activeLocationTab == true and locationTableData | length != 0) %}
+      {# location Subscriptions Table #}
+      {{ govukButton({
+        text: configureListTypeButton,
+        href: 'subscription-configure-list'
+      }) }}
+
+      <table class="govuk-table" id="locations-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header govuk-!-width-three-quarters" aria-sort="none">{{ courtTable.header1 }}</th>
+          <th scope="col" class="govuk-table__header">{{ table.date }}</th>
+          <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ table.actions }}</th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for row in locationTableData %}
+          <tr class="govuk-table__row">
+            <td class="govuk-table__cell">{{ row.locationName }}</td>
+            <td class="govuk-table__cell no-wrap">{{ row.date }}</td>
+            <td class="govuk-table__cell govuk-table__cell--numeric">
+              <a class="unsubscribe-action" href="delete-subscription?subscription={{ row.subscriptionId }}">{{ unsubscribe }}</a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
     {% endif %}
   {% else %}
     <p class="govuk-body">{{ noSubs }}</p>
