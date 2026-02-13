@@ -67,13 +67,7 @@ describe('Magistrates public List page', () => {
 
     it('should display venue address', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).equals('THE LAW COURTS<br>\nMain Road<br>\nPR1 2LL', 'Venue address does not match');
-    });
-
-    it('should display venue telephone and email', () => {
-        const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[9].innerHTML).equals('Telephone: 01772 844700', 'Venue telephone does not match');
-        expect(text[10].innerHTML).equals('Email: court1@moj.gov.uk', 'Venue email does not match');
+        expect(text[7].innerHTML).equals('THE LAW COURTS<br>\nMain Road<br>\nPR1 2LL', 'Venue address does not match');
     });
 
     it('should display restriction heading', () => {
@@ -86,13 +80,16 @@ describe('Magistrates public List page', () => {
 
     it('should display the site name for both sections', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
-        expect(siteAddress[0].innerHTML).contains('Court A', 'Could not find the site name in section 1');
+        expect(siteAddress[0].innerHTML).contains(
+            "Sitting at Abergavenny Magistrates' Court",
+            'Could not find the site name in section 1'
+        );
     });
 
     it('should display the site name for both sections', () => {
         const siteAddress = htmlRes.getElementsByClassName(siteAddressClass);
         expect(siteAddress[1].innerHTML).contains(
-            'Sitting at Court B',
+            "Sitting at Abergavenny Magistrates' Court",
             'Could not find the Court name with Sitting at text'
         );
     });
@@ -117,7 +114,7 @@ describe('Magistrates public List page', () => {
 
     it('should display Sitting at time with zero minute', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[30].innerHTML).contains('8am');
+        expect(cell[35].innerHTML).contains('8am');
     });
 
     it('should display Case Reference', () => {
@@ -140,19 +137,13 @@ describe('Magistrates public List page', () => {
         expect(cell[4].innerHTML).contains('Pro_Auth');
     });
 
-    it('should display Case Sequence Indicator if it is there', () => {
+    it('should display Offence Details if an offence is there', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[5].innerHTML).contains('[2 of 3]');
+        expect(cell[5].innerHTML).contains('Offence Details');
     });
 
-    it('should display Case name with Case Sequence Indicator if it is there', () => {
+    it('should display Offence Title if an offence is there', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[5].innerHTML).equal('1 hour 5 mins [2 of 3]');
-    });
-
-    it('should display Case Name without Case Sequence Indicator', () => {
-        const rows = htmlRes.getElementsByClassName('govuk-table__row');
-        const cell = rows.item(5).children;
-        expect(cell[5].innerHTML.trim()).equals('1 hour 5 mins');
+        expect(cell[6].innerHTML).contains('Test offence 1');
     });
 });

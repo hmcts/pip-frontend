@@ -7,7 +7,6 @@ const separator = ', ';
 /**
  * Service class provides reusable methods for crime list templates:
  *   Crown Daily List
- *   Magistrates Public List
  */
 export class CrimeListsService {
     public manipulateCrimeListData(crimeListData: string, language: string, languageFile: string): object {
