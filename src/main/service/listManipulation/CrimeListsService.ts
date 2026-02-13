@@ -86,8 +86,15 @@ export class CrimeListsService {
 
     public createIndividualDetails(individualDetails): string {
         const forenames = ListParseHelperService.writeStringIfValid(individualDetails?.individualForenames);
+        const middlename = ListParseHelperService.writeStringIfValid(individualDetails?.individualMiddleName);
         const surname = ListParseHelperService.writeStringIfValid(individualDetails?.individualSurname);
-        return [surname, forenames].filter(n => n.length > 0).join(', ');
+        let name = [surname, forenames].filter(n => n.length > 0).join(', ');
+
+        if (middlename) {
+            name += ` ${middlename}`;
+        }
+
+        return name;
     }
 
     private createOrganisationDetails(organisationDetails) {
