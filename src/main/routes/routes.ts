@@ -1082,6 +1082,36 @@ export default function (app: Application): void {
         app.locals.container.cradle.deleteThirdPartySubscriberSuccessController.get
     );
     app.get(
+        '/manage-third-party-subscriptions',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriptionsController.get
+    );
+    app.post(
+        '/manage-third-party-subscriptions',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriptionsController.post
+    );
+    app.get(
+        '/manage-third-party-subscriptions-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriptionsSummaryController.get
+    );
+    app.post(
+        '/manage-third-party-subscriptions-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriptionsSummaryController.post
+    );
+    app.get(
+        '/manage-third-party-subscriptions-created-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriptionsCreatedSuccessController.get
+    );
+    app.get(
+        '/manage-third-party-subscriptions-updated-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriptionsUpdatedSuccessController.get
+    );
+    app.get(
         '/manage-third-party-subscriber-oauth-config',
         isPermittedSystemAdmin,
         app.locals.container.cradle.manageThirdPartySubscriberOauthConfigController.get
