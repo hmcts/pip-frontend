@@ -19,11 +19,16 @@ describe('Manual upload', () => {
         beforeEach(() => {
             app.request['user'] = { email: 'test@email.com', roles: 'SYSTEM_ADMIN' };
         });
-        test('should render manual upload page if errors present', async () => {
+
+        test('should render error page if no body is present', async () => {
             await request(app)
                 .post('/manual-upload')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain("Sorry, there is a problem");
+                });
         });
+
         test('should redirect to summary page', async () => {
             app.request['file'] = multerFile('testFile', 1000);
             sinon.stub(FileHandlingService.prototype, 'validateFileUpload').returns(null);
@@ -31,6 +36,7 @@ describe('Manual upload', () => {
             sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({});
             await request(app)
                 .post('/manual-upload')
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('/manual-upload-summary?check=true&non-strategic=false');

@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { app } from '../../../../main/app';
 import request from 'supertest';
+import { describe } from '@jest/globals';
 
 const PAGE_URL = '/create-third-party-user';
 
@@ -74,10 +75,11 @@ describe('Create third party user page', () => {
         });
     });
 
-    describe('with error', () => {
+    describe('POST with field error', () => {
         beforeAll(async () => {
             await request(app)
                 .post(PAGE_URL)
+                .send({})
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();
@@ -97,5 +99,25 @@ describe('Create third party user page', () => {
             expect(errorMessage[0].innerHTML).contains('Enter name', 'Name error does not match');
             expect(errorMessage[1].innerHTML).contains('Select a role', 'Role error does not match');
         });
+    })
+
+    describe('POST with missing body error', () => {
+        beforeAll(async () => {
+            await request(app)
+                .post(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+
+        it('should display error heading', () => {
+            const heading = htmlRes.getElementsByClassName('govuk-heading-xl');
+            expect(heading[0].innerHTML).contains(
+                'Sorry, there is a problem with the service',
+                'Error heading does not match'
+            );
+        });
+
     });
 });

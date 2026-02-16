@@ -318,6 +318,10 @@ describe('Filter Service', () => {
         expect(filterService.generateFilterKeyValues(body)).toStrictEqual(['test', 'val']);
     });
 
+    it('should return empty array when no body provided', () => {
+        expect(filterService.generateFilterKeyValues(undefined)).toStrictEqual([]);
+    });
+
     it('should return filter values from keys', () => {
         const body = {
             jurisdiction: ['test', 'val'],

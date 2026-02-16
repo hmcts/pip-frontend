@@ -49,7 +49,7 @@ describe('Bulk create media accounts', () => {
             app.request['file'] = { originalname: fileName1 };
             await request(app)
                 .post(PAGE_URL)
-                .send()
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('bulk-create-media-accounts-confirmation');
@@ -60,8 +60,17 @@ describe('Bulk create media accounts', () => {
             app.request['file'] = { originalname: fileName2 };
             await request(app)
                 .post(PAGE_URL)
-                .send()
+                .send({})
                 .expect(res => expect(res.status).to.equal(200));
+        });
+
+        test('should render error page if validation error', async () => {
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200)
+                    expect(res.text).to.contain("Sorry, there is a problem");
+                });
         });
     });
 });

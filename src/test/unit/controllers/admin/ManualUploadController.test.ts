@@ -142,6 +142,26 @@ describe('Manual Upload Controller', () => {
             responseMock.verify();
             sinon.assert.called(fileUploadStub);
         });
+
+        it('should render error page if no body present', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+                cookie: () => {
+                    return '';
+                },
+            } as unknown as Response;
+            const responseMock = sinon.mock(response);
+            request.body = undefined
+            request.file = testFile;
+            request.user = { userId: '1234' };
+
+            responseMock.expects('render').once().withArgs('error');
+            await manualUploadController.post(request, response);
+            responseMock.verify();
+        });
+
     });
     describe('POST for non strategic publication', () => {
         const request = mockRequest(i18n);

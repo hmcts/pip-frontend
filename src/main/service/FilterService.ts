@@ -269,11 +269,14 @@ export class FilterService {
         };
     }
 
-    public generateFilterKeyValues(body: string): string {
-        const keys = Object.keys(body);
-        const values = [];
-        keys.forEach(key => values.push(body[key]));
-        return Array.prototype.concat.apply([], values);
+    public generateFilterKeyValues(body: string): Array<string> {
+        if (body) {
+            const keys = Object.keys(body);
+            const values = [];
+            keys?.forEach(key => values.push(body[key]));
+            return Array.prototype.concat.apply([], values);
+        }
+        return [];
     }
 
     public translateFilterValues(values: string[], targetLng: string): string[] {
