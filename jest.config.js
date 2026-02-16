@@ -20,5 +20,9 @@ module.exports = {
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     collectCoverageFrom: ['**'],
     setupFiles: ['<rootDir>/jestEnvVars.js'],
-    setupFilesAfterEnv: ['<rootDir>/globalHooks.ts', '<rootDir>/globalUnitConfig.ts', '<rootDir>/globalAzureUnitConfig.ts'],
+    setupFilesAfterEnv: [
+        '<rootDir>/globalHooks.ts',
+        '<rootDir>/globalUnitConfig.ts',
+        '<rootDir>/globalAzureUnitConfig.ts',
+    ],
 };
