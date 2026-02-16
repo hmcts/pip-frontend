@@ -1,4 +1,4 @@
-import { app } from '../../../main/app';
+import { app, appSetup } from '../../../main/app';
 import { expect } from 'chai';
 import request from 'supertest';
 
@@ -18,6 +18,7 @@ const SIGNED_IN_LINKS = {
 describe('Navigation banner tests on the view-option page', () => {
     describe('Non signed in user', () => {
         beforeAll(async () => {
+            await appSetup();
             await request(app)
                 .get(PAGE_URL)
                 .then(res => {
@@ -42,6 +43,7 @@ describe('Navigation banner tests on the view-option page', () => {
 
     describe('Signed in user', () => {
         beforeAll(async () => {
+            await appSetup();
             app.response['locals'] = { user: { roles: 'VERIFIED' } };
             await request(app)
                 .get(PAGE_URL)

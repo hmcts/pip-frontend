@@ -4,7 +4,6 @@ import { request as expressRequest } from 'express';
 import { expect } from 'chai';
 import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
-import { PublicationService } from '../../../../main/service/PublicationService';
 import { SubscriptionService } from '../../../../main/service/SubscriptionService';
 
 describe('Manage third party subscription', () => {
@@ -18,29 +17,17 @@ describe('Manage third party subscription', () => {
     const mediumHeadingClass = 'govuk-heading-m';
     const listTypeClass = 'govuk-table__row';
     const checkboxesInputClass = 'govuk-checkboxes__input';
-
-    expressRequest['user'] = {
-        roles: 'SYSTEM_ADMIN',
-    };
-
     const userId = '1234-1234';
     const getThirdPartyUserByIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
-    const getListTypesStub = sinon.stub(PublicationService.prototype, 'getListTypes');
     const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
     const getChannelsListStub = sinon.stub(SubscriptionService.prototype, 'retrieveChannels');
 
     getThirdPartyUserByIdStub.withArgs(userId).resolves({ userId: userId });
-    getListTypesStub.returns(
-        new Map([
-            ['LIST_A', { friendlyName: 'List A' }],
-            ['LIST_B', { friendlyName: 'List B' }],
-        ])
-    );
 
     getSubscriptionsByUserStub.withArgs(userId).resolves({
         listTypeSubscriptions: [
             {
-                listType: 'LIST_B',
+                listType: 'AST_DAILY_HEARING_LIST',
                 channel: 'CHANNEL_B',
             },
         ],
@@ -49,6 +36,10 @@ describe('Manage third party subscription', () => {
     getChannelsListStub.resolves(['CHANNEL_A', 'EMAIL', 'CHANNEL_B']);
 
     beforeAll(async () => {
+        expressRequest['user'] = {
+            roles: 'SYSTEM_ADMIN',
+        };
+
         await request(app)
             .get(PAGE_URL + '?userId=' + userId)
             .then(res => {
@@ -94,7 +85,10 @@ describe('Manage third party subscription', () => {
 
     it('should display the list types', () => {
         const listTypes = htmlRes.getElementsByClassName(listTypeClass);
-        expect(listTypes[0].innerHTML).contains('List A', 'Could not find the list type');
+        expect(listTypes[0].innerHTML).contains(
+            'Admiralty Court (King’s Bench Division) Daily Cause List',
+            'Could not find the list type'
+        );
     });
 
     it('should display checkbox unchecked', () => {
@@ -104,7 +98,10 @@ describe('Manage third party subscription', () => {
 
     it('should display the list types', () => {
         const listTypes = htmlRes.getElementsByClassName(listTypeClass);
-        expect(listTypes[1].innerHTML).contains('List B', 'Could not find the list type');
+        expect(listTypes[1].innerHTML).contains(
+            'Asylum Support Tribunal Daily Hearing List',
+            'Could not find the list type'
+        );
     });
 
     it('should display checkbox checked', () => {
