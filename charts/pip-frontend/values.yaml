@@ -8,7 +8,7 @@ nodejs:
         AUTH_RETURN_URL: https://127.0.0.1/login/return
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         SESSION_COOKIE_SAME_SITE: 'lax'
-        THIRD_PARTY_KEY_VAULT: pip-tp-kv-{{ .Values.global.environment }}
+        THIRD_PARTY_KEY_VAULT: pip-ss-tp-kv-{{ .Values.global.environment }}
     memoryLimits: 2048Mi
     memoryRequests: 1024Mi
     cpuRequests: 300m

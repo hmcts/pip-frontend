@@ -7,8 +7,8 @@ export class KeyVaultService {
     private client: SecretClient;
 
     constructor() {
-        //FOR LOCAL DEVELOPMENT, "pip-tp-kv-demo" to "pip-bootstrap-demo-kv"
-        const thirdPartyKeyVault = process.env.THIRD_PARTY_KEY_VAULT || 'pip-tp-kv-demo';
+        //FOR LOCAL DEVELOPMENT, CHANGE "pip-ss-tp-kv-demo" to "pip-bootstrap-demo-kv"
+        const thirdPartyKeyVault = process.env.THIRD_PARTY_KEY_VAULT || 'pip-ss-tp-kv-demo';
         const keyVaultUrl = 'https://' + thirdPartyKeyVault + '.vault.azure.net/';
         const nodeENV = process.env.NODE_ENV || 'development';
 
