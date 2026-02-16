@@ -25,7 +25,7 @@ export default class MagistratesStandardListController {
         const metaDataListType = formatMetaDataListType(metaData);
 
         if (isValidList(publicationJson, metaData) && isValidListType(metaDataListType, listType)) {
-            const manipulatedData = magsStandardListService.manipulateData(JSON.stringify(publicationJson), req.lng);
+            const manipulatedData = magsStandardListService.manipulateData(JSON.stringify(publicationJson));
             const publishedTime = helperService.publicationTimeInUkTime(publicationJson['document']['publicationDate']);
             const publishedDate = helperService.publicationDateInUkTime(
                 publicationJson['document']['publicationDate'],
@@ -41,7 +41,6 @@ export default class MagistratesStandardListController {
                 contentDate: helperService.contentDateInUtcTime(metaData['contentDate'], req.lng),
                 publishedDate: publishedDate,
                 publishedTime: publishedTime,
-                version: publicationJson['document']['version'],
                 courtName: location.name,
                 provenance: metaData.provenance,
                 venueAddress: venueAddress,

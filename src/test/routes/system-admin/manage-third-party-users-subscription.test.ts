@@ -5,7 +5,6 @@ import { request as expressRequest } from 'express';
 import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
-import { PublicationService } from '../../../main/service/PublicationService';
 
 describe('Manage third party users subscription', () => {
     const userId = '1234-1234';
@@ -13,14 +12,12 @@ describe('Manage third party users subscription', () => {
     expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
     const getThirdPartyUserByIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
-    const getListTypesStub = sinon.stub(PublicationService.prototype, 'getListTypes');
     const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
     const getChannelsListStub = sinon.stub(SubscriptionService.prototype, 'retrieveChannels');
     const generateListTypesStub = sinon.stub(ThirdPartyService.prototype, 'generateListTypes');
     const generateAvailableChannelsStub = sinon.stub(ThirdPartyService.prototype, 'generateAvailableChannels');
 
     getThirdPartyUserByIdStub.withArgs(userId).resolves({ userId: userId });
-    getListTypesStub.resolves(['LIST_A', 'LIST_B']);
     getSubscriptionsByUserStub.withArgs(userId).resolves({ listTypeSubscriptions: [] });
     getChannelsListStub.resolves(['CHANNEL_A', 'EMAIL']);
     generateListTypesStub.withArgs(['LIST_A', 'LIST_B'], { listTypeSubscriptions: [] }).returns({});
