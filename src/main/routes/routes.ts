@@ -43,8 +43,8 @@ export default function (app: Application): void {
         fileErrorHandlerMiddleware(err, req, res, next);
     };
 
-    function extraLanguageArg(req): object {
-        return { ui_locales: mapAzureLanguage(req['lng']) };
+    function extraLanguageArg(req): string {
+        return mapAzureLanguage(req['lng']);
     }
 
     function globalAuthGiver(req, res, next): void {
@@ -81,7 +81,7 @@ export default function (app: Application): void {
         fileSizeLimitErrorHandler,
         app.locals.container.cradle.createMediaAccountController.post
     );
-    app.post(
+    app.get(
         '/password-change-confirmation',
         checkPasswordReset,
         app.locals.container.cradle.passwordChangeController.post
@@ -90,35 +90,31 @@ export default function (app: Application): void {
     app.get('/media-verification', regenerateSession, keepSessionLanguage, (req, res, next) =>
         passport.authenticate('media-verification', {
             failureRedirect: '/',
-            extraAuthReqQueryParams: extraLanguageArg(req),
+            locale: extraLanguageArg(req),
         })(req, res, next)
     );
     app.get('/login', regenerateSession, keepSessionLanguage, (req, res, next) =>
-        passport.authenticate('login', { failureRedirect: '/', extraAuthReqQueryParams: extraLanguageArg(req) })(
-            req,
-            res,
-            next
-        )
+        passport.authenticate('login', { failureRedirect: '/', locale: extraLanguageArg(req) })(req, res, next)
     );
     app.get('/logout', (_req, res) => sessionManagement.logOut(_req, res, false));
-    app.post(
+    app.get(
         '/login/return',
         forgotPasswordRedirect,
         (req, res, next) =>
             passport.authenticate('login', {
                 failureRedirect: '/view-option',
-                extraAuthReqQueryParams: extraLanguageArg(req),
+                locale: extraLanguageArg(req),
             })(req, res, next),
         keepSessionLanguage,
         processMediaAccountSignIn
     );
-    app.post(
+    app.get(
         '/media-verification/return',
         forgotPasswordRedirect,
         (req, res, next) =>
             passport.authenticate('media-verification', {
                 failureRedirect: '/view-option',
-                extraAuthReqQueryParams: extraLanguageArg(req),
+                locale: extraLanguageArg(req),
             })(req, res, next),
         keepSessionLanguage,
         mediaVerificationHandling
@@ -1201,6 +1197,7 @@ export default function (app: Application): void {
         keepSessionLanguage,
         processCftIdamSignIn
     );
+
     app.get('/cft-rejected-login', app.locals.container.cradle.cftRejectedLoginController.get);
 
     //CRIME IDAM Routes
