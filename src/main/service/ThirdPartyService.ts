@@ -57,7 +57,7 @@ export class ThirdPartyService {
 
     public validateThirdPartySubscriberFormFields(formData): any | null {
         const fields = {
-            userNameError: !formData.thirdPartySubscriberName,
+            userNameError: !formData?.thirdPartySubscriberName,
         };
         return fields.userNameError ? fields : null;
     }
@@ -67,10 +67,6 @@ export class ThirdPartyService {
             this.formatThirdPartySubscriberPayload(formData),
             requesterId
         );
-    }
-
-    private formatThirdPartySubscriberPayload(formData) {
-        return { name: formData.thirdPartySubscriberName };
     }
 
     public async createThirdPartySubscriptions(formData: any, userId: string, requesterId: string): Promise<boolean> {
@@ -160,5 +156,50 @@ export class ThirdPartyService {
         });
 
         return sensitivityItems;
+    }
+
+    public async createThirdPartySubscriberOauthConfig(formData, requesterId): Promise<boolean> {
+        return await this.thirdPartyRequests.createThirdPartySubscriberOauthConfig(
+            this.formatThirdPartySubscriberOauthConfigPayload(formData),
+            requesterId
+        );
+    }
+
+    public async updateThirdPartySubscriberOauthConfig(formData, requesterId): Promise<boolean> {
+        return await this.thirdPartyRequests.updateThirdPartySubscriberOauthConfig(
+            formData.user,
+            this.formatThirdPartySubscriberOauthConfigPayload(formData),
+            requesterId
+        );
+    }
+
+    private formatThirdPartySubscriberPayload(formData) {
+        return { name: formData.thirdPartySubscriberName };
+    }
+
+    private formatThirdPartySubscriberOauthConfigPayload(formData) {
+        return {
+            userId: formData.user,
+            destinationUrl: formData.destinationUrl,
+            tokenUrl: formData.tokenUrl,
+            clientIdKey: formData.clientIdKey,
+            clientSecretKey: formData.clientSecretKey,
+            scopeKey: formData.scopeKey,
+        };
+    }
+
+    public validateThirdPartySubscriberOauthConfigFormFields(formData): any | null {
+        const fields = {
+            destinationUrlError: !formData.destinationUrl,
+            tokenUrlError: !formData.tokenUrl,
+            scopeKeyError: !formData.scopeKey,
+            scopeValueError: !formData.scopeValue,
+            clientIdKeyError: !formData.clientIdKey,
+            clientIdError: !formData.clientId,
+            clientSecretKeyError: !formData.clientSecretKey,
+            clientSecretError: !formData.clientSecret,
+        };
+
+        return Object.values(fields).some(error => error) ? fields : null;
     }
 }

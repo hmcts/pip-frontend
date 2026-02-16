@@ -20,7 +20,7 @@ export default class BulkCreateMediaAccountsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const formData = req.body;
+        const formData = req.body || {};
         let error = fileHandlingService.validateFileUpload(req.file, req.lng, listType, uploadType.CSV);
         if (error === null) {
             const file = fileHandlingService.readFile(req.file['originalname']);

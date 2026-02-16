@@ -83,6 +83,9 @@ const systemAdminRoutes = [
     { path: '/location-metadata-delete-confirmed' },
     { path: '/location-metadata-update-confirmed' },
     { path: '/location-metadata-create-confirmed' },
+    { path: '/manage-third-party-subscriber-oauth-config' },
+    { path: '/manage-third-party-subscriber-oauth-config-summary' },
+    { path: '/manage-third-party-subscriber-oauth-config-success' },
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');

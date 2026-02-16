@@ -38,7 +38,9 @@ export default class ReferenceDataUploadController {
                 const originalFileName = req.file['originalname'];
                 const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
                 await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
-
+                if (!req.body) {
+                    req.body = {};
+                }
                 req.body['fileName'] = originalFileName;
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
                 res.redirect('/reference-data-upload-summary?check=true');

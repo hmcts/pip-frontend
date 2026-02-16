@@ -23,12 +23,12 @@ export default class CreateThirdPartyUserController {
         if (formErrors) {
             res.render('system-admin/create-third-party-user', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-third-party-user']),
-                userRoleList: courtelThirdPartyService.buildThirdPartyRoleList(formData.thirdPartyRole),
+                userRoleList: courtelThirdPartyService.buildThirdPartyRoleList(formData?.thirdPartyRole),
                 formData,
                 formErrors,
             });
         } else {
-            formData.thirdPartyRoleObject = courtelThirdPartyService.getThirdPartyRoleByKey(formData.thirdPartyRole);
+            formData.thirdPartyRoleObject = courtelThirdPartyService.getThirdPartyRoleByKey(formData?.thirdPartyRole);
             res.cookie('formCookie', JSON.stringify(formData), { secure: true });
             res.redirect('/create-third-party-user-summary');
         }

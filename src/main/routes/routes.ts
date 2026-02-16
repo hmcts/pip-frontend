@@ -1111,6 +1111,31 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.manageThirdPartySubscriptionsUpdatedSuccessController.get
     );
+    app.get(
+        '/manage-third-party-subscriber-oauth-config',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigController.get
+    );
+    app.post(
+        '/manage-third-party-subscriber-oauth-config',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigController.post
+    );
+    app.get(
+        '/manage-third-party-subscriber-oauth-config-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigSummaryController.get
+    );
+    app.post(
+        '/manage-third-party-subscriber-oauth-config-summary',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigSummaryController.post
+    );
+    app.get(
+        '/manage-third-party-subscriber-oauth-config-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberOauthConfigSuccessController.get
+    );
     app.get('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.get);
     app.post('/user-management', isPermittedSystemAdmin, app.locals.container.cradle.userManagementController.post);
 

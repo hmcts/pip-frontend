@@ -8,6 +8,7 @@ nodejs:
         AUTH_RETURN_URL: https://127.0.0.1/login/return
         MEDIA_VERIFICATION_RETURN_URL: https://127.0.0.1/media-verification/return
         SESSION_COOKIE_SAME_SITE: 'lax'
+        THIRD_PARTY_KEY_VAULT: pip-ss-tp-kv-{{ .Values.global.environment }}
     memoryLimits: 2048Mi
     memoryRequests: 1024Mi
     cpuRequests: 300m
@@ -65,5 +66,7 @@ nodejs:
                   alias: SSO_SG_ADMIN_LOCAL
                 - name: sso-sg-system-admin
                   alias: SSO_SG_SYSTEM_ADMIN
+                - name: cath-mi-client-id
+                  alias: MANAGED_IDENTITY_CLIENT_ID
     autoscaling:
         enabled: false #To be enabled as part of PUB-1692

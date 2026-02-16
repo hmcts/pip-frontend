@@ -31,7 +31,7 @@ export default class BulkCreateMediaAccountsConfirmationController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const confirmed = req.body['confirmed'];
+        const confirmed = req.body?.['confirmed'];
         const formData = req.cookies?.formCookie ? JSON.parse(req.cookies['formCookie']) : {};
         const fileName = formData.uploadFileName;
 
