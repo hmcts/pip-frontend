@@ -134,8 +134,8 @@ export class CrownPddaListService {
         const addressLines = [];
         if (address) {
             address.Line.forEach(line => addressLines.push(line));
-            if (address.Postcode) {
-                addressLines.push(address.Postcode);
+            if (address.PostCode) {
+                addressLines.push(address.PostCode);
             }
         }
         return addressLines.filter(line => line.trim().length > 0);

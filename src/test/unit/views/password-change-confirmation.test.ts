@@ -10,7 +10,7 @@ describe('password-change-confirmation', () => {
     beforeAll(async () => {
         const PAGE_URL = '/password-change-confirmation';
         await request(app)
-            .post(PAGE_URL)
+            .get(PAGE_URL)
             .then(res => {
                 htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
             });

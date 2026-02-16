@@ -7,7 +7,6 @@ const separator = ', ';
 /**
  * Service class provides reusable methods for crime list templates:
  *   Crown Daily List
- *   Magistrates Public List
  */
 export class CrimeListsService {
     public manipulateCrimeListData(crimeListData: string, language: string, languageFile: string): object {
@@ -87,8 +86,15 @@ export class CrimeListsService {
 
     public createIndividualDetails(individualDetails): string {
         const forenames = ListParseHelperService.writeStringIfValid(individualDetails?.individualForenames);
+        const middlename = ListParseHelperService.writeStringIfValid(individualDetails?.individualMiddleName);
         const surname = ListParseHelperService.writeStringIfValid(individualDetails?.individualSurname);
-        return [surname, forenames].filter(n => n.length > 0).join(', ');
+        let name = [surname, forenames].filter(n => n.length > 0).join(', ');
+
+        if (middlename) {
+            name += ` ${middlename}`;
+        }
+
+        return name;
     }
 
     private createOrganisationDetails(organisationDetails) {
@@ -115,43 +121,6 @@ export class CrimeListsService {
         }
 
         hearing['listingNotes'] = listingNotes?.replace(/,\s*$/, '').trim();
-    }
-
-    public findUnallocatedCasesInCrownDailyListData(crimeListData: string): Array<object> {
-        const unallocatedCasesCrownListData = JSON.parse(crimeListData);
-        const unallocatedCases = [];
-        let courtListForUnallocatedCases;
-        unallocatedCasesCrownListData['courtLists'].forEach(courtList => {
-            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
-                if (courtRoom.courtRoomName.includes('to be allocated')) {
-                    const courtRoomCopy = JSON.parse(JSON.stringify(courtRoom));
-                    unallocatedCases.push(courtRoomCopy);
-                    courtRoom['exclude'] = true;
-                }
-            });
-            courtListForUnallocatedCases = JSON.parse(JSON.stringify(courtList));
-        });
-
-        if (unallocatedCases.length > 0) {
-            this.formatUnallocatedCourtList(
-                unallocatedCasesCrownListData,
-                courtListForUnallocatedCases,
-                unallocatedCases
-            );
-        }
-        return unallocatedCasesCrownListData;
-    }
-
-    private formatUnallocatedCourtList(
-        unallocatedCasesCrownListData,
-        courtListForUnallocatedCases,
-        unallocatedCase
-    ): void {
-        courtListForUnallocatedCases['courtHouse']['courtHouseName'] = '';
-        courtListForUnallocatedCases['courtHouse']['courtHouseAddress'] = null;
-        courtListForUnallocatedCases['unallocatedCases'] = true;
-        courtListForUnallocatedCases['courtHouse']['courtRoom'] = unallocatedCase;
-        unallocatedCasesCrownListData['courtLists'].push(courtListForUnallocatedCases);
     }
 
     public formatAddress(address, delimiter = '\n') {

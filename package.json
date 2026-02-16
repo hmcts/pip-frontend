@@ -86,7 +86,8 @@
         "npm-run-all2": "^8.0.4",
         "nunjucks": "^3.2.4",
         "nunjucks-date-filter": "^0.1.1",
-        "passport-azure-ad": "4.3.5",
+        "openid-client": "^6.8.1",
+        "passport": "^0.7.0",
         "passport-custom": "^1.1.1",
         "postcss": "^8.5.6",
         "redis": "^5.9.0",
@@ -157,7 +158,8 @@
         "webpack-node-externals": "^3.0.0"
     },
     "resolutions": {
-        "allure-js-commons/uuid": "10.0.0"
+        "allure-js-commons/uuid": "10.0.0",
+        "ts-node/diff": "8.0.3"
     },
     "packageManager": "yarn@4.10.3"
 }
