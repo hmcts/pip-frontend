@@ -39,8 +39,7 @@
                                 {% if listConfig.hidden %}
                                     <input hidden type="checkbox" class="govuk-checkboxes__input list-item"
                                            id="{{ listName }}"
-                                           value="{{ listName}}" name="list-selections[]"
-                                           onclick="calculateChecked()">
+                                           value="{{ listName}}" name="list-selections[]">
                                 {% else %}
                                     <tr class="govuk-table__row">
                                         {% if first != key %}
@@ -56,8 +55,7 @@
                                             <div class="govuk-checkboxes__item govuk-checkboxes--small">
                                                 <input type="checkbox" class="govuk-checkboxes__input list-item"
                                                        id="{{ listName }}"
-                                                       value="{{ listName}}" name="list-selections[]"
-                                                       onclick="calculateChecked()">
+                                                       value="{{ listName}}" name="list-selections[]" />
                                                 <label class="govuk-label govuk-checkboxes__label no_padding"
                                                        for="{{ listName }}">
                                                     <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>
