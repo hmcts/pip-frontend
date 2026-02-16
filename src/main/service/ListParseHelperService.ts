@@ -274,15 +274,11 @@ export class ListParseHelperService {
             sitting['durationAsMinutes'] = durationAsMinutes;
             sitting['durationAsDays'] = durationAsDays;
 
-            if (sittingStart.minute === 0) {
-                this.formatCaseTime(sitting, timeFormatHourOnly);
-            } else {
-                this.formatCaseTime(sitting, timeFormatHourMinute);
-            }
+            sitting['time'] = this.formatCaseTime(sitting);
         }
     }
 
-    public formatCaseTime(sitting: object, format: string): void {
+    public formatCaseTime(sitting: object): string {
         if (sitting['sittingStart'] !== '') {
             const sittingStart = sitting['sittingStart'];
             let zonedDateTime = DateTime.fromISO(sittingStart, {
@@ -294,7 +290,9 @@ export class ListParseHelperService {
             if (sittingStart.substr(sittingStart.length - 1) !== 'Z') {
                 zonedDateTime = zonedDateTime.plus({ minutes: zonedDateTime.offset });
             }
-            sitting['time'] = zonedDateTime.toFormat(format).toLowerCase();
+            return zonedDateTime
+                .toFormat(zonedDateTime.minute === 0 ? timeFormatHourOnly : timeFormatHourMinute)
+                .toLowerCase();
         }
     }
 

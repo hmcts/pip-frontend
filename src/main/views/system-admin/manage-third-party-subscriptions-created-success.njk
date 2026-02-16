@@ -1,0 +1,18 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, successPanel %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    {{ successPanel(header) }}
+    <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-top-6">{{ nextMessage }}</p>
+    <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link " href="/manage-third-party-subscribers">{{ manageThirdPartySubscribersLinkText }}</a></p>
+    <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link" href="/system-admin-dashboard">{{ homeLinkText }}</a></p>
+{% endblock %}
