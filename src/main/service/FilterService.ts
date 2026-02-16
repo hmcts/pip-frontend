@@ -2,6 +2,7 @@ import { Location } from '../models/Location';
 import { LocationService } from './LocationService';
 import jurisdictionTypes from '../resources/jurisdictionTypeLookup.json';
 import welshJurisdictionData from '../resources/welshJurisdictionLookup.json';
+import welshRegionData from '../resources/welshRegionLookup.json';
 
 const jurisdictionFilter = 'Jurisdiction';
 const regionFilter = 'Region';
@@ -16,6 +17,9 @@ const jurisdictionTypeMapping = new Map(Object.entries(jurisdictionTypes));
 const englishToWelshJurisdictionMapping = new Map(Object.entries(welshJurisdictionData));
 const welshToEnglishJurisdictionData = Object.fromEntries(Object.entries(welshJurisdictionData).map(a => a.reverse()));
 const welshToEnglishJurisdictionMapping = new Map(Object.entries(welshToEnglishJurisdictionData));
+const englishToWelshRegionMapping = new Map(Object.entries(welshRegionData));
+const welshToEnglishRegionData = Object.fromEntries(Object.entries(welshRegionData).map(a => a.reverse()));
+const welshToEnglishRegionMapping = new Map(Object.entries(welshToEnglishRegionData));
 
 const locationService = new LocationService();
 
@@ -222,6 +226,8 @@ export class FilterService {
             filterValues = this.handleFilterClear(filterValues, clearQuery);
         }
 
+        filterValues = this.translateFilterValues(filterValues, language);
+
         filterValues = this.removeFiltersWithoutMainJurisdiction(filterValues, clearQuery, language);
         const filterOptions = this.buildFilterValueOptions(
             await locationService.fetchAllLocations(language),
@@ -269,5 +275,23 @@ export class FilterService {
         const values = [];
         keys.forEach(key => values.push(safeBody[key]));
         return Array.prototype.concat.apply([], values);
+    }
+
+    public translateFilterValues(values: string[], targetLng: string): string[] {
+        const translated = (v: string) => {
+            if (targetLng === 'cy') {
+                return (
+                    (englishToWelshJurisdictionMapping.get(v) as string) ??
+                    (englishToWelshRegionMapping.get(v) as string) ??
+                    v
+                );
+            }
+            return (
+                (welshToEnglishJurisdictionMapping.get(v) as string) ??
+                (welshToEnglishRegionMapping.get(v) as string) ??
+                v
+            );
+        };
+        return (values ?? []).map(translated);
     }
 }

@@ -1,7 +1,7 @@
 module.exports = {
     preset: 'ts-jest/presets/js-with-babel',
     transformIgnorePatterns: [
-        '/node_modules/(?!(chai|@azure|uuid|applicationinsights/node_modules/@azure|@typespec|@azure-rest)/)',
+        '/node_modules/(?!(chai|@azure|uuid|applicationinsights/node_modules/@azure|@typespec|openid-client|oauth4webapi|jose|@azure-rest)/)',
     ],
     roots: ['<rootDir>/src/test/a11y/tests'],
     testRegex: '(/src/test/.*|\\.(test|spec))\\.(ts|js)$',
@@ -17,5 +17,4 @@ module.exports = {
     setupFiles: ['<rootDir>/jestEnvVars.js'],
     // pa11y recommended default
     testTimeout: 60000,
-    setupFilesAfterEnv: ['<rootDir>/globalAzureUnitConfig.ts'],
 };

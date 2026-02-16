@@ -18,7 +18,7 @@
             "SSO_CLIENT_ID": "fd41d1b3-046f-4eb2-9c9e-edc0b818ffe2",
             "CONFIG_ENDPOINT": "https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInUserFlow/v2.0/.well-known/openid-configuration",
             "MEDIA_VERIFICATION_CONFIG_ENDPOINT": "https://sign-in.pip-frontend.staging.platform.hmcts.net/pip-frontend.staging.platform.hmcts.net/B2C_1_SignInMediaVerification/v2.0/.well-known/openid-configuration",
-            "SSO_CONFIG_ENDPOINT": "https://login.microsoftonline.com/0bb413d7-160d-4839-868a-f3d46537f6af/v2.0/.well-known/openid-configuration",
+            "SSO_ISSUER_URL": "https://login.microsoftonline.com/0bb413d7-160d-4839-868a-f3d46537f6af/v2.0",
             "B2C_FLOW_NAME": "B2C_1_SignInUserFlow",
             "CLIENT_ID_INTERNAL": "",
             "CLIENT_SECRET_INTERNAL": "",

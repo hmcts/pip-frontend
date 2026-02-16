@@ -1,7 +1,7 @@
 module.exports = {
     preset: 'ts-jest/presets/js-with-babel',
     transformIgnorePatterns: [
-        '/node_modules/(?!(chai|@azure|uuid|applicationinsights/node_modules/@azure|@typespec|@azure-rest)/)',
+        '/node_modules/(?!(chai|@azure|uuid|applicationinsights/node_modules/@azure|@typespec|openid-client|oauth4webapi|jose|@azure-rest)/)',
     ],
     roots: ['<rootDir>/src/test/routes'],
     testTimeout: 30000,
@@ -15,6 +15,5 @@ module.exports = {
         '^.+\\.ts?$': 'ts-jest',
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
-    setupFiles: ['<rootDir>/jestEnvVars.js'],
-    setupFilesAfterEnv: ['<rootDir>/globalAzureUnitConfig.ts'],
+    setupFiles: ['<rootDir>/jestEnvVars.js', '<rootDir>/globalAzureUnitConfig.ts'],
 };
