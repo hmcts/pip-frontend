@@ -16,4 +16,5 @@ module.exports = {
     },
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     setupFiles: ['<rootDir>/jestEnvVars.js', '<rootDir>/globalAzureUnitConfig.ts'],
+    setupFilesAfterEnv: ['<rootDir>/globalHooks.ts'],
 };
