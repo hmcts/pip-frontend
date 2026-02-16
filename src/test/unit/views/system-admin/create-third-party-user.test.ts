@@ -99,7 +99,7 @@ describe('Create third party user page', () => {
             expect(errorMessage[0].innerHTML).contains('Enter name', 'Name error does not match');
             expect(errorMessage[1].innerHTML).contains('Select a role', 'Role error does not match');
         });
-    })
+    });
 
     describe('POST with missing body error', () => {
         beforeAll(async () => {
@@ -110,7 +110,6 @@ describe('Create third party user page', () => {
                 });
         });
 
-
         it('should display error heading', () => {
             const heading = htmlRes.getElementsByClassName('govuk-heading-xl');
             expect(heading[0].innerHTML).contains(
@@ -118,6 +117,5 @@ describe('Create third party user page', () => {
                 'Error heading does not match'
             );
         });
-
     });
 });

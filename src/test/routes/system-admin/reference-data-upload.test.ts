@@ -28,7 +28,6 @@ describe('Reference Data Manual upload', () => {
                 .expect(res => {
                     expect(res.status).to.equal(200);
                     expect(res.text).to.contain('Sorry, there is a problem');
-
                 });
         });
         test('should redirect to summary page', async () => {

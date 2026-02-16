@@ -25,7 +25,7 @@ describe('Manual upload', () => {
                 .post('/manual-upload')
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain("Sorry, there is a problem");
+                    expect(res.text).to.contain('Sorry, there is a problem');
                 });
         });
 

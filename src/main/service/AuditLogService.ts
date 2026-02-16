@@ -332,7 +332,7 @@ export class AuditLogService {
     /**
      * Generates the filter KV for the query param url.
      */
-    public generateFilterKeyValues(body: string|undefined): string {
+    public generateFilterKeyValues(body: string | undefined): string {
         const filterValues = [];
         if (body) {
             Object.keys(body).forEach(key => {

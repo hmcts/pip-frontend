@@ -68,8 +68,8 @@ describe('Bulk create media accounts', () => {
             await request(app)
                 .post(PAGE_URL)
                 .expect(res => {
-                    expect(res.status).to.equal(200)
-                    expect(res.text).to.contain("Sorry, there is a problem");
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
                 });
         });
     });

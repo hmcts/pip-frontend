@@ -153,7 +153,7 @@ describe('Manual Upload Controller', () => {
                 },
             } as unknown as Response;
             const responseMock = sinon.mock(response);
-            request.body = undefined
+            request.body = undefined;
             request.file = testFile;
             request.user = { userId: '1234' };
 
@@ -161,7 +161,6 @@ describe('Manual Upload Controller', () => {
             await manualUploadController.post(request, response);
             responseMock.verify();
         });
-
     });
     describe('POST for non strategic publication', () => {
         const request = mockRequest(i18n);
