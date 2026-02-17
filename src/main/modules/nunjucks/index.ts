@@ -31,7 +31,11 @@ export class Nunjucks {
         );
 
         env.addGlobal('govukRebrand', true);
-        env.addGlobal('dynatraceLink', process.env.DYNATRACE_LINK ?? "https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/7dc5f39eaeee9840_complete.js")
+        env.addGlobal(
+            'dynatraceLink',
+            process.env.DYNATRACE_LINK ??
+                'https://js-cdn.dynatrace.com/jstag/17177a07246/bf24054dsx/7dc5f39eaeee9840_complete.js'
+        );
 
         /* eslint-disable-next-line @typescript-eslint/no-require-imports */
         const njkFilters = require('./njkFilters');
