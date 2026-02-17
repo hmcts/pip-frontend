@@ -3081,7 +3081,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hmcts/info-provider@npm:^1.4.0":
+"@hmcts/info-provider@npm:1.4.0":
   version: 1.4.0
   resolution: "@hmcts/info-provider@npm:1.4.0"
   dependencies:
@@ -7373,9 +7373,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"body-parser@npm:^2.2.0":
-  version: 2.2.1
-  resolution: "body-parser@npm:2.2.1"
+"body-parser@npm:^2.2.1":
+  version: 2.2.2
+  resolution: "body-parser@npm:2.2.2"
   dependencies:
     bytes: "npm:^3.1.2"
     content-type: "npm:^1.0.5"
@@ -7383,10 +7383,10 @@ __metadata:
     http-errors: "npm:^2.0.0"
     iconv-lite: "npm:^0.7.0"
     on-finished: "npm:^2.4.1"
-    qs: "npm:^6.14.0"
+    qs: "npm:^6.14.1"
     raw-body: "npm:^3.0.1"
     type-is: "npm:^2.0.1"
-  checksum: 10/cab162d62da03058dec8ff4ebf6bf22922b46bf32bd85e59e7fca78d4962aec97b7a7f913dbc3204bb4aa058df03284463ca4c5cc920bf783e591b8de049ffe0
+  checksum: 10/69671f67d4d5ae5974593901a92d639757231da1725ed6de4d35e86cde9ce7650afdf1cd28df9b6f7892ea7f9eb03ccb30c70fe27d679275ae4cb4aae5ce1b21
   languageName: node
   linkType: hard
 
@@ -9781,17 +9781,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "express@npm:5.1.0"
+"express@npm:5.2.1":
+  version: 5.2.1
+  resolution: "express@npm:5.2.1"
   dependencies:
     accepts: "npm:^2.0.0"
-    body-parser: "npm:^2.2.0"
+    body-parser: "npm:^2.2.1"
     content-disposition: "npm:^1.0.0"
     content-type: "npm:^1.0.5"
     cookie: "npm:^0.7.1"
     cookie-signature: "npm:^1.2.1"
     debug: "npm:^4.4.0"
+    depd: "npm:^2.0.0"
     encodeurl: "npm:^2.0.0"
     escape-html: "npm:^1.0.3"
     etag: "npm:^1.8.1"
@@ -9812,7 +9813,7 @@ __metadata:
     statuses: "npm:^2.0.1"
     type-is: "npm:^2.0.1"
     vary: "npm:^1.1.2"
-  checksum: 10/6dba00bbdf308f43a84ed3f07a7e9870d5208f2a0b8f60f39459dda089750379747819863fad250849d3c9163833f33f94ce69d73938df31e0c5a430800d7e56
+  checksum: 10/4aa545d89702ac83f645c77abda1b57bcabe288f0b380fb5580fac4e323ea0eb533005c8e666b4e19152fb16d4abf11ba87b22aa9a10857a0485cd86b94639bd
   languageName: node
   linkType: hard
 
@@ -10033,8 +10034,8 @@ __metadata:
   linkType: hard
 
 "finalhandler@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "finalhandler@npm:2.1.0"
+  version: 2.1.1
+  resolution: "finalhandler@npm:2.1.1"
   dependencies:
     debug: "npm:^4.4.0"
     encodeurl: "npm:^2.0.0"
@@ -10042,7 +10043,7 @@ __metadata:
     on-finished: "npm:^2.4.1"
     parseurl: "npm:^1.3.3"
     statuses: "npm:^2.0.1"
-  checksum: 10/b2bd68c310e2c463df0ab747ab05f8defbc540b8c3f2442f86e7d084ac8acbc31f8cae079931b7f5a406521501941e3395e963de848a0aaf45dd414adeb5ff4e
+  checksum: 10/f4ba75c23408d8f9d393c3e875b9452e84d68c925411a6e67b7efa678b0bed5075ef33def4bb65ed8e0dd37c92a3ea354bcbde07303cd4dc2550e12b95885067
   languageName: node
   linkType: hard
 
@@ -15125,7 +15126,7 @@ __metadata:
     "@eslint/js": "npm:^9.39.1"
     "@evilmartians/lefthook": "npm:^2.0.2"
     "@hmcts/cookie-manager": "npm:^1.1.0"
-    "@hmcts/info-provider": "npm:^1.4.0"
+    "@hmcts/info-provider": "npm:1.4.0"
     "@hmcts/nodejs-healthcheck": "npm:^1.8.6"
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     "@hmcts/properties-volume": "npm:^1.2.0"
@@ -15168,7 +15169,7 @@ __metadata:
     csv: "npm:^6.4.1"
     eslint: "npm:^9.39.1"
     eslint-config-prettier: "npm:10.1.8"
-    express: "npm:^5.1.0"
+    express: "npm:5.2.1"
     express-session: "npm:^1.18.2"
     globals: "npm:16.5.0"
     govuk-frontend: "npm:5.13.0"
@@ -15290,7 +15291,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:^6.11.2, qs@npm:^6.14.0":
+"qs@npm:^6.11.2, qs@npm:^6.14.0, qs@npm:^6.14.1":
   version: 6.15.0
   resolution: "qs@npm:6.15.0"
   dependencies:
@@ -16165,14 +16166,14 @@ __metadata:
   linkType: hard
 
 "serve-static@npm:^2.2.0":
-  version: 2.2.0
-  resolution: "serve-static@npm:2.2.0"
+  version: 2.2.1
+  resolution: "serve-static@npm:2.2.1"
   dependencies:
     encodeurl: "npm:^2.0.0"
     escape-html: "npm:^1.0.3"
     parseurl: "npm:^1.3.3"
     send: "npm:^1.2.0"
-  checksum: 10/9f1a900738c5bb02258275ce3bd1273379c4c3072b622e15d44e8f47d89a1ba2d639ec2d63b11c263ca936096b40758acb7a0d989cd6989018a65a12f9433ada
+  checksum: 10/71500fe80cc7163fec04e4297de7591ad1cb682d137fc030e7a53e57040fda5187e8082a9c1b2ef37f1d3f9c27c9a94d4ba61806ebc28938ba4a7c8947c9f71e
   languageName: node
   linkType: hard
 
