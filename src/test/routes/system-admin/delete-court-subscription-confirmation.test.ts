@@ -26,13 +26,19 @@ describe('Delete Court Subscription Confirmation', () => {
         test('should return court subscription confirmation page', async () => {
             await request(app)
                 .get(URL + '?locationId=2')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete all the subscriptions?');
+                });
         });
 
         test('should return error page', async () => {
             await request(app)
                 .get(URL)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
         });
     });
 
@@ -57,7 +63,10 @@ describe('Delete Court Subscription Confirmation', () => {
                     'delete-choice': '',
                     locationId: '2',
                 })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete all the subscriptions?');
+                });
         });
 
         test('should redirect to delete court reference data page if No option selected', async () => {

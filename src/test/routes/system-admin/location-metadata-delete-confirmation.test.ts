@@ -28,7 +28,10 @@ describe('Location metadata delete confirmation page', () => {
             };
             await request(app)
                 .get(PAGE_URL + locationId)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete location metadata');
+                });
         });
     });
 
@@ -56,7 +59,10 @@ describe('Location metadata delete confirmation page', () => {
             };
             await request(app)
                 .post(PAGE_URL + locationIdWithFailedRequest)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete location metadata');
+                });
         });
     });
 });

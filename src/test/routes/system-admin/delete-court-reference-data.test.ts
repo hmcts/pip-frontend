@@ -25,7 +25,10 @@ describe('Delete Court List Search', () => {
         test('should return delete court list search page', async () => {
             await request(app)
                 .get(URL)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find the court to remove');
+                });
         });
     });
 
@@ -34,14 +37,20 @@ describe('Delete Court List Search', () => {
             await request(app)
                 .post(URL)
                 .send({ 'input-autocomplete': '' })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find the court to remove');
+                });
         });
 
         test('should return delete court list search page', async () => {
             await request(app)
                 .post(URL)
                 .send({ 'input-autocomplete': 'foo' })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find the court to remove');
+                });
         });
 
         test('should redirect to delete court confirmation page', async () => {

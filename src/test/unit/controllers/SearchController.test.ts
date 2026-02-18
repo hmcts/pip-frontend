@@ -127,4 +127,23 @@ describe('Search Controller', () => {
             responseMock.verify();
         });
     });
+
+    it('should redirect to search page if no body is provided', () => {
+        const request = mockRequest(i18n);
+        request.body = undefined;
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['search'],
+            autocompleteList: courtList,
+            welsh: false,
+            noResultsError: true,
+        };
+
+        responseMock.expects('render').once().withArgs('search', expectedData);
+        return searchController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
+
 });

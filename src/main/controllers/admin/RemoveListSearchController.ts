@@ -17,7 +17,7 @@ export default class RemoveListSearchController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const searchInput = req.body['input-autocomplete'];
+        const searchInput = req.body?.['input-autocomplete'];
         const autocompleteList = await locationService.fetchAllLocations(req.lng);
         if (searchInput && searchInput.length >= 3) {
             const court = await locationService.getLocationByName(searchInput, req.lng);

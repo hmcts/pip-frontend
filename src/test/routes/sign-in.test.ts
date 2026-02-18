@@ -25,13 +25,19 @@ describe('Sign In option', () => {
         test('should return sign-in routing page', async () => {
             await request(app)
                 .get('/sign-in')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('How do you want to sign in?');
+                });
         });
 
         test('should return sign-in page if there is no radio selected', async () => {
             await request(app)
                 .get('/sign-in?error=true')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('How do you want to sign in?')
+                });
         });
     });
 
@@ -46,6 +52,17 @@ describe('Sign In option', () => {
                         expect(res.header['location']).to.equal(urlOptions[i].path);
                     });
             });
+
+            test('should re-render the sign-in page', async () => {
+                await request(app)
+                    .post('/sign-in')
+                    .send({})
+                    .expect(res => {
+                        expect(res.status).to.equal(302);
+                        expect(res.header['location']).to.equal('/sign-in?error=true');
+                    });
+            });
+
         });
     }
 });

@@ -169,5 +169,19 @@ describe('Manage third party users subscription controller', () => {
             await manageThirdPartyUsersSubscriptionsController.post(request, response);
             responseMock.verify();
         });
+
+        it('should render error page when no body present', async () => {
+            request['body'] = undefined;
+            getThirdPartyUserByIdStub.withArgs(userId).resolves(null);
+
+            const responseMock = sinon.mock(response);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+
+            await manageThirdPartyUsersSubscriptionsController.post(request, response);
+            responseMock.verify();
+        });
     });
 });

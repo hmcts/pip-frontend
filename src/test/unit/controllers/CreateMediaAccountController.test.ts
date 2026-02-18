@@ -150,5 +150,22 @@ describe('Create Media Account Controller', () => {
             await createMediaAccountController.post(request, response);
             await responseMock.verify();
         });
+
+        it('should redirect to error page if no body provided', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+            const responseMock = sinon.mock(response);
+            request.body = undefined;
+            request.file = validFile;
+
+            createMediaAccountStub.withArgs(validBody, validFile).returns(true);
+
+            responseMock.expects('render').once().withArgs('error');
+            await createMediaAccountController.post(request, response);
+            await responseMock.verify();
+        });
     });
 });

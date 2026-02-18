@@ -87,6 +87,28 @@ describe('Location metadata delete confirmation controller', () => {
             });
         });
 
+        it('should render location metadata delete confirmation page with error if no body provided', () => {
+            const request = mockRequest(i18n);
+            request['query'] = { locationId: '123' };
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+
+            const expectedData = {
+                ...i18n['location-metadata-delete-confirmation'],
+                location: { name: 'Location A' },
+                noOptionError: true,
+                failedRequestError: false,
+            };
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/location-metadata-delete-confirmation', expectedData);
+
+            locationMetadataDeleteConfirmationController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
         it("should redirect to location metadata manage page with if 'No' is selected", () => {
             const request = mockRequest(i18n);
             request['query'] = { locationId: '123' };

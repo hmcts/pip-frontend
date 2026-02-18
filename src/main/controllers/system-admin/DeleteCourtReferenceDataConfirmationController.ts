@@ -24,56 +24,60 @@ export default class DeleteCourtReferenceDataConfirmationController {
 
     public async post(req: PipRequest, res: Response): Promise<void> {
         const formData = req.body;
-        const court = await locationService.getLocationById(formData.locationId as unknown as number);
-        switch (formData['delete-choice']) {
-            case 'yes': {
-                const response = await locationService.deleteLocationById(formData.locationId, req.user?.['userId']);
-
-                if (response?.['exists']) {
-                    await userManagementService.auditAction(
-                        req.user,
-                        'DELETE_LOCATION_ATTEMPT',
-                        'Location ' + court.name + ' deletion attempted'
-                    );
-                    res.render('system-admin/delete-court-reference-data-confirmation', {
-                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
-                        court: locationService.formatCourtValue(court),
-                        apiError: response['exists'],
-                        errorMessage: response['errorMessage'],
-                    });
-                } else if (response === null) {
-                    await userManagementService.auditAction(
-                        req.user,
-                        'DELETE_LOCATION_ATTEMPT',
-                        'Location ' + court.name + ' deletion attempted'
-                    );
-                    res.render('system-admin/delete-court-reference-data-confirmation', {
-                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
-                        court: locationService.formatCourtValue(court),
-                        apiError: true,
-                        errorMessage: 'Unknown error when attempting to delete the court from reference data',
-                    });
-                } else {
-                    await userManagementService.auditAction(
-                        req.user,
-                        'DELETE_LOCATION_SUCCESS',
-                        'Location ' + court.name + ' has been deleted'
-                    );
-                    res.redirect('/delete-court-reference-data-success');
+        if (!formData) {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else {
+            const court = await locationService.getLocationById(formData.locationId as unknown as number);
+            switch (formData['delete-choice']) {
+                case 'yes': {
+                    const response = await locationService.deleteLocationById(formData.locationId, req.user?.['userId']);
+                    if (response?.['exists']) {
+                        await userManagementService.auditAction(
+                            req.user,
+                            'DELETE_LOCATION_ATTEMPT',
+                            'Location ' + court.name + ' deletion attempted'
+                        );
+                        res.render('system-admin/delete-court-reference-data-confirmation', {
+                            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+                            court: locationService.formatCourtValue(court),
+                            apiError: response['exists'],
+                            errorMessage: response['errorMessage'],
+                        });
+                    } else if (response === null) {
+                        await userManagementService.auditAction(
+                            req.user,
+                            'DELETE_LOCATION_ATTEMPT',
+                            'Location ' + court.name + ' deletion attempted'
+                        );
+                        res.render('system-admin/delete-court-reference-data-confirmation', {
+                            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+                            court: locationService.formatCourtValue(court),
+                            apiError: true,
+                            errorMessage: 'Unknown error when attempting to delete the court from reference data',
+                        });
+                    } else {
+                        await userManagementService.auditAction(
+                            req.user,
+                            'DELETE_LOCATION_SUCCESS',
+                            'Location ' + court.name + ' has been deleted'
+                        );
+                        res.redirect('/delete-court-reference-data-success');
+                    }
+                    break;
                 }
-                break;
+                case 'no': {
+                    res.redirect('/delete-court-reference-data');
+                    break;
+                }
+                default:
+                    res.render('system-admin/delete-court-reference-data-confirmation', {
+                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+                        court: locationService.formatCourtValue(court),
+                        apiError: false,
+                        displayError: true,
+                    });
             }
-            case 'no': {
-                res.redirect('/delete-court-reference-data');
-                break;
-            }
-            default:
-                res.render('system-admin/delete-court-reference-data-confirmation', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
-                    court: locationService.formatCourtValue(court),
-                    apiError: false,
-                    displayError: true,
-                });
         }
+
     }
 }

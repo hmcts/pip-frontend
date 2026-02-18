@@ -55,7 +55,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
                 .once()
                 .withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
 
-            bulkCreateMediaAccountsConfirmationController.get(request, response).then(() => {
+            return bulkCreateMediaAccountsConfirmationController.get(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -66,16 +66,21 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
 
             responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-            bulkCreateMediaAccountsConfirmationController.get(request, response).then(() => {
+            return bulkCreateMediaAccountsConfirmationController.get(request, response).then(() => {
                 responseMock.verify();
             });
         });
     });
 
     describe('POST request', () => {
-        const request = mockRequest(i18n);
-        const mockData = { fileName: fileName, uploadFileName: fileName, file: '' };
-        request.cookies = { formCookie: JSON.stringify(mockData) };
+        let request;
+
+        beforeEach(() => {
+            request = mockRequest(i18n);
+            const mockData = { fileName: fileName, uploadFileName: fileName, file: '' };
+            request.cookies = { formCookie: JSON.stringify(mockData) };
+        })
+
 
         it('should render bulk create media accounts confirmation page with error if no option selected', () => {
             const responseMock = sinon.mock(response);
@@ -90,7 +95,28 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
                 .once()
                 .withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
 
-            bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
+            return bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render error page if no body is provided', () => {
+            const responseMock = sinon.mock(response);
+
+            const expectedData = {
+                ...i18n['bulk-create-media-accounts-confirmation'],
+                accountsToCreate: mockAccounts,
+                displayNoOptionError: true,
+            };
+
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
+
+            request.body = undefined;
+
+            return bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -102,7 +128,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
             request.user = { userId: '1' };
             responseMock.expects('redirect').once().withArgs('bulk-create-media-accounts-confirmed');
 
-            bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
+            return bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -123,7 +149,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
                 .once()
                 .withArgs('system-admin/bulk-create-media-accounts-confirmation', expectedData);
 
-            bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
+            return bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -134,7 +160,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
             request.body = { confirmed: 'No' };
             responseMock.expects('redirect').once().withArgs('bulk-create-media-accounts');
 
-            bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
+            return bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -145,7 +171,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
 
             responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-            bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
+            return bulkCreateMediaAccountsConfirmationController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });

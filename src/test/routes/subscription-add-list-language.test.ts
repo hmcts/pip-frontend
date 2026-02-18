@@ -15,7 +15,10 @@ describe('Subscriptions Add List Language', () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .get('/subscription-add-list-language')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('What version of the list do you want to receive?')
+                });
         });
     });
 
@@ -25,7 +28,21 @@ describe('Subscriptions Add List Language', () => {
             await request(app)
                 .post(PAGE_URL)
                 .send({ 'list-language': 'test' })
-                .expect(res => expect(res.status).to.equal(302));
+                .expect(res => {
+                    expect(res.status).to.equal(302);
+                    expect(res.headers['location']).to.equal('/subscription-confirmation-preview');
+                });
+        });
+
+        test('should return subscription error page if no language is set', async () => {
+            app.request['user'] = { userId: '1', roles: 'VERIFIED' };
+            await request(app)
+                .post(PAGE_URL)
+                .send({})
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('What version of the list do you want to receive?')
+                });
         });
     });
 });

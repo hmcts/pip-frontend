@@ -39,34 +39,36 @@ export default class ManageThirdPartyUsersSubscriptionsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const selectedUser = req.body['userId'];
-        const selectedChannel = req.body['channel'];
-        const selectedListTypes = req.body['list-selections[]'];
-
-        if (
-            selectedChannel &&
-            selectedUser &&
-            (await thirdPartyService.getThirdPartyUserById(selectedUser, req.user['userId']))
-        ) {
-            await thirdPartyService.handleThirdPartySubscriptionUpdate(
-                req.user['userId'],
-                req.user['userProvenance'],
-                selectedUser,
-                selectedListTypes,
-                selectedChannel
-            );
-            await userManagementService.auditAction(
-                req.user,
-                'MANAGE_THIRD_PARTY_USER_SUBSCRIPTIONS',
-                'User requested to manage subscriptions of third party user with id: ' + selectedUser
-            );
-
-            res.render(
-                'system-admin/manage-third-party-users-subscriptions-confirm',
-                req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions-confirm']
-            );
-        } else {
+        if (!req.body) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else {
+            const selectedUser = req.body['userId'];
+            const selectedChannel = req.body['channel'];
+            const selectedListTypes = req.body['list-selections[]'];
+
+            if (selectedChannel && selectedUser &&
+            (await thirdPartyService.getThirdPartyUserById(selectedUser, req.user['userId']))) {
+
+                await thirdPartyService.handleThirdPartySubscriptionUpdate(
+                    req.user['userId'],
+                    req.user['userProvenance'],
+                    selectedUser,
+                    selectedListTypes,
+                    selectedChannel
+                );
+                await userManagementService.auditAction(
+                    req.user,
+                    'MANAGE_THIRD_PARTY_USER_SUBSCRIPTIONS',
+                    'User requested to manage subscriptions of third party user with id: ' + selectedUser
+                );
+
+                res.render(
+                    'system-admin/manage-third-party-users-subscriptions-confirm',
+                    req.i18n.getDataByLanguage(req.lng)['manage-third-party-users-subscriptions-confirm']
+                );
+            } else {
+                res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+            }
         }
     }
 }

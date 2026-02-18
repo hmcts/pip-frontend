@@ -129,4 +129,29 @@ describe('Subscriptions Add Controller', () => {
 
         responseMock.verify();
     });
+
+    it('should remain on page and pass error state if no body is provided', () => {
+        const subscriptionAddController = new SubscriptionAddController();
+
+        const response = {
+            render: function () {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = undefined
+
+        const responseMock = sinon.mock(response);
+
+        const expectedData = {
+            ...i18n['subscription-add'],
+            selectionError: true,
+        };
+
+        responseMock.expects('render').once().withArgs('subscription-add', expectedData);
+
+        subscriptionAddController.post(request, response);
+
+        responseMock.verify();
+    });
 });

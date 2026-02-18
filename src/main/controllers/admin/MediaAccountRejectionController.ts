@@ -38,7 +38,7 @@ export default class MediaAccountRejectionController {
         const applicantId = req.query?.applicantId as string;
         const adminId = req.user['userId'];
 
-        if (!validate(applicantId)) {
+        if (!validate(applicantId) || req.body == undefined) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const rejected = req.body['reject-confirmation'];

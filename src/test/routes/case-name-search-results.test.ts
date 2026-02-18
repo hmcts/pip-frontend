@@ -19,8 +19,10 @@ describe('Case name search', () => {
         test('should redirect to pending subscription page', async () => {
             await request(app)
                 .post('/pending-subscriptions')
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(302);
+                    expect(res.header['location']).to.contain('pending-subscriptions');
                 });
         });
     });

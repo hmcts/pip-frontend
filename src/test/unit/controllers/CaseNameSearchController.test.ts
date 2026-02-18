@@ -161,4 +161,27 @@ describe('Case name search controller', () => {
             responseMock.verify();
         });
     });
+
+    it('should render error when no body is provided', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.user = { userId: '1' };
+        request.body = undefined;
+        const expectedData = {
+            ...i18n['case-name-search'],
+            minimumCharacterError: true,
+        };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('case-name-search', expectedData);
+        return caseNameSearchController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
 });

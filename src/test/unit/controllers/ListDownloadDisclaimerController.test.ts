@@ -108,5 +108,22 @@ describe('List Download Disclaimer Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should redirect to list download files page if terms and conditions agreed', () => {
+            const responseMock = sinon.mock(response);
+            request.query = { artefactId: artefactId };
+            request.body = undefined
+
+            const expectedData = {
+                ...i18n[listDownloadDisclaimerUrl],
+                noAgreementError: true,
+                artefactId: artefactId,
+            };
+            responseMock.expects('render').once().withArgs(listDownloadDisclaimerUrl, expectedData);
+
+            listDownloadDisclaimerController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });

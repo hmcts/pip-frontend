@@ -33,7 +33,10 @@ describe('Create third party user page', () => {
         test('should render create third party user page', async () => {
             await request(app)
                 .get('/create-third-party-user')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create third party user');
+                });
         });
     });
 
@@ -42,7 +45,10 @@ describe('Create third party user page', () => {
             await request(app)
                 .post('/create-third-party-user')
                 .send({})
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create third party user');
+                });
         });
 
         test('should redirect to create third party user summary page', async () => {

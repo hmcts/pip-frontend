@@ -22,7 +22,7 @@ export default class CaseNameSearchController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const searchInput = req.body['case-name'];
+        const searchInput = req.body?.['case-name'];
         if (searchInput && searchInput.length >= 3 && !checkIfUrl(searchInput)) {
             const searchResults = await publicationService.getCasesByCaseName(
                 searchInput.toLowerCase(),

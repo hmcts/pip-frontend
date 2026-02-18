@@ -17,16 +17,22 @@ export default class SearchController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const searchInput = req.body['input-autocomplete'];
+        const searchInput = req.body?.['input-autocomplete'];
         const autocompleteList = await courtService.fetchAllLocations(req.lng);
-        const court = await courtService.getLocationByName(searchInput, req.lng);
-        court && searchInput
-            ? res.redirect(`summary-of-publications?locationId=${court.locationId}`)
-            : res.render('search', {
-                  ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
-                  autocompleteList: autocompleteList,
-                  welsh: req.lng === 'cy',
-                  noResultsError: true,
-              });
+
+        if (searchInput) {
+            const court = await courtService.getLocationByName(searchInput, req.lng);
+            if (court) {
+                res.redirect(`summary-of-publications?locationId=${court.locationId}`)
+                return;
+            }
+        }
+
+        res.render('search', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng).search),
+            autocompleteList: autocompleteList,
+            welsh: req.lng === 'cy',
+            noResultsError: true,
+        });
     }
 }

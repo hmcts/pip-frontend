@@ -65,6 +65,28 @@ describe('Remove List Search Controller', () => {
         });
     });
 
+    it('should render remove list search page if no body provided', () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = undefined;
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['remove-list-search'],
+            autocompleteList: courtList,
+            invalidInputError: true,
+            noResultsError: false,
+        };
+
+        responseMock.expects('render').once().withArgs('admin/remove-list-search', expectedData);
+        return removeListSearchController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
+
     it('should render remove list search page if there are no matching results', () => {
         const response = {
             render: () => {

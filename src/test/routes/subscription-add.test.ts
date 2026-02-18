@@ -10,7 +10,10 @@ describe('Subscriptions Add', () => {
         test('should return subscription-add page', async () => {
             await request(app)
                 .get('/subscription-add')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('How do you want to add an email subscription?')
+                });
         });
     });
 
@@ -42,6 +45,16 @@ describe('Subscriptions Add', () => {
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('/location-name-search');
+                });
+        });
+
+        test('should render default page when unknown choice selected', async () => {
+            await request(app)
+                .post('/subscription-add')
+                .send({ 'subscription-choice': 'unknown' })
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('How do you want to add an email subscription?')
                 });
         });
     });

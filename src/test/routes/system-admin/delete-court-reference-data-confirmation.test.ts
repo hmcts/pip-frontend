@@ -33,7 +33,10 @@ describe('Delete Court Reference Data Confirmation', () => {
         test('should return error page', async () => {
             await request(app)
                 .get(URL)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
         });
     });
 
@@ -58,7 +61,10 @@ describe('Delete Court Reference Data Confirmation', () => {
                     'delete-choice': 'yes',
                     locationId: '3',
                 })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete this court?');
+                });
         });
 
         test('should return error page if no option selected', async () => {
@@ -68,7 +74,10 @@ describe('Delete Court Reference Data Confirmation', () => {
                     'delete-choice': '',
                     locationId: '3',
                 })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete this court?');
+                });
         });
 
         test('should redirect to list page if No option selected', async () => {
