@@ -145,7 +145,7 @@ describe('Media Account Rejection Reasons Controller', () => {
                 },
             } as unknown as Response;
             const responseMock = sinon.mock(response);
-            request.body = undefined
+            request.body = undefined;
             const { getDataByLanguage } = request.i18n;
             const expectedData = {
                 ...cloneDeep(getDataByLanguage(request.lng)['media-account-rejection-reasons']),
@@ -156,7 +156,6 @@ describe('Media Account Rejection Reasons Controller', () => {
             responseMock.expects('render').once().withArgs('admin/media-account-rejection-reasons', expectedData);
             await mediaAccountRejectionReasonsController.post(request, response);
             responseMock.verify();
-
         });
     });
 });

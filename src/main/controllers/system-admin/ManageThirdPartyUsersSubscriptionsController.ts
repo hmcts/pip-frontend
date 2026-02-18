@@ -46,9 +46,11 @@ export default class ManageThirdPartyUsersSubscriptionsController {
             const selectedChannel = req.body['channel'];
             const selectedListTypes = req.body['list-selections[]'];
 
-            if (selectedChannel && selectedUser &&
-            (await thirdPartyService.getThirdPartyUserById(selectedUser, req.user['userId']))) {
-
+            if (
+                selectedChannel &&
+                selectedUser &&
+                (await thirdPartyService.getThirdPartyUserById(selectedUser, req.user['userId']))
+            ) {
                 await thirdPartyService.handleThirdPartySubscriptionUpdate(
                     req.user['userId'],
                     req.user['userProvenance'],

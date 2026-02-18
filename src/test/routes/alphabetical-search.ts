@@ -37,7 +37,6 @@ describe('Alphabetical search', () => {
     });
 
     describe('on POST locationSubscriptionsConfirmation', () => {
-
         const handleSubStub = sinon.stub(SubscriptionService.prototype, 'handleNewSubscription');
         handleSubStub.resolves(true);
 

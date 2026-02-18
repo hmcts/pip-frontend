@@ -6,7 +6,7 @@ import sinon from 'sinon';
 
 const stubCourt = sinon.stub(LocationService.prototype, 'getLocationByName');
 stubCourt.withArgs('abc').resolves(undefined);
-stubCourt.withArgs('abcd').resolves({'name': "Court 1"});
+stubCourt.withArgs('abcd').resolves({ name: 'Court 1' });
 
 describe('Search', () => {
     describe('on GET', () => {
@@ -24,7 +24,7 @@ describe('Search', () => {
         test('should return search page on error', async () => {
             await request(app)
                 .post('/search')
-                .send({'input-autocomplete': 'abc'})
+                .send({ 'input-autocomplete': 'abc' })
                 .expect(res => {
                     expect(res.status).to.equal(200);
                     expect(res.text).to.contain('What court or tribunal are you interested in?');
@@ -34,7 +34,7 @@ describe('Search', () => {
         test('should redirect to summary of pubs page on success', async () => {
             await request(app)
                 .post('/search')
-                .send({'input-autocomplete': 'abcd'})
+                .send({ 'input-autocomplete': 'abcd' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.contain('summary-of-publications');

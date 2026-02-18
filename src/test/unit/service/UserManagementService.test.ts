@@ -142,7 +142,7 @@ describe('User management service', () => {
     it('should generate an empty array if body is undefined', () => {
         const response = userManagementService.generateFilterKeyValues(undefined);
 
-        expect(response).to.equal("");
+        expect(response).to.equal('');
     });
 
     it('should build the manage user summary list for an admin user', () => {

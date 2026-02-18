@@ -79,8 +79,7 @@ describe('Bulk Create Media Accounts Confirmation Controller', () => {
             request = mockRequest(i18n);
             const mockData = { fileName: fileName, uploadFileName: fileName, file: '' };
             request.cookies = { formCookie: JSON.stringify(mockData) };
-        })
-
+        });
 
         it('should render bulk create media accounts confirmation page with error if no option selected', () => {
             const responseMock = sinon.mock(response);

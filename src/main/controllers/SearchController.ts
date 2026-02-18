@@ -23,7 +23,7 @@ export default class SearchController {
         if (searchInput) {
             const court = await courtService.getLocationByName(searchInput, req.lng);
             if (court) {
-                res.redirect(`summary-of-publications?locationId=${court.locationId}`)
+                res.redirect(`summary-of-publications?locationId=${court.locationId}`);
                 return;
             }
         }

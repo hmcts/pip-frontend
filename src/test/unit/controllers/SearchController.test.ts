@@ -144,6 +144,4 @@ describe('Search Controller', () => {
             responseMock.verify();
         });
     });
-
-
 });

@@ -12,7 +12,7 @@ describe('Subscriptions Add', () => {
                 .get('/subscription-add')
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('How do you want to add an email subscription?')
+                    expect(res.text).to.contain('How do you want to add an email subscription?');
                 });
         });
     });
@@ -54,7 +54,7 @@ describe('Subscriptions Add', () => {
                 .send({ 'subscription-choice': 'unknown' })
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('How do you want to add an email subscription?')
+                    expect(res.text).to.contain('How do you want to add an email subscription?');
                 });
         });
     });

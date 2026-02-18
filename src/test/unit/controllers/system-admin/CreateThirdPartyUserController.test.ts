@@ -115,6 +115,5 @@ describe('Create third party user controller', () => {
             await createThirdPartyUserController.post(request, response);
             responseMock.verify();
         });
-
     });
 });

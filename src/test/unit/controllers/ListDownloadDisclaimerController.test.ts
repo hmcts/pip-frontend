@@ -112,7 +112,7 @@ describe('List Download Disclaimer Controller', () => {
         it('should redirect to list download files page if terms and conditions agreed', () => {
             const responseMock = sinon.mock(response);
             request.query = { artefactId: artefactId };
-            request.body = undefined
+            request.body = undefined;
 
             const expectedData = {
                 ...i18n[listDownloadDisclaimerUrl],

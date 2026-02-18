@@ -30,7 +30,10 @@ export default class DeleteCourtReferenceDataConfirmationController {
             const court = await locationService.getLocationById(formData.locationId as unknown as number);
             switch (formData['delete-choice']) {
                 case 'yes': {
-                    const response = await locationService.deleteLocationById(formData.locationId, req.user?.['userId']);
+                    const response = await locationService.deleteLocationById(
+                        formData.locationId,
+                        req.user?.['userId']
+                    );
                     if (response?.['exists']) {
                         await userManagementService.auditAction(
                             req.user,
@@ -38,7 +41,9 @@ export default class DeleteCourtReferenceDataConfirmationController {
                             'Location ' + court.name + ' deletion attempted'
                         );
                         res.render('system-admin/delete-court-reference-data-confirmation', {
-                            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+                            ...cloneDeep(
+                                req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']
+                            ),
                             court: locationService.formatCourtValue(court),
                             apiError: response['exists'],
                             errorMessage: response['errorMessage'],
@@ -50,7 +55,9 @@ export default class DeleteCourtReferenceDataConfirmationController {
                             'Location ' + court.name + ' deletion attempted'
                         );
                         res.render('system-admin/delete-court-reference-data-confirmation', {
-                            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']),
+                            ...cloneDeep(
+                                req.i18n.getDataByLanguage(req.lng)['delete-court-reference-data-confirmation']
+                            ),
                             court: locationService.formatCourtValue(court),
                             apiError: true,
                             errorMessage: 'Unknown error when attempting to delete the court from reference data',
@@ -78,6 +85,5 @@ export default class DeleteCourtReferenceDataConfirmationController {
                     });
             }
         }
-
     }
 }

@@ -141,6 +141,5 @@ describe('Delete third party user confirmation controller', () => {
             await deleteThirdPartyUserConfirmationController.post(request, response);
             responseMock.verify();
         });
-
     });
 });

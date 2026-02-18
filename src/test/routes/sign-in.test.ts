@@ -36,7 +36,7 @@ describe('Sign In option', () => {
                 .get('/sign-in?error=true')
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('How do you want to sign in?')
+                    expect(res.text).to.contain('How do you want to sign in?');
                 });
         });
     });
@@ -62,7 +62,6 @@ describe('Sign In option', () => {
                         expect(res.header['location']).to.equal('/sign-in?error=true');
                     });
             });
-
         });
     }
 });

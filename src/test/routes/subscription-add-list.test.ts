@@ -39,5 +39,3 @@ describe('Subscriptions Add List Type', () => {
         });
     });
 });
-
-

@@ -139,7 +139,7 @@ describe('Subscriptions Add Controller', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
-        request.body = undefined
+        request.body = undefined;
 
         const responseMock = sinon.mock(response);
 

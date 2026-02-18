@@ -15,7 +15,7 @@ describe('List download disclaimer', () => {
                 .get(PAGE_URL)
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('Terms and conditions')
+                    expect(res.text).to.contain('Terms and conditions');
                 });
         });
     });
@@ -26,8 +26,8 @@ describe('List download disclaimer', () => {
                 .post(PAGE_URL)
                 .send({})
                 .expect(res => {
-                    expect(res.status).to.equal(200)
-                    expect(res.text).to.contain('Terms and conditions')
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Terms and conditions');
                 });
         });
 

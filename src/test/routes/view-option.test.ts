@@ -45,6 +45,5 @@ describe('Search option', () => {
                     expect(res.text).to.contain('What do you want to do?');
                 });
         });
-
     });
 });

@@ -17,7 +17,7 @@ describe('Subscriptions Add List Language', () => {
                 .get('/subscription-add-list-language')
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('What version of the list do you want to receive?')
+                    expect(res.text).to.contain('What version of the list do you want to receive?');
                 });
         });
     });
@@ -41,7 +41,7 @@ describe('Subscriptions Add List Language', () => {
                 .send({})
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('What version of the list do you want to receive?')
+                    expect(res.text).to.contain('What version of the list do you want to receive?');
                 });
         });
     });

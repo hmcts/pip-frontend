@@ -35,7 +35,7 @@ describe('Case name search', () => {
         test('should return case name search page with error when case name is invalid', async () => {
             await request(app)
                 .post('/case-name-search')
-                .send({'case-name': 'a'})
+                .send({ 'case-name': 'a' })
                 .expect(res => {
                     expect(res.status).to.equal(200);
                     expect(res.text).to.contain('What is the name of the case');
@@ -45,12 +45,11 @@ describe('Case name search', () => {
         test('should return case name search results page when case name is valid', async () => {
             await request(app)
                 .post('/case-name-search')
-                .send({'case-name': 'abcd'})
+                .send({ 'case-name': 'abcd' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).contains('case-name-search-results?');
                 });
         });
     });
-
 });
