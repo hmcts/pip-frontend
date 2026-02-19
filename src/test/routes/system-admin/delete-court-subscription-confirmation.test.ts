@@ -56,7 +56,7 @@ describe('Delete Court Subscription Confirmation', () => {
                 });
         });
 
-        test('should return error page if no option selected', async () => {
+        test('should return error state if no option selected', async () => {
             await request(app)
                 .post(URL)
                 .send({
@@ -66,6 +66,15 @@ describe('Delete Court Subscription Confirmation', () => {
                 .expect(res => {
                     expect(res.status).to.equal(200);
                     expect(res.text).to.contain('Are you sure you want to delete all the subscriptions?');
+                });
+        });
+
+        test('should return error page if no body is provided', async () => {
+            await request(app)
+                .post(URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
                 });
         });
 

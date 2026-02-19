@@ -44,5 +44,15 @@ describe('Subscriptions Add List Language', () => {
                     expect(res.text).to.contain('What version of the list do you want to receive?');
                 });
         });
+
+        test('should return subscription error page if no body is provided', async () => {
+            app.request['user'] = { userId: '1', roles: 'VERIFIED' };
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('What version of the list do you want to receive?');
+                });
+        });
     });
 });

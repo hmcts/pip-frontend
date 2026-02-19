@@ -31,6 +31,15 @@ describe('Search', () => {
                 });
         });
 
+        test('should return search page when no body provided', async () => {
+            await request(app)
+                .post('/search')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('What court or tribunal are you interested in?');
+                });
+        });
+
         test('should redirect to summary of pubs page on success', async () => {
             await request(app)
                 .post('/search')

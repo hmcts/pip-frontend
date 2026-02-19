@@ -42,6 +42,15 @@ describe('Case name search', () => {
                 });
         });
 
+        test('should return case name search page with error when no body provided', async () => {
+            await request(app)
+                .post('/case-name-search')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('What is the name of the case');
+                });
+        });
+
         test('should return case name search results page when case name is valid', async () => {
             await request(app)
                 .post('/case-name-search')

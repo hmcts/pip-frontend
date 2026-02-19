@@ -28,6 +28,15 @@ describe('Subscriptions Add List Type', () => {
                 });
         });
 
+        test('should return error page if no body provided', async () => {
+            await request(app)
+                .post('/subscription-add-list')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
+        });
+
         test('should return subscription add list type page', async () => {
             await request(app)
                 .post('/subscription-add-list')

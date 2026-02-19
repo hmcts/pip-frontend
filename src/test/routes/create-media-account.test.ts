@@ -86,5 +86,15 @@ describe('Create media account page', () => {
                     expect(res.text).to.contain('Create a Court and tribunal hearings account');
                 });
         });
+
+        test('should render error page if no body provided', async () => {
+            app.request['file'] = {};
+            await request(app)
+                .post('/create-media-account')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
+        });
     });
 });

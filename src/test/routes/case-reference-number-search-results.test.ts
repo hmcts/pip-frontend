@@ -25,10 +25,20 @@ describe('Case reference number search result', () => {
     describe('on POST', () => {
         test('should redirect to pending subscription page', async () => {
             await request(app)
-                .post('/pending-subscriptions')
+                .post('/case-reference-number-search-results')
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.contain('pending-subscriptions');
+                });
+        });
+
+        test('should render error page if no body is provided', async () => {
+            await request(app)
+                .post('/case-reference-number-search-results')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
                 });
         });
     });

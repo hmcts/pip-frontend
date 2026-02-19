@@ -60,5 +60,18 @@ describe('Location metadata search page', () => {
                     expect(res.text).to.contain('Search for location metadata by court or tribunal name');
                 });
         });
+
+        test('should render location metadata search page with error if no body provided', async () => {
+            app.request['user'] = {
+                userId: '1',
+                roles: 'SYSTEM_ADMIN',
+            };
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Search for location metadata by court or tribunal name');
+                });
+        });
     });
 });

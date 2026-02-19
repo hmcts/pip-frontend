@@ -33,7 +33,7 @@ describe('Delete Court List Search', () => {
     });
 
     describe('on POST', () => {
-        test('should return delete court list search page', async () => {
+        test('should return delete court list search page if no entry provided', async () => {
             await request(app)
                 .post(URL)
                 .send({ 'input-autocomplete': '' })
@@ -43,10 +43,19 @@ describe('Delete Court List Search', () => {
                 });
         });
 
-        test('should return delete court list search page', async () => {
+        test('should return delete court list search page if no match found', async () => {
             await request(app)
                 .post(URL)
                 .send({ 'input-autocomplete': 'foo' })
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find the court to remove');
+                });
+        });
+
+        test('should return delete court list search page if no body provided', async () => {
+            await request(app)
+                .post(URL)
                 .expect(res => {
                     expect(res.status).to.equal(200);
                     expect(res.text).to.contain('Find the court to remove');

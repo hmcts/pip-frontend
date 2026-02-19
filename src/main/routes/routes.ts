@@ -811,11 +811,6 @@ export default function (app: Application): void {
         isPermittedMediaAccount,
         app.locals.container.cradle.mediaAccountApprovalConfirmationController.get
     );
-    app.get(
-        '/media-account-rejection',
-        isPermittedMediaAccount,
-        app.locals.container.cradle.mediaAccountRejectionController.get
-    );
     app.post(
         '/media-account-rejection',
         isPermittedMediaAccount,

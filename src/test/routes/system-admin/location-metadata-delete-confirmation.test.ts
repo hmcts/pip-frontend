@@ -52,7 +52,7 @@ describe('Location metadata delete confirmation page', () => {
                 });
         });
 
-        test('should render location metadata delete confirmation page with error', async () => {
+        test('should render location metadata delete confirmation page with error if no body provided', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',

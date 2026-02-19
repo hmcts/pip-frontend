@@ -5,11 +5,14 @@ import sinon from 'sinon';
 import { app } from '../../main/app';
 import { FilterService } from '../../main/service/FilterService';
 import { SubscriptionService } from '../../main/service/SubscriptionService';
+import { request as expressRequest } from 'express';
 
 const options = {
     alphabetisedList: {},
     filterOptions: {},
 };
+
+expressRequest['user'] = { roles: 'VERIFIED' };
 
 describe('Alphabetical search', () => {
     describe('on GET', () => {
@@ -26,12 +29,12 @@ describe('Alphabetical search', () => {
     });
 
     describe('on POST', () => {
-        test('should return search option page', () => {
-            request(app)
+        test('should return search option page', async () => {
+            await request(app)
                 .post('/alphabetical-search')
                 .expect(res => {
                     expect(res.status).to.equal(302);
-                    expect(res.text).to.contain('Find a court or tribunal');
+                    expect(res.header['location']).to.contain('filterValues=');
                 });
         });
     });
@@ -40,12 +43,22 @@ describe('Alphabetical search', () => {
         const handleSubStub = sinon.stub(SubscriptionService.prototype, 'handleNewSubscription');
         handleSubStub.resolves(true);
 
-        test('should return search option page', () => {
-            request(app)
+        test('should return search option page', async () => {
+            await request(app)
                 .post('/location-subscriptions-confirmation')
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.contain('pending-subscriptions');
+                });
+        });
+
+        test('should return error page when no body provided', async () => {
+            await request(app)
+                .post('/location-subscriptions-confirmation')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
                 });
         });
     });

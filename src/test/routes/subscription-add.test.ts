@@ -57,5 +57,14 @@ describe('Subscriptions Add', () => {
                     expect(res.text).to.contain('How do you want to add an email subscription?');
                 });
         });
+
+        test('should render default page when no body provided', async () => {
+            await request(app)
+                .post('/subscription-add')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('How do you want to add an email subscription?');
+                });
+        });
     });
 });

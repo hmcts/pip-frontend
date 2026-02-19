@@ -13,74 +13,8 @@ describe('MediaAccountRejectionController', () => {
     let controller;
     // eslint-disable-next-line prefer-const
     controller = new MediaAccountRejectionController();
-    const applicantData = {
-        id: applicantId,
-        fullName: 'Test Name',
-        email: 'a@b.com',
-        employer: 'Employer',
-        image: '12345',
-        imageName: 'ImageName.jpg',
-        requestDate: '2022-05-09T00:00:01',
-        status: 'PENDING',
-        statusDate: '2022-05-09T00:00:01',
-    };
-
     afterEach(() => {
         sinon.restore();
-    });
-
-    describe('#get()', () => {
-        it('should render media-account-rejection view when applicant data is found', async () => {
-            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
-            const req = {
-                body: {
-                    reasons: 'noMatch',
-                    applicantId: applicantId,
-                },
-                i18n: {
-                    getDataByLanguage: sinon.stub().returns({ 'media-account-rejection': {} }),
-                },
-                lng: 'en',
-                user: {
-                    userId: '456',
-                },
-            };
-            const res = {
-                render: sinon.spy(),
-            };
-
-            appIdAndStatus.withArgs(applicantId, 'PENDING', adminId).resolves(applicantData);
-
-            await controller.get(req, res);
-
-            expect(res.render.calledWith('admin/media-account-rejection')).to.be.true;
-        });
-
-        it('should render error view when applicant data is not found', async () => {
-            const appIdAndStatus = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
-            const req = {
-                body: {
-                    reasons: 'Some reasons',
-                    applicantId: applicantId,
-                },
-                i18n: {
-                    getDataByLanguage: sinon.stub().returns({ error: {} }),
-                },
-                lng: 'en',
-                user: {
-                    userId: '456',
-                },
-            };
-            const res = {
-                render: sinon.spy(),
-            };
-
-            appIdAndStatus.resolves(null);
-
-            await controller.get(req, res);
-
-            expect(res.render.calledWith('error')).to.be.true;
-        });
     });
 
     describe('#post()', () => {

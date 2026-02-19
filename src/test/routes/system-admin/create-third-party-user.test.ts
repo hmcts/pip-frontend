@@ -60,5 +60,14 @@ describe('Create third party user page', () => {
                     expect(res.header['location']).to.equal('/create-third-party-user-summary');
                 });
         });
+
+        test('should redirect to error page if no body provided', async () => {
+            await request(app)
+                .post('/create-third-party-user')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain("Sorry, there is a problem");
+                });
+        });
     });
 });

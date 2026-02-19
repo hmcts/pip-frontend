@@ -41,6 +41,15 @@ describe('Subscriptions Configure List', () => {
                 });
         });
 
+        test('should render error page when no body is provided', async () => {
+            await request(app)
+                .post('/subscription-configure-list')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
+        });
+
         test('should redirect to the subscription list language page', async () => {
             await request(app)
                 .post('/subscription-configure-list')

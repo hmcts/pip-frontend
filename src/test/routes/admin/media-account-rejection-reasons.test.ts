@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 expressRequest['user'] = { roles: 'INTERNAL_SUPER_ADMIN_CTSC' };
 
-describe('Media Account Rejection', () => {
+describe('Media Account Rejection Reasons', () => {
     const applicationID = uuidv4();
 
     const dummyApplication = {
@@ -31,23 +31,41 @@ describe('Media Account Rejection', () => {
         test('should return the media account rejection reasons page', async () => {
             await request(app)
                 .get('/media-account-rejection-reasons?applicantId=' + applicationID)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Why are you rejecting this application?');
+                });
         });
     });
 
     describe('on submit approval', () => {
-        test('should return success when rejection is accept', async () => {
+        test('should return same page when no options provided', async () => {
             await request(app)
                 .post('/media-account-rejection-reasons?applicantId=' + applicationID)
-                .send({ 'reject-confirmation': 'Yes' })
-                .expect(res => expect(res.status).to.equal(200));
+                .send({ })
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Why are you rejecting this application?');
+                });
         });
 
         test('should return success when approval is reject', async () => {
             await request(app)
                 .post('/media-account-rejection-reasons?applicantId=' + applicationID)
-                .send({ 'reject-confirmation': 'No' })
-                .expect(res => expect(res.status).to.equal(200));
+                .send({ 'rejection-reasons': 'reasons', 'applicantId': '1234' })
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to reject this application?');
+                });
+        });
+
+        test('should return error when no body is supplied', async () => {
+            await request(app)
+                .post('/media-account-rejection-reasons?applicantId=' + applicationID)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Why are you rejecting this application?');
+                });
         });
     });
 });

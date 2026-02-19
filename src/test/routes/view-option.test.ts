@@ -45,5 +45,14 @@ describe('Search option', () => {
                     expect(res.text).to.contain('What do you want to do?');
                 });
         });
+
+        test('should return view option page if no body provided', async () => {
+            await request(app)
+                .post('/view-option')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('What do you want to do?');
+                });
+        });
     });
 });

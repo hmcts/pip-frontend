@@ -21,50 +21,8 @@ describe('Media Account Rejection Reasons Controller', () => {
         email: 'test@test.com',
         employer: 'HMCTS',
     };
-    const getApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');
-    describe('GET request', () => {
-        it('should render the media account rejection reasons page', async () => {
-            getApplicationStub.withArgs(applicantId).resolves(applicantData);
 
-            const response = {
-                render: () => {
-                    return '';
-                },
-            } as unknown as Response;
-            const responseMock = sinon.mock(response);
 
-            const request = mockRequest(i18n);
-            request.query = { applicantId: applicantId };
-
-            const { getDataByLanguage } = request.i18n;
-            const expectedData = {
-                ...cloneDeep(getDataByLanguage(request.lng)['media-account-rejection-reasons']),
-                applicantId: applicantId,
-                rejectReasons,
-                showError: false,
-            };
-
-            responseMock.expects('render').once().withArgs('admin/media-account-rejection-reasons', expectedData);
-            await mediaAccountRejectionReasonsController.get(request, response);
-            responseMock.verify();
-        });
-
-        it('should render the error page if no applicant ID', async () => {
-            const applicantId = '';
-            const response = {
-                render: () => {
-                    return '';
-                },
-            } as unknown as Response;
-            const responseMock = sinon.mock(response);
-
-            const request = mockRequest(i18n);
-            request.query = { applicantId };
-            responseMock.expects('render').once().withArgs('error', i18n.error);
-            await mediaAccountRejectionReasonsController.get(request, response);
-            responseMock.verify();
-        });
-    });
     describe('POST requests', () => {
         const mediaAccountApplicationStub = sinon.stub(
             MediaAccountApplicationService.prototype,

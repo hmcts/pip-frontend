@@ -53,10 +53,19 @@ describe('Sign In option', () => {
                     });
             });
 
-            test('should re-render the sign-in page', async () => {
+            test('should re-render the sign-in page when invalid body provided', async () => {
                 await request(app)
                     .post('/sign-in')
                     .send({})
+                    .expect(res => {
+                        expect(res.status).to.equal(302);
+                        expect(res.header['location']).to.equal('/sign-in?error=true');
+                    });
+            });
+
+            test('should re-render the sign-in page when no body provided', async () => {
+                await request(app)
+                    .post('/sign-in')
                     .expect(res => {
                         expect(res.status).to.equal(302);
                         expect(res.header['location']).to.equal('/sign-in?error=true');

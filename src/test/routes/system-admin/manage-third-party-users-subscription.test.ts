@@ -52,5 +52,14 @@ describe('Manage third party users subscription', () => {
                     expect(res.text).to.contain('Third Party Subscriptions Updated');
                 });
         });
+
+        test('should return error page if no body provided', async () => {
+            await request(app)
+                .post('/manage-third-party-users/subscriptions')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
+        });
     });
 });

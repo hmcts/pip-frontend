@@ -57,6 +57,17 @@ describe('Delete third party user confirmation page', () => {
                 });
         });
 
+        test('should render error page if no body is provided', async () => {
+            app.request['body'] = undefined;
+
+            await request(app)
+                .post('/delete-third-party-user-confirmation')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
+        });
+
         test("should redirect to manage third party user page for a 'no' response", async () => {
             app.request['body'] = {
                 user: '123',

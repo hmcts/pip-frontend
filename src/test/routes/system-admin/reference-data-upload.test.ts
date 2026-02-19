@@ -12,7 +12,10 @@ describe('Reference Data Manual upload', () => {
             app.request['user'] = { roles: 'SYSTEM_ADMIN' };
             await request(app)
                 .get('/reference-data-upload')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Manually upload a csv file');
+                });
         });
     });
     describe('on POST', () => {

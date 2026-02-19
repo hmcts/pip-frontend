@@ -31,6 +31,15 @@ describe('List download disclaimer', () => {
                 });
         });
 
+        test('should render list download disclaimer page if no body is provided', async () => {
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Terms and conditions');
+                });
+        });
+
         test('should redirect to list download files page if terms and conditions agreed', async () => {
             await request(app)
                 .post(PAGE_URL)
