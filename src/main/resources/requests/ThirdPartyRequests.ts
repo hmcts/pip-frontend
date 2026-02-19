@@ -165,8 +165,23 @@ export class ThirdPartyRequests {
             logger.info('Third party subscriber oauth config updated');
             return response.status === StatusCodes.OK;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'third party subscriber oauth config updation');
+            logHelper.logErrorResponse(error, 'third party subscriber oauth config update');
         }
         return null;
+    }
+
+    public async thirdPartyConfigurationHealthCheck(userId: string, requester: string): Promise<boolean | string> {
+        try {
+            await accountManagementApi.get(`/third-party/configuration/healthcheck/${userId}`, {
+                headers: { 'x-requester-id': requester },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'third-party configuration health check');
+            if (error.response?.status === 500 && error.response?.data?.message) {
+                return error.response.data.message;
+            }
+            return false;
+        }
     }
 }

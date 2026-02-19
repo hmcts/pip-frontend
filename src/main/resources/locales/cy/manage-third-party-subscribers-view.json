@@ -5,5 +5,11 @@
     "createdDate": "Created Date",
     "manageSubscriptions": "Manage subscriptions",
     "manageOAuthConfiguration": "Manage OAuth configuration",
-    "deleteUser": "Delete subscriber"
+    "deleteUser": "Delete subscriber",
+    "testConnectionButton": "Test connection",
+    "succeededConnectionTitle": "Succeeded",
+    "failedConnectionTitle": "Failed",
+    "connectionSucceeded": "Connection to third party succeeded.",
+    "missingConfigurationError": "No OAuth configuration found. Please supply valid OAuth configuration to enable connection.",
+    "thirdPartyRequestError": "Error connecting to third party. Please try again later."
 }

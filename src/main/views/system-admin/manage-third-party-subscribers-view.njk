@@ -1,4 +1,4 @@
-{% from "../macros/common-components.njk" import goBack, backButtonHistory %}
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -13,6 +13,30 @@
 {% endblock %}
 {% block content %}
   <h1 class="govuk-heading-l">{{ heading }}</h1>
+
+  <form name="myform" method="post" action="/manage-third-party-subscribers/view?userId={{ userDetails.userId }}">
+    {{ submitButton(testConnectionButton) }}
+  </form>
+
+  {% if healthCheck.thirdPartyErrorMessage or healthCheck.missingConfigurationError or healthCheck.thirdPartyRequestError %}
+    <div class="fail-connection govuk-!-margin-bottom-5">
+      <p class="govuk-body connection-status">{{ failedConnectionTitle }}</p>
+      {% if healthCheck.thirdPartyErrorMessage %}
+        <p class="govuk-body">{{ healthCheck.thirdPartyErrorMessage }}</p>
+      {% elseif healthCheck.missingConfigurationError %}
+        <p class="govuk-body">{{ missingConfigurationError }}</p>
+      {% else %}
+        <p class="govuk-body">{{ thirdPartyRequestError }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+  {% if healthCheck.success %}
+    <div class="success-connection govuk-!-margin-bottom-5">
+      <p class="govuk-body connection-status">{{ succeededConnectionTitle }}</p>
+      <p class="govuk-body">{{ connectionSucceeded }}</p>
+    </div>
+  {% endif %}
+
   {{ govukSummaryList({
     rows: [
       {
@@ -57,4 +81,10 @@
 {% block bodyEnd %}
   {{ backButtonHistory(cspNonce) }}
   {{ super() }}
+    <script nonce="{{ cspNonce }}">
+        function submitform()
+        {
+            document.myform.submit();
+        }
+    </script>
 {% endblock %}
