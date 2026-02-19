@@ -21,6 +21,7 @@ export default class ManageThirdPartySubscribersViewController {
                 res.render('system-admin/manage-third-party-subscribers-view', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscribers-view']),
                     userDetails: user,
+                    healthCheck: {},
                 });
 
                 return;
@@ -28,5 +29,48 @@ export default class ManageThirdPartySubscribersViewController {
         }
 
         res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+
+    public async post(req: PipRequest, res: Response): Promise<void> {
+        const userId = req.query['userId'] as string;
+
+        if (userId) {
+            const healthCheck= await ManageThirdPartySubscribersViewController.testConnection(userId, req.user['userId']);
+            const user = await thirdPartyService.getThirdPartySubscriberById(userId, req.user['userId']);
+            if (user) {
+                res.render('system-admin/manage-third-party-subscribers-view', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscribers-view']),
+                    userDetails: user,
+                    healthCheck,
+                });
+                return;
+            }
+        }
+
+        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+    }
+
+    private static async testConnection(userId, requester): Promise<any> {
+        const oauthConfiguration = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(userId, requester);
+        if (oauthConfiguration === null) {
+            return {
+                missingConfigurationError: true,
+            }
+        }
+        const response = await thirdPartyService.thirdPartyConfigurationHealthCheck(userId, requester);
+        if (response) {
+            if (typeof response === 'string') {
+                return {
+                    thirdPartyErrorMessage: response,
+                }
+            } else {
+                return {
+                    success: true,
+                }
+            }
+        }
+        return {
+            thirdPartyRequestError: true,
+        };
     }
 }

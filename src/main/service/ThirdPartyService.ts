@@ -173,6 +173,14 @@ export class ThirdPartyService {
         );
     }
 
+    public async getThirdPartySubscriberOauthConfigByUserId(userId, requesterId): Promise<any> {
+        return await this.thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(userId, requesterId);
+    }
+
+    public async thirdPartyConfigurationHealthCheck(userId, requesterId): Promise<any> {
+        return await this.thirdPartyRequests.thirdPartyConfigurationHealthCheck(userId, requesterId);
+    }
+
     private formatThirdPartySubscriberPayload(formData) {
         return { name: formData.thirdPartySubscriberName };
     }

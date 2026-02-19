@@ -7,80 +7,191 @@ import ManageThirdPartySubscribersViewController from '../../../../main/controll
 
 const manageThirdPartySubscribersViewController = new ManageThirdPartySubscribersViewController();
 
+const i18n = {
+    'manage-third-party-subscribers': {},
+    error: {},
+};
+const request = mockRequest(i18n);
+const response = {
+    render: () => {
+        return '';
+    },
+} as unknown as Response;
+
+const userId = '1234-1234';
+const userId2 = '1234-1235';
+const userId3 = '1234-1236';
+const userId4 = '1234-1237';
+const userId5 = '1234-1238';
+
+const mockUser = { userId: userId };
+const mockConfig = {
+    scope: 'scope',
+    clientId: 'clientId',
+    clientSecret: 'clientSecret',
+};
+const responseMessage = 'Test message';
+
+const getThirdPartyByUserIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberById');
+getThirdPartyByUserIdStub.withArgs(userId).resolves(mockUser);
+getThirdPartyByUserIdStub.withArgs(userId2).resolves(null);
+getThirdPartyByUserIdStub.withArgs(userId3).resolves(mockUser);
+getThirdPartyByUserIdStub.withArgs(userId4).resolves(mockUser);
+getThirdPartyByUserIdStub.withArgs(userId5).resolves(mockUser);
+
+const getThirdPartyOauthConfigStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberOauthConfigByUserId');
+getThirdPartyOauthConfigStub.withArgs(userId).resolves(mockConfig);
+getThirdPartyOauthConfigStub.withArgs(userId3).resolves(null);
+getThirdPartyOauthConfigStub.withArgs(userId4).resolves(mockConfig);
+getThirdPartyOauthConfigStub.withArgs(userId5).resolves(mockConfig);
+
+const healthCheckStub = sinon.stub(ThirdPartyService.prototype, 'thirdPartyConfigurationHealthCheck');
+healthCheckStub.withArgs(userId).resolves(true);
+healthCheckStub.withArgs(userId4).resolves(false);
+healthCheckStub.withArgs(userId5).resolves(responseMessage);
+
 describe('Manage third party subscribers view Controller', () => {
-    const i18n = {
-        'manage-third-party-subscribers': {},
-        error: {},
-    };
-    const request = mockRequest(i18n);
-    const response = {
-        render: () => {
-            return '';
-        },
-    } as unknown as Response;
+    describe('GET request', () => {
+        it('should render third party subscribers page', async () => {
+            request['query'] = { userId: userId };
 
-    const getThirdPartyByUserIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberById');
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
+                userDetails: mockUser,
+                healthCheck: {},
+            };
 
-    const userId = '1234-1234';
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
 
-    it('should render third party subscribers page', async () => {
-        const mockUser = { userId: userId };
-        request['query'] = { userId: userId };
+            await manageThirdPartySubscribersViewController.get(request, response);
+            responseMock.verify();
+        });
 
-        getThirdPartyByUserIdStub.withArgs(userId).resolves(mockUser);
+        it('should render third party subscribers page when more than one sub', async () => {
+            request['query'] = { userId: userId };
 
-        const options = {
-            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
-            userDetails: mockUser,
-        };
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
+                userDetails: mockUser,
+                healthCheck: {},
+            };
 
-        const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
 
-        await manageThirdPartySubscribersViewController.get(request, response);
-        responseMock.verify();
+            await manageThirdPartySubscribersViewController.get(request, response);
+            responseMock.verify();
+        });
+
+        it('should render error page if no user supplied', async () => {
+            request['query'] = {};
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+
+            await manageThirdPartySubscribersViewController.get(request, response);
+
+            responseMock.verify();
+        });
+
+        it('should render error page if no user can be found', async () => {
+            request['query'] = { userId: userId2 };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+
+            await manageThirdPartySubscribersViewController.get(request, response);
+
+            responseMock.verify();
+        });
     });
 
-    it('should render third party subscribers page when more than one sub', async () => {
-        const mockUser = { userId: userId };
+    describe('POST request', () => {
+        it('should render third party subscribers page with success health check message', async () => {
+            request['query'] = { userId: userId };
 
-        request['query'] = { userId: userId };
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
+                userDetails: mockUser,
+                healthCheck: { success: true },
+            };
 
-        getThirdPartyByUserIdStub.withArgs(userId).resolves(mockUser);
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
 
-        const options = {
-            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
-            userDetails: mockUser,
-        };
+            await manageThirdPartySubscribersViewController.post(request, response);
+            responseMock.verify();
+        });
 
-        const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
+        it('should render third party subscribers page with missing configuration error', async () => {
+            request['query'] = { userId: userId3 };
 
-        await manageThirdPartySubscribersViewController.get(request, response);
-        responseMock.verify();
-    });
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
+                userDetails: mockUser,
+                healthCheck: { missingConfigurationError: true },
+            };
 
-    it('should render error page if no user supplied', async () => {
-        request['query'] = {};
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
 
-        const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+            await manageThirdPartySubscribersViewController.post(request, response);
+            responseMock.verify();
+        });
 
-        await manageThirdPartySubscribersViewController.get(request, response);
+        it('should render third party subscribers page with generic error', async () => {
+            request['query'] = { userId: userId4 };
 
-        responseMock.verify();
-    });
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
+                userDetails: mockUser,
+                healthCheck: { thirdPartyRequestError: true },
+            };
 
-    it('should render error page if no user can be found', async () => {
-        request['query'] = { userId: userId };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
 
-        getThirdPartyByUserIdStub.withArgs(userId).resolves(null);
+            await manageThirdPartySubscribersViewController.post(request, response);
+            responseMock.verify();
+        });
 
-        const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+        it('should render third party subscribers page with response error message', async () => {
+            request['query'] = { userId: userId5 };
 
-        await manageThirdPartySubscribersViewController.get(request, response);
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-third-party-subscribers-view']),
+                userDetails: mockUser,
+                healthCheck: { thirdPartyErrorMessage: responseMessage },
+            };
 
-        responseMock.verify();
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('system-admin/manage-third-party-subscribers-view', options);
+
+            await manageThirdPartySubscribersViewController.post(request, response);
+            responseMock.verify();
+        });
+
+        it('should render error page if no user supplied', async () => {
+            request['query'] = {};
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+
+            await manageThirdPartySubscribersViewController.post(request, response);
+
+            responseMock.verify();
+        });
+
+        it('should render error page if no user can be found', async () => {
+            request['query'] = { userId: userId2 };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+
+            await manageThirdPartySubscribersViewController.post(request, response);
+
+            responseMock.verify();
+        });
     });
 });
