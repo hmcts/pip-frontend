@@ -13,8 +13,8 @@ const applicationIDFound = uuidv4();
 const applicationIDRejectionFails = uuidv4();
 
 const getApplicationByIdStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationByIdAndStatus');
-getApplicationByIdStub.withArgs(applicationIDFound).resolves({ });
-getApplicationByIdStub.withArgs(applicationIDRejectionFails).resolves({ });
+getApplicationByIdStub.withArgs(applicationIDFound).resolves({});
+getApplicationByIdStub.withArgs(applicationIDRejectionFails).resolves({});
 getApplicationByIdStub.withArgs(applicationIDNotFound).resolves(undefined);
 
 const rejectionStub = sinon.stub(MediaAccountApplicationService.prototype, 'rejectApplication');
@@ -23,13 +23,11 @@ rejectionStub.withArgs(applicationIDRejectionFails).resolves(undefined);
 
 sinon.stub(UserManagementService.prototype, 'auditAction');
 
-
 describe('Media Account Rejection', () => {
-
     test('Should render media account rejection page if no response provided', async () => {
         await request(app)
             .post('/media-account-rejection?applicantId=' + applicationIDFound)
-            .send({'reasons': ''})
+            .send({ reasons: '' })
             .expect(res => {
                 expect(res.status).to.equal(200);
                 expect(res.text).to.contain('Are you sure you want to reject this application?');
@@ -39,7 +37,7 @@ describe('Media Account Rejection', () => {
     test('Should redirect to media account review page if response is No', async () => {
         await request(app)
             .post('/media-account-rejection?applicantId=' + applicationIDFound)
-            .send({'reasons': '', 'reject-confirmation': 'No'})
+            .send({ reasons: '', 'reject-confirmation': 'No' })
             .expect(res => {
                 expect(res.status).to.equal(302);
                 expect(res.header['location']).to.contain('media-account-review');
@@ -49,7 +47,7 @@ describe('Media Account Rejection', () => {
     test('Should render media account rejection confirmation if Yes', async () => {
         await request(app)
             .post('/media-account-rejection?applicantId=' + applicationIDFound)
-            .send({'reasons': 'notMedia', 'reject-confirmation': 'Yes'})
+            .send({ reasons: 'notMedia', 'reject-confirmation': 'Yes' })
             .expect(res => {
                 expect(res.status).to.equal(200);
                 expect(res.text).to.contain('Account has been rejected');
@@ -59,7 +57,7 @@ describe('Media Account Rejection', () => {
     test('Should render error page if Yes but rejection fails', async () => {
         await request(app)
             .post('/media-account-rejection?applicantId=' + applicationIDRejectionFails)
-            .send({'reasons': 'notMedia', 'reject-confirmation': 'Yes'})
+            .send({ reasons: 'notMedia', 'reject-confirmation': 'Yes' })
             .expect(res => {
                 expect(res.status).to.equal(200);
                 expect(res.text).to.contain('Sorry, there is a problem');

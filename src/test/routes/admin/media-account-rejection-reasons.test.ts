@@ -42,7 +42,7 @@ describe('Media Account Rejection Reasons', () => {
         test('should return same page when no options provided', async () => {
             await request(app)
                 .post('/media-account-rejection-reasons?applicantId=' + applicationID)
-                .send({ })
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(200);
                     expect(res.text).to.contain('Why are you rejecting this application?');
@@ -52,7 +52,7 @@ describe('Media Account Rejection Reasons', () => {
         test('should return success when approval is reject', async () => {
             await request(app)
                 .post('/media-account-rejection-reasons?applicantId=' + applicationID)
-                .send({ 'rejection-reasons': 'reasons', 'applicantId': '1234' })
+                .send({ 'rejection-reasons': 'reasons', applicantId: '1234' })
                 .expect(res => {
                     expect(res.status).to.equal(200);
                     expect(res.text).to.contain('Are you sure you want to reject this application?');

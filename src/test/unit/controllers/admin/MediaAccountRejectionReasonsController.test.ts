@@ -22,7 +22,6 @@ describe('Media Account Rejection Reasons Controller', () => {
         employer: 'HMCTS',
     };
 
-
     describe('POST requests', () => {
         const mediaAccountApplicationStub = sinon.stub(
             MediaAccountApplicationService.prototype,

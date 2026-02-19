@@ -15,7 +15,7 @@ describe('Bulk unsubscribe confirmation', () => {
                 .get(PAGE_URL)
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('Are you sure you want to remove these subscriptions?')
+                    expect(res.text).to.contain('Are you sure you want to remove these subscriptions?');
                 });
         });
     });
@@ -52,7 +52,7 @@ describe('Bulk unsubscribe confirmation', () => {
                 .send({})
                 .expect(res => {
                     expect(res.status).to.equal(200);
-                    expect(res.text).to.contain('Are you sure you want to remove these subscriptions?')
+                    expect(res.text).to.contain('Are you sure you want to remove these subscriptions?');
                 });
         });
 
