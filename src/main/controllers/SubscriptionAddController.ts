@@ -15,7 +15,7 @@ export default class SubscriptionAddController {
     }
 
     public post(req: PipRequest, res: Response): void {
-        switch (req.body['subscription-choice']) {
+        switch (req.body?.['subscription-choice']) {
             case 'court-or-tribunal':
                 res.redirect('/location-name-search');
                 break;

@@ -13,7 +13,10 @@ describe('Bulk unsubscribe confirmation', () => {
         test('should render bulk unsubscribe confirmation page', async () => {
             await request(app)
                 .get(PAGE_URL)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to remove these subscriptions?');
+                });
         });
     });
 
@@ -47,7 +50,19 @@ describe('Bulk unsubscribe confirmation', () => {
             await request(app)
                 .post(PAGE_URL)
                 .send({})
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to remove these subscriptions?');
+                });
+        });
+
+        test('should render bulk unsubscribe confirmation page if no body is provided', async () => {
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to remove these subscriptions?');
+                });
         });
     });
 });
