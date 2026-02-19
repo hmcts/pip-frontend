@@ -7,7 +7,12 @@
                     "individualDetails": {
                         "individualForenames": "Forenames",
                         "individualSurname": "Surname"
-                    }
+                    },
+                    "offence": [
+                        {
+                            "offenceTitle": "Test offence 1"
+                        }
+                    ]
                 },
                 {
                     "partyRole": "DEFENDANT_REPRESENTATIVE",
@@ -29,15 +34,32 @@
                     "partyRole": "DEFENDANT",
                     "individualDetails": {
                         "individualForenames": "ForenamesA",
+                        "individualMiddleName": "MiddlenameA",
                         "individualSurname": "SurnameA"
-                    }
+                    },
+                    "offence": [
+                        {
+                            "offenceTitle": "Test offence 1"
+                        },
+                        {
+                            "offenceTitle": "Test offence 2"
+                        }
+                    ]
                 },
                 {
                     "partyRole": "DEFENDANT",
                     "individualDetails": {
                         "individualForenames": "ForenamesB",
                         "individualSurname": "SurnameB"
-                    }
+                    },
+                    "offence": [
+                        {
+                            "offenceTitle": "Test offence 3"
+                        },
+                        {
+                            "offenceTitle": "Test offence 4"
+                        }
+                    ]
                 },
                 {
                     "partyRole": "DEFENDANT_REPRESENTATIVE",
@@ -61,6 +83,45 @@
                     "partyRole": "PROSECUTING_AUTHORITY",
                     "organisationDetails": {
                         "organisationName": "Prosecuting authority nameB"
+                    }
+                }
+            ]
+        },
+        {
+            "party": [
+                {
+                    "partyRole": "DEFENDANT",
+                    "organisationDetails": {
+                        "organisationName": "Defendant org name"
+                    }
+                },
+                {
+                    "partyRole": "PROSECUTING_AUTHORITY",
+                    "organisationDetails": {
+                        "organisationName": "Prosecuting authority name"
+                    }
+                }
+            ]
+        },
+        {
+            "party": [
+                {
+                    "partyRole": "DEFENDANT",
+                    "individualDetails": {
+                        "individualForenames": "Forename A",
+                        "individualSurname": "Surname A"
+                    }
+                },
+                {
+                    "partyRole": "DEFENDANT",
+                    "organisationDetails": {
+                        "organisationName": "Defendant org name"
+                    }
+                },
+                {
+                    "partyRole": "PROSECUTING_AUTHORITY",
+                    "organisationDetails": {
+                        "organisationName": "Prosecuting authority name"
                     }
                 }
             ]
