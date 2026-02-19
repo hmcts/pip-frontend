@@ -39,7 +39,10 @@ getThirdPartyByUserIdStub.withArgs(userId3).resolves(mockUser);
 getThirdPartyByUserIdStub.withArgs(userId4).resolves(mockUser);
 getThirdPartyByUserIdStub.withArgs(userId5).resolves(mockUser);
 
-const getThirdPartyOauthConfigStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberOauthConfigByUserId');
+const getThirdPartyOauthConfigStub = sinon.stub(
+    ThirdPartyService.prototype,
+    'getThirdPartySubscriberOauthConfigByUserId'
+);
 getThirdPartyOauthConfigStub.withArgs(userId).resolves(mockConfig);
 getThirdPartyOauthConfigStub.withArgs(userId3).resolves(null);
 getThirdPartyOauthConfigStub.withArgs(userId4).resolves(mockConfig);
@@ -88,7 +91,10 @@ describe('Manage third party subscribers view Controller', () => {
             request['query'] = {};
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
             await manageThirdPartySubscribersViewController.get(request, response);
 
@@ -99,7 +105,10 @@ describe('Manage third party subscribers view Controller', () => {
             request['query'] = { userId: userId2 };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
             await manageThirdPartySubscribersViewController.get(request, response);
 
@@ -176,7 +185,10 @@ describe('Manage third party subscribers view Controller', () => {
             request['query'] = {};
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
             await manageThirdPartySubscribersViewController.post(request, response);
 
@@ -187,7 +199,10 @@ describe('Manage third party subscribers view Controller', () => {
             request['query'] = { userId: userId2 };
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('error', request.i18n.getDataByLanguage(request.lng)['error']);
 
             await manageThirdPartySubscribersViewController.post(request, response);
 

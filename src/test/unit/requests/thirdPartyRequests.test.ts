@@ -409,7 +409,7 @@ describe('Third-party Requests', () => {
 
             getStub.withArgs(`${thirdPartyHealthCheckEndpoint}/${idtoUse}`).rejects(errorResponse);
             const response = await thirdPartyRequests.thirdPartyConfigurationHealthCheck(idtoUse, '1234');
-            expect(response).toStrictEqual(responseMessage)
+            expect(response).toStrictEqual(responseMessage);
         });
     });
 });

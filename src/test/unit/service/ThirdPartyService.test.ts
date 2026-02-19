@@ -284,7 +284,10 @@ describe('Third Party Service tests', () => {
         });
 
         it('should return null if Oauth configuration does not exist', async () => {
-            const result = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(invalidUserId, adminUserId);
+            const result = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(
+                invalidUserId,
+                adminUserId
+            );
             expect(result).to.be.null;
         });
     });
@@ -294,10 +297,7 @@ describe('Third Party Service tests', () => {
         const userId3 = '126';
         const respondMessage = 'Error message';
 
-        const healthCheckStub = sinon.stub(
-            ThirdPartyRequests.prototype,
-            'thirdPartyConfigurationHealthCheck'
-        );
+        const healthCheckStub = sinon.stub(ThirdPartyRequests.prototype, 'thirdPartyConfigurationHealthCheck');
         healthCheckStub.withArgs(userId).resolves(true);
         healthCheckStub.withArgs(userId2).resolves(false);
         healthCheckStub.withArgs(userId3).resolves(respondMessage);

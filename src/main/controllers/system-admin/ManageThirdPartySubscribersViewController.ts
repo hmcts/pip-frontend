@@ -35,7 +35,10 @@ export default class ManageThirdPartySubscribersViewController {
         const userId = req.query['userId'] as string;
 
         if (userId) {
-            const healthCheck= await ManageThirdPartySubscribersViewController.testConnection(userId, req.user['userId']);
+            const healthCheck = await ManageThirdPartySubscribersViewController.testConnection(
+                userId,
+                req.user['userId']
+            );
             const user = await thirdPartyService.getThirdPartySubscriberById(userId, req.user['userId']);
             if (user) {
                 res.render('system-admin/manage-third-party-subscribers-view', {
@@ -51,22 +54,25 @@ export default class ManageThirdPartySubscribersViewController {
     }
 
     private static async testConnection(userId, requester): Promise<any> {
-        const oauthConfiguration = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(userId, requester);
+        const oauthConfiguration = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(
+            userId,
+            requester
+        );
         if (oauthConfiguration === null) {
             return {
                 missingConfigurationError: true,
-            }
+            };
         }
         const response = await thirdPartyService.thirdPartyConfigurationHealthCheck(userId, requester);
         if (response) {
             if (typeof response === 'string') {
                 return {
                     thirdPartyErrorMessage: response,
-                }
+                };
             } else {
                 return {
                     success: true,
-                }
+                };
             }
         }
         return {
