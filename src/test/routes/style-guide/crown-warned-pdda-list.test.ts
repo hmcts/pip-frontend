@@ -33,7 +33,7 @@ describe('Crown Warned PDDA List Page', () => {
         test('should return crown warned pdda list page', async () => {
             app.request['user'] = { userId: '2' };
             await request(app)
-                .get('/crown-warned-pdda-list?artefactId=test')
+                .get('/crown-warned-list?artefactId=test')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });
