@@ -202,4 +202,12 @@ export class ThirdPartyService {
 
         return Object.values(fields).some(error => error) ? fields : null;
     }
+
+    public async updateThirdPartySubscriberStatus(
+        userId: string,
+        status: string,
+        adminUserId: string
+    ): Promise<boolean> {
+        return await this.thirdPartyRequests.updateThirdPartySubscriberStatus(userId, status, adminUserId);
+    }
 }

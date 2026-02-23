@@ -25,6 +25,22 @@
       },
       {
         key: {
+          text: status
+        },
+        value: {
+          text: userDetails.status
+        },
+        actions: {
+           items: [
+              {
+                href: '/manage-third-party-subscriber-status?userId=' + userDetails.userId,
+                text: change
+              }
+          ]
+        }
+      },
+      {
+        key: {
         text: createdDate
         },
           value: {
