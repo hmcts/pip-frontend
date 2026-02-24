@@ -3,7 +3,7 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
 
-const url = '/crown-warned-pdda-list?artefactId=abc';
+const url = '/crown-warned-list?artefactId=abc';
 
 const jsonData = testArtefactJsonData('crownWarnedPddaList.json');
 const metadata = testArtefactMetadata()[0];

@@ -8,7 +8,7 @@ const crownPddaListService = new CrownPddaListService();
 
 const lng = 'en';
 const listTypeDaily = 'crown-daily-pdda-list';
-const listTypeFirm = 'crown-firm-pdda-list';
+const listTypeFirm = 'crown-firm--pdda-list';
 const rawDailyListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownDailyPddaList.json'), 'utf-8');
 const rawFirmListData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownFirmPddaList.json'), 'utf-8');
 
