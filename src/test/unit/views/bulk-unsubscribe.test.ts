@@ -418,6 +418,22 @@ describe('Bulk Unsubscribe Page', () => {
             expect(checkboxElement.getAttribute('type')).equal('checkbox');
             expect(checkboxElement.getAttribute('name')).equal('caseSubscription');
         });
+
+        it('should show noSubsCourt message on court subs tab', async () => {
+            await request(app)
+                .get(PAGE_URL + '?location')
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+
+            const subscriptionsTabs = htmlRes
+                .getElementsByClassName('moj-sub-navigation')[0]
+                .getElementsByClassName(tabsClass);
+
+            expect(subscriptionsTabs[2].getAttribute('aria-current')).to.equal('page');
+            expect(htmlRes.body.textContent).to.contain('You currently have no subscriptions by court');
+        });
     });
 
     describe('with court subscriptions only', () => {
@@ -501,6 +517,22 @@ describe('Bulk Unsubscribe Page', () => {
             const checkboxElement = subscriptionCaseRowCells[2].querySelector('input');
             expect(checkboxElement.getAttribute('type')).equal('checkbox');
             expect(checkboxElement.getAttribute('name')).equal('courtSubscription');
+        });
+
+        it('should show noSubsCase message on case subs tab', async () => {
+            await request(app)
+                .get(PAGE_URL + '?case')
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                    htmlRes.getElementsByTagName('div')[0].remove();
+                });
+
+            const subscriptionsTabs = htmlRes
+                .getElementsByClassName('moj-sub-navigation')[0]
+                .getElementsByClassName(tabsClass);
+
+            expect(subscriptionsTabs[1].getAttribute('aria-current')).to.equal('page');
+            expect(htmlRes.body.textContent).to.contain('You currently have no subscriptions by case');
         });
     });
 
