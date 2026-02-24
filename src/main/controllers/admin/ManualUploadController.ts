@@ -28,7 +28,7 @@ export default class ManualUploadController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.query?.showerror === 'true' || req.body == undefined) {
+        if (req.query?.showerror === 'true' || !req.body) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
