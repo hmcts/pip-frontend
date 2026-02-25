@@ -47,7 +47,7 @@ describe('ManageThirdPartySubscriberStatusController', () => {
         sinon.assert.calledWith(
             response.render as sinon.SinonStub,
             'system-admin/manage-third-party-subscriber-status',
-            sinon.match({ userDetails, statusOptions: ['Pending', 'Active', 'Suspended'] })
+            sinon.match({ userDetails, statusOptions: ['PENDING', 'ACTIVE', 'SUSPENDED'] })
         );
     });
 

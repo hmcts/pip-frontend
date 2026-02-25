@@ -19,7 +19,7 @@ export default class ManageThirdPartySubscriberStatusController {
             res.render('system-admin/manage-third-party-subscriber-status', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-status']),
                 userDetails: user,
-                statusOptions: ['Pending', 'Active', 'Suspended'],
+                statusOptions: ['PENDING', 'ACTIVE', 'SUSPENDED'],
             });
             return;
         }

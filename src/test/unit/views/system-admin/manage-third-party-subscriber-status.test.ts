@@ -3,15 +3,19 @@ import nunjucks from 'nunjucks';
 
 describe('manage-third-party-subscriber-status.njk', () => {
     const env = nunjucks.configure('src/main/views');
+    env.addFilter('titleCase', function (str) {
+        if (!str) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    });
     const mockData = {
         title: 'Manage third party subscriber - Manage party subscriber status - Court and Tribunal Hearings - GOV.UK',
         header: 'Manage User Status',
         statusHeader: 'Status',
         userDetails: {
             userId: 'user123',
-            status: 'Active',
+            status: 'ACTIVE',
         },
-        statusOptions: ['Pending', 'Active', 'Suspended'],
+        statusOptions: ['PENDING', 'ACTIVE', 'SUSPENDED'],
         cspNonce: 'test-nonce',
     };
 
@@ -33,13 +37,14 @@ describe('manage-third-party-subscriber-status.njk', () => {
     it('should render the status select dropdown with correct options', () => {
         expect(rendered).to.contain('<select class="govuk-select" id="status" name="status">');
         mockData.statusOptions.forEach(option => {
+            const display = option.charAt(0) + option.slice(1).toLowerCase();
             expect(rendered).to.contain(`<option value="${option}"`);
-            expect(rendered).to.contain(`>${option}</option>`);
+            expect(rendered).to.contain(`>${display}</option>`);
         });
     });
 
     it('should have the correct option selected', () => {
-        expect(rendered).to.contain('<option value="Active" selected>Active</option>');
+        expect(rendered).to.contain('<option value="ACTIVE" selected>Active</option>');
     });
 
     it('should render the Confirm and Cancel buttons', () => {
