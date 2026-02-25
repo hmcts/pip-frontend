@@ -1,9 +1,7 @@
 import { accountManagementApi } from './utils/axiosConfig';
-import { Logger } from '@hmcts/nodejs-logging';
 import { LogHelper } from '../logging/logHelper';
 import { StatusCodes } from 'http-status-codes';
 import { ThirdPartySubscription } from '../../models/ThirdPartySubscription';
-const logger = Logger.getLogger('requests');
 const logHelper = new LogHelper();
 
 export class ThirdPartyRequests {
@@ -117,7 +115,6 @@ export class ThirdPartyRequests {
      */
     public async getThirdPartySubscriberOauthConfigByUserId(userId: string, adminUserId: string): Promise<any> {
         try {
-            logger.info(`third-party subscriber with ID: ${userId} data requested by Admin with ID: ${adminUserId}`);
             const response = await accountManagementApi.get(`/third-party/configuration/${userId}`, {
                 headers: {
                     'x-requester-id': adminUserId,
@@ -142,7 +139,7 @@ export class ThirdPartyRequests {
             });
             return response.status === StatusCodes.CREATED;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'third-party subscriber OAuth config creation');
+            logHelper.logErrorResponse(error, 'create third-party subscriber OAuth config');
         }
         return null;
     }

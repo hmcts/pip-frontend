@@ -48,8 +48,8 @@ describe('Create third-party subscriber OAuth config summary page', () => {
         const keys = htmlRes.getElementsByClassName('govuk-summary-list__key');
         expect(keys[0].innerHTML).to.contain('Destination URL', 'Destination URL key does not match');
         expect(keys[1].innerHTML).to.contain('Token URL', 'Token URL key does not match');
-        expect(keys[3].innerHTML).to.contain('Scope', 'Scope value does not match');
-        expect(keys[5].innerHTML).to.contain('Client ID', 'Client ID does not match');
+        expect(keys[2].innerHTML).to.contain('Scope', 'Scope value does not match');
+        expect(keys[3].innerHTML).to.contain('Client ID', 'Client ID does not match');
     });
 
     it('should display correct summary values', async () => {
@@ -63,8 +63,8 @@ describe('Create third-party subscriber OAuth config summary page', () => {
 
         expect(keys[0].innerHTML).to.contain('Destination URL', 'Destination URL key does not match');
         expect(keys[1].innerHTML).to.contain('Token URL', 'Token URL key does not match');
-        expect(keys[3].innerHTML).to.contain('Scope', 'Scope does not match');
-        expect(keys[5].innerHTML).to.contain('Client ID', 'Client ID does not match');
+        expect(keys[2].innerHTML).to.contain('Scope', 'Scope does not match');
+        expect(keys[3].innerHTML).to.contain('Client ID', 'Client ID does not match');
     });
 
     it('should display correct summary actions', async () => {
