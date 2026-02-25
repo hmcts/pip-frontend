@@ -4,9 +4,11 @@ import { cloneDeep } from 'lodash';
 import { UserManagementService } from '../../service/UserManagementService';
 import * as url from 'url';
 import { ThirdPartyRequests } from '../../resources/requests/ThirdPartyRequests';
+import { KeyVaultService } from '../../service/KeyVaultService';
 
 const thirdPartyRequests = new ThirdPartyRequests();
 const userManagementService = new UserManagementService();
+const keyVaultService = new KeyVaultService();
 
 export default class DeleteThirdPartySubscriberConfirmationController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -30,13 +32,25 @@ export default class DeleteThirdPartySubscriberConfirmationController {
             userId,
             req.user['userId']
         );
+
+        const thirdPartyOauthConfig = await thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(
+            userId,
+            req.user['userId']
+        );
+
         if (req.body['delete-subscriber-confirm'] === 'yes') {
             const response = await thirdPartyRequests.deleteThirdPartySubscriber(userId, req.user['userId']);
             if (response) {
+                if (thirdPartyOauthConfig) {
+                    await keyVaultService.deleteSecret(thirdPartyOauthConfig.clientIdKey);
+                    await keyVaultService.deleteSecret(thirdPartyOauthConfig.clientSecretKey);
+                    await keyVaultService.deleteSecret(thirdPartyOauthConfig.scopeKey);
+                }
+
                 await userManagementService.auditAction(
                     req.user,
                     'DELETE_THIRD_PARTY_SUBSCRIBER',
-                    `Third party subscriber with id ${userId} has been deleted`
+                    `third-party subscriber with id ${userId} has been deleted`
                 );
                 res.redirect('/delete-third-party-subscriber-success');
             } else {

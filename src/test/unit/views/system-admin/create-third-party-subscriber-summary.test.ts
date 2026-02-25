@@ -18,7 +18,7 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Create third party subscriber summary page', () => {
+describe('Create third-party subscriber summary page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -30,7 +30,7 @@ describe('Create third party subscriber summary page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
-        expect(header[0].innerHTML).contains('Create third party subscriber summary', 'Header does not match');
+        expect(header[0].innerHTML).contains('Create third-party subscriber summary', 'Header does not match');
     });
 
     it('should display correct summary keys', async () => {

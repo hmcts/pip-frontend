@@ -9,7 +9,7 @@ const generalThirdPartyFormDataWithError = { thirdPartySubscriberName: '' };
 
 const i18n = {
     'create-third-party-subscriber': {
-        title: 'Create third party subscriber',
+        title: 'Create third-party subscriber',
     },
 };
 
@@ -38,9 +38,9 @@ validateThirdPartyStub.withArgs(generalThirdPartyFormData).returns(null);
 
 const createThirdPartySubscriberController = new CreateThirdPartySubscriberController();
 
-describe('Create third party subscriber controller', () => {
+describe('Create third-party subscriber controller', () => {
     describe('GET request', () => {
-        it('should render the create third party subscriber page', async () => {
+        it('should render the create third-party subscriber page', async () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
@@ -59,7 +59,7 @@ describe('Create third party subscriber controller', () => {
     });
 
     describe('POST request', () => {
-        it('should render the create third party subscriber page with errors', async () => {
+        it('should render the create third-party subscriber page with errors', async () => {
             request.body = generalThirdPartyFormDataWithError;
             const responseMock = sinon.mock(response);
 
@@ -78,7 +78,7 @@ describe('Create third party subscriber controller', () => {
             responseMock.verify();
         });
 
-        it('should redirect to create third party subscriber summary page', async () => {
+        it('should redirect to create third-party subscriber summary page', async () => {
             request.body = generalThirdPartyFormData;
             const responseMock = sinon.mock(response);
 

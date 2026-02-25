@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 
-describe('Manage third party subscribers - view', () => {
+describe('Manage third-party subscribers - view', () => {
     const PAGE_URL = '/manage-third-party-subscribers/view';
     let htmlRes: Document;
 
@@ -28,7 +28,7 @@ describe('Manage third party subscribers - view', () => {
         createdDate: '18th November 2022',
     });
 
-    describe('Manage third party subscribers - view without subs', () => {
+    describe('Manage third-party subscribers - view without subs', () => {
         beforeAll(async () => {
             await request(app)
                 .get(PAGE_URL + '?userId=' + userId)

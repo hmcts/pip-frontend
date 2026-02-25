@@ -59,16 +59,13 @@ const newConfigFormData = {
 
 const formDataWithValues = {
     ...existingConfigData,
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
 };
 
 const postFormData = {
     user: userId,
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data',
+    scope: 'read:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     authUrl: 'https://auth.example.com',
@@ -76,13 +73,13 @@ const postFormData = {
 };
 
 const formErrors = {
-    scopeValueError: 'Scope is required',
+    scopeError: 'Scope is required',
     clientIdError: 'Client ID is required',
 };
 
 const i18n = {
     'manage-third-party-subscriber-oauth-config': {
-        title: 'Manage Third Party Subscriber OAuth Config',
+        title: 'Manage third-party subscriber OAuth Config',
     },
 };
 

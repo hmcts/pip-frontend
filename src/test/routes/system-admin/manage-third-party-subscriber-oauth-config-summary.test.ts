@@ -9,10 +9,7 @@ const userId = 'test-user-123';
 const cookie = {
     user: userId,
     createConfig: 'true',
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     destinationUrl: 'https://auth.example.com',
@@ -25,13 +22,13 @@ const createThirdPartySubscriberOauthConfigStub = sinon.stub(
 );
 createThirdPartySubscriberOauthConfigStub.withArgs(cookie, '2').resolves(true);
 
-describe('Manage third party subscriber oauth config summary page', () => {
+describe('Manage third-party subscriber OAuth config summary page', () => {
     beforeEach(() => {
         app.request['cookies'] = { thirdPartySubscriberCookie: JSON.stringify(cookie) };
     });
 
     describe('on GET', () => {
-        test('should render create third party subscriber oauth config summary page', async () => {
+        test('should render create third-party subscriber OAuth config summary page', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',
@@ -44,7 +41,7 @@ describe('Manage third party subscriber oauth config summary page', () => {
     });
 
     describe('on POST', () => {
-        test('should render create third party subscriber oauth config summary page with errors', async () => {
+        test('should render create third-party subscriber OAuth config summary page with errors', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',
@@ -55,7 +52,7 @@ describe('Manage third party subscriber oauth config summary page', () => {
                 .expect(res => expect(res.status).to.equal(200));
         });
 
-        test('should redirect to create third party subscriber oauth config success page', async () => {
+        test('should redirect to create third-party subscriber oauth config success page', async () => {
             app.request['user'] = {
                 userId: '2',
                 roles: 'SYSTEM_ADMIN',

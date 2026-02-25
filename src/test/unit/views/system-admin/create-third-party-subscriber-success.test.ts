@@ -18,7 +18,7 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Create third party subscriber success page', () => {
+describe('Create third-party subscriber success page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -30,19 +30,19 @@ describe('Create third party subscriber success page', () => {
 
     it('should display success panel', () => {
         const header = htmlRes.getElementsByClassName('govuk-panel__title')[0];
-        expect(header.innerHTML).contains('Third party subscriber created', 'Panel message does not match');
+        expect(header.innerHTML).contains('third-party subscriber created', 'Panel message does not match');
     });
 
     it('should display correct summary keys', async () => {
         const keys = htmlRes.getElementsByClassName('govuk-summary-list__key');
-        expect(keys[0].innerHTML).to.contain('Name', 'Third party subscriber name key does not match');
+        expect(keys[0].innerHTML).to.contain('Name', 'third-party subscriber name key does not match');
     });
 
     it('should display correct summary values', async () => {
         const values = htmlRes.getElementsByClassName('govuk-summary-list__value');
         expect(values[0].innerHTML).to.contain(
             cookie.thirdPartySubscriberName,
-            'Third party subscriber name value does not match'
+            'third-party subscriber name value does not match'
         );
     });
 });

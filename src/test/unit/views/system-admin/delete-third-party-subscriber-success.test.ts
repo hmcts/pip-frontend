@@ -10,7 +10,7 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Delete third party subscriber success page', () => {
+describe('Delete third-party subscriber success page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -24,9 +24,9 @@ describe('Delete third party subscriber success page', () => {
         const panelTitle = htmlRes.getElementsByClassName('govuk-panel__title')[0];
         const panelMessage = htmlRes.getElementsByClassName('govuk-panel__body')[0];
 
-        expect(panelTitle.innerHTML).contains('Third party subscriber deleted', 'Panel title does not match');
+        expect(panelTitle.innerHTML).contains('third-party subscriber deleted', 'Panel title does not match');
         expect(panelMessage.innerHTML).contains(
-            'The third party subscriber, associated subscriptions and Oauth configuration have been removed.',
+            'The third-party subscriber, associated subscriptions and Oauth configuration have been removed.',
             'Panel message does not match'
         );
     });
@@ -38,7 +38,7 @@ describe('Delete third party subscriber success page', () => {
 
     it('should display links to other actions with correct paths', () => {
         const links = htmlRes.getElementsByClassName('govuk-link');
-        expect(links[2].innerHTML).to.equal('Manage another third party subscriber');
+        expect(links[2].innerHTML).to.equal('Manage another third-party subscriber');
         expect(links[2].getAttribute('href')).contains('manage-third-party-subscribers');
         expect(links[3].innerHTML).to.equal('Home');
         expect(links[3].getAttribute('href')).contains('system-admin-dashboard');

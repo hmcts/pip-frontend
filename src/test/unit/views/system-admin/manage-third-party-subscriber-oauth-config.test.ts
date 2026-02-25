@@ -22,10 +22,7 @@ const userId = 'test-user-123';
 const cookie = {
     user: userId,
     createConfig: 'true',
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     destinationUrl: 'https://auth.example.com',
@@ -42,18 +39,12 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Manage third party subscriber oauth config page', () => {
+describe('Manage third-party subscriber oauth config page', () => {
     sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberOauthConfigByUserId').resolves(cookie);
     sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberById').resolves({ name: cookie.user });
 
     // Configure the mock's behavior
-    mockKeyVaultService.getSecret.mockImplementation(key => {
-        if (key === cookie.scopeKey) {
-            return Promise.resolve('read:data write:data');
-        }
-        if (key === cookie.clientIdKey) {
-            return Promise.resolve('client-123');
-        }
+    mockKeyVaultService.getSecret.mockImplementation(() => {
         return Promise.reject(new Error('Unknown key'));
     });
 
@@ -69,7 +60,7 @@ describe('Manage third party subscriber oauth config page', () => {
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
         expect(header[0].innerHTML).contains(
-            'Manage third party subscriber Oauth Configuration',
+            'Manage third-party subscriber Oauth Configuration',
             'Header does not match'
         );
     });
@@ -100,9 +91,9 @@ describe('Manage third party subscriber oauth config page', () => {
 
     it('should display input fields Scope Value', () => {
         const nameLabel = htmlRes.getElementsByClassName('govuk-label')[3];
-        const input = htmlRes.getElementById('scopeValue');
+        const input = htmlRes.getElementById('scope');
 
-        expect(nameLabel.innerHTML).contains('Scope Value', 'Label does not match');
+        expect(nameLabel.innerHTML).contains('Scope', 'Label does not match');
         expect(input.getAttribute('value')).equals('read:data write:data', 'Value does not match');
     });
 

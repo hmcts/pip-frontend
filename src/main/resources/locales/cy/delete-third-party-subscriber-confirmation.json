@@ -6,6 +6,6 @@
     "error": {
         "title": "There is a problem",
         "noOptionMessage": "An option must be selected",
-        "failedRequestMessage": "Failed to delete third party subscriber"
+        "failedRequestMessage": "Failed to delete third-party subscriber"
     }
 }

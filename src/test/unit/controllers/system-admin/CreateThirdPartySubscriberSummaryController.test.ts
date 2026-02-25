@@ -10,7 +10,7 @@ const formData = {
 
 const i18n = {
     'create-third-party-subscriber-summary': {
-        title: 'Create third party subscriber summary',
+        title: 'Create third-party subscriber summary',
     },
 };
 
@@ -35,9 +35,9 @@ createThirdPartySubscriberStub.withArgs(formData, '2').resolves('true');
 
 const createThirdPartySubscriberSummaryController = new CreateThirdPartySubscriberSummaryController();
 
-describe('Create third party subscriber summary controller', () => {
+describe('Create third-party subscriber summary controller', () => {
     describe('GET request', () => {
-        it('should render the create third party subscriber summary page', async () => {
+        it('should render the create third-party subscriber summary page', async () => {
             request.user = { userId: '1' };
             const responseMock = sinon.mock(response);
 
@@ -58,7 +58,7 @@ describe('Create third party subscriber summary controller', () => {
     });
 
     describe('POST request', () => {
-        it('should render the create third party subscriber summary page with errors', async () => {
+        it('should render the create third-party subscriber summary page with errors', async () => {
             request.user = { userId: '1' };
             const responseMock = sinon.mock(response);
 
@@ -77,7 +77,7 @@ describe('Create third party subscriber summary controller', () => {
             responseMock.verify();
         });
 
-        it('should redirect to create third party subscriber success page', async () => {
+        it('should redirect to create third-party subscriber success page', async () => {
             request.user = { userId: '2' };
             const responseMock = sinon.mock(response);
 

@@ -46,7 +46,7 @@ export const testUserData = (userProvenance = 'PI_AAD', role = 'VERIFIED') => {
 export const testThirdPartySubscriber = () => {
     return {
         userId: '1',
-        name: 'third party subscriber',
+        name: 'third-party subscriber',
         createdDate: '2023-06-12 11:32:59.444111',
     };
 };

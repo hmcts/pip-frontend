@@ -7,7 +7,7 @@ import ManageThirdPartySubscribersViewController from '../../../../main/controll
 
 const manageThirdPartySubscribersViewController = new ManageThirdPartySubscribersViewController();
 
-describe('Manage third party subscribers view Controller', () => {
+describe('Manage third-party subscribers view Controller', () => {
     const i18n = {
         'manage-third-party-subscribers': {},
         error: {},
@@ -23,7 +23,7 @@ describe('Manage third party subscribers view Controller', () => {
 
     const userId = '1234-1234';
 
-    it('should render third party subscribers page', async () => {
+    it('should render third-party subscribers page', async () => {
         const mockUser = { userId: userId };
         request['query'] = { userId: userId };
 
@@ -41,7 +41,7 @@ describe('Manage third party subscribers view Controller', () => {
         responseMock.verify();
     });
 
-    it('should render third party subscribers page when more than one sub', async () => {
+    it('should render third-party subscribers page when more than one sub', async () => {
         const mockUser = { userId: userId };
 
         request['query'] = { userId: userId };

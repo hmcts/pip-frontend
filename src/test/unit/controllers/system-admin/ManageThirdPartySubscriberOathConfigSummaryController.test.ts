@@ -37,10 +37,7 @@ const adminUserId = 'admin-456';
 const formDataCreate = {
     user: userId,
     createConfig: 'true',
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     authUrl: 'https://auth.example.com',
@@ -49,10 +46,7 @@ const formDataCreate = {
 
 const formDataUpdate = {
     user: userId,
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     authUrl: 'https://auth.example.com',
@@ -61,7 +55,7 @@ const formDataUpdate = {
 
 const i18n = {
     'manage-third-party-subscriber-oauth-config-summary': {
-        title: 'Manage Third Party Subscriber OAuth Config Summary',
+        title: 'Manage third-party subscriber OAuth Config Summary',
     },
 };
 
@@ -157,21 +151,9 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
             await controller.post(request, response);
 
             // Verify KeyVault secrets were created
-            sinon.assert.calledWith(
-                mockKeyVaultService.createOrUpdateSecret,
-                formDataCreate.scopeKey,
-                formDataCreate.scopeValue
-            );
-            sinon.assert.calledWith(
-                mockKeyVaultService.createOrUpdateSecret,
-                formDataCreate.clientIdKey,
-                formDataCreate.clientId
-            );
-            sinon.assert.calledWith(
-                mockKeyVaultService.createOrUpdateSecret,
-                formDataCreate.clientSecretKey,
-                formDataCreate.clientSecret
-            );
+            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, formDataCreate.scope);
+            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, formDataCreate.clientId);
+            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, formDataCreate.clientSecret);
 
             // Verify audit action was called
             sinon.assert.calledWith(
