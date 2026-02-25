@@ -50,7 +50,7 @@ export default class DeleteThirdPartySubscriberConfirmationController {
                 await userManagementService.auditAction(
                     req.user,
                     'DELETE_THIRD_PARTY_SUBSCRIBER',
-                    `third-party subscriber with id ${userId} has been deleted`
+                    `Third-party subscriber with id ${userId} has been deleted`
                 );
                 res.redirect('/delete-third-party-subscriber-success');
             } else {

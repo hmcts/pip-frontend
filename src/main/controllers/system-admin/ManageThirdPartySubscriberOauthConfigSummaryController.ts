@@ -47,7 +47,7 @@ export default class ManageThirdPartySubscriberOauthConfigSummaryController {
                 await userManagementService.auditAction(
                     req.user,
                     'THIRD_PARTY_SUBSCRIBER_OAUTH_CONFIG_CREATED',
-                    `Third party oauth config created successfully`
+                    `Third-party OAuth config created successfully`
                 );
                 res.clearCookie('thirdPartySubscriberCookie');
                 res.redirect('/manage-third-party-subscriber-oauth-config-success');
