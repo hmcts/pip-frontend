@@ -36,7 +36,7 @@ describe('Crown Daily PDDA List Page', () => {
         test('should return Crown Daily PDDA List page', async () => {
             app.request['user'] = { userId: '2' };
             await request(app)
-                .get('/crown-daily-pdda-list?artefactId=abc')
+                .get('/crown-daily-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200))
                 .expect(res => expect(res.text).to.contain('Crown Daily List'));
         });
@@ -48,7 +48,7 @@ describe('Crown Firm PDDA List Page', () => {
         test('should return Crown Firm PDDA List page', async () => {
             app.request['user'] = { userId: '2' };
             await request(app)
-                .get('/crown-firm-pdda-list?artefactId=def')
+                .get('/crown-firm-list?artefactId=def')
                 .expect(res => expect(res.status).to.equal(200))
                 .expect(res => expect(res.text).to.contain('Crown Firm List'));
         });
