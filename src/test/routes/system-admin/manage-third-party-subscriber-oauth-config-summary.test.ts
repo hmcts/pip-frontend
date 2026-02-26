@@ -16,11 +16,18 @@ const cookie = {
     tokenUrl: 'https://token.example.com',
 };
 
+const oauthConfig = {
+    clientId: 'client-id-key',
+    clientSecret: 'client-secret-key',
+    scopeKey: 'scope-key',
+}
+
 const createThirdPartySubscriberOauthConfigStub = sinon.stub(
     ThirdPartyService.prototype,
     'createThirdPartySubscriberOauthConfig'
 );
 createThirdPartySubscriberOauthConfigStub.withArgs(cookie, '2').resolves(true);
+sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberOauthConfigByUserId').resolves(oauthConfig);
 
 describe('Manage third-party subscriber OAuth config summary page', () => {
     beforeEach(() => {
