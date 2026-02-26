@@ -147,6 +147,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
 | APP_INSIGHTS_CONNECTION_STRING     | This is the connection string used by the app to talk to Application Insights                                                                                                           | No        |
 | SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie. This is only used in the clusters, and not required locally.                                                                                   | No        |
+| DYNATRACE_LINK                     | Overrides the URL for the Dynatrace script. Only expected in Prod.                                                                                                                      | No        |
 
 ##### Additional test secrets
 
