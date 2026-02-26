@@ -51,12 +51,12 @@ const integrationMockLogger = { info: jest.fn() };
 jest.mock('axios', () => {
     const mockCreate = jest.fn(() => ({
         interceptors: {
-            request: { use: jest.fn() }
-        }
+            request: { use: jest.fn() },
+        },
     }));
     return {
         default: { create: mockCreate },
-        create: mockCreate
+        create: mockCreate,
     };
 });
 
@@ -74,21 +74,21 @@ jest.mock('axios-oauth-client', () => {
     const mockClientCredentials = jest.fn();
     return {
         default: { clientCredentials: mockClientCredentials },
-        clientCredentials: mockClientCredentials
+        clientCredentials: mockClientCredentials,
     };
 });
 
 jest.mock('@hmcts/nodejs-logging', () => ({
     Logger: {
-        getLogger: () => integrationMockLogger
-    }
+        getLogger: () => integrationMockLogger,
+    },
 }));
 
 jest.mock('../../../helpers/envUrls', () => ({
     CFT_IDAM_URL: 'https://cft-idam.mock',
     CRIME_IDAM_URL: 'https://crime-idam.mock',
     MICROSOFT_GRAPH_API_URL: 'https://graph.mock',
-    MICROSOFT_LOGIN_URL: 'https://login.mock'
+    MICROSOFT_LOGIN_URL: 'https://login.mock',
 }));
 
 describe('axiosConfig onRetry integration', () => {
@@ -108,7 +108,7 @@ describe('axiosConfig onRetry integration', () => {
         const mockRequestConfig = {
             baseURL: 'https://api.example.com',
             url: '/test-endpoint',
-            method: 'get'
+            method: 'get',
         };
 
         capturedRetryOptions.onRetry(1, new Error('Connection aborted'), mockRequestConfig);
@@ -122,7 +122,7 @@ describe('axiosConfig onRetry integration', () => {
         const mockRequestConfig = {
             baseURL: 'https://api.example.com',
             url: '/data',
-            method: 'post'
+            method: 'post',
         };
 
         capturedRetryOptions.onRetry(2, new Error('Connection aborted'), mockRequestConfig);
