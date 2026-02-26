@@ -45,7 +45,7 @@ export const cftIdamTokenApi = axios.create({
 export const crimeIdamTokenApi = axios.create({
     baseURL: CRIME_IDAM_URL,
     timeout: 10000,
-})
+});
 export const graphApi = axios.create({
     baseURL: MICROSOFT_GRAPH_API_URL,
     timeout: 10000,
@@ -81,14 +81,16 @@ const accountManagementCacheToken = tokenProvider.tokenCache(getAccountManagemen
 
 const retryOption = {
     retries: 2,
-    retryDelay: (axiosRetry.linearDelay(1000)),
+    retryDelay: axiosRetry.linearDelay(1000),
     shouldResetTimeout: true,
     retryCondition(error) {
         return error.code === 'ECONNABORTED';
     },
-     onRetry: (retryCount, error, requestConfig) => {
+    onRetry: (retryCount, error, requestConfig) => {
         const requestMethod = requestConfig.method ? requestConfig.method.toUpperCase() : '';
-        logger.info(`Retry #${retryCount} on request to ${requestConfig.baseURL} with URL ${requestMethod} ${requestConfig.url}`);
+        logger.info(
+            `Retry #${retryCount} on request to ${requestConfig.baseURL} with URL ${requestMethod} ${requestConfig.url}`
+        );
     },
 };
 
