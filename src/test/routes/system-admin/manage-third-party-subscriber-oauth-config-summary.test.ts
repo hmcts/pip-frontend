@@ -20,7 +20,7 @@ const oauthConfig = {
     clientId: 'client-id-key',
     clientSecret: 'client-secret-key',
     scopeKey: 'scope-key',
-}
+};
 
 const createThirdPartySubscriberOauthConfigStub = sinon.stub(
     ThirdPartyService.prototype,
