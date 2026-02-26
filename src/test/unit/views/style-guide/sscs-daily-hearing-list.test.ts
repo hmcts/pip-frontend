@@ -191,7 +191,7 @@ describe('SSCS Daily Hearing List Page', () => {
             expect(cellText[6].innerHTML)
                 .contains('Tribunal member 1')
                 .contains('Tribunal member 2')
-                .contains('Tribunal member 3')
+                .contains('Tribunal member 3');
         });
 
         it('should display FTA/Respondent cell data', () => {
