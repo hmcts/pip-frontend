@@ -30,7 +30,7 @@ describe('Create third-party subscriber success page', () => {
 
     it('should display success panel', () => {
         const header = htmlRes.getElementsByClassName('govuk-panel__title')[0];
-        expect(header.innerHTML).contains('third-party subscriber created', 'Panel message does not match');
+        expect(header.innerHTML).contains('Third-party subscriber created', 'Panel message does not match');
     });
 
     it('should display correct summary keys', async () => {

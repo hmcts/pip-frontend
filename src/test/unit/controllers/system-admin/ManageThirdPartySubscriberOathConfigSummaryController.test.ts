@@ -4,6 +4,7 @@ import sinon from 'sinon';
 
 // Mock the services before importing the controller
 const mockThirdPartyService = {
+    getThirdPartySubscriberOauthConfigByUserId: sinon.stub(),
     createThirdPartySubscriberOauthConfig: sinon.stub(),
     updateThirdPartySubscriberOauthConfig: sinon.stub(),
 };
@@ -53,6 +54,13 @@ const formDataUpdate = {
     tokenUrl: 'https://token.example.com',
 };
 
+const oauthConfig = {
+    user: userId,
+    clientIdKey: 'client-id-key',
+    clientSecretKey: 'client-secret-key',
+    scopeKey: 'scope-key',
+};
+
 const i18n = {
     'manage-third-party-subscriber-oauth-config-summary': {
         title: 'Manage third-party subscriber OAuth Config Summary',
@@ -82,6 +90,9 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
         mockThirdPartyService.updateThirdPartySubscriberOauthConfig.reset();
         mockUserManagementService.auditAction.reset();
         mockKeyVaultService.createOrUpdateSecret.reset();
+
+        mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId
+            .resolves(oauthConfig);
     });
 
     afterEach(() => {
@@ -151,16 +162,16 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
             await controller.post(request, response);
 
             // Verify KeyVault secrets were created
-            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, formDataCreate.scope);
-            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, formDataCreate.clientId);
-            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, formDataCreate.clientSecret);
+            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, oauthConfig.scopeKey, formDataCreate.scope);
+            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, oauthConfig.clientIdKey, formDataCreate.clientId);
+            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, oauthConfig.clientSecretKey, formDataCreate.clientSecret);
 
             // Verify audit action was called
             sinon.assert.calledWith(
                 mockUserManagementService.auditAction,
                 request.user,
                 'THIRD_PARTY_SUBSCRIBER_OAUTH_CONFIG_CREATED',
-                'Third party oauth config created successfully'
+                'Third-party OAuth config created successfully'
             );
 
             responseMock.verify();
