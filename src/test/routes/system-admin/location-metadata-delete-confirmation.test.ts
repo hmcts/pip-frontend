@@ -28,7 +28,10 @@ describe('Location metadata delete confirmation page', () => {
             };
             await request(app)
                 .get(PAGE_URL + locationId)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete location metadata');
+                });
         });
     });
 
@@ -49,14 +52,17 @@ describe('Location metadata delete confirmation page', () => {
                 });
         });
 
-        test('should render location metadata delete confirmation page with error', async () => {
+        test('should render location metadata delete confirmation page with error if no body provided', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',
             };
             await request(app)
                 .post(PAGE_URL + locationIdWithFailedRequest)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete location metadata');
+                });
         });
     });
 });

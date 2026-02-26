@@ -14,7 +14,7 @@ export default class ReferenceDataUploadController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.query?.showerror === 'true') {
+        if (req.query?.showerror === 'true' || !req.body) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const errors = {

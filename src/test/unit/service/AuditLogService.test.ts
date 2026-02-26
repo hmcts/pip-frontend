@@ -90,6 +90,13 @@ describe('Audit Log Service', () => {
         expect(response).to.contain('&filterDate=2024-10-21');
     });
 
+    it('should return empty string when no filter provided', () => {
+        // Have to parse JSON in this way to fully replicate req.body
+        const response = auditLogService.generateFilterKeyValues(undefined);
+
+        expect(response).to.equal('');
+    });
+
     it('should handle filter clearing of audit action', () => {
         const testClear = {
             actions: 'USER_MANAGEMENT_VIEW,REFERENCE_DATA_UPLOAD',

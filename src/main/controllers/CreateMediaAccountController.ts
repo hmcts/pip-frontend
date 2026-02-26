@@ -13,27 +13,31 @@ export default class CreateMediaAccountController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const formValidation = createAccountService.validateFormFields(
-            req.body,
-            req.file,
-            req.lng,
-            'create-media-account'
-        );
-        const isValidForm = Object.values(formValidation).every(o => o.message === null);
-
-        if (isValidForm) {
-            const response = await createAccountService.createMediaApplication(req.body, req.file);
-            fileHandlingService.removeFile(req.file['originalname']);
-            if (response) {
-                res.redirect('account-request-submitted');
-            } else {
-                res.render('create-media-account', req.i18n.getDataByLanguage(req.lng)['create-media-account']);
-            }
+        if (!req.body) {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
-            res.render('create-media-account', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-media-account']),
-                formErrors: formValidation,
-            });
+            const formValidation = createAccountService.validateFormFields(
+                req.body,
+                req.file,
+                req.lng,
+                'create-media-account'
+            );
+            const isValidForm = Object.values(formValidation).every(o => o.message === null);
+
+            if (isValidForm) {
+                const response = await createAccountService.createMediaApplication(req.body, req.file);
+                fileHandlingService.removeFile(req.file['originalname']);
+                if (response) {
+                    res.redirect('account-request-submitted');
+                } else {
+                    res.render('create-media-account', req.i18n.getDataByLanguage(req.lng)['create-media-account']);
+                }
+            } else {
+                res.render('create-media-account', {
+                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['create-media-account']),
+                    formErrors: formValidation,
+                });
+            }
         }
     }
 }

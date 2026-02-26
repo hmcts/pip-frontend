@@ -10,16 +10,41 @@ describe('Subscriptions Add List Type', () => {
         test('should return subscription add list page', async () => {
             await request(app)
                 .get('/subscription-add-list')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Select List Types');
+                });
         });
     });
 
     describe('on POST', () => {
-        test('should return subscription add list type page', async () => {
+        test('should return subscription add list type language page', async () => {
             await request(app)
                 .post('/subscription-add-list')
                 .send({ 'list-selections[]': 'test' })
-                .expect(res => expect(res.status).to.equal(302));
+                .expect(res => {
+                    expect(res.status).to.equal(302);
+                    expect(res.headers['location']).to.equal('subscription-add-list-language');
+                });
+        });
+
+        test('should return error page if no body provided', async () => {
+            await request(app)
+                .post('/subscription-add-list')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
+        });
+
+        test('should return subscription add list type page', async () => {
+            await request(app)
+                .post('/subscription-add-list')
+                .send({})
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Select List Types');
+                });
         });
     });
 });

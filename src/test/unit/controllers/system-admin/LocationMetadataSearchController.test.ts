@@ -40,7 +40,7 @@ describe('Location metadata search controller', () => {
             };
             responseMock.expects('render').once().withArgs('system-admin/location-metadata-search', expectedData);
 
-            locationMetadataSearchController.get(request, response).then(() => {
+            return locationMetadataSearchController.get(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -55,7 +55,7 @@ describe('Location metadata search controller', () => {
 
             responseMock.expects('redirect').once().withArgs('location-metadata-manage?locationId=123');
 
-            locationMetadataSearchController.post(request, response).then(() => {
+            return locationMetadataSearchController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -74,7 +74,7 @@ describe('Location metadata search controller', () => {
             };
             responseMock.expects('render').once().withArgs('system-admin/location-metadata-search', expectedData);
 
-            locationMetadataSearchController.post(request, response).then(() => {
+            return locationMetadataSearchController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });
@@ -92,7 +92,26 @@ describe('Location metadata search controller', () => {
             };
             responseMock.expects('render').once().withArgs('system-admin/location-metadata-search', expectedData);
 
-            locationMetadataSearchController.post(request, response).then(() => {
+            return locationMetadataSearchController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
+        it('should render location metadata search page with error if body is undefined', () => {
+            const request = mockRequest(i18n);
+            request['query'] = { locationId: '123' };
+            request['body'] = undefined;
+            const responseMock = sinon.mock(response);
+
+            const expectedData = {
+                ...i18n['location-metadata-search'],
+                autocompleteList,
+                invalidInputError: true,
+                noResultsError: false,
+            };
+            responseMock.expects('render').once().withArgs('system-admin/location-metadata-search', expectedData);
+
+            return locationMetadataSearchController.post(request, response).then(() => {
                 responseMock.verify();
             });
         });

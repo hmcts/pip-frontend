@@ -21,58 +21,13 @@ describe('Media Account Rejection Reasons Controller', () => {
         email: 'test@test.com',
         employer: 'HMCTS',
     };
-    const getApplicationStub = sinon.stub(MediaAccountApplicationService.prototype, 'getApplicationById');
-    describe('GET request', () => {
-        it('should render the media account rejection reasons page', () => {
-            getApplicationStub.withArgs(applicantId).resolves(applicantData);
 
-            const response = {
-                render: () => {
-                    return '';
-                },
-            } as unknown as Response;
-            const responseMock = sinon.mock(response);
-
-            const request = mockRequest(i18n);
-            request.query = { applicantId: applicantId };
-
-            const { getDataByLanguage } = request.i18n;
-            const expectedData = {
-                ...cloneDeep(getDataByLanguage(request.lng)['media-account-rejection-reasons']),
-                applicantId: applicantId,
-                rejectReasons,
-                showError: false,
-            };
-
-            responseMock.expects('render').once().withArgs('admin/media-account-rejection-reasons', expectedData);
-            mediaAccountRejectionReasonsController.get(request, response).then(() => {
-                responseMock.verify();
-            });
-        });
-
-        it('should render the error page if no applicant ID', () => {
-            const applicantId = '';
-            const response = {
-                render: () => {
-                    return '';
-                },
-            } as unknown as Response;
-            const responseMock = sinon.mock(response);
-
-            const request = mockRequest(i18n);
-            request.query = { applicantId };
-            responseMock.expects('render').once().withArgs('error', i18n.error);
-            mediaAccountRejectionReasonsController.get(request, response).then(() => {
-                responseMock.verify();
-            });
-        });
-    });
     describe('POST requests', () => {
         const mediaAccountApplicationStub = sinon.stub(
             MediaAccountApplicationService.prototype,
             'getApplicationByIdAndStatus'
         );
-        it('should return a valid response with valid applicantId and valid reasons', () => {
+        it('should return a valid response with valid applicantId and valid reasons', async () => {
             const request = mockRequest(i18n);
             const applicantId = 'validApplicantId';
             mediaAccountApplicationStub.withArgs(applicantId, 'PENDING').resolves(applicantData);
@@ -92,11 +47,10 @@ describe('Media Account Rejection Reasons Controller', () => {
                 applicantId,
                 reasons,
             });
-            mediaAccountRejectionReasonsController.post(request, response).then(() => {
-                responseMock.verify();
-            });
+            await mediaAccountRejectionReasonsController.post(request, response);
+            responseMock.verify();
         });
-        it('should return a valid response with invalid applicantId and invalid reasons', () => {
+        it('should return a valid response with invalid applicantId and invalid reasons', async () => {
             const request = mockRequest(i18n);
             const response = {
                 render: () => {
@@ -113,12 +67,11 @@ describe('Media Account Rejection Reasons Controller', () => {
 
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('admin/media-account-rejection-reasons', expectedData);
-            mediaAccountRejectionReasonsController.post(request, response).then(() => {
-                responseMock.verify();
-            });
+            await mediaAccountRejectionReasonsController.post(request, response);
+            responseMock.verify();
         });
 
-        it('should return an invalid response with valid applicantId and invalid reasons', () => {
+        it('should return an invalid response with valid applicantId and invalid reasons', async () => {
             const request = mockRequest(i18n);
             const response = {
                 render: () => {
@@ -137,9 +90,29 @@ describe('Media Account Rejection Reasons Controller', () => {
                 showError: true,
             };
             responseMock.expects('render').once().withArgs('admin/media-account-rejection-reasons', expectedData);
-            mediaAccountRejectionReasonsController.post(request, response).then(() => {
-                responseMock.verify();
-            });
+            await mediaAccountRejectionReasonsController.post(request, response);
+            responseMock.verify();
+        });
+
+        it('should return an invalid response when no body is present', async () => {
+            const request = mockRequest(i18n);
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+            const responseMock = sinon.mock(response);
+            request.body = undefined;
+            const { getDataByLanguage } = request.i18n;
+            const expectedData = {
+                ...cloneDeep(getDataByLanguage(request.lng)['media-account-rejection-reasons']),
+                applicantId: undefined,
+                rejectReasons,
+                showError: true,
+            };
+            responseMock.expects('render').once().withArgs('admin/media-account-rejection-reasons', expectedData);
+            await mediaAccountRejectionReasonsController.post(request, response);
+            responseMock.verify();
         });
     });
 });

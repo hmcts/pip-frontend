@@ -23,7 +23,10 @@ describe('Subscriptions Configure List', () => {
 
             await request(app)
                 .get('/subscription-configure-list')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Select List Types');
+                });
         });
     });
 
@@ -34,6 +37,16 @@ describe('Subscriptions Configure List', () => {
                 .send({ 'list-selections[]': '' })
                 .expect(res => {
                     expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Select List Types');
+                });
+        });
+
+        test('should render error page when no body is provided', async () => {
+            await request(app)
+                .post('/subscription-configure-list')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
                 });
         });
 
@@ -43,6 +56,7 @@ describe('Subscriptions Configure List', () => {
                 .send({ 'list-selections[]': 'test' })
                 .expect(res => {
                     expect(res.status).to.equal(302);
+                    expect(res.headers['location']).to.equal('subscription-configure-list-language');
                 });
         });
     });

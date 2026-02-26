@@ -40,7 +40,10 @@ describe('Bulk create media accounts', () => {
             app.request['file'] = { originalname: fileName1 };
             await request(app)
                 .get(PAGE_URL)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Bulk create media accounts');
+                });
         });
     });
 
@@ -49,7 +52,7 @@ describe('Bulk create media accounts', () => {
             app.request['file'] = { originalname: fileName1 };
             await request(app)
                 .post(PAGE_URL)
-                .send()
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('bulk-create-media-accounts-confirmation');
@@ -60,8 +63,20 @@ describe('Bulk create media accounts', () => {
             app.request['file'] = { originalname: fileName2 };
             await request(app)
                 .post(PAGE_URL)
-                .send()
-                .expect(res => expect(res.status).to.equal(200));
+                .send({})
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Bulk create media accounts');
+                });
+        });
+
+        test('should render error page if no body is provided', async () => {
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
         });
     });
 });

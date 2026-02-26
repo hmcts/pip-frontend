@@ -11,34 +11,11 @@ const mediaAccountApplicationService = new MediaAccountApplicationService();
 const userManagementService = new UserManagementService();
 
 export default class MediaAccountRejectionController {
-    public async get(req: PipRequest, res: Response): Promise<void> {
-        const reasons = req.body['reasons'];
-        const applicantId = req.body['applicantId'];
-        const adminId = req.user['userId'];
-
-        const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
-            applicantId,
-            'PENDING',
-            adminId
-        );
-
-        if (applicantData) {
-            res.render('admin/media-account-rejection', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['media-account-rejection']),
-                applicantData: applicantData,
-                reasons: reasons,
-            });
-            return;
-        }
-
-        res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-    }
-
     public async post(req: PipRequest, res: Response): Promise<void> {
         const applicantId = req.query?.applicantId as string;
         const adminId = req.user['userId'];
 
-        if (!validate(applicantId)) {
+        if (!validate(applicantId) || !req.body) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const rejected = req.body['reject-confirmation'];

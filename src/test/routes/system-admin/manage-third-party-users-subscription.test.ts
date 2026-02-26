@@ -27,7 +27,10 @@ describe('Manage third party users subscription', () => {
         test('should return manage third party users subscription page', async () => {
             await request(app)
                 .get('/manage-third-party-users/subscriptions?userId=1234-1234')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Manage third party subscriptions');
+                });
         });
     });
 
@@ -44,7 +47,19 @@ describe('Manage third party users subscription', () => {
                     channel: 'CHANNEL_A',
                     'list-selections[]': ['LIST_SELECTION'],
                 })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Third Party Subscriptions Updated');
+                });
+        });
+
+        test('should return error page if no body provided', async () => {
+            await request(app)
+                .post('/manage-third-party-users/subscriptions')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
         });
     });
 });

@@ -115,5 +115,24 @@ describe('Bulk Unsubscribe Confirmation Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render the bulk unsubscribe confirmation page with error if no body provided', () => {
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+
+            const expectedData = {
+                ...i18n[bulkDeleteConfirmationUrl],
+                ...caseSubscriptions,
+                ...locationSubscriptions,
+                subscriptions: [],
+                noOptionSelectedError: true,
+            };
+
+            responseMock.expects('render').once().withArgs(bulkDeleteConfirmationUrl, expectedData);
+
+            bulkDeleteSubscriptionsConfirmationController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });

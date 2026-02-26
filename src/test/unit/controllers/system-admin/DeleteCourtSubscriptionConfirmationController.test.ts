@@ -132,4 +132,21 @@ describe('Delete Court Subscription Controller', () => {
             responseMock.verify();
         });
     });
+
+    it('should render error page if no body is provided', () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request['user'] = user;
+        request.body = undefined;
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error');
+        return deleteCourtSubscriptionConfirmationController.post(request, response, pageName).then(() => {
+            responseMock.verify();
+        });
+    });
 });
