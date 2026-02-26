@@ -91,8 +91,7 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
         mockUserManagementService.auditAction.reset();
         mockKeyVaultService.createOrUpdateSecret.reset();
 
-        mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId
-            .resolves(oauthConfig);
+        mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId.resolves(oauthConfig);
     });
 
     afterEach(() => {
@@ -162,9 +161,21 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
             await controller.post(request, response);
 
             // Verify KeyVault secrets were created
-            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, oauthConfig.scopeKey, formDataCreate.scope);
-            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, oauthConfig.clientIdKey, formDataCreate.clientId);
-            sinon.assert.calledWith(mockKeyVaultService.createOrUpdateSecret, oauthConfig.clientSecretKey, formDataCreate.clientSecret);
+            sinon.assert.calledWith(
+                mockKeyVaultService.createOrUpdateSecret,
+                oauthConfig.scopeKey,
+                formDataCreate.scope
+            );
+            sinon.assert.calledWith(
+                mockKeyVaultService.createOrUpdateSecret,
+                oauthConfig.clientIdKey,
+                formDataCreate.clientId
+            );
+            sinon.assert.calledWith(
+                mockKeyVaultService.createOrUpdateSecret,
+                oauthConfig.clientSecretKey,
+                formDataCreate.clientSecret
+            );
 
             // Verify audit action was called
             sinon.assert.calledWith(
