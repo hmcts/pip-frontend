@@ -1,6 +1,37 @@
 import config from 'config';
 import sinon from 'sinon';
 
+let capturedRetryOptions: any = null;
+const integrationMockLogger = { info: jest.fn() };
+
+jest.mock('axios', () => {
+    const mockCreate = jest.fn(() => ({
+        interceptors: {
+            request: { use: jest.fn() },
+        },
+    }));
+    return {
+        default: { create: mockCreate },
+        create: mockCreate,
+    };
+});
+
+jest.mock('axios-retry', () => {
+    const mockLinearDelay = jest.fn((ms: number) => () => ms);
+    const mockFn: any = jest.fn((_: any, options: any) => {
+        capturedRetryOptions = options;
+    });
+    mockFn.linearDelay = mockLinearDelay;
+    mockFn.default = mockFn;
+    return mockFn;
+});
+
+jest.mock('@hmcts/nodejs-logging', () => ({
+    Logger: {
+        getLogger: () => integrationMockLogger,
+    },
+}));
+
 describe('Testing environment variables', () => {
     process.env.ALLOW_CONFIG_MUTATIONS = 'true';
     const configSpy = sinon.spy(config, 'get');
@@ -45,63 +76,12 @@ describe('Testing environment variables', () => {
     });
 });
 
-let capturedRetryOptions: any = null;
-const integrationMockLogger = { info: jest.fn() };
-
-jest.mock('axios', () => {
-    const mockCreate = jest.fn(() => ({
-        interceptors: {
-            request: { use: jest.fn() },
-        },
-    }));
-    return {
-        default: { create: mockCreate },
-        create: mockCreate,
-    };
-});
-
-jest.mock('axios-retry', () => {
-    const mockLinearDelay = jest.fn((ms: number) => () => ms);
-    const mockFn: any = jest.fn((_: any, options: any) => {
-        capturedRetryOptions = options;
-    });
-    mockFn.linearDelay = mockLinearDelay;
-    mockFn.default = mockFn;
-    return mockFn;
-});
-
-jest.mock('axios-oauth-client', () => {
-    const mockClientCredentials = jest.fn();
-    return {
-        default: { clientCredentials: mockClientCredentials },
-        clientCredentials: mockClientCredentials,
-    };
-});
-
-jest.mock('@hmcts/nodejs-logging', () => ({
-    Logger: {
-        getLogger: () => integrationMockLogger,
-    },
-}));
-
-jest.mock('../../../helpers/envUrls', () => ({
-    CFT_IDAM_URL: 'https://cft-idam.mock',
-    CRIME_IDAM_URL: 'https://crime-idam.mock',
-    MICROSOFT_GRAPH_API_URL: 'https://graph.mock',
-    MICROSOFT_LOGIN_URL: 'https://login.mock',
-}));
-
 describe('axiosConfig onRetry integration', () => {
     beforeEach(async () => {
         jest.resetModules();
         jest.clearAllMocks();
         capturedRetryOptions = null;
-        process.env.INSECURE = 'true';
         await import('../../../../../main/resources/requests/utils/axiosConfig');
-    });
-
-    afterEach(() => {
-        delete process.env.INSECURE;
     });
 
     it('should call logger.info with correct message when onRetry is triggered', () => {
