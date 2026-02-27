@@ -6988,6 +6988,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios-retry@npm:^4.5.0":
+  version: 4.5.0
+  resolution: "axios-retry@npm:4.5.0"
+  dependencies:
+    is-retry-allowed: "npm:^2.2.0"
+  peerDependencies:
+    axios: 0.x || 1.x
+  checksum: 10/39ed05248757387a44dde94255df8ad54088aece50574c6ce9a1cd02b9e40252f7390285cea54ded04e33a3a549e462d5bdacc8d3178221b7cd40e8aff09ba46
+  languageName: node
+  linkType: hard
+
 "axios-token-interceptor@npm:^0.2.0":
   version: 0.2.0
   resolution: "axios-token-interceptor@npm:0.2.0"
@@ -11544,6 +11555,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-retry-allowed@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "is-retry-allowed@npm:2.2.0"
+  checksum: 10/6d8685530871f0b040346cc72322d90122473e921149affa16de363d6c2a6e46bc76abdfaac3259b93994ec8e7f70fbe67bbb080190e440533ff728e6a64494d
+  languageName: node
+  linkType: hard
+
 "is-stream@npm:^2.0.0":
   version: 2.0.1
   resolution: "is-stream@npm:2.0.1"
@@ -15326,6 +15344,7 @@ __metadata:
     axe-playwright: "npm:^2.2.2"
     axios: "npm:^1.13.2"
     axios-oauth-client: "npm:^2.2.0"
+    axios-retry: "npm:^4.5.0"
     axios-token-interceptor: "npm:^0.2.0"
     babel-loader: "npm:^10.0.0"
     chai: "npm:^6.2.0"

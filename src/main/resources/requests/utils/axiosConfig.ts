@@ -1,9 +1,13 @@
 import axios, { InternalAxiosRequestConfig } from 'axios';
+import axiosRetry from 'axios-retry';
 import oauth from 'axios-oauth-client';
 import tokenProvider, { TokenCacheOptions } from 'axios-token-interceptor';
 import config from 'config';
 import { CFT_IDAM_URL, CRIME_IDAM_URL, MICROSOFT_GRAPH_API_URL, MICROSOFT_LOGIN_URL } from '../../../helpers/envUrls';
 import process from 'process';
+import { Logger } from '@hmcts/nodejs-logging';
+
+const logger = Logger.getLogger('axiosConfig');
 
 const tenantId = process.env.TENANT_ID ? process.env.TENANT_ID : config.get('secrets.pip-ss-kv.TENANT_ID');
 const tokenUrl = `${MICROSOFT_LOGIN_URL}/${tenantId}/oauth2/v2.0/token`;
@@ -74,6 +78,24 @@ const getMaxAgeOfCache = {
 
 const dataManagementCacheToken = tokenProvider.tokenCache(getDataManagementCredentials as any, getMaxAgeOfCache);
 const accountManagementCacheToken = tokenProvider.tokenCache(getAccountManagementCredentials as any, getMaxAgeOfCache);
+
+const retryOption = {
+    retries: 2,
+    retryDelay: axiosRetry.linearDelay(1000),
+    shouldResetTimeout: true,
+    retryCondition(error) {
+        return error.code === 'ECONNABORTED';
+    },
+    onRetry: (retryCount, error, requestConfig) => {
+        const requestMethod = requestConfig.method ? requestConfig.method.toUpperCase() : '';
+        logger.info(
+            `Retry #${retryCount} on request to ${requestConfig.baseURL} with URL ${requestMethod} ${requestConfig.url}`
+        );
+    },
+};
+
+axiosRetry(accountManagementApi, retryOption);
+axiosRetry(dataManagementApi, retryOption);
 
 if (!process.env.INSECURE) {
     dataManagementApi.interceptors.request.use(async (config: InternalAxiosRequestConfig<any>) => {
