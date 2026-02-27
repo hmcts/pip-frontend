@@ -35,6 +35,7 @@ const mockThirdPartySubscriptionsBody = [
 const thirdPartySubscriberEndpoint = '/third-party';
 const thirdPartySubscriptionEndpoint = '/third-party/subscription';
 const thirdPartySubscriberOauthConfigEndpoint = '/third-party/configuration';
+const thirdPartyHealthCheckEndpoint = `${thirdPartySubscriberOauthConfigEndpoint}/healthcheck`;
 
 let postStub = sinon.stub(accountManagementApi, 'post');
 let putStub = sinon.stub(accountManagementApi, 'put');
@@ -368,6 +369,47 @@ describe('Third-party Requests', () => {
                 '1234'
             );
             expect(response).toBe(null);
+        });
+    });
+
+    describe('Third-party config health check', () => {
+        const idtoUse = '123';
+
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        it('should return true on successful health check', async () => {
+            getStub.withArgs(`${thirdPartyHealthCheckEndpoint}/${idtoUse}`).resolves({
+                status: 200,
+                data: 'Successfully performed healthcheck on third-party user',
+            });
+            const response = await thirdPartyRequests.thirdPartyConfigurationHealthCheck(idtoUse, '1234');
+            expect(response).toBeTruthy();
+        });
+
+        it('should return false on error message', async () => {
+            getStub.withArgs(`${thirdPartyHealthCheckEndpoint}/${idtoUse}`).rejects(errorMessage);
+            const response = await thirdPartyRequests.thirdPartyConfigurationHealthCheck(idtoUse, '1234');
+            expect(response).toBeFalsy();
+        });
+
+        it('should return error message on 500 error response', async () => {
+            const responseMessage = 'Internal server error';
+            const errorResponse = {
+                response: {
+                    status: 500,
+                    data: {
+                        message: responseMessage,
+                        timestamp: '2026-01-01T00:00:00Z',
+                    },
+                },
+            };
+
+            getStub.withArgs(`${thirdPartyHealthCheckEndpoint}/${idtoUse}`).rejects(errorResponse);
+            const response = await thirdPartyRequests.thirdPartyConfigurationHealthCheck(idtoUse, '1234');
+            expect(response).toStrictEqual(responseMessage);
         });
     });
 });

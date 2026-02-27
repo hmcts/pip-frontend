@@ -1041,6 +1041,11 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.manageThirdPartySubscribersViewController.get
     );
+    app.post(
+        '/manage-third-party-subscribers/view',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscribersViewController.post
+    );
     app.get(
         '/create-third-party-subscriber',
         isPermittedSystemAdmin,
