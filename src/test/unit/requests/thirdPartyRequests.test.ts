@@ -370,4 +370,39 @@ describe('Third-party Requests', () => {
             expect(response).toBe(null);
         });
     });
+
+    describe('Update third party subscriber status', () => {
+        const userId = '123';
+        const status = 'Active';
+        const adminUserId = '456';
+
+        let patchStub;
+
+        beforeEach(() => {
+            sinon.restore();
+            patchStub = sinon.stub(accountManagementApi, 'patch');
+        });
+
+        it('should return true on success', async () => {
+            patchStub
+                .withArgs(`/third-party/${userId}/status`, status, {
+                    headers: { 'x-requester-id': adminUserId, 'Content-Type': 'application/json' },
+                })
+                .resolves({ status: 200 });
+            const response = await thirdPartyRequests.updateThirdPartySubscriberStatus(userId, status, adminUserId);
+            expect(response).toBe(true);
+        });
+
+        it('should return false on error response', async () => {
+            patchStub.withArgs(`/third-party/${userId}/status`, status, sinon.match.any).rejects(errorResponse);
+            const response = await thirdPartyRequests.updateThirdPartySubscriberStatus(userId, status, adminUserId);
+            expect(response).toBe(false);
+        });
+
+        it('should return false on error message', async () => {
+            patchStub.withArgs(`/third-party/${userId}/status`, status, sinon.match.any).rejects(errorMessage);
+            const response = await thirdPartyRequests.updateThirdPartySubscriberStatus(userId, status, adminUserId);
+            expect(response).toBe(false);
+        });
+    });
 });

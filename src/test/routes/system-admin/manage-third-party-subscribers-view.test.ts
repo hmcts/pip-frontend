@@ -9,7 +9,7 @@ describe('Manage third party subscribers view', () => {
     describe('on GET', () => {
         const userId = '1234-1234';
 
-        const mockUser = { userId: userId };
+        const mockUser = { userId: userId, status: 'Active' };
 
         expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 

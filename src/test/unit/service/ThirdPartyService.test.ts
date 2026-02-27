@@ -291,4 +291,28 @@ describe('Third Party Service tests', () => {
             expect(result).to.be.null;
         });
     });
+
+    describe('updateThirdPartySubscriberStatus', () => {
+        const userId = 'user123';
+        const adminUserId = 'admin456';
+        const updateStatusStub = sinon.stub(ThirdPartyRequests.prototype, 'updateThirdPartySubscriberStatus');
+        updateStatusStub.withArgs(userId, 'Active', adminUserId).resolves(true);
+        updateStatusStub.withArgs(userId, 'Suspended', adminUserId).resolves(false);
+        updateStatusStub.withArgs(userId, 'Unknown', adminUserId).resolves(null);
+
+        it('should return true if status update succeeds', async () => {
+            const result = await thirdPartyService.updateThirdPartySubscriberStatus(userId, 'Active', adminUserId);
+            expect(result).to.be.true;
+        });
+
+        it('should return false if status update fails', async () => {
+            const result = await thirdPartyService.updateThirdPartySubscriberStatus(userId, 'Suspended', adminUserId);
+            expect(result).to.be.false;
+        });
+
+        it('should return null if status update returns null', async () => {
+            const result = await thirdPartyService.updateThirdPartySubscriberStatus(userId, 'Unknown', adminUserId);
+            expect(result).to.be.null;
+        });
+    });
 });

@@ -86,6 +86,8 @@ const systemAdminRoutes = [
     { path: '/manage-third-party-subscriber-oauth-config' },
     { path: '/manage-third-party-subscriber-oauth-config-summary' },
     { path: '/manage-third-party-subscriber-oauth-config-success' },
+    { path: '/manage-third-party-subscriber-status', parameter: `?userId=${userId}` },
+    { path: '/manage-third-party-subscriber-status-success' },
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');

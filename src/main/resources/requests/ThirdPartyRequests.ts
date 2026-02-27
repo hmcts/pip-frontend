@@ -169,4 +169,27 @@ export class ThirdPartyRequests {
         }
         return null;
     }
+
+    /**
+     * Request to account management to update the status of a third party subscriber.
+     * @param userId The ID of the third party subscriber whose status is to be updated.
+     * @param status The new status for the subscriber.
+     * @param adminUserId The user ID of the admin performing the update.
+     */
+    public async updateThirdPartySubscriberStatus(
+        userId: string,
+        status: string,
+        adminUserId: string
+    ): Promise<boolean> {
+        try {
+            const response = await accountManagementApi.patch(`/third-party/${userId}/status`, status, {
+                headers: { 'x-requester-id': adminUserId, 'Content-Type': 'application/json' },
+            });
+            logger.info('Third party subscriber status updated.');
+            return response.status === 200;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `update third party subscriber status for user ID ${userId}`);
+        }
+        return false;
+    }
 }
