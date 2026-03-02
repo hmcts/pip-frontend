@@ -6,7 +6,7 @@ import { ThirdPartyRequests } from '../../../../main/resources/requests/ThirdPar
 
 const i18n = {
     'delete-third-party-subscriber-confirmation': {
-        title: 'Delete third party subscriber confirmation',
+        title: 'Delete third-party subscriber confirmation',
     },
 };
 
@@ -37,7 +37,7 @@ deleteSubscriberStub.withArgs(userIdWithFailedRequest, adminUserId).resolves(nul
 
 const deleteThirdPartySubscriberConfirmationController = new DeleteThirdPartySubscriberConfirmationController();
 
-describe('Delete third party subscriber confirmation controller', () => {
+describe('Delete third-party subscriber confirmation controller', () => {
     request.user = {
         userId: adminUserId,
         roles: 'SYSTEM_ADMIN',
@@ -46,7 +46,7 @@ describe('Delete third party subscriber confirmation controller', () => {
     describe('GET request', () => {
         request.query = { userId: userId };
 
-        it('should render the delete third party subscriber confirmation page', async () => {
+        it('should render the delete third-party subscriber confirmation page', async () => {
             const responseMock = sinon.mock(response);
 
             const expectedOptions = {
@@ -68,7 +68,7 @@ describe('Delete third party subscriber confirmation controller', () => {
     });
 
     describe('POST request', () => {
-        it('should render the delete third party subscriber confirmation page with no option error', async () => {
+        it('should render the delete third-party subscriber confirmation page with no option error', async () => {
             request.body = { user: userId };
             const responseMock = sinon.mock(response);
 
@@ -89,7 +89,7 @@ describe('Delete third party subscriber confirmation controller', () => {
             responseMock.verify();
         });
 
-        it('should redirect to delete third party subscriber success page', async () => {
+        it('should redirect to delete third-party subscriber success page', async () => {
             request.body = { user: userId, 'delete-subscriber-confirm': 'yes' };
             const responseMock = sinon.mock(response);
 
@@ -99,7 +99,7 @@ describe('Delete third party subscriber confirmation controller', () => {
             responseMock.verify();
         });
 
-        it('should render the delete third party subscriber confirmation page with failed request error', async () => {
+        it('should render the delete third-party subscriber confirmation page with failed request error', async () => {
             request.body = { user: userIdWithFailedRequest, 'delete-subscriber-confirm': 'yes' };
             const responseMock = sinon.mock(response);
 
@@ -120,7 +120,7 @@ describe('Delete third party subscriber confirmation controller', () => {
             responseMock.verify();
         });
 
-        it('should redirect to manage third party subscriber view page', async () => {
+        it('should redirect to manage third-party subscriber view page', async () => {
             request.body = { user: userId, 'delete-subscriber-confirm': 'no' };
             const responseMock = sinon.mock(response);
 

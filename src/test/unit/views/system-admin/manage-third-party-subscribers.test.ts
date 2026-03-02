@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 
-describe('Manage third party subscribers', () => {
+describe('Manage third-party subscribers', () => {
     const PAGE_URL = '/manage-third-party-subscribers';
     let htmlRes: Document;
 
@@ -41,7 +41,7 @@ describe('Manage third party subscribers', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Manage third party subscribers', 'Could not find the header');
+        expect(header[0].innerHTML).contains('Manage third-party subscribers', 'Could not find the header');
     });
 
     it('should display create new subscriber button', () => {

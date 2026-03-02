@@ -1,9 +1,9 @@
 {
-    "title": "Delete User - Third party subscriber deleted - Court and Tribunal Hearings - GOV.UK",
-    "header": "Third party subscriber deleted",
+    "title": "Delete User - Third-party subscriber deleted - Court and Tribunal Hearings - GOV.UK",
+    "header": "Third-party subscriber deleted",
     "panelTitle": "Success",
-    "panelBodyMessage": "The third party subscriber, associated subscriptions and Oauth configuration have been removed.",
+    "panelBodyMessage": "The third-party subscriber, associated subscriptions and Oauth configuration have been removed.",
     "nextMessage": "What do you want to do next?",
-    "manageThirdPartySubscriber": "Manage another third party subscriber",
+    "manageThirdPartySubscriber": "Manage another third-party subscriber",
     "home": "Home"
 }

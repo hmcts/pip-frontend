@@ -4,11 +4,7 @@ import sinon from 'sinon';
 
 // Mock the services before importing the controller
 const mockThirdPartyService = {
-    getThirdPartySubscriberById: sinon.stub(),
     validateThirdPartySubscriberOauthConfigFormFields: sinon.stub(),
-};
-
-const mockThirdPartyRequests = {
     getThirdPartySubscriberOauthConfigByUserId: sinon.stub(),
 };
 
@@ -22,10 +18,6 @@ jest.mock('../../../../main/service/ThirdPartyService', () => ({
     ThirdPartyService: jest.fn().mockImplementation(() => mockThirdPartyService),
 }));
 
-jest.mock('../../../../main/resources/requests/ThirdPartyRequests', () => ({
-    ThirdPartyRequests: jest.fn().mockImplementation(() => mockThirdPartyRequests),
-}));
-
 jest.mock('../../../../main/service/KeyVaultService', () => ({
     KeyVaultService: jest.fn().mockImplementation(() => mockKeyVaultService),
 }));
@@ -34,17 +26,18 @@ import ManageThirdPartySubscriberOauthConfigController from '../../../../main/co
 
 const userId = 'test-user-123';
 const adminUserId = 'admin-456';
-
-const mockThirdPartySubscriber = {
-    name: 'TestSubscriber',
-    userId: userId,
-};
+const scopeKey = 'TestSubscriber-test-user-123-scope';
+const scopeValue = 'read:data write:data';
+const clientIdKey = 'TestSubscriber-test-user-123-client-id';
+const clientIdValue = 'client-123';
+const clientSecretKey = 'TestSubscriber-test-user-123-client-secret';
+const clientSecretValue = 'secret-123';
 
 const existingConfigData = {
     user: userId,
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
+    scopeKey: scopeKey,
+    clientIdKey: clientIdKey,
+    clientSecretKey: clientSecretKey,
     authUrl: 'https://auth.example.com',
     tokenUrl: 'https://token.example.com',
 };
@@ -52,37 +45,32 @@ const existingConfigData = {
 const newConfigFormData = {
     user: userId,
     createConfig: 'true',
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
 };
 
 const formDataWithValues = {
     ...existingConfigData,
-    scopeValue: 'read:data write:data',
-    clientId: 'client-123',
+    scope: scopeValue,
+    clientId: clientIdValue,
+    clientSecret: clientSecretValue,
 };
 
 const postFormData = {
     user: userId,
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data',
-    clientId: 'client-123',
-    clientSecret: 'secret-456',
+    scope: scopeValue,
+    clientId: clientIdValue,
+    clientSecret: clientSecretValue,
     authUrl: 'https://auth.example.com',
     tokenUrl: 'https://token.example.com',
 };
 
 const formErrors = {
-    scopeValueError: 'Scope is required',
+    scopeError: 'Scope is required',
     clientIdError: 'Client ID is required',
 };
 
 const i18n = {
     'manage-third-party-subscriber-oauth-config': {
-        title: 'Manage Third Party Subscriber OAuth Config',
+        title: 'Manage third-party subscriber OAuth Config',
     },
 };
 
@@ -105,8 +93,7 @@ describe('ManageThirdPartySubscriberOauthConfigController', () => {
         controller = new ManageThirdPartySubscriberOauthConfigController();
 
         // Reset all stubs
-        mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId.reset();
-        mockThirdPartyService.getThirdPartySubscriberById.reset();
+        mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId.reset();
         mockThirdPartyService.validateThirdPartySubscriberOauthConfigFormFields.reset();
         mockKeyVaultService.createKeyVaultSecretName.reset();
         mockKeyVaultService.getSecret.reset();
@@ -144,14 +131,12 @@ describe('ManageThirdPartySubscriberOauthConfigController', () => {
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
-            mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId
+            mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId
                 .withArgs(userId, adminUserId)
                 .resolves(existingConfigData);
-            mockThirdPartyService.getThirdPartySubscriberById
-                .withArgs(userId, adminUserId)
-                .resolves(mockThirdPartySubscriber);
             mockKeyVaultService.getSecret.withArgs(existingConfigData.scopeKey).resolves('read:data write:data');
             mockKeyVaultService.getSecret.withArgs(existingConfigData.clientIdKey).resolves('client-123');
+            mockKeyVaultService.getSecret.withArgs(existingConfigData.clientSecretKey).resolves('secret-123');
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
@@ -174,21 +159,9 @@ describe('ManageThirdPartySubscriberOauthConfigController', () => {
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
-            mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId
+            mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId
                 .withArgs(userId, adminUserId)
                 .resolves(null);
-            mockThirdPartyService.getThirdPartySubscriberById
-                .withArgs(userId, adminUserId)
-                .resolves(mockThirdPartySubscriber);
-            mockKeyVaultService.createKeyVaultSecretName
-                .withArgs(mockThirdPartySubscriber.name, userId, 'scope')
-                .returns(newConfigFormData.scopeKey);
-            mockKeyVaultService.createKeyVaultSecretName
-                .withArgs(mockThirdPartySubscriber.name, userId, 'client-id')
-                .returns(newConfigFormData.clientIdKey);
-            mockKeyVaultService.createKeyVaultSecretName
-                .withArgs(mockThirdPartySubscriber.name, userId, 'client-secret')
-                .returns(newConfigFormData.clientSecretKey);
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {
@@ -211,21 +184,9 @@ describe('ManageThirdPartySubscriberOauthConfigController', () => {
             request.query = { userId: userId };
             request.user = { userId: adminUserId };
 
-            mockThirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId
+            mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId
                 .withArgs(userId, adminUserId)
                 .resolves('invalid-data');
-            mockThirdPartyService.getThirdPartySubscriberById
-                .withArgs(userId, adminUserId)
-                .resolves(mockThirdPartySubscriber);
-            mockKeyVaultService.createKeyVaultSecretName
-                .withArgs(mockThirdPartySubscriber.name, userId, 'scope')
-                .returns(newConfigFormData.scopeKey);
-            mockKeyVaultService.createKeyVaultSecretName
-                .withArgs(mockThirdPartySubscriber.name, userId, 'client-id')
-                .returns(newConfigFormData.clientIdKey);
-            mockKeyVaultService.createKeyVaultSecretName
-                .withArgs(mockThirdPartySubscriber.name, userId, 'client-secret')
-                .returns(newConfigFormData.clientSecretKey);
 
             const responseMock = sinon.mock(response);
             const expectedOptions = {

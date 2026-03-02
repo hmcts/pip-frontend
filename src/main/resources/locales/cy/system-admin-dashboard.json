@@ -43,8 +43,8 @@
             "link": "location-metadata-search"
         },
         {
-            "title": "Manage Third Party Subscribers",
-            "description": "View, update and remove third party subscribers",
+            "title": "Manage Third-Party Subscribers",
+            "description": "View, update and remove third-party subscribers",
             "link": "manage-third-party-subscribers"
         }
     ]

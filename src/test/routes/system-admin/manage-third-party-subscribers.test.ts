@@ -5,7 +5,7 @@ import { request as expressRequest } from 'express';
 import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 
-describe('Manage third party subscribers', () => {
+describe('Manage third-party subscribers', () => {
     describe('on GET', () => {
         expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
@@ -22,7 +22,7 @@ describe('Manage third party subscribers', () => {
             },
         ]);
 
-        test('should return manage third party subscribers page', async () => {
+        test('should return manage third-party subscribers page', async () => {
             await request(app)
                 .get('/manage-third-party-subscribers')
                 .expect(res => expect(res.status).to.equal(200));

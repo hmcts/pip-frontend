@@ -8,7 +8,7 @@ const formData = {
 };
 const i18n = {
     'create-third-party-subscriber-success': {
-        title: 'Create third party subscriber success',
+        title: 'Create third-party subscriber success',
     },
 };
 
@@ -29,8 +29,8 @@ request['cookies'] = { formCookie: JSON.stringify(formData) };
 
 const createThirdPartySubscriberSuccessController = new CreateThirdPartySubscriberSuccessController();
 
-describe('Create third party subscriber success controller', () => {
-    it('should render the create third party subscriber success page', async () => {
+describe('Create third-party subscriber success controller', () => {
+    it('should render the create third-party subscriber success page', async () => {
         const responseMock = sinon.mock(response);
         const expectedOptions = {
             ...i18n['create-third-party-subscriber-success'],

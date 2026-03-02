@@ -25,7 +25,7 @@ export default class CreateThirdPartySubscriberSummaryController {
             await userManagementService.auditAction(
                 req.user,
                 'THIRD_PARTY_SUBSCRIBER_CREATION',
-                `Third party subscriber created for: ${formData.thirdPartySubscriberName}`
+                `Third-party subscriber created for: ${formData.thirdPartySubscriberName}`
             );
             res.redirect('/create-third-party-subscriber-success');
         } else {
