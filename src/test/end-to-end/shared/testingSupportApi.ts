@@ -36,6 +36,7 @@ export const clearTestData = async () => {
     await clearAllLocationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllAccountsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
     await clearAllMediaApplicationsByTestPrefix(testConfig.TEST_SUITE_PREFIX);
+    await clearThirdPartyUserData(testConfig.TEST_SUITE_PREFIX);
 };
 
 const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
@@ -231,6 +232,47 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
         } else {
             throw new Error(
                 `Create third party user account failed for: ${provenanceUserId}, http-status: ${e.response?.status}`
+            );
+        }
+    }
+};
+
+export const createThirdPartyApiUser = async (userName: string) => {
+    const token = await getAccountManagementCredentials('');
+    const thirdPartyUser = {
+        name: userName,
+    };
+
+    try {
+        const response = await superagent
+            .post(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/third-party`)
+            .send(thirdPartyUser)
+            .set({ Authorization: 'Bearer ' + token.access_token })
+            .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`);
+        return response.body;
+    } catch (e) {
+        if (e.response?.badRequest) {
+            e.response.body['error'] = true;
+            return e.response?.body;
+        } else {
+            throw new Error(`Create third party user failed for: ${userName}, http-status: ${e.response?.status}`);
+        }
+    }
+};
+
+export const clearThirdPartyUserData = async (userNamePrefix: string) => {
+    const token = await getAccountManagementCredentials('');
+    try {
+        await superagent
+            .delete(`${testConfig.ACCOUNT_MANAGEMENT_BASE_URL}/testing-support/third-party/${userNamePrefix}`)
+            .set({ Authorization: 'Bearer ' + token.access_token });
+    } catch (e) {
+        if (e.response?.badRequest) {
+            e.response.body['error'] = true;
+            return e.response?.body;
+        } else {
+            throw new Error(
+                `Clear third party user data failed for: ${userNamePrefix}, http-status: ${e.response?.status}`
             );
         }
     }

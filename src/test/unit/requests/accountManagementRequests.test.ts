@@ -15,7 +15,7 @@ const errorResponse = {
 const errorMessage = {
     message: 'test',
 };
-const mockHeaders = { headers: { 'x-requester_id': '12345' } };
+const mockHeaders = { headers: { 'x-requester-id': '12345' } };
 const mockValidBody = {
     email: 'joe@bloggs.com',
     firstName: 'Joe',

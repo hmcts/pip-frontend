@@ -1,9 +1,9 @@
 import { cloneDeep } from 'lodash';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import { Response } from 'express';
 import ManageThirdPartyUsersController from '../../../../main/controllers/system-admin/ManageThirdPartyUsersController';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 const manageThirdPartyUsersController = new ManageThirdPartyUsersController();
 
@@ -27,7 +27,7 @@ describe('Manage third party users Controller', () => {
             },
         ];
 
-        const getThirdPartyAccountsStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyAccounts');
+        const getThirdPartyAccountsStub = sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyAccounts');
         getThirdPartyAccountsStub.resolves(thirdPartyData);
 
         const options = {

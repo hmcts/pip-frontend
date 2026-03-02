@@ -43,6 +43,29 @@ export const testUserData = (userProvenance = 'PI_AAD', role = 'VERIFIED') => {
     };
 };
 
+export const testThirdPartySubscriber = () => {
+    return {
+        userId: '1',
+        name: 'third-party subscriber',
+        createdDate: '2023-06-12 11:32:59.444111',
+    };
+};
+
+export const testThirdPartySubscriptions = () => {
+    return [
+        {
+            userId: '123',
+            listType: 'CIVIL_DAILY_CAUSE_LIST',
+            sensitivity: 'PUBLIC',
+        },
+        {
+            userId: '123',
+            listType: 'FAMILY_DAILY_CAUSE_LIST',
+            sensitivity: 'PRIVATE',
+        },
+    ];
+};
+
 export const testAuditData = () => {
     return {
         userId: '1',

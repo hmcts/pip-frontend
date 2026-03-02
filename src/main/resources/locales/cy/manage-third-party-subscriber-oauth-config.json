@@ -1,0 +1,17 @@
+{
+    "title": "Court and tribunal hearings - Manage third-party subscriber Oauth Configuration- Court and Tribunal Hearings - GOV.UK",
+    "header": "Manage third-party subscriber Oauth Configuration",
+    "destinationUrlLabel": "Destination URL",
+    "destinationUrlError": "Enter Destination URL",
+    "tokenUrlLabel": "Token URL",
+    "tokenUrlError": "Enter Token URL",
+    "scopeLabel": "Scope",
+    "scopeError": "Enter Scope",
+    "clientIdLabel": "Client ID",
+    "clientIdError": "Enter Client ID",
+    "clientSecretLabel": "Client Secret",
+    "clientSecretError": "Enter Client Secret",
+    "createOauthConfigBtn": "Create",
+    "updateOauthConfigBtn": "Update",
+    "errorTitle": "There is a problem"
+}

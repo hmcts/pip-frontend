@@ -1,0 +1,125 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/password-input/macro.njk" import govukPasswordInput %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    {% if formErrors %}
+        {% set errorList = [] %}
+        {% if formErrors.destinationUrlError %}
+            {% set errorList = (errorList.push({text: destinationUrlError, href: "#destinationUrl"}), errorList) %}
+        {% endif %}
+        {% if formErrors.tokenUrlError %}
+            {% set errorList = (errorList.push({text: tokenUrlError, href: "#tokenUrl"}), errorList) %}
+        {% endif %}
+        {% if formErrors.scopeError %}
+            {% set errorList = (errorList.push({text: scopeError, href: "#scope"}), errorList) %}
+        {% endif %}
+        {% if formErrors.clientIdError %}
+            {% set errorList = (errorList.push({text: clientIdError, href: "#clientId"}), errorList) %}
+        {% endif %}
+        {% if formErrors.clientSecretError %}
+            {% set errorList = (errorList.push({text: clientSecretError, href: "#clientSecret"}), errorList) %}
+        {% endif %}
+        {{ govukErrorSummary({
+            titleText: errorTitle,
+            errorList: errorList
+        }) }}
+    {% endif %}
+
+    {% set destinationUrlErrorMessage = {text: destinationUrlError} if formErrors.destinationUrlError else '' %}
+    {% set tokenUrlErrorMessage = {text: tokenUrlError} if formErrors.tokenUrlError else '' %}
+    {% set scopeErrorMessage = {text: scopeError} if formErrors.scopeError else '' %}
+    {% set clientIdErrorMessage = {text: clientIdError} if formErrors.clientIdError else '' %}
+    {% set clientSecretErrorMessage = {text: clientSecretError} if formErrors.clientSecretError else '' %}
+
+    {% set destinationUrlInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "destinationUrl",
+        name: "destinationUrl",
+        value: formData.destinationUrl,
+        label: {
+            text: destinationUrlLabel
+        },
+        errorMessage: destinationUrlErrorMessage
+    }) %}
+    {% set tokenUrlInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "tokenUrl",
+        name: "tokenUrl",
+        value: formData.tokenUrl,
+        label: {
+            text: tokenUrlLabel
+        },
+        errorMessage: tokenUrlErrorMessage
+    }) %}
+    {% set scopeInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "scope",
+        name: "scope",
+        value: formData.scope,
+        label: {
+            text: scopeLabel
+        },
+        errorMessage: scopeErrorMessage
+    }) %}
+    {% set clientIdInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "clientId",
+        name: "clientId",
+        value: formData.clientId,
+        label: {
+            text: clientIdLabel
+        },
+        errorMessage: clientIdErrorMessage
+    }) %}
+    {% set clientSecretInput = govukPasswordInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "clientSecret",
+        name: "clientSecret",
+        value: formData.clientSecret,
+        label: {
+            text: clientSecretLabel
+        },
+        errorMessage: clientSecretErrorMessage
+    }) %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" novalidate>
+        {{ govukInput({
+            id: "user",
+            name: "user",
+            type: "hidden",
+            value: formData.user
+        }) }}
+        {{ govukInput({
+            id: "createConfig",
+            name: "createConfig",
+            type: "hidden",
+            value: formData.createConfig
+        }) }}
+        {{ destinationUrlInput }}
+        {{ tokenUrlInput }}
+        {{ scopeInput }}
+        {{ clientIdInput }}
+        {{ clientSecretInput }}
+        {% if formData.createConfig === "true" %}
+            {{ submitButton(createOauthConfigBtn) }}
+        {% else %}
+            {{ submitButton(updateOauthConfigBtn) }}
+        {% endif %}
+    </form>
+
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+{% endblock %}

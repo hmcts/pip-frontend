@@ -28,7 +28,8 @@
             "APP_INSIGHTS_CONNECTION_STRING": "",
             "SSO_SG_ADMIN_CTSC": "1234",
             "SSO_SG_ADMIN_LOCAL": "12345",
-            "SSO_SG_SYSTEM_ADMIN": "12345678"
+            "SSO_SG_SYSTEM_ADMIN": "12345678",
+            "MANAGED_IDENTITY_CLIENT_ID": "11232-2323-2323-23232-2323232323"
         }
     }
 }

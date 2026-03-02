@@ -59,6 +59,10 @@ export default class ManualUploadController {
                 const originalFileName = req.file['originalname'];
                 const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
 
+                if (!req.body) {
+                    req.body = {};
+                }
+
                 req.body['court'] = await manualUploadService.appendlocationId(req.body['input-autocomplete'], req.lng);
                 req.body['artefactType'] = 'LIST'; //Agreed on defaulting to only option available until more types become ready
                 req.body['fileName'] = sanitisedFileName;

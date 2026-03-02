@@ -1,0 +1,11 @@
+{
+    "title": "Create third-party subscriber - Create third-party subscriber summary - Court and Tribunal Hearings - GOV.UK",
+    "header": "Create third-party subscriber summary",
+    "name": "Name",
+    "actionName": "Change",
+    "confirmButton": "Confirm",
+    "error": {
+        "title": "There is a problem",
+        "message": "Failed to create third-party subscriber. It is possible that the subscriber already exists."
+    }
+}

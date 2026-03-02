@@ -2,20 +2,20 @@ import { app } from '../../../main/app';
 import request from 'supertest';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
-import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
+import { CourtelThirdPartyService } from '../../../main/service/CourtelThirdPartyService';
 
 describe('Manage third party users subscription', () => {
     const userId = '1234-1234';
 
     expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-    const getThirdPartyUserByIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
+    const getThirdPartyUserByIdStub = sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyUserById');
     const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
     const getChannelsListStub = sinon.stub(SubscriptionService.prototype, 'retrieveChannels');
-    const generateListTypesStub = sinon.stub(ThirdPartyService.prototype, 'generateListTypes');
-    const generateAvailableChannelsStub = sinon.stub(ThirdPartyService.prototype, 'generateAvailableChannels');
+    const generateListTypesStub = sinon.stub(CourtelThirdPartyService.prototype, 'generateListTypes');
+    const generateAvailableChannelsStub = sinon.stub(CourtelThirdPartyService.prototype, 'generateAvailableChannels');
 
     getThirdPartyUserByIdStub.withArgs(userId).resolves({ userId: userId });
     getSubscriptionsByUserStub.withArgs(userId).resolves({ listTypeSubscriptions: [] });
@@ -32,7 +32,10 @@ describe('Manage third party users subscription', () => {
     });
 
     describe('on POST', () => {
-        const updateThirdPartySubsStub = sinon.stub(ThirdPartyService.prototype, 'handleThirdPartySubscriptionUpdate');
+        const updateThirdPartySubsStub = sinon.stub(
+            CourtelThirdPartyService.prototype,
+            'handleThirdPartySubscriptionUpdate'
+        );
         updateThirdPartySubsStub.withArgs(userId, 'CHANNEL_A', ['LIST_SELECTION']).resolves();
         getThirdPartyUserByIdStub.withArgs(userId).resolves({ userId: userId });
 

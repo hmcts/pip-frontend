@@ -2,8 +2,8 @@ import request from 'supertest';
 import { app } from '../../../../main/app';
 import { request as expressRequest } from 'express';
 import { expect } from 'chai';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 describe('Manage third party users', () => {
     const PAGE_URL = '/manage-third-party-users';
@@ -17,7 +17,7 @@ describe('Manage third party users', () => {
 
     expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-    sinon.stub(ThirdPartyService.prototype, 'getThirdPartyAccounts').resolves([
+    sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyAccounts').resolves([
         {
             userId: '1234-1234',
             provenanceUserId: 'ThisIsAName',

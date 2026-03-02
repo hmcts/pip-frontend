@@ -3,7 +3,7 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { request as expressRequest } from 'express';
-import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
+import { CourtelThirdPartyService } from '../../../main/service/CourtelThirdPartyService';
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
@@ -26,7 +26,7 @@ const userRoleList = [
     },
 ];
 
-sinon.stub(ThirdPartyService.prototype, 'buildThirdPartyRoleList').returns(userRoleList);
+sinon.stub(CourtelThirdPartyService.prototype, 'buildThirdPartyRoleList').returns(userRoleList);
 
 describe('Create third party user page', () => {
     describe('on GET', () => {

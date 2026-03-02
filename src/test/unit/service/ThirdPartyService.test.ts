@@ -1,85 +1,64 @@
 import { expect } from 'chai';
 import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
-import { AccountManagementRequests } from '../../../main/resources/requests/AccountManagementRequests';
 import sinon from 'sinon';
-import { SubscriptionRequests } from '../../../main/resources/requests/SubscriptionRequests';
-import { SubscriptionService } from '../../../main/service/SubscriptionService';
+import { ThirdPartyRequests } from '../../../main/resources/requests/ThirdPartyRequests';
 
 const thirdPartyService = new ThirdPartyService();
 
 describe('Third Party Service tests', () => {
-    const subscribeStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
-    const getSubscriptionsStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
-
     const adminUserId = '1234-1234';
-    const userProvenance = 'PI_AAD';
+    const userId = '123';
+    const invalidUserId = '124';
 
-    describe('generateListTypes', () => {
-        const listTypes = new Map([
-            [
-                'LIST_A',
-                {
-                    friendlyName: 'List A',
-                },
-            ],
-            [
-                'LIST_B',
-                {
-                    friendlyName: 'List B',
-                },
-            ],
-        ]);
+    const subscriptionFormData = {
+        CIVIL_DAILY_CAUSE_LIST: 'PUBLIC',
+        FAMILY_DAILY_CAUSE_LIST: 'PRIVATE',
+        SJP_PRESS_LIST: 'CLASSIFIED',
+    };
 
-        const subscriptions = {
-            listTypeSubscriptions: [
-                {
-                    listType: 'LIST_B',
-                },
-            ],
-        };
+    const thirdPartySubscriptions = [
+        {
+            userId: userId,
+            listType: 'CIVIL_DAILY_CAUSE_LIST',
+            sensitivity: 'PUBLIC',
+        },
+        {
+            userId: userId,
+            listType: 'FAMILY_DAILY_CAUSE_LIST',
+            sensitivity: 'PRIVATE',
+        },
+        {
+            userId: userId,
+            listType: 'SJP_PRESS_LIST',
+            sensitivity: 'CLASSIFIED',
+        },
+    ];
 
-        const generatedListTypes = thirdPartyService.generateListTypes(listTypes, subscriptions);
-
-        expect(Object.keys(generatedListTypes).length).equals(2, 'Number of list types does not match expected types');
-
-        expect(generatedListTypes['LIST_A'].listFriendlyName).equals('List A', 'List Friendly Name is not as expected');
-
-        expect(generatedListTypes['LIST_A'].checked).equals(false, 'Checked property not as expected');
-
-        expect(generatedListTypes['LIST_B'].checked).equals(true, 'Checked property not as expected');
-    });
-
-    describe('getThirdPartyAccounts', () => {
-        const thirdPartyAccounts = [
+    describe('getThirdPartySubscribers', () => {
+        const thirdPartySubscribers = [
             {
                 userId: '1234-1234',
-                provenanceUserId: 'ThisIsAName',
-                roles: 'GENERAL_THIRD_PARTY',
+                name: 'ThisIsAName',
                 createdDate: '2022-11-20T20:20:45.001Z',
             },
             {
                 userId: '2345-2345',
-                provenanceUserId: 'ThisIsAnotherName',
-                roles: 'GENERAL_THIRD_PARTY',
+                name: 'ThisIsAnotherName',
                 createdDate: '2022-11-20T20:20:45.001Z',
             },
         ];
 
-        const getThirdPartyAccountsStub = sinon.stub(AccountManagementRequests.prototype, 'getThirdPartyAccounts');
-        getThirdPartyAccountsStub.resolves(thirdPartyAccounts);
+        const getThirdPartySubscribersStub = sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscribers');
+        getThirdPartySubscribersStub.resolves(thirdPartySubscribers);
 
-        it('should return correct number and details of third party objects', async () => {
-            const data = await thirdPartyService.getThirdPartyAccounts(adminUserId);
+        it('should return correct number and details of third-party subscribers', async () => {
+            const data = await thirdPartyService.getThirdPartySubscribers(adminUserId);
             expect(data.length).to.equal(2, 'Number of accounts returned does not match expected length');
 
             const firstAccount = data[0];
 
             expect(firstAccount['userId']).to.equal('1234-1234', 'User ID does not match expected ID');
-            expect(firstAccount['provenanceUserId']).to.equal(
-                'ThisIsAName',
-                'Provenance User ID does not match expected ID'
-            );
-            expect(firstAccount['roles']).to.equal('GENERAL_THIRD_PARTY', 'Users role does not match expected role');
+            expect(firstAccount['name']).to.equal('ThisIsAName', 'Provenance User ID does not match expected ID');
             expect(firstAccount['createdDate']).to.equal(
                 '20 November 2022',
                 'Created date does not match expected date'
@@ -87,276 +66,223 @@ describe('Third Party Service tests', () => {
         });
     });
 
-    describe('generateAvailableChannels', () => {
-        it('should return correct checked options when existing subscription', () => {
-            const subscriptionChannels = ['CHANNEL_A', 'CHANNEL_B'];
-            const subscriptions = {
-                listTypeSubscriptions: [{ channel: 'CHANNEL_A' }],
-            };
-
-            const channels = thirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions);
-
-            expect(channels.length).to.equal(2, 'Unexpected number of channels returned');
-            expect(channels[0].value).to.equal('CHANNEL_A', 'Unexpected channel value returned');
-            expect(channels[0].text).to.equal('CHANNEL_A', 'Unexpected channel text returned');
-            expect(channels[0].checked).to.equal(true, 'Unexpected checked value returned');
-            expect(channels[1].checked).to.equal(false, 'Unexpected checked value returned');
-        });
-
-        it('should return correct checked options when only one channel', () => {
-            const subscriptionChannels = ['CHANNEL_A'];
-            const subscriptions = { listTypeSubscriptions: [] };
-
-            const channels = thirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions);
-
-            expect(channels.length).to.equal(1, 'Unexpected number of channels returned');
-            expect(channels[0].checked).to.equal(true, 'Unexpected checked value returned');
-        });
-
-        it('should return correct checked options when no existing subscriptions', () => {
-            const subscriptionChannels = ['CHANNEL_A', 'CHANNEL_B'];
-            const subscriptions = { listTypeSubscriptions: [] };
-
-            const channels = thirdPartyService.generateAvailableChannels(subscriptionChannels, subscriptions);
-
-            expect(channels.length).to.equal(2, 'Unexpected number of channels returned');
-            expect(channels[0].checked).to.equal(true, 'Unexpected checked value returned');
-            expect(channels[1].checked).to.equal(false, 'Unexpected checked value returned');
-        });
-    });
-
-    describe('create third party subscription', () => {
-        subscribeStub.resolves();
-
-        it('check a subscription is created', () => {
-            const userId = '1234-1234';
-            const listType = 'LIST_TYPE';
-            const channel = 'CHANNEL_A';
-
-            thirdPartyService.createdThirdPartySubscription(adminUserId, userId, listType, channel);
-
-            expect(
-                subscribeStub.calledOnceWith({
-                    channel: channel,
-                    searchType: 'LIST_TYPE',
-                    searchValue: listType,
-                    userId: userId,
-                })
-            ).to.equal(true, 'Subscribe not called with expected arguments');
-        });
-    });
-
-    describe('get third party by user ID', () => {
+    describe('get third party by subscriber ID', () => {
         const userId = '1234-1234';
-        const getUserStub = sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId');
+        const getUserStub = sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscriberByUserId');
 
         it('check user is returned', async () => {
             getUserStub.resolves({
                 userId: userId,
                 createdDate: '2022-11-18T14:00:00Z',
-                userProvenance: 'THIRD_PARTY',
             });
 
-            const returnedUser = await thirdPartyService.getThirdPartyUserById(userId, '1234-1234');
+            const returnedUser = await thirdPartyService.getThirdPartySubscriberById(userId, '1234-1234');
 
             expect(returnedUser['userId']).to.equal(userId, 'User ID not as expected');
             expect(returnedUser['createdDate']).to.equal('18 November 2022', 'Formatted date not as expected');
-            expect(returnedUser['userProvenance']).to.equal('THIRD_PARTY', 'User provenance not as expected');
         });
 
         it('check user returned is null if no user found', async () => {
             getUserStub.resolves(null);
 
-            const returnedUser = await thirdPartyService.getThirdPartyUserById(userId, adminUserId);
-
-            expect(returnedUser).to.equal(null, 'User returned should be null');
-        });
-
-        it('check user returned is null if not third party ', async () => {
-            getUserStub.resolves({
-                userId: userId,
-                createdDate: '2022-11-18T14:00:00Z',
-                userProvenance: 'PI_AAD',
-            });
-
-            const returnedUser = await thirdPartyService.getThirdPartyUserById(userId, adminUserId);
+            const returnedUser = await thirdPartyService.getThirdPartySubscriberById(userId, adminUserId);
 
             expect(returnedUser).to.equal(null, 'User returned should be null');
         });
     });
 
-    describe('handle third party subscription update', () => {
-        const userId = '1234-1234';
-
-        it('check that subscribe is called for a brand new subscription', async () => {
-            const selectedUser = userId;
-            const selectedListTypes = ['LIST_A'];
-            const selectedChannel = 'CHANNEL_A';
-
-            getSubscriptionsStub.withArgs(userId).resolves({ listTypeSubscriptions: [] });
-
-            const subscribeArgs = {
-                channel: 'CHANNEL_A',
-                searchType: 'LIST_TYPE',
-                searchValue: 'LIST_A',
-                userId: userId,
-            };
-
-            await thirdPartyService.handleThirdPartySubscriptionUpdate(
-                adminUserId,
-                userProvenance,
-                selectedUser,
-                selectedListTypes,
-                selectedChannel
-            );
-
-            expect(subscribeStub.calledWith(subscribeArgs)).to.equal(true);
-        });
-
-        it('check that subscribe is called if channel differs', async () => {
-            const selectedUser = userId;
-            const selectedListTypes = ['LIST_A'];
-            const selectedChannel = 'CHANNEL_D';
-
-            getSubscriptionsStub.withArgs(userId).resolves({
-                listTypeSubscriptions: [{ listType: 'LIST_A', channel: 'CHANNEL_B' }],
-            });
-
-            const subscribeArgs = {
-                channel: 'CHANNEL_D',
-                searchType: 'LIST_TYPE',
-                searchValue: 'LIST_A',
-                userId: userId,
-            };
-
-            await thirdPartyService.handleThirdPartySubscriptionUpdate(
-                adminUserId,
-                userProvenance,
-                selectedUser,
-                selectedListTypes,
-                selectedChannel
-            );
-
-            expect(subscribeStub.calledWith(subscribeArgs)).to.equal(true);
-        });
-
-        it('check that unsubscribe is called if no longer selected', async () => {
-            const selectedUser = userId;
-            const selectedListTypes = ['LIST_B'];
-            const selectedChannel = 'CHANNEL_D';
-
-            getSubscriptionsStub.withArgs(userId).resolves({
-                listTypeSubscriptions: [{ listType: 'LIST_A', channel: 'CHANNEL_B', subscriptionId: '2345' }],
-            });
-
-            const unsubscribeStub = sinon.stub(SubscriptionService.prototype, 'unsubscribe');
-
-            await thirdPartyService.handleThirdPartySubscriptionUpdate(
-                adminUserId,
-                userProvenance,
-                selectedUser,
-                selectedListTypes,
-                selectedChannel
-            );
-
-            expect(unsubscribeStub.calledWith('2345')).to.equal(true);
-        });
-    });
-
-    describe('getThirdPartyRoleByKey', () => {
-        it('should return correct third party role', () => {
-            const result = thirdPartyService.getThirdPartyRoleByKey('VERIFIED_THIRD_PARTY_CFT');
-            expect(result.name).to.equal('Verified third party - CFT', 'Third party role name does not match');
-            expect(result.description).to.equal(
-                'User allowed access to classified publications for CFT list types',
-                'Third party role description does not match'
-            );
-        });
-    });
-
-    describe('buildThirdPartyRoleList', () => {
-        it('should return third party role list without checked item', () => {
-            const result = thirdPartyService.buildThirdPartyRoleList();
-            expect(result.length).to.equal(8);
-            expect(result[0].value).to.equal('GENERAL_THIRD_PARTY');
-            expect(result[0].text).to.contain('General third party');
-            expect(result[0].checked).to.be.false;
-        });
-
-        it('should return third party role list with checked item', () => {
-            const result = thirdPartyService.buildThirdPartyRoleList('GENERAL_THIRD_PARTY');
-            expect(result.length).to.equal(8);
-            expect(result[0].value).to.equal('GENERAL_THIRD_PARTY');
-            expect(result[0].text).to.contain('General third party');
-            expect(result[0].checked).to.be.true;
-        });
-    });
-
-    describe('validateThirdPartyUserFormFields', () => {
-        it('should return errors with no third party name and role', () => {
-            const result = thirdPartyService.validateThirdPartyUserFormFields({});
+    describe('validateThirdPartySubscriberFormFields', () => {
+        it('should return errors with no third-party subscriber name', () => {
+            const result = thirdPartyService.validateThirdPartySubscriberFormFields({});
             expect(result.userNameError).to.be.true;
-            expect(result.userRoleError).to.be.true;
         });
 
-        it('should return name error with third party role only', () => {
-            const result = thirdPartyService.validateThirdPartyUserFormFields({ thirdPartyRole: 'role' });
-            expect(result.userNameError).to.be.true;
-            expect(result.userRoleError).to.be.false;
-        });
-
-        it('should return role error with third party name only', () => {
-            const result = thirdPartyService.validateThirdPartyUserFormFields({ thirdPartyName: 'name' });
-            expect(result.userNameError).to.be.false;
-            expect(result.userRoleError).to.be.true;
-        });
-
-        it('should return null when both third party name and role present', () => {
-            const result = thirdPartyService.validateThirdPartyUserFormFields({
-                thirdPartyName: 'name',
-                thirdPartyRole: 'role',
+        it('should return null when both third-party subscriber name', () => {
+            const result = thirdPartyService.validateThirdPartySubscriberFormFields({
+                thirdPartySubscriberName: 'name',
             });
             expect(result).to.be.null;
         });
     });
 
-    describe('createThirdPartyUser', () => {
+    describe('createThirdPartySubscriber', () => {
         const formData = {
-            thirdPartyName: 'name',
-            thirdPartyRole: 'role',
+            thirdPartySubscriberName: 'name',
         };
 
-        const payload = [
-            {
-                email: null,
-                provenanceUserId: 'name',
-                roles: 'role',
-                userProvenance: 'THIRD_PARTY',
-            },
-        ];
+        const createThirdPartySubscriberStub = sinon.stub(ThirdPartyRequests.prototype, 'createThirdPartySubscriber');
+        createThirdPartySubscriberStub.withArgs(sinon.match.any, '1').resolves(true);
+        createThirdPartySubscriberStub.withArgs(sinon.match.any, '2').resolves(false);
+        createThirdPartySubscriberStub.withArgs(sinon.match.any, '3').resolves(null);
 
-        const createThirdPartyStub = sinon.stub(AccountManagementRequests.prototype, 'createPIAccount');
-        createThirdPartyStub
-            .withArgs(payload, '1')
-            .resolves({ CREATED_ACCOUNTS: [{ userId: '123' }], ERRORED_ACCOUNTS: [] });
-        createThirdPartyStub
-            .withArgs(payload, '2')
-            .resolves({ CREATED_ACCOUNTS: [], ERRORED_ACCOUNTS: [{ userId: null }] });
-        createThirdPartyStub.withArgs(payload, '3').resolves(null);
-
-        it('should return true if account management request return created accounts', async () => {
-            const result = await thirdPartyService.createThirdPartyUser(formData, '1');
+        it('should return true if account management request return created third-party subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriber(formData, '1');
             expect(result).to.be.true;
         });
 
-        it('should return false if account management request return errored accounts', async () => {
-            const result = await thirdPartyService.createThirdPartyUser(formData, '2');
+        it('should return false if account management request return errored third-party subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriber(formData, '2');
             expect(result).to.be.false;
         });
 
         it('should return false if account management request returns null', async () => {
-            const result = await thirdPartyService.createThirdPartyUser(formData, '3');
+            const result = await thirdPartyService.createThirdPartySubscriber(formData, '3');
+            expect(result).to.be.null;
+        });
+    });
+
+    describe('Create third-party subscriptions', () => {
+        const createThirdPartySubscriptionsStub = sinon.stub(
+            ThirdPartyRequests.prototype,
+            'createThirdPartySubscriptions'
+        );
+        createThirdPartySubscriptionsStub.withArgs(sinon.match.any, userId).resolves(true);
+        createThirdPartySubscriptionsStub.withArgs(sinon.match.any, invalidUserId).resolves(false);
+
+        it('should return true if third-party subscriptions created', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriptions(subscriptionFormData, userId, userId);
+            expect(result).to.be.true;
+        });
+
+        it('should return false if third-party subscription creation error', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriptions(
+                subscriptionFormData,
+                invalidUserId,
+                invalidUserId
+            );
             expect(result).to.be.false;
+        });
+    });
+
+    describe('Update third-party subscriptions', () => {
+        const updateThirdPartySubscriptionsStub = sinon.stub(
+            ThirdPartyRequests.prototype,
+            'updateThirdPartySubscriptions'
+        );
+        updateThirdPartySubscriptionsStub.withArgs(sinon.match.any, userId).resolves(true);
+        updateThirdPartySubscriptionsStub.withArgs(sinon.match.any, invalidUserId).resolves(false);
+
+        it('should return true if third-party subscriptions update', async () => {
+            const result = await thirdPartyService.updateThirdPartySubscriptions(
+                subscriptionFormData,
+                userId,
+                adminUserId
+            );
+            expect(result).to.be.true;
+        });
+
+        it('should return false if third-party subscription update error', async () => {
+            const result = await thirdPartyService.updateThirdPartySubscriptions(
+                subscriptionFormData,
+                invalidUserId,
+                adminUserId
+            );
+            expect(result).to.be.false;
+        });
+    });
+
+    describe('Get third-party subscriptions by user ID', () => {
+        const getThirdPartySubscriptionsStub = sinon.stub(
+            ThirdPartyRequests.prototype,
+            'getThirdPartySubscriptionsByUserId'
+        );
+        getThirdPartySubscriptionsStub.withArgs(userId).resolves(thirdPartySubscriptions);
+        getThirdPartySubscriptionsStub.withArgs(invalidUserId).resolves(null);
+
+        it('check user is returned', async () => {
+            const result = await thirdPartyService.getThirdPartySubscriptionsByUserId(userId, adminUserId);
+            expect(result).to.equal(thirdPartySubscriptions);
+        });
+
+        it('check user returned is null if no user found', async () => {
+            const result = await thirdPartyService.getThirdPartySubscriptionsByUserId(invalidUserId, adminUserId);
+            expect(result).to.be.null;
+        });
+    });
+
+    describe('Construct list type to sensitivity mapping', () => {
+        it('should return correct list type friendly names and sensitivity items', () => {
+            const result = thirdPartyService.constructListTypeSensitivityMappings(thirdPartySubscriptions);
+
+            const civilListResult = result.get('CIVIL_DAILY_CAUSE_LIST');
+            expect(civilListResult.friendlyName).to.equal('Civil Daily Cause List');
+            expect(civilListResult.sensitivityItems[1].selected).to.be.true;
+            expect(civilListResult.sensitivityItems[2].selected).to.be.false;
+            expect(civilListResult.sensitivityItems[3].selected).to.be.false;
+
+            const familyListResult = result.get('FAMILY_DAILY_CAUSE_LIST');
+            expect(familyListResult.friendlyName).to.equal('Family Daily Cause List');
+            expect(familyListResult.sensitivityItems[1].selected).to.be.false;
+            expect(familyListResult.sensitivityItems[2].selected).to.be.true;
+            expect(familyListResult.sensitivityItems[3].selected).to.be.false;
+
+            const sjpPressListResult = result.get('SJP_PRESS_LIST');
+            expect(sjpPressListResult.friendlyName).to.equal('Single Justice Procedure Press List (Full List)');
+            expect(sjpPressListResult.sensitivityItems[1].selected).to.be.false;
+            expect(sjpPressListResult.sensitivityItems[2].selected).to.be.false;
+            expect(sjpPressListResult.sensitivityItems[3].selected).to.be.true;
+        });
+    });
+
+    describe('Replace list type keys with friendly names', () => {
+        it('should return expected list type friendly names', () => {
+            const result = thirdPartyService.replaceListTypeKeysWithFriendlyNames(subscriptionFormData);
+            expect(result).to.have.length(3);
+
+            const keys = Array.from(result.keys());
+            expect(keys[0]).to.equal('Civil Daily Cause List');
+            expect(keys[1]).to.equal('Family Daily Cause List');
+            expect(keys[2]).to.equal('Single Justice Procedure Press List (Full List)');
+        });
+    });
+
+    describe('createThirdPartySubscriberOauthConfig', () => {
+        const formData = {
+            userId: 'user',
+            destinationUrl: 'destinationUrl',
+            tokenUrl: 'tokenUrl',
+        };
+
+        const createThirdPartySubscriberOauthConfigStub = sinon.stub(
+            ThirdPartyRequests.prototype,
+            'createThirdPartySubscriberOauthConfig'
+        );
+        createThirdPartySubscriberOauthConfigStub.withArgs(sinon.match.any, '1').resolves(true);
+        createThirdPartySubscriberOauthConfigStub.withArgs(sinon.match.any, '2').resolves(false);
+        createThirdPartySubscriberOauthConfigStub.withArgs(sinon.match.any, '3').resolves(null);
+
+        it('should return true if account management request return created third party oauth config for subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '1');
+            expect(result).to.be.true;
+        });
+
+        it('should return false if account management request return errored third party oauth config for subscriber', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '2');
+            expect(result).to.be.false;
+        });
+
+        it('should return false if account management request returns null', async () => {
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '3');
+            expect(result).to.be.null;
+        });
+    });
+
+    describe('validateThirdPartySubscriberOauthConfigFormFields', () => {
+        it('should return errors with no third-party subscriber name', () => {
+            const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({});
+            expect(result.destinationUrlError).to.be.true;
+        });
+
+        it('should return null when both third-party subscriber name', () => {
+            const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({
+                userId: 'user',
+                destinationUrl: 'destinationUrl',
+                tokenUrl: 'tokenUrl',
+                clientId: 'clientId',
+                clientSecret: 'clientSecret',
+                scope: 'scope',
+            });
+            expect(result).to.be.null;
         });
     });
 });
