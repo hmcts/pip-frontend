@@ -147,15 +147,13 @@ describe('Magistrates public List page', () => {
         expect(cell[6].innerHTML).contains('Test offence 1');
     });
 
-  it('should display Reporting Restrictions if restrictions is true', () => {
-      const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-      expect(cell[10].innerHTML).contains('Reporting Restrictions');
-  });
+    it('should display Reporting Restrictions if restrictions is true', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[10].innerHTML).contains('Reporting Restrictions');
+    });
 
-  it('should display Reporting Restriction Text if restrictions is true', () => {
-      const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-      expect(cell[11].innerHTML).contains('Press/Publication restrictions apply to this case');
-  });
-
-
+    it('should display Reporting Restriction Text if restrictions is true', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[11].innerHTML).contains('Press/Publication restrictions apply to this case');
+    });
 });
