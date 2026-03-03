@@ -124,7 +124,7 @@ describe('Magistrate Standard List page', () => {
     it('should display party heading', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Name: Surname1, Forename1 MiddleName (male)*',
+            'Name: Surname A, Forename A MiddleName A (male)',
             'Could not find the accordion heading'
         );
     });
@@ -145,6 +145,16 @@ describe('Magistrate Standard List page', () => {
         );
     });
 
+    it('should display application particulars if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[4];
+        expect(div.innerHTML).to.contain('This is application particulars example');
+    });
+
+    it('should not display application particulars if not present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.not.contain('Application Particulars');
+    });
+
     it('should display DOB and Age if both present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
         expect(div.innerHTML).to.contain('DOB and Age');
@@ -153,7 +163,7 @@ describe('Magistrate Standard List page', () => {
 
     it('should display address if present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
-        expect(div.innerHTML).to.contain('Address Line 1, Address Line 2');
+        expect(div.innerHTML).to.contain('Address Line 1A, Address Line 2A, Town A, County A, AA1 AA1');
     });
 
     it('should display prosecuting authority if present', () => {
@@ -166,13 +176,23 @@ describe('Magistrate Standard List page', () => {
         expect(div.innerHTML).to.contain('VIDEO HEARING');
     });
 
+    it('should display reporting restrictions if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('This is a case level reporting restriction details example');
+    });
+
+    it('should not display reporting restrictions if not present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
+        expect(div.innerHTML).to.not.contain('Reporting Restrictions');
+    });
+
     it('should display reference if present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
         expect(div.innerHTML).to.contain('45684548');
     });
 
     it('should display application type if present', () => {
-        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[3];
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[4];
         expect(div.innerHTML).to.contain('Application Type 1');
     });
 
@@ -183,12 +203,12 @@ describe('Magistrate Standard List page', () => {
 
     it('should display asn if present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
-        expect(div.innerHTML).to.contain('AB12345');
+        expect(div.innerHTML).to.contain('ABC1234');
     });
 
     it('should display hearing type if present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
-        expect(div.innerHTML).to.contain('mda');
+        expect(div.innerHTML).to.contain('Hearing Type A');
     });
 
     it('should display panel if present', () => {
@@ -237,6 +257,11 @@ describe('Magistrate Standard List page', () => {
     it('should display adjourned from on if present', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
         expect(cell[12].innerHTML).contains('02/05/2026 - For the trial');
+    });
+
+    it('should display offence reporting restriction if present', () => {
+        const cell = htmlRes.getElementsByClassName('govuk-table__cell');
+        expect(cell[14].innerHTML).contains('This is an offence level reporting restriction details example');
     });
 
     it('should display the go back button', () => {
