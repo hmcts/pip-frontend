@@ -80,6 +80,9 @@
                                                 </span>
                                             </p>
                                             <br/>
+                                            {% if sitting.info.applicationParticulars | length %}
+                                              <p class="govuk-body"><span class="linked-cases-heading">{{ applicationParticulars }}</span>{{ sitting.info.applicationParticulars }}</p>
+                                            {% endif %}
                                             {% if sitting.partyInfo.dob | length %}
                                                 {% if sitting.partyInfo.age %}
                                                     <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ sitting.partyInfo.dob }} {{ age }} {{ sitting.partyInfo.age }}</p>
@@ -92,6 +95,9 @@
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ address }}</span>{{ sitting.partyInfo.address }}</p>
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ prosecutingAuthority }}</span>{{ sitting.info.prosecutingAuthority }}</p>
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span>{{ sitting.info.attendanceMethod }}</p>
+                                            {% if sitting.info.reportingRestriction %}
+                                              <p class="govuk-body"><span class="linked-cases-heading">{{ reportingRestrictions }}</span>{{ sitting.info.reportingRestrictionDetails }}</p>
+                                            {% endif %}
                                         </div>
                                         <div class="govuk-grid-column-one-third">
                                             <p class="govuk-body"><span class="linked-cases-heading">{{ reference }}</span>{{ sitting.info.reference }}</p>
@@ -161,6 +167,12 @@
                                                                     <tr class="govuk-table__row">
                                                                         <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ adjournedFrom }}</span></td>
                                                                         <td class="govuk-table__cell no-border-bottom">{{ offence.adjournedDate }} - {{ adjournedText }}</td>
+                                                                    </tr>
+                                                                {% endif %}
+                                                                {% if offence.reportingRestriction %}
+                                                                    <tr class="govuk-table__row">
+                                                                        <td class="govuk-table__cell no-border-bottom"><span class="linked-cases-heading">{{ reportingRestrictions }}</span></td>
+                                                                        <td class="govuk-table__cell no-border-bottom">{{ offence.reportingRestrictionDetails }} </td>
                                                                     </tr>
                                                                 {% endif %}
                                                             </tbody>
