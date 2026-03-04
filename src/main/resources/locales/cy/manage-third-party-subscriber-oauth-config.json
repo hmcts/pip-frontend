@@ -1,6 +1,6 @@
 {
-    "title": "Court and tribunal hearings - Manage third-party subscriber Oauth Configuration- Court and Tribunal Hearings - GOV.UK",
-    "header": "Manage third-party subscriber Oauth Configuration",
+    "title": "Court and tribunal hearings - Manage third-party subscriber OAuth Configuration- Court and Tribunal Hearings - GOV.UK",
+    "header": "Manage third-party subscriber OAuth Configuration",
     "destinationUrlLabel": "Destination URL",
     "destinationUrlError": "Enter Destination URL",
     "tokenUrlLabel": "Token URL",

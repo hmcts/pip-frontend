@@ -292,7 +292,7 @@ describe('Third-party Requests', () => {
         });
     });
 
-    describe('Create third-party subscriber Oauth Config', () => {
+    describe('Create third-party subscriber OAuth Config', () => {
         beforeEach(() => {
             sinon.restore();
             postStub = sinon.stub(accountManagementApi, 'post');

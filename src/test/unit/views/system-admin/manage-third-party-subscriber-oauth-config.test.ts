@@ -40,7 +40,7 @@ describe('Manage third-party subscriber oauth config page', () => {
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
         expect(header[0].innerHTML).contains(
-            'Manage third-party subscriber Oauth Configuration',
+            'Manage third-party subscriber OAuth Configuration',
             'Header does not match'
         );
     });
