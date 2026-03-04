@@ -192,7 +192,6 @@ export class ThirdPartyRequests {
             const response = await accountManagementApi.patch(`/third-party/${userId}/status`, status, {
                 headers: { 'x-requester-id': adminUserId, 'Content-Type': 'application/json' },
             });
-            logger.info('Third party subscriber status updated.');
             return response.status === 200;
         } catch (error) {
             logHelper.logErrorResponse(error, `update third party subscriber status for user ID ${userId}`);
