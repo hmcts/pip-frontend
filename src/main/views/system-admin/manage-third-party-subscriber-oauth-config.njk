@@ -21,20 +21,11 @@
         {% if formErrors.tokenUrlError %}
             {% set errorList = (errorList.push({text: tokenUrlError, href: "#tokenUrl"}), errorList) %}
         {% endif %}
-        {% if formErrors.scopeKeyError %}
-            {% set errorList = (errorList.push({text: scopeKeyError, href: "#scopeKey"}), errorList) %}
-        {% endif %}
-        {% if formErrors.scopeValueError %}
-            {% set errorList = (errorList.push({text: scopeValueError, href: "#scopeValue"}), errorList) %}
-        {% endif %}
-        {% if formErrors.clientIdKeyError %}
-            {% set errorList = (errorList.push({text: clientIdKeyError, href: "#clientIdKey"}), errorList) %}
+        {% if formErrors.scopeError %}
+            {% set errorList = (errorList.push({text: scopeError, href: "#scope"}), errorList) %}
         {% endif %}
         {% if formErrors.clientIdError %}
             {% set errorList = (errorList.push({text: clientIdError, href: "#clientId"}), errorList) %}
-        {% endif %}
-        {% if formErrors.clientSecretKeyError %}
-            {% set errorList = (errorList.push({text: clientSecretKeyError, href: "#clientSecretKey"}), errorList) %}
         {% endif %}
         {% if formErrors.clientSecretError %}
             {% set errorList = (errorList.push({text: clientSecretError, href: "#clientSecret"}), errorList) %}
@@ -47,11 +38,8 @@
 
     {% set destinationUrlErrorMessage = {text: destinationUrlError} if formErrors.destinationUrlError else '' %}
     {% set tokenUrlErrorMessage = {text: tokenUrlError} if formErrors.tokenUrlError else '' %}
-    {% set scopeKeyErrorMessage = {text: scopeKeyError} if formErrors.scopeKeyError else '' %}
-    {% set scopeValueErrorMessage = {text: scopeValueError} if formErrors.scopeValueError else '' %}
-    {% set clientIdKeyErrorMessage = {text: clientIdKeyError} if formErrors.clientIdKeyError else '' %}
+    {% set scopeErrorMessage = {text: scopeError} if formErrors.scopeError else '' %}
     {% set clientIdErrorMessage = {text: clientIdError} if formErrors.clientIdError else '' %}
-    {% set clientSecretKeyErrorMessage = {text: clientSecretKeyError} if formErrors.clientSecretKeyError else '' %}
     {% set clientSecretErrorMessage = {text: clientSecretError} if formErrors.clientSecretError else '' %}
 
     {% set destinationUrlInput = govukInput({
@@ -74,41 +62,15 @@
         },
         errorMessage: tokenUrlErrorMessage
     }) %}
-    {% set scopeKeyInput = govukInput({
+    {% set scopeInput = govukInput({
         classes: 'govuk-!-width-two-thirds',
-        id: "scopeKey",
-        name: "scopeKey",
-        value: formData.scopeKey,
+        id: "scope",
+        name: "scope",
+        value: formData.scope,
         label: {
-            text: scopeKeyLabel
+            text: scopeLabel
         },
-        attributes: {
-            readonly: "readonly"
-        },
-        errorMessage: scopeKeyErrorMessage
-    }) %}
-    {% set scopeValueInput = govukInput({
-        classes: 'govuk-!-width-two-thirds',
-        id: "scopeValue",
-        name: "scopeValue",
-        value: formData.scopeValue,
-        label: {
-            text: scopeValueLabel
-        },
-        errorMessage: scopeValueErrorMessage
-    }) %}
-    {% set clientIdKeyInput = govukInput({
-        classes: 'govuk-!-width-two-thirds',
-        id: "clientIdKey",
-        name: "clientIdKey",
-        value: formData.clientIdKey,
-        label: {
-            text: clientIdKeyLabel
-        },
-        attributes: {
-            readonly: "readonly"
-        },
-        errorMessage: clientIdKeyErrorMessage
+        errorMessage: scopeErrorMessage
     }) %}
     {% set clientIdInput = govukInput({
         classes: 'govuk-!-width-two-thirds',
@@ -120,24 +82,11 @@
         },
         errorMessage: clientIdErrorMessage
     }) %}
-    {% set clientSecretKeyInput = govukInput({
-        classes: 'govuk-!-width-two-thirds',
-        id: "clientSecretKey",
-        name: "clientSecretKey",
-        value: formData.clientSecretKey,
-        label: {
-            text: clientSecretKeyLabel
-        },
-        attributes: {
-            readonly: "readonly"
-        },
-        errorMessage: clientSecretKeyErrorMessage
-    }) %}
     {% set clientSecretInput = govukPasswordInput({
         classes: 'govuk-!-width-two-thirds',
         id: "clientSecret",
         name: "clientSecret",
-        value: "",
+        value: formData.clientSecret,
         label: {
             text: clientSecretLabel
         },
@@ -159,11 +108,8 @@
         }) }}
         {{ destinationUrlInput }}
         {{ tokenUrlInput }}
-        {{ scopeKeyInput }}
-        {{ scopeValueInput }}
-        {{ clientIdKeyInput }}
+        {{ scopeInput }}
         {{ clientIdInput }}
-        {{ clientSecretKeyInput }}
         {{ clientSecretInput }}
         {% if formData.createConfig === "true" %}
             {{ submitButton(createOauthConfigBtn) }}

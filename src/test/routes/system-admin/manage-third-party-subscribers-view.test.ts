@@ -13,9 +13,9 @@ const mockUser = { userId: userId };
 sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberById').resolves(mockUser);
 sinon.stub(ThirdPartyService.prototype, 'thirdPartyConfigurationHealthCheck').resolves(true);
 
-describe('Manage third party subscribers view', () => {
+describe('Manage third-party subscribers view', () => {
     describe('on GET', () => {
-        test('should return manage third party subscribers view page', async () => {
+        test('should return manage third-party subscribers view page', async () => {
             await request(app)
                 .get(`/manage-third-party-subscribers/view?userId=${userId}`)
                 .expect(res => expect(res.status).to.equal(200));
@@ -23,7 +23,7 @@ describe('Manage third party subscribers view', () => {
     });
 
     describe('on POST', () => {
-        test('should return manage third party subscribers view page for health check', async () => {
+        test('should return manage third-party subscribers view page for health check', async () => {
             await request(app)
                 .post(`/manage-third-party-subscribers/view?userId=${userId}`)
                 .expect(res => expect(res.status).to.equal(200));

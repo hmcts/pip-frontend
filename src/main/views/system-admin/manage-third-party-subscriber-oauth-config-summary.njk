@@ -75,35 +75,19 @@
                 },
                 {
                     key: {
-                        text: scopeKey
+                        text: scope
                     },
                     value: {
-                        text: formData.scopeKey
-                    }
-                },
-                {
-                    key: {
-                        text: scopeValue
-                    },
-                    value: {
-                        text: formData.scopeValue
+                        text: formData.scope
                     },
                     actions: {
                         items: [
                             {
-                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#scopeValue",
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#scope",
                                 text: actionName,
-                                visuallyHiddenText: scopeValue
+                                visuallyHiddenText: scope
                             }
                         ]
-                    }
-                },
-                {
-                    key: {
-                    text: clientIdKey
-                    },
-                        value: {
-                        text: formData.clientIdKey
                     }
                 },
                 {
@@ -121,14 +105,6 @@
                                 visuallyHiddenText: clientId
                             }
                         ]
-                    }
-                },
-                {
-                    key: {
-                    text: clientSecretKey
-                    },
-                        value: {
-                        text: formData.clientSecretKey
                     }
                 }
             ]

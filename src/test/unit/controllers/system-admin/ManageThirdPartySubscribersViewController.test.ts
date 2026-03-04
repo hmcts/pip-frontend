@@ -53,9 +53,9 @@ healthCheckStub.withArgs(userId).resolves(true);
 healthCheckStub.withArgs(userId4).resolves(false);
 healthCheckStub.withArgs(userId5).resolves(responseMessage);
 
-describe('Manage third party subscribers view Controller', () => {
+describe('Manage third-party subscribers view Controller', () => {
     describe('GET request', () => {
-        it('should render third party subscribers page', async () => {
+        it('should render third-party subscribers page', async () => {
             request['query'] = { userId: userId };
 
             const options = {
@@ -71,7 +71,7 @@ describe('Manage third party subscribers view Controller', () => {
             responseMock.verify();
         });
 
-        it('should render third party subscribers page when more than one sub', async () => {
+        it('should render third-party subscribers page when more than one sub', async () => {
             request['query'] = { userId: userId };
 
             const options = {
@@ -117,7 +117,7 @@ describe('Manage third party subscribers view Controller', () => {
     });
 
     describe('POST request', () => {
-        it('should render third party subscribers page with success health check message', async () => {
+        it('should render third-party subscribers page with success health check message', async () => {
             request['query'] = { userId: userId };
 
             const options = {
@@ -133,7 +133,7 @@ describe('Manage third party subscribers view Controller', () => {
             responseMock.verify();
         });
 
-        it('should render third party subscribers page with missing configuration error', async () => {
+        it('should render third-party subscribers page with missing configuration error', async () => {
             request['query'] = { userId: userId3 };
 
             const options = {
@@ -149,7 +149,7 @@ describe('Manage third party subscribers view Controller', () => {
             responseMock.verify();
         });
 
-        it('should render third party subscribers page with generic error', async () => {
+        it('should render third-party subscribers page with generic error', async () => {
             request['query'] = { userId: userId4 };
 
             const options = {
@@ -165,7 +165,7 @@ describe('Manage third party subscribers view Controller', () => {
             responseMock.verify();
         });
 
-        it('should render third party subscribers page with response error message', async () => {
+        it('should render third-party subscribers page with response error message', async () => {
             request['query'] = { userId: userId5 };
 
             const options = {

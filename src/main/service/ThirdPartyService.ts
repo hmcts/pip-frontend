@@ -28,7 +28,7 @@ export class ThirdPartyService {
     thirdPartyRequests = new ThirdPartyRequests();
 
     /**
-     * Service which gets third party subscribers from the backend.
+     * Service which gets third-party subscribers from the backend.
      */
     public async getThirdPartySubscribers(adminUserId): Promise<any> {
         const returnedAccounts = await this.thirdPartyRequests.getThirdPartySubscribers(adminUserId);
@@ -37,7 +37,7 @@ export class ThirdPartyService {
                 zone: 'Europe/London',
             }).toFormat('dd MMMM yyyy');
         }
-        return returnedAccounts;
+        return returnedAccounts.sort((a, b) => (a.name > b.name ? 1 : -1));
     }
 
     /**
@@ -190,9 +190,6 @@ export class ThirdPartyService {
             userId: formData.user,
             destinationUrl: formData.destinationUrl,
             tokenUrl: formData.tokenUrl,
-            clientIdKey: formData.clientIdKey,
-            clientSecretKey: formData.clientSecretKey,
-            scopeKey: formData.scopeKey,
         };
     }
 
@@ -200,11 +197,8 @@ export class ThirdPartyService {
         const fields = {
             destinationUrlError: !formData.destinationUrl,
             tokenUrlError: !formData.tokenUrl,
-            scopeKeyError: !formData.scopeKey,
-            scopeValueError: !formData.scopeValue,
-            clientIdKeyError: !formData.clientIdKey,
+            scopeError: !formData.scope,
             clientIdError: !formData.clientId,
-            clientSecretKeyError: !formData.clientSecretKey,
             clientSecretError: !formData.clientSecret,
         };
 

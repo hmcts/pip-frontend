@@ -60,7 +60,7 @@ describe('Third Party Service tests', () => {
         const getThirdPartySubscribersStub = sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscribers');
         getThirdPartySubscribersStub.resolves(thirdPartySubscribers);
 
-        it('should return correct number and details of third party subscribers', async () => {
+        it('should return correct number and details of third-party subscribers', async () => {
             const data = await thirdPartyService.getThirdPartySubscribers(adminUserId);
             expect(data.length).to.equal(2, 'Number of accounts returned does not match expected length');
 
@@ -101,12 +101,12 @@ describe('Third Party Service tests', () => {
     });
 
     describe('validateThirdPartySubscriberFormFields', () => {
-        it('should return errors with no third party subscriber name', () => {
+        it('should return errors with no third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberFormFields({});
             expect(result.userNameError).to.be.true;
         });
 
-        it('should return null when both third party subscriber name', () => {
+        it('should return null when both third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberFormFields({
                 thirdPartySubscriberName: 'name',
             });
@@ -124,12 +124,12 @@ describe('Third Party Service tests', () => {
         createThirdPartySubscriberStub.withArgs(sinon.match.any, '2').resolves(false);
         createThirdPartySubscriberStub.withArgs(sinon.match.any, '3').resolves(null);
 
-        it('should return true if account management request return created third party subscriber', async () => {
+        it('should return true if account management request return created third-party subscriber', async () => {
             const result = await thirdPartyService.createThirdPartySubscriber(formData, '1');
             expect(result).to.be.true;
         });
 
-        it('should return false if account management request return errored third party subscriber', async () => {
+        it('should return false if account management request return errored third-party subscriber', async () => {
             const result = await thirdPartyService.createThirdPartySubscriber(formData, '2');
             expect(result).to.be.false;
         });
@@ -319,22 +319,19 @@ describe('Third Party Service tests', () => {
     });
 
     describe('validateThirdPartySubscriberOauthConfigFormFields', () => {
-        it('should return errors with no third party subscriber name', () => {
+        it('should return errors with no third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({});
             expect(result.destinationUrlError).to.be.true;
         });
 
-        it('should return null when both third party subscriber name', () => {
+        it('should return null when both third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({
                 userId: 'user',
                 destinationUrl: 'destinationUrl',
                 tokenUrl: 'tokenUrl',
-                clientIdKey: 'clientIdKey',
                 clientId: 'clientId',
-                clientSecretKey: 'clientSecretKey',
                 clientSecret: 'clientSecret',
-                scopeKey: 'scopeKey',
-                scopeValue: 'scope',
+                scope: 'scope',
             });
             expect(result).to.be.null;
         });

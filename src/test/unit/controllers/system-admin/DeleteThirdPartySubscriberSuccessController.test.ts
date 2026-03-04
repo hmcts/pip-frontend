@@ -5,7 +5,7 @@ import DeleteThirdPartySubscriberSuccessController from '../../../../main/contro
 
 const i18n = {
     'delete-third-party-subscriber-success': {
-        title: 'Delete third party subscriber success',
+        title: 'Delete third-party subscriber success',
     },
 };
 
@@ -19,8 +19,8 @@ const request = mockRequest(i18n);
 
 const deleteThirdPartySubscriberSuccessController = new DeleteThirdPartySubscriberSuccessController();
 
-describe('Delete third party subscriber success controller', () => {
-    it('should render the delete third party subscriber success page', async () => {
+describe('Delete third-party subscriber success controller', () => {
+    it('should render the delete third-party subscriber success page', async () => {
         const responseMock = sinon.mock(response);
         responseMock
             .expects('render')

@@ -15,7 +15,7 @@ export default class ManageThirdPartySubscribersViewController {
                 await userManagementService.auditAction(
                     req.user,
                     'MANAGE_THIRD_PARTY_SUBSCRIBER_VIEW',
-                    'User requested to view third party subscriber with id: ' + user.userId
+                    'User requested to view third-party subscriber with id: ' + user.userId
                 );
 
                 res.render('system-admin/manage-third-party-subscribers-view', {

@@ -4,6 +4,7 @@ import sinon from 'sinon';
 
 // Mock the services before importing the controller
 const mockThirdPartyService = {
+    getThirdPartySubscriberOauthConfigByUserId: sinon.stub(),
     createThirdPartySubscriberOauthConfig: sinon.stub(),
     updateThirdPartySubscriberOauthConfig: sinon.stub(),
 };
@@ -37,10 +38,7 @@ const adminUserId = 'admin-456';
 const formDataCreate = {
     user: userId,
     createConfig: 'true',
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     authUrl: 'https://auth.example.com',
@@ -49,19 +47,23 @@ const formDataCreate = {
 
 const formDataUpdate = {
     user: userId,
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     authUrl: 'https://auth.example.com',
     tokenUrl: 'https://token.example.com',
 };
 
+const oauthConfig = {
+    user: userId,
+    clientIdKey: 'client-id-key',
+    clientSecretKey: 'client-secret-key',
+    scopeKey: 'scope-key',
+};
+
 const i18n = {
     'manage-third-party-subscriber-oauth-config-summary': {
-        title: 'Manage Third Party Subscriber OAuth Config Summary',
+        title: 'Manage third-party subscriber OAuth Config Summary',
     },
 };
 
@@ -88,6 +90,8 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
         mockThirdPartyService.updateThirdPartySubscriberOauthConfig.reset();
         mockUserManagementService.auditAction.reset();
         mockKeyVaultService.createOrUpdateSecret.reset();
+
+        mockThirdPartyService.getThirdPartySubscriberOauthConfigByUserId.resolves(oauthConfig);
     });
 
     afterEach(() => {
@@ -159,17 +163,17 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
             // Verify KeyVault secrets were created
             sinon.assert.calledWith(
                 mockKeyVaultService.createOrUpdateSecret,
-                formDataCreate.scopeKey,
-                formDataCreate.scopeValue
+                oauthConfig.scopeKey,
+                formDataCreate.scope
             );
             sinon.assert.calledWith(
                 mockKeyVaultService.createOrUpdateSecret,
-                formDataCreate.clientIdKey,
+                oauthConfig.clientIdKey,
                 formDataCreate.clientId
             );
             sinon.assert.calledWith(
                 mockKeyVaultService.createOrUpdateSecret,
-                formDataCreate.clientSecretKey,
+                oauthConfig.clientSecretKey,
                 formDataCreate.clientSecret
             );
 
@@ -178,7 +182,7 @@ describe('ManageThirdPartySubscriberOauthConfigSummaryController', () => {
                 mockUserManagementService.auditAction,
                 request.user,
                 'THIRD_PARTY_SUBSCRIBER_OAUTH_CONFIG_CREATED',
-                'Third party oauth config created successfully'
+                'Third-party OAuth config created successfully'
             );
 
             responseMock.verify();

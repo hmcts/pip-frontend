@@ -43,7 +43,7 @@ let getStub = sinon.stub(accountManagementApi, 'get');
 let deleteStub = sinon.stub(accountManagementApi, 'delete');
 
 describe('Third-party Requests', () => {
-    describe('Create Third Party Subscriber Account', () => {
+    describe('Create third-party subscriber Account', () => {
         it('should return true on success', async () => {
             postStub.withArgs(thirdPartySubscriberEndpoint).resolves({ status: StatusCodes.CREATED });
             const response = await thirdPartyRequests.createThirdPartySubscriber(
@@ -66,7 +66,7 @@ describe('Third-party Requests', () => {
         });
     });
 
-    describe('Get third party subscriber by id', () => {
+    describe('Get third-party subscriber by id', () => {
         const idtoUse = '123';
 
         beforeEach(() => {
@@ -99,7 +99,7 @@ describe('Third-party Requests', () => {
         });
     });
 
-    describe('Delete third party subscriber id', () => {
+    describe('Delete third-party subscriber id', () => {
         const idtoUse = '123';
         const adminUserId = '456';
 
@@ -131,7 +131,7 @@ describe('Third-party Requests', () => {
         });
     });
 
-    describe('Get third party subscriber accounts', () => {
+    describe('Get third-party subscriber accounts', () => {
         const adminUserId = '1234-1234';
 
         beforeEach(() => {
@@ -260,7 +260,7 @@ describe('Third-party Requests', () => {
         });
     });
 
-    describe('Get third party subscriber oauth config by id', () => {
+    describe('Get third-party subscriber oauth config by id', () => {
         const idtoUse = '123';
 
         beforeEach(() => {
@@ -268,7 +268,7 @@ describe('Third-party Requests', () => {
             getStub = sinon.stub(accountManagementApi, 'get');
         });
 
-        it('should return third party subscriber oauth config on success', async () => {
+        it('should return third-party subscriber oauth config on success', async () => {
             getStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).resolves({
                 status: 200,
                 data: { userId: '321', destinationUrl: 'url' },
@@ -293,7 +293,7 @@ describe('Third-party Requests', () => {
         });
     });
 
-    describe('Create Third Party Subscriber Oauth Config', () => {
+    describe('Create third-party subscriber Oauth Config', () => {
         beforeEach(() => {
             sinon.restore();
             postStub = sinon.stub(accountManagementApi, 'post');
@@ -327,7 +327,7 @@ describe('Third-party Requests', () => {
         });
     });
 
-    describe('Update third party subscriber oauth config by id', () => {
+    describe('Update third-party subscriber oauth config by id', () => {
         const idtoUse = '123';
         const updateOauthConfigPayload = {
             userId: '321',
@@ -338,7 +338,7 @@ describe('Third-party Requests', () => {
             putStub = sinon.stub(accountManagementApi, 'put');
         });
 
-        it('should update third party subscriber oauth config on success', async () => {
+        it('should update third-party subscriber oauth config on success', async () => {
             putStub.withArgs(`${thirdPartySubscriberOauthConfigEndpoint}/${idtoUse}`).resolves({
                 status: 200,
                 data: { userId: '321', destinationUrl: 'url' },

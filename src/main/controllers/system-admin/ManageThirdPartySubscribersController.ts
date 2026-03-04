@@ -12,7 +12,7 @@ export default class ManageThirdPartyUsersController {
         await userManagementService.auditAction(
             req.user,
             'VIEW_THIRD_PARTY_SUBSCRIBERS',
-            'User requested to view all third party subscribers'
+            'User requested to view all third-party subscribers'
         );
 
         res.render('system-admin/manage-third-party-subscribers', {
