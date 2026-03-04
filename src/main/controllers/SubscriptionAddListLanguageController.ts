@@ -13,7 +13,7 @@ export default class SubscriptionAddListLanguageController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.body['list-language'] === undefined) {
+        if (req.body?.['list-language'] === undefined) {
             res.render('subscription-add-list-language', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-add-list-language']),
                 noSelectionError: true,
