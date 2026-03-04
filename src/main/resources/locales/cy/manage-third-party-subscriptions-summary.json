@@ -1,0 +1,11 @@
+{
+    "title": "Manage third-party subscriptions summary",
+    "header": "Confirm third-party subscriptions",
+    "listTypeHeader": "List type",
+    "sensitivityHeader": "Sensitivity",
+    "confirmButton": "Confirm",
+    "error": {
+        "title": "There is a problem",
+        "message": "Failed to create third-party subscriptions. Please try again."
+    }
+}
