@@ -3,8 +3,13 @@ import * as fs from 'fs';
 import * as https from 'https';
 import * as path from 'path';
 
-//It's important ./app is imported at the top of the file, before logging. App imports application insights.
-//If application insights is imported after logging, then no logs will be sent to application insights.
+//It's important App Insights is imported here and enabled before startup to ensure that logs are correctly sent to App Insights.
+import { AppInsights } from './modules/appinsights';
+import * as propertiesVolume from '@hmcts/properties-volume';
+import config from 'config';
+propertiesVolume.addTo(config);
+new AppInsights().enable();
+
 import { appSetup, app } from './app';
 
 import { Logger } from '@hmcts/nodejs-logging';
