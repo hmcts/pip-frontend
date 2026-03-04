@@ -156,8 +156,46 @@ export class ThirdPartyRequests {
             });
             return response.status === StatusCodes.OK;
         } catch (error) {
+            logHelper.logErrorResponse(error, 'third party subscriber oauth config update');
             logHelper.logErrorResponse(error, 'update third-party subscriber OAuth config');
         }
         return null;
+    }
+
+    public async thirdPartyConfigurationHealthCheck(userId: string, requester: string): Promise<boolean | string> {
+        try {
+            await accountManagementApi.get(`/third-party/configuration/healthcheck/${userId}`, {
+                headers: { 'x-requester-id': requester },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'third-party configuration health check');
+            if (error.response?.status === 500 && error.response?.data?.message) {
+                return error.response.data.message;
+            }
+            return false;
+        }
+    }
+
+    /**
+     * Request to account management to update the status of a third party subscriber.
+     * @param userId The ID of the third party subscriber whose status is to be updated.
+     * @param status The new status for the subscriber.
+     * @param adminUserId The user ID of the admin performing the update.
+     */
+    public async updateThirdPartySubscriberStatus(
+        userId: string,
+        status: string,
+        adminUserId: string
+    ): Promise<boolean> {
+        try {
+            const response = await accountManagementApi.patch(`/third-party/${userId}/status`, status, {
+                headers: { 'x-requester-id': adminUserId, 'Content-Type': 'application/json' },
+            });
+            return response.status === 200;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `update third party subscriber status for user ID ${userId}`);
+        }
+        return false;
     }
 }

@@ -173,8 +173,12 @@ export class ThirdPartyService {
         );
     }
 
-    public async getThirdPartySubscriberOauthConfigByUserId(userId: string, adminUserId: string): Promise<any> {
-        return await this.thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(userId, adminUserId);
+    public async getThirdPartySubscriberOauthConfigByUserId(userId, requesterId): Promise<any> {
+        return await this.thirdPartyRequests.getThirdPartySubscriberOauthConfigByUserId(userId, requesterId);
+    }
+
+    public async thirdPartyConfigurationHealthCheck(userId, requesterId): Promise<any> {
+        return await this.thirdPartyRequests.thirdPartyConfigurationHealthCheck(userId, requesterId);
     }
 
     private formatThirdPartySubscriberPayload(formData) {
@@ -199,5 +203,13 @@ export class ThirdPartyService {
         };
 
         return Object.values(fields).some(error => error) ? fields : null;
+    }
+
+    public async updateThirdPartySubscriberStatus(
+        userId: string,
+        status: string,
+        adminUserId: string
+    ): Promise<boolean> {
+        return await this.thirdPartyRequests.updateThirdPartySubscriberStatus(userId, status, adminUserId);
     }
 }

@@ -2,11 +2,7 @@ import * as process from 'process';
 import { I18next } from './modules/i18next';
 import { RedisStore } from 'connect-redis';
 import cookieParser from 'cookie-parser';
-import { AppInsights } from './modules/appinsights';
-import * as propertiesVolume from '@hmcts/properties-volume';
 import config from 'config';
-propertiesVolume.addTo(config);
-
 import { Logger } from '@hmcts/nodejs-logging';
 import * as bodyParser from 'body-parser';
 import session from 'express-session';
@@ -35,7 +31,6 @@ export async function appSetup() {
 
     const routes = await import('./routes/routes');
 
-    new AppInsights().enable();
     new Nunjucks(developmentMode).enableFor(app);
     new Helmet(config.get('security'), developmentMode).enableFor(app);
     new Container().enableFor(app);

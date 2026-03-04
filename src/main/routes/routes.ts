@@ -1041,6 +1041,11 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.manageThirdPartySubscribersViewController.get
     );
+    app.post(
+        '/manage-third-party-subscribers/view',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscribersViewController.post
+    );
     app.get(
         '/create-third-party-subscriber',
         isPermittedSystemAdmin,
@@ -1065,6 +1070,21 @@ export default function (app: Application): void {
         '/create-third-party-subscriber-success',
         isPermittedSystemAdmin,
         app.locals.container.cradle.createThirdPartySubscriberSuccessController.get
+    );
+    app.get(
+        '/manage-third-party-subscriber-status',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberStatusController.get
+    );
+    app.post(
+        '/manage-third-party-subscriber-status',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberStatusController.post
+    );
+    app.get(
+        '/manage-third-party-subscriber-status-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.manageThirdPartySubscriberStatusSuccessController.get
     );
     app.get(
         '/delete-third-party-subscriber-confirmation',

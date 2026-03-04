@@ -25,6 +25,7 @@ describe('Manage third-party subscribers - view', () => {
     getThirdPartySubscriberStub.withArgs(userId).resolves({
         userId: '1234-1234',
         name: 'ThisIsAName',
+        status: 'Active',
         createdDate: '18th November 2022',
     });
 
@@ -48,9 +49,14 @@ describe('Manage third-party subscribers - view', () => {
             expect(summaryKeys[0].innerHTML).contains('Name', 'Could not find the header');
         });
 
+        it('should display status header', () => {
+            const summaryKeys = htmlRes.getElementsByClassName(summaryKey);
+            expect(summaryKeys[1].innerHTML).contains('Status', 'Could not find the status header');
+        });
+
         it('should display created date header', () => {
             const summaryKeys = htmlRes.getElementsByClassName(summaryKey);
-            expect(summaryKeys[1].innerHTML).contains('Created Date', 'Could not find the header');
+            expect(summaryKeys[2].innerHTML).contains('Created Date', 'Could not find the header');
         });
 
         it('name should be correct', () => {
@@ -58,19 +64,37 @@ describe('Manage third-party subscribers - view', () => {
             expect(summaryValues[0].innerHTML).contains('ThisIsAName', 'Summary name is incorrect');
         });
 
+        it('status should be correct', () => {
+            const summaryValues = htmlRes.getElementsByClassName(summaryValue);
+            expect(summaryValues[1].innerHTML).contains('Active', 'Status value is incorrect');
+        });
+
         it('created date should be correct', () => {
             const summaryValues = htmlRes.getElementsByClassName(summaryValue);
-            expect(summaryValues[1].innerHTML).contains('18th November 2022', 'Created date is incorrect');
+            expect(summaryValues[2].innerHTML).contains('18th November 2022', 'Created date is incorrect');
+        });
+
+        it('should display change status action link', () => {
+            const summaryActions = htmlRes.getElementsByClassName('govuk-summary-list__actions');
+            expect(summaryActions[0].innerHTML).contains('Change', 'Change action link is missing');
+            expect(summaryActions[0].querySelector('a').getAttribute('href')).to.equal(
+                '/manage-third-party-subscriber-status?userId=1234-1234'
+            );
+        });
+
+        it('should display test connection button', () => {
+            const buttons = htmlRes.getElementsByClassName(buttonClass);
+            expect(buttons[0].innerHTML).contains('Test connection', 'Button does not contain the correct text');
         });
 
         it('manage subscriptions button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0].innerHTML).contains('Manage subscriptions', 'Button does not contain the correct text');
+            expect(buttons[1].innerHTML).contains('Manage subscriptions', 'Button does not contain the correct text');
         });
 
         it('manage oauth configuration button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[1].innerHTML).contains(
+            expect(buttons[2].innerHTML).contains(
                 'Manage OAuth configuration',
                 'Button does not contain the correct text'
             );
@@ -78,7 +102,7 @@ describe('Manage third-party subscribers - view', () => {
 
         it('delete subscriber button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[2].innerHTML).contains('Delete subscriber', 'Button does not contain the correct text');
+            expect(buttons[3].innerHTML).contains('Delete subscriber', 'Button does not contain the correct text');
         });
     });
 });
