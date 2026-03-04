@@ -25,33 +25,40 @@ export default class ManageThirdPartySubscriberOauthConfigSummaryController {
         const formData = req.cookies?.thirdPartySubscriberCookie
             ? JSON.parse(req.cookies['thirdPartySubscriberCookie'])
             : {};
-        let response: boolean;
-        if (formData.createConfig) {
-            response = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, req.user['userId']);
-        } else {
-            response = await thirdPartyService.updateThirdPartySubscriberOauthConfig(formData, req.user['userId']);
-        }
+
+        const requesterId = req.user?.['userId'];
+        const response = formData.createConfig
+            ? await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, requesterId)
+            : await thirdPartyService.updateThirdPartySubscriberOauthConfig(formData, requesterId);
 
         if (response) {
-            await Promise.all([
-                keyVaultService.createOrUpdateSecret(formData.scopeKey, formData.scopeValue),
-                keyVaultService.createOrUpdateSecret(formData.clientIdKey, formData.clientId),
-                keyVaultService.createOrUpdateSecret(formData.clientSecretKey, formData.clientSecret),
-            ]);
-
-            await userManagementService.auditAction(
-                req.user,
-                'THIRD_PARTY_SUBSCRIBER_OAUTH_CONFIG_CREATED',
-                `Third party oauth config created successfully`
+            const oauthConfig = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(
+                formData.user,
+                requesterId
             );
-            res.clearCookie('thirdPartySubscriberCookie');
-            res.redirect('/manage-third-party-subscriber-oauth-config-success');
-        } else {
-            res.render('system-admin/manage-third-party-subscriber-oauth-config-summary', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oauth-config-summary']),
-                formData,
-                displayError: true,
-            });
+
+            if (oauthConfig) {
+                await Promise.all([
+                    keyVaultService.createOrUpdateSecret(oauthConfig.scopeKey, formData.scope),
+                    keyVaultService.createOrUpdateSecret(oauthConfig.clientIdKey, formData.clientId),
+                    keyVaultService.createOrUpdateSecret(oauthConfig.clientSecretKey, formData.clientSecret),
+                ]);
+
+                await userManagementService.auditAction(
+                    req.user,
+                    'THIRD_PARTY_SUBSCRIBER_OAUTH_CONFIG_CREATED',
+                    `Third-party OAuth config created successfully`
+                );
+                res.clearCookie('thirdPartySubscriberCookie');
+                res.redirect('/manage-third-party-subscriber-oauth-config-success');
+                return;
+            }
         }
+
+        res.render('system-admin/manage-third-party-subscriber-oauth-config-summary', {
+            ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-third-party-subscriber-oauth-config-summary']),
+            formData,
+            displayError: true,
+        });
     }
 }

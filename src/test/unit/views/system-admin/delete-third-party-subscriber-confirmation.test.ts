@@ -17,7 +17,7 @@ sinon
 
 let htmlRes: Document;
 
-describe('Delete third party subscriber confirmation page', () => {
+describe('Delete third-party subscriber confirmation page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)

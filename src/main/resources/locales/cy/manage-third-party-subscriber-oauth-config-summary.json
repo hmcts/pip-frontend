@@ -1,17 +1,14 @@
 {
-    "title": "Manage third party subscriber Oauth Config - Create third party subscriber oauth config summary - Court and Tribunal Hearings - GOV.UK",
-    "header": "Manage third party subscriber oauth config summary",
+    "title": "Manage third-party subscriber Oauth Config - Create third-party subscriber OAuth config summary - Court and Tribunal Hearings - GOV.UK",
+    "header": "Manage third-party subscriber OAuth config summary",
     "destinationUrl": "Name",
     "tokenUrl": "Token URL",
-    "scopeKey": "Scope Key",
-    "scopeValue": "Scope Value",
-    "clientIdKey": "Client ID Key",
+    "scope": "Scope",
     "clientId": "Client ID",
-    "clientSecretKey": "Client Secret Key",
     "actionName": "Change",
     "confirmButton": "Confirm",
     "error": {
         "title": "There is a problem",
-        "message": "Failed to manage third party subscriber oauth config. Please try again."
+        "message": "Failed to manage third-party subscriber oauth config. Please try again."
     }
 }

@@ -10,13 +10,13 @@ const createThirdPartyStub = sinon.stub(ThirdPartyService.prototype, 'createThir
 createThirdPartyStub.withArgs(formData, '1').resolves(null);
 createThirdPartyStub.withArgs(formData, '2').resolves('true');
 
-describe('Create third party subscriber summary page', () => {
+describe('Create third-party subscriber summary page', () => {
     beforeEach(() => {
         app.request['cookies'] = { formCookie: JSON.stringify(formData) };
     });
 
     describe('on GET', () => {
-        test('should render create third party subscriber summary page', async () => {
+        test('should render create third-party subscriber summary page', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',
@@ -29,7 +29,7 @@ describe('Create third party subscriber summary page', () => {
     });
 
     describe('on POST', () => {
-        test('should render create third party subscriber summary page with errors', async () => {
+        test('should render create third-party subscriber summary page with errors', async () => {
             app.request['user'] = {
                 userId: '1',
                 roles: 'SYSTEM_ADMIN',
@@ -40,7 +40,7 @@ describe('Create third party subscriber summary page', () => {
                 .expect(res => expect(res.status).to.equal(200));
         });
 
-        test('should redirect to create third party subscriber success page', async () => {
+        test('should redirect to create third-party subscriber success page', async () => {
             app.request['user'] = {
                 userId: '2',
                 roles: 'SYSTEM_ADMIN',

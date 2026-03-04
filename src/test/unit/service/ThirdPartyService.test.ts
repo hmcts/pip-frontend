@@ -34,6 +34,15 @@ describe('Third Party Service tests', () => {
         },
     ];
 
+    const thirdPartyOauthConfig = {
+        userId: 'user',
+        destinationUrl: 'destinationUrl',
+        tokenUrl: 'tokenUrl',
+        clientIdKey: 'clientIdKey',
+        clientSecretKey: 'clientSecretKey',
+        scopeKey: 'scopeKey',
+    };
+
     describe('getThirdPartySubscribers', () => {
         const thirdPartySubscribers = [
             {
@@ -51,7 +60,7 @@ describe('Third Party Service tests', () => {
         const getThirdPartySubscribersStub = sinon.stub(ThirdPartyRequests.prototype, 'getThirdPartySubscribers');
         getThirdPartySubscribersStub.resolves(thirdPartySubscribers);
 
-        it('should return correct number and details of third party subscribers', async () => {
+        it('should return correct number and details of third-party subscribers', async () => {
             const data = await thirdPartyService.getThirdPartySubscribers(adminUserId);
             expect(data.length).to.equal(2, 'Number of accounts returned does not match expected length');
 
@@ -92,12 +101,12 @@ describe('Third Party Service tests', () => {
     });
 
     describe('validateThirdPartySubscriberFormFields', () => {
-        it('should return errors with no third party subscriber name', () => {
+        it('should return errors with no third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberFormFields({});
             expect(result.userNameError).to.be.true;
         });
 
-        it('should return null when both third party subscriber name', () => {
+        it('should return null when both third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberFormFields({
                 thirdPartySubscriberName: 'name',
             });
@@ -115,12 +124,12 @@ describe('Third Party Service tests', () => {
         createThirdPartySubscriberStub.withArgs(sinon.match.any, '2').resolves(false);
         createThirdPartySubscriberStub.withArgs(sinon.match.any, '3').resolves(null);
 
-        it('should return true if account management request return created third party subscriber', async () => {
+        it('should return true if account management request return created third-party subscriber', async () => {
             const result = await thirdPartyService.createThirdPartySubscriber(formData, '1');
             expect(result).to.be.true;
         });
 
-        it('should return false if account management request return errored third party subscriber', async () => {
+        it('should return false if account management request return errored third-party subscriber', async () => {
             const result = await thirdPartyService.createThirdPartySubscriber(formData, '2');
             expect(result).to.be.false;
         });
@@ -237,15 +246,6 @@ describe('Third Party Service tests', () => {
     });
 
     describe('createThirdPartySubscriberOauthConfig', () => {
-        const formData = {
-            userId: 'user',
-            destinationUrl: 'destinationUrl',
-            tokenUrl: 'tokenUrl',
-            clientIdKey: 'clientIdKey',
-            clientSecretKey: 'clientSecretKey',
-            scopeKey: 'scopeKey',
-        };
-
         const createThirdPartySubscriberOauthConfigStub = sinon.stub(
             ThirdPartyRequests.prototype,
             'createThirdPartySubscriberOauthConfig'
@@ -255,38 +255,83 @@ describe('Third Party Service tests', () => {
         createThirdPartySubscriberOauthConfigStub.withArgs(sinon.match.any, '3').resolves(null);
 
         it('should return true if account management request return created third party oauth config for subscriber', async () => {
-            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '1');
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(thirdPartyOauthConfig, '1');
             expect(result).to.be.true;
         });
 
         it('should return false if account management request return errored third party oauth config for subscriber', async () => {
-            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '2');
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(thirdPartyOauthConfig, '2');
             expect(result).to.be.false;
         });
 
         it('should return false if account management request returns null', async () => {
-            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(formData, '3');
+            const result = await thirdPartyService.createThirdPartySubscriberOauthConfig(thirdPartyOauthConfig, '3');
             expect(result).to.be.null;
         });
     });
 
+    describe('Get third-party OAuth configuration by user ID', () => {
+        const getOauthConfigStub = sinon.stub(
+            ThirdPartyRequests.prototype,
+            'getThirdPartySubscriberOauthConfigByUserId'
+        );
+        getOauthConfigStub.withArgs(userId).resolves(thirdPartyOauthConfig);
+        getOauthConfigStub.withArgs(invalidUserId).resolves(null);
+
+        it('should return correct Oauth configuration', async () => {
+            const result = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(userId, adminUserId);
+            expect(result).to.equal(thirdPartyOauthConfig);
+        });
+
+        it('should return null if Oauth configuration does not exist', async () => {
+            const result = await thirdPartyService.getThirdPartySubscriberOauthConfigByUserId(
+                invalidUserId,
+                adminUserId
+            );
+            expect(result).to.be.null;
+        });
+    });
+
+    describe('Third-party configuration health check', () => {
+        const userId2 = '125';
+        const userId3 = '126';
+        const respondMessage = 'Error message';
+
+        const healthCheckStub = sinon.stub(ThirdPartyRequests.prototype, 'thirdPartyConfigurationHealthCheck');
+        healthCheckStub.withArgs(userId).resolves(true);
+        healthCheckStub.withArgs(userId2).resolves(false);
+        healthCheckStub.withArgs(userId3).resolves(respondMessage);
+
+        it('should return true for successful health check', async () => {
+            const result = await thirdPartyService.thirdPartyConfigurationHealthCheck(userId, adminUserId);
+            expect(result).to.be.true;
+        });
+
+        it('should return false for failed health check', async () => {
+            const result = await thirdPartyService.thirdPartyConfigurationHealthCheck(userId2, adminUserId);
+            expect(result).to.be.false;
+        });
+
+        it('should return response error message', async () => {
+            const result = await thirdPartyService.thirdPartyConfigurationHealthCheck(userId3, adminUserId);
+            expect(result).to.equal(respondMessage);
+        });
+    });
+
     describe('validateThirdPartySubscriberOauthConfigFormFields', () => {
-        it('should return errors with no third party subscriber name', () => {
+        it('should return errors with no third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({});
             expect(result.destinationUrlError).to.be.true;
         });
 
-        it('should return null when both third party subscriber name', () => {
+        it('should return null when both third-party subscriber name', () => {
             const result = thirdPartyService.validateThirdPartySubscriberOauthConfigFormFields({
                 userId: 'user',
                 destinationUrl: 'destinationUrl',
                 tokenUrl: 'tokenUrl',
-                clientIdKey: 'clientIdKey',
                 clientId: 'clientId',
-                clientSecretKey: 'clientSecretKey',
                 clientSecret: 'clientSecret',
-                scopeKey: 'scopeKey',
-                scopeValue: 'scope',
+                scope: 'scope',
             });
             expect(result).to.be.null;
         });

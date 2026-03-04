@@ -7,7 +7,7 @@ import ManageThirdPartySubscribersController from '../../../../main/controllers/
 
 const manageThirdPartySubscribersController = new ManageThirdPartySubscribersController();
 
-describe('Manage third party subscribers Controller', () => {
+describe('Manage third-party subscribers Controller', () => {
     const i18n = {
         'manage-third-party-subscribers': {},
     };
@@ -18,7 +18,7 @@ describe('Manage third party subscribers Controller', () => {
         },
     } as unknown as Response;
 
-    it('should render third party subscribers page', async () => {
+    it('should render third-party subscribers page', async () => {
         const thirdPartySubscribersData = [
             {
                 name: 'User Name',

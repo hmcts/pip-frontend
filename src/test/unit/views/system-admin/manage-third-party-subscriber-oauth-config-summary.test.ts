@@ -9,10 +9,7 @@ const userId = 'test-user-123';
 const cookie = {
     user: userId,
     createConfig: 'true',
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     destinationUrl: 'https://auth.example.com',
@@ -29,7 +26,7 @@ app.request['user'] = {
 
 let htmlRes: Document;
 
-describe('Create third party subscriber oauth config summary page', () => {
+describe('Create third-party subscriber OAuth config summary page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -42,7 +39,7 @@ describe('Create third party subscriber oauth config summary page', () => {
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName('govuk-heading-l');
         expect(header[0].innerHTML).contains(
-            'Manage third party subscriber oauth config summary',
+            'Manage third-party subscriber OAuth config summary',
             'Header does not match'
         );
     });
@@ -51,11 +48,8 @@ describe('Create third party subscriber oauth config summary page', () => {
         const keys = htmlRes.getElementsByClassName('govuk-summary-list__key');
         expect(keys[0].innerHTML).to.contain('Destination URL', 'Destination URL key does not match');
         expect(keys[1].innerHTML).to.contain('Token URL', 'Token URL key does not match');
-        expect(keys[2].innerHTML).to.contain('Scope Key', 'Scope Key key does not match');
-        expect(keys[3].innerHTML).to.contain('Scope Value', 'Scope Value value does not match');
-        expect(keys[4].innerHTML).to.contain('Client ID Key', 'Client ID key does not match');
-        expect(keys[5].innerHTML).to.contain('Client ID', 'Client ID does not match');
-        expect(keys[6].innerHTML).to.contain('Client Secret Key', 'Client Secret key does not match');
+        expect(keys[2].innerHTML).to.contain('Scope', 'Scope value does not match');
+        expect(keys[3].innerHTML).to.contain('Client ID', 'Client ID does not match');
     });
 
     it('should display correct summary values', async () => {
@@ -69,11 +63,8 @@ describe('Create third party subscriber oauth config summary page', () => {
 
         expect(keys[0].innerHTML).to.contain('Destination URL', 'Destination URL key does not match');
         expect(keys[1].innerHTML).to.contain('Token URL', 'Token URL key does not match');
-        expect(keys[2].innerHTML).to.contain('Scope Key', 'Scope Key does not match');
-        expect(keys[3].innerHTML).to.contain('Scope Value', 'Scope Value does not match');
-        expect(keys[4].innerHTML).to.contain('Client ID Key', 'Client ID key does not match');
-        expect(keys[5].innerHTML).to.contain('Client ID', 'Client ID does not match');
-        expect(keys[6].innerHTML).to.contain('Client Secret Key', 'Client Secret key does not match');
+        expect(keys[2].innerHTML).to.contain('Scope', 'Scope does not match');
+        expect(keys[3].innerHTML).to.contain('Client ID', 'Client ID does not match');
     });
 
     it('should display correct summary actions', async () => {
@@ -96,16 +87,16 @@ describe('Create third party subscriber oauth config summary page', () => {
         );
 
         action = actions[2].getElementsByClassName('govuk-link')[0];
-        expect(action.innerHTML).to.contain('Scope Value', 'Scope Value action does not match');
-        expect(action.innerHTML).to.contain('Change', 'Scope Value action does not match');
+        expect(action.innerHTML).to.contain('Scope', 'Scope action does not match');
+        expect(action.innerHTML).to.contain('Change', 'Scope action does not match');
         expect(action.getAttribute('href')).to.equal(
-            'manage-third-party-subscriber-oauth-config?userId=test-user-123#scopeValue',
-            'Scope Value action link does not match'
+            'manage-third-party-subscriber-oauth-config?userId=test-user-123#scope',
+            'Scope action link does not match'
         );
 
         action = actions[3].getElementsByClassName('govuk-link')[0];
         expect(action.innerHTML).to.contain('Client ID', 'Client ID action does not match');
-        expect(action.innerHTML).to.contain('Change', 'Scope Value action does not match');
+        expect(action.innerHTML).to.contain('Change', 'Scope action does not match');
         expect(action.getAttribute('href')).to.equal(
             'manage-third-party-subscriber-oauth-config?userId=test-user-123#clientId',
             'Client ID action link does not match'

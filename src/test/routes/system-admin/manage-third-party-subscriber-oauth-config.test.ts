@@ -11,10 +11,7 @@ const userId = 'test-user-123';
 const cookie = {
     user: userId,
     createConfig: 'true',
-    scopeKey: 'TestSubscriber-test-user-123-scope',
-    clientIdKey: 'TestSubscriber-test-user-123-client-id',
-    clientSecretKey: 'TestSubscriber-test-user-123-client-secret',
-    scopeValue: 'read:data write:data',
+    scope: 'read:data write:data',
     clientId: 'client-123',
     clientSecret: 'secret-456',
     destinationUrl: 'https://auth.example.com',
@@ -35,21 +32,13 @@ const validateThirdPartySubscriberOauthConfigFormFieldsStub = sinon.stub(
     'validateThirdPartySubscriberOauthConfigFormFields'
 );
 const getSecretStub = sinon.stub(KeyVaultService.prototype, 'getSecret');
-const createKeyVaultSecretNameStub = sinon.stub(KeyVaultService.prototype, 'createKeyVaultSecretName');
 
 getThirdPartySubscriberOauthConfigByUserIdStub.resolves(cookie);
 getThirdPartySubscriberByIdStub.resolves(thirdPartySubscriber);
-createKeyVaultSecretNameStub.withArgs('TestSubscriber', userId, 'scope').returns('TestSubscriber-test-user-123-scope');
-createKeyVaultSecretNameStub
-    .withArgs('TestSubscriber', userId, 'client-id')
-    .returns('TestSubscriber-test-user-123-client-id');
-createKeyVaultSecretNameStub
-    .withArgs('TestSubscriber', userId, 'client-secret')
-    .returns('TestSubscriber-test-user-123-client-secret');
 getSecretStub.withArgs('TestSubscriber-test-user-123-scope').resolves('read:data write:data');
 getSecretStub.withArgs('TestSubscriber-test-user-123-client-id').resolves('client-123');
 
-describe('Manage third party subscriber oauth config page', () => {
+describe('Manage third-party subscriber oauth config page', () => {
     beforeEach(() => {
         app.request['user'] = {
             userId: '1',
@@ -58,7 +47,7 @@ describe('Manage third party subscriber oauth config page', () => {
     });
 
     describe('on GET', () => {
-        test('should render manage third party subscriber oauth config page with existing cookie', async () => {
+        test('should render manage third-party subscriber oauth config page with existing cookie', async () => {
             app.request['cookies'] = {
                 thirdPartySubscriberCookie: JSON.stringify(cookie),
             };
@@ -71,7 +60,7 @@ describe('Manage third party subscriber oauth config page', () => {
                 });
         });
 
-        test('should render manage third party subscriber oauth config page with new config', async () => {
+        test('should render manage third-party subscriber oauth config page with new config', async () => {
             app.request['cookies'] = {};
             getThirdPartySubscriberOauthConfigByUserIdStub.resolves(null);
 
@@ -83,7 +72,7 @@ describe('Manage third party subscriber oauth config page', () => {
                 });
         });
 
-        test('should render manage third party subscriber oauth config page with existing config from database', async () => {
+        test('should render manage third-party subscriber oauth config page with existing config from database', async () => {
             app.request['cookies'] = {};
             getThirdPartySubscriberOauthConfigByUserIdStub.resolves(cookie);
 
@@ -97,7 +86,7 @@ describe('Manage third party subscriber oauth config page', () => {
     });
 
     describe('on POST', () => {
-        test('should render manage third party subscriber oauth config page with errors', async () => {
+        test('should render manage third-party subscriber oauth config page with errors', async () => {
             const formErrors = { destinationUrl: 'Destination URL is required' };
             validateThirdPartySubscriberOauthConfigFormFieldsStub.returns(formErrors);
 

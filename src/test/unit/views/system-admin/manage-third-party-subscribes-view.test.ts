@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 
-describe('Manage third party subscribers - view', () => {
+describe('Manage third-party subscribers - view', () => {
     const PAGE_URL = '/manage-third-party-subscribers/view';
     let htmlRes: Document;
 
@@ -29,7 +29,7 @@ describe('Manage third party subscribers - view', () => {
         createdDate: '18th November 2022',
     });
 
-    describe('Manage third party subscribers - view without subs', () => {
+    describe('Manage third-party subscribers - view without subs', () => {
         beforeAll(async () => {
             await request(app)
                 .get(PAGE_URL + '?userId=' + userId)
@@ -82,14 +82,19 @@ describe('Manage third party subscribers - view', () => {
             );
         });
 
+        it('should display test connection button', () => {
+            const buttons = htmlRes.getElementsByClassName(buttonClass);
+            expect(buttons[0].innerHTML).contains('Test connection', 'Button does not contain the correct text');
+        });
+
         it('manage subscriptions button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[0].innerHTML).contains('Manage subscriptions', 'Button does not contain the correct text');
+            expect(buttons[1].innerHTML).contains('Manage subscriptions', 'Button does not contain the correct text');
         });
 
         it('manage oauth configuration button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[1].innerHTML).contains(
+            expect(buttons[2].innerHTML).contains(
                 'Manage OAuth configuration',
                 'Button does not contain the correct text'
             );
@@ -97,7 +102,7 @@ describe('Manage third party subscribers - view', () => {
 
         it('delete subscriber button should be correct', () => {
             const buttons = htmlRes.getElementsByClassName(buttonClass);
-            expect(buttons[2].innerHTML).contains('Delete subscriber', 'Button does not contain the correct text');
+            expect(buttons[3].innerHTML).contains('Delete subscriber', 'Button does not contain the correct text');
         });
     });
 });
