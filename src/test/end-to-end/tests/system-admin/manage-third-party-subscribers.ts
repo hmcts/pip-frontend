@@ -58,7 +58,7 @@ Scenario('I can create, View, update and remove third-party subscribers', async 
     I.waitForText('Manage third-party subscriber OAuth Configuration');
     I.fillField('#destinationUrl', DESTINATION_URL);
     I.fillField('#tokenUrl', TOKEN_URL);
-    I.fillField('#scopeValue', SCOPE_VALUE);
+    I.fillField('#scope', SCOPE_VALUE);
     I.fillField('#clientId', CLIENT_ID);
     I.fillField('#clientSecret', CLIENT_SECRET);
     I.click('Create');
@@ -112,7 +112,7 @@ Scenario(
         I.waitForText('There is a problem');
         I.see('Enter Destination URL');
         I.see('Enter Token URL');
-        I.see('Enter Scope Value');
+        I.see('Enter Scope');
         I.see('Enter Client ID');
         I.see('Enter Client Secret');
     }
