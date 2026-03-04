@@ -1,0 +1,31 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" action="/manage-third-party-subscriber-status">
+        <input type="hidden" name="userId" value="{{ userDetails.userId }}">
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-!-font-weight-bold " for="status">{{ statusHeader }}</label>
+            <select class="govuk-select" id="status" name="status">
+                {% for option in statusOptions %}
+                    <option value="{{ option }}" {{ 'selected' if userDetails.status == option else '' }}>{{ option | titleCase }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="govuk-button-group">
+            <button type="submit" class="govuk-button">Confirm</button>
+            <a href="/manage-third-party-subscribers/view?userId={{ userDetails.userId }}" class="govuk-button govuk-button--warning" role="button">Cancel</a>
+        </div>
+    </form>
+{% endblock %}

@@ -8,7 +8,7 @@ import sinon from 'sinon';
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
 const userId = '1234-1234';
-const mockUser = { userId: userId };
+const mockUser = { userId: userId, status: 'Active' };
 
 sinon.stub(ThirdPartyService.prototype, 'getThirdPartySubscriberById').resolves(mockUser);
 sinon.stub(ThirdPartyService.prototype, 'thirdPartyConfigurationHealthCheck').resolves(true);

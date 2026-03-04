@@ -2,6 +2,8 @@
     "title": "Manage subscriber",
     "heading": "Manage subscriber",
     "name": "Name",
+    "status": "Status",
+    "change": "Change",
     "createdDate": "Created Date",
     "manageSubscriptions": "Manage subscriptions",
     "manageOAuthConfiguration": "Manage OAuth configuration",
