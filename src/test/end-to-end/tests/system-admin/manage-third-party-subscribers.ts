@@ -116,4 +116,4 @@ Scenario(
         I.see('Enter Client ID');
         I.see('Enter Client Secret');
     }
-);
+).tag('@Nightly');
