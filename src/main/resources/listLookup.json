@@ -925,7 +925,7 @@
         "url": "crown-daily-list",
         "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
-        "defaultSensitivity": "CLASSIFIED",
+        "defaultSensitivity": "PUBLIC",
         "isNonStrategic": false
     },
     "CROWN_WARNED_PDDA_LIST": {
