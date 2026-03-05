@@ -7,6 +7,7 @@
     "accountInfo": "Don't have an account?",
     "accountInfo_link_text": "Create a Court and tribunal hearings account",
     "accountInfo_link": "create-media-account",
+    "participantConsent": "You may be contacted to take part in user research to help us improve our services. Participation is optional, and any information you share will be handled confidentially.",
     "error": {
         "title": "There is a problem",
         "noSelection": "Please select an option"

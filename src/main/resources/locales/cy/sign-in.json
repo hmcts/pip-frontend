@@ -7,6 +7,7 @@
     "accountInfo": "A oes gennych gyfrif?",
     "accountInfo_link_text": "Creu cyfrif gwrandawiadau Llys a thribiwnlys",
     "accountInfo_link": "create-media-account",
+    "participantConsent": "Efallai y cysylltir â chi i gymryd rhan mewn ymchwil defnyddwyr i’n helpu i wella ein gwasanaethau. Mae cymryd rhan yn ddewisol, a chaiff unrhyw wybodaeth a rennir ei thrin yn gyfrinachol.",
     "error": {
         "title": "Mae yna broblem",
         "noSelection": "Rhaid dewis opsiwn"

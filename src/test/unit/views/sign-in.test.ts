@@ -95,6 +95,13 @@ describe('Sign In option Page', () => {
                 'Link does not contain correct url'
             );
         });
+
+        it('should display participation consent message', () => {
+            const message = htmlRes.getElementsByClassName('govuk-body-s');
+            expect(message[1].innerHTML).contains('You may be contacted to take part in user research to help us '
+                + 'improve our services. Participation is optional, and any information you share will be handled '
+                + 'confidentially.', 'Could not find participation consent message');
+        });
     });
 
     describe('with error state', () => {
