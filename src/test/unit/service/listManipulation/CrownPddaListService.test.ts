@@ -43,7 +43,7 @@ describe('Crown PDDA List service', () => {
 
         it('should format hearing info', async () => {
             const results = await crownPddaListService.processPayload(JSON.parse(rawDailyListData), lng, listTypeDaily);
-            const hearing = results[0].sittings[0].hearings[0];
+            let hearing = results[0].sittings[0].hearings[0];
             expect(hearing.hearingTime).to.equal('TestTimeMarkingNote');
             expect(hearing.caseNumber).to.equal('T00112233');
             expect(hearing.defendantName).to.equal(
@@ -53,6 +53,11 @@ describe('Crown PDDA List service', () => {
             expect(hearing.representativeName).to.be.empty;
             expect(hearing.prosecutingAuthority).to.equal('Crown Prosecution Service');
             expect(hearing.listNote).to.equal('TestListNote');
+
+            hearing = results[1].sittings[0].hearings[0];
+            expect(hearing.hearingTime).to.equal('');
+
+
         });
     });
 
@@ -86,7 +91,7 @@ describe('Crown PDDA List service', () => {
 
         it('should format hearing info', async () => {
             const results = await crownPddaListService.processPayload(JSON.parse(rawFirmListData), lng, listTypeFirm);
-            const hearing = results[0].sittings[0].hearings[0];
+            let hearing = results[0].sittings[0].hearings[0];
             expect(hearing.hearingTime).to.equal('TestTimeMarkingNote');
             expect(hearing.caseNumber).to.equal('T00112233');
             expect(hearing.defendantName).to.equal(
@@ -97,6 +102,9 @@ describe('Crown PDDA List service', () => {
             expect(hearing.representativeName).to.equal('TestSolicitorRequestedName');
             expect(hearing.prosecutingAuthority).to.equal('Crown Prosecution Service');
             expect(hearing.listNote).to.equal('TestListNote');
+
+            hearing = results[1].sittings[0].hearings[0];
+            expect(hearing.hearingTime).to.equal('');
         });
     });
 
