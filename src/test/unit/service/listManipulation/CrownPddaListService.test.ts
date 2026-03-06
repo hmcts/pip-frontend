@@ -44,6 +44,7 @@ describe('Crown PDDA List service', () => {
         it('should format hearing info', async () => {
             const results = await crownPddaListService.processPayload(JSON.parse(rawDailyListData), lng, listTypeDaily);
             const hearing = results[0].sittings[0].hearings[0];
+            expect(hearing.hearingTime).to.equal('TestTimeMarkingNote');
             expect(hearing.caseNumber).to.equal('T00112233');
             expect(hearing.defendantName).to.equal(
                 '' + 'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix'
@@ -86,6 +87,7 @@ describe('Crown PDDA List service', () => {
         it('should format hearing info', async () => {
             const results = await crownPddaListService.processPayload(JSON.parse(rawFirmListData), lng, listTypeFirm);
             const hearing = results[0].sittings[0].hearings[0];
+            expect(hearing.hearingTime).to.equal('TestTimeMarkingNote');
             expect(hearing.caseNumber).to.equal('T00112233');
             expect(hearing.defendantName).to.equal(
                 '' +
