@@ -96,6 +96,7 @@
                                         <tbody class="govuk-table__body">
                                         {% for row in sitting.hearings %}
                                             <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">{{ row.hearingTime }}</td>
                                                 <td class="govuk-table__cell no-wrap">{{ row.caseNumber }}</td>
                                                 <td class="govuk-table__cell">{{ row.defendantName }}</td>
                                                 <td class="govuk-table__cell">{{ row.hearingType }}</td>
