@@ -263,9 +263,8 @@ describe('Authentication', () => {
     parameters.forEach(parameter => {
         it(`Test that deserialising a user returns user object from the PI user table for Azure AAD ${parameter.strategy} authentication`, async () => {
             const sinon = await import('sinon');
-            const AccountManagementRequests = await import(
-                '../../../main/resources/requests/AccountManagementRequests'
-            );
+            const AccountManagementRequests =
+                await import('../../../main/resources/requests/AccountManagementRequests');
             const stub = sinon.stub(
                 AccountManagementRequests.AccountManagementRequests.prototype,
                 'getPiUserByAzureOid'
