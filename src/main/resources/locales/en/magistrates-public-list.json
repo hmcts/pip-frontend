@@ -23,7 +23,9 @@
     "name": "Name",
     "hearingType": "Hearing Type",
     "prosecutingAuthority": "Prosecuting Authority",
+    "reportingRestrictions": "Reporting Restrictions",
     "offenceDetails": "Offence Details",
+    "reportingRestrictionText": "Press/Publication restrictions apply to this case",
     "dataSource": "Data Source",
     "backButton": "Back"
 }
