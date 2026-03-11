@@ -225,4 +225,21 @@ describe('Delete Court Reference Data Controller', () => {
             responseMock.verify();
         });
     });
+
+    it('should render error page when body is undefined', () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest({});
+        request['user'] = user;
+        request.body = undefined;
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('error');
+        return deleteCourtReferenceDataConfirmationController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
 });

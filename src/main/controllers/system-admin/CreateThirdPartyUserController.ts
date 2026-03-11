@@ -18,6 +18,11 @@ export default class CreateThirdPartyUserController {
 
     public post(req: PipRequest, res: Response): void {
         const formData = req.body;
+
+        if (!formData) {
+            return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
+
         const formErrors = thirdPartyService.validateThirdPartyUserFormFields(formData);
 
         if (formErrors) {

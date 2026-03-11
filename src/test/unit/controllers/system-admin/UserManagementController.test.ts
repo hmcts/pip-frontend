@@ -154,4 +154,20 @@ describe('User management controller', () => {
         await userManagementController.post(request, response);
         return responseMock.verify();
     });
+
+    it('should redirect to the error page if no body is present', async () => {
+        const mockFilter = 'ThisIsAFilter=Filter';
+
+        request.url = '/user-management';
+        request.body = 'FilterValues';
+
+        const responseMock = sinon.mock(response);
+        responseMock
+            .expects('redirect')
+            .once()
+            .withArgs('user-management?' + mockFilter);
+
+        await userManagementController.post(request, response);
+        return responseMock.verify();
+    });
 });
