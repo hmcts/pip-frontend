@@ -80,6 +80,11 @@ export class MagistratesStandardListService {
                 caseSequenceIndicator: ListParseHelperService.writeStringIfValid(matter.caseSequenceIndicator),
                 hearingType: ListParseHelperService.writeStringIfValid(hearing.hearingType),
                 panel: ListParseHelperService.writeStringIfValid(hearing.panel),
+                applicationParticulars: ListParseHelperService.writeStringIfValid(matter.applicationParticulars),
+                reportingRestriction: matter?.reportingRestriction ?? '',
+                reportingRestrictionDetails: matter?.reportingRestrictionDetails
+                    ? ListParseHelperService.formatReportingRestrictionDetails(matter)
+                    : '',
             },
         };
     }
@@ -145,6 +150,10 @@ export class MagistratesStandardListService {
                 adjournedDate: this.formatDate(offence.adjournedDate),
                 offenceLegislation: ListParseHelperService.writeStringIfValid(offence.offenceLegislation),
                 offenceMaxPenalty: ListParseHelperService.writeStringIfValid(offence.offenceMaxPen),
+                reportingRestriction: offence.reportingRestriction ?? '',
+                reportingRestrictionDetails: offence.reportingRestrictionDetails
+                    ? ListParseHelperService.formatReportingRestrictionDetails(offence)
+                    : '',
             });
         });
         return offences;

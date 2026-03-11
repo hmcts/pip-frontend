@@ -23,7 +23,9 @@
     "name": "Enw",
     "hearingType": "Math o Wrandawiad",
     "prosecutingAuthority": "Yr Awdurdod sy'n Erlyn",
+    "reportingRestrictions": "Cyfyngiadau Riportio",
     "offenceDetails": "Manylion yr Trosedd",
+    "reportingRestrictionText": "Mae cyfyngiadau cyhoeddi/y wasg yn berthnasol i’r achos hwn",
     "dataSource": "Ffynhonnell Data",
     "backButton": "Yn ôl"
 }
