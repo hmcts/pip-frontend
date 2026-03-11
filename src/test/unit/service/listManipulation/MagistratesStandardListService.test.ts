@@ -69,7 +69,7 @@ describe('Magistrate Standard List service', () => {
     describe('Private methods (indirectly via manipulateData)', () => {
         it('should format individual subject party heading with gender and custody', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const expectedHeading = 'Surname1, Forename1 MiddleName (male)*';
+            const expectedHeading = 'Surname A, Forename A MiddleName A (male)';
             const found = data.flatMap(room => room['matters']).find((c: any) => c.partyHeading === expectedHeading);
 
             expect(found, 'Expected heading not found in partyHeading').to.exist;
@@ -98,6 +98,8 @@ describe('Magistrate Standard List service', () => {
                 adjournedDate: '02/05/2026',
                 offenceLegislation: 'This is a legislation',
                 offenceMaxPenalty: '100yrs',
+                reportingRestriction: true,
+                reportingRestrictionDetails: 'This is an offence level reporting restriction details example',
             });
         });
 
@@ -107,8 +109,8 @@ describe('Magistrate Standard List service', () => {
             expect(partyInfo).to.deep.equal({
                 dob: '01/01/1950',
                 age: 20,
-                address: 'Address Line 1, Address Line 2, Town A, County A, AA1 AA1',
-                asn: 'AB12345',
+                address: 'Address Line 1A, Address Line 2A, Town A, County A, AA1 AA1',
+                asn: 'ABC1234',
             });
         });
 
@@ -120,7 +122,7 @@ describe('Magistrate Standard List service', () => {
             expect(orgCase).to.exist;
             const orgPartyInfo = orgCase.sittings[0].partyInfo;
             expect(orgPartyInfo).to.deep.equal({
-                address: 'Address Line 1Z, Address Line 2Z, Town C, This is a postcode',
+                address: 'Address Line 1E, Address Line 2E, Town E, This is a postcode',
             });
         });
 
@@ -129,12 +131,15 @@ describe('Magistrate Standard List service', () => {
             const sittingInfo = data[0]['matters'][0].sittings[0].info;
             expect(sittingInfo).to.deep.equal({
                 prosecutingAuthority: 'Prosecuting Authority Name',
-                attendanceMethod: ['VIDEO HEARING'],
+                attendanceMethod: ['VIDEO HEARING A'],
                 reference: '45684548',
                 applicationType: '',
                 caseSequenceIndicator: '2 of 3',
-                hearingType: 'mda',
+                hearingType: 'Hearing Type A',
                 panel: 'ADULT',
+                applicationParticulars: '',
+                reportingRestriction: true,
+                reportingRestrictionDetails: 'This is a case level reporting restriction details example',
             });
         });
 
@@ -149,8 +154,11 @@ describe('Magistrate Standard List service', () => {
                 reference: 'AppRefB',
                 applicationType: 'Application Type 2',
                 caseSequenceIndicator: '',
-                hearingType: 'mda',
+                hearingType: 'Hearing Type B',
                 panel: 'ADULT',
+                applicationParticulars: '',
+                reportingRestriction: '',
+                reportingRestrictionDetails: '',
             });
         });
 

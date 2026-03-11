@@ -72,32 +72,34 @@
                     <table class="govuk-table overflow-table" data-module="moj-sortable-table">
                       <thead class="govuk-table__head">
                       <tr class="govuk-table__row">
-                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ sittingAt }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ urn }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ name }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ hearingType }}</th>
-                        <th scope="col" class="govuk-table__header no-wrap" aria-sort="none">{{ prosecutingAuthority }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ sittingAt }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ urn }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ name }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ hearingType }}</th>
+                        <th scope="col" class="govuk-table__header" aria-sort="none">{{ prosecutingAuthority }}</th>
                       </tr>
                       </thead>
                       <tbody class="govuk-table__body">
                       {% for sitting in session['sittings'] %}
                         {% for hearing in sitting['hearing'] %}
                           {% for case in hearing['case'] %}
-                            {% if case['offences'] | length != 0 %}
+                            {% set hasReporting = case['reportingRestriction'] %}
+                            {% set hasOffences = case['offences'] | length %}
+                            {% if hasReporting or hasOffences %}
                               {% set noBorder = 'no-border-bottom' %}
                             {% endif %}
                             {% set timeSortValue = sitting['time'] | timeToSortValue %}
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['caseUrn'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['defendant'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ hearing['hearingType'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ case['prosecutingAuthority'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ case['caseUrn'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ case['defendant'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ hearing['hearingType'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ case['prosecutingAuthority'] }}</td>
                             </tr>
                             {% if case['offences'] | length %}
                               <tr class="govuk-table__row">
-                                <td class="govuk-table__cell" colspan="2" data-sort-value="{{ timeSortValue }}"><span class="linked-cases-heading">{{ offenceDetails }}:</span></td>
-                                <td class="govuk-table__cell" colspan="3" data-sort-value="{{ case['caseUrn'] }}"><span>
+                                <td class="govuk-table__cell {% if hasReporting %}{{ noBorder }}{% endif %}" colspan="2" data-sort-value="{{ timeSortValue }}"><span class="linked-cases-heading">{{ offenceDetails }}:</span></td>
+                                <td class="govuk-table__cell {% if hasReporting %}{{ noBorder }}{% endif %}" colspan="3" data-sort-value="{{ case['caseUrn'] }}"><span>
                                   {% for offence in case.offences %}
                                     {{ offence }}<br>
                                   {% endfor %}
@@ -108,6 +110,12 @@
                                 <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ case['prosecutingAuthority'] }}" />
                               </tr>
                             {% endif %}
+                            {% if hasReporting %}
+                              <tr class="govuk-table__row">
+                                <td class="govuk-table__cell" colspan="2" data-sort-value="{{ timeSortValue }}"><span class="linked-cases-heading">{{ reportingRestrictions }}:</span></td>
+                                <td class="govuk-table__cell" colspan="3" data-sort-value="{{ case['caseUrn'] }}"> {{ reportingRestrictionText }} </td>
+                              </tr>
+                            {% endif %}
                           {% endfor %}
                           {% for application in hearing['application'] %}
                             {% if application['offences'] | length != 0 %}
@@ -115,11 +123,11 @@
                             {% endif %}
                             {% set timeSortValue = sitting['time'] | timeToSortValue %}
                             <tr class="govuk-table__row">
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ application['applicationReference'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ application['defendant'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ application['hearingType'] }}</td>
-                              <td class="govuk-table__cell no-wrap {{ noBorder }}">{{ application['prosecutingAuthority'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}" data-sort-value="{{ timeSortValue }}">{{ sitting['time'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ application['applicationReference'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ application['defendant'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ application['hearingType'] }}</td>
+                              <td class="govuk-table__cell {{ noBorder }}">{{ application['prosecutingAuthority'] }}</td>
                             </tr>
                             {% if application['offences'] | length %}
                               <tr class="govuk-table__row">
