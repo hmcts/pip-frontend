@@ -497,10 +497,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.14.0":
-  version: 15.14.0
-  resolution: "@azure/msal-common@npm:15.14.0"
-  checksum: 10/afd94e96e7d43fa3b29860d09829cc2e5bdf1250fec1f31eab7ff3c014171f2bab0f3f172c3aa1f16fd1bdfdf699c309b157bcc2452e5a959db5943810270978
+"@azure/msal-common@npm:15.16.1":
+  version: 15.16.1
+  resolution: "@azure/msal-common@npm:15.16.1"
+  checksum: 10/99ce7222b60fc130f1dc67351ce94386ef16b6891614ef793b494fd18fd2a43a53d4ba4929a4035a981307bedb6c1bd997b4c618b488f191cd6156a9d0203a2d
   languageName: node
   linkType: hard
 
@@ -511,32 +511,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.9.0":
-  version: 15.9.0
-  resolution: "@azure/msal-common@npm:15.9.0"
-  checksum: 10/49be12a0a505f3022d2519879541011e55c1c5d7ff545257703732729aae49053b76dc164842efc0c84be48496746d35e5d0dcbcb42e2a708d70f7dfac810e8c
-  languageName: node
-  linkType: hard
-
-"@azure/msal-node@npm:^3.5.0":
-  version: 3.6.4
-  resolution: "@azure/msal-node@npm:3.6.4"
+"@azure/msal-node@npm:^3.5.0, @azure/msal-node@npm:^3.8.5":
+  version: 3.8.9
+  resolution: "@azure/msal-node@npm:3.8.9"
   dependencies:
-    "@azure/msal-common": "npm:15.9.0"
+    "@azure/msal-common": "npm:15.16.1"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10/2b99d2d702eec30296816b67bfb2481c4ce6e89acbf656f090a8144d6cd80ac5cff0d30fe3be5e7a912f30171818e67908633cef89cb68bfc16425e6693f2895
-  languageName: node
-  linkType: hard
-
-"@azure/msal-node@npm:^3.8.5":
-  version: 3.8.5
-  resolution: "@azure/msal-node@npm:3.8.5"
-  dependencies:
-    "@azure/msal-common": "npm:15.14.0"
-    jsonwebtoken: "npm:^9.0.0"
-    uuid: "npm:^8.3.0"
-  checksum: 10/f210c1ef865665742c84b933829ec141756d52101a0b83e53ade239e894f7444cbe1abcedf956aee95ce0c402af655e5d230339cac6654c9a2e2091e0b097443
+  checksum: 10/358095cea813fb201d36364ab9e57c5dcc923a4e4c4f4380b53c4ea2b1a2598de773de6d4acb477c4bf906628c1c03f8504f4a25cbbda1661fcded9316c64f00
   languageName: node
   linkType: hard
 
