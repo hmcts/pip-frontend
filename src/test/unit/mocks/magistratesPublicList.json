@@ -46,7 +46,6 @@
                                                                     "individualSurname": "Surname 1"
                                                                 },
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "offence": [
                                                                     {
                                                                         "offenceTitle": "Test offence 1"
@@ -72,7 +71,6 @@
                                                                     "individualSurname": "Surname 2"
                                                                 },
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "offence": [
                                                                     {
                                                                         "offenceTitle": "Test offence 1"

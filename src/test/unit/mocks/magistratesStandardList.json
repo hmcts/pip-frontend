@@ -49,7 +49,6 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "individualDetails": {
                                                                     "individualForenames": "Forename A",
                                                                     "individualMiddleName": "MiddleName A",
@@ -120,7 +119,6 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "individualDetails": {
                                                                     "individualForenames": "Forename A",
                                                                     "individualMiddleName": "MiddleName A",
@@ -195,7 +193,6 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "individualDetails": {
                                                                     "individualForenames": "Forename B",
                                                                     "individualMiddleName": "MiddleName B",
@@ -261,7 +258,6 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "individualDetails": {
                                                                     "individualForenames": "Forename B",
                                                                     "individualMiddleName": "MiddleName B",
