@@ -6,6 +6,7 @@
         "Hearings in Civil and Family Courts in England and Wales",
         "Hearings in First Tier and Upper Tribunals (excluding Employment Tribunals)",
         "Hearings in the Royal Courts of Justice and the Rolls Building",
+        "Hearings in Crown Courts in England and Wales",
         "Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding"
     ],
     "moreMessage": "More courts and tribunals will become available over time.",
@@ -13,6 +14,9 @@
     "signInLink": "sign in",
     "welshMessage": "This service is also available in",
     "languageLink": "Welsh (Cymraeg)",
+    "shareYourThoughtMessage": "Share your thoughts in our quick",
+    "helpImproveMessage": "and help us improve the Courts and Tribunals Hearing service.",
+    "surveyLinkText": "survey",
     "continue": "Continue",
     "beforeMessage": "Before you start",
     "scoAndNI": "If you're in Scotland or Northern Ireland",

@@ -21,6 +21,7 @@ Scenario('I as an unverified user should be able to make end-to-end journey', as
     I.see('Hearings in Civil and Family Courts in England and Wales');
     I.see('Hearings in First Tier and Upper Tribunals (excluding Employment Tribunals)');
     I.see('Hearings in the Royal Courts of Justice and the Rolls Building');
+    I.see('Hearings in Crown Courts in England and Wales');
     I.see('Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding');
     I.see('More courts and tribunals will become available over time.');
     I.see('Legal and media professionals can sign in.');
