@@ -32,6 +32,13 @@
   {{ govukInsetText({
     html: inset
   }) }}
+
+  <p class="govuk-body">
+    {{ shareYourThoughtMessage }}
+    <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/CaTHsurvey/">{{ surveyLinkText }}</a>
+    {{ helpImproveMessage }}
+  </p>
+
   {{ govukButton({
     text: continue,
     href: '/view-option',
