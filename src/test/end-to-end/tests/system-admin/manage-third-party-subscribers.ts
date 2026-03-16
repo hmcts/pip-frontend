@@ -117,3 +117,45 @@ Scenario(
         I.see('Enter Client Secret');
     }
 ).tag('@Nightly');
+
+Scenario('I should be able to check test connection and change the status for a user for a user', async ({ I }) => {
+    const testUserName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
+    const thirdPartyUserId = await createThirdPartyApiUser(testUserName);
+
+    const destinationUrl = testConfig.THIRD_PARTY_SUBSCRIBER_DESTINATION_URL;
+    const tokenUrl = testConfig.TOKEN_URL;
+    const clientId = testConfig.THIRD_PARTY_CLIENT_ID;
+    const clientSecret = testConfig.THIRD_PARTY_CLIENT_SECRET;
+    const scope = testConfig.THIRD_PARTY_SCOPE;
+
+    I.loginAsSsoSystemAdmin();
+    I.amOnPage('/manage-third-party-subscriber-oauth-config?userId=' + thirdPartyUserId);
+    I.waitForText('Manage third-party subscriber OAuth Configuration');
+    I.fillField('#destinationUrl', destinationUrl);
+    I.fillField('#tokenUrl', tokenUrl);
+    I.fillField('#scope', secret(scope));
+    I.fillField('#clientId', secret(clientId));
+    I.fillField('#clientSecret', secret(clientSecret));
+    I.click('Create');
+    I.waitForText('Manage third-party subscriber OAuth config summary');
+    I.click('Confirm');
+    I.waitForText('Third-party subscriber OAuth config updated');
+
+    I.amOnPage('/manage-third-party-subscribers/view?userId=' + thirdPartyUserId);
+    I.waitForText('Manage subscriber');
+    I.click('Test connection');
+    I.waitForText('Succeeded');
+    I.see('Connection to third party succeeded.');
+    I.see('Pending');
+
+    I.click(locate('//div').withText(testUserName).find('a').withText('Change'));
+    I.waitForText('Manage User Status');
+    I.selectOption('#status', 'SUSPENDED');
+    I.click('Confirm');
+    I.waitForText('Third Party Account Status Updated');
+    I.see('Third party account status has been successfully updated.');
+
+    I.amOnPage('/manage-third-party-subscribers/view?userId=' + thirdPartyUserId);
+    I.waitForText('Manage subscriber');
+    I.see('Suspended');
+});
