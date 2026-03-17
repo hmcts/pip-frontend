@@ -46,6 +46,7 @@ export class CrownPddaListService {
                 }
 
                 hearings.push({
+                    hearingTime: hearing.TimeMarkingNote ? hearing.TimeMarkingNote : '',
                     caseNumber: hearing.CaseNumberCaTH,
                     defendantName: hearing.Defendants ? this.formatDefendantName(hearing.Defendants) : '',
                     hearingType: hearing.HearingDetails.HearingDescription,

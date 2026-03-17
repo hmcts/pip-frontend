@@ -190,7 +190,7 @@
                                     "HearingDescription": "TestHearingDescription2",
                                     "HearingType": "ABC"
                                 },
-                                "TimeMarkingNote": "TestTimeMarkingNote",
+                                "TimeMarkingNote": "",
                                 "CaseNumber": "T00112234",
                                 "CaseNumberCaTH": "T00112234",
                                 "Prosecution": {

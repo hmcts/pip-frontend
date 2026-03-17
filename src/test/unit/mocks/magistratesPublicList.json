@@ -1,14 +1,10 @@
 {
     "document": {
-        "publicationDate":"2020-09-13T23:30:00Z"
+        "publicationDate": "2020-09-13T23:30:00Z"
     },
     "venue": {
         "venueAddress": {
-            "line": [
-                "THE LAW COURTS",
-                "",
-                "Main Road"
-            ],
+            "line": ["THE LAW COURTS", "", "Main Road"],
             "postCode": "PR1 2LL"
         }
     },
@@ -45,9 +41,9 @@
                                                                 "partyRole": "PROSECUTING_AUTHORITY"
                                                             },
                                                             {
-                                                                "individualDetails":{
-                                                                    "individualForenames":"Forename 1",
-                                                                    "individualSurname":"Surname 1"
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 1",
+                                                                    "individualSurname": "Surname 1"
                                                                 },
                                                                 "partyRole": "DEFENDANT",
                                                                 "subject": true,
@@ -71,9 +67,9 @@
                                                                 }
                                                             },
                                                             {
-                                                                "individualDetails":{
-                                                                    "individualForenames":"Forename 2",
-                                                                    "individualSurname":"Surname 2"
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename 2",
+                                                                    "individualSurname": "Surname 2"
                                                                 },
                                                                 "partyRole": "DEFENDANT",
                                                                 "subject": true,
@@ -90,13 +86,10 @@
                                                                 ]
                                                             }
                                                         ],
-                                                        "reportingRestriction": false
+                                                        "reportingRestriction": true
                                                     }
                                                 ],
-                                                "channel": [
-                                                    "Remote",
-                                                    "Teams"
-                                                ],
+                                                "channel": ["Remote", "Teams"],
                                                 "application": [
                                                     {
                                                         "applicationReference": "12341234",
@@ -188,44 +181,41 @@
                                                 "case": [
                                                     {
                                                         "caseUrn": "12345678",
-                                                        "party":[
+                                                        "party": [
                                                             {
                                                                 "organisationDetails": {
                                                                     "organisationName": "PROSECUTING_AUTHORITY"
                                                                 },
-                                                                "offence":[
+                                                                "offence": [
                                                                     {
-                                                                        "offenceTitle":""
+                                                                        "offenceTitle": ""
                                                                     }
                                                                 ]
                                                             },
                                                             {
-                                                                "individualDetails":{
-                                                                    "individualSurname":"Surname 3"
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname 3"
                                                                 }
                                                             }
                                                         ]
                                                     },
                                                     {
                                                         "caseUrn": "112233445",
-                                                        "party":[
+                                                        "party": [
                                                             {
                                                                 "organisationDetails": {
                                                                     "organisationName": "PROSECUTING_AUTHORITY"
                                                                 }
                                                             },
                                                             {
-                                                                "individualDetails":{
-                                                                    "individualSurname":"Surname 4"
+                                                                "individualDetails": {
+                                                                    "individualSurname": "Surname 4"
                                                                 }
                                                             }
                                                         ]
                                                     }
                                                 ],
-                                                "channel": [
-                                                    "Remote",
-                                                    "Teams"
-                                                ]
+                                                "channel": ["Remote", "Teams"]
                                             },
                                             {
                                                 "hearingType": "FHDRA1 (First Hearing and Dispute Resolution Appointment)",
@@ -283,10 +273,7 @@
                                                         "caseUrn": "12345678"
                                                     }
                                                 ],
-                                                "channel": [
-                                                    "Remote",
-                                                    "Teams"
-                                                ]
+                                                "channel": ["Remote", "Teams"]
                                             }
                                         ]
                                     }
@@ -320,10 +307,7 @@
                                                         "caseUrn": "12345678"
                                                     }
                                                 ],
-                                                "channel": [
-                                                    "Remote",
-                                                    "Teams"
-                                                ]
+                                                "channel": ["Remote", "Teams"]
                                             }
                                         ]
                                     }
@@ -357,10 +341,7 @@
                                                         "caseUrn": "12345678"
                                                     }
                                                 ],
-                                                "channel": [
-                                                    "Remote",
-                                                    "Teams"
-                                                ]
+                                                "channel": ["Remote", "Teams"]
                                             }
                                         ]
                                     }
