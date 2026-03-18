@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM hmctspublic.azurecr.io/base/node:22-alpine as base
+FROM hmctsprod.azurecr.io/base/node:22-alpine as base
 COPY --chown=hmcts:hmcts . .
 USER root
 RUN corepack enable
