@@ -46,8 +46,7 @@ export class MagistratesPublicListService {
     }
 
     private manipulateDefendant(node, defendant): void {
-        node.defendant =
-            defendant?.organisationDetails?.organisationName ??
+        node.defendant = defendant?.organisationDetails?.organisationName ??
             (defendant?.individualDetails
                 ? crimeListsService.createIndividualDetails(defendant.individualDetails)
                 : '');
