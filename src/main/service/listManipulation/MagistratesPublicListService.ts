@@ -17,13 +17,15 @@ export class MagistratesPublicListService {
                         sitting['hearing'].forEach(hearing => {
                             hearing['case']?.forEach(hearingCase => {
                                 this.manipulateProsecutingAuthority(hearingCase);
-                                this.manipulateDefendant(hearingCase);
-                                this.findOffences(hearingCase);
+                                const defendant = hearingCase.party?.find(party => party.partyRole === 'DEFENDANT');
+                                this.manipulateDefendant(hearingCase, defendant);
+                                this.findOffences(hearingCase, defendant);
                             });
                             hearing['application']?.forEach(hearingApplication => {
                                 this.manipulateProsecutingAuthority(hearingApplication);
-                                this.manipulateDefendant(hearingApplication);
-                                this.findOffences(hearingApplication);
+                                const defendant = hearingApplication.party?.find(party => party.subject === true);
+                                this.manipulateDefendant(hearingApplication, defendant);
+                                this.findOffences(hearingApplication, defendant);
                             });
                         });
                     });
@@ -33,7 +35,7 @@ export class MagistratesPublicListService {
         return listData;
     }
 
-    public manipulateProsecutingAuthority(node): void {
+    private manipulateProsecutingAuthority(node): void {
         const prosecutingAuthority = node.party?.find(party => party.partyRole === 'PROSECUTING_AUTHORITY');
 
         node.prosecutingAuthority =
@@ -43,27 +45,22 @@ export class MagistratesPublicListService {
                 : '');
     }
 
-    public manipulateDefendant(node): void {
-        const defendant = node.party?.find(party => party.subject === true);
-
-        node.defendant =
-            defendant?.organisationDetails?.organisationName ??
+    private manipulateDefendant(node, defendant): void {
+        node.defendant = defendant?.organisationDetails?.organisationName ??
             (defendant?.individualDetails
                 ? crimeListsService.createIndividualDetails(defendant.individualDetails)
                 : '');
     }
 
-    public findOffences(node): void {
-        const defendant = node.party?.find(party => party.subject === true);
+    private findOffences(node, defendant): void {
         const offences = [];
-
         defendant?.offence?.forEach(offence => {
             offences.push(ListParseHelperService.writeStringIfValid(offence.offenceTitle));
         });
         node.offences = offences;
     }
 
-    public formatSittingStartTime(node): void {
+    private formatSittingStartTime(node): void {
         if (!node.sittingStart) {
             node.time = '';
         } else {

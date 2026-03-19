@@ -124,7 +124,7 @@ describe('Magistrates public List page', () => {
 
     it('should display Defendant Name', () => {
         const cell = htmlRes.getElementsByClassName('govuk-table__cell');
-        expect(cell[2].innerHTML).contains('Surname 1, Forename 1');
+        expect(cell[2].innerHTML).contains('Surname 2, Forename 2');
     });
 
     it('should display Hearing Type', () => {
