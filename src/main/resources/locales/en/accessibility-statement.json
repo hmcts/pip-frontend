@@ -79,8 +79,7 @@
         "preamble": "The content listed below is non-accessible for the following reasons.",
         "subHeading": "Non-compliance with the accessibility regulations",
         "text": [
-            "Some hearing lists presented within the service are presented and viewable only as PDF or word document (flat files). This means that assistive technology users may struggle to review and understand the PDFs. This fails WCAG 2.2 success criterion 1.3.1 (info and relationships).",
-            "Page titles are not specific to the content on the screen and do not have enough information. This could be confusing for screen reader users as they wouldn’t be aware of what page they are on when they land on it. This fails WCAG 2.2 success criterion 2.4.2 (page titled). We plan to resolve this issue by the end of April 2025."
+            "Some hearing lists presented within the service are presented and viewable only as PDF or word document (flat files). This means that assistive technology users may struggle to review and understand the PDFs. This fails WCAG 2.2 success criterion 1.3.1 (info and relationships)."
         ]
     },
     "section9": {
@@ -94,7 +93,7 @@
     "section10": {
         "heading": "Preparation of this accessibility statement",
         "text": [
-            "This statement was prepared on 8 September 2023. It was last reviewed on 6 March 2025.",
+            "This statement was prepared on 8 September 2023. It was last reviewed on 26 February 2026.",
             "This website was last audited by the HMCTS accessibility testing team in the Testing Centre of Excellence on 18 November 2024 across a range of assistive technologies and automated tools."
         ]
     }

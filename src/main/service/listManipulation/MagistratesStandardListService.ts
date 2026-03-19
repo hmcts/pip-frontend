@@ -19,7 +19,9 @@ export class MagistratesStandardListService {
                             hearing.case?.forEach(caseObject => {
                                 if (caseObject.party) {
                                     const caseSitting = this.buildSitting(sitting, caseObject, hearing);
-                                    caseObject.party?.forEach(party => this.processParty(party, caseSitting, matters));
+                                    caseObject.party?.forEach(party =>
+                                        this.processParty(party, caseSitting, matters, party.partyRole === 'DEFENDANT')
+                                    );
                                 }
                             });
 
@@ -27,7 +29,7 @@ export class MagistratesStandardListService {
                                 if (application.party) {
                                     const applicationSitting = this.buildSitting(sitting, application, hearing, true);
                                     application.party?.forEach(party =>
-                                        this.processParty(party, applicationSitting, matters)
+                                        this.processParty(party, applicationSitting, matters, party.subject === true)
                                     );
                                 }
                             });
@@ -80,12 +82,17 @@ export class MagistratesStandardListService {
                 caseSequenceIndicator: ListParseHelperService.writeStringIfValid(matter.caseSequenceIndicator),
                 hearingType: ListParseHelperService.writeStringIfValid(hearing.hearingType),
                 panel: ListParseHelperService.writeStringIfValid(hearing.panel),
+                applicationParticulars: ListParseHelperService.writeStringIfValid(matter.applicationParticulars),
+                reportingRestriction: matter?.reportingRestriction ?? '',
+                reportingRestrictionDetails: matter?.reportingRestrictionDetails
+                    ? ListParseHelperService.formatReportingRestrictionDetails(matter)
+                    : '',
             },
         };
     }
 
-    private processParty(party, sitting, matters: any[]) {
-        if (party.subject === true) {
+    private processParty(party, sitting, matters: any[], isMainParty: boolean) {
+        if (isMainParty) {
             if (party.individualDetails) {
                 const partyHeading = this.formatIndividualPartyHeading(party.individualDetails);
                 sitting = {
@@ -145,6 +152,10 @@ export class MagistratesStandardListService {
                 adjournedDate: this.formatDate(offence.adjournedDate),
                 offenceLegislation: ListParseHelperService.writeStringIfValid(offence.offenceLegislation),
                 offenceMaxPenalty: ListParseHelperService.writeStringIfValid(offence.offenceMaxPen),
+                reportingRestriction: offence.reportingRestriction ?? '',
+                reportingRestrictionDetails: offence.reportingRestrictionDetails
+                    ? ListParseHelperService.formatReportingRestrictionDetails(offence)
+                    : '',
             });
         });
         return offences;

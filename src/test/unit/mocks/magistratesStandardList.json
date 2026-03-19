@@ -35,33 +35,52 @@
                                         "sittingStart": "2023-12-13T13:30:52.123Z",
                                         "hearing": [
                                             {
-                                                "hearingType": "mda",
+                                                "hearingType": "Hearing Type A",
                                                 "panel": "ADULT",
-                                                "channel": ["VIDEO HEARING"],
+                                                "channel": ["VIDEO HEARING A"],
                                                 "case": [
                                                     {
                                                         "caseUrn": "45684548",
                                                         "caseSequenceIndicator": "2 of 3",
                                                         "reportingRestriction": true,
+                                                        "reportingRestrictionDetails": [
+                                                            "This is a case level reporting restriction details example"
+                                                        ],
                                                         "party": [
                                                             {
-                                                                "partyRole": "DEFENDANT",
-                                                                "subject": true,
+                                                                "partyRole": "RESPONDENT",
                                                                 "individualDetails": {
-                                                                    "individualForenames": "Forename1",
-                                                                    "individualMiddleName": "MiddleName",
-                                                                    "individualSurname": "Surname1",
+                                                                    "individualForenames": "Respondent Forename",
+                                                                    "individualSurname": "Respondent Surname",
                                                                     "dateOfBirth": "1950-01-01",
                                                                     "age": 20,
                                                                     "address": {
                                                                         "county": "County A",
                                                                         "town": "Town A",
                                                                         "postCode": "AA1 AA1",
-                                                                        "line": ["Address Line 1", "Address Line 2"]
+                                                                        "line": [
+                                                                            "Address Line 1A",
+                                                                            "Address Line 2A"
+                                                                        ]
+                                                                    }
+                                                                }
+                                                            },
+                                                            {
+                                                                "partyRole": "DEFENDANT",
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename A",
+                                                                    "individualMiddleName": "MiddleName A",
+                                                                    "individualSurname": "Surname A",
+                                                                    "dateOfBirth": "1950-01-01",
+                                                                    "age": 20,
+                                                                    "address": {
+                                                                        "county": "County A",
+                                                                        "town": "Town A",
+                                                                        "postCode": "AA1 AA1",
+                                                                        "line": ["Address Line 1A", "Address Line 2A"]
                                                                     },
-                                                                    "inCustody": true,
                                                                     "gender": "male",
-                                                                    "asn": "AB12345"
+                                                                    "asn": "ABC1234"
                                                                 },
                                                                 "offence": [
                                                                     {
@@ -74,7 +93,10 @@
                                                                         "convictionDate": "2026-05-01T11:00:00.123Z",
                                                                         "adjournedDate": "2026-05-02T11:00:00.123Z",
                                                                         "offenceLegislation": "This is a legislation",
-                                                                        "reportingRestriction": false
+                                                                        "reportingRestriction": true,
+                                                                        "reportingRestrictionDetails": [
+                                                                            "This is an offence level reporting restriction details example"
+                                                                        ]
                                                                     },
                                                                     {
                                                                         "offenceCode": "dd01-01",
@@ -82,9 +104,8 @@
                                                                         "offenceWording": "Assault by beating",
                                                                         "offenceMaxPen": "100yrs",
                                                                         "plea": "GUILTY",
-                                                                        "pleaDate": "2026-06-27T10:00:00.123Z",
+                                                                        "pleaDate": "2026-01-27T10:00:00.123Z",
                                                                         "convictionDate": "2026-05-01T11:00:00.123Z",
-                                                                        "adjournedDate": "2026-05-02T11:00:00.123Z",
                                                                         "offenceLegislation": "This is a legislation"
                                                                     }
                                                                 ]
@@ -105,9 +126,9 @@
                                         "sittingStart": "2023-12-13T16:30:52.123Z",
                                         "hearing": [
                                             {
-                                                "hearingType": "mda",
+                                                "hearingType": "Hearing Type A",
                                                 "panel": "ADULT",
-                                                "channel": ["VIDEO HEARING"],
+                                                "channel": ["VIDEO HEARING A"],
                                                 "case": [
                                                     {
                                                         "caseUrn": "45684548",
@@ -116,22 +137,20 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "individualDetails": {
-                                                                    "individualForenames": "Forename1",
-                                                                    "individualMiddleName": "MiddleName",
-                                                                    "individualSurname": "Surname1",
+                                                                    "individualForenames": "Forename A",
+                                                                    "individualMiddleName": "MiddleName A",
+                                                                    "individualSurname": "Surname A",
                                                                     "dateOfBirth": "1950-01-01",
                                                                     "age": 20,
                                                                     "address": {
                                                                         "county": "County A",
                                                                         "town": "Town A",
                                                                         "postCode": "AA1 AA1",
-                                                                        "line": ["Address Line 1", "Address Line 2"]
+                                                                        "line": ["Address Line 1A", "Address Line 2A"]
                                                                     },
-                                                                    "inCustody": true,
                                                                     "gender": "male",
-                                                                    "asn": "AB12345"
+                                                                    "asn": "ABC1234"
                                                                 },
                                                                 "offence": [
                                                                     {
@@ -143,8 +162,7 @@
                                                                         "pleaDate": "2026-06-27T10:00:00.123Z",
                                                                         "convictionDate": "2026-05-01T11:00:00.123Z",
                                                                         "adjournedDate": "2026-05-02T11:00:00.123Z",
-                                                                        "offenceLegislation": "This is a legislation",
-                                                                        "reportingRestriction": false
+                                                                        "offenceLegislation": "This is a legislation"
                                                                     },
                                                                     {
                                                                         "offenceCode": "dd01-01",
@@ -152,9 +170,8 @@
                                                                         "offenceWording": "Assault by beating",
                                                                         "offenceMaxPen": "100yrs",
                                                                         "plea": "GUILTY",
-                                                                        "pleaDate": "2026-06-27T10:00:00.123Z",
+                                                                        "pleaDate": "2026-01-27T10:00:00.123Z",
                                                                         "convictionDate": "2026-05-01T11:00:00.123Z",
-                                                                        "adjournedDate": "2026-05-02T11:00:00.123Z",
                                                                         "offenceLegislation": "This is a legislation"
                                                                     }
                                                                 ]
@@ -179,16 +196,6 @@
                         "courtRoomName": "Courtroom 2",
                         "session": [
                             {
-                                "judiciary": [
-                                    {
-                                        "johKnownAs": "Test Name",
-                                        "isPresiding": true
-                                    },
-                                    {
-                                        "johKnownAs": "Test Name",
-                                        "isPresiding": false
-                                    }
-                                ],
                                 "sittings": [
                                     {
                                         "sittingStart": "2023-12-13T13:30:52.123Z",
@@ -196,7 +203,6 @@
                                             {
                                                 "hearingType": "mda",
                                                 "panel": "ADULT",
-                                                "channel": ["VIDEO HEARING"],
                                                 "case": [
                                                     {
                                                         "caseUrn": "45684548",
@@ -205,22 +211,21 @@
                                                         "party": [
                                                             {
                                                                 "partyRole": "DEFENDANT",
-                                                                "subject": true,
                                                                 "individualDetails": {
-                                                                    "individualForenames": "Forename4",
-                                                                    "individualMiddleName": "MiddleName",
-                                                                    "individualSurname": "Surname4",
+                                                                    "individualForenames": "Forename B",
+                                                                    "individualMiddleName": "MiddleName B",
+                                                                    "individualSurname": "Surname B",
                                                                     "dateOfBirth": "1951-01-01",
                                                                     "age": 21,
                                                                     "address": {
                                                                         "county": "County B",
-                                                                        "town": "Month B",
+                                                                        "town": "Town B",
                                                                         "postCode": "AA1 AA1",
-                                                                        "line": ["Address Line 1A", "Address Line 2B"]
+                                                                        "line": ["Address Line 1B", "Address Line 2B"]
                                                                     },
                                                                     "inCustody": true,
                                                                     "gender": "male",
-                                                                    "asn": "AB12345"
+                                                                    "asn": "ABC12345"
                                                                 },
                                                                 "offence": [
                                                                     {
@@ -232,7 +237,11 @@
                                                                         "pleaDate": "2026-01-27T10:00:00.123Z",
                                                                         "convictionDate": "2026-05-01T11:00:00.123Z",
                                                                         "adjournedDate": "2026-05-02T11:00:00.123Z",
-                                                                        "offenceLegislation": "This is a legislation"
+                                                                        "offenceLegislation": "This is a legislation",
+                                                                        "reportingRestriction": true,
+                                                                        "reportingRestrictionDetails": [
+                                                                            "This is an offence level reporting restriction details example"
+                                                                        ]
                                                                     },
                                                                     {
                                                                         "offenceCode": "dd01-01",
@@ -255,29 +264,30 @@
                                                             }
                                                         ]
                                                     }
-                                                ],
-                                                "application": [
+                                                ]
+                                            },
+                                            {
+                                                "hearingType": "Hearing Type B",
+                                                "panel": "ADULT",
+                                                "channel": ["VIDEO HEARING"],
+                                                "case": [
                                                     {
-                                                        "applicationReference": "AppRefA",
-                                                        "applicationType": "Application Type 1",
+                                                        "caseUrn": "12345678",
                                                         "party": [
                                                             {
-                                                                "partyRole": "APPLICANT",
-                                                                "subject": true,
+                                                                "partyRole": "DEFENDANT",
                                                                 "individualDetails": {
-                                                                    "individualForenames": "Forename4",
-                                                                    "individualSurname": "Surname4",
-                                                                    "age": 22,
+                                                                    "individualForenames": "Forename B",
+                                                                    "individualMiddleName": "MiddleName B",
+                                                                    "individualSurname": "Surname B",
+                                                                    "age": 21,
                                                                     "address": {
-                                                                        "town": "Town A",
-                                                                        "line": [
-                                                                            "Address Line 1C",
-                                                                            "Address Line 2C"
-                                                                        ]
+                                                                        "town": "Town B",
+                                                                        "line": ["Address Line 1B", "Address Line 2B"]
                                                                     },
                                                                     "inCustody": true,
                                                                     "gender": "male",
-                                                                    "asn": "ABC1234"
+                                                                    "asn": "ABC123456"
                                                                 },
                                                                 "offence": [
                                                                     {
@@ -311,6 +321,61 @@
                                                                 }
                                                             }
                                                         ]
+                                                    }
+                                                ],
+                                                "application": [
+                                                    {
+                                                        "applicationReference": "AppRefA",
+                                                        "applicationType": "Application Type 1",
+                                                        "applicationParticulars": "This is application particulars example",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT",
+                                                                "subject": true,
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename D",
+                                                                    "individualSurname": "Surname D",
+                                                                    "age": 23,
+                                                                    "address": {
+                                                                        "town": "Town D",
+                                                                        "line": ["Address Line 1D", "Address Line 2D"]
+                                                                    },
+                                                                    "inCustody": true,
+                                                                    "gender": "female",
+                                                                    "asn": "ABC1234567"
+                                                                },
+                                                                "offence": [
+                                                                    {
+                                                                        "offenceCode": "dd01-01",
+                                                                        "offenceTitle": "Offence title 1",
+                                                                        "offenceWording": "Offence wording 1",
+                                                                        "offenceMaxPen": "100yrs",
+                                                                        "plea": "NOT_GUILTY",
+                                                                        "pleaDate": "2026-01-27T10:00:00.123Z",
+                                                                        "convictionDate": "2026-05-01T11:00:00.123Z",
+                                                                        "adjournedDate": "2026-05-02T11:00:00.123Z",
+                                                                        "offenceLegislation": "This is a legislation"
+                                                                    },
+                                                                    {
+                                                                        "offenceCode": "dd01-01",
+                                                                        "offenceTitle": "Offence title 2",
+                                                                        "offenceWording": "Offence wording 2",
+                                                                        "offenceMaxPen": "100yrs",
+                                                                        "plea": "GUILTY",
+                                                                        "pleaDate": "2026-06-27T10:00:00.123Z",
+                                                                        "convictionDate": "2026-05-01T11:00:00.123Z",
+                                                                        "adjournedDate": "2026-05-02T11:00:00.123Z",
+                                                                        "offenceLegislation": "This is a legislation"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecuting Authority Name B"
+                                                                }
+                                                            }
+                                                        ]
                                                     },
                                                     {
                                                         "applicationReference": "AppRefB",
@@ -322,11 +387,8 @@
                                                                 "organisationDetails": {
                                                                     "organisationName": "This is an organisation",
                                                                     "organisationAddress": {
-                                                                        "town": "Town C",
-                                                                        "line": [
-                                                                            "Address Line 1Z",
-                                                                            "Address Line 2Z"
-                                                                        ],
+                                                                        "town": "Town E",
+                                                                        "line": ["Address Line 1E", "Address Line 2E"],
                                                                         "postCode": "This is a postcode"
                                                                     }
                                                                 },
@@ -359,6 +421,70 @@
                                                                 "partyRole": "PROSECUTING_AUTHORITY",
                                                                 "organisationDetails": {
                                                                     "organisationName": "Prosecuting Authority Name"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "sittingStart": "2023-12-13T14:30:52.123Z",
+                                        "hearing": [
+                                            {
+                                                "hearingType": "Hearing Type C",
+                                                "panel": "ADULT",
+                                                "channel": ["VIDEO HEARING C"],
+                                                "application": [
+                                                    {
+                                                        "applicationReference": "AppRefC",
+                                                        "applicationType": "Application Type 3",
+                                                        "party": [
+                                                            {
+                                                                "partyRole": "APPLICANT",
+                                                                "subject": true,
+                                                                "individualDetails": {
+                                                                    "individualForenames": "Forename E",
+                                                                    "individualSurname": "Surname E",
+                                                                    "age": 24,
+                                                                    "address": {
+                                                                        "town": "Town E",
+                                                                        "line": ["Address Line 1E", "Address Line 2E"]
+                                                                    },
+                                                                    "inCustody": true,
+                                                                    "gender": "female",
+                                                                    "asn": "ABC1234567"
+                                                                },
+                                                                "offence": [
+                                                                    {
+                                                                        "offenceCode": "dd01-01",
+                                                                        "offenceTitle": "Offence title 1",
+                                                                        "offenceWording": "Offence wording 1",
+                                                                        "offenceMaxPen": "100yrs",
+                                                                        "plea": "NOT_GUILTY",
+                                                                        "pleaDate": "2026-01-27T10:00:00.123Z",
+                                                                        "convictionDate": "2026-05-01T11:00:00.123Z",
+                                                                        "adjournedDate": "2026-05-02T11:00:00.123Z",
+                                                                        "offenceLegislation": "This is a legislation"
+                                                                    },
+                                                                    {
+                                                                        "offenceCode": "dd01-01",
+                                                                        "offenceTitle": "Offence title 2",
+                                                                        "offenceWording": "Offence wording 2",
+                                                                        "offenceMaxPen": "100yrs",
+                                                                        "plea": "GUILTY",
+                                                                        "pleaDate": "2026-06-27T10:00:00.123Z",
+                                                                        "convictionDate": "2026-05-01T11:00:00.123Z",
+                                                                        "adjournedDate": "2026-05-02T11:00:00.123Z",
+                                                                        "offenceLegislation": "This is a legislation"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "partyRole": "PROSECUTING_AUTHORITY",
+                                                                "organisationDetails": {
+                                                                    "organisationName": "Prosecuting Authority Name E"
                                                                 }
                                                             }
                                                         ]

@@ -29,6 +29,8 @@
     "prosecutingAuthority": "Prosecuting Authority Name: ",
     "panel": "Panel: ",
     "attendanceMethod": "Attendance Method: ",
+    "reportingRestrictions": "Reporting Restrictions: ",
+    "applicationParticulars": "Application Particulars: ",
     "plea": "Plea",
     "dateOfPlea": "Date of Plea",
     "convictedOn": "Convicted on",
