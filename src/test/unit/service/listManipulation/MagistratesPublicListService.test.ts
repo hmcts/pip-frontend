@@ -59,7 +59,7 @@ describe('Magistrates Public List service', () => {
 
             const hearing1 =
                 listData['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0];
-            expect(hearing1['case'][0]['defendant']).to.equal('Surname 1, Forename 1');
+            expect(hearing1['case'][0]['defendant']).to.equal('Surname 2, Forename 2');
             expect(hearing1['application'][0]['defendant']).to.equal('Test Applicant Surname, Test Applicant Forename');
         });
 

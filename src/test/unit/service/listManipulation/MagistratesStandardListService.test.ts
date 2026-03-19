@@ -174,7 +174,7 @@ describe('Magistrate Standard List service', () => {
     describe('Edge cases and error handling', () => {
         it('should handle parties with no offences', () => {
             const json = JSON.parse(rawMagistrateStandardListData);
-            json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0].offence = [];
+            json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[1].offence = [];
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
             const offences = data[0]['matters'][0].sittings[0].offences;
             expect(offences).to.be.an('array').that.is.empty;
@@ -182,9 +182,7 @@ describe('Magistrate Standard List service', () => {
 
         it('should handle missing individualDetails and organisationDetails', () => {
             const json = JSON.parse(rawMagistrateStandardListData);
-            json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[0] = {
-                subject: true,
-            };
+            json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[1] = {};
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
             expect(data[0]['matters']).to.have.length(1);
         });
