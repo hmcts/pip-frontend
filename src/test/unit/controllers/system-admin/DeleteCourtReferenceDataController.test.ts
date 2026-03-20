@@ -124,4 +124,26 @@ describe('Delete Court Search Controller', () => {
             responseMock.verify();
         });
     });
+
+    it('should render delete court list search page if body is undefined', () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = undefined;
+        const responseMock = sinon.mock(response);
+        const expectedData = {
+            ...i18n['delete-court-reference-data'],
+            autocompleteList: courtList,
+            invalidInputError: true,
+            noResultsError: false,
+        };
+
+        responseMock.expects('render').once().withArgs('system-admin/delete-court-reference-data', expectedData);
+        return deleteCourtReferenceDataController.post(request, response).then(() => {
+            responseMock.verify();
+        });
+    });
 });

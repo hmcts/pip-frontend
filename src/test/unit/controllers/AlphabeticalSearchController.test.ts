@@ -292,5 +292,22 @@ describe('Location Name Search Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render error page if no body is provided', () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error');
+
+            return alphabeticalSearchController.locationSubscriptionsConfirmation(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });
