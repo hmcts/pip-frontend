@@ -30,7 +30,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.selectOption(listTypeId, 'Crown Warned List');
 
     classification = await I.grabValueFrom(classificationId);
-    Assert.equal(classification, sensitivityPrivate);
+    Assert.equal(classification, sensitivityClassified);
 
     I.selectOption(listTypeId, 'Magistrates Standard List');
 
@@ -40,9 +40,9 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.selectOption(listTypeId, 'Crown Firm List');
 
     classification = await I.grabValueFrom(classificationId);
-    Assert.equal(classification, sensitivityPrivate);
+    Assert.equal(classification, sensitivityClassified);
 
-    I.attachFile('#manual-file-upload', '../unit/mocks/crownWarnedList.json');
+    I.attachFile('#manual-file-upload', '../unit/mocks/crownWarnedPddaList.json');
     I.fillField('#search-input', 'Single Justice Procedure');
     I.selectOption(listTypeId, 'Crown Warned List');
 

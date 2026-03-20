@@ -30,10 +30,13 @@ metadataStub
     .resolves({ ...mockArtefact, artefactId: 'invalid-artefact' });
 
 describe('Remove List Confirmation', () => {
-    app.request['user'] = {
-        userId: '1234-1234-1234-1234',
-        roles: 'SYSTEM_ADMIN',
-    };
+    beforeEach(() => {
+        app.request['user'] = {
+            userId: '1234-1234-1234-1234',
+            roles: 'SYSTEM_ADMIN',
+        };
+    });
+
     describe('on GET', () => {
         test('should return remove list confirmation page', async () => {
             await request(app)

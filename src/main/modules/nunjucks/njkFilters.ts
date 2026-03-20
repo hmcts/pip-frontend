@@ -152,14 +152,21 @@ export function createFilters(env) {
     });
 
     env.addFilter('convertDataSourceName', function (provenance, language) {
-        if (provenance == 'SNL') {
-            return 'ListAssist';
-        } else if (provenance == 'MANUAL_UPLOAD' && language == 'cy') {
-            return 'Lanlwytho â Llaw';
+        switch (provenance) {
+            case 'SNL':
+                return 'ListAssist';
+            case 'PDDA':
+                return 'PDDA';
+            case 'MANUAL_UPLOAD':
+                if (language == 'cy') {
+                    return 'Lanlwytho â Llaw';
+                }
+                return 'Manual Upload';
+            default:
+                return provenance.replaceAll('_', ' ').replace(/\w\S*/g, function (word) {
+                    return word.charAt(0).toUpperCase() + word.substring(1).toLowerCase();
+                });
         }
-        return provenance.replaceAll('_', ' ').replace(/\w\S*/g, function (word) {
-            return word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
-        });
     });
 
     env.addFilter('appendCaseSequenceIndicator', function (data, caseSequenceIndicator) {

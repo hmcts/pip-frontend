@@ -4,29 +4,33 @@ import fs from 'fs';
 import path from 'path';
 
 const service = new CopDailyListService();
-
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/copDailyCauseList.json'), 'utf-8');
 
 describe('COP Daily Cause List service.', function () {
-    describe('manipulateCopDailyCauseList', () => {
-        it('should format reporting restrictions if reportingRestrictionDetail present', async () => {
-            const data = await service.manipulateCopDailyCauseList(rawData);
-            const hearingCase =
-                data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
-                    'case'
-                ][0];
-            expect(hearingCase['formattedReportingRestriction']).to.equal(
-                'Reporting restriction 1, Reporting restriction 2'
-            );
-        });
+    it('should manipulate copDailyCauseList and format judiciary', function () {
+        const result = service.manipulateCopDailyCauseList(rawData);
 
-        it('should not format reporting restrictions if reportingRestrictionDetail missing', async () => {
-            const data = await service.manipulateCopDailyCauseList(rawData);
-            const hearingCase =
-                data['courtLists'][1]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0][
-                    'case'
-                ][0];
-            expect(hearingCase['formattedReportingRestriction']).to.be.undefined;
+        result['courtLists'].forEach(courtList => {
+            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+                courtRoom['session'].forEach(session => {
+                    expect(session).to.have.property('formattedJudiciary');
+                    expect(session).to.not.have.property('judiciary');
+                });
+            });
+        });
+    });
+
+    it('should calculate duration and concatenate hearing platform for each sitting', function () {
+        const result = service.manipulateCopDailyCauseList(rawData);
+        result['courtLists'].forEach(courtList => {
+            courtList['courtHouse']['courtRoom'].forEach(courtRoom => {
+                courtRoom['session'].forEach(session => {
+                    session['sittings'].forEach(sitting => {
+                        expect(sitting).to.have.property('duration');
+                        expect(sitting).to.have.property('caseHearingChannel');
+                    });
+                });
+            });
         });
     });
 });

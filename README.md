@@ -135,7 +135,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | B2C_URL                            | Same as above but for media journey.                                                                                                                                                    | No        |
 | CONFIG_ENDPOINT                    | Same as above but for media journey.                                                                                                                                                    | No        |
 | MEDIA_VERIFICATION_CONFIG_ENDPOINT | Same as above but for verification of media accounts.                                                                                                                                   | No        |
-| SSO_CONFIG_ENDPOINT                | Same as above but for SSO sign-in.                                                                                                                                                      | No        |
+| SSO_ISSUER_URL                     | Issuer URL for SSO Sign In.                                                                                                                                                             | No        |
 | SESSION_SECRET                     | Unique identifier or value that's used to secure the session cookie.                                                                                                                    | Yes       |
 | FRONTEND_URL                       | This is the host that the service uses to identify what it's running on. Defaults to staging, but you want it to be `https://localhost:8080` if you're running locally (in secure mode) | No        |
 | REDIS_HOST                         | Hostname of utilised Redis instance                                                                                                                                                     | No        |
@@ -147,6 +147,7 @@ Python scripts to quickly grab all environment variables (subject to Azure permi
 | CFT_REJECTED_ROLES_REGEX           | Allows you to override the rejected roles regex for CFT                                                                                                                                 | No        |
 | APP_INSIGHTS_CONNECTION_STRING     | This is the connection string used by the app to talk to Application Insights                                                                                                           | No        |
 | SESSION_COOKIE_SAME_SITE           | Flag to to set for the Same Site cookie. This is only used in the clusters, and not required locally.                                                                                   | No        |
+| DYNATRACE_LINK                     | Overrides the URL for the Dynatrace script. Only expected in Prod.                                                                                                                      | No        |
 
 ##### Additional test secrets
 

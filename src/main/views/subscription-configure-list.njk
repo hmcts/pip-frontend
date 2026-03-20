@@ -44,8 +44,7 @@
                            value="{{ listName}}" name="list-selections[]"
                       {% if listConfig.checked and noSelectionError !== true %}
                         checked
-                      {% endif %}
-                      onclick="calculateChecked()">
+                      {% endif %}" />
                   {% else %}
                     <tr class="govuk-table__row">
                       {% if first != key %}
@@ -64,8 +63,7 @@
                                  value="{{ listName}}" name="list-selections[]"
                                  {% if listConfig.checked and noSelectionError !== true %}
                                   checked
-                                 {% endif %}
-                                 onclick="calculateChecked()">
+                                 {% endif %} />
                           <label class="govuk-label govuk-checkboxes__label no_padding"
                                  for="{{ listName }}">
                             <span class="govuk-visually-hidden">Select {{ listConfig.listFriendlyName }}</span>

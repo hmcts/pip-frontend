@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { LocationService } from '../../../../main/service/LocationService';
 
-const PAGE_URL = '/crown-warned-pdda-list?artefactId=abc';
+const PAGE_URL = '/crown-warned-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
 const listInfoClass = 'list-info';
@@ -211,9 +211,14 @@ describe('Crown Warned PDDA List page', () => {
         expect(cell[1].innerHTML).to.equal('T20237000', 'Could not find case reference table cell');
     });
 
-    it('should display defendant name', () => {
+    it('should display requested defendant name', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[2].innerHTML).to.equal('TestDefendantRequestedName', 'Could not find defendant name table cell');
+        expect(cell[8].innerHTML).to.equal('TestDefendantRequestedName', 'Could not find defendant name table cell');
+    });
+
+    it('should display formatted defendant name', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[2].innerHTML).to.equal('Mr Pete Paul Dan Y', 'Could not find defendant name table cell');
     });
 
     it('should display prosecuting authority', () => {

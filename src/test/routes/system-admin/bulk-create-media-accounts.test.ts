@@ -12,10 +12,6 @@ const fileName2 = 'fileName2';
 const file1 = 'file1';
 const file2 = 'file2';
 
-app.request['user'] = { roles: 'SYSTEM_ADMIN' };
-app.request['file'] = { originalname: fileName1 };
-app.request['lng'] = 'en';
-
 sinon.stub(FileHandlingService.prototype, 'validateFileUpload').returns(null);
 sinon.stub(FileHandlingService.prototype, 'storeFileIntoRedis').resolves({});
 
@@ -33,6 +29,12 @@ validateFileStub
     .returns('error');
 
 describe('Bulk create media accounts', () => {
+    beforeEach(() => {
+        app.request['user'] = { roles: 'SYSTEM_ADMIN' };
+        app.request['file'] = { originalname: fileName1 };
+        app.request['lng'] = 'en';
+    });
+
     describe('on GET', () => {
         test('should render bulk create media accounts page', async () => {
             app.request['file'] = { originalname: fileName1 };

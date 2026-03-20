@@ -38,23 +38,26 @@ export class CrownPddaListService {
 
     private buildHearings(sitting: any, isDailyList: boolean): any[] {
         const hearings = [];
-        sitting.Hearings.forEach(hearing => {
-            let representativeName = '';
-            if (!isDailyList) {
-                representativeName = hearing.Defendants ? this.formatRepresentativeName(hearing.Defendants) : '';
-            }
+        if (sitting.Hearings) {
+            sitting.Hearings.forEach(hearing => {
+                let representativeName = '';
+                if (!isDailyList) {
+                    representativeName = hearing.Defendants ? this.formatRepresentativeName(hearing.Defendants) : '';
+                }
 
-            hearings.push({
-                caseNumber: hearing.CaseNumberCaTH,
-                defendantName: hearing.Defendants ? this.formatDefendantName(hearing.Defendants) : '',
-                hearingType: hearing.HearingDetails.HearingDescription,
-                representativeName,
-                prosecutingAuthority: hearing.Prosecution?.ProsecutingAuthority
-                    ? hearing.Prosecution.ProsecutingAuthority
-                    : '',
-                listNote: hearing.ListNote ? hearing.ListNote : '',
+                hearings.push({
+                    hearingTime: hearing.TimeMarkingNote ? hearing.TimeMarkingNote : '',
+                    caseNumber: hearing.CaseNumberCaTH,
+                    defendantName: hearing.Defendants ? this.formatDefendantName(hearing.Defendants) : '',
+                    hearingType: hearing.HearingDetails.HearingDescription,
+                    representativeName,
+                    prosecutingAuthority: hearing.Prosecution?.ProsecutingAuthority
+                        ? hearing.Prosecution.ProsecutingAuthority
+                        : '',
+                    listNote: hearing.ListNote ? hearing.ListNote : '',
+                });
             });
-        });
+        }
         return hearings;
     }
 
@@ -114,7 +117,10 @@ export class CrownPddaListService {
             nameParts.push(individual.CitizenNameTitle);
         }
         if (individual.CitizenNameForename) {
-            nameParts.push(individual.CitizenNameForename);
+            const formattedForename = individual.CitizenNameForename.map(part => part.trim())
+                .filter(part => part.length > 0)
+                .join(' ');
+            nameParts.push(formattedForename);
         }
         if (individual.CitizenNameSurname) {
             nameParts.push(individual.CitizenNameSurname);
@@ -129,8 +135,8 @@ export class CrownPddaListService {
         const addressLines = [];
         if (address) {
             address.Line.forEach(line => addressLines.push(line));
-            if (address.Postcode) {
-                addressLines.push(address.Postcode);
+            if (address.PostCode) {
+                addressLines.push(address.PostCode);
             }
         }
         return addressLines.filter(line => line.trim().length > 0);

@@ -1,4 +1,5 @@
 import { CrownPddaListService } from './CrownPddaListService';
+import { DateTime } from 'luxon';
 
 const crownPddaListService = new CrownPddaListService();
 
@@ -24,15 +25,19 @@ export class CrownWarnedPddaListService {
     }
 
     private formatFixture(fixtureDate: any, groupedData: Map<string, object[]>, isWithoutFixeDate: boolean): any {
-        const fixedDate = fixtureDate.Fixture.FixedDate;
-        fixtureDate.Fixture.Cases.forEach((hearingCase: any) => {
-            hearingCase.Hearing.forEach((hearing: any) => {
-                const hearingDescription = !isWithoutFixeDate ? hearing.HearingDescription : 'To be allocated';
-                if (!groupedData.has(hearingDescription)) {
-                    groupedData.set(hearingDescription, []);
-                }
+        fixtureDate.Fixture.forEach((fixture: any) => {
+            const fixedDate = fixture.FixedDate;
+            fixture.Cases.forEach((hearingCase: any) => {
+                hearingCase.Hearing.forEach((hearing: any) => {
+                    const hearingDescription = !isWithoutFixeDate ? hearing.HearingDescription : 'To be allocated';
+                    if (!groupedData.has(hearingDescription)) {
+                        groupedData.set(hearingDescription, []);
+                    }
 
-                groupedData.get(hearingDescription)!.push(this.formatCaseInformation(fixedDate, hearing, hearingCase));
+                    groupedData
+                        .get(hearingDescription)!
+                        .push(this.formatCaseInformation(fixedDate, hearing, hearingCase));
+                });
             });
         });
     }
@@ -56,5 +61,12 @@ export class CrownWarnedPddaListService {
             linkedCases: linkedCases,
             listingNotes: listingNotes,
         };
+    }
+
+    public formatContentDate(contentDate: string, language: string) {
+        const date = new Date(contentDate);
+        // Move the date to the past Monday if it is not on a Monday
+        date.setDate(date.getDate() - ((date.getDay() + 6) % 7));
+        return DateTime.fromISO(date.toISOString(), { zone: 'utc' }).setLocale(language).toFormat('dd MMMM yyyy');
     }
 }

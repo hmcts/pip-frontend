@@ -20,7 +20,7 @@ cookieManager.on('UserPreferencesSaved', preferences => {
     if (dtrum !== undefined) {
         if (preferences.apm === 'on') {
             dtrum.enable();
-            dtrum.enableSessionReplay();
+            dtrum.enableSessionReplay(false);
         } else {
             dtrum.disableSessionReplay();
             dtrum.disable();

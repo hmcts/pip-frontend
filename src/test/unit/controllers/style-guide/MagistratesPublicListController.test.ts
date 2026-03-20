@@ -6,9 +6,9 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { mockRequest } from '../../mocks/mockRequest';
 import { DateTime } from 'luxon';
 import { LocationService } from '../../../../main/service/LocationService';
-import { CrimeListsService } from '../../../../main/service/listManipulation/CrimeListsService';
 import MagistratesPublicListController from '../../../../main/controllers/style-guide/MagistratesPublicListController';
 import { HttpStatusCode } from 'axios';
+import { MagistratesPublicListService } from '../../../../main/service/listManipulation/MagistratesPublicListService';
 
 const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/magistratesPublicList.json'), 'utf-8');
 const listData = JSON.parse(rawData);
@@ -26,7 +26,7 @@ const magistratesPublicListController = new MagistratesPublicListController();
 const magistratesPublicListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const magistratesPublicListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
-sinon.stub(CrimeListsService.prototype, 'manipulateCrimeListData').returns(listData);
+sinon.stub(MagistratesPublicListService.prototype, 'manipulateData').returns(listData);
 
 const artefactId = 'abc';
 const artefactIdListNotFound = 'def';
@@ -73,7 +73,6 @@ describe('Magistrates Public List Controller', () => {
             courtName: "Abergavenny Magistrates' Court",
             publishedTime: '12:30am',
             provenance: 'prov1',
-            version: '',
             venueAddress: 'THE LAW COURTS\nMain Road\nPR1 2LL',
         };
 

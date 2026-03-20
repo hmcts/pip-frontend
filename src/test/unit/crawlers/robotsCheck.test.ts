@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import request from 'supertest';
 
-import { app } from '../../../main/app';
+import { app, appSetup } from '../../../main/app';
 
 const robotsTxt = {
     message: 'User-agent: *\nDisallow: /',
@@ -9,6 +9,10 @@ const robotsTxt = {
 
 describe('P&I frontend robots.txt check', () => {
     describe('on GET', () => {
+        beforeAll(async () => {
+            await appSetup();
+        });
+
         test('should return a 200 status', async () => {
             await request(app)
                 .get('/robots.txt')

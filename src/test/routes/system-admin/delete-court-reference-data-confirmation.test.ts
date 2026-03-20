@@ -16,10 +16,13 @@ courtDeleteStub.withArgs('2').resolves({ exists: false, errorMessage: '' });
 courtDeleteStub.withArgs('3').resolves({ exists: true, errorMessage: 'test' });
 
 describe('Delete Court Reference Data Confirmation', () => {
-    app.request['user'] = {
-        userId: '1',
-        roles: 'SYSTEM_ADMIN',
-    };
+    beforeEach(() => {
+        app.request['user'] = {
+            userId: '1',
+            roles: 'SYSTEM_ADMIN',
+        };
+    });
+
     describe('on GET', () => {
         test('should return court deletion confirmation page', async () => {
             await request(app)

@@ -8,7 +8,7 @@ import request from 'supertest';
 import { app } from '../../../../main/app';
 import { expect } from 'chai';
 
-const urlDailyPddaList = '/crown-daily-pdda-list';
+const urlDailyPddaList = '/crown-daily-list';
 const artefactIdDailyPddaList = 'abc';
 
 const bodyText = 'govuk-body';
@@ -134,56 +134,74 @@ describe('Crown Daily PDDA List page', () => {
         expect(text[14].innerHTML).contains('Sitting at 10am', 'Sitting at time does not match');
     });
 
+    it('should display Hearing Time table header', () => {
+        const cell = htmlRes.getElementsByClassName(tableHeaderClass);
+        expect(cell[0].innerHTML).contains('Hearing Time', 'Hearing time header does not match');
+    });
+
     it('should display Case Number table header', () => {
         const cell = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(cell[0].innerHTML).contains('Case Reference', 'Case number header does not match');
+        expect(cell[1].innerHTML).contains('Case Reference', 'Case number header does not match');
     });
 
     it('should display Defendant Name(s) table header', () => {
         const cell = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(cell[1].innerHTML).contains('Defendant Name(s)', 'Defendant name header does not match');
+        expect(cell[2].innerHTML).contains('Defendant Name(s)', 'Defendant name header does not match');
     });
 
     it('should display Hearing Type table header', () => {
         const cell = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(cell[2].innerHTML).contains('Hearing Type', 'Hearing type header does not match');
+        expect(cell[3].innerHTML).contains('Hearing Type', 'Hearing type header does not match');
     });
 
     it('should display Prosecuting Authority table header', () => {
         const cell = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(cell[3].innerHTML).contains('Prosecuting Authority', 'Prosecuting authority header does not match');
+        expect(cell[4].innerHTML).contains('Prosecuting Authority', 'Prosecuting authority header does not match');
     });
 
     it('should display Listing Notes table header', () => {
         const cell = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(cell[4].innerHTML).contains('Listing Notes', 'Listing notes header does not match');
+        expect(cell[5].innerHTML).contains('Listing Notes', 'Listing notes header does not match');
+    });
+
+    it('should display Hearing Time table cell', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[0].innerHTML).contains('TestTimeMarkingNote', 'Hearing time cell does not match');
     });
 
     it('should display Case Number table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[0].innerHTML).contains('T00112233', 'Case number cell does not match');
+        expect(cell[1].innerHTML).contains('T00112233', 'Case number cell does not match');
     });
 
-    it('should display Defendant Name(s) table cell', () => {
+    it('should display requested Defendant Name(s) table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[1].innerHTML).contains(
+        expect(cell[2].innerHTML).contains(
             'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix',
+            'Defendant name cell does not match'
+        );
+    });
+
+    it('should display formatted Defendant Name(s) table cell', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[8].innerHTML).contains(
+            'Mr TestDefendantForename1 TestDefendantForename2 TestDefendantSurname TestDefendantSuffix',
             'Defendant name cell does not match'
         );
     });
 
     it('should display Hearing Type table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[2].innerHTML).contains('TestHearingDescription', 'Hearing type cell does not match');
+        expect(cell[3].innerHTML).contains('TestHearingDescription', 'Hearing type cell does not match');
     });
 
     it('should display Prosecuting Authority table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[3].innerHTML).contains('Crown Prosecution Service', 'Prosecuting authority cell does not match');
+        expect(cell[4].innerHTML).contains('Crown Prosecution Service', 'Prosecuting authority cell does not match');
     });
 
     it('should display Listing Notes table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[4].innerHTML).contains('TestListNote', 'Listing notes cell does not match');
+        expect(cell[5].innerHTML).contains('TestListNote', 'Listing notes cell does not match');
     });
 });
