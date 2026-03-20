@@ -22,7 +22,7 @@ describe('Magistrate Standard List service', () => {
             expect(data[0]['courtHouseName']).to.equal('PRESTON');
             expect(data[0]['courtRoomName']).to.include('Courtroom 1');
             expect(data[0]['lja']).to.equal('Local Justice Area A');
-            expect(data[0]).to.have.property('matters').that.is.an('array').with.length.greaterThan(0);
+            expect(data[0]).to.have.property('sittings').that.is.an('array').with.length.greaterThan(0);
         });
 
         it('should handle empty courtLists gracefully', () => {
@@ -67,25 +67,17 @@ describe('Magistrate Standard List service', () => {
     });
 
     describe('Private methods (indirectly via manipulateData)', () => {
-        it('should format individual subject party heading with gender and custody', () => {
+        it('should format individual subject sitting heading with case sequence indicator', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const expectedHeading = 'Surname A, Forename A MiddleName A (male)';
-            const found = data.flatMap(room => room['matters']).find((c: any) => c.partyHeading === expectedHeading);
+            const expectedHeading = '1:30pm [2 of 3]';
+            const found = data.flatMap(room => room.sittings).find((c: any) => c.sittingHeading === expectedHeading);
 
-            expect(found, 'Expected heading not found in partyHeading').to.exist;
-        });
-
-        it('should format organisation subject party heading', () => {
-            const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const found = data
-                .flatMap(room => room['matters'])
-                .find((c: any) => c.partyHeading === 'This is an organisation');
-            expect(found).to.exist;
+            expect(found, 'Expected heading not found in sitting heading').to.exist;
         });
 
         it('should process offences correctly', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const offences = data[0]['matters'][0].sittings[0].offences;
+            const offences = data[0].sittings[0].hearings[0].offences;
             expect(offences).to.be.an('array').with.lengthOf(2);
 
             expect(offences[0]).to.deep.equal({
@@ -105,8 +97,9 @@ describe('Magistrate Standard List service', () => {
 
         it('should correctly build individual subject party info', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const partyInfo = data[0]['matters'][0].sittings[0].partyInfo;
+            const partyInfo = data[0].sittings[0].hearings[0].partyInfo;
             expect(partyInfo).to.deep.equal({
+                name: 'Surname A, Forename A MiddleName A (male)',
                 dob: '01/01/1950',
                 age: 20,
                 address: 'Address Line 1A, Address Line 2A, Town A, County A, AA1 AA1',
@@ -116,22 +109,20 @@ describe('Magistrate Standard List service', () => {
 
         it('should correctly build organisation subject party info', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const orgCase = data
-                .flatMap(room => room['matters'])
-                .find((c: any) => c.partyHeading === 'This is an organisation');
-            expect(orgCase).to.exist;
-            const orgPartyInfo = orgCase.sittings[0].partyInfo;
-            expect(orgPartyInfo).to.deep.equal({
+            const partyInfo = data[1].sittings[1].hearings[2].partyInfo;
+            expect(partyInfo).to.deep.equal({
+                name: 'This is an organisation',
                 address: 'Address Line 1E, Address Line 2E, Town E, This is a postcode',
+
             });
         });
 
-        it('should cover buildHearing output for case', () => {
+        it('should return expected hearing metadata for case', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const sittingInfo = data[0]['matters'][0].sittings[0].info;
-            expect(sittingInfo).to.deep.equal({
+            const hearingInfo = data[0].sittings[0].hearings[0];
+            expect(hearingInfo).to.contain({
+                sittingStartTime: '1:30pm',
                 prosecutingAuthority: 'Prosecuting Authority Name',
-                attendanceMethod: ['VIDEO HEARING A'],
                 reference: '45684548',
                 applicationType: '',
                 caseSequenceIndicator: '2 of 3',
@@ -141,16 +132,15 @@ describe('Magistrate Standard List service', () => {
                 reportingRestriction: true,
                 reportingRestrictionDetails: 'This is a case level reporting restriction details example',
             });
+            expect(hearingInfo.attendanceMethod).to.have.length(1);
+            expect(hearingInfo.attendanceMethod[0]).to.equal('VIDEO HEARING A');
         });
 
-        it('should cover buildHearing output for application', () => {
+        it('should return expected hearing metadata for application', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const appSittingInfo = data[1]['matters']
-                .flatMap((ca: any) => ca.sittings)
-                .find((sit: any) => sit.info.reference === 'AppRefB').info;
-            expect(appSittingInfo).to.deep.equal({
+            const hearingInfo = data[1].sittings[1].hearings[2];
+            expect(hearingInfo).to. contain({
                 prosecutingAuthority: 'Prosecuting Authority Name',
-                attendanceMethod: ['VIDEO HEARING'],
                 reference: 'AppRefB',
                 applicationType: 'Application Type 2',
                 caseSequenceIndicator: '',
@@ -160,14 +150,14 @@ describe('Magistrate Standard List service', () => {
                 reportingRestriction: '',
                 reportingRestrictionDetails: '',
             });
+            expect(hearingInfo.attendanceMethod).to.have.length(1);
+            expect(hearingInfo.attendanceMethod[0]).to.equal('VIDEO HEARING');
         });
 
-        it('should add multiple sittings for the same subject party', () => {
+        it('should add multiple hearings for the same sitting', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
-            const subjectCases = data[0]['matters'].filter((c: any) => c.partyHeading);
-            subjectCases.forEach((c: any) => {
-                expect(c.sittings.length).to.be.equal(2);
-            });
+            const hearing = data[1].sittings[1].hearings;
+            expect(hearing.length).to.equal(3);
         });
     });
 
@@ -176,7 +166,7 @@ describe('Magistrate Standard List service', () => {
             const json = JSON.parse(rawMagistrateStandardListData);
             json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[1].offence = [];
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
-            const offences = data[0]['matters'][0].sittings[0].offences;
+            const offences = data[0].sittings[0].hearings[0].offences;
             expect(offences).to.be.an('array').that.is.empty;
         });
 
@@ -184,14 +174,14 @@ describe('Magistrate Standard List service', () => {
             const json = JSON.parse(rawMagistrateStandardListData);
             json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party[1] = {};
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
-            expect(data[0]['matters']).to.have.length(1);
+            expect(data[0].sittings).to.have.length(1);
         });
 
         it('should handle missing party array', () => {
             const json = JSON.parse(rawMagistrateStandardListData);
             delete json.courtLists[0].courtHouse.courtRoom[0].session[0].sittings[0].hearing[0].case[0].party;
             const data = magistratesStandardListService.manipulateData(JSON.stringify(json)) as any[];
-            expect(data[0]['matters']).to.have.length(1);
+            expect(data[0].sittings).to.have.length(1);
         });
     });
 
