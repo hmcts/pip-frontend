@@ -254,6 +254,11 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
         expect(cell[9].innerHTML).contains('Offence summary 1', 'Offence summary does not match');
     });
 
+    it('should display empty table cell when Informant is not provided', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[14].innerHTML).contains('', 'Informant does not match');
+    });
+
     it('check no cases are shown when blocks or cases are not present', () => {
         const searchInput = htmlRes.getElementsByClassName('govuk-accordion__section');
 
