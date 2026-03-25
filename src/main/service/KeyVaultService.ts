@@ -1,7 +1,6 @@
 import { DefaultAzureCredential } from '@azure/identity';
 import { SecretClient } from '@azure/keyvault-secrets';
 import process from 'process';
-import config from 'config';
 
 export class KeyVaultService {
     private client: SecretClient;
@@ -11,14 +10,18 @@ export class KeyVaultService {
         const keyVaultUrl = 'https://' + thirdPartyKeyVault + '.vault.azure.net/';
         const nodeENV = process.env.NODE_ENV || 'development';
 
-        const MANAGED_IDENTITY_CLIENT_ID = config.get('secrets.pip-ss-kv.MANAGED_IDENTITY_CLIENT_ID');
 
         const credential =
             nodeENV === 'development'
                 ? new DefaultAzureCredential()
                 : new DefaultAzureCredential({
-                      managedIdentityClientId: MANAGED_IDENTITY_CLIENT_ID as string,
+                      managedIdentityClientId: '0e0c8682-a038-4aa8-9619-bb88a7ba9357',
+                      tenantId: '531ff96d-0ae9-462a-8d2d-bec7c0b42082'
                   });
+
+        credential.getToken('https://vault.azure.net/.default')
+            .then(token => console.log('SUCCESS:', token))
+            .catch(err => console.error('ERROR:', JSON.stringify(err, null, 2)));
 
         this.client = new SecretClient(keyVaultUrl, credential);
     }
