@@ -44,7 +44,7 @@
         "cichecks": "yarn && yarn build && yarn lint && yarn test && yarn test:routes &&  yarn test:a11y"
     },
     "dependencies": {
-        "@azure/msal-node": "^3.8.5",
+        "@azure/msal-node": "^5.1.1",
         "@hmcts/cookie-manager": "^1.1.0",
         "@hmcts/info-provider": "^1.2.3",
         "@hmcts/nodejs-healthcheck": "^1.8.6",
@@ -61,7 +61,7 @@
         "@types/require-directory": "^2.1.7",
         "@types/serve-favicon": "^2.5.7",
         "applicationinsights": "3.12.1",
-        "awilix": "^12.1.1",
+        "awilix": "^13.0.3",
         "axios": "^1.13.2",
         "axios-oauth-client": "^2.2.0",
         "axios-retry": "^4.5.0",
@@ -119,7 +119,7 @@
         "@types/axios-token-interceptor": "^0.2.8",
         "@types/chai-as-promised": "^8.0.2",
         "@types/jest": "^30.0.0",
-        "@types/supertest": "^6.0.3",
+        "@types/supertest": "^7.2.0",
         "allure-commandline": "^2.38.1",
         "axe-playwright": "^2.2.2",
         "babel-loader": "^10.1.1",
