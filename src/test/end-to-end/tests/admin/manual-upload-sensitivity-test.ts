@@ -7,7 +7,6 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const classificationId = '#classification';
     const listTypeId = '#listType';
     const sensitivityClassified = 'CLASSIFIED';
-    const sensitivityPrivate = 'PRIVATE';
     const [date, dayAfter] = getDateNowAndFuture();
 
     I.loginAsSsoAdminLocal();
