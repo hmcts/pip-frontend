@@ -497,13 +497,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-common@npm:15.14.0":
-  version: 15.14.0
-  resolution: "@azure/msal-common@npm:15.14.0"
-  checksum: 10/afd94e96e7d43fa3b29860d09829cc2e5bdf1250fec1f31eab7ff3c014171f2bab0f3f172c3aa1f16fd1bdfdf699c309b157bcc2452e5a959db5943810270978
-  languageName: node
-  linkType: hard
-
 "@azure/msal-common@npm:15.8.1":
   version: 15.8.1
   resolution: "@azure/msal-common@npm:15.8.1"
@@ -518,6 +511,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/msal-common@npm:16.4.0":
+  version: 16.4.0
+  resolution: "@azure/msal-common@npm:16.4.0"
+  checksum: 10/0e479175648206cf4212d6f4e6883fb49a53cf24152f22b23229f234bbec57588f72dbc51730751f765786d4d11a0804b485ca17b143c07ad62eb29bed1ebe20
+  languageName: node
+  linkType: hard
+
 "@azure/msal-node@npm:^3.5.0":
   version: 3.6.4
   resolution: "@azure/msal-node@npm:3.6.4"
@@ -529,14 +529,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^3.8.5":
-  version: 3.8.5
-  resolution: "@azure/msal-node@npm:3.8.5"
+"@azure/msal-node@npm:^5.1.1":
+  version: 5.1.1
+  resolution: "@azure/msal-node@npm:5.1.1"
   dependencies:
-    "@azure/msal-common": "npm:15.14.0"
+    "@azure/msal-common": "npm:16.4.0"
     jsonwebtoken: "npm:^9.0.0"
     uuid: "npm:^8.3.0"
-  checksum: 10/f210c1ef865665742c84b933829ec141756d52101a0b83e53ade239e894f7444cbe1abcedf956aee95ce0c402af655e5d230339cac6654c9a2e2091e0b097443
+  checksum: 10/01f3b870de2b23094c8ae1102b265018fbe800f493f8dd3024a6afa5e5c931640c3919fb0ab453c3cfe556d7ee4548e21825a3d1f1c2c551dadb0348456ed2f8
   languageName: node
   linkType: hard
 
@@ -5775,13 +5775,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/supertest@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "@types/supertest@npm:6.0.3"
+"@types/supertest@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "@types/supertest@npm:7.2.0"
   dependencies:
     "@types/methods": "npm:^1.1.4"
     "@types/superagent": "npm:^8.1.0"
-  checksum: 10/6ec05eb591c97bc856b0e78c12f5bec10545f3a749688f34232d189797a506d971bc95931718eb57b378d8513f6d2d12462383e6d68455fa72df35c19de6e89e
+  checksum: 10/5a322e29b81033e90ac50ab315d49559b21809ee39b5681ab7386819463e30d68e29c63c946023a1c353e7f13fb3f20d64dcb89d3d8a0fff569450501aff786c
   languageName: node
   linkType: hard
 
@@ -6836,12 +6836,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"awilix@npm:^12.1.1":
-  version: 12.1.1
-  resolution: "awilix@npm:12.1.1"
+"awilix@npm:^13.0.3":
+  version: 13.0.3
+  resolution: "awilix@npm:13.0.3"
   dependencies:
     fast-glob: "npm:^3.3.3"
-  checksum: 10/612b6bdb7557a0ca31517b0c480414688db1d0b6d537d5f2f5ee2fd4274b8f14b746a4aad76ac9f07fb0fd730d6b322efe4b81a3ac803d7b3e632520b89e1026
+  checksum: 10/f24968b30771c8abe40dd055b79c1a04b9f5cb0a517aeb6f654cf480ba9388522bd5057d023f6f53aa46ac9f3c828bbe110b8bc6316eb797b3377734df51c095
   languageName: node
   linkType: hard
 
@@ -15188,7 +15188,7 @@ __metadata:
   resolution: "publishing-information-project@workspace:."
   dependencies:
     "@axe-core/playwright": "npm:^4.11.0"
-    "@azure/msal-node": "npm:^3.8.5"
+    "@azure/msal-node": "npm:^5.1.1"
     "@babel/core": "npm:7.29.0"
     "@babel/eslint-parser": "npm:7.28.6"
     "@babel/preset-env": "npm:7.29.2"
@@ -15217,10 +15217,10 @@ __metadata:
     "@types/nunjucks": "npm:^3.2.6"
     "@types/require-directory": "npm:^2.1.7"
     "@types/serve-favicon": "npm:^2.5.7"
-    "@types/supertest": "npm:^6.0.3"
+    "@types/supertest": "npm:^7.2.0"
     allure-commandline: "npm:^2.38.1"
     applicationinsights: "npm:3.12.1"
-    awilix: "npm:^12.1.1"
+    awilix: "npm:^13.0.3"
     axe-playwright: "npm:^2.2.2"
     axios: "npm:^1.13.2"
     axios-oauth-client: "npm:^2.2.0"
