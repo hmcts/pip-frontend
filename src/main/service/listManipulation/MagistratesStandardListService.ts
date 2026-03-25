@@ -93,21 +93,21 @@ export class MagistratesStandardListService {
 
     private processParty(party, sitting, matters: any[], isMainParty: boolean) {
         if (isMainParty) {
-            if (party.individualDetails) {
-                const partyHeading = this.formatIndividualPartyHeading(party.individualDetails);
-                sitting = {
-                    ...sitting,
-                    partyInfo: this.buildIndividualPartyInfo(party.individualDetails),
-                    offences: this.processOffences(party),
-                };
-                this.addPartyMatter(matters, partyHeading, sitting);
-            } else if (party.organisationDetails) {
+            if (party.organisationDetails) {
                 const partyHeading = ListParseHelperService.writeStringIfValid(
                     party.organisationDetails.organisationName
                 );
                 sitting = {
                     ...sitting,
                     partyInfo: this.buildOrganisationPartyInfo(party.organisationDetails),
+                    offences: this.processOffences(party),
+                };
+                this.addPartyMatter(matters, partyHeading, sitting);
+            } else if (party.individualDetails) {
+                const partyHeading = this.formatIndividualPartyHeading(party.individualDetails);
+                sitting = {
+                    ...sitting,
+                    partyInfo: this.buildIndividualPartyInfo(party.individualDetails),
                     offences: this.processOffences(party),
                 };
                 this.addPartyMatter(matters, partyHeading, sitting);
