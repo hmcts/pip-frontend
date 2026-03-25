@@ -10,16 +10,16 @@ export class KeyVaultService {
         const keyVaultUrl = 'https://' + thirdPartyKeyVault + '.vault.azure.net/';
         const nodeENV = process.env.NODE_ENV || 'development';
 
-
         const credential =
             nodeENV === 'development'
                 ? new DefaultAzureCredential()
                 : new DefaultAzureCredential({
                       managedIdentityClientId: '0e0c8682-a038-4aa8-9619-bb88a7ba9357',
-                      tenantId: '531ff96d-0ae9-462a-8d2d-bec7c0b42082'
+                      tenantId: '531ff96d-0ae9-462a-8d2d-bec7c0b42082',
                   });
 
-        credential.getToken('https://vault.azure.net/.default')
+        credential
+            .getToken('https://vault.azure.net/.default')
             .then(token => console.log('SUCCESS:', token))
             .catch(err => console.error('ERROR:', JSON.stringify(err, null, 2)));
 
