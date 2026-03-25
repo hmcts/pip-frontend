@@ -12,8 +12,8 @@ export class KeyVaultService {
         const MANAGED_IDENTITY_CLIENT_ID = '0e0c8682-a038-4aa8-9619-bb88a7ba9357';
 
         const credential = new DefaultAzureCredential({
-                      managedIdentityClientId: MANAGED_IDENTITY_CLIENT_ID as string,
-                  });
+            managedIdentityClientId: MANAGED_IDENTITY_CLIENT_ID as string,
+        });
 
         this.client = new SecretClient(keyVaultUrl, credential);
     }
