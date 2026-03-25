@@ -16,6 +16,7 @@ nodejs:
         CRIME_IDAM_URL: https://login.sit.cjscp.org.uk
         SESSION_COOKIE_SAME_SITE: ''
         THIRD_PARTY_KEY_VAULT: pip-ss-tp-kv-{{ .Values.global.environment }}
+        MANAGED_IDENTITY_CLIENT_ID: 8d0ead51-3b31-44df-a78e-ada4eea9fe87
     keyVaults:
         pip-ss-kv:
             resourceGroup: pip-ss-stg-rg
@@ -66,5 +67,3 @@ nodejs:
                     alias: SSO_SG_ADMIN_LOCAL
                 -   name: sso-sg-system-admin-dev
                     alias: SSO_SG_SYSTEM_ADMIN
-                -   name: cath-mi-client-id
-                    alias: MANAGED_IDENTITY_CLIENT_ID

@@ -8,12 +8,16 @@ export class KeyVaultService {
     constructor() {
         const thirdPartyKeyVault = process.env.THIRD_PARTY_KEY_VAULT || 'pip-ss-tp-kv-stg';
         const keyVaultUrl = 'https://' + thirdPartyKeyVault + '.vault.azure.net/';
+        const nodeENV = process.env.NODE_ENV || 'development';
 
-        const MANAGED_IDENTITY_CLIENT_ID = '0e0c8682-a038-4aa8-9619-bb88a7ba9357';
+        const MANAGED_IDENTITY_CLIENT_ID = process.env.MANAGED_IDENTITY_CLIENT_ID;
 
-        const credential = new DefaultAzureCredential({
-            managedIdentityClientId: MANAGED_IDENTITY_CLIENT_ID as string,
-        });
+        const credential =
+            nodeENV === 'development'
+                ? new DefaultAzureCredential()
+                : new DefaultAzureCredential({
+                      managedIdentityClientId: MANAGED_IDENTITY_CLIENT_ID as string,
+                  });
 
         this.client = new SecretClient(keyVaultUrl, credential);
     }
