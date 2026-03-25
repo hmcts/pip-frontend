@@ -28,14 +28,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@axe-core/playwright@npm:^4.11.0":
-  version: 4.11.0
-  resolution: "@axe-core/playwright@npm:4.11.0"
+"@axe-core/playwright@npm:^4.11.1":
+  version: 4.11.1
+  resolution: "@axe-core/playwright@npm:4.11.1"
   dependencies:
-    axe-core: "npm:~4.11.0"
+    axe-core: "npm:~4.11.1"
   peerDependencies:
     playwright-core: ">= 1.0.0"
-  checksum: 10/54de38082deeb1d9022b47f1412ebba7c9b93aa09a0dbc5b1609d35b4f5d05f43840968aeeea913b340b4d89ab1ec0c8bb18aeb1f4c609751ae95e7b8ae2b724
+  checksum: 10/d2a0fce217fa415682c4730a0f82a5f3cf2b3081281ea4373f10aeb8a83417e84214e6bd75954a9ba3a23532e0afa0dad87cfcbfc88358170a50702266fad0cd
   languageName: node
   linkType: hard
 
@@ -297,6 +297,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/functions-extensions-base@npm:0.2.0":
+  version: 0.2.0
+  resolution: "@azure/functions-extensions-base@npm:0.2.0"
+  checksum: 10/6f8e6db44c94246f25cb05cb1e3602e71252d97c9234f56c676be576c209107660b15f6c08717a4bd6d0c108a5cccaded9309ef5a5d70cc44bf9c3b7e2924757
+  languageName: node
+  linkType: hard
+
 "@azure/functions-old@npm:@azure/functions@3.5.1":
   version: 3.5.1
   resolution: "@azure/functions@npm:3.5.1"
@@ -308,14 +315,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/functions@npm:^4.6.0":
-  version: 4.7.2
-  resolution: "@azure/functions@npm:4.7.2"
+"@azure/functions@npm:^4.11.2":
+  version: 4.12.0
+  resolution: "@azure/functions@npm:4.12.0"
   dependencies:
+    "@azure/functions-extensions-base": "npm:0.2.0"
     cookie: "npm:^0.7.0"
-    long: "npm:^4.0.0"
-    undici: "npm:^5.29.0"
-  checksum: 10/ce0caebf89960efc8717072c88abc404a08cdde3c72aca2041818abad691976784d28db4309e90aabdcea73431cd30c147cb9531cb447ff0e928b79838cc752a
+  checksum: 10/80da22a3bb048bc90eafb40e65d4ad7a524549a4829f42ade41feb72851a20f702fa038f2d9e91e94388a27567d7b647fe33484a2a44e3bbebd27cb00fb39d1d
   languageName: node
   linkType: hard
 
@@ -412,9 +418,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.37":
-  version: 1.0.0-beta.37
-  resolution: "@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.37"
+"@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.39, @azure/monitor-opentelemetry-exporter@npm:^1.0.0-beta.39":
+  version: 1.0.0-beta.39
+  resolution: "@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.39"
   dependencies:
     "@azure/core-auth": "npm:^1.9.0"
     "@azure/core-client": "npm:^1.9.2"
@@ -428,39 +434,19 @@ __metadata:
     "@opentelemetry/sdk-trace-base": "npm:^2.1.0"
     "@opentelemetry/semantic-conventions": "npm:^1.37.0"
     tslib: "npm:^2.8.1"
-  checksum: 10/ce6d4d274a326a4ef87894a269c30e831456dbf4f5a2982aa55c07e04b36ba8f48bdeb7c4d13099e6179c1b04ae1d033e554501fc7839f4273d1bc16a997d638
+  checksum: 10/155306ea62ddbdc05a2f6bdebb6f15452955d38861b107838a483ffbf45380dcef230ddc22e2afe0a2cf2035dbf15d68719e9535043acb3f0e36a8ecce14d465
   languageName: node
   linkType: hard
 
-"@azure/monitor-opentelemetry-exporter@npm:^1.0.0-beta.36":
-  version: 1.0.0-beta.36
-  resolution: "@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.36"
-  dependencies:
-    "@azure/core-auth": "npm:^1.9.0"
-    "@azure/core-client": "npm:^1.9.2"
-    "@azure/core-rest-pipeline": "npm:^1.19.0"
-    "@opentelemetry/api": "npm:^1.9.0"
-    "@opentelemetry/api-logs": "npm:^0.205.0"
-    "@opentelemetry/core": "npm:^2.1.0"
-    "@opentelemetry/resources": "npm:^2.1.0"
-    "@opentelemetry/sdk-logs": "npm:^0.205.0"
-    "@opentelemetry/sdk-metrics": "npm:^2.1.0"
-    "@opentelemetry/sdk-trace-base": "npm:^2.1.0"
-    "@opentelemetry/semantic-conventions": "npm:^1.37.0"
-    tslib: "npm:^2.8.1"
-  checksum: 10/1bc894a46a7b45b892b63b5e007b99109bf30ad2d3a4a93480541a569a9e02c61dadff0efb117c07532514001621e4f7396193717a1215a81b1f902e4c5d935e
-  languageName: node
-  linkType: hard
-
-"@azure/monitor-opentelemetry@npm:^1.14.2":
-  version: 1.15.0
-  resolution: "@azure/monitor-opentelemetry@npm:1.15.0"
+"@azure/monitor-opentelemetry@npm:^1.16.0":
+  version: 1.16.0
+  resolution: "@azure/monitor-opentelemetry@npm:1.16.0"
   dependencies:
     "@azure/core-auth": "npm:^1.10.1"
     "@azure/core-client": "npm:^1.10.1"
     "@azure/core-rest-pipeline": "npm:^1.22.2"
     "@azure/logger": "npm:^1.3.0"
-    "@azure/monitor-opentelemetry-exporter": "npm:1.0.0-beta.37"
+    "@azure/monitor-opentelemetry-exporter": "npm:1.0.0-beta.39"
     "@azure/opentelemetry-instrumentation-azure-sdk": "npm:^1.0.0-beta.9"
     "@microsoft/applicationinsights-web-snippet": "npm:^1.2.3"
     "@opentelemetry/api": "npm:^1.9.0"
@@ -484,7 +470,7 @@ __metadata:
     "@opentelemetry/semantic-conventions": "npm:^1.38.0"
     "@opentelemetry/winston-transport": "npm:^0.19.0"
     tslib: "npm:^2.8.1"
-  checksum: 10/5fe10a25ca3b416569a11ead5c82886ae2105c93313c954d3aa7baf55aaa1f3531fe96175295abbb03ed6bc5f621e3fc84900b77e396b51949f8585b1509150f
+  checksum: 10/85d0092f3e8893da5407374da74f598a9a1f429a6dba5b838f1457d6d71c5b09237d792bca94a850de41177f3630f43530e8eae760a7e7b63b4437f20afef12f
   languageName: node
   linkType: hard
 
@@ -3029,13 +3015,6 @@ __metadata:
     lefthook: bin/index.js
   checksum: 10/098fcfa67f450c7447f646d3b053739dc6962da7b72af4efc624250d8934b83adffa25c80955760c42959d05b747ad2c72aa0fdb1c05a6a873ab8aa4aa63010b
   conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=ia32)
-  languageName: node
-  linkType: hard
-
-"@fastify/busboy@npm:^2.0.0":
-  version: 2.1.1
-  resolution: "@fastify/busboy@npm:2.1.1"
-  checksum: 10/2bb8a7eca8289ed14c9eb15239bc1019797454624e769b39a0b90ed204d032403adc0f8ed0d2aef8a18c772205fa7808cf5a1b91f21c7bfc7b6032150b1062c5
   languageName: node
   linkType: hard
 
@@ -5747,10 +5726,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/lodash@npm:^4.17.23":
-  version: 4.17.23
-  resolution: "@types/lodash@npm:4.17.23"
-  checksum: 10/05935534a44aadef67c2158b2fb4a042a226970088106a40ddc67e4f063783149fe5cf02279d7dd4a1e72c98d9189b9430face659645dbf77270f8c4c3e387f5
+"@types/lodash@npm:^4.17.24":
+  version: 4.17.24
+  resolution: "@types/lodash@npm:4.17.24"
+  checksum: 10/0f2082565f60f9787eefc046edc38458054512be5a8b3584ef0bad5fd9e85d0ab55ec5a1fbfae1ed6ba015cf1f9e837d5fb4da1f99fc60b8f74b2a46146fb00f
   languageName: node
   linkType: hard
 
@@ -5802,12 +5781,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.18.1":
-  version: 22.19.7
-  resolution: "@types/node@npm:22.19.7"
+"@types/node@npm:^22.19.15":
+  version: 22.19.15
+  resolution: "@types/node@npm:22.19.15"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10/0a5c9cc3bdd2a2d8105735b136e280a2dec90136679adfe82faa7e4de375dcc6b4cebaa6b2de35cc6b37e5e135cdc9486373d574782a4ca22f5eeab299111aa6
+  checksum: 10/c75bc9a8dbc49a61f3e6f49304cf7b1c05e818a1071b46e9effd1a51af7a1b5c10fd2e04f314b74ce78f4ca7e3ddc1d6e61c94c2e3354c8be9f9f7ee5e79e23c
   languageName: node
   linkType: hard
 
@@ -6828,16 +6807,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:3.12.1":
-  version: 3.12.1
-  resolution: "applicationinsights@npm:3.12.1"
+"applicationinsights@npm:3.14.0":
+  version: 3.14.0
+  resolution: "applicationinsights@npm:3.14.0"
   dependencies:
     "@azure/core-auth": "npm:^1.9.0"
-    "@azure/functions": "npm:^4.6.0"
+    "@azure/functions": "npm:^4.11.2"
     "@azure/functions-old": "npm:@azure/functions@3.5.1"
     "@azure/identity": "npm:^4.6.0"
-    "@azure/monitor-opentelemetry": "npm:^1.14.2"
-    "@azure/monitor-opentelemetry-exporter": "npm:^1.0.0-beta.36"
+    "@azure/monitor-opentelemetry": "npm:^1.16.0"
+    "@azure/monitor-opentelemetry-exporter": "npm:^1.0.0-beta.39"
     "@azure/opentelemetry-instrumentation-azure-sdk": "npm:^1.0.0-beta.7"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.208.0"
@@ -6855,7 +6834,7 @@ __metadata:
     "@opentelemetry/semantic-conventions": "npm:^1.38.0"
     diagnostic-channel: "npm:1.1.1"
     diagnostic-channel-publishers: "npm:1.0.8"
-  checksum: 10/ff10989ba43944c39a4a8b3297cc0e21f0fdf513231829c8be24d5aab054f02e1dea958f80f16a081dc512d72867c868b957c1b9780510f4730a023f07cd030f
+  checksum: 10/73eaa6987fbd3822eff996a39b76487e3d5678d35988fd3c3dcef4fb21a6680b9e51601d74a31de8a53899a743a60fdb1302b236b21c5c629c5510749c854b13
   languageName: node
   linkType: hard
 
@@ -6986,13 +6965,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axe-core@npm:~4.11.0":
-  version: 4.11.0
-  resolution: "axe-core@npm:4.11.0"
-  checksum: 10/18254ee95bc328aec9a909b22e4b22e8ff14a21363fdbd1a5227267e66bf1d2fc1425c186e9001759aab5827cf4ee9dc30f7ea57e8200cbf7a1cd555ed21a908
-  languageName: node
-  linkType: hard
-
 "axe-core@npm:~4.11.1":
   version: 4.11.1
   resolution: "axe-core@npm:4.11.1"
@@ -7080,7 +7052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:*, axios@npm:^1.13.2":
+"axios@npm:*":
   version: 1.13.2
   resolution: "axios@npm:1.13.2"
   dependencies:
@@ -7091,7 +7063,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:1.13.6":
+"axios@npm:1.13.6, axios@npm:^1.13.5":
   version: 1.13.6
   resolution: "axios@npm:1.13.6"
   dependencies:
@@ -14001,6 +13973,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"multer@npm:^2.1.1":
+  version: 2.1.1
+  resolution: "multer@npm:2.1.1"
+  dependencies:
+    append-field: "npm:^1.0.0"
+    busboy: "npm:^1.6.0"
+    concat-stream: "npm:^2.0.0"
+    type-is: "npm:^1.6.18"
+  checksum: 10/fb22868caaed37d725715c14c60b740b81665265da3a026bb61954414f65b99f76b360128413b8a2a7cc1a95ecae28a42bf831fe172bb79682d19ec105b556bd
+  languageName: node
+  linkType: hard
+
 "multi-sort-stream@npm:^1.0.3, multi-sort-stream@npm:^1.0.4":
   version: 1.0.4
   resolution: "multi-sort-stream@npm:1.0.4"
@@ -15318,7 +15302,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "publishing-information-project@workspace:."
   dependencies:
-    "@axe-core/playwright": "npm:^4.11.0"
+    "@axe-core/playwright": "npm:^4.11.1"
     "@azure/msal-node": "npm:^5.1.1"
     "@babel/core": "npm:7.29.0"
     "@babel/eslint-parser": "npm:7.28.6"
@@ -15343,17 +15327,17 @@ __metadata:
     "@types/es6-promisify": "npm:^6.0.4"
     "@types/express": "npm:^5.0.6"
     "@types/jest": "npm:^30.0.0"
-    "@types/lodash": "npm:^4.17.23"
-    "@types/node": "npm:^22.18.1"
+    "@types/lodash": "npm:^4.17.24"
+    "@types/node": "npm:^22.19.15"
     "@types/nunjucks": "npm:^3.2.6"
     "@types/require-directory": "npm:^2.1.7"
     "@types/serve-favicon": "npm:^2.5.7"
     "@types/supertest": "npm:^7.2.0"
     allure-commandline: "npm:^2.38.1"
-    applicationinsights: "npm:3.12.1"
+    applicationinsights: "npm:3.14.0"
     awilix: "npm:^13.0.3"
     axe-playwright: "npm:^2.2.2"
-    axios: "npm:^1.13.2"
+    axios: "npm:^1.13.5"
     axios-oauth-client: "npm:^2.2.0"
     axios-retry: "npm:^4.5.0"
     axios-token-interceptor: "npm:^0.2.0"
@@ -15389,7 +15373,7 @@ __metadata:
     luxon: "npm:^3.7.2"
     mark.js: "npm:^8.11.1"
     mini-css-extract-plugin: "npm:^2.10.1"
-    multer: "npm:^2.0.2"
+    multer: "npm:^2.1.1"
     node-blob: "npm:^0.0.2"
     nodemon: "npm:^3.1.14"
     npm-run-all2: "npm:^8.0.4"
@@ -17920,15 +17904,6 @@ __metadata:
   version: 7.8.0
   resolution: "undici-types@npm:7.8.0"
   checksum: 10/fcff3fbab234f067fbd69e374ee2c198ba74c364ceaf6d93db7ca267e784457b5518cd01d0d2329b075f412574205ea3172a9a675facb49b4c9efb7141cd80b7
-  languageName: node
-  linkType: hard
-
-"undici@npm:^5.29.0":
-  version: 5.29.0
-  resolution: "undici@npm:5.29.0"
-  dependencies:
-    "@fastify/busboy": "npm:^2.0.0"
-  checksum: 10/0ceca8924a32acdcc0cfb8dd2d368c217840970aa3f5e314fc169608474be6341c5b8e50cad7bd257dbe3b4e432bc5d0a0d000f83644b54fa11a48735ec52b93
   languageName: node
   linkType: hard
 
