@@ -33,7 +33,7 @@ export class MagistratesAdultCourtListService {
                         ...caseInfo,
                         defendantDob: caseNode.def_dob ? caseNode.def_dob : '',
                         defendantAge: caseNode.def_age ? caseNode.def_age : '',
-                        defendantAddress: this.formatDefendantAddress(caseNode.def_addr),
+                        defendantAddress: caseNode.def_addr ? this.formatDefendantAddress(caseNode.def_addr) : '',
                         informant: caseNode.inf ? caseNode.inf : '',
                         offence: this.processOffences(caseNode.offences?.offence, language),
                     };
