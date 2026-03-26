@@ -41,6 +41,18 @@ describe('Magistrate Adult Court List service', () => {
             expect(cases.informant).to.equal('POL01');
         });
 
+        it('should format case info with empty defendant address, dob, age and informant', async () => {
+            const results = await magistratesAdultCourtListService.processPayload(JSON.parse(rawListData), lng, true);
+            const cases = results[0].cases[1];
+            expect(cases.blockStartTime).to.equal('9am');
+            expect(cases.caseNumber).to.equal('1000000001');
+            expect(cases.defendantName).to.equal('Mrs Test User');
+            expect(cases.defendantDob).to.be.empty;
+            expect(cases.defendantAge).to.be.empty;
+            expect(cases.defendantAddress).to.be.empty;
+            expect(cases.informant).to.be.empty;
+        });
+
         it('should format offence info', async () => {
             const results = await magistratesAdultCourtListService.processPayload(JSON.parse(rawListData), lng, true);
             const offence = results[0].cases[0].offence;
