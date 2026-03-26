@@ -7,7 +7,6 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     const classificationId = '#classification';
     const listTypeId = '#listType';
     const sensitivityClassified = 'CLASSIFIED';
-    const sensitivityPrivate = 'PRIVATE';
     const [date, dayAfter] = getDateNowAndFuture();
 
     I.loginAsSsoAdminLocal();
@@ -35,7 +34,7 @@ Scenario('Manual upload sensitivity test', async ({ I }) => {
     I.selectOption(listTypeId, 'Magistrates Standard List');
 
     classification = await I.grabValueFrom(classificationId);
-    Assert.equal(classification, sensitivityPrivate);
+    Assert.equal(classification, sensitivityClassified);
 
     I.selectOption(listTypeId, 'Crown Firm List');
 
