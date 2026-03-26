@@ -214,9 +214,9 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
         expect(cell[2].innerHTML).contains('06/11/1975', 'Date of Birth does not match');
     });
 
-    it('should display Age table cell', () => {
+    it('should display empty Date of Birth table cell when field is missing', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[4].innerHTML).contains('50', 'Age does not match');
+        expect(cell[12].innerHTML).to.empty;
     });
 
     it('should display Address table cell', () => {
@@ -224,14 +224,29 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
         expect(cell[3].innerHTML).contains('1 High Street, London, SW1A 1AA', 'Address does not match');
     });
 
+    it('should display empty Address table cell when field is missing', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[13].innerHTML).to.empty;
+    });
+
     it('should display Age table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
         expect(cell[4].innerHTML).contains('50', 'Age does not match');
     });
 
+    it('should display empty Age table cell when field is missing', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[14].innerHTML).to.empty;
+    });
+
     it('should display Informant table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
         expect(cell[5].innerHTML).contains('POL01', 'Informant does not match');
+    });
+
+    it('should display empty Informant table cell when field is missing', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[15].innerHTML).to.empty;
     });
 
     it('should display Case Number table cell', () => {
