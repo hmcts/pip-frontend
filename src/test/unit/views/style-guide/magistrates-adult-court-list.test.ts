@@ -136,7 +136,7 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
 
     it('should display Court Room', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).contains('Sitting at 1', 'Court Room does not match');
+        expect(text[8].innerHTML).contains('Sitting at Courtroom 1', 'Court Room does not match');
     });
 
     it('should display LJA', () => {
@@ -189,16 +189,6 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
         expect(cell[7].innerHTML).contains('Offence Code', 'Offence code header does not match');
     });
 
-    it('should display Offence Title table header', () => {
-        const cell = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(cell[8].innerHTML).contains('Offence Title', 'Offence title header does not match');
-    });
-
-    it('should display Offence Summary table header', () => {
-        const cell = htmlRes.getElementsByClassName(tableHeaderClass);
-        expect(cell[9].innerHTML).contains('Offence Summary', 'Offence summary header does not match');
-    });
-
     it('should display Block Start table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
         expect(cell[0].innerHTML).contains('9am', 'Block Start time does not match');
@@ -216,7 +206,7 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
 
     it('should display empty Date of Birth table cell when field is missing', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[12].innerHTML).to.empty;
+        expect(cell[14].innerHTML).to.empty;
     });
 
     it('should display Address table cell', () => {
@@ -226,7 +216,7 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
 
     it('should display empty Address table cell when field is missing', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[13].innerHTML).to.empty;
+        expect(cell[15].innerHTML).to.empty;
     });
 
     it('should display Age table cell', () => {
@@ -246,7 +236,7 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
 
     it('should display empty Informant table cell when field is missing', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[15].innerHTML).to.empty;
+        expect(cell[17].innerHTML).to.empty;
     });
 
     it('should display Case Number table cell', () => {
@@ -259,19 +249,24 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Adult Court List page 
         expect(cell[7].innerHTML).contains('TH68001', 'Offence code does not match');
     });
 
+    it('should display Offence Title table header', () => {
+        const cell = htmlRes.getElementsByClassName(tableCellClass);
+        expect(cell[8].innerHTML).contains('Offence Title', 'Offence title header does not match');
+    });
+
     it('should display Offence Title table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[8].innerHTML).contains('Offence title 1', 'Offence title does not match');
+        expect(cell[9].innerHTML).contains('Offence title 1', 'Offence title does not match');
     });
 
     it('should display Offence Summary table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[9].innerHTML).contains('Offence summary 1', 'Offence summary does not match');
+        expect(cell[10].innerHTML).contains('Offence Summary', 'Offence summary header does not match');
     });
 
-    it('should display empty table cell when Informant is not provided', () => {
+    it('should display Offence Summary table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
-        expect(cell[14].innerHTML).contains('', 'Informant does not match');
+        expect(cell[11].innerHTML).contains('Offence summary 1', 'Offence summary does not match');
     });
 
     it('check no cases are shown when blocks or cases are not present', () => {

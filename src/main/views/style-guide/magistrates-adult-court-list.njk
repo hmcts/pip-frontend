@@ -55,7 +55,7 @@
                             <h2 class="govuk-accordion__section-heading">
                                 <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ listSessionCount }}">{{ listSession.courtName }}</span>
                             </h2>
-                            <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ sittingAt }} {{ listSession.courtRoom }}</p>
+                            <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ sittingAt }} {{ courtRoom }} {{ listSession.courtRoom }}</p>
                             <p class="govuk-body govuk-!-margin-bottom-1">{{ lja }} {{ listSession.lja }}</p>
                             <p class="govuk-body">{{ sessionStart }} {{ listSession.sessionStartTime }}</p>
                         </div>
@@ -72,16 +72,22 @@
                                     <tbody class="govuk-table__body">
                                         {% for row in listSession.cases %}
                                             <tr class="govuk-table__row">
-                                                <td class="govuk-table__cell" data-sort-value="{{ row.blockStartTime | timeToSortValue }}">{{ row.blockStartTime }}</td>
-                                                <td class="govuk-table__cell">{{ row.defendantName }}</td>
-                                                <td class="govuk-table__cell" data-sort-value="{{ row.defendantDob | dateToSortValue }}">{{ row.defendantDob }}</td>
-                                                <td class="govuk-table__cell">{{ row.defendantAddress }}</td>
-                                                <td class="govuk-table__cell">{{ row.defendantAge }}</td>
-                                                <td class="govuk-table__cell">{{ row.informant }}</td>
-                                                <td class="govuk-table__cell">{{ row.caseNumber }}</td>
-                                                <td class="govuk-table__cell">{{ row.offence.offenceCode }}</td>
-                                                <td class="govuk-table__cell">{{ row.offence.offenceTitle }}</td>
-                                                <td class="govuk-table__cell">{{ row.offence.offenceSummary }}</td>
+                                                <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ row.blockStartTime | timeToSortValue }}">{{ row.blockStartTime }}</td>
+                                                <td class="govuk-table__cell no-border-bottom">{{ row.defendantName }}</td>
+                                                <td class="govuk-table__cell no-border-bottom" data-sort-value="{{ row.defendantDob | dateToSortValue }}">{{ row.defendantDob }}</td>
+                                                <td class="govuk-table__cell no-border-bottom">{{ row.defendantAddress }}</td>
+                                                <td class="govuk-table__cell no-border-bottom">{{ row.defendantAge }}</td>
+                                                <td class="govuk-table__cell no-border-bottom">{{ row.informant }}</td>
+                                                <td class="govuk-table__cell no-border-bottom">{{ row.caseNumber }}</td>
+                                                <td class="govuk-table__cell no-border-bottom">{{ row.offence.offenceCode }}</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell no-border-bottom" colspan="2"><span class="linked-cases-heading">{{ offenceTitle }}:</span></td>
+                                                <td class="govuk-table__cell no-border-bottom" colspan="6"> {{ row.offence.offenceTitle }} </td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell" colspan="2"><span class="linked-cases-heading">{{ offenceSummary }}:</span></td>
+                                                <td class="govuk-table__cell" colspan="6"> {{ row.offence.offenceSummary }} </td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
