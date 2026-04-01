@@ -1309,6 +1309,11 @@ export default function (app: Application): void {
         processSsoSignIn
     );
 
+    app.get('/sso/logout', (_req, res) => {
+        res.clearCookie('connect.sid');
+        sessionManagement.logOut(_req, res, false);
+    });
+
     app.get('/sso-rejected-login', app.locals.container.cradle.ssoRejectedLoginController.get);
 
     app.get('/info', getInfo());
