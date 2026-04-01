@@ -13,8 +13,6 @@ export = function () {
             this.waitForText('Enter password');
             this.fillField('passwd', secret(testConfig.SSO_TEST_SYSTEM_ADMIN_PWD));
             this.click('Sign in');
-            this.waitForText('Stay signed in?');
-            this.click('No');
             this.waitForText('System Admin Dashboard');
         },
 
@@ -28,8 +26,6 @@ export = function () {
             this.waitForText('Enter password');
             this.fillField('passwd', secret(testConfig.SSO_TEST_ADMIN_CTSC_PWD));
             this.click('Sign in');
-            this.waitForText('Stay signed in?');
-            this.click('No');
             this.waitForText('Your Dashboard');
         },
 
@@ -43,8 +39,6 @@ export = function () {
             this.waitForText('Enter password');
             this.fillField('passwd', secret(testConfig.SSO_TEST_ADMIN_LOCAL_PWD));
             this.click('Sign in');
-            this.waitForText('Stay signed in?');
-            this.click('No');
             this.waitForText('Your Dashboard');
         },
 
@@ -58,8 +52,6 @@ export = function () {
             this.waitForText('Enter password');
             this.fillField('passwd', secret(testConfig.SSO_TEST_NO_ROLES_PWD));
             this.click('Sign in');
-            this.waitForText('Stay signed in?');
-            this.click('No');
         },
 
         reloginAsSsoSystemAdmin: function () {
