@@ -196,8 +196,6 @@ Scenario('Admin User Journey - media-applications-page', async ({ I }) => {
     I.waitForText('Enter password');
     I.fillField('passwd', secret(testConfig.SSO_TEST_ADMIN_CTSC_PWD));
     I.click('Sign in');
-    I.waitForText('Stay signed in?');
-    I.click('No');
     I.amOnPage('/media-applications');
     I.checkA11y('media-applications-a11y-audit.html');
 });
