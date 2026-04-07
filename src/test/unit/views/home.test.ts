@@ -37,6 +37,10 @@ const footerLinks = [
         text: 'Government Digital Service',
         href: 'https://www.gov.uk/government/organisations/government-digital-service',
     },
+    {
+        text: 'Publishing Policy',
+        href: 'tbc',
+    }
 ];
 const pageHeader = 'Court and tribunal hearings';
 
@@ -227,6 +231,8 @@ describe('Home page', () => {
                         `link ${footerLinks[i].text} has incorrect path`
                     );
                 }
+
+                it('should ')
             });
         });
     });
