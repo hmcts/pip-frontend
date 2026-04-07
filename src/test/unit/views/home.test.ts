@@ -40,7 +40,7 @@ const footerLinks = [
     {
         text: 'Publishing Policy',
         href: 'tbc',
-    }
+    },
 ];
 const pageHeader = 'Court and tribunal hearings';
 
@@ -110,9 +110,7 @@ describe('Home page', () => {
                 'Hearings in the Royal Courts of Justice and the Rolls Building',
                 'Could not find third bullet'
             );
-            expect(bullets[3].innerHTML).contains(
-                'Hearings in Crown Courts in England and Wales'
-            );
+            expect(bullets[3].innerHTML).contains('Hearings in Crown Courts in England and Wales');
             expect(bullets[4].innerHTML).contains(
                 'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
                 'Could not find fourth bullet'
@@ -232,7 +230,7 @@ describe('Home page', () => {
                     );
                 }
 
-                it('should ')
+                it('should ');
             });
         });
     });
