@@ -62,13 +62,14 @@ export class UserManagementService {
      */
     public generateFilterKeyValues(body: string): string {
         const filterValues = [];
-        Object.keys(body).forEach(key => {
-            if (body[key].length > 0) {
+        const safeBody = body || {};
+        Object.keys(safeBody).forEach(key => {
+            if (safeBody[key].length > 0) {
                 let separator = '&';
                 if (filterValues.length === 0) {
                     separator = '';
                 }
-                filterValues.push(separator + key + '=' + body[key]);
+                filterValues.push(separator + key + '=' + safeBody[key]);
             }
         });
         return filterValues.join('');

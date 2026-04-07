@@ -567,3 +567,17 @@ nav {
 .govuk-rebrand-border-bottom {
     border-bottom: solid 1px #8eb8dc !important;
 }
+
+.connection-status {
+    font-weight: 700;
+}
+
+.fail-connection {
+    border: 5px solid #d4351c;
+    padding: 20px;
+}
+
+.success-connection {
+    border: 5px solid #00703c;
+    padding: 20px;
+}

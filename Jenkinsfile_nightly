@@ -30,18 +30,21 @@ def setupTestSecrets() {
             secret('app-tenant', 'TENANT_ID'),
             secret('app-pip-frontend-id', 'CLIENT_ID_INTERNAL'),
             secret('app-pip-frontend-pwd', 'CLIENT_SECRET_INTERNAL'),
-            secret('auto-generated-test-user-pwd','TEST_USER_PASSWORD'),
+            secret('auto-generated-test-user-pwd', 'TEST_USER_PASSWORD'),
             secret('crime-valid-test-account', 'CRIME_VALID_USERNAME'),
             secret('crime-valid-test-account-password', 'CRIME_VALID_PASSWORD'),
             secret('sso-test-admin-account-ctsc-user', 'SSO_TEST_ADMIN_CTSC_USER'),
             secret('sso-test-admin-account-ctsc-pwd', 'SSO_TEST_ADMIN_CTSC_PWD'),
             secret('sso-test-admin-local-account-user', 'SSO_TEST_ADMIN_LOCAL_USER'),
-            secret('sso-test-admin-local-account-pwd','SSO_TEST_ADMIN_LOCAL_PWD'),
-            secret('sso-test-system-admin-account-user','SSO_TEST_SYSTEM_ADMIN_USER'),
+            secret('sso-test-admin-local-account-pwd', 'SSO_TEST_ADMIN_LOCAL_PWD'),
+            secret('sso-test-system-admin-account-user', 'SSO_TEST_SYSTEM_ADMIN_USER'),
             secret('sso-test-system-admin-account-pwd', 'SSO_TEST_SYSTEM_ADMIN_PWD'),
             secret('sso-test-system-admin-user-id', 'SSO_SYSTEM_ADMIN_USER_ID'),
-            secret('sso-test-no-roles-account-user','SSO_TEST_NO_ROLES_USER'),
+            secret('sso-test-no-roles-account-user', 'SSO_TEST_NO_ROLES_USER'),
             secret('sso-test-no-roles-account-pwd', 'SSO_TEST_NO_ROLES_PWD'),
+            secret('app-pip-apim-admin-scope', 'APIM_ADMIN_AZ_API'),
+            secret('app-pip-b2c-id', 'B2C_CLIENT_ID'),
+            secret('app-pip-b2c-pwd', 'B2C_CLIENT_SECRET'),
         ]) {
         env.B2C_USERNAME = "${B2C_USERNAME}"
         env.B2C_PASSWORD = "${B2C_PASSWORD}"
@@ -68,6 +71,9 @@ def setupTestSecrets() {
         env.SSO_SYSTEM_ADMIN_USER_ID = "${SSO_SYSTEM_ADMIN_USER_ID}"
         env.SSO_TEST_NO_ROLES_USER = "${SSO_TEST_NO_ROLES_USER}"
         env.SSO_TEST_NO_ROLES_PWD = "${SSO_TEST_NO_ROLES_PWD}"
+        env.APIM_ADMIN_AZ_API = "${APIM_ADMIN_AZ_API}"
+        env.B2C_CLIENT_ID = "${B2C_CLIENT_ID}"
+        env.B2C_CLIENT_SECRET = "${B2C_CLIENT_SECRET}"
     }
 }
 
