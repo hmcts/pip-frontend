@@ -1,0 +1,58 @@
+{% from "../macros/common-components.njk" import goBack, backButtonHistory %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+  {{ title }}
+{% endblock %}
+{% block beforeContent %}
+  {{ super() }}
+  {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+  <div class="govuk-grid-row parent-box">
+    <h1 class="govuk-heading-l">{{ heading }}</h1>
+  </div>
+
+  {{ govukButton({
+    id: "create-subscriber",
+    text: createUser,
+    href: "/create-third-party-subscriber"
+  }) }}
+
+  {% set tableRows = [] %}
+  {% for account in thirdPartySubscribers %}
+    {% set manageButton %}
+      <a class="govuk-table__cell govuk-link" href="/manage-third-party-subscribers/view?userId={{ account.userId }}">{{ manage }}</a>
+    {% endset %}
+    {% set _ = tableRows.push([
+      {text: account.name},
+      {text: account.createdDate},
+      {
+        html: manageButton
+      }
+    ]) %}
+  {% endfor %}
+
+  {{ govukTable({
+    head: [
+      {
+        text: thirdPartyName
+      },
+      {
+        text: createdDate
+      },
+      {
+        attributes: {
+        'aria-hidden': 'true'
+      }
+      }
+    ],
+    rows: tableRows
+  }) }}
+{% endblock %}
+{% block bodyEnd %}
+  {{ backButtonHistory(cspNonce) }}
+  {{ super() }}
+{% endblock %}
