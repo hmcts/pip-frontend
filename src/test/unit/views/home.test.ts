@@ -111,7 +111,7 @@ describe('Home page', () => {
                 'Could not find fourth bullet'
             );
             expect(bullets[4].innerHTML).contains(
-                'Hearings in Magistrate Courts in England and Wales',
+                'Hearings in Magistrates\' Courts in England and Wales',
                 'Could not find fifth bullet'
             );
             expect(bullets[5].innerHTML).contains(
@@ -149,7 +149,7 @@ describe('Home page', () => {
             expect(surveyMessage[0].innerHTML).contains('Share your thoughts', 'Could not find survey message');
 
             expect(surveyMessage[0].innerHTML).contains(
-                'help us improve the Courts and Tribunals Hearing service',
+                'help us improve the Court and tribunal hearings service',
                 'Could not find survey message'
             );
 
