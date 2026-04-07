@@ -1,0 +1,59 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    {% if requestError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+
+    <div class="parent-box">
+        <h1 class="govuk-heading-l">{{ header }}</h1>
+        <div id="summary-content">
+            <form method="post">
+                <input type="hidden" id="userId" name="userId" value="{{ userId }}">
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">{{ listTypeHeader }}</th>
+                            <th scope="col" class="govuk-table__header">{{ sensitivityHeader }}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        {% set listCount = 0 %}
+                        {% for key, value in listTypeNameMap %}
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">{{ key }}</td>
+                                <td class="govuk-table__cell">{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {{ submitButton(confirmButton) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
+    {{ super() }}
+{% endblock %}
