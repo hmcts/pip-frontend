@@ -118,7 +118,7 @@ Scenario(
     }
 ).tag('@Nightly');
 
-Scenario('I should be able to check test connection and change the status for a user for a user', async ({ I }) => {
+Scenario('I should be able to check test third-party connection and change the status for a user', async ({ I }) => {
     const testUserName = testConfig.TEST_SUITE_PREFIX + randomData.getRandomString();
     const thirdPartyUserId = await createThirdPartyApiUser(testUserName);
 
