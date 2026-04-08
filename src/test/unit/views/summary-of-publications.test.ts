@@ -344,7 +344,7 @@ describe('Summary of publications page', () => {
             expect(surveyMessage[0].innerHTML).contains('Share your thoughts', 'Could not find survey message');
 
             expect(surveyMessage[0].innerHTML).contains(
-                'help us improve the Courts and Tribunals Hearing service',
+                'help us improve the Court and tribunal hearings service',
                 'Could not find survey message'
             );
 
