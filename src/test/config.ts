@@ -33,7 +33,7 @@ export const config = {
     ACCOUNT_MANAGEMENT_BASE_URL:
         process.env.ACCOUNT_MANAGEMENT_URL || 'https://pip-account-management.staging.platform.hmcts.net',
     THIRD_PARTY_SUBSCRIBER_DESTINATION_URL:
-        'https://sds-api-mgmt.test.platform.hmcts.net/pip/publication-services-testing-support/third-party',
+        'https://sds-api-mgmt.staging.platform.hmcts.net/pip/publication-services-testing-support/third-party',
     TOKEN_URL: `${MICROSOFT_LOGIN_URL}/${process.env.TENANT_ID}/oauth2/v2.0/token`,
     THIRD_PARTY_CLIENT_ID: process.env.B2C_CLIENT_ID,
     THIRD_PARTY_CLIENT_SECRET: process.env.B2C_CLIENT_SECRET,
