@@ -1,0 +1,54 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" action="create-third-party-subscriber-summary">
+        {{ govukSummaryList({
+            rows: [
+                {
+                    key: {
+                        text: name
+                    },
+                    value: {
+                        text: formData.thirdPartySubscriberName
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "create-third-party-subscriber#thirdPartySubscriberName",
+                                text: actionName,
+                                visuallyHiddenText: name
+                            }
+                        ]
+                    }
+                }
+            ]
+        }) }}
+        {{ submitButton(confirmButton) }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+{% endblock %}

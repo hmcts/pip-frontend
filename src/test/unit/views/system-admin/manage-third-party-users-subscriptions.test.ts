@@ -2,9 +2,9 @@ import request from 'supertest';
 import { app } from '../../../../main/app';
 import { request as expressRequest } from 'express';
 import { expect } from 'chai';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import sinon from 'sinon';
 import { SubscriptionService } from '../../../../main/service/SubscriptionService';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 describe('Manage third party subscription', () => {
     const PAGE_URL = '/manage-third-party-users/subscriptions';
@@ -18,7 +18,7 @@ describe('Manage third party subscription', () => {
     const listTypeClass = 'govuk-table__row';
     const checkboxesInputClass = 'govuk-checkboxes__input';
     const userId = '1234-1234';
-    const getThirdPartyUserByIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
+    const getThirdPartyUserByIdStub = sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyUserById');
     const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
     const getChannelsListStub = sinon.stub(SubscriptionService.prototype, 'retrieveChannels');
 

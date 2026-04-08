@@ -384,6 +384,15 @@
                                                             {
                                                                 "partyRole": "APPLICANT",
                                                                 "subject": true,
+                                                                "individualDetails": {
+                                                                    "individualForenames": "",
+                                                                    "individualSurname": "",
+                                                                    "address": {
+                                                                        "town": "Town E",
+                                                                        "line": ["Address Line 1E", "Address Line 2E"],
+                                                                        "postCode": "This is a postcode"
+                                                                    }
+                                                                },
                                                                 "organisationDetails": {
                                                                     "organisationName": "This is an organisation",
                                                                     "organisationAddress": {

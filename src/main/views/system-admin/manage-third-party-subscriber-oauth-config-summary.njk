@@ -1,0 +1,118 @@
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% extends "../template.njk" %}
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+{% block content %}
+    {% if displayError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.message,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <form method="post" action="manage-third-party-subscriber-oauth-config-summary">
+        {{ govukInput({
+            id: "user",
+            name: "user",
+            type: "hidden",
+            value: formData.user
+        }) }}
+        {{ govukInput({
+            id: "createConfig",
+            name: "createConfig",
+            type: "hidden",
+            value: formData.createConfig
+        }) }}
+        {{ govukSummaryList({
+            rows: [
+                {
+                    key: {
+                        text: destinationUrl
+                    },
+                    value: {
+                        text: formData.destinationUrl
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#destinationUrl",
+                                text: actionName,
+                                visuallyHiddenText: destinationUrl
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                    text: tokenUrl
+                    },
+                        value: {
+                        text: formData.tokenUrl
+                    },
+                        actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#tokenUrl",
+                                text: actionName,
+                                visuallyHiddenText: tokenUrl
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: scope
+                    },
+                    value: {
+                        text: formData.scope
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#scope",
+                                text: actionName,
+                                visuallyHiddenText: scope
+                            }
+                        ]
+                    }
+                },
+                {
+                    key: {
+                        text: clientId
+                    },
+                    value: {
+                        text: formData.clientId
+                    },
+                    actions: {
+                        items: [
+                            {
+                                href: "manage-third-party-subscriber-oauth-config?userId=" + formData.user + "#clientId",
+                                text: actionName,
+                                visuallyHiddenText: clientId
+                            }
+                        ]
+                    }
+                }
+            ]
+        }) }}
+        {{ submitButton(confirmButton) }}
+    </form>
+{% endblock %}
+{% block bodyEnd %}
+    {{ super() }}
+    {{ backButtonHistory(cspNonce) }}
+{% endblock %}
