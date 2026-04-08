@@ -111,7 +111,7 @@ describe('Home page', () => {
                 'Could not find fourth bullet'
             );
             expect(bullets[4].innerHTML).contains(
-                'Hearings in Magistrates\' Courts in England and Wales',
+                "Hearings in Magistrates' Courts in England and Wales",
                 'Could not find fifth bullet'
             );
             expect(bullets[5].innerHTML).contains(
