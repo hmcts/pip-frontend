@@ -164,13 +164,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/functions@npm:^4.6.0":
-  version: 4.11.2
-  resolution: "@azure/functions@npm:4.11.2"
+"@azure/functions@npm:^4.11.2":
+  version: 4.12.0
+  resolution: "@azure/functions@npm:4.12.0"
   dependencies:
     "@azure/functions-extensions-base": "npm:0.2.0"
     cookie: "npm:^0.7.0"
-  checksum: 10/5d639d28e1345a37e51c2a2b2be07ee502584fe18f80a18b86d28327740e40a820c42f33f88dbc7c5cb9c013236faeec7b57a42928cf004b975db878a5c4937f
+  checksum: 10/80da22a3bb048bc90eafb40e65d4ad7a524549a4829f42ade41feb72851a20f702fa038f2d9e91e94388a27567d7b647fe33484a2a44e3bbebd27cb00fb39d1d
   languageName: node
   linkType: hard
 
@@ -239,7 +239,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.39, @azure/monitor-opentelemetry-exporter@npm:^1.0.0-beta.36":
+"@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.39, @azure/monitor-opentelemetry-exporter@npm:^1.0.0-beta.39":
   version: 1.0.0-beta.39
   resolution: "@azure/monitor-opentelemetry-exporter@npm:1.0.0-beta.39"
   dependencies:
@@ -259,7 +259,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/monitor-opentelemetry@npm:^1.14.2":
+"@azure/monitor-opentelemetry@npm:^1.16.0":
   version: 1.16.0
   resolution: "@azure/monitor-opentelemetry@npm:1.16.0"
   dependencies:
@@ -5502,16 +5502,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"applicationinsights@npm:3.12.1":
-  version: 3.12.1
-  resolution: "applicationinsights@npm:3.12.1"
+"applicationinsights@npm:3.14.0":
+  version: 3.14.0
+  resolution: "applicationinsights@npm:3.14.0"
   dependencies:
     "@azure/core-auth": "npm:^1.9.0"
-    "@azure/functions": "npm:^4.6.0"
+    "@azure/functions": "npm:^4.11.2"
     "@azure/functions-old": "npm:@azure/functions@3.5.1"
     "@azure/identity": "npm:^4.6.0"
-    "@azure/monitor-opentelemetry": "npm:^1.14.2"
-    "@azure/monitor-opentelemetry-exporter": "npm:^1.0.0-beta.36"
+    "@azure/monitor-opentelemetry": "npm:^1.16.0"
+    "@azure/monitor-opentelemetry-exporter": "npm:^1.0.0-beta.39"
     "@azure/opentelemetry-instrumentation-azure-sdk": "npm:^1.0.0-beta.7"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.208.0"
@@ -5529,7 +5529,7 @@ __metadata:
     "@opentelemetry/semantic-conventions": "npm:^1.38.0"
     diagnostic-channel: "npm:1.1.1"
     diagnostic-channel-publishers: "npm:1.0.8"
-  checksum: 10/ff10989ba43944c39a4a8b3297cc0e21f0fdf513231829c8be24d5aab054f02e1dea958f80f16a081dc512d72867c868b957c1b9780510f4730a023f07cd030f
+  checksum: 10/73eaa6987fbd3822eff996a39b76487e3d5678d35988fd3c3dcef4fb21a6680b9e51601d74a31de8a53899a743a60fdb1302b236b21c5c629c5510749c854b13
   languageName: node
   linkType: hard
 
@@ -13138,7 +13138,7 @@ __metadata:
     "@types/serve-favicon": "npm:^2.5.7"
     "@types/supertest": "npm:^6.0.3"
     allure-commandline: "npm:^2.36.0"
-    applicationinsights: "npm:3.12.1"
+    applicationinsights: "npm:3.14.0"
     awilix: "npm:^12.0.5"
     axe-playwright: "npm:^2.2.2"
     axios: "npm:^1.13.2"
