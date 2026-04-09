@@ -22,7 +22,8 @@ export default class SubscriptionConfigureListLanguageController {
         const listTypeLanguageSubscriptions = await subscriptionService.getUserSubscriptionListLanguage(
             req.user['userId']
         );
-        if (req.body['list-language'] === undefined) {
+
+        if (req.body?.['list-language'] === undefined) {
             res.render('subscription-configure-list-language', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['subscription-configure-list-language']),
                 listTypeLanguageSubscriptions,

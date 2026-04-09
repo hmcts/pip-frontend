@@ -72,5 +72,20 @@ describe('Case name search results controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render error page if no body is set', () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+            const request = mockRequest(i18n);
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error');
+            return caseNameSearchResultsController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });

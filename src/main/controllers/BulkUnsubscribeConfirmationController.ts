@@ -13,8 +13,8 @@ export default class BulkUnsubscribeConfirmationController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const subscriptionsToDelete = req.body.subscriptions?.split(',') ?? [];
-        if (req.body['bulk-unsubscribe-choice'] === 'yes') {
+        const subscriptionsToDelete = req.body?.subscriptions?.split(',') ?? [];
+        if (req.body?.['bulk-unsubscribe-choice'] === 'yes') {
             const unsubscribeResponse = await subscriptionService.bulkDeleteSubscriptions(
                 subscriptionsToDelete,
                 req.user['userId'],
@@ -23,7 +23,7 @@ export default class BulkUnsubscribeConfirmationController {
             unsubscribeResponse
                 ? res.redirect(unsubscribeConfirmedUrl)
                 : res.render('error', req.i18n.getDataByLanguage(req.lng).error);
-        } else if (req.body['bulk-unsubscribe-choice'] === 'no') {
+        } else if (req.body?.['bulk-unsubscribe-choice'] === 'no') {
             res.redirect('subscription-management');
         } else {
             const subscriptionData = await subscriptionService.getSelectedSubscriptionDataForView(

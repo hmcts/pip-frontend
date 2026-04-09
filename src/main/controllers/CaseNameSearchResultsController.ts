@@ -28,7 +28,11 @@ export default class CaseNameSearchResultsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        await subscriptionService.handleNewSubscription(req.body, req.user);
-        res.redirect('/pending-subscriptions');
+        if (req.body) {
+            await subscriptionService.handleNewSubscription(req.body, req.user);
+            res.redirect('/pending-subscriptions');
+        } else {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        }
     }
 }
