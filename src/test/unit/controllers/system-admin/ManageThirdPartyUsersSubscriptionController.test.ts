@@ -1,11 +1,11 @@
 import { mockRequest } from '../../mocks/mockRequest';
 import { Response } from 'express';
 import sinon from 'sinon';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { SubscriptionService } from '../../../../main/service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import ManageThirdPartyUsersSubscriptionsController from '../../../../main/controllers/system-admin/ManageThirdPartyUsersSubscriptionsController';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 const manageThirdPartyUsersSubscriptionsController = new ManageThirdPartyUsersSubscriptionsController();
 
@@ -17,7 +17,7 @@ describe('Manage third party users subscription controller', () => {
     } as unknown as Response;
 
     const userId = '1234-1234';
-    const getThirdPartyUserByIdStub = sinon.stub(ThirdPartyService.prototype, 'getThirdPartyUserById');
+    const getThirdPartyUserByIdStub = sinon.stub(CourtelThirdPartyService.prototype, 'getThirdPartyUserById');
 
     describe('get third party subscription controller', () => {
         const i18n = {
@@ -28,8 +28,11 @@ describe('Manage third party users subscription controller', () => {
         const getListTypesStub = sinon.stub(PublicationService.prototype, 'getListTypes');
         const getSubscriptionsByUserStub = sinon.stub(SubscriptionService.prototype, 'getSubscriptionsByUser');
         const getChannelsListStub = sinon.stub(SubscriptionService.prototype, 'retrieveChannels');
-        const generateListTypesStub = sinon.stub(ThirdPartyService.prototype, 'generateListTypes');
-        const generateAvailableChannelsStub = sinon.stub(ThirdPartyService.prototype, 'generateAvailableChannels');
+        const generateListTypesStub = sinon.stub(CourtelThirdPartyService.prototype, 'generateListTypes');
+        const generateAvailableChannelsStub = sinon.stub(
+            CourtelThirdPartyService.prototype,
+            'generateAvailableChannels'
+        );
 
         it('should render third party subscriptions page', async () => {
             request['query'] = { userId: userId };
@@ -94,7 +97,10 @@ describe('Manage third party users subscription controller', () => {
         };
         const request = mockRequest(i18n);
 
-        const updateThirdPartySubsStub = sinon.stub(ThirdPartyService.prototype, 'handleThirdPartySubscriptionUpdate');
+        const updateThirdPartySubsStub = sinon.stub(
+            CourtelThirdPartyService.prototype,
+            'handleThirdPartySubscriptionUpdate'
+        );
 
         it('should render the third party confirmation page', async () => {
             request['body'] = {

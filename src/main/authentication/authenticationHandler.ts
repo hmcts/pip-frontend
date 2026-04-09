@@ -168,7 +168,7 @@ export function regenerateSession(req, res, next): void {
  * @param next The next function
  */
 export function checkPasswordReset(req, res, next) {
-    if (req.url.includes('error_description=AADB2C90091')) {
+    if (req.url?.includes('error_description=AADB2C90091')) {
         res.redirect('/cancelled-password-reset');
     } else {
         next();
