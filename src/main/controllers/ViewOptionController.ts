@@ -11,9 +11,9 @@ export default class ViewOptionController {
     }
 
     public post(req: PipRequest, res: Response): void {
-        if (req.body['view-choice'] === 'search') {
+        if (req.body?.['view-choice'] === 'search') {
             res.redirect('search');
-        } else if (req.body['view-choice'] === 'sjp') {
+        } else if (req.body?.['view-choice'] === 'sjp') {
             res.redirect('summary-of-publications?locationId=9');
         } else {
             res.render('view-option', {
