@@ -13,6 +13,7 @@
     "restrictionBulletPoint1": "the court directly",
     "restrictionBulletPoint2": "HM Courts and Tribunals Service on 0330 808 4407",
     "sittingAt": "Sitting at",
+    "courtRoom": "Courtroom",
     "lja": "LJA:",
     "sessionStart": "Session start",
     "tableHeaders": [
@@ -23,9 +24,9 @@
         "Age",
         "Informant",
         "Case Number",
-        "Offence Code",
-        "Offence Title",
-        "Offence Summary"
+        "Offence Code"
     ],
+    "offenceTitle": "Offence Title",
+    "offenceSummary": "Offence Summary",
     "dataSource": "Data Source"
 }
