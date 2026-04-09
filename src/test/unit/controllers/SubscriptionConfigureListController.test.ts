@@ -71,6 +71,20 @@ describe('Subscriptions Configure List Controller', () => {
             });
         });
 
+        it('should render error page if no body is provided', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId, userProvenance: userProvenance };
+            request.lng = language;
+            request.body = undefined;
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error');
+
+            return subscriptionConfigureListController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
+
         it('should render subscription config List with error if post data is provided and no selection was select', () => {
             const request = mockRequest(i18n);
             request.user = { userId: userId, userProvenance: userProvenance };

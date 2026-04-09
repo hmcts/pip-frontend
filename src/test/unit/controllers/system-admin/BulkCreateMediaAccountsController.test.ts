@@ -100,5 +100,17 @@ describe('Bulk Create Media Accounts Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render error page if no body provided', () => {
+            const responseMock = sinon.mock(response);
+            const requestWithoutBody = mockRequest(i18n);
+            requestWithoutBody.body = undefined;
+
+            responseMock.expects('render').once().withArgs('error');
+
+            bulkCreateMediaAccountsController.post(requestWithoutBody, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });
