@@ -19,7 +19,7 @@ export default class ListDownloadDisclaimerController {
         const artefactId = req.query.artefactId as string;
 
         if (validate(artefactId)) {
-            if (req.body['disclaimer-agreement'] === undefined) {
+            if (req.body?.['disclaimer-agreement'] === undefined) {
                 return res.render(disclaimerUrl, {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[disclaimerUrl]),
                     noAgreementError: true,

@@ -18,7 +18,7 @@ export default class SignInController {
     }
 
     public post(req: Request, res: Response): void {
-        switch (req.body['sign-in']) {
+        switch (req.body?.['sign-in']) {
             case 'hmcts': {
                 res.redirect('/cft-login');
                 break;
