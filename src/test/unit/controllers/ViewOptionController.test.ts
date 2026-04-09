@@ -77,4 +77,25 @@ describe('View Option Controller', () => {
         viewOptionController.post(request, response);
         responseMock.verify();
     });
+
+    it('should render same page if no body is provided', () => {
+        const viewOptionController = new ViewOptionController();
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = undefined;
+        const expectedOptions = {
+            ...i18n['view-option'],
+            showError: true,
+        };
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('render').once().withArgs('view-option', expectedOptions);
+
+        viewOptionController.post(request, response);
+        responseMock.verify();
+    });
 });

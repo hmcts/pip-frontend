@@ -24,9 +24,9 @@ export default class MediaAccountRejectionReasonsController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const applicantId = req.body['applicantId'];
+        const applicantId = req.body?.['applicantId'];
         const adminId = req.user['userId'];
-        const reasons = req.body['rejection-reasons'];
+        const reasons = req.body?.['rejection-reasons'];
         if (reasons && applicantId) {
             const applicantData = await mediaAccountApplicationService.getApplicationByIdAndStatus(
                 applicantId,
