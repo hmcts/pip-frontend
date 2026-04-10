@@ -155,6 +155,8 @@ export function createFilters(env) {
         switch (provenance) {
             case 'SNL':
                 return 'ListAssist';
+            case 'CP_CATH':
+                return 'Libra';
             case 'PDDA':
                 return 'PDDA';
             case 'MANUAL_UPLOAD':
