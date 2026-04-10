@@ -46,7 +46,7 @@
     {{ searchInput(text = searchCases) }}
     <div class="search-area">
         {% set courtRoomCount = 0 %}
-        {% set partyCount = 0 %}
+        {% set sittingCount = 0 %}
         {% for room in listData %}
             {% set courtRoomCount = courtRoomCount + 1 %}
             <div class="site-header" tabindex="0" aria-label="List Details">
@@ -59,60 +59,59 @@
                 <h1 class="govuk-heading-l site-address court-room-{{ courtRoomCount }}" tabindex="0">{{ room.courtRoomName }}</h1>
             </div>
             <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default-{{ courtRoomCount }}">
-                {% for row in room.matters %}
-                    {% set partyCount = partyCount + 1 %}
+                {% for sitting in room.sittings %}
+                    {% set sittingCount = sittingCount + 1 %}
                     <div class="govuk-accordion__section govuk-accordion__section--expanded">
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ partyCount }}">{{ nameHeading }}{{ row.partyHeading }}</span>
+                            <span class="govuk-accordion__section-button" id="accordion-default-heading-{{ sittingCount }}">{{ sittingAt }}{{ sitting.sittingHeading }}</span>
                             </h2>
                         </div>
-                        <div id="accordion-default-content-{{ partyCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ partyCount }}">
-                            {% set sittingCount = 0 %}
-                            {% for sitting in row.sittings %}
-                                {% set sittingCount = sittingCount + 1 %}
-                                <div class="parent-box overflow-table">
+                        <div id="accordion-default-content-{{ sittingCount }}" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-{{ sittingCount }}">
+                            {% set hearingCount = 0 %}
+                            {% for hearing in sitting.hearings %}
+                                {% set hearingCount = hearingCount + 1 %}
+                                {% set borderBottom = '' %}
+                                {% if hearingCount < sitting.hearings | length %}
+                                    {% set borderBottom = 'add-border-bottom govuk-!-margin-bottom-5' %}
+                                {% endif %}
+                                <div class="parent-box overflow-table {{ borderBottom }}">
                                     <div class="govuk-grid-row">
                                         <div class="govuk-grid-column-two-thirds no_padding">
-                                            <p class="govuk-body">
-                                                <span class="linked-cases-heading">
-                                                    {{ sittingAt }}{{ sitting.sittingStartTime | appendCaseSequenceIndicator(sitting.info.caseSequenceIndicator) }}
-                                                </span>
-                                            </p>
-                                            <br/>
-                                            {% if sitting.info.applicationParticulars | length %}
-                                              <p class="govuk-body"><span class="linked-cases-heading">{{ applicationParticulars }}</span>{{ sitting.info.applicationParticulars }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ name }}</span>{{ hearing.partyInfo.name }}</p>
+                                            {% if hearing.applicationParticulars | length %}
+                                              <p class="govuk-body"><span class="linked-cases-heading">{{ applicationParticulars }}</span>{{ hearing.applicationParticulars }}</p>
                                             {% endif %}
-                                            {% if sitting.partyInfo.dob | length %}
-                                                {% if sitting.partyInfo.age %}
-                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ sitting.partyInfo.dob }} {{ age }} {{ sitting.partyInfo.age }}</p>
+                                            {% if hearing.partyInfo.dob | length %}
+                                                {% if hearing.partyInfo.age %}
+                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ hearing.partyInfo.dob }} {{ age }} {{ hearing.partyInfo.age }}</p>
                                                 {% else %}
-                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ sitting.partyInfo.dob }}</p>
+                                                    <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ hearing.partyInfo.dob }}</p>
                                                 {% endif %}
-                                            {% elseif sitting.partyInfo.age %}
-                                                <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ age }} {{ sitting.partyInfo.age }}</p>
+                                            {% elseif hearing.partyInfo.age %}
+                                                <p class="govuk-body"><span class="linked-cases-heading">{{ dobAndAge }}</span> {{ age }} {{ hearing.partyInfo.age }}</p>
                                             {% endif %}
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ address }}</span>{{ sitting.partyInfo.address }}</p>
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ prosecutingAuthority }}</span>{{ sitting.info.prosecutingAuthority }}</p>
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span>{{ sitting.info.attendanceMethod }}</p>
-                                            {% if sitting.info.reportingRestriction %}
-                                              <p class="govuk-body"><span class="linked-cases-heading">{{ reportingRestrictions }}</span>{{ sitting.info.reportingRestrictionDetails }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ address }}</span>{{ hearing.partyInfo.address }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ prosecutingAuthority }}</span>{{ hearing.prosecutingAuthority }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ attendanceMethod }}</span>{{ hearing.attendanceMethod }}</p>
+                                            {% if hearing.reportingRestriction %}
+                                              <p class="govuk-body"><span class="linked-cases-heading">{{ reportingRestrictions }}</span>{{ hearing.reportingRestrictionDetails }}</p>
                                             {% endif %}
                                         </div>
                                         <div class="govuk-grid-column-one-third">
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ reference }}</span>{{ sitting.info.reference }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ reference }}</span>{{ hearing.reference }}</p>
 
-                                            {% if sitting.info.applicationType | length %}
-                                                <p class="govuk-body"><span class="linked-cases-heading">{{ applicationType }}</span>{{ sitting.info.applicationType }}</p>
+                                            {% if hearing.applicationType | length %}
+                                                <p class="govuk-body"><span class="linked-cases-heading">{{ applicationType }}</span>{{ hearing.applicationType }}</p>
                                             {% endif %}
 
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ asn }}</span>{{ sitting.partyInfo.asn }}</p>
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ hearingType }}</span>{{ sitting.info.hearingType }}</p>
-                                            <p class="govuk-body"><span class="linked-cases-heading">{{ panel }}</span>{{ sitting.info.panel }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ asn }}</span>{{ hearing.partyInfo.asn }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ hearingType }}</span>{{ hearing.hearingType }}</p>
+                                            <p class="govuk-body"><span class="linked-cases-heading">{{ panel }}</span>{{ hearing.panel }}</p>
                                         </div>
                                     </div>
                                     {% set offenceCount = 0 %}
-                                    {% for offence in sitting.offences %}
+                                    {% for offence in hearing.offences %}
                                         <div class="moj-timeline__description">
                                             <details class="govuk-details" data-module="govuk-details">
                                                 {% if offence.offenceTitle | length %}
