@@ -134,7 +134,7 @@ describe.each([urlDailyList, urlFutureList])("Magistrates Public Adult Court Lis
 
     it('should display Court Room', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[8].innerHTML).contains('Sitting at 1', 'Court Room does not match');
+        expect(text[8].innerHTML).contains('Sitting at Courtroom 1', 'Court Room does not match');
     });
 
     it('should display LJA', () => {

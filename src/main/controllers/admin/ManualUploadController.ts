@@ -28,7 +28,7 @@ export default class ManualUploadController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.query?.showerror === 'true') {
+        if (req.query?.showerror === 'true' || !req.body) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const nonStrategicUpload = req.query?.['non-strategic'] === 'true';
@@ -58,6 +58,10 @@ export default class ManualUploadController {
             } else {
                 const originalFileName = req.file['originalname'];
                 const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
+
+                if (!req.body) {
+                    req.body = {};
+                }
 
                 req.body['court'] = await manualUploadService.appendlocationId(req.body['input-autocomplete'], req.lng);
                 req.body['artefactType'] = 'LIST'; //Agreed on defaulting to only option available until more types become ready

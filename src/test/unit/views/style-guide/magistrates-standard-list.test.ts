@@ -121,10 +121,10 @@ describe('Magistrate Standard List page', () => {
         );
     });
 
-    it('should display party heading', () => {
+    it('should display sitting heading', () => {
         const accordion = htmlRes.getElementsByClassName(accordionClass);
         expect(accordion[0].innerHTML).to.contains(
-            'Name: Surname A, Forename A MiddleName A (male)',
+            'Sitting at 1:30pm [2 of 3]',
             'Could not find the accordion heading'
         );
     });
@@ -137,14 +137,6 @@ describe('Magistrate Standard List page', () => {
         );
     });
 
-    it('should display second sitting at for same party', () => {
-        const sittingHeading = htmlRes.getElementsByClassName(accordionSectionClass);
-        expect(sittingHeading[0].innerHTML).to.contains(
-            'Sitting at 4:30pm [2 of 3]',
-            'Could not find the accordion heading'
-        );
-    });
-
     it('should display application particulars if present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[4];
         expect(div.innerHTML).to.contain('This is application particulars example');
@@ -153,6 +145,16 @@ describe('Magistrate Standard List page', () => {
     it('should not display application particulars if not present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
         expect(div.innerHTML).to.not.contain('Application Particulars');
+    });
+
+    it('should display name and gender only if no in custody flag', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[0];
+        expect(div.innerHTML).to.contain('Surname A, Forename A MiddleName A (male)');
+    });
+
+    it('should display name, gender and in custody flag', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-two-thirds no_padding')[2];
+        expect(div.innerHTML).to.contain('Surname B, Forename B MiddleName B (male)*');
     });
 
     it('should display DOB and Age if both present', () => {

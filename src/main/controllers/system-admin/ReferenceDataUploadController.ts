@@ -14,7 +14,7 @@ export default class ReferenceDataUploadController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        if (req.query?.showerror === 'true') {
+        if (req.query?.showerror === 'true' || !req.body) {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const errors = {
@@ -38,7 +38,9 @@ export default class ReferenceDataUploadController {
                 const originalFileName = req.file['originalname'];
                 const sanitisedFileName = fileHandlingService.sanitiseFileName(originalFileName);
                 await fileHandlingService.storeFileIntoRedis(req.user['userId'], originalFileName, sanitisedFileName);
-
+                if (!req.body) {
+                    req.body = {};
+                }
                 req.body['fileName'] = originalFileName;
                 res.cookie('formCookie', JSON.stringify(req.body), { secure: true });
                 res.redirect('/reference-data-upload-summary?check=true');
