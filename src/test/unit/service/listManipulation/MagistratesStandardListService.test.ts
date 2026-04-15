@@ -113,7 +113,6 @@ describe('Magistrate Standard List service', () => {
             expect(partyInfo).to.deep.equal({
                 name: 'This is an organisation',
                 address: 'Address Line 1E, Address Line 2E, Town E, This is a postcode',
-
             });
         });
 
@@ -139,7 +138,7 @@ describe('Magistrate Standard List service', () => {
         it('should return expected hearing metadata for application', () => {
             const data = magistratesStandardListService.manipulateData(rawMagistrateStandardListData) as any[];
             const hearingInfo = data[1].sittings[1].hearings[2];
-            expect(hearingInfo).to. contain({
+            expect(hearingInfo).to.contain({
                 prosecutingAuthority: 'Prosecuting Authority Name',
                 reference: 'AppRefB',
                 applicationType: 'Application Type 2',

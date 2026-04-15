@@ -93,7 +93,8 @@ export class MagistratesStandardListService {
         const caseSequenceIndicator = hearingInfo.caseSequenceIndicator;
 
         if (hearingInfo.sittingStartTime) {
-            return caseSequenceIndicator ? hearingInfo.sittingStartTime + ' [' + caseSequenceIndicator + ']'
+            return caseSequenceIndicator
+                ? hearingInfo.sittingStartTime + ' [' + caseSequenceIndicator + ']'
                 : hearingInfo.sittingStartTime;
         }
         return '';
@@ -115,7 +116,7 @@ export class MagistratesStandardListService {
                     partyInfo: this.buildIndividualPartyInfo(party.individualDetails),
                     offences: this.processOffences(party),
                 };
-                this.addSitting(sittings,sittingHeading, hearing);
+                this.addSitting(sittings, sittingHeading, hearing);
             }
         }
     }
