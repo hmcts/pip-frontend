@@ -35,15 +35,15 @@ export class KeyVaultService {
             if (err.statusCode === 404) {
                 return '';
             }
-            throw new Error(`KeyVault getSecret failed for "${name}"`);
+            throw new Error(`KeyVault getSecret failed for "${name}" reason: ${err.message}`);
         }
     }
 
     public async createOrUpdateSecret(name: string, value: string): Promise<void> {
         try {
             await this.client.setSecret(name, value);
-        } catch {
-            throw new Error(`KeyVault createOrUpdateSecret failed for "${name}"`);
+        } catch (err: any) {
+            throw new Error(`KeyVault createOrUpdateSecret failed for "${name} reason: ${err.message}"`);
         }
     }
 
@@ -52,7 +52,7 @@ export class KeyVaultService {
             await this.client.beginDeleteSecret(name);
         } catch (err: any) {
             if (err.statusCode !== 404) {
-                throw new Error(`KeyVault deleteSecret failed for "${name}"`);
+                throw new Error(`KeyVault deleteSecret failed for "${name} reason: ${err.message}"`);
             }
         }
     }
