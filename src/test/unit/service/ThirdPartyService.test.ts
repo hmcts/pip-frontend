@@ -360,4 +360,34 @@ describe('Third Party Service tests', () => {
             expect(result).to.be.null;
         });
     });
+
+    describe('buildUserIdQueryParam', () => {
+        it('should return query param when userId is valid', () => {
+            const validUserId = '6cc6889c-3576-4ea6-a33c-e2a3e2f5607a';
+            const result = thirdPartyService.buildUserIdQueryParam(validUserId);
+            expect(result).equal(`userId=${validUserId}`);
+        });
+
+        it('should throw error when userId is invalid', () => {
+            const invalidUserId = 'invalid-uuid';
+
+            expect(() =>
+                thirdPartyService.buildUserIdQueryParam(invalidUserId)
+            ).to.throw('Invalid userId');
+        });
+
+        it('should throw error when userId is empty string', () => {
+            const emptyUserId = '';
+
+            expect(() =>
+                thirdPartyService.buildUserIdQueryParam(emptyUserId)
+            ).to.throw('Invalid userId');
+        });
+
+        it('should throw error when userId is undefined', () => {
+            expect(() =>
+                thirdPartyService.buildUserIdQueryParam(undefined as unknown as string)
+            ).to.throw('Invalid userId');
+        });
+    });
 });

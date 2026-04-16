@@ -3,6 +3,7 @@ import { ThirdPartyRequests } from '../resources/requests/ThirdPartyRequests';
 import { Logger } from '@hmcts/nodejs-logging';
 import { PublicationService } from './PublicationService';
 import { ThirdPartySubscription } from '../models/ThirdPartySubscription';
+import { validate } from 'uuid';
 
 const publicationService = new PublicationService();
 
@@ -211,5 +212,13 @@ export class ThirdPartyService {
         adminUserId: string
     ): Promise<boolean> {
         return await this.thirdPartyRequests.updateThirdPartySubscriberStatus(userId, status, adminUserId);
+    }
+
+    public buildUserIdQueryParam(userId: string): string {
+        if (!userId || !validate(userId)) {
+            throw new Error('Invalid userId');
+        }
+
+        return 'userId=' + userId;
     }
 }

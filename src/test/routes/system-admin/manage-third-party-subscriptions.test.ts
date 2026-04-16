@@ -32,6 +32,10 @@ describe('Manage third party subscriptions', () => {
     });
 
     describe('on POST', () => {
+        sinon
+            .stub(ThirdPartyService.prototype, 'buildUserIdQueryParam')
+            .withArgs('123')
+            .returns('userId=123');
         test('should redirect to manage third-party subscriptions summary page', async () => {
             await request(app)
                 .post('/manage-third-party-subscriptions')
