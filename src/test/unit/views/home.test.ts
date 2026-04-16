@@ -110,6 +110,9 @@ describe('Home page', () => {
                 'Hearings in Crown Courts in England and Wales'
             );
             expect(bullets[4].innerHTML).contains(
+                'Hearings in Magistrates\' Courts in England and Wales'
+            );
+            expect(bullets[5].innerHTML).contains(
                 'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
                 'Could not find fourth bullet'
             );
@@ -139,21 +142,6 @@ describe('Home page', () => {
             );
         });
 
-        it('should display survey message and link', () => {
-            const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[5].innerHTML).contains('Share your thoughts', 'Could not find survey message');
-
-            expect(message[5].innerHTML).contains(
-                'help us improve the Courts and Tribunals Hearing service',
-                'Could not find survey message'
-            );
-
-            expect(message[5].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-                'https://www.smartsurvey.co.uk/s/CaTHsurvey/',
-                'Could not find survey link'
-            );
-        });
-
         it('should display Find a court or Tribunal message under continue button', () => {
             const message = htmlRes.getElementsByClassName('govuk-heading-m');
             expect(message[0].innerHTML).contains(
@@ -163,7 +151,7 @@ describe('Home page', () => {
         });
 
         it('should display link to FaCT', () => {
-            const text = htmlRes.getElementsByClassName('govuk-body')[6].getElementsByTagName('a');
+            const text = htmlRes.getElementsByClassName('govuk-body')[5].getElementsByTagName('a');
             expect(text[0].innerHTML).contains(
                 'Find contact details and other information about courts and tribunals',
                 'Could not find link to FaCT'
@@ -181,7 +169,7 @@ describe('Home page', () => {
 
         it('should display Scotland and NI message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[7].innerHTML).contains(
+            expect(message[6].innerHTML).contains(
                 "If you're in Scotland or Northern Ireland",
                 'Could not find Sco and NI message'
             );
@@ -189,11 +177,11 @@ describe('Home page', () => {
 
         it('should display contact message', () => {
             const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[8].innerHTML).contains('Contact the:', 'Could not find contact message');
+            expect(message[7].innerHTML).contains('Contact the:', 'Could not find contact message');
         });
 
         it('should display contact bullets', () => {
-            const bullets = htmlRes.getElementsByClassName('govuk-body')[9].getElementsByTagName('li');
+            const bullets = htmlRes.getElementsByClassName('govuk-body')[8].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
                 'for courts and some tribunals in Scotland',
                 'Could not find first bullet'
@@ -287,6 +275,11 @@ describe('Home page', () => {
             );
 
             expect(bullets[4].innerHTML).contains(
+                'Gwrandawiadau yn y Llysoedd Ynadon yng Nghymru a Lloegr',
+                'Could not find fourth bullet'
+            );
+
+            expect(bullets[5].innerHTML).contains(
                 'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
                 'Could not find fifth bullet'
             );
@@ -297,21 +290,6 @@ describe('Home page', () => {
             expect(message[2].innerHTML).contains(
                 'Bydd mwy o lysoedd a thribiwnlysoedd ar gael gydag amser.',
                 'Could not find courts message'
-            );
-        });
-
-        it('should display survey message and link', () => {
-            const message = htmlRes.getElementsByClassName('govuk-body');
-            expect(message[5].innerHTML).contains('Rhannwch eich barn', 'Could not find survey message');
-
-            expect(message[5].innerHTML).contains(
-                'helpu i wella’r gwasanaeth Gwrandawiad Llys a Thribiwnlys',
-                'Could not find survey message'
-            );
-
-            expect(message[5].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-                'https://www.smartsurvey.co.uk/s/CaTHsurvey/',
-                'Could not find survey link'
             );
         });
 
@@ -329,7 +307,7 @@ describe('Home page', () => {
         });
 
         it('should display link to FaCT in Welsh', () => {
-            const text = htmlRes.getElementsByClassName('govuk-body')[6].getElementsByTagName('a');
+            const text = htmlRes.getElementsByClassName('govuk-body')[5].getElementsByTagName('a');
             expect(text[0].innerHTML).contains(
                 'Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd',
                 'Could not find link to FaCT'
@@ -341,7 +319,7 @@ describe('Home page', () => {
         });
 
         it('should display correct contact bullet in welsh', () => {
-            const bullets = htmlRes.getElementsByClassName('govuk-body')[9].getElementsByTagName('li');
+            const bullets = htmlRes.getElementsByClassName('govuk-body')[8].getElementsByTagName('li');
             expect(bullets[0].innerHTML).contains(
                 'ar gyfer rhai Llysoedd a Thribiwnlysoedd yn Yr Alban',
                 'Could not find first bullet in welsh'
