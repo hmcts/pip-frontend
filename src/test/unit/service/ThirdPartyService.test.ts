@@ -371,23 +371,19 @@ describe('Third Party Service tests', () => {
         it('should throw error when userId is invalid', () => {
             const invalidUserId = 'invalid-uuid';
 
-            expect(() =>
-                thirdPartyService.buildUserIdQueryParam(invalidUserId)
-            ).to.throw('Invalid userId');
+            expect(() => thirdPartyService.buildUserIdQueryParam(invalidUserId)).to.throw('Invalid userId');
         });
 
         it('should throw error when userId is empty string', () => {
             const emptyUserId = '';
 
-            expect(() =>
-                thirdPartyService.buildUserIdQueryParam(emptyUserId)
-            ).to.throw('Invalid userId');
+            expect(() => thirdPartyService.buildUserIdQueryParam(emptyUserId)).to.throw('Invalid userId');
         });
 
         it('should throw error when userId is undefined', () => {
-            expect(() =>
-                thirdPartyService.buildUserIdQueryParam(undefined as unknown as string)
-            ).to.throw('Invalid userId');
+            expect(() => thirdPartyService.buildUserIdQueryParam(undefined as unknown as string)).to.throw(
+                'Invalid userId'
+            );
         });
     });
 });

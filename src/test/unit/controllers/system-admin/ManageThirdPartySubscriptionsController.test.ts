@@ -102,7 +102,10 @@ describe('Manage third-party subscriptions controller', () => {
 
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('redirect').once().withArgs(`/manage-third-party-subscriptions-summary?userId=2dc914f2-8cfa-48ba-9995-1ce3b54e9b3e`);
+            responseMock
+                .expects('redirect')
+                .once()
+                .withArgs(`/manage-third-party-subscriptions-summary?userId=2dc914f2-8cfa-48ba-9995-1ce3b54e9b3e`);
 
             await manageThirdPartySubscriptionsController.post(request, response);
             responseMock.verify();
