@@ -15,12 +15,7 @@
 {% block content %}
 <div class="parent-box">
   <h1 class="govuk-heading-l">{{ header }}</h1>
-  <h3 class="govuk-heading-s">
-      {{ shareYourThoughtMessage }}
-      <a class="govuk-link" href="https://www.smartsurvey.co.uk/s/CaTHsurvey/">{{ surveyLinkText }}</a>
-      {{ helpImproveMessage }}
-  </h3>
-  <p class="govuk-body">{{ message }}</p>
+  <p class="govuk-body">{{ message }} </p>
   <ul class="govuk-body govuk-!-padding-left-4 govuk-!-width-two-thirds">
     {% for bullet in bullets %}
       <li>{{ bullet }}</li>
