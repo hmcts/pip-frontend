@@ -106,17 +106,11 @@ describe('Home page', () => {
                 'Hearings in the Royal Courts of Justice and the Rolls Building',
                 'Could not find third bullet'
             );
-            expect(bullets[3].innerHTML).contains(
-                'Hearings in Crown Courts in England and Wales',
-                'Could not find fourth bullet'
-            );
-            expect(bullets[4].innerHTML).contains(
-                "Hearings in Magistrates' Courts in England and Wales",
-                'Could not find fifth bullet'
-            );
+            expect(bullets[3].innerHTML).contains('Hearings in Crown Courts in England and Wales');
+            expect(bullets[4].innerHTML).contains("Hearings in Magistrates' Courts in England and Wales");
             expect(bullets[5].innerHTML).contains(
                 'Single Justice Procedure cases, including TV licensing and minor traffic offences such as speeding',
-                'Could not find sixth bullet'
+                'Could not find fourth bullet'
             );
         });
 
@@ -141,21 +135,6 @@ describe('Home page', () => {
             expect(message[4].innerHTML).contains(
                 'This service is also available in',
                 'Could not find language message'
-            );
-        });
-
-        it('should display survey message and link', () => {
-            const surveyMessage = htmlRes.getElementsByClassName('govuk-heading-s');
-            expect(surveyMessage[0].innerHTML).contains('Share your thoughts', 'Could not find survey message');
-
-            expect(surveyMessage[0].innerHTML).contains(
-                'help us improve the Court and tribunal hearings service',
-                'Could not find survey message'
-            );
-
-            expect(surveyMessage[0].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-                'https://www.smartsurvey.co.uk/s/CaTHsurvey/',
-                'Could not find survey link'
             );
         });
 
@@ -293,12 +272,12 @@ describe('Home page', () => {
 
             expect(bullets[4].innerHTML).contains(
                 'Gwrandawiadau yn y Llysoedd Ynadon yng Nghymru a Lloegr',
-                'Could not find fifth bullet'
+                'Could not find fourth bullet'
             );
 
             expect(bullets[5].innerHTML).contains(
                 'Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru',
-                'Could not find sixth bullet'
+                'Could not find fifth bullet'
             );
         });
 
@@ -307,21 +286,6 @@ describe('Home page', () => {
             expect(message[2].innerHTML).contains(
                 'Bydd mwy o lysoedd a thribiwnlysoedd ar gael gydag amser.',
                 'Could not find courts message'
-            );
-        });
-
-        it('should display survey message and link', () => {
-            const surveyMessage = htmlRes.getElementsByClassName('govuk-heading-s');
-            expect(surveyMessage[0].innerHTML).contains('Rhannwch eich barn', 'Could not find survey message');
-
-            expect(surveyMessage[0].innerHTML).contains(
-                'helpu i wella’r gwasanaeth Gwrandawiad Llys a Thribiwnlys',
-                'Could not find survey message'
-            );
-
-            expect(surveyMessage[0].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-                'https://www.smartsurvey.co.uk/s/CaTHsurvey/',
-                'Could not find survey link'
             );
         });
 

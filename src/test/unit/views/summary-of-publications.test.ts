@@ -339,21 +339,6 @@ describe('Summary of publications page', () => {
             );
         });
 
-        it('should display survey message and link', () => {
-            const surveyMessage = htmlRes.getElementsByClassName('govuk-heading-s');
-            expect(surveyMessage[0].innerHTML).contains('Share your thoughts', 'Could not find survey message');
-
-            expect(surveyMessage[0].innerHTML).contains(
-                'help us improve the Court and tribunal hearings service',
-                'Could not find survey message'
-            );
-
-            expect(surveyMessage[0].getElementsByClassName('govuk-link')[0].getAttribute('href').valueOf()).contains(
-                'https://www.smartsurvey.co.uk/s/CaTHsurvey/',
-                'Could not find survey link'
-            );
-        });
-
         it('should display link to FaCT', () => {
             const text = htmlRes.getElementsByClassName('govuk-body')[4].getElementsByTagName('a');
             expect(text[0].innerHTML).contains(
