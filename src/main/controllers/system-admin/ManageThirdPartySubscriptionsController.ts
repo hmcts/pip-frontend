@@ -55,6 +55,8 @@ export default class ManageThirdPartySubscriptionsController {
                 httpOnly: true,
             });
         }
-        res.redirect(`/manage-third-party-subscriptions-summary?userId=${thirdPartyUserId}`);
+
+        const queryParams = thirdPartyService.buildUserIdQueryParam(thirdPartyUserId);
+        res.redirect(`/manage-third-party-subscriptions-summary?${queryParams}`);
     }
 }
