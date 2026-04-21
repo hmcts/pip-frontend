@@ -585,3 +585,17 @@ nav {
     border: 5px solid #00703c;
     padding: 20px;
 }
+
+@media (max-width: 640px) {
+    .alphabetical-filter {
+        display: flex;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .width-column {
+        flex: 0 0 auto;
+        margin: 0 6px;
+    }
+}
