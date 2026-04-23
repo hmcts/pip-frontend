@@ -1028,7 +1028,6 @@ describe('generateListTypesForCourts', () => {
             'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
             'SJP_DELTA_PRESS_LIST',
-            'SJP_PRESS_REGISTER',
             'SJP_PUBLIC_LIST',
             'SJP_DELTA_PUBLIC_LIST',
         ]);
@@ -1075,7 +1074,6 @@ describe('generateListTypesForCourts', () => {
             'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
             'SJP_DELTA_PRESS_LIST',
-            'SJP_PRESS_REGISTER',
             'SJP_PUBLIC_LIST',
             'SJP_DELTA_PUBLIC_LIST',
         ]);
@@ -1269,19 +1267,17 @@ describe('generateListTypeForCourts', () => {
 });
 
 describe('populateListTypesFriendlyName', () => {
-    const listName = ['SSCS_DAILY_LIST_ADDITIONAL_HEARINGS'];
+    const listName = ['SSCS_NORTH_WEST_DAILY_HEARING_LIST'];
 
     it('Get List Type Display name in english', async () => {
         const result = await subscriptionService.populateListTypesFriendlyName(listName, 'en');
-        expect(result[0]['text']).toEqual(
-            'Social Security and Child Support Tribunal Daily List - Additional Hearings'
-        );
+        expect(result[0]['text']).toEqual('North West Social Security and Child Support Tribunal Daily Hearing List');
     });
 
     it('Get List Type Display name in welsh', async () => {
         const result = await subscriptionService.populateListTypesFriendlyName(listName, 'cy');
         expect(result[0]['text']).toEqual(
-            'Rhestr Ddyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant - Gwrandawiadau Ychwanegol'
+            'Rhestr o Wrandawiadau Dyddiol y Tribiwnlys Nawdd Cymdeithasol a Chynnal Plant Gogledd Orllewin Lloegr'
         );
     });
 });
