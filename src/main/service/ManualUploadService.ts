@@ -110,7 +110,7 @@ export class ManualUploadService {
 
     public async validateFormFields(formValues: object, language: string, languageFile: string): Promise<object> {
         const fields = {
-            courtError: await this.validateCourt(formValues['input-autocomplete'], language, languageFile),
+            courtError: await this.validateCourt(formValues?.['input-autocomplete'], language, languageFile),
             contentDateError: this.validateDate(
                 'contentDate',
                 this.buildDate(formValues, 'content-date-from'),
@@ -123,8 +123,8 @@ export class ManualUploadService {
                 language,
                 languageFile
             ),
-            classificationError: formValues['classification'] ? null : 'true',
-            listTypeError: formValues['listType'] != 'EMPTY' ? null : 'true',
+            classificationError: formValues?.['classification'] ? null : 'true',
+            listTypeError: formValues?.['listType'] != 'EMPTY' ? null : 'true',
         };
         if (
             fields.courtError ||
@@ -153,11 +153,11 @@ export class ManualUploadService {
     }
 
     public buildDate(body: object, fieldsetPrefix: string): string {
-        const concatenatedDate = body[`${fieldsetPrefix}-day`]?.concat(
+        const concatenatedDate = body?.[`${fieldsetPrefix}-day`]?.concat(
             '/',
-            body[`${fieldsetPrefix}-month`],
+            body?.[`${fieldsetPrefix}-month`],
             '/',
-            body[`${fieldsetPrefix}-year`]
+            body?.[`${fieldsetPrefix}-year`]
         );
 
         if (fieldsetPrefix === 'display-date-to') {

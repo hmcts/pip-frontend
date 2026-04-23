@@ -30,7 +30,7 @@ export default class LocationMetadataDeleteConfirmationController {
             const locationMetadata = await locationService.getLocationMetadata(locationId);
             if (locationMetadata) {
                 const location = await locationService.getLocationById(locationId);
-                if (req.body['delete-location-metadata-confirm'] === 'yes') {
+                if (req.body?.['delete-location-metadata-confirm'] === 'yes') {
                     const success = await locationService.deleteLocationMetadata(
                         locationMetadata.locationMetadataId,
                         req.user['userId']
@@ -50,7 +50,7 @@ export default class LocationMetadataDeleteConfirmationController {
                             failedRequestError: true,
                         });
                     }
-                } else if (req.body['delete-location-metadata-confirm'] === 'no') {
+                } else if (req.body?.['delete-location-metadata-confirm'] === 'no') {
                     res.redirect(
                         url.format({
                             pathname: 'location-metadata-manage',

@@ -3,7 +3,7 @@ import { app } from '../../../main/app';
 import { expect } from 'chai';
 import sinon from 'sinon';
 import { request as expressRequest } from 'express';
-import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
+import { CourtelThirdPartyService } from '../../../main/service/CourtelThirdPartyService';
 
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
@@ -26,14 +26,17 @@ const userRoleList = [
     },
 ];
 
-sinon.stub(ThirdPartyService.prototype, 'buildThirdPartyRoleList').returns(userRoleList);
+sinon.stub(CourtelThirdPartyService.prototype, 'buildThirdPartyRoleList').returns(userRoleList);
 
 describe('Create third party user page', () => {
     describe('on GET', () => {
         test('should render create third party user page', async () => {
             await request(app)
                 .get('/create-third-party-user')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create third party user');
+                });
         });
     });
 
@@ -42,7 +45,10 @@ describe('Create third party user page', () => {
             await request(app)
                 .post('/create-third-party-user')
                 .send({})
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create third party user');
+                });
         });
 
         test('should redirect to create third party user summary page', async () => {
@@ -52,6 +58,15 @@ describe('Create third party user page', () => {
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('/create-third-party-user-summary');
+                });
+        });
+
+        test('should redirect to error page if no body provided', async () => {
+            await request(app)
+                .post('/create-third-party-user')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
                 });
         });
     });

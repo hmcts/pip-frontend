@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { mockRequest } from '../../mocks/mockRequest';
 import sinon from 'sinon';
 import CreateThirdPartyUserController from '../../../../main/controllers/system-admin/CreateThirdPartyUserController';
-import { ThirdPartyService } from '../../../../main/service/ThirdPartyService';
+import { CourtelThirdPartyService } from '../../../../main/service/CourtelThirdPartyService';
 
 const generalThirdPartyFormData = { thirdPartyName: 'name', thirdPartyRole: 'GENERAL_THIRD_PARTY' };
 const verifiedThirdPartyFormData = { thirdPartyName: 'name', thirdPartyRole: 'VERIFIED_THIRD_PARTY_ALL' };
@@ -52,9 +52,9 @@ const formErrors = {
     userRoleError: false,
 };
 
-sinon.stub(ThirdPartyService.prototype, 'buildThirdPartyRoleList').returns(userRoleList);
+sinon.stub(CourtelThirdPartyService.prototype, 'buildThirdPartyRoleList').returns(userRoleList);
 
-const validateThirdPartyStub = sinon.stub(ThirdPartyService.prototype, 'validateThirdPartyUserFormFields');
+const validateThirdPartyStub = sinon.stub(CourtelThirdPartyService.prototype, 'validateThirdPartyUserFormFields');
 validateThirdPartyStub.withArgs(generalThirdPartyFormData).returns(formErrors);
 validateThirdPartyStub.withArgs(verifiedThirdPartyFormData).returns(null);
 
@@ -101,6 +101,16 @@ describe('Create third party user controller', () => {
             const responseMock = sinon.mock(response);
 
             responseMock.expects('redirect').once().withArgs('/create-third-party-user-summary');
+
+            await createThirdPartyUserController.post(request, response);
+            responseMock.verify();
+        });
+
+        it('should render error page when no body provided', async () => {
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('error');
 
             await createThirdPartyUserController.post(request, response);
             responseMock.verify();
