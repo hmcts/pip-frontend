@@ -109,14 +109,16 @@ export default function (app: Application): void {
                 console.log(info);
 
                 if (error) {
-                    res.status(401).send(error);
+                    // res.status(401).send(error);
+                    return res.status(401).send('Login error: ' + (error.message || error));
                 } else if (!user) {
-                    res.status(401).send(info);
+                    // res.status(401).send(info);
+                    return res.status(401).send('Login failed: ' + (info?.message || info));
                 } else {
-                    next();
+                    return next();
                 }
 
-                res.status(401).send(info);
+                // res.status(401).send(info);
             })(req, res),
         keepSessionLanguage,
         processMediaAccountSignIn
