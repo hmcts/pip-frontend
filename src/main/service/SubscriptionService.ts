@@ -7,6 +7,7 @@ import { LocationService } from './LocationService';
 import { Location } from '../models/Location';
 import { ListType } from '../models/ListType';
 import { AToZHelper } from '../helpers/aToZHelper';
+import { hiddenListTypes } from '../helpers/consts';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
@@ -555,6 +556,7 @@ export class SubscriptionService {
         const applicableListTypes = new Map();
         for (const [listName, listType] of sortedListTypes) {
             if (
+                !hiddenListTypes.has(listName) &&
                 listType.jurisdictionTypes.some(value => courtJurisdictionTypes.includes(value)) &&
                 (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userProvenance))
             ) {

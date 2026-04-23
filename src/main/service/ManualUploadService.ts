@@ -8,6 +8,7 @@ import { PublicationService } from './PublicationService';
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
 import { LanguageFileParser } from '../helpers/languageFileParser';
+import { hiddenListTypes } from '../helpers/consts';
 
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
@@ -57,7 +58,7 @@ export class ManualUploadService {
         const jsonArray = [] as Array<object>;
         let isEmptySelected = true;
         publicationService.getListTypes().forEach((value, key) => {
-            if (value.isNonStrategic == isNonStrategic) {
+            if (!hiddenListTypes.has(key) && value.isNonStrategic == isNonStrategic) {
                 if (selectedListType === key) {
                     isEmptySelected = false;
                     jsonArray.push({ value: key, text: value.shortenedFriendlyName, selected: true });
@@ -96,11 +97,12 @@ export class ManualUploadService {
 
     public getSensitivityMappings() {
         const listTypes = publicationService.getListTypes();
-
         const listTypeMapping = {};
 
         listTypes.forEach((value, key) => {
-            listTypeMapping[key] = value['defaultSensitivity'];
+            if (!hiddenListTypes.has(key)) {
+                listTypeMapping[key] = value['defaultSensitivity'];
+            }
         });
 
         return listTypeMapping;
