@@ -1028,6 +1028,7 @@ describe('generateListTypesForCourts', () => {
             'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
             'SJP_DELTA_PRESS_LIST',
+            'SJP_PRESS_REGISTER',
             'SJP_PUBLIC_LIST',
             'SJP_DELTA_PUBLIC_LIST',
         ]);
@@ -1074,6 +1075,7 @@ describe('generateListTypesForCourts', () => {
             'SENIOR_COURTS_COSTS_OFFICE_DAILY_CAUSE_LIST',
             'SJP_PRESS_LIST',
             'SJP_DELTA_PRESS_LIST',
+            'SJP_PRESS_REGISTER',
             'SJP_PUBLIC_LIST',
             'SJP_DELTA_PUBLIC_LIST',
         ]);
