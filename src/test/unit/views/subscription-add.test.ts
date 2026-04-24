@@ -14,7 +14,8 @@ const expectedHeader = 'How do you want to add an email subscription?';
 const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'By court or tribunal name';
 const expectedRadioLabel2 = 'By case name';
-const expectedRadioLabel3 = 'By case reference number, case ID or unique reference number (URN)';
+const expectedRadioLabel3 = 'By case reference number';
+const expectedRadioLabelHint = 'This subscription service is currently limited to information published in the Civil and Family Cause List.';
 
 app.request['user'] = { roles: 'VERIFIED' };
 
@@ -94,6 +95,14 @@ describe('Subscriptions add Page initial load', () => {
         expect(radioButtons[2].innerHTML).contains(
             expectedRadioLabel3,
             'Could not find the radio button with label ' + expectedRadioLabel3
+        );
+    });
+
+    it('should display radio button hint', () => {
+        const radioButtons = htmlRes.getElementsByClassName(radioClass);
+        expect(radioButtons[1].innerHTML).contains(
+            expectedRadioLabelHint,
+            'Could not find the radio button with label ' + expectedRadioLabelHint
         );
     });
 });
