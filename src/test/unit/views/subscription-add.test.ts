@@ -15,7 +15,8 @@ const expectedButtonText = 'Continue';
 const expectedRadioLabel1 = 'By court or tribunal name';
 const expectedRadioLabel2 = 'By case name';
 const expectedRadioLabel3 = 'By case reference number';
-const expectedRadioLabelHint = 'This subscription service is currently limited to information published in the Civil and Family Cause List.';
+const expectedRadioLabelHint =
+    'This subscription service is currently limited to information published in the Civil and Family Cause List.';
 
 app.request['user'] = { roles: 'VERIFIED' };
 
