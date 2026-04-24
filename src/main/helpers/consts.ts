@@ -62,5 +62,3 @@ export const reSignInUrls = {
 };
 
 export const ssoNotAuthorised = 'NOT_AUTHORISED';
-
-export const hiddenListTypes = new Set(['SSCS_DAILY_LIST', 'SSCS_DAILY_LIST_ADDITIONAL_HEARINGS']);
