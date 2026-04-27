@@ -107,7 +107,8 @@
         "jurisdictionTypes": ["Social Security and Child Support"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "isNonStrategic": false
+        "isNonStrategic": false,
+        "isHidden": true
     },
     "SSCS_DAILY_LIST_ADDITIONAL_HEARINGS": {
         "friendlyName": "Social Security and Child Support Tribunal Daily List - Additional Hearings",
@@ -117,7 +118,8 @@
         "jurisdictionTypes": ["Social Security and Child Support"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
-        "isNonStrategic": false
+        "isNonStrategic": false,
+        "isHidden": true
     },
     "COP_DAILY_CAUSE_LIST": {
         "friendlyName": "Court of Protection Daily Cause List",

@@ -555,6 +555,7 @@ export class SubscriptionService {
         const applicableListTypes = new Map();
         for (const [listName, listType] of sortedListTypes) {
             if (
+                !listType.isHidden &&
                 listType.jurisdictionTypes.some(value => courtJurisdictionTypes.includes(value)) &&
                 (listType.restrictedProvenances.length === 0 || listType.restrictedProvenances.includes(userProvenance))
             ) {
