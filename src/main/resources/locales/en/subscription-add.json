@@ -7,8 +7,16 @@
         "error": "Error:"
     },
     "insetText": "You can only search for information that is currently published.",
-    "radio1": "By court or tribunal name",
-    "radio2": "By case name",
-    "radio3": "By case reference number, case ID or unique reference number (URN)",
+    "radio1": {
+        "label": "By court or tribunal name"
+    },
+    "radio2": {
+        "label": "By case name",
+        "hint": "This subscription service is currently limited to information published in the Civil and Family Cause List."
+    },
+    "radio3": {
+        "label": "By case reference number",
+        "hint": "This subscription service is currently limited to information published in the Civil and Family Cause List."
+    },
     "backButton": "Back"
 }
