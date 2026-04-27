@@ -99,9 +99,17 @@ describe('Subscriptions add Page initial load', () => {
         );
     });
 
-    it('should display radio button hint', () => {
+    it('should display second radio button hint', () => {
         const radioButtons = htmlRes.getElementsByClassName(radioClass);
         expect(radioButtons[1].innerHTML).contains(
+            expectedRadioLabelHint,
+            'Could not find the radio button with label ' + expectedRadioLabelHint
+        );
+    });
+
+    it('should display third radio button hint', () => {
+        const radioButtons = htmlRes.getElementsByClassName(radioClass);
+        expect(radioButtons[2].innerHTML).contains(
             expectedRadioLabelHint,
             'Could not find the radio button with label ' + expectedRadioLabelHint
         );
