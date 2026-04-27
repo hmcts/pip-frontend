@@ -27,7 +27,7 @@
   {% include "webpack/css.njk" %}
 {% endblock %}
 
-{% block header %}
+{% block govukHeader %}
       {{ govukHeader({
             homepageUrl: "https://www.gov.uk/",
             classes: "govuk-header--full-width-border"
@@ -100,7 +100,7 @@
 
 {% block beforeContent %}
     {% if env != 'production' %}
-        <div id= "branch-bar" class="govuk-rebrand-border-bottom govuk-phase-banner">
+        <div id= "branch-bar" class="govuk-border-bottom govuk-phase-banner">
             <p class="govuk-phase-banner__content">
                 <strong class="govuk-tag govuk-phase-banner__content__tag">
                     {{ branchName }}
@@ -248,7 +248,7 @@
   {% include "webpack/js.njk" %}
 {% endblock %}
 
-{% block footer %}
+{% block govukFooter %}
   <footer class="govuk-footer " role="contentinfo">
     <div class="govuk-width-container ">
       <svg focusable="false" role="img" aria-labelledby="crown-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 60" height="30" width="32" fill="currentcolor" class="govuk-footer__crown">
@@ -289,7 +289,7 @@
                href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
                rel="license">Open Government Licence v3.0</a>, except where otherwise stated.
           </span>
-          <p class="govuk-footer__licence-description">When you use this information under the OGL,
+            <p class="govuk-footer__licence-description">When you use this information under the OGL,
             you should include the following attribution: Contains public sector information licensed under the
             <a class="govuk-footer__link"
                href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"

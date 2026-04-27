@@ -272,7 +272,7 @@ describe('Magistrate Standard List page', () => {
     });
 
     it('should display data source and provenance', () => {
-        const body = htmlRes.getElementsByClassName('govuk-body govuk-!-font-size-14')[0];
+        const body = htmlRes.getElementsByClassName('govuk-body govuk-!-font-size-16')[0];
         expect(body.innerHTML).to.contain('Data Source: Prov1');
     });
 });

@@ -28,6 +28,13 @@ module.exports = {
                     loader: 'sass-loader',
                     options: {
                         sassOptions: {
+                            logger: {
+                                warn: message => {
+                                    if (message.includes('govuk-text-colour')) return;
+                                    console.log(message);
+                                },
+                                // logger has been added temporarily to silence warning as MOJ frontend using deprecated 'govuk-text-colour'
+                            },
                             quietDeps: true,
                             // if this is removed, we will see some warnings that have come through from GovUk css dependencies. They won't be fixed for a while, and we can't change them.
                         },
