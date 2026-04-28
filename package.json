@@ -102,7 +102,7 @@
         "tsconfig-paths": "^4.2.0",
         "typescript": "5.9.3",
         "typescript-eslint": "^8.57.2",
-        "uuid": "^13.0.0",
+        "uuid": "^14.0.0",
         "validator": "^13.15.22"
     },
     "devDependencies": {
@@ -160,7 +160,7 @@
         "webpack-node-externals": "^3.0.0"
     },
     "resolutions": {
-        "allure-js-commons/uuid": "10.0.0",
+        "allure-js-commons/uuid": "14.0.0",
         "ts-node/diff": "8.0.4"
     },
     "packageManager": "yarn@4.13.0"
