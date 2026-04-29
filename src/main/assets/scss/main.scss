@@ -257,7 +257,7 @@ tbody {
 
         td {
             &.govuk-table__cell--no-line {
-                border-top: 1px solid $govuk-border-colour;
+                border-top: 1px solid govuk-functional-colour(border)
             }
 
             &:nth-child(2) {
@@ -301,7 +301,7 @@ div {
             @extend %govuk-body !optional;
 
             &.error {
-                color: $govuk-error-colour;
+                color: govuk-functional-colour(error);
             }
         }
     }
@@ -349,7 +349,7 @@ div {
 .error {
     @extend %govuk-body !optional;
 
-    color: $govuk-error-colour;
+    color: govuk-functional-colour(error);
 }
 
 .verifying-modal {
@@ -386,7 +386,7 @@ div {
 }
 
 .selection-counter-box {
-    background-color: govuk-colour('light-grey');
+    background-color: govuk-colour('black', $variant: 'tint-95'); // light grey
 }
 
 .vertical-center-table-header {
@@ -394,7 +394,7 @@ div {
 }
 
 .hr-colour {
-    border-color: $govuk-border-colour;
+    border-color: govuk-functional-colour(border);
 }
 
 .with-background {
@@ -429,7 +429,7 @@ div {
     .autocomplete__input {
         &:not(.autocomplete__input--focused) {
             // Important is required due javascript overriding this as it is loaded after css rendering
-            border: solid 2px $govuk-error-colour !important; // sass-lint:disable-line no-important
+            border: solid 2px govuk-functional-colour(error) !important; // sass-lint:disable-line no-important
         }
     }
 }
@@ -446,8 +446,8 @@ div {
 }
 
 .account-card {
-    background-color: govuk-colour('light-grey');
-    border: solid 1px govuk-colour('mid-grey');
+    background-color: govuk-colour('black', $variant: 'tint-95'); // light grey
+    border: solid 1px govuk-colour('black', $variant: 'tint-80'); // mid grey
     height: 100%;
     padding: 0 1em;
     min-height: 150px;
@@ -568,7 +568,7 @@ nav {
     overflow-wrap: anywhere;
 }
 
-.govuk-rebrand-border-bottom {
+.govuk-border-bottom {
     border-bottom: solid 1px #8eb8dc !important;
 }
 
@@ -598,4 +598,15 @@ nav {
         flex: 0 0 auto;
         margin: 0 6px;
     }
+}
+
+// Required due to changes after upgrade - footer styling to match CaTH format
+.govuk-footer__link {
+    font-size: 16px;
+    color: govuk-functional-colour(text) !important;
+}
+
+.govuk-footer__licence-description {
+    font-size: 16px;
+    color: govuk-functional-colour(text) !important;
 }
