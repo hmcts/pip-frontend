@@ -57,7 +57,7 @@ export class ManualUploadService {
         const jsonArray = [] as Array<object>;
         let isEmptySelected = true;
         publicationService.getListTypes().forEach((value, key) => {
-            if (value.isNonStrategic == isNonStrategic) {
+            if (!value.isHidden && value.isNonStrategic == isNonStrategic) {
                 if (selectedListType === key) {
                     isEmptySelected = false;
                     jsonArray.push({ value: key, text: value.shortenedFriendlyName, selected: true });
@@ -96,11 +96,12 @@ export class ManualUploadService {
 
     public getSensitivityMappings() {
         const listTypes = publicationService.getListTypes();
-
         const listTypeMapping = {};
 
         listTypes.forEach((value, key) => {
-            listTypeMapping[key] = value['defaultSensitivity'];
+            if (!value.isHidden) {
+                listTypeMapping[key] = value['defaultSensitivity'];
+            }
         });
 
         return listTypeMapping;
