@@ -160,7 +160,7 @@
         "webpack-node-externals": "^3.0.0"
     },
     "resolutions": {
-        "allure-js-commons/uuid": "10.0.0",
+        "allure-js-commons/uuid": "13.0.1",
         "ts-node/diff": "8.0.4"
     },
     "packageManager": "yarn@4.13.0"
