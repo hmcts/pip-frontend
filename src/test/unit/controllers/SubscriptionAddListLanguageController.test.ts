@@ -74,5 +74,22 @@ describe('Add List Language Subscriptions Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render subscription Add List Language with error if no body is provided', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId };
+            request.lng = language;
+            request.body = undefined;
+            const expectedData = {
+                ...i18n['subscription-add-list-language'],
+                noSelectionError: true,
+            };
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('subscription-add-list-language', expectedData);
+
+            return subscriptionAddListLanguageController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });

@@ -332,19 +332,22 @@ export class AuditLogService {
     /**
      * Generates the filter KV for the query param url.
      */
-    public generateFilterKeyValues(body: string): string {
+    public generateFilterKeyValues(body: string | undefined): string {
         const filterValues = [];
-        const safeBody = body || {};
-        Object.keys(safeBody).forEach(key => {
-            if (safeBody[key].length > 0) {
-                let separator = '&';
-                if (filterValues.length === 0) {
-                    separator = '';
+        if (body) {
+            Object.keys(body).forEach(key => {
+                if (body[key].length > 0) {
+                    let separator = '&';
+                    if (filterValues.length === 0) {
+                        separator = '';
+                    }
+                    filterValues.push(separator + key + '=' + body[key]);
                 }
-                filterValues.push(separator + key + '=' + safeBody[key]);
-            }
-        });
-        return filterValues.join('');
+            });
+            return filterValues.join('');
+        }
+
+        return '';
     }
 
     public validateDate(query: object, fieldsetPrefix: string): string {

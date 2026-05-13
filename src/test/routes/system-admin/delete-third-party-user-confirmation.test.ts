@@ -21,7 +21,10 @@ describe('Delete third party user confirmation page', () => {
         test('should render delete third party user confirmation page', async () => {
             await request(app)
                 .get('/delete-third-party-user-confirmation')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete');
+                });
         });
     });
 
@@ -48,7 +51,21 @@ describe('Delete third party user confirmation page', () => {
 
             await request(app)
                 .post('/delete-third-party-user-confirmation')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Are you sure you want to delete');
+                });
+        });
+
+        test('should render error page if no body is provided', async () => {
+            app.request['body'] = undefined;
+
+            await request(app)
+                .post('/delete-third-party-user-confirmation')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
         });
 
         test("should redirect to manage third party user page for a 'no' response", async () => {

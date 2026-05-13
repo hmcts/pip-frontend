@@ -187,6 +187,19 @@ describe('Subscription Configure List Preview Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should redirect to error page if body is undefined', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userWithSubscriptions };
+            request.body = undefined;
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error');
+
+            return subscriptionConfigureListPreviewController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 
     describe('removeConfigureList view', () => {

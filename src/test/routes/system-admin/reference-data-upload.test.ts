@@ -12,7 +12,10 @@ describe('Reference Data Manual upload', () => {
             app.request['user'] = { roles: 'SYSTEM_ADMIN' };
             await request(app)
                 .get('/reference-data-upload')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Manually upload a csv file');
+                });
         });
     });
     describe('on POST', () => {
@@ -22,10 +25,13 @@ describe('Reference Data Manual upload', () => {
                 roles: 'SYSTEM_ADMIN',
             };
         });
-        test('should render reference data manual upload page if errors present', async () => {
+        test('should render error page if no body is provided', async () => {
             await request(app)
                 .post('/reference-data-upload')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem');
+                });
         });
         test('should redirect to summary page', async () => {
             app.request['file'] = multerFile('testFile', 1000);
@@ -34,6 +40,7 @@ describe('Reference Data Manual upload', () => {
             sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({});
             await request(app)
                 .post('/reference-data-upload')
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(302);
                     expect(res.header['location']).to.equal('/reference-data-upload-summary?check=true');

@@ -77,5 +77,18 @@ describe('Add Location List Subscriptions Controller', () => {
                 responseMock.verify();
             });
         });
+
+        it('should render error page if no body is set', () => {
+            const request = mockRequest(i18n);
+            request.user = { userId: userId, userProvenance: userProvenance };
+            request.lng = language;
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+            responseMock.expects('render').once().withArgs('error');
+
+            return subscriptionAddListController.post(request, response).then(() => {
+                responseMock.verify();
+            });
+        });
     });
 });

@@ -111,4 +111,20 @@ describe('Sign In Option Controller', () => {
         signInController.post(request, response);
         responseMock.verify();
     });
+
+    it('should redirect to the Sign In page if no body is provided', () => {
+        const response = {
+            redirect: () => {
+                return '';
+            },
+        } as unknown as Response;
+        const request = mockRequest(i18n);
+        request.body = undefined;
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('redirect').once().withArgs('/sign-in?error=true');
+
+        signInController.post(request, response);
+        responseMock.verify();
+    });
 });

@@ -37,31 +37,53 @@ describe('subscription Configure List Preview', () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .get('/subscription-configure-list-preview')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Confirm your email subscriptions');
+                });
         });
 
         test('should return subscription configure list preview with error query param', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .get('/subscription-configure-list-preview?no-list-configure=true')
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Confirm your email subscriptions');
+                });
         });
     });
 
     describe('on POST', () => {
-        test('should redirect to subscription configure list preview', async () => {
+        test('should redirect to subscription configure list confirmed', async () => {
             app.request['user'] = { userId: '1', roles: 'VERIFIED' };
             await request(app)
                 .post('/subscription-configure-list-preview')
-                .expect(res => expect(res.status).to.equal(302));
+                .send({})
+                .expect(res => {
+                    expect(res.status).to.equal(302);
+                    expect(res.headers['location']).to.equal('/subscription-configure-list-confirmed');
+                });
         });
 
         test('should show error page in case of failed subscription', async () => {
             app.request['user'] = { userId: '2', roles: 'VERIFIED' };
             await request(app)
                 .post('/subscription-configure-list-preview')
+                .send({})
                 .expect(res => {
                     expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem with the service');
+                });
+        });
+
+        test('should show error page when no body provided', async () => {
+            app.request['user'] = { userId: '2', roles: 'VERIFIED' };
+            await request(app)
+                .post('/subscription-configure-list-preview')
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Sorry, there is a problem with the service');
                 });
         });
 

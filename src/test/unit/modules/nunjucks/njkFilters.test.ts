@@ -185,6 +185,11 @@ describe('Nunjucks Custom Filter Tests', function () {
             expect(result).to.equal('ListAssist');
         });
 
+        it('should return updated data source name for Crime Portal', function () {
+            const result = env.renderString('{{ "CP_CATH"| convertDataSourceName("en") }}', {});
+            expect(result).to.equal('Libra');
+        });
+
         it('should return same data source name for PDDA', function () {
             const result = env.renderString('{{ "PDDA"| convertDataSourceName("en") }}', {});
             expect(result).to.equal('PDDA');

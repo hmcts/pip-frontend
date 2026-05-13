@@ -22,41 +22,45 @@ export default class DeleteThirdPartyUserConfirmationController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const userId = req.body.user as string;
-        const thirdPartyUser = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
-        if (req.body['delete-user-confirm'] === 'yes') {
-            const response = await accountManagementRequests.deleteUser(userId, req.user['userId']);
-            if (response) {
-                await userManagementService.auditAction(
-                    req.user,
-                    'DELETE_THIRD_PARTY_USER',
-                    `Third party user with id ${userId} has been deleted`
+        if (!req.body) {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
+        } else {
+            const userId = req.body.user as string;
+            const thirdPartyUser = await accountManagementRequests.getUserByUserId(userId, req.user['userId']);
+            if (req.body['delete-user-confirm'] === 'yes') {
+                const response = await accountManagementRequests.deleteUser(userId, req.user['userId']);
+                if (response) {
+                    await userManagementService.auditAction(
+                        req.user,
+                        'DELETE_THIRD_PARTY_USER',
+                        `Third party user with id ${userId} has been deleted`
+                    );
+                    res.redirect('/delete-third-party-user-success');
+                } else {
+                    res.render('system-admin/delete-third-party-user-confirmation', {
+                        ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']),
+                        thirdPartyUser,
+                        userId,
+                        noOptionError: false,
+                        failedRequestError: true,
+                    });
+                }
+            } else if (req.body['delete-user-confirm'] === 'no') {
+                res.redirect(
+                    url.format({
+                        pathname: '/manage-third-party-users/view',
+                        query: { userId: userId },
+                    })
                 );
-                res.redirect('/delete-third-party-user-success');
             } else {
                 res.render('system-admin/delete-third-party-user-confirmation', {
                     ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']),
                     thirdPartyUser,
                     userId,
-                    noOptionError: false,
-                    failedRequestError: true,
+                    noOptionError: true,
+                    failedRequestError: false,
                 });
             }
-        } else if (req.body['delete-user-confirm'] === 'no') {
-            res.redirect(
-                url.format({
-                    pathname: '/manage-third-party-users/view',
-                    query: { userId: userId },
-                })
-            );
-        } else {
-            res.render('system-admin/delete-third-party-user-confirmation', {
-                ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['delete-third-party-user-confirmation']),
-                thirdPartyUser,
-                userId,
-                noOptionError: true,
-                failedRequestError: false,
-            });
         }
     }
 }

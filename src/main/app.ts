@@ -38,7 +38,7 @@ export async function appSetup() {
     logger.info('environment', env);
 
     app.get('/favicon.ico', (req, res) => {
-        res.sendFile(path.join(__dirname, '/public/assets/rebrand/images/favicon.ico'));
+        res.sendFile(path.join(__dirname, '/public/assets/images/favicon.ico'));
     });
 
     app.use(bodyParser.json());

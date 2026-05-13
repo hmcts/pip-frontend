@@ -7,6 +7,7 @@
         "Gwrandawiadau yn y Tribiwnlys Haen Gyntaf a’r Tribiwnlysoedd Uwch (gan eithrio Tribiwnlysoedd Cyflogaeth)",
         "Gwrandawiadau yn yr Llys Barn Brenhinol a’r Adeilad Rolls",
         "Gwrandawiadau yn Llys y Goron yng Nghymru a Lloegr",
+        "Gwrandawiadau yn y Llysoedd Ynadon yng Nghymru a Lloegr",
         "Achosion Gweithdrefn Un Ynad, yn cynnwys troseddau Trwyddedu Teledu a mân droseddau traffig fel goryrru"
     ],
     "moreMessage": "Bydd mwy o lysoedd a thribiwnlysoedd ar gael gydag amser.",
@@ -14,9 +15,6 @@
     "signInLink": "Mewngofnodi",
     "welshMessage": "Mae'r gwasanaeth hwn hefyd ar gael yn",
     "languageLink": "Saesneg (English)",
-    "shareYourThoughtMessage": "Rhannwch eich barn yn ein",
-    "helpImproveMessage": "byr a’n helpu i wella’r gwasanaeth Gwrandawiad Llys a Thribiwnlys.",
-    "surveyLinkText": "harolwg",
     "continue": "Parhau",
     "beforeMessage": "Cyn i chi ddechrau",
     "scoAndNI": "Os ydych yn byw yn Yr Alban neu Gogledd Iwerddon",

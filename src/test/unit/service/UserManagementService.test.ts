@@ -139,6 +139,12 @@ describe('User management service', () => {
         expect(response).to.contain('&provenances=PI_AAD');
     });
 
+    it('should generate an empty array if body is undefined', () => {
+        const response = userManagementService.generateFilterKeyValues(undefined);
+
+        expect(response).to.equal('');
+    });
+
     it('should build the manage user summary list for an admin user', () => {
         const response = userManagementService.buildManageUserSummaryList(testManageUserSummaryAdmin);
 

@@ -131,5 +131,15 @@ describe('Delete third party user confirmation controller', () => {
             await deleteThirdPartyUserConfirmationController.post(request, response);
             responseMock.verify();
         });
+
+        it('should render error page if no body is provided', async () => {
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('error');
+
+            await deleteThirdPartyUserConfirmationController.post(request, response);
+            responseMock.verify();
+        });
     });
 });

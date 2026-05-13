@@ -13,6 +13,7 @@
     "restrictionBulletPoint1": "llys yn uniongyrchol",
     "restrictionBulletPoint2": "Gwasanaeth Llysoedd a Thribiwnlysoedd EM ar 0330 808 4407",
     "sittingAt": "Yn eistedd yn",
+    "courtRoom": "Ystafell llys",
     "lja": "LJA:",
     "sessionStart": "Yn eistedd yn",
     "tableHeaders": [
@@ -23,9 +24,9 @@
         "Oedran",
         "Hysbysydd",
         "Cyfeirnod yr Achos",
-        "Cod y Drosedd",
-        "Teitl y Drosedd",
-        "Crynodeb o’r Drosedd"
+        "Cod y Drosedd"
     ],
+    "offenceTitle": "Teitl y Drosedd",
+    "offenceSummary": "Crynodeb o’r Drosedd",
     "dataSource": "Ffynhonnell y Data"
 }

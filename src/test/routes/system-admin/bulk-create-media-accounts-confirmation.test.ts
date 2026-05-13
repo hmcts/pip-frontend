@@ -39,7 +39,10 @@ describe('Bulk create media accounts confirmation', () => {
         test('should render bulk create media accounts confirmation page', async () => {
             await request(app)
                 .get(PAGE_URL)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create media accounts confirmation');
+                });
         });
     });
 
@@ -74,8 +77,20 @@ describe('Bulk create media accounts confirmation', () => {
         test('should render bulk create media accounts confirmation if no option is selected', async () => {
             await request(app)
                 .post(PAGE_URL)
-                .send()
-                .expect(res => expect(res.status).to.equal(200));
+                .send({})
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create media accounts confirmation');
+                });
+        });
+
+        test('should render bulk create media accounts confirmation if no body is provided', async () => {
+            await request(app)
+                .post(PAGE_URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create media accounts confirmation');
+                });
         });
 
         test("should render bulk create media accounts confirmation if 'Yes' is selected but accounts not created successfully", async () => {
@@ -87,7 +102,10 @@ describe('Bulk create media accounts confirmation', () => {
             await request(app)
                 .post(PAGE_URL)
                 .send({ confirmed: 'Yes' })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Create media accounts confirmation');
+                });
         });
     });
 });

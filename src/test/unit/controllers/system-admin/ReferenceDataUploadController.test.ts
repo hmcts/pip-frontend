@@ -80,6 +80,23 @@ describe('Reference Data Manual Upload Controller', () => {
             responseMock.verify();
         });
 
+        it('should render error page if no body is provided', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('error');
+
+            const mockRequestWithoutBody = mockRequest(i18n);
+            mockRequestWithoutBody.body = undefined;
+
+            await referenceDataUploadController.post(mockRequestWithoutBody, response);
+            responseMock.verify();
+        });
+
         it('should redirect page if no errors present', async () => {
             const fileUploadStub = sinon.stub(FileHandlingService.prototype, 'storeFileIntoRedis');
             fileUploadStub.withArgs('1234', 'test').returns();

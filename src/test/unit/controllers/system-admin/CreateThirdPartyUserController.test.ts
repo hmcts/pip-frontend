@@ -105,5 +105,15 @@ describe('Create third party user controller', () => {
             await createThirdPartyUserController.post(request, response);
             responseMock.verify();
         });
+
+        it('should render error page when no body provided', async () => {
+            request.body = undefined;
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('error');
+
+            await createThirdPartyUserController.post(request, response);
+            responseMock.verify();
+        });
     });
 });

@@ -34,6 +34,8 @@ export default class SubscriptionConfigureListPreviewController {
 
         if (cachedListTypes?.length === 0) {
             res.redirect('subscription-configure-list-preview?no-list-configure=true');
+        } else if (!req.body) {
+            res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         } else {
             const userId = req.user['userId'];
             await subscriptionService.handleNewSubscription(req.body, req.user);

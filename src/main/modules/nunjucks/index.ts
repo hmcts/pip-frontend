@@ -30,7 +30,6 @@ export class Nunjucks {
             }
         );
 
-        env.addGlobal('govukRebrand', true);
         env.addGlobal(
             'dynatraceLink',
             process.env.DYNATRACE_LINK ??

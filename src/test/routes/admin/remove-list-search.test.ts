@@ -25,23 +25,41 @@ describe('Remove List Search', () => {
         test('should return remove list search page', async () => {
             await request(app)
                 .get(URL)
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find content to remove');
+                });
         });
     });
 
     describe('on POST', () => {
-        test('should return remove list search page', async () => {
+        test('should return remove list search page when no input', async () => {
             await request(app)
                 .post(URL)
                 .send({ 'input-autocomplete': '' })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find content to remove');
+                });
         });
 
-        test('should return remove list search page', async () => {
+        test('should return remove list search page when no match', async () => {
             await request(app)
                 .post(URL)
                 .send({ 'input-autocomplete': 'foo' })
-                .expect(res => expect(res.status).to.equal(200));
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find content to remove');
+                });
+        });
+
+        test('should return remove list search page when no body provided', async () => {
+            await request(app)
+                .post(URL)
+                .expect(res => {
+                    expect(res.status).to.equal(200);
+                    expect(res.text).to.contain('Find content to remove');
+                });
         });
 
         test('should redirect to removal confirmation page', async () => {

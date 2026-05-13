@@ -67,6 +67,7 @@ describe('Bulk Create Media Accounts Page', () => {
 
             await request(app)
                 .post(PAGE_URL)
+                .send({})
                 .then(res => {
                     htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
                     htmlRes.getElementsByTagName('div')[0].remove();

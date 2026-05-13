@@ -9,4 +9,5 @@ export interface ListType {
     contDate?: string;
     checked?: boolean;
     isNonStrategic?: boolean;
+    isHidden?: boolean;
 }
