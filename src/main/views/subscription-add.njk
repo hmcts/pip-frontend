@@ -5,76 +5,82 @@
 
 {% extends "template.njk" %}
 {% block pageTitle %}
-  {{ title }}
+    {{ title }}
 {% endblock %}
 
 {% block beforeContent %}
-  {{ super() }}
-  {{ goBack(text = backButton, cspNonce = cspNonce) }}
+    {{ super() }}
+    {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 
 {% block content %}
-  <div class="parent-box">
-  {% if selectionError %}
-    {{ govukErrorSummary({
-      titleText: error.title,
-      errorList: [
-        {
-          text: error.text,
-          href: "#subscription-choice"
-        }
-      ]
-    }) }}
-  {% endif %}
-  <form method="post">
-    <div class="govuk-form-group">
-      <fieldset class="govuk-fieldset">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-          <h1 class="govuk-fieldset__heading">
-            {{ header }}
-          </h1>
-        </legend>
-
-        {{ govukInsetText({
-          text: insetText,
-          classes: "govuk-!-margin-bottom-8"
-        }) }}
+    <div class="parent-box">
         {% if selectionError %}
-          <span id="subscription-choice-error" class="govuk-error-message">
+            {{ govukErrorSummary({
+                titleText: error.title,
+                errorList: [
+                    {
+                        text: error.text,
+                        href: "#subscription-choice"
+                    }
+                ]
+            }) }}
+        {% endif %}
+        <form method="post">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            {{ header }}
+                        </h1>
+                    </legend>
+
+                    {{ govukInsetText({
+                        text: insetText,
+                        classes: "govuk-!-margin-bottom-8"
+                    }) }}
+                    {% if selectionError %}
+                        <span id="subscription-choice-error" class="govuk-error-message">
             <span class="govuk-visually-hidden">{{ error.error }}</span> {{ error.text }}
           </span>
-        {% endif %}
-        <div id= "subscription-choice" class="govuk-radios
+                    {% endif %}
+                    <div id= "subscription-choice" class="govuk-radios
                                               govuk-!-margin-bottom-4
                                               {% if selectionError %}govuk-form-group--error {% endif %}">
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="subscription-choice-1" name="subscription-choice" type="radio" value="court-or-tribunal">
-            <label class="govuk-label govuk-radios__label" for="subscription-choice-1">
-              {{ radio1 }}
-            </label>
-          </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="subscription-choice-2" name="subscription-choice" type="radio" value="name">
-            <label class="govuk-label govuk-radios__label" for="subscription-choice-2">
-              {{ radio2 }}
-            </label>
-          </div>
-          <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="subscription-choice-3" name="subscription-choice" type="radio" value="case-reference">
-            <label class="govuk-label govuk-radios__label" for="subscription-choice-3">
-              {{ radio3 }}
-            </label>
-          </div>
-        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="subscription-choice-1" name="subscription-choice" type="radio" value="court-or-tribunal">
+                            <label class="govuk-heading-s govuk-radios__label" for="subscription-choice-1">
+                                {{ radio1.label }}
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="subscription-choice-2" name="subscription-choice" type="radio" value="name">
+                            <label class="govuk-heading-s govuk-radios__label" for="subscription-choice-2">
+                                {{ radio2.label }}
+                            </label>
+                            <div id="subscription-choice-2-hint" class="govuk-hint govuk-radios__hint">
+                                {{ radio2.hint }}
+                            </div>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="subscription-choice-3" name="subscription-choice" type="radio" value="case-reference">
+                            <label class="govuk-heading-s govuk-radios__label" for="subscription-choice-3">
+                                {{ radio3.label }}
+                            </label>
+                            <div id="subscription-choice-3-hint" class="govuk-hint govuk-radios__hint">
+                                {{ radio3.hint }}
+                            </div>
+                        </div>
+                    </div>
 
-      </fieldset>
+                </fieldset>
+            </div>
+            {{ submitButton(continueButton) }}
+        </form>
+        {{ super() }}
     </div>
-    {{ submitButton(continueButton) }}
-  </form>
-    {{ super() }}
-  </div>
 {% endblock %}
 
 {% block bodyEnd %}
-  {{ super() }}
+    {{ super() }}
 {% endblock %}
