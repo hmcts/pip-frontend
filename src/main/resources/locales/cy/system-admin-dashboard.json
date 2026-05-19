@@ -46,6 +46,11 @@
             "title": "Manage Third-Party Subscribers",
             "description": "View, update and remove third-party subscribers",
             "link": "manage-third-party-subscribers"
+        },
+        {
+            "title": "Download MI Report",
+            "description": "Download User accounts, Publication, Location subscriptions and All subscription data",
+            "link": "download-mi-report"
         }
     ]
 }

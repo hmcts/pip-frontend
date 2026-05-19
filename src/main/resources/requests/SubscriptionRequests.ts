@@ -110,4 +110,24 @@ export class SubscriptionRequests {
         }
         return null;
     }
+
+    public async getMiAllSubscriptionsData():  Promise<object> {
+        try {
+            const response = await accountManagementApi.get('/subscription/mi-data-all');
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve mi all subscription data');
+        }
+        return null;
+    }
+
+    public async getMiLocationSubscriptionsData():  Promise<object> {
+        try {
+            const response = await accountManagementApi.get('/subscription/mi-data-location');
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve mi all location subscription data');
+        }
+        return null;
+    }
 }
