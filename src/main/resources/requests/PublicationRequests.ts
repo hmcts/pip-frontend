@@ -143,7 +143,7 @@ export class PublicationRequests {
         return [];
     }
 
-    public async getMiPublicationData(days: number):  Promise<object> {
+    public async getMiPublicationData(days: number): Promise<object> {
         try {
             const response = await dataManagementApi.get(`/publication/mi-data/${days}`);
             return response.data;

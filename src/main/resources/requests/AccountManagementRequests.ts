@@ -1,8 +1,4 @@
-import {
-    accountManagementApi,
-    accountManagementApiUrl,
-    getAccountManagementCredentials,
-} from './utils/axiosConfig';
+import { accountManagementApi, accountManagementApiUrl, getAccountManagementCredentials } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import { MediaAccountApplication } from '../../models/MediaAccountApplication';
 import { DateTime } from 'luxon';
@@ -381,7 +377,7 @@ export class AccountManagementRequests {
         return false;
     }
 
-    public async getMiAccountsData():  Promise<object> {
+    public async getMiAccountsData(): Promise<object> {
         try {
             const response = await accountManagementApi.get('/account/mi-data');
             return response.data;

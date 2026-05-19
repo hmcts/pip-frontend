@@ -111,7 +111,7 @@ export class SubscriptionRequests {
         return null;
     }
 
-    public async getMiAllSubscriptionsData():  Promise<object> {
+    public async getMiAllSubscriptionsData(): Promise<object> {
         try {
             const response = await accountManagementApi.get('/subscription/mi-data-all');
             return response.data;
@@ -121,7 +121,7 @@ export class SubscriptionRequests {
         return null;
     }
 
-    public async getMiLocationSubscriptionsData():  Promise<object> {
+    public async getMiLocationSubscriptionsData(): Promise<object> {
         try {
             const response = await accountManagementApi.get('/subscription/mi-data-location');
             return response.data;

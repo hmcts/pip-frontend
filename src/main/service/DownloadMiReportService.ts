@@ -12,9 +12,8 @@ export interface GeneratedCsvFile {
     buffer: Buffer;
 }
 
-const allTimeReportDurationLabel = "all_time";
+const allTimeReportDurationLabel = 'all_time';
 export class DownloadMiReportService {
-
     public async generatePublicationMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile> {
         const returnedData = await publicationRequests.getMiPublicationData(reportDuration);
         return this.buildGeneratedCsvFile(returnedData, reportType, reportDuration.toString());
@@ -35,68 +34,34 @@ export class DownloadMiReportService {
         return this.buildGeneratedCsvFile(returnedData, reportType, allTimeReportDurationLabel);
     }
 
-    public async generateAllDataMiData(
-        reportType: string,
-        reportDuration: number
-    ): Promise<GeneratedCsvFile> {
+    public async generateAllDataMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile> {
+        const publications = await publicationRequests.getMiPublicationData(reportDuration);
 
-        const publications =
-            await publicationRequests.getMiPublicationData(reportDuration);
+        const accounts = await accountManagementRequests.getMiAccountsData();
 
-        const accounts =
-            await accountManagementRequests.getMiAccountsData();
+        const allSubscriptions = await subscriptionRequests.getMiAllSubscriptionsData();
 
-        const allSubscriptions =
-            await subscriptionRequests.getMiAllSubscriptionsData();
-
-        const locationSubscriptions =
-            await subscriptionRequests.getMiLocationSubscriptionsData();
+        const locationSubscriptions = await subscriptionRequests.getMiLocationSubscriptionsData();
 
         const workbook = new ExcelJS.Workbook();
 
-        this.addWorksheet(
-            workbook,
-            'Publications',
-            publications as Record<string, any>[]
-        );
+        this.addWorksheet(workbook, 'Publications', publications as Record<string, any>[]);
 
-        this.addWorksheet(
-            workbook,
-            'User Accounts',
-            accounts as Record<string, any>[]
-        );
+        this.addWorksheet(workbook, 'User Accounts', accounts as Record<string, any>[]);
 
-        this.addWorksheet(
-            workbook,
-            'All Subscriptions',
-            allSubscriptions as Record<string, any>[]
-        );
+        this.addWorksheet(workbook, 'All Subscriptions', allSubscriptions as Record<string, any>[]);
 
-        this.addWorksheet(
-            workbook,
-            'Location Subscriptions',
-            locationSubscriptions as Record<string, any>[]
-        );
+        this.addWorksheet(workbook, 'Location Subscriptions', locationSubscriptions as Record<string, any>[]);
 
-        const buffer = Buffer.from(
-            await workbook.xlsx.writeBuffer()
-        );
+        const buffer = Buffer.from(await workbook.xlsx.writeBuffer());
 
         return {
-            fileName: this.generateFileName(
-                reportType,
-                reportDuration.toString()
-            ).replace('.csv', '.xlsx'),
-            buffer
+            fileName: this.generateFileName(reportType, reportDuration.toString()).replace('.csv', '.xlsx'),
+            buffer,
         };
     }
 
-    private addWorksheet(
-        workbook: ExcelJS.Workbook,
-        sheetName: string,
-        data: Record<string, any>[]
-    ): void {
-
+    private addWorksheet(workbook: ExcelJS.Workbook, sheetName: string, data: Record<string, any>[]): void {
         const worksheet = workbook.addWorksheet(sheetName);
 
         if (!data?.length) {
@@ -104,9 +69,9 @@ export class DownloadMiReportService {
         }
 
         // Add headers
-        worksheet.columns = Object.keys(data[0]).map((key) => ({
+        worksheet.columns = Object.keys(data[0]).map(key => ({
             header: key,
-            key
+            key,
         }));
 
         // Add rows
@@ -116,11 +81,8 @@ export class DownloadMiReportService {
     private buildGeneratedCsvFile(returnedData: object, reportType: string, reportDuration: string): GeneratedCsvFile {
         const data = returnedData as Record<string, any>[];
         return {
-            fileName: this.generateFileName(
-                reportType,
-                reportDuration
-            ),
-            buffer: this.generateCsvBuffer(data)
+            fileName: this.generateFileName(reportType, reportDuration),
+            buffer: this.generateCsvBuffer(data),
         };
     }
 
@@ -137,27 +99,25 @@ export class DownloadMiReportService {
      */
     private convertToCSV(data: Record<string, any>[]): string {
         if (!data?.length) {
-            return "";
+            return '';
         }
         // CSV headers
-        const headers = Object.keys(data[0]).join(",");
+        const headers = Object.keys(data[0]).join(',');
         // CSV rows
-        const rows = data.map((row) =>
+        const rows = data.map(row =>
             Object.values(row)
-                .map((value) =>
-                    `"${String(value ?? "").replace(/"/g, '""')}"`
-                )
-                .join(",")
+                .map(value => `"${String(value ?? '').replace(/"/g, '""')}"`)
+                .join(',')
         );
-        return [headers, ...rows].join("\n");
+        return [headers, ...rows].join('\n');
     }
 
     /**
      * Convert CSV string into UTF-8 buffer
      */
     private convertToBuffer(csv: string): Buffer {
-        const csvWithBom = "\uFEFF" + csv;
-        return Buffer.from(csvWithBom, "utf-8");
+        const csvWithBom = '\uFEFF' + csv;
+        return Buffer.from(csvWithBom, 'utf-8');
     }
 
     /**
@@ -166,13 +126,13 @@ export class DownloadMiReportService {
     private generateFileName(reportType: string, reportDuration: string): string {
         const now = new Date();
 
-        const datePart = now.toISOString().split("T")[0].replace(/-/g, "_");
+        const datePart = now.toISOString().split('T')[0].replace(/-/g, '_');
 
         const timePart =
-            String(now.getHours()).padStart(2, "0") +
-            String(now.getMinutes()).padStart(2, "0") +
-            String(now.getSeconds()).padStart(2, "0") +
-            String(now.getMilliseconds()).padStart(3, "0");
+            String(now.getHours()).padStart(2, '0') +
+            String(now.getMinutes()).padStart(2, '0') +
+            String(now.getSeconds()).padStart(2, '0') +
+            String(now.getMilliseconds()).padStart(3, '0');
 
         return `${reportType}_report_${reportDuration}days_${datePart}_${timePart}.csv`;
     }
