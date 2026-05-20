@@ -418,7 +418,7 @@ describe('Summary of publications page', () => {
         it('should have correct page title', () => {
             const pageTitle = htmlRes.title;
             expect(pageTitle).contains(
-                "Crynodeb o'r cyhoeddiadau - Beth ydych chi eisiau edrych arno gan - Gwrandawiadau Llys a Thrydyddol",
+                "Crynodeb o'r cyhoeddiadau - Beth ydych chi eisiau edrych arno yn - Gwrandawiadau Llys a Thrydyddol",
                 'Could not find the page title'
             );
         });
