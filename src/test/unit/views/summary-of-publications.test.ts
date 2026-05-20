@@ -404,4 +404,57 @@ describe('Summary of publications page', () => {
             );
         });
     });
+
+    describe('with publications in Welsh', () => {
+        const PAGE_URL = `/summary-of-publications?locationId=${locationIdWithPublications}&lng=cy`;
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should have correct page title', () => {
+            const pageTitle = htmlRes.title;
+            expect(pageTitle).contains(
+                "Crynodeb o'r cyhoeddiadau - Beth ydych chi eisiau edrych arno yn - Gwrandawiadau Llys a Thrydyddol",
+                'Could not find the page title'
+            );
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName('govuk-heading-l');
+            expect(header[0].innerHTML).contains(
+                'Beth ydych chi eisiau edrych arno yn New Court?',
+                'Could not find correct value in header'
+            );
+        });
+
+        it('should display link to FaCT', () => {
+            const text = htmlRes.getElementsByClassName('govuk-body')[4].getElementsByTagName('a');
+            expect(text[0].innerHTML).contains(
+                'Dod o hyd i fanylion cyswllt a gwybodaeth arall am lysoedd a thribiwnlysoedd',
+                'Could not find link to FaCT'
+            );
+            expect(text[0].getAttribute('href').valueOf()).contains(
+                'https://www.find-court-tribunal.service.gov.uk',
+                'Could not find Href for link to FaCT'
+            );
+        });
+
+        it('should display a back button with the correct value', () => {
+            const backLink = htmlRes.getElementsByClassName('govuk-back-link');
+            expect(backLink[0].innerHTML).contains('Yn ôl', 'Back button does not contain correct text');
+            expect(backLink[0].getAttribute('href')).equal('#', 'Back value does not contain correct link');
+        });
+
+        it('should display publications', () => {
+            const body = htmlRes.getElementsByClassName(bodyClass);
+            expect(body[5].innerHTML).contains(
+                "dewiswch y rhestr rydych chi eisiau ei gweld o'r dolenni isod:",
+                'Select list text does not match'
+            );
+        });
+    });
 });
