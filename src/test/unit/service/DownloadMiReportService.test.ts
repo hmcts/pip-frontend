@@ -56,7 +56,7 @@ const allSubscriptionMiData = [
         userId: '1234',
         locationName: 'Court Name',
         createdDate: '2022-11-18T14:00:00Z',
-    }
+    },
 ];
 
 sinon.stub(AccountManagementRequests.prototype, 'getMiAccountsData').resolves(accountMiData);
@@ -84,11 +84,15 @@ describe('Download MI Report Service', () => {
 
         const csv = data.buffer.toString();
 
-        expect(csv).to.contain('artefactId,displayFrom,displayTo,language,provenance,sensitivity,'
-            + 'sourceArtefactId,supersededCount,type,contentDate,locationId,locationName,listType');
-        expect(csv).to.contain('"12345678","2022-11-18T14:00:00Z","2022-11-20T14:00:00Z","ENGLISH",'
-            + '"MANUAL_UPLOAD","PUBLIC","1234","2","LIST","2022-11-18T14:00:00Z","15","Court Name",'
-            + '"CIVIL_AND_FAMILY_DAILY_CAUSE_LIST"');
+        expect(csv).to.contain(
+            'artefactId,displayFrom,displayTo,language,provenance,sensitivity,' +
+                'sourceArtefactId,supersededCount,type,contentDate,locationId,locationName,listType'
+        );
+        expect(csv).to.contain(
+            '"12345678","2022-11-18T14:00:00Z","2022-11-20T14:00:00Z","ENGLISH",' +
+                '"MANUAL_UPLOAD","PUBLIC","1234","2","LIST","2022-11-18T14:00:00Z","15","Court Name",' +
+                '"CIVIL_AND_FAMILY_DAILY_CAUSE_LIST"'
+        );
     });
 
     it('should generate location subscriptions mi data csv', async () => {

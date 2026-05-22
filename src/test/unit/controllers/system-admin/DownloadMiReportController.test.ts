@@ -19,8 +19,10 @@ sinon.stub(DownloadMiReportService.prototype, 'generatePublicationMiData').withA
     fileName: 'publications.csv',
     buffer,
 });
-sinon.stub(DownloadMiReportService.prototype, 'generateLocationSubscriptionsMiData')
-    .withArgs('location_subscriptions').resolves({
+sinon
+    .stub(DownloadMiReportService.prototype, 'generateLocationSubscriptionsMiData')
+    .withArgs('location_subscriptions')
+    .resolves({
         fileName: 'location_subscriptions.csv',
         buffer,
     });
@@ -62,7 +64,7 @@ describe('Download Mi Report controller', () => {
     it('should generate user accounts MI report', async () => {
         request.body = {
             reportType: 'USER_ACCOUNTS',
-            reportDuration: '-1'
+            reportDuration: '-1',
         };
 
         const responseMock = sinon.mock(response);
@@ -101,7 +103,10 @@ describe('Download Mi Report controller', () => {
 
         const responseMock = sinon.mock(response);
 
-        responseMock.expects('set').once().withArgs('Content-Disposition', 'attachment; filename=location_subscriptions.csv');
+        responseMock
+            .expects('set')
+            .once()
+            .withArgs('Content-Disposition', 'attachment; filename=location_subscriptions.csv');
         responseMock.expects('set').once().withArgs('Content-Type', 'text/csv; charset=utf-8');
         responseMock.expects('send').once().withArgs(buffer);
 
