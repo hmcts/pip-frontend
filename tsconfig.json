@@ -7,16 +7,18 @@
         "allowSyntheticDefaultImports": true,
         "target": "es6",
         "noImplicitAny": false,
-        "moduleResolution": "node",
+        "moduleResolution": "bundler",
         "noUnusedLocals": true,
         "resolveJsonModule": true,
         "experimentalDecorators": true,
         "skipLibCheck": true,
         "lib": ["es6", "es2017.object", "dom"],
-        "baseUrl": "src/main",
+        "strict": false,
+        "types": ["node","jest"],
         "paths": {
-            "router/*": ["router/*"],
-            "routes/*": ["routes/*"]
+            "*": ["./src/main/*"],
+            "router/*": ["./router/*"],
+            "routes/*": ["./routes/*"]
         },
         "typeRoots": ["./node_modules/@types"]
     }
