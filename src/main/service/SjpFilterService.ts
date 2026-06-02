@@ -94,7 +94,7 @@ export class SjpFilterService {
             items.push({ ellipsis: true });
         }
 
-        let pageRange = [];
+        let pageRange;
         if (currentPage == 1 || currentPage == 2) {
             pageRange = [2, 3];
         } else if (currentPage == numberOfPages || currentPage == numberOfPages - 1) {

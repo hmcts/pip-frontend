@@ -78,7 +78,7 @@ export class LocationService {
 
     public findCourtName(location: Location, language: string, languageFile: string): string {
         const fileJson = languageFileParser.getLanguageFileJson(languageFile, language);
-        let courtName = '';
+        let courtName;
         if (location == null) {
             return languageFileParser.getText(fileJson, null, 'missingCourt');
         }

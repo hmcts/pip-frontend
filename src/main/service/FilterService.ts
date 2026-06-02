@@ -236,7 +236,7 @@ export class FilterService {
         );
 
         let filters = null;
-        let alphabetisedList = {};
+        let alphabetisedList;
         if (filterValues.length == 0) {
             alphabetisedList = await locationService.generateAlphabetisedAllCourtList(language);
         } else {
