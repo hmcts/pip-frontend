@@ -9,6 +9,7 @@
         "resolveJsonModule": true,
         "module": "commonjs",
         "strictNullChecks": true,
+        "strict": false,
         "types": ["codeceptjs", "jest"]
     }
 }
