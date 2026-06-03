@@ -13,6 +13,6 @@ export const CRIME_IDAM_URL = process.env.CRIME_IDAM_URL || 'https://login.sit.c
 export const MICROSOFT_LOGIN_URL = 'https://login.microsoftonline.com';
 export const MICROSOFT_GRAPH_API_URL = 'https://graph.microsoft.com/v1.0';
 
-export const urlPath = url => {
+export const urlPath = (url: string)  => {
     return url.substring(0, url.includes('?') ? url.indexOf('?') : url.length).replace(/^\//, '');
 };
