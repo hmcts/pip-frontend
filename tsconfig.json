@@ -1,6 +1,7 @@
 {
     "exclude": ["src/test/e2e/**/*.ts"],
     "compilerOptions": {
+        "rootDir": ".",
         "outDir": "./dist/",
         "module": "commonjs",
         "esModuleInterop": true,
@@ -15,7 +16,6 @@
         "lib": ["es6", "es2017.object", "dom"],
         "strict": false,
         "types": ["node","jest"],
-        "rootDir": ".",
         "paths": {
             "*": ["./src/main/*"],
             "router/*": ["./router/*"],
