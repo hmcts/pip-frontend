@@ -67,8 +67,8 @@ export default class BlobViewPublicationController {
     }
 
     private static async getLocationName(locationId, noMatchArtefact): Promise<string> {
-        return !noMatchArtefact
-            ? (await locationService.getLocationById(parseInt(locationId.toString()))).name
-            : 'No match artefacts';
+        return noMatchArtefact
+            ? 'No match artefacts'
+            : (await locationService.getLocationById(Number.parseInt(locationId.toString()))).name;
     }
 }
