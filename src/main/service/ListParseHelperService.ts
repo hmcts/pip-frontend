@@ -304,13 +304,9 @@ export class ListParseHelperService {
         const publicationZonedDateTime = DateTime.fromISO(publicationDatetime, {
             zone: timeZone,
         });
-        let publishedTime = '';
-        if (publicationZonedDateTime.minute === 0) {
-            publishedTime = publicationZonedDateTime.toFormat(timeFormatHourOnly).toLowerCase();
-        } else {
-            publishedTime = publicationZonedDateTime.toFormat(timeFormatHourMinute).toLowerCase();
-        }
-        return publishedTime;
+        return publicationZonedDateTime.minute === 0
+            ? publicationZonedDateTime.toFormat(timeFormatHourOnly).toLowerCase()
+            : publicationZonedDateTime.toFormat(timeFormatHourMinute).toLowerCase();
     }
 
     /**

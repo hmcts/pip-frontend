@@ -29,14 +29,11 @@ if (process.env.REDIS_MOCK) {
     redisClient = redis.createClient();
 } else {
     const redisCredentials = setRedisCredentials();
-    let connectionString = '';
-    if (process.env.REDIS_LOCAL) {
-        // for running local dev environment (i.e. 'start:dev' profile)
-        connectionString = `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
-    } else {
-        // double s is required when using TLS connection (i.e. 'start' profile)
-        connectionString = `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
-    }
+    const connectionString = process.env.REDIS_LOCAL
+        ? // for running local dev environment (i.e. 'start:dev' profile)
+          `redis://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`
+        : // double s is required when using TLS connection (i.e. 'start' profile)
+          `rediss://:${redisCredentials.password}@${redisCredentials.host}:${redisCredentials.port}`;
 
     logger.info('Connecting to Redis');
     redisClient = createClient({
