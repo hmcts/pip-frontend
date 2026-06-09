@@ -296,7 +296,7 @@ export class SubscriptionService {
         const cachedCourtSubs = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'courts');
         let courtSubscribed = true;
         if (cachedCourtSubs.length > 0) {
-            courtSubscribed = await this.subscribeByCourt(userId, cachedCourtSubs);
+            await this.subscribeByCourt(userId, cachedCourtSubs);
 
             const cachedListTypes = await pendingSubscriptionsFromCache.getPendingSubscriptions(userId, 'listTypes');
             const cachedListLanguage = await pendingSubscriptionsFromCache.getPendingSubscriptions(
