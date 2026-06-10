@@ -1,7 +1,6 @@
 const globals = require('globals');
 const eslint = require('@eslint/js');
 const tslint = require('typescript-eslint');
-const babelParser = require('@babel/eslint-parser');
 const eslintConfigPrettier = require('eslint-config-prettier');
 
 module.exports = tslint.config(
@@ -73,7 +72,6 @@ module.exports = tslint.config(
                 ...globals.browser,
                 ...globals.commonjs,
             },
-            parser: babelParser,
         },
         rules: {
             'linebreak-style': ['error', 'unix'],

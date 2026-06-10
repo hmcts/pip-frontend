@@ -26,7 +26,8 @@ export const createLocation = async (locationId: string, locationName: string) =
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
-        throw new Error(`Failed to create location , http-status: ${e.response?.status}`);
+        e.message = `Failed to create location , http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -47,7 +48,8 @@ const clearAllPublicationsByTestPrefix = async (testSuitePrefix: string) => {
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
-        throw new Error(`Failed to delete publications test data , http-status: ${e.response?.status}`);
+        e.message = `Failed to delete publications test data , http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -59,7 +61,8 @@ const clearAllSubscriptionsByTestPrefix = async (testSuitePrefix: string) => {
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenSubscriptionManagement.access_token });
     } catch (e) {
-        throw new Error(`Failed to delete subscriptions test data , http-status: ${e.response?.status}`);
+        e.message = `Failed to delete subscriptions test data , http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -71,7 +74,8 @@ const clearAllLocationsByTestPrefix = async (testSuitePrefix: string) => {
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
-        throw new Error(`Failed to delete locations test data , http-status: ${e.response?.status}`);
+        e.message = `Failed to delete locations test data , http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -83,7 +87,8 @@ const clearAllAccountsByTestPrefix = async (testSuitePrefix: string) => {
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
-        throw new Error(`Failed to delete accounts test data , http-status: ${e.response?.status}`);
+        e.message = `Failed to delete accounts test data , http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -95,7 +100,8 @@ const clearAllMediaApplicationsByTestPrefix = async (testSuitePrefix: string) =>
             .set('Content-Type', 'application/json')
             .set({ Authorization: 'Bearer ' + tokenDataManagement.access_token });
     } catch (e) {
-        throw new Error(`Failed to delete applications test data , http-status: ${e.response?.status}`);
+        e.message = `Failed to delete applications test data , http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -116,7 +122,8 @@ export const createSubscription = async (locationId: string, locationName: strin
             .set({ Authorization: 'Bearer ' + token.access_token })
             .set('x-requester-id', `${testConfig.VERIFIED_USER_ID}`);
     } catch (e) {
-        throw new Error(`Create subscription failed for: ${locationName}, http-status: ${e.response?.status}`);
+        e.message = `Create subscription failed for: ${locationName}, http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -152,7 +159,8 @@ export const uploadPublication = async (
             .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.artefactId;
     } catch (e) {
-        throw new Error(`Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}`);
+        e.message = `Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -189,7 +197,8 @@ export const uploadFlatFile = async (
             .set({ Authorization: 'Bearer ' + token.access_token });
         return response.body?.artefactId;
     } catch (e) {
-        throw new Error(`Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}`);
+        e.message = `Failed to upload publication for: ${locationId}, http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -201,7 +210,8 @@ export const deletePublicationByArtefactId = async (artefactId: string) => {
             .set('x-requester-id', `${testConfig.SSO_TEST_SYSTEM_ADMIN_USER_ID}`)
             .set({ Authorization: 'Bearer ' + token.access_token });
     } catch (e) {
-        throw new Error(`Failed to delete artefact for: ${artefactId}, http-status: ${e.response?.status}`);
+        e.message = `Failed to delete artefact for: ${artefactId}, http-status: ${e.response?.status}: ${e.message}`;
+        throw e;
     }
 };
 
@@ -230,9 +240,8 @@ export const createThirdPartyUserAccount = async (provenanceUserId: string) => {
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(
-                `Create third party user account failed for: ${provenanceUserId}, http-status: ${e.response?.status}`
-            );
+            e.message = `Create third party user account failed for: ${provenanceUserId}, http-status: ${e.response?.status}: ${e.message}`;
+            throw e;
         }
     }
 };
@@ -255,7 +264,8 @@ export const createThirdPartyApiUser = async (userName: string) => {
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(`Create third party user failed for: ${userName}, http-status: ${e.response?.status}`);
+            e.message = `Create third party user failed for: ${userName}, http-status: ${e.response?.status}: ${e.message}`;
+            throw e;
         }
     }
 };
@@ -271,9 +281,8 @@ export const clearThirdPartyUserData = async (userNamePrefix: string) => {
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(
-                `Clear third party user data failed for: ${userNamePrefix}, http-status: ${e.response?.status}`
-            );
+            e.message = `Clear third party user data failed for: ${userNamePrefix}, http-status: ${e.response?.status}: ${e.message}`;
+            throw e;
         }
     }
 };
@@ -290,9 +299,8 @@ export const deleteThirdPartyUserAccount = async (userId: string) => {
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(
-                `Delete third party user account failed for: ${userId}, http-status: ${e.response?.status}`
-            );
+            e.message = `Delete third party user account failed for: ${userId}, http-status: ${e.response?.status}: ${e.message}`;
+            throw e;
         }
     }
 };
@@ -316,7 +324,8 @@ export const createSystemAdminAccount = async (firstName: string, surname: strin
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(`Create system admin account failed for: ${email}, http-status: ${e.response?.status}`);
+            e.message = `Create system admin account failed for: ${email}, http-status: ${e.response?.status}: ${e.message}`;
+            throw e;
         }
     }
 };
@@ -357,7 +366,8 @@ export const createTestUserAccount = async (
             e.response.body['error'] = true;
             return e.response?.body;
         } else {
-            throw new Error(`Create test user account failed for: ${email}, http-status: ${e.response?.status}`);
+            e.message = `Create test user account failed for: ${email}, http-status: ${e.response?.status}: ${e.message}`;
+            throw e;
         }
     }
 };
