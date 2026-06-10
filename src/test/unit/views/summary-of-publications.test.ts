@@ -426,7 +426,7 @@ describe('Summary of publications page', () => {
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(
-                'Beth ydych chi eisiau edrych arno yn New Court?',
+                'Beth ydych chi eisiau edrych arno yn: New Court?',
                 'Could not find correct value in header'
             );
         });
