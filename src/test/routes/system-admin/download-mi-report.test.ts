@@ -7,7 +7,6 @@ const PAGE_URL = '/download-mi-report';
 expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
 describe('Download MI report page', () => {
-
     describe('on GET', () => {
         test('should render download MI report page', async () => {
             await request(app)
