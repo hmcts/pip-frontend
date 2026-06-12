@@ -311,3 +311,23 @@ describe('delete location publication', () => {
         expect(await publicationRequests.deleteLocationPublication(4, adminUserId)).toBe(null);
     });
 });
+
+describe('Get Mi Publication Data', () => {
+    it('should return mi publication data on success', async () => {
+        dataManagementStub.withArgs('/publication/mi-data/7').resolves({ data: [] });
+        const response = await publicationRequests.getMiPublicationData(7);
+        expect(response).toEqual([]);
+    });
+
+    it('should return false on error response', async () => {
+        dataManagementStub.withArgs('/publication/mi-data/7').rejects(errorResponse);
+        const response = await publicationRequests.getMiPublicationData(7);
+        expect(response).toBe(null);
+    });
+
+    it('should return false on error message', async () => {
+        dataManagementStub.withArgs('/publication/mi-data/7').rejects(errorMessage);
+        const response = await publicationRequests.getMiPublicationData(7);
+        expect(response).toBe(null);
+    });
+});

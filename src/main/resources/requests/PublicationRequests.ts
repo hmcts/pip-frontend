@@ -142,4 +142,14 @@ export class PublicationRequests {
         }
         return [];
     }
+
+    public async getMiPublicationData(days: number): Promise<object> {
+        try {
+            const response = await dataManagementApi.get(`/publication/mi-data/${days}`);
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve mi publication data');
+        }
+        return null;
+    }
 }
