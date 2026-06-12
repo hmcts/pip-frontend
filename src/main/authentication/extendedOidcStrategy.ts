@@ -16,7 +16,7 @@ export class OIDCStrategy extends Strategy {
      * @param options The request options passed into the passport authenticate method in the routes file.
      */
     authorizationRequestParams(req, options) {
-        const params = super.authorizationRequestParams(req, options);
+        const params = new URLSearchParams(super.authorizationRequestParams(req, options));
         params.set('ui_locales', options['locale']);
         return params;
     }

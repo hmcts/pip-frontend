@@ -11,8 +11,8 @@ export default class BlobViewPublicationsController {
         const locationId = req.query['locationId'] as string;
         if (locationId) {
             let court;
-            let locationName = '';
-            let listOfPublications = [];
+            let locationName;
+            let listOfPublications;
 
             // reusing summary-of-pubs language file and service as this is essentially the same kind of page.
             // If the location being asked for is noMatch we do not need to request data from the API as it is not a real location

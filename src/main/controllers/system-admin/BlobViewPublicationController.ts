@@ -21,7 +21,10 @@ export default class BlobViewPublicationController {
         if (isValidList(data, metadata)) {
             const listTypes = publicationService.getListTypes();
             const noMatchArtefact = metadata.locationId.toString().includes('NoMatch');
-            const locationName = await BlobViewPublicationController.getLocationName(metadata.locationId, noMatchArtefact);
+            const locationName = await BlobViewPublicationController.getLocationName(
+                metadata.locationId,
+                noMatchArtefact
+            );
 
             await userManagementService.auditAction(
                 req.user,
@@ -64,12 +67,8 @@ export default class BlobViewPublicationController {
     }
 
     private static async getLocationName(locationId, noMatchArtefact): Promise<string> {
-        let locationName = '';
-        if (!noMatchArtefact) {
-            locationName = (await locationService.getLocationById(parseInt(locationId.toString()))).name;
-        } else {
-            locationName = 'No match artefacts';
-        }
-        return locationName;
+        return noMatchArtefact
+            ? 'No match artefacts'
+            : (await locationService.getLocationById(Number.parseInt(locationId.toString()))).name;
     }
 }

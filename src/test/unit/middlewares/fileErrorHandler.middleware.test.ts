@@ -2,8 +2,8 @@ import fileErrorHandlerMiddleware from '../../../main/middlewares/fileErrorHandl
 import { NextFunction, Response } from 'express';
 
 const nextFunction: NextFunction = jest.fn();
-let mockRequest: Partial<Request>;
-let mockResponse: Partial<Response>;
+const mockRequest: Partial<Request> = {};
+const mockResponse: Partial<Response> = {};
 const fileRequest = {};
 const errorRequest = {};
 const expectedFileLimitRequest = {

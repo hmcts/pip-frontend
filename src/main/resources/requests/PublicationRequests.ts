@@ -56,7 +56,7 @@ export class PublicationRequests {
         return [];
     }
 
-    public async getIndividualPublicationJson(artefactId, userId): Promise<HttpStatusCode> {
+    public async getIndividualPublicationJson(artefactId, userId): Promise<number> {
         try {
             let header;
             if (userId) {
@@ -71,7 +71,7 @@ export class PublicationRequests {
         }
     }
 
-    public async getIndividualPublicationFile(artefactId, userId): Promise<Blob | HttpStatusCode> {
+    public async getIndividualPublicationFile(artefactId, userId): Promise<Blob | number> {
         try {
             let header;
             if (userId) {
