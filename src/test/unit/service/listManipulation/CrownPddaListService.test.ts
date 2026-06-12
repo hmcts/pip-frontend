@@ -56,8 +56,6 @@ describe('Crown PDDA List service', () => {
 
             hearing = results[1].sittings[0].hearings[0];
             expect(hearing.hearingTime).to.equal('');
-
-
         });
     });
 
