@@ -40,242 +40,320 @@ const postStub = sinon.stub(accountManagementApi, 'post');
 const putStub = sinon.stub(accountManagementApi, 'put');
 const deleteStub = sinon.stub(accountManagementApi, 'delete');
 
-describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-    getStub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
+describe('Subscription Requests', () => {
+    describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
+        getStub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
 
-    it('should return user subscription object', async () => {
-        const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-        expect(userSubscriptions.caseSubscriptions.length).toEqual(6);
-        expect(userSubscriptions.locationSubscriptions.length).toEqual(3);
-    });
-
-    it('should have mocked object in the case subscriptions list', async () => {
-        const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-        expect(userSubscriptions.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription);
-    });
-
-    it('should have mocked object in the court subscriptions list', async () => {
-        const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
-        expect(userSubscriptions.locationSubscriptions[0].locationName).toBe(mockedCourtSubscription.name);
-    });
-});
-
-describe('getUserSubscriptions error tests', () => {
-    beforeEach(() => {
-        getStub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({ data: [] });
-        getStub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({
-            data: { caseSubscriptions: [], courtSubscriptions: [] },
+        it('should return user subscription object', async () => {
+            const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
+            expect(userSubscriptions.caseSubscriptions.length).toEqual(6);
+            expect(userSubscriptions.locationSubscriptions.length).toEqual(3);
         });
-        getStub.withArgs('/subscription/user/999').rejects(errorMessage);
-        getStub.withArgs('/subscription/user/9999').rejects(errorResponse);
+
+        it('should have mocked object in the case subscriptions list', async () => {
+            const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
+            expect(userSubscriptions.caseSubscriptions[0].caseNumber).toBe(mockedCaseSubscription);
+        });
+
+        it('should have mocked object in the court subscriptions list', async () => {
+            const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
+            expect(userSubscriptions.locationSubscriptions[0].locationName).toBe(mockedCourtSubscription.name);
+        });
     });
 
-    it('should return null for error response', async () => {
-        const userSubscriptions = await subscriptionActions.getUserSubscriptions('99');
-        expect(userSubscriptions).toBe(null);
+    describe('getUserSubscriptions error tests', () => {
+        beforeEach(() => {
+            getStub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({ data: [] });
+            getStub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({
+                data: { caseSubscriptions: [], courtSubscriptions: [] },
+            });
+            getStub.withArgs('/subscription/user/999').rejects(errorMessage);
+            getStub.withArgs('/subscription/user/9999').rejects(errorResponse);
+        });
+
+        it('should return null for error response', async () => {
+            const userSubscriptions = await subscriptionActions.getUserSubscriptions('99');
+            expect(userSubscriptions).toBe(null);
+        });
+
+        it('should return empty list of subscriptions', async () => {
+            const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
+            expect(userSubscriptions.caseSubscriptions.length).toBe(0);
+        });
+
+        it('should return null for error message', async () => {
+            const userSubscriptions = await subscriptionActions.getUserSubscriptions('999');
+            expect(userSubscriptions).toBe(null);
+        });
+
+        it('should return null for error response', async () => {
+            const userSubscriptions = await subscriptionActions.getUserSubscriptions('9999');
+            expect(userSubscriptions).toBe(null);
+        });
     });
 
-    it('should return empty list of subscriptions', async () => {
-        const userSubscriptions = await subscriptionActions.getUserSubscriptions(nonExistingUserId);
-        expect(userSubscriptions.caseSubscriptions.length).toBe(0);
+    describe('subscribe', () => {
+        const userId = '1234-1234';
+
+        it('should return true if call is successful', async () => {
+            postStub.withArgs('/subscription').resolves({});
+            const userSubscriptions = await subscriptionActions.subscribe({}, userId);
+            expect(userSubscriptions).toBe(true);
+        });
+
+        it('should return false for failure', async () => {
+            postStub.withArgs('/subscription').rejects(errorMessage);
+            const userSubscriptions = await subscriptionActions.subscribe({}, userId);
+            expect(userSubscriptions).toBe(false);
+        });
+
+        it('should return false for error response', async () => {
+            postStub.withArgs('/subscription').rejects(errorResponse);
+            const userSubscriptions = await subscriptionActions.subscribe({}, userId);
+            expect(userSubscriptions).toBe(false);
+        });
     });
 
-    it('should return null for error message', async () => {
-        const userSubscriptions = await subscriptionActions.getUserSubscriptions('999');
-        expect(userSubscriptions).toBe(null);
+    describe('unsubscribe with valid post data', () => {
+        deleteStub.withArgs('/subscription/123').resolves({ data: 'unsubscribed successfully' });
+        it('should return true if provided data is valid', async () => {
+            const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData.subscriptionId, '1234-1234');
+            expect(unsubscribe).toBe('unsubscribed successfully');
+        });
     });
 
-    it('should return null for error response', async () => {
-        const userSubscriptions = await subscriptionActions.getUserSubscriptions('9999');
-        expect(userSubscriptions).toBe(null);
+    describe('unsubscribe error states', () => {
+        describe('unsubscribe error response', () => {
+            deleteStub.withArgs(`/subscription/${unsubscribeInvalidData.subscriptionId}`).rejects(errorResponse);
+            it('should return null', async () => {
+                const unsubscribe = await subscriptionActions.unsubscribe(
+                    unsubscribeInvalidData.subscriptionId,
+                    '2345-2345'
+                );
+                expect(unsubscribe).toBe(null);
+            });
+        });
+
+        describe('unsubscribe error', () => {
+            deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).rejects({ error: 'error' });
+            it('should return null', async () => {
+                const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz, '4567-4567');
+                expect(unsubscribe).toBe(null);
+            });
+        });
     });
-});
 
-describe('subscribe', () => {
-    const userId = '1234-1234';
+    describe('bulkDeleteSubscriptions', () => {
+        const subscriptions = ['123'];
+        const userId = '456';
 
-    it('should return true if call is successful', async () => {
-        postStub.withArgs('/subscription').resolves({});
-        const userSubscriptions = await subscriptionActions.subscribe({}, userId);
-        expect(userSubscriptions).toBe(true);
+        it('should return success message if call is successful', async () => {
+            deleteStub.withArgs('/subscription/bulk').resolves({ data: 'unsubscribed successfully' });
+            const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
+            expect(response).toBe('unsubscribed successfully');
+        });
+
+        it('should return nothing for error response', async () => {
+            deleteStub.withArgs('/subscription/bulk').rejects(errorResponse);
+            const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
+            expect(response).toBe(null);
+        });
+
+        it('should return nothing for other error', async () => {
+            deleteStub.withArgs('/subscription/bulk').rejects(errorMessage);
+            const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
+            expect(response).toBe(null);
+        });
     });
 
-    it('should return false for failure', async () => {
-        postStub.withArgs('/subscription').rejects(errorMessage);
-        const userSubscriptions = await subscriptionActions.subscribe({}, userId);
-        expect(userSubscriptions).toBe(false);
+    describe('add list type Location subscriptions for a user', () => {
+        it('should return true if call is successful', async () => {
+            postStub.withArgs('/subscription/add-list-types').resolves({});
+            const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions('1', {});
+            expect(subscriptionAdded).toBe(true);
+        });
+
+        it('should return false for failure', async () => {
+            postStub.withArgs('/subscription/add-list-types/null').rejects(errorMessage);
+            const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
+            expect(subscriptionAdded).toBe(false);
+        });
+
+        it('should return false for error response', async () => {
+            postStub.withArgs('/subscription/add-list-types/null').rejects(errorResponse);
+            const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
+            expect(subscriptionAdded).toBe(false);
+        });
     });
 
-    it('should return false for error response', async () => {
-        postStub.withArgs('/subscription').rejects(errorResponse);
-        const userSubscriptions = await subscriptionActions.subscribe({}, userId);
-        expect(userSubscriptions).toBe(false);
-    });
-});
+    describe('configure list type Location subscriptions for a user', () => {
+        it('should return true if call is successful', async () => {
+            putStub.withArgs('/subscription/configure-list-types').resolves({});
+            const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions('1', {});
+            expect(subscriptionUpdated).toBe(true);
+        });
 
-describe('unsubscribe with valid post data', () => {
-    deleteStub.withArgs('/subscription/123').resolves({ data: 'unsubscribed successfully' });
-    it('should return true if provided data is valid', async () => {
-        const unsubscribe = await subscriptionActions.unsubscribe(unsubscribeValidData.subscriptionId, '1234-1234');
-        expect(unsubscribe).toBe('unsubscribed successfully');
-    });
-});
+        it('should return false for failure', async () => {
+            putStub.withArgs('/subscription/configure-list-types/null').rejects(errorMessage);
+            const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
+            expect(subscriptionUpdated).toBe(false);
+        });
 
-describe('unsubscribe error states', () => {
-    describe('unsubscribe error response', () => {
-        deleteStub.withArgs(`/subscription/${unsubscribeInvalidData.subscriptionId}`).rejects(errorResponse);
-        it('should return null', async () => {
-            const unsubscribe = await subscriptionActions.unsubscribe(
-                unsubscribeInvalidData.subscriptionId,
-                '2345-2345'
+        it('should return false for error response', async () => {
+            putStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
+            const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
+            expect(subscriptionUpdated).toBe(false);
+        });
+    });
+
+    describe('retrieve subscription channels', () => {
+        it('should return channels if call is successful', async () => {
+            getStub.withArgs('/subscription/channel?userId=1').resolves({ data: ['CHANNEL_A', 'CHANNEL_B'] });
+            const channels = await subscriptionActions.retrieveSubscriptionChannels(
+                userIdWithSubscriptions,
+                adminUserId
             );
-            expect(unsubscribe).toBe(null);
+            expect(channels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
+        });
+
+        it('should return empty array for failure', async () => {
+            getStub.withArgs('/subscription/channel?userId=1').rejects(errorMessage);
+            const channels = await subscriptionActions.retrieveSubscriptionChannels(
+                userIdWithSubscriptions,
+                adminUserId
+            );
+            expect(channels).toStrictEqual([]);
+        });
+
+        it('should return false for error response', async () => {
+            getStub.withArgs('/subscription/channel?userId=1').rejects(errorResponse);
+            const channels = await subscriptionActions.retrieveSubscriptionChannels(
+                userIdWithSubscriptions,
+                adminUserId
+            );
+            expect(channels).toStrictEqual([]);
         });
     });
 
-    describe('unsubscribe error', () => {
-        deleteStub.withArgs(`/subscription/${errorBodyData.baz}`).rejects({ error: 'error' });
-        it('should return null', async () => {
-            const unsubscribe = await subscriptionActions.unsubscribe(errorBodyData.baz, '4567-4567');
-            expect(unsubscribe).toBe(null);
+    describe('delete location subscription', () => {
+        beforeEach(() => {
+            deleteStub
+                .withArgs('/subscription/location/1', {
+                    headers: { 'x-requester-id': adminUserId },
+                })
+                .resolves({ data: 'success' });
+            deleteStub
+                .withArgs('/subscription/location/2', {
+                    headers: { 'x-requester-id': adminUserId },
+                })
+                .rejects(errorResponse);
+            deleteStub
+                .withArgs('/subscription/location/4', {
+                    headers: { 'x-requester-id': adminUserId },
+                })
+                .rejects(errorMessage);
+        });
+        it('should delete the court subscription', async () => {
+            expect(await subscriptionActions.deleteLocationSubscription(1, adminUserId)).toStrictEqual(
+                deletionResponse
+            );
+        });
+
+        it('should return null if response fails', async () => {
+            expect(await subscriptionActions.deleteLocationSubscription(2, adminUserId)).toBe(null);
+        });
+
+        it('should return null if request fails', async () => {
+            expect(await subscriptionActions.deleteLocationSubscription(3, adminUserId)).toBe(null);
+        });
+
+        it('should return null if request fails', async () => {
+            expect(await subscriptionActions.deleteLocationSubscription(4, adminUserId)).toBe(null);
+        });
+    });
+
+    describe('fulfill subscriptions', () => {
+        it('should return success message if call is successful', async () => {
+            postStub.withArgs('/subscription/artefact-recipients').resolves({ data: 'success' });
+            const data = await subscriptionActions.fulfillSubscriptions({});
+            expect(data).toBe('success');
+        });
+
+        it('should return null for failure', async () => {
+            postStub.withArgs('/subscription/artefact-recipients').rejects(errorMessage);
+            const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
+            expect(subscriptionUpdated).toBe(null);
+        });
+
+        it('should return null for error response', async () => {
+            postStub.withArgs('/subscription/artefact-recipients').rejects(errorResponse);
+            const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
+            expect(subscriptionUpdated).toBe(null);
+        });
+    });
+
+    describe('get MI all subscriptions data', () => {
+        const miData = [
+            {
+                userId: '123',
+                subscriptionCount: 5,
+            },
+        ];
+
+        it('should return MI subscription data on success', async () => {
+            getStub.withArgs('/subscription/mi-data-all').resolves({
+                data: miData,
+            });
+
+            const response = await subscriptionActions.getMiAllSubscriptionsData();
+
+            expect(response).toStrictEqual(miData);
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs('/subscription/mi-data-all').rejects(errorResponse);
+
+            const response = await subscriptionActions.getMiAllSubscriptionsData();
+
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs('/subscription/mi-data-all').rejects(errorMessage);
+
+            const response = await subscriptionActions.getMiAllSubscriptionsData();
+
+            expect(response).toBe(null);
+        });
+    });
+
+    describe('get MI location subscriptions data', () => {
+        const miData = [
+            {
+                locationId: '123',
+                subscriptionCount: 5,
+            },
+        ];
+
+        it('should return MI location subscription data on success', async () => {
+            getStub.withArgs('/subscription/mi-data-location').resolves({
+                data: miData,
+            });
+            const response = await subscriptionActions.getMiLocationSubscriptionsData();
+            expect(response).toStrictEqual(miData);
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs('/subscription/mi-data-location').rejects(errorResponse);
+            const response = await subscriptionActions.getMiLocationSubscriptionsData();
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs('/subscription/mi-data-location').rejects(errorMessage);
+            const response = await subscriptionActions.getMiLocationSubscriptionsData();
+            expect(response).toBe(null);
         });
     });
 });
 
-describe('bulkDeleteSubscriptions', () => {
-    const subscriptions = ['123'];
-    const userId = '456';
-
-    it('should return success message if call is successful', async () => {
-        deleteStub.withArgs('/subscription/bulk').resolves({ data: 'unsubscribed successfully' });
-        const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
-        expect(response).toBe('unsubscribed successfully');
-    });
-
-    it('should return nothing for error response', async () => {
-        deleteStub.withArgs('/subscription/bulk').rejects(errorResponse);
-        const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
-        expect(response).toBe(null);
-    });
-
-    it('should return nothing for other error', async () => {
-        deleteStub.withArgs('/subscription/bulk').rejects(errorMessage);
-        const response = await subscriptionActions.bulkDeleteSubscriptions(subscriptions, userId);
-        expect(response).toBe(null);
-    });
-});
-
-describe('add list type Location subscriptions for a user', () => {
-    it('should return true if call is successful', async () => {
-        postStub.withArgs('/subscription/add-list-types').resolves({});
-        const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions('1', {});
-        expect(subscriptionAdded).toBe(true);
-    });
-
-    it('should return false for failure', async () => {
-        postStub.withArgs('/subscription/add-list-types/null').rejects(errorMessage);
-        const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
-        expect(subscriptionAdded).toBe(false);
-    });
-
-    it('should return false for error response', async () => {
-        postStub.withArgs('/subscription/add-list-types/null').rejects(errorResponse);
-        const subscriptionAdded = await subscriptionActions.addListTypeForLocationSubscriptions(null, {});
-        expect(subscriptionAdded).toBe(false);
-    });
-});
-
-describe('configure list type Location subscriptions for a user', () => {
-    it('should return true if call is successful', async () => {
-        putStub.withArgs('/subscription/configure-list-types').resolves({});
-        const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions('1', {});
-        expect(subscriptionUpdated).toBe(true);
-    });
-
-    it('should return false for failure', async () => {
-        putStub.withArgs('/subscription/configure-list-types/null').rejects(errorMessage);
-        const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
-        expect(subscriptionUpdated).toBe(false);
-    });
-
-    it('should return false for error response', async () => {
-        putStub.withArgs('/subscription/configure-list-types/null').rejects(errorResponse);
-        const subscriptionUpdated = await subscriptionActions.configureListTypeForLocationSubscriptions(null, {});
-        expect(subscriptionUpdated).toBe(false);
-    });
-});
-
-describe('retrieve subscription channels', () => {
-    it('should return channels if call is successful', async () => {
-        getStub.withArgs('/subscription/channel?userId=1').resolves({ data: ['CHANNEL_A', 'CHANNEL_B'] });
-        const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
-        expect(channels).toStrictEqual(['CHANNEL_A', 'CHANNEL_B']);
-    });
-
-    it('should return empty array for failure', async () => {
-        getStub.withArgs('/subscription/channel?userId=1').rejects(errorMessage);
-        const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
-        expect(channels).toStrictEqual([]);
-    });
-
-    it('should return false for error response', async () => {
-        getStub.withArgs('/subscription/channel?userId=1').rejects(errorResponse);
-        const channels = await subscriptionActions.retrieveSubscriptionChannels(userIdWithSubscriptions, adminUserId);
-        expect(channels).toStrictEqual([]);
-    });
-});
-
-describe('delete location subscription', () => {
-    beforeEach(() => {
-        deleteStub
-            .withArgs('/subscription/location/1', {
-                headers: { 'x-requester-id': adminUserId },
-            })
-            .resolves({ data: 'success' });
-        deleteStub
-            .withArgs('/subscription/location/2', {
-                headers: { 'x-requester-id': adminUserId },
-            })
-            .rejects(errorResponse);
-        deleteStub
-            .withArgs('/subscription/location/4', {
-                headers: { 'x-requester-id': adminUserId },
-            })
-            .rejects(errorMessage);
-    });
-    it('should delete the court subscription', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(1, adminUserId)).toStrictEqual(deletionResponse);
-    });
-
-    it('should return null if response fails', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(2, adminUserId)).toBe(null);
-    });
-
-    it('should return null if request fails', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(3, adminUserId)).toBe(null);
-    });
-
-    it('should return null if request fails', async () => {
-        expect(await subscriptionActions.deleteLocationSubscription(4, adminUserId)).toBe(null);
-    });
-});
-
-describe('fulfill subscriptions', () => {
-    it('should return success message if call is successful', async () => {
-        postStub.withArgs('/subscription/artefact-recipients').resolves({ data: 'success' });
-        const data = await subscriptionActions.fulfillSubscriptions({});
-        expect(data).toBe('success');
-    });
-
-    it('should return null for failure', async () => {
-        postStub.withArgs('/subscription/artefact-recipients').rejects(errorMessage);
-        const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
-        expect(subscriptionUpdated).toBe(null);
-    });
-
-    it('should return null for error response', async () => {
-        postStub.withArgs('/subscription/artefact-recipients').rejects(errorResponse);
-        const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
-        expect(subscriptionUpdated).toBe(null);
-    });
-});
