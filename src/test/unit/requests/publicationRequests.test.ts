@@ -332,12 +332,15 @@ describe('List search config', () => {
         });
 
         it('should return list search config by list type', async () => {
-            expect(await publicationRequests.getListSearchConfigByListType('CIVIL_DAILY_CAUSE_LIST', adminUserId))
-                .toStrictEqual(listSearchConfig);
+            expect(
+                await publicationRequests.getListSearchConfigByListType('CIVIL_DAILY_CAUSE_LIST', adminUserId)
+            ).toStrictEqual(listSearchConfig);
         });
 
         it('should return null if response fails ', async () => {
-            expect(await publicationRequests.getListSearchConfigByListType('MAGISTRATES_PUBLIC_LIST', adminUserId)).toBe(null);
+            expect(
+                await publicationRequests.getListSearchConfigByListType('MAGISTRATES_PUBLIC_LIST', adminUserId)
+            ).toBe(null);
         });
 
         it('should return null if call fails', async () => {
@@ -364,18 +367,27 @@ describe('List search config', () => {
 
     describe('Update list search config', () => {
         it('should update location metadata', async () => {
-            dataManagementPutStub.withArgs(`/publication/search/config/${listSearchConfigId}`).withArgs(listSearchConfig).resolves(true);
-            expect(await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)).toBe(true);
+            dataManagementPutStub
+                .withArgs(`/publication/search/config/${listSearchConfigId}`)
+                .withArgs(listSearchConfig)
+                .resolves(true);
+            expect(
+                await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)
+            ).toBe(true);
         });
 
         it('should return null if response fails ', async () => {
             dataManagementPutStub.withArgs(`/publication/search/config/${listSearchConfigId}`).rejects(errorResponse);
-            expect(await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)).toBe(false);
+            expect(
+                await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)
+            ).toBe(false);
         });
 
         it('should return null if call fails', async () => {
             dataManagementPutStub.withArgs(`/publication/search/config/${listSearchConfigId}`).rejects(errorMessage);
-            expect(await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)).toBe(false);
+            expect(
+                await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)
+            ).toBe(false);
         });
     });
 });

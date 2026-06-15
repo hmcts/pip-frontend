@@ -20,8 +20,18 @@ sinon.stub(PublicationService.prototype, 'getListSearchConfigByListType').resolv
 sinon.stub(PublicationService.prototype, 'getListTypes').returns(
     new Map([
         ['SJP_PUBLIC_LIST', { friendlyName: 'SJP Public List', isHidden: false }],
-        ['FAMILY_DAILY_CAUSE_LIST', { friendlyName: 'Family Daily Cause List', isHidden: true, url: 'family-daily-cause-list' }],
-        ['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST', { friendlyName: 'Civil and Family Daily Cause List', isHidden: true, url: 'civil-and-family-daily-cause-list' }],
+        [
+            'FAMILY_DAILY_CAUSE_LIST',
+            { friendlyName: 'Family Daily Cause List', isHidden: true, url: 'family-daily-cause-list' },
+        ],
+        [
+            'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            {
+                friendlyName: 'Civil and Family Daily Cause List',
+                isHidden: true,
+                url: 'civil-and-family-daily-cause-list',
+            },
+        ],
     ]) as any
 );
 
@@ -40,7 +50,10 @@ describe('Edit list type search config page', () => {
 
         it('should display the correct header', () => {
             const heading = htmlRes.getElementsByClassName(headingClass);
-            expect(heading[0].innerHTML).contains('Configure list type search fields for SJP Public List', 'Header does not match');
+            expect(heading[0].innerHTML).contains(
+                'Configure list type search fields for SJP Public List',
+                'Header does not match'
+            );
         });
 
         it('should display the case number field label', () => {
@@ -65,7 +78,10 @@ describe('Edit list type search config page', () => {
 
         it('should have the correct form action', () => {
             const form = htmlRes.getElementsByTagName('form')[0];
-            expect(form.getAttribute('action')).to.equal('edit-list-type-search-config?listType=SJP_PUBLIC_LIST', 'Form action does not match');
+            expect(form.getAttribute('action')).to.equal(
+                'edit-list-type-search-config?listType=SJP_PUBLIC_LIST',
+                'Form action does not match'
+            );
         });
 
         it('should not display error summary', () => {

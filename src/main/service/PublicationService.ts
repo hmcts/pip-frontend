@@ -201,7 +201,8 @@ export class PublicationService {
                 formData.caseNumberFieldName,
                 formData.caseNameFieldName
             ),
-            userId);
+            userId
+        );
     }
 
     public async updateListSearchConfig(id: string, formData, userId: string): Promise<any> {
@@ -213,15 +214,21 @@ export class PublicationService {
                 formData.caseNumberFieldName,
                 formData.caseNameFieldName
             ),
-            userId);
+            userId
+        );
     }
 
-    private createListSearchConfigPayload(id: string, listType: string, caseNumberFieldName: string, caseNameFieldName: string): any {
+    private createListSearchConfigPayload(
+        id: string,
+        listType: string,
+        caseNumberFieldName: string,
+        caseNameFieldName: string
+    ): any {
         return {
             id,
             listType,
             caseNumberFieldName,
             caseNameFieldName,
-        }
+        };
     }
 }

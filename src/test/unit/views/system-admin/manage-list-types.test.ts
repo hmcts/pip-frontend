@@ -20,8 +20,18 @@ describe('Manage list types', () => {
         new Map([
             ['SJP_PUBLIC_LIST', { friendlyName: 'SJP Public List', isHidden: false }],
             ['CIVIL_DAILY_CAUSE_LIST', { friendlyName: 'Civil Daily Cause List', isHidden: false }],
-            ['FAMILY_DAILY_CAUSE_LIST', { friendlyName: 'Family Daily Cause List', isHidden: true, url: 'family-daily-cause-list' }],
-            ['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST', { friendlyName: 'Civil and Family Daily Cause List', isHidden: true, url: 'civil-and-family-daily-cause-list' }],
+            [
+                'FAMILY_DAILY_CAUSE_LIST',
+                { friendlyName: 'Family Daily Cause List', isHidden: true, url: 'family-daily-cause-list' },
+            ],
+            [
+                'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+                {
+                    friendlyName: 'Civil and Family Daily Cause List',
+                    isHidden: true,
+                    url: 'civil-and-family-daily-cause-list',
+                },
+            ],
         ]) as any
     );
 
@@ -70,7 +80,6 @@ describe('Manage list types', () => {
     it('row two should display the correct list type name', () => {
         const cells = htmlRes.getElementsByClassName(cellClass);
         expect(cells[2].innerHTML).contains('SJP Public List', 'Row one list type name is incorrect');
-
     });
 
     it('row two should display the manage link with correct href', () => {

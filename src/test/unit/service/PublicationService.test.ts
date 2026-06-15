@@ -318,29 +318,15 @@ describe('Publication service', () => {
         });
 
         it('should create list search config if request successful', async () => {
-            expect(
-                await publicationService.createListSearchConfig(
-                    listSearchConfig, requesterId
-                )
-            ).is.true;
-            expect(
-                await publicationService.createListSearchConfig(
-                    listSearchConfig, requesterId2
-                )
-            ).is.false;
+            expect(await publicationService.createListSearchConfig(listSearchConfig, requesterId)).is.true;
+            expect(await publicationService.createListSearchConfig(listSearchConfig, requesterId2)).is.false;
         });
 
         it('should update list search config if request successful', async () => {
-            expect(
-                await publicationService.updateListSearchConfig(
-                    listSearchConfigId, listSearchConfig, requesterId
-                )
-            ).is.true;
-            expect(
-                await publicationService.updateListSearchConfig(
-                    listSearchConfigId, listSearchConfig, requesterId2
-                )
-            ).is.false;
+            expect(await publicationService.updateListSearchConfig(listSearchConfigId, listSearchConfig, requesterId))
+                .is.true;
+            expect(await publicationService.updateListSearchConfig(listSearchConfigId, listSearchConfig, requesterId2))
+                .is.false;
         });
     });
 });

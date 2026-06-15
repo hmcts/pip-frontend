@@ -29,13 +29,17 @@ describe('Edit List Type Search Config Success Page', () => {
 
     it('should display what do you want to do next paragraph', () => {
         const paragraphs = htmlRes.getElementsByClassName('govuk-body');
-        const nextMessageParagraph = Array.from(paragraphs).find(p => p.innerHTML.includes('What do you want to do next?'));
+        const nextMessageParagraph = Array.from(paragraphs).find(p =>
+            p.innerHTML.includes('What do you want to do next?')
+        );
         expect(nextMessageParagraph).to.exist;
     });
 
     it('should display manage list types link with correct href', () => {
         const links = htmlRes.getElementsByClassName('govuk-link ');
-        const manageLink = Array.from(links).find(l => l.innerHTML.includes('Manage another list type search configuration'));
+        const manageLink = Array.from(links).find(l =>
+            l.innerHTML.includes('Manage another list type search configuration')
+        );
         expect(manageLink).to.exist;
         expect(manageLink?.getAttribute('href')).to.equal('manage-list-types');
     });

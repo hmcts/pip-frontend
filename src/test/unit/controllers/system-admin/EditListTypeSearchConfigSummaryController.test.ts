@@ -63,11 +63,14 @@ describe('Edit List Type Search Config Summary Controller', () => {
             request['cookies'] = { listSearchConfigCookie: JSON.stringify(formDataCreate) };
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config-summary', {
-                ...cloneDeep(i18n['edit-list-type-search-config-summary']),
-                formData: formDataCreate,
-                displayError: false,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config-summary', {
+                    ...cloneDeep(i18n['edit-list-type-search-config-summary']),
+                    formData: formDataCreate,
+                    displayError: false,
+                });
 
             controller.get(request, response);
             responseMock.verify();
@@ -79,11 +82,14 @@ describe('Edit List Type Search Config Summary Controller', () => {
             request['cookies'] = {};
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config-summary', {
-                ...cloneDeep(i18n['edit-list-type-search-config-summary']),
-                formData: {},
-                displayError: false,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config-summary', {
+                    ...cloneDeep(i18n['edit-list-type-search-config-summary']),
+                    formData: {},
+                    displayError: false,
+                });
 
             controller.get(request, response);
             responseMock.verify();
@@ -148,11 +154,14 @@ describe('Edit List Type Search Config Summary Controller', () => {
             createListSearchConfigStub.resolves(null);
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config-summary', {
-                ...cloneDeep(i18n['edit-list-type-search-config-summary']),
-                formData: formDataCreate,
-                displayError: true,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config-summary', {
+                    ...cloneDeep(i18n['edit-list-type-search-config-summary']),
+                    formData: formDataCreate,
+                    displayError: true,
+                });
 
             await controller.post(request, response);
 
@@ -169,11 +178,14 @@ describe('Edit List Type Search Config Summary Controller', () => {
             updateListSearchConfigStub.resolves(null);
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config-summary', {
-                ...cloneDeep(i18n['edit-list-type-search-config-summary']),
-                formData: formDataUpdate,
-                displayError: true,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config-summary', {
+                    ...cloneDeep(i18n['edit-list-type-search-config-summary']),
+                    formData: formDataUpdate,
+                    displayError: true,
+                });
 
             await controller.post(request, response);
 
@@ -190,11 +202,14 @@ describe('Edit List Type Search Config Summary Controller', () => {
             updateListSearchConfigStub.resolves(null);
 
             const responseMock = sinon.mock(response);
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config-summary', {
-                ...cloneDeep(i18n['edit-list-type-search-config-summary']),
-                formData: {},
-                displayError: true,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config-summary', {
+                    ...cloneDeep(i18n['edit-list-type-search-config-summary']),
+                    formData: {},
+                    displayError: true,
+                });
 
             await controller.post(request, response);
             responseMock.verify();

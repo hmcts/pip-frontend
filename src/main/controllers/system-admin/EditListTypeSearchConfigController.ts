@@ -24,7 +24,7 @@ export default class EditListTypeSearchConfigController {
                 listType,
                 listTypeName: publicationService.getListTypes().get(listType).friendlyName,
                 formData,
-                emptyConfigError: false
+                emptyConfigError: false,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

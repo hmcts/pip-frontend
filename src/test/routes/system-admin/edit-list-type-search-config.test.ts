@@ -14,8 +14,18 @@ sinon.stub(PublicationService.prototype, 'getListSearchConfigByListType').resolv
 sinon.stub(PublicationService.prototype, 'getListTypes').returns(
     new Map([
         ['SJP_PUBLIC_LIST', { friendlyName: 'SJP Public List', isHidden: false }],
-        ['FAMILY_DAILY_CAUSE_LIST', { friendlyName: 'Family Daily Cause List', isHidden: true, url: 'family-daily-cause-list' }],
-        ['CIVIL_AND_FAMILY_DAILY_CAUSE_LIST', { friendlyName: 'Civil and Family Daily Cause List', isHidden: true, url: 'civil-and-family-daily-cause-list' }],
+        [
+            'FAMILY_DAILY_CAUSE_LIST',
+            { friendlyName: 'Family Daily Cause List', isHidden: true, url: 'family-daily-cause-list' },
+        ],
+        [
+            'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
+            {
+                friendlyName: 'Civil and Family Daily Cause List',
+                isHidden: true,
+                url: 'civil-and-family-daily-cause-list',
+            },
+        ],
     ]) as any
 );
 

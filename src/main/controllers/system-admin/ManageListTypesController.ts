@@ -15,10 +15,10 @@ export default class ManageListTypesController {
                     name: value.friendlyName,
                 });
             }
-        })
-        listTypes.sort((a, b) => a.name.localeCompare(b.name))
+        });
+        listTypes.sort((a, b) => a.name.localeCompare(b.name));
 
-        res.render('system-admin/manage-list-types',  {
+        res.render('system-admin/manage-list-types', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manage-list-types']),
             listTypes,
         });

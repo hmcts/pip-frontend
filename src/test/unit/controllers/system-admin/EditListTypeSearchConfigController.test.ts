@@ -46,13 +46,16 @@ describe('Edit List Type Search Config Controller', () => {
             request['query'] = { listType: listTypeWithConfig };
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config', {
-                ...cloneDeep(i18n['edit-list-type-search-config']),
-                listType: listTypeWithConfig,
-                listTypeName: 'SJP Public List',
-                formData: existingFormData,
-                emptyConfigError: false,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config', {
+                    ...cloneDeep(i18n['edit-list-type-search-config']),
+                    listType: listTypeWithConfig,
+                    listTypeName: 'SJP Public List',
+                    formData: existingFormData,
+                    emptyConfigError: false,
+                });
 
             await editListTypeSearchConfigController.get(request, response);
             responseMock.verify();
@@ -65,20 +68,27 @@ describe('Edit List Type Search Config Controller', () => {
             request['query'] = { listType: listTypeWithoutConfig };
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config', {
-                ...cloneDeep(i18n['edit-list-type-search-config']),
-                listType: listTypeWithoutConfig,
-                listTypeName: 'Civil Daily Cause List',
-                formData: { createConfig: 'true' },
-                emptyConfigError: false,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config', {
+                    ...cloneDeep(i18n['edit-list-type-search-config']),
+                    listType: listTypeWithoutConfig,
+                    listTypeName: 'Civil Daily Cause List',
+                    formData: { createConfig: 'true' },
+                    emptyConfigError: false,
+                });
 
             await editListTypeSearchConfigController.get(request, response);
             responseMock.verify();
         });
 
         it('should render edit page with cookie data when no existing config and cookie matches list type', async () => {
-            const cookieFormData = { listType: listTypeWithoutConfig, caseNumberFieldName: 'modifiedNumber', caseNameFieldName: 'modifiedName' };
+            const cookieFormData = {
+                listType: listTypeWithoutConfig,
+                caseNumberFieldName: 'modifiedNumber',
+                caseNameFieldName: 'modifiedName',
+            };
             const response = createResponse();
             const request = mockRequest(i18n);
             request.user = { userId: '1' };
@@ -86,20 +96,27 @@ describe('Edit List Type Search Config Controller', () => {
             request['cookies'] = { listSearchConfigCookie: JSON.stringify(cookieFormData) };
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config', {
-                ...cloneDeep(i18n['edit-list-type-search-config']),
-                listType: listTypeWithoutConfig,
-                listTypeName: 'Civil Daily Cause List',
-                formData: cookieFormData,
-                emptyConfigError: false,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config', {
+                    ...cloneDeep(i18n['edit-list-type-search-config']),
+                    listType: listTypeWithoutConfig,
+                    listTypeName: 'Civil Daily Cause List',
+                    formData: cookieFormData,
+                    emptyConfigError: false,
+                });
 
             await editListTypeSearchConfigController.get(request, response);
             responseMock.verify();
         });
 
         it('should render edit page with existing config from database and ignore cookie when existing config exists', async () => {
-            const cookieFormData = { listType: listTypeWithConfig, caseNumberFieldName: 'modifiedNumber', caseNameFieldName: 'modifiedName' };
+            const cookieFormData = {
+                listType: listTypeWithConfig,
+                caseNumberFieldName: 'modifiedNumber',
+                caseNameFieldName: 'modifiedName',
+            };
             const response = createResponse();
             const request = mockRequest(i18n);
             request.user = { userId: '1' };
@@ -107,13 +124,16 @@ describe('Edit List Type Search Config Controller', () => {
             request['cookies'] = { listSearchConfigCookie: JSON.stringify(cookieFormData) };
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config', {
-                ...cloneDeep(i18n['edit-list-type-search-config']),
-                listType: listTypeWithConfig,
-                listTypeName: 'SJP Public List',
-                formData: existingFormData,
-                emptyConfigError: false,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config', {
+                    ...cloneDeep(i18n['edit-list-type-search-config']),
+                    listType: listTypeWithConfig,
+                    listTypeName: 'SJP Public List',
+                    formData: existingFormData,
+                    emptyConfigError: false,
+                });
 
             await editListTypeSearchConfigController.get(request, response);
             responseMock.verify();
@@ -140,13 +160,16 @@ describe('Edit List Type Search Config Controller', () => {
             request['body'] = { createConfig: 'true', caseNumberFieldName: '', caseNameFieldName: '' };
             const responseMock = sinon.mock(response);
 
-            responseMock.expects('render').once().withArgs('system-admin/edit-list-type-search-config', {
-                ...cloneDeep(i18n['edit-list-type-search-config']),
-                listType: listTypeWithoutConfig,
-                listTypeName: 'Civil Daily Cause List',
-                formData: request['body'],
-                emptyConfigError: true,
-            });
+            responseMock
+                .expects('render')
+                .once()
+                .withArgs('system-admin/edit-list-type-search-config', {
+                    ...cloneDeep(i18n['edit-list-type-search-config']),
+                    listType: listTypeWithoutConfig,
+                    listTypeName: 'Civil Daily Cause List',
+                    formData: request['body'],
+                    emptyConfigError: true,
+                });
 
             editListTypeSearchConfigController.post(request, response);
             responseMock.verify();

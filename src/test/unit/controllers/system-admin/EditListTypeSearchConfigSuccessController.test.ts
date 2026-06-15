@@ -22,7 +22,10 @@ describe('Edit List Type Search Config Success Controller', () => {
         responseMock
             .expects('render')
             .once()
-            .withArgs('system-admin/edit-list-type-search-config-success', i18n['edit-list-type-search-config-success']);
+            .withArgs(
+                'system-admin/edit-list-type-search-config-success',
+                i18n['edit-list-type-search-config-success']
+            );
 
         editListTypeSearchConfigSuccessController.get(request, response);
         responseMock.verify();

@@ -9,9 +9,7 @@ const userManagementService = new UserManagementService();
 
 export default class EditListTypeSearchConfigSummaryController {
     public get(req: PipRequest, res: Response): void {
-        const formData = req.cookies?.listSearchConfigCookie
-            ? JSON.parse(req.cookies['listSearchConfigCookie'])
-            : {};
+        const formData = req.cookies?.listSearchConfigCookie ? JSON.parse(req.cookies['listSearchConfigCookie']) : {};
 
         res.render('system-admin/edit-list-type-search-config-summary', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['edit-list-type-search-config-summary']),
@@ -21,9 +19,7 @@ export default class EditListTypeSearchConfigSummaryController {
     }
 
     public async post(req: PipRequest, res: Response): Promise<void> {
-        const formData = req.cookies?.listSearchConfigCookie
-            ? JSON.parse(req.cookies['listSearchConfigCookie'])
-            : {};
+        const formData = req.cookies?.listSearchConfigCookie ? JSON.parse(req.cookies['listSearchConfigCookie']) : {};
 
         const requesterId = req.user?.['userId'];
 
@@ -35,7 +31,9 @@ export default class EditListTypeSearchConfigSummaryController {
             await userManagementService.auditAction(
                 req.user,
                 formData.createConfig ? 'CREATE_LIST_SEARCH_CONFIG' : 'UPDATE_LIST_SEARCH_CONFIG',
-                formData.createConfig ? 'List search configuration created successfully' : 'List search configuration updated successfully',
+                formData.createConfig
+                    ? 'List search configuration created successfully'
+                    : 'List search configuration updated successfully'
             );
             res.clearCookie('listSearchConfigCookie');
             res.redirect('/edit-list-type-search-config-success');

@@ -32,13 +32,16 @@ describe('Manage List Types Controller', () => {
         sinon.stub(PublicationService.prototype, 'getListTypes').returns(listTypeMap as any);
 
         const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('system-admin/manage-list-types', {
-            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-list-types']),
-            listTypes: [
-                { id: 'FAMILY_DAILY_CAUSE_LIST', name: 'Family Daily Cause List' },
-                { id: 'SJP_PUBLIC_LIST', name: 'SJP Public List' },
-            ],
-        });
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/manage-list-types', {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-list-types']),
+                listTypes: [
+                    { id: 'FAMILY_DAILY_CAUSE_LIST', name: 'Family Daily Cause List' },
+                    { id: 'SJP_PUBLIC_LIST', name: 'SJP Public List' },
+                ],
+            });
 
         manageListTypesController.get(request, response);
         responseMock.verify();
@@ -48,10 +51,13 @@ describe('Manage List Types Controller', () => {
         sinon.stub(PublicationService.prototype, 'getListTypes').returns(new Map() as any);
 
         const responseMock = sinon.mock(response);
-        responseMock.expects('render').once().withArgs('system-admin/manage-list-types', {
-            ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-list-types']),
-            listTypes: [],
-        });
+        responseMock
+            .expects('render')
+            .once()
+            .withArgs('system-admin/manage-list-types', {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manage-list-types']),
+                listTypes: [],
+            });
 
         manageListTypesController.get(request, response);
         responseMock.verify();
