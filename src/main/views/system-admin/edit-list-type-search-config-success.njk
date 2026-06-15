@@ -1,0 +1,20 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import successPanel %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+    {{ successPanel(panelHeading, panelBodyMessage) }}
+    <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-top-6">{{ nextMessage }}</p>
+    <p class="govuk-body govuk-!-margin-0 govuk-!-font-weight-bold"><a class="govuk-link " href="manage-list-types">{{ manageListTypes }}</a></p>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ super() }}
+{% endblock %}

@@ -41,7 +41,8 @@ const deletionResponse = 'success';
 const adminUserId = '1234';
 
 const dataManagementStub = sinon.stub(dataManagementApi, 'get');
-const dataManagementArchiveStub = sinon.stub(dataManagementApi, 'put');
+const dataManagementPostStub = sinon.stub(dataManagementApi, 'post');
+const dataManagementPutStub = sinon.stub(dataManagementApi, 'put');
 const dataManagementDeleteStub = sinon.stub(dataManagementApi, 'delete');
 dataManagementStub.withArgs('/publication/locationId/valid').resolves(successResponse);
 
@@ -57,9 +58,9 @@ dataManagementStub.withArgs('/publication/abc1').rejects(errorResponse);
 dataManagementStub.withArgs('/publication/abc2').rejects(errorMessage);
 dataManagementStub.withArgs('/publication/' + artefactId).resolves({ data: metaData });
 
-dataManagementArchiveStub.withArgs('/publication/abc1/archive').rejects(errorResponse);
-dataManagementArchiveStub.withArgs('/publication/abc2/archive').rejects(errorMessage);
-dataManagementArchiveStub.withArgs('/publication/abc/archive').resolves(true);
+dataManagementPutStub.withArgs('/publication/abc1/archive').rejects(errorResponse);
+dataManagementPutStub.withArgs('/publication/abc2/archive').rejects(errorMessage);
+dataManagementPutStub.withArgs('/publication/abc/archive').resolves(true);
 
 describe('getIndividualPubJson()', () => {
     it('should return publication json', async () => {
@@ -309,5 +310,72 @@ describe('delete location publication', () => {
 
     it('should return null if request fails', async () => {
         expect(await publicationRequests.deleteLocationPublication(4, adminUserId)).toBe(null);
+    });
+});
+
+describe('List search config', () => {
+    const listSearchConfigId = '123-456';
+    const listSearchConfig = {
+        id: listSearchConfigId,
+        listType: 'CIVIL_DAILY_CAUSE_LIST',
+        caseNumberFieldName: 'caseNumber',
+        caseNameFieldName: 'caseName',
+    };
+
+    describe('Get list search config by list type', () => {
+        beforeEach(() => {
+            dataManagementStub.withArgs('/publication/search/config/CIVIL_DAILY_CAUSE_LIST').resolves({
+                data: listSearchConfig,
+            });
+            dataManagementStub.withArgs('/publication/search/config/MAGISTRATES_PUBLIC_LIST').rejects(errorResponse);
+            dataManagementStub.withArgs('/publication/search/config/SJP_PUBLIC_LIST').rejects(errorMessage);
+        });
+
+        it('should return list search config by list type', async () => {
+            expect(await publicationRequests.getListSearchConfigByListType('CIVIL_DAILY_CAUSE_LIST', adminUserId))
+                .toStrictEqual(listSearchConfig);
+        });
+
+        it('should return null if response fails ', async () => {
+            expect(await publicationRequests.getListSearchConfigByListType('MAGISTRATES_PUBLIC_LIST', adminUserId)).toBe(null);
+        });
+
+        it('should return null if call fails', async () => {
+            expect(await publicationRequests.getListSearchConfigByListType('SJP_PUBLIC_LIST', adminUserId)).toBe(null);
+        });
+    });
+
+    describe('Create list search config', () => {
+        it('should add location metadata', async () => {
+            dataManagementPostStub.withArgs('/publication/search/config').withArgs(listSearchConfig).resolves(true);
+            expect(await publicationRequests.createListSearchConfig(listSearchConfig, adminUserId)).toBe(true);
+        });
+
+        it('should return null if response fails ', async () => {
+            dataManagementPostStub.withArgs('/publication/search/config').rejects(errorResponse);
+            expect(await publicationRequests.createListSearchConfig(listSearchConfig, adminUserId)).toBe(false);
+        });
+
+        it('should return null if call fails', async () => {
+            dataManagementPostStub.withArgs('/publication/search/config').rejects(errorMessage);
+            expect(await publicationRequests.createListSearchConfig(listSearchConfig, adminUserId)).toBe(false);
+        });
+    });
+
+    describe('Update list search config', () => {
+        it('should update location metadata', async () => {
+            dataManagementPutStub.withArgs(`/publication/search/config/${listSearchConfigId}`).withArgs(listSearchConfig).resolves(true);
+            expect(await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)).toBe(true);
+        });
+
+        it('should return null if response fails ', async () => {
+            dataManagementPutStub.withArgs(`/publication/search/config/${listSearchConfigId}`).rejects(errorResponse);
+            expect(await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)).toBe(false);
+        });
+
+        it('should return null if call fails', async () => {
+            dataManagementPutStub.withArgs(`/publication/search/config/${listSearchConfigId}`).rejects(errorMessage);
+            expect(await publicationRequests.updateListSearchConfig(listSearchConfigId, listSearchConfig, adminUserId)).toBe(false);
+        });
     });
 });

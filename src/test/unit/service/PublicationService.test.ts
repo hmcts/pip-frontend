@@ -122,6 +122,10 @@ stubPublicationDeletion.withArgs(2, adminUserId).returns(null);
 
 sinon.stub(PublicationRequests.prototype, 'getNoMatchPublications').resolves('{"item":"listOfPubs"}');
 
+const stubGetListSearchConfig = sinon.stub(PublicationRequests.prototype, 'getListSearchConfigByListType');
+const stubCreateListSearchConfig = sinon.stub(PublicationRequests.prototype, 'createListSearchConfig');
+const stubUpdateListSearchConfig = sinon.stub(PublicationRequests.prototype, 'updateListSearchConfig');
+
 describe('Publication service', () => {
     it('should return array of Search Objects based on partial case name', async () => {
         const results = await publicationService.getCasesByCaseName(partialCaseNameValue, userId);
@@ -270,6 +274,73 @@ describe('Publication service', () => {
 
         it('return blank string where there is no match', () => {
             expect(publicationService.getDefaultSensitivity('UNKNOWN_LIST_TYPE')).to.equal('');
+        });
+    });
+
+    describe('List search config', () => {
+        const listType = 'CIVIL_DAILY_CAUSE_LIST';
+        const listSearchConfigId = '123-456';
+        const listSearchConfig = {
+            id: listSearchConfigId,
+            listType: listType,
+            caseNumberFieldName: 'caseNumber',
+            caseNameFieldName: 'caseName',
+        };
+
+        const listSearchConfigForCreateRequest = {
+            id: '',
+            listType: listType,
+            caseNumberFieldName: 'caseNumber',
+            caseNameFieldName: 'caseName',
+        };
+
+        const requesterId = '1';
+        const requesterId2 = '2';
+
+        stubGetListSearchConfig.withArgs(listType, requesterId).returns(listSearchConfig);
+        stubGetListSearchConfig.withArgs(listType, requesterId2).returns(null);
+
+        stubCreateListSearchConfig.withArgs(listSearchConfigForCreateRequest, requesterId).returns(true);
+        stubCreateListSearchConfig.withArgs(listSearchConfigForCreateRequest, requesterId2).returns(false);
+
+        stubUpdateListSearchConfig.withArgs(listSearchConfigId, listSearchConfig, requesterId).returns(true);
+        stubUpdateListSearchConfig.withArgs(listSearchConfigId, listSearchConfig, requesterId2).returns(false);
+
+        it('should return list search config if exists', async () => {
+            let result = await publicationService.getListSearchConfigByListType(listType, requesterId);
+            expect(result).is.not.empty;
+            expect(result.listType).to.equal(listType);
+            expect(result.caseNumberFieldName).to.equal('caseNumber');
+            expect(result.caseNameFieldName).to.equal('caseName');
+
+            result = await publicationService.getListSearchConfigByListType(listType, requesterId2);
+            expect(result).is.null;
+        });
+
+        it('should create list search config if request successful', async () => {
+            expect(
+                await publicationService.createListSearchConfig(
+                    listSearchConfig, requesterId
+                )
+            ).is.true;
+            expect(
+                await publicationService.createListSearchConfig(
+                    listSearchConfig, requesterId2
+                )
+            ).is.false;
+        });
+
+        it('should update list search config if request successful', async () => {
+            expect(
+                await publicationService.updateListSearchConfig(
+                    listSearchConfigId, listSearchConfig, requesterId
+                )
+            ).is.true;
+            expect(
+                await publicationService.updateListSearchConfig(
+                    listSearchConfigId, listSearchConfig, requesterId2
+                )
+            ).is.false;
         });
     });
 });

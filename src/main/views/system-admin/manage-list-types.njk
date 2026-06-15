@@ -1,0 +1,39 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, backButtonHistory %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    <h1 class="govuk-heading-l">{{ header }}</h1>
+
+    <table class="govuk-table">
+        <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">{{ listTypeNameHeading }}</th>
+            <th scope="col" class="govuk-table__header"></th>
+        </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+        {% for listType in listTypes %}
+            <tr class="govuk-table__row">
+                <td class="govuk-table__cell">{{ listType.name }}</td>
+                <td class="govuk-table__cell govuk-table__cell--numeric">
+                    <a href="edit-list-type-search-config?listType={{listType.id}}" class="govuk-link">{{ actionText }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
+    {{ super() }}
+{% endblock %}

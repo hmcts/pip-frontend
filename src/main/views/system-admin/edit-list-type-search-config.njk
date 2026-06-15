@@ -1,0 +1,73 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, backButtonHistory, submitButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    {% if emptyConfigError %}
+        {{ govukErrorSummary({
+            titleText: error.title,
+            errorList: [
+                {
+                    text: error.emptyConfigMessage,
+                    href: "#"
+                }
+            ]
+        }) }}
+    {% endif %}
+
+    <h1 class="govuk-heading-l">{{ header }} {{ listTypeName }}</h1>
+    <p class="govuk-body">{{ message }}</p>
+    <form method="post" action="edit-list-type-search-config?listType={{ listType }}" novalidate>
+        <div class="govuk-form-group govuk-!-width-one-half">
+            {{ govukInput({
+                id: "caseNumberFieldName",
+                name: "caseNumberFieldName",
+                type: "text",
+                label: {
+                    text: caseNumberFieldLabel
+                },
+                value: formData.caseNumberFieldName
+            }) }}
+
+            {{ govukInput({
+                id: "caseNameFieldName",
+                name: "caseNameFieldName",
+                type: "text",
+                label: {
+                    text: caseNameFieldLabel
+                },
+                value: formData.caseNameFieldName
+            }) }}
+
+            {{ govukInput({
+                id: "createConfig",
+                name: "createConfig",
+                type: "hidden",
+                value: formData.createConfig
+            }) }}
+
+            {{ govukInput({
+                id: "id",
+                name: "id",
+                type: "hidden",
+                value: formData.id
+            }) }}
+        </div>
+        {{ submitButton() }}
+    </form>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
+    {{ super() }}
+{% endblock %}
