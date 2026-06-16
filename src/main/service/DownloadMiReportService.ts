@@ -14,34 +14,67 @@ export interface GeneratedCsvFile {
 
 const allTimeReportDurationLabel = 'all_time';
 export class DownloadMiReportService {
-    public async generatePublicationMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile> {
+    public async generatePublicationMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile | null> {
         const returnedData = await publicationRequests.getMiPublicationData(reportDuration);
+
+        if (returnedData == null) {
+            return null;
+        }
+
         return this.buildGeneratedCsvFile(returnedData, reportType, reportDuration.toString());
     }
 
-    public async generateUserAccountsMiData(reportType: string): Promise<GeneratedCsvFile> {
+    public async generateUserAccountsMiData(reportType: string): Promise<GeneratedCsvFile | null> {
         const returnedData = await accountManagementRequests.getMiAccountsData();
+
+        if (returnedData == null) {
+            return null;
+        }
+
         return this.buildGeneratedCsvFile(returnedData, reportType, allTimeReportDurationLabel);
     }
 
-    public async generateAllSubscriptionsMiData(reportType: string): Promise<GeneratedCsvFile> {
+    public async generateAllSubscriptionsMiData(reportType: string): Promise<GeneratedCsvFile | null> {
         const returnedData = await subscriptionRequests.getMiAllSubscriptionsData();
+
+        if (returnedData == null) {
+            return null;
+        }
+
         return this.buildGeneratedCsvFile(returnedData, reportType, allTimeReportDurationLabel);
     }
 
-    public async generateLocationSubscriptionsMiData(reportType: string): Promise<GeneratedCsvFile> {
+    public async generateLocationSubscriptionsMiData(reportType: string): Promise<GeneratedCsvFile | null> {
         const returnedData = await subscriptionRequests.getMiLocationSubscriptionsData();
+
+        if (returnedData == null) {
+            return null;
+        }
+
         return this.buildGeneratedCsvFile(returnedData, reportType, allTimeReportDurationLabel);
     }
 
-    public async generateAllDataMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile> {
-        const publications = await publicationRequests.getMiPublicationData(reportDuration);
+    public async generateAllDataMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile | null> {
+        const [
+            publications,
+            accounts,
+            allSubscriptions,
+            locationSubscriptions,
+        ] = await Promise.all([
+            publicationRequests.getMiPublicationData(reportDuration),
+            accountManagementRequests.getMiAccountsData(),
+            subscriptionRequests.getMiAllSubscriptionsData(),
+            subscriptionRequests.getMiLocationSubscriptionsData(),
+        ]);
 
-        const accounts = await accountManagementRequests.getMiAccountsData();
-
-        const allSubscriptions = await subscriptionRequests.getMiAllSubscriptionsData();
-
-        const locationSubscriptions = await subscriptionRequests.getMiLocationSubscriptionsData();
+        if (
+            publications == null ||
+            accounts == null ||
+            allSubscriptions == null ||
+            locationSubscriptions == null
+        ) {
+            return null;
+        }
 
         const workbook = new ExcelJS.Workbook();
 

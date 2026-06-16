@@ -1,0 +1,55 @@
+{
+    "title": "Download MI Report - Download User accounts, Publication, Location subscriptions and All subscription data - Court and Tribunal Hearings - GOV.UK",
+    "header": "Download MI Report",
+    "description": "Report duration applies only to the Publications report. All other reports will include data from the beginning.",
+    "form": {
+        "reportDurationText": "Select report duration",
+        "reportDuration": [
+            {
+                "text": "Last 7 days",
+                "value": "7"
+            },
+            {
+                "text": "Last 14 days",
+                "value": "14"
+            },
+            {
+                "text": "Last 21 days",
+                "value": "21"
+            },
+            {
+                "text": "Last 30 days",
+                "value": "30"
+            },
+            {
+                "text": "From beginning",
+                "value": "-1"
+            }
+        ],
+        "reportTypeText": "Select report type",
+        "reportType": [
+            {
+                "text": "User accounts",
+                "value": "USER_ACCOUNTS"
+            },
+            {
+                "text": "Publications",
+                "value": "PUBLICATIONS"
+            },
+            {
+                "text": "Location subscriptions",
+                "value": "LOCATION_SUBSCRIPTIONS"
+            },
+            {
+                "text": "All subscriptions",
+                "value": "ALL_SUBSCRIPTIONS"
+            },
+            {
+                "text": "All data",
+                "value": "ALL_DATA"
+            }
+        ],
+        "downloadButton": "Download"
+    },
+    "backButton": "Back"
+}

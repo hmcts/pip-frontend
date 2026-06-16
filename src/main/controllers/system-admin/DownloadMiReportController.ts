@@ -39,6 +39,13 @@ export default class DownloadMiReportController {
             }
         }
 
+        if (result == null) {
+            return res.render(
+                'error',
+                req.i18n.getDataByLanguage(req.lng).error
+            );
+        }
+
         // Convert JSON string to byte array
         res.set('Content-Disposition', `attachment; filename=${result.fileName}`);
         res.set('Content-Type', 'text/csv; charset=utf-8');

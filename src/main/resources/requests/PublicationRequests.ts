@@ -145,7 +145,10 @@ export class PublicationRequests {
 
     public async getMiPublicationData(days: number): Promise<object> {
         try {
-            const response = await dataManagementApi.get(`/publication/mi-data/${days}`);
+            const response = await dataManagementApi.get('/publication/mi-data', {
+                params: { days: days },
+            });
+
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'retrieve mi publication data');

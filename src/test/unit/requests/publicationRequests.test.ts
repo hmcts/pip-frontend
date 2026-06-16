@@ -314,19 +314,34 @@ describe('delete location publication', () => {
 
 describe('Get Mi Publication Data', () => {
     it('should return mi publication data on success', async () => {
-        dataManagementStub.withArgs('/publication/mi-data/7').resolves({ data: [] });
+        dataManagementStub.withArgs(
+                '/publication/mi-data',
+                sinon.match.has('params', sinon.match.has('days', 7)
+                )
+            )
+            .resolves({ data: [] });
+
         const response = await publicationRequests.getMiPublicationData(7);
+
         expect(response).toEqual([]);
     });
 
     it('should return false on error response', async () => {
-        dataManagementStub.withArgs('/publication/mi-data/7').rejects(errorResponse);
+        dataManagementStub.withArgs(
+            '/publication/mi-data',
+            sinon.match.has('params', sinon.match.has('days', 7)
+            )
+        ).rejects(errorResponse);
         const response = await publicationRequests.getMiPublicationData(7);
         expect(response).toBe(null);
     });
 
     it('should return false on error message', async () => {
-        dataManagementStub.withArgs('/publication/mi-data/7').rejects(errorMessage);
+        dataManagementStub.withArgs(
+            '/publication/mi-data',
+            sinon.match.has('params', sinon.match.has('days', 7)
+            )
+        ).rejects(errorResponse);
         const response = await publicationRequests.getMiPublicationData(7);
         expect(response).toBe(null);
     });
