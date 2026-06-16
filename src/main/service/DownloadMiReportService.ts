@@ -14,7 +14,10 @@ export interface GeneratedCsvFile {
 
 const allTimeReportDurationLabel = 'all_time';
 export class DownloadMiReportService {
-    public async generatePublicationMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile | null> {
+    public async generatePublicationMiData(
+        reportType: string,
+        reportDuration: number
+    ): Promise<GeneratedCsvFile | null> {
         const returnedData = await publicationRequests.getMiPublicationData(reportDuration);
 
         if (returnedData == null) {
@@ -55,24 +58,14 @@ export class DownloadMiReportService {
     }
 
     public async generateAllDataMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile | null> {
-        const [
-            publications,
-            accounts,
-            allSubscriptions,
-            locationSubscriptions,
-        ] = await Promise.all([
+        const [publications, accounts, allSubscriptions, locationSubscriptions] = await Promise.all([
             publicationRequests.getMiPublicationData(reportDuration),
             accountManagementRequests.getMiAccountsData(),
             subscriptionRequests.getMiAllSubscriptionsData(),
             subscriptionRequests.getMiLocationSubscriptionsData(),
         ]);
 
-        if (
-            publications == null ||
-            accounts == null ||
-            allSubscriptions == null ||
-            locationSubscriptions == null
-        ) {
+        if (publications == null || accounts == null || allSubscriptions == null || locationSubscriptions == null) {
             return null;
         }
 

@@ -40,10 +40,7 @@ export default class DownloadMiReportController {
         }
 
         if (result == null) {
-            return res.render(
-                'error',
-                req.i18n.getDataByLanguage(req.lng).error
-            );
+            return res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
 
         // Convert JSON string to byte array
