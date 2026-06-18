@@ -24,6 +24,7 @@
     "dobAndAge": "DOB and Age: ",
     "age": "Age:",
     "asn": "ASN: ",
+    "pncId": "PNC ID: ",
     "address": "Address: ",
     "hearingType": "Hearing Type: ",
     "prosecutingAuthority": "Prosecuting Authority Name: ",

@@ -208,6 +208,11 @@ describe('Magistrate Standard List page', () => {
         expect(div.innerHTML).to.contain('ABC1234');
     });
 
+    it('should display pnc id if present', () => {
+        const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
+        expect(div.innerHTML).to.contain('PNC1234');
+    });
+
     it('should display hearing type if present', () => {
         const div = htmlRes.getElementsByClassName('govuk-grid-column-one-third')[0];
         expect(div.innerHTML).to.contain('Hearing Type A');
