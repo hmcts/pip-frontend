@@ -5,7 +5,7 @@ export = function () {
     return actor({
         loginAsSsoSystemAdmin: function () {
             this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/admin-dashboard');
+                await page.goto(testConfig.TEST_URL + '/admin-dashboard');
             });
             this.waitForText('Sign in');
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_SYSTEM_ADMIN_USER));
@@ -31,7 +31,7 @@ export = function () {
 
         loginAsSsoAdminLocal: function () {
             this.usePlaywrightTo('Go to SSO login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/admin-dashboard');
+                await page.goto(testConfig.TEST_URL + '/admin-dashboard');
             });
             this.waitForText('Sign in');
             this.fillField('loginfmt', secret(testConfig.SSO_TEST_ADMIN_LOCAL_USER));
@@ -70,7 +70,7 @@ export = function () {
 
         loginAsMediaUser: function () {
             this.usePlaywrightTo('Go to media login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
+                await page.goto(testConfig.TEST_URL + '/sign-in');
             });
             this.waitForText('With a Court and tribunal hearings account');
             this.click('With a Court and tribunal hearings account');
@@ -97,7 +97,7 @@ export = function () {
 
         loginAsCftUser: function () {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
+                await page.goto(testConfig.TEST_URL + '/sign-in');
             });
             this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');

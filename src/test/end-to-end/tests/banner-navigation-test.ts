@@ -4,7 +4,7 @@ Feature('Banner navigation and links');
 
 Scenario('Unverified user - all banner navigation links should take user to the correct pages', async ({ I }) => {
     I.usePlaywrightTo('Go to search page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/view-option');
+        await page.goto(testConfig.TEST_URL + '/view-option');
     });
     I.waitForText('What do you want to do?');
     I.click(locate('//a').withText('Court and tribunal hearings'));
@@ -63,7 +63,7 @@ Scenario('System admin user - all banner navigation links should take user to th
 
 Scenario('Home page links should take user to the correct pages', async ({ I }) => {
     I.usePlaywrightTo('Go to home page', async ({ page }) => {
-        page.goto(testConfig.TEST_URL + '/');
+        await page.goto(testConfig.TEST_URL + '/');
     });
     I.waitForText('Court and tribunal hearings');
     I.click(locate('//a').withText('sign in'));
