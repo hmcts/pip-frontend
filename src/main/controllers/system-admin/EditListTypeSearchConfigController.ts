@@ -35,10 +35,10 @@ export default class EditListTypeSearchConfigController {
         const formData = req.body;
 
         if (listType) {
-             const cookie = {
-                 listType,
-                 ...formData,
-             };
+            const cookie = {
+                listType,
+                ...formData,
+            };
             res.cookie('listSearchConfigCookie', JSON.stringify(cookie), { secure: true, httpOnly: true });
             res.redirect('/edit-list-type-search-config-summary');
         } else {
