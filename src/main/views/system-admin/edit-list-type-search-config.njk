@@ -1,6 +1,5 @@
 {% extends "../template.njk" %}
 {% from "../macros/common-components.njk" import goBack, backButtonHistory, submitButton %}
-{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 
 {% block pageTitle %}
@@ -13,18 +12,6 @@
 {% endblock %}
 
 {% block content %}
-    {% if emptyConfigError %}
-        {{ govukErrorSummary({
-            titleText: error.title,
-            errorList: [
-                {
-                    text: error.emptyConfigMessage,
-                    href: "#"
-                }
-            ]
-        }) }}
-    {% endif %}
-
     <h1 class="govuk-heading-l">{{ header }} {{ listTypeName }}</h1>
     <p class="govuk-body">{{ message }}</p>
     <form method="post" action="edit-list-type-search-config?listType={{ listType }}" novalidate>

@@ -3,9 +3,5 @@
     "header": "Configure list type search fields for",
     "message": "Enter the JSON field names used to extract case details for this list type.",
     "caseNumberFieldLabel": "Case number JSON field name",
-    "caseNameFieldLabel": "Case name JSON field name",
-    "error": {
-        "title": "There is a problem",
-        "emptyConfigMessage": "Enter at least one field name before continue"
-    }
+    "caseNameFieldLabel": "Case name JSON field name"
 }
