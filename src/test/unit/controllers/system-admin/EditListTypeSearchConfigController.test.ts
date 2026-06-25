@@ -54,7 +54,6 @@ describe('Edit List Type Search Config Controller', () => {
                     listType: listTypeWithConfig,
                     listTypeName: 'SJP Public List',
                     formData: existingFormData,
-                    emptyConfigError: false,
                 });
 
             await editListTypeSearchConfigController.get(request, response);
@@ -76,7 +75,6 @@ describe('Edit List Type Search Config Controller', () => {
                     listType: listTypeWithoutConfig,
                     listTypeName: 'Civil Daily Cause List',
                     formData: { createConfig: 'true' },
-                    emptyConfigError: false,
                 });
 
             await editListTypeSearchConfigController.get(request, response);
@@ -104,7 +102,6 @@ describe('Edit List Type Search Config Controller', () => {
                     listType: listTypeWithoutConfig,
                     listTypeName: 'Civil Daily Cause List',
                     formData: cookieFormData,
-                    emptyConfigError: false,
                 });
 
             await editListTypeSearchConfigController.get(request, response);
@@ -132,7 +129,6 @@ describe('Edit List Type Search Config Controller', () => {
                     listType: listTypeWithConfig,
                     listTypeName: 'SJP Public List',
                     formData: existingFormData,
-                    emptyConfigError: false,
                 });
 
             await editListTypeSearchConfigController.get(request, response);
@@ -153,28 +149,6 @@ describe('Edit List Type Search Config Controller', () => {
     });
 
     describe('POST request', () => {
-        it('should re-render edit page with emptyConfigError when createConfig is true and field names are empty', () => {
-            const response = createResponse();
-            const request = mockRequest(i18n);
-            request['query'] = { listType: listTypeWithoutConfig };
-            request['body'] = { createConfig: 'true', caseNumberFieldName: '', caseNameFieldName: '' };
-            const responseMock = sinon.mock(response);
-
-            responseMock
-                .expects('render')
-                .once()
-                .withArgs('system-admin/edit-list-type-search-config', {
-                    ...cloneDeep(i18n['edit-list-type-search-config']),
-                    listType: listTypeWithoutConfig,
-                    listTypeName: 'Civil Daily Cause List',
-                    formData: request['body'],
-                    emptyConfigError: true,
-                });
-
-            editListTypeSearchConfigController.post(request, response);
-            responseMock.verify();
-        });
-
         it('should set cookie and redirect to summary page when valid form data is submitted', () => {
             const response = createResponse();
             const request = mockRequest(i18n);

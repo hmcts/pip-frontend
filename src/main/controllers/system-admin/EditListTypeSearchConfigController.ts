@@ -24,7 +24,6 @@ export default class EditListTypeSearchConfigController {
                 listType,
                 listTypeName: publicationService.getListTypes().get(listType).friendlyName,
                 formData,
-                emptyConfigError: false,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
@@ -36,22 +35,12 @@ export default class EditListTypeSearchConfigController {
         const formData = req.body;
 
         if (listType) {
-            if (formData.createConfig === 'true' && !formData.caseNumberFieldName && !formData.caseNameFieldName) {
-                res.render('system-admin/edit-list-type-search-config', {
-                    ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['edit-list-type-search-config']),
-                    listType,
-                    listTypeName: publicationService.getListTypes().get(listType).friendlyName,
-                    formData,
-                    emptyConfigError: true,
-                });
-            } else {
-                const cookie = {
-                    listType,
-                    ...formData,
-                };
-                res.cookie('listSearchConfigCookie', JSON.stringify(cookie), { secure: true, httpOnly: true });
-                res.redirect('/edit-list-type-search-config-summary');
-            }
+            const cookie = {
+                listType,
+                ...formData,
+            };
+            res.cookie('listSearchConfigCookie', JSON.stringify(cookie), { secure: true, httpOnly: true });
+            res.redirect('/edit-list-type-search-config-summary');
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
         }
