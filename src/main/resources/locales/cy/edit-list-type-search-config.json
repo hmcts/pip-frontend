@@ -1,0 +1,7 @@
+{
+    "title": "Manage list types - Configure list type search fields - Court and Tribunal Hearings - GOV.UK",
+    "header": "Configure list type search fields for",
+    "message": "Enter the JSON field names used to extract case details for this list type.",
+    "caseNumberFieldLabel": "Case number JSON field name",
+    "caseNameFieldLabel": "Case name JSON field name"
+}

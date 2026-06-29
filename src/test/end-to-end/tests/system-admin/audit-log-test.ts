@@ -92,7 +92,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.fillField('#filterDate-day', padFormatted(date.getDate()) as string);
     I.fillField('#filterDate-month', padFormatted(date.getMonth() + 1));
     I.fillField('#filterDate-year', date.getFullYear());
-    I.checkOption('#actions-21');
+    I.checkOption('#actions-23');
     I.click('Apply filters');
 
     const publicationLocator = locate('//tr').withText('Upload Publication').find('a').withText('View');
@@ -135,7 +135,7 @@ Scenario('I as a system admin should be able to view audit log for admin delete 
     I.fillField('#filterDate-day', padFormatted(date.getDate()) as string);
     I.fillField('#filterDate-month', padFormatted(date.getMonth() + 1));
     I.fillField('#filterDate-year', date.getFullYear());
-    I.checkOption('#actions-10');
+    I.checkOption('#actions-11');
     I.click('Apply filters');
 
     const deleteLocator = locate('//tr').withText('Delete Publication').find('a').withText('View');

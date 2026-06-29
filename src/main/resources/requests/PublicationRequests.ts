@@ -142,4 +142,41 @@ export class PublicationRequests {
         }
         return [];
     }
+
+    public async getListSearchConfigByListType(listType: string, userId: string): Promise<any> {
+        try {
+            const header = { headers: { 'x-requester-id': userId } };
+            const response = await dataManagementApi.get(`/publication/search/config/${listType}`, header);
+            return response.data;
+        } catch (error) {
+            if (error.response?.status !== 404) {
+                logHelper.logErrorResponse(error, 'retrieve list search config by list type');
+            }
+        }
+        return null;
+    }
+
+    public async createListSearchConfig(payload: any, userId: string): Promise<boolean> {
+        try {
+            await dataManagementApi.post('/publication/search/config', payload, {
+                headers: { 'x-requester-id': userId },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'create list search config');
+        }
+        return false;
+    }
+
+    public async updateListSearchConfig(id: string, payload: any, userId: string): Promise<boolean> {
+        try {
+            await dataManagementApi.put(`/publication/search/config/${id}`, payload, {
+                headers: { 'x-requester-id': userId },
+            });
+            return true;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'update list search config');
+        }
+        return false;
+    }
 }

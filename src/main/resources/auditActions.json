@@ -98,5 +98,13 @@
     {
         "key": "RESUBMIT_SUBSCRIPTION",
         "name": "Re-submit subscription"
+    },
+    {
+        "key": "CREATE_LIST_SEARCH_CONFIG",
+        "name": "Create list search configuration"
+    },
+    {
+        "key": "UPDATE_LIST_SEARCH_CONFIG",
+        "name": "Update list search configuration"
     }
 ]

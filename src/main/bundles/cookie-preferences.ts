@@ -43,6 +43,7 @@ const config = {
                 'connect.sid',
                 'listTypeSensitivityCookie',
                 'thirdPartySubscriberCookie',
+                'listSearchConfigCookie',
             ],
         },
         {
