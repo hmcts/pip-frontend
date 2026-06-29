@@ -226,6 +226,13 @@ export default function (app: Application): void {
     app.get('/rpt-london-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'rpt-london-weekly-hearing-list')
     );
+    app.get('/ftt-rpt-market-rents-weekly-hearing-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'ftt-rpt-market-rents-weekly-hearing-list'
+        )
+    );
     app.get('/rpt-midlands-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(
             req,
