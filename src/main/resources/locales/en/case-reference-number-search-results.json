@@ -4,8 +4,7 @@
     "subheader": "1 found",
     "table": {
         "header1": "Case name",
-        "header2": "Party name(s)",
-        "header3": "Reference number"
+        "header2": "Reference number"
     },
     "backButton": "Back"
 }

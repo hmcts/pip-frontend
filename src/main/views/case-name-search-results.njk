@@ -20,8 +20,7 @@
             <tr class="govuk-table__row">
                 <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column0Header }}</th>
                 <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column1Header }}</th>
-                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column2Header }}</th>
-                <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column3Header }}</th>
+                <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column2Header }}</th>
             </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -45,7 +44,6 @@
                             </div>
                         </td>
                         <td class="govuk-table__cell govuk-!-padding-top-3">{{ result.caseName }}</td>
-                        <td class="govuk-table__cell govuk-!-padding-top-3">{{ result.partyNames | striptags(true) | escape | nl2br }}</td>
                         <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-padding-top-3">{{ referenceNumber }}</td>
                     </tr>
                 {% endfor %}

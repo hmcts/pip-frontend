@@ -119,14 +119,12 @@ export class SubscriptionService {
 
     private generateCaseTableRow(subscription, language): any {
         const caseName = subscription.caseName === null ? '' : subscription.caseName;
-        const partyNames = subscription.partyNames === null ? '' : subscription.partyNames.split(',').join(',\n');
         let caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
         caseRef = caseRef === null ? '' : caseRef;
 
         return {
             subscriptionId: subscription.subscriptionId,
             caseName: caseName,
-            partyNames: partyNames,
             caseRef: caseRef,
             date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).setLocale(language).toFormat(dateFormat),
         };
@@ -399,7 +397,6 @@ export class SubscriptionService {
                     caseNumber: pendingSubscription.caseNumber,
                     caseName: pendingSubscription.caseName,
                     urn: pendingSubscription.caseUrn,
-                    partyNames: pendingSubscription.partyNames.split(',\n').join(','),
                     userId,
                 };
                 break;

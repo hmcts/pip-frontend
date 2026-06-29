@@ -61,7 +61,6 @@
               <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                   <th scope="col" class="govuk-table__header govuk-!-width-one-quarter bulk-delete-table-padding" aria-sort="none">{{ caseTable.caseName }}</th>
-                  <th scope="col" class="govuk-table__header govuk-!-width-one-quarter bulk-delete-table-padding" aria-sort="none">{{ caseTable.partyNames }}</th>
                   <th scope="col" class="govuk-table__header govuk-!-width-one-quarter bulk-delete-table-padding" aria-sort="none">{{ caseTable.caseRef }}</th>
                   <th scope="col" class="govuk-table__header bulk-delete-table-padding">{{ caseTable.date }}</th>
                   <th scope="col" class="govuk-table__header govuk-table__header--numeric no-wrap">
@@ -80,7 +79,6 @@
                   {% set caseCount = caseCount + 1 %}
                   <tr class="govuk-table__row">
                     <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.caseName }}</td>
-                    <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
                     <td class="govuk-table__cell bulk-delete-row bulk-delete-table-padding">{{ row.caseRef }}</td>
                     <td class="govuk-table__cell bulk-delete-row no-wrap bulk-delete-table-padding">{{ row.date }}</td>
                     <td class="govuk-table__cell govuk-table__cell--numeric">
