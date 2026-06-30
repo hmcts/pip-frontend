@@ -68,7 +68,7 @@ describe('Download MI Report Service', () => {
     it('should generate user account mi data csv', async () => {
         const data = await downloadMiReportService.generateUserAccountsMiData('user_account');
 
-        expect(data.fileName).to.contain('user_account_report_all_timedays_');
+        expect(data.fileName).to.contain('user_account_report_from_beginning_');
         expect(data.fileName).to.contain('.csv');
 
         const csv = data.buffer.toString();
@@ -79,7 +79,7 @@ describe('Download MI Report Service', () => {
     it('should generate publication mi data csv', async () => {
         const data = await downloadMiReportService.generatePublicationMiData('publications', 7);
 
-        expect(data.fileName).to.contain('publications_report_7days_');
+        expect(data.fileName).to.contain('publications_report_last_7_days_');
         expect(data.fileName).to.contain('.csv');
 
         const csv = data.buffer.toString();
@@ -98,7 +98,7 @@ describe('Download MI Report Service', () => {
     it('should generate location subscriptions mi data csv', async () => {
         const data = await downloadMiReportService.generateLocationSubscriptionsMiData('location_subscriptions');
 
-        expect(data.fileName).to.contain('location_subscriptions_report_all_timedays_');
+        expect(data.fileName).to.contain('location_subscriptions_report_from_beginning_');
         expect(data.fileName).to.contain('.csv');
 
         const csv = data.buffer.toString();
@@ -109,7 +109,7 @@ describe('Download MI Report Service', () => {
     it('should generate all subscriptions mi data csv', async () => {
         const data = await downloadMiReportService.generateAllSubscriptionsMiData('all_subscriptions');
 
-        expect(data.fileName).to.contain('all_subscriptions_report_all_timedays_');
+        expect(data.fileName).to.contain('all_subscriptions_report_from_beginning_');
         expect(data.fileName).to.contain('.csv');
 
         const csv = data.buffer.toString();
@@ -121,7 +121,7 @@ describe('Download MI Report Service', () => {
     it('should generate all mi data excel', async () => {
         const data = await downloadMiReportService.generateAllDataMiData('all_data', 14);
 
-        expect(data.fileName).to.contain('all_data_report_14days_');
+        expect(data.fileName).to.contain('all_data_report_last_14_days_');
         expect(data.fileName).to.contain('.xlsx');
         expect(data.buffer).to.exist;
 
@@ -174,6 +174,6 @@ describe('Download MI Report Service', () => {
 
         const data = await downloadMiReportService.generateUserAccountsMiData('user_account');
 
-        expect(data.buffer.toString()).to.equal('\uFEFF');
+        expect(data.buffer.toString()).to.equal('\ufeffNo data found');
     });
 });

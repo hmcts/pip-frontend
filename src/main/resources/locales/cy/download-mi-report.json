@@ -23,7 +23,7 @@
             },
             {
                 "text": "From beginning",
-                "value": "-1"
+                "value": null
             }
         ],
         "reportTypeText": "Select report type",

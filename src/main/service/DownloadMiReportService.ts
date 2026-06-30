@@ -12,19 +12,20 @@ export interface GeneratedCsvFile {
     buffer: Buffer;
 }
 
-const allTimeReportDurationLabel = 'all_time';
+const allTimeReportDurationLabel = 'from_beginning';
 export class DownloadMiReportService {
     public async generatePublicationMiData(
         reportType: string,
-        reportDuration: number
+        reportDuration: number | null
     ): Promise<GeneratedCsvFile | null> {
         const returnedData = await publicationRequests.getMiPublicationData(reportDuration);
-
         if (returnedData == null) {
             return null;
         }
 
-        return this.buildGeneratedCsvFile(returnedData, reportType, reportDuration.toString());
+        const reportDurationLabel = this.getReportDurationLabel(reportDuration);
+
+        return this.buildGeneratedCsvFile(returnedData, reportType, reportDurationLabel);
     }
 
     public async generateUserAccountsMiData(reportType: string): Promise<GeneratedCsvFile | null> {
@@ -80,9 +81,10 @@ export class DownloadMiReportService {
         this.addWorksheet(workbook, 'Location Subscriptions', locationSubscriptions as Record<string, any>[]);
 
         const buffer = Buffer.from(await workbook.xlsx.writeBuffer());
+        const reportDurationLabel = this.getReportDurationLabel(reportDuration);
 
         return {
-            fileName: this.generateFileName(reportType, reportDuration.toString()).replace('.csv', '.xlsx'),
+            fileName: this.generateFileName(reportType, reportDurationLabel).replace('.csv', '.xlsx'),
             buffer,
         };
     }
@@ -125,7 +127,7 @@ export class DownloadMiReportService {
      */
     private convertToCSV(data: Record<string, any>[]): string {
         if (!data?.length) {
-            return '';
+            return 'No data found';
         }
         // CSV headers
         const headers = Object.keys(data[0]).join(',');
@@ -160,6 +162,14 @@ export class DownloadMiReportService {
             String(now.getSeconds()).padStart(2, '0') +
             String(now.getMilliseconds()).padStart(3, '0');
 
-        return `${reportType}_report_${reportDuration}days_${datePart}_${timePart}.csv`;
+        return `${reportType}_report_${reportDuration}_${datePart}_${timePart}.csv`;
+    }
+
+    private getReportDurationLabel(
+        reportDuration: number | string | null
+    ): string {
+        return reportDuration == null || reportDuration === ''
+            ? allTimeReportDurationLabel
+            : `last_${reportDuration}_days`;
     }
 }

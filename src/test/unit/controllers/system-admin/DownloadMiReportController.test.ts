@@ -64,7 +64,7 @@ describe('Download Mi Report controller', () => {
     it('should generate user accounts MI report', async () => {
         request.body = {
             reportType: 'USER_ACCOUNTS',
-            reportDuration: '-1',
+            reportDuration: null,
         };
 
         const responseMock = sinon.mock(response);
@@ -81,7 +81,7 @@ describe('Download Mi Report controller', () => {
     it('should generate publications MI report', async () => {
         request.body = {
             reportType: 'PUBLICATIONS',
-            reportDuration: '-1',
+            reportDuration: null,
         };
 
         const responseMock = sinon.mock(response);
@@ -98,7 +98,7 @@ describe('Download Mi Report controller', () => {
     it('should generate location subscriptions MI report', async () => {
         request.body = {
             reportType: 'LOCATION_SUBSCRIPTIONS',
-            reportDuration: '-1',
+            reportDuration: null,
         };
 
         const responseMock = sinon.mock(response);
@@ -118,7 +118,7 @@ describe('Download Mi Report controller', () => {
     it('should generate all subscriptions MI report', async () => {
         request.body = {
             reportType: 'ALL_SUBSCRIPTIONS',
-            reportDuration: '-1',
+            reportDuration: null,
         };
 
         const responseMock = sinon.mock(response);
@@ -138,7 +138,7 @@ describe('Download Mi Report controller', () => {
     it('should generate all data MI report', async () => {
         request.body = {
             reportType: 'ALL_DATA',
-            reportDuration: '-1',
+            reportDuration: null,
         };
 
         const responseMock = sinon.mock(response);
@@ -155,7 +155,7 @@ describe('Download Mi Report controller', () => {
     it('should generate all data MI report by default', async () => {
         request.body = {
             reportType: '',
-            reportDuration: '-1',
+            reportDuration: null,
         };
 
         const responseMock = sinon.mock(response);
