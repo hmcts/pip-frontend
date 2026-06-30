@@ -18,9 +18,6 @@ const caseName = 'Test Case Name';
 const caseURN = 'Case URN';
 const caseNameNumber = '12341232';
 const caseNameUrn = '18472381412';
-const caseNamePartyFullName = 'Test Forename Test Surname';
-const caseNamePartyOrganisationName = 'Test Organisation Name';
-const caseNamePartyRepSurname = 'Test Rep Surname';
 
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
@@ -125,11 +122,8 @@ Scenario(
         I.click('Continue');
         I.waitForText('Subscription case search results');
         I.see(caseName);
-        I.see(caseNamePartyFullName);
-        I.see(caseNamePartyOrganisationName);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
-        I.dontSee(caseNamePartyRepSurname);
         I.checkOption('//*[@id="12341232"]');
         I.checkOption('//*[@id="18472381412"]');
         I.click('Continue');
@@ -145,8 +139,6 @@ Scenario(
         I.see(caseURN);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
-        I.see(caseNamePartyFullName);
-        I.see(caseNamePartyOrganisationName);
 
         I.click('Subscriptions by case');
         I.dontSee(locationName);
@@ -155,8 +147,6 @@ Scenario(
         I.see(caseURN);
         I.see(caseNameNumber);
         I.see(caseNameUrn);
-        I.see(caseNamePartyFullName);
-        I.see(caseNamePartyOrganisationName);
 
         I.click('Subscriptions by court or tribunal');
         I.see(locationName);

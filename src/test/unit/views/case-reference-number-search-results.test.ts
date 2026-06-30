@@ -78,8 +78,7 @@ describe('Case Reference Search Results Page - Number', () => {
         const items = rows.item(1).children;
 
         expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
-        expect(items[1].innerHTML).contains('party name', 'Party name does not exist');
-        expect(items[2].innerHTML).contains('635356', 'Case reference no does not exist');
+        expect(items[1].innerHTML).contains('635356', 'Case reference no does not exist');
     });
 });
 
@@ -103,7 +102,6 @@ describe('Case Reference Search Results Page - URN', () => {
         const items = rows.item(1).children;
 
         expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
-        expect(items[1].innerHTML).contains('party name', 'Party name does not exist');
-        expect(items[2].innerHTML).contains('38543', 'Case urn does not exist');
+        expect(items[1].innerHTML).contains('38543', 'Case urn does not exist');
     });
 });

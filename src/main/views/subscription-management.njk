@@ -68,7 +68,6 @@
           <tr class="govuk-table__row">
             <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header1 }}</th>
             <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header2 }}</th>
-            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter" aria-sort="none">{{ table.header3 }}</th>
             <th scope="col" class="govuk-table__header">{{ table.date }}</th>
             <th scope="col" class="govuk-table__header govuk-table__header--numeric">{{ table.actions }}</th>
           </tr>
@@ -77,7 +76,6 @@
           {% for row in caseTableData %}
             <tr class="govuk-table__row">
               <td class="govuk-table__cell">{{ row.caseName }}</td>
-              <td class="govuk-table__cell">{{ row.partyNames | striptags(true) | escape | nl2br }}</td>
               <td class="govuk-table__cell">{{ row.caseRef }}</td>
               <td class="govuk-table__cell no-wrap">{{ row.date }}</td>
               <td class="govuk-table__cell govuk-table__cell--numeric">

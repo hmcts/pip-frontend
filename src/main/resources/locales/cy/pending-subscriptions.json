@@ -5,9 +5,8 @@
     "removeText": "Dileu",
     "table": {
         "header1": "Enw'r achos",
-        "header2": "Enw’r parti (partïon)",
-        "header3": "Cyfeirnod",
-        "header4": "Camau gweithredu"
+        "header2": "Cyfeirnod",
+        "header3": "Camau gweithredu"
     },
     "buttonText_court_subscription": "Parhau",
     "buttonText": "Cadarnhau tanysgrifiadau",

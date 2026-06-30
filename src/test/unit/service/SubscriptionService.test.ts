@@ -44,14 +44,12 @@ const mockCase = {
     caseNumber: 'CASENUM1234',
     caseName: 'CASENAME1234',
     caseUrn: 'CASEURN1234',
-    partyNames: 'PARTYNAME1,\nPARTYNAME2',
     urnSearch: false,
 };
 const mockCaseWithUrnOnly = {
     caseNumber: null,
     caseName: null,
     caseUrn: 'CASEURN1234',
-    partyNames: 'PARTYNAME1,\nPARTYNAME2',
     urnSearch: true,
 };
 const mockCourtSubscription = {
@@ -105,7 +103,6 @@ const caseSubscriptionPayload = {
     searchType: 'CASE_ID',
     searchValue: 'CASENUM1234',
     urn: 'CASEURN1234',
-    partyNames: 'PARTYNAME1,PARTYNAME2',
     userId: userIdWithSubscriptions,
 };
 
@@ -205,7 +202,6 @@ describe('getSubscriptionDataForView function', () => {
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
             expect(caseDataRow.caseName).toEqual('Test Name');
-            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
             expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
@@ -226,7 +222,6 @@ describe('getSubscriptionDataForView function', () => {
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
             expect(caseDataRow.caseName).toEqual('Test Name');
-            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
             expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
@@ -251,7 +246,6 @@ describe('getSubscriptionDataForView function', () => {
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
             expect(caseDataRow.caseName).toEqual('Test Name');
-            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
             expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
@@ -269,32 +263,26 @@ describe('getSubscriptionDataForView function', () => {
             const subscriptionData = JSON.parse(JSON.stringify(result));
             const firstRow = subscriptionData.caseTableData[0];
             expect(firstRow.caseName).toEqual('Test Name');
-            expect(firstRow.partyNames).toEqual('PARTYNAME3');
             expect(firstRow.caseRef).toEqual('C123123');
 
             const secondRow = subscriptionData.caseTableData[1];
             expect(secondRow.caseName).toEqual('Test Name 2');
-            expect(secondRow.partyNames).toEqual('');
             expect(secondRow.caseRef).toEqual('I123123');
 
             const thirdRow = subscriptionData.caseTableData[2];
             expect(thirdRow.caseName).toEqual('Test Name 3');
-            expect(thirdRow.partyNames).toEqual('');
             expect(thirdRow.caseRef).toEqual('1212121212');
 
             const fourthRow = subscriptionData.caseTableData[3];
             expect(fourthRow.caseName).toEqual('Test Name 3');
-            expect(fourthRow.partyNames).toEqual('');
             expect(fourthRow.caseRef).toEqual('B123123');
 
             const fifthRow = subscriptionData.caseTableData[4];
             expect(fifthRow.caseName).toEqual('');
-            expect(fifthRow.partyNames).toEqual('');
             expect(fifthRow.caseRef).toEqual('A123123');
 
             const sixthRow = subscriptionData.caseTableData[5];
             expect(sixthRow.caseName).toEqual('');
-            expect(sixthRow.partyNames).toEqual('PARTYNAME1,\nPARTYNAME2');
             expect(sixthRow.caseRef).toEqual('D123123');
         });
 
@@ -335,23 +323,18 @@ describe('getSubscriptionDataForView function', () => {
             const subscriptionData = JSON.parse(JSON.stringify(result));
             expect(subscriptionData.caseTableData[0].caseName).toBe('Case Name');
             expect(subscriptionData.caseTableData[0].caseRef).toEqual('1234');
-            expect(subscriptionData.caseTableData[0].partyNames).toEqual('');
 
             expect(subscriptionData.caseTableData[1].caseName).toBe('Case Name');
             expect(subscriptionData.caseTableData[1].caseRef).toEqual('1234512345');
-            expect(subscriptionData.caseTableData[1].partyNames).toEqual('PARTYNAME3');
 
             expect(subscriptionData.caseTableData[2].caseName).toBe('Case Name');
             expect(subscriptionData.caseTableData[2].caseRef).toEqual('1234512345');
-            expect(subscriptionData.caseTableData[2].partyNames).toEqual('');
 
             expect(subscriptionData.caseTableData[3].caseName).toBe('Case Name');
             expect(subscriptionData.caseTableData[3].caseRef).toEqual('');
-            expect(subscriptionData.caseTableData[3].partyNames).toEqual('');
 
             expect(subscriptionData.caseTableData[4].caseName).toEqual('');
             expect(subscriptionData.caseTableData[4].caseRef).toEqual('1234512346');
-            expect(subscriptionData.caseTableData[4].partyNames).toEqual('PARTYNAME1,\nPARTYNAME2');
         });
     });
 });
@@ -371,7 +354,6 @@ describe('getSelectedSubscriptionDataForView function', () => {
         const caseDataRow = subscriptionData.caseTableData[0];
         expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
         expect(caseDataRow.caseName).toEqual('Test Name');
-        expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
         expect(caseDataRow.caseRef).toEqual('C123123');
     });
 
@@ -409,7 +391,6 @@ describe('getSelectedSubscriptionDataForView function', () => {
         const caseDataRow = subscriptionData.caseTableData[0];
         expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
         expect(caseDataRow.caseName).toEqual('Test Name');
-        expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
         expect(caseDataRow.caseRef).toEqual('C123123');
 
         expect(subscriptionData.locationTableData).toHaveLength(2);
@@ -784,7 +765,6 @@ describe('subscribe function', () => {
             caseNumber: mockCase.caseNumber,
             caseName: mockCase.caseName,
             urn: mockCase.caseUrn,
-            partyNames: mockCase.partyNames.split(',\n').join(','),
             userId: userIdWithCaseSubscription,
         };
 
@@ -805,7 +785,6 @@ describe('subscribe function', () => {
             caseNumber: mockCaseWithUrnOnly.caseNumber,
             caseName: mockCaseWithUrnOnly.caseName,
             urn: mockCaseWithUrnOnly.caseUrn,
-            partyNames: mockCaseWithUrnOnly.partyNames.split(',\n').join(','),
             userId: userIdWithUrnSubscription,
         };
 
@@ -1097,7 +1076,6 @@ describe('generate case table rows', () => {
             {
                 subscriptionId: 99,
                 caseName: 'myCaseName',
-                partyNames: null,
                 caseNumber: '1234',
                 searchType: 'CASE_ID',
                 dateAdded: '2023-04-01T16:49:26.607904',
@@ -1108,7 +1086,6 @@ describe('generate case table rows', () => {
         expect(results.length).toEqual(1);
         expect(results[0].subscriptionId).toEqual(99);
         expect(results[0].caseName).toEqual('myCaseName');
-        expect(results[0].partyNames).toEqual('');
         expect(results[0].caseRef).toEqual('1234');
         expect(results[0].date).toEqual('01 April 2023');
     });
@@ -1118,7 +1095,6 @@ describe('generate case table rows', () => {
             {
                 subscriptionId: 99,
                 caseName: 'myCaseName',
-                partyNames: null,
                 caseNumber: '1234',
                 searchType: 'CASE_ID',
                 dateAdded: '2023-04-01T16:49:26.607904',
@@ -1129,7 +1105,6 @@ describe('generate case table rows', () => {
         expect(results.length).toEqual(1);
         expect(results[0].subscriptionId).toEqual(99);
         expect(results[0].caseName).toEqual('myCaseName');
-        expect(results[0].partyNames).toEqual('');
         expect(results[0].caseRef).toEqual('1234');
         expect(results[0].date).toEqual('01 Ebrill 2023');
     });

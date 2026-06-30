@@ -6,8 +6,7 @@
     "table": {
         "column0Header": "Dewiswch ganlyniad",
         "column1Header": "Enw’r nchos",
-        "column2Header": "Enw’r parti (partïon)",
-        "column3Header": "Cyfeirnod"
+        "column2Header": "Cyfeirnod"
     },
     "select": "Dewis"
 }
