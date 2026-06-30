@@ -165,9 +165,7 @@ export class DownloadMiReportService {
         return `${reportType}_report_${reportDuration}_${datePart}_${timePart}.csv`;
     }
 
-    private getReportDurationLabel(
-        reportDuration: number | string | null
-    ): string {
+    private getReportDurationLabel(reportDuration: number | string | null): string {
         return reportDuration == null || reportDuration === ''
             ? allTimeReportDurationLabel
             : `last_${reportDuration}_days`;
