@@ -5224,30 +5224,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/browser-chromium@npm:1.61.0":
-  version: 1.61.0
-  resolution: "@playwright/browser-chromium@npm:1.61.0"
+"@playwright/browser-chromium@npm:1.58.2":
+  version: 1.58.2
+  resolution: "@playwright/browser-chromium@npm:1.58.2"
   dependencies:
-    playwright-core: "npm:1.61.0"
-  checksum: 10/cdc5c8d767dac0f7fcb584642b396e3777bf117b91fa9039e3e6d219cd128beb577cf3b9c99bf214e80aceffd5cbb6d2c14923495f156356fdaab38b9812bf8e
+    playwright-core: "npm:1.58.2"
+  checksum: 10/4e47c9704c710555482cffb34a064c583af620fb52770d895475376d51637709bf0ed21b0b514c8b20ce43b843f5625826fd60ca4643686bc1503f8c34627156
   languageName: node
   linkType: hard
 
-"@playwright/browser-firefox@npm:1.61.0":
-  version: 1.61.0
-  resolution: "@playwright/browser-firefox@npm:1.61.0"
+"@playwright/browser-firefox@npm:1.58.2":
+  version: 1.58.2
+  resolution: "@playwright/browser-firefox@npm:1.58.2"
   dependencies:
-    playwright-core: "npm:1.61.0"
-  checksum: 10/fcab233f8a49461a55717fb8eb3eef575559c3de7d844de421f28c417438726f0e4f7c5d86e4e8580ea07a2e576128bae51a7b419eb5ae6a8b1037b54f820f70
+    playwright-core: "npm:1.58.2"
+  checksum: 10/9db3e8069ee9cc735d817b50061ddc4c336de71441f9e1ea0f4edbecdaa8b711f849afc8ce3e5d9b01f0b47af75b51b79bb8a29b4131a4e1f5f3062874ffaf87
   languageName: node
   linkType: hard
 
-"@playwright/browser-webkit@npm:1.61.0":
-  version: 1.61.0
-  resolution: "@playwright/browser-webkit@npm:1.61.0"
+"@playwright/browser-webkit@npm:1.58.2":
+  version: 1.58.2
+  resolution: "@playwright/browser-webkit@npm:1.58.2"
   dependencies:
-    playwright-core: "npm:1.61.0"
-  checksum: 10/5abc3d7ce9486a3f988fc777abb1f901ddb0c46fc061952addc53d805db0c40da1603dd679c35548b17a4b2d3b43c5ab0f55882c038733ac20e3b6b7bde2873f
+    playwright-core: "npm:1.58.2"
+  checksum: 10/284c5cd081413db7e42177e8d96593a926d1cabb6d7cbed0747a31fc37dabfc3c04e4b0482b50423d8ec49b2a69f8c83caa7fdbfb2f18b5321e26d995e400bee
   languageName: node
   linkType: hard
 
@@ -15002,27 +15002,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.61.0":
-  version: 1.61.0
-  resolution: "playwright-core@npm:1.61.0"
+"playwright-core@npm:1.58.2":
+  version: 1.58.2
+  resolution: "playwright-core@npm:1.58.2"
   bin:
     playwright-core: cli.js
-  checksum: 10/e7ac4b2ef1c5f1701ec8086e47bc341988a3f753009d450e2a62daab5ade1fa943f1ef7fb48c721618dd7bd42667a11ff73c2e5dbd0674c20a3397b3c5be2f61
+  checksum: 10/8a98fcf122167e8703d525db2252de0e3da4ab9110ab6ea9951247e52d846310eb25ea2c805e1b7ccb54b4010c44e5adc3a76aae6da02f34324ccc3e76683bb1
   languageName: node
   linkType: hard
 
-"playwright@npm:1.61.0":
-  version: 1.61.0
-  resolution: "playwright@npm:1.61.0"
+"playwright@npm:1.58.2":
+  version: 1.58.2
+  resolution: "playwright@npm:1.58.2"
   dependencies:
     fsevents: "npm:2.3.2"
-    playwright-core: "npm:1.61.0"
+    playwright-core: "npm:1.58.2"
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 10/b5faf97391315334a30e88e03216fd6090988b99896e71b341995a27c49d49dcebc825ec389dabc9b2d2cab6368c418cad9cbb925a88de35fb3b26a19bf05bea
+  checksum: 10/d89d6c8a32388911b9aff9ee0f1a90076219f15c804f2b287db048b9e9cde182aea3131fac1959051d25189ed4218ec4272b137c83cd7f9cd24781cbc77edd86
   languageName: node
   linkType: hard
 
@@ -15429,9 +15429,9 @@ __metadata:
     "@hmcts/nodejs-logging": "npm:^4.0.4"
     "@hmcts/properties-volume": "npm:^1.4.0"
     "@ministryofjustice/frontend": "npm:^9.0.0"
-    "@playwright/browser-chromium": "npm:1.61.0"
-    "@playwright/browser-firefox": "npm:1.61.0"
-    "@playwright/browser-webkit": "npm:1.61.0"
+    "@playwright/browser-chromium": "npm:1.58.2"
+    "@playwright/browser-firefox": "npm:1.58.2"
+    "@playwright/browser-webkit": "npm:1.58.2"
     "@types/axios-token-interceptor": "npm:^0.2.8"
     "@types/chai-as-promised": "npm:^8.0.2"
     "@types/cookie-parser": "npm:^1.4.10"
@@ -15494,7 +15494,7 @@ __metadata:
     pa11y: "npm:9.1.1"
     passport: "npm:^0.7.0"
     passport-custom: "npm:^1.1.1"
-    playwright: "npm:1.61.0"
+    playwright: "npm:1.58.2"
     postcss: "npm:^8.5.15"
     prettier: "npm:^3.8.4"
     redis: "npm:^6.0.0"
