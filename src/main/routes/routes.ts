@@ -1256,6 +1256,12 @@ export default function (app: Application): void {
     app.get('/location-metadata-delete-confirmed', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.locationMetadataDeleteConfirmedController.get(req, res)
     );
+    app.get('/download-mi-report', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.downloadMiReportController.get(req, res)
+    );
+    app.post('/download-mi-report', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.downloadMiReportController.post(req, res)
+    );
 
     //CFT Routes
     app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);
