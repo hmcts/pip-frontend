@@ -21,7 +21,7 @@ Data(flatFileName).Scenario(
         I.loginAsSsoAdminLocal();
         I.click('#card-manual-upload');
         I.waitForText('Manual upload');
-        I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
+        I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 10MB');
         I.attachFile('#manual-file-upload', './shared/mocks/' + current.flatFileName);
         I.fillField('#search-input', locationName);
         I.selectOption('#listType', listType);

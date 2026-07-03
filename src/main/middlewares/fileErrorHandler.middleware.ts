@@ -5,7 +5,7 @@ const fileErrorHandlerMiddleware = (error, request, response: Response, next: Ne
         if (error.code === 'LIMIT_FILE_SIZE') {
             // set dummy properties to trigger proper error message
             request.file = {
-                size: 2000001,
+                size: 10000001,
                 originalname: 'too_large_file.pdf',
             };
             next();

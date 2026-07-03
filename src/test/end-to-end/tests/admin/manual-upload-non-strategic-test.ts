@@ -17,7 +17,7 @@ Scenario('I as a admin user should be able to upload non strategic file successf
     I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload\\?non-strategic\\=true');
     I.waitForText('Excel File Upload');
-    I.see('Manually upload a excel file (.xlsx), max size 2MB');
+    I.see('Manually upload a excel file (.xlsx), max size 10MB');
     I.attachFile('#manual-file-upload', './shared/mocks/' + nonStrategicFileName);
     I.fillField('#search-input', locationName);
     I.selectOption('#listType', listType);

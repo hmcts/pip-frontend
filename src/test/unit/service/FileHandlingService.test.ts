@@ -7,11 +7,11 @@ import { redisClient } from '../../../main/cacheManager';
 
 const fileHandlingService = new FileHandlingService();
 const validFileCase = multerFile('testFile.HtMl', 1000);
-const largeFile = multerFile('testFile.docx', 3000000);
+const largeFile = multerFile('testFile.docx', 11000000);
 const validFile = multerFile('testFile.pdf', 1000);
 const validExcelFile = multerFile('testFile.xlsx', 1000);
 const validImage = multerFile('testImage.png', 1000);
-const largeImage = multerFile('testFile.png', 3000000);
+const largeImage = multerFile('testFile.png', 11000000);
 const dotSeparatedFile = multerFile('t.e.s.t.f.i.l.e.png', 1000);
 const invalidFileType = multerFile('testFile.xyz', 1000);
 const noFileType = multerFile('testFile', 1000);
@@ -50,9 +50,9 @@ describe('File handling service', () => {
             ).toBe('There is a problem - ID evidence must be a JPG, PDF or PNG');
         });
 
-        it('should return error message if image is over 2MB', () => {
+        it('should return error message if image is over 10MB', () => {
             expect(fileHandlingService.validateImage(largeImage, englishLanguage, createMediaAccountLanguageFile)).toBe(
-                'There is a problem - ID evidence needs to be less than 2Mbs'
+                'There is a problem - ID evidence needs to be less than 10Mbs'
             );
         });
     });
@@ -91,7 +91,7 @@ describe('File handling service', () => {
             ).toBe(null);
         });
 
-        it('should return error message if file greater than 2MB', () => {
+        it('should return error message if file greater than 10MB', () => {
             expect(
                 fileHandlingService.validateFileUpload(
                     largeFile,
@@ -99,7 +99,7 @@ describe('File handling service', () => {
                     manualUploadLanguageFile,
                     uploadType.FILE
                 )
-            ).toEqual('File too large, please upload file smaller than 2MB');
+            ).toEqual('File too large, please upload file smaller than 10MB');
         });
 
         it('should return error message if invalid file type', () => {
@@ -257,12 +257,12 @@ describe('File handling service', () => {
     });
 
     describe('isFileCorrectSize', () => {
-        it('should return true if file is less than 2MB', () => {
+        it('should return true if file is less than 10MB', () => {
             expect(fileHandlingService.isFileCorrectSize(1000)).toEqual(true);
         });
 
-        it('should return false if file is greater than 2MB', () => {
-            expect(fileHandlingService.isFileCorrectSize(3000000)).toEqual(false);
+        it('should return false if file is greater than 10MB', () => {
+            expect(fileHandlingService.isFileCorrectSize(11000000)).toEqual(false);
         });
     });
 

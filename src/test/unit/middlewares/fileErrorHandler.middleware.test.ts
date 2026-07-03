@@ -7,7 +7,7 @@ const mockResponse: Partial<Response> = {};
 const fileRequest = {};
 const errorRequest = {};
 const expectedFileLimitRequest = {
-    file: { size: 2000001, originalname: 'too_large_file.pdf' },
+    file: { size: 10000001, originalname: 'too_large_file.pdf' },
 };
 const expectedErrorRequest = { query: { showerror: 'true' } };
 

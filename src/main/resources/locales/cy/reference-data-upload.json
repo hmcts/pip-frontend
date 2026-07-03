@@ -1,13 +1,13 @@
 {
     "title": "Uwchlwytho Data Cyfeirnod - Uwchlwytho ffeil csv â llaw - Gwrandawiadau Llys a Thrydyddwyr - GOV.UK",
     "header": "Uwchlwytho ffeil csv â llaw",
-    "fileUploadText": "Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB",
+    "fileUploadText": "Manually upload a csv file (saved as Comma-separated Values .csv), max size 10MB",
     "warning": "Warning",
     "warningText": "Prior to upload you must ensure the file is suitable for location data upload e.g. file should be in correct formats.",
     "downloadReferenceData": "Download current reference data",
     "fileUploadErrors": {
         "blank": "Please provide a file",
         "typeError": "Please upload a valid file format",
-        "sizeError": "File too large, please upload file smaller than 2MB"
+        "sizeError": "File too large, please upload file smaller than 10MB"
     }
 }

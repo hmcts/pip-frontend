@@ -164,7 +164,7 @@ export class FileHandlingService {
     }
 
     isFileCorrectSize(fileSize: number): boolean {
-        return fileSize <= 2000000;
+        return fileSize <= 10000000;
     }
 
     removeFile(file): void {

@@ -61,7 +61,7 @@ describe('Bulk Create Media Accounts Page', () => {
     describe('with error', () => {
         beforeAll(async () => {
             app.request['file'] = {
-                size: 2000001,
+                size: 10000001,
                 originalname: 'too_large_file.pdf',
             };
 
@@ -86,7 +86,7 @@ describe('Bulk Create Media Accounts Page', () => {
             const error = htmlRes.getElementsByClassName(' govuk-error-summary__list')[0];
             const errorItem = error.getElementsByTagName('a')[0];
             expect(errorItem.innerHTML).contains(
-                'File too large, please upload a file smaller than 2MB',
+                'File too large, please upload a file smaller than 10MB',
                 'Error message does not match'
             );
         });

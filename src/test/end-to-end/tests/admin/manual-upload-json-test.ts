@@ -17,7 +17,7 @@ Scenario('I as a admin user should be able to upload json file successfully', as
     I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
-    I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
+    I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 10MB');
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.fillField('#search-input', locationName);
     I.selectOption('#listType', listType);
@@ -66,7 +66,7 @@ Scenario('I as a admin user should see proper error messages related to manual u
     I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
-    I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
+    I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 10MB');
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.fillField('#search-input', locationName);
     I.fillField('#content-date-from-day', padFormatted(date.getDate()));
@@ -212,7 +212,7 @@ Scenario('I as a admin user should be able to change the data before confirming 
     I.loginAsSsoAdminLocal();
     I.click('#card-manual-upload');
     I.waitForText('Manual upload');
-    I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB');
+    I.see('Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 10MB');
     I.attachFile('#manual-file-upload', './shared/mocks/' + fileName);
     I.fillField('#search-input', 'Single Justice Procedure');
     I.selectOption('#listType', listType);

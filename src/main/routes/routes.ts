@@ -34,10 +34,10 @@ export default function (app: Application): void {
             callback(null, file.originalname);
         },
         limits: {
-            fileSize: 2000000,
+            fileSize: 10000000,
         },
     });
-    const fileUploadOptions = { storage: storage, limits: { fileSize: 2000000 } };
+    const fileUploadOptions = { storage: storage, limits: { fileSize: 10000000 } };
 
     const fileSizeLimitErrorHandler = (err, req, res, next): any => {
         fileErrorHandlerMiddleware(err, req, res, next);
@@ -77,7 +77,7 @@ export default function (app: Application): void {
     app.get('/create-media-account', app.locals.container.cradle.createMediaAccountController.get);
     app.post(
         '/create-media-account',
-        multer({ storage: storage, limits: { fileSize: 2000000 } }).single('file-upload'),
+        multer({ storage: storage, limits: { fileSize: 10000000 } }).single('file-upload'),
         fileSizeLimitErrorHandler,
         app.locals.container.cradle.createMediaAccountController.post
     );

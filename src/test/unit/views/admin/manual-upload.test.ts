@@ -15,8 +15,8 @@ const fieldSetClass = 'govuk-fieldset';
 const dateInputClass = 'govuk-date-input';
 
 const expectedHeader = 'Manual upload';
-const expectedFileQuestion = 'Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB';
-const expectedNonStrategicFileQuestion = 'Manually upload a excel file (.xlsx), max size 2MB';
+const expectedFileQuestion = 'Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 10MB';
+const expectedNonStrategicFileQuestion = 'Manually upload a excel file (.xlsx), max size 10MB';
 const expectedFileInputType = 'file';
 const expectedCourtNameQuestion = 'Court name';
 const expectedCourtNameContainer = 'search-input-container';
@@ -283,7 +283,7 @@ describe('Manual upload page', () => {
     describe('on POST', () => {
         beforeAll(async () => {
             app.request['file'] = {
-                size: 2000001,
+                size: 10000001,
                 originalname: 'too_large_file.pdf',
             };
             await request(app)
@@ -302,12 +302,12 @@ describe('Manual upload page', () => {
             const errorSummaryList = htmlRes.getElementsByClassName('govuk-error-summary__list');
 
             expect(fileError.innerHTML).contains(
-                'File too large, please upload file smaller than 2MB',
+                'File too large, please upload file smaller than 10MB',
                 'Could not find file error'
             );
             expect(errorSummaryTitle[0].innerHTML).contains('There is a problem', 'Error summary title does not match');
             expect(errorSummaryList[0].innerHTML).contains(
-                'File too large, please upload file smaller than 2MB',
+                'File too large, please upload file smaller than 10MB',
                 'Error summary list does not match'
             );
         });

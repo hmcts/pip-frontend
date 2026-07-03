@@ -9,7 +9,7 @@
     "fileUploadErrors": {
         "blank": "Please provide a file",
         "typeError": "Please upload a valid file format",
-        "sizeError": "File too large, please upload a file smaller than 2MB",
+        "sizeError": "File too large, please upload a file smaller than 10MB",
         "headerError": "Invalid header in file",
         "fieldSizeError": "Incorrect number of fields in file",
         "tooManyAccountsError": "Too many accounts, please upload a file with 30 accounts or less"

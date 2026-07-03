@@ -3,8 +3,8 @@
     "nonStrategicTitle": "Lanlwytho ffeil excel - Uwchlwytho ffeil Excel - Gwrandawiadau llys a thribiwnlys - GOV.UK",
     "header": "Lanlwytho â llaw",
     "nonStrategicHeader": "Uwchlwytho Ffeil Excel",
-    "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 2MB",
-    "nonStrategicCardFileUploadText": "Manually upload a excel file (.xlsx), max size 2MB",
+    "fileUploadText": "Manually upload a csv, doc, docx, htm, html, json, or pdf file, max size 10MB",
+    "nonStrategicCardFileUploadText": "Manually upload a excel file (.xlsx), max size 10MB",
     "form": {
         "court": "Court name or Tribunal name",
         "listType": "List type",
@@ -99,7 +99,7 @@
     "fileUploadErrors": {
         "blank": "Please provide a file",
         "typeError": "Please upload a valid file format",
-        "sizeError": "File too large, please upload file smaller than 2MB"
+        "sizeError": "File too large, please upload file smaller than 10MB"
     },
     "errorTitle": "There is a problem"
 }

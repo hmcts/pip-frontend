@@ -13,7 +13,7 @@ Scenario('I as a system admin should be able to upload reference data manually',
         'Prior to upload you must ensure the file is suitable for location data upload e.g. ' +
             'file should be in correct formats.'
     );
-    I.see('Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB');
+    I.see('Manually upload a csv file (saved as Comma-separated Values .csv), max size 10MB');
     I.attachFile('#reference-data-upload', CSV_FILE_PATH);
     I.click('Continue');
     I.waitForText('Check upload details');

@@ -13,7 +13,7 @@ const insetTextClass = 'govuk-inset-text';
 const linkClass = 'govuk-link';
 
 const expectedHeader = 'Manually upload a csv file';
-const expectedFileQuestion = 'Manually upload a csv file (saved as Comma-separated Values .csv), max size 2MB';
+const expectedFileQuestion = 'Manually upload a csv file (saved as Comma-separated Values .csv), max size 10MB';
 const expectedFileInputType = 'file';
 const buttonText = 'Continue';
 
@@ -83,7 +83,7 @@ describe('Reference Data Manual upload page', () => {
     describe('on POST', () => {
         beforeAll(async () => {
             app.request['file'] = {
-                size: 2000001,
+                size: 10000001,
                 originalname: 'too_large_file.csv',
             };
             await request(app)
@@ -98,7 +98,7 @@ describe('Reference Data Manual upload page', () => {
         it('should display file too large error', () => {
             const fileError = htmlRes.getElementById('reference-data-upload-error');
             expect(fileError.innerHTML).contains(
-                'File too large, please upload file smaller than 2MB',
+                'File too large, please upload file smaller than 10MB',
                 'Could not find file error'
             );
         });
