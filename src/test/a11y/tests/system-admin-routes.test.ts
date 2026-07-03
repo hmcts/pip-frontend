@@ -88,6 +88,10 @@ const systemAdminRoutes = [
     { path: '/manage-third-party-subscriber-oauth-config-success' },
     { path: '/manage-third-party-subscriber-status', parameter: `?userId=${userId}` },
     { path: '/manage-third-party-subscriber-status-success' },
+    { path: '/manage-list-types' },
+    { path: '/edit-list-type-search-config', parameter: '?listType=CIVIL_DAILY_CAUSE_LIST' },
+    { path: '/edit-list-type-search-config-summary' },
+    { path: '/edit-list-type-search-config-success' },
 ];
 
 const jsonData = testArtefactJsonData('dailyCauseList.json');
