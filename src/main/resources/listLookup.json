@@ -369,7 +369,7 @@
     "FTT_RPT_MARKET_RENTS_WEEKLY_HEARING_LIST": {
         "friendlyName": "First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List",
         "welshFriendlyName": "Tribiwnlys Haen Gyntaf (Tribiwnlys Eiddo Preswyl): Rhestr Gwrandawiadau Wythnosol Rhenti’r Farchnad",
-        "shortenedFriendlyName": "FTT (RPT): Market Rents Weekly Hearing List",
+        "shortenedFriendlyName": "FTT (RPT) Market Rents Weekly Hearing List",
         "url": "ftt-rpt-market-rents-weekly-hearing-list",
         "jurisdictionTypes": ["First-tier Tribunal (Property Chamber) - Residential Property Division"],
         "restrictedProvenances": [],

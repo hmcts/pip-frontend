@@ -303,4 +303,30 @@ describe('Residential Property Weekly Hearing List Page', () => {
             );
         });
     });
+
+    describe('First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List', () => {
+        let htmlRes: Document;
+        const PAGE_URL = '//ftt-rpt-market-rents-weekly-hearing-list?artefactId=def';
+
+        const metaData = JSON.parse(rawMetaData)[0];
+        metaData.listType = 'FTT_RPT_MARKET_RENTS_WEEKLY_HEARING_LIST';
+
+        metadataStub.withArgs('def').returns(metaData);
+
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName(headingClass);
+            expect(header[0].innerHTML).contains(
+                'First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List',
+                'Could not find the header'
+            );
+        });
+    });
 });
