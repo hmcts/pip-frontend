@@ -1261,6 +1261,24 @@ export default function (app: Application): void {
     );
     app.post('/download-mi-report', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.downloadMiReportController.post(req, res)
+    ); 
+    app.get('/manage-list-types', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.manageListTypesController.get(req, res)
+    );
+    app.get('/edit-list-type-search-config', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editListTypeSearchConfigController.get(req, res)
+    );
+    app.post('/edit-list-type-search-config', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editListTypeSearchConfigController.post(req, res)
+    );
+    app.get('/edit-list-type-search-config-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editListTypeSearchConfigSummaryController.get(req, res)
+    );
+    app.post('/edit-list-type-search-config-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editListTypeSearchConfigSummaryController.post(req, res)
+    );
+    app.get('/edit-list-type-search-config-success', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editListTypeSearchConfigSuccessController.get(req, res)
     );
 
     //CFT Routes
