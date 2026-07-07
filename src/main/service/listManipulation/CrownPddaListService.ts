@@ -99,7 +99,7 @@ export class CrownPddaListService {
     }
 
     private useMaskedNameIfRequested(nameDetails): string {
-        if (nameDetails.IsMasked && nameDetails.IsMasked == 'YES') {
+        if (nameDetails.IsMasked && nameDetails.IsMasked == 'yes') {
             return nameDetails.MaskedName ? nameDetails.MaskedName : '';
         }
         return this.formatIndividualName(nameDetails.Name);

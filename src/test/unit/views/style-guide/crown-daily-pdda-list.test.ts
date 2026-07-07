@@ -177,7 +177,7 @@ describe('Crown Daily PDDA List page', () => {
     it('should display requested Defendant Name(s) table cell', () => {
         const cell = htmlRes.getElementsByClassName(tableCellClass);
         expect(cell[2].innerHTML).contains(
-            'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix',
+            'TestMaskedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix',
             'Defendant name cell does not match'
         );
     });
