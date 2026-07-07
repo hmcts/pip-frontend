@@ -128,6 +128,7 @@ export class MagistratesStandardListService {
             age: ListParseHelperService.writeStringIfValid(individualDetails.age),
             address: crimeListsService.formatAddress(individualDetails.address, ', '),
             asn: ListParseHelperService.writeStringIfValid(individualDetails.asn),
+            pncId: ListParseHelperService.writeStringIfValid(individualDetails.pncId),
         };
     }
 

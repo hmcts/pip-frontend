@@ -188,4 +188,47 @@ export class PublicationService {
     public async deleteLocationPublication(locationId: number, userId: string): Promise<object> {
         return await publicationRequests.deleteLocationPublication(locationId, userId);
     }
+
+    public async getListSearchConfigByListType(listType: string, userId: string): Promise<any> {
+        return await publicationRequests.getListSearchConfigByListType(listType, userId);
+    }
+
+    public async createListSearchConfig(formData, userId: string): Promise<any> {
+        return await publicationRequests.createListSearchConfig(
+            this.createListSearchConfigPayload(
+                '',
+                formData.listType,
+                formData.caseNumberFieldName,
+                formData.caseNameFieldName
+            ),
+            userId
+        );
+    }
+
+    public async updateListSearchConfig(id: string, formData, userId: string): Promise<any> {
+        return await publicationRequests.updateListSearchConfig(
+            id,
+            this.createListSearchConfigPayload(
+                id,
+                formData.listType,
+                formData.caseNumberFieldName,
+                formData.caseNameFieldName
+            ),
+            userId
+        );
+    }
+
+    private createListSearchConfigPayload(
+        id: string,
+        listType: string,
+        caseNumberFieldName: string,
+        caseNameFieldName: string
+    ): any {
+        return {
+            id,
+            listType,
+            caseNumberFieldName,
+            caseNameFieldName,
+        };
+    }
 }

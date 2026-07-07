@@ -104,6 +104,7 @@ describe('Magistrate Standard List service', () => {
                 age: 20,
                 address: 'Address Line 1A, Address Line 2A, Town A, County A, AA1 AA1',
                 asn: 'ABC1234',
+                pncId: 'PNC1234',
             });
         });
 
