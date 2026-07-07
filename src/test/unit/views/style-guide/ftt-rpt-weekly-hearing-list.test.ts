@@ -306,12 +306,12 @@ describe('Residential Property Weekly Hearing List Page', () => {
 
     describe('First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List', () => {
         let htmlRes: Document;
-        const PAGE_URL = '/ftt-rpt-market-rents-weekly-hearing-list?artefactId=def';
+        const PAGE_URL = '/ftt-rpt-market-rents-weekly-hearing-list?artefactId=ghi';
 
         const metaData = JSON.parse(rawMetaData)[0];
         metaData.listType = 'FTT_RPT_MARKET_RENTS_WEEKLY_HEARING_LIST';
 
-        metadataStub.withArgs('def').returns(metaData);
+        metadataStub.withArgs('ghi').returns(metaData);
 
         beforeAll(async () => {
             await request(app)
