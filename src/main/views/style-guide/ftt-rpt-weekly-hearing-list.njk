@@ -21,9 +21,12 @@
             <summary class="govuk-details__summary"><span class="govuk-details__summary-text">{{ importantInformationHeading }}</span></summary>
             <div class="govuk-details__text">
                 <p class="govuk-body govuk-!-margin-bottom-2">{{ contactMessage }}</p>
-                <p class="govuk-body govuk-!-padding-bottom-5">
+                <p class="govuk-body {% if marketRentText %}govuk-!-padding-bottom-2{% else %}govuk-!-padding-bottom-5{% endif %}">
                     <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationText }}</a>
                 </p>
+                {% if marketRentText %}
+                    <p class="govuk-heading-s govuk-!-margin-bottom-5">{{ marketRentText }}</p>
+                {% endif %}
             </div>
         </details>
 

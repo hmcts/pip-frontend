@@ -5,7 +5,7 @@ import sinon from 'sinon';
 import { ManualUploadService } from '../../../../main/service/ManualUploadService';
 import { FileHandlingService } from '../../../../main/service/FileHandlingService';
 import ReferenceDataUploadSummaryController from '../../../../main/controllers/system-admin/ReferenceDataUploadSummaryController';
-import {UserManagementService} from "../../../../main/service/UserManagementService";
+import { UserManagementService } from '../../../../main/service/UserManagementService';
 
 const mockData = { fileName: 'fileName', foo: 'blah', file: '' };
 const mockData2 = { fileName: 'fileName2', foo: 'blah', file: '' };
