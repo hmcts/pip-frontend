@@ -40,9 +40,9 @@ describe('System Admin Dashboard page', () => {
         expect(bannerComponents[3].innerHTML).contains('Sign out');
     });
 
-    it('should display 10 card options', () => {
+    it('should display 11 card options', () => {
         const cardComponents = htmlRes.getElementsByClassName('account-card');
-        expect(cardComponents.length).equal(10);
+        expect(cardComponents.length).equal(11);
     });
 
     it('blob Explorer card should have correct content and links', () => {
