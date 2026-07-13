@@ -376,4 +376,14 @@ export class AccountManagementRequests {
         }
         return false;
     }
+
+    public async getMiAccountsData(): Promise<object> {
+        try {
+            const response = await accountManagementApi.get('/account/mi-data');
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve mi accounts data');
+        }
+        return null;
+    }
 }

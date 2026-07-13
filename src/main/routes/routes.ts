@@ -1263,6 +1263,12 @@ export default function (app: Application): void {
     app.get('/location-metadata-delete-confirmed', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.locationMetadataDeleteConfirmedController.get(req, res)
     );
+    app.get('/download-mi-report', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.downloadMiReportController.get(req, res)
+    );
+    app.post('/download-mi-report', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.downloadMiReportController.post(req, res)
+    ); 
     app.get('/manage-list-types', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.manageListTypesController.get(req, res)
     );
