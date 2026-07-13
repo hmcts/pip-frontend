@@ -47,7 +47,7 @@ describe('Crown PDDA List service', () => {
             expect(hearing.hearingTime).to.equal('TestTimeMarkingNote');
             expect(hearing.caseNumber).to.equal('T00112233');
             expect(hearing.defendantName).to.equal(
-                '' + 'TestDefendantRequestedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix'
+                '' + 'TestMaskedName, Mr TestDefendantForename TestDefendantSurname TestDefendantSuffix'
             );
             expect(hearing.hearingType).to.equal('TestHearingDescription');
             expect(hearing.representativeName).to.be.empty;
