@@ -990,4 +990,40 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual(false);
         });
     });
+
+    describe('Get MI accounts data', () => {
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        const miData = [
+            {
+                userId: '1234',
+                provenanceUserId: '11223344',
+                userProvenance: 'PI_AAD',
+                roles: 'VERIFIED',
+            },
+        ];
+
+        it('should return MI account data on success', async () => {
+            getStub.withArgs('/account/mi-data').resolves({
+                data: miData,
+            });
+            const response = await accountManagementRequests.getMiAccountsData();
+            expect(response).toStrictEqual(miData);
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs('/account/mi-data').rejects(errorResponse);
+            const response = await accountManagementRequests.getMiAccountsData();
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs('/account/mi-data').rejects(errorMessage);
+            const response = await accountManagementRequests.getMiAccountsData();
+            expect(response).toBe(null);
+        });
+    });
 });
