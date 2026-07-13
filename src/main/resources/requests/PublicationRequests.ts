@@ -143,6 +143,19 @@ export class PublicationRequests {
         return [];
     }
 
+    public async getMiPublicationData(days: number | null): Promise<object> {
+        try {
+            const normalizedDays = days ? Number(days) : undefined;
+
+            const params = normalizedDays == null ? {} : { days: normalizedDays };
+            const response = await dataManagementApi.get('/publication/mi-data', { params: params });
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve mi publication data');
+        }
+        return null;
+    }
+  
     public async getListSearchConfigByListType(listType: string, userId: string): Promise<any> {
         try {
             const header = { headers: { 'x-requester-id': userId } };
