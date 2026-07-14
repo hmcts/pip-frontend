@@ -48,6 +48,11 @@
             "link": "manage-third-party-subscribers"
         },
         {
+            "title": "Download MI Report",
+            "description": "Download User accounts, Publication, Location subscriptions and All subscription data",
+            "link": "download-mi-report"
+        },
+        {
             "title": "Manage List Types",
             "description": "View, create and update list type configurations",
             "link": "manage-list-types"
