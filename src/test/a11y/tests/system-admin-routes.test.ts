@@ -69,6 +69,7 @@ const systemAdminRoutes = [
     { path: '/create-third-party-user-success' },
     { path: '/delete-third-party-user-confirmation' },
     { path: '/delete-third-party-user-success' },
+    { path: '/download-mi-report' },
     { path: '/create-third-party-subscriber' },
     { path: '/create-third-party-subscriber-summary' },
     { path: '/create-third-party-subscriber-success' },
