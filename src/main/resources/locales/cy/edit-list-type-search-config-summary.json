@@ -1,0 +1,14 @@
+{
+    "title": "Manage list types - List type search configuration summary - Court and Tribunal Hearings - GOV.UK",
+    "header": "Summary",
+    "message": "Check list type search configuration details",
+    "listType": "List type",
+    "caseNumberField": "Case number JSON field name",
+    "caseNameField": "Case name JSON field name",
+    "actionText": "Change",
+    "confirmButton": "Confirm",
+    "error": {
+        "title": "There is a problem",
+        "message": "Failed to create or update list type search configuration"
+    }
+}
