@@ -104,7 +104,7 @@ Scenario(
         );
         I.fillField('#search-input', caseURN);
         I.click('Continue');
-        I.waitForText('Subscription URN search results');
+        I.waitForText('Subscription case search results');
         I.see('1 found');
         I.see(caseURN);
         I.click('Continue');

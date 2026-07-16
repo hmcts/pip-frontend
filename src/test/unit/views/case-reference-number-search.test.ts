@@ -3,8 +3,6 @@ import request from 'supertest';
 import sinon from 'sinon';
 
 import { app } from '../../../main/app';
-import fs from 'fs';
-import path from 'path';
 import { PublicationService } from '../../../main/service/PublicationService';
 
 const PAGE_URL = '/case-reference-number-search';
@@ -21,10 +19,8 @@ const expectedButtonText = 'Continue';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const subscriptionsData = JSON.parse(rawData)[0].search.cases[0];
 const stub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
-stub.resolves(subscriptionsData);
+stub.resolves({ caseNumber: '123', caseName: 'case name' });
 
 app.request['user'] = { roles: 'VERIFIED' };
 

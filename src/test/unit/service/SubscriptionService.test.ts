@@ -137,7 +137,6 @@ const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPen
 const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const getByCaseNumberStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
-const getCaseByUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const addListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'addListTypeForLocationSubscriptions');
@@ -160,8 +159,6 @@ locationStub.withArgs('').resolves(null);
 getByCaseNumberStub.withArgs('T485914').resolves(mockCase);
 getByCaseNumberStub.withArgs('T485912').resolves(mockCase);
 getByCaseNumberStub.withArgs('').resolves(null);
-getCaseByUrnStub.withArgs('URNCASE1234').resolves(mockCaseWithUrnOnly);
-getCaseByUrnStub.withArgs('').resolves(null);
 
 cacheSetStub.withArgs([], 'cases', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([], 'courts', userIdWithSubscriptions).resolves();
@@ -496,23 +493,6 @@ describe('getCaseDetailsByNumber function', () => {
 
     it('should return empty case list if no cases are provided', async () => {
         const caseList = await subscriptionService.getCaseDetailsByNumber([], user);
-        expect(caseList).toEqual([]);
-    });
-});
-
-describe('getCaseDetailsByUrn function', () => {
-    it('should return case details list', async () => {
-        const caseDetailsList = await subscriptionService.getCaseDetailsByUrn(['URNCASE1234'], user);
-        expect(caseDetailsList).toStrictEqual([mockCaseWithUrnOnly]);
-    });
-
-    it('should return empty case list if invalid case number is provided', async () => {
-        const caseList = await subscriptionService.getCaseDetailsByUrn([''], user);
-        expect(caseList).toEqual([]);
-    });
-
-    it('should return empty case list if no cases are provided', async () => {
-        const caseList = await subscriptionService.getCaseDetailsByUrn([], user);
         expect(caseList).toEqual([]);
     });
 });

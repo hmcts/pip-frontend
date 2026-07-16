@@ -14,7 +14,8 @@ export default class CaseNameSearchResultsController {
         if (searchQuery) {
             const searchResults = await publicationService.getCasesByCaseName(
                 searchQuery.toString(),
-                req.user?.['userId']
+                req.user?.['userId'],
+                true
             );
             searchResults.sort(pendingCaseSubscriptionSorter);
 

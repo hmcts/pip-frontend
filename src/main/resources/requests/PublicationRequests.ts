@@ -2,6 +2,7 @@ import { dataManagementApi } from './utils/axiosConfig';
 import { Artefact } from '../../models/Artefact';
 import { HttpStatusCode } from 'axios';
 import { LogHelper } from '../logging/logHelper';
+import { CaseSearchResults } from 'models/CaseSearchResults';
 
 const logHelper = new LogHelper();
 
@@ -34,24 +35,37 @@ export class PublicationRequests {
         return null;
     }
 
-    public async getPublicationByCaseValue(
-        searchQuery: string,
-        searchValue: string,
-        userId: string
-    ): Promise<Artefact[]> {
+    public async getCasesByCaseNumber(searchValue: string, userId: string): Promise<CaseSearchResults[]> {
         try {
-            const axiosConfig = userId
-                ? {
-                      params: { searchTerm: searchQuery, searchValue: searchValue },
-                      headers: { 'x-requester-id': userId },
-                  }
-                : {
-                      params: { searchTerm: searchQuery, searchValue: searchValue },
-                  };
-            const response = await dataManagementApi.get('/publication/search', axiosConfig);
+            const response = await dataManagementApi.get('/publication/search/caseNumber', {
+                params : {
+                    searchValue: searchValue
+                },
+                headers: {
+                    'x-requester-id': userId,
+                },
+            });
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve publications by case value');
+            logHelper.logErrorResponse(error, 'retrieve cases by case number');
+        }
+        return [];
+    }
+
+    public async getCasesByCaseName(searchValue: string, userId: string, fuzzySearch = false): Promise<CaseSearchResults[]> {
+        try {
+            const response = await dataManagementApi.get('/publication/search/caseName', {
+                params : {
+                    searchValue: searchValue,
+                    fuzzySearch: fuzzySearch,
+                },
+                headers: {
+                    'x-requester-id': userId,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve cases by case name');
         }
         return [];
     }
@@ -155,7 +169,7 @@ export class PublicationRequests {
         }
         return null;
     }
-  
+
     public async getListSearchConfigByListType(listType: string, userId: string): Promise<any> {
         try {
             const header = { headers: { 'x-requester-id': userId } };
