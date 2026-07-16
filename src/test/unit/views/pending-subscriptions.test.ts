@@ -13,20 +13,6 @@ const mockCase = {
     platform: 'In person',
     caseNumber: 'CASENUM1234',
     caseName: 'Case Name 1234',
-    caseUrn: 'CASEURN1234',
-};
-
-const mockUrnCase = {
-    hearingId: 1,
-    locationId: 50,
-    courtNumber: 1,
-    date: '04/01/2020',
-    judge: 'Judge for URN case',
-    platform: 'In person',
-    caseNumber: '11111111',
-    caseName: 'CaseName1234',
-    caseUrn: 'A11112222',
-    urnSearch: true,
 };
 
 const mockCourt = {
@@ -57,11 +43,11 @@ const btnWithCourtSubscription = 'Continue';
 let htmlRes: Document;
 
 const getSubscriptionsStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
-getSubscriptionsStub.withArgs('1', 'cases').resolves([mockCase, mockUrnCase]);
+getSubscriptionsStub.withArgs('1', 'cases').resolves([mockCase]);
 getSubscriptionsStub.withArgs('1', 'courts').resolves([mockCourt]);
 getSubscriptionsStub.withArgs('2', 'cases').resolves([]);
 getSubscriptionsStub.withArgs('2', 'courts').resolves([]);
-getSubscriptionsStub.withArgs('3', 'cases').resolves([mockCase, mockUrnCase]);
+getSubscriptionsStub.withArgs('3', 'cases').resolves([mockCase]);
 getSubscriptionsStub.withArgs('3', 'courts').resolves([]);
 getSubscriptionsStub.withArgs('4', 'cases').resolves([]);
 getSubscriptionsStub.withArgs('4', 'courts').resolves([mockCourt, mockCourt2, mockCourt3]);
@@ -113,12 +99,12 @@ describe('Pending Subscriptions Page', () => {
             expect(tableHeaders[1].innerHTML).contains('Actions', 'Could not find text in second header');
         });
 
-        it('should contain 2 rows in the case table with correct values', () => {
+        it('should contain 1 row in the case table with correct values', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
 
-            expect(rows.length).equal(2, 'Case table did not contain expected number of rows');
+            expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
         });
 
         it('should contain the correct data for the case number row', () => {
@@ -132,20 +118,6 @@ describe('Pending Subscriptions Page', () => {
             expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
             expect(cells[2].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-number=${mockCase.caseNumber}`
-            );
-        });
-
-        it('should contain the correct data for the urn row', () => {
-            const rows = htmlRes
-                .getElementsByClassName('govuk-table__body')[0]
-                .getElementsByClassName('govuk-table__row');
-
-            const cells = rows[1].getElementsByClassName('govuk-table__cell');
-            expect(cells[0].innerHTML).contains(mockUrnCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockUrnCase.caseUrn, 'Third cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-            expect(cells[2].querySelector('a').getAttribute('href')).equal(
-                `/remove-subscription?case-urn=${mockUrnCase.caseUrn}`
             );
         });
 
@@ -168,7 +140,7 @@ describe('Pending Subscriptions Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[12];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[11];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'
@@ -366,11 +338,11 @@ describe('Pending Subscriptions Page', () => {
             expect(tableHeaders).equal(undefined, 'Could not find text in first header');
         });
 
-        it('should contain 2 rows in the case table with correct values', () => {
+        it('should contain 1 row in the case table with correct values', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
-            expect(rows.length).equal(2, 'Case table did not contain expected number of rows');
+            expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
         });
 
         it('should contain the correct data for the case number row', () => {
@@ -387,20 +359,6 @@ describe('Pending Subscriptions Page', () => {
             );
         });
 
-        it('should contain the correct data for the urn row', () => {
-            const rows = htmlRes
-                .getElementsByClassName('govuk-table__body')[0]
-                .getElementsByClassName('govuk-table__row');
-
-            const cells = rows[1].getElementsByClassName('govuk-table__cell');
-            expect(cells[0].innerHTML).contains(mockUrnCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockUrnCase.caseUrn, 'Third cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-            expect(cells[2].querySelector('a').getAttribute('href')).equal(
-                `/remove-subscription?case-urn=${mockUrnCase.caseUrn}`
-            );
-        });
-
         it('should not contain any row in the court table', () => {
             const rows = htmlRes.getElementsByClassName('govuk-table__body')[1];
             expect(rows).equal(undefined, 'Case table did not contain expected number of rows');
@@ -412,7 +370,7 @@ describe('Pending Subscriptions Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[11];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[10];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'

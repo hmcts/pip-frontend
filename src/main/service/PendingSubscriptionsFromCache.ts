@@ -23,7 +23,8 @@ export class PendingSubscriptionsFromCache {
                 } else if (subscriptionType === 'listLanguage') {
                     this.addToSubscriptionSet(subscription, 'listLanguage', subscriptionsSet);
                 } else {
-                    this.addToSubscriptionSet(subscription, 'cases', subscriptionsSet);
+                    this.addToSubscriptionSet(subscription, subscription.caseNumber ? 'caseNumber' : 'caseName',
+                        subscriptionsSet);
                 }
             });
             await redisClient.set(

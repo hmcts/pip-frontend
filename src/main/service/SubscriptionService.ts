@@ -253,13 +253,12 @@ export class SubscriptionService {
                 // case name subscriptions. This is to avoid duplicate case name subscriptions in the cache.
                 for (const caseDetail of caseDetails) {
                     if (!caseDetail.caseNumber) {
-                        casesList.push(...caseDetails);
-                        return casesList;
+                        casesList.push(caseDetail);
                     }
                 }
             }
         }
-        return [];
+        return casesList;
     }
 
     public async getCourtDetails(courts): Promise<Location[]> {
