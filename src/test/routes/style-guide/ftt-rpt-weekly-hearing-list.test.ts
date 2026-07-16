@@ -93,3 +93,18 @@ describe('Residential Property Southern Region Weekly Hearing List Page', () => 
         });
     });
 });
+
+describe('First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List Page', () => {
+    const metaData = JSON.parse(rawMetaData)[0];
+    metaData.listType = 'FTT_RPT_MARKET_RENTS_WEEKLY_HEARING_LIST';
+
+    getPublicationMetadataStub.withArgs('xxyz').resolves(metaData);
+
+    describe('on GET', () => {
+        test('should return First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List page', async () => {
+            await request(app)
+                .get('/ftt-rpt-market-rents-weekly-hearing-list?artefactId=xxyz')
+                .expect(res => expect(res.status).to.equal(200));
+        });
+    });
+});

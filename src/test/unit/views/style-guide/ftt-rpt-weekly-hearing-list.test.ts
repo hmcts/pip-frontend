@@ -7,6 +7,7 @@ import path from 'path';
 import { PublicationService } from '../../../../main/service/PublicationService';
 
 const headingClass = 'govuk-heading-l';
+const openJusticeStatementClass = 'govuk-details__text';
 const bodyText = 'govuk-body';
 const govukLinkClass = 'govuk-link';
 const cell = 'govuk-table__cell';
@@ -300,6 +301,51 @@ describe('Residential Property Weekly Hearing List Page', () => {
             expect(header[0].innerHTML).contains(
                 'First-tier Tribunal (Residential Property Tribunal): Southern region Weekly Hearing List',
                 'Could not find the header'
+            );
+        });
+    });
+
+    describe('First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List', () => {
+        let htmlRes: Document;
+        const PAGE_URL = '/ftt-rpt-market-rents-weekly-hearing-list?artefactId=ghi';
+
+        const metaData = JSON.parse(rawMetaData)[0];
+        metaData.listType = 'FTT_RPT_MARKET_RENTS_WEEKLY_HEARING_LIST';
+
+        metadataStub.withArgs('ghi').returns(metaData);
+
+        beforeAll(async () => {
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should display header', () => {
+            const header = htmlRes.getElementsByClassName(headingClass);
+            expect(header[0].innerHTML).contains(
+                'First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List',
+                'Could not find the header'
+            );
+        });
+
+        it('should display correct open justice statement', () => {
+            const openJusticeStatement = htmlRes.getElementsByClassName(openJusticeStatementClass);
+            const paragraphs = openJusticeStatement[0].querySelectorAll('p');
+
+            expect(paragraphs).to.have.length(3);
+
+            expect(paragraphs[0].textContent).to.contain(
+                'Members of the public wishing to observe a hearing'
+            );
+
+            expect(paragraphs[1].textContent).to.contain(
+                'Observe a court or tribunal hearing as a journalist'
+            );
+
+            expect(paragraphs[2].textContent).to.contain(
+                'For Market Rent applications received before 16 March 2026'
             );
         });
     });

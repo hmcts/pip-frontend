@@ -5,6 +5,7 @@ import sinon from 'sinon';
 import { ManualUploadService } from '../../../../main/service/ManualUploadService';
 import { FileHandlingService } from '../../../../main/service/FileHandlingService';
 import ReferenceDataUploadSummaryController from '../../../../main/controllers/system-admin/ReferenceDataUploadSummaryController';
+import { UserManagementService } from '../../../../main/service/UserManagementService';
 
 const mockData = { fileName: 'fileName', foo: 'blah', file: '' };
 const mockData2 = { fileName: 'fileName2', foo: 'blah', file: '' };
@@ -20,7 +21,9 @@ removeFileStub.resolves('');
 
 uploadStub.withArgs({ ...mockData, file: '', userId: '1' }).resolves(false);
 
-describe('Reference manual manual upload summary controller', () => {
+sinon.stub(UserManagementService.prototype, 'auditAction').resolves();
+
+describe('Reference manual upload summary controller', () => {
     const i18n = {
         'reference-data-upload-summary': {},
     };
@@ -94,6 +97,8 @@ describe('Reference manual manual upload summary controller', () => {
 
         it('should redirect to success page', async () => {
             const req = mockRequest(i18n);
+            req.user = { userId: '1' };
+
             const res = {
                 render: () => {
                     return '';

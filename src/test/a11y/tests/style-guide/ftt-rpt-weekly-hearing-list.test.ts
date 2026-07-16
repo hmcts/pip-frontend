@@ -58,3 +58,13 @@ describe('Accessibility - Residential Property Southern Region Weekly Hearing Li
 
     testAccessibility(url);
 });
+
+describe('Accessibility - First-tier Tribunal (Residential Property Tribunal): Market Rents Weekly Hearing List', () => {
+    const metadata = testArtefactMetadata()[0];
+    metadata.listType = 'FTT_RPT_MARKET_RENTS_WEEKLY_HEARING_LIST';
+
+    const url = '/ftt-rpt-market-rents-weekly-hearing-list?artefactId=abc';
+    metadataStub.withArgs('abc').resolves(metadata);
+
+    testAccessibility(url);
+});
