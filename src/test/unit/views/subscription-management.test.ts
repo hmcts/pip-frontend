@@ -52,7 +52,7 @@ userSubscriptionsStub.withArgs('3').returns({
             caseNumber: 'C123123',
             urn: 'K123123',
             dateAdded: '2022-08-01T01:10:10.111111',
-            searchType: 'CASE_ID',
+            searchType: 'CASE_NUMBER',
         },
     ],
     locationSubscriptions: [],

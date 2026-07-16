@@ -2,8 +2,8 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { PublicationService } from '../service/PublicationService';
-import { pendingCaseSubscriptionSorter } from '../helpers/sortHelper';
 import { SubscriptionService } from '../service/SubscriptionService';
+import { caseSubscriptionSorter } from 'helpers/sortHelper';
 
 const publicationService = new PublicationService();
 const subscriptionService = new SubscriptionService();
@@ -17,7 +17,7 @@ export default class CaseNameSearchResultsController {
                 req.user?.['userId'],
                 true
             );
-            searchResults.sort(pendingCaseSubscriptionSorter);
+            searchResults.sort(caseSubscriptionSorter);
 
             res.render('case-name-search-results', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-name-search-results']),

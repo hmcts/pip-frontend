@@ -39,7 +39,7 @@ userSubscriptionsStub.withArgs('3').returns({
             caseName: 'Test Name',
             caseNumber: 'C123123',
             urn: 'K123123',
-            searchType: 'CASE_ID',
+            searchType: 'CASE_NUMBER',
             dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],

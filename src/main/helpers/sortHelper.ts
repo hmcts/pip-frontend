@@ -42,14 +42,6 @@ export const caseSubscriptionSorter = (a, b) => {
     return result;
 };
 
-export const pendingCaseSubscriptionSorter = (a, b) => {
-    const result = compareByCaseName(a, b);
-    if (result === 0) {
-        return comparePendingSubscriptionByCaseRef(a, b);
-    }
-    return result;
-};
-
 const compareByCaseName = (a, b) => {
     let result;
     if (a.caseName === b.caseName) {
@@ -66,29 +58,12 @@ const compareByCaseName = (a, b) => {
 };
 
 const compareSubscriptionByCaseRef = (a, b) => {
-    const caseRefA = a.searchType == 'CASE_ID' ? a.caseNumber : a.urn;
-    const caseRefB = b.searchType == 'CASE_ID' ? b.caseNumber : b.urn;
-
-    if (caseRefA === caseRefB) {
+    if (a.caseNumber  === b.caseNumber) {
         return 0;
-    } else if (caseRefA === null) {
+    } else if (!a.caseNumber) {
         return 1;
-    } else if (caseRefB === null) {
+    } else if (!b.caseNumber) {
         return -1;
     }
-    return caseRefA > caseRefB ? 1 : -1;
-};
-
-const comparePendingSubscriptionByCaseRef = (a, b) => {
-    const caseRefA = a.caseNumber ? a.caseNumber : a.caseUrn;
-    const caseRefB = b.caseNumber ? b.caseNumber : b.caseUrn;
-
-    if (caseRefA === caseRefB) {
-        return 0;
-    } else if (caseRefA === null) {
-        return 1;
-    } else if (caseRefB === null) {
-        return -1;
-    }
-    return caseRefA > caseRefB ? 1 : -1;
+    return a.caseNumber  > b.caseNumber ? 1 : -1;
 };

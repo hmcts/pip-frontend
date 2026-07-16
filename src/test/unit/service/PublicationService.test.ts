@@ -39,7 +39,10 @@ const countPerLocation = [
 
 const publicationService = new PublicationService();
 
-sinon.stub(PublicationRequests.prototype, 'getCasesByCaseName').resolves(returnedCaseNameSearchResults);
+const getCasesByCaseNameStub = sinon.stub(PublicationRequests.prototype, 'getCasesByCaseName');
+getCasesByCaseNameStub.withArgs(partialCaseNameValue, userId, true).resolves(returnedCaseNameSearchResults);
+getCasesByCaseNameStub.withArgs(partialCaseNameValue, userId, false).resolves([]);
+
 const getCasesByCaseNumberStub = sinon.stub(PublicationRequests.prototype, 'getCasesByCaseNumber');
 getCasesByCaseNumberStub.withArgs(caseNumberValue).resolves(returnedCaseNumberSearchResults);
 getCasesByCaseNumberStub.withArgs(invalidCaseNumberValue).resolves([]);
@@ -80,11 +83,16 @@ const stubCreateListSearchConfig = sinon.stub(PublicationRequests.prototype, 'cr
 const stubUpdateListSearchConfig = sinon.stub(PublicationRequests.prototype, 'updateListSearchConfig');
 
 describe('Publication service', () => {
-    it('should return array of case search results based on partial case name', async () => {
-        const results = await publicationService.getCasesByCaseName(partialCaseNameValue, userId);
+    it('should return array of case search results based on partial case name using fuzzy search', async () => {
+        const results = await publicationService.getCasesByCaseName(partialCaseNameValue, userId, true);
         expect(results.length).to.equal(2);
         expect(results[0].caseName).to.equal(fullCaseNameValue);
         expect(results[1].caseName).to.equal(uppercaseCaseNameValue);
+    });
+
+    it('should return empty array based on partial case name using exact search', async () => {
+        const results = await publicationService.getCasesByCaseName(partialCaseNameValue, userId);
+        expect(results).to.be.empty;
     });
 
     it('should return single case search results matching case number', async () => {

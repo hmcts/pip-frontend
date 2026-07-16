@@ -3,7 +3,7 @@ import { PipRequest } from '../models/request/PipRequest';
 import { SubscriptionService } from '../service/SubscriptionService';
 import { cloneDeep } from 'lodash';
 import {
-    pendingCaseSubscriptionSorter,
+    caseSubscriptionSorter,
     pendingLocationSubscriptionSorter,
     pendingWelshLocationSubscriptionSorter,
 } from '../helpers/sortHelper';
@@ -17,7 +17,7 @@ export default class PendingSubscriptionsController {
             cases: await subscriptionService.getSortedPendingSubscriptions(
                 req.user['userId'],
                 'cases',
-                pendingCaseSubscriptionSorter
+                caseSubscriptionSorter
             ),
             courts: await subscriptionService.getSortedPendingSubscriptions(
                 req.user['userId'],
@@ -64,7 +64,7 @@ export default class PendingSubscriptionsController {
             cases: await subscriptionService.getSortedPendingSubscriptions(
                 req.user['userId'],
                 'cases',
-                pendingCaseSubscriptionSorter
+                caseSubscriptionSorter
             ),
             courts: await subscriptionService.getSortedPendingSubscriptions(
                 req.user['userId'],

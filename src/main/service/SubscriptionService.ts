@@ -10,7 +10,6 @@ import { AToZHelper } from '../helpers/aToZHelper';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
-    pendingCaseSubscriptionSorter,
     pendingListTypeSubscriptionSorter,
     pendingLocationSubscriptionSorter,
     pendingWelshLocationSubscriptionSorter,
@@ -596,7 +595,7 @@ export class SubscriptionService {
         const locationSubscriptionSorter =
             language == 'cy' ? pendingWelshLocationSubscriptionSorter : pendingLocationSubscriptionSorter;
         return {
-            cases: await this.getSortedPendingSubscriptions(userId, 'cases', pendingCaseSubscriptionSorter),
+            cases: await this.getSortedPendingSubscriptions(userId, 'cases', caseSubscriptionSorter),
             courts: await this.getSortedPendingSubscriptions(userId, 'courts', locationSubscriptionSorter),
             listTypes: await this.populateListTypesFriendlyName(
                 await this.getSortedPendingSubscriptions(userId, 'listTypes', pendingListTypeSubscriptionSorter),
