@@ -13,15 +13,12 @@ const partialCaseNameValue = 'test';
 const uppercaseCaseNameValue = 'TEST NAME 2';
 const userId = '123';
 
-
 const returnedCaseNameSearchResults = [
     { caseNumber: '123', caseName: fullCaseNameValue },
     { caseNumber: '321', caseName: uppercaseCaseNameValue },
-]
+];
 
-const returnedCaseNumberSearchResults = [
-    { caseNumber: caseNumberValue, caseName: fullCaseNameValue },
-]
+const returnedCaseNumberSearchResults = [{ caseNumber: caseNumberValue, caseName: fullCaseNameValue }];
 
 const returnedArtefact = [
     {
@@ -43,7 +40,7 @@ const countPerLocation = [
 const publicationService = new PublicationService();
 
 sinon.stub(PublicationRequests.prototype, 'getCasesByCaseName').resolves(returnedCaseNameSearchResults);
-const getCasesByCaseNumberStub = sinon.stub(PublicationRequests.prototype, 'getCasesByCaseNumber')
+const getCasesByCaseNumberStub = sinon.stub(PublicationRequests.prototype, 'getCasesByCaseNumber');
 getCasesByCaseNumberStub.withArgs(caseNumberValue).resolves(returnedCaseNumberSearchResults);
 getCasesByCaseNumberStub.withArgs(invalidCaseNumberValue).resolves([]);
 

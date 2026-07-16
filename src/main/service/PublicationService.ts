@@ -33,8 +33,12 @@ export class PublicationService {
         return results.length > 0 ? results[0] : null;
     }
 
-    public async getCasesByCaseName(searchValue: string, userId: string, fuzzySearch = false): Promise<CaseSearchResults[]> {
-       return await publicationRequests.getCasesByCaseName(searchValue, userId, fuzzySearch);
+    public async getCasesByCaseName(
+        searchValue: string,
+        userId: string,
+        fuzzySearch = false
+    ): Promise<CaseSearchResults[]> {
+        return await publicationRequests.getCasesByCaseName(searchValue, userId, fuzzySearch);
     }
 
     public async getPublicationsByLocation(locationId: string, userId: string, admin = false): Promise<Artefact[]> {

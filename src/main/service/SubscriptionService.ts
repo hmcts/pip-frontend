@@ -316,7 +316,6 @@ export class SubscriptionService {
             );
 
             if (response) {
-
                 const caseRef = cachedCase.caseNumber
                     ? { 'case-number': cachedCase.caseNumber }
                     : { 'case-name': cachedCase.caseName };

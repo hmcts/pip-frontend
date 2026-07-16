@@ -356,7 +356,7 @@ describe('Get Mi Publication Data', () => {
             .rejects(errorResponse);
         const response = await publicationRequests.getMiPublicationData(7);
         expect(response).toBe(null);
-     });
+    });
 });
 
 describe('List search config', () => {

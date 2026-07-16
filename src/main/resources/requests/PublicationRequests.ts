@@ -38,8 +38,8 @@ export class PublicationRequests {
     public async getCasesByCaseNumber(searchValue: string, userId: string): Promise<CaseSearchResults[]> {
         try {
             const response = await dataManagementApi.get('/publication/search/caseNumber', {
-                params : {
-                    searchValue: searchValue
+                params: {
+                    searchValue: searchValue,
                 },
                 headers: {
                     'x-requester-id': userId,
@@ -52,10 +52,14 @@ export class PublicationRequests {
         return [];
     }
 
-    public async getCasesByCaseName(searchValue: string, userId: string, fuzzySearch = false): Promise<CaseSearchResults[]> {
+    public async getCasesByCaseName(
+        searchValue: string,
+        userId: string,
+        fuzzySearch = false
+    ): Promise<CaseSearchResults[]> {
         try {
             const response = await dataManagementApi.get('/publication/search/caseName', {
-                params : {
+                params: {
                     searchValue: searchValue,
                     fuzzySearch: fuzzySearch,
                 },
