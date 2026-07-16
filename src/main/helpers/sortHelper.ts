@@ -58,12 +58,12 @@ const compareByCaseName = (a, b) => {
 };
 
 const compareSubscriptionByCaseRef = (a, b) => {
-    if (a.caseNumber  === b.caseNumber) {
+    if (a.caseNumber === b.caseNumber) {
         return 0;
     } else if (!a.caseNumber) {
         return 1;
     } else if (!b.caseNumber) {
         return -1;
     }
-    return a.caseNumber  > b.caseNumber ? 1 : -1;
+    return a.caseNumber > b.caseNumber ? 1 : -1;
 };

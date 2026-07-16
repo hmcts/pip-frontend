@@ -38,7 +38,6 @@ userSubscriptionsStub.withArgs('3').returns({
             subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
             caseName: 'Test Name',
             caseNumber: 'C123123',
-            urn: 'K123123',
             searchType: 'CASE_NUMBER',
             dateAdded: '2022-08-01T01:10:10.111111',
         },
@@ -62,10 +61,9 @@ userSubscriptionsStub.withArgs('5').returns({
     caseSubscriptions: [
         {
             subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
-            caseName: null,
+            caseName: 'case name',
             caseNumber: null,
-            urn: 'K123123',
-            searchType: 'CASE_URN',
+            searchType: 'CASE_NAME',
             dateAdded: '2022-08-01T01:10:10.111111',
         },
     ],
@@ -219,10 +217,10 @@ describe('Bulk Unsubscribe Page', () => {
             expect(subscriptionCaseRowCells[5].innerHTML).equal('I123123');
 
             expect(subscriptionCaseRowCells[8].innerHTML).equal('Test Name 3');
-            expect(subscriptionCaseRowCells[9].innerHTML).equal('1212121212');
+            expect(subscriptionCaseRowCells[9].innerHTML).equal('B123123');
 
             expect(subscriptionCaseRowCells[12].innerHTML).equal('Test Name 3');
-            expect(subscriptionCaseRowCells[13].innerHTML).equal('B123123');
+            expect(subscriptionCaseRowCells[13].innerHTML).equal('');
 
             expect(subscriptionCaseRowCells[16].innerHTML).equal('');
             expect(subscriptionCaseRowCells[17].innerHTML).equal('A123123');
@@ -519,56 +517,6 @@ describe('Bulk Unsubscribe Page', () => {
 
             expect(subscriptionsTabs[1].getAttribute('aria-current')).to.equal('page');
             expect(htmlRes.body.textContent).to.contain('You currently have no subscriptions by case');
-        });
-    });
-
-    describe('with case URN subscriptions only', () => {
-        beforeAll(async () => {
-            app.request['user'] = { userId: '5', roles: 'VERIFIED' };
-            await request(app)
-                .get(PAGE_URL)
-                .then(res => {
-                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                    htmlRes.getElementsByTagName('div')[0].remove();
-                });
-        });
-
-        it('should display case subscriptions table with 4 columns', () => {
-            const casesHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
-            expect(casesHeaders.length).equal(4);
-        });
-
-        it('should have correct columns in the cases table', () => {
-            const caseHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
-            expect(caseHeaders[0].innerHTML).contains(caseNameColumn, 'Case name header is not present');
-            expect(caseHeaders[1].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
-            expect(caseHeaders[2].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[3].innerHTML).contains(checkboxType, 'Select all checkbox not present');
-        });
-
-        it('should not display court subscriptions table', () => {
-            const casesTable = htmlRes.getElementById('locations-table');
-            expect(casesTable).equal(null, 'Courts table should not present');
-        });
-
-        it('case table should have correct number of rows', () => {
-            const subscriptionsCaseRows = htmlRes
-                .getElementsByClassName('govuk-table__body')[0]
-                .getElementsByClassName('govuk-table__row');
-            expect(subscriptionsCaseRows.length).equal(1);
-        });
-
-        it('case table should have correct column values', () => {
-            const subscriptionCaseRowCells = htmlRes
-                .getElementsByClassName('govuk-table__body')[0]
-                .getElementsByClassName('govuk-table__cell');
-            expect(subscriptionCaseRowCells[0].innerHTML).equal('');
-            expect(subscriptionCaseRowCells[1].innerHTML).equal('K123123');
-            expect(subscriptionCaseRowCells[2].innerHTML).equal(expectedRowDateAdded);
-
-            const checkboxElement = subscriptionCaseRowCells[3].querySelector('input');
-            expect(checkboxElement.getAttribute('type')).equal('checkbox');
-            expect(checkboxElement.getAttribute('name')).equal('caseSubscription');
         });
     });
 

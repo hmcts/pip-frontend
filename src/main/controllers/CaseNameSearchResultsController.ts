@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash';
 import { PipRequest } from '../models/request/PipRequest';
 import { PublicationService } from '../service/PublicationService';
 import { SubscriptionService } from '../service/SubscriptionService';
-import { caseSubscriptionSorter } from 'helpers/sortHelper';
+import { caseSubscriptionSorter } from '../helpers/sortHelper';
 
 const publicationService = new PublicationService();
 const subscriptionService = new SubscriptionService();

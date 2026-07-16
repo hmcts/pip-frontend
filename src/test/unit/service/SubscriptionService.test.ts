@@ -738,7 +738,11 @@ describe('subscribe function', () => {
 
         const subscriptionRes = await subscriptionService.subscribe(userIdWithCaseNameSubscription);
 
-        sinon.assert.calledWith(removeStub, { 'case-name': mockCaseWithNameOnly.caseName }, userIdWithCaseNameSubscription);
+        sinon.assert.calledWith(
+            removeStub,
+            { 'case-name': mockCaseWithNameOnly.caseName },
+            userIdWithCaseNameSubscription
+        );
 
         expect(subscriptionRes).toBe(true);
     });
