@@ -376,7 +376,10 @@ describe('Pending Subscriptions Page', () => {
                 .getElementsByClassName('govuk-table__row');
 
             const cells = rows[1].getElementsByClassName('govuk-table__cell');
-            expect(cells[0].innerHTML).contains(mockCaseWithNameOnly.caseName, 'First cell does not contain correct value');
+            expect(cells[0].innerHTML).contains(
+                mockCaseWithNameOnly.caseName,
+                'First cell does not contain correct value'
+            );
             expect(cells[2].innerHTML).contains('Remove', 'Third cell does not contain correct value');
             expect(cells[2].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-name=${mockCaseWithNameOnly.caseName}`

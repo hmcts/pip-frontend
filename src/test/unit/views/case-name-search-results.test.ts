@@ -66,7 +66,7 @@ describe('Case name search results page', () => {
         expect(tableRows[1].innerHTML).contains('123', 'Case number incorrect on table row');
 
         const checkboxInput = tableRows[1].getElementsByClassName('govuk-checkboxes__input');
-        expect(checkboxInput[0].getAttribute('name')).equal('case-number[]')
+        expect(checkboxInput[0].getAttribute('name')).equal('case-number[]');
     });
 
     it('should display correct data for row with case name only', () => {
@@ -74,7 +74,7 @@ describe('Case name search results page', () => {
         expect(tableRows[5].innerHTML).contains("Meedoo's hearings 2", 'Case name incorrect on table row');
 
         const checkboxInput = tableRows[5].getElementsByClassName('govuk-checkboxes__input');
-        expect(checkboxInput[0].getAttribute('name')).equal('case-name[]')
+        expect(checkboxInput[0].getAttribute('name')).equal('case-name[]');
     });
 
     it('should display checkboxes', () => {
