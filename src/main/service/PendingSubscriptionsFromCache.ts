@@ -25,7 +25,7 @@ export class PendingSubscriptionsFromCache {
                 } else {
                     this.addToSubscriptionSet(
                         subscription,
-                        subscription.caseNumber ? 'caseNumber' : 'caseName',
+                        'cases',
                         subscriptionsSet
                     );
                 }
@@ -90,6 +90,9 @@ export class PendingSubscriptionsFromCache {
 
     private addToSubscriptionSet(subscription, filter, subscriptionsSet) {
         if (filter === 'listType' && !subscriptionsSet.includes(subscription)) {
+            subscriptionsSet.push(subscription);
+        } else if (filter === 'cases' && !subscriptionsSet.some(cached =>
+            cached['caseNumber'] === subscription['caseNumber'] && cached['caseName'] === subscription['caseName'])) {
             subscriptionsSet.push(subscription);
         } else if (!subscriptionsSet.some(cached => cached[filter] === subscription[filter])) {
             subscriptionsSet.push(subscription);
