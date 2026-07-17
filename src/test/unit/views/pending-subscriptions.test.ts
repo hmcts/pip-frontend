@@ -15,6 +15,17 @@ const mockCase = {
     caseName: 'Case Name 1234',
 };
 
+const mockCaseWithNameOnly = {
+    hearingId: 1,
+    locationId: 50,
+    courtNumber: 1,
+    date: '15/11/2021 10:00:00',
+    judge: 'Case Judge 1234',
+    platform: 'In person',
+    caseNumber: null,
+    caseName: 'Case Name 1235',
+};
+
 const mockCourt = {
     locationId: 1,
     name: 'Aberdeen Tribunal Hearing Centre',
@@ -47,7 +58,7 @@ getSubscriptionsStub.withArgs('1', 'cases').resolves([mockCase]);
 getSubscriptionsStub.withArgs('1', 'courts').resolves([mockCourt]);
 getSubscriptionsStub.withArgs('2', 'cases').resolves([]);
 getSubscriptionsStub.withArgs('2', 'courts').resolves([]);
-getSubscriptionsStub.withArgs('3', 'cases').resolves([mockCase]);
+getSubscriptionsStub.withArgs('3', 'cases').resolves([mockCase, mockCaseWithNameOnly]);
 getSubscriptionsStub.withArgs('3', 'courts').resolves([]);
 getSubscriptionsStub.withArgs('4', 'cases').resolves([]);
 getSubscriptionsStub.withArgs('4', 'courts').resolves([mockCourt, mockCourt2, mockCourt3]);
@@ -87,8 +98,8 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains('Case name', 'Could not find text in first header');
-            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in third header');
-            expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in fourth header');
+            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in second header');
+            expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in third header');
         });
 
         it('should display correct court table headers', () => {
@@ -114,8 +125,8 @@ describe('Pending Subscriptions Page', () => {
 
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(cells[0].innerHTML).contains(mockCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Third cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
+            expect(cells[2].innerHTML).contains('Remove', 'Third cell does not contain correct value');
             expect(cells[2].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-number=${mockCase.caseNumber}`
             );
@@ -128,7 +139,7 @@ describe('Pending Subscriptions Page', () => {
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
             expect(cells[0].innerHTML).contains(mockCourt.name, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[1].innerHTML).contains('Remove', 'Second cell does not contain correct value');
             expect(cells[1].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?court=${mockCourt.locationId}`
             );
@@ -329,8 +340,8 @@ describe('Pending Subscriptions Page', () => {
         it('should display correct case table headers', () => {
             const tableHeaders = htmlRes.getElementsByClassName(tableHeaderClass);
             expect(tableHeaders[0].innerHTML).contains('Case name', 'Could not find text in first header');
-            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in Third header');
-            expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in fourth header');
+            expect(tableHeaders[1].innerHTML).contains('Reference number', 'Could not find text in Second header');
+            expect(tableHeaders[2].innerHTML).contains('Actions', 'Could not find text in Third header');
         });
 
         it('should not display court table headers', () => {
@@ -338,24 +349,37 @@ describe('Pending Subscriptions Page', () => {
             expect(tableHeaders).equal(undefined, 'Could not find text in first header');
         });
 
-        it('should contain 1 row in the case table with correct values', () => {
+        it('should contain 2 rows in the case table with correct values', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
-            expect(rows.length).equal(1, 'Case table did not contain expected number of rows');
+            expect(rows.length).equal(2, 'Case table did not contain expected number of rows');
         });
 
-        it('should contain the correct data for the case number row', () => {
+        it('should contain the correct data for row with both case number and case name', () => {
             const rows = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__row');
 
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(cells[0].innerHTML).contains(mockCase.caseName, 'First cell does not contain correct value');
-            expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Third cell does not contain correct value');
-            expect(cells[2].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
+            expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
+            expect(cells[2].innerHTML).contains('Remove', 'Third cell does not contain correct value');
             expect(cells[2].querySelector('a').getAttribute('href')).equal(
                 `/remove-subscription?case-number=${mockCase.caseNumber}`
+            );
+        });
+
+        it('should contain the correct data for row with case name only', () => {
+            const rows = htmlRes
+                .getElementsByClassName('govuk-table__body')[0]
+                .getElementsByClassName('govuk-table__row');
+
+            const cells = rows[1].getElementsByClassName('govuk-table__cell');
+            expect(cells[0].innerHTML).contains(mockCaseWithNameOnly.caseName, 'First cell does not contain correct value');
+            expect(cells[2].innerHTML).contains('Remove', 'Third cell does not contain correct value');
+            expect(cells[2].querySelector('a').getAttribute('href')).equal(
+                `/remove-subscription?case-name=${mockCaseWithNameOnly.caseName}`
             );
         });
 
@@ -370,7 +394,7 @@ describe('Pending Subscriptions Page', () => {
         });
 
         it('should display add another email subscription link', () => {
-            const addAnotherLink = htmlRes.getElementsByTagName('a')[10];
+            const addAnotherLink = htmlRes.getElementsByTagName('a')[11];
             expect(addAnotherLink.innerHTML).contains(
                 'Add another email Subscription',
                 'Could not find add another email subscription link'

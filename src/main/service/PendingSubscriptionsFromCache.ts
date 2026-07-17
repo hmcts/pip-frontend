@@ -45,7 +45,6 @@ export class PendingSubscriptionsFromCache {
         return [];
     }
 
-    // @param removeObject - post data object {case-number: 'id'} || {case-urn: 'id'} || {court: 'id'}
     public async removeFromCache(removeObject, userId): Promise<void> {
         if (redisClient.isReady && userId) {
             if (removeObject['case-number'] || removeObject['case-name']) {

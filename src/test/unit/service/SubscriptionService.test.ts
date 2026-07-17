@@ -466,6 +466,23 @@ describe('getCaseDetailsByNumber function', () => {
     });
 });
 
+describe('getCaseDetailsByName function', () => {
+    it('should return case details list', async () => {
+        const caseDetailsList = await subscriptionService.getCaseDetailsByName([testCaseName], user);
+        expect(caseDetailsList).toStrictEqual([mockCaseWithNameOnly]);
+    });
+
+    it('should return empty case list if invalid case number is provided', async () => {
+        const caseList = await subscriptionService.getCaseDetailsByName(['invalid'], user);
+        expect(caseList).toEqual([]);
+    });
+
+    it('should return empty case list if no cases are provided', async () => {
+        const caseList = await subscriptionService.getCaseDetailsByName([], user);
+        expect(caseList).toEqual([]);
+    });
+});
+
 describe('getCourtDetails function', () => {
     it('should return court details list', async () => {
         const courtDetailsList = await subscriptionService.getCourtDetails([1]);

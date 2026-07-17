@@ -16,7 +16,7 @@ const data = [
     { caseName: "Meedoo's hearings", caseNumber: '321' },
     { caseName: "Meedoo's hearings", caseNumber: '234' },
     { caseName: "Meedoo's hearings", caseNumber: '534' },
-    { caseName: "Meedoo's hearings", caseNumber: '674' },
+    { caseName: "Meedoo's hearings 2", caseNumber: null },
 ];
 
 sinon.stub(PublicationRequests.prototype, 'getCasesByCaseName').returns(data);
@@ -60,10 +60,21 @@ describe('Case name search results page', () => {
         expect(tableRows.length).equal(6, 'Number of rows is not equal to expected amount');
     });
 
-    it('should display correct data for case number row', () => {
+    it('should display correct data for row with case number and case name', () => {
         const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
         expect(tableRows[1].innerHTML).contains("Meedoo's hearings", 'Case name incorrect on table row');
         expect(tableRows[1].innerHTML).contains('123', 'Case number incorrect on table row');
+
+        const checkboxInput = tableRows[1].getElementsByClassName('govuk-checkboxes__input');
+        expect(checkboxInput[0].getAttribute('name')).equal('case-number[]')
+    });
+
+    it('should display correct data for row with case name only', () => {
+        const tableRows = htmlRes.getElementsByClassName('govuk-table__row');
+        expect(tableRows[5].innerHTML).contains("Meedoo's hearings 2", 'Case name incorrect on table row');
+
+        const checkboxInput = tableRows[5].getElementsByClassName('govuk-checkboxes__input');
+        expect(checkboxInput[0].getAttribute('name')).equal('case-name[]')
     });
 
     it('should display checkboxes', () => {
