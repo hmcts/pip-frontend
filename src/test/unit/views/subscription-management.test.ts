@@ -50,7 +50,6 @@ userSubscriptionsStub.withArgs('3').returns({
             subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
             caseName: 'Test Name',
             caseNumber: 'C123123',
-            urn: 'K123123',
             dateAdded: '2022-08-01T01:10:10.111111',
             searchType: 'CASE_NUMBER',
         },
@@ -75,8 +74,7 @@ userSubscriptionsStub.withArgs('5').returns({
         {
             subscriptionId: '252899d6-2b05-43ec-86e0-a438d3854fa8',
             caseName: '',
-            caseNumber: '',
-            urn: 'K123123',
+            caseNumber: 'K123123',
             dateAdded: '2022-08-01T01:10:10.111111',
             searchType: 'CASE_URN',
         },
@@ -315,10 +313,10 @@ describe('Subscriptions Management Page', () => {
             expect(subscriptionCaseRowCells[5].innerHTML).equal('I123123');
 
             expect(subscriptionCaseRowCells[8].innerHTML).equal('Test Name 3');
-            expect(subscriptionCaseRowCells[9].innerHTML).equal('1212121212');
+            expect(subscriptionCaseRowCells[9].innerHTML).equal('B123123');
 
             expect(subscriptionCaseRowCells[12].innerHTML).equal('Test Name 3');
-            expect(subscriptionCaseRowCells[13].innerHTML).equal('B123123');
+            expect(subscriptionCaseRowCells[13].innerHTML).equal('');
 
             expect(subscriptionCaseRowCells[16].innerHTML).equal('');
             expect(subscriptionCaseRowCells[17].innerHTML).equal('A123123');

@@ -576,9 +576,9 @@ describe('Subscriptions Confirmation Preview Page', () => {
 
             const cells = rows[0].getElementsByClassName('govuk-table__cell');
             expect(cells[0].innerHTML).contains(mockCase.caseName, 'First cell does not contain correct value');
-            expect(cells[2].innerHTML).contains(mockCase.caseNumber, 'Third cell does not contain correct value');
-            expect(cells[3].innerHTML).contains('Remove', 'Fourth cell does not contain correct value');
-            expect(cells[3].querySelector('a').getAttribute('href')).equal(
+            expect(cells[1].innerHTML).contains(mockCase.caseNumber, 'Second cell does not contain correct value');
+            expect(cells[2].innerHTML).contains('Remove', 'Third cell does not contain correct value');
+            expect(cells[2].querySelector('a').getAttribute('href')).equal(
                 `/remove-pending-subscription?case-number=${mockCase.caseNumber}`
             );
         });

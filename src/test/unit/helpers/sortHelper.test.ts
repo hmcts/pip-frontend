@@ -99,22 +99,6 @@ describe('Sort Helper', () => {
             ]);
         });
 
-        it('should sort by case URNs if same case name', () => {
-            const cases = [
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '125' },
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '234' },
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '123' },
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '124' },
-            ];
-
-            expect(cases.sort(caseSubscriptionSorter)).toStrictEqual([
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '123' },
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '124' },
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '125' },
-                { searchType: 'CASE_URN', caseName: 'Case A', urn: '234' },
-            ]);
-        });
-
         it('should sort by case names first followed by case numbers', () => {
             const cases = [
                 { searchType: 'CASE_NUMBER', caseName: 'Case A', caseNumber: '124' },
