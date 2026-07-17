@@ -23,11 +23,7 @@ export class PendingSubscriptionsFromCache {
                 } else if (subscriptionType === 'listLanguage') {
                     this.addToSubscriptionSet(subscription, 'listLanguage', subscriptionsSet);
                 } else {
-                    this.addToSubscriptionSet(
-                        subscription,
-                        'cases',
-                        subscriptionsSet
-                    );
+                    this.addToSubscriptionSet(subscription, 'cases', subscriptionsSet);
                 }
             });
             await redisClient.set(
@@ -91,8 +87,14 @@ export class PendingSubscriptionsFromCache {
     private addToSubscriptionSet(subscription, filter, subscriptionsSet) {
         if (filter === 'listType' && !subscriptionsSet.includes(subscription)) {
             subscriptionsSet.push(subscription);
-        } else if (filter === 'cases' && !subscriptionsSet.some(cached =>
-            cached['caseNumber'] === subscription['caseNumber'] && cached['caseName'] === subscription['caseName'])) {
+        } else if (
+            filter === 'cases' &&
+            !subscriptionsSet.some(
+                cached =>
+                    cached['caseNumber'] === subscription['caseNumber'] &&
+                    cached['caseName'] === subscription['caseName']
+            )
+        ) {
             subscriptionsSet.push(subscription);
         } else if (!subscriptionsSet.some(cached => cached[filter] === subscription[filter])) {
             subscriptionsSet.push(subscription);
