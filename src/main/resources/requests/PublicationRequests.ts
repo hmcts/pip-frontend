@@ -155,7 +155,7 @@ export class PublicationRequests {
         }
         return null;
     }
-  
+
     public async getListSearchConfigByListType(listType: string, userId: string): Promise<any> {
         try {
             const header = { headers: { 'x-requester-id': userId } };
