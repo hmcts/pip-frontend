@@ -6,8 +6,7 @@
     "table": {
         "column0Header": "Select a result",
         "column1Header": "Case name",
-        "column2Header": "Party name(s)",
-        "column3Header": "Reference number"
+        "column2Header": "Reference number"
     },
     "select": "Select"
 }

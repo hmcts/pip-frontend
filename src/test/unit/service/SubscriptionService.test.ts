@@ -15,11 +15,15 @@ import {
 const userIdWithSubscriptions = '1';
 const userIdWithoutSubscriptions = '2';
 const userIdForSortedSubscriptions = '3';
-const userIdWithUrnSubscription = '4';
-const userIdWithCaseSubscription = '5';
+const userIdWithCaseNameSubscription = '4';
+const userIdWithCaseNumberSubscription = '5';
 const userIdWithCourtSubscription = '6';
 const userIdWithCourtMultiListTypeSubscription = '7';
 const userIdForFailedConfigureListType = '8';
+
+const testCaseNumber = 'T485914';
+const testCaseNumber2 = 'T485912';
+const testCaseName = 'Test case name';
 
 const mockCourt = {
     locationId: 1,
@@ -43,16 +47,10 @@ const mockCourt3 = {
 const mockCase = {
     caseNumber: 'CASENUM1234',
     caseName: 'CASENAME1234',
-    caseUrn: 'CASEURN1234',
-    partyNames: 'PARTYNAME1,\nPARTYNAME2',
-    urnSearch: false,
 };
-const mockCaseWithUrnOnly = {
+const mockCaseWithNameOnly = {
     caseNumber: null,
-    caseName: null,
-    caseUrn: 'CASEURN1234',
-    partyNames: 'PARTYNAME1,\nPARTYNAME2',
-    urnSearch: true,
+    caseName: testCaseName,
 };
 const mockCourtSubscription = {
     subscriptionId: '123',
@@ -71,21 +69,21 @@ const mockCourtSubscription3 = {
 };
 const mockCaseSubscription = {
     subscriptionId: '123',
-    searchType: 'CASE_ID',
+    searchType: 'CASE_NUMBER',
     caseName: 'My Case A',
     caseNumber: '2222',
     urn: null,
 };
 const mockCaseSubscription2 = {
     subscriptionId: '124',
-    searchType: 'CASE_ID',
+    searchType: 'CASE_NUMBER',
     caseName: 'Another Case',
     caseNumber: '1111',
     urn: null,
 };
 const mockCaseSubscription3 = {
     subscriptionId: '125',
-    searchType: 'CASE_URN',
+    searchType: 'CASE_NAME',
     caseName: 'My Case A',
     caseNumber: null,
     urn: '1111',
@@ -102,10 +100,8 @@ const caseSubscriptionPayload = {
     caseName: 'CASENAME1234',
     caseNumber: 'CASENUM1234',
     channel: 'EMAIL',
-    searchType: 'CASE_ID',
+    searchType: 'CASE_NUMBER',
     searchValue: 'CASENUM1234',
-    urn: 'CASEURN1234',
-    partyNames: 'PARTYNAME1,PARTYNAME2',
     userId: userIdWithSubscriptions,
 };
 
@@ -140,7 +136,7 @@ const cacheSetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'setPen
 const cacheGetStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'getPendingSubscriptions');
 const removeStub = sinon.stub(PendingSubscriptionsFromCache.prototype, 'removeFromCache');
 const getByCaseNumberStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
-const getCaseByUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
+const getByCaseNameStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 const locationStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const subscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'subscribe');
 const addListTypeSubscriptionStub = sinon.stub(SubscriptionRequests.prototype, 'addListTypeForLocationSubscriptions');
@@ -160,11 +156,10 @@ locationStub.withArgs(2).resolves(mockCourt2);
 locationStub.withArgs(3).resolves(mockCourt3);
 locationStub.withArgs('111').resolves(mockCourt);
 locationStub.withArgs('').resolves(null);
-getByCaseNumberStub.withArgs('T485914').resolves(mockCase);
-getByCaseNumberStub.withArgs('T485912').resolves(mockCase);
+getByCaseNumberStub.withArgs(testCaseNumber).resolves(mockCase);
+getByCaseNumberStub.withArgs(testCaseNumber2).resolves(mockCase);
 getByCaseNumberStub.withArgs('').resolves(null);
-getCaseByUrnStub.withArgs('URNCASE1234').resolves(mockCaseWithUrnOnly);
-getCaseByUrnStub.withArgs('').resolves(null);
+getByCaseNameStub.withArgs(testCaseName).resolves([mockCaseWithNameOnly]);
 
 cacheSetStub.withArgs([], 'cases', userIdWithSubscriptions).resolves();
 cacheSetStub.withArgs([], 'courts', userIdWithSubscriptions).resolves();
@@ -205,7 +200,6 @@ describe('getSubscriptionDataForView function', () => {
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
             expect(caseDataRow.caseName).toEqual('Test Name');
-            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
             expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
@@ -226,7 +220,6 @@ describe('getSubscriptionDataForView function', () => {
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
             expect(caseDataRow.caseName).toEqual('Test Name');
-            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
             expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
@@ -251,7 +244,6 @@ describe('getSubscriptionDataForView function', () => {
             const caseDataRow = subscriptionData.caseTableData[0];
             expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
             expect(caseDataRow.caseName).toEqual('Test Name');
-            expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
             expect(caseDataRow.caseRef).toEqual('C123123');
 
             expect(subscriptionData.locationTableData).toHaveLength(3);
@@ -269,32 +261,26 @@ describe('getSubscriptionDataForView function', () => {
             const subscriptionData = JSON.parse(JSON.stringify(result));
             const firstRow = subscriptionData.caseTableData[0];
             expect(firstRow.caseName).toEqual('Test Name');
-            expect(firstRow.partyNames).toEqual('PARTYNAME3');
             expect(firstRow.caseRef).toEqual('C123123');
 
             const secondRow = subscriptionData.caseTableData[1];
             expect(secondRow.caseName).toEqual('Test Name 2');
-            expect(secondRow.partyNames).toEqual('');
             expect(secondRow.caseRef).toEqual('I123123');
 
             const thirdRow = subscriptionData.caseTableData[2];
             expect(thirdRow.caseName).toEqual('Test Name 3');
-            expect(thirdRow.partyNames).toEqual('');
-            expect(thirdRow.caseRef).toEqual('1212121212');
+            expect(thirdRow.caseRef).toEqual('B123123');
 
             const fourthRow = subscriptionData.caseTableData[3];
             expect(fourthRow.caseName).toEqual('Test Name 3');
-            expect(fourthRow.partyNames).toEqual('');
-            expect(fourthRow.caseRef).toEqual('B123123');
+            expect(fourthRow.caseRef).toEqual('');
 
             const fifthRow = subscriptionData.caseTableData[4];
             expect(fifthRow.caseName).toEqual('');
-            expect(fifthRow.partyNames).toEqual('');
             expect(fifthRow.caseRef).toEqual('A123123');
 
             const sixthRow = subscriptionData.caseTableData[5];
             expect(sixthRow.caseName).toEqual('');
-            expect(sixthRow.partyNames).toEqual('PARTYNAME1,\nPARTYNAME2');
             expect(sixthRow.caseRef).toEqual('D123123');
         });
 
@@ -323,36 +309,6 @@ describe('getSubscriptionDataForView function', () => {
             expect(subscriptionData.locationTableData[0].locationName).toEqual('Manchester Crown Court');
             expect(subscriptionData.locationTableData[1].locationName).toEqual('Manchester Crown Court');
         });
-
-        it('should sort case name when there are null in names and numbers/urns', async () => {
-            const locationDuplicateSubscription = fs.readFileSync(
-                path.resolve(__dirname, '../../../test/unit/mocks/userSubscriptionsSingleCaseAndWithoutCaseName.json'),
-                'utf-8'
-            );
-            stubUserSubscription.withArgs('1948291848').resolves(JSON.parse(locationDuplicateSubscription).data);
-
-            const result = await subscriptionService.getSubscriptionDataForView('1948291848', 'en', 'case');
-            const subscriptionData = JSON.parse(JSON.stringify(result));
-            expect(subscriptionData.caseTableData[0].caseName).toBe('Case Name');
-            expect(subscriptionData.caseTableData[0].caseRef).toEqual('1234');
-            expect(subscriptionData.caseTableData[0].partyNames).toEqual('');
-
-            expect(subscriptionData.caseTableData[1].caseName).toBe('Case Name');
-            expect(subscriptionData.caseTableData[1].caseRef).toEqual('1234512345');
-            expect(subscriptionData.caseTableData[1].partyNames).toEqual('PARTYNAME3');
-
-            expect(subscriptionData.caseTableData[2].caseName).toBe('Case Name');
-            expect(subscriptionData.caseTableData[2].caseRef).toEqual('1234512345');
-            expect(subscriptionData.caseTableData[2].partyNames).toEqual('');
-
-            expect(subscriptionData.caseTableData[3].caseName).toBe('Case Name');
-            expect(subscriptionData.caseTableData[3].caseRef).toEqual('');
-            expect(subscriptionData.caseTableData[3].partyNames).toEqual('');
-
-            expect(subscriptionData.caseTableData[4].caseName).toEqual('');
-            expect(subscriptionData.caseTableData[4].caseRef).toEqual('1234512346');
-            expect(subscriptionData.caseTableData[4].partyNames).toEqual('PARTYNAME1,\nPARTYNAME2');
-        });
     });
 });
 
@@ -371,7 +327,6 @@ describe('getSelectedSubscriptionDataForView function', () => {
         const caseDataRow = subscriptionData.caseTableData[0];
         expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
         expect(caseDataRow.caseName).toEqual('Test Name');
-        expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
         expect(caseDataRow.caseRef).toEqual('C123123');
     });
 
@@ -409,7 +364,6 @@ describe('getSelectedSubscriptionDataForView function', () => {
         const caseDataRow = subscriptionData.caseTableData[0];
         expect(caseDataRow.subscriptionId).toEqual('5a45699f-47e3-4283-904a-581afe624155');
         expect(caseDataRow.caseName).toEqual('Test Name');
-        expect(caseDataRow.partyNames).toEqual('PARTYNAME3');
         expect(caseDataRow.caseRef).toEqual('C123123');
 
         expect(subscriptionData.locationTableData).toHaveLength(2);
@@ -429,7 +383,7 @@ describe('getSelectedSubscriptionDataForView function', () => {
 
 describe('handleNewSubscription function', () => {
     it('should add new case number subscription', async () => {
-        const pendingSubscription = { 'case-number': 'T485914' };
+        const pendingSubscription = { 'case-number': testCaseNumber };
         await subscriptionService.handleNewSubscription(pendingSubscription, user);
 
         sinon.assert.calledWith(cacheSetStub, [mockCase], 'cases', user['userId']);
@@ -437,26 +391,19 @@ describe('handleNewSubscription function', () => {
 
     it('should add new case number subscriptions', async () => {
         const pendingSubscription = {
-            'case-number[]': ['T485914', 'T485912'],
+            'case-number[]': [testCaseNumber, testCaseNumber2],
         };
         await subscriptionService.handleNewSubscription(pendingSubscription, user);
         sinon.assert.calledWith(cacheSetStub, [mockCase, mockCase], 'cases', user['userId']);
     });
 
-    it('should add new case urn subscription', async () => {
-        const pendingSubscription = { 'case-urn': 'URNCASE1234' };
-        await subscriptionService.handleNewSubscription(pendingSubscription, user);
-
-        sinon.assert.calledWith(cacheSetStub, [mockCaseWithUrnOnly], 'cases', user['userId']);
-    });
-
-    it('should add new case urn subscriptions', async () => {
+    it('should add new case name subscriptions', async () => {
         const pendingSubscription = {
-            'case-urn[]': ['URNCASE1234', 'URNCASE1234'],
+            'case-name[]': [testCaseName],
         };
         await subscriptionService.handleNewSubscription(pendingSubscription, user);
 
-        sinon.assert.calledWith(cacheSetStub, [mockCaseWithUrnOnly, mockCaseWithUrnOnly], 'cases', user['userId']);
+        sinon.assert.calledWith(cacheSetStub, [mockCaseWithNameOnly], 'cases', user['userId']);
     });
 
     it('should add new court subscription', async () => {
@@ -504,7 +451,7 @@ describe('handleNewSubscription function', () => {
 
 describe('getCaseDetailsByNumber function', () => {
     it('should return case details list', async () => {
-        const caseDetailsList = await subscriptionService.getCaseDetailsByNumber(['T485914'], user);
+        const caseDetailsList = await subscriptionService.getCaseDetailsByNumber([testCaseNumber], user);
         expect(caseDetailsList).toStrictEqual([mockCase]);
     });
 
@@ -519,19 +466,19 @@ describe('getCaseDetailsByNumber function', () => {
     });
 });
 
-describe('getCaseDetailsByUrn function', () => {
+describe('getCaseDetailsByName function', () => {
     it('should return case details list', async () => {
-        const caseDetailsList = await subscriptionService.getCaseDetailsByUrn(['URNCASE1234'], user);
-        expect(caseDetailsList).toStrictEqual([mockCaseWithUrnOnly]);
+        const caseDetailsList = await subscriptionService.getCaseDetailsByName([testCaseName], user);
+        expect(caseDetailsList).toStrictEqual([mockCaseWithNameOnly]);
     });
 
     it('should return empty case list if invalid case number is provided', async () => {
-        const caseList = await subscriptionService.getCaseDetailsByUrn([''], user);
+        const caseList = await subscriptionService.getCaseDetailsByName(['invalid'], user);
         expect(caseList).toEqual([]);
     });
 
     it('should return empty case list if no cases are provided', async () => {
-        const caseList = await subscriptionService.getCaseDetailsByUrn([], user);
+        const caseList = await subscriptionService.getCaseDetailsByName([], user);
         expect(caseList).toEqual([]);
     });
 });
@@ -665,7 +612,7 @@ describe('getSortedPendingSubscriptions function', () => {
             'cases',
             caseSubscriptionSorter
         );
-        expect(courts).toStrictEqual([mockCaseSubscription2, mockCaseSubscription3, mockCaseSubscription]);
+        expect(courts).toStrictEqual([mockCaseSubscription2, mockCaseSubscription, mockCaseSubscription3]);
     });
 
     it('should return sorted list types', async () => {
@@ -687,20 +634,19 @@ describe('subscribe function', () => {
         location: 'Scotland',
     };
 
-    const caseUrnSubscriptionPayload = {
+    const caseNameSubscriptionPayload = {
         caseName: null,
         caseNumber: null,
         channel: 'EMAIL',
-        searchType: 'CASE_URN',
-        searchValue: 'CASEURN1234',
-        urn: 'CASEURN1234',
-        userId: userIdWithUrnSubscription,
+        searchType: 'CASE_NAME',
+        searchValue: testCaseName,
+        userId: userIdWithCaseNameSubscription,
     };
 
-    cacheGetStub.withArgs(userIdWithUrnSubscription, 'cases').resolves([mockCaseWithUrnOnly]);
-    cacheGetStub.withArgs(userIdWithUrnSubscription, 'courts').resolves([]);
-    cacheGetStub.withArgs(userIdWithCaseSubscription, 'cases').resolves([mockCase]);
-    cacheGetStub.withArgs(userIdWithCaseSubscription, 'courts').resolves([]);
+    cacheGetStub.withArgs(userIdWithCaseNameSubscription, 'cases').resolves([mockCaseWithNameOnly]);
+    cacheGetStub.withArgs(userIdWithCaseNameSubscription, 'courts').resolves([]);
+    cacheGetStub.withArgs(userIdWithCaseNumberSubscription, 'cases').resolves([mockCase]);
+    cacheGetStub.withArgs(userIdWithCaseNumberSubscription, 'courts').resolves([]);
     cacheGetStub.withArgs(userIdWithCourtSubscription, 'cases').resolves([]);
     cacheGetStub.withArgs(userIdWithCourtSubscription, 'courts').resolves([subscribeMockCourt]);
     cacheGetStub.withArgs(userIdWithCourtSubscription, 'listTypes').resolves(mockListType);
@@ -709,7 +655,7 @@ describe('subscribe function', () => {
     cacheGetStub.withArgs(userIdWithCourtMultiListTypeSubscription, 'listTypes').resolves(mockListTypes);
     cacheGetStub.withArgs(userIdWithCourtMultiListTypeSubscription, 'listLanguage').resolves(mockLanguages);
     subscriptionStub.withArgs(caseSubscriptionPayload, 'cases', userIdWithSubscriptions).resolves(true);
-    subscriptionStub.withArgs(caseUrnSubscriptionPayload, 'cases', userIdWithUrnSubscription).resolves(true);
+    subscriptionStub.withArgs(caseNameSubscriptionPayload, 'cases', userIdWithCaseNameSubscription).resolves(true);
     subscriptionStub.withArgs(caseSubscriptionPayload, 'courts', userIdWithSubscriptions).resolves(true);
 
     it('should return true for successful subscription when no subscriptions', async () => {
@@ -726,7 +672,7 @@ describe('subscribe function', () => {
     });
 
     it('should return true for successful subscription using case URN subscription', async () => {
-        subscriptionStub.withArgs(caseUrnSubscriptionPayload).resolves(true);
+        subscriptionStub.withArgs(caseNameSubscriptionPayload).resolves(true);
 
         const subscriptionRes = await subscriptionService.subscribe(userIdWithSubscriptions);
         expect(subscriptionRes).toBe(true);
@@ -779,41 +725,41 @@ describe('subscribe function', () => {
     it('should return true for successful subscription where no existing subs - case number subscription', async () => {
         const caseSubscription = {
             channel: 'EMAIL',
-            searchType: 'CASE_ID',
+            searchType: 'CASE_NUMBER',
             searchValue: mockCase.caseNumber,
             caseNumber: mockCase.caseNumber,
             caseName: mockCase.caseName,
-            urn: mockCase.caseUrn,
-            partyNames: mockCase.partyNames.split(',\n').join(','),
-            userId: userIdWithCaseSubscription,
+            userId: userIdWithCaseNumberSubscription,
         };
 
-        subscriptionStub.withArgs(caseSubscription, userIdWithCaseSubscription).resolves(true);
+        subscriptionStub.withArgs(caseSubscription, userIdWithCaseNumberSubscription).resolves(true);
 
-        const subscriptionRes = await subscriptionService.subscribe(userIdWithCaseSubscription);
+        const subscriptionRes = await subscriptionService.subscribe(userIdWithCaseNumberSubscription);
 
-        sinon.assert.calledWith(removeStub, { 'case-number': mockCase.caseNumber }, userIdWithCaseSubscription);
+        sinon.assert.calledWith(removeStub, { 'case-number': mockCase.caseNumber }, userIdWithCaseNumberSubscription);
 
         expect(subscriptionRes).toBe(true);
     });
 
-    it('should return true for successful subscription where no existing subs - case urn subscription', async () => {
+    it('should return true for successful subscription where no existing subs - case name subscription', async () => {
         const caseSubscription = {
             channel: 'EMAIL',
-            searchType: 'CASE_URN',
-            searchValue: mockCaseWithUrnOnly.caseUrn,
-            caseNumber: mockCaseWithUrnOnly.caseNumber,
-            caseName: mockCaseWithUrnOnly.caseName,
-            urn: mockCaseWithUrnOnly.caseUrn,
-            partyNames: mockCaseWithUrnOnly.partyNames.split(',\n').join(','),
-            userId: userIdWithUrnSubscription,
+            searchType: 'CASE_NAME',
+            searchValue: mockCaseWithNameOnly.caseName,
+            caseNumber: null,
+            caseName: mockCaseWithNameOnly.caseName,
+            userId: userIdWithCaseNameSubscription,
         };
 
-        subscriptionStub.withArgs(caseSubscription, userIdWithUrnSubscription).resolves(true);
+        subscriptionStub.withArgs(caseSubscription, userIdWithCaseNameSubscription).resolves(true);
 
-        const subscriptionRes = await subscriptionService.subscribe(userIdWithUrnSubscription);
+        const subscriptionRes = await subscriptionService.subscribe(userIdWithCaseNameSubscription);
 
-        sinon.assert.calledWith(removeStub, { 'case-urn': mockCaseWithUrnOnly.caseUrn }, userIdWithUrnSubscription);
+        sinon.assert.calledWith(
+            removeStub,
+            { 'case-name': mockCaseWithNameOnly.caseName },
+            userIdWithCaseNameSubscription
+        );
 
         expect(subscriptionRes).toBe(true);
     });
@@ -1097,9 +1043,8 @@ describe('generate case table rows', () => {
             {
                 subscriptionId: 99,
                 caseName: 'myCaseName',
-                partyNames: null,
                 caseNumber: '1234',
-                searchType: 'CASE_ID',
+                searchType: 'CASE_NUMBER',
                 dateAdded: '2023-04-01T16:49:26.607904',
             },
         ];
@@ -1108,7 +1053,6 @@ describe('generate case table rows', () => {
         expect(results.length).toEqual(1);
         expect(results[0].subscriptionId).toEqual(99);
         expect(results[0].caseName).toEqual('myCaseName');
-        expect(results[0].partyNames).toEqual('');
         expect(results[0].caseRef).toEqual('1234');
         expect(results[0].date).toEqual('01 April 2023');
     });
@@ -1118,9 +1062,8 @@ describe('generate case table rows', () => {
             {
                 subscriptionId: 99,
                 caseName: 'myCaseName',
-                partyNames: null,
                 caseNumber: '1234',
-                searchType: 'CASE_ID',
+                searchType: 'CASE_NUMBER',
                 dateAdded: '2023-04-01T16:49:26.607904',
             },
         ];
@@ -1129,7 +1072,6 @@ describe('generate case table rows', () => {
         expect(results.length).toEqual(1);
         expect(results[0].subscriptionId).toEqual(99);
         expect(results[0].caseName).toEqual('myCaseName');
-        expect(results[0].partyNames).toEqual('');
         expect(results[0].caseRef).toEqual('1234');
         expect(results[0].date).toEqual('01 Ebrill 2023');
     });

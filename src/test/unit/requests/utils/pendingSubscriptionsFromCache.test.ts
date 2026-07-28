@@ -20,18 +20,15 @@ const mockCase = [
     {
         caseNumber: 'CASENUMBER1234',
         caseName: 'Case Name',
-        caseUrn: 'CASEURN12345',
     },
 ];
-const mockCaseWithUrnOnly = [
+const mockCaseWithNameOnly = [
     {
         caseNumber: null,
-        caseName: null,
-        caseUrn: 'CASEURN1234',
-        urnSearch: true,
+        caseName: 'CASENAME1234',
     },
 ];
-const mockCaseWithUrnOnly2 = [
+const mockCaseWithNameOnly2 = [
     {
         caseNumber: null,
         caseName: null,
@@ -42,20 +39,20 @@ const mockCaseWithUrnOnly2 = [
 const mockListType = ['listType1'];
 const mockListLanguage = ['language1'];
 
-const combinedMockCaseWithUrnOnly = [mockCaseWithUrnOnly[0], mockCaseWithUrnOnly2[0]];
+const combinedMockCaseWithNameOnly = [mockCaseWithNameOnly[0], mockCaseWithNameOnly2[0]];
 
 const mockCourtJson = JSON.stringify(mockCourt);
 const mockCaseJson = JSON.stringify(mockCase);
-const mockCaseWithUrnOnlyJson = JSON.stringify(mockCaseWithUrnOnly);
-const combinedMockCaseWithUrnOnlyJson = JSON.stringify(combinedMockCaseWithUrnOnly);
+const mockCaseWithNameOnlyJson = JSON.stringify(mockCaseWithNameOnly);
+const combinedMockCaseWithNameOnlyJson = JSON.stringify(combinedMockCaseWithNameOnly);
 const mockListTypeJson = JSON.stringify(mockListType);
 const mockListLanguageJson = JSON.stringify(mockListLanguage);
 
 const getStub = sinon.stub(redisClient, 'get');
 getStub.withArgs('pending-courts-subscriptions-1').resolves(mockCourtJson);
 getStub.withArgs('pending-cases-subscriptions-1').resolves(mockCaseJson);
-getStub.withArgs('pending-cases-subscriptions-2').resolves(mockCaseWithUrnOnlyJson);
-getStub.withArgs('pending-cases-subscriptions-3').resolves(mockCaseWithUrnOnlyJson);
+getStub.withArgs('pending-cases-subscriptions-2').resolves(mockCaseWithNameOnlyJson);
+getStub.withArgs('pending-cases-subscriptions-3').resolves(mockCaseWithNameOnlyJson);
 getStub.withArgs('pending-courts-subscriptions-2').resolves([]);
 getStub.withArgs('pending-listTypes-subscriptions-1').resolves(mockListTypeJson);
 getStub.withArgs('pending-listLanguage-subscriptions-1').resolves(mockListLanguageJson);
@@ -88,13 +85,13 @@ describe('pendingSubscription from Cache', () => {
         });
 
         it('should set case URN into cache', async () => {
-            await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCaseWithUrnOnly, 'cases', '2');
-            sinon.assert.calledWith(set, 'pending-cases-subscriptions-2', mockCaseWithUrnOnlyJson);
+            await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCaseWithNameOnly, 'cases', '2');
+            sinon.assert.calledWith(set, 'pending-cases-subscriptions-2', mockCaseWithNameOnlyJson);
         });
 
         it('should set case URN into cache if not currently exist on cache', async () => {
-            await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCaseWithUrnOnly2, 'cases', '3');
-            sinon.assert.calledWith(set, 'pending-cases-subscriptions-3', combinedMockCaseWithUrnOnlyJson);
+            await pendingSubscriptionsFromCache.setPendingSubscriptions(mockCaseWithNameOnly2, 'cases', '3');
+            sinon.assert.calledWith(set, 'pending-cases-subscriptions-3', combinedMockCaseWithNameOnlyJson);
         });
     });
 
@@ -137,7 +134,7 @@ describe('pendingSubscription from Cache', () => {
         });
 
         it('should remove a case URN record from the cache', async () => {
-            await pendingSubscriptionsFromCache.removeFromCache({ 'case-urn': 'CASEURN1234' }, '2');
+            await pendingSubscriptionsFromCache.removeFromCache({ 'case-name': 'CASENAME1234' }, '2');
             sinon.assert.calledWith(set, 'pending-cases-subscriptions-2', '[]');
             sinon.assert.called(getStub);
         });

@@ -6,12 +6,10 @@ import { PublicationService } from '../../../main/service/PublicationService';
 
 const caseReferenceNumberSearchController = new CaseReferenceNumberSearchController();
 const caseNumberStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber');
-const caseUrnStub = sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn');
 
 const validCaseNo = '56-181-2097';
-const validCaseUrn = '123456';
 
-const subscriptionCaseResult = { caseName: 'name', caseNumber: '1234', caseUrn: '12345', partyNames: 'name1' };
+const subscriptionCaseResult = { caseName: 'name', caseNumber: '1234' };
 
 describe('Case Reference Number Search Controller', () => {
     let i18n = {};
@@ -161,35 +159,7 @@ describe('Case Reference Number Search Controller', () => {
         responseMock
             .expects('redirect')
             .once()
-            .withArgs(`case-reference-number-search-results?search-input=${validCaseNo}&search-type=case-number`);
-
-        return caseReferenceNumberSearchController.post(request, response).then(() => {
-            responseMock.verify();
-        });
-    });
-
-    it('should redirect to case search results page with input as query if case urn is valid', () => {
-        const response = {
-            redirect: function () {
-                return '';
-            },
-            render: function () {
-                return '';
-            },
-        } as unknown as Response;
-
-        const request = mockRequest(i18n);
-        request.user = { userId: '1' };
-        request.body = { 'search-input': validCaseUrn };
-
-        const responseMock = sinon.mock(response);
-        caseNumberStub.withArgs(validCaseUrn).returns(null);
-        caseUrnStub.withArgs(validCaseUrn).returns(subscriptionCaseResult);
-
-        responseMock
-            .expects('redirect')
-            .once()
-            .withArgs(`case-reference-number-search-results?search-input=${validCaseUrn}&search-type=case-urn`);
+            .withArgs(`case-reference-number-search-results?search-input=${validCaseNo}`);
 
         return caseReferenceNumberSearchController.post(request, response).then(() => {
             responseMock.verify();

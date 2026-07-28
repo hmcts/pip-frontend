@@ -1,5 +1,3 @@
-import { Search } from './Search';
-
 export interface Artefact {
     artefactId: string;
     provenance: string;
@@ -7,7 +5,6 @@ export interface Artefact {
     artefactType: string;
     sensitivity: string;
     language: string;
-    search: Search;
     displayFrom: string;
     displayTo: string;
     listType: string;
