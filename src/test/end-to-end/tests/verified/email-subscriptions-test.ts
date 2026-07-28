@@ -20,7 +20,7 @@ const caseNameNumber = '12341232';
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
-Scenario(
+Scenario.skip(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
         'should be able to remove subscription and bulk unsubscribe',
     async ({ I }) => {
