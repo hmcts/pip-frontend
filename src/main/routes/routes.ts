@@ -133,6 +133,7 @@ export default function (app: Application): void {
     app.post('/view-option', app.locals.container.cradle.viewOptionController.post);
     app.get('/summary-of-publications', app.locals.container.cradle.summaryOfPublicationsController.get);
     app.get('/file-publication', app.locals.container.cradle.flatFileController.get);
+    app.get('/publishing-policy', app.locals.container.cradle.publishingPolicyController.get);
 
     // List Templates
     app.get('/sjp-public-list', app.locals.container.cradle.sjpPublicListController.get);
