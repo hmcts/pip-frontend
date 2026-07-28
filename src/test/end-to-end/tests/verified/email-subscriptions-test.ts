@@ -104,7 +104,6 @@ Scenario(
         I.see(caseName);
         I.see(caseNameNumber);
         I.checkOption('//*[@id="12341232"]');
-        I.checkOption('//*[@id="18472381412"]');
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');
