@@ -12,4 +12,3 @@ describe('Publishing Policy Page', () => {
         });
     });
 });
-

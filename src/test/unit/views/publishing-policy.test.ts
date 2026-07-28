@@ -19,7 +19,10 @@ describe('publishing-policy', () => {
 
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
-        expect(pageTitle).contains('Publication policy - Court and Tribunal Hearings - GOV.UK', 'Could not find the page title');
+        expect(pageTitle).contains(
+            'Publication policy - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the page title'
+        );
     });
 
     it('should display the page header', () => {
@@ -49,7 +52,10 @@ describe('publishing-policy', () => {
     it('should display the heading in section 4', () => {
         const div = htmlRes.getElementById('section4');
 
-        expect(div.textContent).contains('4. Policy statement and publication principles', 'Could not find section 4 heading');
+        expect(div.textContent).contains(
+            '4. Policy statement and publication principles',
+            'Could not find section 4 heading'
+        );
     });
 
     it('should display the heading in section 5', () => {
@@ -61,13 +67,19 @@ describe('publishing-policy', () => {
     it('should display the heading in section 6', () => {
         const div = htmlRes.getElementById('section6');
 
-        expect(div.textContent).contains('6. Enhanced information: access and re-use', 'Could not find section 6 heading');
+        expect(div.textContent).contains(
+            '6. Enhanced information: access and re-use',
+            'Could not find section 6 heading'
+        );
     });
 
     it('should display the heading in section 7', () => {
         const div = htmlRes.getElementById('section7');
 
-        expect(div.textContent).contains('7. Onward sharing and third-party access', 'Could not find section 7 heading');
+        expect(div.textContent).contains(
+            '7. Onward sharing and third-party access',
+            'Could not find section 7 heading'
+        );
     });
 
     it('should display the heading in section 8', () => {
@@ -120,4 +132,3 @@ describe('publishing-policy', () => {
         });
     });
 });
-
