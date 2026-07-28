@@ -20,7 +20,7 @@ const caseNameNumber = '12341232';
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
 
-Scenario.skip(
+Scenario(
     'I as a verified user should be able to subscribe by court name, URN, case id and case name. Also ' +
         'should be able to remove subscription and bulk unsubscribe',
     async ({ I }) => {
@@ -141,7 +141,6 @@ Scenario.skip(
 
         I.click(locate('//tr').withText(caseName).find('input').withAttr({ name: 'caseSubscription' }));
         I.click(locate('//tr').withText(locationName).find('input').withAttr({ name: 'courtSubscription' }));
-        I.click(locate('//tr').withText(caseId).find('input').withAttr({ name: 'caseSubscription' }));
 
         I.click('#bulk-unsubscribe-button');
         I.waitForText('Are you sure you want to remove these subscriptions?');
