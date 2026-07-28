@@ -10,7 +10,6 @@ import { AToZHelper } from '../helpers/aToZHelper';
 import {
     caseSubscriptionSorter,
     locationSubscriptionSorter,
-    pendingCaseSubscriptionSorter,
     pendingListTypeSubscriptionSorter,
     pendingLocationSubscriptionSorter,
     pendingWelshLocationSubscriptionSorter,
@@ -118,16 +117,10 @@ export class SubscriptionService {
     }
 
     private generateCaseTableRow(subscription, language): any {
-        const caseName = subscription.caseName === null ? '' : subscription.caseName;
-        const partyNames = subscription.partyNames === null ? '' : subscription.partyNames.split(',').join(',\n');
-        let caseRef = subscription.searchType == 'CASE_ID' ? subscription.caseNumber : subscription.urn;
-        caseRef = caseRef === null ? '' : caseRef;
-
         return {
             subscriptionId: subscription.subscriptionId,
-            caseName: caseName,
-            partyNames: partyNames,
-            caseRef: caseRef,
+            caseName: subscription.caseName ? subscription.caseName : '',
+            caseRef: subscription.caseNumber ? subscription.caseNumber : '',
             date: DateTime.fromISO(subscription.dateAdded, { zone: timeZone }).setLocale(language).toFormat(dateFormat),
         };
     }
@@ -204,15 +197,13 @@ export class SubscriptionService {
                     caseDetailsList = await this.getCaseDetailsByNumber(hearingIdsList, user);
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
-                case 'case-urn':
-                case 'case-urn[]':
+                case 'case-name[]':
                     if (Array.isArray(pendingSubscription[`${selectionName}`])) {
                         hearingIdsList = pendingSubscription[`${selectionName}`];
                     } else {
                         hearingIdsList.push(pendingSubscription[`${selectionName}`]);
                     }
-
-                    caseDetailsList = await this.getCaseDetailsByUrn(hearingIdsList, user);
+                    caseDetailsList = await this.getCaseDetailsByName(hearingIdsList, user);
                     await this.setPendingSubscriptions(caseDetailsList, 'cases', user.userId);
                     break;
                 case 'court-selections[]':
@@ -253,13 +244,18 @@ export class SubscriptionService {
         return casesList;
     }
 
-    public async getCaseDetailsByUrn(cases, user): Promise<object[]> {
+    public async getCaseDetailsByName(cases, user): Promise<object[]> {
         const casesList = [];
-        for (const caseUrn of cases) {
-            const caseDetails = await publicationService.getCaseByCaseUrn(caseUrn, user.userId);
+        for (const caseName of cases) {
+            const caseDetails = await publicationService.getCasesByCaseName(caseName, user.userId);
             if (caseDetails) {
-                caseDetails['urnSearch'] = true;
-                casesList.push(caseDetails);
+                // Case name might not be unique, only add it to the list if the case number is null for
+                // case name subscriptions. This is to avoid duplicate case name subscriptions in the cache.
+                for (const caseDetail of caseDetails) {
+                    if (!caseDetail.caseNumber) {
+                        casesList.push(caseDetail);
+                    }
+                }
             }
         }
         return casesList;
@@ -318,9 +314,9 @@ export class SubscriptionService {
             );
 
             if (response) {
-                const caseRef = cachedCase.urnSearch
-                    ? { 'case-urn': cachedCase.caseUrn }
-                    : { 'case-number': cachedCase.caseNumber };
+                const caseRef = cachedCase.caseNumber
+                    ? { 'case-number': cachedCase.caseNumber }
+                    : { 'case-name': cachedCase.caseName };
                 await this.removeFromCache(caseRef, userId);
             } else {
                 subscribed = false;
@@ -392,14 +388,12 @@ export class SubscriptionService {
             case 'cases':
                 payload = {
                     channel: 'EMAIL',
-                    searchType: pendingSubscription.urnSearch ? 'CASE_URN' : 'CASE_ID',
-                    searchValue: pendingSubscription.urnSearch
-                        ? pendingSubscription.caseUrn
-                        : pendingSubscription.caseNumber,
+                    searchType: pendingSubscription.caseNumber ? 'CASE_NUMBER' : 'CASE_NAME',
+                    searchValue: pendingSubscription.caseNumber
+                        ? pendingSubscription.caseNumber
+                        : pendingSubscription.caseName,
                     caseNumber: pendingSubscription.caseNumber,
                     caseName: pendingSubscription.caseName,
-                    urn: pendingSubscription.caseUrn,
-                    partyNames: pendingSubscription.partyNames.split(',\n').join(','),
                     userId,
                 };
                 break;
@@ -600,7 +594,7 @@ export class SubscriptionService {
         const locationSubscriptionSorter =
             language == 'cy' ? pendingWelshLocationSubscriptionSorter : pendingLocationSubscriptionSorter;
         return {
-            cases: await this.getSortedPendingSubscriptions(userId, 'cases', pendingCaseSubscriptionSorter),
+            cases: await this.getSortedPendingSubscriptions(userId, 'cases', caseSubscriptionSorter),
             courts: await this.getSortedPendingSubscriptions(userId, 'courts', locationSubscriptionSorter),
             listTypes: await this.populateListTypesFriendlyName(
                 await this.getSortedPendingSubscriptions(userId, 'listTypes', pendingListTypeSubscriptionSorter),

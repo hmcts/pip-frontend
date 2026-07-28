@@ -5,9 +5,8 @@
     "removeText": "Remove",
     "table": {
         "header1": "Case name",
-        "header2": "Party name(s)",
-        "header3": "Reference number",
-        "header4": "Actions"
+        "header2": "Reference number",
+        "header3": "Actions"
     },
     "buttonText_court_subscription": "Continue",
     "buttonText": "Confirm Subscriptions",

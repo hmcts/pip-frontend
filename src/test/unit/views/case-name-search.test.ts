@@ -1,14 +1,10 @@
 import request from 'supertest';
-import sinon from 'sinon';
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { PublicationRequests } from '../../../main/resources/requests/PublicationRequests';
 
 const PAGE_URL = '/case-name-search';
 const pageTitleValue = 'Subscribe by case name – What is the name of the case - Court and Tribunal Hearings - GOV.UK';
 let htmlRes: Document;
-
-sinon.stub(PublicationRequests.prototype, 'getPublicationByCaseValue').returns([]);
 
 app.request['user'] = { roles: 'VERIFIED' };
 
