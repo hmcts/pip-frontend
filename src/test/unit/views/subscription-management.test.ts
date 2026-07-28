@@ -20,13 +20,11 @@ const expectedBulkUnsubscribeButton = 'Bulk unsubscribe';
 const expectedListTypesToSendButton = 'Edit list types';
 const tabsClass = 'moj-sub-navigation__link';
 const caseNameColumn = 'Case name';
-const partyNamesColumn = 'Party name(s)';
 const caseReferenceColumn = 'Reference number';
 const dateAddedColumn = 'Date added';
 const actionsColumn = 'Actions';
 const courtNameColumn = 'Court or tribunal name';
 const expectedRowCaseName = 'Test Name';
-const expectedRowPartyName = 'PARTYNAME3';
 const expectedRowCaseReference = 'C123123';
 const expectedRowCaseUrn = 'K123123';
 const expectedRowDateAdded = DateTime.fromISO('2022-08-01T01:10:10.111111').toFormat('dd MMMM yyyy');
@@ -52,10 +50,8 @@ userSubscriptionsStub.withArgs('3').returns({
             subscriptionId: '5a45699f-47e3-4283-904a-581afe624155',
             caseName: 'Test Name',
             caseNumber: 'C123123',
-            urn: 'K123123',
-            partyNames: 'PARTYNAME3',
             dateAdded: '2022-08-01T01:10:10.111111',
-            searchType: 'CASE_ID',
+            searchType: 'CASE_NUMBER',
         },
     ],
     locationSubscriptions: [],
@@ -78,9 +74,7 @@ userSubscriptionsStub.withArgs('5').returns({
         {
             subscriptionId: '252899d6-2b05-43ec-86e0-a438d3854fa8',
             caseName: '',
-            caseNumber: '',
-            urn: 'K123123',
-            partyNames: '',
+            caseNumber: 'K123123',
             dateAdded: '2022-08-01T01:10:10.111111',
             searchType: 'CASE_URN',
         },
@@ -254,18 +248,17 @@ describe('Subscriptions Management Page', () => {
             );
         });
 
-        it('should display case subscriptions table with 5 columns', () => {
+        it('should display case subscriptions table with 4 columns', () => {
             const casesHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
-            expect(casesHeaders.length).equal(5);
+            expect(casesHeaders.length).equal(4);
         });
 
         it('should have correct columns in the cases table', () => {
             const caseHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
             expect(caseHeaders[0].innerHTML).contains(caseNameColumn, 'Case name header is not present');
-            expect(caseHeaders[1].innerHTML).contains(partyNamesColumn, 'Party names header is not present');
-            expect(caseHeaders[2].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
-            expect(caseHeaders[3].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[4].innerHTML).contains(actionsColumn, 'Actions header is not present');
+            expect(caseHeaders[1].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
+            expect(caseHeaders[2].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
+            expect(caseHeaders[3].innerHTML).contains(actionsColumn, 'Actions header is not present');
         });
 
         it('should display court subscriptions table with 3 columns', () => {
@@ -287,7 +280,7 @@ describe('Subscriptions Management Page', () => {
         it('requests cell should contain a link to delete subscription page', () => {
             const actionsCell = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
-                .getElementsByClassName('govuk-table__cell')[4];
+                .getElementsByClassName('govuk-table__cell')[3];
             expect(actionsCell.innerHTML).contains('Unsubscribe');
             expect(actionsCell.querySelector('a').getAttribute('href')).equal(expectedUnsubscribeLink);
         });
@@ -304,9 +297,8 @@ describe('Subscriptions Management Page', () => {
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
             expect(subscriptionCaseRowCells[0].innerHTML).contains(expectedRowCaseName);
-            expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowPartyName);
-            expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowCaseReference);
-            expect(subscriptionCaseRowCells[3].innerHTML).contains(expectedRowDateAdded);
+            expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowCaseReference);
+            expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
         });
 
         it('case table should be sorted by case name then case number', () => {
@@ -315,29 +307,22 @@ describe('Subscriptions Management Page', () => {
                 .getElementsByClassName('govuk-table__cell');
 
             expect(subscriptionCaseRowCells[0].innerHTML).equal('Test Name');
-            expect(subscriptionCaseRowCells[1].innerHTML).equal('PARTYNAME3');
-            expect(subscriptionCaseRowCells[2].innerHTML).equal('C123123');
+            expect(subscriptionCaseRowCells[1].innerHTML).equal('C123123');
 
-            expect(subscriptionCaseRowCells[5].innerHTML).equal('Test Name 2');
-            expect(subscriptionCaseRowCells[6].innerHTML).equal('');
-            expect(subscriptionCaseRowCells[7].innerHTML).equal('I123123');
+            expect(subscriptionCaseRowCells[4].innerHTML).equal('Test Name 2');
+            expect(subscriptionCaseRowCells[5].innerHTML).equal('I123123');
 
-            expect(subscriptionCaseRowCells[10].innerHTML).equal('Test Name 3');
-            expect(subscriptionCaseRowCells[11].innerHTML).equal('');
-            expect(subscriptionCaseRowCells[12].innerHTML).equal('1212121212');
+            expect(subscriptionCaseRowCells[8].innerHTML).equal('Test Name 3');
+            expect(subscriptionCaseRowCells[9].innerHTML).equal('B123123');
 
-            expect(subscriptionCaseRowCells[15].innerHTML).equal('Test Name 3');
+            expect(subscriptionCaseRowCells[12].innerHTML).equal('Test Name 3');
+            expect(subscriptionCaseRowCells[13].innerHTML).equal('');
+
             expect(subscriptionCaseRowCells[16].innerHTML).equal('');
-            expect(subscriptionCaseRowCells[17].innerHTML).equal('B123123');
+            expect(subscriptionCaseRowCells[17].innerHTML).equal('A123123');
 
             expect(subscriptionCaseRowCells[20].innerHTML).equal('');
-            expect(subscriptionCaseRowCells[21].innerHTML).equal('');
-            expect(subscriptionCaseRowCells[22].innerHTML).equal('A123123');
-
-            expect(subscriptionCaseRowCells[25].innerHTML).equal('');
-            expect(subscriptionCaseRowCells[26].innerHTML).contains('PARTYNAME1');
-            expect(subscriptionCaseRowCells[26].innerHTML).contains('PARTYNAME2');
-            expect(subscriptionCaseRowCells[27].innerHTML).equal('D123123');
+            expect(subscriptionCaseRowCells[21].innerHTML).equal('D123123');
         });
 
         it('court table should have correct number of rows', () => {
@@ -438,18 +423,17 @@ describe('Subscriptions Management Page', () => {
             );
         });
 
-        it('should display case subscriptions table with 5 columns', () => {
+        it('should display case subscriptions table with 4 columns', () => {
             const casesHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
-            expect(casesHeaders.length).equal(5);
+            expect(casesHeaders.length).equal(4);
         });
 
         it('should have correct columns in the cases table', () => {
             const caseHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
             expect(caseHeaders[0].innerHTML).contains(caseNameColumn, 'Case name header is not present');
-            expect(caseHeaders[1].innerHTML).contains(partyNamesColumn, 'Party names header is not present');
-            expect(caseHeaders[2].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
-            expect(caseHeaders[3].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[4].innerHTML).contains(actionsColumn, 'Actions header is not present');
+            expect(caseHeaders[1].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
+            expect(caseHeaders[2].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
+            expect(caseHeaders[3].innerHTML).contains(actionsColumn, 'Actions header is not present');
         });
 
         it('should not display court subscriptions table with 3 columns', () => {
@@ -465,7 +449,7 @@ describe('Subscriptions Management Page', () => {
         it('requests cell should contain a link to delete subscription page', () => {
             const actionsCell = htmlRes
                 .getElementsByClassName('govuk-table__body')[0]
-                .getElementsByClassName('govuk-table__cell')[4];
+                .getElementsByClassName('govuk-table__cell')[3];
             expect(actionsCell.innerHTML).contains('Unsubscribe');
             expect(actionsCell.querySelector('a').getAttribute('href')).equal(expectedUnsubscribeLink);
         });
@@ -482,9 +466,8 @@ describe('Subscriptions Management Page', () => {
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
             expect(subscriptionCaseRowCells[0].innerHTML).contains(expectedRowCaseName);
-            expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowPartyName);
-            expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowCaseReference);
-            expect(subscriptionCaseRowCells[3].innerHTML).contains(expectedRowDateAdded);
+            expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowCaseReference);
+            expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
         });
 
         it('court table should have correct number of rows', () => {
@@ -669,18 +652,17 @@ describe('Subscriptions Management Page', () => {
                 });
         });
 
-        it('should display case subscriptions table with 5 columns', () => {
+        it('should display case subscriptions table with 4 columns', () => {
             const casesHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
-            expect(casesHeaders.length).equal(5);
+            expect(casesHeaders.length).equal(4);
         });
 
         it('should have correct columns in the cases table', () => {
             const caseHeaders = htmlRes.getElementById('cases-table').getElementsByClassName('govuk-table__header');
             expect(caseHeaders[0].innerHTML).contains(caseNameColumn, 'Case name header is not present');
-            expect(caseHeaders[1].innerHTML).contains(partyNamesColumn, 'Party names header is not present');
-            expect(caseHeaders[2].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
-            expect(caseHeaders[3].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
-            expect(caseHeaders[4].innerHTML).contains(actionsColumn, 'Actions header is not present');
+            expect(caseHeaders[1].innerHTML).contains(caseReferenceColumn, 'Case reference header is not present');
+            expect(caseHeaders[2].innerHTML).contains(dateAddedColumn, 'Date added header is not present');
+            expect(caseHeaders[3].innerHTML).contains(actionsColumn, 'Actions header is not present');
         });
 
         it('should not display the locations table', () => {
@@ -700,9 +682,8 @@ describe('Subscriptions Management Page', () => {
                 .getElementsByClassName('govuk-table__body')[0]
                 .getElementsByClassName('govuk-table__cell');
             expect(subscriptionCaseRowCells[0].innerHTML).to.be.empty;
-            expect(subscriptionCaseRowCells[1].innerHTML).to.be.empty;
-            expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowCaseUrn);
-            expect(subscriptionCaseRowCells[3].innerHTML).contains(expectedRowDateAdded);
+            expect(subscriptionCaseRowCells[1].innerHTML).contains(expectedRowCaseUrn);
+            expect(subscriptionCaseRowCells[2].innerHTML).contains(expectedRowDateAdded);
         });
     });
 });

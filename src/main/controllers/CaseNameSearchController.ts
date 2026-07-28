@@ -26,7 +26,8 @@ export default class CaseNameSearchController {
         if (searchInput && searchInput.length >= 3 && !checkIfUrl(searchInput)) {
             const searchResults = await publicationService.getCasesByCaseName(
                 searchInput.toLowerCase(),
-                req.user['userId']
+                req.user['userId'],
+                true
             );
             if (searchResults.length > 0) {
                 res.redirect(

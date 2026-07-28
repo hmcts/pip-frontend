@@ -20,33 +20,29 @@
             <tr class="govuk-table__row">
                 <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column0Header }}</th>
                 <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column1Header }}</th>
-                <th class="govuk-table__header vertical-center-table-header" scope="col">{{ table.column2Header }}</th>
-                <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column3Header }}</th>
+                <th class="govuk-table__header vertical-center-table-header govuk-table__header--numeric" scope="col">{{ table.column2Header }}</th>
             </tr>
             </thead>
             <tbody class="govuk-table__body">
                 {% for result in searchResults %}
-                    {% if result.displayUrn %}
-                        {% set referenceNumber = result.caseUrn %}
-                        {% set name = "case-urn[]" %}
-                    {% else %}
-                        {% set referenceNumber = result.caseNumber %}
+                    {% if result.caseNumber %}
+                        {% set caseValue = result.caseNumber %}
                         {% set name = "case-number[]" %}
+                    {% else %}
+                        {% set caseValue = result.caseName %}
+                        {% set name = "case-name[]" %}
                     {% endif %}
                     <tr class="govuk-table__row govuk-table__row--selected">
                         <td class="govuk-table__cell">
                             <div class="govuk-checkboxes__item govuk-checkboxes--small">
-                                <input type="checkbox" class="govuk-checkboxes__input" id={{ referenceNumber }}
-                                value={{ referenceNumber }}
-                                       name={{ name }} />
-                                <label class="govuk-label govuk-checkboxes__label no_padding" for="{{ referenceNumber }}">
+                                <input type="checkbox" class="govuk-checkboxes__input" id="{{ caseValue }}" value="{{ caseValue }}" name={{ name }} />
+                                <label class="govuk-label govuk-checkboxes__label no_padding" for="{{ caseValue }}">
                                     <span class="govuk-visually-hidden">{{ select }}</span>
                                 </label>
                             </div>
                         </td>
                         <td class="govuk-table__cell govuk-!-padding-top-3">{{ result.caseName }}</td>
-                        <td class="govuk-table__cell govuk-!-padding-top-3">{{ result.partyNames | striptags(true) | escape | nl2br }}</td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-padding-top-3">{{ referenceNumber }}</td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric govuk-!-padding-top-3">{{ result.caseNumber }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
