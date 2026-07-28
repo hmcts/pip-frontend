@@ -8,10 +8,10 @@ const caseNameSearchResultsController = new CaseNameSearchResultsController();
 const publicationServiceStub = sinon.stub(PublicationService.prototype, 'getCasesByCaseName');
 publicationServiceStub.withArgs('').returns([]);
 
-const caseSubscription = { caseName: 'name', caseNumber: '124', partyNames: 'name1' };
-const caseSubscription2 = { caseName: 'name2', caseUrn: '126', partyNames: 'name2', displayUrn: true };
-const caseSubscription3 = { caseName: 'name2', caseNumber: '125', partyNames: 'name3' };
-const caseSubscription4 = { caseName: 'name', caseUrn: '123', partyNames: 'name4', displayUrn: true };
+const caseSubscription = { caseName: 'name', caseNumber: '124' };
+const caseSubscription2 = { caseName: 'name2', caseNumber: '126' };
+const caseSubscription3 = { caseName: 'name2', caseNumber: '125' };
+const caseSubscription4 = { caseName: 'name', caseNumber: '123' };
 
 publicationServiceStub
     .withArgs('urnAndNumberResults')

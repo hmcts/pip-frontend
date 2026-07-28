@@ -7,7 +7,7 @@ const logHelper = new LogHelper();
 export class SubscriptionRequests {
     public async getUserSubscriptions(userId: string): Promise<UserSubscriptions> {
         try {
-            const response = await accountManagementApi.get(`/subscription/user/${userId}`, {
+            const response = await accountManagementApi.get(`/subscription/user/v2/${userId}`, {
                 headers: { 'x-requester-id': userId },
             });
             return response.data;

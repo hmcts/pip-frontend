@@ -2,32 +2,29 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 import { app } from '../../../main/app';
-import fs from 'fs';
-import path from 'path';
+
 import { PublicationService } from '../../../main/service/PublicationService';
 
+const caseNumber = '123';
+const caseName = 'case name';
 const searchTerm = '56-181-2097';
 const numOfResults = '1';
 const resultFound = '1 found';
-const CASE_NUMBER_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-number`;
-const CASE_URN_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}&search-type=case-urn`;
+const CASE_NUMBER_PAGE_URL = `/case-reference-number-search-results?search-input=${searchTerm}`;
 
 const rowClass = 'govuk-table__row';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/returnedArtefacts.json'), 'utf-8');
-const subscriptionsData = { ...JSON.parse(rawData)[0].search.cases[0], partyNames: 'party name' };
-sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns(subscriptionsData);
-sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').returns(subscriptionsData);
+sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').returns({ caseNumber: caseNumber, caseName: caseName });
 
 const pageTitleValue =
-    'Subscribe by case reference number, case ID or unique reference number (URN) – Subscription URN search results - Court and Tribunal Hearings - GOV.UK';
-const pageHeaderValue = 'Subscription URN search results';
+    'Subscribe by case reference number, case ID or unique reference number (URN) – Subscription case search results - Court and Tribunal Hearings - GOV.UK';
+const pageHeaderValue = 'Subscription case search results';
 
 app.request['user'] = { roles: 'VERIFIED' };
 
-describe('Case Reference Search Results Page - Number', () => {
+describe('Case Reference Search Results Page', () => {
     beforeAll(async () => {
         await request(app)
             .get(CASE_NUMBER_PAGE_URL)
@@ -77,33 +74,7 @@ describe('Case Reference Search Results Page - Number', () => {
         const rows = htmlRes.getElementsByClassName(rowClass);
         const items = rows.item(1).children;
 
-        expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
-        expect(items[1].innerHTML).contains('party name', 'Party name does not exist');
-        expect(items[2].innerHTML).contains('635356', 'Case reference no does not exist');
-    });
-});
-
-describe('Case Reference Search Results Page - URN', () => {
-    beforeAll(async () => {
-        await request(app)
-            .get(CASE_URN_PAGE_URL)
-            .then(res => {
-                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                htmlRes.getElementsByTagName('div')[0].remove();
-            });
-    });
-
-    it('should contain 2 rows including the header row', () => {
-        const rows = htmlRes.getElementsByClassName(rowClass);
-        expect(rows.length).equal(2, 'Table did not contain expected number of rows');
-    });
-
-    it('should contain rows with correct values', () => {
-        const rows = htmlRes.getElementsByClassName(rowClass);
-        const items = rows.item(1).children;
-
-        expect(items[0].innerHTML).contains('case name 1', 'Case number does not exist');
-        expect(items[1].innerHTML).contains('party name', 'Party name does not exist');
-        expect(items[2].innerHTML).contains('38543', 'Case urn does not exist');
+        expect(items[0].innerHTML).contains(caseName, 'Case number does not exist');
+        expect(items[1].innerHTML).contains(caseNumber, 'Case reference no does not exist');
     });
 });

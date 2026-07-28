@@ -1,10 +1,8 @@
 import { PublicationRequests } from '../resources/requests/PublicationRequests';
 import { Artefact } from '../models/Artefact';
 import { ListType } from '../models/ListType';
-import { SearchObject } from '../models/SearchObject';
-import { SearchParty } from '../models/SearchParty';
-import { SearchCase } from '../models/SearchCase';
 import listData from '../resources/listLookup.json';
+import { CaseSearchResults } from 'models/CaseSearchResults';
 
 const publicationRequests = new PublicationRequests();
 
@@ -30,34 +28,17 @@ export class PublicationService {
         return publicationRequests.getIndividualPublicationJson(artefactId, userId);
     }
 
-    public async getCasesByCaseName(caseName: string, userId: string): Promise<object[]> {
-        const artefacts = await publicationRequests.getPublicationByCaseValue('CASE_NAME', caseName, userId);
-        const searchResults = this.getFuzzyCasesFromArtefact(artefacts, caseName);
-
-        const formattedResults = [];
-        searchResults.forEach(searchResult => {
-            if (searchResult.caseNumber) {
-                formattedResults.push(searchResult);
-            }
-
-            if (searchResult.caseUrn) {
-                const newSearchResult = JSON.parse(JSON.stringify(searchResult));
-                newSearchResult['displayUrn'] = true;
-                formattedResults.push(newSearchResult);
-            }
-        });
-
-        return formattedResults;
+    public async getCaseByCaseNumber(searchValue: string, userId: string): Promise<CaseSearchResults> {
+        const results = await publicationRequests.getCasesByCaseNumber(searchValue, userId);
+        return results.length > 0 ? results[0] : null;
     }
 
-    public async getCaseByCaseNumber(caseNumber: string, userId: string): Promise<SearchObject> | null {
-        const artefact = await publicationRequests.getPublicationByCaseValue('CASE_ID', caseNumber, userId);
-        return this.getCaseFromArtefact(artefact[0], 'caseNumber', caseNumber);
-    }
-
-    public async getCaseByCaseUrn(urn: string, userId: string): Promise<SearchObject> | null {
-        const artefact = await publicationRequests.getPublicationByCaseValue('CASE_URN', urn, userId);
-        return this.getCaseFromArtefact(artefact[0], 'caseUrn', urn);
+    public async getCasesByCaseName(
+        searchValue: string,
+        userId: string,
+        fuzzySearch = false
+    ): Promise<CaseSearchResults[]> {
+        return await publicationRequests.getCasesByCaseName(searchValue, userId, fuzzySearch);
     }
 
     public async getPublicationsByLocation(locationId: string, userId: string, admin = false): Promise<Artefact[]> {
@@ -66,95 +47,6 @@ export class PublicationService {
 
     public async getNoMatchPublications(userId: string): Promise<Artefact[]> {
         return publicationRequests.getNoMatchPublications(userId);
-    }
-
-    private getCaseFromArtefact(artefact: Artefact, term: string, value: string): SearchObject {
-        let foundObject: SearchObject = null;
-
-        if (artefact?.search.parties) {
-            artefact?.search.parties.forEach(party => {
-                const partyNames = this.constructPartyNames(party);
-                party.cases.forEach(singleCase => {
-                    if (singleCase[term] == value) {
-                        foundObject = { ...singleCase, partyNames };
-                    }
-                });
-            });
-        } else {
-            artefact?.search.cases.forEach(singleCase => {
-                if (singleCase[term] == value) {
-                    foundObject = { ...singleCase, partyNames: '' };
-                }
-            });
-        }
-        return foundObject;
-    }
-
-    private getFuzzyCasesFromArtefact(artefacts: Artefact[], value: string): SearchObject[] {
-        const matches: SearchObject[] = [];
-        artefacts.forEach(artefact => {
-            if (artefact?.search.parties) {
-                artefact.search.parties.forEach(party => {
-                    const partyNames = this.constructPartyNames(party);
-                    party.cases.forEach(singleCase => {
-                        if (singleCase.caseName?.toLowerCase().includes(value.toLowerCase())) {
-                            this.storeUniquePartyCases(matches, singleCase, partyNames);
-                        }
-                    });
-                });
-            } else {
-                artefact.search.cases.forEach(singleCase => {
-                    if (singleCase.caseName?.toLowerCase().includes(value.toLowerCase())) {
-                        const alreadyExists = matches.find(
-                            m =>
-                                m.caseName === singleCase.caseName &&
-                                m.caseUrn === singleCase.caseUrn &&
-                                m.caseNumber === singleCase.caseNumber
-                        );
-
-                        if (!alreadyExists) {
-                            matches.push({ ...singleCase, partyNames: '' });
-                        }
-                    }
-                });
-            }
-        });
-        return matches;
-    }
-
-    private constructPartyNames(party: SearchParty): string {
-        const parties = [];
-
-        party.individuals?.forEach(i => {
-            const nameItems = [];
-            if (i.forename) {
-                nameItems.push(i.forename);
-            }
-            if (i.middleName) {
-                nameItems.push(i.middleName);
-            }
-            if (i.surname) {
-                nameItems.push(i.surname);
-            }
-            parties.push(nameItems.join(' '));
-        });
-
-        party.organisations?.forEach(o => parties.push(o));
-        return parties.join(',\n');
-    }
-
-    private storeUniquePartyCases(matches: SearchObject[], singleCase: SearchCase, partyNames: string) {
-        const alreadyExists = matches.find(
-            m =>
-                m.caseName === singleCase.caseName &&
-                m.caseUrn === singleCase.caseUrn &&
-                m.caseNumber === singleCase.caseNumber &&
-                m.partyNames === partyNames
-        );
-
-        if (!alreadyExists) {
-            matches.push({ ...singleCase, partyNames });
-        }
     }
 
     /**

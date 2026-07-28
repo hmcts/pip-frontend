@@ -27,17 +27,14 @@ const mockCourt = {
 const mockCaseSubscription = {
     caseName: 'My Case A',
     caseNumber: '2222',
-    urn: null,
 };
 const mockCaseSubscription2 = {
     caseName: 'Another Case',
     caseNumber: '1111',
-    urn: null,
 };
 const mockCaseSubscription3 = {
     caseName: 'My Case A',
     caseNumber: null,
-    urn: '1111',
 };
 const mockCourtSubscription = {
     name: 'Birmingham Administrative Court',
@@ -176,7 +173,7 @@ describe('Pending Subscriptions Controller', () => {
             const expectedData = {
                 ...i18n['pending-subscriptions'],
                 pendingSubscriptions: {
-                    cases: [mockCaseSubscription2, mockCaseSubscription3, mockCaseSubscription],
+                    cases: [mockCaseSubscription2, mockCaseSubscription, mockCaseSubscription3],
                     courts: [mockCourtSubscription, mockCourtSubscription3, mockCourtSubscription2],
                 },
                 displayError: false,
@@ -196,7 +193,7 @@ describe('Pending Subscriptions Controller', () => {
             const expectedData = {
                 ...i18n['pending-subscriptions'],
                 pendingSubscriptions: {
-                    cases: [mockCaseSubscription2, mockCaseSubscription3, mockCaseSubscription],
+                    cases: [mockCaseSubscription2, mockCaseSubscription, mockCaseSubscription3],
                     courts: [mockCourtSubscription2, mockCourtSubscription3, mockCourtSubscription],
                 },
                 displayError: false,

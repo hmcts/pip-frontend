@@ -83,7 +83,6 @@ describe('Bulk Unsubscribe Confirmation Page', () => {
                 {
                     subscriptionId: '123',
                     caseName: 'Case name',
-                    partyNames: 'Surname',
                     caseRef: '12345',
                     date: '20/02/2024',
                 },
@@ -117,7 +116,6 @@ describe('Bulk Unsubscribe Confirmation Page', () => {
         it('should display case subscription table', () => {
             const tableHeaders = htmlRes.getElementsByClassName('govuk-table__head');
             expect(tableHeaders[0].innerHTML).contains('Case name', 'Case name table header does not match');
-            expect(tableHeaders[0].innerHTML).contains('Party name(s)', 'Party names table header does not match');
             expect(tableHeaders[0].innerHTML).contains(
                 'Reference number',
                 'Case reference table header does not match'
@@ -126,7 +124,6 @@ describe('Bulk Unsubscribe Confirmation Page', () => {
 
             const tableBody = htmlRes.getElementsByClassName('govuk-table__body');
             expect(tableBody[0].innerHTML).contains('Case name', 'Case name table cell value does not match');
-            expect(tableBody[0].innerHTML).contains('Surname', 'Party names table cell value does not match');
             expect(tableBody[0].innerHTML).contains('12345', 'Case reference table cell value does not match');
             expect(tableBody[0].innerHTML).contains('20/02/2024', 'Date added table cell value does not match');
         });

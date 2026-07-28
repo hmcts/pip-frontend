@@ -3,7 +3,6 @@
     "header": "Are you sure you want to remove these subscriptions?",
     "caseTable": {
         "caseName": "Case name",
-        "partyNames": "Party name(s)",
         "caseRef": "Reference number",
         "date": "Date added"
     },

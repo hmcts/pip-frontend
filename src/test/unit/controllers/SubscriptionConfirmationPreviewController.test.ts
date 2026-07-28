@@ -14,7 +14,6 @@ const mockCase = {
     platform: 'In person',
     caseNumber: 'T485913',
     caseName: 'Tom Clancy',
-    urn: 'N363N6R4OG',
 };
 const mockCourt = {
     locationId: 643,
@@ -27,17 +26,14 @@ const mockCourt = {
 const mockCaseSubscription = {
     caseName: 'My Case A',
     caseNumber: '2222',
-    urn: null,
 };
 const mockCaseSubscription2 = {
     caseName: 'Another Case',
     caseNumber: '1111',
-    urn: null,
 };
 const mockCaseSubscription3 = {
     caseName: 'My Case A',
     caseNumber: null,
-    urn: '1111',
 };
 const mockCourtSubscription = {
     name: 'Birmingham Social Security and Child Support',
@@ -225,7 +221,7 @@ describe('Subscription Confirmation Preview Controller', () => {
             const expectedData = {
                 ...i18n['subscription-confirmation-preview'],
                 pendingSubscriptions: {
-                    cases: [mockCaseSubscription2, mockCaseSubscription3, mockCaseSubscription],
+                    cases: [mockCaseSubscription2, mockCaseSubscription, mockCaseSubscription3],
                     courts: [mockCourtSubscription, mockCourtSubscription3, mockCourtSubscription2],
                     listTypes: [mockListType, mockListType2],
                     listLanguage: [mockListLanguage],

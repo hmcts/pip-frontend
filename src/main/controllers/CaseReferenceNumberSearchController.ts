@@ -15,36 +15,21 @@ export default class CaseReferenceNumberSearchController {
     public async post(req: PipRequest, res: Response): Promise<void> {
         const searchInput = req.body['search-input'] as string;
         if (searchInput && !checkIfUrl(searchInput)) {
-            let searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user['userId']);
-
-            if (searchResults) {
-                res.redirect(
-                    url.format({
-                        pathname: 'case-reference-number-search-results',
-                        query: {
-                            'search-input': searchInput,
-                            'search-type': 'case-number',
-                        },
-                    })
-                );
-            } else {
-                searchResults = await publicationService.getCaseByCaseUrn(searchInput, req.user['userId']);
-                searchResults
-                    ? res.redirect(
-                          url.format({
-                              pathname: 'case-reference-number-search-results',
-                              query: {
-                                  'search-input': searchInput,
-                                  'search-type': 'case-urn',
-                              },
-                          })
-                      )
-                    : res.render('case-reference-number-search', {
-                          ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
-                          invalidInputError: false,
-                          noResultsError: true,
-                      });
-            }
+            const searchResults = await publicationService.getCaseByCaseNumber(searchInput, req.user['userId']);
+            searchResults
+                ? res.redirect(
+                      url.format({
+                          pathname: 'case-reference-number-search-results',
+                          query: {
+                              'search-input': searchInput,
+                          },
+                      })
+                  )
+                : res.render('case-reference-number-search', {
+                      ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
+                      invalidInputError: false,
+                      noResultsError: true,
+                  });
         } else {
             res.render('case-reference-number-search', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['case-reference-number-search']),
