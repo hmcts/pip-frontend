@@ -137,7 +137,6 @@ describe('Accessibility - Media User Routes', () => {
             beforeEach(() => {
                 sinon.restore();
                 sinon.stub(PublicationService.prototype, 'getCaseByCaseNumber').resolves(null);
-                sinon.stub(PublicationService.prototype, 'getCaseByCaseUrn').resolves(null);
             });
 
             describe('with no input data', () => {

@@ -35,6 +35,7 @@ const errorMessage = {
 const mockJson = { data: { hello: 'hello' } };
 const mockPDF = new Blob(['testPDF']);
 const indivPubJsonObject = { data: mockPDF };
+const searchValue = '123';
 const valid = 'valid';
 const invalid = 'invalid';
 const deletionResponse = 'success';
@@ -118,20 +119,37 @@ describe('getIndividualPubMetadata()', () => {
     });
 });
 
-describe('Get by case value', () => {
+describe('Get cases by case number', () => {
     it('should return data on successful get', async () => {
-        dataManagementStub.withArgs('/publication/search').resolves(successResponse);
-        expect(await pubRequests.getPublicationByCaseValue(valid, valid, userId)).toBe(successResponse.data);
+        dataManagementStub.withArgs('/publication/search/caseNumber').resolves(successResponse);
+        expect(await pubRequests.getCasesByCaseNumber(searchValue, userId)).toBe(successResponse.data);
     });
 
     it('should handle error response from returned service returning empty array', async () => {
-        dataManagementStub.withArgs('/publication/search').rejects(errorResponse);
-        expect(await pubRequests.getPublicationByCaseValue(valid, invalid, userId)).toStrictEqual([]);
+        dataManagementStub.withArgs('/publication/search/caseNumber').rejects(errorResponse);
+        expect(await pubRequests.getCasesByCaseNumber(searchValue, userId)).toStrictEqual([]);
     });
 
     it('should handle error request from returned service returning empty array', async () => {
-        dataManagementStub.withArgs('/publication/search').rejects(errorMessage);
-        expect(await pubRequests.getPublicationByCaseValue(invalid, valid, userId)).toStrictEqual([]);
+        dataManagementStub.withArgs('/publication/search/caseNumber').rejects(errorMessage);
+        expect(await pubRequests.getCasesByCaseNumber(searchValue, userId)).toStrictEqual([]);
+    });
+});
+
+describe('Get cases by case name', () => {
+    it('should return data on successful get', async () => {
+        dataManagementStub.withArgs('/publication/search/caseName').resolves(successResponse);
+        expect(await pubRequests.getCasesByCaseName(searchValue, userId)).toBe(successResponse.data);
+    });
+
+    it('should handle error response from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/search/caseName').rejects(errorResponse);
+        expect(await pubRequests.getCasesByCaseName(searchValue, userId)).toStrictEqual([]);
+    });
+
+    it('should handle error request from returned service returning empty array', async () => {
+        dataManagementStub.withArgs('/publication/search/caseName').rejects(errorMessage);
+        expect(await pubRequests.getCasesByCaseName(searchValue, userId)).toStrictEqual([]);
     });
 });
 

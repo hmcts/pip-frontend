@@ -11,12 +11,10 @@
         "label": "By court or tribunal name"
     },
     "radio2": {
-        "label": "By case name",
-        "hint": "This subscription service is currently limited to information published in the Civil and Family Cause List."
+        "label": "By case name"
     },
     "radio3": {
-        "label": "By case reference number",
-        "hint": "This subscription service is currently limited to information published in the Civil and Family Cause List."
+        "label": "By case reference number"
     },
     "backButton": "Back"
 }

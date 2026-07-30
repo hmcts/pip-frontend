@@ -1346,7 +1346,7 @@ export default function (app: Application): void {
     app.get('/info', getInfo());
     app.get('/robots.txt', function (_req, res) {
         res.type('text/plain');
-        res.send('User-agent: *\nDisallow: /');
+        res.send('User-agent: *\nAllow: /$\nAllow: /assets/\nDisallow: /');
     });
 
     const healthCheckConfig = {

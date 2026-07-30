@@ -11,12 +11,10 @@
         "label": "Yn ôl enw’r llys neu dribiwnlys"
     },
     "radio2": {
-        "label": "Yn ôl enw’r achos",
-        "hint": "Ar hyn o bryd mae'r gwasanaeth tanysgrifio hwn wedi'i gyfyngu i wybodaeth a gyhoeddir yn y Rhestr Achosion Llys Sifil a Llys Teulu."
+        "label": "Yn ôl enw’r achos"
     },
     "radio3": {
-        "label": "Yn ôl cyfeirnod yr achos",
-        "hint": "Ar hyn o bryd mae'r gwasanaeth tanysgrifio hwn wedi'i gyfyngu i wybodaeth a gyhoeddir yn y Rhestr Achosion Llys Sifil a Llys Teulu."
+        "label": "Yn ôl cyfeirnod yr achos"
     },
     "backButton": "Yn ôl"
 }

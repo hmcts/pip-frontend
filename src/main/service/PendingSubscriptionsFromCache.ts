@@ -22,10 +22,8 @@ export class PendingSubscriptionsFromCache {
                     this.addToSubscriptionSet(subscription, 'listType', subscriptionsSet);
                 } else if (subscriptionType === 'listLanguage') {
                     this.addToSubscriptionSet(subscription, 'listLanguage', subscriptionsSet);
-                } else if (subscription.urnSearch) {
-                    this.addToSubscriptionSet(subscription, 'caseUrn', subscriptionsSet);
                 } else {
-                    this.addToSubscriptionSet(subscription, 'caseNumber', subscriptionsSet);
+                    this.addToSubscriptionSet(subscription, 'cases', subscriptionsSet);
                 }
             });
             await redisClient.set(
@@ -43,10 +41,9 @@ export class PendingSubscriptionsFromCache {
         return [];
     }
 
-    // @param removeObject - post data object {case-number: 'id'} || {case-urn: 'id'} || {court: 'id'}
     public async removeFromCache(removeObject, userId): Promise<void> {
         if (redisClient.isReady && userId) {
-            if (removeObject['case-number'] || removeObject['case-urn']) {
+            if (removeObject['case-number'] || removeObject['case-name']) {
                 const cachedCases = await this.getPendingSubscriptions(userId, 'cases');
                 cachedCases.forEach((item, index) => {
                     if (removeObject['case-number']) {
@@ -57,7 +54,7 @@ export class PendingSubscriptionsFromCache {
                             cachedCases
                         );
                     } else {
-                        this.removeFromSubscriptionSet(item.caseUrn, removeObject['case-urn'], index, cachedCases);
+                        this.removeFromSubscriptionSet(item.caseName, removeObject['case-name'], index, cachedCases);
                     }
                 });
                 redisClient.set(`pending-cases-subscriptions-${userId}`, JSON.stringify(cachedCases));
@@ -91,10 +88,15 @@ export class PendingSubscriptionsFromCache {
         if (filter === 'listType' && !subscriptionsSet.includes(subscription)) {
             subscriptionsSet.push(subscription);
         } else if (
+            filter === 'cases' &&
             !subscriptionsSet.some(
-                cached => cached[filter] === subscription[filter] && cached['urnSearch'] === subscription['urnSearch']
+                cached =>
+                    cached['caseNumber'] === subscription['caseNumber'] &&
+                    cached['caseName'] === subscription['caseName']
             )
         ) {
+            subscriptionsSet.push(subscription);
+        } else if (!subscriptionsSet.some(cached => cached[filter] === subscription[filter])) {
             subscriptionsSet.push(subscription);
         }
     }
