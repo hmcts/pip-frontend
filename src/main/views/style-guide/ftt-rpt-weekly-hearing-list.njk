@@ -24,7 +24,7 @@
                     {{ contactMessageLine1 | replace("[insert office email]", officeEmail or "[insert office email]") }}
                 </p>
                 <p class="govuk-body govuk-!-margin-bottom-2">{{ contactMessageLine2 }}</p>
-                <p class="govuk-body {% if marketRentText %}govuk-!-padding-bottom-0{% else %}govuk-!-padding-bottom-5{% endif %}">
+                <p class="govuk-body govuk-!-margin-bottom-2">
                     <a class="govuk-link" href="https://www.gov.uk/guidance/observe-a-court-or-tribunal-hearing">{{ observationText }}</a>
                 </p>
                 {% if marketRentText %}
