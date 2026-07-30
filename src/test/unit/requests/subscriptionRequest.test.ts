@@ -42,7 +42,7 @@ const deleteStub = sinon.stub(accountManagementApi, 'delete');
 
 describe('Subscription Requests', () => {
     describe(`getUserSubscriptions(${userIdWithSubscriptions}) with valid user id`, () => {
-        getStub.withArgs(`/subscription/user/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
+        getStub.withArgs(`/subscription/user/v2/${userIdWithSubscriptions}`).resolves(subscriptionsData2);
 
         it('should return user subscription object', async () => {
             const userSubscriptions = await subscriptionActions.getUserSubscriptions(userIdWithSubscriptions);
@@ -63,12 +63,12 @@ describe('Subscription Requests', () => {
 
     describe('getUserSubscriptions error tests', () => {
         beforeEach(() => {
-            getStub.withArgs(`/subscription/user/${userIdWithoutSubscriptions}`).resolves({ data: [] });
-            getStub.withArgs(`/subscription/user/${nonExistingUserId}`).resolves({
+            getStub.withArgs(`/subscription/user/v2/${userIdWithoutSubscriptions}`).resolves({ data: [] });
+            getStub.withArgs(`/subscription/user/v2/${nonExistingUserId}`).resolves({
                 data: { caseSubscriptions: [], courtSubscriptions: [] },
             });
-            getStub.withArgs('/subscription/user/999').rejects(errorMessage);
-            getStub.withArgs('/subscription/user/9999').rejects(errorResponse);
+            getStub.withArgs('/subscription/user/v2/999').rejects(errorMessage);
+            getStub.withArgs('/subscription/user/v2/9999').rejects(errorResponse);
         });
 
         it('should return null for error response', async () => {
