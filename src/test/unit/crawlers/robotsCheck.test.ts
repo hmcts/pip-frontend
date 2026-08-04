@@ -4,7 +4,7 @@ import request from 'supertest';
 import { app, appSetup } from '../../../main/app';
 
 const robotsTxt = {
-    message: 'User-agent: *\nDisallow: /',
+    message: 'User-agent: *\nAllow: /$\nAllow: /assets/\nDisallow: /',
 };
 
 describe('P&I frontend robots.txt check', () => {
