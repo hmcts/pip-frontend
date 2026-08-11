@@ -1,0 +1,208 @@
+{
+    "title": "Publication policy - Court and Tribunal Hearings - GOV.UK",
+    "header": "Publication policy",
+    "serviceName": "HMCTS Court and Tribunal Hearings Service (CaTH)",
+    "backButton": "Back",
+    "section1": {
+        "heading": "1. Scope and aim",
+        "text1Prefix": "This policy explains how information published by HM Courts & Tribunals Service's (HMCTS) Courts and Tribunal Hearings Service (CaTH) may be reused, under two separate licences where information is published as part of HMCTS's public task, with information subject to",
+        "text1Suffix": ", for either computational or non-computational analysis. It also sets out what HMCTS expects from re-users when publishing information derived from information published by CaTH.",
+        "text2": "This policy applies to anyone who reuses HMCTS information published by CaTH, including individuals, researchers and organisations. HMCTS applies different licensing and governance arrangements depending on whether the intended reuse of information intends to perform computational analysis, as explained in this policy.",
+        "link": {
+            "href": "https://www.legislation.gov.uk/uksi/2015/1415/contents",
+            "text": "The Re-use of Public Sector Information Regulations 2015"
+        }
+    },
+    "section2": {
+        "heading": "2. Background",
+        "text1": "HMCTS is an Executive Agency of the Ministry of Justice (MoJ) and collects and processes data for the performance of its public functions. These include:",
+        "list1": [
+            "the administration of justice;",
+            "criminal and civil enforcement of fines;",
+            "research for the development of justice policies and statistics; and",
+            "improvements to the services HMCTS provides."
+        ],
+        "text2": "HMCTS is committed to providing access to information to a range of users for a variety of purposes. Providing access to HMCTS information is important because it:",
+        "list2": [
+            "supports transparency and enables innovation and improved services;",
+            "supports open justice as a fundamental principle of the justice system; and",
+            "aligns with HMCTS' Data Strategy and the Government's National Data Strategy."
+        ],
+        "text3": "Access to information must, however, be balanced against legal, ethical and operational considerations, including fairness, privacy, safety, and the proper administration of justice."
+    },
+    "section3": {
+        "heading": "3. Definitions and data categories",
+        "text1": "This section clarifies the different categories of information covered by this policy.",
+        "section31": {
+            "heading": "3.1 Listings information",
+            "text": "Listings information includes information about scheduled court and tribunal hearings made available by the CaTH Service, including dates, times, locations, jurisdictions and case identifiers."
+        },
+        "section32": {
+            "heading": "3.2 Enhanced information",
+            "text1": "Enhanced information is listings information that has been supplemented, enriched or made available in a way that goes beyond basic public listings. This information is published by CaTH, with access to information governed by access arrangements made by HMCTS with those who have a professional need to see this information. This is reflected in CaTH's security classifications. This information will include additional detail, such as a defendant's full address.",
+            "list": [
+                "Enhanced information may increase the risk of misuse, misinterpretation, or unintended impact on individuals or court processes, and is therefore subject to additional governance and controls."
+            ]
+        }
+    },
+    "section4": {
+        "heading": "4. Policy statement and publication principles",
+        "section41": {
+            "heading": "4.1 Transparency",
+            "text1": "HMCTS is committed to being open and transparent about how information published by CaTH is shared and used.",
+            "text2": "HMCTS will publish information on its website about:",
+            "list": [
+                "who holds a licence to perform computational analysis of information published by CaTH;",
+                "the public statement of the approved purpose for those holding a licence permitting computational analysis of information; and",
+                "proposed re-use cases that sought to undertake computational analysis of information that were rejected by the governance panel in place."
+            ],
+            "text3Prefix": "This information will be published on dedicated pages linked from the",
+            "text3Suffix": "page and updated every month.",
+            "link": {
+                "href": "https://www.gov.uk/guidance/access-hmcts-data-for-research",
+                "text": "Get access to HMCTS data"
+            }
+        },
+        "section42": {
+            "heading": "4.2 Attribution",
+            "text1": "Licensees must credit HMCTS as the source of the data in all publications and outputs that use information published via CaTH.",
+            "text2": "The credit should be included in a clear and visible place, for example:",
+            "list": [
+                "in a methodology or data section;",
+                "in a footnote or reference; or",
+                "alongside tables, charts or figures."
+            ]
+        },
+        "section43": {
+            "heading": "4.3 Disclaimer",
+            "text1": "All publications and outputs must include a disclaimer making clear that HMCTS does not endorse the work. Suggested wording is:",
+            "quote": "\"The judicial decisions and proceedings, hearings data, registers and lists and information produced for the administration of justice is Crown copyright and/or Crown database right and is reproduced with the permission of HM Courts and Tribunals Service under delegated authority from The Keeper of Public Records. HMCTS does not endorse the analysis, findings or conclusions expressed.\""
+        },
+        "section44": {
+            "heading": "4.4 Accuracy and responsible presentation",
+            "text1": "Re-users using information under the Third-Party Courts and Tribunals Data Licence, which permits computational analysis of CaTH data, must take reasonable steps to ensure that publications:",
+            "list": [
+                "are accurate and up to date;",
+                "are presented in an appropriate context; and",
+                "do not misrepresent court and tribunal processes or outcomes."
+            ]
+        }
+    },
+    "section5": {
+        "heading": "5. RPSI 2015 and licensing approach",
+        "section51": {
+            "heading": "5.1 Re-use that does not perform computational analysis of information - the Open Justice Licence V2.0",
+            "text1": "Information published by CaTH that is re-used without performing computational analysis of the information is governed through the Open Justice Licence V2.0.",
+            "text2": "This includes re-use for purposes such as:",
+            "list": [
+                "Public Data, free access to hearing lists and upcoming court and tribunal sessions;",
+                "Verified Access. Classified/private data for the accredited news media, legal professionals and professional court users."
+            ],
+            "text3": "Where reuse falls within this category, it is subject to the Re-use of Public Sector Information Regulations 2015 (RPSI 2015), unless otherwise exempt and governed by the Open Justice Licence V2.0, which is RPSI compliant."
+        },
+        "section52": {
+            "heading": "5.2 Re-use where computational analysis of information is performed with publicly available data or with restricted, enhanced data - the Third-Party Courts and Tribunals Data Licence",
+            "text1": "Where one wishes to perform computational analysis of data published by CaTH, including, but not limited to:",
+            "list": [
+                "automated processing or analysis;",
+                "aggregation or large-scale extraction; or",
+                "use to train or support algorithmic or data-driven systems."
+            ],
+            "text2": "It is necessary to receive a Third-Party Courts and Tribunals Data Licence.",
+            "text3": "Permission for a licence to undertake computational analysis is by application only. More information on how to apply can be found here:",
+            "link": {
+                "href": "https://www.gov.uk/guidance/apply-for-an-hmcts-third-party-courts-and-tribunals-data-licence",
+                "text": "Apply for an HMCTS Third-Party Courts and Tribunals Data Licence"
+            }
+        }
+    },
+    "section6": {
+        "heading": "6. Enhanced information: access and re-use",
+        "section61": {
+            "heading": "6.1 Access to enhanced information",
+            "text1": "Access to enhanced information may be provided to specific user groups, such as:",
+            "linkedList": [
+                {
+                    "prefix": "the accredited news media, as defined by",
+                    "link": {
+                        "href": "https://www.gov.uk/government/publications/guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version",
+                        "text": "Protocol on sharing court lists, registers and documents with the media (accessible version) - GOV.UK"
+                    },
+                    "suffix": ";"
+                },
+                {
+                    "prefix": "professional court users, as defined by",
+                    "link": {
+                        "href": "https://www.gov.uk/government/publications/protocol-for-sharing-court-lists-in-criminal-proceedings-with-professional-court-users/protocol-for-sharing-court-lists-in-criminal-proceedings-with-professional-court-users",
+                        "text": "Protocol for sharing court lists in criminal proceedings with professional court users - GOV.UK"
+                    },
+                    "suffix": ";"
+                }
+            ],
+            "list": [
+                "legal professionals;",
+                "researchers; or",
+                "other approved users."
+            ],
+            "text2": "Access may be subject to eligibility criteria, authentication requirements, and additional terms and conditions."
+        },
+        "section62": {
+            "heading": "6.2 Permitted uses",
+            "text1": "Enhanced information may be reused only for purposes consistent with:",
+            "list": [
+                "open justice;",
+                "professional or academic activity; or",
+                "other purposes explicitly approved by HMCTS."
+            ]
+        },
+        "section63": {
+            "heading": "6.3 Restrictions",
+            "text1": "Re-users of enhanced information obtained through the Third-Party Courts and Tribunals Data Licence must not:",
+            "list": [
+                "republish enhanced information in bulk without permission;",
+                "attempt to re-identify individuals or create personal profiles;",
+                "combine the data with other sources in ways that create new risks; or",
+                "use the information in a way that could undermine confidence in the justice system or compromise safety."
+            ]
+        }
+    },
+    "section7": {
+        "heading": "7. Onward sharing and third-party access",
+        "text": [
+            "Re-users must not share listings information or enhanced information with third parties, or make it available onward, unless expressly permitted by the applicable licence.",
+            "Where onward sharing is permitted, the same conditions and restrictions must apply to all subsequent users."
+        ]
+    },
+    "section8": {
+        "heading": "8. Governance and decision-making",
+        "text": [
+            "HMCTS has established a governance framework to determine the outcome of applications to undertake computational analysis of information published by CaTH.",
+            "Decisions are made subject to the issue of an appropriate licence, which sets out terms and conditions including permitted uses, attribution, onward disclosure, data protection, security and compliance requirements.",
+            "The governance framework is supported by HMCTS, the Judicial Office, the Judiciary and the Ministry of Justice, with authority exercised under delegation from the Keeper of the Public Record at The National Archives."
+        ]
+    },
+    "section9": {
+        "heading": "9. Compliance, monitoring and review",
+        "text": [
+            "HMCTS may monitor compliance with this policy and investigate concerns or complaints relating to the reuse of information published via CaTH.",
+            "HMCTS may request information about how data is being used and may suspend or withdraw access where necessary."
+        ]
+    },
+    "section10": {
+        "heading": "10. Reporting and review",
+        "text": [
+            "This policy will be reviewed and updated as required.",
+            "The work of the relevant governance panels will be reported annually to the Senior Information Risk Officer.",
+            "For further information, advice or assistance, contact the Data Access & Governance Team online (recommended) at thirdpartydatalicence@justice.gov.uk.",
+            "If you cannot contact us online, you can write to us at:"
+        ],
+        "address": [
+            "Data Access & Governance Team - Third Party Data Licence",
+            "HM Courts & Tribunals Service",
+            "Post point 6.32-34",
+            "102 Petty France",
+            "London",
+            "SW1H 9AJ"
+        ]
+    }
+}
