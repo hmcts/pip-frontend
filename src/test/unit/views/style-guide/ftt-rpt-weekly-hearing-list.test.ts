@@ -85,17 +85,25 @@ describe('Residential Property Weekly Hearing List Page', () => {
         it('should display contact information text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
             expect(text[7].innerHTML).contains(
-                'Members of the public wishing to observe a hearing or representatives of the media may, ' +
-                    'on their request, join any telephone or video hearing remotely while they are taking place ' +
-                    'by sending an email in advance to the tribunal at [insert office email] with the following ' +
-                    'details in the subject line “[OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]” and ' +
-                    'appropriate arrangements will be made to allow access where reasonably practicable.'
+                'Members of the public wishing to observe a hearing or representatives of the media may, '
+                + 'on their request, join any video hearing remotely while they are taking place by '
+                + 'sending an email in advance to the tribunal at RPEastern@justice.gov.uk with the following '
+                + 'details in the subject line “[OBSERVER/MEDIA] REQUEST – [case reference] – [hearing date]” and '
+                + 'appropriate arrangements will be made to allow access where reasonably practicable.'
+            );
+        });
+
+        it('should display contact information text line 2', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[8].innerHTML).contains(
+                'Listings often change at short notice, and therefore if you wish to observe a hearing, you may '
+                + 'wish to contact the office first to check it is proceeding.'
             );
         });
 
         it('should display observation text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[8].innerHTML).contains(
+            expect(text[9].innerHTML).contains(
                 'Observe a court or tribunal hearing as a journalist, ' + 'researcher or member of the public'
             );
         });
@@ -197,7 +205,7 @@ describe('Residential Property Weekly Hearing List Page', () => {
 
         it('should display data source text', () => {
             const text = htmlRes.getElementsByClassName(bodyText);
-            expect(text[9].innerHTML).contains('Data Source: Prov1');
+            expect(text[10].innerHTML).contains('Data Source: Prov1');
         });
     });
 
@@ -225,6 +233,11 @@ describe('Residential Property Weekly Hearing List Page', () => {
                 'Could not find the header'
             );
         });
+
+        it('should display correct office email in contact message', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[7].innerHTML).contains('London.Rap@justice.gov.uk');
+        });
     });
 
     describe('Residential Property Midlands Weekly Hearing List', () => {
@@ -250,6 +263,11 @@ describe('Residential Property Weekly Hearing List Page', () => {
                 'First-tier Tribunal (Residential Property Tribunal): Midlands region Weekly Hearing List',
                 'Could not find the header'
             );
+        });
+
+        it('should display correct office email in contact message', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[7].innerHTML).contains('rpmidland@justice.gov.uk');
         });
     });
 
@@ -277,6 +295,11 @@ describe('Residential Property Weekly Hearing List Page', () => {
                 'Could not find the header'
             );
         });
+
+        it('should display correct office email in contact message', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[7].innerHTML).contains('rpnorthern@justice.gov.uk');
+        });
     });
 
     describe('Residential Property Southern Weekly Hearing List', () => {
@@ -302,6 +325,11 @@ describe('Residential Property Weekly Hearing List Page', () => {
                 'First-tier Tribunal (Residential Property Tribunal): Southern region Weekly Hearing List',
                 'Could not find the header'
             );
+        });
+
+        it('should display correct office email in contact message', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[7].innerHTML).contains('RPSouthern@justice.gov.uk');
         });
     });
 
@@ -330,22 +358,19 @@ describe('Residential Property Weekly Hearing List Page', () => {
             );
         });
 
-        it('should display correct open justice statement', () => {
+        it('should display correct office email in contact message', () => {
+            const text = htmlRes.getElementsByClassName(bodyText);
+            expect(text[7].innerHTML).contains('marketrents@justice.gov.uk');
+        });
+
+        it('should display Market Rents specific message', () => {
             const openJusticeStatement = htmlRes.getElementsByClassName(openJusticeStatementClass);
             const paragraphs = openJusticeStatement[0].querySelectorAll('p');
 
-            expect(paragraphs).to.have.length(3);
+            expect(paragraphs).to.have.length(4);
 
-            expect(paragraphs[0].textContent).to.contain(
-                'Members of the public wishing to observe a hearing'
-            );
-
-            expect(paragraphs[1].textContent).to.contain(
-                'Observe a court or tribunal hearing as a journalist'
-            );
-
-            expect(paragraphs[2].textContent).to.contain(
-                'For Market Rent applications received before 16 March 2026'
+            expect(paragraphs[3].textContent).to.contain(
+                'For Market Rent applications received before 16 March 2026 please check the relevant regional hearing list(s) or call the Tribunal on 0300 303 5857.'
             );
         });
     });
