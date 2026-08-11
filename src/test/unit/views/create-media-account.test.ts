@@ -128,6 +128,14 @@ describe('Create Media Account page', () => {
         it('should display t&c paragraph 2', () => {
             const message = htmlRes.getElementsByClassName('govuk-body')[4];
             expect(message.innerHTML).contains(
+                'As part of our annual verification process',
+                'Could not find this paragraph'
+            );
+        });
+
+        it('should display t&c paragraph 3', () => {
+            const message = htmlRes.getElementsByClassName('govuk-body')[5];
+            expect(message.innerHTML).contains(
                 'If your circumstances change and you no longer have legitimate reasons',
                 'Could not find this paragraph'
             );
