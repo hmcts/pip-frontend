@@ -1,0 +1,209 @@
+{
+    "title": "Polisi Cyhoeddi - Gwrandawiadau Llysoedd a Thribiwnlysoedd - GOV.UK",
+    "header": "Polisi Cyhoeddi",
+    "serviceName": "Gwasanaeth Gwrandawiadau'r Llysoedd a’r Tribiwnlysoedd (CaTH)",
+    "backButton": "Yn ôl",
+    "section1": {
+        "heading": "1. Cwmpas a diben",
+        "text1Prefix": "Mae'r polisi hwn yn esbonio sut gall gwybodaeth a gyhoeddwyd gan Wasanaeth Gwrandawiadau’r Llysoedd a'r Tribiwnlysoedd (CaTH) Gwasanaeth Llysoedd a Thribiwnlysoedd EF (GLlTEF) gael ei hailddefnyddio, o dan ddwy drwydded ar wahân lle bo gwybodaeth yn cael ei chyhoeddi fel rhan o dasg cyhoeddus GLlTEF, gyda'r wybodaeth yn destun",
+        "text1Suffix": " ar gyfer un ai dadansoddiad cyfrifiadurol neu ddadansoddiad arall. Mae hefyd yn pennu beth mae GLlTEF yn ei ddisgwyl gan ailddefnyddwyr wrth gyhoeddi gwybodaeth sy'n deillio o wybodaeth a gyhoeddwyd gan CaTH.",
+        "text2": "Mae'r polisi hwn yn berthnasol i unrhyw un sy'n ailddefnyddio gwybodaeth GLlTEF a gyhoeddwyd gan CaTH, gan gynnwys unigolion, ymchwilwyr a sefydliadau. Mae GLlTEF yn gweithredu trefniadau trwyddedu a llywodraethu gwahanol yn ddibynnol ar p'un a yw'r ailddefnydd o'r wybodaeth a fwriedir yn bwriadu cynnal dadansoddiad cyfrifiadurol fel yr esboniwyd yn y polisi hwn.",
+        "link": {
+            "href": "https://www.legislation.gov.uk/uksi/2015/1415/contents",
+            "text": "Rheoliadau Ailddefnyddio Gwybodaeth Sector Cyhoeddus 2015"
+        }
+    },
+    "section2": {
+        "heading": "2. Cefndir",
+        "text1": "Mae GLlTEF yn asiantaeth weithredol o'r Weinyddiaeth Gyfiawnder (MoJ) ac mae'n casglu a phrosesu data ar gyfer perfformiad ei swyddogaethau cyhoeddus. Mae’r rhain yn cynnwys:",
+        "list1": [
+            "gweinyddu Cyfiawnder;",
+            "gorfodi dirwyon troseddol a sifil;",
+            "ymchwil ar gyfer datblygu polisïau ac ystadegau cyfiawnder; ac",
+            "gwelliannau i'r gwasanaethau mae GLlTEF yn darparu."
+        ],
+        "text2": "Mae GLlTEF wedi ymrwymo i ddarparu mynediad i wybodaeth ar gyfer ystod o ddefnyddwyr ar gyfer amryw bwrpasau. Mae darparu mynediad at wybodaeth GLlTEF yn bwysig oherwydd mae'n:",
+        "list2": [
+            "cefnogi tryloywder ac yn galluogi arloesi a gwasanaethau gwell;",
+            "cefnogi cyfiawnder agored fel egwyddor sylfaenol o'r system gyfiawnder; ac mae'n",
+            "cyd-fynd â Strategaeth Ddata GLlTEF a Strategaeth Ddata Cenedlaethol y Llywodraeth."
+        ],
+        "text3": "Fodd bynnag, rhaid i fynediad at wybodaeth gael ei gydbwyso yn erbyn ystyriaethau cyfreithiol, moesegol, a gweithredol, gan gynnwys tegwch, preifatrwydd, diogelwch, a'r weinyddiaeth gywir o gyfiawnder."
+    },
+    "section3": {
+        "heading": "3. Diffiniadau a chategorïau o ddata",
+        "text1": "Mae'r adran hon yn rhoi eglurder ar y gwahanol gategorïau o wybodaeth mae'r polisi hwn yn eu cwmpasu.",
+        "section31": {
+            "heading": "3.1 Gwybodaeth am restrau",
+            "text": "Mae gwybodaeth am restrau yn cynnwys gwybodaeth am wrandawiadau llys a thribiwnlys sydd wedi'u trefnu, ac sy'n cael eu rhannu gan Wasanaeth Gwrandawiadau'r Llysoedd a'r Tribiwnlysoedd (CaTH), gan gynnwys dyddiadau, amseroedd, lleoliadau, awdurdodaethau a dynodwyr achosion."
+        },
+        "section32": {
+            "heading": "3.2 Gwybodaeth uwch",
+            "text1": "Gwybodaeth uwch yw gwybodaeth am restrau sydd wedi'i hatodi, neu ei chyfoethogi neu wedi'i darparu mewn ffordd sy'n mynd tu hwnt i restrau cyhoeddus sylfaenol. Cyhoeddir yr wybodaeth hon gan CaTH, gyda mynediad at wybodaeth yn cael ei lywodraethu gan drefniadau mynediad a wnaed gan GLlTEF gyda’r sawl ag angen proffesiynol i weld yr wybodaeth hon. Adlewyrchir hyn yn nosbarthiadau diogelwch CaTH. Bydd yr wybodaeth hon yn cynnwys unrhyw fanylion ychwanegol, fel cyfeiriad llawn diffynnydd.",
+            "list": [
+                "Gall gwybodaeth uwch gynyddu'r risg o gamddefnyddio neu gamddehongli, neu effaith nas fwriedir ar unigolion neu brosesau llys, ac felly mae'n destun prosesau llywodraethu a rheolaethau ychwanegol."
+            ]
+        }
+    },
+    "section4": {
+        "heading": "4. Datganiad polisi ac egwyddorion cyhoeddi",
+        "section41": {
+            "heading": "4.1 Tryloywder",
+            "text1": "Mae GLlTEF wedi ymrwymo i fod yn agored ac yn dryloyw am sut mae gwybodaeth a gyhoeddir gan CaTH yn cael ei rhannu a'i defnyddio.",
+            "text2": "Bydd GLlTEF yn cyhoeddi gwybodaeth ar ei wefan am:",
+            "list": [
+                "pwy sy'n dal trwydded i gynnal dadansoddiad cyfrifiadurol o wybodaeth a gyhoeddir gan CaTH a",
+                "y datganiad cyhoeddus o'r pwrpas cymeradwy ar gyfer y sawl sy'n dal trwydded sy'n caniatáu dadansoddiad cyfrifiadurol o'r wybodaeth; a",
+                "achosion ailddefnyddio arfaethedig a oedd yn bwriadu cynnal dadansoddiad cyfrifiadurol a wrthodwyd gan y panel llywodraeth sydd mewn lle."
+            ],
+            "text3Prefix": "Bydd yr wybodaeth hon yn cael ei chyhoeddi ar dudalennau pwrpasol gyda dolenni iddynt ar y dudalen",
+            "text3Suffix": "- Panel Llywodraethu Trwydded Llys a Thribiwnlys i Drydydd Parti sy'n cael ei diweddaru bob mis.",
+            "link": {
+                "href": "https://www.gov.uk/guidance/access-hmcts-data-for-research",
+                "text": "Cael mynediad at ddata GLlTEF"
+            }
+        },
+        "section42": {
+            "heading": "4.2 Priodoli",
+            "text1": "Rhaid i ddeiliaid trwydded enwi GLlTEF fel ffynhonnell y data ym mhob cyhoeddiad ac allbynnau sy'n defnyddio'r wybodaeth a gyhoeddir drwy CaTH.",
+            "text2": "Dylai'r enwi fod mewn lle clir a gweledol, er enghraifft:",
+            "list": [
+                "yn adran methodoleg neu ddata;",
+                "mewn troednodyn neu gyfeirnod; neu",
+                "ochr yn ochr â thablau, siartiau nu ffigurau."
+            ]
+        },
+        "section43": {
+            "heading": "4.3 Ymwrthodiad",
+            "text1": "Dylai'r holl gyhoeddiadau neu allbynnau gynnwys ymwrthodiad yn ei wneud yn eglur nad yw GLlTEF yn cefnogi'r gwaith. Y geiriad a awgrymir yw:",
+            "quote": "\"Mae'r penderfyniadau barnwrol a'r achosion, data gwrandawiadau, cofrestrau a rhestrau a'r wybodaeth a gynhyrchir ar gyfer gweinyddu cyfiawnder yn hawlfraint y Goron a/neu'n hawl cronfa ddata ac fe ailgynhyrchir gyda chaniatâd Gwasanaeth Llysoedd a Thribiwnlysoedd EF dan awdurdod dirprwyedig gan Y Ceidwad Cofnodion Cyhoeddus. Nid yw GLlTEF yn cymeradwyo'r dadansoddiad, canfyddiadau neu gasgliadau a fynegir.\""
+        },
+        "section44": {
+            "heading": "4.4 Cywirdeb a chyflwyniad cyfrifol",
+            "text1": "Rhaid i ailddefnyddwyr sy'n defnyddio gwybodaeth o dan y Drwydded Data Llysoedd a Thribiwnlysoedd i Drydydd Parti, sy’n caniatáu dadansoddiad cyfrifiadurol o ddata CaTH, gymryd camau rhesymol i sicrhau bod cyhoeddiadau:",
+            "list": [
+                "yn gywir ac yn gyfredol;",
+                "yn cael eu cyflwyno mewn cyd-destun priodol; ac",
+                "nid ydynt yn camgynrychioli prosesau neu ganlyniadau'r llysoedd a'r tribiwnlysoedd."
+            ]
+        }
+    },
+    "section5": {
+        "heading": "5. RPSI 2015 a'r dull trwyddedu",
+        "section51": {
+            "heading": "5.1 Ailddefnyddio nad yw'n cynnal dadansoddiad cyfrifiadurol o wybodaeth - y Drwydded Cyfiawnder Agored F2.0",
+            "text1": "Mae gwybodaeth a gyhoeddwyd gan CaTH sy'n cael ei hailddefnyddio heb gynnal dadansoddiad cyfrifiadurol o'r wybodaeth yn cael ei lywodraethu drwy'r Drwydded Cyfiawnder Agored F2.0.",
+            "text2": "Mae hyn yn cynnwys ailddefnyddio at ddibenion fel:",
+            "list": [
+                "Data Cyhoeddus, mynediad am ddim i restrau gwrandawiadau a sesiynau ar ddod yn y llysoedd a'r tribiwnlysoedd;",
+                "Mynediad wedi'i Ddilysu. Data dosbarthedig/preifat ar gyfer cyfryngau'r newyddion achrededig, gweithwyr proffesiynol ym maes y gyfraith a defnyddwyr proffesiynol y llysoedd."
+            ],
+            "text3": "Lle bo ailddefnyddio yn syrthio o fewn y categori hwn, mae'n destun Rheoliadau Ailddefnyddio Gwybodaeth Sector Cyhoeddus 2015 (RPSI 2015), oni bai ei fod wedi'i eithrio fel arall ac wedi'i lywodraethu gan y Drwydded Cyfiawnder Agored F2.0, sy'n cydymffurfio â RPSI."
+        },
+        "section52": {
+            "heading": "5.2 Ailddefnyddio lle cynhelir dadansoddiad cyfrifiadurol o wybodaeth gyda data sydd ar gael yn gyhoeddus neu gyda data cyfyngedig, uwch - Trwydded Data Llysoedd a Thribiwnlysoedd i Drydydd Parti",
+            "text1": "Lle bo rhywun yn dymuno cynnal dadansoddiad cyfrifiadurol o ddata a gyhoeddwyd gan CaTH, gan gynnwys, ond nid yw'n gyfyngedig i:",
+            "list": [
+                "prosesu neu ddadansoddi awtomatig;",
+                "cydgrynhoi neu echdynnu ar raddfa fawr; neu",
+                "ei defnyddio i hyfforddi neu gefnogi systemau algorithm neu system wedi'u llywio gan ddata."
+            ],
+            "text2": "Mae angen derbyn Trwydded Data Llysoedd a Thribiwnlysoedd i Drydydd Parti.",
+            "text3": "Mae caniatâd am drwydded i gynnal dadansoddiad cyfrifiadurol drwy gais yn unig. Mae mwy o wybodaeth ar sut i wneud cais ar gael yma:",
+            "link": {
+                "href": "https://www.gov.uk/guidance/apply-for-an-hmcts-third-party-courts-and-tribunals-data-licence",
+                "text": "Gwneud cais am Drwydded Data Llysoedd a Thribiwnlysoedd i Drydydd Parti GLlTEF"
+            }
+        }
+    },
+    "section6": {
+        "heading": "6. Gwybodaeth uwch: mynediad ac ailddefnyddio",
+        "section61": {
+            "heading": "6.1 Mynediad at wybodaeth uwch",
+            "text1": "Gellir darparu mynediad at wybodaeth uwch i grwpiau defnyddwyr penodol, fel:",
+            "linkedList": [
+                {
+                    "prefix": "y cyfryngau newyddion achrededig, fel y diffinnir gan y",
+                    "link": {
+                        "href": "https://www.gov.uk/government/publications/guidance-to-staff-on-supporting-media-access-to-courts-and-tribunals/protocol-on-sharing-court-lists-registers-and-documents-with-the-media-accessible-version",
+                        "text": "Protocol on sharing court lists, registers and documents with the media (accessible version) - GOV.UK"
+                    },
+                    "suffix": ";"
+                },
+                {
+                    "prefix": "defnyddwyr proffesiynol y llys, fel y diffinnir gan y",
+                    "link": {
+                        "href": "https://www.gov.uk/government/publications/protocol-for-sharing-court-lists-in-criminal-proceedings-with-professional-court-users/protocol-for-sharing-court-lists-in-criminal-proceedings-with-professional-court-users",
+                        "text": "Protocol for sharing court lists in criminal proceedings with professional court users - GOV.UK"
+                    },
+                    "suffix": ";"
+                }
+            ],
+            "list": [
+                "gweithiwr proffesiynol ym maes y gyfraith;",
+                "ymchwilwyr; neu",
+                "defnyddwyr cymeradwy eraill."
+            ],
+            "text2": "Gall mynediad fod yn destun meini prawf cymhwysedd, gofynion dilysu, a thelerau ac amodau ychwanegol."
+        },
+        "section62": {
+            "heading": "6.2 Defnyddiau a ganiateir",
+            "text1": "Gellir ailddefnyddio gwybodaeth uwch dim ond at bwrpasau sy'n gyson â:",
+            "list": [
+                "cyfiawnder agored;",
+                "budd y cyhoedd;",
+                "gweithgarwch proffesiynol neu academaidd; neu",
+                "bwrpasau eraill a gymeradwyir yn benodol gan GLlTEF."
+            ]
+        },
+        "section63": {
+            "heading": "6.3 Cyfyngiadau",
+            "text1": "Ni ddylai ailddefnyddwyr o wybodaeth uwch a gafwyd drwy'r Drwydded Data Llysoedd a Thribiwnlysoedd i Drydydd Parti:",
+            "list": [
+                "ailgyhoeddi gwybodaeth uwch mewn swmp heb ganiatâd;",
+                "ceisio adnabod unigolion neu greu proffiliau personol;",
+                "cyfuno'r data gyda ffynonellau eraill mewn ffyrdd sy'n creu risgiau newydd; neu",
+                "defnyddio'r wybodaeth mewn ffordd a all tanseilio hyder yn y system gyfiawnder neu beryglu diogelwch."
+            ]
+        }
+    },
+    "section7": {
+        "heading": "7. Rhannu pethau gydag eraill a mynediad i drydydd bartïon",
+        "text": [
+            "Ni ddylai ailddefnyddwyr rannu gwybodaeth am restrau neu wybodaeth uwch gyda thrydydd bartïon, nac ei hanfon ymlaen i eraill, oni bai bod hyn wedi'i ganiatáu gan y drwydded berthnasol.",
+            "Lle caniateir anfon gwybodaeth ymlaen, rhaid i'r un telerau ac amodau fod yn berthnasol i'r holl ddefnyddwyr dilynol."
+        ]
+    },
+    "section8": {
+        "heading": "8. Llywodraethu a gwneud penderfyniadau",
+        "text": [
+            "Mae GLlTEF wedi sefydlu fframwaith llywodraethu i bennu canlyniad rhai ceisiadau i gynnal dadansoddiad cyfrifiadurol o wybodaeth a gyhoeddwyd gan CaTH.",
+            "Gwneir penderfyniadau yn amodol ar y cyhoeddiad o drwydded briodol, sy'n pennu'r telerau ac amodau gan gynnwys defnyddiau a ganiateir, priodoli, datgelu i eraill, diogelu data, diogelwch a gofynion cydymffurfio.",
+            "Mae'r fframwaith llywodraethu wedi'i gefnogi gan GLlTEF, y Swyddfa Farnwrol, y Farnwriaeth a'r Weinyddiaeth Gyfiawnder, gydag awdurdod a weithredir gan yr Arglwydd Ganghellor a'r Ysgrifennydd Gwladol dros Gyfiawnder a'r Ceidwad Cofnodion Cyhoeddus yn Yr Archifau Cenedlaethol, ac Uwch Swyddog Risg Gwybodaeth GLlTEF."
+        ]
+    },
+    "section9": {
+        "heading": "9. Cydymffurfio, monitro ac adolygu",
+        "text": [
+            "Gall GLlTEF fonitro cydymffurfiaeth â polisi hwn ac ymchwilio i bryderon neu gwynion yn ymwneud ag ailddefnyddio gwybodaeth a gyhoeddwyd drwy CaTH.",
+            "Gall GLlTEF wneud cais am wybodaeth am sut mae data yn cael ei ddefnyddio a gall atal neu dynnu'n ôl mynediad lle bo'n angenrheidiol."
+        ]
+    },
+    "section10": {
+        "heading": "10. Adrodd ac adolygu",
+        "text": [
+            "Bydd y polisi hwn yn cael ei adolygu a'i ddiweddaru yn ôl y gofyn.",
+            "Bydd gwaith y panelau llywodraeth perthnasol yn cael eu hadrodd arnynt yn flynyddol i'r Uwch Swyddog Risg Gwybodaeth.",
+            "I gael mwy o wybodaeth, cyngor neu gymorth, cysylltwch â'r Tîm Gwasanaethau Mynediad at Ddata ar-lein (argymhellir) yn thirdpartydatalicence@justice.gov.uk.",
+            "Os na allwch gysylltu â ni ar-lein, gallwch ysgrifennu atom yn:"
+        ],
+        "address": [
+            "Tîm Mynediad at Ddata a Llywodraethu - Trwydded Data Trydydd Parti /Data Access & Governance Team - Third Party Data Licence",
+            "Gwasanaeth Llysoedd a Thribiwnlysoedd EF / HM Courts & Tribunals Service",
+            "Post point 6.32-34",
+            "102 Petty France",
+            "Llundain / London",
+            "SW1H 9AJ"
+        ]
+    }
+}
