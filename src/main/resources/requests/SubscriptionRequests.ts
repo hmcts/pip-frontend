@@ -106,7 +106,7 @@ export class SubscriptionRequests {
             const response = await accountManagementApi.post('/subscription/email-recipients/V2', artefact);
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, `fulfill subscriptions for artefact with ID ${artefact.arterfactId}`);
+            logHelper.logErrorResponse(error, `fulfill email subscriptions for artefact with ID ${artefact.arterfactId}`);
         }
         return null;
     }
@@ -116,7 +116,7 @@ export class SubscriptionRequests {
             const response = await accountManagementApi.post('/subscription/api-recipients', artefact);
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, `fulfill subscriptions for artefact with ID ${artefact.arterfactId}`);
+            logHelper.logErrorResponse(error, `fulfill API subscriptions for artefact with ID ${artefact.arterfactId}`);
         }
         return null;
     }
