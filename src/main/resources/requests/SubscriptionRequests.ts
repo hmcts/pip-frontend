@@ -101,9 +101,19 @@ export class SubscriptionRequests {
         return null;
     }
 
-    public async fulfillSubscriptions(artefact): Promise<string> {
+    public async fulfillEmailSubscriptions(artefact): Promise<string> {
         try {
-            const response = await accountManagementApi.post('/subscription/artefact-recipients', artefact);
+            const response = await accountManagementApi.post('/subscription/email-recipients/V2', artefact);
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `fulfill subscriptions for artefact with ID ${artefact.arterfactId}`);
+        }
+        return null;
+    }
+
+    public async fulfillApiSubscriptions(artefact): Promise<string> {
+        try {
+            const response = await accountManagementApi.post('/subscription/api-recipients', artefact);
             return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, `fulfill subscriptions for artefact with ID ${artefact.arterfactId}`);
