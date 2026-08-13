@@ -33,9 +33,9 @@ export class ManualUploadService {
             const listItem = { ...value };
             listItem.listTypeName = this.getListItemName(value.listType);
             listItem.dateRange = `${DateTime.fromISO(value.displayFrom, {
-                zone: timeZone,
+                zone: 'utc',
             }).toFormat('d MMM yyyy')} to ${DateTime.fromISO(value.displayTo, {
-                zone: timeZone,
+                zone: 'utc',
             }).toFormat('d MMM yyyy')}`;
             listItem.contDate = DateTime.fromISO(value.contentDate, {
                 zone: timeZone,
