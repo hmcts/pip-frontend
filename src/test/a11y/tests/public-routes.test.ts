@@ -16,6 +16,7 @@ const publicRoutes = [
     { path: '/create-media-account' },
     { path: '/password-change-confirmation', postMethod: true },
     { path: '/cancelled-password-reset' },
+    { path: '/publishing-policy' },
     { path: '/admin-rejected-login' },
     { path: '/media-rejected-login' },
     { path: '/session-expired', parameter: '?reSignInUrl=CFT' },
