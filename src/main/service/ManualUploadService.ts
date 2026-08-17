@@ -13,7 +13,7 @@ const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
 
-const timeZone = 'Europe/London';
+const timeZone = 'utc';
 
 export class ManualUploadService {
     public async buildFormData(
@@ -33,9 +33,9 @@ export class ManualUploadService {
             const listItem = { ...value };
             listItem.listTypeName = this.getListItemName(value.listType);
             listItem.dateRange = `${DateTime.fromISO(value.displayFrom, {
-                zone: 'utc',
+                zone: timeZone,
             }).toFormat('d MMM yyyy')} to ${DateTime.fromISO(value.displayTo, {
-                zone: 'utc',
+                zone: timeZone,
             }).toFormat('d MMM yyyy')}`;
             listItem.contDate = DateTime.fromISO(value.contentDate, {
                 zone: timeZone,
