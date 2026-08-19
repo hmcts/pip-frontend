@@ -29,12 +29,15 @@ export default class SummaryOfPublicationsController {
 
             const publicationsWithName = [];
             publications.forEach(publication => {
-                const friendlyName = publicationService.getListTypes().get(publication.listType).friendlyName;
-                const publicationWithName = {
-                    ...publication,
-                    listName: friendlyName,
-                };
-                publicationsWithName.push(publicationWithName);
+                const isHidden = publicationService.getListTypes().get(publication.listType).isHidden;
+                if (!isHidden) {
+                    const friendlyName = publicationService.getListTypes().get(publication.listType).friendlyName;
+                    const publicationWithName = {
+                        ...publication,
+                        listName: friendlyName,
+                    };
+                    publicationsWithName.push(publicationWithName);
+                }
             });
 
             res.render('summary-of-publications', {
