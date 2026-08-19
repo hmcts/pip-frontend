@@ -4,22 +4,22 @@ import fs from 'fs';
 import path from 'path';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { mockRequest } from '../../mocks/mockRequest';
-import { CrownWarnedPddaListService } from '../../../../main/service/listManipulation/CrownWarnedPddaListService';
-import CrownWarnedPddaListController from '../../../../main/controllers/style-guide/CrownWarnedPddaListController';
+import { CrownAdvancePddaListService } from '../../../../main/service/listManipulation/CrownAdvancePddaListService';
+import CrownAdvancePddaListController from '../../../../main/controllers/style-guide/CrownAdvancePddaListController';
 import { HttpStatusCode } from 'axios';
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownWarnedPddaList.json'), 'utf-8');
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownAdvancePddaList.json'), 'utf-8');
 const rawDataObj = JSON.parse(rawData);
 
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'CROWN_WARNED_PDDA_LIST';
+metaData.listType = 'CROWN_ADVANCE_PDDA_LIST';
 const metaDataListNotFound = JSON.parse(rawMetaData)[1];
 
-const crownWarnedPddaListController = new CrownWarnedPddaListController();
+const crownAdvancePddaListController = new CrownAdvancePddaListController();
 
-const crownWarnedPddaListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
-const crownWarnedPddaListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+const crownAdvancePddaListJsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
+const crownAdvancePddaListMetaDataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 
 const artefactId = 'abc';
 const artefactIdListNotFound = 'xyz';
@@ -48,26 +48,26 @@ const toBeAllocatedData = {
 const listData = new Map<string, object[]>();
 listData.set('Hearing type', [allocatedData]);
 listData.set('To be allocated', [toBeAllocatedData]);
-sinon.stub(CrownWarnedPddaListService.prototype, 'processPayload').returns(listData);
+sinon.stub(CrownAdvancePddaListService.prototype, 'processPayload').returns(listData);
 
 const listDataWithAllocatedData = new Map<string, object[]>();
 listDataWithAllocatedData.set('Hearing type', [allocatedData]);
 
-crownWarnedPddaListJsonStub.withArgs(artefactId).resolves(rawDataObj);
-crownWarnedPddaListJsonStub.withArgs('').resolves([]);
-crownWarnedPddaListJsonStub.withArgs(artefactIdListNotFound).resolves(HttpStatusCode.NotFound);
+crownAdvancePddaListJsonStub.withArgs(artefactId).resolves(rawDataObj);
+crownAdvancePddaListJsonStub.withArgs('').resolves([]);
+crownAdvancePddaListJsonStub.withArgs(artefactIdListNotFound).resolves(HttpStatusCode.NotFound);
 
-crownWarnedPddaListMetaDataStub.withArgs(artefactId).resolves(metaData);
-crownWarnedPddaListMetaDataStub.withArgs('').resolves([]);
-crownWarnedPddaListMetaDataStub.withArgs(artefactIdListInvalidListType).resolves(metaDataListNotFound);
+crownAdvancePddaListMetaDataStub.withArgs(artefactId).resolves(metaData);
+crownAdvancePddaListMetaDataStub.withArgs('').resolves([]);
+crownAdvancePddaListMetaDataStub.withArgs(artefactIdListInvalidListType).resolves(metaDataListNotFound);
 
-const listType = 'crown-warned-pdda-list';
+const listType = 'crown-advance-pdda-list';
 const i18n = {
     listType: { value: '123' },
     'list-template': {},
 };
 
-describe('Crown Warned PDDA List Controller', () => {
+describe('Crown Advance PDDA List Controller', () => {
     const response = {
         render: () => {
             return '';
@@ -77,7 +77,7 @@ describe('Crown Warned PDDA List Controller', () => {
     const request = mockRequest(i18n);
     const listPath = 'style-guide/' + listType;
 
-    it('should render the crown warned pdda list page', async () => {
+    it('should render the crown advance pdda list page', async () => {
         request.query = { artefactId: artefactId };
         request.user = { userId: '1' };
 
@@ -100,7 +100,7 @@ describe('Crown Warned PDDA List Controller', () => {
 
         responseMock.expects('render').once().withArgs(listPath, expectedData);
 
-        await crownWarnedPddaListController.get(request, response);
+        await crownAdvancePddaListController.get(request, response);
         responseMock.verify();
     });
 
@@ -111,7 +111,7 @@ describe('Crown Warned PDDA List Controller', () => {
 
         responseMock.expects('render').once().withArgs('error', request.i18n.getDataByLanguage(request.lng).error);
 
-        await crownWarnedPddaListController.get(request, response);
+        await crownAdvancePddaListController.get(request, response);
         responseMock.verify();
     });
 
@@ -125,7 +125,7 @@ describe('Crown Warned PDDA List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await crownWarnedPddaListController.get(request, response);
+        await crownAdvancePddaListController.get(request, response);
         responseMock.verify();
     });
 
@@ -139,7 +139,7 @@ describe('Crown Warned PDDA List Controller', () => {
             .once()
             .withArgs('list-not-found', request.i18n.getDataByLanguage(request.lng)['list-not-found']);
 
-        await crownWarnedPddaListController.get(request, response);
+        await crownAdvancePddaListController.get(request, response);
         responseMock.verify();
     });
 });

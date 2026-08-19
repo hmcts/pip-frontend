@@ -7,7 +7,7 @@ import sinon from 'sinon';
 import { PublicationService } from '../../../../main/service/PublicationService';
 import { LocationService } from '../../../../main/service/LocationService';
 
-const PAGE_URL = '/crown-warned-list?artefactId=abc';
+const PAGE_URL = '/crown-advance-list?artefactId=abc';
 const headingClass = 'govuk-heading-l';
 const bodyText = 'govuk-body';
 const listInfoClass = 'list-info';
@@ -20,20 +20,20 @@ const dataSourceClass = 'data-source';
 
 let htmlRes: Document;
 
-const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownWarnedPddaList.json'), 'utf-8');
-const crownWarnedPddaListData = JSON.parse(rawData);
+const rawData = fs.readFileSync(path.resolve(__dirname, '../../mocks/crownAdvancePddaList.json'), 'utf-8');
+const crownAdvancePddaListData = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'CROWN_WARNED_PDDA_LIST';
+metaData.listType = 'CROWN_ADVANCE_PDDA_LIST';
 
 const rawCourtData = fs.readFileSync(path.resolve(__dirname, '../../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawCourtData);
 
-sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(crownWarnedPddaListData);
+sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns(crownAdvancePddaListData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 sinon.stub(LocationService.prototype, 'getLocationById').resolves(courtData[0]);
 
-describe('Crown Warned PDDA List page', () => {
+describe('Crown Advance PDDA List page', () => {
     beforeAll(async () => {
         await request(app)
             .get(PAGE_URL)
@@ -45,7 +45,7 @@ describe('Crown Warned PDDA List page', () => {
     it('should display header with venue name and list type', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
         expect(header[0].innerHTML).equal(
-            "Crown Warned List for Abergavenny Magistrates' Court",
+            "Crown Advance List for Abergavenny Magistrates' Court",
             'Could not find the header'
         );
     });

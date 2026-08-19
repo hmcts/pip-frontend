@@ -8,16 +8,16 @@ import { LocationService } from '../../service/LocationService';
 import { PublicationService } from '../../service/PublicationService';
 import { formatDate } from '../../helpers/dateTimeHelper';
 import { CrownPddaListService } from '../../service/listManipulation/CrownPddaListService';
-import { CrownWarnedPddaListService } from '../../service/listManipulation/CrownWarnedPddaListService';
+import { CrownAdvancePddaListService } from '../../service/listManipulation/CrownAdvancePddaListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
 const helperService = new ListParseHelperService();
 const crownPddaListService = new CrownPddaListService();
-const crownWarnedPddaListService = new CrownWarnedPddaListService();
-const listType = 'crown-warned-pdda-list';
+const crownAdvancePddaListService = new CrownAdvancePddaListService();
+const listType = 'crown-advance-pdda-list';
 
-export default class CrownWarnedPddaListController {
+export default class CrownAdvancePddaListController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const artefactId = req.query.artefactId as string;
         const payload = await publicationService.getIndividualPublicationJson(artefactId, req.user?.['userId']);
@@ -28,7 +28,7 @@ export default class CrownWarnedPddaListController {
             const returnedLocation = await locationService.getLocationById(metadata['locationId']);
             const locationName = locationService.findCourtName(returnedLocation, req.lng, listType);
 
-            const listPayload = payload['WarnedList'];
+            const listPayload = payload['AdvanceList'];
             const listHeader = listPayload.ListHeader;
             const publishedDate = helperService.publicationDateInUkTime(listHeader.PublishedTime, req.lng);
             const publishedTime = helperService.publicationTimeInUkTime(listHeader.PublishedTime);
@@ -39,14 +39,14 @@ export default class CrownWarnedPddaListController {
             const version = listHeader.Version;
             const venueAddress = crownPddaListService.formatAddress(listPayload.CrownCourt.CourtHouseAddress);
 
-            const listData = crownWarnedPddaListService.processPayload(payload as JSON);
+            const listData = crownAdvancePddaListService.processPayload(payload as JSON);
 
             res.render(`style-guide/${listType}`, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 locationName: locationName,
-                contentDate: crownWarnedPddaListService.formatContentDate(metadata.contentDate, req.lng),
+                contentDate: crownAdvancePddaListService.formatContentDate(metadata.contentDate, req.lng),
                 provenance: metadata.provenance,
                 publishedDate,
                 publishedTime,

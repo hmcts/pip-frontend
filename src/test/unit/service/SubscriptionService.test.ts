@@ -954,7 +954,7 @@ describe('generateListTypesForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_PDDA_LIST',
+            'CROWN_ADVANCE_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);
@@ -1001,7 +1001,7 @@ describe('generateListTypesForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_PDDA_LIST',
+            'CROWN_ADVANCE_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);
@@ -1146,7 +1146,7 @@ describe('generateListTypeForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_PDDA_LIST',
+            'CROWN_ADVANCE_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);
@@ -1183,7 +1183,7 @@ describe('generateListTypeForCourts', () => {
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
             'CROWN_FIRM_PDDA_LIST',
-            'CROWN_WARNED_PDDA_LIST',
+            'CROWN_ADVANCE_PDDA_LIST',
         ]);
 
         const listKeysM = Object.keys(result['M']);

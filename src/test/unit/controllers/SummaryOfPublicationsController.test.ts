@@ -37,7 +37,7 @@ additionalLocationInfoStub.withArgs(2).returns(additionalLocationInfo);
 const publicationsWithName = [
     {
         ...metadata[0],
-        listName: 'Crown Warned List',
+        listName: 'Crown Advance List',
     },
     {
         ...metadata[1],

@@ -3,11 +3,11 @@ import { DateTime } from 'luxon';
 
 const crownPddaListService = new CrownPddaListService();
 
-export class CrownWarnedPddaListService {
-    public processPayload(warnedPddaListData: JSON): Map<string, object[]> {
+export class CrownAdvancePddaListService {
+    public processPayload(advancePddaListData: JSON): Map<string, object[]> {
         const groupedData = new Map<string, object[]>();
 
-        warnedPddaListData['WarnedList'].CourtLists.forEach((courtList: any) => {
+        advancePddaListData['AdvanceList'].CourtLists.forEach((courtList: any) => {
             courtList.WithFixedDate?.forEach((withFixDate: any) => {
                 this.formatFixture(withFixDate, groupedData, false);
             });
