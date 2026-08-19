@@ -942,6 +942,17 @@
         "defaultSensitivity": "PUBLIC",
         "isNonStrategic": false
     },
+    "CROWN_WARNED_PDDA_LIST": {
+        "friendlyName": "Crown Warned List",
+        "welshFriendlyName": "Rhestr Rybudd Llys y Goron",
+        "shortenedFriendlyName": "Crown Warned List",
+        "url": "crown-warned-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false,
+        "isHidden": false
+    },
     "CROWN_ADVANCE_PDDA_LIST": {
         "friendlyName": "Crown Advance List",
         "welshFriendlyName": "Rhestr Ymlaen Llaw Llys y Goron",
@@ -950,7 +961,8 @@
         "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
-        "isNonStrategic": false
+        "isNonStrategic": false,
+        "isHidden": true
     },
     "HIGH_COURT_CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "High Court Civil Daily Cause List",
