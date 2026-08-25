@@ -951,7 +951,7 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false,
-        "isHidden": false
+        "isHidden": true
     },
     "CROWN_ADVANCE_PDDA_LIST": {
         "friendlyName": "Crown Advance List",
@@ -962,7 +962,7 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false,
-        "isHidden": true
+        "isHidden": false
     },
     "HIGH_COURT_CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "High Court Civil Daily Cause List",
