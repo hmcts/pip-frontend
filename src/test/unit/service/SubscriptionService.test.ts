@@ -1248,7 +1248,7 @@ describe('fulfillSubscriptions', () => {
     const validArtefact = { artefactId: '123' };
     const invalidArtefact = { artefactId: '124' };
 
-    const getMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+    const getMetadataStub = sinon.stub(PublicationService.prototype, 'getPublicationMetadataWithCaseInfo');
     getMetadataStub.withArgs('123', '1').resolves(validArtefact);
     getMetadataStub.withArgs('124', '1').resolves(invalidArtefact);
 

@@ -619,7 +619,7 @@ export class SubscriptionService {
     }
 
     public async fulfillSubscriptions(artefactId, userId): Promise<string> {
-        const artefact = await publicationService.getIndividualPublicationMetadata(artefactId, userId);
+        const artefact = await publicationService.getPublicationMetadataWithCaseInfo(artefactId, userId);
         const response = await subscriptionRequests.fulfillEmailSubscriptions(artefact);
         return response ? await subscriptionRequests.fulfillApiSubscriptions(artefact) : null;
     }
