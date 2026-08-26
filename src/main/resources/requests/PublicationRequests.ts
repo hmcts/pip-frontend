@@ -183,7 +183,7 @@ export class PublicationRequests {
             const response = await dataManagementApi.get('/publication/mi-data', { params: params });
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve mi publication data');
+            logHelper.logErrorResponse(error, 'retrieve MI publication data');
         }
         return null;
     }
