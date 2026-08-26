@@ -5,7 +5,8 @@ properties([
 pipelineTriggers([cron('H 07 * * 1-5')])
 ])
 
-@Library("Infrastructure@2.4.8")
+@Library("Infrastructure@2.5.1")
+
 
 def type = "nodejs"
 def product = "pip"
@@ -87,6 +88,7 @@ static Map<String, Object> secret(String secretName, String envVariable) {
 }
 
 withNightlyPipeline(type, product, component) {
+    enableBuildCache()
     enableFortifyScan('pip-ss-kv-stg')
     setupTestSecrets()
     enableFullFunctionalTest()
