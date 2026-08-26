@@ -95,7 +95,7 @@ describe('Download MI Report Service', () => {
         expect(data.fileName).to.contain('.csv');
 
         const csv = data.buffer.toString();
-        expect(csv).to.contain('userId,provenanceUserId,userProvenance,roles,lastSignedInDate', 'deletedDate');
+        expect(csv).to.contain('userId,provenanceUserId,userProvenance,roles,lastSignedInDate','deletedDate');
         expect(csv).to.contain('"1235","11223345","PI_AAD","VERIFIED","2026-04-18T14:00:00Z","2026-07-18T14:00:00Z"');
     });
 
