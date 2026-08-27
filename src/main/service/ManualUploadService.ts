@@ -13,7 +13,7 @@ const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
 const publicationService = new PublicationService();
 
-const timeZone = 'Europe/London';
+const timeZone = 'utc';
 
 export class ManualUploadService {
     public async buildFormData(
