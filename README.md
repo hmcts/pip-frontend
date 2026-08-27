@@ -277,7 +277,7 @@ To run the a11y tests, use the `yarn test:a11y` command.
 
 Both functional and cross-browser tests are implemented.
 Tests are configured to run in parallel.
-Tests are configured to run in chromium, firefox, webkit (cross-browser testing)
+Tests are configured to run in chromium, firefox, webkit (cross-browser testing).
 Allure reports are implemented for both functional and cross-browser tests.
 
 Functional-test-configuration - src/test/end-to-end/functional.conf.ts
