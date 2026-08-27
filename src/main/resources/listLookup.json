@@ -1001,5 +1001,15 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
+    },
+    "BUSINESS_AND_PROPERTY_DIVISION_ROLLS_BUILDING_DAILY_CAUSE_LIST": {
+        "friendlyName": "Business and Property Division Rolls Building Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Adran Busnes ac Eiddo - Adeilad Rolls",
+        "shortenedFriendlyName": "Business and Property Division Rolls Building Daily Cause List",
+        "url": "business-and-property-division-rolls-building-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     }
 }
