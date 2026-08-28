@@ -118,4 +118,15 @@ describe('formatSjpPublicList', () => {
         expect(sjpModel.getProsecutors()).contains('This is a prosecutor organisation');
         expect(sjpModel.getProsecutors()).contains('This is a prosecutor organisation 2');
     });
+
+    it('should return SJP Public List case when postcode is missing', async () => {
+        const sjpModel = new SjpModel();
+        const data = JSON.parse(rawSJPData);
+        delete data['courtLists'][0]['courtHouse']['courtRoom'][0]['session'][0]['sittings'][0]['hearing'][0]['party'][0]
+            .individualDetails.address.postCode;
+
+        sjpPublicListService.formatSjpPublicList(data, sjpModel);
+        expect(sjpModel.getFilteredCasesForPage().length).to.equal(2);
+        expect(sjpModel.getFilteredCasesForPage()[0]['postcode']).to.equal('');
+    });
 });
