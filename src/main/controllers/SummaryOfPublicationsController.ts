@@ -30,6 +30,7 @@ export default class SummaryOfPublicationsController {
             const publicationsWithName = [];
             publications.forEach(publication => {
                 const isHidden = publicationService.getListTypes().get(publication.listType).isHidden;
+
                 if (!isHidden) {
                     const friendlyName = publicationService.getListTypes().get(publication.listType).friendlyName;
                     const publicationWithName = {
