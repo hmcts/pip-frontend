@@ -961,7 +961,7 @@
         "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
-        "isNonStrategic": false,
+        "isNonStrategic": false
     },
     "HIGH_COURT_CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "High Court Civil Daily Cause List",

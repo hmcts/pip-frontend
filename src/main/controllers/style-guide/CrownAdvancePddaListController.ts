@@ -46,7 +46,6 @@ export default class CrownAdvancePddaListController {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['list-template']),
                 listData: listData,
                 locationName: locationName,
-                contentDate: crownAdvancePddaListService.formatContentDate(metadata.contentDate, req.lng),
                 provenance: metadata.provenance,
                 publishedDate,
                 publishedTime,

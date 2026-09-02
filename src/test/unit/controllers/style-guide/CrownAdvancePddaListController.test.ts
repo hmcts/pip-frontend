@@ -88,7 +88,6 @@ describe('Crown Advance PDDA List Controller', () => {
             ...i18n['list-template'],
             listData: listData,
             locationName: rawDataObj['venue'],
-            contentDate: '14 February 2022',
             provenance: 'prov1',
             publishedDate: '01 January 2024',
             publishedTime: '10am',
