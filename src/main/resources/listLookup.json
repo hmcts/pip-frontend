@@ -950,8 +950,7 @@
         "jurisdictionTypes": ["Crown Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "CLASSIFIED",
-        "isNonStrategic": false,
-        "isHidden": false
+        "isNonStrategic": false
     },
     "CROWN_ADVANCE_PDDA_LIST": {
         "friendlyName": "Crown Advance List",
