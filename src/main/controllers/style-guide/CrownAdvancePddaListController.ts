@@ -3,16 +3,13 @@ import { Response } from 'express';
 import { formatMetaDataListType, isUnexpectedListType, isValidList, isValidListType } from '../../helpers/listHelper';
 import { HttpStatusCode } from 'axios';
 import { cloneDeep } from 'lodash';
-import { ListParseHelperService } from '../../service/ListParseHelperService';
 import { LocationService } from '../../service/LocationService';
 import { PublicationService } from '../../service/PublicationService';
-import { formatDate } from '../../helpers/dateTimeHelper';
 import { CrownPddaListService } from '../../service/listManipulation/CrownPddaListService';
 import { CrownAdvancePddaListService } from '../../service/listManipulation/CrownAdvancePddaListService';
 
 const publicationService = new PublicationService();
 const locationService = new LocationService();
-const helperService = new ListParseHelperService();
 const crownPddaListService = new CrownPddaListService();
 const crownAdvancePddaListService = new CrownAdvancePddaListService();
 const listType = 'crown-advance-pdda-list';
@@ -29,15 +26,7 @@ export default class CrownAdvancePddaListController {
             const locationName = locationService.findCourtName(returnedLocation, req.lng, listType);
 
             const listPayload = payload['AdvanceList'];
-            const listHeader = listPayload.ListHeader;
-            const publishedDate = helperService.publicationDateInUkTime(listHeader.PublishedTime, req.lng);
-            const publishedTime = helperService.publicationTimeInUkTime(listHeader.PublishedTime);
-            const startDate = formatDate(crownPddaListService.toIsoDate(listHeader.StartDate), 'dd MMMM yyyy', req.lng);
-            const endDate = listHeader.EndDate
-                ? formatDate(crownPddaListService.toIsoDate(listHeader.EndDate), 'dd MMMM yyyy', req.lng)
-                : '';
-            const version = listHeader.Version;
-            const venueAddress = crownPddaListService.formatAddress(listPayload.CrownCourt.CourtHouseAddress);
+            const viewInfo = crownPddaListService.buildViewInfo(listPayload, req.lng)
 
             const listData = crownAdvancePddaListService.processPayload(payload as JSON);
 
@@ -47,12 +36,7 @@ export default class CrownAdvancePddaListController {
                 listData: listData,
                 locationName: locationName,
                 provenance: metadata.provenance,
-                publishedDate,
-                publishedTime,
-                startDate,
-                endDate,
-                version,
-                venueAddress,
+                ...viewInfo,
             });
         } else if (
             payload === HttpStatusCode.NotFound ||
