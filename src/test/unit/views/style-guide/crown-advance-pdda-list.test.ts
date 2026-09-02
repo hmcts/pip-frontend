@@ -85,30 +85,22 @@ describe('Crown Advance PDDA List page', () => {
     it('should display the list information text first paragraph', () => {
         const info = htmlRes.getElementsByClassName(listInfoClass);
         expect(info[0].getElementsByTagName('p')[0].innerHTML).equal(
-            'The undermentioned cases are warned for the hearing period of week commencing 14 February 2022',
-            'Could not find the list information text first paragraph'
+            'Any representation about the listing of a case should be made to the Listing Officer immediately',
+            'Could not find the list information text second paragraph'
         );
     });
 
     it('should display the list information text second paragraph', () => {
         const info = htmlRes.getElementsByClassName(listInfoClass);
         expect(info[0].getElementsByTagName('p')[1].innerHTML).equal(
-            'Any representation about the listing of a case should be made to the Listing Officer immediately',
-            'Could not find the list information text second paragraph'
+            'The prosecuting authority is the Crown Prosecution Service unless otherwise stated',
+            'Could not find the list information text third paragraph'
         );
     });
 
     it('should display the list information text third paragraph', () => {
         const info = htmlRes.getElementsByClassName(listInfoClass);
         expect(info[0].getElementsByTagName('p')[2].innerHTML).equal(
-            'The prosecuting authority is the Crown Prosecution Service unless otherwise stated',
-            'Could not find the list information text third paragraph'
-        );
-    });
-
-    it('should display the list information text fourth paragraph', () => {
-        const info = htmlRes.getElementsByClassName(listInfoClass);
-        expect(info[0].getElementsByTagName('p')[3].innerHTML).equal(
             '*denotes a defendant in custody',
             'Could not find the list information text fourth paragraph'
         );
