@@ -25,7 +25,7 @@ export default class CrownAdvancePddaListController {
             const returnedLocation = await locationService.getLocationById(metadata['locationId']);
             const locationName = locationService.findCourtName(returnedLocation, req.lng, listType);
 
-            const listPayload = payload['AdvanceList'];
+            const listPayload = payload['WarnedList'];
             const viewInfo = crownPddaListService.buildViewInfo(listPayload, req.lng)
 
             const listData = crownAdvancePddaListService.processPayload(payload as JSON);

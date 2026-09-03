@@ -6,7 +6,7 @@ export class CrownAdvancePddaListService {
     public processPayload(advancePddaListData: JSON): Map<string, object[]> {
         const groupedData = new Map<string, object[]>();
 
-        advancePddaListData['AdvanceList'].CourtLists.forEach((courtList: any) => {
+        advancePddaListData['WarnedList'].CourtLists.forEach((courtList: any) => {
             courtList.WithFixedDate?.forEach((withFixDate: any) => {
                 this.formatFixture(withFixDate, groupedData, false);
             });
