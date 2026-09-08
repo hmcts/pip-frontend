@@ -23,7 +23,7 @@ describe('Interim Applications Daily List Page', () => {
     describe('on GET', () => {
         test('should return Interim Applications Daily List page', async () => {
             await request(app)
-                .get('/interim-applications-chd-daily-cause-list?artefactId=abc')
+                .get('/interim-applications-daily-cause-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });

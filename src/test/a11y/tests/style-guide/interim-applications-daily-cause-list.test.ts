@@ -3,7 +3,7 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
 
-const url = '/interim-applications-chd-daily-cause-list?artefactId=abc';
+const url = '/interim-applications-daily-cause-list?artefactId=abc';
 
 const jsonData = testArtefactJsonData('interimApplicationsChanceryDivisionDailyCauseList.json');
 const metadata = testArtefactMetadata()[0];
