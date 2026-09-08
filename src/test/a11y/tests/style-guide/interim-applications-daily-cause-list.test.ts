@@ -12,6 +12,6 @@ metadata.listType = 'INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST';
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
 
-describe('Accessibility - Interim Applications ChD Daily List', () => {
+describe('Accessibility - Interim Applications Daily List', () => {
     testAccessibility(url);
 });

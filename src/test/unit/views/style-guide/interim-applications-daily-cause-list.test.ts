@@ -37,7 +37,7 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Interim Applications List (Chancery Division) Daily Cause List');
+        expect(header[0].innerHTML).contains('Interim Applications Daily Cause List');
     });
 
     it('should display fact link text', () => {
