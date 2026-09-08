@@ -38,6 +38,16 @@ export class DownloadMiReportService {
         return this.buildGeneratedCsvFile(returnedData, reportType, allTimeReportDurationLabel);
     }
 
+    public async generateDeletedAccountsMiData(reportType: string): Promise<GeneratedCsvFile | null> {
+        const returnedData = await accountManagementRequests.getMiDeletedAccountsData();
+
+        if (returnedData == null) {
+            return null;
+        }
+
+        return this.buildGeneratedCsvFile(returnedData, reportType, allTimeReportDurationLabel);
+    }
+
     public async generateAllSubscriptionsMiData(reportType: string): Promise<GeneratedCsvFile | null> {
         const returnedData = await subscriptionRequests.getMiAllSubscriptionsData();
 
@@ -59,9 +69,10 @@ export class DownloadMiReportService {
     }
 
     public async generateAllDataMiData(reportType: string, reportDuration: number): Promise<GeneratedCsvFile | null> {
-        const [publications, accounts, allSubscriptions, locationSubscriptions] = await Promise.all([
+        const [publications, accounts, deletedAccounts, allSubscriptions, locationSubscriptions] = await Promise.all([
             publicationRequests.getMiPublicationData(reportDuration),
             accountManagementRequests.getMiAccountsData(),
+            accountManagementRequests.getMiDeletedAccountsData(),
             subscriptionRequests.getMiAllSubscriptionsData(),
             subscriptionRequests.getMiLocationSubscriptionsData(),
         ]);
@@ -75,6 +86,8 @@ export class DownloadMiReportService {
         this.addWorksheet(workbook, 'Publications', publications as Record<string, any>[]);
 
         this.addWorksheet(workbook, 'User Accounts', accounts as Record<string, any>[]);
+
+        this.addWorksheet(workbook, 'Deleted Accounts', deletedAccounts as Record<string, any>[]);
 
         this.addWorksheet(workbook, 'All Subscriptions', allSubscriptions as Record<string, any>[]);
 

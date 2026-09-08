@@ -17,6 +17,10 @@ export default class DownloadMiReportController {
                 result = await downloadMiReportService.generateUserAccountsMiData('user_account');
                 break;
             }
+            case 'DELETED_ACCOUNTS': {
+                result = await downloadMiReportService.generateDeletedAccountsMiData('deleted_account');
+                break;
+            }
             case 'PUBLICATIONS': {
                 result = await downloadMiReportService.generatePublicationMiData('publications', reportDuration);
                 break;

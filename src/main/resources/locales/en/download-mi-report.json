@@ -33,6 +33,10 @@
                 "value": "USER_ACCOUNTS"
             },
             {
+                "text": "Deleted accounts",
+                "value": "DELETED_ACCOUNTS"
+            },
+            {
                 "text": "Publications",
                 "value": "PUBLICATIONS"
             },

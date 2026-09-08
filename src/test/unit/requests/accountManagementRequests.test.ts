@@ -1026,4 +1026,39 @@ describe('Account Management Requests', () => {
             expect(response).toBe(null);
         });
     });
+
+    describe('Get MI deleted accounts data', () => {
+        beforeEach(() => {
+            sinon.restore();
+            getStub = sinon.stub(accountManagementApi, 'get');
+        });
+
+        const miData = [
+            {
+                userId: '1234',
+                userProvenance: 'PI_AAD',
+                roles: 'VERIFIED',
+            },
+        ];
+
+        it('should return MI account data on success', async () => {
+            getStub.withArgs('/account/mi-data-deleted').resolves({
+                data: miData,
+            });
+            const response = await accountManagementRequests.getMiDeletedAccountsData();
+            expect(response).toStrictEqual(miData);
+        });
+
+        it('should return null on error response', async () => {
+            getStub.withArgs('/account/mi-data-deleted').rejects(errorResponse);
+            const response = await accountManagementRequests.getMiDeletedAccountsData();
+            expect(response).toBe(null);
+        });
+
+        it('should return null on error message', async () => {
+            getStub.withArgs('/account/mi-data-deleted').rejects(errorMessage);
+            const response = await accountManagementRequests.getMiDeletedAccountsData();
+            expect(response).toBe(null);
+        });
+    });
 });

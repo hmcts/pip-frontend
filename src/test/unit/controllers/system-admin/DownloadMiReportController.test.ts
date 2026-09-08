@@ -15,6 +15,10 @@ sinon.stub(DownloadMiReportService.prototype, 'generateUserAccountsMiData').with
     fileName: 'user_accounts.csv',
     buffer,
 });
+sinon.stub(DownloadMiReportService.prototype, 'generateDeletedAccountsMiData').withArgs('deleted_account').resolves({
+    fileName: 'deleted_accounts.csv',
+    buffer,
+});
 sinon.stub(DownloadMiReportService.prototype, 'generatePublicationMiData').withArgs('publications').resolves({
     fileName: 'publications.csv',
     buffer,
@@ -70,6 +74,23 @@ describe('Download Mi Report controller', () => {
         const responseMock = sinon.mock(response);
 
         responseMock.expects('set').once().withArgs('Content-Disposition', 'attachment; filename=user_accounts.csv');
+        responseMock.expects('set').once().withArgs('Content-Type', 'text/csv; charset=utf-8');
+        responseMock.expects('send').once().withArgs(buffer);
+
+        await downloadMiReportController.post(request, response);
+
+        responseMock.verify();
+    });
+
+    it('should generate deleted user accounts MI report', async () => {
+        request.body = {
+            reportType: 'DELETED_ACCOUNTS',
+            reportDuration: null,
+        };
+
+        const responseMock = sinon.mock(response);
+
+        responseMock.expects('set').once().withArgs('Content-Disposition', 'attachment; filename=deleted_accounts.csv');
         responseMock.expects('set').once().withArgs('Content-Type', 'text/csv; charset=utf-8');
         responseMock.expects('send').once().withArgs(buffer);
 

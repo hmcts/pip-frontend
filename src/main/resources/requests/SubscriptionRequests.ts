@@ -116,7 +116,7 @@ export class SubscriptionRequests {
             const response = await accountManagementApi.get('/subscription/mi-data-all');
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve mi all subscription data');
+            logHelper.logErrorResponse(error, 'retrieve MI all subscription data');
         }
         return null;
     }
@@ -126,7 +126,7 @@ export class SubscriptionRequests {
             const response = await accountManagementApi.get('/subscription/mi-data-location');
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve mi all location subscription data');
+            logHelper.logErrorResponse(error, 'retrieve MI all location subscription data');
         }
         return null;
     }

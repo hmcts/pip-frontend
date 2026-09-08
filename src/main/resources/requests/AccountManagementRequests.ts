@@ -382,7 +382,17 @@ export class AccountManagementRequests {
             const response = await accountManagementApi.get('/account/mi-data');
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve mi accounts data');
+            logHelper.logErrorResponse(error, 'retrieve MI accounts data');
+        }
+        return null;
+    }
+
+    public async getMiDeletedAccountsData(): Promise<object> {
+        try {
+            const response = await accountManagementApi.get('/account/mi-data-deleted');
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve MI deleted accounts data');
         }
         return null;
     }

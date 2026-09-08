@@ -19,6 +19,17 @@ const accountMiData = [
     },
 ];
 
+const deletedAccountMiData = [
+    {
+        userId: '1235',
+        provenanceUserId: '11223345',
+        userProvenance: 'PI_AAD',
+        roles: 'VERIFIED',
+        lastSignedInDate: '2026-04-18T14:00:00Z',
+        deletedDate: '2026-07-18T14:00:00Z',
+    },
+];
+
 const publicationMiData = [
     {
         artefactId: '12345678',
@@ -60,6 +71,7 @@ const allSubscriptionMiData = [
 ];
 
 sinon.stub(AccountManagementRequests.prototype, 'getMiAccountsData').resolves(accountMiData);
+sinon.stub(AccountManagementRequests.prototype, 'getMiDeletedAccountsData').resolves(deletedAccountMiData);
 sinon.stub(PublicationRequests.prototype, 'getMiPublicationData').resolves(publicationMiData);
 sinon.stub(SubscriptionRequests.prototype, 'getMiLocationSubscriptionsData').resolves(locationMiData);
 sinon.stub(SubscriptionRequests.prototype, 'getMiAllSubscriptionsData').resolves(allSubscriptionMiData);
@@ -74,6 +86,17 @@ describe('Download MI Report Service', () => {
         const csv = data.buffer.toString();
         expect(csv).to.contain('userId,provenanceUserId,userProvenance,roles,createdDate,lastSignedInDate');
         expect(csv).to.contain('"1234","11223344","PI_AAD","VERIFIED","2022-11-18T14:00:00Z","2022-11-18T14:00:00Z"');
+    });
+
+    it('should generate deleted user account mi data csv', async () => {
+        const data = await downloadMiReportService.generateDeletedAccountsMiData('deleted_account');
+
+        expect(data.fileName).to.contain('deleted_account_report_from_beginning_');
+        expect(data.fileName).to.contain('.csv');
+
+        const csv = data.buffer.toString();
+        expect(csv).to.contain('userId,provenanceUserId,userProvenance,roles,lastSignedInDate','deletedDate');
+        expect(csv).to.contain('"1235","11223345","PI_AAD","VERIFIED","2026-04-18T14:00:00Z","2026-07-18T14:00:00Z"');
     });
 
     it('should generate publication mi data csv', async () => {
@@ -130,6 +153,7 @@ describe('Download MI Report Service', () => {
 
         expect(workbook.getWorksheet('Publications')).to.exist;
         expect(workbook.getWorksheet('User Accounts')).to.exist;
+        expect(workbook.getWorksheet('Deleted Accounts')).to.exist;
         expect(workbook.getWorksheet('Location Subscriptions')).to.exist;
         expect(workbook.getWorksheet('All Subscriptions')).to.exist;
 
@@ -140,6 +164,10 @@ describe('Download MI Report Service', () => {
         const userAccountsSheet = workbook.getWorksheet('User Accounts');
         expect(userAccountsSheet?.getRow(1).getCell(1).value).to.equal('userId');
         expect(userAccountsSheet?.getRow(2).getCell(1).value).to.equal('1234');
+
+        const deletedAccountsSheet = workbook.getWorksheet('Deleted Accounts');
+        expect(deletedAccountsSheet?.getRow(1).getCell(1).value).to.equal('userId');
+        expect(deletedAccountsSheet?.getRow(2).getCell(1).value).to.equal('1235');
 
         const locationSubsSheet = workbook.getWorksheet('Location Subscriptions');
         expect(locationSubsSheet?.getRow(1).getCell(1).value).to.equal('id');
