@@ -25,8 +25,9 @@ describe('Cft Login Controller', () => {
             .expects('redirect')
             .once()
             .withArgs(
-                'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
+                'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
                     redirectUri +
+                    '&scope=openid+profile+roles' +
                     '&ui_locales=en'
             );
 
@@ -42,8 +43,9 @@ describe('Cft Login Controller', () => {
             .expects('redirect')
             .once()
             .withArgs(
-                'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
+                'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
                     redirectUri +
+                    '&scope=openid+profile+roles' +
                     '&ui_locales=cy'
             );
 

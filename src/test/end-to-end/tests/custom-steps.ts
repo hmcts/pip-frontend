@@ -95,6 +95,42 @@ export = function () {
             this.click('Sign in');
         },
 
+        doCftIdamLogin: function (username, password) {
+            tryTo(() => {
+                // CLASSIC
+                this.see('Sign in', 'h1');
+                this.fillField('#username', username);
+                this.fillField('#password', password);
+                this.click('Sign in');
+            });
+            tryTo(() => {
+                // MODERN
+                this.see('Enter your email address', 'h1');
+                this.fillField('#email', username);
+                this.click('Continue');
+                this.see('Enter your password', 'h1');
+                this.fillField('#password', password);
+                this.click('Continue');
+            });
+        },
+
+        doCftIdamLoginWelsh: function (username, password) {
+            tryTo(() => {
+                // CLASSIC (Welsh)
+                this.see('Mewngofnodi', 'h1');
+                this.fillField('#username', username);
+                this.fillField('#password', password);
+                this.click('Mewngofnodi');
+            });
+            tryTo(() => {
+                // MODERN (Welsh)
+                this.fillField('#email', username);
+                this.click('Parhau');
+                this.fillField('#password', password);
+                this.click('Parhau');
+            });
+        },
+
         loginAsCftUser: function () {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
@@ -102,10 +138,7 @@ export = function () {
             this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
-            this.waitForText('Sign in');
-            this.fillField('#username', secret(testConfig.CFT_USERNAME));
-            this.fillField('#password', secret(testConfig.CFT_PASSWORD));
-            this.click('Sign in');
+            this.doCftIdamLogin(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));
             this.waitForText('Your account');
         },
 
@@ -116,10 +149,7 @@ export = function () {
             this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
-            this.waitForText('Sign in');
-            this.fillField('#username', username);
-            this.fillField('#password', password);
-            this.click('Sign in');
+            this.doCftIdamLogin(username, password);
         },
 
         loginAsCftUserInWelsh: function (username, password) {
@@ -130,10 +160,7 @@ export = function () {
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
-            this.waitForText('Mewngofnodi');
-            this.fillField('#username', username);
-            this.fillField('#password', password);
-            this.click('Mewngofnodi');
+            this.doCftIdamLoginWelsh(username, password);
         },
 
         loginAsCrimeUser: function (

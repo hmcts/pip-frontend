@@ -19,7 +19,7 @@ import {
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/SessionManagementService';
-import { urlPath } from '../helpers/envUrls';
+import { CFT_IDAM_URL, HMCTS_ACCESS_URL, urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
 import passport from 'passport';
 import healthcheck from '@hmcts/nodejs-healthcheck';
@@ -1349,10 +1349,14 @@ export default function (app: Application): void {
         res.send('User-agent: *\nAllow: /$\nAllow: /assets/\nDisallow: /');
     });
 
+    const idamHealthCheck = {
+        callback: (err, res) => (res?.body?.status === 'UP' ? healthcheck.up() : healthcheck.down()),
+    };
+
     const healthCheckConfig = {
         checks: {
-            // TODO: replace this sample check with proper checks for your application
-            sampleCheck: healthcheck.raw(() => healthcheck.up()),
+            'cft-idam': healthcheck.web(CFT_IDAM_URL + '/health', idamHealthCheck),
+            'hmcts-access': healthcheck.web(HMCTS_ACCESS_URL + '/health', idamHealthCheck),
         },
     };
 
