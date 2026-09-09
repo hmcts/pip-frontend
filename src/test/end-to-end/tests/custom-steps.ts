@@ -1,5 +1,6 @@
 import { config as testConfig } from '../../config';
 import { checkA11y, injectAxe } from 'axe-playwright';
+import { tryTo } from 'codeceptjs/effects';
 
 export = function () {
     return actor({
