@@ -160,6 +160,6 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains('Data Source: Prov1');
+        expect(text[13].innerHTML).contains('Data Source: Prov1');
     });
 });
