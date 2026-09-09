@@ -24,7 +24,7 @@ sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').returns
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').returns(metaData);
 
 let htmlRes: Document;
-const PAGE_URL = '/interim-applications-daily-cause-list?artefactId=abc';
+const PAGE_URL = '/interim-applications-chd-daily-cause-list?artefactId=abc';
 
 describe('Interim Applications Daily List page', () => {
     beforeAll(async () => {
