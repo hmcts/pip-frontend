@@ -86,12 +86,12 @@ describe('Business and Property Division Rolls Building Daily Cause List page', 
 
     it('should display Contact Details header', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[13].innerHTML).contains('Contact Details');
+        expect(text[13].innerHTML).contains('Contact details');
     });
 
     it('should display Remote Judgements header', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[25].innerHTML).contains('Remote Judgements');
+        expect(text[25].innerHTML).contains('Remote Judgments');
     });
 
     it('should display Judge header', () => {
