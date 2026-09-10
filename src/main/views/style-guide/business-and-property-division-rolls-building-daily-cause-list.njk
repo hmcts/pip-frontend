@@ -27,39 +27,30 @@
                 <span class="govuk-details__summary-text">{{ importantInformationHeading }}</span>
             </summary>
             <div class="govuk-details__text">
-                <p class="govuk-body govuk-!-padding-bottom-3">{{ importantInformationP1 }}</p>
+                <p class="govuk-body govuk-!-padding-bottom-2">{{ importantInformationP1 }}</p>
                 <p class="govuk-body govuk-!-font-weight-bold">{{ remoteHearingsHeading }}</p>
-                <p class="govuk-body govuk-!-padding-bottom-3">{{ remoteHearingsText }}</p>
+                <p class="govuk-body govuk-!-padding-bottom-2">{{ remoteHearingsText }}</p>
+
                 <p class="govuk-body govuk-!-font-weight-bold">{{ contactDetailsHeading }}</p>
-                <p class="govuk-body">
-                    <span class="govuk-body govuk-!-font-weight-bold">{{ contactDetails1a }}</span>
-                    <span>{{ contactDetails1b }}</span>
-                </p>
-                <p class="govuk-body">
-                    <span class="govuk-body govuk-!-font-weight-bold">{{ contactDetails2a }}</span>
-                    <span>{{ contactDetails2b }}</span>
-                </p>
-                <p class="govuk-body">
-                    <span class="govuk-body govuk-!-font-weight-bold">{{ contactDetails3a }}</span>
-                    <span>{{ contactDetails3b }}</span>
-                </p>
-                <p class="govuk-body">
-                    <span class="govuk-body govuk-!-font-weight-bold">{{ contactDetails4a }}</span>
-                    <span>{{ contactDetails4b }}</span>
-                </p>
-                <p class="govuk-body">
-                    <span class="govuk-body govuk-!-font-weight-bold">{{ contactDetails5a }}</span>
-                    <span>{{ contactDetails5b }}</span>
-                </p>
-                <p class="govuk-body">{{ importantInformationP2 }}</p>
+                <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ contactDetails1a }}</p>
+                <p class="govuk-body">{{ contactDetails1b }}</p>
+                <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ contactDetails2a }}</p>
+                <p class="govuk-body">{{ contactDetails2b }}</p>
+                <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ contactDetails3a }}</p>
+                <p class="govuk-body">{{ contactDetails3b }}</p>
+                <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ contactDetails4a }}</p>
+                <p class="govuk-body">{{ contactDetails4b }}</p>
+                <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">{{ contactDetails5a }}</p>
+                <p class="govuk-body">{{ contactDetails5b }}</p>
+
+                <p class="govuk-body govuk-!-padding-bottom-2">{{ importantInformationP2 }}</p>
                 <p class="govuk-body govuk-!-font-weight-bold">{{ remoteJudgmentsHeading }}</p>
-                <p class="govuk-body govuk-!-padding-bottom-3">{{ remoteJudgmentsText }}</p>
+                <p class="govuk-body">{{ remoteJudgmentsText }}</p>
             </div>
         </details>
 
         {{ searchInput(text = searchCases) }}
         <div class="parent-box overflow-table govuk-!-margin-top-5 govuk-!-margin-bottom-5 search-area">
-
             {% for listType, cases in listData %}
                 {% for list in listTypes %}
                     {% if list.key == listType %}
@@ -67,29 +58,32 @@
                     {% endif %}
                 {% endfor %}
 
-                <table id="{{ listType }}-table" class="govuk-table overflow-table multiple-list-table">
-                    <thead class="govuk-table__head">
-                    <tr class="govuk-table__row">
-                        {% for header in tableHeaders %}
-                            <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
-                        {% endfor %}
-                    </tr>
-                    </thead>
-
-                    <tbody class="govuk-table__body">
-                    {% for case in cases %}
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">{{ case['judge'] }}</td>
-                            <td class="govuk-table__cell">{{ case['time'] | timeFormatter }}</td>
-                            <td class="govuk-table__cell">{{ case['venue'] }}</td>
-                            <td class="govuk-table__cell">{{ case['type'] }}</td>
-                            <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
-                            <td class="govuk-table__cell">{{ case['caseName'] }}</td>
-                            <td class="govuk-table__cell">{{ case['additionalInformation'] }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                {% if cases | length %}
+                    <table id="{{ listType }}-table" class="govuk-table overflow-table govuk-!-margin-bottom-9">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                {% for header in tableHeaders %}
+                                    <th scope="col" class="govuk-table__header" aria-sort="none">{{ header }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            {% for case in cases %}
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">{{ case['judge'] }}</td>
+                                    <td class="govuk-table__cell">{{ case['time'] | timeFormatter }}</td>
+                                    <td class="govuk-table__cell">{{ case['venue'] }}</td>
+                                    <td class="govuk-table__cell">{{ case['type'] }}</td>
+                                    <td class="govuk-table__cell">{{ case['caseNumber'] }}</td>
+                                    <td class="govuk-table__cell">{{ case['caseName'] }}</td>
+                                    <td class="govuk-table__cell">{{ case['additionalInformation'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <p class="govuk-body govuk-!-margin-bottom-9">{{ noHearingMessage }}</p>
+                {% endif %}
             {% endfor %}
         </div>
         <p class="govuk-body govuk-!-font-size-16">{{ dataSource }}: {{ provenance | convertDataSourceName(lng) }}</p>

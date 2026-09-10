@@ -1,7 +1,7 @@
 {
     "title": "Rhestr Achosion Dyddiol Adran Busnes ac Eiddo - Adeilad Rolls",
     "header": "Rhestr Achosion Dyddiol Adran Busnes ac Eiddo - Adeilad Rolls",
-    "venueName": "Rolls Building",
+    "venueName": "Adeilad Rolls",
     "addressLine1": "Fetter Lane, London",
     "addressLine2": "EC4A 1NL",
     "importantInformationP1": "Gall y rhestrau canlynol fod yn destun newid tan 4:30pm. Bydd unrhyw newidiadau ar ôl yr amser hwn yn cael eu cyfathrebu dros y ffôn neu drwy e-bost yn uniongyrchol at y partïon neu eu cynrychiolwyr cyfreithiol.",
@@ -25,6 +25,7 @@
     "openJusticeStatement2": "Dylai partïon gysylltu â chlerc y Barnwr Interim [name, email address] cyn gynted â phosib.",
     "openJusticeStatement3": "Ni ddylai cais gael ei restru gerbron y Barnwr Ceisiadau Interim oni bai bod cyfanswm yr amser sy'n ofynnol i ymdrin â'r cais yn 2 awr neu'n llai. Mae'r uchafswm o 2 awr yn cynnwys amser darllen ymlaen llaw y barnwr, gwrandawiad y cais, rhoi'r dyfarniad ac amser ar gyfer ymdrin â chostau. Os yw'r barnwr yn ystyried y bydd yr amcangyfrif amser yn fwy na'r uchafswm o 2 awr, gall gael ei dynnu oddi ar y rhestr ceisiadau interim.",
     "openJusticeStatement4": "Noder, ni fydd gwrandawiadau yn y rhestr ceisiadau interim yn ymddangos yn ychwanegol yn eu rhestr unigol.",
+    "noHearingMessage": "Dim gwrandawiadau wedi'u trefnu ar y diwrnod hwn.",
     "tableHeaders": [
         "Barnwyr",
         "Amser",
@@ -56,7 +57,7 @@
             "label": "Y Llys Ansolfedd a Chwmnïau"
         },
         {
-            "key": "intellectualPropertyAndEnterpris",
+            "key": "intellectualPropertyEnterpris",
             "label": "Y Llys Mentrau Eiddo Deallusol"
         },
         {
@@ -101,12 +102,3 @@
         }
     ]
 }
-
-
-
-
-
-
-
-
-
