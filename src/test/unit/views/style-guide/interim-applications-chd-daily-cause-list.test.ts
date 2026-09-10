@@ -88,6 +88,14 @@ describe('Interim Applications Daily List page', () => {
         );
     });
 
+    it('should display open justice message part 4', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[12].innerHTML).contains(
+            'Please note that hearings in the interim applications list will not additionally appear in their ' +
+            'individual list.'
+        );
+    });
+
     it('should display Judge header', () => {
         const headerCell = htmlRes.getElementsByClassName(tableHeader);
         expect(headerCell[0].innerHTML).equals('Judge');
