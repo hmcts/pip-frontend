@@ -586,6 +586,13 @@ export default function (app: Application): void {
     app.get('/cic-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cic-weekly-hearing-list')
     );
+    app.get('/business-and-property-division-rolls-building-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'business-and-property-division-rolls-building-daily-cause-list'
+        )
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
