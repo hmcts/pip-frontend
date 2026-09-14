@@ -46,7 +46,7 @@ export class SjpPublicListService {
         const partyDetails = this.buildPartyDetails(hearing.party);
         const offence = this.buildOffence(hearing.offence);
 
-        if (partyDetails.name && partyDetails.postcode && partyDetails.prosecutorName && offence) {
+        if (partyDetails.name && partyDetails.prosecutorName && offence) {
             sjpModel.addTotalCaseNumber();
 
             if (partyDetails.postcode) {
