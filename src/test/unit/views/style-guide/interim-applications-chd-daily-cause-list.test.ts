@@ -37,7 +37,7 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display header', () => {
         const header = htmlRes.getElementsByClassName(headingClass);
-        expect(header[0].innerHTML).contains('Interim Applications List (Chancery Division) Daily Cause List');
+        expect(header[0].innerHTML).contains('Interim Applications Daily Cause List');
     });
 
     it('should display fact link text', () => {
@@ -85,6 +85,14 @@ describe('Interim Applications Daily List page', () => {
                 ' pre-reading time, the hearing of the application, delivery of judgment and time for dealing with costs.' +
                 ' If the judge considers that the estimate will exceed the 2 hour limit it may be stood out of the' +
                 ' interim applications list.'
+        );
+    });
+
+    it('should display open justice message part 4', () => {
+        const text = htmlRes.getElementsByClassName(bodyText);
+        expect(text[12].innerHTML).contains(
+            'Please note that hearings in the interim applications list will not additionally appear in their ' +
+            'individual list.'
         );
     });
 
@@ -160,6 +168,6 @@ describe('Interim Applications Daily List page', () => {
 
     it('should display data source text', () => {
         const text = htmlRes.getElementsByClassName(bodyText);
-        expect(text[12].innerHTML).contains('Data Source: Prov1');
+        expect(text[13].innerHTML).contains('Data Source: Prov1');
     });
 });

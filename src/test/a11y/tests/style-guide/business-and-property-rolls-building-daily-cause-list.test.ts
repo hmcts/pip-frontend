@@ -3,15 +3,15 @@ import { PublicationService } from '../../../../main/service/PublicationService'
 import { testArtefactJsonData, testArtefactMetadata } from '../../common/testData';
 import { testAccessibility } from '../../common/pa11yHelper';
 
-const url = '/interim-applications-chd-daily-cause-list?artefactId=abc';
+const url = '/business-and-property-division-rolls-building-daily-cause-list?artefactId=abc';
 
-const jsonData = testArtefactJsonData('interimApplicationsChanceryDivisionDailyCauseList.json');
+const jsonData = testArtefactJsonData('businessAndPropertyDivisionRollsBuildingDailyCauseList.json');
 const metadata = testArtefactMetadata()[0];
-metadata.listType = 'INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST';
+metadata.listType = 'BUSINESS_AND_PROPERTY_DIVISION_ROLLS_BUILDING_DAILY_CAUSE_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(jsonData);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metadata);
 
-describe('Accessibility - Interim Applications Daily List', () => {
+describe('Accessibility - Business and Property Rolls Building Daily Cause List', () => {
     testAccessibility(url);
 });
