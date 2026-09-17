@@ -98,8 +98,7 @@ export = function () {
 
         doCftIdamLogin: async function (username, password) {
             this.waitForElement('#username, #email', 15);
-            //const isModern = await tryTo(() => this.seeElement('#email'));
-            const isModern = (await this.grabNumberOfVisibleElements('#email')) > 0;
+            const isModern = await tryTo(() => this.seeElement('#email'));
 
             if (isModern) {
                 this.fillField('#email', username);
@@ -121,7 +120,8 @@ export = function () {
 
         doCftIdamLoginWelsh: async function (username, password) {
             this.waitForElement('#username, #email', 15);
-            const isModern = (await this.grabNumberOfVisibleElements('#email')) > 0;
+            const isModern = await tryTo(() => this.seeElement('#email'));
+            //const isModern = (await this.grabNumberOfVisibleElements('#email')) > 0;
 
             if (isModern) {
                 this.fillField('#email', username);
