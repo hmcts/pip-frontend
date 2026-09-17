@@ -106,7 +106,7 @@
                       <tbody class="govuk-table__body">
                       {% for sitting in session['sittings'] %}
                         {% set hearingPlatform = '' %}
-                        {% if sitting['channel'].length === 0 %}
+                        {% if not sitting['channel'] %}
                           {% set hearingPlatform = sessionChannel %}
                         {% else %}
                           {% for channel in sitting['channel'] %}
