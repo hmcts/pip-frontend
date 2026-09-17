@@ -96,49 +96,42 @@ export = function () {
             this.click('Sign in');
         },
 
-        doCftIdamLogin: async function (username, password) {
-            this.waitForElement('#username, #email', 15);
-            const isModern = await tryTo(() => this.seeElement('#email'));
-
-            if (isModern) {
-                this.fillField('#email', username);
-                this.click('Continue');
-
-                const reachedPassword = await tryTo(() => this.waitForElement('#password', 10));
-                if (reachedPassword) {
-                    this.fillField('#password', password);
-                    this.click('Continue');
-                }
-            } else {
-                this.waitForText('Sign in');
+        doCftIdamLogin: function (username, password) {
+            // CLASSIC
+            tryTo(() => {
+                this.see('Sign in', 'h1');
                 this.fillField('#username', username);
                 this.fillField('#password', password);
                 this.click('Sign in');
-            }
-            return isModern;
+            });
+            // MODERN
+            tryTo(() => {
+                this.see('Enter your email address', 'h1');
+                this.fillField('#email', username);
+                this.click('Continue');
+                this.see('Enter your password', 'h1');
+                this.fillField('#password', password);
+                this.click('Continue');
+            });
         },
 
-        doCftIdamLoginWelsh: async function (username, password) {
-            this.waitForElement('#username, #email', 15);
-            const isModern = await tryTo(() => this.seeElement('#email'));
-            //const isModern = (await this.grabNumberOfVisibleElements('#email')) > 0;
-
-            if (isModern) {
-                this.fillField('#email', username);
-                this.click('Parhau');
-                //const reachedPassword = (await this.grabNumberOfVisibleElements('#password')) > 0;
-                const reachedPassword = await tryTo(() => this.waitForElement('#password', 10));
-                if (reachedPassword) {
-                    this.fillField('#password', password);
-                    this.click('Parhau');
-                }
-            } else {
-                this.waitForText('Mewngofnodi');
+        doCftIdamLoginWelsh: function (username, password) {
+            // CLASSIC (Welsh)
+            tryTo(() => {
+                this.seeElement('#username');
                 this.fillField('#username', username);
                 this.fillField('#password', password);
                 this.click('Mewngofnodi');
-            }
-            return isModern;
+            });
+            // MODERN (Welsh)
+            tryTo(() => {
+                this.seeElement('#email');
+                this.fillField('#email', username);
+                this.click('Parhau');
+                this.seeElement('#password');
+                this.fillField('#password', password);
+                this.click('Parhau');
+            });
         },
 
         loginAsCftUser: async function () {
@@ -159,7 +152,7 @@ export = function () {
             this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
-            return await this.doCftIdamLogin(username, password);
+            this.doCftIdamLogin(username, password);
         },
 
         loginAsCftUserInWelsh: async function (username, password) {
@@ -170,7 +163,7 @@ export = function () {
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
-            return await this.doCftIdamLoginWelsh(username, password);
+            this.doCftIdamLoginWelsh(username, password);
         },
 
         loginAsCrimeUser: function (
