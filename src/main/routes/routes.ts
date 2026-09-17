@@ -1349,14 +1349,14 @@ export default function (app: Application): void {
         res.send('User-agent: *\nAllow: /$\nAllow: /assets/\nDisallow: /');
     });
 
-    const idamHealthCheck = {
+    const healthStatusCheck = {
         callback: (err, res) => (res?.body?.status === 'UP' ? healthcheck.up() : healthcheck.down()),
     };
 
     const healthCheckConfig = {
         checks: {
-            'cft-idam': healthcheck.web(CFT_IDAM_URL + '/health', idamHealthCheck),
-            'hmcts-access': healthcheck.web(HMCTS_ACCESS_URL + '/health', idamHealthCheck),
+            'cft-idam': healthcheck.web(CFT_IDAM_URL + '/health', healthStatusCheck),
+            'hmcts-access': healthcheck.web(HMCTS_ACCESS_URL + '/health', healthStatusCheck),
         },
     };
 

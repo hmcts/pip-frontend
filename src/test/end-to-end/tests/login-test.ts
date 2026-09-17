@@ -85,26 +85,54 @@ Scenario('I as a CFT user should be able to see proper error message when email 
 Scenario(
     'I as a CFT user should be able to see proper error messages when username or password fields are empty',
     async ({ I }) => {
-        I.loginTestCftUser('', '');
-        I.waitForText('Email address cannot be blank');
-        I.see('Password cannot be blank');
+        const isModern = await I.loginTestCftUser('', '');
+
+        const classicEmailMessage = 'Email address cannot be blank';
+        const classicPasswordMessage = 'Password cannot be blank';
+        const modernEmailMessage = 'Enter an email address in the correct format, like name@example.com';
+
+        if (isModern) {
+            // Modern UI path
+            I.waitForText(modernEmailMessage);
+        } else {
+            // Classic UI path
+            I.see(classicEmailMessage);
+            I.see(classicPasswordMessage);
+        }
     }
 ).tag('@Nightly');
 
 Scenario(
     'I as a CFT user should be able to see proper error message when username or password is wrong',
     async ({ I }) => {
-        I.loginTestCftUser('email@justice.gov.uk', 'password');
-        I.waitForText('Incorrect email or password');
+        const isModern = await I.loginTestCftUser('email@justice.gov.uk', 'password');
+
+        const classicMessage = 'Incorrect email or password';
+        const modernMessage = 'Your password you entered is not correct.';
+
+        if (isModern) {
+            I.waitForText(modernMessage, 5);
+            I.see(modernMessage);
+        } else {
+            I.see(classicMessage);
+        }
     }
 ).tag('@Nightly');
 
 Scenario(
     'I as a CFT user should be able to see proper error message when username is not a valid email address',
     async ({ I }) => {
-        I.loginTestCftUser('email..justice.gov.uk', 'password');
-        I.waitForText('Email address is not valid');
-        I.see('Email address is not valid');
+        const isModern = await I.loginTestCftUser('email..justice.gov.uk', 'password');
+
+        const classicMessage = 'Email address is not valid';
+        const modernMessage = 'Enter an email address in the correct format, like name@example.com';
+
+        if (isModern) {
+            I.waitForText(modernMessage);
+            I.see(modernMessage);
+        } else {
+            I.see(classicMessage);
+        }
     }
 ).tag('@Nightly');
 
