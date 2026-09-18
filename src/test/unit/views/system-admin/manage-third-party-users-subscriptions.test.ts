@@ -86,19 +86,6 @@ describe('Manage third party subscription', () => {
     it('should display the list types', () => {
         const listTypes = htmlRes.getElementsByClassName(listTypeClass);
         expect(listTypes[0].innerHTML).contains(
-            'Admiralty Court (King’s Bench Division) Daily Cause List',
-            'Could not find the list type'
-        );
-    });
-
-    it('should display checkbox unchecked', () => {
-        const checkboxInputs = htmlRes.getElementsByClassName(checkboxesInputClass);
-        expect(checkboxInputs[0].hasAttribute('checked')).to.be.false;
-    });
-
-    it('should display the list types', () => {
-        const listTypes = htmlRes.getElementsByClassName(listTypeClass);
-        expect(listTypes[1].innerHTML).contains(
             'Asylum Support Tribunal Daily Hearing List',
             'Could not find the list type'
         );
@@ -106,6 +93,21 @@ describe('Manage third party subscription', () => {
 
     it('should display checkbox checked', () => {
         const checkboxInputs = htmlRes.getElementsByClassName(checkboxesInputClass);
-        expect(checkboxInputs[1].hasAttribute('checked')).to.be.true;
+        expect(checkboxInputs[0].hasAttribute('checked')).to.be.true;
+    });
+
+
+
+    it('should display the list types', () => {
+        const listTypes = htmlRes.getElementsByClassName(listTypeClass);
+        expect(listTypes[1].innerHTML).contains(
+            'Birmingham Administrative Court Daily Cause List',
+            'Could not find the list type'
+        );
+    });
+
+    it('should display checkbox unchecked', () => {
+        const checkboxInputs = htmlRes.getElementsByClassName(checkboxesInputClass);
+        expect(checkboxInputs[1].hasAttribute('checked')).to.be.false;
     });
 });
