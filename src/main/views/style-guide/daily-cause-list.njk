@@ -106,7 +106,7 @@
                       <tbody class="govuk-table__body">
                       {% for sitting in session['sittings'] %}
                         {% set hearingPlatform = '' %}
-                        {% if not sitting['channel'] %}
+                        {% if sitting['channel'].length === 0 %}
                           {% set hearingPlatform = sessionChannel %}
                         {% else %}
                           {% for channel in sitting['channel'] %}
@@ -124,7 +124,7 @@
                               <td class="govuk-table__cell">{{ case['caseName'] | appendCaseSequenceIndicator(case['caseSequenceIndicator']) }}</td>
                               <td class="govuk-table__cell">{{ case['caseType'] }}</td>
                               <td class="govuk-table__cell">{{ hearing['hearingType'] }}</td>
-                              <td class="govuk-table__cell">{{ hearingPlatform }}</td>
+                              <td class="govuk-table__cell">{{ sitting['caseHearingChannel'] }}</td>
                               <td class="govuk-table__cell" data-sort-value="{{ durationSortValue }}">{{ duration }}</td>
                             </tr>
                           {% endfor %}
