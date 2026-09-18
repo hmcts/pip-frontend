@@ -92,7 +92,6 @@ Scenario(
         const classicPasswordMessage = 'Password cannot be blank';
         const modernEmailMessage = 'Enter an email address in the correct format, like name@example.com';
 
-        // Detect UI
         const isModern = await tryTo(() => I.waitForText(modernEmailMessage, 5));
 
         if (isModern) {
@@ -112,7 +111,6 @@ Scenario(
         const classicMessage = 'Incorrect email or password';
         const modernMessage = 'Your password you entered is not correct.';
 
-        // Detect UI
         const isModern = await tryTo(() => I.waitForText(modernMessage, 5));
         if (!isModern) {
             I.see(classicMessage);

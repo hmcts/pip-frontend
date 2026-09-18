@@ -99,19 +99,21 @@ export = function () {
         doCftIdamLogin: function (username, password) {
             // CLASSIC
             tryTo(() => {
-                this.see('Sign in', 'h1');
+                this.waitForElement('#username', 10);
                 this.fillField('#username', username);
                 this.fillField('#password', password);
                 this.click('Sign in');
+                this.waitForText('Your account');
             });
             // MODERN
             tryTo(() => {
-                this.see('Enter your email address', 'h1');
+                this.waitForElement('#email', 5);
                 this.fillField('#email', username);
                 this.click('Continue');
-                this.see('Enter your password', 'h1');
+                this.waitForElement('#password', 10);
                 this.fillField('#password', password);
                 this.click('Continue');
+                this.waitForText('Your account');
             });
         },
 
@@ -120,6 +122,7 @@ export = function () {
             tryTo(() => {
                 this.seeElement('#username');
                 this.fillField('#username', username);
+                this.seeElement('#password');
                 this.fillField('#password', password);
                 this.click('Mewngofnodi');
             });
@@ -142,7 +145,6 @@ export = function () {
             this.click('With a MyHMCTS account');
             this.click('Continue');
             await this.doCftIdamLogin(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));
-            this.waitForText('Your account');
         },
 
         loginTestCftUser: async function (username, password) {
