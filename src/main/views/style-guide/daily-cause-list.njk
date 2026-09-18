@@ -68,14 +68,6 @@
           {% for courtRoom in courtHouse['courtRoom'] %}
             {% for session in courtRoom['session'] %}
               {% set sessionCount = sessionCount + 1 %}
-
-              {% set sessionChannel = '' %}
-              {% for channel in session['sessionChannel'] %}
-                {% set sessionChannel = sessionChannel + ', ' + channel %}
-              {% endfor %}
-
-              {% set sessionChannel = sessionChannel.slice(1) %}
-
               <div class="govuk-accordion__section govuk-accordion__section--expanded">
                 <div class="govuk-accordion__section-header">
                   <h2 class="govuk-accordion__section-heading">
@@ -105,15 +97,6 @@
 
                       <tbody class="govuk-table__body">
                       {% for sitting in session['sittings'] %}
-                        {% set hearingPlatform = '' %}
-                        {% if sitting['channel'].length === 0 %}
-                          {% set hearingPlatform = sessionChannel %}
-                        {% else %}
-                          {% for channel in sitting['channel'] %}
-                            {% set hearingPlatform = hearingPlatform + ', ' + channel %}
-                          {% endfor %}
-                          {% set hearingPlatform = hearingPlatform.slice(1) %}
-                        {% endif %}
                         {% set duration = sitting.durationAsHours | getDuration(sitting.durationAsMinutes, lng) %}
                         {% set durationSortValue = sitting.durationAsHours | durationToSortValue(sitting.durationAsMinutes) %}
                         {% for hearing in sitting['hearing'] %}
