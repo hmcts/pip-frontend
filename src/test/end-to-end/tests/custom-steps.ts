@@ -99,6 +99,7 @@ export = function () {
         doCftIdamLogin: function (username, password) {
             // CLASSIC
             tryTo(() => {
+                this.waitForText('Sign in');
                 this.waitForElement('#username', 10);
                 this.fillField('#username', username);
                 this.fillField('#password', password);
@@ -107,7 +108,8 @@ export = function () {
             });
             // MODERN
             tryTo(() => {
-                this.waitForElement('#email', 5);
+                this.waitForText('Enter your email address');
+                this.waitForElement('#email', 10);
                 this.fillField('#email', username);
                 this.click('Continue');
                 this.waitForElement('#password', 10);
@@ -120,6 +122,7 @@ export = function () {
         doCftIdamLoginWelsh: function (username, password) {
             // CLASSIC (Welsh)
             tryTo(() => {
+                this.waitForText('Mewngofnodi');
                 this.seeElement('#username');
                 this.fillField('#username', username);
                 this.seeElement('#password');
@@ -128,6 +131,7 @@ export = function () {
             });
             // MODERN (Welsh)
             tryTo(() => {
+                this.waitForText('Nodwch eich cyfeiriad e-bost i fewngofnodi i’ch cyfrif HMCTS Access');
                 this.seeElement('#email');
                 this.fillField('#email', username);
                 this.click('Parhau');

@@ -93,11 +93,10 @@ Scenario(
         const modernEmailMessage = 'Enter an email address in the correct format, like name@example.com';
 
         const isModern = await tryTo(() => I.waitForText(modernEmailMessage, 5));
-
         if (isModern) {
-            I.waitForText(modernEmailMessage);
+            I.see(modernEmailMessage);
         } else {
-            I.see(classicEmailMessage);
+            I.waitForText(classicEmailMessage);
             I.see(classicPasswordMessage);
         }
     }
@@ -109,11 +108,12 @@ Scenario(
         I.loginTestCftUser('email@justice.gov.uk', 'password');
 
         const classicMessage = 'Incorrect email or password';
-        const modernMessage = 'Your password you entered is not correct.';
+        const modernMessage =
+            'Your password you entered is not correct. If you have forgotten your password, you can reset it';
 
         const isModern = await tryTo(() => I.waitForText(modernMessage, 5));
         if (!isModern) {
-            I.see(classicMessage);
+            I.waitForText(classicMessage);
         }
     }
 ).tag('@Nightly');
@@ -127,7 +127,10 @@ Scenario(
         const modernMessage = 'Enter an email address in the correct format, like name@example.com';
 
         const isModern = await tryTo(() => I.waitForText(modernMessage, 5));
-        if (!isModern) {
+        if (isModern) {
+            I.see(modernMessage);
+        } else {
+            I.waitForText(classicMessage);
             I.see(classicMessage);
         }
     }
