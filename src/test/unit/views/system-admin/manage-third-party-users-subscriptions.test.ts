@@ -96,8 +96,6 @@ describe('Manage third party subscription', () => {
         expect(checkboxInputs[0].hasAttribute('checked')).to.be.true;
     });
 
-
-
     it('should display the list types', () => {
         const listTypes = htmlRes.getElementsByClassName(listTypeClass);
         expect(listTypes[1].innerHTML).contains(

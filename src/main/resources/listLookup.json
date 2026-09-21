@@ -631,6 +631,16 @@
         "defaultSensitivity": "",
         "isNonStrategic": true
     },
+    "TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST": {
+        "friendlyName": "Technology and Construction Court (King’s Bench Division) Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)",
+        "shortenedFriendlyName": "Technology and Construction Court (KB) Daily Cause List",
+        "url": "technology-and-construction-court-kb-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
+    },
     "INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST": {
         "friendlyName": "Interim Applications (Chancery Division) Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)",
