@@ -1,5 +1,6 @@
 import { config as testConfig } from '../../config';
 import { checkA11y, injectAxe } from 'axe-playwright';
+import { tryTo } from 'codeceptjs/effects';
 
 export = function () {
     return actor({
@@ -95,45 +96,80 @@ export = function () {
             this.click('Sign in');
         },
 
-        loginAsCftUser: function () {
+        doCftIdamLogin: function (username, password) {
+            // CLASSIC
+            tryTo(() => {
+                this.waitForText('Sign in');
+                this.waitForElement('#username', 10);
+                this.fillField('#username', username);
+                this.fillField('#password', password);
+                this.click('Sign in');
+                this.waitForText('Your account');
+            });
+            // MODERN
+            tryTo(() => {
+                this.waitForText('Enter your email address');
+                this.waitForElement('#email', 10);
+                this.fillField('#email', username);
+                this.click('Continue');
+                this.waitForElement('#password', 10);
+                this.fillField('#password', password);
+                this.click('Continue');
+                this.waitForText('Your account');
+            });
+        },
+
+        doCftIdamLoginWelsh: function (username, password) {
+            // CLASSIC (Welsh)
+            tryTo(() => {
+                this.waitForText('Mewngofnodi');
+                this.seeElement('#username');
+                this.fillField('#username', username);
+                this.seeElement('#password');
+                this.fillField('#password', password);
+                this.click('Mewngofnodi');
+            });
+            // MODERN (Welsh)
+            tryTo(() => {
+                this.waitForText('Nodwch eich cyfeiriad e-bost i fewngofnodi i’ch cyfrif HMCTS Access');
+                this.seeElement('#email');
+                this.fillField('#email', username);
+                this.click('Parhau');
+                this.seeElement('#password');
+                this.fillField('#password', password);
+                this.click('Parhau');
+            });
+        },
+
+        loginAsCftUser: async function () {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
             this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
-            this.waitForText('Sign in');
-            this.fillField('#username', secret(testConfig.CFT_USERNAME));
-            this.fillField('#password', secret(testConfig.CFT_PASSWORD));
-            this.click('Sign in');
-            this.waitForText('Your account');
+            await this.doCftIdamLogin(secret(testConfig.CFT_USERNAME), secret(testConfig.CFT_PASSWORD));
         },
 
-        loginTestCftUser: function (username, password) {
+        loginTestCftUser: async function (username, password) {
             this.usePlaywrightTo('Go to cft login', async ({ page }) => {
                 page.goto(testConfig.TEST_URL + '/sign-in');
             });
             this.waitForText('With a MyHMCTS account');
             this.click('With a MyHMCTS account');
             this.click('Continue');
-            this.waitForText('Sign in');
-            this.fillField('#username', username);
-            this.fillField('#password', password);
-            this.click('Sign in');
+            this.doCftIdamLogin(username, password);
         },
 
-        loginAsCftUserInWelsh: function (username, password) {
+        loginAsCftUserInWelsh: async function (username, password) {
             this.usePlaywrightTo('Go to cft Welsh login', async ({ page }) => {
-                page.goto(testConfig.TEST_URL + '/sign-in');
+                await page.goto(testConfig.TEST_URL + '/sign-in');
             });
             this.waitForText('With a MyHMCTS account');
             this.click('Cymraeg');
             this.click('Gyda chyfrif MyHMCTS');
             this.click('Parhau');
-            this.waitForText('Mewngofnodi');
-            this.fillField('#username', username);
-            this.fillField('#password', password);
-            this.click('Mewngofnodi');
+            this.doCftIdamLoginWelsh(username, password);
         },
 
         loginAsCrimeUser: function (
