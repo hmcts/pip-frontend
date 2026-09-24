@@ -942,14 +942,10 @@ describe('generateListTypesForCourts', () => {
 
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
-            'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
             'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
-            'COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST',
-            'COMPANIES_WINDING_UP_CHD_DAILY_CAUSE_LIST',
-            'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
@@ -989,14 +985,10 @@ describe('generateListTypesForCourts', () => {
 
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
-            'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
             'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
-            'COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST',
-            'COMPANIES_WINDING_UP_CHD_DAILY_CAUSE_LIST',
-            'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
@@ -1134,14 +1126,10 @@ describe('generateListTypeForCourts', () => {
 
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
-            'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
             'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
-            'COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST',
-            'COMPANIES_WINDING_UP_CHD_DAILY_CAUSE_LIST',
-            'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
@@ -1171,14 +1159,10 @@ describe('generateListTypeForCourts', () => {
 
         const listKeysC = Object.keys(result['C']);
         expect(listKeysC).toEqual([
-            'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST',
             'CIRCUIT_COMMERCIAL_COURT_DAILY_CAUSE_LIST',
             'CIVIL_AND_FAMILY_DAILY_CAUSE_LIST',
             'CIVIL_COURTS_RCJ_DAILY_CAUSE_LIST',
             'CIVIL_DAILY_CAUSE_LIST',
-            'COMMERCIAL_COURT_KB_DAILY_CAUSE_LIST',
-            'COMPANIES_WINDING_UP_CHD_DAILY_CAUSE_LIST',
-            'COMPETITION_LIST_CHD_DAILY_CAUSE_LIST',
             'COUNTY_COURT_LONDON_CIVIL_DAILY_CAUSE_LIST',
             'COP_DAILY_CAUSE_LIST',
             'CROWN_DAILY_PDDA_LIST',
