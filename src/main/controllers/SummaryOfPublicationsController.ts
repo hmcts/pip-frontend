@@ -25,14 +25,34 @@ export default class SummaryOfPublicationsController {
                     req.lng === 'cy' ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
             }
 
-            const publications = await publicationService.getPublicationsByLocation(locationId, req.user?.['userId']);
+            const publications =
+                parseInt(locationId) === (await locationService.getCopVenueId())
+                    ? await publicationService.getPublicationsByListType('COP_DAILY_CAUSE_LIST', req.user?.['userId'])
+                    : await publicationService.getPublicationsByLocation(locationId, req.user?.['userId']);
 
             const publicationsWithName = [];
+            const copVenueId = await locationService.getCopVenueId();
+            let locationMap = new Map();
+            if (parseInt(locationId) === copVenueId) {
+                const allLocations = await locationService.fetchAllLocations(req.lng);
+                locationMap = new Map(allLocations.map(loc => [loc.locationId.toString(), loc.name]));
+            }
+
             publications.forEach(publication => {
-                const friendlyName = publicationService.getListTypes().get(publication.listType).friendlyName;
+                const listLookup = publicationService.getListTypes().get(publication.listType);
+                let listName = listLookup.friendlyName;
+                let displayName;
+                if (parseInt(locationId) === copVenueId) {
+                    const courtName = locationMap.get(publication.locationId.toString()) || '';
+                    const languageFriendlyName = req.lng === 'cy' ? listLookup.welshFriendlyName : listLookup.friendlyName;
+                    displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
+                    listName = courtName ? `${courtName} - ${listName}` : listName;
+                }
+
                 const publicationWithName = {
                     ...publication,
-                    listName: friendlyName,
+                    listName: listName,
+                    displayName: displayName,
                 };
                 publicationsWithName.push(publicationWithName);
             });

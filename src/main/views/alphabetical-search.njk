@@ -43,6 +43,8 @@
                             {% set filterKey = crimeType %}
                         {% elseif key == 'Tribunal' %}
                             {% set filterKey = tribunalType %}
+                        {% elseif key == 'Court of Protection' %}
+                            {% set filterKey = copType %}
                         {% else %}
                             {% set filterKey = region %}
                         {% endif %}

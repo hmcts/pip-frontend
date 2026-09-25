@@ -29,6 +29,12 @@ sinon
     .stub(LocationService.prototype, 'getLocationById')
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
 sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(metadata);
+sinon.stub(LocationService.prototype, 'getCopVenueId').resolves(999);
+sinon.stub(PublicationService.prototype, 'getPublicationsByListType').resolves(metadata);
+sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves([
+    { locationId: 123, name: 'Court A' },
+    { locationId: 2, name: 'Court B' },
+]);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
 additionalLocationInfoStub.withArgs(1).returns(null);
@@ -38,10 +44,12 @@ const publicationsWithName = [
     {
         ...metadata[0],
         listName: 'Crown Warned List',
+        displayName: undefined,
     },
     {
         ...metadata[1],
         listName: 'Single Justice Procedure Public List (Full List)',
+        displayName: undefined,
     },
 ];
 
@@ -124,6 +132,47 @@ describe('Get publications', () => {
             court,
             noListMessageOverride: 'Welsh no list message',
             cautionMessageOverride: 'Welsh caution message',
+        };
+
+        responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
+
+        await publicationController.get(request, response);
+        responseMock.verify();
+    });
+
+    it('should render the Summary of Publications page for COP venue', async () => {
+        const response = {
+            render: () => {
+                return '';
+            },
+        } as unknown as Response;
+
+        const request = mockRequest(i18n);
+        request.query = { locationId: '999' };
+        request.user = {};
+
+        const responseMock = sinon.mock(response);
+
+        const expectedPublications = [
+            {
+                ...metadata[0],
+                listName: 'Court A - Crown Warned List',
+                displayName: 'Court A - Crown Warned List',
+            },
+            {
+                ...metadata[1],
+                listName: 'Court A - Single Justice Procedure Public List (Full List)',
+                displayName: 'Court A - Single Justice Procedure Public List (Full List)',
+            },
+        ];
+
+        const expectedData = {
+            ...i18n['summary-of-publications'],
+            locationName: 'New Court',
+            publications: expectedPublications,
+            court,
+            noListMessageOverride: '',
+            cautionMessageOverride: '',
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
