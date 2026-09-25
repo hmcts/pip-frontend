@@ -1,5 +1,6 @@
 import { Location } from '../models/Location';
 import { LocationService } from './LocationService';
+import { AToZHelper } from '../helpers/aToZHelper';
 import jurisdictionTypes from '../resources/jurisdictionTypeLookup.json';
 import welshJurisdictionData from '../resources/welshJurisdictionLookup.json';
 import welshRegionData from '../resources/welshRegionLookup.json';
@@ -10,7 +11,8 @@ const civilFilter = 'Civil';
 const familyFilter = 'Family';
 const crimeFilter = 'Crime';
 const tribunalFilter = 'Tribunal';
-const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter];
+const copFilter = 'Court of Protection';
+const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter, copFilter];
 const filterNames = [jurisdictionFilter, ...subJurisdictionFilters, regionFilter];
 const jurisdictionType = 'jurisdictionType';
 const jurisdictionTypeMapping = new Map(Object.entries(jurisdictionTypes));
@@ -87,6 +89,11 @@ export class FilterService {
                 filters,
                 tribunalFilter,
                 language == 'cy' ? englishToWelshJurisdictionMapping.get(tribunalFilter) : tribunalFilter
+            ),
+            'Court of Protection': this.showJurisdictionTypeFilter(
+                filters,
+                copFilter,
+                language == 'cy' ? englishToWelshJurisdictionMapping.get(copFilter) : copFilter
             ),
             Region: true,
         };
@@ -260,6 +267,10 @@ export class FilterService {
                 allJurisdictionFilters.toString(),
                 language
             );
+
+            if (filterValues.includes(copFilter)) {
+                alphabetisedList = this.filterOnlyCopVenue(alphabetisedList, language);
+            }
         }
 
         return {
@@ -267,6 +278,22 @@ export class FilterService {
             filterOptions: filterOptions,
             showFilters: this.showFilters(filters, language),
         };
+    }
+
+    private filterOnlyCopVenue(alphabetisedList: object, language: string): object {
+        const copVenueName = language === 'cy' ? englishToWelshJurisdictionMapping.get(copFilter) : copFilter;
+
+        if (Array.isArray(alphabetisedList)) {
+            return alphabetisedList.filter(item => item.name === copVenueName);
+        }
+
+        const filteredList = AToZHelper.generateAlphabetObject();
+        for (const letter in alphabetisedList) {
+            if (alphabetisedList[letter][copVenueName]) {
+                filteredList[letter][copVenueName] = alphabetisedList[letter][copVenueName];
+            }
+        }
+        return filteredList;
     }
 
     public generateFilterKeyValues(body: string): Array<string> {

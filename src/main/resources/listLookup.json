@@ -126,7 +126,7 @@
         "welshFriendlyName": "Rhestr Achosion Dyddiol y Llys Gwarchod",
         "shortenedFriendlyName": "COP Daily Cause List",
         "url": "cop-daily-cause-list",
-        "jurisdictionTypes": ["Family Court", "High Court of the Family Division"],
+        "jurisdictionTypes": ["Family Court", "High Court of the Family Division", "Court of Protection"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false

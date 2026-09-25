@@ -47,6 +47,11 @@ export class LocationService {
         return await locationRequest.getLocationByName(locationName, language);
     }
 
+    public async getCopVenueId(): Promise<number | undefined> {
+        const location = await this.getLocationByName('Court of Protection', 'en');
+        return location?.locationId;
+    }
+
     public async generateAlphabetisedAllCourtList(language: string): Promise<object> {
         return this.generateAlphabetisedCourtList(await this.fetchAllLocations(language));
     }

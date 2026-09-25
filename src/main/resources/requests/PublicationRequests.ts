@@ -125,6 +125,23 @@ export class PublicationRequests {
         return [];
     }
 
+    public async getPublicationsByListType(listType: string, userId: string, admin: boolean): Promise<Artefact[]> {
+        try {
+            let header;
+            if (userId) {
+                header = { headers: { 'x-requester-id': userId, 'x-admin': admin } };
+            } else {
+                header = { headers: { 'x-admin': admin } };
+            }
+
+            const response = await dataManagementApi.get(`/publication/listType/${listType}`, header);
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `retrieve publications for list type ${listType}`);
+        }
+        return [];
+    }
+
     public async archivePublication(artefactId: string, id: string): Promise<boolean> {
         try {
             await dataManagementApi.put(
