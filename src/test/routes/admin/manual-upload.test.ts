@@ -32,6 +32,7 @@ describe('Manual upload', () => {
         test('should redirect to summary page', async () => {
             app.request['file'] = multerFile('testFile', 1000);
             sinon.stub(FileHandlingService.prototype, 'validateFileUpload').returns(null);
+            sinon.stub(FileHandlingService.prototype, 'storeFileIntoRedis').resolves();
             sinon.stub(ManualUploadService.prototype, 'validateFormFields').resolves(null);
             sinon.stub(ManualUploadService.prototype, 'appendlocationId').resolves({});
             await request(app)
