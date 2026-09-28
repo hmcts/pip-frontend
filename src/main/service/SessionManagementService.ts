@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
-import { B2C_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
+import { B2C_URL, CFT_IDAM_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
 import { reSignInUrls } from '../helpers/consts';
 import * as url from 'url';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -96,7 +96,9 @@ export class SessionManagementService {
         if (isSessionExpired) {
             return '/session-expired?lng=' + language + '&reSignInUrl=CFT';
         } else {
-            return '/session-logged-out?lng=' + language;
+            const redirectPath = '/session-logged-out?lng=' + language;
+            const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
+            return `${CFT_IDAM_URL}/o/endSession?post_logout_redirect_uri=${redirectUrl}`;
         }
     }
 

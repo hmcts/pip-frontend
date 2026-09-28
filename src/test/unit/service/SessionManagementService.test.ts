@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import { expect } from 'chai';
 import { Response } from 'express';
 import { SessionManagementService } from '../../../main/service/SessionManagementService';
+import { CFT_IDAM_URL } from '../../../main/helpers/envUrls';
 
 const sessionManagementService = new SessionManagementService();
 const res = {
@@ -25,12 +26,13 @@ describe('Test logout', () => {
     const mediaLogOutPath =
         'https://hmctspipnonprod.b2clogin.com/hmctspipnonprod.onmicrosoft.com/B2C_1_SignInUserFlow/oauth2/v2.0/logout';
     const encodedAppUrl = 'https%3A%2F%2Flocalhost%3A8080%2F';
+    const cftLogOutPath = `${CFT_IDAM_URL}/o/endSession`;
 
     const mediaLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const mediaWelshLogOutUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
-    const cftIdamLogoutUrl = '/session-logged-out?lng=en';
+    const cftIdamLogoutUrl = `${cftLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const crimeIdamLogoutUrl = '/session-logged-out?lng=en';
-    const welshCftIdamLogoutUrl = '/session-logged-out?lng=cy';
+    const welshCftIdamLogoutUrl = `${cftLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const ssoLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const ssoWelshLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DAAD`;
@@ -96,7 +98,7 @@ describe('Test logout', () => {
 
     it('should redirect to session logged out if session is expired, no user set, and no query', () => {
         const responseMock = sinon.mock(res);
-        responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
+        responseMock.expects('redirect').once().withArgs('/session-logged-out?lng=en');
 
         const req = { session: {}, lng: 'en' };
         sessionManagementService.logOut(req, res, true);
@@ -106,7 +108,7 @@ describe('Test logout', () => {
 
     it('should redirect to session logged out if session is expired, no user set, and no query redirect type', () => {
         const responseMock = sinon.mock(res);
-        responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
+        responseMock.expects('redirect').once().withArgs('/session-logged-out?lng=en');
 
         const req = { session: {}, lng: 'en', query: {} };
         sessionManagementService.logOut(req, res, true);
@@ -116,7 +118,7 @@ describe('Test logout', () => {
 
     it('should redirect to session logged out if not session expired', () => {
         const responseMock = sinon.mock(res);
-        responseMock.expects('redirect').once().withArgs(cftIdamLogoutUrl);
+        responseMock.expects('redirect').once().withArgs('/session-logged-out?lng=en');
 
         const req = { session: {}, lng: 'en', query: { redirectType: 'AAD' } };
         sessionManagementService.logOut(req, res, false);
