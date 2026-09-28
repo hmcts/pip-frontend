@@ -44,7 +44,8 @@ export default class SummaryOfPublicationsController {
                 let displayName;
                 if (parseInt(locationId) === copVenueId) {
                     const courtName = locationMap.get(publication.locationId.toString()) || '';
-                    const languageFriendlyName = req.lng === 'cy' ? listLookup.welshFriendlyName : listLookup.friendlyName;
+                    const languageFriendlyName =
+                        req.lng === 'cy' ? listLookup.welshFriendlyName : listLookup.friendlyName;
                     displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
                     listName = courtName ? `${courtName} - ${listName}` : listName;
                 }
