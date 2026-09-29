@@ -215,6 +215,24 @@ describe('Court Service', () => {
         expect(result[0]).contains(hearingsData[0]['jurisdictionType']);
     });
 
+    it('should return COP venue ID', async () => {
+        stubCourtByName.withArgs('Court of Protection', 'en').resolves({ locationId: 10 });
+        const result = await courtService.getCopVenueId();
+        expect(result).to.equal(10);
+    });
+
+    it('should format court value', () => {
+        const court = {
+            locationId: 1,
+            name: 'Test Court',
+            jurisdiction: ['Jurisdiction 1', 'Jurisdiction 2'],
+            region: ['Region 1'],
+        };
+        const result = courtService.formatCourtValue(court);
+        expect(result.jurisdiction).to.equal('Jurisdiction 1,Jurisdiction 2');
+        expect(result.region).to.equal('Region 1');
+    });
+
     describe('delete location', () => {
         it('should return a message if location is deleted', async () => {
             const payload = await courtService.deleteLocationById(1, adminUserId);

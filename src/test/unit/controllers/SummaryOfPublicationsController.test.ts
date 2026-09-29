@@ -195,6 +195,9 @@ describe('Get publications', () => {
             .expects('render')
             .once()
             .withArgs('error', { ...i18n.error });
+
+        await publicationController.get(request, response);
+        responseMock.verify();
     });
 
     it('should render the error screen if there is no locationId passed as a param', async () => {
@@ -204,11 +207,15 @@ describe('Get publications', () => {
             },
         } as unknown as Response;
         const request = mockRequest(i18n);
+        request.query = {};
         request.user = { userId: 1 };
         const responseMock = sinon.mock(response);
         responseMock
             .expects('render')
             .once()
             .withArgs('error', { ...i18n.error });
+
+        await publicationController.get(request, response);
+        responseMock.verify();
     });
 });

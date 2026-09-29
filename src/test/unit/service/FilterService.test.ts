@@ -407,4 +407,26 @@ describe('Filter Service', () => {
         const result = filterService.translateFilterValues(['Court of Protection'], 'cy');
         expect(result).toStrictEqual(['Llys Gwarchod']);
     });
+
+    it('should remove sub-jurisdiction filter if main jurisdiction is cleared', async () => {
+        const result = await filterService.handleFilterInitialisation('Crime', 'Crime,Crown Court', englishLanguage);
+        expect(result['filterOptions'][jurisdiction][crime]['checked']).toBe(false);
+        expect(result['filterOptions'][crime]['Crown Court']['checked']).toBe(false);
+    });
+
+    it('should return only COP venue from alphabetised object if COP jurisdiction selected', async () => {
+        const alphabetisedList = {
+            A: { 'A Court': { id: 1 } },
+            C: { 'Court of Protection': { id: 2 } },
+        };
+        generateFilteredAlphabetisedCourtListStub.resolves(alphabetisedList);
+        const result = await filterService.handleFilterInitialisation(null, 'Court of Protection', englishLanguage);
+        expect(result['alphabetisedList']['C']).toStrictEqual({ 'Court of Protection': { id: 2 } });
+        expect(result['alphabetisedList']['A']).toStrictEqual({});
+    });
+
+    it('should return empty array if jurisdiction is not in the mapping', () => {
+        const result = filterService['getPossibleJurisdictionTypes']('Invalid', 'en');
+        expect(result).toStrictEqual([]);
+    });
 });
