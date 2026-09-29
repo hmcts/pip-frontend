@@ -45,6 +45,10 @@ export class PublicationService {
         return await publicationRequests.getPublicationsByLocation(locationId, userId, admin);
     }
 
+    public async getPublicationsByListType(listType: string, userId: string, admin = false): Promise<Artefact[]> {
+        return await publicationRequests.getPublicationsByListType(listType, userId, admin);
+    }
+
     public async getNoMatchPublications(userId: string): Promise<Artefact[]> {
         return publicationRequests.getNoMatchPublications(userId);
     }
