@@ -4,6 +4,11 @@
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
+{% block head %}
+  {{ super() }}
+  <meta name="description" content="The Court and Tribunal Hearings service is a service that publishes hearing lists for courts and tribunals in England and Wales.">
+{% endblock %}
+
 {% block pageTitle %}
   {{ title }}
 {% endblock %}
