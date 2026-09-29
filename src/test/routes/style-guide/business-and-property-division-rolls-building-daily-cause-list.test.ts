@@ -8,22 +8,22 @@ import fs from 'fs';
 import path from 'path';
 
 const rawData = fs.readFileSync(
-    path.resolve(__dirname, '../../unit/mocks/chanceryAppealsChdDailyCauseList.json'),
+    path.resolve(__dirname, '../../unit/mocks/businessAndPropertyDivisionRollsBuildingDailyCauseList.json'),
     'utf-8'
 );
 const rawJson = JSON.parse(rawData);
 const rawMetaData = fs.readFileSync(path.resolve(__dirname, '../../unit/mocks/returnedArtefacts.json'), 'utf-8');
 const metaData = JSON.parse(rawMetaData)[0];
-metaData.listType = 'CHANCERY_APPEALS_CHD_DAILY_CAUSE_LIST';
+metaData.listType = 'BUSINESS_AND_PROPERTY_DIVISION_ROLLS_BUILDING_DAILY_CAUSE_LIST';
 
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(rawJson);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 
-describe('Chancery Appeals (Chancery Division) Daily Cause List Page', () => {
+describe('Business and Property Division Rolls Building Daily Cause List Page', () => {
     describe('on GET', () => {
-        test('should return Chancery Appeals (Chancery Division) Daily Cause List page', async () => {
+        test('should return Business and Property Division Rolls Building Daily Cause List page', async () => {
             await request(app)
-                .get('/chancery-appeals-chd-daily-cause-list?artefactId=abc')
+                .get('/business-and-property-division-rolls-building-daily-cause-list?artefactId=abc')
                 .expect(res => expect(res.status).to.equal(200));
         });
     });

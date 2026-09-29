@@ -19,7 +19,7 @@ metaData.listType = 'INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST';
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson').resolves(rawJson);
 sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata').resolves(metaData);
 
-describe('Interim Applications ChD Daily List Page', () => {
+describe('Interim Applications Daily List Page', () => {
     describe('on GET', () => {
         test('should return Interim Applications Daily List page', async () => {
             await request(app)
