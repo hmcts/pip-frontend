@@ -36,7 +36,7 @@ describe('Test logout', () => {
     const ssoLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Den`;
     const ssoWelshLogoutUrl = `https://login.microsoftonline.com/common/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedAppUrl}session-logged-out%3Flng%3Dcy`;
     const mediaSessionExpiredUrl = `${mediaLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DAAD`;
-    const cftIdamSessionExpiredUrl = '/session-expired?lng=en&reSignInUrl=CFT';
+    const cftIdamSessionExpiredUrl = `${cftLogOutPath}?post_logout_redirect_uri=${encodedAppUrl}session-expired%3Flng%3Den%26reSignInUrl%3DCFT`;
     const crimeIdamSessionExpiredUrl = `/session-expired?lng=en&reSignInUrl=CRIME`;
     const ssoSessionExpiredUrl = '/session-expired?lng=en&reSignInUrl=SSO';
 
