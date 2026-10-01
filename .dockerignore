@@ -5,9 +5,7 @@
 
 !package.json
 !yarn.lock
-!app
 !node_modules
-!public
 !tsconfig.json
 !webpack/**
 !src/main/**
