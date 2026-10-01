@@ -541,7 +541,7 @@
         "defaultSensitivity": "",
         "isNonStrategic": false
     },
-    "TRAFFIC_VIRTUAL_COURTS_LISTS": {
+    "TRAFFIC_VIRTUAL_COURTS_LIST": {
         "friendlyName": "Traffic Virtual Courts List",
         "welshFriendlyName": "Rhestr y Llys ar gyfer Achosion Traffig sydd i’w cynnal yn rhithiol",
         "shortenedFriendlyName": "Traffic Virtual Courts List",
