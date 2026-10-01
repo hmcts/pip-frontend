@@ -792,9 +792,9 @@
         "isNonStrategic": true
     },
     "INTERIM_APPLICATIONS_CHD_DAILY_CAUSE_LIST": {
-        "friendlyName": "Interim Applications (Chancery Division) Daily Cause List",
-        "welshFriendlyName": "Rhestr Achosion Dyddiol Ceisiadau Interim (Adran Siawnsri)",
-        "shortenedFriendlyName": "Interim Applications List (ChD) Daily Cause List",
+        "friendlyName": "Interim Applications Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Ceisiadau Interim",
+        "shortenedFriendlyName": "Interim Applications Daily Cause List",
         "url": "interim-applications-chd-daily-cause-list",
         "jurisdictionTypes": ["Civil Court"],
         "restrictedProvenances": [],
@@ -952,6 +952,17 @@
         "defaultSensitivity": "CLASSIFIED",
         "isNonStrategic": false
     },
+    "CROWN_ADVANCE_PDDA_LIST": {
+        "friendlyName": "Crown Advance List",
+        "welshFriendlyName": "Rhestr Ymlaen Llaw Llys y Goron",
+        "shortenedFriendlyName": "Crown Advance List",
+        "url": "crown-advance-list",
+        "jurisdictionTypes": ["Crown Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "CLASSIFIED",
+        "isNonStrategic": false,
+        "isHidden": true
+    },
     "HIGH_COURT_CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "High Court Civil Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yr Uchel Lys",
@@ -1001,5 +1012,15 @@
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
+    },
+    "BUSINESS_AND_PROPERTY_DIVISION_ROLLS_BUILDING_DAILY_CAUSE_LIST": {
+        "friendlyName": "Business and Property Division Rolls Building Daily Cause List",
+        "welshFriendlyName": "Rhestr Achosion Dyddiol Adran Busnes ac Eiddo - Adeilad Rolls",
+        "shortenedFriendlyName": "Business and Property Division Rolls Building Daily Cause List",
+        "url": "business-and-property-division-rolls-building-daily-cause-list",
+        "jurisdictionTypes": ["High Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": true
     }
 }
