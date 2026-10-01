@@ -5,13 +5,16 @@
 
 !package.json
 !yarn.lock
+!app
 !node_modules
+!public
 !tsconfig.json
 !webpack/**
 !src/main/**
 !config/**
 !webpack.config.js
 !.yarnrc.yml
+!.yarn
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
