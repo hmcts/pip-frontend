@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { allAdminRoles, checkRoles } from '../authentication/authenticationHelper';
-import { B2C_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
+import { B2C_URL, CFT_IDAM_URL, FRONTEND_URL, MICROSOFT_LOGIN_URL } from '../helpers/envUrls';
 import { reSignInUrls } from '../helpers/consts';
 import * as url from 'url';
 import authenticationConfig from '../authentication/authentication-config.json';
@@ -94,9 +94,15 @@ export class SessionManagementService {
 
     private cftLogOutUrl(isSessionExpired: boolean, language: string): string {
         if (isSessionExpired) {
-            return '/session-expired?lng=' + language + '&reSignInUrl=CFT';
+            // added to ensure that user is required to re-authenticate after session expiry
+            const redirectPath = '/session-expired?lng=' + language + '&reSignInUrl=CFT';
+            const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
+            return `${CFT_IDAM_URL}/o/endSession?post_logout_redirect_uri=${redirectUrl}`;
         } else {
-            return '/session-logged-out?lng=' + language;
+            // added to ensure that user is required to re-authenticate after sign out
+            const redirectPath = '/session-logged-out?lng=' + language;
+            const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
+            return `${CFT_IDAM_URL}/o/endSession?post_logout_redirect_uri=${redirectUrl}`;
         }
     }
 
