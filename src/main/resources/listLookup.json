@@ -942,16 +942,6 @@
         "defaultSensitivity": "PUBLIC",
         "isNonStrategic": false
     },
-    "CROWN_WARNED_PDDA_LIST": {
-        "friendlyName": "Crown Warned List",
-        "welshFriendlyName": "Rhestr Rybudd Llys y Goron",
-        "shortenedFriendlyName": "Crown Warned List",
-        "url": "crown-warned-list",
-        "jurisdictionTypes": ["Crown Court"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "CLASSIFIED",
-        "isNonStrategic": false
-    },
     "HIGH_COURT_CIVIL_DAILY_CAUSE_LIST": {
         "friendlyName": "High Court Civil Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Sifil yr Uchel Lys",
