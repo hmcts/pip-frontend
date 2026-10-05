@@ -77,24 +77,22 @@ describe('Location Name Search Page', () => {
 
     it('should contain filter sections', () => {
         const filters = htmlRes.getElementsByClassName('govuk-fieldset__legend');
-        expect(filters.length).equal(7, 'Filter count does not match');
+        expect(filters.length).equal(6, 'Filter count does not match');
         expect(filters[0].innerHTML).contains('Jurisdiction', 'Jurisdiction filter does not match');
         expect(filters[1].innerHTML).contains('Type of civil court', 'Jurisdiction type filter does not match');
         expect(filters[2].innerHTML).contains('Type of criminal court', 'Jurisdiction type filter does not match');
         expect(filters[3].innerHTML).contains('Type of family court', 'Jurisdiction type filter does not match');
         expect(filters[4].innerHTML).contains('Type of tribunal', 'Jurisdiction type filter does not match');
-        expect(filters[5].innerHTML).contains('Court of Protection', 'Jurisdiction type filter does not match');
-        expect(filters[6].innerHTML).contains('Region', 'Region filter does not match');
+        expect(filters[5].innerHTML).contains('Region', 'Region filter does not match');
     });
 
     it('should contain always-hide filter sections', () => {
         const filters = htmlRes.getElementsByClassName('always-hide');
-        expect(filters.length).equal(5, 'Filter count does not match');
+        expect(filters.length).equal(4, 'Filter count does not match');
         expect(filters[0].innerHTML).contains('Type of civil court', 'Jurisdiction type filter does not match');
         expect(filters[1].innerHTML).contains('Type of criminal court', 'Jurisdiction type filter does not match');
         expect(filters[2].innerHTML).contains('Type of family court', 'Jurisdiction type filter does not match');
         expect(filters[3].innerHTML).contains('Type of tribunal', 'Jurisdiction type filter does not match');
-        expect(filters[4].innerHTML).contains('Court of Protection', 'Jurisdiction type filter does not match');
     });
 
     it('should contain jurisdiction filter checkboxes', () => {

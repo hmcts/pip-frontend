@@ -12,7 +12,7 @@ const familyFilter = 'Family';
 const crimeFilter = 'Crime';
 const tribunalFilter = 'Tribunal';
 const copFilter = 'Court of Protection';
-const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter, copFilter];
+const subJurisdictionFilters = [civilFilter, crimeFilter, familyFilter, tribunalFilter];
 const filterNames = [jurisdictionFilter, ...subJurisdictionFilters, regionFilter];
 const jurisdictionType = 'jurisdictionType';
 const jurisdictionTypeMapping = new Map(Object.entries(jurisdictionTypes));
@@ -89,11 +89,6 @@ export class FilterService {
                 filters,
                 tribunalFilter,
                 language == 'cy' ? englishToWelshJurisdictionMapping.get(tribunalFilter) : tribunalFilter
-            ),
-            'Court of Protection': this.showJurisdictionTypeFilter(
-                filters,
-                copFilter,
-                language == 'cy' ? englishToWelshJurisdictionMapping.get(copFilter) : copFilter
             ),
             Region: true,
         };

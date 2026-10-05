@@ -42,9 +42,6 @@ const allFilterOptions = {
     Tribunal: {
         'Social Security and Child Support': { value: 'Social Security and Child Support' },
     },
-    'Court of Protection': {
-        'Court of Protection': { value: 'Court of Protection' },
-    },
     Region: {
         Bedford: { value: 'Bedford' },
         London: { value: 'London' },
@@ -57,7 +54,7 @@ const welshLanguage = 'cy';
 
 describe('Filter Service', () => {
     it('should build filter header options for checkboxes', () => {
-        expect(Object.keys(filterService.buildFilterValueOptions(listData, [], 'en')).length).toBe(7);
+        expect(Object.keys(filterService.buildFilterValueOptions(listData, [], 'en')).length).toBe(6);
     });
 
     it('should build filter values options for checkboxes', () => {
@@ -135,7 +132,6 @@ describe('Filter Service', () => {
             Crime: ['Crown'],
             Family: [],
             Tribunal: [],
-            'Court of Protection': [],
             Region: ['London'],
         });
     });
@@ -147,7 +143,6 @@ describe('Filter Service', () => {
             Crime: [],
             Family: [],
             Tribunal: [],
-            'Court of Protection': [],
             Region: [],
         });
     });
@@ -159,7 +154,6 @@ describe('Filter Service', () => {
             Crime: ['Crown'],
             Family: ['Family Court'],
             Tribunal: [],
-            'Court of Protection': [],
             Region: [],
         });
     });
@@ -171,7 +165,6 @@ describe('Filter Service', () => {
             Crime: [],
             Family: [],
             Tribunal: [],
-            'Court of Protection': [],
             Region: ['London', 'Manchester'],
         });
     });
@@ -202,7 +195,6 @@ describe('Filter Service', () => {
                 Crime: false,
                 Family: false,
                 Tribunal: false,
-                'Court of Protection': false,
                 Region: true,
             },
         });
@@ -218,7 +210,6 @@ describe('Filter Service', () => {
                 Crime: false,
                 Family: false,
                 Tribunal: false,
-                'Court of Protection': false,
                 Region: true,
             },
         });
@@ -233,7 +224,6 @@ describe('Filter Service', () => {
             Crime: false,
             Family: false,
             Tribunal: true,
-            'Court of Protection': false,
             Region: true,
         });
     });
@@ -247,7 +237,6 @@ describe('Filter Service', () => {
             Crime: false,
             Family: true,
             Tribunal: false,
-            'Court of Protection': false,
             Region: true,
         });
     });
@@ -261,7 +250,6 @@ describe('Filter Service', () => {
             Crime: false,
             Family: false,
             Tribunal: false,
-            'Court of Protection': false,
             Region: true,
         });
     });
@@ -275,7 +263,6 @@ describe('Filter Service', () => {
             Crime: false,
             Family: false,
             Tribunal: false,
-            'Court of Protection': false,
             Region: true,
         });
     });
@@ -293,7 +280,6 @@ describe('Filter Service', () => {
             Crime: true,
             Family: true,
             Tribunal: true,
-            'Court of Protection': false,
             Region: true,
         });
     });
@@ -308,7 +294,6 @@ describe('Filter Service', () => {
                 Crime: false,
                 Family: false,
                 Tribunal: false,
-                'Court of Protection': false,
                 Region: true,
             },
         });
@@ -324,7 +309,6 @@ describe('Filter Service', () => {
                 Crime: false,
                 Family: false,
                 Tribunal: false,
-                'Court of Protection': false,
                 Region: true,
             },
         });

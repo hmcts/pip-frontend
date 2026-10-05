@@ -29,7 +29,7 @@ sinon
     .stub(LocationService.prototype, 'getLocationById')
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
 sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(metadata);
-sinon.stub(LocationService.prototype, 'getCopVenueId').resolves(999);
+sinon.stub(LocationService.prototype, 'getCopVenueId').resolves('999');
 sinon.stub(PublicationService.prototype, 'getPublicationsByListType').resolves(metadata);
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves([
     { locationId: '123', name: 'Court A' },
@@ -37,8 +37,8 @@ sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves([
 ]);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
-additionalLocationInfoStub.withArgs(1).returns(null);
-additionalLocationInfoStub.withArgs(2).returns(additionalLocationInfo);
+additionalLocationInfoStub.withArgs('1').returns(null);
+additionalLocationInfoStub.withArgs('2').returns(additionalLocationInfo);
 
 const publicationsWithName = [
     {
