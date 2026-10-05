@@ -41,25 +41,26 @@ export default class SummaryOfPublicationsController {
             }
 
             publications.forEach(publication => {
-                const isHidden = publicationService.getListTypes().get(publication.listType).isHidden;
+                const listType = publicationService.getListTypes().get(publication.listType);
 
-                if (!isHidden) {
-                  const languageFriendlyName = isWelsh 
-                  ? publicationService.getListTypes().get(publication.listType).welshFriendlyName
-                  : publicationService.getListTypes().get(publication.listType).friendlyName;
-                  
-                  if (isCopVenue) {
-                      const courtName = locationMap.get(publication.locationId) || '';
-                      displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
-                      listName = courtName ? `${courtName} - ${listName}` : listName;
-                  }
+                if (listType && !listType.isHidden) {
+                    const languageFriendlyName = isWelsh ? listType.welshFriendlyName : listType.friendlyName;
 
-                  const publicationWithName = {
-                      ...publication,
-                      listName: listName,
-                      displayName: friendlyName,
-                  };
-                  publicationsWithName.push(publicationWithName);
+                    let displayName;
+                    let listName = languageFriendlyName;
+
+                    if (isCopVenue) {
+                        const courtName = locationMap.get(publication.locationId) || '';
+                        displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
+                        listName = displayName;
+                    }
+
+                    const publicationWithName = {
+                        ...publication,
+                        listName: listName,
+                        displayName: displayName,
+                    };
+                    publicationsWithName.push(publicationWithName);
                 }
             });
 

@@ -44,10 +44,24 @@ const publicationsWithName = [
     {
         ...metadata[0],
         listName: 'Crown Advance List',
+        displayName: undefined,
     },
     {
         ...metadata[1],
         listName: 'Single Justice Procedure Public List (Full List)',
+        displayName: undefined,
+    },
+];
+
+const publicationsWithNameWelsh = [
+    {
+        ...metadata[0],
+        listName: 'Rhestr Ymlaen Llaw Llys y Goron',
+        displayName: undefined,
+    },
+    {
+        ...metadata[1],
+        listName: 'Rhestr Gyhoeddus Y Weithdrefn Un Ynad (Rhestr Lawn)',
         displayName: undefined,
     },
 ];
@@ -127,7 +141,7 @@ describe('Get publications', () => {
         const expectedData = {
             ...i18n['summary-of-publications'],
             locationName: 'New Court',
-            publications: publicationsWithName,
+            publications: publicationsWithNameWelsh,
             court,
             noListMessageOverride: 'Welsh no list message',
             cautionMessageOverride: 'Welsh caution message',
@@ -155,8 +169,8 @@ describe('Get publications', () => {
         const expectedPublications = [
             {
                 ...metadata[0],
-                listName: 'Court A - Crown Warned List',
-                displayName: 'Court A - Crown Warned List',
+                listName: 'Court A - Crown Advance List',
+                displayName: 'Court A - Crown Advance List',
             },
             {
                 ...metadata[1],
