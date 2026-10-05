@@ -65,6 +65,21 @@ describe('Home page', () => {
             );
         });
 
+        it('should have correct meta description', () => {
+            const metaDescription = htmlRes.getElementsByTagName('meta');
+            let found = false;
+            for (let i = 0; i < metaDescription.length; i++) {
+                if (metaDescription[i].getAttribute('name') === 'description') {
+                    found = true;
+                    expect(metaDescription[i].getAttribute('content')).eq(
+                        'The Court and Tribunal Hearings service is a service that publishes hearing lists for courts and tribunals in England and Wales.',
+                        'Meta description does not match'
+                    );
+                }
+            }
+            expect(found).to.be.true;
+        });
+
         it('should display header', () => {
             const header = htmlRes.getElementsByClassName('govuk-heading-l');
             expect(header[0].innerHTML).contains(pageHeader, 'Could not find correct value in header');
@@ -229,6 +244,21 @@ describe('Home page', () => {
         it('should have correct page html language', () => {
             const htmlElement = htmlRes.getElementsByTagName('html')[0];
             expect(htmlElement.getAttribute('lang')).eq('cy', 'HTML Lang element does not match');
+        });
+
+        it('should have correct meta description', () => {
+            const metaDescription = htmlRes.getElementsByTagName('meta');
+            let found = false;
+            for (let i = 0; i < metaDescription.length; i++) {
+                if (metaDescription[i].getAttribute('name') === 'description') {
+                    found = true;
+                    expect(metaDescription[i].getAttribute('content')).eq(
+                        'The Court and Tribunal Hearings service is a service that publishes hearing lists for courts and tribunals in England and Wales.',
+                        'Meta description does not match'
+                    );
+                }
+            }
+            expect(found).to.be.true;
         });
 
         it('should display header', () => {

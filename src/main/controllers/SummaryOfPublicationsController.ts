@@ -41,22 +41,26 @@ export default class SummaryOfPublicationsController {
             }
 
             publications.forEach(publication => {
-                const listLookup = publicationService.getListTypes().get(publication.listType);
-                let listName = listLookup.friendlyName;
-                let displayName;
-                if (isCopVenue) {
-                    const courtName = locationMap.get(publication.locationId) || '';
-                    const languageFriendlyName = isWelsh ? listLookup.welshFriendlyName : listLookup.friendlyName;
-                    displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
-                    listName = courtName ? `${courtName} - ${listName}` : listName;
-                }
+                const isHidden = publicationService.getListTypes().get(publication.listType).isHidden;
 
-                const publicationWithName = {
-                    ...publication,
-                    listName: listName,
-                    displayName: displayName,
-                };
-                publicationsWithName.push(publicationWithName);
+                if (!isHidden) {
+                  const languageFriendlyName = isWelsh 
+                  ? publicationService.getListTypes().get(publication.listType).welshFriendlyName
+                  : publicationService.getListTypes().get(publication.listType).friendlyName;
+                  
+                  if (isCopVenue) {
+                      const courtName = locationMap.get(publication.locationId) || '';
+                      displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
+                      listName = courtName ? `${courtName} - ${listName}` : listName;
+                  }
+
+                  const publicationWithName = {
+                      ...publication,
+                      listName: listName,
+                      displayName: friendlyName,
+                  };
+                  publicationsWithName.push(publicationWithName);
+                }
             });
 
             res.render('summary-of-publications', {

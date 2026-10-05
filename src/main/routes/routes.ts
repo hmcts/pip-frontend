@@ -197,7 +197,7 @@ export default function (app: Application): void {
     app.get('/crown-firm-list', (req, res) =>
         app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-firm-pdda-list')
     );
-    app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedPddaListController.get);
+    app.get('/crown-advance-list', app.locals.container.cradle.crownAdvancePddaListController.get);
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>
@@ -585,6 +585,13 @@ export default function (app: Application): void {
     );
     app.get('/cic-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cic-weekly-hearing-list')
+    );
+    app.get('/business-and-property-division-rolls-building-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'business-and-property-division-rolls-building-daily-cause-list'
+        )
     );
 
     // Restricted paths

@@ -42,7 +42,7 @@
 `pip-frontend` is a microservice that serves the frontend of the Court and Tribunal Hearings Service (known as CaTH hereafter). This project was formerly known as the Publications and Information Project within HMCTS.
 
 The frontend uses a [Node.js](https://nodejs.org/en) runtime environment, using [Express.js](https://expressjs.com/) as the web application framework.
-Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mostly use [TypeScript](https://www.typescriptlang.org/) for application code.
+Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mostly use [TypeScript](https://www.typescriptlang.org/) for application code
 
 It is connected to several other microservices in production (all written in Java/Spring Boot):
 
@@ -55,7 +55,7 @@ Most of the communication with this service benefits from using secure authentic
 
 ### Features and functionality
 
--   Viewable by users directly in either HTTP or HTTPS mode (default port: 8080)
+-   Viewable by users directly in either HTTP or HTTPS mode (default port: 8080).
 -   Uploading of publication files using a web interface within the [manual upload](src/main/views/admin/manual-upload.njk) view.
 -   Account setup, sign-in and user management functionality. Sign-in and password management is managed using Azure B2C user flows for AAD users. We also allow sign in via CFT IDAM for verified users, and Single Sign-On for admin users.
 -   View publications directly in the browser restricted to the user's account privileges.
