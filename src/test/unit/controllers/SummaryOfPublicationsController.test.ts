@@ -32,8 +32,8 @@ sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(m
 sinon.stub(LocationService.prototype, 'getCopVenueId').resolves(999);
 sinon.stub(PublicationService.prototype, 'getPublicationsByListType').resolves(metadata);
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves([
-    { locationId: 123, name: 'Court A' },
-    { locationId: 2, name: 'Court B' },
+    { locationId: '123', name: 'Court A' },
+    { locationId: '2', name: 'Court B' },
 ]);
 
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');

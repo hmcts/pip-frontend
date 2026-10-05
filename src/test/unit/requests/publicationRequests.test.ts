@@ -105,7 +105,9 @@ describe('getIndividualPubMetadata()', () => {
     });
 
     it('should return publication meta data without requester id', async () => {
-        dataManagementStub.withArgs('/publication/abc123', { headers: { 'x-admin': false } }).resolves({ data: metaData });
+        dataManagementStub
+            .withArgs('/publication/abc123', { headers: { 'x-admin': false } })
+            .resolves({ data: metaData });
         expect(await publicationRequests.getIndividualPublicationMetadata('abc123', null, false)).toBe(metaData);
     });
 
