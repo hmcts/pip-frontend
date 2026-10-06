@@ -21,14 +21,14 @@ export default class SummaryOfPublicationsController {
         }
 
         const isWelsh = req.lng === 'cy';
-        const court = await locationService.getLocationById(locationId as any);
+        const court = await locationService.getLocationById(parsedLocationId);
         const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
-        const locationMetadata = await locationService.getLocationMetadata(locationId as any);
+        const locationMetadata = await locationService.getLocationMetadata(parsedLocationId);
 
-        const { noListMessageOverride, cautionMessageOverride } = this.getMessageOverrides(locationMetadata, isWelsh);
+        const { noListMessageOverride, cautionMessageOverride } = getMessageOverrides(locationMetadata, isWelsh);
 
         const copVenueId = await locationService.getCopVenueId();
-        const isCopVenue = locationId === copVenueId?.toString();
+        const isCopVenue = parsedLocationId === copVenueId;
         const publications = isCopVenue
             ? await publicationService.getPublicationsByListType('COP_DAILY_CAUSE_LIST', req.user?.['userId'])
             : await publicationService.getPublicationsByLocation(locationId, req.user?.['userId']);
@@ -39,66 +39,66 @@ export default class SummaryOfPublicationsController {
             locationMap = new Map(allLocations.map(loc => [loc.locationId.toString(), loc.name]));
         }
 
-        const publicationsWithName = this.buildPublicationsWithName(publications, isWelsh, isCopVenue, locationMap);
+        const publicationsWithName = buildPublicationsWithName(publications, isWelsh, isCopVenue, locationMap);
 
         res.render('summary-of-publications', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
-            publications: publicationsWithName,
             locationName,
+            publications: publicationsWithName,
             court,
             noListMessageOverride,
             cautionMessageOverride,
         });
     }
+}
 
-    private getMessageOverrides(locationMetadata: LocationMetadata, isWelsh: boolean): any {
-        let noListMessageOverride = '';
-        let cautionMessageOverride = '';
-        if (locationMetadata) {
-            noListMessageOverride = isWelsh ? locationMetadata.welshNoListMessage : locationMetadata.noListMessage;
-            cautionMessageOverride = isWelsh ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
+function getMessageOverrides(locationMetadata: LocationMetadata, isWelsh: boolean): any {
+    let noListMessageOverride = '';
+    let cautionMessageOverride = '';
+    if (locationMetadata) {
+        noListMessageOverride = isWelsh ? locationMetadata.welshNoListMessage : locationMetadata.noListMessage;
+        cautionMessageOverride = isWelsh ? locationMetadata.welshCautionMessage : locationMetadata.cautionMessage;
+    }
+    return { noListMessageOverride, cautionMessageOverride };
+}
+
+function buildPublicationsWithName(
+    publications: Artefact[],
+    isWelsh: boolean,
+    isCopVenue: boolean,
+    locationMap: Map<string, string>
+): any[] {
+    const publicationsWithName = [];
+    publications.forEach(publication => {
+        const listType = publicationService.getListTypes().get(publication.listType);
+
+        if (listType && !listType.isHidden) {
+            publicationsWithName.push(formatPublication(publication, listType, isWelsh, isCopVenue, locationMap));
         }
-        return { noListMessageOverride, cautionMessageOverride };
+    });
+    return publicationsWithName;
+}
+
+function formatPublication(
+    publication: Artefact,
+    listType: ListType,
+    isWelsh: boolean,
+    isCopVenue: boolean,
+    locationMap: Map<string, string>
+): any {
+    const languageFriendlyName = isWelsh ? listType.welshFriendlyName : listType.friendlyName;
+    let displayName;
+    let listName = languageFriendlyName;
+
+    if (isCopVenue) {
+        const courtName = locationMap.get(publication.locationId) || '';
+        displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
+        listName = displayName;
     }
 
-    private buildPublicationsWithName(
-        publications: Artefact[],
-        isWelsh: boolean,
-        isCopVenue: boolean,
-        locationMap: Map<string, string>
-    ): any[] {
-        const publicationsWithName = [];
-        publications.forEach(publication => {
-            const listType = publicationService.getListTypes().get(publication.listType);
-
-            if (listType && !listType.isHidden) {
-                publicationsWithName.push(this.formatPublication(publication, listType, isWelsh, isCopVenue, locationMap));
-            }
-        });
-        return publicationsWithName;
-    }
-
-    private formatPublication(
-        publication: Artefact,
-        listType: ListType,
-        isWelsh: boolean,
-        isCopVenue: boolean,
-        locationMap: Map<string, string>
-    ): any {
-        const languageFriendlyName = isWelsh ? listType.welshFriendlyName : listType.friendlyName;
-        let displayName;
-        let listName = languageFriendlyName;
-
-        if (isCopVenue) {
-            const courtName = locationMap.get(publication.locationId) || '';
-            displayName = courtName ? `${courtName} - ${languageFriendlyName}` : languageFriendlyName;
-            listName = displayName;
-        }
-
-        return {
-            ...publication,
-            listName: listName,
-            displayName: displayName,
-        };
-    }
+    return {
+        ...publication,
+        listName: listName,
+        displayName: displayName,
+    };
 }
