@@ -284,10 +284,7 @@ describe('get individual publication raw payload', () => {
                 responseType: 'text',
             })
             .rejects(errorResponse);
-        const response = await pubRequests.getIndividualPublicationRawPayload(
-            'brokenPromiseWithErrorResponse',
-            userId
-        );
+        const response = await pubRequests.getIndividualPublicationRawPayload('brokenPromiseWithErrorResponse', userId);
         expect(response).toBe(null);
     });
 

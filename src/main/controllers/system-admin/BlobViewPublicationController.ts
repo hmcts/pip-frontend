@@ -31,9 +31,12 @@ export default class BlobViewPublicationController {
                 'Requested to view artefact with id: ' + artefactId
             );
 
-            const listUrl = process.env.FRONTEND_URL + '/'
-                + (metadata.isFlatFile ? 'file-publication' : listTypes.get(metadata.listType)?.url)
-                + '?artefactId=' + artefactId;
+            const listUrl =
+                process.env.FRONTEND_URL +
+                '/' +
+                (metadata.isFlatFile ? 'file-publication' : listTypes.get(metadata.listType)?.url) +
+                '?artefactId=' +
+                artefactId;
 
             const payloadSize = metadata.isFlatFile ? '' : Number(metadata.payloadSize).toFixed(2) + 'KB';
 
@@ -44,7 +47,7 @@ export default class BlobViewPublicationController {
                 metadata,
                 listUrl,
                 noMatchArtefact,
-                payloadSize
+                payloadSize,
             });
         } else if (metadata === HttpStatusCode.NotFound) {
             res.render('list-not-found', req.i18n.getDataByLanguage(req.lng)['list-not-found']);

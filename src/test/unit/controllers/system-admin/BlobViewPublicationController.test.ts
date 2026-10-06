@@ -11,9 +11,7 @@ const i18n = {
     'blob-view-publication': {},
     error: { title: 'Error' },
 };
-const artefactJson = JSON.parse('{"Test":true}');
 const artefactRawPayload = '{\n    "Test": true\n}';
-const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
 const rawPayloadStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationRawPayload');
 const metaStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
@@ -25,7 +23,7 @@ const meta = {
     listType: 'SJP_PUBLIC_LIST',
     payloadSize: 1024,
 };
-jsonStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
+metaStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
 rawPayloadStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
 
 describe('Blob view publication controller', () => {
@@ -33,7 +31,6 @@ describe('Blob view publication controller', () => {
         it('should correctly render if location is passed and ref data exists', async () => {
             const jsonData = JSON.parse('{"name":"Single Justice Procedure"}');
             courtStub.withArgs(1).resolves(jsonData);
-            jsonStub.withArgs('1234').resolves(artefactJson);
             metaStub.withArgs('1234', 10).resolves(meta);
             const response = {
                 render: () => {
@@ -61,8 +58,6 @@ describe('Blob view publication controller', () => {
         });
 
         it('should render a court name of No match artefacts if location ID includes NoMatch', async () => {
-            jsonStub.withArgs('1234', 10).resolves(artefactJson);
-
             const metaWithNoMatch = {
                 artefactId: '1234',
                 displayFrom: '2022-06-29T14:45:18.836',
