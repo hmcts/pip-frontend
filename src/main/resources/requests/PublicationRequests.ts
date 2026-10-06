@@ -89,6 +89,23 @@ export class PublicationRequests {
         }
     }
 
+    public async getIndividualPublicationRawPayload(artefactId, userId): Promise<string | number> {
+        try {
+            const header = {
+                headers: userId ? { 'x-requester-id': userId } : {},
+                // Prevents axios from JSON.parse-ing the body, preserving the original
+                // whitespace/formatting of the stored payload exactly as returned by the API.
+                responseType: 'text' as const,
+            };
+
+            const response = await dataManagementApi.get('/publication/' + artefactId + '/payload', header);
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, `retrieve raw JSON payload for publication with ID ${artefactId}`);
+            return error.response?.status === 404 ? HttpStatusCode.NotFound : null;
+        }
+    }
+
     public async getIndividualPublicationFile(artefactId, userId): Promise<Blob | number> {
         try {
             let header;
