@@ -37,7 +37,7 @@ Scenario('I as a system admin should be able to discover json content uploaded t
     I.see('Download raw JSON payload');
 
     I.handleDownloads(artefactId + '.json');
-    I.click('Download Raw JSON payload');
+    I.click('Download raw JSON payload');
     I.amInPath('../../../functional-output/functional/reports');
     I.seeFile(artefactId + '.json');
 
