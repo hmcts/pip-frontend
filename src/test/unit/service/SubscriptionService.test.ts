@@ -934,11 +934,9 @@ describe('generateListTypesForCourts', () => {
     locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     it('Test sorting of lists in english', async () => {
-        locationStub
-            .withArgs(1)
-            .resolves({
-                jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court', 'Court of Protection'],
-            });
+        locationStub.withArgs(1).resolves({
+            jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court', 'Court of Protection'],
+        });
 
         const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'en');
 
@@ -983,11 +981,9 @@ describe('generateListTypesForCourts', () => {
     });
 
     it('Test sorting of lists in welsh', async () => {
-        locationStub
-            .withArgs(1)
-            .resolves({
-                jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court', 'Court of Protection'],
-            });
+        locationStub.withArgs(1).resolves({
+            jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court', 'Court of Protection'],
+        });
 
         const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'cy');
 
