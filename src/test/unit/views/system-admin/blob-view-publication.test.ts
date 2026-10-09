@@ -79,8 +79,6 @@ const summaryListRowClass = 'govuk-summary-list__row';
 const summaryListRowKeyClass = 'govuk-summary-list__key';
 const summaryListRowValueClass = 'govuk-summary-list__value';
 const linkClass = 'govuk-link';
-const detailsSummaryTextClass = 'govuk-details__summary-text';
-const jsonContainerClass = 'json-container';
 const resubmitSubscriptionId = 'resubmit-subscription';
 
 let htmlRes: Document;
@@ -252,30 +250,20 @@ describe('Blob explorer publication page', () => {
                     );
                 });
 
-                it('should have the details dropdown for viewing the json content', () => {
-                    const detailsSummaryText = htmlRes.getElementsByClassName(detailsSummaryTextClass)[0];
-                    expect(detailsSummaryText.innerHTML).contains(
-                        'View Raw JSON Content',
-                        'Could not find details dropdown'
+                it('should display the download raw JSON payload link', () => {
+                    const link = htmlRes.getElementsByClassName(linkClass)[6];
+                    expect(link.innerHTML).contains(
+                        'Download raw JSON payload',
+                        'Could not find download raw JSON payload link'
                     );
                 });
 
-                it('should have the json container on the page', () => {
-                    const jsonContainer = htmlRes.getElementsByClassName(jsonContainerClass)[0];
-                    expect(jsonContainer).to.exist;
-                });
-
-                it('should have the correct data in the json container', () => {
-                    const jsonContainer = htmlRes.getElementsByClassName(jsonContainerClass)[0];
-
-                    expect(jsonContainer.innerHTML).contains('{', 'Could not find correct json output on the line');
-                    expect(jsonContainer.innerHTML).contains(
-                        'publicationDate',
-                        'Could not find correct json output on the line'
-                    );
-                    expect(jsonContainer.innerHTML).contains(
-                        'documentName',
-                        'Could not find correct json output on the line'
+                it('should have the correct href for the download raw JSON payload link', () => {
+                    const link = htmlRes.getElementsByClassName(linkClass)[6];
+                    expect(link.outerHTML).contains(
+                        '/blob-view-publication-download?artefactId=' +
+                            sensitivityResourceMap.get(sensitivity).artefactIdJson,
+                        'Could not find the href for the download link'
                     );
                 });
 
@@ -449,9 +437,12 @@ describe('Blob explorer publication page', () => {
                     );
                 });
 
-                it('should not have the details dropdown for viewing the json content', () => {
-                    const detailsSummaryText = htmlRes.getElementsByClassName(detailsSummaryTextClass)[0];
-                    expect(detailsSummaryText).is.undefined;
+                it('should not display the download raw JSON payload link', () => {
+                    const links = htmlRes.getElementsByClassName(linkClass);
+                    const downloadLink = Array.from(links).find(link =>
+                        link.outerHTML.includes('/blob-view-publication-download')
+                    );
+                    expect(downloadLink).is.undefined;
                 });
 
                 it('should display the re-submit subscription button', () => {
