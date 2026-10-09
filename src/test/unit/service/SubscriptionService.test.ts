@@ -13,8 +13,8 @@ import {
 } from '../../../main/helpers/sortHelper';
 
 const userIdWithSubscriptions = '1';
-const userIdWithoutSubscriptions = '2';
-const userIdForSortedSubscriptions = '3';
+const userIdForSortedSubscriptions = '3'
+const userIdWithoutSubscriptions = '2';;
 const userIdWithCaseNameSubscription = '4';
 const userIdWithCaseNumberSubscription = '5';
 const userIdWithCourtSubscription = '6';
@@ -1248,17 +1248,20 @@ describe('fulfillSubscriptions', () => {
     const validArtefact = { artefactId: '123' };
     const invalidArtefact = { artefactId: '124' };
 
-    const getMetadataStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
+    const getMetadataStub = sinon.stub(PublicationService.prototype, 'getPublicationMetadataWithCaseInfo');
     getMetadataStub.withArgs('123', '1').resolves(validArtefact);
     getMetadataStub.withArgs('124', '1').resolves(invalidArtefact);
 
-    const fulfillSubscriptionRequestStub = sinon.stub(SubscriptionRequests.prototype, 'fulfillSubscriptions');
-    fulfillSubscriptionRequestStub.withArgs(validArtefact).resolves('Subscriptions fulfilled successfully');
-    fulfillSubscriptionRequestStub.withArgs(invalidArtefact).resolves(null);
+    const fulfillEmailSubscriptionRequestStub = sinon.stub(SubscriptionRequests.prototype, 'fulfillEmailSubscriptions');
+    fulfillEmailSubscriptionRequestStub.withArgs(validArtefact).resolves('Email subscriptions fulfilled successfully');
+    fulfillEmailSubscriptionRequestStub.withArgs(invalidArtefact).resolves(null);
+
+    sinon.stub(SubscriptionRequests.prototype, 'fulfillApiSubscriptions').resolves("API subscriptions fulfilled successfully");
+
 
     it('should return a success message if subscription is deleted', async () => {
         const result = await subscriptionService.fulfillSubscriptions('123', '1');
-        expect(result).toEqual('Subscriptions fulfilled successfully');
+        expect(result).toEqual('API subscriptions fulfilled successfully');
     });
 
     it('should return null if subscriptions not fulfilled', async () => {
