@@ -942,17 +942,6 @@
         "defaultSensitivity": "PUBLIC",
         "isNonStrategic": false
     },
-    "CROWN_WARNED_PDDA_LIST": {
-        "friendlyName": "Crown Warned List",
-        "welshFriendlyName": "Rhestr Rybudd Llys y Goron",
-        "shortenedFriendlyName": "Crown Warned List",
-        "url": "crown-warned-list",
-        "jurisdictionTypes": ["Crown Court"],
-        "restrictedProvenances": [],
-        "defaultSensitivity": "CLASSIFIED",
-        "isNonStrategic": false,
-        "isHidden": true
-    },
     "CROWN_ADVANCE_PDDA_LIST": {
         "friendlyName": "Crown Advance List",
         "welshFriendlyName": "Rhestr Ymlaen Llaw Llys y Goron",
