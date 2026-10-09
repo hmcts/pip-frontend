@@ -541,6 +541,16 @@
         "defaultSensitivity": "",
         "isNonStrategic": false
     },
+    "TRAFFIC_VIRTUAL_COURTS_LIST": {
+        "friendlyName": "Traffic Virtual Courts List",
+        "welshFriendlyName": "Rhestr y Llys ar gyfer Achosion Traffig sydd i’w cynnal yn rhithiol",
+        "shortenedFriendlyName": "Traffic Virtual Courts List",
+        "url": "",
+        "jurisdictionTypes": ["Magistrates Court"],
+        "restrictedProvenances": [],
+        "defaultSensitivity": "",
+        "isNonStrategic": false
+    },
     "LONDON_ADMINISTRATIVE_COURT_DAILY_CAUSE_LIST": {
         "friendlyName": "London Administrative Court Daily Cause List",
         "welshFriendlyName": "Rhestr Achosion Dyddiol Llys Gweinyddol Llundain",
