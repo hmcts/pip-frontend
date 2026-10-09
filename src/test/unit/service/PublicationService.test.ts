@@ -81,6 +81,9 @@ sinon.stub(PublicationRequests.prototype, 'getNoMatchPublications').resolves('{"
 const stubGetListSearchConfig = sinon.stub(PublicationRequests.prototype, 'getListSearchConfigByListType');
 const stubCreateListSearchConfig = sinon.stub(PublicationRequests.prototype, 'createListSearchConfig');
 const stubUpdateListSearchConfig = sinon.stub(PublicationRequests.prototype, 'updateListSearchConfig');
+const stubGetIndividualPublicationFile = sinon.stub(PublicationRequests.prototype, 'getIndividualPublicationFile');
+const stubGetPublicationsByListType = sinon.stub(PublicationRequests.prototype, 'getPublicationsByListType');
+const stubArchivePublication = sinon.stub(PublicationRequests.prototype, 'archivePublication');
 
 describe('Publication service', () => {
     it('should return array of case search results based on partial case name using fuzzy search', async () => {
@@ -153,6 +156,14 @@ describe('Publication service', () => {
         });
     });
 
+    describe('getIndividualPublicationFile Publication Service', () => {
+        it('should return publication file', async () => {
+            stubGetIndividualPublicationFile.withArgs('abc', '123').resolves('file');
+            const response = await publicationService.getIndividualPublicationFile('abc', '123');
+            expect(response).to.equal('file');
+        });
+    });
+
     describe('getPublicationsByLocation', () => {
         it('should return artefact for a valid call', async () => {
             const data = await publicationService.getPublicationsByLocation('1', userId);
@@ -161,6 +172,14 @@ describe('Publication service', () => {
         it('should return empty list for a invalid call', async () => {
             const data = await publicationService.getPublicationsByLocation('2', userId);
             expect(data).to.deep.equal([]);
+        });
+    });
+
+    describe('getPublicationsByListType', () => {
+        it('should return artefact for a valid call', async () => {
+            stubGetPublicationsByListType.withArgs('SJP_PUBLIC_LIST', '123').resolves(returnedArtefact);
+            const response = await publicationService.getPublicationsByListType('SJP_PUBLIC_LIST', '123');
+            expect(response).to.equal(returnedArtefact);
         });
     });
 
@@ -177,6 +196,14 @@ describe('Publication service', () => {
             expectedMap.set('1', 2);
             expectedMap.set('3', 1);
             expect(data).to.deep.equal(expectedMap);
+        });
+    });
+
+    describe('remove publication', () => {
+        it('should return true if archive is successful', async () => {
+            stubArchivePublication.withArgs('abc', '123').resolves(true);
+            const response = await publicationService.removePublication('abc', '123');
+            expect(response).to.be.true;
         });
     });
 

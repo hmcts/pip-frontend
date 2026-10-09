@@ -9,8 +9,13 @@ const filterService = new FilterService();
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const listData = JSON.parse(rawData);
 
-sinon.stub(LocationService.prototype, 'generateAlphabetisedAllCourtList').resolves(listData);
-sinon.stub(LocationService.prototype, 'generateFilteredAlphabetisedCourtList').resolves([listData[0]]);
+const generateAlphabetisedAllCourtListStub = sinon.stub(LocationService.prototype, 'generateAlphabetisedAllCourtList');
+generateAlphabetisedAllCourtListStub.resolves(listData);
+const generateFilteredAlphabetisedCourtListStub = sinon.stub(
+    LocationService.prototype,
+    'generateFilteredAlphabetisedCourtList'
+);
+generateFilteredAlphabetisedCourtListStub.resolves([listData[0]]);
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(listData);
 
 const jurisdiction = 'Jurisdiction';
@@ -24,6 +29,7 @@ const allFilterOptions = {
         Crime: { value: 'Crime' },
         Family: { value: 'Family' },
         Tribunal: { value: 'Tribunal' },
+        'Court of Protection': { value: 'Court of Protection' },
     },
     Civil: {},
     Crime: {
@@ -370,5 +376,41 @@ describe('Filter Service', () => {
 
         const result = filterService.translateFilterValues(mixedWel, 'en');
         expect(result).toStrictEqual(['Tribunal', 'Care Standards Tribunal', 'Scotland']);
+    });
+
+    it('should return only COP venue if COP jurisdiction selected', async () => {
+        const copVenue = { name: 'Court of Protection', jurisdiction: ['Court of Protection'] };
+        generateFilteredAlphabetisedCourtListStub.resolves([listData[0], copVenue]);
+
+        const result = await filterService.handleFilterInitialisation(null, 'Court of Protection', englishLanguage);
+        expect(result['alphabetisedList']).toStrictEqual([copVenue]);
+        generateFilteredAlphabetisedCourtListStub.resolves([listData[0]]);
+    });
+
+    it('should translate COP jurisdiction filter values from English to Welsh', () => {
+        const result = filterService.translateFilterValues(['Court of Protection'], 'cy');
+        expect(result).toStrictEqual(['Llys Gwarchod']);
+    });
+
+    it('should remove sub-jurisdiction filter if main jurisdiction is cleared', async () => {
+        const result = await filterService.handleFilterInitialisation('Crime', 'Crime,Crown Court', englishLanguage);
+        expect(result['filterOptions'][jurisdiction][crime]['checked']).toBe(false);
+        expect(result['filterOptions'][crime]['Crown Court']['checked']).toBe(false);
+    });
+
+    it('should return only COP venue from alphabetised object if COP jurisdiction selected', async () => {
+        const alphabetisedList = {
+            A: { 'A Court': { id: 1 } },
+            C: { 'Court of Protection': { id: 2 } },
+        };
+        generateFilteredAlphabetisedCourtListStub.resolves(alphabetisedList);
+        const result = await filterService.handleFilterInitialisation(null, 'Court of Protection', englishLanguage);
+        expect(result['alphabetisedList']['C']).toStrictEqual({ 'Court of Protection': { id: 2 } });
+        expect(result['alphabetisedList']['A']).toStrictEqual({});
+    });
+
+    it('should return empty array if jurisdiction is not in the mapping', () => {
+        const result = filterService['getPossibleJurisdictionTypes']('Invalid', 'en');
+        expect(result).toStrictEqual([]);
     });
 });

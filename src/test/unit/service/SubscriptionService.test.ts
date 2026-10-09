@@ -934,9 +934,9 @@ describe('generateListTypesForCourts', () => {
     locationStub.withArgs(9).resolves({ jurisdictionType: ['Magistrates Court'] });
 
     it('Test sorting of lists in english', async () => {
-        locationStub
-            .withArgs(1)
-            .resolves({ jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court'] });
+        locationStub.withArgs(1).resolves({
+            jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court', 'Court of Protection'],
+        });
 
         const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'en');
 
@@ -981,9 +981,9 @@ describe('generateListTypesForCourts', () => {
     });
 
     it('Test sorting of lists in welsh', async () => {
-        locationStub
-            .withArgs(1)
-            .resolves({ jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court'] });
+        locationStub.withArgs(1).resolves({
+            jurisdictionType: ['Civil Court', 'Family Court', 'Crown Court', 'High Court', 'Court of Protection'],
+        });
 
         const result = await subscriptionService.generateListTypesForCourts(userId, 'PI_AAD', 'cy');
 
@@ -1127,7 +1127,14 @@ describe('generateListTypeForCourts', () => {
 
     it('Test sorting of lists in english', async () => {
         locationStub.withArgs(1).resolves({
-            jurisdictionType: ['Civil Court', 'Crown Court', 'Family Court', 'Magistrates Court', 'High Court'],
+            jurisdictionType: [
+                'Civil Court',
+                'Crown Court',
+                'Family Court',
+                'Magistrates Court',
+                'High Court',
+                'Court of Protection',
+            ],
         });
 
         const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'en', userId);
@@ -1164,7 +1171,14 @@ describe('generateListTypeForCourts', () => {
 
     it('Test only sorting of lists in welsh', async () => {
         locationStub.withArgs(1).resolves({
-            jurisdictionType: ['Civil Court', 'Crown Court', 'Family Court', 'Magistrates Court', 'High Court'],
+            jurisdictionType: [
+                'Civil Court',
+                'Crown Court',
+                'Family Court',
+                'Magistrates Court',
+                'High Court',
+                'Court of Protection',
+            ],
         });
 
         const result = await subscriptionService.generateListTypeForCourts('PI_AAD', 'cy', userId);

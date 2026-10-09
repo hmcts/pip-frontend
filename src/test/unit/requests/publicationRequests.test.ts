@@ -104,6 +104,13 @@ describe('getIndividualPubMetadata()', () => {
         expect(await publicationRequests.getIndividualPublicationMetadata(artefactId, userId, false)).toBe(metaData);
     });
 
+    it('should return publication meta data without requester id', async () => {
+        dataManagementStub
+            .withArgs('/publication/abc123', { headers: { 'x-admin': false } })
+            .resolves({ data: metaData });
+        expect(await publicationRequests.getIndividualPublicationMetadata('abc123', null, false)).toBe(metaData);
+    });
+
     it('should return content datetime', async () => {
         return await publicationRequests.getIndividualPublicationMetadata(artefactId, userId, false).then(data => {
             expect(data['contentDate']).toEqual('2022-02-14T14:14:59.73967');
@@ -160,6 +167,13 @@ describe('Get publications by location ID', () => {
 
     it('should return data on successful get', async () => {
         expect(await pubRequests.getPublicationsByLocation(valid, userId, false)).toBe(successResponse.data);
+    });
+
+    it('should return data on successful get without user id', async () => {
+        dataManagementStub
+            .withArgs('/publication/locationId/valid', { headers: { 'x-admin': false } })
+            .resolves(successResponse);
+        expect(await publicationRequests.getPublicationsByLocation(valid, null, false)).toBe(successResponse.data);
     });
 
     it('should handle error response from returned service returning empty array', async () => {
@@ -227,6 +241,16 @@ describe('get individual publication file', () => {
         expect(message).toBe(indivPubJsonObject.data);
     });
 
+    it('should return file for a given publication without user id', async () => {
+        dataManagementStub
+            .withArgs('/publication/fakeArtefactId/file', {
+                responseType: 'arraybuffer',
+            })
+            .resolves(indivPubJsonObject);
+        const message = await publicationRequests.getIndividualPublicationFile('fakeArtefactId', null);
+        expect(message).toBe(indivPubJsonObject.data);
+    });
+
     it('should send an error to the log if error response exists', async () => {
         dataManagementStub.withArgs('/publication/brokenPromiseWithErrorResponse/file').rejects(errorResponse);
         const response = await pubRequests.getIndividualPublicationFile('brokenPromiseWithErrorResponse', userId);
@@ -276,6 +300,46 @@ describe('archive publication', () => {
 
     it('should handle error message', async () => {
         expect(await pubRequests.archivePublication('abc2', 'joe@bloggs.com')).toBe(false);
+    });
+});
+
+describe('Get publications by list type', () => {
+    it('should return data on successful get', async () => {
+        dataManagementStub
+            .withArgs('/publication/listType/SJP_PUBLIC_LIST', {
+                headers: { 'x-requester-id': userId, 'x-admin': false },
+            })
+            .resolves(successResponse);
+        expect(await publicationRequests.getPublicationsByListType('SJP_PUBLIC_LIST', userId, false)).toBe(
+            successResponse.data
+        );
+    });
+
+    it('should return data on successful get without user id', async () => {
+        dataManagementStub
+            .withArgs('/publication/listType/SJP_PUBLIC_LIST', { headers: { 'x-admin': false } })
+            .resolves(successResponse);
+        expect(await publicationRequests.getPublicationsByListType('SJP_PUBLIC_LIST', null, false)).toBe(
+            successResponse.data
+        );
+    });
+
+    it('should handle error response from returned service returning empty array', async () => {
+        dataManagementStub
+            .withArgs('/publication/listType/error', {
+                headers: { 'x-requester-id': userId, 'x-admin': false },
+            })
+            .rejects(errorResponse);
+        expect(await publicationRequests.getPublicationsByListType('error', userId, false)).toStrictEqual([]);
+    });
+
+    it('should handle error request from returned service returning empty array', async () => {
+        dataManagementStub
+            .withArgs('/publication/listType/error', {
+                headers: { 'x-requester-id': userId, 'x-admin': false },
+            })
+            .rejects(errorMessage);
+        expect(await publicationRequests.getPublicationsByListType('error', userId, false)).toStrictEqual([]);
     });
 });
 

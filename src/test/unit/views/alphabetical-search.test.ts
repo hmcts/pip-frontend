@@ -127,6 +127,11 @@ describe('Alphabetical Search page', () => {
         expect(checkboxes.length).equal(1, 'Tribunal type filter does not match');
     });
 
+    it('should not contain court of protection type filter checkboxes', () => {
+        const checkboxes = htmlRes.getElementsByName('Court of Protection');
+        expect(checkboxes.length).equal(0, 'Court of Protection type filter does not match');
+    });
+
     it('should contain region filter checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('Region');
         expect(checkboxes.length).equal(3, 'Region filter does not match');

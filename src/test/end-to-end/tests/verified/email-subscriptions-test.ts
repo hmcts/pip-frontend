@@ -591,7 +591,7 @@ Scenario('I as a verified user should be able to filter and select which list ty
     I.see('Civil Daily Cause List');
     I.see('Civil and Family Daily Cause List');
     I.see('Family Daily Cause List');
-    I.see('Court of Protection Daily Cause List');
+    I.see('Civil Courts at the RCJ Daily Cause List');
     I.see('Magistrates Public List');
     I.see('Magistrates Standard List');
     I.see('Single Justice Procedure Public List');
