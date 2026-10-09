@@ -546,7 +546,7 @@
         "welshFriendlyName": "Rhestr y Llys ar gyfer Achosion Traffig sydd i’w cynnal yn rhithiol",
         "shortenedFriendlyName": "Traffic Virtual Courts List",
         "url": "",
-        "jurisdictionTypes": ["Traffic Virtual Courts List"],
+        "jurisdictionTypes": ["Magistrates Court"],
         "restrictedProvenances": [],
         "defaultSensitivity": "",
         "isNonStrategic": false
