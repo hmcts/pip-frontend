@@ -3036,11 +3036,11 @@ __metadata:
   linkType: hard
 
 "@evilmartians/lefthook@npm:^2.1.9":
-  version: 2.1.9
-  resolution: "@evilmartians/lefthook@npm:2.1.9"
+  version: 2.2.1
+  resolution: "@evilmartians/lefthook@npm:2.2.1"
   bin:
     lefthook: bin/index.js
-  checksum: 10/b7ebc13a66322dc41b12a521cfea79c59953725f1b89a4caa1e3da732016fd91061f63900e7fb30785271d04c0d4013e08df032c1d631d491ece06050fde6c8c
+  checksum: 10/d48bfa35fa42b4d58b4cade1753fe8343187e906fd52404a2dfbb3f2abb75c3f6caaf73819a0cf54545ef4243903166b82de488e65a6672576e76547d605aa70
   conditions: (os=darwin | os=linux | os=win32) & (cpu=x64 | cpu=arm64 | cpu=ia32)
   languageName: node
   linkType: hard
