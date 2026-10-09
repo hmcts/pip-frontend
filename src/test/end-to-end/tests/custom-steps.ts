@@ -202,7 +202,7 @@ export = function () {
         seeBetaFeedbackOnPage: function (page) {
             this.waitForText('BETA');
             this.click('feedback');
-            this.seeInCurrentUrl(`https://www.smartsurvey.co.uk/s/FBSPI22/?pageurl=${page}`);
+            this.seeInCurrentUrl(`https://www.smartsurvey.co.uk/t/FBSPI22/?pageurl=${page}`);
         },
 
         logout: function () {
