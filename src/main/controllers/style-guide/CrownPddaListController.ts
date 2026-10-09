@@ -25,7 +25,7 @@ export default class CrownPddaListController {
 
             const isDailyList = listType.includes('daily');
             const listPayload = isDailyList ? payload['DailyList'] : payload['FirmList'];
-            const viewInfo = crownPddaListService.buildViewInfo(listPayload, req.lng, isDailyList)
+            const viewInfo = crownPddaListService.buildViewInfo(listPayload, req.lng, isDailyList);
 
             res.render(`style-guide/${listType}`, {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)[listType]),
