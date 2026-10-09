@@ -102,7 +102,7 @@ export class LocationRequests {
             const response = await dataManagementApi.get<LocationMetadata>(`/location-metadata/location/${locationId}`);
             return response.data;
         } catch (error) {
-            if (error.response.status === 404) {
+            if (error?.response?.status === 404) {
                 return null;
             }
             logHelper.logErrorResponse(error, 'get location metadata by locationId');
