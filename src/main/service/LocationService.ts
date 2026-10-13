@@ -3,7 +3,7 @@ import { Location } from '../models/Location';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';
 import { LocationMetadata } from '../models/LocationMetadata';
-import { LocationWithMetadata} from 'models/LocationWithMetadata';
+import { LocationWithMetadata } from 'models/LocationWithMetadata';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();

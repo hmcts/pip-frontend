@@ -3,7 +3,7 @@ import { dataManagementApi } from './utils/axiosConfig';
 import { Logger } from '@hmcts/nodejs-logging';
 import { LogHelper } from '../logging/logHelper';
 import { LocationMetadata } from '../../models/LocationMetadata';
-import { LocationWithMetadata} from 'models/LocationWithMetadata';
+import { LocationWithMetadata } from 'models/LocationWithMetadata';
 
 const logger = Logger.getLogger('requests');
 const logHelper = new LogHelper();
