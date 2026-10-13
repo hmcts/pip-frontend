@@ -3,6 +3,7 @@ import { Location } from '../models/Location';
 import { LanguageFileParser } from '../helpers/languageFileParser';
 import { AToZHelper } from '../helpers/aToZHelper';
 import { LocationMetadata } from '../models/LocationMetadata';
+import { LocationWithMetadata} from 'models/LocationWithMetadata';
 
 const locationRequest = new LocationRequests();
 const languageFileParser = new LanguageFileParser();
@@ -156,6 +157,10 @@ export class LocationService {
             ),
             userId
         );
+    }
+
+    public async getLocationWithMetadata(locationId: number): Promise<LocationWithMetadata> {
+        return await locationRequest.getLocationWithMetadata(locationId);
     }
 
     public async getLocationMetadata(locationId: number): Promise<LocationMetadata> {
