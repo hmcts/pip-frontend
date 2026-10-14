@@ -30,9 +30,15 @@ sinon
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
 sinon.stub(PublicationService.prototype, 'getPublicationsByLocation').resolves(metadata);
 
-const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
-additionalLocationInfoStub.withArgs(1).returns(null);
-additionalLocationInfoStub.withArgs(2).returns(additionalLocationInfo);
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationWithMetadata');
+additionalLocationInfoStub.withArgs(1).returns({
+    location: court,
+    metadata: null,
+} as any);
+additionalLocationInfoStub.withArgs(2).returns({
+    location: court,
+    metadata: additionalLocationInfo,
+} as any);
 
 const publicationsWithName = [
     {

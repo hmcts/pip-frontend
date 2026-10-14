@@ -14,7 +14,8 @@ export default class SummaryOfPublicationsController {
         if (locationId && !isNaN(parseInt(locationId))) {
             const court = await locationService.getLocationById(parseInt(locationId));
             const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
-            const locationMetadata = await locationService.getLocationMetadata(parseInt(locationId));
+            const locationWithMetadata = await locationService.getLocationWithMetadata(parseInt(locationId));
+            const locationMetadata = locationWithMetadata?.metadata;
 
             let cautionMessageOverride = '';
             let noListMessageOverride = '';

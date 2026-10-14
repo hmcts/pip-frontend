@@ -66,15 +66,27 @@ const htmlLocationMetadataResponse = {
     welshNoListMessage: '<strong>HTML no list message</strong>',
 };
 
-const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationMetadata');
-additionalLocationInfoStub.withArgs(locationIdWithTelephoneAndEmail.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdWithTelephoneOnly.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdWithEmailOnly.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdWithoutContact.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdWithPublications.toString()).returns(null);
-additionalLocationInfoStub.withArgs(locationIdWithNoListMessageOverride).returns(locationMetadataResponse);
-additionalLocationInfoStub.withArgs(locationIdWithCautionMessageOverride).returns(locationMetadataResponse);
-additionalLocationInfoStub.withArgs(locationIdWithHtmlMessageOverride).returns(htmlLocationMetadataResponse);
+const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationWithMetadata');
+
+additionalLocationInfoStub.withArgs(locationIdWithTelephoneAndEmail).resolves({
+    location: { name: 'New Court', email: 'test@test.com', contactNo: '0123456789' },
+    metadata: null,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithNoListMessageOverride).resolves({
+    location: { name: 'New Court' },
+    metadata: locationMetadataResponse,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithCautionMessageOverride).resolves({
+    location: { name: 'New Court' },
+    metadata: locationMetadataResponse,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithHtmlMessageOverride).resolves({
+    location: { name: 'New Court' },
+    metadata: htmlLocationMetadataResponse,
+} as any);
 
 describe('Summary of publications page', () => {
     let htmlRes: Document;
