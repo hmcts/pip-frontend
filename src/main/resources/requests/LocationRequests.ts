@@ -108,9 +108,16 @@ export class LocationRequests {
         }
     }
 
-    public async getLocationWithMetadata(locationId: number): Promise<LocationWithMetadata> {
-        const response = await dataManagementApi.get<LocationWithMetadata>(`/locations/${locationId}/with-metadata`);
-        return response.data;
+    public async getLocationWithMetadata(locationId: number): Promise<LocationWithMetadata | null> {
+        try {
+            const response = await dataManagementApi.get<LocationWithMetadata>(
+                `/locations/${locationId}/with-metadata`
+            );
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'get location with metadata by locationId');
+            return null;
+        }
     }
 
     public async updateLocationMetadata(id: string, payload, userId: string): Promise<boolean> {

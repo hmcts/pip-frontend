@@ -15,7 +15,7 @@ export default class SummaryOfPublicationsController {
             const court = await locationService.getLocationById(parseInt(locationId));
             const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
             const locationWithMetadata = await locationService.getLocationWithMetadata(parseInt(locationId));
-            const locationMetadata = locationWithMetadata.metadata;
+            const locationMetadata = locationWithMetadata?.metadata;
 
             let cautionMessageOverride = '';
             let noListMessageOverride = '';
