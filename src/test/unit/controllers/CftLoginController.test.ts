@@ -25,9 +25,10 @@ describe('Cft Login Controller', () => {
             .expects('redirect')
             .once()
             .withArgs(
-                'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
+                'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
                     redirectUri +
-                    '&ui_locales=en'
+                    '&ui_locales=en' +
+                    '&scope=openid+profile+roles'
             );
 
         await cftLoginController.get(request, response);
@@ -42,9 +43,10 @@ describe('Cft Login Controller', () => {
             .expects('redirect')
             .once()
             .withArgs(
-                'https://idam-web-public.aat.platform.hmcts.net?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
+                'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
                     redirectUri +
-                    '&ui_locales=cy'
+                    '&ui_locales=cy' +
+                    '&scope=openid+profile+roles'
             );
 
         await cftLoginController.get(request, response);
