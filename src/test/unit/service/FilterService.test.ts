@@ -42,6 +42,7 @@ const allFilterOptions = {
     Tribunal: {
         'Social Security and Child Support': { value: 'Social Security and Child Support' },
     },
+    'Court of Protection': {},
     Region: {
         Bedford: { value: 'Bedford' },
         London: { value: 'London' },
@@ -54,7 +55,7 @@ const welshLanguage = 'cy';
 
 describe('Filter Service', () => {
     it('should build filter header options for checkboxes', () => {
-        expect(Object.keys(filterService.buildFilterValueOptions(listData, [], 'en')).length).toBe(6);
+        expect(Object.keys(filterService.buildFilterValueOptions(listData, [], 'en')).length).toBe(7);
     });
 
     it('should build filter values options for checkboxes', () => {
@@ -132,6 +133,7 @@ describe('Filter Service', () => {
             Crime: ['Crown'],
             Family: [],
             Tribunal: [],
+            'Court of Protection': [],
             Region: ['London'],
         });
     });
@@ -143,6 +145,7 @@ describe('Filter Service', () => {
             Crime: [],
             Family: [],
             Tribunal: [],
+            'Court of Protection': [],
             Region: [],
         });
     });
@@ -154,6 +157,7 @@ describe('Filter Service', () => {
             Crime: ['Crown'],
             Family: ['Family Court'],
             Tribunal: [],
+            'Court of Protection': [],
             Region: [],
         });
     });
@@ -165,6 +169,7 @@ describe('Filter Service', () => {
             Crime: [],
             Family: [],
             Tribunal: [],
+            'Court of Protection': [],
             Region: ['London', 'Manchester'],
         });
     });
@@ -380,7 +385,7 @@ describe('Filter Service', () => {
 
     it('should return only COP venue if COP jurisdiction selected', async () => {
         const copVenue = { name: 'Court of Protection', jurisdiction: ['Court of Protection'] };
-        generateFilteredAlphabetisedCourtListStub.resolves([listData[0], copVenue]);
+        generateFilteredAlphabetisedCourtListStub.resolves([copVenue]);
 
         const result = await filterService.handleFilterInitialisation(null, 'Court of Protection', englishLanguage);
         expect(result['alphabetisedList']).toStrictEqual([copVenue]);
@@ -400,13 +405,12 @@ describe('Filter Service', () => {
 
     it('should return only COP venue from alphabetised object if COP jurisdiction selected', async () => {
         const alphabetisedList = {
-            A: { 'A Court': { id: 1 } },
             C: { 'Court of Protection': { id: 2 } },
         };
         generateFilteredAlphabetisedCourtListStub.resolves(alphabetisedList);
         const result = await filterService.handleFilterInitialisation(null, 'Court of Protection', englishLanguage);
         expect(result['alphabetisedList']['C']).toStrictEqual({ 'Court of Protection': { id: 2 } });
-        expect(result['alphabetisedList']['A']).toStrictEqual({});
+        expect(result['alphabetisedList']['A']).toBeUndefined();
     });
 
     it('should return empty array if jurisdiction is not in the mapping', () => {
