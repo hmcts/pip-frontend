@@ -3,12 +3,25 @@ import { Artefact } from '../models/Artefact';
 import { ListType } from '../models/ListType';
 import listData from '../resources/listLookup.json';
 import { CaseSearchResults } from 'models/CaseSearchResults';
+import { HttpStatusCode } from 'axios';
 
 const publicationRequests = new PublicationRequests();
 
 export class PublicationService {
     public async getIndividualPublicationMetadata(artefactId, userId: string, admin = false): Promise<any> {
         return publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
+    }
+
+    public async getPublicationMetadataWithCaseInfo(artefactId, userId: string, admin = false): Promise<any> {
+        const metadata = await publicationRequests.getIndividualPublicationMetadata(artefactId, userId, admin);
+        if (metadata && metadata !== HttpStatusCode.NotFound) {
+            const caseInfoList = await publicationRequests.getCasesByArtefactId(artefactId, userId);
+            return {
+                ...metadata,
+                caseInfoList,
+            }
+        }
+        return metadata;
     }
 
     public async getCountsOfPubsPerLocation(requesterId: string): Promise<Map<string, number>> {
