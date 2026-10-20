@@ -28,6 +28,10 @@ export class PublicationService {
         return publicationRequests.getIndividualPublicationJson(artefactId, userId);
     }
 
+    public async getIndividualPublicationRawPayload(artefactId, userId: string): Promise<string | number> {
+        return publicationRequests.getIndividualPublicationRawPayload(artefactId, userId);
+    }
+
     public async getCaseByCaseNumber(searchValue: string, userId: string): Promise<CaseSearchResults> {
         const results = await publicationRequests.getCasesByCaseNumber(searchValue, userId);
         return results.length > 0 ? results[0] : null;
