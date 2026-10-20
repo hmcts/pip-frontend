@@ -42,7 +42,7 @@ export class CrownPddaListService {
             endDate,
             version,
             venueAddress,
-        }
+        };
     }
 
     private buildSittingInfo(courtList: any, isDailyList: boolean): any[] {
