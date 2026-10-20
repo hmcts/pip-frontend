@@ -11,9 +11,8 @@ const i18n = {
     'blob-view-publication': {},
     error: { title: 'Error' },
 };
-const artefactJson = JSON.parse('{"Test":true}');
-const artefactJsonString = JSON.stringify(artefactJson);
-const jsonStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationJson');
+const artefactRawPayload = '{\n    "Test": true\n}';
+const rawPayloadStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationRawPayload');
 const metaStub = sinon.stub(PublicationService.prototype, 'getIndividualPublicationMetadata');
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 const meta = {
@@ -22,15 +21,16 @@ const meta = {
     locationId: '1',
     name: 'hi',
     listType: 'SJP_PUBLIC_LIST',
+    payloadSize: 1024,
 };
-jsonStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
+metaStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
+rawPayloadStub.withArgs('5678').resolves(HttpStatusCode.NotFound);
 
 describe('Blob view publication controller', () => {
     describe('GET request', () => {
         it('should correctly render if location is passed and ref data exists', async () => {
             const jsonData = JSON.parse('{"name":"Single Justice Procedure"}');
             courtStub.withArgs(1).resolves(jsonData);
-            jsonStub.withArgs('1234').resolves(artefactJson);
             metaStub.withArgs('1234', 10).resolves(meta);
             const response = {
                 render: () => {
@@ -45,12 +45,12 @@ describe('Blob view publication controller', () => {
 
             const expectedData = {
                 ...i18n['blob-view-publication'],
-                data: artefactJsonString,
                 locationName: 'Single Justice Procedure',
                 artefactId: '1234',
                 metadata: meta,
                 listUrl: 'https://localhost:8080/sjp-public-list?artefactId=1234',
                 noMatchArtefact: false,
+                payloadSize: '1024.00KB',
             };
             responseMock.expects('render').once().withArgs('system-admin/blob-view-publication', expectedData);
             await blobViewController.get(request, response);
@@ -58,14 +58,13 @@ describe('Blob view publication controller', () => {
         });
 
         it('should render a court name of No match artefacts if location ID includes NoMatch', async () => {
-            jsonStub.withArgs('1234', 10).resolves(artefactJson);
-
             const metaWithNoMatch = {
                 artefactId: '1234',
                 displayFrom: '2022-06-29T14:45:18.836',
                 locationId: 'NoMatch1',
                 name: 'hi',
                 listType: 'SJP_PUBLIC_LIST',
+                payloadSize: 2048,
             };
 
             metaStub.withArgs('1234', 10).resolves(metaWithNoMatch);
@@ -78,12 +77,12 @@ describe('Blob view publication controller', () => {
 
             const expectedData = {
                 ...i18n['blob-view-publication'],
-                data: artefactJsonString,
                 locationName: 'No match artefacts',
                 artefactId: '1234',
                 metadata: metaWithNoMatch,
                 listUrl: 'https://localhost:8080/sjp-public-list?artefactId=1234',
                 noMatchArtefact: true,
+                payloadSize: '2048.00KB',
             };
 
             const responseMock = sinon.mock(response);
@@ -128,6 +127,50 @@ describe('Blob view publication controller', () => {
             responseMock.expects('render').once().withArgs('list-not-found');
             await blobViewController.get(request, response);
             responseMock.verify;
+        });
+    });
+
+    describe('GET download request', () => {
+        it('should set download headers and send the raw, unformatted JSON payload', async () => {
+            rawPayloadStub.withArgs('1234', 10).resolves(artefactRawPayload);
+
+            const response = {
+                setHeader: () => {
+                    return response;
+                },
+                send: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+            request.query = { artefactId: '1234' };
+            request.user = { userId: 10 };
+
+            const responseMock = sinon.mock(response);
+            responseMock.expects('setHeader').withArgs('Content-disposition', 'attachment; filename=1234.json');
+            responseMock.expects('setHeader').withArgs('Content-type', 'application/json');
+            responseMock.expects('send').once().withArgs(artefactRawPayload);
+
+            await blobViewController.getDownload(request, response);
+            responseMock.verify();
+        });
+
+        it('should render the not found screen if an invalid artefact ID has been passed through', async () => {
+            const response = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            const request = mockRequest(i18n);
+            request.user = { userId: 1 };
+            request.query = { artefactId: '5678' };
+            const responseMock = sinon.mock(response);
+
+            responseMock.expects('render').once().withArgs('list-not-found');
+            await blobViewController.getDownload(request, response);
+            responseMock.verify();
         });
     });
 
