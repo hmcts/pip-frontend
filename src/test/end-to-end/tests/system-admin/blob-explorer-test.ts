@@ -34,12 +34,12 @@ Scenario('I as a system admin should be able to discover json content uploaded t
     I.see('Private');
     I.see('English');
     I.see('Link to rendered template');
-    I.see('View Raw JSON Content');
+    I.see('Download raw JSON payload');
 
-    I.click('.govuk-details__summary-text');
-    I.waitForText('document');
-    I.click('.govuk-details__summary-text');
-    I.dontSee('document');
+    I.handleDownloads(artefactId + '.json');
+    I.click('Download raw JSON payload');
+    I.amInPath('../../../functional-output/functional/reports');
+    I.seeFile(artefactId + '.json');
 
     I.click('Link to rendered template');
     I.waitForText('Civil and Family Daily Cause List for ' + locationName);

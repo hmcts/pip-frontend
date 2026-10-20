@@ -264,6 +264,42 @@ describe('get individual publication json', () => {
     });
 });
 
+describe('get individual publication raw payload', () => {
+    it('should request the payload unparsed (responseType text) to preserve original formatting', async () => {
+        const rawPayloadText = '{\n    "hello": "hello"\n}';
+        dataManagementStub
+            .withArgs('/publication/fakeArtefactId/payload', {
+                headers: { 'x-requester-id': '123' },
+                responseType: 'text',
+            })
+            .resolves({ data: rawPayloadText });
+        const message = await pubRequests.getIndividualPublicationRawPayload('fakeArtefactId', userId);
+        expect(message).toBe(rawPayloadText);
+    });
+
+    it('should send an error to the log if error response exists', async () => {
+        dataManagementStub
+            .withArgs('/publication/brokenPromiseWithErrorResponse/payload', {
+                headers: { 'x-requester-id': '123' },
+                responseType: 'text',
+            })
+            .rejects(errorResponse);
+        const response = await pubRequests.getIndividualPublicationRawPayload('brokenPromiseWithErrorResponse', userId);
+        expect(response).toBe(null);
+    });
+
+    it('should send an error to the log if error message exists and error request does not exist', async () => {
+        dataManagementStub
+            .withArgs('/publication/noErrRequest/payload', {
+                headers: { 'x-requester-id': '123' },
+                responseType: 'text',
+            })
+            .rejects(errorMessage);
+        const message = await pubRequests.getIndividualPublicationRawPayload('y', userId);
+        expect(message).toBe(null);
+    });
+});
+
 describe('archive publication', () => {
     it('should return true if valid data is provided', async () => {
         const response = await pubRequests.archivePublication('abc', 'joe@bloggs.com');
