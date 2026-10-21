@@ -1,7 +1,7 @@
 {
     "title": "System Admin - Blob Explorer - Court and Tribunal Hearings - GOV.UK",
     "header": "Blob Explorer -",
-    "viewJson": "View Raw JSON Content",
+    "downloadJson": "Download raw JSON payload (SIZE)",
     "viewLinkJson": "Link to rendered template",
     "viewLinkFlatFile": "Link to file",
     "flatFile": "Flat file",
