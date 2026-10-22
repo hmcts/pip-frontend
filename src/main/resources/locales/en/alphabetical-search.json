@@ -12,6 +12,7 @@
     "familyType": "Type of family court",
     "crimeType": "Type of criminal court",
     "tribunalType": "Type of tribunal",
+    "copType": "Court of Protection",
     "region": "Region",
     "applyFiltersButton": "Apply filters",
     "aria": {

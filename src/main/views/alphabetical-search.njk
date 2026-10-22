@@ -18,6 +18,7 @@
         <div class="layout-width-two-fifths govuk-!-display-inline-block hide" id="filters">
             <div class="filters">
                 {% set checkedFilters = [] %}
+                {% set addedFilters = [] %}
                 {% set toBeCreated = true %}
                 {% set filterOptionsHtml %}
                     {% for key, option in filters.filterOptions %}
@@ -29,8 +30,9 @@
                                 text: item.text,
                                 checked: item.checked
                             }) %}
-                            {% if item.checked %}
+                            {% if item.checked and item.text not in addedFilters %}
                                 {% set _ = checkedFilterItems.push({href: '?clear=' + item.value, text: item.text}) %}
+                                {% set _ = addedFilters.push(item.text) %}
                             {% endif %}
                         {% endfor %}
                         {% if key == 'Jurisdiction' %}
