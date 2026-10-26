@@ -14,17 +14,6 @@ const locationIdWithNoListMessageOverride = 15;
 const locationIdWithCautionMessageOverride = 16;
 const locationIdWithHtmlMessageOverride = 17;
 
-const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
-courtStub
-    .withArgs(locationIdWithTelephoneAndEmail)
-    .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
-courtStub.withArgs(locationIdWithTelephoneOnly).resolves(JSON.parse('{"name":"New Court", "contactNo": "0123456789"}'));
-courtStub.withArgs(locationIdWithEmailOnly).resolves(JSON.parse('{"name":"New Court", "email": "test@test.com"}'));
-courtStub.withArgs(locationIdWithoutContact).resolves(JSON.parse('{"name":"New Court"}'));
-courtStub.withArgs(locationIdWithPublications).resolves(JSON.parse('{"name":"New Court"}'));
-courtStub.withArgs(locationIdWithNoListMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
-courtStub.withArgs(locationIdWithCautionMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
-courtStub.withArgs(locationIdWithHtmlMessageOverride).resolves(JSON.parse('{"name":"New Court"}'));
 
 const publicationStub = sinon.stub(PublicationService.prototype, 'getPublicationsByLocation');
 publicationStub.withArgs(locationIdWithTelephoneAndEmail.toString()).resolves([]);
@@ -66,7 +55,48 @@ const htmlLocationMetadataResponse = {
     welshNoListMessage: '<strong>HTML no list message</strong>',
 };
 
+
 const additionalLocationInfoStub = sinon.stub(LocationService.prototype, 'getLocationWithMetadata');
+
+additionalLocationInfoStub.withArgs(locationIdWithTelephoneAndEmail).resolves({
+    location: { name: 'New Court', email: 'test@test.com', contactNo: '0123456789' },
+    metadata: null,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithTelephoneOnly).resolves({
+    location: { name: 'New Court', contactNo: '0123456789' },
+    metadata: null,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithEmailOnly).resolves({
+    location: { name: 'New Court', email: 'test@test.com' },
+    metadata: null,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithoutContact).resolves({
+    location: { name: 'New Court' },
+    metadata: null,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithPublications).resolves({
+    location: { name: 'New Court' },
+    metadata: null,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithNoListMessageOverride).resolves({
+    location: { name: 'New Court' },
+    metadata: locationMetadataResponse,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithCautionMessageOverride).resolves({
+    location: { name: 'New Court' },
+    metadata: locationMetadataResponse,
+} as any);
+
+additionalLocationInfoStub.withArgs(locationIdWithHtmlMessageOverride).resolves({
+    location: { name: 'New Court' },
+    metadata: htmlLocationMetadataResponse,
+} as any);
 
 additionalLocationInfoStub.withArgs(locationIdWithTelephoneAndEmail).resolves({
     location: { name: 'New Court', email: 'test@test.com', contactNo: '0123456789' },

@@ -13,7 +13,7 @@ export default class SummaryOfPublicationsController {
 
         if (locationId && !isNaN(parseInt(locationId))) {
             const locationWithMetadata = await locationService.getLocationWithMetadata(parseInt(locationId));
-            const court = locationWithMetadata.location;
+            const court = locationWithMetadata?.location ?? null;
             const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
 
             const locationMetadata = locationWithMetadata?.metadata;
