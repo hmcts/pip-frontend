@@ -12,7 +12,7 @@
     "column7": "Type",
     "backToTop": "Back to top",
     "newWindow": "(opens in a new window)",
-    "noLists": "Sorry, no lists found for this court",
+    "noLists": "There are no lists available for this court or tribunal today.",
     "noListsWithCourtTelephoneAndEmail": "Sorry, lists for COURTNAME are temporarily not available. Please contact the court/tribunal direct on CONTACTNO or EMAIL for more information.",
     "noListsWithCourtTelephoneOrEmail": "Sorry, lists for COURTNAME are temporarily not available. Please contact the court/tribunal direct on COURTCONTACT for more information.",
     "backButton": "Back",
