@@ -12,9 +12,10 @@ export default class SummaryOfPublicationsController {
         const locationId = req.query['locationId'] as string;
 
         if (locationId && !isNaN(parseInt(locationId))) {
-            const court = await locationService.getLocationById(parseInt(locationId));
-            const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
             const locationWithMetadata = await locationService.getLocationWithMetadata(parseInt(locationId));
+            const court = locationWithMetadata.location;
+            const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
+
             const locationMetadata = locationWithMetadata?.metadata;
 
             let cautionMessageOverride = '';
