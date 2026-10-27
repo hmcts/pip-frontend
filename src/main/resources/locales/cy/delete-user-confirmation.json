@@ -1,20 +1,11 @@
 {
-    "title": "Dileu Defnyddiwr – Dileu Defnyddiwr - Gwrandawiadau Llys a Thribiwnlys - GOV.UK",
-    "header": "Dileu Defnyddiwr",
-    "message": "All data relating to the user has been deleted, including subscriptions for media users.",
-    "pStart": "To continue, you can go to the",
-    "pEnd": "in order to:",
-    "systemAdminText": "system admin dashboard",
-    "systemAdminLink": "system-admin-dashboard",
-    "adminText": "Admin Dashboard",
-    "adminLink": "admin-dashboard",
-    "systemAdminListItems": [
-        "upload reference data",
-        "upload bulk media users",
-        "extract artefact data",
-        "edit third party subscriptions",
-        "manage users"
-    ],
-    "adminListItems": ["upload publications", "remove publications", "create new accounts", "manage users"],
+    "title": "ileu Defnyddiwr - Ydych chi'n siŵr eich bod eisiau dileu defnyddiwr? - Gwrandawiadau Llys a Thribiwnlys - GOV.UK",
+    "header": "Ydych chi'n siŵr eich bod eisiau dileu EMAIL?",
+    "radio1": "Yes",
+    "radio2": "No",
+    "error": {
+        "title": "There is a problem",
+        "noOptionMessage": "An option must be selected"
+    },
     "backButton": "Back"
 }

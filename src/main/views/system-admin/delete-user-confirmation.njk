@@ -1,4 +1,8 @@
-{% from "../macros/common-components.njk" import goBack, successPanel, backButtonHistory %}
+{% from "govuk/components/table/macro.njk" import govukTable as 'govukTable' %}
+{% from "../macros/common-components.njk" import goBack, submitButton, backButtonHistory %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% extends "../template.njk" %}
 {% block pageTitle %}
@@ -11,34 +15,49 @@
 {% endblock %}
 
 {% block content %}
-  {{ successPanel(header, message) }}
   <div class="parent-box">
-    <p class="govuk-body">
-      {{ pStart }}
-      {% if isSystemAdmin %}
-        <a class="govuk-link" href={{ systemAdminLink }}>{{ systemAdminText }}</a>
-      {% else %}
-        <a class="govuk-link" href={{ adminLink }}>{{ adminText }}</a>
+      {% if noOptionError %}
+          {{ govukErrorSummary({
+              titleText: error.title,
+              errorList: [
+                  {
+                      text: error.noOptionMessage,
+                      href: "#"
+                  }
+              ]
+          }) }}
       {% endif %}
-      {{ pEnd }}
-    </p>
-    {% if isSystemAdmin %}
-      <ul class="govuk-list govuk-list--bullet">
-        {% for item in systemAdminListItems %}
-          <li>{{ item }}</li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <ul class="govuk-list govuk-list--bullet">
-        {% for item in adminListItems %}
-          <li>{{ item }}</li>
-        {% endfor %}
-      </ul>
-    {% endif %}
+    <h2 class="govuk-heading-l">{{ header | replace("EMAIL", userData['email'] ) }}</h2>
+    <form action="delete-user-confirmation?id={{ userData['userId'] }}" method="post">
+      {{ govukRadios({
+        idPrefix: "delete-user-confirm",
+        name: "delete-user-confirm",
+        items: [
+          {
+            value: "yes",
+            text: radio1
+          },
+          {
+            value: "no",
+            text: radio2
+          }
+        ]
+      }) }}
+      {{ submitButton(continueButton) }}
+    </form>
     {{ super() }}
   </div>
 {% endblock %}
 {% block bodyEnd %}
   {{ super() }}
+  <script nonce="{{ cspNonce }}">
+    const button = document.getElementsByClassName('govuk-button')[0];
+    button.addEventListener('click', (e) => {
+      const checkedRadios = document.querySelectorAll('input[type="radio"]:checked');
+      if (!checkedRadios.length) {
+        e.preventDefault();
+      }
+    });
+  </script>
   {{ backButtonHistory(cspNonce) }}
 {% endblock %}

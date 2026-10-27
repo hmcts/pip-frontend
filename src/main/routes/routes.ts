@@ -1243,11 +1243,20 @@ export default function (app: Application): void {
     app.post('/audit-log-viewer', isPermittedSystemAdmin, app.locals.container.cradle.auditLogViewerController.post);
     app.get('/audit-log-details', isPermittedSystemAdmin, app.locals.container.cradle.auditLogDetailsController.get);
     app.get('/manage-user', isPermittedSystemAdmin, app.locals.container.cradle.manageUserController.get);
-    app.get('/delete-user', isPermittedSystemAdmin, app.locals.container.cradle.deleteUserController.get);
+    app.get(
+        '/delete-user-confirmation',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteUserConfirmationController.get
+    );
     app.post(
         '/delete-user-confirmation',
         isPermittedSystemAdmin,
         app.locals.container.cradle.deleteUserConfirmationController.post
+    );
+    app.get(
+        '/delete-user-success',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.deleteUserSuccessController.get
     );
     app.get('/location-metadata-search', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.locationMetadataSearchController.get(req, res)
