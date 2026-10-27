@@ -15,13 +15,13 @@
         {% if userComms.venueType | length %}
             {% for comm in userComms.venueType %}
                 {% if locationId in comm.venues %}
-                    <p class="govuk-body">{{ comm.message }}</p>
+                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
                 {% endif %}
             {% endfor %}
         {% endif %}
     {% endset %}
 
-    {{ communicationBanner(allUsersComms, html) }}
+    {{ communicationBanner(lng, allUsersComms, html) }}
 {% endblock %}
 {% block content %}
 <div class="parent-box">

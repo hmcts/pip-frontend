@@ -14,12 +14,14 @@ export class UserCommService {
             if (comm.commType === 'ALL_USERS') {
                 allUsersType.push({
                     message: comm.message,
+                    welshMessage: comm.welshMessage,
                 });
             }
 
             if (comm.commType === 'USER_PROVENANCE') {
                 userProvenanceType.push({
                     message: comm.message,
+                    welshMessage: comm.welshMessage,
                     provenances: comm.userProvenances ?? [],
                 });
             }
@@ -27,6 +29,7 @@ export class UserCommService {
             if (comm.commType === 'USER_ROLE') {
                 userRoleType.push({
                     message: comm.message,
+                    welshMessage: comm.welshMessage,
                     roles: comm.userRoles ?? [],
                 });
             }
@@ -34,6 +37,7 @@ export class UserCommService {
             if (comm.commType === 'VENUE') {
                 venueType.push({
                     message: comm.message,
+                    welshMessage: comm.welshMessage,
                     venues: comm.locationIds ?? [],
                 });
             }

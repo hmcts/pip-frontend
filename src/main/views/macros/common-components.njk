@@ -7,10 +7,10 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
-{% macro communicationBanner(allUsersComms, pageHtml = '') %}
+{% macro communicationBanner(lng, allUsersComms, pageHtml = '') %}
   {% set bannerHtml %}
     {% for comm in allUsersComms %}
-      <p class="govuk-body">{{ comm.message }}</p>
+      <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
     {% endfor %}
     {{ pageHtml | safe }}
   {% endset %}

@@ -10,6 +10,22 @@
 {% endblock %}
 {% block pageBanner %}
     {% set html %}
+        {% if userComms.userProvenanceType | length %}
+            {% for comm in userComms.userProvenanceType %}
+                {% if user.userProvenance in comm.provenances %}
+                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if userComms.userRoleType | length %}
+            {% for comm in userComms.userRoleType %}
+                {% if user.roles in comm.roles %}
+                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
         {% if user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] and mediaApplicationsCount > 0 %}
             <p class="govuk-notification-banner__heading">
                 {% if mediaApplicationsCount == 1 %}
@@ -23,25 +39,9 @@
                 >{{ mediaCard.title }}</a>.
             </p>
         {% endif %}
-
-        {% if userComms.userProvenanceType | length %}
-            {% for comm in userComms.userProvenanceType %}
-                {% if user.userProvenance in comm.provenances %}
-                    <p class="govuk-body">{{ comm.message }}</p>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-
-        {% if userComms.userRoleType | length %}
-            {% for comm in userComms.userRoleType %}
-                {% if user.roles in comm.roles %}
-                    <p class="govuk-body">{{ comm.message }}</p>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
     {% endset %}
 
-    {{ communicationBanner(allUsersComms, html) }}
+    {{ communicationBanner(lng, allUsersComms, html) }}
 {% endblock %}
 {% block content %}
 <div class="parent-box">
