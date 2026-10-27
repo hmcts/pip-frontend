@@ -44,6 +44,6 @@ export class UserCommService {
             userProvenanceType,
             userRoleType,
             venueType,
-        }
+        };
     }
 }
