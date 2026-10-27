@@ -34,6 +34,16 @@ describe('Delete User Confirmation', () => {
     });
 
     describe('on POST', () => {
+        test('should redirect to delete-user-success if delete-user-confirm value is yes', async () => {
+            await request(app)
+                .post(PAGE_URL + `?id=${validId1}`)
+                .send({ 'delete-user-confirm': 'yes' })
+                .expect(res => {
+                    expect(res.status).to.equal(302);
+                    expect(res.header['location']).to.equal('/delete-user-success');
+                });
+        });
+
         test('should redirect to manage user if delete-user-confirm value is no', async () => {
             await request(app)
                 .post(PAGE_URL + `?id=${validId1}`)
@@ -47,15 +57,6 @@ describe('Delete User Confirmation', () => {
         test('should render error page if invalid body data', async () => {
             await request(app)
                 .post(PAGE_URL + `?id=${validId2}`)
-                .send({ 'delete-user-confirm': 'yes' })
-                .expect(res => {
-                    expect(res.status).to.equal(200);
-                });
-        });
-
-        test('should render the page if body is valid', async () => {
-            await request(app)
-                .post(PAGE_URL + `?id=${validId1}`)
                 .send({ 'delete-user-confirm': 'yes' })
                 .expect(res => {
                     expect(res.status).to.equal(200);
