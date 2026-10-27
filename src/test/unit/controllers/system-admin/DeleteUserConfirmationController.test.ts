@@ -18,7 +18,7 @@ const userData = {
     roles: 'SYSTEM_ADMIN',
 };
 
-sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(userData)
+sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves(userData);
 const deleteUserStub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
 deleteUserStub.withArgs(validId1).resolves(true);
 deleteUserStub.withArgs(validId2).resolves(undefined);
@@ -61,10 +61,7 @@ describe('Delete User Confirmation Controller', () => {
             request.body = { 'delete-user-confirm': 'yes' };
             const responseMock = sinon.mock(response);
 
-            responseMock
-                .expects('redirect')
-                .once()
-                .withArgs('/delete-user-success');
+            responseMock.expects('redirect').once().withArgs('/delete-user-success');
 
             return deleteUserConfirmationController.post(request, response).then(() => {
                 responseMock.verify();

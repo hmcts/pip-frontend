@@ -22,10 +22,7 @@ export default class DeleteUserConfirmationController {
         if (req.query?.id) {
             const userId = req.query.id as string;
             if (req.body['delete-user-confirm'] === 'yes') {
-                const deleteUserResponse = await accountManagementRequests.deleteUser(
-                    userId,
-                    req.user['userId']
-                );
+                const deleteUserResponse = await accountManagementRequests.deleteUser(userId, req.user['userId']);
                 await userManagementService.auditAction(
                     req.user,
                     'DELETE_USER',
