@@ -1,5 +1,6 @@
 {% from "./macros/common-components.njk" import goBack %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% extends "template.njk" %}
 {% block pageTitle %}
@@ -8,6 +9,19 @@
 {% block beforeContent %}
   {{ super() }}
   {{ goBack(text = backButton, cspNonce = cspNonce) }}
+{% endblock %}
+{% block pageBanner %}
+{% set html %}
+        {% if userComms.venueType | length %}
+            {% for comm in userComms.venueType %}
+                {% if locationId in comm.venues %}
+                    <p class="govuk-body">{{ comm.message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endset %}
+
+    {{ communicationBanner(allUsersComms, html) }}
 {% endblock %}
 {% block content %}
 <div class="parent-box">

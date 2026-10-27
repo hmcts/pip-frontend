@@ -5,6 +5,22 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% macro communicationBanner(allUsersComms, pageHtml = '') %}
+  {% set bannerHtml %}
+    {% for comm in allUsersComms %}
+      <p class="govuk-body">{{ comm.message }}</p>
+    {% endfor %}
+    {{ pageHtml | safe }}
+  {% endset %}
+  {% if bannerHtml | trim | length %}
+    {{ govukNotificationBanner({
+      classes: 'govuk-!-margin-top-8',
+      html: bannerHtml
+    }) }}
+  {% endif %}
+{% endmacro %}
 
 {% macro submitButton(label = 'Continue', id = 'button', ariaLabel = 'Continue Button', disable = false) %}
     {{ govukButton({
