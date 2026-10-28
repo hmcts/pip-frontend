@@ -901,6 +901,11 @@ export default function (app: Application): void {
         isPermittedSystemAdmin,
         app.locals.container.cradle.blobViewPublicationController.get
     );
+    app.get(
+        '/blob-view-publication-download',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewPublicationController.getDownload
+    );
     app.post(
         '/blob-view-publication',
         isPermittedSystemAdmin,
