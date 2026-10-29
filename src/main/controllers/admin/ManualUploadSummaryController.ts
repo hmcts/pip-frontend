@@ -78,7 +78,7 @@ export default class ManualUploadSummaryController {
                 nonStrategicUpload,
             });
         } else {
-            const artefactId = await manualUploadService.uploadPublication(
+            const response = await manualUploadService.uploadPublication(
                 { ...formData, userId: userId },
                 true,
                 nonStrategicUpload
@@ -86,14 +86,26 @@ export default class ManualUploadSummaryController {
 
             fileHandlingService.removeFileFromRedis(userId, formData.fileName);
 
-            if (artefactId) {
-                await userManagementService.auditAction(
-                    req.user,
-                    'PUBLICATION_UPLOAD',
-                    `Publication with artefact id ${artefactId} successfully uploaded`
-                );
-                res.clearCookie('formCookie');
-                res.redirect('manual-upload-confirmation?non-strategic=' + nonStrategicUpload);
+            if (response) {
+                if (typeof response === 'string') {
+                    const errorMessages = response.split('|');
+                    ManualUploadSummaryController.renderConfirmationError(
+                        req,
+                        res,
+                        formData,
+                        sensitivityMismatch,
+                        nonStrategicUpload,
+                        errorMessages,
+                    );
+                } else {
+                    await userManagementService.auditAction(
+                        req.user,
+                        'PUBLICATION_UPLOAD',
+                        `Publication with artefact id ${response.artefactId} successfully uploaded`
+                    );
+                    res.clearCookie('formCookie');
+                    res.redirect('manual-upload-confirmation?non-strategic=' + nonStrategicUpload);
+                }
             } else {
                 ManualUploadSummaryController.renderConfirmationError(
                     req,
@@ -106,7 +118,7 @@ export default class ManualUploadSummaryController {
         }
     }
 
-    private static renderConfirmationError(req, res, formData, sensitivityMismatch, nonStrategicUpload) {
+    private static renderConfirmationError(req, res, formData, sensitivityMismatch, nonStrategicUpload, errorMessages = []) {
         res.render('admin/manual-upload-summary', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
             fileUploadData: {
@@ -114,6 +126,7 @@ export default class ManualUploadSummaryController {
             },
             displaySensitivityMismatch: sensitivityMismatch,
             displayError: true,
+            errorMessages,
             nonStrategicUpload,
         });
     }
