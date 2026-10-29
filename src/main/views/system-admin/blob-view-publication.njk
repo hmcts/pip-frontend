@@ -1,7 +1,6 @@
 {% extends "../template.njk" %}
 {% from "../macros/common-components.njk" import goBack, submitButton %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
-{% from "govuk/components/details/macro.njk" import govukDetails %}
 
 {% block pageTitle %}
     {{ title }}
@@ -54,22 +53,15 @@
         </div>
     </div>
     {% if not noMatchArtefact %}
-        <p class="govuk-body-l">
+        <p class="govuk-body">
           <a class="govuk-link" href="{{ listUrl }}">{{ viewLinkFlatFile if metadata.isFlatFile else viewLinkJson }}</a>
         </p>
     {% endif %}
 
     {% if not metadata.isFlatFile %}
-        <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                    {{ viewJson }}
-                </span>
-            </summary>
-            <div class="json-container">
-                {{ data | safe }}
-            </div>
-        </details>
+        <p class="govuk-body">
+            <a class="govuk-link" href="/blob-view-publication-download?artefactId={{ artefactId }}">{{ downloadJson | replace("SIZE", payloadSize) }}</a>
+        </p>
     {% endif %}
 
     {{ super() }}
