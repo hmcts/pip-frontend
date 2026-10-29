@@ -298,6 +298,31 @@ describe('Location Request', () => {
                 expect(await courtRequests.getLocationMetadata(4)).toBe(null);
             });
         });
+
+        describe('Get Location with metadata', () => {
+            const locationWithMetadata = {
+                location: courtList[0],
+                metadata: locationMetadata,
+            };
+
+            beforeEach(() => {
+                stub.withArgs('/locations/1/with-metadata').resolves({ data: locationWithMetadata });
+                stub.withArgs('/locations/2/with-metadata').rejects(errorResponse);
+                stub.withArgs('/locations/4/with-metadata').rejects(errorMessage);
+            });
+
+            it('should return location with metadata by location id', async () => {
+                expect(await courtRequests.getLocationWithMetadata(1)).toStrictEqual(locationWithMetadata);
+            });
+
+            it('should return null if response fails', async () => {
+                expect(await courtRequests.getLocationWithMetadata(2)).toBe(null);
+            });
+
+            it('should return null if call fails', async () => {
+                expect(await courtRequests.getLocationWithMetadata(4)).toBe(null);
+            });
+        });
         describe('Add Location metadata', () => {
             it('should add location metadata', async () => {
                 stubPost.withArgs('/location-metadata').withArgs(locationMetadata).resolves(true);
