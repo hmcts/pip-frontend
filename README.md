@@ -104,7 +104,7 @@ Running the application requires the following tools to be installed in your env
 
 #### Environment Variables
 
-Environment variables are used by the service to control its behaviour in various ways.
+Environment variables are used by the service to control its behaviour in various ways
 
 These variables can be found within the key vaults, and also passed in via SDS flux.
 
