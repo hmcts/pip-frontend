@@ -10,7 +10,9 @@ describe('Session expired logout', () => {
             await request(app)
                 .get('/session-expired-logout')
                 .expect(res => expect(res.status).to.equal(302))
-                .expect(res => expect(res.headers['location']).to.contain('/session-expired'));
+                .expect(res =>
+                    expect(res.headers['location']).to.contain('session-expired%3Flng%3Den%26reSignInUrl%3DCFT')
+                );
         });
 
         test('should return session expired logout if no user', async () => {
