@@ -1,20 +1,11 @@
 {
-    "title": "Delete User – User Deleted - Court and Tribunal Hearings - GOV.UK",
-    "header": "User Deleted",
-    "message": "All data relating to the user has been deleted, including subscriptions for media users.",
-    "pStart": "To continue, you can go to the",
-    "pEnd": "in order to:",
-    "systemAdminText": "system admin dashboard",
-    "systemAdminLink": "system-admin-dashboard",
-    "adminText": "Admin Dashboard",
-    "adminLink": "admin-dashboard",
-    "systemAdminListItems": [
-        "upload reference data",
-        "upload bulk media users",
-        "extract artefact data",
-        "edit third party subscriptions",
-        "manage users"
-    ],
-    "adminListItems": ["upload publications", "remove publications", "create new accounts", "manage users"],
+    "title": "Delete User - Are you sure you want to delete user? - Court and Tribunal Hearings - GOV.UK",
+    "header": "Are you sure you want to delete EMAIL?",
+    "radio1": "Yes",
+    "radio2": "No",
+    "error": {
+        "title": "There is a problem",
+        "noOptionMessage": "An option must be selected"
+    },
     "backButton": "Back"
 }

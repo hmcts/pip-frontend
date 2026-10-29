@@ -4,84 +4,62 @@ import { app } from '../../../../main/app';
 import { expect } from 'chai';
 import { AccountManagementRequests } from '../../../../main/resources/requests/AccountManagementRequests';
 import { request as expressRequest } from 'express';
-import { v4 as uuidv4 } from 'uuid';
 
-const PAGE_URL = '/delete-user-confirmation';
-const validUUID1 = uuidv4();
-const validUUID2 = uuidv4();
-
-const deleteSuccessBody = { 'delete-user-confirm': 'yes', user: validUUID1 };
-const deleteFailureBody = { 'delete-user-confirm': 'yes', user: validUUID2 };
-const panelHeadingClass = 'govuk-panel__title';
-const panelBodyClass = 'govuk-panel__body';
-const linkClass = 'govuk-link';
-const listClass = 'govuk-list';
+const PAGE_URL = '/delete-user-confirmation?id=1234';
+const headingClass = 'govuk-heading-l';
+const buttonClass = 'govuk-button';
+const radioClass = 'govuk-radios__input';
 let htmlRes: Document;
 
-const stub = sinon.stub(AccountManagementRequests.prototype, 'deleteUser');
-stub.withArgs(validUUID1).resolves('User deleted');
-stub.withArgs(validUUID2).resolves(null);
+sinon.stub(AccountManagementRequests.prototype, 'getUserByUserId').resolves({
+    userId: '1234',
+    userProvenance: 'PI_AAD',
+    provenanceUserId: '4dcea424-03ed-43d6-88b8-a99ce8159da2',
+    email: 'test@email.com',
+    roles: 'INTERNAL_SUPER_ADMIN_CTSC',
+    createdDate: '2022-11-05T18:45:37.720216',
+    lastSignedInDate: '2022-11-07T18:45:37.720216',
+});
 
 describe('Delete User Confirmation Page', () => {
-    describe('delete user success', () => {
-        beforeAll(async () => {
-            expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
+    beforeAll(async () => {
+        expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
 
-            await request(app)
-                .post(PAGE_URL)
-                .send(deleteSuccessBody)
-                .then(res => {
-                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                });
-        });
-
-        it('should display panel heading', () => {
-            const panelHeading = htmlRes.getElementsByClassName(panelHeadingClass);
-            expect(panelHeading[0].innerHTML).contains('User Deleted', 'Could not find the panel heading');
-        });
-
-        it('should display panel body', () => {
-            const panelBody = htmlRes.getElementsByClassName(panelBodyClass);
-            expect(panelBody[0].innerHTML).contains(
-                'All data relating to the user has been deleted, ' + 'including subscriptions for media users.',
-                'Could not find the panel body'
-            );
-        });
-
-        it('should display the dashboard link', () => {
-            const link = htmlRes.getElementsByClassName(linkClass);
-            expect(link[5].innerHTML).contains('system admin dashboard', 'Could not find the dashboard link');
-        });
-
-        it('should display the bullet list points', () => {
-            const list = htmlRes.getElementsByClassName(listClass)[0].getElementsByTagName('li');
-            expect(list.length).to.equal(5);
-            expect(list[0].innerHTML).contains('upload reference data', 'Could not find bullet list');
-            expect(list[1].innerHTML).contains('upload bulk media users', 'Could not find bullet list');
-            expect(list[2].innerHTML).contains('extract artefact data', 'Could not find bullet list');
-            expect(list[3].innerHTML).contains('edit third party subscriptions', 'Could not find bullet list');
-            expect(list[4].innerHTML).contains('manage users', 'Could not find bullet list');
-        });
+        await request(app)
+            .get(PAGE_URL)
+            .then(res => {
+                htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+            });
     });
 
-    describe('delete user failed', () => {
-        beforeAll(async () => {
-            expressRequest['user'] = { roles: 'SYSTEM_ADMIN' };
+    it('should have correct page title', () => {
+        const pageTitle = htmlRes.title;
+        expect(pageTitle).contains(
+            'Delete User - Are you sure you want to delete user? - Court and Tribunal Hearings - GOV.UK',
+            'Could not find the title'
+        );
+    });
 
-            await request(app)
-                .post(PAGE_URL)
-                .send(deleteFailureBody)
-                .then(res => {
-                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
-                });
-        });
+    it('should display header', () => {
+        const header = htmlRes.getElementsByClassName(headingClass);
+        expect(header[0].innerHTML).contains(
+            'Are you sure you want to delete test@email.com?',
+            'Could not find the header'
+        );
+    });
 
-        it('should display error heading', () => {
-            const heading = htmlRes.getElementsByClassName('govuk-heading-xl');
-            expect(heading[0].innerHTML).contains(
-                'Sorry, there is a problem with the service',
-                'Error heading does not match'
-            );
-        });
+    it('should display yes radio option', () => {
+        const radioButton = htmlRes.getElementsByClassName(radioClass);
+        expect(radioButton[0].outerHTML).contains('yes', 'Could not find the radio button');
+    });
+
+    it('should display no radio option', () => {
+        const radioButton = htmlRes.getElementsByClassName(radioClass);
+        expect(radioButton[1].outerHTML).contains('no', 'Could not find the radio button');
+    });
+
+    it('should display the continue button', () => {
+        const button = htmlRes.getElementsByClassName(buttonClass);
+        expect(button[4].innerHTML).contains('Continue', 'Could not find the continue button');
     });
 });
