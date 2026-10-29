@@ -1,13 +1,12 @@
 import { CrownPddaListService } from './CrownPddaListService';
-import { DateTime } from 'luxon';
 
 const crownPddaListService = new CrownPddaListService();
 
-export class CrownWarnedPddaListService {
-    public processPayload(warnedPddaListData: JSON): Map<string, object[]> {
+export class CrownAdvancePddaListService {
+    public processPayload(advancePddaListData: JSON): Map<string, object[]> {
         const groupedData = new Map<string, object[]>();
 
-        warnedPddaListData['WarnedList'].CourtLists.forEach((courtList: any) => {
+        advancePddaListData['WarnedList'].CourtLists.forEach((courtList: any) => {
             courtList.WithFixedDate?.forEach((withFixDate: any) => {
                 this.formatFixture(withFixDate, groupedData, false);
             });
@@ -61,12 +60,5 @@ export class CrownWarnedPddaListService {
             linkedCases: linkedCases,
             listingNotes: listingNotes,
         };
-    }
-
-    public formatContentDate(contentDate: string, language: string) {
-        const date = new Date(contentDate);
-        // Move the date to the past Monday if it is not on a Monday
-        date.setDate(date.getDate() - ((date.getDay() + 6) % 7));
-        return DateTime.fromISO(date.toISOString(), { zone: 'utc' }).setLocale(language).toFormat('dd MMMM yyyy');
     }
 }

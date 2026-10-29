@@ -23,6 +23,28 @@ export class CrownPddaListService {
         return results;
     }
 
+    public buildViewInfo(listPayload, language, isDailyList = false): any {
+        const listHeader = listPayload.ListHeader;
+        const publishedDate = helperService.publicationDateInUkTime(listHeader.PublishedTime, language);
+        const publishedTime = helperService.publicationTimeInUkTime(listHeader.PublishedTime);
+        const startDate = formatDate(this.toIsoDate(listHeader.StartDate), 'dd MMMM yyyy', language);
+        const endDate =
+            !isDailyList && listHeader.EndDate
+                ? formatDate(this.toIsoDate(listHeader.EndDate), 'dd MMMM yyyy', language)
+                : '';
+        const version = listHeader.Version;
+        const venueAddress = this.formatAddress(listPayload.CrownCourt.CourtHouseAddress);
+
+        return {
+            publishedDate,
+            publishedTime,
+            startDate,
+            endDate,
+            version,
+            venueAddress,
+        }
+    }
+
     private buildSittingInfo(courtList: any, isDailyList: boolean): any[] {
         const sittings = [];
         courtList.Sittings.forEach(sitting => {

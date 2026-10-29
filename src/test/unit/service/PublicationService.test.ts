@@ -60,6 +60,10 @@ const stub = sinon.stub(publicationRequests, 'getIndividualPublicationJson');
 stub.returns(dailyCauseListData);
 stub.withArgs().returns(dailyCauseListData);
 
+const rawPayloadText = JSON.stringify(dailyCauseListData, null, 4);
+const stubRawPayload = sinon.stub(publicationRequests, 'getIndividualPublicationRawPayload');
+stubRawPayload.returns(rawPayloadText);
+
 const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
 stubMetaData.returns(metaData);
 
@@ -108,7 +112,7 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(96);
+        expect(listTypes.size).to.equal(98);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List (Full List)');
@@ -142,6 +146,13 @@ describe('Publication service', () => {
             return publicationService.getIndividualPublicationJson('', userId).then(data => {
                 expect(data['venue']['venueName']).not.equal(invalidCourtName);
             });
+        });
+    });
+
+    describe('getIndividualPublicationRawPayload Service', () => {
+        it('should return the unparsed raw payload text, preserving original formatting', async () => {
+            const data = await publicationService.getIndividualPublicationRawPayload('', userId);
+            expect(data).to.equal(rawPayloadText);
         });
     });
 

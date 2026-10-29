@@ -12,6 +12,7 @@
 !config/**
 !webpack.config.js
 !.yarnrc.yml
+!.yarn
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases

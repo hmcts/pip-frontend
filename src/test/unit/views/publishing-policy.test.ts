@@ -20,7 +20,7 @@ describe('publishing-policy', () => {
     it('should have correct page title', () => {
         const pageTitle = htmlRes.title;
         expect(pageTitle).contains(
-            'Publication policy - Court and Tribunal Hearings - GOV.UK',
+            'Publication Policy - Court and Tribunal Hearings - GOV.UK',
             'Could not find the page title'
         );
     });
@@ -28,7 +28,7 @@ describe('publishing-policy', () => {
     it('should display the page header', () => {
         const header = htmlRes.getElementsByClassName(largeHeadingClass);
 
-        expect(header[0].innerHTML).contains('Publication policy', 'Could not find the header');
+        expect(header[0].innerHTML).contains('Publication Policy', 'Could not find the header');
     });
 
     it('should display the heading in section 1', () => {

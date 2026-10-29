@@ -19,7 +19,7 @@ import {
     processSsoSignIn,
 } from '../authentication/authenticationHandler';
 import { SessionManagementService } from '../service/SessionManagementService';
-import { urlPath } from '../helpers/envUrls';
+import { CFT_IDAM_URL, HMCTS_ACCESS_URL, urlPath } from '../helpers/envUrls';
 import { getInfo } from '../helpers/infoProvider';
 import passport from 'passport';
 import healthcheck from '@hmcts/nodejs-healthcheck';
@@ -197,7 +197,7 @@ export default function (app: Application): void {
     app.get('/crown-firm-list', (req, res) =>
         app.locals.container.cradle.crownPddaListController.get(req, res, 'crown-firm-pdda-list')
     );
-    app.get('/crown-warned-list', app.locals.container.cradle.crownWarnedPddaListController.get);
+    app.get('/crown-advance-list', app.locals.container.cradle.crownAdvancePddaListController.get);
 
     //Non-Strategic Paths
     app.get('/cst-weekly-hearing-list', (req, res) =>
@@ -586,6 +586,13 @@ export default function (app: Application): void {
     app.get('/cic-weekly-hearing-list', (req, res) =>
         app.locals.container.cradle.nonStrategicTribunalListsController.get(req, res, 'cic-weekly-hearing-list')
     );
+    app.get('/business-and-property-division-rolls-building-daily-cause-list', (req, res) =>
+        app.locals.container.cradle.nonStrategicTribunalListsController.get(
+            req,
+            res,
+            'business-and-property-division-rolls-building-daily-cause-list'
+        )
+    );
 
     // Restricted paths
     app.get('/account-home', isPermittedMedia, app.locals.container.cradle.accountHomeController.get);
@@ -893,6 +900,11 @@ export default function (app: Application): void {
         '/blob-view-publication',
         isPermittedSystemAdmin,
         app.locals.container.cradle.blobViewPublicationController.get
+    );
+    app.get(
+        '/blob-view-publication-download',
+        isPermittedSystemAdmin,
+        app.locals.container.cradle.blobViewPublicationController.getDownload
     );
     app.post(
         '/blob-view-publication',
@@ -1349,10 +1361,14 @@ export default function (app: Application): void {
         res.send('User-agent: *\nAllow: /$\nAllow: /assets/\nDisallow: /');
     });
 
+    const healthStatusCheck = {
+        callback: (err, res) => (res?.body?.status === 'UP' ? healthcheck.up() : healthcheck.down()),
+    };
+
     const healthCheckConfig = {
         checks: {
-            // TODO: replace this sample check with proper checks for your application
-            sampleCheck: healthcheck.raw(() => healthcheck.up()),
+            'cft-idam': healthcheck.web(CFT_IDAM_URL + '/health', healthStatusCheck),
+            'hmcts-access': healthcheck.web(HMCTS_ACCESS_URL + '/health', healthStatusCheck),
         },
     };
 
