@@ -10,7 +10,9 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const listData = JSON.parse(rawData);
 
 const generateAlphabetisedAllCourtListStub = sinon.stub(LocationService.prototype, 'generateAlphabetisedAllCourtList');
-generateAlphabetisedAllCourtListStub.resolves(listData);
+generateAlphabetisedAllCourtListStub.withArgs('en', false).resolves(listData);
+generateAlphabetisedAllCourtListStub.withArgs('cy', false).resolves(listData);
+generateAlphabetisedAllCourtListStub.withArgs('en', true).resolves(listData[1]);
 const generateFilteredAlphabetisedCourtListStub = sinon.stub(
     LocationService.prototype,
     'generateFilteredAlphabetisedCourtList'
@@ -208,6 +210,21 @@ describe('Filter Service', () => {
     it('should return all courts when clear all has been passed', async () => {
         expect(await filterService.handleFilterInitialisation('all', null, englishLanguage)).toStrictEqual({
             alphabetisedList: listData,
+            filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'en') },
+            showFilters: {
+                Jurisdiction: true,
+                Civil: false,
+                Crime: false,
+                Family: false,
+                Tribunal: false,
+                Region: true,
+            },
+        });
+    });
+
+    it('should return non-excluded courts only when exclusion flag is set', async () => {
+        expect(await filterService.handleFilterInitialisation(null, null, englishLanguage, true)).toStrictEqual({
+            alphabetisedList: listData[1],
             filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'en') },
             showFilters: {
                 Jurisdiction: true,

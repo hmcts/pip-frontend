@@ -16,6 +16,12 @@ export class LocationService {
         return this.initalizeLocationsForLanguage(await locationRequest.getAllLocations(), language);
     }
 
+    public async getLocationsWithExclusions(language: string, locations = []) {
+        const locationData = locations.length === 0 ? await this.fetchAllLocations(language): locations;
+        const copVenueId = await this.getCopVenueId();
+        return locationData.filter(location => location.locationId !== copVenueId);
+    }
+
     private initalizeLocationsForLanguage(locations: Array<Location>, language: string): Array<Location> {
         let locationsBaseOnLanguage = [];
 
@@ -52,19 +58,27 @@ export class LocationService {
         return location?.locationId;
     }
 
-    public async generateAlphabetisedAllCourtList(language: string): Promise<object> {
-        return this.generateAlphabetisedCourtList(await this.fetchAllLocations(language));
+    public async generateAlphabetisedAllCourtList(language: string, excludeLocations = false): Promise<object> {
+        const locations = excludeLocations
+            ? await this.getLocationsWithExclusions(language)
+            : await this.fetchAllLocations(language);
+        return this.generateAlphabetisedCourtList(locations);
     }
 
     public async generateFilteredAlphabetisedCourtList(
         regions: string,
         jurisdictions: string,
-        language: string
+        language: string,
+        excludeLocations = false
     ): Promise<object> {
-        const locations = this.initalizeLocationsForLanguage(
+        const filteredLocations = this.initalizeLocationsForLanguage(
             await locationRequest.getFilteredCourts(regions, jurisdictions, language),
             language
         );
+
+        const locations = excludeLocations
+            ? await this.getLocationsWithExclusions(language, filteredLocations)
+            : filteredLocations;
         return this.generateAlphabetisedCourtList(locations);
     }
 
