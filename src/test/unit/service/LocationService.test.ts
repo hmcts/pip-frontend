@@ -120,15 +120,15 @@ describe('Court Service', () => {
     });
 
     it('should return fetched courts with COP excluded', async () => {
-        const result = await courtService.getLocationsWithExclusions(englishLanguage)
+        const result = await courtService.getLocationsWithExclusions(englishLanguage);
         expect(result).to.not.equal(hearingsData);
-        expect(result.some(({name}) => name === copCourt)).to.be.false;
+        expect(result.some(({ name }) => name === copCourt)).to.be.false;
     });
 
     it('should return input courts with COP excluded', async () => {
-        const result = await courtService.getLocationsWithExclusions(englishLanguage, hearingsData)
+        const result = await courtService.getLocationsWithExclusions(englishLanguage, hearingsData);
         expect(result).to.not.equal(hearingsData);
-        expect(result.some(({name}) => name === copCourt)).to.be.false;
+        expect(result.some(({ name }) => name === copCourt)).to.be.false;
     });
 
     it('should return found court for id', async () => {

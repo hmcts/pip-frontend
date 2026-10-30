@@ -17,7 +17,7 @@ export class LocationService {
     }
 
     public async getLocationsWithExclusions(language: string, locations = []) {
-        const locationData = locations.length === 0 ? await this.fetchAllLocations(language): locations;
+        const locationData = locations.length === 0 ? await this.fetchAllLocations(language) : locations;
         const copVenueId = await this.getCopVenueId();
         return locationData.filter(location => location.locationId !== copVenueId);
     }
