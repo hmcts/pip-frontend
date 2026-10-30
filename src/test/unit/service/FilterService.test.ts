@@ -10,7 +10,9 @@ const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearin
 const listData = JSON.parse(rawData);
 
 const generateAlphabetisedAllCourtListStub = sinon.stub(LocationService.prototype, 'generateAlphabetisedAllCourtList');
-generateAlphabetisedAllCourtListStub.resolves(listData);
+generateAlphabetisedAllCourtListStub.withArgs('en', false).resolves(listData);
+generateAlphabetisedAllCourtListStub.withArgs('cy', false).resolves(listData);
+generateAlphabetisedAllCourtListStub.withArgs('en', true).resolves(listData[1]);
 const generateFilteredAlphabetisedCourtListStub = sinon.stub(
     LocationService.prototype,
     'generateFilteredAlphabetisedCourtList'
@@ -60,10 +62,11 @@ describe('Filter Service', () => {
 
     it('should build filter values options for checkboxes', () => {
         const data = filterService.buildFilterValueOptions(listData, [], 'en');
-        expect(Object.keys(data[jurisdiction])).toHaveLength(3);
-        expect(Object.keys(data[jurisdiction])[0]).toBe('Crime');
-        expect(Object.keys(data[jurisdiction])[1]).toBe('Family');
-        expect(Object.keys(data[jurisdiction])[2]).toBe('Tribunal');
+        expect(Object.keys(data[jurisdiction])).toHaveLength(4);
+        expect(Object.keys(data[jurisdiction])[0]).toBe('Court of Protection');
+        expect(Object.keys(data[jurisdiction])[1]).toBe('Crime');
+        expect(Object.keys(data[jurisdiction])[2]).toBe('Family');
+        expect(Object.keys(data[jurisdiction])[3]).toBe('Tribunal');
 
         expect(Object.keys(data[civil])).toHaveLength(0);
 
@@ -77,10 +80,11 @@ describe('Filter Service', () => {
         expect(Object.keys(data[tribunal])).toHaveLength(1);
         expect(Object.keys(data[tribunal])[0]).toBe('Social Security and Child Support');
 
-        expect(Object.keys(data[region])).toHaveLength(3);
+        expect(Object.keys(data[region])).toHaveLength(4);
         expect(Object.keys(data[region])[0]).toBe('Bedford');
         expect(Object.keys(data[region])[1]).toBe('London');
         expect(Object.keys(data[region])[2]).toBe('Manchester');
+        expect(Object.keys(data[region])[3]).toBe('National');
     });
 
     it('should build filters options for checkboxes with checked false', () => {
@@ -208,6 +212,21 @@ describe('Filter Service', () => {
     it('should return all courts when clear all has been passed', async () => {
         expect(await filterService.handleFilterInitialisation('all', null, englishLanguage)).toStrictEqual({
             alphabetisedList: listData,
+            filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'en') },
+            showFilters: {
+                Jurisdiction: true,
+                Civil: false,
+                Crime: false,
+                Family: false,
+                Tribunal: false,
+                Region: true,
+            },
+        });
+    });
+
+    it('should return non-excluded courts only when exclusion flag is set', async () => {
+        expect(await filterService.handleFilterInitialisation(null, null, englishLanguage, true)).toStrictEqual({
+            alphabetisedList: listData[1],
             filterOptions: { ...filterService.buildFilterValueOptions(listData, [], 'en') },
             showFilters: {
                 Jurisdiction: true,

@@ -89,5 +89,12 @@
         "jurisdiction": ["Crime"],
         "jurisdictionType":["Crown Court"],
         "region": ["London"]
+    },
+    {
+        "locationId": 555,
+        "name": "Court of Protection",
+        "jurisdiction": ["Court of Protection"],
+        "jurisdictionType":["Court of Protection"],
+        "region": ["National"]
     }
 ]

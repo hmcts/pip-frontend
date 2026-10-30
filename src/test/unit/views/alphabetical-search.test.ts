@@ -106,7 +106,7 @@ describe('Alphabetical Search page', () => {
 
     it('should contain jurisdiction filter checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-        expect(checkboxes.length).equal(3, 'Jurisdiction filter does not match');
+        expect(checkboxes.length).equal(4, 'Jurisdiction filter does not match');
     });
 
     it('should not contain civil type filter checkboxes', () => {
@@ -129,13 +129,13 @@ describe('Alphabetical Search page', () => {
         expect(checkboxes.length).equal(1, 'Tribunal type filter does not match');
     });
 
-    it('should not contain court of protection type filter checkboxes', () => {
+    it('should contain court of protection type filter checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('Court of Protection');
-        expect(checkboxes.length).equal(0, 'Court of Protection type filter does not match');
+        expect(checkboxes.length).equal(1, 'Court of Protection type filter does not match');
     });
 
     it('should contain region filter checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('Region');
-        expect(checkboxes.length).equal(3, 'Region filter does not match');
+        expect(checkboxes.length).equal(4, 'Region filter does not match');
     });
 });

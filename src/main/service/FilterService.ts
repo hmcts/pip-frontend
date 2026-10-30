@@ -220,7 +220,8 @@ export class FilterService {
     public async handleFilterInitialisation(
         clearQuery: string,
         filterValuesQuery: string,
-        language: string
+        language: string,
+        excludeLocations = false
     ): Promise<object> {
         let filterValues = this.stripFilters(filterValuesQuery);
         if (clearQuery) {
@@ -239,7 +240,7 @@ export class FilterService {
         let filters = null;
         let alphabetisedList;
         if (filterValues.length == 0) {
-            alphabetisedList = await locationService.generateAlphabetisedAllCourtList(language);
+            alphabetisedList = await locationService.generateAlphabetisedAllCourtList(language, excludeLocations);
         } else {
             filters = this.findAndSplitFilters(filterValues, filterOptions);
 
@@ -259,13 +260,14 @@ export class FilterService {
             alphabetisedList = await locationService.generateFilteredAlphabetisedCourtList(
                 filters[regionFilter].toString(),
                 allJurisdictionFilters.toString(),
-                language
+                language,
+                excludeLocations
             );
         }
 
         return {
-            alphabetisedList: alphabetisedList,
-            filterOptions: filterOptions,
+            alphabetisedList,
+            filterOptions,
             showFilters: this.showFilters(filters, language),
         };
     }

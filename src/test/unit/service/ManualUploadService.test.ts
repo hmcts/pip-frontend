@@ -130,7 +130,7 @@ const languageFile = 'manual-upload';
 const jsonUploadArtefactId = '123';
 const fileUploadArtefactId = '456';
 
-sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
+sinon.stub(LocationService.prototype, 'getLocationsWithExclusions').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(fileUploadArtefactId);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(jsonUploadArtefactId);
 sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true);
