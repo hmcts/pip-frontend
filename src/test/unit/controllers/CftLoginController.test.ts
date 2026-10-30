@@ -27,8 +27,8 @@ describe('Cft Login Controller', () => {
             .withArgs(
                 'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
                     redirectUri +
-                    '&ui_locales=en' +
-                    '&scope=openid+profile+roles'
+                    '&scope=openid+profile+roles' +
+                    '&ui_locales=en'
             );
 
         await cftLoginController.get(request, response);
@@ -45,8 +45,8 @@ describe('Cft Login Controller', () => {
             .withArgs(
                 'https://idam-web-public.aat.platform.hmcts.net/o/authorize?client_id=app-pip-frontend&response_type=code&redirect_uri=' +
                     redirectUri +
-                    '&ui_locales=cy' +
-                    '&scope=openid+profile+roles'
+                    '&scope=openid+profile+roles' +
+                    '&ui_locales=cy'
             );
 
         await cftLoginController.get(request, response);
