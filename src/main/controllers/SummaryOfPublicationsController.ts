@@ -3,9 +3,11 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/LocationService';
 import { PublicationService } from '../service/PublicationService';
+import { UserCommService } from '../service/UserCommService';
 
 const locationService = new LocationService();
 const publicationService = new PublicationService();
+const userCommService = new UserCommService();
 
 export default class SummaryOfPublicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
@@ -41,13 +43,17 @@ export default class SummaryOfPublicationsController {
                 }
             });
 
+            const userComms = await userCommService.getUserComms();
+
             res.render('summary-of-publications', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
                 publications: publicationsWithName,
+                locationId: parseInt(locationId),
                 locationName,
                 court,
                 noListMessageOverride,
                 cautionMessageOverride,
+                userComms,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);
