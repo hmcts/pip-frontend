@@ -212,7 +212,7 @@ describe('Summary of publications page', () => {
         it('should display no contact information', () => {
             const body = htmlRes.getElementsByClassName(bodyClass);
             expect(body[5].innerHTML).contains(
-                'Sorry, no lists found for this court',
+                'There are no lists available for this court or tribunal today.',
                 'Contact information is displayed'
             );
         });
