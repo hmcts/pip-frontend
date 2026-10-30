@@ -9,6 +9,7 @@ export class UserCommService {
         const userProvenanceType = [];
         const userRoleType = [];
         const venueType = [];
+        const jurisdictionType = [];
 
         userComms.forEach(comm => {
             if (comm.commType === 'ALL_USERS') {
@@ -41,6 +42,14 @@ export class UserCommService {
                     venues: comm.locationIds ?? [],
                 });
             }
+
+            if (comm.commType === 'JURISDICTION') {
+                jurisdictionType.push({
+                    message: comm.message,
+                    welshMessage: comm.welshMessage,
+                    subJurisdictions: comm.subJurisdictions ?? [],
+                });
+            }
         });
 
         return {
@@ -48,6 +57,7 @@ export class UserCommService {
             userProvenanceType,
             userRoleType,
             venueType,
+            jurisdictionType,
         };
     }
 }

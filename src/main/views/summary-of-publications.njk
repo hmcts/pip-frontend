@@ -18,6 +18,11 @@
                     <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
                 {% endif %}
             {% endfor %}
+            {% for comm in userComms.jurisdictionType %}
+                {% if court.jurisdictionType | isArrayElementsOverlapped(comm.subJurisdictions) %}
+                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
+                {% endif %}
+            {% endfor %}
         {% endif %}
     {% endset %}
 
