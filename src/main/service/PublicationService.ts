@@ -19,7 +19,7 @@ export class PublicationService {
             return {
                 ...metadata,
                 caseInfoList,
-            }
+            };
         }
         return metadata;
     }

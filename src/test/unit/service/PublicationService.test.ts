@@ -65,7 +65,6 @@ const stubRawPayload = sinon.stub(publicationRequests, 'getIndividualPublication
 stubRawPayload.returns(rawPayloadText);
 sinon.stub(publicationRequests, 'getCasesByArtefactId').resolves(returnedCaseNumberSearchResults);
 
-
 const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
 stubMetaData.returns(metaData);
 
