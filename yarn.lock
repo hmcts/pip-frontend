@@ -576,6 +576,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@azure/msal-common@npm:16.15.0":
+  version: 16.15.0
+  resolution: "@azure/msal-common@npm:16.15.0"
+  checksum: 10/359f55848b13bbf3bc27281ec89f3c886e5a38ed4dee74d19a62e87569d14eb085aaec18081ebf56bddd4719034ff8e563ff22186faf2e0ab8025deee93e5dcc
+  languageName: node
+  linkType: hard
+
 "@azure/msal-common@npm:16.9.0":
   version: 16.9.0
   resolution: "@azure/msal-common@npm:16.9.0"
@@ -594,13 +601,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^5.1.0, @azure/msal-node@npm:^5.2.5":
+"@azure/msal-node@npm:^5.1.0":
   version: 5.2.5
   resolution: "@azure/msal-node@npm:5.2.5"
   dependencies:
     "@azure/msal-common": "npm:16.9.0"
     jsonwebtoken: "npm:^9.0.0"
   checksum: 10/eaab25cc5d030cf4d9c690e5f5d6b5a044d598e2d4fecb99cefbb6e11f29fd931ce5ad98d73d6a73933036deaa71dcc5cb92df11efa0d372da93d0eae2f1ffc2
+  languageName: node
+  linkType: hard
+
+"@azure/msal-node@npm:^7.0.0":
+  version: 7.1.2
+  resolution: "@azure/msal-node@npm:7.1.2"
+  dependencies:
+    "@azure/msal-common": "npm:16.15.0"
+    jsonwebtoken: "npm:^9.0.0"
+  checksum: 10/22ae1c46b645c3c31634be2681b3f11f41231a52058318f0bdb9d5901b15de3f935ba86402e5066624c61412dd5102b7b452dfa804c0866736762974d05a012f
   languageName: node
   linkType: hard
 
@@ -15787,7 +15804,7 @@ __metadata:
     "@axe-core/playwright": "npm:^4.11.3"
     "@azure/identity": "npm:^4.13.1"
     "@azure/keyvault-secrets": "npm:^4.11.2"
-    "@azure/msal-node": "npm:^5.2.5"
+    "@azure/msal-node": "npm:^7.0.0"
     "@babel/core": "npm:7.29.7"
     "@babel/preset-env": "npm:7.29.7"
     "@codeceptjs/allure-legacy": "npm:^1.0.2"
