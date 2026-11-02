@@ -13,9 +13,9 @@ Feature('Verified user email subscriptions');
 const TEST_FIRST_NAME = testConfig.TEST_SUITE_PREFIX + 'FirstName';
 const TEST_LAST_NAME = testConfig.TEST_SUITE_PREFIX + 'Surname';
 
-const caseId = '12341234';
-const caseName = 'Test Case Name';
-const caseNameNumber = '12341232';
+const caseId = '22345678';
+const caseName = 'A2 Vs B2';
+const caseNameNumber = '12345679';
 
 const displayFrom = DateTime.now().toISO({ includeOffset: false });
 const displayTo = DateTime.now().plus({ days: 1 }).toISO({ includeOffset: false });
@@ -37,8 +37,8 @@ Scenario(
             displayFrom,
             displayTo,
             'ENGLISH',
-            'etDailyList.json',
-            'ET_DAILY_LIST'
+            'civilDailyCauseList.json',
+            'CIVIL_DAILY_CAUSE_LIST'
         );
 
         I.loginTestMediaUser(testUser['email'], secret(testConfig.TEST_USER_PASSWORD));
@@ -62,14 +62,14 @@ Scenario(
                 "specific cases you may have subscribed to. Also don't forget to come" +
                 ' back regularly to see new list types as we add more.'
         );
-        I.checkOption('#ET_DAILY_LIST');
+        I.checkOption('#CIVIL_DAILY_CAUSE_LIST');
         I.click('Continue');
         I.waitForText('What version of the list do you want to receive?');
         I.click('#english');
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.see(locationName);
-        I.see('Employment Tribunals Daily List');
+        I.see('Civil Daily Cause List');
         I.see('English');
         I.click('Confirm Subscriptions');
         I.waitForText('Subscription confirmation');
@@ -103,7 +103,7 @@ Scenario(
         I.waitForText('Subscription case search results');
         I.see(caseName);
         I.see(caseNameNumber);
-        I.checkOption('//*[@id="12341232"]');
+        I.checkOption('//*[@id="12345679"]');
         I.click('Continue');
         I.waitForText('Confirm your email subscriptions');
         I.click('Confirm Subscriptions');

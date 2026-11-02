@@ -63,6 +63,7 @@ stub.withArgs().returns(dailyCauseListData);
 const rawPayloadText = JSON.stringify(dailyCauseListData, null, 4);
 const stubRawPayload = sinon.stub(publicationRequests, 'getIndividualPublicationRawPayload');
 stubRawPayload.returns(rawPayloadText);
+sinon.stub(publicationRequests, 'getCasesByArtefactId').resolves(returnedCaseNumberSearchResults);
 
 const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
 stubMetaData.returns(metaData);
@@ -160,6 +161,14 @@ describe('Publication service', () => {
         it('should return publication meta object', () => {
             return publicationService.getIndividualPublicationMetadata('', userId).then(data => {
                 expect(data['contentDate']).to.equal('2022-02-14T14:14:59.73967');
+            });
+        });
+    });
+
+    describe('getPublicationMetadataWithCaseInfo Publication Service', () => {
+        it('should return publication metadata with case info', () => {
+            return publicationService.getPublicationMetadataWithCaseInfo('123', userId).then(data => {
+                expect(data['caseInfoList']).to.equal(returnedCaseNumberSearchResults);
             });
         });
     });
