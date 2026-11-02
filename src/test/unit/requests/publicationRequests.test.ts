@@ -119,6 +119,23 @@ describe('getIndividualPubMetadata()', () => {
     });
 });
 
+describe('Get cases by artefact ID', () => {
+    it('should return data on successful get', async () => {
+        dataManagementStub.withArgs(`/publication/search/${artefactId}`).resolves(successResponse);
+        expect(await pubRequests.getCasesByArtefactId(artefactId, userId)).toBe(successResponse.data);
+    });
+
+    it('should handle error response from returned service returning empty array', async () => {
+        dataManagementStub.withArgs(`/publication/search/${artefactId}`).rejects(errorResponse);
+        expect(await pubRequests.getCasesByArtefactId(artefactId, userId)).toStrictEqual([]);
+    });
+
+    it('should handle error request from returned service returning empty array', async () => {
+        dataManagementStub.withArgs(`/publication/search/${artefactId}`).rejects(errorMessage);
+        expect(await pubRequests.getCasesByArtefactId(artefactId, userId)).toStrictEqual([]);
+    });
+});
+
 describe('Get cases by case number', () => {
     it('should return data on successful get', async () => {
         dataManagementStub.withArgs('/publication/search/caseNumber').resolves(successResponse);
