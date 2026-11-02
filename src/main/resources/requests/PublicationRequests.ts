@@ -35,6 +35,20 @@ export class PublicationRequests {
         return null;
     }
 
+    public async getCasesByArtefactId(artefactId: string, userId: string): Promise<CaseSearchResults[]> {
+        try {
+            const response = await dataManagementApi.get(`/publication/search/${artefactId}`, {
+                headers: {
+                    'x-requester-id': userId,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve cases by artefact ID');
+        }
+        return [];
+    }
+
     public async getCasesByCaseNumber(searchValue: string, userId: string): Promise<CaseSearchResults[]> {
         try {
             const response = await dataManagementApi.get('/publication/search/caseNumber', {
