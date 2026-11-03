@@ -46,10 +46,10 @@ Our templating engine is [nunjucks](https://mozilla.github.io/nunjucks/). We mos
 
 It is connected to several other microservices in production (all written in Java/Spring Boot):
 
-| Microservice                              | Summary                                                                                                                                                                                                               |
-|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Microservice                              | Summary                                                                                                                                                                                                              |
+|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | pip-data-management (`port:8090`)         | Communicates with [postgres](https://www.postgresql.org/) and [Azure Blob Storage](https://azure.microsoft.com/en-us/products/storage/blobs) and controls file storage, file ingestion, reference data and validation |
-| pip-account-management(`port:6969`)       | Handles operations related to accounts and account subscriptions, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality.                                                     |
+| pip-account-management(`port:6969`)       | Handles operations related to accounts and account subscriptions, including interaction with Azure B2C for PI_AAD users. It also manages the audit functionality                                                     |
 
 Most of the communication with this service benefits from using secure authentication. While possible to stand up locally in insecure mode, to simulate a production environment it is better to use secure mode.
 
