@@ -19,8 +19,8 @@ export class SjpFilterService {
     }
 
     public filterSjpCase(sjpCase: any, postcodeFilterValues: string[], prosecutorFilterValues: string[]): boolean {
-        const formattedPostcode = sjpCase.postcode ? sjpCase.postcode.split(' ', 2)[0] : "";
-        const postalAreaCode = sjpCase.postcode ? sjpCase.postcode.split(/\d/)[0] : "";
+        const formattedPostcode = sjpCase.postcode ? sjpCase.postcode.split(' ', 2)[0] : '';
+        const postalAreaCode = sjpCase.postcode ? sjpCase.postcode.split(/\d/)[0] : '';
         const formattedProsecutor = sjpCase.prosecutorName.replace(replaceRegex, '');
 
         // When both postcode and prosecutor filters are selected, the SJP case needs to match both filters

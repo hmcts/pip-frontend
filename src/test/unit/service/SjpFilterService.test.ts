@@ -119,14 +119,17 @@ describe('SJP filter service', () => {
         expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
     });
 
-    it('should not include empty postcode case when both postcode and prosecutor filters present and prosecutor ' +
-        'is matching', async () => {
-        const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
-        const prosecutorFilterValues = ['Prosecutor1'];
-        const testCase = { prosecutorName: 'Prosecutor 1' };
+    it(
+        'should not include empty postcode case when both postcode and prosecutor filters present and prosecutor ' +
+            'is matching',
+        async () => {
+            const postcodeFilterValues = ['A1', 'B1', 'C1', 'D1'];
+            const prosecutorFilterValues = ['Prosecutor1'];
+            const testCase = { prosecutorName: 'Prosecutor 1' };
 
-        expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
-    });
+            expect(filterService.filterSjpCase(testCase, postcodeFilterValues, prosecutorFilterValues)).toBeFalsy();
+        }
+    );
 
     it('test that previous button is included if page > 1', async () => {
         const paginationData = filterService.generatePaginationData(4500, 2, '1234', 'A1', 'sjp-public-list');
