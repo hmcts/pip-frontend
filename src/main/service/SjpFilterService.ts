@@ -19,8 +19,8 @@ export class SjpFilterService {
     }
 
     public filterSjpCase(sjpCase: any, postcodeFilterValues: string[], prosecutorFilterValues: string[]): boolean {
-        const formattedPostcode = sjpCase.postcode.split(' ', 2)[0];
-        const postalAreaCode = sjpCase.postcode.split(/\d/)[0];
+        const formattedPostcode = sjpCase.postcode ? sjpCase.postcode.split(' ', 2)[0] : "";
+        const postalAreaCode = sjpCase.postcode ? sjpCase.postcode.split(/\d/)[0] : "";
         const formattedProsecutor = sjpCase.prosecutorName.replace(replaceRegex, '');
 
         // When both postcode and prosecutor filters are selected, the SJP case needs to match both filters
@@ -28,13 +28,15 @@ export class SjpFilterService {
         if (postcodeFilterValues.length > 0 && prosecutorFilterValues.length > 0) {
             return (
                 prosecutorFilterValues.includes(formattedProsecutor) &&
+                sjpCase.postcode &&
                 (postcodeFilterValues.includes(formattedPostcode) ||
                     this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode))
             );
         } else if (postcodeFilterValues.length > 0) {
             return (
-                postcodeFilterValues.includes(formattedPostcode) ||
-                this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode)
+                sjpCase.postcode &&
+                (postcodeFilterValues.includes(formattedPostcode) ||
+                    this.londonPostcodeFiltered(postcodeFilterValues, postalAreaCode))
             );
         }
         return prosecutorFilterValues.length > 0 && prosecutorFilterValues.includes(formattedProsecutor);
