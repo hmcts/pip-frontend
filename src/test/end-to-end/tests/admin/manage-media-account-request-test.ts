@@ -32,7 +32,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
     I.click('#yes');
-    I.click('Continue');
+    I.click('#approval-button');
     I.waitForText('Application has been approved');
     I.see(testFullName);
     I.see(emailTestMediaAccount);
