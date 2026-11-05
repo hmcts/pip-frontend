@@ -32,8 +32,8 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
     I.click('#yes');
-    I.click('Continue');
-    I.waitForText('Application has been approved');
+    I.click('Continue', null, { noWaitAfter: true });
+    I.waitForText('Application has been approved', 20);
     I.see(testFullName);
     I.see(emailTestMediaAccount);
     I.see(TEST_EMPLOYER);
