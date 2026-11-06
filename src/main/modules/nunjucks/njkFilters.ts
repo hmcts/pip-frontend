@@ -191,4 +191,11 @@ export function createFilters(env) {
     env.addFilter('isHtml', function (str: string) {
         return /<\/?[a-z][\s\S]*>/i.test(str);
     });
+
+    env.addFilter('isArrayElementsOverlapped', function (arr1: string[], arr2: string[]) {
+        if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+            return false;
+        }
+        return arr1.some(item => arr2.includes(item));
+    });
 }

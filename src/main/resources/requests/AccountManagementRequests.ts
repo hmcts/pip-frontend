@@ -396,4 +396,14 @@ export class AccountManagementRequests {
         }
         return null;
     }
+
+    public async getUserComms(): Promise<any[] | null> {
+        try {
+            const response = await accountManagementApi.get('/comm');
+            return response.data;
+        } catch (error) {
+            logHelper.logErrorResponse(error, 'retrieve user comms');
+        }
+        return null;
+    }
 }

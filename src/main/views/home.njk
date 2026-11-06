@@ -1,8 +1,9 @@
 {% extends "template.njk" %}
-{% from "macros/common-components.njk" import goBack %}
+{% from "macros/common-components.njk" import goBack, communicationBanner %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
 {% block head %}
   {{ super() }}
@@ -13,8 +14,8 @@
   {{ title }}
 {% endblock %}
 
-{% block beforeContent %}
-    {{ super() }}
+{% block pageBanner %}
+    {{ communicationBanner(lng, allUsersComms, html) }}
 {% endblock %}
 
 {% block content %}

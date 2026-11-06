@@ -1,6 +1,5 @@
 {% extends "../template.njk" %}
-{% from "../macros/common-components.njk" import goBack %}
-{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "../macros/common-components.njk" import goBack, communicationBanner %}
 
 {% block pageTitle %}
     {{ title }}
@@ -9,13 +8,25 @@
     {{ super() }}
     {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
-{% block content %}
-<div class="parent-box">
-    <div class="govuk-grid-row parent-box">
-        <h1 class="govuk-heading-l">{{ heading }}</h1>
-    </div>
-    {% if user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] and mediaApplicationsCount > 0 %}
-        {% set html %}
+{% block pageBanner %}
+    {% set html %}
+        {% if userComms.userProvenanceType | length %}
+            {% for comm in userComms.userProvenanceType %}
+                {% if user.userProvenance in comm.provenances %}
+                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if userComms.userRoleType | length %}
+            {% for comm in userComms.userRoleType %}
+                {% if user.roles in comm.roles %}
+                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] and mediaApplicationsCount > 0 %}
             <p class="govuk-notification-banner__heading">
                 {% if mediaApplicationsCount == 1 %}
                     {{ mediaRequestNotificationBanner.singular | replace("COUNT", mediaApplicationsCount) }}
@@ -27,11 +38,17 @@
                    id="banner-{{ mediaCard.link }}"
                 >{{ mediaCard.title }}</a>.
             </p>
-        {% endset %}
-        {{ govukNotificationBanner({
-            html: html
-        }) }}
-    {% endif %}
+        {% endif %}
+    {% endset %}
+
+    {{ communicationBanner(lng, allUsersComms, html) }}
+{% endblock %}
+{% block content %}
+<div class="parent-box">
+    <div class="govuk-grid-row parent-box">
+        <h1 class="govuk-heading-l">{{ heading }}</h1>
+    </div>
+
     <div class="cards-wrapper">
       {% if user.isAdmin %}
       <div class="govuk-!-margin-top-2 govuk-!-margin-bottom-2 admin-card">
