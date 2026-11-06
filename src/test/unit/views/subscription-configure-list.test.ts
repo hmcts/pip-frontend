@@ -146,6 +146,7 @@ describe('Subscription Configure List', () => {
                 'Single Justice Procedure Public List (New Cases)',
                 'Technology and Construction Court (King’s Bench Division) Daily Cause List',
                 'Technology and Construction Court Daily Cause List',
+                'Traffic Virtual Courts List',
             ];
 
             const tableRows = htmlRes
@@ -216,6 +217,7 @@ describe('Subscription Configure List', () => {
                 'SJP_DELTA_PUBLIC_LIST',
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_DAILY_CAUSE_LIST',
+                'TRAFFIC_VIRTUAL_COURTS_LIST',
             ];
 
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
@@ -302,6 +304,7 @@ describe('Subscription Configure List', () => {
                 'Select Single Justice Procedure Public List (New Cases)\nRhestr Gyhoeddus Y Weithdrefn Un Ynad (Achosion Newydd)',
                 'Select Technology and Construction Court (King’s Bench Division) Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladu (Adran Mainc y Brenin)',
                 'Select Technology and Construction Court Daily Cause List\nRhestr Achosion Dyddiol Llys Technoleg ac Adeiladwaith',
+                'Select Traffic Virtual Courts List\nRhestr y Llys ar gyfer Achosion Traffig sydd i’w cynnal yn rhithiol',
             ];
 
             const tableRows = htmlRes
@@ -373,6 +376,7 @@ describe('Subscription Configure List', () => {
                 'SJP_DELTA_PUBLIC_LIST',
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_KB_DAILY_CAUSE_LIST',
                 'TECHNOLOGY_AND_CONSTRUCTION_COURT_DAILY_CAUSE_LIST',
+                'TRAFFIC_VIRTUAL_COURTS_LIST',
             ];
 
             const checkboxes = htmlRes.getElementsByName('list-selections[]');
