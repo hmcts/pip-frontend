@@ -1,6 +1,7 @@
 import { dataManagementApi, getDataManagementCredentials } from './utils/axiosConfig';
 import { LogHelper } from '../logging/logHelper';
 import superagent from 'superagent';
+import { Artefact } from 'models/Artefact';
 
 const logHelper = new LogHelper();
 
@@ -8,7 +9,7 @@ export class DataManagementRequests {
     public dataManagementAPI =
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net';
 
-    public async uploadPublication(body: any, headers: object, nonStrategicUpload: boolean): Promise<string> {
+    public async uploadPublication(body: any, headers: object, nonStrategicUpload: boolean): Promise<Artefact | string> {
         const token = await getDataManagementCredentials('');
 
         let uploadEndpoint = 'publication';
@@ -24,11 +25,15 @@ export class DataManagementRequests {
             return response.body.artefactId;
         } catch (error) {
             logHelper.logErrorResponse(error, 'upload flat files publication');
+            if (nonStrategicUpload && error.response?.status === 400 && error.response?.text) {
+                const errorJson = JSON.parse(error.response.text);
+                return errorJson.uiError ? errorJson.message : null;
+            }
         }
         return null;
     }
 
-    public async uploadJSONPublication(body: any, headers: object): Promise<string> {
+    public async uploadJSONPublication(body: any, headers: object): Promise<Artefact> {
         try {
             const response = await dataManagementApi.post('/publication', body.file, { headers });
             return response.data.artefactId;
