@@ -88,7 +88,7 @@ export default class ManualUploadSummaryController {
 
             if (response) {
                 if (typeof response === 'string') {
-                    const errorMessages = response.split('|');
+                    const errorMessages = response.split(' | ');
                     ManualUploadSummaryController.renderConfirmationError(
                         req,
                         res,

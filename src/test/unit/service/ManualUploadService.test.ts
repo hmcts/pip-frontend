@@ -127,12 +127,12 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const languageFile = 'manual-upload';
 
-const jsonUploadArtefactId = '123';
-const fileUploadArtefactId = '456';
+const jsonUploadArtefact = { artefactId: '123'};
+const fileUploadArtefact = { artefactId: '456'};
 
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
-sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(fileUploadArtefactId);
-sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(jsonUploadArtefactId);
+sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(fileUploadArtefact);
+sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(jsonUploadArtefact);
 sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true);
 
 describe('Manual upload service', () => {
@@ -446,12 +446,12 @@ describe('Manual upload service', () => {
 
     it('should upload a publication', async () => {
         const fileUpload = await manualUploadService.uploadPublication(headers, true, false);
-        expect(fileUpload).to.equal(fileUploadArtefactId);
+        expect(fileUpload).to.equal(fileUploadArtefact);
     });
 
     it('should upload a non-strategic publication', async () => {
         const fileUpload = await manualUploadService.uploadPublication(headers, true, true);
-        expect(fileUpload).to.equal(fileUploadArtefactId);
+        expect(fileUpload).to.equal(fileUploadArtefact);
     });
 
     it('should upload a reference data file', async () => {
@@ -463,7 +463,7 @@ describe('Manual upload service', () => {
         const data = headers;
         data.fileName = 'test.json';
         const fileUpload = await manualUploadService.uploadPublication(data, true, false);
-        expect(fileUpload).to.equal(jsonUploadArtefactId);
+        expect(fileUpload).to.equal(jsonUploadArtefact);
     });
 
     it('should formatted date-from and date-to correctly', async () => {

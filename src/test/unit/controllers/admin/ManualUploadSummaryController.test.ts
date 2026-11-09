@@ -134,6 +134,7 @@ describe('Manual upload summary controller', () => {
                 displayError: true,
                 displaySensitivityMismatch: true,
                 nonStrategicUpload,
+                errorMessages: [],
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
@@ -176,7 +177,7 @@ describe('Manual upload summary controller', () => {
             req['cookies'] = { formCookie: JSON.stringify(mockData) };
             const responseMock = sinon.mock(res);
 
-            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves('1234');
+            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves({ artefactId: '1234' });
 
             responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=false');
 
@@ -203,6 +204,7 @@ describe('Manual upload summary controller', () => {
                 displayError: true,
                 displaySensitivityMismatch: true,
                 nonStrategicUpload: false,
+                errorMessages: [],
             };
             const responseMock = sinon.mock(res);
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
@@ -225,6 +227,7 @@ describe('Manual upload summary controller', () => {
                 displayError: true,
                 displaySensitivityMismatch: true,
                 nonStrategicUpload,
+                errorMessages: [],
             };
             const responseMock = sinon.mock(response);
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
@@ -269,7 +272,7 @@ describe('Manual upload summary controller', () => {
             req['cookies'] = { formCookie: JSON.stringify(mockData) };
             const responseMock = sinon.mock(res);
 
-            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves('1234');
+            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves({ artefactId: '1234' });
 
             responseMock.expects('redirect').once().withArgs('manual-upload-confirmation?non-strategic=true');
 
@@ -295,8 +298,42 @@ describe('Manual upload summary controller', () => {
                 displayError: true,
                 displaySensitivityMismatch: true,
                 nonStrategicUpload: true,
+                errorMessages: [],
             };
             const responseMock = sinon.mock(res);
+
+            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves('Error 1 | Error 2');
+
+            responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
+
+            await manualUploadSummaryController.post(req, res);
+            responseMock.verify();
+        });
+
+        it('should render manual upload summary page with error when publication upload error', async () => {
+            const req = mockRequest(i18n);
+            const res = {
+                render: () => {
+                    return '';
+                },
+            } as unknown as Response;
+
+            req.query = { 'non-strategic': 'true' };
+            req.user = { userId: '1234' };
+            req['cookies'] = { formCookie: JSON.stringify(mockData) };
+
+            const options = {
+                ...cloneDeep(request.i18n.getDataByLanguage(request.lng)['manual-upload-summary']),
+                fileUploadData: mockData,
+                displayError: true,
+                displaySensitivityMismatch: true,
+                nonStrategicUpload: true,
+                errorMessages: [ 'Error 1', 'Error 2' ],
+            };
+            const responseMock = sinon.mock(res);
+
+            uploadStub.withArgs({ ...mockData, file: '', userId: '1234' }, true).resolves('Error 1 | Error 2');
+
             responseMock.expects('render').once().withArgs('admin/manual-upload-summary', options);
 
             await manualUploadSummaryController.post(req, res);

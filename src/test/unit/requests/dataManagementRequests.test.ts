@@ -13,6 +13,13 @@ const errorMessage = {
     message: 'test',
 };
 
+const formattedErrorString = {
+    response: {
+        status: 400,
+        text: '{"uiError": true, "message": "Error 1 | Error 2"}',
+    },
+};
+
 const errorResponseWithStatusButNoText = {
     response: {
         status: 400,
@@ -69,7 +76,8 @@ describe('Data Management requests', () => {
                 };
             });
 
-            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, false)).toBe('123');
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, false))
+                .toEqual({artefactId: '123'});
         });
 
         it('should return error response', async () => {
@@ -130,7 +138,8 @@ describe('Data Management requests', () => {
                 };
             });
 
-            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true)).toBe('123');
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true))
+                .toEqual({ artefactId: '123' });
         });
 
         it('should return error response', async () => {
@@ -165,6 +174,24 @@ describe('Data Management requests', () => {
             expect(
                 await fileUploadAPI.uploadPublication({ file: '', fileName: 'baz' }, mockUploadFileHeaders, true)
             ).toBe(null);
+        });
+
+        it('should return backend error string', async () => {
+            // chain call for superagent post.set.set.attach
+            sinon.stub(superagent, 'post').callsFake(() => {
+                return {
+                    set(): any {
+                        return {
+                            set(): any {
+                                return { attach: sinon.stub().rejects(formattedErrorString) };
+                            },
+                        };
+                    },
+                };
+            });
+
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true))
+                .toEqual('Error 1 | Error 2' );
         });
     });
 

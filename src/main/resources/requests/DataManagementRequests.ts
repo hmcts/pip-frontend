@@ -22,7 +22,7 @@ export class DataManagementRequests {
                 .set('enctype', 'multipart/form-data')
                 .set({ ...headers, Authorization: 'Bearer ' + token.access_token })
                 .attach('file', body.file, body.fileName);
-            return response.body.artefactId;
+            return response.body;
         } catch (error) {
             logHelper.logErrorResponse(error, 'upload flat files publication');
             if (nonStrategicUpload && error.response?.status === 400 && error.response?.text) {
