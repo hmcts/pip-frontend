@@ -40,7 +40,7 @@ export class DataManagementRequests {
     public async uploadJSONPublication(body: any, headers: object): Promise<Artefact> {
         try {
             const response = await dataManagementApi.post('/publication', body.file, { headers });
-            return response.data.artefactId;
+            return response.data;
         } catch (error) {
             logHelper.logErrorResponse(error, 'upload JSON publication');
         }
