@@ -328,7 +328,7 @@ describe('Manual upload summary controller', () => {
                 displayError: true,
                 displaySensitivityMismatch: true,
                 nonStrategicUpload: true,
-                errorMessages: [ 'Error 1', 'Error 2' ],
+                errorMessages: ['Error 1', 'Error 2'],
             };
             const responseMock = sinon.mock(res);
 

@@ -76,8 +76,9 @@ describe('Data Management requests', () => {
                 };
             });
 
-            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, false))
-                .toEqual({artefactId: '123'});
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, false)).toEqual({
+                artefactId: '123',
+            });
         });
 
         it('should return error response', async () => {
@@ -138,8 +139,9 @@ describe('Data Management requests', () => {
                 };
             });
 
-            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true))
-                .toEqual({ artefactId: '123' });
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true)).toEqual({
+                artefactId: '123',
+            });
         });
 
         it('should return error response', async () => {
@@ -190,8 +192,9 @@ describe('Data Management requests', () => {
                 };
             });
 
-            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true))
-                .toEqual('Error 1 | Error 2' );
+            expect(await fileUploadAPI.uploadPublication(mockUploadFileBody, mockUploadFileHeaders, true)).toEqual(
+                'Error 1 | Error 2'
+            );
         });
     });
 

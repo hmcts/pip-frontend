@@ -127,8 +127,8 @@ const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const languageFile = 'manual-upload';
 
-const jsonUploadArtefact = { artefactId: '123'};
-const fileUploadArtefact = { artefactId: '456'};
+const jsonUploadArtefact = { artefactId: '123' };
+const fileUploadArtefact = { artefactId: '456' };
 
 sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(fileUploadArtefact);

@@ -95,7 +95,7 @@ export default class ManualUploadSummaryController {
                         formData,
                         sensitivityMismatch,
                         nonStrategicUpload,
-                        errorMessages,
+                        errorMessages
                     );
                 } else {
                     await userManagementService.auditAction(
@@ -118,7 +118,14 @@ export default class ManualUploadSummaryController {
         }
     }
 
-    private static renderConfirmationError(req, res, formData, sensitivityMismatch, nonStrategicUpload, errorMessages = []) {
+    private static renderConfirmationError(
+        req,
+        res,
+        formData,
+        sensitivityMismatch,
+        nonStrategicUpload,
+        errorMessages = []
+    ) {
         res.render('admin/manual-upload-summary', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['manual-upload-summary']),
             fileUploadData: {

@@ -9,7 +9,11 @@ export class DataManagementRequests {
     public dataManagementAPI =
         process.env.DATA_MANAGEMENT_URL || 'https://pip-data-management.staging.platform.hmcts.net';
 
-    public async uploadPublication(body: any, headers: object, nonStrategicUpload: boolean): Promise<Artefact | string> {
+    public async uploadPublication(
+        body: any,
+        headers: object,
+        nonStrategicUpload: boolean
+    ): Promise<Artefact | string> {
         const token = await getDataManagementCredentials('');
 
         let uploadEndpoint = 'publication';
