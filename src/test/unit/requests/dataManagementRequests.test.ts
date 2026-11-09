@@ -205,7 +205,7 @@ describe('Data Management requests', () => {
                 .stub(dataManagementApi, 'post')
                 .withArgs('/publication')
                 .resolves({ status: 200, data: { artefactId: '123' } });
-            expect(await fileUploadAPI.uploadJSONPublication({ file: '' }, {})).toBe('123');
+            expect(await fileUploadAPI.uploadJSONPublication({ file: '' }, {})).toEqual({ artefactId: '123' });
         });
 
         it('should return error response', async () => {
