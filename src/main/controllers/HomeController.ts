@@ -1,19 +1,19 @@
 import { PipRequest } from '../models/request/PipRequest';
 import { Response } from 'express';
 import { cloneDeep } from 'lodash';
-import { UserCommService } from '../service/UserCommService';
+import { UserCommunicationService } from '../service/UserCommunicationService';
 
-const userCommService = new UserCommService();
+const userCommunicationService = new UserCommunicationService();
 
 export default class HomeController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-        const userComms = await userCommService.getUserComms();
+        const userCommunications = await userCommunicationService.getUserCommunications();
 
         const currentLanguage = req?.lng ? req.lng : 'en';
         res.render('home', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng).home),
             currentLanguage,
-            userComms,
+            userCommunications,
         });
     }
 }

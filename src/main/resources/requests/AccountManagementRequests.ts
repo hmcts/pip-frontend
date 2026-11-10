@@ -397,7 +397,7 @@ export class AccountManagementRequests {
         return null;
     }
 
-    public async getUserComms(): Promise<any[] | null> {
+    public async getUserCommunications(): Promise<any[] | null> {
         try {
             const response = await accountManagementApi.get('/comm');
             return response.data;

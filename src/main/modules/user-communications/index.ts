@@ -1,12 +1,12 @@
 import express, { NextFunction, Request, Response } from 'express';
-import { UserCommService } from '../../service/UserCommService';
+import { UserCommunicationService } from '../../service/UserCommunicationService';
 
 const CACHE_TTL_MS = 60_000;
 
-const userCommService = new UserCommService();
+const userCommunicationService = new UserCommunicationService();
 let cache: { expires: number; messages: Promise<{ message: string, welshMessage: string }[]> } | undefined;
 
-export class UserComms {
+export class UserCommunications {
     public enableFor(app: express.Express): void {
         app.use(async (req: Request, res: Response, next: NextFunction) => {
             if (req.method !== 'GET') {
@@ -17,7 +17,7 @@ export class UserComms {
                 if (!cache || cache.expires < Date.now()) {
                     cache = {
                         expires: Date.now() + CACHE_TTL_MS,
-                        messages: userCommService.getUserComms().then(comms => comms.allUsersType),
+                        messages: userCommunicationService.getUserCommunications().then(comms => comms.allUsersType),
                     };
                 }
                 res.locals.allUsersComms = await cache.messages;

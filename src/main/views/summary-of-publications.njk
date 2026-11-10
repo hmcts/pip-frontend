@@ -12,15 +12,15 @@
 {% endblock %}
 {% block pageBanner %}
 {% set html %}
-        {% if userComms.venueType | length %}
-            {% for comm in userComms.venueType %}
-                {% if locationId in comm.venues %}
-                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
+        {% if userCommunications.venueType | length %}
+            {% for communication in userCommunications.venueType %}
+                {% if locationId in communication.venues %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng==='cy' else communication.message }}</p>
                 {% endif %}
             {% endfor %}
-            {% for comm in userComms.jurisdictionType %}
-                {% if court.jurisdictionType | isArrayElementsOverlapped(comm.subJurisdictions) %}
-                    <p class="govuk-body">{{ comm.welshMessage if lng==='cy' else comm.message }}</p>
+            {% for communication in userCommunications.jurisdictionType %}
+                {% if court.jurisdictionType | isArrayElementsOverlapped(communication.subJurisdictions) %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng==='cy' else communication.message }}</p>
                 {% endif %}
             {% endfor %}
         {% endif %}

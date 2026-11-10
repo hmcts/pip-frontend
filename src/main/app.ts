@@ -1,6 +1,6 @@
 import * as process from 'process';
 import { I18next } from './modules/i18next';
-import { UserComms } from './modules/user-comms';
+import { UserCommunications } from './modules/user-communications';
 import { RedisStore } from 'connect-redis';
 import cookieParser from 'cookie-parser';
 import config from 'config';
@@ -78,7 +78,7 @@ export async function appSetup() {
 
     app.use(cookieParser(sessionSecret));
     new I18next().enableFor(app);
-    new UserComms().enableFor(app);
+    new UserCommunications().enableFor(app);
 
     //main routes
     routes.default(app);

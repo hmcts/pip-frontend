@@ -2,16 +2,16 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 
 const accountManagementRequests = new AccountManagementRequests();
 
-export class UserCommService {
-    public async getUserComms() {
-        const userComms = (await accountManagementRequests.getUserComms()) ?? [];
+export class UserCommunicationService {
+    public async getUserCommunications() {
+        const userCommunications = (await accountManagementRequests.getUserCommunications()) ?? [];
         const allUsersType = [];
         const userProvenanceType = [];
         const userRoleType = [];
         const venueType = [];
         const jurisdictionType = [];
 
-        userComms.forEach(comm => {
+        userCommunications.forEach(comm => {
             if (comm.commType === 'ALL_USERS') {
                 allUsersType.push({
                     message: comm.message,
