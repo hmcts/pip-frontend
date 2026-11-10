@@ -399,10 +399,10 @@ export class AccountManagementRequests {
 
     public async getUserCommunications(): Promise<any[] | null> {
         try {
-            const response = await accountManagementApi.get('/comm');
+            const response = await accountManagementApi.get('/communication');
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, 'retrieve user comms');
+            logHelper.logErrorResponse(error, 'retrieve user communications');
         }
         return null;
     }
