@@ -15,12 +15,12 @@
         {% if userCommunications.venueType | length %}
             {% for communication in userCommunications.venueType %}
                 {% if locationId in communication.venues %}
-                    <p class="govuk-body">{{ communication.welshMessage if lng==='cy' else communication.message }}</p>
+                    <p class="govuk-body">{{ communication.message }}</p>
                 {% endif %}
             {% endfor %}
             {% for communication in userCommunications.jurisdictionType %}
                 {% if court.jurisdictionType | isArrayElementsOverlapped(communication.subJurisdictions) %}
-                    <p class="govuk-body">{{ communication.welshMessage if lng==='cy' else communication.message }}</p>
+                    <p class="govuk-body">{{ communication.message }}</p>
                 {% endif %}
             {% endfor %}
         {% endif %}

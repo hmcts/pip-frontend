@@ -8,10 +8,7 @@ const systemAdminDashboardController = new SystemAdminDashboardController();
 
 const mockUserCommunications = {
     allUsersType: [
-        {
-            message: 'test message',
-            welshMessage: 'Welsh test message',
-        },
+        { message: 'test message' },
     ],
 };
 sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);

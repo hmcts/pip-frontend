@@ -5,13 +5,10 @@ import sinon from 'sinon';
 import { UserCommunicationService } from '../../../main/service/UserCommunicationService';
 
 const accountHomeController = new AccountHomeController();
-const user = { userId: 'test ID' }
+const user = { userId: 'test ID' };
 const mockUserCommunications = {
     allUsersType: [
-        {
-            message: 'test message',
-            welshMessage: 'Welsh test message',
-        },
+        { message: 'test message' },
     ],
 };
 sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);

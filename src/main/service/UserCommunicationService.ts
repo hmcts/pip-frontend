@@ -3,7 +3,7 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 const accountManagementRequests = new AccountManagementRequests();
 
 export class UserCommunicationService {
-    public async getUserCommunications() {
+    public async getUserCommunications(lng = 'en'): Promise<any> {
         const userCommunications = (await accountManagementRequests.getUserCommunications()) ?? [];
         const allUsersType = [];
         const userProvenanceType = [];
@@ -14,39 +14,26 @@ export class UserCommunicationService {
         userCommunications.forEach(comm => {
             if (comm.audienceType === 'ALL_USERS') {
                 allUsersType.push({
-                    message: comm.message,
-                    welshMessage: comm.welshMessage,
+                    message: this.getMessage(comm, lng),
                 });
-            }
-
-            if (comm.audienceType === 'USER_PROVENANCE') {
+            } else if (comm.audienceType === 'USER_PROVENANCE') {
                 userProvenanceType.push({
-                    message: comm.message,
-                    welshMessage: comm.welshMessage,
+                    message: this.getMessage(comm, lng),
                     provenances: comm.userProvenances ?? [],
                 });
-            }
-
-            if (comm.audienceType === 'USER_ROLE') {
+            } else if (comm.audienceType === 'USER_ROLE') {
                 userRoleType.push({
-                    message: comm.message,
-                    welshMessage: comm.welshMessage,
+                    message: this.getMessage(comm, lng),
                     roles: comm.userRoles ?? [],
                 });
-            }
-
-            if (comm.audienceType === 'VENUE') {
+            } else if (comm.audienceType === 'VENUE') {
                 venueType.push({
-                    message: comm.message,
-                    welshMessage: comm.welshMessage,
+                    message: this.getMessage(comm, lng),
                     venues: comm.venues ?? [],
                 });
-            }
-
-            if (comm.audienceType === 'JURISDICTION') {
+            } else if (comm.audienceType === 'JURISDICTION') {
                 jurisdictionType.push({
-                    message: comm.message,
-                    welshMessage: comm.welshMessage,
+                    message: this.getMessage(comm, lng),
                     subJurisdictions: comm.subJurisdictions ?? [],
                 });
             }
@@ -59,5 +46,12 @@ export class UserCommunicationService {
             venueType,
             jurisdictionType,
         };
+    }
+
+    private getMessage(data, lng) {
+        if (lng === 'cy' && data.welshMessage) {
+            return data.welshMessage;
+        }
+        return data.message
     }
 }
