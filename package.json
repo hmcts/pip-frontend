@@ -46,7 +46,7 @@
     "dependencies": {
         "@azure/identity": "^4.13.1",
         "@azure/keyvault-secrets": "^4.11.2",
-        "@azure/msal-node": "^5.2.5",
+        "@azure/msal-node": "^7.0.0",
         "@hmcts/cookie-manager": "^1.1.0",
         "@hmcts/info-provider": "1.4.0",
         "@hmcts/nodejs-healthcheck": "^1.8.6",
