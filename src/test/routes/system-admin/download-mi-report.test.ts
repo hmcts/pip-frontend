@@ -23,7 +23,7 @@ describe('Download MI report page', () => {
                     reportType: 'USER_ACCOUNTS',
                 })
                 .expect(200)
-                .expect('Content-Type', /text\/html/)
+                .expect('Content-Type', /text\/csv/)
                 .expect('Content-Disposition', /attachment/);
         });
     });
