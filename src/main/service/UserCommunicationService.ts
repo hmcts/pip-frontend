@@ -12,14 +12,14 @@ export class UserCommunicationService {
         const jurisdictionType = [];
 
         userCommunications.forEach(comm => {
-            if (comm.commType === 'ALL_USERS') {
+            if (comm.audienceType === 'ALL_USERS') {
                 allUsersType.push({
                     message: comm.message,
                     welshMessage: comm.welshMessage,
                 });
             }
 
-            if (comm.commType === 'USER_PROVENANCE') {
+            if (comm.audienceType === 'USER_PROVENANCE') {
                 userProvenanceType.push({
                     message: comm.message,
                     welshMessage: comm.welshMessage,
@@ -27,7 +27,7 @@ export class UserCommunicationService {
                 });
             }
 
-            if (comm.commType === 'USER_ROLE') {
+            if (comm.audienceType === 'USER_ROLE') {
                 userRoleType.push({
                     message: comm.message,
                     welshMessage: comm.welshMessage,
@@ -35,15 +35,15 @@ export class UserCommunicationService {
                 });
             }
 
-            if (comm.commType === 'VENUE') {
+            if (comm.audienceType === 'VENUE') {
                 venueType.push({
                     message: comm.message,
                     welshMessage: comm.welshMessage,
-                    venues: comm.locationIds ?? [],
+                    venues: comm.venues ?? [],
                 });
             }
 
-            if (comm.commType === 'JURISDICTION') {
+            if (comm.audienceType === 'JURISDICTION') {
                 jurisdictionType.push({
                     message: comm.message,
                     welshMessage: comm.welshMessage,

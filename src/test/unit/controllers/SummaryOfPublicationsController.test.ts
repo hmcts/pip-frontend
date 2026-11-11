@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import { LocationService } from '../../../main/service/LocationService';
 import { PublicationService } from '../../../main/service/PublicationService';
+import { UserCommunicationService } from '../../../main/service/UserCommunicationService';
 
 const publicationController = new SummaryOfPublicationsController();
 const i18n = {
@@ -25,6 +26,15 @@ const additionalLocationInfo = {
     welshNoListMessage: 'Welsh no list message',
 };
 
+const mockUserCommunications = {
+    allUsersType:[
+        {
+            message: 'test message',
+            welshMessage: 'Welsh test message',
+        }
+    ]
+}
+sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
 sinon
     .stub(LocationService.prototype, 'getLocationById')
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));
@@ -61,11 +71,13 @@ describe('Get publications', () => {
 
         const expectedData = {
             ...i18n['summary-of-publications'],
+            locationId: 1,
             locationName: 'New Court',
             publications: publicationsWithName,
             court,
             noListMessageOverride: '',
             cautionMessageOverride: '',
+            userCommunications: mockUserCommunications,
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -90,11 +102,13 @@ describe('Get publications', () => {
 
         const expectedData = {
             ...i18n['summary-of-publications'],
+            locationId: 2,
             locationName: 'New Court',
             publications: publicationsWithName,
             court,
             noListMessageOverride: 'English no list message',
             cautionMessageOverride: 'English caution message',
+            userCommunications: mockUserCommunications,
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);
@@ -119,11 +133,13 @@ describe('Get publications', () => {
 
         const expectedData = {
             ...i18n['summary-of-publications'],
+            locationId: 2,
             locationName: 'New Court',
             publications: publicationsWithName,
             court,
             noListMessageOverride: 'Welsh no list message',
             cautionMessageOverride: 'Welsh caution message',
+            userCommunications: mockUserCommunications,
         };
 
         responseMock.expects('render').once().withArgs('summary-of-publications', expectedData);

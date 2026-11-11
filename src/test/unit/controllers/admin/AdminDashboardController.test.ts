@@ -3,9 +3,20 @@ import { Response } from 'express';
 import AdminDashboardController from '../../../../main/controllers/admin/AdminDashboardController';
 import sinon from 'sinon';
 import { MediaAccountApplicationService } from '../../../../main/service/MediaAccountApplicationService';
+import { UserCommunicationService } from '../../../../main/service/UserCommunicationService';
 
+const mockUserCommunications = {
+    allUsersType:[
+        {
+            message: 'test message',
+            welshMessage: 'Welsh test message',
+        }
+    ]
+}
+sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
 sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
 const adminDashboardController = new AdminDashboardController();
+
 describe('Admin Dashboard controller', () => {
     const i18n = {
         'admin-dashboard': {},
@@ -24,6 +35,7 @@ describe('Admin Dashboard controller', () => {
             mediaApplicationsCount: 0,
             user: request['user'],
             activeAdminDashboard: true,
+            userCommunications: mockUserCommunications,
         };
         const responseMock = sinon.mock(response);
         responseMock.expects('render').once().withArgs('admin/admin-dashboard', expectedData);
