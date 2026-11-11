@@ -6,13 +6,13 @@ import { MediaAccountApplicationService } from '../../../../main/service/MediaAc
 import { UserCommunicationService } from '../../../../main/service/UserCommunicationService';
 
 const mockUserCommunications = {
-    allUsersType:[
+    allUsersType: [
         {
             message: 'test message',
             welshMessage: 'Welsh test message',
-        }
-    ]
-}
+        },
+    ],
+};
 sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
 sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
 const adminDashboardController = new AdminDashboardController();
