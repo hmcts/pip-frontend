@@ -193,7 +193,7 @@ export function createFilters(env) {
     });
 
     env.addFilter('isArrayElementsOverlapped', function (arr1: string[], arr2: string[]) {
-        if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+        if (!(Array.isArray(arr1) && Array.isArray(arr2) && arr1.length > 0 && arr2.length > 0)) {
             return false;
         }
         return arr1.some(item => arr2.includes(item));
