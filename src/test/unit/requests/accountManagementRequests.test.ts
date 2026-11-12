@@ -1085,16 +1085,16 @@ describe('Account Management Requests', () => {
             expect(response).toStrictEqual(userCommunications);
         });
 
-        it('should return null on error response', async () => {
+        it('should be empty on error response', async () => {
             getStub.withArgs('/communication').rejects(errorResponse);
             const response = await accountManagementRequests.getUserCommunications();
-            expect(response).toBeNull();
+            expect(response).toHaveLength(0)
         });
 
-        it('should return null on error message', async () => {
+        it('should be empty on error message', async () => {
             getStub.withArgs('/communication').rejects(errorMessage);
             const response = await accountManagementRequests.getUserCommunications();
-            expect(response).toBeNull();
+            expect(response).toHaveLength(0);
         });
     });
 });

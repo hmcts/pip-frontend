@@ -4,7 +4,7 @@ import { UserCommunicationService } from '../../service/UserCommunicationService
 const CACHE_TTL_MS = 60_000;
 
 const userCommunicationService = new UserCommunicationService();
-let cache: { expires: number; messages: Promise<{ message: string; welshMessage: string; }[]> } | undefined;
+let cache: { expires: number; messages: Promise<{ message: string; welshMessage: string }[]> } | undefined;
 
 export class UserCommunications {
     public enableFor(app: express.Express): void {
@@ -17,7 +17,8 @@ export class UserCommunications {
                 if (!cache || cache.expires < Date.now()) {
                     cache = {
                         expires: Date.now() + CACHE_TTL_MS,
-                        messages: userCommunicationService.groupCommunicationMessages()
+                        messages: userCommunicationService
+                            .groupCommunicationMessages()
                             .then(comms => comms.allUsersType),
                     };
                 }

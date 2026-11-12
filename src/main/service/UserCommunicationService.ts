@@ -4,7 +4,7 @@ const accountManagementRequests = new AccountManagementRequests();
 
 export class UserCommunicationService {
     public async groupCommunicationMessages(): Promise<any> {
-        const userCommunications = (await accountManagementRequests.getUserCommunications()) ?? [];
+        const userCommunications = await accountManagementRequests.getUserCommunications();
         const allUsersType = [];
         const userProvenanceType = [];
         const userRoleType = [];
