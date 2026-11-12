@@ -55,14 +55,14 @@ describe('User communication service', () => {
         const result = await userCommunicationService.groupCommunicationMessages();
         expect(result.allUsersType).to.have.length(1);
         expect(result.userProvenanceType).to.have.length(1);
-        expect(result.userProvenanceType[0].provenances).to.contain('CFT_IDAM')
+        expect(result.userProvenanceType[0].provenances).to.contain('CFT_IDAM');
         expect(result.userRoleType).to.have.length(2);
         expect(result.userRoleType[0].roles).to.contain('VERIFIED');
         expect(result.userRoleType[1].roles).to.be.empty;
         expect(result.venueType).to.have.length(2);
-        expect(result.venueType[0].venues).to.contain(1)
-        expect(result.venueType[0].venues).to.contain(2)
-        expect(result.venueType[1].venues).to.contain(3)
+        expect(result.venueType[0].venues).to.contain(1);
+        expect(result.venueType[0].venues).to.contain(2);
+        expect(result.venueType[1].venues).to.contain(3);
         expect(result.jurisdictionType).to.have.length(1);
         expect(result.jurisdictionType[0].subJurisdictions).to.contain('Crown Court');
     });
