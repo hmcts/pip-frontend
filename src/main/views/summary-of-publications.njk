@@ -11,7 +11,7 @@
   {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
 {% block pageBanner %}
-{% set html %}
+    {% set html %}
         {% if userCommunications.venueType | length %}
             {% for communication in userCommunications.venueType %}
                 {% if locationId in communication.venues %}
@@ -36,19 +36,11 @@
       {{ findACourtOrTribunalLink.message }}
   </p>
   {% if cautionMessageOverride | length %}
-    {% if cautionMessageOverride | isHtml %}
-      <div class="govuk-body">{{ cautionMessageOverride | safe }}</div>
-    {% else %}
-      <p class="govuk-body">{{ cautionMessageOverride }}</p>
-    {% endif %}
+    <div class="govuk-body">{{ cautionMessageOverride | safe }}</div>
   {% endif %}
   {% if publications.length === 0 %}
     {% if noListMessageOverride | length %}
-      {% if noListMessageOverride | isHtml %}
-        <div class="govuk-body">{{ noListMessageOverride | safe }}</div>
-      {% else %}
-        <p class="govuk-body">{{ noListMessageOverride }}</p>
-      {% endif %}
+      <div class="govuk-body">{{ noListMessageOverride | safe }}</div>
     {% elseif court.email | length and court.contactNo | length %}
       <p class="govuk-body">{{ noListsWithCourtTelephoneAndEmail | replace("COURTNAME", locationName) | replace("CONTACTNO", court.contactNo) | replace("EMAIL", court.email) }}</p>
     {% elseif court.contactNo | length %}

@@ -1,7 +1,8 @@
 import { app } from '../../../main/app';
 import { expect } from 'chai';
-import { request as expressRequest } from 'express';
 import request from 'supertest';
+import sinon from 'sinon';
+import { UserCommunicationService } from '../../../main/service/UserCommunicationService';
 
 const PAGE_URL = '/account-home';
 const pageTitle = 'Dashboard - Your account - Court and Tribunal Hearings - GOV.UK';
@@ -25,13 +26,30 @@ const cards = [
         link: 'subscription-management',
     },
 ];
+
+const accountVerifiedMessage = 'Your account has been verified.';
+const cftIdamMessage = 'test message for CFT_IDAM user only';
+const verifiedRoleMessage = 'test message for verified user only';
+
+sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves({
+    userProvenanceType: [
+        { message: cftIdamMessage, provenances: ['CFT_IDAM'] },
+    ],
+    userRoleType: [
+        { message: verifiedRoleMessage, roles: ['VERIFIED'] },
+    ],
+});
+
 let htmlRes: Document;
 
-expressRequest['user'] = { roles: 'VERIFIED' };
-
 describe('Your Account page', () => {
-    describe('Without verified param', () => {
+    describe('PI_ADD user - Without verified param', () => {
         beforeAll(async () => {
+            app.request['user'] = {
+                roles: 'VERIFIED',
+                userProvenance: 'PI_AAD',
+            };
+
             await request(app)
                 .get(PAGE_URL)
                 .then(res => {
@@ -63,10 +81,31 @@ describe('Your Account page', () => {
                 expect(description.innerHTML).contains(cards[i].description);
             }
         });
+
+        it('should display the verified banner', () => {
+            const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
+            expect(banner).to.exist;
+        });
+
+        it('should display the header inside the verified banner', () => {
+            const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
+            expect(bannerHeader.innerHTML).contains('Important');
+        });
+
+        it('should display the content inside the verified banner', () => {
+            const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
+            expect(bannerContent.innerHTML).contains(verifiedRoleMessage);
+            expect(bannerContent.innerHTML).not.contains(accountVerifiedMessage);
+            expect(bannerContent.innerHTML).not.contains(cftIdamMessage);
+        });
     });
 
-    describe('With verified param', () => {
+    describe('PI_ADD user - With verified param', () => {
         beforeAll(async () => {
+            app.request['user'] = {
+                roles: 'VERIFIED',
+                userProvenance: 'PI_AAD',
+            };
             await request(app)
                 .get(PAGE_URL + '/?verified=true')
                 .then(res => {
@@ -85,8 +124,42 @@ describe('Your Account page', () => {
         });
 
         it('should display the content inside the verified banner', () => {
-            const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__heading')[0];
-            expect(bannerContent.innerHTML).equals('Your account has been verified.');
+            const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
+            expect(bannerContent.innerHTML).contains(accountVerifiedMessage);
+            expect(bannerContent.innerHTML).contains(verifiedRoleMessage);
+            expect(bannerContent.innerHTML).not.contains(cftIdamMessage);
+        });
+    });
+
+    describe('CFT_IDAM user', () => {
+        beforeAll(async () => {
+            app.request['user'] = {
+                roles: 'VERIFIED',
+                userProvenance: 'CFT_IDAM',
+            };
+
+            await request(app)
+                .get(PAGE_URL)
+                .then(res => {
+                    htmlRes = new DOMParser().parseFromString(res.text, 'text/html');
+                });
+        });
+
+        it('should display the verified banner', () => {
+            const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
+            expect(banner).to.exist;
+        });
+
+        it('should display the header inside the verified banner', () => {
+            const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
+            expect(bannerHeader.innerHTML).contains('Important');
+        });
+
+        it('should display the content inside the verified banner', () => {
+            const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
+            expect(bannerContent.innerHTML).contains(cftIdamMessage);
+            expect(bannerContent.innerHTML).contains(verifiedRoleMessage);
+            expect(bannerContent.innerHTML).not.contains(accountVerifiedMessage);
         });
     });
 });
