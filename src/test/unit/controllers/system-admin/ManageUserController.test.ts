@@ -35,7 +35,7 @@ describe('Manage user controller', () => {
             ...i18n['manage-user'],
             email: 'test@email.com',
             formattedData: 'test',
-            hrefDeletion: '/delete-user?id=1234',
+            hrefDeletion: '/delete-user-confirmation?id=1234',
         };
 
         responseMock.expects('render').once().withArgs('system-admin/manage-user', expectedData);
