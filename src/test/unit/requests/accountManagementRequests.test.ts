@@ -1088,7 +1088,7 @@ describe('Account Management Requests', () => {
         it('should be empty on error response', async () => {
             getStub.withArgs('/communication').rejects(errorResponse);
             const response = await accountManagementRequests.getUserCommunications();
-            expect(response).toHaveLength(0)
+            expect(response).toHaveLength(0);
         });
 
         it('should be empty on error message', async () => {
