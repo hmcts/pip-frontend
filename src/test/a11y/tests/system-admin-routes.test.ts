@@ -21,7 +21,6 @@ import { UserManagementService } from '../../../main/service/UserManagementServi
 import { AuditLogService } from '../../../main/service/AuditLogService';
 import fs from 'fs';
 import path from 'path';
-import { v4 as uuidv4 } from 'uuid';
 import { SubscriptionService } from '../../../main/service/SubscriptionService';
 import { ThirdPartyRequests } from '../../../main/resources/requests/ThirdPartyRequests';
 import { ThirdPartyService } from '../../../main/service/ThirdPartyService';
@@ -76,8 +75,8 @@ const systemAdminRoutes = [
     { path: '/delete-third-party-subscriber-confirmation' },
     { path: '/delete-third-party-subscriber-success' },
     { path: '/manage-user' },
-    { path: '/delete-user', parameter: `?id=${userId}` },
-    { path: '/delete-user-confirmation', postMethod: true, postBody: { 'delete-user-confirm': 'yes', user: uuidv4() } },
+    { path: '/delete-user-confirmation', parameter: `?id=${userId}` },
+    { path: '/delete-user-success' },
     { path: '/location-metadata-search' },
     { path: '/location-metadata-manage', parameter: '?locationId=123' },
     { path: '/location-metadata-delete-confirmation', parameter: '?locationId=123' },
