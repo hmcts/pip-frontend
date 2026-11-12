@@ -13,8 +13,8 @@ import {
 } from '../../../main/helpers/sortHelper';
 
 const userIdWithSubscriptions = '1';
-const userIdForSortedSubscriptions = '3';
-const userIdWithoutSubscriptions = '2';
+const userIdForSortedSubscriptions = '3'
+const userIdWithoutSubscriptions = '2';;
 const userIdWithCaseNameSubscription = '4';
 const userIdWithCaseNumberSubscription = '5';
 const userIdWithCourtSubscription = '6';
@@ -1240,9 +1240,8 @@ describe('fulfillSubscriptions', () => {
     fulfillEmailSubscriptionRequestStub.withArgs(validArtefact).resolves('Email subscriptions fulfilled successfully');
     fulfillEmailSubscriptionRequestStub.withArgs(invalidArtefact).resolves(null);
 
-    sinon
-        .stub(SubscriptionRequests.prototype, 'fulfillApiSubscriptions')
-        .resolves('API subscriptions fulfilled successfully');
+    sinon.stub(SubscriptionRequests.prototype, 'fulfillApiSubscriptions').resolves("API subscriptions fulfilled successfully");
+
 
     it('should return a success message if subscription is deleted', async () => {
         const result = await subscriptionService.fulfillSubscriptions('123', '1');
