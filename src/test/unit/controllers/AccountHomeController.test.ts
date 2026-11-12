@@ -9,7 +9,7 @@ const user = { userId: 'test ID' };
 const mockUserCommunications = {
     allUsersType: [{ message: 'test message' }],
 };
-sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
+sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves(mockUserCommunications);
 
 describe('Account home controller', () => {
     it('should render account home page', async () => {

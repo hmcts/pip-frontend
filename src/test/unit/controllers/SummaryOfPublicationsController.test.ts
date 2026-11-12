@@ -29,7 +29,7 @@ const additionalLocationInfo = {
 const mockUserCommunications = {
     allUsersType: [{ message: 'test message' }],
 };
-sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
+sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves(mockUserCommunications);
 sinon
     .stub(LocationService.prototype, 'getLocationById')
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789"}'));

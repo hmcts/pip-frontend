@@ -9,7 +9,7 @@ const systemAdminDashboardController = new SystemAdminDashboardController();
 const mockUserCommunications = {
     allUsersType: [{ message: 'test message' }],
 };
-sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
+sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves(mockUserCommunications);
 
 describe('System Admin Dashboard controller', () => {
     it('should render system admin dashboard page', async () => {

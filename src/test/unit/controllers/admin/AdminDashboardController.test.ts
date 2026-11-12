@@ -8,7 +8,7 @@ import { UserCommunicationService } from '../../../../main/service/UserCommunica
 const mockUserCommunications = {
     allUsersType: [{ message: 'test message' }],
 };
-sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
+sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves(mockUserCommunications);
 sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);
 const adminDashboardController = new AdminDashboardController();
 
