@@ -10,7 +10,7 @@
 {% macro communicationBanner(lng, allUsersComms, pageHtml = '') %}
   {% set bannerHtml %}
     {% for communication in allUsersComms %}
-      <p class="govuk-body">{{ communication.message }}</p>
+      <p class="govuk-body">{{ communication.message | safe }}</p>
     {% endfor %}
     {{ pageHtml | safe }}
   {% endset %}

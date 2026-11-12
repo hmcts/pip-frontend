@@ -34,7 +34,7 @@ const userCommunicationService = new UserCommunicationService();
 
 describe('User communication service', () => {
     it('should return grouped user communications', async () => {
-        const result = await userCommunicationService.getUserCommunications();
+        const result = await userCommunicationService.groupCommunicationMessages();
         expect(result.allUsersType.length).to.equal(1);
         expect(result.userProvenanceType).to.be.empty;
         expect(result.userRoleType.length).to.equal(1);
@@ -44,7 +44,7 @@ describe('User communication service', () => {
     });
 
     it('should return user communication messages in English', async () => {
-        const result = await userCommunicationService.getUserCommunications();
+        const result = await userCommunicationService.groupCommunicationMessages();
         expect(result.allUsersType[0].message).to.equal('test message 1');
         expect(result.userRoleType[0].message).to.equal('test message 2');
         expect(result.venueType[0].message).to.equal('test message 3');
@@ -52,7 +52,7 @@ describe('User communication service', () => {
     });
 
     it('should return user communication messages in Welsh if present', async () => {
-        const result = await userCommunicationService.getUserCommunications('cy');
+        const result = await userCommunicationService.groupCommunicationMessages('cy');
         expect(result.allUsersType[0].message).to.equal('test message 1');
         expect(result.userRoleType[0].message).to.equal('Welsh test message 2');
         expect(result.venueType[0].message).to.equal('Welsh test message 3');

@@ -17,7 +17,7 @@
         {% if userCommunications.userProvenanceType | length %}
             {% for communication in userCommunications.userProvenanceType %}
                 {% if user.userProvenance in communication.provenances %}
-                    <p class="govuk-body">{{ communication.message }}</p>
+                    <p class="govuk-body">{{ communication.message | safe }}</p>
                 {% endif %}
             {% endfor %}
         {% endif %}
@@ -25,7 +25,7 @@
         {% if userCommunications.userRoleType | length %}
             {% for communication in userCommunications.userRoleType %}
                 {% if user.roles in communication.roles %}
-                    <p class="govuk-body">{{ communication.message }}</p>
+                    <p class="govuk-body">{{ communication.message | safe }}</p>
                 {% endif %}
             {% endfor %}
         {% endif %}

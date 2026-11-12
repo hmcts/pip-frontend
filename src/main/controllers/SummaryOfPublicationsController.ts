@@ -43,7 +43,7 @@ export default class SummaryOfPublicationsController {
                 }
             });
 
-            const userCommunications = await userCommunicationService.getUserCommunications();
+            const userCommunications = await userCommunicationService.groupCommunicationMessages();
 
             res.render('summary-of-publications', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
