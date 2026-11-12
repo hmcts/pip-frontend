@@ -27,8 +27,14 @@ const additionalLocationInfo = {
 };
 
 const mockUserCommunications = {
-    allUsersType: [{ message: 'test message' }],
+    allUsersType: [
+        {
+            message: 'test message',
+            welshMessage: 'Welsh test message',
+        },
+    ],
 };
+
 sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves(mockUserCommunications);
 sinon
     .stub(LocationService.prototype, 'getLocationById')

@@ -32,12 +32,8 @@ const cftIdamMessage = 'test message for CFT_IDAM user only';
 const verifiedRoleMessage = 'test message for verified user only';
 
 sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves({
-    userProvenanceType: [
-        { message: cftIdamMessage, provenances: ['CFT_IDAM'] },
-    ],
-    userRoleType: [
-        { message: verifiedRoleMessage, roles: ['VERIFIED'] },
-    ],
+    userProvenanceType: [{ message: cftIdamMessage, provenances: ['CFT_IDAM'] }],
+    userRoleType: [{ message: verifiedRoleMessage, roles: ['VERIFIED'] }],
 });
 
 let htmlRes: Document;
@@ -82,17 +78,17 @@ describe('Your Account page', () => {
             }
         });
 
-        it('should display the verified banner', () => {
+        it('should display the notification banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
             expect(banner).to.exist;
         });
 
-        it('should display the header inside the verified banner', () => {
+        it('should display the header inside the notification banner', () => {
             const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
             expect(bannerHeader.innerHTML).contains('Important');
         });
 
-        it('should display the content inside the verified banner', () => {
+        it('should display the content inside the notification banner', () => {
             const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
             expect(bannerContent.innerHTML).contains(verifiedRoleMessage);
             expect(bannerContent.innerHTML).not.contains(accountVerifiedMessage);
@@ -113,17 +109,17 @@ describe('Your Account page', () => {
                 });
         });
 
-        it('should display the verified banner', () => {
+        it('should display the notification banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
             expect(banner).to.exist;
         });
 
-        it('should display the header inside the verified banner', () => {
+        it('should display the header inside the notification banner', () => {
             const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
             expect(bannerHeader.innerHTML).contains('Important');
         });
 
-        it('should display the content inside the verified banner', () => {
+        it('should display the content inside the notification banner', () => {
             const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
             expect(bannerContent.innerHTML).contains(accountVerifiedMessage);
             expect(bannerContent.innerHTML).contains(verifiedRoleMessage);
@@ -145,17 +141,17 @@ describe('Your Account page', () => {
                 });
         });
 
-        it('should display the verified banner', () => {
+        it('should display the notification banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
             expect(banner).to.exist;
         });
 
-        it('should display the header inside the verified banner', () => {
+        it('should display the header inside the notification banner', () => {
             const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
             expect(bannerHeader.innerHTML).contains('Important');
         });
 
-        it('should display the content inside the verified banner', () => {
+        it('should display the content inside the notification banner', () => {
             const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
             expect(bannerContent.innerHTML).contains(cftIdamMessage);
             expect(bannerContent.innerHTML).contains(verifiedRoleMessage);

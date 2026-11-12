@@ -7,19 +7,20 @@
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
-{% macro communicationBanner(lng, allUsersComms, pageHtml = '') %}
-  {% set bannerHtml %}
-    {% for communication in allUsersComms %}
-      <p class="govuk-body">{{ communication.message | safe }}</p>
-    {% endfor %}
-    {{ pageHtml | safe }}
-  {% endset %}
-  {% if bannerHtml | trim | length %}
-    {{ govukNotificationBanner({
-      classes: 'govuk-!-margin-top-8',
-      html: bannerHtml
-    }) }}
-  {% endif %}
+{% macro communicationBanner(lng, allUsersComms, commHtml = '', pageHtml = '') %}
+    {% set bannerHtml %}
+        {{ pageHtml | safe}}
+        {% for communication in allUsersComms %}
+            <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+        {% endfor %}
+        {{ commHtml | safe }}
+    {% endset %}
+    {% if bannerHtml | trim | length %}
+        {{ govukNotificationBanner({
+            classes: 'govuk-!-margin-top-8 full-width-notification-banner',
+            html: bannerHtml
+        }) }}
+    {% endif %}
 {% endmacro %}
 
 {% macro submitButton(label = 'Continue', id = 'button', ariaLabel = 'Continue Button', disable = false) %}

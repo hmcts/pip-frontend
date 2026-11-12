@@ -8,15 +8,15 @@ import { UserCommunicationService } from '../../../../main/service/UserCommunica
 const PAGE_URL = '/system-admin-dashboard';
 
 const pageTitleValue = 'System Admin dashboard';
-const systemAdminMessage = 'test message for system admin user only';
-const ctscAdminMessage = 'test message for CTSC admin only';
-const verifiedUserMessage = 'test message for verified user only';
+const commMessageForSystemAdmin = 'test message for system admin user only';
+const commMessageForCtscAdmin = 'test message for CTSC admin only';
+const commMessageForVerifiedUser = 'test message for verified user only';
 
 sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves({
     userRoleType: [
-        { message: systemAdminMessage, roles: ['SYSTEM_ADMIN'] },
-        { message: ctscAdminMessage, roles: ['INTERNAL_ADMIN_CTSC'] },
-        { message: verifiedUserMessage, roles: ['VERIFIED'] },
+        { message: commMessageForSystemAdmin, roles: ['SYSTEM_ADMIN'] },
+        { message: commMessageForCtscAdmin, roles: ['INTERNAL_ADMIN_CTSC'] },
+        { message: commMessageForVerifiedUser, roles: ['VERIFIED'] },
     ],
 });
 
@@ -67,20 +67,20 @@ describe('System Admin Dashboard page', () => {
         expect(description.innerHTML).contains('Discover content uploaded to all locations.');
     });
 
-    it('should display the verified banner', () => {
+    it('should display the notification banner', () => {
         const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
         expect(banner).to.exist;
     });
 
-    it('should display the header inside the verified banner', () => {
+    it('should display the header inside the notification banner', () => {
         const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
         expect(bannerHeader.innerHTML).contains('Important');
     });
 
-    it('should display the content inside the verified banner', () => {
+    it('should display the content inside the notification banner', () => {
         const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
-        expect(bannerContent.innerHTML).contains(systemAdminMessage);
-        expect(bannerContent.innerHTML).not.contains(ctscAdminMessage);
-        expect(bannerContent.innerHTML).not.contains(verifiedUserMessage);
+        expect(bannerContent.innerHTML).contains(commMessageForSystemAdmin);
+        expect(bannerContent.innerHTML).not.contains(commMessageForCtscAdmin);
+        expect(bannerContent.innerHTML).not.contains(commMessageForVerifiedUser);
     });
 });

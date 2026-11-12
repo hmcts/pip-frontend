@@ -51,11 +51,11 @@ describe('User communication service', () => {
         expect(result.venueType[1].message).to.equal('test message 4');
     });
 
-    it('should return user communication messages in Welsh if present', async () => {
-        const result = await userCommunicationService.groupCommunicationMessages('cy');
-        expect(result.allUsersType[0].message).to.equal('test message 1');
-        expect(result.userRoleType[0].message).to.equal('Welsh test message 2');
-        expect(result.venueType[0].message).to.equal('Welsh test message 3');
-        expect(result.venueType[1].message).to.equal('test message 4');
+    it('should return Welsh user communication messages if present', async () => {
+        const result = await userCommunicationService.groupCommunicationMessages();
+        expect(result.allUsersType[0].welshMessage).to.equal('test message 1');
+        expect(result.userRoleType[0].welshMessage).to.equal('Welsh test message 2');
+        expect(result.venueType[0].welshMessage).to.equal('Welsh test message 3');
+        expect(result.venueType[1].welshMessage).to.equal('test message 4');
     });
 });

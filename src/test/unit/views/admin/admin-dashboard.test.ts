@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import request from 'supertest';
 import sinon from 'sinon';
 import { MediaAccountApplicationService } from '../../../../main/service/MediaAccountApplicationService';
+import { UserCommunicationService } from '../../../../main/service/UserCommunicationService';
 
 const PAGE_URL = '/admin-dashboard';
 const pageTitleValue = 'Staff Dashboard - Your Dashboard - Court and Tribunal Hearings - GOV.UK';
@@ -29,9 +30,19 @@ const cards = [
     },
 ];
 
+const commMessageForCtscAdmin = 'test message for CTSC admin only';
+const commMessageForLocalAdmin = 'test message for local admin only';
+
+sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves({
+    userRoleType: [
+        { message: commMessageForCtscAdmin, roles: ['INTERNAL_ADMIN_CTSC'] },
+        { message: commMessageForLocalAdmin, roles: ['INTERNAL_ADMIN_LOCAL'] },
+    ],
+});
+const mediaApplicationsStub = sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications');
+
 let htmlRes: Document;
 
-const mediaApplicationsStub = sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications');
 describe('Admin Dashboard page all cards', () => {
     describe('with one media application', () => {
         beforeAll(async () => {
@@ -79,7 +90,7 @@ describe('Admin Dashboard page all cards', () => {
             }
         });
 
-        it('should contain notification banner', () => {
+        it('should contain notification message for outstanding media request', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings[0].innerHTML).contains('There is 1 outstanding media request.');
 
@@ -100,7 +111,7 @@ describe('Admin Dashboard page all cards', () => {
                 });
         });
 
-        it('should contain notification banner', () => {
+        it('should contain notification message for outstanding media request', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings[0].innerHTML).contains('There are 2 outstanding media requests.');
         });
@@ -117,7 +128,7 @@ describe('Admin Dashboard page all cards', () => {
                 });
         });
 
-        it('should not contain notification banner', () => {
+        it('should not contain notification message for outstanding media request', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings).to.be.empty;
         });
@@ -149,7 +160,7 @@ describe('Admin Dashboard page  - INTERNAL_SUPER_ADMIN_LOCAL', () => {
         expect(cardComponents.length).equal(3);
     });
 
-    it('should not contain notification banner', () => {
+    it('should not contain notification message for outstanding media request', () => {
         const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
         expect(bannerHeadings).to.be.empty;
     });
@@ -181,7 +192,23 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
             expect(cardComponents.length).equal(4);
         });
 
-        it('should contain notification banner', () => {
+        it('should display the notification banner', () => {
+            const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
+            expect(banner).to.exist;
+        });
+
+        it('should display the header inside the notification banner', () => {
+            const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
+            expect(bannerHeader.innerHTML).contains('Important');
+        });
+
+        it('should display the content inside the notification banner', () => {
+            const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
+            expect(bannerContent.innerHTML).contains(commMessageForCtscAdmin);
+            expect(bannerContent.innerHTML).not.contains(commMessageForLocalAdmin);
+        });
+
+        it('should contain notification message for outstanding media request', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings[0].innerHTML).contains('There is 1 outstanding media request.');
         });
@@ -198,7 +225,7 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
                 });
         });
 
-        it('should contain notification banner', () => {
+        it('should contain notification message for outstanding media request', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings[0].innerHTML).contains('There are 2 outstanding media requests.');
 
@@ -219,7 +246,7 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_CTSC', () => {
                 });
         });
 
-        it('should not contain notification banner', () => {
+        it('should not contain notification message for outstanding media request', () => {
             const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
             expect(bannerHeadings).to.be.empty;
         });
@@ -251,7 +278,23 @@ describe('Admin Dashboard page  - INTERNAL_ADMIN_LOCAL', () => {
         expect(cardComponents.length).equal(3);
     });
 
-    it('should not contain notification banner', () => {
+    it('should display the notification banner', () => {
+        const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
+        expect(banner).to.exist;
+    });
+
+    it('should display the header inside the notification banner', () => {
+        const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
+        expect(bannerHeader.innerHTML).contains('Important');
+    });
+
+    it('should display the content inside the notification banner', () => {
+        const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
+        expect(bannerContent.innerHTML).contains(commMessageForLocalAdmin);
+        expect(bannerContent.innerHTML).not.contains(commMessageForCtscAdmin);
+    });
+
+    it('should not contain notification message for outstanding media request', () => {
         const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
         expect(bannerHeadings).to.be.empty;
     });
@@ -283,7 +326,7 @@ describe('Admin Dashboard page  - SYSTEM_ADMIN', () => {
         expect(cardComponents.length).equal(3);
     });
 
-    it('should not contain notification banner', () => {
+    it('should not contain notification message for outstanding media request', () => {
         const bannerHeadings = htmlRes.getElementsByClassName('govuk-notification-banner__heading');
         expect(bannerHeadings).to.be.empty;
     });

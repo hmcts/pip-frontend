@@ -34,20 +34,31 @@ sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').res
 const courtStub = sinon.stub(LocationService.prototype, 'getLocationById');
 courtStub
     .withArgs(locationIdWithTelephoneAndEmail)
-    .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789", "jurisdictionType": ["Civil Court"]}'));
-courtStub.withArgs(locationIdWithTelephoneOnly)
+    .resolves(
+        JSON.parse(
+            '{"name":"New Court", "email": "test@test.com", "contactNo": "0123456789", "jurisdictionType": ["Civil Court"]}'
+        )
+    );
+courtStub
+    .withArgs(locationIdWithTelephoneOnly)
     .resolves(JSON.parse('{"name":"New Court", "contactNo": "0123456789", "jurisdictionType": ["Civil Court"]}'));
-courtStub.withArgs(locationIdWithEmailOnly)
+courtStub
+    .withArgs(locationIdWithEmailOnly)
     .resolves(JSON.parse('{"name":"New Court", "email": "test@test.com", "jurisdictionType": ["Civil Court"]}'));
-courtStub.withArgs(locationIdWithoutContact)
+courtStub
+    .withArgs(locationIdWithoutContact)
     .resolves(JSON.parse('{"name":"New Court", "jurisdictionType": ["Civil Court"]}'));
-courtStub.withArgs(locationIdWithPublications)
+courtStub
+    .withArgs(locationIdWithPublications)
     .resolves(JSON.parse('{"name":"New Court", "jurisdictionType": ["Civil Court"]}'));
-courtStub.withArgs(locationIdWithNoListMessageOverride)
+courtStub
+    .withArgs(locationIdWithNoListMessageOverride)
     .resolves(JSON.parse('{"name":"New Court", "jurisdictionType": ["Civil Court"]}'));
-courtStub.withArgs(locationIdWithCautionMessageOverride)
+courtStub
+    .withArgs(locationIdWithCautionMessageOverride)
     .resolves(JSON.parse('{"name":"New Court", "jurisdictionType": ["Civil Court"]}'));
-courtStub.withArgs(locationIdWithHtmlMessageOverride)
+courtStub
+    .withArgs(locationIdWithHtmlMessageOverride)
     .resolves(JSON.parse('{"name":"New Court", "jurisdictionType": ["Civil Court"]}'));
 
 const publicationStub = sinon.stub(PublicationService.prototype, 'getPublicationsByLocation');
@@ -428,17 +439,17 @@ describe('Summary of publications page', () => {
             );
         });
 
-        it('should display the verified banner', () => {
+        it('should display the notification banner', () => {
             const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
             expect(banner).to.exist;
         });
 
-        it('should display the header inside the verified banner', () => {
+        it('should display the header inside the notification banner', () => {
             const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
             expect(bannerHeader.innerHTML).contains('Important');
         });
 
-        it('should display the content inside the verified banner', () => {
+        it('should display the content inside the notification banner', () => {
             const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
             expect(bannerContent.innerHTML).contains(commMessageForLocationIdWithPublications);
             expect(bannerContent.innerHTML).contains(commMessageForCivilCourt);

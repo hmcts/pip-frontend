@@ -3,7 +3,7 @@ import { AccountManagementRequests } from '../resources/requests/AccountManageme
 const accountManagementRequests = new AccountManagementRequests();
 
 export class UserCommunicationService {
-    public async groupCommunicationMessages(lng = 'en'): Promise<any> {
+    public async groupCommunicationMessages(): Promise<any> {
         const userCommunications = (await accountManagementRequests.getUserCommunications()) ?? [];
         const allUsersType = [];
         const userProvenanceType = [];
@@ -14,26 +14,26 @@ export class UserCommunicationService {
         userCommunications.forEach(comm => {
             if (comm.audienceType === 'ALL_USERS') {
                 allUsersType.push({
-                    message: this.getMessageByLanguage(comm, lng),
+                    ...this.buildMessages(comm),
                 });
             } else if (comm.audienceType === 'USER_PROVENANCE') {
                 userProvenanceType.push({
-                    message: this.getMessageByLanguage(comm, lng),
+                    ...this.buildMessages(comm),
                     provenances: comm.userProvenances ?? [],
                 });
             } else if (comm.audienceType === 'USER_ROLE') {
                 userRoleType.push({
-                    message: this.getMessageByLanguage(comm, lng),
+                    ...this.buildMessages(comm),
                     roles: comm.userRoles ?? [],
                 });
             } else if (comm.audienceType === 'VENUE') {
                 venueType.push({
-                    message: this.getMessageByLanguage(comm, lng),
+                    ...this.buildMessages(comm),
                     venues: comm.venues ?? [],
                 });
             } else if (comm.audienceType === 'JURISDICTION') {
                 jurisdictionType.push({
-                    message: this.getMessageByLanguage(comm, lng),
+                    ...this.buildMessages(comm),
                     subJurisdictions: comm.subJurisdictions ?? [],
                 });
             }
@@ -48,10 +48,11 @@ export class UserCommunicationService {
         };
     }
 
-    private getMessageByLanguage(data, lng) {
-        if (lng === 'cy' && data.welshMessage) {
-            return data.welshMessage;
-        }
-        return data.message;
+    private buildMessages(data) {
+        const welshMessage = data.welshMessage ? data.welshMessage : data.message;
+        return {
+            message: data.message,
+            welshMessage: welshMessage,
+        };
     }
 }

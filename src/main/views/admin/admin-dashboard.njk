@@ -9,23 +9,7 @@
     {{ goBack(cspNonce = cspNonce) }}
 {% endblock %}
 {% block pageBanner %}
-    {% set html %}
-        {% if userCommunications.userProvenanceType | length %}
-            {% for communication in userCommunications.userProvenanceType %}
-                {% if user.userProvenance in communication.provenances %}
-                    <p class="govuk-body">{{ communication.message | safe }}</p>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-
-        {% if userCommunications.userRoleType | length %}
-            {% for communication in userCommunications.userRoleType %}
-                {% if user.roles in communication.roles %}
-                    <p class="govuk-body">{{ communication.message | safe }}</p>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-
+    {% set pageHtml %}
         {% if user.roles in ['INTERNAL_SUPER_ADMIN_CTSC', 'INTERNAL_ADMIN_CTSC'] and mediaApplicationsCount > 0 %}
             <p class="govuk-notification-banner__heading">
                 {% if mediaApplicationsCount == 1 %}
@@ -34,14 +18,31 @@
                     {{ mediaRequestNotificationBanner.plural | replace("COUNT", mediaApplicationsCount) }}
                 {% endif %}
                 <a href="{{ mediaCard.link }}"
-                   class="govuk-link govuk-notification-banner__heading"
+                   class="govuk-link"
                    id="banner-{{ mediaCard.link }}"
                 >{{ mediaCard.title }}</a>.
             </p>
         {% endif %}
     {% endset %}
+    {% set commHtml %}
+        {% if userCommunications.userProvenanceType | length %}
+            {% for communication in userCommunications.userProvenanceType %}
+                {% if user.userProvenance in communication.provenances %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
 
-    {{ communicationBanner(lng, allUsersComms, html) }}
+        {% if userCommunications.userRoleType | length %}
+            {% for communication in userCommunications.userRoleType %}
+                {% if user.roles in communication.roles %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endset %}
+
+    {{ communicationBanner(lng, allUsersComms, commHtml, pageHtml) }}
 {% endblock %}
 {% block content %}
 <div class="parent-box">
