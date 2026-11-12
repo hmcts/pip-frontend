@@ -17,7 +17,9 @@ export class UserCommunications {
                 if (!cache || cache.expires < Date.now()) {
                     cache = {
                         expires: Date.now() + CACHE_TTL_MS,
-                        messages: userCommunicationService.groupCommunicationMessages().then(comms => comms.allUsersType),
+                        messages: userCommunicationService
+                            .groupCommunicationMessages()
+                            .then(comms => comms.allUsersType),
                     };
                 }
                 res.locals.allUsersComms = await cache.messages;

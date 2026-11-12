@@ -35,11 +35,11 @@ const userCommunicationService = new UserCommunicationService();
 describe('User communication service', () => {
     it('should return grouped user communications', async () => {
         const result = await userCommunicationService.groupCommunicationMessages();
-        expect(result.allUsersType.length).to.equal(1);
+        expect(result.allUsersType).to.have.length(1);
         expect(result.userProvenanceType).to.be.empty;
-        expect(result.userRoleType.length).to.equal(1);
+        expect(result.userRoleType).to.have.length(1);
         expect(result.userRoleType[0].roles).to.contain('VERIFIED');
-        expect(result.venueType.length).to.equal(2);
+        expect(result.venueType).to.have.length(2);
         expect(result.jurisdictionType).to.be.empty;
     });
 
