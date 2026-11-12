@@ -52,6 +52,6 @@ export class UserCommunicationService {
         if (lng === 'cy' && data.welshMessage) {
             return data.welshMessage;
         }
-        return data.message
+        return data.message;
     }
 }

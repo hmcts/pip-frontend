@@ -7,9 +7,7 @@ import { UserCommunicationService } from '../../../main/service/UserCommunicatio
 const accountHomeController = new AccountHomeController();
 const user = { userId: 'test ID' };
 const mockUserCommunications = {
-    allUsersType: [
-        { message: 'test message' },
-    ],
+    allUsersType: [{ message: 'test message' }],
 };
 sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
 

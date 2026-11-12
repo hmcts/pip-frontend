@@ -7,9 +7,7 @@ import { UserCommunicationService } from '../../../../main/service/UserCommunica
 const systemAdminDashboardController = new SystemAdminDashboardController();
 
 const mockUserCommunications = {
-    allUsersType: [
-        { message: 'test message' },
-    ],
+    allUsersType: [{ message: 'test message' }],
 };
 sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
 

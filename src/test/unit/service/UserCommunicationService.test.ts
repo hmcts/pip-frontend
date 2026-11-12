@@ -8,27 +8,26 @@ const userCommunications = [
         audienceType: 'ALL_USERS',
         message: 'test message 1',
         welshMessage: '',
-
     },
     {
         audienceType: 'USER_ROLE',
-        userRoles: [ 'VERIFIED' ],
+        userRoles: ['VERIFIED'],
         message: 'test message 2',
         welshMessage: 'Welsh test message 2',
     },
     {
         audienceType: 'VENUE',
-        venues: [ 1, 2 ],
+        venues: [1, 2],
         message: 'test message 3',
         welshMessage: 'Welsh test message 3',
     },
     {
         audienceType: 'VENUE',
-        venues: [ 3 ],
+        venues: [3],
         message: 'test message 4',
         welshMessage: '',
     },
-]
+];
 sinon.stub(AccountManagementRequests.prototype, 'getUserCommunications').resolves(userCommunications);
 
 const userCommunicationService = new UserCommunicationService();
@@ -39,7 +38,7 @@ describe('User communication service', () => {
         expect(result.allUsersType.length).to.equal(1);
         expect(result.userProvenanceType).to.be.empty;
         expect(result.userRoleType.length).to.equal(1);
-        expect(result.userRoleType[0].roles).to.contain('VERIFIED')
+        expect(result.userRoleType[0].roles).to.contain('VERIFIED');
         expect(result.venueType.length).to.equal(2);
         expect(result.jurisdictionType).to.be.empty;
     });

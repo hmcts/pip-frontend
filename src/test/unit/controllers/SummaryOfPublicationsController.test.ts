@@ -27,9 +27,7 @@ const additionalLocationInfo = {
 };
 
 const mockUserCommunications = {
-    allUsersType: [
-        { message: 'test message' },
-    ],
+    allUsersType: [{ message: 'test message' }],
 };
 sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
 sinon

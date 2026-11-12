@@ -6,9 +6,7 @@ import { MediaAccountApplicationService } from '../../../../main/service/MediaAc
 import { UserCommunicationService } from '../../../../main/service/UserCommunicationService';
 
 const mockUserCommunications = {
-    allUsersType: [
-        { message: 'test message' },
-    ],
+    allUsersType: [{ message: 'test message' }],
 };
 sinon.stub(UserCommunicationService.prototype, 'getUserCommunications').resolves(mockUserCommunications);
 sinon.stub(MediaAccountApplicationService.prototype, 'getDateOrderedMediaApplications').resolves([]);

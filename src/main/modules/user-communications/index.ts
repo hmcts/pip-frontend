@@ -4,7 +4,7 @@ import { UserCommunicationService } from '../../service/UserCommunicationService
 const CACHE_TTL_MS = 60_000;
 
 const userCommunicationService = new UserCommunicationService();
-let cache: { expires: number; messages: Promise<{ message: string; }[]> } | undefined;
+let cache: { expires: number; messages: Promise<{ message: string }[]> } | undefined;
 
 export class UserCommunications {
     public enableFor(app: express.Express): void {
