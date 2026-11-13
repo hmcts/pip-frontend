@@ -5,6 +5,23 @@
 {% from "govuk/components/panel/macro.njk" import govukPanel %}
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% macro communicationBanner(lng, allUsersComms, commHtml = '', pageHtml = '') %}
+    {% set bannerHtml %}
+        {{ pageHtml | safe}}
+        {% for communication in allUsersComms %}
+            <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+        {% endfor %}
+        {{ commHtml | safe }}
+    {% endset %}
+    {% if bannerHtml | trim | length %}
+        {{ govukNotificationBanner({
+            classes: 'govuk-!-margin-top-8 govuk-!-margin-bottom-4 full-width-notification-banner',
+            html: bannerHtml
+        }) }}
+    {% endif %}
+{% endmacro %}
 
 {% macro submitButton(label = 'Continue', id = 'button', ariaLabel = 'Continue Button', disable = false) %}
     {{ govukButton({

@@ -3,16 +3,18 @@ import { Response } from 'express';
 import { cloneDeep } from 'lodash';
 import { LocationService } from '../service/LocationService';
 import { PublicationService } from '../service/PublicationService';
+import { UserCommunicationService } from '../service/UserCommunicationService';
 
 const locationService = new LocationService();
 const publicationService = new PublicationService();
+const userCommunicationService = new UserCommunicationService();
 
 export default class SummaryOfPublicationsController {
     public async get(req: PipRequest, res: Response): Promise<void> {
         const locationId = req.query['locationId'] as string;
 
         if (locationId && !isNaN(parseInt(locationId))) {
-            const court = await locationService.getLocationById(parseInt(locationId));
+            const court = await locationService.getLocationById(Number.parseInt(locationId));
             const locationName = locationService.findCourtName(court, req.lng, 'summary-of-publications');
             const locationMetadata = await locationService.getLocationMetadata(parseInt(locationId));
 
@@ -41,13 +43,17 @@ export default class SummaryOfPublicationsController {
                 }
             });
 
+            const userCommunications = await userCommunicationService.groupCommunicationMessages();
+
             res.render('summary-of-publications', {
                 ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['summary-of-publications']),
                 publications: publicationsWithName,
+                locationId: Number.parseInt(locationId),
                 locationName,
                 court,
                 noListMessageOverride,
                 cautionMessageOverride,
+                userCommunications,
             });
         } else {
             res.render('error', req.i18n.getDataByLanguage(req.lng).error);

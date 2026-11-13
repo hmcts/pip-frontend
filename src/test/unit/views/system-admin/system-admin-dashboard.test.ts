@@ -2,10 +2,23 @@ import { app } from '../../../../main/app';
 import request from 'supertest';
 import { expect } from 'chai';
 import { request as expressRequest } from 'express';
+import sinon from 'sinon';
+import { UserCommunicationService } from '../../../../main/service/UserCommunicationService';
 
 const PAGE_URL = '/system-admin-dashboard';
 
 const pageTitleValue = 'System Admin dashboard';
+const commMessageForSystemAdmin = 'test message for system admin user only';
+const commMessageForCtscAdmin = 'test message for CTSC admin only';
+const commMessageForVerifiedUser = 'test message for verified user only';
+
+sinon.stub(UserCommunicationService.prototype, 'groupCommunicationMessages').resolves({
+    userRoleType: [
+        { message: commMessageForSystemAdmin, roles: ['SYSTEM_ADMIN'] },
+        { message: commMessageForCtscAdmin, roles: ['INTERNAL_ADMIN_CTSC'] },
+        { message: commMessageForVerifiedUser, roles: ['VERIFIED'] },
+    ],
+});
 
 let htmlRes: Document;
 
@@ -52,5 +65,22 @@ describe('System Admin Dashboard page', () => {
         expect(link.innerHTML).contains('Blob Explorer');
         expect(link.getAttribute('href')).contains('blob-view-locations');
         expect(description.innerHTML).contains('Discover content uploaded to all locations.');
+    });
+
+    it('should display the notification banner', () => {
+        const banner = htmlRes.getElementsByClassName('govuk-notification-banner');
+        expect(banner).to.exist;
+    });
+
+    it('should display the header inside the notification banner', () => {
+        const bannerHeader = htmlRes.getElementsByClassName('govuk-notification-banner__title')[0];
+        expect(bannerHeader.innerHTML).contains('Important');
+    });
+
+    it('should display the content inside the notification banner', () => {
+        const bannerContent = htmlRes.getElementsByClassName('govuk-notification-banner__content')[0];
+        expect(bannerContent.innerHTML).contains(commMessageForSystemAdmin);
+        expect(bannerContent.innerHTML).not.contains(commMessageForCtscAdmin);
+        expect(bannerContent.innerHTML).not.contains(commMessageForVerifiedUser);
     });
 });
