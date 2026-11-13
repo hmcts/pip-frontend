@@ -17,7 +17,7 @@
     {% endset %}
     {% if bannerHtml | trim | length %}
         {{ govukNotificationBanner({
-            classes: 'govuk-!-margin-top-8 full-width-notification-banner',
+            classes: 'govuk-!-margin-top-8 govuk-!-margin-bottom-4 full-width-notification-banner',
             html: bannerHtml
         }) }}
     {% endif %}
