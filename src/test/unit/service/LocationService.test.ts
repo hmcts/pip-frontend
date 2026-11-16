@@ -21,6 +21,7 @@ const stubLocationMetadata = sinon.stub(courtRequest, 'getLocationMetadata');
 const stubAddLocationMetadata = sinon.stub(courtRequest, 'addLocationMetadata');
 const stubUpdateLocationMetadata = sinon.stub(courtRequest, 'updateLocationMetadata');
 const stubDeleteLocationMetadata = sinon.stub(courtRequest, 'deleteLocationMetadata');
+const stubLocationWithMetadata = sinon.stub(courtRequest, 'getLocationWithMetadata');
 
 const validKeysCount = 26;
 const alphabet = [
@@ -322,6 +323,24 @@ describe('Court Service', () => {
         it('should delete location metadata', async () => {
             expect(await courtService.deleteLocationMetadata(locationMetadataId, adminUserId)).is.true;
             expect(await courtService.deleteLocationMetadata(locationMetadataIdForFailedRequest, adminUserId)).is.false;
+        });
+
+        const locationWithMetadata = {
+            location: hearingsData[0],
+            metadata: locationMetadata,
+        };
+
+        stubLocationWithMetadata.withArgs(locationId).returns(locationWithMetadata);
+        stubLocationWithMetadata.withArgs(locationIdForFailedRequest).returns(null);
+
+        it('should return location with metadata by location id', async () => {
+            const result = await courtService.getLocationWithMetadata(locationId);
+            expect(result).to.deep.equal(locationWithMetadata);
+        });
+
+        it('should return null when location with metadata request fails', async () => {
+            const result = await courtService.getLocationWithMetadata(locationIdForFailedRequest);
+            expect(result).to.equal(null);
         });
     });
 });
