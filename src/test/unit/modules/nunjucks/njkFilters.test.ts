@@ -288,4 +288,21 @@ describe('Nunjucks Custom Filter Tests', function () {
             expect(result).to.equal('false');
         });
     });
+
+    describe('isArrayElementsOverlapped filter', function () {
+        it('should return true if 2 arrays contain a common item', function () {
+            const result = env.renderString('{{ ["2", "4", "6"] | isArrayElementsOverlapped(["1", "2", "3"]) }}', {});
+            expect(result).to.equal('true');
+        });
+
+        it('should return false if 2 arrays do not contain any common item', function () {
+            const result = env.renderString('{{ ["4", "5", "6"] | isArrayElementsOverlapped(["1", "2", "3"]) }}', {});
+            expect(result).to.equal('false');
+        });
+
+        it('should return false for empty arrays', function () {
+            const result = env.renderString('{{ ["2", "4", "6"] | isArrayElementsOverlapped([]) }}', {});
+            expect(result).to.equal('false');
+        });
+    });
 });

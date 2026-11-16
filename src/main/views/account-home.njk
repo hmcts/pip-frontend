@@ -1,6 +1,5 @@
 {% extends "template.njk" %}
-{% from "./macros/common-components.njk" import goBack %}
-{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "./macros/common-components.njk" import goBack, communicationBanner %}
 
 {% block pageTitle %}
     {{ title }}
@@ -9,16 +8,34 @@
     {{ super() }}
     {{ goBack(text = backButton, cspNonce = cspNonce) }}
 {% endblock %}
+{% block pageBanner %}
+    {% set pageHtml %}
+        {% if showVerifiedBanner %}
+            <p class="govuk-notification-banner__heading">{{ bannerText }}</p>
+        {% endif %}
+    {% endset %}
+    {% set commHtml %}
+        {% if userCommunications.userProvenanceType | length %}
+            {% for communication in userCommunications.userProvenanceType %}
+                {% if user.userProvenance in communication.provenances %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if userCommunications.userRoleType | length %}
+            {% for communication in userCommunications.userRoleType %}
+                {% if user.roles in communication.roles %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endset %}
+
+    {{ communicationBanner(lng, allUsersComms, commHtml, pageHtml) }}
+{% endblock %}
 {% block content %}
-  {% if showVerifiedBanner %}
     <div class="parent-box">
-      {% set html %}
-        <p class="govuk-notification-banner__heading">{{ bannerText }}</p>
-      {% endset %}
-      {{ govukNotificationBanner({
-        html: html
-      }) }}
-  {% endif %}
     <div class="govuk-grid-row">
         <h1 class="govuk-heading-l">{{ header }}</h1>
     </div>

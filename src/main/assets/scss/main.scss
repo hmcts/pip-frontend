@@ -606,3 +606,7 @@ nav {
     font-size: 16px;
     color: govuk-functional-colour(text) !important;
 }
+
+.full-width-notification-banner .govuk-notification-banner__content > * {
+    max-width: none;
+}
