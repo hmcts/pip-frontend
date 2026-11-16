@@ -25,7 +25,7 @@ Scenario('I as an admin user should be able to accept valid media account reques
     I.switchToNextTab(1);
     I.switchToPreviousTab(1);
     I.see("Applicant's details");
-    I.click('#approve');
+    I.click('#approve', null, {});
     I.waitForText('Are you sure you want to approve this application?');
     I.see("Applicant's Details");
     I.see(testFullName);
