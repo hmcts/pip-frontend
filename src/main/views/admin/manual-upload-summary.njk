@@ -24,14 +24,18 @@
     {% endif %}
 
     {% if displayError %}
+        {% set errorList = [] %}
+        {% if errorMessages | length %}
+            {% for errorMessage in errorMessages %}
+                {% set errorList = (errorList.push({ text: errorMessage, href: "#" }), errorList) %}
+            {% endfor %}
+        {% else %}
+            {% set errorList = (errorList.push({ text: error.message, href: "#" }), errorList) %}
+        {% endif %}
+
         {{ govukErrorSummary({
             titleText: error.title,
-            errorList: [
-                {
-                    text: error.message,
-                    href: "#"
-                }
-            ]
+            errorList: errorList
         }) }}
     {% endif %}
   <div class="parent-box">
