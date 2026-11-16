@@ -43,8 +43,8 @@ Scenario('I as a system admin should be able to bulk create media accounts', asy
     I.see(validUser2);
     I.see('Are you sure you want to create these media accounts?');
     I.click('#yes');
-    I.click('Continue');
-    I.waitForText('Media accounts created');
+    I.click('Continue', null, { noWaitAfter: true });
+    I.waitForText('Media accounts created', 20);
     I.see('The file has been uploaded successfully and all accounts have been created');
     I.see('What do you want to do next?');
     I.see('Upload another file');

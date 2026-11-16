@@ -272,22 +272,42 @@ describe('Subscription Requests', () => {
         });
     });
 
-    describe('fulfill subscriptions', () => {
+    describe('fulfill email subscriptions', () => {
         it('should return success message if call is successful', async () => {
-            postStub.withArgs('/subscription/artefact-recipients').resolves({ data: 'success' });
-            const data = await subscriptionActions.fulfillSubscriptions({});
+            postStub.withArgs('/subscription/email-recipients/V2').resolves({ data: 'success' });
+            const data = await subscriptionActions.fulfillEmailSubscriptions({});
             expect(data).toBe('success');
         });
 
         it('should return null for failure', async () => {
-            postStub.withArgs('/subscription/artefact-recipients').rejects(errorMessage);
-            const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
+            postStub.withArgs('/subscription/email-recipients/V2').rejects(errorMessage);
+            const subscriptionUpdated = await subscriptionActions.fulfillEmailSubscriptions({});
             expect(subscriptionUpdated).toBe(null);
         });
 
         it('should return null for error response', async () => {
-            postStub.withArgs('/subscription/artefact-recipients').rejects(errorResponse);
-            const subscriptionUpdated = await subscriptionActions.fulfillSubscriptions({});
+            postStub.withArgs('/subscription/email-recipients/V2').rejects(errorResponse);
+            const subscriptionUpdated = await subscriptionActions.fulfillEmailSubscriptions({});
+            expect(subscriptionUpdated).toBe(null);
+        });
+    });
+
+    describe('fulfill API subscriptions', () => {
+        it('should return success message if call is successful', async () => {
+            postStub.withArgs('/subscription/api-recipients').resolves({ data: 'success' });
+            const data = await subscriptionActions.fulfillApiSubscriptions({});
+            expect(data).toBe('success');
+        });
+
+        it('should return null for failure', async () => {
+            postStub.withArgs('/subscription/api-recipients').rejects(errorMessage);
+            const subscriptionUpdated = await subscriptionActions.fulfillApiSubscriptions({});
+            expect(subscriptionUpdated).toBe(null);
+        });
+
+        it('should return null for error response', async () => {
+            postStub.withArgs('/subscription/api-recipients').rejects(errorResponse);
+            const subscriptionUpdated = await subscriptionActions.fulfillApiSubscriptions({});
             expect(subscriptionUpdated).toBe(null);
         });
     });
