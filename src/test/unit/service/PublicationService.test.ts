@@ -63,6 +63,7 @@ stub.withArgs().returns(dailyCauseListData);
 const rawPayloadText = JSON.stringify(dailyCauseListData, null, 4);
 const stubRawPayload = sinon.stub(publicationRequests, 'getIndividualPublicationRawPayload');
 stubRawPayload.returns(rawPayloadText);
+sinon.stub(publicationRequests, 'getCasesByArtefactId').resolves(returnedCaseNumberSearchResults);
 
 const stubMetaData = sinon.stub(publicationRequests, 'getIndividualPublicationMetadata');
 stubMetaData.returns(metaData);
@@ -115,7 +116,7 @@ describe('Publication service', () => {
 
     it('should return list types', () => {
         const listTypes = publicationService.getListTypes();
-        expect(listTypes.size).to.equal(98);
+        expect(listTypes.size).to.equal(82);
 
         const sjpResult = listTypes.get('SJP_PUBLIC_LIST');
         expect(sjpResult['friendlyName']).to.equal('Single Justice Procedure Public List (Full List)');

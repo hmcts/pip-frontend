@@ -22,7 +22,7 @@ export class ManualUploadService {
         selectedListType: string | undefined
     ): Promise<object> {
         return {
-            courtList: await courtService.fetchAllLocations(language),
+            courtList: await courtService.getLocationsWithExclusions(language),
             listSubtypes: this.getListSubtypes(isNonStrategic, selectedListType),
         };
     }

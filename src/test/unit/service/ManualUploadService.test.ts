@@ -130,7 +130,7 @@ const languageFile = 'manual-upload';
 const jsonUploadArtefactId = '123';
 const fileUploadArtefactId = '456';
 
-sinon.stub(LocationService.prototype, 'fetchAllLocations').resolves(courtData);
+sinon.stub(LocationService.prototype, 'getLocationsWithExclusions').resolves(courtData);
 sinon.stub(DataManagementRequests.prototype, 'uploadPublication').resolves(fileUploadArtefactId);
 sinon.stub(DataManagementRequests.prototype, 'uploadJSONPublication').resolves(jsonUploadArtefactId);
 sinon.stub(DataManagementRequests.prototype, 'uploadLocationFile').resolves(true);
@@ -149,7 +149,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes when not non-strategic', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage, false, undefined);
-            expect(data['listSubtypes'].length).to.equal(30);
+            expect(data['listSubtypes'].length).to.equal(31);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',
@@ -170,7 +170,7 @@ describe('Manual upload service', () => {
 
         it('should build form data list subtypes when non-strategic', async () => {
             const data = await manualUploadService.buildFormData(englishLanguage, true, undefined);
-            expect(data['listSubtypes'].length).to.equal(67);
+            expect(data['listSubtypes'].length).to.equal(51);
             expect(data['listSubtypes'][0]).to.deep.equal({
                 text: '<Please choose a list type>',
                 value: 'EMPTY',

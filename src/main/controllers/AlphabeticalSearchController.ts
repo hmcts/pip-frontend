@@ -9,10 +9,12 @@ const subscriptionService = new SubscriptionService();
 
 export default class AlphabeticalSearchController {
     public async get(req: PipRequest, res: Response, page: string): Promise<void> {
+        const excludeLocations = page === 'location-name-search';
         const filters = await filterService.handleFilterInitialisation(
             req.query?.clear as string,
             req.query?.filterValues as string,
-            req.lng
+            req.lng,
+            excludeLocations
         );
 
         res.render(page, {

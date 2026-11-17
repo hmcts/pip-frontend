@@ -12,7 +12,7 @@ let htmlRes: Document;
 const pageHeader = 'Subscribe by court or tribunal name';
 const rawData = fs.readFileSync(path.resolve(__dirname, '../mocks/courtAndHearings.json'), 'utf-8');
 const courtData = JSON.parse(rawData);
-const checkboxesCount = 12;
+const checkboxesCount = 13;
 
 sinon.stub(LocationRequests.prototype, 'getAllLocations').returns(courtData);
 
@@ -99,7 +99,7 @@ describe('Location Name Search Page', () => {
 
     it('should contain jurisdiction filter checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('Jurisdiction');
-        expect(checkboxes.length).equal(3, 'Jurisdiction filter does not match');
+        expect(checkboxes.length).equal(4, 'Jurisdiction filter does not match');
     });
 
     it('should not contain civil type filter checkboxes', () => {
@@ -124,7 +124,7 @@ describe('Location Name Search Page', () => {
 
     it('should contain region filter checkboxes', () => {
         const checkboxes = htmlRes.getElementsByName('Region');
-        expect(checkboxes.length).equal(3, 'Region filter does not match');
+        expect(checkboxes.length).equal(4, 'Region filter does not match');
     });
 
     it('should contain a back to top link, that links back up to the top', () => {
@@ -147,7 +147,7 @@ describe('Location Name Search Page', () => {
         const tableRows = htmlRes
             .getElementsByClassName('govuk-table__body')[0]
             .getElementsByClassName('govuk-table__row');
-        expect(tableRows.length).equal(12, 'Could not find all table rows');
+        expect(tableRows.length).equal(13, 'Could not find all table rows');
     });
 
     it(`should display ${checkboxesCount} subscription checkboxes`, () => {

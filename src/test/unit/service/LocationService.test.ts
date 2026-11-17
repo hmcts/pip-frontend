@@ -60,6 +60,8 @@ const locations = [
 
 const validCourt = "Abergavenny Magistrates' Court";
 const validWelshCourt = 'Llys Ynadon y Fenni';
+const copCourt = 'Court of Protection';
+
 const englishLanguage = 'en';
 const welshLanguage = 'cy';
 const englishLanguageFile = 'sscs-daily-list';
@@ -93,6 +95,7 @@ stubCourtsFilter.withArgs('', magistrates, englishLanguage).returns([]);
 stubCourt.withArgs(1).returns(hearingsData[0]);
 stubCourtByName.withArgs(validCourt).returns(hearingsData[0]);
 stubCourtByName.withArgs(validWelshCourt).returns(hearingsData[0]);
+stubCourtByName.withArgs(copCourt).returns(hearingsData[12]);
 stubCourtDeletion.withArgs(1, adminUserId).returns(deletionResponse);
 stubCourtDeletion.withArgs(2, adminUserId).returns(null);
 
@@ -102,18 +105,30 @@ describe('Court Service', () => {
     });
 
     it('should return welsh courts name', async () => {
-        const data = await courtService.fetchAllLocations('cy');
+        const data = await courtService.fetchAllLocations(welshLanguage);
         expect(data[0].name).to.equal(hearingsData[0]['welshName']);
     });
 
     it('should return welsh courts region', async () => {
-        const data = await courtService.fetchAllLocations('cy');
+        const data = await courtService.fetchAllLocations(welshLanguage);
         expect(data[0].region).to.equal(hearingsData[0]['welshRegion']);
     });
 
     it('should return welsh courts jurisdiction', async () => {
-        const data = await courtService.fetchAllLocations('cy');
+        const data = await courtService.fetchAllLocations(welshLanguage);
         expect(data[0].jurisdiction).to.equal(hearingsData[0]['welshJurisdiction']);
+    });
+
+    it('should return fetched courts with COP excluded', async () => {
+        const result = await courtService.getLocationsWithExclusions(englishLanguage);
+        expect(result).to.not.equal(hearingsData);
+        expect(result.some(({ name }) => name === copCourt)).to.be.false;
+    });
+
+    it('should return input courts with COP excluded', async () => {
+        const result = await courtService.getLocationsWithExclusions(englishLanguage, hearingsData);
+        expect(result).to.not.equal(hearingsData);
+        expect(result.some(({ name }) => name === copCourt)).to.be.false;
     });
 
     it('should return found court for id', async () => {
@@ -176,11 +191,23 @@ describe('Court Service', () => {
     it('should have keys with courts alphabetically assigned to them', async () => {
         const data = await courtService.generateAlphabetisedAllCourtList(englishLanguage);
         expect(validCourt in data['A']).to.be.true;
+        expect(copCourt in data['C']).to.be.true;
+    });
+
+    it('should have Court of Protection excluded from all court list', async () => {
+        const data = await courtService.generateAlphabetisedAllCourtList(englishLanguage, true);
+        expect(copCourt in data['C']).to.be.false;
     });
 
     it(`should have filtered a ${validCourt} key`, async () => {
         const data = await courtService.generateFilteredAlphabetisedCourtList('', crown, englishLanguage);
         expect(validCourt in data['A']).to.be.true;
+        expect(copCourt in data['C']).to.be.true;
+    });
+
+    it('should have Court of Protection excluded from filtered court list', async () => {
+        const data = await courtService.generateFilteredAlphabetisedCourtList('', crown, englishLanguage, true);
+        expect(copCourt in data['C']).to.be.false;
     });
 
     it(`should return object with ${validKeysCount} keys filtered`, async () => {
