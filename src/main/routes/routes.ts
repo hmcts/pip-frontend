@@ -1196,6 +1196,12 @@ export default function (app: Application): void {
     app.get('/edit-list-type-search-config-success', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.editListTypeSearchConfigSuccessController.get(req, res)
     );
+    app.get('/user-communication-management', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.userCommunicationManagementController.get(req, res)
+    );
+    app.get('/create-user-communication', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.userCommunicationManagementController.get(req, res)
+    );
 
     //CFT Routes
     app.get('/cft-login', regenerateSession, keepSessionLanguage, app.locals.container.cradle.cftLoginController.get);

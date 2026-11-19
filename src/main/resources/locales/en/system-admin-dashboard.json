@@ -56,6 +56,11 @@
             "title": "Manage List Types",
             "description": "View, create and update list type configurations",
             "link": "manage-list-types"
+        },
+        {
+            "title": "User Communication Management",
+            "description": "View, create and update communication banners",
+            "link": "user-communication-management"
         }
     ]
 }

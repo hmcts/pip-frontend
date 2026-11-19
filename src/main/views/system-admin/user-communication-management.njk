@@ -1,0 +1,52 @@
+{% extends "../template.njk" %}
+{% from "../macros/common-components.njk" import goBack, backButtonHistory %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/pagination/macro.njk" import govukPagination %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageTitle %}
+    {{ title }}
+{% endblock %}
+
+{% block beforeContent %}
+    {{ super() }}
+    {{ goBack(cspNonce = cspNonce) }}
+{% endblock %}
+
+{% block content %}
+    <div class="govuk-grid-row parent-box">
+        <h1 class="govuk-heading-l">{{ heading }}</h1>
+    </div>
+    {{ govukButton({
+        id: "create-user-communication",
+        text: addNewCommunication,
+        href: "/create-user-communication"
+    }) }}
+    <main class="govuk-main-wrapper">
+        <div class="govuk-grid-row">
+            {% if userCommunicationData | length %}
+                {{ govukTable({
+                    head: header,
+                    rows: userCommunicationData
+                }) }}
+            {% else %}
+                {{ govukErrorSummary({
+                    titleText: problemHeading,
+                    errorList: [{text: problemText}]
+                }) }}
+            {% endif %}
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-third"></div>
+            <div class="govuk-grid-column-two-thirds">
+                {{ govukPagination(paginationData) }}
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block bodyEnd %}
+    {{ backButtonHistory(cspNonce) }}
+    {{ super() }}
+{% endblock %}
