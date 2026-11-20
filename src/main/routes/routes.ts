@@ -1200,7 +1200,13 @@ export default function (app: Application): void {
         app.locals.container.cradle.userCommunicationManagementController.get(req, res)
     );
     app.get('/create-user-communication', isPermittedSystemAdmin, (req, res) =>
-        app.locals.container.cradle.userCommunicationManagementController.get(req, res)
+        app.locals.container.cradle.createUserCommunicationController.get(req, res)
+    );
+    app.get('/edit-user-communication', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editUserCommunicationController.get(req, res)
+    );
+    app.get('/delete-user-communication', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.deleteUserCommunicationController.get(req, res)
     );
 
     //CFT Routes

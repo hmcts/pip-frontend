@@ -1,0 +1,13 @@
+{
+    "title": "Court and tribunal hearings - Create user communication - Court and Tribunal Hearings - GOV.UK",
+    "header": "Create communication",
+    "bannerMessageLabel": "Banner message (English)",
+    "maxWordCountLabel": "Maximum 500 characters",
+    "bannerMessageWelshLabel": "Banner message (Welsh) - optional",
+    "typeOfCommunicationLabel": "Type of communication",
+    "bannerMessageError": "Enter banner message",
+    "bannerMessageWelshError": "Enter banner message in Welsh",
+    "typeOfCommunicationError": "Select a type of communication",
+    "cancelButton": "Cancel",
+    "errorTitle": "There is a problem"
+}

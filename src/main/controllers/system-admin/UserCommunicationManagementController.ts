@@ -9,9 +9,7 @@ import { UserCommunicationManagementService } from '../../service/UserCommunicat
 const userCommunicationManagementService = new UserCommunicationManagementService();
 export default class UserCommunicationManagementController {
     public async get(req: PipRequest, res: Response): Promise<void> {
-
-        const userCommunicationData =
-            await userCommunicationManagementService.fetchAllUserCommunication(req.lng);
+        const userCommunicationData = await userCommunicationManagementService.fetchAllUserCommunication(req.lng);
 
         res.render('system-admin/user-communication-management', {
             ...cloneDeep(req.i18n.getDataByLanguage(req.lng)['user-communication-management']),

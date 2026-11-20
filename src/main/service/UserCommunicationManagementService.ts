@@ -16,13 +16,17 @@ export class UserCommunicationManagementService {
         ];
     }
 
-    public async fetchAllUserCommunication(language: string) : Promise<Array<any>> {
+    public async fetchAllUserCommunication(language: string): Promise<Array<any>> {
         return this.initialiseUserCommunicationWithLanguage(
-            await userCommunicationRequest.getAllUserCommunications(), language);
+            await userCommunicationRequest.getAllUserCommunications(),
+            language
+        );
     }
 
-    private initialiseUserCommunicationWithLanguage(userCommunications: Array<UserCommunication>, language: string)
-        : any[] {
+    private initialiseUserCommunicationWithLanguage(
+        userCommunications: Array<UserCommunication>,
+        language: string
+    ): any[] {
         const userCommunicationsBasedOnLanguage = [];
         userCommunications.forEach(value => {
             const group = UserCommunicationManagementService.getGroupByAudienceType(value);
