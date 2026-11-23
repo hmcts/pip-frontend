@@ -1,5 +1,5 @@
 {% extends "../template.njk" %}
-{% from "../macros/common-components.njk" import goBack %}
+{% from "../macros/common-components.njk" import goBack, communicationBanner %}
 
 {% block pageTitle %}
   {{ title }}
@@ -7,6 +7,27 @@
 {% block beforeContent %}
   {{ super() }}
   {{ goBack(cspNonce=cspNonce) }}
+{% endblock %}
+{% block pageBanner %}
+    {% set html %}
+        {% if userCommunications.userProvenanceType | length %}
+            {% for communication in userCommunications.userProvenanceType %}
+                {% if user.userProvenance in communication.provenances %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if userCommunications.userRoleType | length %}
+            {% for communication in userCommunications.userRoleType %}
+                {% if user.roles in communication.roles %}
+                    <p class="govuk-body">{{ communication.welshMessage if lng === 'cy' else communication.message | safe }}</p>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endset %}
+
+    {{ communicationBanner(lng, allUsersComms, html) }}
 {% endblock %}
 {% block content %}
   <div class="parent-box">
