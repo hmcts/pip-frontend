@@ -8,6 +8,7 @@ import { PublicationService } from './PublicationService';
 const courtService = new LocationService();
 const dataManagementRequests = new DataManagementRequests();
 import { LanguageFileParser } from '../helpers/languageFileParser';
+import { Artefact } from 'models/Artefact';
 
 const languageFileParser = new LanguageFileParser();
 const fileHandlingService = new FileHandlingService();
@@ -209,7 +210,7 @@ export class ManualUploadService {
         return { courtName: courtName, locationId: court?.locationId };
     }
 
-    public async uploadPublication(data: any, ISODateFormat: boolean, nonStrategicUpload: boolean): Promise<string> {
+    public async uploadPublication(data: any, ISODateFormat: boolean, nonStrategicUpload: boolean): Promise<Artefact | string> {
         if (fileHandlingService.getFileExtension(data.fileName) === 'json') {
             return await dataManagementRequests.uploadJSONPublication(
                 data,
