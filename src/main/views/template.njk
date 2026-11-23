@@ -1,7 +1,7 @@
 {% extends "govuk/template.njk" %}
 {% from "govuk/components/header/macro.njk" import govukHeader %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
-{% from "./macros/common-components.njk" import backToTopButton, betaLink %}
+{% from "./macros/common-components.njk" import backToTopButton, betaLink, communicationBanner %}
 {% from "govuk/components/cookie-banner/macro.njk" import govukCookieBanner %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
@@ -115,6 +115,10 @@
     {% endif %}
 
     {{ betaLink(betaDisplay, cspNonce, lng) }}
+
+    {% block pageBanner %}
+        {{ communicationBanner(lng, allUsersComms) }}
+    {% endblock %}
 {% endblock %}
 
 {% block bodyStart %}
