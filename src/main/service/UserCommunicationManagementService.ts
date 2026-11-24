@@ -23,8 +23,27 @@ export class UserCommunicationManagementService {
         );
     }
 
+    public validateUserCommunicationFormFields(formData): any | null {
+        const fields = {
+            bannerMessageError: !formData?.bannerMessage,
+            bannerMessageWelshError: !formData?.bannerMessageWelsh,
+            typeOfCommunicationError: !formData?.typeOfCommunication,
+        };
+        return fields.bannerMessageError || fields.bannerMessageWelshError || fields.typeOfCommunicationError
+            ? fields
+            : null;
+    }
+
+    public async createUserCommunication(formData, userId): Promise<any> {
+        return await userCommunicationRequest.createUserCommunication(this.formatUserCommunicationPayload(formData), userId);
+    }
+
+    public fetchUserCommunicationSummary(formData, language: string): any[] {
+        return this.initialiseUserCommunicationWithLanguage([this.formatUserCommunicationPayload(formData)], language);
+    }
+
     private initialiseUserCommunicationWithLanguage(
-        userCommunications: Array<UserCommunication>,
+        userCommunications: Array<any>,
         language: string
     ): any[] {
         const userCommunicationsBasedOnLanguage = [];
@@ -72,5 +91,19 @@ export class UserCommunicationManagementService {
                 group = [];
         }
         return group;
+    }
+
+    private formatUserCommunicationPayload(formData) {
+        return [
+            {
+                message: formData.bannerMessage,
+                welshMessage: formData.bannerMessageWelsh,
+                audienceType: formData.typeOfCommunication,
+                userProvenances: [],
+                userRoles: [],
+                venues: [],
+                subJurisdictions: [],
+            },
+        ];
     }
 }

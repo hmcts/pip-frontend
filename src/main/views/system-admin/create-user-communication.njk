@@ -52,6 +52,7 @@
     {% set typeOfCommunicationInput = govukRadios({
         idPrefix: "typeOfCommunication",
         name: "typeOfCommunication",
+        value: formData.typeOfCommunication,
         fieldset: {
             legend: {
                 text: typeOfCommunicationLabel
@@ -61,7 +62,7 @@
             {
                 value: "allUsers",
                 text: "All Users",
-                href: "/create-user-communication?type=allUsers"
+                href: "/create-user-communication-summary"
             },
             {
                 value: "selectedJurisdiction",
@@ -87,7 +88,7 @@
         errorMessage: typeOfCommunicationErrorMessage
     }) %}
 
-    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <h1 class="govuk-heading-l">{{ heading }}</h1>
     <form method="post" novalidate>
         {{ bannerMessageInput }}
         {{ bannerMessageWelshInput }}

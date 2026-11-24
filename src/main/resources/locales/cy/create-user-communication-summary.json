@@ -1,0 +1,13 @@
+{
+    "title": "Create user communication - Create user communication summary - Court and Tribunal Hearings - GOV.UK",
+    "heading": "Summary",
+    "message": "Message",
+    "typeOfCommunication": "Type of communication",
+    "group": "Group",
+    "actionName": "Edit",
+    "confirmButton": "Confirm",
+    "error": {
+        "title": "There is a problem",
+        "message": "Failed to create user communication."
+    }
+}

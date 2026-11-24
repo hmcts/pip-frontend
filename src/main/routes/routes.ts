@@ -1202,11 +1202,47 @@ export default function (app: Application): void {
     app.get('/create-user-communication', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.createUserCommunicationController.get(req, res)
     );
+    app.post('/create-user-communication', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.createUserCommunicationController.post(req, res)
+    );
+    app.get('/create-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.createUserCommunicationSummaryController.get(req, res)
+    );
+    app.post('/create-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.createUserCommunicationSummaryController.post(req, res)
+    );
+    app.get('/create-user-communication-success', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.createUserCommunicationSuccessController.get(req, res)
+    );
     app.get('/edit-user-communication', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.editUserCommunicationController.get(req, res)
     );
+    app.post('/edit-user-communication', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editUserCommunicationController.post(req, res)
+    );
+    app.get('/edit-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editUserCommunicationSummaryController.get(req, res)
+    );
+    app.post('/edit-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editUserCommunicationSummaryController.post(req, res)
+    );
+    app.get('/edit-user-communication-success', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.editUserCommunicationSuccessController.get(req, res)
+    );
     app.get('/delete-user-communication', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteUserCommunicationController.get(req, res)
+    );
+    app.post('/delete-user-communication', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.deleteUserCommunicationController.post(req, res)
+    );
+    app.get('/delete-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.deleteUserCommunicationSummaryController.get(req, res)
+    );
+    app.post('/delete-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.deleteUserCommunicationSummaryController.post(req, res)
+    );
+    app.get('/delete-user-communication-success', isPermittedSystemAdmin, (req, res) =>
+        app.locals.container.cradle.deleteUserCommunicationSuccessController.get(req, res)
     );
 
     //CFT Routes
