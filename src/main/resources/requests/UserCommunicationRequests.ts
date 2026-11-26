@@ -28,33 +28,43 @@ export class UserCommunicationRequests {
         return [];
     }
 
-    public async getUserCommunication(userId: string): Promise<UserCommunication> {
+    public async getUserCommunicationById(userCommunicationId: string, requester: string): Promise<UserCommunication> {
         try {
-            const response = await accountManagementApi.get(`/communication/${userId}`);
+            const response = await accountManagementApi.get(`/communication/${userCommunicationId}`, {
+                headers: { 'x-requester-id': requester },
+            });
             return response.data;
         } catch (error) {
-            logHelper.logErrorResponse(error, `retrieve user communication with ID ${userId}`);
+            logHelper.logErrorResponse(error, `retrieve user communication with ID ${userCommunicationId}`);
         }
         return null;
     }
 
-    public async updateUserCommunication(userId: string, payload: any): Promise<boolean> {
+    public async updateUserCommunication(
+        payload: any,
+        userCommunicationId: string,
+        requester: string
+    ): Promise<boolean> {
         try {
-            await accountManagementApi.put(`/communication/${userId}`, payload);
+            await accountManagementApi.put(`/communication/${userCommunicationId}`, payload, {
+                headers: { 'x-requester-id': requester },
+            });
             return true;
         } catch (error) {
-            logHelper.logErrorResponse(error, `update user communication with ID ${userId}`);
+            logHelper.logErrorResponse(error, `update user communication with ID ${userCommunicationId}`);
         }
         return false;
     }
 
-    public async deleteUserCommunication(userId: string): Promise<object> {
+    public async deleteUserCommunication(userCommunicationId: string, requester: string): Promise<boolean> {
         try {
-            const response = await accountManagementApi.delete(`/communication/${userId}`);
-            return response.data;
+            await accountManagementApi.delete(`/communication/${userCommunicationId}`, {
+                headers: { 'x-requester-id': requester },
+            });
+            return true;
         } catch (error) {
-            logHelper.logErrorResponse(error, `delete user communication with ID ${userId}`);
+            logHelper.logErrorResponse(error, `delete user communication with ID ${userCommunicationId}`);
         }
-        return null;
+        return false;
     }
 }

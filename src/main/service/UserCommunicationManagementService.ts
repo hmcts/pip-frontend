@@ -23,27 +23,86 @@ export class UserCommunicationManagementService {
         );
     }
 
-    public validateUserCommunicationFormFields(formData): any | null {
-        const fields = {
+    public fetchUserCommunicationFormErrors(formData): any | null {
+        const errors = {
             bannerMessageError: !formData?.bannerMessage,
             bannerMessageWelshError: !formData?.bannerMessageWelsh,
             typeOfCommunicationError: !formData?.typeOfCommunication,
         };
-        return fields.bannerMessageError || fields.bannerMessageWelshError || fields.typeOfCommunicationError
-            ? fields
+        return errors.bannerMessageError || errors.bannerMessageWelshError || errors.typeOfCommunicationError
+            ? errors
             : null;
     }
 
     public async createUserCommunication(formData, userId): Promise<any> {
-        return await userCommunicationRequest.createUserCommunication(this.formatUserCommunicationPayload(formData), userId);
+        return await userCommunicationRequest.createUserCommunication(
+            this.formatUserCommunicationPayload(formData),
+            userId
+        );
     }
 
     public fetchUserCommunicationSummary(formData, language: string): any[] {
-        return this.initialiseUserCommunicationWithLanguage([this.formatUserCommunicationPayload(formData)], language);
+        const errors = this.fetchUserCommunicationFormErrors(formData);
+        if (!errors) {
+            const formattedUserCommunication = this.formatUserCommunicationPayload(formData);
+            const group = UserCommunicationManagementService.getGroupByAudienceType(formattedUserCommunication);
+            const editLink = formData.userCommunicationId
+                ? `/edit-user-communication?id=${formData.userCommunicationId}`
+                : '/create-user-communication';
+
+            return [
+                [
+                    {
+                        text:
+                            language === 'cy' && formData.bannerMessageWelsh
+                                ? formData.bannerMessageWelsh
+                                : formData.bannerMessage,
+                    },
+                    {
+                        text: formData.typeOfCommunication,
+                    },
+                    {
+                        text: group.join(', '),
+                    },
+                    {
+                        html: `<a class="govuk-link" href="${editLink}">Edit</a>`,
+                    },
+                ],
+            ];
+        }
+        return [[]];
+    }
+
+    public async getFormDataById(userCommunicationId: string, requester: string): Promise<any> {
+        const userCommunication = await userCommunicationRequest.getUserCommunicationById(userCommunicationId, requester);
+        return userCommunication
+            ? {
+                  userCommunicationId: userCommunication.id,
+                  bannerMessage: userCommunication.message,
+                  bannerMessageWelsh: userCommunication.welshMessage,
+                  typeOfCommunication: userCommunication.audienceType,
+                  userProvenances: userCommunication.userProvenances,
+                  userRoles: userCommunication.userRoles,
+                  venues: userCommunication.venues,
+                  subJurisdictions: userCommunication.subJurisdictions,
+              }
+            : {};
+    }
+
+    public async updateUserCommunication(formData: any, userCommunicationId: string, requester: string): Promise<any> {
+        return await userCommunicationRequest.updateUserCommunication(
+            this.formatUserCommunicationPayload(formData),
+            userCommunicationId,
+            requester
+        );
+    }
+
+    public async deleteUserCommunication(userCommunicationId: string, requester: string): Promise<boolean> {
+        return await userCommunicationRequest.deleteUserCommunication(userCommunicationId, requester);
     }
 
     private initialiseUserCommunicationWithLanguage(
-        userCommunications: Array<any>,
+        userCommunications: Array<UserCommunication>,
         language: string
     ): any[] {
         const userCommunicationsBasedOnLanguage = [];
@@ -72,7 +131,7 @@ export class UserCommunicationManagementService {
         return userCommunicationsBasedOnLanguage;
     }
 
-    private static getGroupByAudienceType(userCommunication: UserCommunication) {
+    private static getGroupByAudienceType(userCommunication: any) {
         let group: Array<string>;
         switch (userCommunication.audienceType) {
             case 'USER_PROVENANCE':
@@ -94,16 +153,15 @@ export class UserCommunicationManagementService {
     }
 
     private formatUserCommunicationPayload(formData) {
-        return [
-            {
-                message: formData.bannerMessage,
-                welshMessage: formData.bannerMessageWelsh,
-                audienceType: formData.typeOfCommunication,
-                userProvenances: [],
-                userRoles: [],
-                venues: [],
-                subJurisdictions: [],
-            },
-        ];
+        return {
+            id: formData.userCommunicationId,
+            message: formData.bannerMessage,
+            welshMessage: formData.bannerMessageWelsh,
+            audienceType: formData.typeOfCommunication,
+            userProvenances: formData.userProvenances || [],
+            userRoles: formData.userRoles || [],
+            venues: formData.venues || [],
+            subJurisdictions: formData.subJurisdictions || [],
+        };
     }
 }

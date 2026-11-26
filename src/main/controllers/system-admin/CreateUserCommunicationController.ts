@@ -18,7 +18,7 @@ export default class CreateUserCommunicationController {
 
     public post(req: PipRequest, res: Response): void {
         const formData = req.body;
-        const formErrors = userCommunicationManagementService.validateUserCommunicationFormFields(formData);
+        const formErrors = userCommunicationManagementService.fetchUserCommunicationFormErrors(formData);
 
         if (formErrors) {
             res.render('system-admin/create-user-communication', {

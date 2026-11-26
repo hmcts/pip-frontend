@@ -1235,12 +1235,6 @@ export default function (app: Application): void {
     app.post('/delete-user-communication', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteUserCommunicationController.post(req, res)
     );
-    app.get('/delete-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
-        app.locals.container.cradle.deleteUserCommunicationSummaryController.get(req, res)
-    );
-    app.post('/delete-user-communication-summary', isPermittedSystemAdmin, (req, res) =>
-        app.locals.container.cradle.deleteUserCommunicationSummaryController.post(req, res)
-    );
     app.get('/delete-user-communication-success', isPermittedSystemAdmin, (req, res) =>
         app.locals.container.cradle.deleteUserCommunicationSuccessController.get(req, res)
     );

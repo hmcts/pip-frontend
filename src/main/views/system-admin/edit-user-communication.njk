@@ -14,11 +14,11 @@
 {% block content %}
     {% if formErrors %}
         {% set errorList = [] %}
-        {% if formErrors.userNameError %}
-            {% set errorList = (errorList.push({text: userNameError, href: "#thirdPartyName"}), errorList) %}
+        {% if formErrors.bannerMessageError %}
+            {% set errorList = (errorList.push({text: bannerMessageError, href: "#userCommunication"}), errorList) %}
         {% endif %}
-        {% if formErrors.userRoleError %}
-            {% set errorList = (errorList.push({text: userRoleError, href: "#thirdPartyRole"}), errorList) %}
+        {% if formErrors.typeOfCommunicationError %}
+            {% set errorList = (errorList.push({text: typeOfCommunicationError, href: "#userCommunication"}), errorList) %}
         {% endif %}
         {{ govukErrorSummary({
             titleText: errorTitle,
@@ -26,35 +26,71 @@
         }) }}
     {% endif %}
 
-    {% set userNameErrorMessage = {text: userNameError} if formErrors.userNameError else '' %}
-    {% set userRoleErrorMessage = {text: userRoleError} if formErrors.userRoleError else '' %}
-    {% set userNameInput = govukInput({
+    {% set bannerMessageErrorMessage = {text: bannerMessageError} if formErrors.bannerMessageError else '' %}
+    {% set bannerMessageWelshErrorMessage = {text: bannerMessageWelshError} if formErrors.bannerMessageWelshError else '' %}
+    {% set typeOfCommunicationErrorMessage = {text: typeOfCommunicationError} if formErrors.typeOfCommunicationError else '' %}
+    {% set bannerMessageInput = govukInput({
         classes: 'govuk-!-width-two-thirds',
-        id: "thirdPartyName",
-        name: "thirdPartyName",
-        value: formData.thirdPartyName,
+        id: "bannerMessage",
+        name: "bannerMessage",
+        value: formData.bannerMessage,
         label: {
-            text: userNameLabel
+            text: bannerMessageLabel
         },
-        errorMessage: userNameErrorMessage
+        errorMessage: bannerMessageErrorMessage
     }) %}
-    {% set userRoleInput = govukRadios({
-        idPrefix: "thirdPartyRole",
-        name: "thirdPartyRole",
+    {% set bannerMessageWelshInput = govukInput({
+        classes: 'govuk-!-width-two-thirds',
+        id: "bannerMessageWelsh",
+        name: "bannerMessageWelsh",
+        value: formData.bannerMessageWelsh,
+        label: {
+            text: bannerMessageWelshLabel
+        },
+        errorMessage: bannerMessageWelshErrorMessage
+    }) %}
+    {% set typeOfCommunicationInput = govukRadios({
+        idPrefix: "typeOfCommunication",
+        name: "typeOfCommunication",
+        value: formData.typeOfCommunication,
         fieldset: {
             legend: {
-                text: userRoleLabel
+                text: typeOfCommunicationLabel
             }
         },
-        items: userRoleList,
-        errorMessage: userRoleErrorMessage
+        items: [
+            {
+                value: "ALL_USERS",
+                text: "All Users"
+            },
+            {
+                value: "JURISDICTION",
+                text: "Selected Jurisdiction"
+            },
+            {
+                value: "USER_ROLE",
+                text: "Selected User Role"
+            },
+            {
+                value: "USER_PROVENANCE",
+                text: "Selected User Provenance"
+            },
+            {
+                value: "VENUE",
+                text: "Selected Venue"
+            }
+        ],
+        errorMessage: typeOfCommunicationErrorMessage
     }) %}
 
-    <h1 class="govuk-heading-l">{{ header }}</h1>
+    <h1 class="govuk-heading-l">{{ heading }}</h1>
     <form method="post" novalidate>
-        {{ userNameInput }}
-        {{ userRoleInput }}
+        <input type="hidden" name="userCommunicationId" value="{{ formData.userCommunicationId }}">
+        {{ bannerMessageInput }}
+        {{ bannerMessageWelshInput }}
+        {{ typeOfCommunicationInput }}
         {{ submitButton() }}
+        <a class="govuk-link" id='cancel-edit-communication' href='/user-communication-management'>{{ cancelButton }}</a>
     </form>
 
 {% endblock %}
