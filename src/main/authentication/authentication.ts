@@ -27,7 +27,7 @@ async function serializeUser(foundUser, done) {
 
             await accountManagementRequests.createPIAccount(piAccount, '');
         }
-        done(null, { uid: foundUser.uid, flow: 'CFT' });
+        done(null, { uid: foundUser.uid, flow: 'CFT', idToken: foundUser.idToken });
     } else if (foundUser['flow'] === 'Crime') {
         const user = await accountManagementRequests.getPiUserByCrimeID(foundUser['subname']);
 

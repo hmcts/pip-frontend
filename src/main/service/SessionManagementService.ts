@@ -10,6 +10,8 @@ const reSignInUrlKeys = Object.keys(reSignInUrls);
 
 export class SessionManagementService {
     public logOut(req, res, isSessionExpired = false): void {
+        // Read before the session is regenerated, as regenerating discards the passport data holding the token
+        const cftIdToken = req.session?.passport?.user?.idToken;
         req.session.user = null;
 
         //If the request doesn't have a user, it must have already been logged out on another tab. Therefore
@@ -50,7 +52,7 @@ export class SessionManagementService {
                     } else if (req.user['userProvenance'] == 'SSO') {
                         res.redirect(this.ssoLogoutUrl(isSessionExpired, req.lng));
                     } else {
-                        res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng));
+                        res.redirect(this.cftLogOutUrl(isSessionExpired, req.lng, cftIdToken));
                     }
                 });
             });
@@ -92,17 +94,19 @@ export class SessionManagementService {
         return `${b2cUrl}/${b2cPolicy}/oauth2/v2.0/logout?post_logout_redirect_uri=${encodedSignOutRedirect}`;
     }
 
-    private cftLogOutUrl(isSessionExpired: boolean, language: string): string {
+    private cftLogOutUrl(isSessionExpired: boolean, language: string, idToken?: string): string {
+        // IDAM only follows post_logout_redirect_uri when it can validate it against an id_token_hint
+        const idTokenHint = idToken ? `&id_token_hint=${encodeURIComponent(idToken)}` : '';
         if (isSessionExpired) {
             // added to ensure that user is required to re-authenticate after session expiry
             const redirectPath = '/session-expired?lng=' + language + '&reSignInUrl=CFT';
             const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
-            return `${CFT_IDAM_URL}/o/endSession?post_logout_redirect_uri=${redirectUrl}`;
+            return `${CFT_IDAM_URL}/o/endSession?post_logout_redirect_uri=${redirectUrl}${idTokenHint}`;
         } else {
             // added to ensure that user is required to re-authenticate after sign out
             const redirectPath = '/session-logged-out?lng=' + language;
             const redirectUrl = encodeURIComponent(new URL(`${FRONTEND_URL}${redirectPath}`).toString());
-            return `${CFT_IDAM_URL}/o/endSession?post_logout_redirect_uri=${redirectUrl}`;
+            return `${CFT_IDAM_URL}/o/endSession?post_logout_redirect_uri=${redirectUrl}${idTokenHint}`;
         }
     }
 

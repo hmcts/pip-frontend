@@ -24,7 +24,7 @@ describe('CFT IDAM Authentication', () => {
 
         const mockFunction = jest.fn();
         const request = { query: { code: '1234' } };
-        postStub.resolves({ data: {} });
+        postStub.resolves({ data: { id_token: 'cft-id-token' } });
 
         const params = {
             client_id: 'app-pip-frontend',
@@ -51,6 +51,7 @@ describe('CFT IDAM Authentication', () => {
         expect(mockFunction.mock.calls[0][1]).toEqual({
             roles: ['IDAM_ADMIN_USER'],
             flow: 'CFT',
+            idToken: 'cft-id-token',
         });
     });
 

@@ -96,7 +96,7 @@ describe('Authentication', () => {
         expect(mockCallback.mock.calls[0][1]).to.eql({ oid: '1234', flow: 'AAD' });
     });
 
-    it('Test that serialising a user for CFT IDAM where user exists returns their uid and flow', async () => {
+    it('Test that serialising a user for CFT IDAM where user exists returns their uid, flow and id token', async () => {
         const sinon = await import('sinon');
         const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
         const stub = sinon.stub(AccountManagementRequests.AccountManagementRequests.prototype, 'getPiUserByCftID');
@@ -109,16 +109,16 @@ describe('Authentication', () => {
 
         const mockCallback = jest.fn();
 
-        const profile = { uid: '1234', flow: 'CFT' };
+        const profile = { uid: '1234', flow: 'CFT', idToken: 'cft-id-token' };
         await firstSerializer(profile, mockCallback);
 
         expect(mockCallback.mock.calls.length).to.eql(1);
         expect(mockCallback.mock.calls[0][0]).to.eql(null);
         expect(stub.calledWith('1234')).to.be.true;
-        expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'CFT' });
+        expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'CFT', idToken: 'cft-id-token' });
     });
 
-    it('Test that serialising a user for CFT IDAM where user does not exist returns their uid and flow', async () => {
+    it('Test that serialising a user for CFT IDAM where user does not exist returns their uid, flow and id token', async () => {
         const sinon = await import('sinon');
         const AccountManagementRequests = await import('../../../main/resources/requests/AccountManagementRequests');
         const getUserByIdStub = sinon.stub(
@@ -157,6 +157,7 @@ describe('Authentication', () => {
             sub: 'test@user.com',
             given_name: 'FirstName',
             family_name: 'Surname',
+            idToken: 'cft-id-token',
         };
         await firstSerializer(profile, mockCallback);
 
@@ -168,7 +169,7 @@ describe('Authentication', () => {
         expect(createArgs[0]).to.eql(piArgs);
         expect(createArgs[1]).to.eql('');
 
-        expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'CFT' });
+        expect(mockCallback.mock.calls[0][1]).to.eql({ uid: '1234', flow: 'CFT', idToken: 'cft-id-token' });
     });
 
     it('Test that serialising a user for Crime IDAM where user exists returns their uid and flow', async () => {
