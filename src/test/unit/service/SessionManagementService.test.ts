@@ -197,6 +197,20 @@ describe('Test logout', () => {
         responseMock.verify();
     });
 
+    it('should send the id token hint to CFT IDAM when the session holds one', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(`${cftIdamLogoutUrl}&id_token_hint=cft-id-token`);
+
+        const req = {
+            user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
+            lng: 'en',
+            session: { ...mockSession, passport: { user: { uid: '1234', flow: 'CFT', idToken: 'cft-id-token' } } },
+        };
+        sessionManagementService.logOut(req, res, false);
+        expect(req.session['user']).to.be.null;
+        responseMock.verify();
+    });
+
     it('should redirect for CFT IDAM User in Welsh', () => {
         const responseMock = sinon.mock(res);
         responseMock.expects('redirect').once().withArgs(welshCftIdamLogoutUrl);
@@ -278,6 +292,19 @@ describe('Test logout', () => {
         };
         sessionManagementService.logOut(req, res, true);
         expect(req.session['user']).to.be.null;
+        responseMock.verify();
+    });
+
+    it('should send the id token hint to CFT IDAM when the session expired', () => {
+        const responseMock = sinon.mock(res);
+        responseMock.expects('redirect').once().withArgs(`${cftIdamSessionExpiredUrl}&id_token_hint=cft-id-token`);
+
+        const req = {
+            user: { roles: 'VERIFIED', userProvenance: 'CFT_IDAM' },
+            lng: 'en',
+            session: { ...mockSession, passport: { user: { uid: '1234', flow: 'CFT', idToken: 'cft-id-token' } } },
+        };
+        sessionManagementService.logOut(req, res, true);
         responseMock.verify();
     });
 

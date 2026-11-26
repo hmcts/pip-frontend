@@ -44,6 +44,7 @@ export function cftIdamAuthentication(req, callback) {
             const data = response.data;
             const jwtToken = jwtDecode(data.id_token);
             jwtToken['flow'] = 'CFT';
+            jwtToken['idToken'] = data.id_token;
 
             if (jwtToken['roles'].some(role => role.match(rejectedRolesRegex))) {
                 callback(null, null);
